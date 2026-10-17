@@ -1339,6 +1339,24 @@ EV_DROP = {"moving somewhere new", "a mentor takes you under their wing", "an il
 # body_trust (finish-pack-draft.md part 3; dynamics.json body_trust effects, not among sphere_data.TRUST's numbers): care
 # seeking for an illness x (.7 + .6 x btrust[care])
 BT_CARE = (0.7, 0.6)
+
+
+def bt_care(lean_c, bc):
+    """body_trust: care seeking (1 + the early-care lean) x (.7 + .6 x btrust[care]), read back as the lean; a life whose
+    trust has not started (NaN) keeps its lean. tools/t_steps.py reads its direction."""
+    return _uclip((1 + _uclip(lean_c, -1, 1)) * np.where(np.isnan(bc), 1.0, BT_CARE[0] + BT_CARE[1] * bc) - 1, -1, 1)
+
+
+def pt_pull_of(act, shadow, thr, partner, steady):
+    """prison_ties, the pull back: on while a former-inmate tie is active and the lead colour's shadow part is over thr,
+    and the life holds neither a partner nor steady work (Sampson and Laub 1993). tools/t_steps.py reads it."""
+    return act & (shadow > thr) & ~partner & ~steady
+
+
+def pt_pull_u(U, pull, bl, tau, f):
+    """prison_ties, the pull back on the choice: the options that break the law (bl) at odds x f for the lives pulled
+    (log odds x the choice's tau)."""
+    return U + np.log(f) * (pull[:, None] & bl) * tau[:, None]
 # the channel a life event the world made likelier is reported in (wfx), by its kind (world_link.RK)
 WFX_OPT = (0.25, 0.02)   # option_causes names a closure from this many units (access x .6 per unit), odds from this added difficulty
 WFX_RISK = {"illness": "illness risk", "old_death": "death risk", "disaster": "disaster risk", "crime": "crime risk",
@@ -3420,7 +3438,7 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
         lean_c = lean_ @ BCARE_
         if BT_ON:   # body_trust: care seeking (1 + the early-care lean) x (.7 + .6 x btrust[care]), read back as the lean
             bc_ = btrust[:, BT_CARE_J]
-            lean_c = _uclip((1 + _uclip(lean_c, -1, 1)) * np.where(np.isnan(bc_), 1.0, BT_CARE[0] + BT_CARE[1] * bc_) - 1, -1, 1)
+            lean_c = bt_care(lean_c, bc_)
         tab_ = np.interp(age, BAGE_X, BAGE_Y)
         dip_f = float(tab_ / BAGE_Y.max()) if BP_["dip_level"] else 1.0
         low_ = md_end[:, 0] > t; anx_ = md_end[:, 1] > t; numb_ = md_end[:, 2] > t
@@ -3672,7 +3690,7 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
         import sphere_data as SD_, world_keys as WK_, world_people as PM_
         TV_ = SD_.DEEP["service"]["after_prison"]["tie_values"]; PTP_ = {**DEFAULT["prison_par"], **(P.get("prison_par") or {})}
         PT_Y = tuple(float(x_) for x_ in TV_["made_y"]); PT_C0 = float(TV_["strength"]); PT_YRS = int(52 * TV_["years"])
-        PT_PULL = np.log(float(TV_["pull_back"]["reoffend"] if PTP_["pull"] is None else PTP_["pull"]))
+        PT_PULL = float(TV_["pull_back"]["reoffend"] if PTP_["pull"] is None else PTP_["pull"])   # odds x this (pt_pull_u)
         PT_HELP = TV_["help"]; PT_STM = float(PT_HELP["stress_m"])
         PT_D = -np.log(float(PT_HELP["hiring"])) / 3              # hiring odds x 1.1 as difficulty (odds x exp(-3 x d))
         se_ = np.asarray(GR["sector"]) if "sector" in GR else np.full(NT_, -1)
@@ -4585,7 +4603,7 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
         if DC_ON:   # F17: an option that leaves a deed leans by that deed's canon colours (log odds x the choice's tau)
             U = U + P["deed_canon"] * np.einsum("nkc,nc->nk", DC_L[s], 5 * w - 1) * (P["tau0"] * (1 + 0.5 * stress))[:, None]
         if PT_ON and pt_pull.any():   # part 4: the pull back: options that break the law x 1.2 (log odds x the choice's tau)
-            U = U + PT_PULL * (pt_pull[:, None] & PT_BL[s]) * (P["tau0"] * (1 + 0.5 * stress))[:, None]
+            U = pt_pull_u(U, pt_pull, PT_BL[s], P["tau0"] * (1 + 0.5 * stress), PT_PULL)
         U = np.where(do_nothing, -0.3 + 0.3 * stress[:, None], U)
         tau = P["tau0"] * (1 + 0.5 * stress)
         pr = pr0 = softmax(np.where(seen, U / tau[:, None], -np.inf))
@@ -6098,7 +6116,7 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
         if PT_ON:   # the ties still active; the pull back while their lead colour's shadow part is over .5 (shadow) and they hold
             pt_week()   # neither a partner nor steady work (a job a year or more: Sampson and Laub 1993)
             sw_ = (r_has[:, PT_JOB] & (t - r_since[:, PT_JOB] >= 52)).any(1) if len(PT_JOB) else np.zeros(N, bool)
-            pt_pull = ((pt_act & (shS[ar, np.argmax(w, 1)] > PTP_["shadow"]) & ~held[:, PAR] & ~sw_) if SHON
+            pt_pull = (pt_pull_of(pt_act, shS[ar, np.argmax(w, 1)], PTP_["shadow"], held[:, PAR], sw_) if SHON
                        else np.zeros(N, bool))
             if t % 4 == 0:   # shared understanding: stress -.01 a month in the first year out
                 stress += PT_STM * (pt_act & (t - pt_rel < 52) & (pt_rel > NEVER))
