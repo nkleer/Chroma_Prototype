@@ -75,11 +75,11 @@ scene R: {N} loves these people, loudly and sometimes badly. Holding their purse
 scene G: It was {Ns} grandmother's before {elder}. Now the family looks round the table, and the eyes settle on {N}.
 - W | accept, and keep the books open for any of the family to read | v: conformity, benevolence | chance: 65
 - U | study the accounts and draw up a plan, then decide | v: security, self-direction | chance: 65
-- B | take it, and use the favours owed to raise your own standing | v: power, achievement | chance: 65
-- R | say no: you want a life of your own, not the family's purse | v: self-direction | chance: 65
+- B | take it, and use the favours owed to raise your own standing | v: power, achievement | chance: 65 | back: made an enemy
+- R | say no: you want a life of your own, not the family's purse | v: self-direction | chance: 65 | back: turned down a chance
 - G | ask {elder} to keep going a while longer, and help them as before | v: tradition | chance: 65
 - W>B | take it on, set firm rules, and let all know who looks after them now | identity | v: power, benevolence | chance: 50
-- U>R | learn how the money works, then use it to free a cousin to chase a dream | v: self-direction, benevolence | chance: 62
+- U>R | learn how the money works, then use it to free a cousin to chase a dream | v: self-direction, benevolence | chance: 62 | back: helped someone in need
 - B>G | put the savings into a house the whole family can keep for generations | v: tradition, security | chance: 62
 - R>W | spend it at once on whoever is struggling most this month | v: benevolence | chance: 62
 - G>U | keep the old ways of the fund, and teach the young ones how it works | v: tradition | chance: 62
@@ -300,7 +300,7 @@ scene G: {N} thinks of the people who have stood by them for years, and how rare
 - B | keep the money, and let someone else throw the party | v: power, hedonism | chance: 65
 - R | go out tonight, call everyone, and see where the night ends | v: hedonism, stimulation | chance: 65
 - G | spend a quiet day outdoors with the few people who matter most | v: tradition, benevolence | chance: 65
-- W>U | plan it all carefully, on a budget, and learn to cook for forty | v: achievement | chance: 62
+- W>U | plan it all carefully, on a budget, and learn to cook for forty | v: achievement | chance: 62 | back: learned a skill
 - U>B | invest the bonus, and let the returns pay for next year's party | v: achievement, power | chance: 62
 - B>R | hire the hall, the band and the best food, and be the star of the night | identity | v: hedonism, stimulation | mark: took a wild risk | chance: 50
 - R>G | gather everyone round a fire in the woods, and dance till dawn | v: hedonism, benevolence | chance: 62

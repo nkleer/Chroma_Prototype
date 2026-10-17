@@ -111,7 +111,7 @@ scene G: The place has had lean seasons before and come through them; the way it
 - W | share the lean season out by a fair rule, the same cut for everyone | lead: rules | v: universalism, conformity | chance: 70
 - U | go through the figures and fix the one thing that is going wrong | lead: knowing | v: achievement | chance: 70
 - B | keep the key people on side with whatever favours you can still give | lead: favours | v: power, security | act: keep the key people on side with whatever favours they can still give | chance: 75
-- R | rally everyone behind a bold new venture to carry the place through | lead: inspiring | v: stimulation | chance: 60
+- R | rally everyone behind a bold new venture to carry the place through | lead: inspiring | v: stimulation | chance: 60 | back: took a wild risk
 - G | get through it the way the place got through hard seasons before | lead: custom | v: tradition, security | chance: 75
 - W>R | set a fair rule that frees every member to try one idea of their own | lead: rules | v: self-direction, universalism | chance: 70
 - U>G | plan for the long haul, and show everyone why patience will pay | lead: knowing | v: security, tradition | chance: 70
@@ -654,7 +654,7 @@ scene G: The members are hurt, the way a family is when one of its own lets it d
 - U>B | hand over a clear record of everything, so the next leader cannot twist the story | fall: go | v: security, power | chance: 70
 - B>R | call in every favour owed, and keep the post for the friends who stood by you | fall: fight | v: power, benevolence | act: call in every favour owed, and keep the post for the friends who stood by them | chance: 60
 - R>G | leave with {friend}, and start something new among people who know you | fall: again | v: benevolence, tradition | act: leave with {friend}, and start something new among people who know them | chance: 85
-- G>W | step aside so the place can heal, and stay on as an ordinary member | fall: go | v: tradition, benevolence | chance: 65
+- G>W | step aside so the place can heal, and stay on as an ordinary member | fall: go | v: tradition, benevolence | chance: 65 | back: gave in to pressure
 works: Whatever {N} chose, people come to respect how {N} faced it, and the story told about {N} is a fair one.
 works: {friend} stands by {N} through all of it, and says so in front of everyone.
 fails: The story of the bent rule follows {N} for years, told a little worse each time.
@@ -687,7 +687,7 @@ scene G: Some seasons go wrong whatever anyone does; {N} wonders whether the pla
 - R | leave in a blaze, and throw yourself into something new somewhere else | fall: again | v: stimulation | act: leave in a blaze, and throw themselves into something new somewhere else | chance: 70
 - G | step aside for a season, as the old hands do after a bad year | fall: go | v: tradition, conformity | chance: 80
 - W>B | resign formally, on terms you set out in writing, and keep your standing | fall: go | v: power, conformity | act: resign formally, on terms they set out in writing, and keep their standing | chance: 75
-- U>R | admit the mistake out loud, then fight for a bold new plan to put it right | fall: fight | v: self-direction, stimulation | chance: 65
+- U>R | admit the mistake out loud, then fight for a bold new plan to put it right | fall: fight | v: self-direction, stimulation | chance: 65 | back: owned up
 - B>G | use your contacts to find a new place to lead, among people who already know you | fall: again | v: power, tradition | act: use their contacts to find a new place to lead, among people who already know them | chance: 80
 - R>W | stand before everyone, own the mistake, and hand over the post the same day | fall: go | v: benevolence, conformity | mark: owned up | chance: 70
 - G>U | stay, and ask the oldest members to judge the plan by the long run | fall: fight | v: tradition, self-direction | chance: 60

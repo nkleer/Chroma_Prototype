@@ -271,7 +271,7 @@ scene B: {sibling} has a clean record now, and a story people want to hear. {N} 
 scene R: {sibling} is home. {N} wants to fill the house with music and every friend they have.
 scene G: {parent} has set the old place at the table for {sibling}, and has not stopped cooking since dawn.
 - W | accept the amnesty as law, and greet the man civilly if you meet | act: accept the amnesty as law, and greet the man civilly if they meet | v: conformity, universalism | lever: loyalty | pushes: state | sphere: rule.W | chance: 75
-- U | help the one who came home sort out the cleared record, line by line | v: benevolence, security | sphere: rule.U | chance: 75
+- U | help the one who came home sort out the cleared record, line by line | v: benevolence, security | sphere: rule.U | chance: 75 | back: helped someone in need
 - B | call in every favour owed to find work for the one who came home | v: benevolence, power | sphere: rule.B | chance: 75
 - R | throw a homecoming party the whole street will hear | v: hedonism, benevolence | sphere: rule.R | chance: 75
 - G | let the family gather slowly, and leave the old wrongs for another day | v: tradition, security | sphere: rule.G | chance: 75
@@ -441,7 +441,7 @@ scene G: The neighbours have always helped each other through bad stretches. {N}
 - W | keep the paperwork in order and wait your turn, as the rules say | act: keep the paperwork in order and wait their turn, as the rules say | v: conformity, security | lever: loyalty | pushes: institution council | sphere: rule.W | chance: 65
 - U | send both leaders the cost of the deadlock, worked out street by street | v: universalism, self-direction | lever: voice | pushes: institution council | sphere: rule.U | chance: 65
 - B | find a friend in the planning office who can push one form through | v: power, security | lever: subvert | pushes: institution council | sphere: rule.B | chance: 65
-- R | go to the council chamber with everyone still waiting, and refuse to leave | v: self-direction, stimulation | lever: voice | pushes: institution council | sphere: rule.R | chance: 65
+- R | go to the council chamber with everyone still waiting, and refuse to leave | v: self-direction, stimulation | lever: voice | pushes: institution council | sphere: rule.R | chance: 65 | back: defied an authority
 - G | help keep the community kitchen open on donations until the money comes | v: benevolence, tradition | mark: helped someone in need | sphere: rule.G | chance: 65
 - BR | stand at the next election against both sides, on a promise to end the deadlock | v: achievement, self-direction | lever: voice | pushes: institution council | sphere: rule.BR | chance: 50
 - RG | get the street to mend the broken things itself, permit or no permit | v: benevolence, self-direction | mark: defied an authority | sphere: rule.RG | chance: 50
@@ -488,7 +488,7 @@ scene G: She is one of the neighbourhood's own. {N} thinks of her children, and 
 - BG | quietly let the people who matter on the estate know whose side you are on | act: quietly let the people who matter on the estate know whose side they are on | v: power, benevolence | sphere: rule.BG | chance: 50
 - UG | hear her side in her own kitchen, and write it down faithfully | v: benevolence, universalism | sphere: rule.GU | chance: 50
 - UR | start a campaign for the inquiry's findings to be published in full | v: universalism, self-direction | lever: voice | pushes: institution hospital | sphere: rule.UR | chance: 50
-- WB | testify at the inquiry about the night she helped your family | act: testify at the inquiry about the night she helped their family | v: benevolence, conformity | lever: voice | pushes: institution hospital | sphere: rule.WB | chance: 50
+- WB | testify at the inquiry about the night she helped your family | act: testify at the inquiry about the night she helped their family | v: benevolence, conformity | lever: voice | pushes: institution hospital | sphere: rule.WB | chance: 50 | back: helped someone in need
 - WR | stand beside her at the gate when the crowd comes to her house | v: benevolence, universalism | mark: made an enemy | lever: voice | pushes: place | sphere: rule.RW | chance: 50
 works: The inquiry clears her, and people remember who stood by her when it counted.
 works: The anger burns out, and {N} can look her family in the eye.

@@ -552,7 +552,7 @@ scene R: {N} is out of the car before thinking about it.
 scene G: Whoever is in that car is somebody's child, somebody's parent. {N} cannot leave them alone in the dark.
 - W | ring the emergency line, and set warning lights behind the crash | v: security, conformity | sphere: prot.W | chance: 65
 - U | check for fuel and smoke before you go near, and send others back | act: check for fuel and smoke before they go near, and send others back | v: security, self-direction | sphere: prot.U | chance: 65
-- B | drive on slowly: others are stopping, and you would only be in the way | act: drive on slowly, since others are stopping and they would only be in the way | v: security | sphere: prot.B | chance: 65
+- B | drive on slowly: others are stopping, and you would only be in the way | act: drive on slowly, since others are stopping and they would only be in the way | v: security | sphere: prot.B | chance: 65 | back: refused someone in need
 - R | run straight down into the ditch to the car | v: benevolence, stimulation | mark: took a wild risk | sphere: prot.R | chance: 65
 - G | climb down, hold the driver's hand through the window, and keep them talking | v: benevolence | mark: helped someone in need | sphere: prot.G | chance: 65
 - BR | take charge of the scene, and tell the next drivers where to stand | v: power, stimulation | sphere: prot.BR | chance: 55
@@ -592,12 +592,12 @@ scene R: {N} does not wait to think. Her door is six steps away.
 scene G: She gave {N} a spare key years ago, for emergencies, and it hangs on the hook by the door.
 - W | follow the drill: close the door, take the stairs, report who is missing | v: conformity, security | sphere: prot.W | chance: 65
 - U | check which floor the smoke is coming from before you choose a stair | act: check which floor the smoke is coming from before they choose a stair | v: security, self-direction | sphere: prot.U | chance: 65
-- B | get yourself out fast, and tell the crew at the door about her | act: get themselves out fast, and tell the crew at the door about her | v: security | sphere: prot.B | chance: 65
+- B | get yourself out fast, and tell the crew at the door about her | act: get themselves out fast, and tell the crew at the door about her | v: security | sphere: prot.B | chance: 65 | back: refused someone in need
 - R | hammer on her door until she opens, and take her down with you | act: hammer on her door until she opens, and take her down with them | v: benevolence, stimulation | mark: helped someone in need | sphere: prot.R | chance: 65
 - G | take the spare key off the hook, and let yourself in to fetch her | act: take the spare key off the hook, and let themselves in to fetch her | v: benevolence, tradition | mark: helped someone in need | sphere: prot.G | chance: 65
-- RG | run the landing banging on every door, hers first | v: benevolence, stimulation | sphere: prot.RG | chance: 55
+- RG | run the landing banging on every door, hers first | v: benevolence, stimulation | sphere: prot.RG | chance: 55 | back: helped someone in need
 - UB | ring her phone from the stairs while getting yourself clear | act: ring her phone from the stairs while getting themselves clear | v: security | tech: phone | sphere: prot.UB | chance: 55
-- UG | tell the crew who lives alone on each floor, from memory | v: benevolence, universalism | sphere: prot.GU | chance: 55
+- UG | tell the crew who lives alone on each floor, from memory | v: benevolence, universalism | sphere: prot.GU | chance: 55 | back: helped someone in need
 - WB | take charge at the meeting point, and count the residents off the list | v: conformity, power | sphere: prot.WB | chance: 55
 - WR | get her out, then go back up for the family on the floor below | v: benevolence, stimulation | mark: took a wild risk | sphere: prot.RW | chance: 55
 works: Everyone is out on the pavement by the time the engines arrive, and the old woman holds {Ns} arm the whole time.

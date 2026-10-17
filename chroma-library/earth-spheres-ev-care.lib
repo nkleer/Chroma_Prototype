@@ -409,7 +409,7 @@ scene G: The recipe came from {grandparent}'s own mother, and hers before that. 
 - B | ask your grandparent to teach you alone, and keep the recipe as your own | v: power, security | sphere: care.B | chance: 75
 - R | brew it with your grandparent tonight, guessing the amounts and laughing at the mistakes | v: stimulation, benevolence | sphere: care.R | chance: 73
 - G | spend the autumn afternoons at your grandparent's side, learning it the old way | v: tradition, benevolence | mark: learned a skill | sphere: care.G | chance: 75
-- BG | let it go: the pharmacy has good remedies now, and times change | v: security | lever: neglect | sphere: care.BG | chance: 84
+- BG | let it go: the pharmacy has good remedies now, and times change | v: security | lever: neglect | sphere: care.BG | chance: 84 | back: turned down a chance
 - UB | find out which of the herbs are safe and which are not, before anyone drinks it | v: security, self-direction | sphere: care.UB | chance: 70
 - UR | film your grandparent making it, and post it online for anyone to try | v: stimulation, universalism | tech: internet | sphere: care.UR | chance: 78
 - WG | gather the cousins for a Sunday when your grandparent teaches all of you | v: tradition, benevolence | sphere: care.GW | chance: 70

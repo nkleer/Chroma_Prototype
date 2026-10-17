@@ -311,7 +311,7 @@ scene G: The house will smell of the same spices it always does, and {grandparen
 - B | go, and use the week to talk the rich uncle into backing your plans | v: power, achievement | chance: 30
 - R | tell them you are going to the mountains with friends instead | identity | v: self-direction, stimulation | mark: defied an authority | chance: 70
 - G | go home early to cook with your grandmother, while she still can | v: tradition, benevolence | chance: 87
-- W>R | go home out of duty, then slip out to the old pub with school friends | v: hedonism, conformity | chance: 82
+- W>R | go home out of duty, then slip out to the old pub with school friends | v: hedonism, conformity | chance: 82 | back: gave in to pressure
 - U>G | record your grandparents telling the old family stories | v: tradition | chance: 90
 - B>W | skip the trip, but send gifts expensive enough that nobody can complain | v: conformity, power (face) | chance: 45
 - R>U | ask at the dinner table the family questions nobody dares to ask | v: self-direction | chance: 45
@@ -479,7 +479,7 @@ scene U: {N} thinks of the last time {friend} borrowed money, and the time befor
 scene B: Five hundred is a lot. On the other hand, {friend} would owe {N}, and that is worth something.
 scene R: {friend} sounds close to tears, and {N} is reaching for the banking app before the call has even ended.
 scene G: {friend} has stood by {N} since they were ten years old. That is the kind of thing that counts.
-- W | lend it, write down the terms, and both sign | binds | v: security, conformity | chance: 72
+- W | lend it, write down the terms, and both sign | binds | v: security, conformity | chance: 72 | back: helped someone in need
 - U | ask what happened, and lend only once the story makes sense | binds | v: security, self-direction | mark: helped someone in need | chance: 75
 - B | lend it at interest, as a bank would | binds | v: power (resources) | chance: 60
 - R | give it as a gift on the spot and tell them to forget it | v: benevolence | mark: helped someone in need | chance: 92
@@ -738,7 +738,7 @@ scene G: {N} puts {grandparent}'s old plant on the windowsill, and the place sta
 - BG | take a cheap place round the corner from your family, with them on hand | binds | v: security, tradition | mark: stayed home | chance: 75
 - RG | move to a cottage in the country on a whim, with a dog | door | binds | v: stimulation, universalism (nature) | mark: moved away | chance: 58
 - UB | keep quiet about your debts until the lease is signed | v: security | mark: hid a wrong | chance: 48
-- WR | promise each other out loud, on the doorstep, to make it work | binds | v: benevolence | chance: 75
+- WR | promise each other out loud, on the doorstep, to make it work | binds | v: benevolence | chance: 75 | back: kept your word
 - WU | split the rent by income and keep a fair shared ledger | habit | v: universalism (fairness), security | chance: 72
 works: The first months are full of small joys: Sunday breakfasts, shared jokes, a home.
 works: {N} and {partner} find they live together even better than they dated.
@@ -776,11 +776,11 @@ scene G: Some things grow and some things die back. {N} knows this, and tonight 
 - B | make sure you keep the friends and everything worth having, and let them start again | v: power (resources), security | chance: 70
 - R | go dancing with your friends that night, and cry on their shoulders after | v: hedonism, benevolence | chance: 80
 - G | stay close to your family for a while, and let it heal | v: security, tradition | chance: 80
-- BR | go out every night and make sure your ex sees the photos | habit | v: hedonism, power (face) | chance: 55
+- BR | go out every night and make sure your ex sees the photos | habit | v: hedonism, power (face) | chance: 55 | back: made an enemy
 - UG | take long walks and slowly work out what you need next time | door | v: self-direction | chance: 80
 - UR | pour it all into a song or a story that is brutally honest | habit | identity | v: self-direction | chance: 78
 - WB | insist on getting back everything you lent and every penny you are owed | v: security, power (resources) | chance: 65
-- WG | stay kind to them, and stay friends for the sake of your shared circle | v: benevolence, tradition | chance: 55
+- WG | stay kind to them, and stay friends for the sake of your shared circle | v: benevolence, tradition | chance: 55 | back: made a friend
 works: The friends rally round, and {N} comes out of it surer of what they want.
 works: Months later {N} can think of {partner} without it hurting, and that feels like freedom.
 fails: The breakup drags on for months, bitter and public.
@@ -822,7 +822,7 @@ scene G: {N} has found work that suits their hands and their pace, and the old h
 - WUR | find a demanding mentor and train hard, mind and nerve, to master the craft | binds | v: achievement, self-direction | tags: commit:career | chance: 70
 - WUB | climb by the book: exams, certificates and the right introductions | v: achievement, power | tags: commit:career | chance: 65
 - WBG | stay in it for years, steady, saving every month toward a home | habit | v: security, tradition | tags: commit:career | chance: 72
-- URG | teach yourself the job your own way, trusting your instincts over the manual | v: self-direction | tags: commit:career | closed: approval: ignoring the firm's procedures; backfire: a formal warning | chance: 62
+- URG | teach yourself the job your own way, trusting your instincts over the manual | v: self-direction | tags: commit:career | closed: approval: ignoring the firm's procedures; backfire: a formal warning | chance: 62 | back: defied an authority
 - BRG | fight your way up from the bottom, louder and hungrier than the rest | v: achievement, power | tags: commit:career | chance: 68
 works: By the end of the first month {N} knows everyone's name, and the job feels like theirs.
 works: {boss} stops by at the end of the quarter to say the team is glad to have {N}.
@@ -863,7 +863,7 @@ scene G: The whole trade is shrinking, like a river in a dry year. {N} saw it co
 - R | tell your boss exactly what you think of them on the way out | v: self-direction | mark: made an enemy | chance: 48
 - G | move in with family, and work cash in hand for people you know | binds | v: tradition, security | closed: law: undeclared work; backfire: a fine, and benefits stopped | chance: 56
 - WUG | take the time to work out, calmly, what work you were really meant for | door | v: self-direction, security | chance: 55
-- WRG | rally the others let go and occupy the office until the firm pays | v: universalism (fairness), benevolence | closed: law: occupying the premises; backfire: removed by the police, and blacklisted | chance: 38
+- WRG | rally the others let go and occupy the office until the firm pays | v: universalism (fairness), benevolence | closed: law: occupying the premises; backfire: removed by the police, and blacklisted | chance: 38 | back: defied an authority
 - WBR | take the first decent offer within a week and get moving | v: achievement, security | chance: 60
 - UBR | forge a glowing reference and talk your way into a better job | v: achievement, power | mark: hid a wrong | closed: law: forgery; backfire: found out at the reference check, and the offer withdrawn | chance: 58
 - UBG | live on next to nothing, sell what you can, and wait for the right opening | v: security, power (resources) | chance: 42
@@ -971,7 +971,7 @@ scene G: {N} has been growing toward this for years without quite knowing it, li
 - WUBR | take it, move to the city, and remake yourself to fit the part | v: achievement, self-direction | mark: moved away | tags: commit:career | chance: 65
 - WURG | accept, and share every door it opens with friends and family | v: benevolence, universalism | tags: commit:career | chance: 72
 - WBRG | take it and fight to the top of the field before the chance can close | v: achievement, power | tags: commit:career | chance: 65
-- UBRG | take it, break every rule of the field, and make it your own | identity | v: self-direction, stimulation | tags: commit:career | chance: 45
+- UBRG | take it, break every rule of the field, and make it your own | identity | v: self-direction, stimulation | tags: commit:career | chance: 45 | back: defied an authority
 works: The year that follows is the best of {Ns} life so far.
 works not G: {N} makes the most of it, and people in the field start to know the name.
 fails not G: The chance turns out to be smaller than it looked, and much harder.

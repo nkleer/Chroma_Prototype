@@ -285,7 +285,7 @@ scene G: The regulars have bought their bread from that corner since {N} was a c
 - W>B | ask the council for a rule that counts years at the market in the next draw | v: conformity, power | lever: voice | pushes: institution council | sphere: comm.W | chance: 65
 - U>R | turn the windy end into a hot food stall for the cold mornings | v: achievement, stimulation | lever: found | sphere: comm.U | chance: 65
 - B>G | offer the stranger a fair price for the corner pitch, off the books | v: power, tradition | lever: subvert | sphere: comm.B | chance: 65
-- R>W | tell the warden at the traders' meeting, in front of everyone, that the draw was rigged | v: self-direction, universalism | lever: voice | sphere: comm.R | chance: 65
+- R>W | tell the warden at the traders' meeting, in front of everyone, that the draw was rigged | v: self-direction, universalism | lever: voice | sphere: comm.R | chance: 65 | back: defied an authority
 - G>U | leave the stall to a cousin on market days, and look for steadier work | v: security | lever: neglect | sphere: comm.G | chance: 65
 works: The regulars follow the stall to its new place, and the takings hold.
 works: The next draw counts years at the market, and the family gets its corner back.
@@ -329,7 +329,7 @@ scene G: {Ns} father fished on the share, and his father before him. It is how t
 - W>R | call every crew in the harbour to the quay to talk about the new wages | v: universalism, stimulation | lever: voice | pushes: group work | sphere: prod.W | chance: 65
 - U>G | club together with three of the crew for a small boat on the old share | v: self-direction, tradition | mark: took a wild risk | lever: found | sphere: prod.U | chance: 65
 - B>W | land a box of fish on the side each trip, to make up the share | v: power, security | mark: broke the law | lever: subvert | sphere: prod.B | chance: 65
-- R>U | argue it out with the owner on the deck, figures in hand, until he gives ground | v: self-direction, achievement | lever: voice | pushes: institution employer | sphere: prod.R | chance: 65
+- R>U | argue it out with the owner on the deck, figures in hand, until he gives ground | v: self-direction, achievement | lever: voice | pushes: institution employer | sphere: prod.R | chance: 65 | back: defied an authority
 - G>B | put your savings behind the old skipper's family to buy back a share in the boat | act: put their savings behind the old skipper's family to buy back a share in the boat | v: tradition, security | lever: fund | sphere: prod.G | chance: 65
 works not R: The owner keeps a share for the good seasons on top of the wage, and the crew stays.
 works: {N} comes out of it with a fairer deal, on this boat or another.
@@ -417,7 +417,7 @@ scene G: {N} remembers this hall full for these meetings when {Ns} parents came.
 - W>U | offer to take the minutes, and put a copy through every door in the ward | v: conformity, benevolence | lever: loyalty | sphere: rule.W | chance: 65
 - U>B | start a residents' group to bring a crowd to the next forum | v: power, universalism | mark: made a friend | lever: found | pushes: group neighbours | sphere: rule.U | chance: 65
 - B>R | bring your whole stairwell next time, with one loud demand between you | act: bring their whole stairwell next time, with one loud demand between them | v: power, stimulation | lever: voice | sphere: rule.B | chance: 65
-- R>G | tell the councillor the forum is a waste of everyone's evening, and walk out | v: self-direction | lever: exit | sphere: rule.R | chance: 65
+- R>G | tell the councillor the forum is a waste of everyone's evening, and walk out | v: self-direction | lever: exit | sphere: rule.R | chance: 65 | back: defied an authority
 - G>W | go to every forum from now on, even with six chairs, because someone should | v: tradition, conformity | lever: loyalty | sphere: rule.G | chance: 65
 works: The next forum has thirty people in it, and the councillor brings written answers.
 works not G: {N} is heard, and the bus times are on the council's list by the spring.
@@ -501,7 +501,7 @@ scene G: {N} sat with {Ns} grandmother through every night of her last illness. 
 - U | ask to see the ward's visiting rules in writing, and what counts as an exception | v: universalism, self-direction | lever: voice | sphere: care.U | chance: 75
 - B | make friends with the night staff, and stay late the way the other family does | v: power, benevolence | lever: subvert | sphere: care.B | chance: 75
 - R | walk back to the bed, sit down, and let them try to move you | act: walk back to the bed, sit down, and let them try to move them | v: self-direction, benevolence | mark: defied an authority | lever: voice | sphere: care.R | chance: 75
-- G | go home as you are told, and be back the minute the doors open | act: go home as they are told, and be back the minute the doors open | v: conformity, tradition | lever: loyalty | sphere: care.G | chance: 75
+- G | go home as you are told, and be back the minute the doors open | act: go home as they are told, and be back the minute the doors open | v: conformity, tradition | lever: loyalty | sphere: care.G | chance: 75 | back: gave in to pressure
 - W>R | write a formal complaint that night, and send a copy to the head of nursing | v: universalism, self-direction | lever: voice | pushes: institution hospital | sphere: care.W | chance: 65
 - U>G | ring the ward each night at ten, and ask the night nurse how your parent is | act: ring the ward each night at ten, and ask the night nurse how their parent is | v: benevolence, security | lever: loyalty | sphere: care.U | chance: 65
 - B>W | ask the consultant to name you as carer, so the rule bends for you too | act: ask the consultant to name them as carer, so the rule bends for them too | v: power, benevolence | lever: subvert | sphere: care.B | chance: 65
@@ -1062,7 +1062,7 @@ scene G: {Ns} parent always said courts were for people with money. Today that w
 - G | settle it the old way, and ask the builder's family to make it right | v: tradition, security | lever: exit | sphere: rule.G | chance: 60
 - WU | write to the advice office, so other buyers know about that kind of contract | v: universalism, benevolence | lever: voice | sphere: rule.WU | chance: 50
 - WG | pay up, and tell the street that the court was fair, whatever they say | v: conformity, tradition | mark: owned up | lever: loyalty | pushes: institution court | sphere: rule.GW | chance: 50
-- UB | ask the clerk how an appeal works, and file the form on the last day allowed | v: achievement, self-direction | lever: voice | sphere: rule.UB | chance: 50
+- UB | ask the clerk how an appeal works, and file the form on the last day allowed | v: achievement, self-direction | lever: voice | sphere: rule.UB | chance: 50 | back: defied an authority
 - BR | hold back the last payment you still owe the builder, ruling or no ruling | act: hold back the last payment they still owe the builder, ruling or no ruling | v: power, self-direction | mark: broke the law | lever: subvert | sphere: rule.BR | chance: 50
 - RG | leave the costs letter unopened on the side for a month, and hope it goes away | v: hedonism, security | lever: neglect | sphere: rule.RG | chance: 50
 works not G RG BR: {N} pays, reads every contract twice from then on, and finds the court a place {N} would trust again.

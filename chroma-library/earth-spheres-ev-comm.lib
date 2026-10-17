@@ -155,7 +155,7 @@ scene G: Half the street is here, talking over the stalls. {grandparent} says it
 - BR | buy at house clearances and sell at the market with a patter of your own | v: stimulation, achievement | sphere: comm.BR | chance: 56
 - RG | bring the whole family to spend Saturday morning at the market | v: hedonism, benevolence | sphere: comm.RG | chance: 82
 - UG | start a stall swapping seeds and cuttings from neighbours' gardens | v: tradition, universalism | sphere: comm.GU | chance: 62
-- WB | lend a young grower the money for a first pitch, repaid from the sales | v: benevolence, power | lever: fund | sphere: comm.WB | chance: 54
+- WB | lend a young grower the money for a first pitch, repaid from the sales | v: benevolence, power | lever: fund | sphere: comm.WB | chance: 54 | back: helped someone in need
 - WU | help write the market's rules so that every pitch is given by turn | v: universalism, conformity | sphere: comm.WU | chance: 66
 works: The market grows into the town's Saturday, and {N} has a place in it.
 works: By autumn {N} knows half the stallholders by name, and the car park is never empty.
@@ -411,7 +411,7 @@ scene G: {parent} warned against the club and was laughed at. Now {N} has to fac
 - B | hire a lawyer to claim the founder's house before the others do | v: power, security | sphere: comm.B | chance: 69
 - R | drive to the founder's house and wait outside until someone comes out | v: stimulation, self-direction | mark: took a wild risk | sphere: comm.R | chance: 52
 - G | tell your parent they were right all along, and ask for their help | v: tradition, benevolence | mark: owned up | sphere: comm.G | chance: 52
-- BG | sell the car to make good part of what your friend lost | v: benevolence, security | sphere: comm.BG | chance: 70
+- BG | sell the car to make good part of what your friend lost | v: benevolence, security | sphere: comm.BG | chance: 70 | back: helped someone in need
 - RG | bring the members together for a meal, so nobody faces it alone | v: benevolence, hedonism | sphere: comm.RG | chance: 78
 - UR | start a page that warns others about schemes that pay from newcomers' money | v: universalism, self-direction | lever: voice | pushes: culture | sphere: comm.UR | chance: 70
 - WB | lead the members' group that pursues the founder through the courts | v: power, universalism | lever: lead | sphere: comm.WB | chance: 44

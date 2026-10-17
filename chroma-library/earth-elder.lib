@@ -593,7 +593,7 @@ scene B: If the ward closes, the nearest one is forty minutes away. At {Ns} age 
 scene R: Placards, a megaphone, a crowd outside the town hall: {N} has not felt this alive in decades.
 scene G: That hospital has stood on the hill for a hundred years. The town grew up around it like a tree round a stone.
 - W | sign the petition and write a formal letter to your representative | v: conformity, universalism | chance: 20
-- U | pick the report's numbers apart at the public meeting | identity | v: universalism, self-direction | chance: 30
+- U | pick the report's numbers apart at the public meeting | identity | v: universalism, self-direction | chance: 30 | back: defied an authority
 - B | quietly get your name on the private clinic's list, just in case | v: security, power | chance: 90
 - R | march at the front with a placard and lead the chanting | body: heavy | v: universalism, stimulation | chance: 70
 - G | accept that the town is changing, and stay home this time | v: tradition (acceptance) | chance: 76
@@ -662,16 +662,16 @@ scene U: {N} keeps a notebook of every sowing date, every frost and every yield,
 scene B: {rival} has won the marrow prize three years running. This year {N} means to take that rosette home.
 scene R: The first strawberry of the year is warm from the sun, and {N} eats it right there on the path.
 scene G: {N} kneels in the earth with soil under every nail and feels the season turning in the ground.
-- W | report your neighbour's oversized shed to the society, and insist on the rules | v: conformity | closed: approval: petty informing; backfire: the whole site turns against you | chance: 55
+- W | report your neighbour's oversized shed to the society, and insist on the rules | v: conformity | closed: approval: petty informing; backfire: the whole site turns against you | chance: 55 | back: made an enemy
 - U | test the soil and plan this year's rotation in your notebook | habit | v: self-direction, achievement | chance: 88
-- B | trade favours with the society secretary to get the sunny corner plot | v: power | chance: 59
+- B | trade favours with the society secretary to get the sunny corner plot | v: power | chance: 59 | back: made a friend
 - R | eat everything ripe right there on the path, warm from the sun | v: hedonism | chance: 96
 - G | save your own seed, as your grandmother did, and sow it again next spring | habit | v: tradition | chance: 75
 - W>R | organise a harvest supper for the whole allotment site | v: hedonism, benevolence | chance: 75
 - U>G | grow the old heritage varieties to keep them from dying out | v: universalism (nature), tradition | chance: 75
 - B>W | sell your surplus at the gate and give the takings to the food bank | v: benevolence, achievement | chance: 90
 - R>U | plant something wild and foreign, just to see if it grows | v: stimulation, self-direction | chance: 50
-- G>B | feed your marrow your secret compost and take the prize off your rival | v: achievement | chance: 20
+- G>B | feed your marrow your secret compost and take the prize off your rival | v: achievement | chance: 20 | back: made an enemy
 works: The shed shelf fills with jars, and the neighbours get the surplus.
 works: The rosette goes up on {Ns} shed door.
 fails: Slugs take the lettuces overnight.
@@ -743,11 +743,11 @@ scene G: The garden needs digging, the grandchildren need collecting from school
 - B | go back as a paid consultant, on your own terms and at twice the rate | v: power, achievement | tags: commit:career; win:money+.05 | chance: 68
 - R | buy an old camper van and just go | door | v: stimulation, self-direction | tech: car | chance: 76
 - G | spend the mornings in the garden and the afternoons with family and friends | habit | v: benevolence, tradition | chance: 79
-- BG | take the lump sum, buy a smallholding and live off the land | binds | door | v: security, self-direction | grants: plot of land | chance: 48
+- BG | take the lump sum, buy a smallholding and live off the land | binds | door | v: security, self-direction | grants: plot of land | chance: 48 | back: took a wild risk
 - UG | walk the woods and rivers every day and become the local expert on birds | v: universalism (nature), self-direction | mark: learned a skill | chance: 70
 - UR | turn the garage into a workshop and invent things all day long | habit | v: self-direction, stimulation | chance: 75
 - WB | take the chair of a charity board and run it like your old department | identity | v: power, benevolence | chance: 62
-- WR | volunteer at the refugee centre every day and fight its corner at the council | identity | binds | door | v: universalism, benevolence | chance: 72
+- WR | volunteer at the refugee centre every day and fight its corner at the council | identity | binds | door | v: universalism, benevolence | chance: 72 | back: helped someone in need
 works: By spring, {Ns} days are fuller than they ever were at work.
 works: {N} sleeps well, laughs more, and stops checking the old work emails.
 fails: The days blur together, and {N} is still in a dressing gown at noon.
@@ -819,7 +819,7 @@ scene G: This house is where {N} raised a family. Now it will raise someone else
 - W | move on the date the family agreed, with every box labelled | v: conformity, security | chance: 70
 - U | visit every place on the list and choose by the inspection reports | v: security, self-direction | chance: 70
 - B | sell to the highest bidder and buy the best flat money can buy | v: power, security | chance: 78
-- R | refuse to go, and dig in your heels for as long as you can stand | v: self-direction | chance: 50
+- R | refuse to go, and dig in your heels for as long as you can stand | v: self-direction | chance: 50 | back: stayed home
 - G | give the furniture to whoever will love it, and keep only the photographs | v: benevolence, tradition | mark: left home | chance: 70
 - WUR | hold a farewell evening: a story for each room, then a dance in the empty one | v: hedonism, tradition | chance: 90
 - WUG | choose a place in your own neighbourhood, with a garden, and move in slowly | v: tradition, security | chance: 70
@@ -862,7 +862,7 @@ scene G: {N} thought that part of life had closed, like a season. But here is sp
 - WUB | draw up a careful agreement on money and homes before moving in together | binds | v: security | tags: commit:partner | chance: 68
 - WRG | marry them with the whole family there, and the youngest as attendants | binds | identity | v: tradition, hedonism | tags: commit:partner | chance: 55
 - WBG | keep your own homes, share your Sundays, and keep the family's blessing | v: security, tradition | tags: commit:partner | chance: 78
-- URG | set off together on a long trip to places neither of you has seen | door | v: stimulation, self-direction | tags: commit:partner | chance: 70
+- URG | set off together on a long trip to places neither of you has seen | door | v: stimulation, self-direction | tags: commit:partner | chance: 70 | back: took a wild risk
 - UBR | carry on in secret, so the family never gets a say in it | v: self-direction, hedonism | mark: hid a wrong | closed: approval: the family; backfire: found out, and a family row | tags: commit:partner | chance: 72
 works: {N} is happier than in years, and does not hide it.
 works not UBR: {child} meets {prospect}, and after an awkward first hour, likes them.
@@ -898,7 +898,7 @@ scene G: {N} thinks of {mentor}, who taught {N} the work, and of all the hands i
 - W>B | use your new standing on the town's committees to steer money to your own causes | identity | v: power | closed: approval: a conflict of interest; backfire: a scandal in the paper | chance: 45
 - U>R | write a frank, funny memoir of the work, mistakes and all | identity | v: self-direction, stimulation | chance: 45
 - B>G | use your new fame to raise the money to save the old woodland | v: universalism (nature), power | chance: 50
-- R>W | use the speech to blast the council for cutting the very work you did | identity | v: universalism | closed: approval: at an honours dinner; backfire: a cold room and no more invitations | chance: 65
+- R>W | use the speech to blast the council for cutting the very work you did | identity | v: universalism | closed: approval: at an honours dinner; backfire: a cold room and no more invitations | chance: 65 | back: defied an authority
 - G>U | spend the next year teaching an apprentice everything your hands know | binds | v: benevolence, tradition | chance: 70
 works: The applause goes on longer than anyone expected.
 works: {Ns} photograph goes up in the town hall, and {child} keeps the cutting from the paper.

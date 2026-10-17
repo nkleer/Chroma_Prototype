@@ -71,13 +71,13 @@ scene G: The team has always stood together, like trees that keep each other up 
 - W | turn the boss down, and tell the team about the offer as well | v: conformity, universalism | mark: turned down a chance | chance: 60
 - U | weigh what the extra money buys against what the team's plan could win | v: self-direction | chance: 70
 - B | take the double pay, because the rent will not wait for a hiring plan | v: power, achievement | mark: broke your word | chance: 60
-- R | laugh off the offer to the boss's face, and go straight to tell the others | v: stimulation, benevolence | chance: 70
+- R | laugh off the offer to the boss's face, and go straight to tell the others | v: stimulation, benevolence | chance: 70 | back: defied an authority
 - G | do what the team always does, and wait to see who else bends first | v: tradition, security | chance: 70
-- B>W | take the shifts only if the boss signs the new hire this month | v: power, benevolence | chance: 55
+- B>W | take the shifts only if the boss signs the new hire this month | v: power, benevolence | chance: 55 | back: broke your word
 - W>R | write the team a fair rule for extra shifts, and let each choose freely by it | v: universalism, self-direction | chance: 64
 - U>G | find out how other teams in the building settled the same quarrel | v: self-direction, tradition | chance: 64
 - R>U | ask the boss straight out why the offer is a secret, and listen closely | v: self-direction | chance: 64
-- G>B | say nothing either way, and let the offer go by on its own | v: security | chance: 64
+- G>B | say nothing either way, and let the offer go by on its own | v: security | chance: 64 | back: turned down a chance
 works: The team holds, or bends in the open, and {N} comes out of it trusted on both sides.
 works not B G G>B: The new hire comes in the end, and {N} has a fair share of the credit.
 fails: The secret gets out, and the team looks at {N} differently for months.
@@ -249,7 +249,7 @@ scene G: {N} wonders which kind of knowing really belongs to them: the kind that
 - B | take the certificate, because knowledge that pays is knowledge that counts | v: achievement, power | chance: 60
 - W | take whichever class the family would call the responsible choice | v: conformity | chance: 70
 - R | sign up for the one that makes your heart jump, and sort out the rest later | v: stimulation, hedonism | chance: 70
-- G | skip both, and learn from the old hands around you, the way people always have | act: skip both, and learn from the old hands around them, the way people always have | v: tradition | chance: 70
+- G | skip both, and learn from the old hands around you, the way people always have | act: skip both, and learn from the old hands around them, the way people always have | v: tradition | chance: 70 | back: learned a skill
 - B>U | take the certificate, and talk the boss into paying for the history class too | v: power, self-direction | chance: 55
 - W>G | join the local history society instead, and help keep its records | v: tradition, benevolence | chance: 64
 - U>W | study the certificate properly, so you can teach it to others afterwards | v: universalism, achievement | chance: 64

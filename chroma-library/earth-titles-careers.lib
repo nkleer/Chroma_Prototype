@@ -177,7 +177,7 @@ scene G: Two people awake in a sleeping building, each doing the night's work. {
 - R | make two teas and sit down with them for ten minutes | v: benevolence, hedonism | chance: 93
 - G | say nothing and let them be; some nights are like that | v: tradition (acceptance) | chance: 92
 - W>G | leave a clean mug and a biscuit on the desk, as you would for anyone | v: benevolence | chance: 90
-- U>W | tell them about the overtime rule the managers hope nobody reads | v: universalism (fairness) | chance: 65
+- U>W | tell them about the overtime rule the managers hope nobody reads | v: universalism (fairness) | chance: 65 | back: helped someone in need
 - B>U | glance through the papers on the desk while they step out | v: power | habit | closed: approval: reading what is not meant for a cleaner; backfire: they walk back in | chance: 92
 - R>B | grumble together about the managers until you have a friend on the inside | v: power, benevolence | mark: made a friend | chance: 78
 - G>R | hum along to the radio on the empty floor, as if the building were your own | v: hedonism | chance: 95
@@ -214,7 +214,7 @@ scene G: The family has had {N} in the house for three years, and the children l
 - G | stay with the agency, and keep Tuesdays as they have always been | v: security, tradition | chance: 78
 - W>B | report the family's offer to the agency, and claim the finder's bonus | v: power, conformity | closed: approval: reporting a client family; backfire: the family finds out and ends the work | chance: 60
 - U>R | work out how many clients it takes to go it alone, and set a date | v: self-direction | chance: 72
-- B>G | take the cash in hand and put the extra towards the family holiday | v: benevolence | closed: law: undeclared cash income; backfire: a letter from the tax office | chance: 90
+- B>G | take the cash in hand and put the extra towards the family holiday | v: benevolence | closed: law: undeclared cash income; backfire: a letter from the tax office | chance: 90 | back: broke your word
 - R>W | get the other cleaners together and go to the agency as one about its cut | v: universalism | mark: defied an authority | chance: 35
 - G>U | ask an older cleaner who went independent how it really went | v: self-direction | door | chance: 80
 works: By spring the work is on a footing {N} chose, and the money stretches further than before.
@@ -247,7 +247,7 @@ scene R: {N} misses the wave and the same bad joke about the weather. The empty 
 scene G: Six years of the same face at the same gate, as regular as the seasons on the round. A gap in the pattern says something is wrong.
 - W | report a welfare concern at the depot, as the guidance says | v: benevolence, conformity | chance: 65
 - U | ask the neighbours when anyone last saw them come or go | v: benevolence | chance: 72
-- B | keep to the round; the job is the post, not checking on people | v: security, achievement | chance: 95
+- B | keep to the round; the job is the post, not checking on people | v: security, achievement | chance: 95 | back: refused someone in need
 - R | knock hard and call their name through the letterbox until something stirs | v: benevolence | body: light | chance: 55
 - G | leave a note in your own hand, asking them to wave tomorrow | v: benevolence | mark: helped someone in need | chance: 40
 - W>R | ask the supervisor for ten minutes off the round, and go back now | v: benevolence | chance: 65

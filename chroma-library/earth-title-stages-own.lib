@@ -68,7 +68,7 @@ scene B: The cord comes with the say over who cooks, who washes up and who gets 
 scene R: {N} would love to lead the patrol on their own wild ideas, and hates the thought of {rival} bossing everyone about.
 scene G: The patrol has been together for years, like a small family in muddy shorts. {N} wonders who it would really want.
 - W | stand for leader, and promise the leaders to see it through | identity | v: conformity, benevolence | chance: 60
-- U | go for the expedition badge instead, and plan the route all winter | v: achievement, self-direction | grants: navigation | self_control: + | chance: 60
+- U | go for the expedition badge instead, and plan the route all winter | v: achievement, self-direction | grants: navigation | self_control: + | chance: 60 | back: turned down a chance
 - B | talk to every younger one in the patrol before the vote, one by one | v: power, achievement | chance: 70
 - R | tell the patrol you would lead it on the wildest camp they have ever had | v: stimulation | chance: 65
 - G | stay out of it, and back whoever the patrol takes to | v: tradition, benevolence | chance: 70
@@ -770,7 +770,7 @@ scene G: {N} has missed three birthdays and a funeral at home. The town, the fam
 - R | put in for special forces selection, the hardest course there is | body: heavy | v: stimulation, achievement | self_control: + | chance: 15
 - G | go where the platoon goes on the summer tour, as the others do | v: benevolence (in-group), tradition | death_if_fails: 0.001 | chance: 70
 - W>G | leave at the end of the term and go home to the family, as promised | v: tradition, benevolence | drops: soldier | title: veteran | mark: came home | chance: 85
-- U>W | sign on with the engineers, and learn a trade the army pays for | v: security, achievement | chance: 70
+- U>W | sign on with the engineers, and learn a trade the army pays for | v: security, achievement | chance: 70 | back: learned a skill
 - B>U | get the army to pay for every licence and course going, for later | v: achievement, security | grants: lorry or bus licence | chance: 80
 - R>B | sign on the same day for the bonus, and spend it on a car | binds | v: hedonism, power | grants: car | self_control: - | chance: 88
 - G>R | take a month's leave first, and walk the hills at home before deciding | v: self-direction, hedonism | chance: 75

@@ -170,7 +170,7 @@ scene G: {N} keeps thinking of {friend}, whose name is on that list too, and of 
 - G | ring friends whose names are on the list, and help them lock their accounts | v: benevolence | mark: helped someone in need | chance: 55
 - BG | change your own passwords and bank details tonight, before anything else | v: security | tech: internet | chance: 70
 - RG | stay on the line with the frightened callers as long as they need | v: benevolence | chance: 60
-- UR | tell the reporter who rings what you saw, without giving your name | v: universalism, stimulation | lever: subvert | pushes: institution employer | chance: 50
+- UR | tell the reporter who rings what you saw, without giving your name | v: universalism, stimulation | lever: subvert | pushes: institution employer | chance: 50 | back: defied an authority
 - WB | press the bosses to tell every customer plainly what was lost | v: universalism, security | lever: voice | pushes: institution employer | chance: 46
 - WU | draw up a plain guide for callers on what to do now, and share it round | v: benevolence, universalism | chance: 60
 works: The storm passes in a few weeks, and {N} keeps the trust of the people on the other end of the phone.
@@ -283,7 +283,7 @@ scene G: {parent} sits by the window watching the shut hall. "It was never like 
 - W | keep the family table open to all, with one rule: no arguing at meals | v: tradition, benevolence | lever: loyalty | pushes: close | chance: 60
 - U | sit down with someone from the other faith, and hear their side out | v: universalism, self-direction | mark: made a friend | pushes: belief | chance: 70
 - B | side firmly with your own faith, and let the whole street see it | identity | v: power, conformity | mark: made an enemy | lever: loyalty | pushes: belief | chance: 55
-- R | stand outside the shut hall with those who want it open again | v: universalism, stimulation | lever: voice | pushes: institution council | chance: 65
+- R | stand outside the shut hall with those who want it open again | v: universalism, stimulation | lever: voice | pushes: institution council | chance: 65 | back: defied an authority
 - G | keep out of it, and wait for the town to calm down | v: security | lever: neglect | chance: 60
 - BG | move the family across town, away from the trouble | v: security | lever: exit | chance: 60
 - UG | help the elders of both halls find a quiet room to talk in | v: universalism, benevolence | lever: voice | pushes: belief | chance: 40

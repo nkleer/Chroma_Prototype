@@ -715,9 +715,9 @@ scene G: The needles were {Ns} mother's, the pattern came from a cousin, and the
 - U | puzzle out the cable chart stitch by stitch, until the pattern comes | v: achievement, self-direction | mark: learned a skill | chance: 70
 - B | study the champion's tension for months, and enter the show to beat them | v: achievement | mark: learned a skill | self_control: + | chance: 45
 - R | cover the bench outside the town hall in orange knitting, one night | identity | v: stimulation, self-direction | mark: broke the law | closed: law: decorating public property without leave; backfire: the council cuts it off, and the paper asks who did it | chance: 80
-- G | knit your mother's old pattern, slowly, and teach it to anyone who asks | identity | v: tradition | chance: 75
+- G | knit your mother's old pattern, slowly, and teach it to anyone who asks | identity | v: tradition | chance: 75 | back: made a friend
 - W>R | start a lunchtime class for the teenagers from the school next door | door | v: benevolence | chance: 55
-- U>G | work out the old stitch from a photograph of a grandmother's shawl | v: tradition, self-direction | chance: 65
+- U>G | work out the old stitch from a photograph of a grandmother's shawl | v: tradition, self-direction | chance: 65 | back: learned a skill
 - B>W | sell your best pieces at the craft fair and give the takings to the circle | v: benevolence, achievement | chance: 90
 - R>U | throw away the pattern and knit whatever comes, just to see what happens | v: self-direction, stimulation | chance: 55
 - G>B | let the gossip about the rival's shop-bought wool spread, and say nothing | v: power | mark: made an enemy | closed: approval: letting a rumour do the work; backfire: the rival finds out who started it | chance: 60
@@ -753,9 +753,9 @@ scene G: Gulls on the posts, a heron in the shallows, the light changing slowly 
 - B | find where last year's winning shot was taken, and take it again, better | v: achievement, power | chance: 60
 - R | climb down the harbour steps into the spray for the shot | body: heavy | v: stimulation | mark: took a wild risk | chance: 75
 - G | walk the same lane every week and photograph the same tree through the year | habit | v: universalism (nature), tradition | chance: 60
-- W>G | offer to photograph the village's oldest people for the history society | v: benevolence, tradition | chance: 84
+- W>G | offer to photograph the village's oldest people for the history society | v: benevolence, tradition | chance: 84 | back: made a friend
 - U>W | teach the beginners' evening at the club, with handouts on exposure | binds | v: benevolence | chance: 64
-- B>U | buy a widow's expensive lens second-hand, at half what it is worth | v: achievement, power | chance: 74
+- B>U | buy a widow's expensive lens second-hand, at half what it is worth | v: achievement, power | chance: 74 | back: made an enemy
 - R>B | enter the boldest picture you have, the one nobody else would dare | v: achievement, stimulation | chance: 60
 - G>R | put the camera away and paddle along the shore with the gulls | v: hedonism | chance: 75
 works not G>R: The print wins the month, and the judge holds it up and says it is the first picture of the evening that breathes.
