@@ -21,6 +21,10 @@ engine.run_steps() is engine.run() pausing six times a week for the game. On a f
  11. after every row, no name outside STATE, STATE_IF and STATE_MORE was read at a pause (engine.STATE_MISSED).
  12. the world's burn-in kept (world_link.burned_world): a second run of the same world starts from the kept one and
      lives the same lives as the first, which burned it in.
+ 13. picks come back (echo_play, the game's played-life hook): switched on and never asked, the lives of it off; a return
+     moment (tier: return) in the files changes nothing while batch.RETURN_MOMENTS is off; on and asked at every pick, the
+     asked picks' marks plant seeds, each comes back at most once, a year on or more, as a moment of its kind and side,
+     in the week the pauses say, and the return moment comes only as a return.
  14. the town gone grey (grey_gate, the spheres finishing pack's part 5), switched on, world on: with no moment of the
      Library's shadow: gate, the lives of it off and the towns' grey shares read each year; a moment given the gate
      comes only while their town's share is at least the threshold (never with the switch off).
@@ -494,6 +498,59 @@ if "own_open" in E.DEFAULT and hasattr(batch, "own_ways") and os.path.isfile(_wp
     bad += bool(fails)
     print(f"{'PASS' if not fails else 'FAIL'}  F12, the clan's own acts always on offer (own_open), switched on: run_steps lives "
           f"as run(); the lives move{'' if not fails else '; ' + '; '.join(fails)} ({time.process_time() - t0:.0f} s)")
+# 13. picks come back (echo_play)
+if "echo_play" in E.DEFAULT and "more" in batch.load_batch.__code__.co_varnames:
+    import copy
+    t0 = time.process_time(); fails = []
+    kw = dict(N=2, years=20, seed=6)
+    d_off = digest(E.run(**kw, lib=EARTH, P=dict(E.DEFAULT)))
+    d_on = digest(E.run(**kw, lib=EARTH, P=dict(E.DEFAULT, echo_play=True)))
+    if [x for x in set(d_off) | set(d_on) if d_off.get(x) != d_on.get(x) and x != "returns"]:
+        fails.append("on and never asked, the lives move")
+    RET = dict(copy.deepcopy(next(x for x in EARTH["src"] if x["name"] == "the same chance comes round again")),
+               name="t_steps: the same chance, back", tier="return", of="turned down a chance")
+    RET.pop("variant_of", None)
+    L_ = batch.load_batch("earth", packs=list(batch.PACKS), more=[RET])
+    if L_["S"] != EARTH["S"] or digest(E.run(**kw, lib=L_, P=dict(E.DEFAULT))) != d_off:
+        fails.append("a return moment in the files moved the lives with RETURN_MOMENTS off")
+    batch.RETURN_MOMENTS = True
+    try:
+        L_ = batch.load_batch("earth", packs=list(batch.PACKS), more=[RET])
+    finally:
+        batch.RETURN_MOMENTS = False
+    R_ = L_["names"].index(RET["name"])
+    P_ = dict(E.DEFAULT, echo_play=True, echo_play_par=dict(E.DEFAULT["echo_play_par"], p=1.0, w=1.0, delay=(1.0, 1.2),
+                                                             gap=0.0, again=0.0))
+    g = E.run_steps(N=1, years=40, seed=6, lib=L_, P=P_); msg = next(g); told = []
+    while True:
+        kind, t, S, val = msg
+        if kind == "choose" and S["age"] >= 8:
+            S["P"]["echo_asked"] = True
+            if S["ep_now"][0] >= 0:
+                told.append((t, int(S["ep_now"][0]), int(S["s"][0])))
+        try:
+            msg = g.send(val)
+        except StopIteration as done:
+            o_ = done.value
+            break
+    sd_ = o_["returns"]; got_ = [x for x in sd_ if x["got"] is not None]
+    if len(sd_) < 3 or len(got_) < 2:
+        fails.append(f"{len(sd_)} seeds, {len(got_)} returns")
+    if sorted((x["done"], i_, x["got"]) for i_, x in enumerate(sd_) if x["got"] is not None) != sorted(told):
+        fails.append("the returns are not the weeks' moments")
+    if len({i_ for _, i_, _ in told}) != len(told):
+        fails.append("a seed came back twice")
+    if any(x["done"] - x["t"] < 52 for x in got_):
+        fails.append("a return within a year")
+    if any(L_["src"][x["got"]].get("tier") not in ("echo", "return") for x in got_):
+        fails.append("a return that is no echo or return moment")
+    if int(o_["sit_n"][0, R_]) != sum(x["got"] == R_ for x in got_):
+        fails.append("the return moment came other than as a return")
+    bad += bool(fails)
+    print(f"{'PASS' if not fails else 'FAIL'}  picks come back (echo_play): on and never asked, the lives of it off; a return "
+          f"moment in the files changes nothing with it off; asked, {len(sd_)} seeds, {len(got_)} returns "
+          f"({sum(x['got'] == R_ for x in got_)} the return moment), each once and a year on"
+          f"{'' if not fails else '; ' + '; '.join(fails)} ({time.process_time() - t0:.0f} s)")
 # 14. the town gone grey (grey_gate)
 if "grey_gate" in E.DEFAULT:
     t0 = time.process_time(); fails = []

@@ -325,6 +325,8 @@ class LifeMixin:
                     fold[r["kind"]] = role_info(GR, GR["ID"][r["name"]]); folded.add(id(r))
         if cpw is not None and age >= self.start_age:
             self._mark_threads(cpw, new, GR, age)
+            if GAME["returns"]:
+                self._seed_pick(cpw, new, m, age)       # Picks come back: the pick, by its week
         if age >= self.start_age:
             self._world_effects(t, loc)               # WL1, WL5: what the world changed of theirs this week     # F5: what the pick started, for the moments that follow from it
         for ev in sev + [ev for ev in new if "situation" not in ev]:     # the moment first, then what followed from it
@@ -357,6 +359,8 @@ class LifeMixin:
                         rs["hindsight"] = self._hindsight(loc, cpw, bool(ev["success"]), rs["needs"])
                         self._voice_trust_turn()
                     rs["pivot"] = self._pivot(loc, cpw, bool(ev["success"]), rs.get("hindsight"))
+                    if GAME["returns"] and cpw["cp"].get("ret"):     # Picks come back: the card names the pick it came from
+                        rs["back"] = self._ret_came(cpw, ev, age)
                     vo = self._voice_pick(loc, cpw, bool(ev["success"]), pushed, f.get("rel", 0.0) if pushed else 0.0, moved, rs)
                     if pushed and GAME["own_ix"]:       # S2: how far the pushed ways have become theirs
                         rs["own"] = self._own_push(loc, cpw, rs.get("hindsight"))
@@ -435,6 +439,8 @@ class LifeMixin:
                     line = self.story.death(ev["death"], m, age, alone); tag = "death"
                 elif "mark" in ev:
                     self.story.mark(ev["mark"]["mark"], m)
+                    if GAME["returns"] and cpw is not None and age >= self.start_age:
+                        self._seed_mark(ev["mark"]["mark"], m)   # Picks come back: a marked pick plants a seed
                 elif "goal" in ev:                      # v7: dreams, passions and plans
                     g = ev["goal"]
                     if age >= self.start_age:

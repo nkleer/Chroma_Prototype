@@ -171,7 +171,7 @@ MARK_BASE = ["hid a wrong", "owned up", "kept your word", "broke your word", "le
 ROLES = ["parent", "sibling", "friend", "grandparent", "partner", "child"]   # child: only ever by illness or accident (R15)
 CLOSED_KINDS = ["law", "approval", "means"]
 CLOSED_UNKNOWN = []   # closed: kinds the compile did not know (read as approval); CHROMA_STRICT=1 makes them an error
-TIERS = ["everyday", "life event", "inner", "echo", "engine"]
+TIERS = ["everyday", "life event", "inner", "echo", "engine", "return"]
 TAGS4 = ["habit", "door", "identity", "binds"]
 
 
@@ -805,6 +805,15 @@ DEFAULT = dict(
     inner_w=1.0,         # weight of an inner moment in the week's draw when its condition holds (Library rate x this)
     echo_p=0.4,          # share of anchors (a mark, a stretch of life) that ever come back as an echo
     echo_w=0.1,          # weekly chance a due echo comes, once its condition holds (x its likelier/rarer factor)
+    # picks come back (chroma-ideas/gameplay-2026-10-17/picks-come-back.md): set only by the game for a played life. A pick
+    # the player was asked (echo_asked, set by the game at its checkpoint and spent here) whose way leaves a mark: or names
+    # back: plants a seed: its kind, week, moment, way and whether it went well. A share p of seeds fall due after delay
+    # years; a due seed comes back at w a week (weeks with no life event, at least gap years after the last return, until keep
+    # years past due) as one moment of its kind and side never met (else not met for again years): a return moment (tier: return, of:, side:) or a mark echo
+    # anchored on that kind (whose own clock it then clears). An ordinary echo of a kind with a waiting seed is that seed's return.
+    # Tuned 10-17 with the Library's back: tags and RETURNS (#271): about 8 returns in a played life of about 85 asks
+    echo_play=False, echo_asked=False,
+    echo_play_par=dict(p=0.6, w=0.3, delay=(1.0, 8.0), keep=10.0, gap=0.5, again=12.0),
     closed_acc=0.6, closed_diff=0.05,   # an option closed by law, approval or means is open less often, and harder
     tag_habit=0.02,      # an act flagged habit pulls a little harder toward its ways next time
     tag_door=0.03,       # an act flagged door that works moves the niche toward its ways (new options open)
@@ -1542,6 +1551,8 @@ UPD_OFF = dict(dis_match=False,
                retire_ends=False, world_only=False,
                # v22.5 realism F7: one roll of the living
                one_roll=False,
+               # picks come back: the game's played-life hook
+               echo_play=False,
     # the v22.3 refit's satisfaction level (the new mechanics lift satisfaction; the set point moved .80 -> .86)
     sat_mid=0.8)
 # everything since the go-live off, for the identity check (C-E14): lives then equal engine_v9_golive.py
@@ -2263,6 +2274,20 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
         REJOB_ON = L.get("REJOB", -1) < 0                         # and its "a new job at last" the quiet return to work
         EV_KEEP = np.array([nm_ not in EV_DROP for nm_ in EV["names"]], float)
         KL_ = KILLS >= 0; INNER_ = L["INNER"]; KCH_ = KILLS[KL_] == ROLES.index("child")
+    EP_ON = bool(P["echo_play"]) and BAT   # picks come back (see DEFAULT's echo_play)
+    ep_seeds = []; ep_now = np.full(N, -1); ech_now = np.full(N, -1)   # the seeds; the seed (index) whose return is this week's
+    if EP_ON:
+        EPP = P["echo_play_par"]; ep_rng = np.random.default_rng([int(seed), 2917]); ep_last = np.full(N, -10 ** 6)
+        EP_C = {}   # (kind, went well) -> [(moment, echo index or -1, its condition)]: the return moments by of: and side:,
+        for e_, c_ in enumerate(ECH):   # and the mark echoes by the kind their anchor names (mk_ok: only one that went well)
+            for ok_k in (True, False):
+                k_ = re.match(r"\s*mk(_ok)?\(\s*['\"]([^'\"]+)['\"]", c_.get("atxt", ""))
+                if k_ and (ok_k or not k_.group(1)):
+                    EP_C.setdefault((k_.group(2), ok_k), []).append((c_["s"], e_, c_))
+        for c_ in L["COND"]:
+            if c_["kind"] == 4 and c_.get("of"):
+                for ok_k in ((True,) if c_.get("side") == "well" else (False,) if c_.get("side") == "badly" else (True, False)):
+                    EP_C.setdefault((c_["of"], ok_k), []).append((c_["s"], -1, c_))
 
     # ---- titles and perks (after v7): roles others recognise, and what a person can do or has access to
     RON = BAT and bool(P["roles"]) and "ROLES" in L
@@ -2658,6 +2683,42 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
         if r_ is None:
             r_ = memo[code] = ev_cond(code, ns)
         return r_
+    def ep_return(s, s_ep):
+        """Picks come back (echo_play): this week's return for each life. An ordinary echo drawn this week (ech_now) of a
+        kind with a waiting seed a year old is the newest such seed's return; else the oldest due seed, at EPP w (no life
+        event, no season step, gap years after the last), takes the week with one moment of its kind and side open to them:
+        one never met first, else one not met for again years."""
+        for n in np.nonzero(ech_now >= 0)[0]:
+            if s[n] != s_ep[n]:
+                continue
+            for i_ in range(len(ep_seeds) - 1, -1, -1):
+                sd_ = ep_seeds[i_]
+                if sd_["n"] == n and sd_["done"] is None and t - sd_["t"] >= 52 \
+                        and any(e_ == ech_now[n] for _, e_, _ in EP_C.get((sd_["kind"], sd_["ok"]), ())):
+                    sd_["done"] = t; sd_["got"] = int(s[n]); ep_now[n] = i_; ep_last[n] = t
+                    break
+        for i_, sd_ in enumerate(ep_seeds):
+            n = sd_["n"]
+            if sd_["done"] is not None or sd_["due"] is None or t < sd_["due"] or ep_now[n] >= 0:
+                continue
+            if t > sd_["due"] + EPP["keep"] * 52:   # too long past: it stays a seed that never came back
+                sd_["done"] = -1
+                continue
+            if had_ev[n] or dead[n] or s[n] != s_ep[n] or t - ep_last[n] < EPP["gap"] * 52 or ep_rng.random() >= EPP["w"]:
+                continue
+            ys_ = (t - sd_["t"]) / 52; sa0_ = ns.get("sa"); ns["sa"] = np.full(N, ys_)
+            c_ = [(s_, e_) for s_, e_, cd_ in EP_C.get((sd_["kind"], sd_["ok"]), ())
+                  if avail0[n, s_] and not once_done[n, ROOT[s_]] and ys_ >= cd_["delay"][0] and ev_cond(cd_["req"], ns)[n]]
+            ns["sa"] = sa0_
+            if not c_:
+                continue
+            new_ = [x for x in c_ if sit_n[n, x[0]] == 0] or [x for x in c_ if t - sit_last[n, x[0]] >= EPP["again"] * 52]
+            if not new_:
+                continue
+            s_, e_ = new_[int(ep_rng.integers(len(new_)))]
+            s[n] = s_; sd_["done"] = t; sd_["got"] = int(s_); ep_now[n] = i_; ep_last[n] = t
+            if e_ >= 0:   # a mark echo: its own clock is spent
+                echo_anchor[n, e_] = NEVER; echo_ready[n, e_] = False
     def factor(c_, ns, memo=None):
         f_ = np.ones(N)
         if not c_["more"] and not c_["less"]:   # speed pass: nothing to read, so 1 (as clip of ones gave)
@@ -3761,7 +3822,7 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                 dl_t0, dl_cause, bd_cw, bd_ck, bd_sk, HM_ON, DTH_ON, settle_f, e_i, e_p, wfx, option_causes,
                 ev_log, goal_log, brk_log, conv_log, rite_log, commit_log, clash_log, role_log, adj_log,
                 mark_log, read_log, r_has, r_ever, r_since, r_prof, p_acc, p_lev, p_sus, fam, gsr, goal_rel_S,
-                around, retired, ck, ok_, frc_, ONCE_HOLD_, noise, btrust)
+                around, retired, ck, ok_, frc_, ONCE_HOLD_, noise, btrust, ep_seeds, ep_now)
     if pausing:
         ST_CELLS = tuple(zip(_handed.__code__.co_freevars, _handed.__closure__)); ST_FR = sys._getframe()
         pz_st = PauseState()
@@ -3870,6 +3931,8 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                     dy_ = dy_ - UP_DEC * up_oy
                 up_oy += dy_
                 y = y + dy_; asrc[:, 1] += dy_
+        if EP_ON:
+            ep_now[:] = -1   # no return yet this week (set after the situation pause, read from the choose pause on)
         if pausing:
             _pause_state(pz_st, ST_CELLS, ST_FR)
             _ = yield Pause("week", t, pz_st, None)
@@ -3898,7 +3961,7 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
             ns = cond_ns(t, age, w)
             memo_ = {}   # speed pass: within this month a condition's text gives the same answer (none draws chance here)
             for c_ in L["COND"]:
-                if c_["kind"] == 2:
+                if c_["kind"] in (2, 4):   # an echo comes through its anchor, a return moment only as a pick's return
                     continue
                 cond_ok[:, c_["s"]] = ev_memo(c_["req"], ns, memo_)
                 cond_fac[:, c_["s"]] = factor(c_, ns, memo_) * P["inner_w"] if c_["kind"] == 1 else factor(c_, ns, memo_)
@@ -4221,6 +4284,10 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                 ie_ = np.nonzero(has_e)[0]
                 s[ie_] = ECH_S[e_pick[ie_]]
                 echo_anchor[ie_, e_pick[ie_]] = NEVER; echo_ready[ie_, e_pick[ie_]] = False
+                if EP_ON:
+                    ech_now[ie_] = e_pick[ie_]
+        if EP_ON:
+            s_ep = s.copy()   # a threshold season's step this week keeps its week (no return over it)
         sea_tr = np.zeros(N, bool)
         if SEA_AGE_ON:   # a stage's season not yet opened by its rite comes at its age (waiting for a running season to end)
             for k_ in SEA_KS:
@@ -4269,6 +4336,9 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                     sea_tr[n] = TH_TR[s[n]]
                 if sea_done[n].all():
                     sea_k[n] = -1
+        if EP_ON:   # picks come back: a due seed's return, or an ordinary echo of its kind told as its return
+            ep_return(s, s_ep)
+            ech_now[:] = -1
         # a commitment that no longer fits what the person wants, and keeps disappointing, comes up for reconsideration
         a_now = softmax(y)
         misfit = _uclip(1 - 5 * (prof * a_now[:, None, :]).sum(-1), 0, 1)   # wanting what it stands for less than an even share
@@ -4280,6 +4350,9 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
         rk = np.where(hit.any(1), np.argmax(np.where(hit, p_re, -1.0), 1), -1)
         recon = rk >= 0
         s = np.where(recon, L["RECON"], s)
+        if EP_ON and (recon & (ep_now >= 0)).any():   # reconsidering takes the week: the seed waits for another
+            for n in np.nonzero(recon & (ep_now >= 0))[0]:
+                sd_ = ep_seeds[ep_now[n]]; sd_["done"] = sd_["got"] = None; ep_now[n] = -1
         sit_n[np.arange(N), s] += 1                              # how often each situation came up in each life
         m = L["M"][s]; e = Eeff[s]; e0 = L["E"][s]; diff = L["DIFF"][s]; mask = L["MASK"][s]
         stakes = L["STAKES"][s]; alpha = L["ALPHA"][s]; oid = L["OID"][s]
@@ -5179,6 +5252,18 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                             came_o[n] = True
                 for n, j_ in zip(hm_, jj_):
                     mark_log.append((int(n), t, int(j_), bool(succ[n])))
+            if EP_ON and P["echo_asked"]:   # picks come back: an asked pick's mark (as left) and back: plant seeds
+                P["echo_asked"] = False
+                left_ = set(hm_.tolist())
+                for n in np.nonzero(~idle & live_)[0]:
+                    nt_ = L["notes"][s[n]][a[n]] if a[n] < len(L["notes"][s[n]]) else {}
+                    ks_ = [(L["MARKS"][mk_[n]], "mark")] if n in left_ else []
+                    if str(nt_.get("back") or "").strip() and str(nt_["back"]).strip() not in [k_ for k_, _ in ks_]:
+                        ks_.append((str(nt_["back"]).strip(), "back"))
+                    for k_, src_ in ks_:
+                        due_ = t + int(round(ep_rng.uniform(*EPP["delay"]) * 52)) if ep_rng.random() < EPP["p"] else None
+                        ep_seeds.append(dict(n=int(n), t=t, kind=k_, src=src_, s=int(s[n]), a=int(a[n]), ok=bool(succ[n]),
+                                             due=due_, done=None, got=None))
                     if n in events:
                         events[n].append(dict(mark=dict(age=round(age, 2), mark=L["MARKS"][j_], worked=bool(succ[n]))))
             # moves: the family moves, or the person moves away or leaves home (and it works)
@@ -6328,7 +6413,7 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                                                 invested=gi, born=gb, due=gh, horizon=ghz, source=gsrc, trigger=gtrig, felt=gfelt,
                                                 chance=gch, p_step=gph, by_player=gby, id=gid, aims=gtt,
                                                 lost=dict(mix=lost_m, domain=lost_d, strength=lost_s, age=lost_t, on=lost_on, id=lost_id)),
-                regret=regret, marks=dict(names=L["MARKS"], n=mark_n, last=mark_last, ok=mark_ok, log=mark_log), alive=alive,
+                regret=regret, marks=dict(names=L["MARKS"], n=mark_n, last=mark_last, ok=mark_ok, log=mark_log), alive=alive, **(dict(returns=ep_seeds) if EP_ON else {}),
                 read_log=read_log, read_names=[e_["name"] for e_ in EVR], widowed=widowed, seasons=sea_log,
                 identity=dict(female=female, attr=attr, unease=unease, gender_self=gender_self, intersex=intersex, ace=ace,
                               **(dict(named=named_g, came_out=came_o, partner_same=partner_same, role_fit=1 - rfit_avg,
@@ -6416,8 +6501,9 @@ STATE_IF = dict.fromkeys(("r_has", "r_ever", "r_since", "r_prof", "p_acc", "p_le
 # names also read where they are there (not checked by tools/t_steps.py): the game's (the family's ways, each goal slot's
 # steps per situation and the helper that fills them, the places' around with the world on) and Release's check_roll's
 # (F8, F10: retired, this week's commitment kind, its success, the world's forced moments, the titles' once-a-life lists)
-# and tools/t_steps.py's (this week's drift, at drift_k 0)
-STATE_MORE = ("fam", "gsr", "goal_rel_S", "around", "retired", "ck", "ok_", "frc_", "ONCE_HOLD_", "noise",
+# and tools/t_steps.py's (this week's drift, at drift_k 0) and the game's picks come back (echo_play: the seeds, and the
+# seed whose return is this week's moment, -1 for none)
+STATE_MORE = ("fam", "gsr", "goal_rel_S", "around", "retired", "ck", "ok_", "frc_", "ONCE_HOLD_", "noise", "ep_seeds", "ep_now",
               "btrust")   # body_trust (finishing pack part 3): each life's trust per sphere (N x 9, NaN before 15); None off
 STATE_MISSED = set()   # names read at a pause that are not handed over (STATE, STATE_IF, STATE_MORE): t_steps wants none
 

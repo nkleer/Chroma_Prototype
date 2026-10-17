@@ -488,10 +488,11 @@ def _packs(world, packs, pack_moments, R):
     return out
 
 
-def load_batch(world="earth", symmetric=False, roles=None, packs=None, pack_moments=None, setting="earth"):
+def load_batch(world="earth", symmetric=False, roles=None, packs=None, pack_moments=None, setting="earth", more=None):
     """packs: the content packs on top of the base (default PACKS, the approved ones); pack_moments: {pack: path of a
     compiled moments file} for a pack the Library has not built into chroma-library/ yet (tests). setting: the world the
-    life is played in (earth, tribal, magic: the game's presets); a moment with only: <another world> is left out."""
+    life is played in (earth, tribal, magic: the game's presets); a moment with only: <another world> is left out.
+    more: moments added after the packs' (tests: tools/t_steps.py's return moment)."""
     sys.path.insert(0, os.path.abspath(LIB_DIR))
     sys.modules.pop(world, None)                          # always read the batch from LIB_DIR as it is now
     try:
@@ -502,12 +503,15 @@ def load_batch(world="earth", symmetric=False, roles=None, packs=None, pack_mome
     PK = _packs(world, list(PACKS if packs is None else packs), pack_moments, R)
     INNER_ = {**R.INNER, **PK["cond"]["INNER"]}; ECHO_ = {**R.ECHO, **PK["cond"]["ECHO"]}
     LIFE_ = {**R.LIFE, **PK["cond"]["LIFE"]}; READ_ = {**R.READ, **PK["cond"]["READ"]}
+    RETURN_ = getattr(R, "RETURN", {})
     sits = [copy.deepcopy(s) for s in list(B.SITUATIONS) + list(getattr(B, "ECHOES", []))]
+    if RETURN_MOMENTS:   # picks come back: the Library's return moments (<world>.RETURNS, each of: a kind, side: well or badly)
+        sits += [dict(copy.deepcopy(s), tier="return") for s in getattr(B, "RETURNS", [])]
     base_names = {s["name"] for s in sits}
     clash = [s["name"] for s in PK["sits"] if s["name"] in base_names]
     if clash:
         raise ValueError(f"pack moments with the name of a base moment: {clash}")
-    sits += PK["sits"]
+    sits += PK["sits"] + [copy.deepcopy(x) for x in (more or [])]
     sits = [x for x in sits if not x.get("only") or setting in [w_.strip() for w_ in str(x["only"]).replace(",", " ").split()]]
     if not SHADOW_MOMENTS:   # the spheres finishing pack, part 5: moments in a town gone grey (shadow:) wait for its refit
         sits = [x for x in sits if not x.get("shadow")]
@@ -517,6 +521,8 @@ def load_batch(world="earth", symmetric=False, roles=None, packs=None, pack_mome
         sits = [x for x in sits if not x.get("trust")]
     if not FAR_MOMENTS:   # far_ties' moments (cast_want: far_hard, far_good, far_mixed) wait for v22.3's refit (item 18)
         sits = [x for x in sits if not str(x.get("cast_want") or "").strip().startswith("far_")]
+    if not RETURN_MOMENTS:   # picks come back (echo_play): the return moments load only for a played life with it on
+        sits = [x for x in sits if x.get("tier") != "return"]
     for on_, cw_ in ((EYES_MOMENTS, ("caught", "odd")), (SACRED_MOMENTS, ("sacred", "tragic", "amends")),
                      (LEAD_MOMENTS, ("lead_",)),   # v22.4's social moments (S3/S4, S5, S7) wait for its own refit
                      (TURNOVER_MOMENTS, ("place_closed", "place_opened"))):   # the finishing pack's, for the pack's refit
@@ -574,12 +580,15 @@ def load_batch(world="earth", symmetric=False, roles=None, packs=None, pack_mome
             c = ECHO_[nm]; kind = 2
         elif nm in LIFE_:
             c = LIFE_[nm]; kind = 3
+        elif tier == "return":   # kind 4: a return moment comes only as a played pick's return (echo_play), its condition
+            c = RETURN_.get(nm, {}); kind = 4   # (<world>_rules.RETURN) optional
         else:
             continue
         dl = tuple(src.get("delay_years", (0, 0)))
         cond.append(dict(s=si, kind=kind, name=nm0, req=_code(c.get("req")), more=[_code(x) for x in c.get("more", [])],
                          less=[_code(x) for x in c.get("less", [])], anchor=_code(c["anchor"]) if "anchor" in c else None,
-                         delay=dl, rtxt=str(c.get("req") or "")))
+                         delay=dl, rtxt=str(c.get("req") or ""), atxt=str(c.get("anchor") or ""),
+                         of=str(src.get("of") or "").strip(), side=str(src.get("side") or "").strip()))
     missing = [s["name"] for s in sits if s.get("tier") in ("inner", "echo") and key(s) not in INNER_ and key(s) not in ECHO_
                and not s.get("threshold")]          # a season's moments come through their season, not a condition
     if missing:
@@ -592,7 +601,7 @@ def load_batch(world="earth", symmetric=False, roles=None, packs=None, pack_mome
     ip_ = os.path.join(LIB_DIR, f"{world}-intimacy.lib")
     inm_ = set(re.findall(r"^== (.+?)\s*$", open(ip_).read(), re.M)) if os.path.exists(ip_) else set()
     L["INTIM"] = np.array([si for si, nm_ in enumerate(names) if nm_ in inm_ or L["src"][si].get("variant_of") in inm_], int)
-    L["ECHO"] = np.array([s.get("tier") == "echo" for s in L["src"]])
+    L["ECHO"] = np.array([s.get("tier") in ("echo", "return") for s in L["src"]])
     L["INNER"] = np.array([s.get("tier") == "inner" for s in L["src"]])
     # outside events read through the person's colors
     evr = []
@@ -867,6 +876,8 @@ TRUST_MOMENTS = False   # the spheres' finishing pack, part 3: moments gated on 
                         # low|high, body_trust) join the batch at the pack's refit
 SHADOW_MOMENTS = False  # the spheres finishing pack, part 5: moments with shadow: (the Library's Crime pack, A13) join the
                         # batch at its refit; until then the batch is as before
+RETURN_MOMENTS = False  # picks come back: moments with tier: return join the batch only for a played life with echo_play
+                        # on (the game sets it); off, the library and every life are as before
 SPH_MOMENTS = True   # item 15: moments with haunt: or ladder: join the batch once the spheres' haunts and rungs are built
 TURNOVER_MOMENTS = False   # spheres finishing pack, part 2: moments with cast_want: place_closed or place_opened join the
                            # batch at the pack's refit (until then the Library's new moments change no life); in the
