@@ -19,6 +19,8 @@ engine.run_steps() is engine.run() pausing six times a week for the game. On a f
      hooks (item 10: c3_inst, c4_nature, c5_faith), likewise.
  10. v22.5's own ways (own_open, F12) on the seed library the clan plays, with the Library's worlds.py OWN: likewise.
  11. after every row, no name outside STATE, STATE_IF and STATE_MORE was read at a pause (engine.STATE_MISSED).
+ 12. the world's burn-in kept (world_link.burned_world): a second run of the same world starts from the kept one and
+     lives the same lives as the first, which burned it in.
 
     python3 -B chroma-engine/tools/t_steps.py [ENGINE_DIR]
 T_JOBS=N: the rows of 8 and 9 on N processes (default up to 4, by the cores there are; 1: one after another).
@@ -250,6 +252,25 @@ for label, sw, moved in ON_:
     bad += bool(fails)
     print(f"{'PASS' if not fails else 'FAIL'}  {label}, switched on: run_steps lives as run(), world off and on"
           f"{'' if not fails else '; ' + '; '.join(fails)} ({time.process_time() - t0:.0f} s)")
+# 12. the world's burn-in kept (world_link.burned_world): a second run of the same world, seed and settings starts from
+# the World the first one burned in (a deep copy) and lives exactly its lives; checked from memory, with no folder
+import world_link as _wlk
+if hasattr(_wlk, "burned_world"):
+    t0 = time.process_time(); fails = []
+    cdir_ = os.environ.pop("CHROMA_WORLD_CACHE", None)
+    _wlk.BURN.clear(); h0_ = _wlk.BURN_HITS[0]
+    kw = dict(N=2, years=4, seed=17, lib=EARTH, P=dict(E.DEFAULT, world=True))
+    d1 = digest(E.run(**kw)); d2 = digest(E.run(**kw))
+    if cdir_ is not None:
+        os.environ["CHROMA_WORLD_CACHE"] = cdir_
+    if _wlk.BURN_HITS[0] != h0_ + 1:
+        fails.append(f"{_wlk.BURN_HITS[0] - h0_} runs from the kept world, not 1")
+    diff = sorted(x for x in set(d1) | set(d2) if d1.get(x) != d2.get(x))
+    if diff:
+        fails.append(f"lives differ in {diff[:4]}")
+    bad += bool(fails)
+    print(f"{'PASS' if not fails else 'FAIL'}  the world's burn-in kept: a second run of the same world lives the first's "
+          f"lives{'' if not fails else '; ' + '; '.join(fails)} ({time.process_time() - t0:.0f} s)")
 # 7. read-only world switches of the next update (the spheres of society, item 15, phase 1c): with the world on, a run with
 # the switch on lives exactly the lives of a run with it off, and the world it ran in carries the new state
 RO_ = [("the spheres of society, the town (sph_town)", "sph_town",
