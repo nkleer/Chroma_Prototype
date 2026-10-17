@@ -95,7 +95,10 @@ Build every candidate with it; never pin by hand.
 
 ## Which test proves what (`prototype/test/`)
 
-Run from `prototype/` with `python3 -B test/<name>`. A whole life takes about 2 minutes.
+Run from `prototype/` with `python3 -B test/<name>`. A whole life takes about 2 minutes. `smoke.py` and `prove.py` keep
+each burned-in world in `/tmp/chroma_world_cache` (the engine's `CHROMA_WORLD_CACHE`), so a new life there sets up in
+about 2 s instead of 6 s; an empty `CHROMA_WORLD_CACHE=` turns it off, and it stays off while `CHROMA_ENGINE` or
+`CHROMA_GAME` is set.
 
 | Test | Proves |
 |---|---|

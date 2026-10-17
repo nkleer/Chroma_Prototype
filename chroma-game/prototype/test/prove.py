@@ -15,6 +15,13 @@ matches and the smoke test passes. When a life differs, it names the first step 
 """
 import hashlib, json, os, platform, random, shutil, subprocess, sys, tempfile, time
 
+# The engine keeps each burned-in world in CHROMA_WORLD_CACHE (world_link.burned_world: one file per seed and settings,
+# named by the md5 of the code that burns it in and Python's and numpy's versions), so a new life skips its burn-in
+# (about 4 s). A set CHROMA_WORLD_CACHE wins, and an empty one turns it off. Not while CHROMA_ENGINE or CHROMA_GAME
+# change settings in-process, which the file name does not cover (Engine, 2026-10-17).
+if not (os.environ.get("CHROMA_ENGINE") or os.environ.get("CHROMA_GAME")):
+    os.environ.setdefault("CHROMA_WORLD_CACHE", os.path.join(tempfile.gettempdir(), "chroma_world_cache"))
+
 HERE = os.path.dirname(os.path.abspath(__file__))
 GAME = os.path.dirname(HERE)
 SKIP = ("test/", "web/")
