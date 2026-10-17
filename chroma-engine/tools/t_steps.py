@@ -25,7 +25,8 @@ engine.run_steps() is engine.run() pausing six times a week for the game. On a f
  13. picks come back (echo_play, the game's played-life hook): switched on and never asked, the lives of it off; a return
      moment (tier: return) in the files changes nothing while batch.RETURN_MOMENTS is off; on and asked at every pick, the
      asked picks' marks plant seeds, each comes back at most once, a year on or more, as a moment of its kind and side,
-     in the week the pauses say, and the return moment comes only as a return.
+     in the week the pauses say, and the return moment comes only as a return; a logged life's marks are all in its
+     events, on and asked or off.
  14. the town gone grey (grey_gate, the spheres finishing pack's part 5), switched on, world on: with no moment of the
      Library's shadow: gate, the lives of it off and the towns' grey shares read each year; a moment given the gate
      comes only while their town's share is at least the threshold (never with the switch off); with the threshold at
@@ -530,7 +531,7 @@ if "echo_play" in E.DEFAULT and "more" in batch.load_batch.__code__.co_varnames:
     R_ = L_["names"].index(RET["name"])
     P_ = dict(E.DEFAULT, echo_play=True, echo_play_par=dict(E.DEFAULT["echo_play_par"], p=1.0, w=1.0, delay=(1.0, 1.2),
                                                              gap=0.0, again=0.0))
-    g = E.run_steps(N=1, years=40, seed=6, lib=L_, P=P_); msg = next(g); told = []
+    g = E.run_steps(N=1, years=40, seed=6, lib=L_, P=P_, log_lives=(0,)); msg = next(g); told = []
     while True:
         kind, t, S, val = msg
         if kind == "choose" and S["age"] >= 8:
@@ -555,6 +556,10 @@ if "echo_play" in E.DEFAULT and "more" in batch.load_batch.__code__.co_varnames:
         fails.append("a return that is no echo or return moment")
     if int(o_["sit_n"][0, R_]) != sum(x["got"] == R_ for x in got_):
         fails.append("the return moment came other than as a return")
+    o0_ = E.run(**kw, lib=EARTH, P=dict(E.DEFAULT), log_lives=(0, 1))
+    for o_m, n_ in [(o_, 1)] + [(o0_, 2)]:   # a logged life's marks are told, on and asked or off (Gamification 10-17)
+        if sum("mark" in x for i_ in range(n_) for x in o_m["events"][i_]) != len(o_m["marks"]["log"]):
+            fails.append("a logged life's marks are not all in its events")
     bad += bool(fails)
     print(f"{'PASS' if not fails else 'FAIL'}  picks come back (echo_play): on and never asked, the lives of it off; a return "
           f"moment in the files changes nothing with it off; asked, {len(sd_)} seeds, {len(got_)} returns "

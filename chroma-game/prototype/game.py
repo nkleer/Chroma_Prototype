@@ -253,7 +253,8 @@ class Game(CheckpointsMixin, WorldMixin, VoiceMixin, LifeMixin, ViewsMixin):
         self.history["turns"] = []      # (age, color, kind, held)
         self._threads = {}              # F5: what a pick started (("r", title), ("c", commitment), ("g", goal id)) -> its cause
         self._last_pick = None
-        self._picks, self._seeds = {}, []   # Picks come back: each asked pick by its week; the seeds the marked ones planted
+        self._picks, self._seeds, self._ret_owed = {}, [], 0   # Picks come back: each asked pick by its week; the seeds the
+        # marked ones planted; returns asked that have not yet taken a repeat's place
         try:                            # how many lives meet each moment (the Book's rarity), Modern Earth only
             from rarity import RARITY
             self._sit_share = (RARITY.get("sit") or {}) if self.setting == "earth" else {}

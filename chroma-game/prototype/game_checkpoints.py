@@ -113,6 +113,9 @@ class CheckpointsMixin:
             if (self._importance(loc, s, a) + (0.5 if life else 0.0) + GAME["tie_imp"] * tied
                     + GAME["tie_pick"] * (cause is not None) + GAME["fork_k"] * fork + GAME["rare_imp"] * rare < thr):
                 return None
+            if GAME["returns"] and s in self._cp_n and self.__dict__.get("_ret_owed", 0) > 0:
+                self._ret_owed -= 1
+                return None                     # Picks come back: a return took this repeat's place: told, not asked
         self._last_seen[s] = t
         self._cp_n[s] = self._cp_n.get(s, 0) + 1
         return self._build_checkpoint(t, loc, a)
@@ -273,6 +276,7 @@ class CheckpointsMixin:
                 cp["thread"] = self._thread_line(cause, t / 52); cause["told"] = int(t)   # each thread told once in a while
         if ret is not None:                             # Picks come back: the return opens on the pick it answers
             cp["ret"] = ret; cp["thread"] = self._ret_line(ret, t / 52); cp["seed"] = self._seed_view(ret, m, opts)
+            self._ret_owed = self.__dict__.get("_ret_owed", 0) + 1   # it takes the place of the next repeat that would be asked
         b = X.say(X.before(loc, 0, rng=self.vrng), self.name)
         cp["snap"] = X.snapshot(loc, 0, b)
         cp["view"] = self._view(loc, b, cp)
