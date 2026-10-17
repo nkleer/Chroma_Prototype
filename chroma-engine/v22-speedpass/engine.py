@@ -3598,6 +3598,27 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                 if abs(v_[n, k_]) >= WFX_OPT[1]:
                     add(k_, kd_, None, v_[n, k_], "harder" if v_[n, k_] > 0 else "easier")
         return out
+    def _handed():   # never called: naming the handed-over variables here (STATE, STATE_IF, STATE_MORE) makes each a
+        # cell, so a pause reads them one by one (locals() copies all ~1,600 of the run's variables, 1 ms a pause)
+        return (P, L, t, age, RON, AQ_ON, SEA_ON, TH_K, TH_STEP, TH_TR, AT0, RS0, WL, z, w, y, k, M, sig, SE,
+                fb, habit, hold, nic, res, need, doors, f_tot, B, X, mood, content, peace, stress, react,
+                steady, base_mood, outlook, plast, ctrl, dsc, support, wound, trouble, fortune, Q, q_thr, TWo,
+                fhz, hzf, gap_r, regret, earned, held, I, prof, sat, since, stage, alive, dead, died, widowed,
+                female, intersex, found_id, faith_given, faith_drifted, clash0, act_cw, rfit_avg, adj,
+                adj_since, adj_v, mark_n, had_ev, missed_t, events, tries, wins, blocked, sit_n, sea_k, sea_t0,
+                sea_done, gk, gm, gd, gs, gp, gh, ghz, gsrc, gby, gid, gname, gfelt, gfelt0, gplay, new_goal,
+                end_goal, quit_, plan_odds, dream_phrase, s, s_ev, rk, recon, m, e, e0, diff, mask, closed_s,
+                stakes, alpha, do_nothing, lack, lackf, earn, pbump, serves, relief, rel, wR, gU_R, gU_I, w_hat,
+                a_hat, V, VA, H, hzU, step, tryf, U_R, U_I, U, read_, readk_, open_r, open_, seen, pr, p_hat, a,
+                ma, ea, ph, idle, p_true, succ, delta, span, stepF, role, pr0, steer_moved, shS, shA, sh_src,
+                sh_seen, SHON, asked, CU_ON, NMP, NM_ON, cur_sum, cur_m, CUR_ON, body_v, mind_v, md_end, dl_at,
+                dl_t0, dl_cause, bd_cw, bd_ck, bd_sk, HM_ON, DTH_ON, settle_f, e_i, e_p, wfx, option_causes,
+                ev_log, goal_log, brk_log, conv_log, rite_log, commit_log, clash_log, role_log, adj_log,
+                mark_log, read_log, r_has, r_ever, r_since, r_prof, p_acc, p_lev, p_sus, fam, gsr, goal_rel_S,
+                around, retired, ck, ok_, frc_, ONCE_HOLD_, noise)
+    if pausing:
+        ST_CELLS = tuple(zip(_handed.__code__.co_freevars, _handed.__closure__)); ST_FR = sys._getframe()
+        pz_st = PauseState()
     for t in range(T):
         age = t / 52.0
         z = bound_logratios(z, P["min_color"], P["max_color"]); y = bound_logratios(y, P["min_color"], P["max_color"])
@@ -3700,7 +3721,9 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                 up_oy += dy_
                 y = y + dy_; asrc[:, 1] += dy_
         if pausing:
-            _ = yield Pause("week", t, locals(), None)
+            _pause_state(pz_st, ST_CELLS, ST_FR)
+            _ = yield Pause("week", t, pz_st, None)
+            pz_st._fr = None
             if WFX_ON:
                 wfx = [[] for _ in range(N)]
         e_i, e_p = era_i[t], era_p[t]
@@ -4021,7 +4044,9 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
         aff /= aff.sum(1, keepdims=True)
         s = (aff.cumsum(1) > rng.random((N, 1))).argmax(1)
         if pausing:
-            s = yield Pause("situation", t, locals(), s)
+            _pause_state(pz_st, ST_CELLS, ST_FR)
+            s = yield Pause("situation", t, pz_st, s)
+            pz_st._fr = None
         if P["base_rates"]:
             s = np.where(had_ev, s_ev, s)
         if BAT and P["base_rates"] and len(ECH):   # a due echo comes back in a week without a life event
@@ -4335,7 +4360,9 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
         if pausing:
             steer_moved = pr[ar, a] - pr0[ar, a]   # how much the steer raised (or lowered) the drawn option's odds
             a_self = a.copy()                      # the character's own pick (a counter-pick lowers its shadow)
-            a = yield Pause("choose", t, locals(), a)
+            _pause_state(pz_st, ST_CELLS, ST_FR)
+            a = yield Pause("choose", t, pz_st, a)
+            pz_st._fr = None
         # bookkeeping: where does the option the person most wants get lost?
         UR_ = np.where(mask & ~do_nothing, U_R, -np.inf)
         best = UR_.argmax(1); has = np.isfinite(UR_.max(1))
@@ -4370,7 +4397,9 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                 np.add.at(earn_sum, s, (earn * tk_).sum(1) / np.maximum(tk_.sum(1), 1)); np.add.at(earn_cnt, s, tk_.any(1).astype(float))
             np.add.at(pk_sum, s, np.where(mask, pk_, 0.0)); np.add.at(pk_cnt, s, mask.astype(float))   # open to them
         if pausing:
-            p_true = yield Pause("odds", t, locals(), p_true)
+            _pause_state(pz_st, ST_CELLS, ST_FR)
+            p_true = yield Pause("odds", t, pz_st, p_true)
+            pz_st._fr = None
         succ = rng.random(N) < p_true
         if SHON:   # a shadow shows: an act in the ruling colour's own ways fails while its shadow is strong (check 5)
             shw_ = (ma * shA)
@@ -4394,7 +4423,9 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
         r = np.where(succ, 1.0, -P["loss"]) * stakes
         delta = np.where(idle, 0.0, r - (ph - (1 - ph) * P["loss"]) * stakes)
         if pausing:
-            delta = yield Pause("learn", t, locals(), delta)
+            _pause_state(pz_st, ST_CELLS, ST_FR)
+            delta = yield Pause("learn", t, pz_st, delta)
+            pz_st._fr = None
         appf_ = 1 + P["app_k"] * (2 * thr - 1)              # v10 appraisal: a loss weighs appf_, a gain 2 - appf_
         fdelta = delta * np.where(delta < 0, appf_, 2 - appf_) if P["app_k"] else delta   # as felt (mood, stress, wounds)
         if P["app_vigil"] and P["app_k"]:   # app_vigil: threat focus learns more from gains and losses alike (vigilance), so
@@ -6070,7 +6101,9 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
             if n in events:
                 events[n].append(dict(breakthrough=rec))
         if pausing:
-            _ = yield Pause("end", t, locals(), None)
+            _pause_state(pz_st, ST_CELLS, ST_FR)
+            _ = yield Pause("end", t, pz_st, None)
+            pz_st._fr = None
     z = bound_logratios(z, P["min_color"], P["max_color"]); y = bound_logratios(y, P["min_color"], P["max_color"])
     W_hist.append(softmax(z)); M_hist.append(M.copy()); S_hist.append(stage.copy()); A_hist.append(softmax(y))
     R_hist.append(res.copy()); K_hist.append(held * np.maximum(I, 1e-3))
@@ -6170,6 +6203,50 @@ STATE = (
 )
 # names there only when a switch in the state is on: titles (the packs' roles), name -> switch
 STATE_IF = dict.fromkeys(("r_has", "r_ever", "r_since", "r_prof", "p_acc", "p_lev", "p_sus"), "RON")
+# names also read where they are there (not checked by tools/t_steps.py): the game's (the family's ways, each goal slot's
+# steps per situation and the helper that fills them, the places' around with the world on) and Release's check_roll's
+# (F8, F10: retired, this week's commitment kind, its success, the world's forced moments, the titles' once-a-life lists)
+# and tools/t_steps.py's (this week's drift, at drift_k 0)
+STATE_MORE = ("fam", "gsr", "goal_rel_S", "around", "retired", "ck", "ok_", "frc_", "ONCE_HOLD_", "noise")
+STATE_MISSED = set()   # names read at a pause that are not handed over (STATE, STATE_IF, STATE_MORE): t_steps wants none
+
+
+class PauseState(dict):
+    """The state a run hands over at its pauses: one dict for the whole run, refreshed at each pause with the handed-over
+    variables as they are there (a name not yet set is left out), as locals() is under Python 3.11 and 3.12 (Pyodide):
+    a reference kept from an earlier pause reads the latest pause, and a key the caller set itself stays. While the run
+    waits at a pause, a name not handed over is still read from the run (and noted in STATE_MISSED)."""
+    __slots__ = ("_fr",)
+
+    def __missing__(self, k):
+        fr = getattr(self, "_fr", None)
+        if fr is not None and k in fr.f_locals:
+            STATE_MISSED.add(k)
+            return fr.f_locals[k]
+        raise KeyError(k)
+
+    def __contains__(self, k):
+        if dict.__contains__(self, k):
+            return True
+        fr = getattr(self, "_fr", None)
+        if fr is not None and k in fr.f_locals:
+            STATE_MISSED.add(k)
+            return True
+        return False
+
+    def get(self, k, d=None):
+        return self[k] if k in self else d
+
+
+def _pause_state(st, cells, fr):
+    """Refresh the run's pause state from its cells of the handed-over names and open it to the paused frame."""
+    for nm, c in cells:
+        try:
+            st[nm] = c.cell_contents
+        except ValueError:   # not set yet (or deleted): out, as locals() leaves it
+            st.pop(nm, None)
+    st._fr = fr
+    return st
 
 
 def run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, lib=None, log_lives=()):

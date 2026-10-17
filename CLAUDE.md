@@ -27,7 +27,10 @@ Every folder is named once in `chroma-env/paths.py`; scripts import it rather th
 ## Files you never open whole
 
 Generated or copied, never edited by hand. `.claude/settings.json` blocks reading the first five and the pictures;
-`.ignore` keeps all of them out of searches (`rg` and the Grep tool honour it; `grep -r` does not, so use `rg`).
+`.ignore` keeps all of them out of searches (`rg` and the Grep tool honour it; `grep -r` does not, so use `rg`), and
+`.gitattributes` keeps their text out of `git diff`, `git show` and `git log -p`. In the shared folder, `.ignore` also
+hides the run outputs, `_archive/` and the old and staging game copies; search one of those by naming it
+(`rg <pattern> <folder>`).
 
 | File | Size | Made by |
 |---|---|---|
@@ -47,10 +50,9 @@ The Library's other `.py` files (`earth_story.py`, `earth_spheres.py`, `earth_vo
 
 - Never read a file over about 1,500 lines whole. Find the place with `rg -n`, then read a range.
 - Large files people do edit: `chroma-engine/v22-speedpass/engine.py` (6,298 lines), `chroma-engine/v22-speedpass/world.py`,
-  `chroma-game/prototype/web/src/app.js` (2,859), `chroma-game/prototype/story.py` (1,692),
-  `chroma-game/prototype/web/src/head.html` (1,593, one `<style>` block). The game layer is split into files of 430 to
-  960 lines (`chroma-game/CLAUDE.md`).
-- `chroma-game/prototype/README.md` is 60 KB of history. Read the section you need (`rg -n '^#' README.md`), not all.
+  `chroma-game/prototype/web/src/head.html` (1,593, one `<style>` block). The game and story layers are split into files
+  of 120 to 960 lines, and the page's script into 13 parts of 93 to 501 lines (`chroma-game/CLAUDE.md`).
+- `chroma-game/prototype/HISTORY.md` is 60 KB of history. Read the section you need (`rg -n '^#' HISTORY.md`), not all.
 - Notes, plans, specs and run outputs live in the shared folder (`/mnt/project-files`), not here. Start from
   `chroma-env/MAP.md` there.
 
@@ -74,8 +76,9 @@ Every life must stay the same unless Emren asked for a change in play. Pick the 
 |---|---|---|
 | docs, CLAUDE files, comments | none | 0 |
 | any game change, first | `python3 -B chroma-game/prototype/test/smoke.py`: a short life, no crash, no NaN; `--same` also checks it plays exactly as `test/smoke.golden.json` | about 20 s |
-| game code, no change in play meant | `smoke.py --same` (or `--base <origin/main's chroma-game/prototype>` on another Python or numpy), then `python3 -B chroma-game/prototype/test/same_life.py <preset> 7 <out>` for presets 1 to 6, on the branch and on a worktree of `origin/main`; every md5 must match | 20 s, then about 2 min each, run side by side |
-| game content or behaviour | `smoke.py --update` (the PR says why play changed), `test/timeless.py`, `test/saveload.py`, then Release's `python3 -B chroma-release/v22_checks.py --level fast --only @game --repo <checkout>` | a few minutes |
+| game code, no change in play meant | `python3 -B chroma-game/prototype/test/prove.py`: `smoke.py --same`, then presets 1 to 6 (seed 7) on the branch and on `origin/main`, side by side, with main's lives from a shared cache; every life must match. By hand: `same_life.py <preset> 7 <out>` on both trees | under 30 s when cached, else about 4 min |
+| game text | `python3 -B chroma-game/prototype/test/text_check.py` after each edit (new real-world words against main); `test/timeless.py` once on the PR | 1 s; 7 to 9 min once |
+| game content or behaviour | `smoke.py --update` (the PR says why play changed), `test/text_check.py`, `test/timeless.py`, `test/saveload.py`, then Release's `python3 -B chroma-release/v22_checks.py --level fast --only @game --repo <checkout>` | a few minutes |
 | page source (`web/src/`) | rebuild `web/index.html`; with no change meant, its md5 must not move | under 1 s |
 | engine | Engine thread only: `chroma-engine/tools/t_steps.py` (about 20 s), then a Game re-pin with `chroma-game/tools/build.py` and Release's `chroma-release/same-lives.sh` (four parts, about 50 min each) | hours |
 | Library or packs | the owner's build and checks, then the Game re-pin | owner's job |

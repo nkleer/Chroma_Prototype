@@ -1,8 +1,9 @@
 """v22.2.1 row V1 (records/v22.2.1/scope.md): a page-only update leaves lives as they were.
 
 Against a base commit (release/v22.2), the candidate commit changes no file outside the page, the art and the look tools,
-leaves app.js alone (it holds the save format, so old saves load as before), and its build's worker.js and every py/ file
-equal the base build's byte for byte (the game runs those in the page's Python, so the same files play the same lives).
+leaves the app's save part alone (web/src/app/10-save.js, the same lines of app.js before 10-17: it holds the save format,
+so old saves load as before), and its build's worker.js and every py/ file equal the base build's byte for byte (the game
+runs those in the page's Python, so the same files play the same lives).
 Builds both with the one build command (v22_checks.py --only build).
 
     python3 -B chroma-release/check_pageonly.py --repo DIR --base SHA --commit SHA --work DIR
@@ -18,7 +19,8 @@ from paths import path   # noqa: E402
 ALLOWED = ("chroma-game/prototype/web/src/", "chroma-game/prototype/web/index.html", "chroma-game/tools/webdir.py",
            "chroma-art/game/", "chroma-art/kit/", "chroma-look/",
            "chroma-game/prototype/test/drive_")   # the browser drivers (node; the build and its lives never read them)
-KEPT = ("chroma-game/prototype/web/src/app.js",)   # the save format; the old-saves ruling holds while it does not change
+SAVE = "chroma-game/prototype/web/src/app/10-save.js"   # the save format; the old-saves ruling holds while it does not change
+OLD_APP, SAVE_FROM, SAVE_TO = "chroma-game/prototype/web/src/app.js", "/* ---------------- point 9: save", "/* ---------------- point 10"
 ap = argparse.ArgumentParser()
 ap.add_argument("--repo", required=True); ap.add_argument("--base", required=True); ap.add_argument("--commit", required=True)
 ap.add_argument("--work", required=True)
@@ -33,8 +35,16 @@ outside = [f for f in changed if not f.startswith(ALLOWED)]
 lines.append(f"{'ok  ' if not outside else 'MISS'} {len(changed)} files changed, {len(outside)} outside the page, the art, the look tools and the browser drivers"
              + (": " + ", ".join(outside[:20]) if outside else ""))
 ok &= not outside
-kept = [f for f in changed if f in KEPT]
-lines.append(f"{'ok  ' if not kept else 'MISS'} app.js {'changed' if kept else 'unchanged'} (the save format)")
+def save_part(sha):
+    """The save part's text at a commit: app/10-save.js, or the same lines of app.js before the app was split (10-17)."""
+    r = subprocess.run(["git", "-C", a.repo, "show", f"{sha}:{SAVE}"], capture_output=True, text=True)
+    if r.returncode == 0:
+        return r.stdout
+    s = git("show", f"{sha}:{OLD_APP}")
+    i = s.index(SAVE_FROM)
+    return s[i:s.index(SAVE_TO, i)]
+kept = save_part(base) != save_part(cand)
+lines.append(f"{'ok  ' if not kept else 'MISS'} the save part {'changed' if kept else 'unchanged'} (app/10-save.js, the save format)")
 ok &= not kept
 builds = {}
 for tag, sha in (("base", base), ("candidate", cand)):

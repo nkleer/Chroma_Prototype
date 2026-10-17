@@ -4,7 +4,8 @@ engine.run_steps() is engine.run() pausing six times a week for the game. On a f
   1. passing every value back unchanged, run_steps() returns exactly what run() returns (every output, bit for bit);
   2. the pauses come in engine.PAUSES order every week, each with its week number (before age 3 only "week");
   3. every name in engine.STATE is in the state at every pause once a whole week has passed at age 3 or more
-     (engine.STATE_IF: names there only when a switch is on, such as titles, checked when it is);
+     (engine.STATE_IF: names there only when a switch is on, such as titles, checked when it is); the state is one dict
+     for the run, and at each pause every name in it holds the run's own value (the frame's, the same object);
   4. the played-life settings (own_k, drift_k, ev_push_k, era_push_k, steer) do what they say, and at 1 nothing;
   5. the world's reports on a life (wfx, option_causes, a disaster's hazard) fill without changing the lives;
   6. the next update's switches that lives with no player keep off (E.UPD_OFF), switched on: run_steps() still lives
@@ -17,6 +18,7 @@ engine.run_steps() is engine.run() pausing six times a week for the game. On a f
      over lives long enough to hold a job; the sphere events (sph_events, at a test base chance), over phase 2; and the C
      hooks (item 10: c3_inst, c4_nature, c5_faith), likewise.
  10. v22.5's own ways (own_open, F12) on the seed library the clan plays, with the Library's worlds.py OWN: likewise.
+ 11. after every row, no name outside STATE, STATE_IF and STATE_MORE was read at a pause (engine.STATE_MISSED).
  12. the world's burn-in kept (world_link.burned_world): a second run of the same world starts from the kept one and
      lives the same lives as the first, which burned it in.
 
@@ -85,9 +87,16 @@ for label, libk, world, N, Y, seed in RUNS:
     o1 = E.run(**kw)
     g = E.run_steps(**kw)
     order, missing, weeks, full, want, titles = [], {}, 0, 0, [], False
+    S0, other = None, []   # the state is one dict for the run, each name the frame's own value at the pause
     msg = next(g)
     while True:
         kind, t, S, val = msg
+        S0 = S if S0 is None else S0
+        if S is not S0 and len(other) < 3:
+            other.append(f"week {weeks} {kind}: a new state dict")
+        fl_ = g.gi_frame.f_locals
+        for nm in [nm for nm in S.keys() if nm in fl_ and dict.__getitem__(S, nm) is not fl_[nm]][:3 - len(other)]:
+            other.append(f"week {weeks} {kind}: {nm} is not the run's")
         if not want:                                   # a new week starts with its "week" pause
             want = list(E.PAUSES) if kind == "week" and S["age"] >= 3 else ["week"]
         exp = want.pop(0)
@@ -107,12 +116,12 @@ for label, libk, world, N, Y, seed in RUNS:
             break
     d1, d2 = digest(o1), digest(o2)
     diff = sorted(x for x in set(d1) | set(d2) if d1.get(x) != d2.get(x))
-    ok = not diff and not order and not missing and not want and weeks == 52 * Y and full > 0
+    ok = not diff and not order and not missing and not want and weeks == 52 * Y and full > 0 and not other
     bad += not ok
     print(f"{'PASS' if ok else 'FAIL'}  {label}: {N} lives x {Y} years, seed {seed}; {weeks} weeks, "
           f"{full} whole weeks; outputs {len(d1)} keys, {'all equal' if not diff else 'DIFFER: ' + ' '.join(diff)}; "
           f"{len(E.STATE)} STATE names{f' and {len(E.STATE_IF)} title names' if titles else ''} {'all there' if not missing else 'MISSING: ' + str({a: sorted(b) for a, b in missing.items()})}"
-          f"{'' if not order else '; ORDER: ' + order[0]} ({time.process_time() - t0:.0f} s)")
+          f"{'' if not order else '; ORDER: ' + order[0]}{'' if not other else '; STATE: ' + '; '.join(other)} ({time.process_time() - t0:.0f} s)")
 
 # 4. the played-life settings (implementation list stage 1), when the engine has them: each does what it says
 if "own_k" in E.DEFAULT:
@@ -450,6 +459,11 @@ if "own_open" in E.DEFAULT and hasattr(batch, "own_ways") and os.path.isfile(_wp
     bad += bool(fails)
     print(f"{'PASS' if not fails else 'FAIL'}  F12, the clan's own acts always on offer (own_open), switched on: run_steps lives "
           f"as run(); the lives move{'' if not fails else '; ' + '; '.join(fails)} ({time.process_time() - t0:.0f} s)")
+# 11. nothing read at a pause outside the handed-over names (an engine without STATE_MISSED reads its whole frame)
+if hasattr(E, "STATE_MISSED"):
+    bad += bool(E.STATE_MISSED)
+    print(f"{'PASS' if not E.STATE_MISSED else 'FAIL'}  the pause state: every name read at a pause is handed over (STATE, "
+          f"STATE_IF, STATE_MORE){'' if not E.STATE_MISSED else '; NOT: ' + ' '.join(sorted(E.STATE_MISSED))}")
 print("engine", ENG, "engine.py", hashlib.md5(open(os.path.join(ENG, "engine.py"), "rb").read()).hexdigest()[:12])
 print("ALL PASS" if not bad else f"{bad} FAILED")
 sys.exit(1 if bad else 0)
