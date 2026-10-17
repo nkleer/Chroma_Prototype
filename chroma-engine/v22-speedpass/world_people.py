@@ -4649,13 +4649,12 @@ class People:
         self.bt_cnt = dict.fromkeys(("fair", "unfair", "scandal", "leak", "cover-up", "good", "bad", "work"), 0)   # read only
 
     def bt_jump(self, n, j, d, why=None):
-        """body_trust: lives n (an index or an index array) jump by d in sphere j; a fall weighs bad_weight times (Slovic
-        1993), within floor and ceiling. A life whose trust has not started (under 15) or that has ended does not move."""
+        """body_trust: lives n (an index or an index array) jump by d in sphere j, within floor and ceiling (the table's
+        falls already weigh about 1.5 times its rises, Slovic 1993). A life whose trust has not started (under 15) or that has ended does not move."""
         J = self.bt["jumps"]; n = np.atleast_1d(np.asarray(n, np.int64))
         n = n[~np.isnan(self.btrust[n, j]) & ~self.dead[n]]
         if not len(n):
             return
-        d = d * J["bad_weight"] if d < 0 else d
         self.btrust[n, j] = _uclip(self.btrust[n, j] + d, J["floor"], J["ceiling"])
         if why is not None:
             self.bt_cnt[why] += len(n)
