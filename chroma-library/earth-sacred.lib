@@ -49,7 +49,7 @@ scene G: The people who trust {N} are the ones {N} grew up among, and will grow 
 - U>B | work out what the money would tie you to, and stay free by refusing | line: hold | v: self-direction | mark: turned down a chance | act: work out what the money would tie them to, and stay free by refusing | chance: 55
 - B>R | drive a hard bargain, then spend the money on a fresh start far from here | line: cross | v: power, stimulation | chance: 75
 - R>G | turn it down loudly, in front of everyone, and stand with your own people | line: hold | v: tradition, benevolence | mark: made an enemy | act: turn it down loudly, in front of everyone, and stand with their own people | chance: 55
-- G>W | take it quietly, as people here do in hard years, and share it round the family | line: cross | v: tradition, benevolence | chance: 80
+- G>W | take it quietly, as people here do in hard years, and share it round the family | line: cross | v: tradition, benevolence | chance: 80 | back: broke your word
 works: The choice settles, and in time the people around {N} say they know exactly where they stand with {N}.
 works: One of the old hands nods at {N} in the street, and says nothing, which says enough.
 fails: It costs more than {N} expected, and a door {N} had counted on quietly closes.
@@ -119,7 +119,7 @@ scene B: This is the step up {N} has worked for, and nobody else will be handing
 scene R: The thought of being stuck where {N} is for another ten years makes {Ns} chest tight.
 scene G: The people who heard {Ns} promise live on the same streets, and will be there long after any post is gone.
 - W | decline: a post that starts with a broken promise cannot be held fairly | line: hold | v: conformity, universalism | mark: kept your word | chance: 60
-- U | accept: by your reckoning the post does more good taken than left to a worse hand | line: cross | v: achievement, universalism | act: accept: by their reckoning the post does more good taken than left to a worse hand | chance: 85
+- U | accept: by your reckoning the post does more good taken than left to a worse hand | line: cross | v: achievement, universalism | act: accept: by their reckoning the post does more good taken than left to a worse hand | chance: 85 | back: broke your word
 - B | refuse: nobody buys your word, not even with the post you wanted | line: hold | v: self-direction, power | mark: turned down a chance | act: refuse: nobody buys their word, not even with the post they wanted | chance: 65
 - R | take it, for a fresh start and a life that is no longer stuck | line: cross | v: stimulation, self-direction | chance: 85
 - G | turn it down quietly, and keep to the slow, honest way up | line: hold | v: tradition, conformity | chance: 60
@@ -200,7 +200,7 @@ scene G: Here people have always waited their turn together, and they remember w
 - U | take it: the sums say waiting your turn costs far more than it is worth | line: cross | v: achievement, security | act: take it: the sums say waiting their turn costs far more than it is worth | chance: 85
 - B | refuse: you will not owe anyone for what you can win yourself | line: hold | v: self-direction, power | act: refuse: they will not owe anyone for what they can win themselves | chance: 65
 - R | take it, for someone you love who cannot wait any longer | line: cross | v: benevolence | act: take it, for someone they love who cannot wait any longer | chance: 85
-- G | let it pass: things come in their own time, and you can wait | line: hold | v: tradition, conformity | act: let it pass: things come in their own time, and they can wait | chance: 60
+- G | let it pass: things come in their own time, and you can wait | line: hold | v: tradition, conformity | act: let it pass: things come in their own time, and they can wait | chance: 60 | back: turned down a chance
 - W>U | take it as the one fair share left to you, and record it honestly | line: cross | v: security, universalism | act: take it as the one fair share left to them, and record it honestly | chance: 80
 - U>B | work out what you would owe afterwards, and refuse to be in anyone's pocket | line: hold | v: self-direction | mark: turned down a chance | act: work out what they would owe afterwards, and refuse to be in anyone's pocket | chance: 55
 - B>R | take it, haggle it down, and use the head start for a new life | line: cross | v: power, stimulation | chance: 75
@@ -361,7 +361,7 @@ scene B: This is the step up {N} has wanted, and the question is whether {N} cli
 scene R: {N} wants it so badly it aches, and the price makes {N} want to shout.
 scene G: The post would keep the household steady for years, and the old saying at home was that a bent root grows a bent tree.
 - W | decline the post and report what you know to the people meant to hear it | line: hold | v: conformity, universalism | mark: turned down a chance | act: decline the post and report what they know to the people meant to hear it | chance: 60
-- U | say no, and keep your own careful notes of what you know and when | line: hold | v: self-direction, universalism | act: say no, and keep their own careful notes of what they know and when | chance: 55
+- U | say no, and keep your own careful notes of what you know and when | line: hold | v: self-direction, universalism | act: say no, and keep their own careful notes of what they know and when | chance: 55 | back: turned down a chance
 - B | refuse: you will rise on your own record, not as their creature | line: hold | v: self-direction, achievement | act: refuse, because they will rise on their own record, not as anyone's creature | chance: 65
 - R | take the post: it is the life you want, and you will not wait longer | line: cross | v: stimulation, achievement | act: take the post, because it is the life they want and they will not wait longer | chance: 85
 - G | let the post go, and keep doing the work the way you were taught | line: hold | v: tradition, conformity | act: let the post go, and keep doing the work the way they were taught | chance: 60
@@ -606,7 +606,7 @@ scene G: The people {N} grew up among kept their own counsel and their heads up,
 - U | take the post, since every honest reckoning says it is worth the strings | line: cross | v: achievement, security | chance: 80
 - B | refuse: you will rise on your own terms or not at all | line: hold | v: self-direction, power | mark: turned down a chance | act: refuse: they will rise on their own terms or not at all | chance: 55
 - R | say yes for the fresh start, and throw yourself into the new work | line: cross | v: stimulation, achievement | act: say yes for the fresh start, and throw themselves into the new work | chance: 80
-- G | decline politely, and stay where your roots are | line: hold | v: tradition, security | act: decline politely, and stay where their roots are | chance: 60
+- G | decline politely, and stay where your roots are | line: hold | v: tradition, security | act: decline politely, and stay where their roots are | chance: 60 | back: turned down a chance
 - W>R | accept it as your duty to those at home who need the better pay | line: cross | v: benevolence, conformity | act: accept it as their duty to those at home who need the better pay | chance: 80
 - U>G | keep learning your trade where you are, among people you know | line: hold | v: self-direction, tradition | act: keep learning their trade where they are, among people they know | chance: 60
 - B>W | take the post, and use its power to look after the people under you | line: cross | v: power, benevolence | act: take the post, and use its power to look after the people under them | chance: 85
@@ -684,7 +684,7 @@ scene G: {N} thinks of the people who kept their own counsel before, and what th
 - U | take it, since a clear look shows the gain outweighs the debt | line: cross | v: achievement, security | chance: 80
 - B | refuse: you would rather lose than be in anyone's pocket | line: hold | v: self-direction, power | act: refuse: they would rather lose than be in anyone's pocket | chance: 55
 - R | say yes for the sake of someone you love, and carry the debt | line: cross | v: benevolence, stimulation | act: say yes for the sake of someone they love, and carry the debt | chance: 80
-- G | let it pass with a polite word, and go on as your elders did | line: hold | v: tradition, conformity | act: let it pass with a polite word, and go on as their elders did | chance: 60
+- G | let it pass with a polite word, and go on as your elders did | line: hold | v: tradition, conformity | act: let it pass with a polite word, and go on as their elders did | chance: 60 | back: turned down a chance
 - W>U | accept, but set down openly what is owed, so the terms are clear to all | line: cross | v: security, universalism | chance: 80
 - U>B | find your own way through the rules, so you owe no one | line: hold | v: self-direction, achievement | mark: turned down a chance | act: find their own way through the rules, so they owe no one | chance: 60
 - B>R | it is your say to trade: take the deal and enjoy the freedom it buys | line: cross | v: power, hedonism | act: decide it is their say to trade, take the deal and enjoy the freedom it buys | chance: 85
@@ -1170,7 +1170,7 @@ scene G: The place, its people and its ways were here before {N} and should be h
 - R | take it, for the people you love, and do not look back | line: cross | v: benevolence, stimulation | act: take it, for the people they love, and do not look back | chance: 85
 - G | keep faith with the place and its people, as your elders did | line: hold | v: tradition | act: keep faith with the place and its people, as their elders did | chance: 65
 - W>U | put it to the family fairly, and accept if the reasons hold up | line: cross | v: conformity, achievement | chance: 80
-- U>B | see what the favour really binds you to, and keep your hands free | line: hold | v: self-direction, power | act: see what the favour really binds them to, and keep their hands free | chance: 60
+- U>B | see what the favour really binds you to, and keep your hands free | line: hold | v: self-direction, power | act: see what the favour really binds them to, and keep their hands free | chance: 60 | back: turned down a chance
 - B>R | take it, and use what you gain to live freely with the ones you love | line: cross | v: power, hedonism | act: take it, and use what they gain to live freely with the ones they love | chance: 85
 - R>G | speak up for home in front of everyone, and refuse out loud | line: hold | v: stimulation, tradition | chance: 55
 - G>W | accept quietly, as people here have long done, to keep the family fed | line: cross | v: tradition, security | chance: 75
@@ -1624,7 +1624,7 @@ scene U: {N} wants to understand why {N} gave in, so that it never happens the s
 scene B: It was {Ns} life and {N} let someone else hold the wheel. That still rankles.
 scene R: {N} misses the person {N} was before, the one who did things just because they felt right.
 scene G: Life has settled into a shape, and {N} wonders whether to make peace with it or reach for what was lost.
-- W | leave it be: you gave your word to the arrangement, and others rely on it | heal: not_yet | v: conformity, security | act: leave it be, since they gave their word to the arrangement and others rely on it | chance: 80
+- W | leave it be: you gave your word to the arrangement, and others rely on it | heal: not_yet | v: conformity, security | act: leave it be, since they gave their word to the arrangement and others rely on it | chance: 80 | back: kept your word
 - U | draw up a plan to win back your own say, piece by piece, and begin it | heal: amends | v: self-direction, achievement | act: draw up a plan to win back their own say, piece by piece, and begin it | chance: 70
 - B | look squarely at what you traded away, and decide it will not happen twice | heal: reflect | v: self-direction | act: look squarely at what they traded away, and decide it will not happen twice | chance: 65
 - R | not today: life is good enough now, and the heart is tired of fighting | heal: not_yet | v: hedonism | act: let it be for today, since life is good enough now | chance: 80

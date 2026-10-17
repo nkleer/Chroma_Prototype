@@ -338,7 +338,7 @@ scene R: {N} wants to see this one pass more than any pupil this year.
 scene G: The pupil's family run the corner shop where {Ns} family have bought bread for years.
 - W | teach the six weeks for free, and tell no one | v: benevolence, universalism | sphere: learn.W | chance: 75
 - U | write the pupil a six-week plan they can follow alone | v: achievement, benevolence | sphere: learn.U | chance: 75
-- B | give the slot to a paying family, and wish the pupil luck | v: achievement, security | sphere: learn.B | chance: 75
+- B | give the slot to a paying family, and wish the pupil luck | v: achievement, security | sphere: learn.B | chance: 75 | back: refused someone in need
 - R | turn the last weeks into fast, noisy revision in the park | v: stimulation, benevolence | sphere: learn.R | chance: 75
 - G | take payment in bread and the odd favour from the shop | v: tradition, benevolence | sphere: learn.G | chance: 75
 - W>G | ask the school to put the pupil in its free revision club, and walk them there | v: benevolence, conformity | sphere: learn.W | chance: 65

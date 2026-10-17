@@ -94,15 +94,15 @@ scene U: {N} has been studying {rival} for months: the emails sent at seven in t
 scene B: There is one promotion this spring, and only {N} and {rival} are in the running.
 scene R: {rival} smirks across the meeting table, and {N} feels the heat rise to their face.
 scene G: Two people with the same gifts in the same small team, {N} thinks; one of them was always going to have to grow somewhere else.
-- W | report your rival anonymously for every rule they bend | v: conformity | closed: approval: an anonymous report; backfire: traced back to you, and trust lost | chance: 35
+- W | report your rival anonymously for every rule they bend | v: conformity | closed: approval: an anonymous report; backfire: traced back to you, and trust lost | chance: 35 | back: made an enemy
 - U | study what your rival does well, and learn to do it better | v: achievement | mark: learned a skill | chance: 75
 - B | ask for the hardest project nobody wants, and make it a win | v: achievement, power | chance: 50
 - R | tell your rival to their face that you see exactly what they are doing | v: none clear (honesty of feeling) | chance: 58
 - G | ask to move to a team where your gifts fit better | v: security, self-direction | door | chance: 65
 - W>U | ask for a formal mentor, so you grow on merit and not on politics | door | v: achievement, self-direction | mark: learned a skill | chance: 75
-- U>B | read your rival's emails whenever they leave their screen unlocked | habit | v: power | closed: approval: snooping on a colleague's account; backfire: caught, and a disciplinary hearing | tech: computer | chance: 45
+- U>B | read your rival's emails whenever they leave their screen unlocked | habit | v: power | closed: approval: snooping on a colleague's account; backfire: caught, and a disciplinary hearing | tech: computer | chance: 45 | back: hid a wrong
 - B>R | line up a better offer elsewhere and leave with a flourish | v: self-direction, stimulation | door | chance: 68
-- R>G | challenge your rival to a game of squash and let it settle there | v: stimulation, benevolence | body: light | chance: 68
+- R>G | challenge your rival to a game of squash and let it settle there | v: stimulation, benevolence | body: light | chance: 68 | back: made a friend
 - G>W | keep doing your share without complaint, so the team holds together | v: benevolence, conformity | chance: 55
 works not B>R: By spring {N} is the one people come to, and {rival} knows it.
 works: The tension eases, and the work starts going to whoever does it best.
@@ -762,7 +762,7 @@ scene U: {N} cannot stop watching {child}: the grip of the tiny fingers, the eye
 scene B: {N} looks at {child} and thinks: this one will have every chance {N} never had.
 scene R: {N} laughs and cries at once, and phones everyone at five in the morning.
 scene G: {child} has the family nose. Somewhere in that small face are all the grandparents, back and back.
-- W | vow to be the parent this child can always count on | v: benevolence | tags: commit:children | chance: 68
+- W | vow to be the parent this child can always count on | v: benevolence | tags: commit:children | chance: 68 | back: kept your word
 - U | read everything about the first months, and plan the nights in shifts | v: security, benevolence | tags: commit:children | chance: 75
 - B | start saving for the best schools in the very first week | v: achievement | habit | tags: commit:children | chance: 85
 - R | throw a huge party to welcome the baby, sleep or no sleep | v: hedonism, benevolence | tags: commit:children | chance: 63
@@ -848,7 +848,7 @@ scene G: Outside the ward window a tree is coming into leaf. {N} watches it day 
 - B | hire a lawyer and sue for every penny you can get | v: power (resources) | mark: made an enemy | chance: 62
 - R | laugh it off, and turn the ward into a party for every visitor | v: hedonism, stimulation | chance: 68
 - G | rest, and trust your body to heal in its own time | v: security | chance: 60
-- WUG | join a recovery group, keep a careful log, and walk a little further each day | v: security, achievement | habit | chance: 75
+- WUG | join a recovery group, keep a careful log, and walk a little further each day | v: security, achievement | habit | chance: 75 | back: made a friend
 - WUB | plan your recovery like a project, with targets, aids and deadlines | v: achievement | chance: 72
 - WBR | work from the hospital bed and refuse to lose your place | identity | v: achievement, power | closed: approval: against the doctors' orders; backfire: a relapse | tech: remote work | chance: 48
 - URG | set one fierce goal, a hill to climb by next year, and train for it | v: achievement, stimulation | door | body: heavy | chance: 65
@@ -890,7 +890,7 @@ scene G: The garden has an old apple tree, and {N} can already imagine children 
 - W>G | buy close to your family, so you can all look after one another | v: benevolence, tradition | chance: 68
 - U>W | choose the safest, best-run street in town, after months of research | v: security | chance: 78
 - B>U | buy a wreck cheap, and learn to rebuild it with your own hands | v: self-direction, achievement | mark: learned a skill | chance: 65
-- R>B | bid far over the asking price on impulse, sure the house will pay off | binds | v: power (resources) | chance: 60
+- R>B | bid far over the asking price on impulse, sure the house will pay off | binds | v: power (resources) | chance: 60 | back: took a wild risk
 - G>R | buy a cheap cottage far out in the country, away from everything | v: self-direction, universalism (nature) | door | mark: moved away | chance: 65
 works: The keys turn, the boxes are unpacked, and the place starts to feel like {Ns}.
 works: The first year in the house goes well, and the mortgage feels like an anchor rather than a weight.

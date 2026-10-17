@@ -697,7 +697,7 @@ scene G: An old tree gives shade whether it means to or not. {N} has grown into 
 - B | let it be known that favours done are favours owed | v: power | chance: 70
 - R | answer every call at any hour, whatever it costs | v: benevolence | chance: 75
 - G | let go of it gently after all these years, and live quietly | identity | v: tradition (acceptance), hedonism | drops: {title} | chance: 85
-- W>B | set fixed hours for callers, and keep the rest of the week for yourself | v: security, self-direction | act: set fixed hours for callers, and keep the rest of the week for themselves | chance: 70
+- W>B | set fixed hours for callers, and keep the rest of the week for yourself | v: security, self-direction | act: set fixed hours for callers, and keep the rest of the week for themselves | chance: 70 | back: refused someone in need
 - U>R | write a book from what people have told you over the years, names changed | v: achievement, self-direction | closed: approval: using confidences; backfire: someone recognises their own story | act: write a book from what people have told them over the years, names changed | mark: broke your word | chance: 60
 - B>G | call in the favours you are owed to get the group a home of its own | v: power, tradition | chance: 60
 - R>W | tell the leaders to their faces that the ones who need help are being failed | v: universalism, benevolence | mark: defied an authority | chance: 55

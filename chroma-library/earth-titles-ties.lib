@@ -205,14 +205,14 @@ scene R: {N} wants to say yes before {child} has finished the sentence. What is 
 scene G: {Ns} own parents helped with the first home, long ago. It is how it is done in this family, one generation lifting the next.
 - W | lend it only if the other children can have the same | v: universalism, conformity | closed: means: the savings will not stretch to all of them; backfire: the pension pot runs low | chance: 45
 - U | go through their budget with them before deciding anything | v: security, self-direction | chance: 75
-- B | say no, plainly: the savings are for your own old age | v: security, power | chance: 85
-- R | say yes on the spot, and send the money that evening | binds | v: benevolence | tags: pay:money-.1 | chance: 78
+- B | say no, plainly: the savings are for your own old age | v: security, power | chance: 85 | back: refused someone in need
+- R | say yes on the spot, and send the money that evening | binds | v: benevolence | tags: pay:money-.1 | chance: 78 | back: helped someone in need
 - G | give it as an early inheritance, the way your own parents did | v: tradition, benevolence | tags: pay:money-.1 | chance: 70
 - W>B | lend it with a written, witnessed agreement, so nobody can argue later | v: security, power | chance: 90
 - U>R | find them a cheaper flat and a better mortgage, so they can move this year | v: self-direction | chance: 25
 - B>G | buy the flat yourself, and rent it to them cheaply | binds | v: security, benevolence | tags: pay:money-.15 | chance: 45
 - R>W | call a family meeting and say, plainly, how the money should be shared | v: universalism | chance: 40
-- G>U | tell them how you saved for your first home, and let them think | v: tradition, self-direction | act: tell their grown child how the first family home was saved for, and let them think | chance: 55
+- G>U | tell them how you saved for your first home, and let them think | v: tradition, self-direction | act: tell their grown child how the first family home was saved for, and let them think | chance: 55 | back: refused someone in need
 works: It is settled without a row, and the family is easy about it when the holidays come.
 works not B: {child} gets the keys in the spring, and the money never sours a thing between them.
 fails: The money sits between {N} and {child} like a stone for months.
@@ -641,7 +641,7 @@ scene R: It is one phone call. {N} can hear the sorrow in his voice, and every i
 scene G: Families are meant to reach each other, walls or no walls. {N} feels the pull of a brother on the far side of them.
 - W | say no kindly, and tell the scheme's coordinator he asked | v: conformity, security | mark: refused someone in need | chance: 85
 - U | help him put it in a letter, through the proper post | v: benevolence, conformity | mark: helped someone in need | chance: 75
-- B | say no, and explain that refusing is what keeps the visits going | v: security, self-direction | chance: 85
+- B | say no, and explain that refusing is what keeps the visits going | v: security, self-direction | chance: 85 | back: refused someone in need
 - R | make the call that night, and say nothing to anyone | v: benevolence | mark: hid a wrong | self_control: - | closed: approval: breaking the visiting scheme's rules; backfire: the scheme finds out and ends the visits | chance: 75
 - G | tell him families find their own way back, and leave it with him | v: tradition, benevolence | chance: 45
 - W>G | ask the chaplain to reach the brother properly, through the prison | v: benevolence, conformity | chance: 68
@@ -763,10 +763,10 @@ scene G: Bodies fail, as they do; {N} has always known it, the way one knows win
 - U | learn everything about the illness and the help on offer, before deciding who does what | v: self-direction, security | mark: learned a skill | chance: 78
 - B | take on the care on clear terms: they decide what they can, you keep working | v: self-direction, security | title: caregiving partner | act: take on the care on clear terms: the partner decides all they still can, and the carer keeps working | chance: 72
 - R | take them away now on the trip you always meant to take | v: stimulation, hedonism | mark: took a wild risk | closed: approval: the doctors advise against travel; backfire: a crisis far from home | tags: pay:money-.08 | chance: 62
-- G | care for them at home, in your own rhythm, for as long as it takes | habit | binds | v: benevolence, tradition | title: caregiving partner | grants: home nursing | chance: 68
+- G | care for them at home, in your own rhythm, for as long as it takes | habit | binds | v: benevolence, tradition | title: caregiving partner | grants: home nursing | chance: 68 | back: helped someone in need
 - BG | accept the long road, and quietly set money aside for the hard years | v: security | self_control: + | chance: 85
 - UB | find the best specialist in the country, and pull every string to get them seen | v: power, security | chance: 50
-- UR | push for a second opinion at once, and chase every result yourself | v: self-direction, stimulation | chance: 75
+- UR | push for a second opinion at once, and chase every result yourself | v: self-direction, stimulation | chance: 75 | back: defied an authority
 - WG | weave the care into your shared life, with family and friends on a rota | v: benevolence, tradition | title: caregiving partner | chance: 60
 - WR | take up the care, and keep every birthday, outing and visit going, illness or not | habit | v: benevolence, tradition | self_control: + | title: caregiving partner | chance: 78
 works: {partner} comes through the worst of it, and the two of them find a new way of living with what remains.

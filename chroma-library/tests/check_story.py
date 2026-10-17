@@ -169,7 +169,7 @@ def rule(path):
     if top == "THREAD" and k in ("seed", "seed_alone"):   # Picks come back (10-17): the opener of a moment a pick brought back
         return (("N", "Ns", "who", "years"), ("N", "who", "years") if k == "seed" else ("N", "years"), "sentence", "narration", 25)
     if top == "THREAD_HOVER" and k == "seed":
-        return (("Ns", "age", "act"), ("age", "act"), "sentence", "narration", 25)
+        return (("N", "Ns", "age", "act"), ("N", "age"), "sentence", "narration", 25)
     if top == "THREAD":
         req = {"mark": ("N",), "title": ("title",), "commitment": ("who",) if path[-1] == "partner" else (),
                "plan": ("N",), "dream": ("N",), "road": ("N", "age"), "person": ("who",)}[k]

@@ -118,7 +118,7 @@ scene G: {N} learned this work from family, the way it was always done there, an
 - B | keep your way, and let the numbers show it is the better one | odd: hold | v: achievement, power | act: keep their own way, and let the numbers show it is the better one | chance: 62
 - R | tell them where to put the joke, and walk out to find work elsewhere | odd: leave | v: self-direction, stimulation | mark: made an enemy | chance: 80
 - G | take on the ways of the house, as a new hand always has in any trade | odd: blend | v: tradition, conformity | chance: 72
-- W>R | follow the house rules to the letter, and let the joke die so mornings feel easy | odd: blend | v: conformity, hedonism | chance: 66
+- W>R | follow the house rules to the letter, and let the joke die so mornings feel easy | odd: blend | v: conformity, hedonism | chance: 66 | back: gave in to pressure
 - U>G | keep your way, and show the old hands it grew from the same old craft | odd: hold | v: tradition, self-direction | act: keep their own way, and show the old hands it grew from the same old craft | chance: 58
 - B>W | bargain a good reference out of the boss, then join a place that treats newcomers fairly | odd: leave | v: power, universalism | chance: 78
 - R>U | throw yourself into the house way for a month, to learn it from the inside | odd: blend | v: stimulation, self-direction | act: throw themselves into the house way for a month, to learn it from the inside | chance: 60
@@ -150,7 +150,7 @@ scene U: There is sense in it: earn standing first, then change things. But {N} 
 scene B: A year of fitting in for a lifetime of say: as deals go, {N} can see its worth, and its price.
 scene R: {N} feels the warmth of the advice and the cage in it at once. Being someone else for two years sounds very long.
 scene G: The old hand is right that every place has its ways. {N} has ways too, and they came from somewhere.
-- W | thank the old hand, and do it the house way, as you would ask of anyone | odd: blend | v: conformity, benevolence | act: thank the old hand, and do it the house way, as they would ask of anyone | chance: 78
+- W | thank the old hand, and do it the house way, as you would ask of anyone | odd: blend | v: conformity, benevolence | act: thank the old hand, and do it the house way, as they would ask of anyone | chance: 78 | back: gave in to pressure
 - U | keep your own way, and ask the old hand what exactly rubs, and why | odd: hold | v: self-direction | act: keep their own way, and ask the old hand what exactly rubs, and why | chance: 64
 - B | take the hint as a sign, and find a workplace that pays for how you work | odd: leave | v: achievement, power | act: take the hint as a sign, and find a workplace that pays for how they work | chance: 76
 - R | hug the old hand, and decide on the spot to try it their way | odd: blend | v: benevolence, stimulation | mark: made a friend | chance: 70
@@ -200,7 +200,7 @@ scene R: The word stings. {N} came because something here moved them, not to be 
 scene G: {N} misses the place of worship back home, where every gesture was simply what everyone did.
 - W | keep to the practice you once promised to keep, and tell her why | odd: hold | v: tradition, conformity | mark: kept your word | act: keep to the practice they once promised to keep, and tell her why | chance: 60
 - U | think it over for a month, then move to a congregation nearer your own understanding | odd: leave | v: self-direction | act: think it over for a month, then move to a congregation nearer their own understanding | chance: 75
-- B | follow the customs here; the friendships and the good word of the regulars are worth it | odd: blend | v: security, achievement | chance: 80
+- B | follow the customs here; the friendships and the good word of the regulars are worth it | odd: blend | v: security, achievement | chance: 80 | back: gave in to pressure
 - R | keep praying the way that moves you, whoever is watching | odd: hold | v: self-direction, stimulation | act: keep praying the way that moves them, whoever is watching | chance: 55
 - G | go back to worshipping with your own people, where the ways are yours | odd: leave | v: tradition, security | act: go back to worshipping with their own people, where the ways are theirs | chance: 72
 - W>U | give the keeper fair notice, and seek a congregation where questions are welcome | odd: leave | v: universalism, self-direction | chance: 80
@@ -239,7 +239,7 @@ scene G: Every house of worship keeps its own old ways, and {N} feels the pull o
 - U | ask {elder} to teach you the custom and its reasons, then do it their way | odd: blend | v: self-direction, conformity | act: ask {elder} to teach them the custom and its reasons, then do it that way | chance: 70
 - B | laugh it off in front of everyone, and keep doing it your own way | odd: hold | v: power, self-direction | act: laugh it off in front of everyone, and keep doing it their own way | chance: 58
 - R | walk out of the hall then and there, and do not come back | odd: leave | v: self-direction, stimulation | chance: 80
-- G | accept that every house has its ways, and quietly take on theirs | odd: blend | v: tradition, conformity | chance: 75
+- G | accept that every house has its ways, and quietly take on theirs | odd: blend | v: tradition, conformity | chance: 75 | back: gave in to pressure
 - W>B | learn the order of the day by heart, and ask for a bigger part next year | odd: blend | v: achievement, conformity | chance: 62
 - U>R | work out a version of your own way that fits inside the custom, and keep it | odd: hold | v: self-direction, stimulation | act: work out a version of their own way that fits inside the custom, and keep it | chance: 70
 - B>G | use the contacts made here to find a congregation of people like you | odd: leave | v: security, tradition | act: use the contacts made here to find a congregation of people like them | chance: 82
@@ -274,7 +274,7 @@ scene U: {N} knows the method works, at least for {N}. The question is whether i
 scene B: The marks are what count. If their way scores better, {N} will take it; if not, let them laugh.
 scene R: The laugh burns. Half of {N} wants to stand up and say something sharp.
 scene G: {N} learned this way from the people at home, and it never seemed strange there.
-- W | do the work the way the class is taught, as the course asks | odd: blend | v: conformity, security | chance: 82
+- W | do the work the way the class is taught, as the course asks | odd: blend | v: conformity, security | chance: 82 | back: gave in to pressure
 - U | keep your own method, and let the results speak for it | odd: hold | v: self-direction, achievement | act: keep their own method, and let the results speak for it | chance: 68
 - B | drop the class for one that suits you better and wastes less time | odd: leave | v: achievement, self-direction | act: drop the class for one that suits them better and wastes less time | chance: 74
 - R | laugh along with them, and throw yourself into doing it their way | odd: blend | v: hedonism, stimulation | mark: made a friend | act: laugh along with them, and throw themselves into doing it the class's way | chance: 62
@@ -282,7 +282,7 @@ scene G: {N} learned this way from the people at home, and it never seemed stran
 - W>R | ask the teacher, fairly and openly, to let each student work in their own way | odd: hold | v: universalism, self-direction | chance: 58
 - U>G | plan a move to a class nearer home, among people who learn as you do | odd: leave | v: tradition, security | act: plan a move to a class nearer home, among people who learn as they do | chance: 72
 - B>W | take up the class's way, and become the one who runs its study group | odd: blend | v: achievement, benevolence | chance: 66
-- R>U | answer back on the spot, and show the room why the method works | odd: hold | v: self-direction, stimulation | chance: 78
+- R>U | answer back on the spot, and show the room why the method works | odd: hold | v: self-direction, stimulation | chance: 78 | back: defied an authority
 - G>B | ask the family to help find a better course, and leave for it | odd: leave | v: achievement, tradition | chance: 76
 works not B U>G G>B: Before the year is out, two of the others ask {N} to show them how {N} goes about it.
 works: The one who leaned over at the break becomes a friend, and later admits to feeling out of place at {place} too.
@@ -313,7 +313,7 @@ scene R: Being told to go along by people {N} barely knows makes {N} want to dig
 scene G: {N} misses learning among people who already knew {N}, where none of this had to be said.
 - W | do your share to the standard you believe is right, and tell the group plainly | odd: hold | v: universalism, achievement | act: do their share to the standard they believe is right, and tell the group plainly | chance: 66
 - U | weigh the course honestly, and leave it for one taught the way you learn | odd: leave | v: self-direction | act: weigh the course honestly, and leave it for one taught the way they learn | chance: 70
-- B | go along with the group's way; a good mark and good contacts beat being right | odd: blend | v: achievement, security | chance: 76
+- B | go along with the group's way; a good mark and good contacts beat being right | odd: blend | v: achievement, security | chance: 76 | back: gave in to pressure
 - R | refuse, there and then, to work in a way that feels wrong | odd: hold | v: self-direction, stimulation | chance: 60
 - G | leave the course, and go back to learning among your own people | odd: leave | v: tradition, security | act: leave the course, and go back to learning among their own people | chance: 78
 - W>G | finish your share as promised, then leave the course for one among your own people | odd: leave | v: tradition, conformity | mark: kept your word | act: finish their share as promised, then leave the course for one among their own people | chance: 74
@@ -362,7 +362,7 @@ scene G: This place has its own long ways, and {N} knows what it is to belong; b
 - U | learn why they do things as they do, and take up what holds up | odd: blend | v: self-direction, conformity | chance: 80
 - B | keep your own ways, since they are what people at {place} come to you for | odd: hold | v: power, achievement | act: keep their own ways, since they are what people at {place} come to them for | chance: 60
 - R | walk out of {place} for good, sooner than shrink to fit | odd: leave | v: self-direction, stimulation | chance: 72
-- G | settle into the ways of {place}, whose people have become your people too | odd: blend | v: tradition, conformity | act: settle into the ways of {place}, whose people have become their people too | chance: 78
+- G | settle into the ways of {place}, whose people have become your people too | odd: blend | v: tradition, conformity | act: settle into the ways of {place}, whose people have become their people too | chance: 78 | back: gave in to pressure
 - W>U | go by the rules of {place} for a full season, to learn what they are for | odd: blend | v: conformity, self-direction | chance: 65
 - U>B | keep your own ways, and show the regulars why they work better for you | odd: hold | v: achievement, self-direction | act: keep their own ways, and show the regulars why they work better | chance: 60
 - B>R | leave {place} and start a gathering of your own with the friends who follow | odd: leave | v: self-direction, power | act: leave {place} and start a gathering of their own with the friends who follow | chance: 80
@@ -395,15 +395,15 @@ scene U: {N} notices what the joke is really about: not {N}, but the place decid
 scene B: Being the punchline costs standing, however fondly it is told. {N} counts what it is doing to {Ns} name.
 scene R: The laughter is warm and it still stings. {N} is half ready to laugh louder, half ready to walk out.
 scene G: Every place has its stories, and {N} is in this one for good now. {N} is not sure whose story it is.
-- W | drop the habit the joke is about, for the sake of peace at {place} | odd: blend | v: conformity, benevolence | chance: 70
-- U | keep your ways, and explain to the newcomers why you do it like that | odd: hold | v: self-direction | act: keep their ways, and explain to the newcomers why they do it like that | chance: 62
+- W | drop the habit the joke is about, for the sake of peace at {place} | odd: blend | v: conformity, benevolence | chance: 70 | back: gave in to pressure
+- U | keep your ways, and explain to the newcomers why you do it like that | odd: hold | v: self-direction | act: keep their ways, and explain to the newcomers why they do it like that | chance: 62 | back: made a friend
 - B | stop going to {place}, and spend your evenings where you are taken seriously | odd: leave | v: power, self-direction | act: stop going to {place}, and spend their evenings where they are taken seriously | chance: 76
 - R | laugh along, join in, and let yourself become one of the crowd | odd: blend | v: hedonism, benevolence | act: laugh along, join in, and become one of the crowd | chance: 66
 - G | keep doing things the way your own people taught you, without a word | odd: hold | v: tradition | act: keep doing things the way their own people taught them, without a word | chance: 58
 - W>B | ask the keeper of {place} for a fair rule: no more jokes at your expense | odd: hold | v: security, power | act: ask the keeper of {place} for a fair rule: no more jokes at their expense | chance: 70
 - U>R | look into other places like {place}, find one that suits you, and go | odd: leave | v: self-direction, stimulation | act: look into other places like {place}, find one that suits them, and go | chance: 78
-- B>G | give up the odd habit in return for a proper seat among the regulars | odd: blend | v: security, conformity | chance: 64
-- R>W | stand up there and then and say the joke is unfair to anyone different | odd: hold | v: universalism, self-direction | chance: 74
+- B>G | give up the odd habit in return for a proper seat among the regulars | odd: blend | v: security, conformity | chance: 64 | back: gave in to pressure
+- R>W | stand up there and then and say the joke is unfair to anyone different | odd: hold | v: universalism, self-direction | chance: 74 | back: made an enemy
 - G>U | go back to your own people, and take time to understand why {place} never fit | odd: leave | v: tradition, self-direction | act: go back to their own people, and take time to understand why {place} never fit | chance: 82
 works not B U>R G>U: The newcomers end up asking {N} about the habit, and within a year a few of them do it too.
 works: The regular who laughed loudest that night comes to {N} later with a worry they could not share with anyone else at {place}.
@@ -436,14 +436,14 @@ scene R: {N} has never liked being told how to do things, and does not much like
 scene G: The old ways of the place have kept it going a long time. {N} has old ways too, brought from home.
 - W | keep your ways, since you gave your customers your word on them | odd: hold | v: benevolence | mark: kept your word | act: keep their ways, since they gave their customers their word on them | chance: 64
 - U | weigh the figures, then move your trade to somewhere it suits better | odd: leave | v: achievement, self-direction | act: weigh the figures, then move their trade to somewhere it suits better | chance: 80
-- B | fall in line, because the goodwill of the other traders is worth more than your edge | odd: blend | v: security, achievement | act: fall in line, because the goodwill of the other traders is worth more than their edge | chance: 78
-- R | keep trading your own way, and tell them so to their faces | odd: hold | v: self-direction, stimulation | act: keep trading their own way, and tell the others so to their faces | chance: 68
+- B | fall in line, because the goodwill of the other traders is worth more than your edge | odd: blend | v: security, achievement | act: fall in line, because the goodwill of the other traders is worth more than their edge | chance: 78 | back: gave in to pressure
+- R | keep trading your own way, and tell them so to their faces | odd: hold | v: self-direction, stimulation | act: keep trading their own way, and tell the others so to their faces | chance: 68 | back: made an enemy
 - G | take your trade back to the neighbourhood you come from, among your own | odd: leave | v: tradition, security | act: take their trade back to the neighbourhood they come from, among their own | chance: 74
 - W>R | give the others fair notice, settle every debt, and leave {place} to trade freely | odd: leave | v: self-direction, benevolence | chance: 76
 - U>G | study how {place} has always traded, and take up the parts that keep it whole | odd: blend | v: tradition, self-direction | chance: 60
 - B>W | keep your ways, and offer the others a deal so the whole place gains by them | odd: hold | v: achievement, universalism | act: keep their ways, and offer the others a deal so the whole place gains by them | chance: 62
 - R>U | leave {place} on the spot, and go and see how traders do it elsewhere | odd: leave | v: stimulation, self-direction | chance: 72
-- G>B | settle in with the old traders, and let their long standing carry your trade too | odd: blend | v: security, power | act: settle in with the old traders, and let their long standing carry their trade too | chance: 66
+- G>B | settle in with the old traders, and let their long standing carry your trade too | odd: blend | v: security, power | act: settle in with the old traders, and let their long standing carry their trade too | chance: 66 | back: made a friend
 works: A year on, two other traders at {place} are quietly doing business the way {N} does.
 works: The oldest trader comes to {N} privately with a trouble the others must not hear about, as if {N} were the safe one to tell.
 fails not U G W>R R>U: Customers drift, the takings drop, and everyone at {place} can see it.
@@ -473,11 +473,11 @@ scene R: The confession lights something in {N}. Why should anyone hide how they
 scene G: {N} was raised to keep faith with those who keep faith in return. The question is which people those are now.
 - W | leave {place} quietly, so your friend is not blamed for siding with you | odd: leave | v: benevolence, conformity | act: leave {place} quietly, so their friend is not blamed for siding with them | chance: 78
 - U | take up the common way for now, and work to change it from the inside | odd: blend | v: conformity, self-direction | chance: 72
-- B | keep trading your own way, since it is what brings your customers in | odd: hold | v: achievement, power | act: keep trading their own way, since it is what brings their customers in | chance: 60
+- B | keep trading your own way, since it is what brings your customers in | odd: hold | v: achievement, power | act: keep trading their own way, since it is what brings their customers in | chance: 60 | back: made an enemy
 - R | pack up for good, sooner than spend your days being watched | odd: leave | v: self-direction, stimulation | act: pack up for good, sooner than spend their days being watched | chance: 76
-- G | make your peace with the old guard, and trade as {place} always has | odd: blend | v: tradition, conformity | act: make their peace with the old guard, and trade as {place} always has | chance: 82
+- G | make your peace with the old guard, and trade as {place} always has | odd: blend | v: tradition, conformity | act: make their peace with the old guard, and trade as {place} always has | chance: 82 | back: gave in to pressure
 - W>G | promise the old guard you will keep to the common way, and keep the promise | odd: blend | v: conformity, tradition | mark: kept your word | act: promise the old guard to keep to the common way, and keep the promise | chance: 62
-- U>W | keep your ways, and put the case to the whole place for letting everyone choose | odd: hold | v: universalism, self-direction | act: keep their ways, and put the case to the whole place for letting everyone choose | chance: 68
+- U>W | keep your ways, and put the case to the whole place for letting everyone choose | odd: hold | v: universalism, self-direction | act: keep their ways, and put the case to the whole place for letting everyone choose | chance: 68 | back: defied an authority
 - B>U | sell your spot at {place} well, and set up where your trade can grow | odd: leave | v: achievement, self-direction | act: sell their spot at {place} well, and set up where their trade can grow | chance: 80
 - R>B | throw yourself into the common way, and outdo every one of them at it | odd: blend | v: achievement, stimulation | act: throw themselves into the common way, and outdo every one of them at it | chance: 64
 - G>R | keep the ways you brought from home, and tell your friend to follow their heart | odd: hold | v: tradition, self-direction | act: keep the ways they brought from home, and tell their friend to follow their heart | chance: 58
@@ -518,7 +518,7 @@ scene U: {N} has reasons for doing it this way, good ones, and wonders whether a
 scene B: {N} weighs it up: what {place} gives, what fitting in would cost, and what else is on offer elsewhere.
 scene R: The laugh still stings. {N} came here to make something that feels true, not something like everyone else's.
 scene G: {N} learned it this way from {Ns} own people. Dropping it now would feel like letting them down.
-- W | take on the group's way of doing it, because the group comes first | odd: blend | v: conformity, benevolence | chance: 80
+- W | take on the group's way of doing it, because the group comes first | odd: blend | v: conformity, benevolence | chance: 80 | back: gave in to pressure
 - U | keep your own way, and explain at the next session why it works | odd: hold | v: self-direction | act: keep their own way, and explain at the next session why it works | chance: 60
 - B | leave {place} for a group where your way is worth something | odd: leave | v: achievement, self-direction | act: leave {place} for a group where their way is worth something | chance: 75
 - R | throw yourself into their way for a season, just to feel what it is like | odd: blend | v: stimulation | act: throw themselves into the group's way for a season, just to feel what it is like | chance: 70
@@ -557,13 +557,13 @@ scene G: {N} thinks of the people {N} first learned from, who would never have c
 - W | keep your own way, and ask openly that the rule be put to the whole group | odd: hold | v: universalism, self-direction | act: keep their own way, and ask openly that the rule be put to the whole group | chance: 65
 - U | decide {place} will never try anything new, and find a group that does | odd: leave | v: self-direction, stimulation | chance: 80
 - B | do it the house way, and make sure the right people see you do it best | odd: blend | v: achievement, power | act: do it the house way, and make sure the right people see them do it best | chance: 72
-- R | do it your own way on the night, whatever the rule says | odd: hold | v: stimulation, self-direction | act: do it their own way on the night, whatever the rule says | chance: 58
+- R | do it your own way on the night, whatever the rule says | odd: hold | v: stimulation, self-direction | act: do it their own way on the night, whatever the rule says | chance: 58 | back: defied an authority
 - G | leave {place} and go back to the people who taught you | odd: leave | v: tradition | act: leave {place} and go back to the people who taught them | chance: 74
 - W>B | see the show through as promised, then leave {place} for work that pays you back | odd: leave | v: achievement, conformity | act: see the show through as promised, then leave {place} for work that pays them back | mark: kept your word | chance: 75
 - U>R | learn the house way properly, to find the feeling the others get from it | odd: blend | v: self-direction, stimulation | chance: 60
 - B>G | keep your own way, and win the regulars round one at a time | odd: hold | v: power, benevolence | act: keep their own way, and win the regulars round one at a time | chance: 68
 - R>W | walk out of {place} on the spot, and say a rule like that is not fair | odd: leave | v: universalism, stimulation | mark: made an enemy | chance: 82
-- G>U | go along with the house way patiently, and learn what the old hands know | odd: blend | v: tradition, self-direction | chance: 66
+- G>U | go along with the house way patiently, and learn what the old hands know | odd: blend | v: tradition, self-direction | chance: 66 | back: gave in to pressure
 works not U G R>W: After the big night the one who runs {place} admits the house way was only ever habit, and asks {N} what else could change.
 works: {friend} tells {N} quietly that they have always felt the odd one out at {place} too, and never said so.
 fails not U G R>W: On the night {N} is the one who stands out, and not in the good way: the laughter from the back row carries.

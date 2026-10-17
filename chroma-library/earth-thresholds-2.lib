@@ -38,7 +38,7 @@ scene G: {N} is older now than {Ns} grandmother was in the photograph on the sta
 - U>B | work out what it would take to stop work at sixty, and start saving | binds | v: security, power | chance: 80
 - B>R | spend the roof money on a month in the sun | v: hedonism | self_control: - | chance: 90
 - R>G | drive through the night to the town where you were born | v: tradition, stimulation | tech: car | chance: 85
-- G>W | ask for trees instead of presents, and plant them in the park without a permit | v: universalism (nature), benevolence | closed: law: planting on council land without leave; backfire: the council pulls them up and sends a fine | chance: 60
+- G>W | ask for trees instead of presents, and plant them in the park without a permit | v: universalism (nature), benevolence | closed: law: planting on council land without leave; backfire: the council pulls them up and sends a fine | chance: 60 | back: defied an authority
 works: The day turns out better than {N} feared, and the year after it better still.
 works: Somewhere between the cake and the last guest, {N} stops minding the number.
 fails: The day comes and goes, and {N} feels every one of the fifty years.
@@ -183,10 +183,10 @@ scene U: {N} has started a folder: who takes which tablets, whose boiler is due 
 scene B: Everyone needs {N} now. There is a kind of power in holding the keys, and {N} has noticed it, and does not entirely mind.
 scene R: Three calls before breakfast: a burst pipe, a lost passport, a teenager who missed the last train home. {N} loves every one of them and could scream.
 scene G: These keys once hung in {Ns} grandmother's hall, and then in {Ns} parents'. Now the hooks are in {Ns} house, and the family turns around it like a wheel round its hub.
-- W | answer every call, day or night, and never let the family see you tired | binds | v: benevolence, tradition | chance: 70
+- W | answer every call, day or night, and never let the family see you tired | binds | v: benevolence, tradition | chance: 70 | back: helped someone in need
 - U | put every family paper, password and spare key in one labelled box | v: security | chance: 90
 - B | make yourself the one they lean on, and expect a say in their big decisions | v: power | grants: the one everyone asks | chance: 80
-- R | hand back the keys and tell them all to mend their own pipes | v: self-direction, hedonism | closed: approval: leaving the family to cope; backfire: a night-time crisis, and nobody forgives the unanswered phone | chance: 75
+- R | hand back the keys and tell them all to mend their own pipes | v: self-direction, hedonism | closed: approval: leaving the family to cope; backfire: a night-time crisis, and nobody forgives the unanswered phone | chance: 75 | back: refused someone in need
 - G | cook a big meal every Sunday, and let the family come when it can | binds | v: tradition, benevolence | self_control: + | chance: 80
 - W>U | take a first-aid course, so you are ready for the night calls | v: benevolence, achievement | grants: first-aid certificate | chance: 80
 - U>B | quietly get the old uncle to sign a power of attorney naming you | v: power, security | closed: approval: steering a frail relative's signature; backfire: the cousins find out, and a lawyer is called in | chance: 75
@@ -228,8 +228,8 @@ scene G: Frost on the grass, ducks on the lake, the same old oak at the turn. {N
 - W>B | take over as run director, and ban the buggies and the dogs | v: power, conformity | closed: approval: banning families from a free run; backfire: a petition, and half the volunteers walk out | grants: organising people | chance: 55
 - U>R | map a route through the private estate beyond the park, and run it on Sundays | habit | v: stimulation, self-direction | closed: law: trespass; backfire: a gamekeeper, and a warning letter | chance: 75
 - B>G | use your contacts at the council to get the bare corner of the park planted | v: universalism (nature) | chance: 60
-- R>W | stand up at the briefing and ask everyone to sponsor a runner who fell ill | v: benevolence | chance: 70
-- G>U | ask the oldest runner, eighty and still going, how she does it, and listen | door | v: tradition, self-direction | chance: 80
+- R>W | stand up at the briefing and ask everyone to sponsor a runner who fell ill | v: benevolence | chance: 70 | back: helped someone in need
+- G>U | ask the oldest runner, eighty and still going, how she does it, and listen | door | v: tradition, self-direction | chance: 80 | back: made a friend
 works: The Saturdays become one of the good fixed things in {Ns} life, and the coffee afterwards lasts longer every month.
 works not W: By the end of the year {N} has a handful of new friends and a body that feels younger than it did at forty.
 fails: A knee gives out in the autumn, and {N} watches from the café window for months.
@@ -263,16 +263,16 @@ scene U: Forty years of knowing how things work here, and by Monday all of it wi
 scene B: For thirty years people came to {Ns} door for decisions. Tomorrow the name comes off the door, and {N} is not sure what is left without it.
 scene R: {N} has counted down the days for a year, and now that the last one is here, {Ns} throat is tight and the speech will not stay in {Ns} head.
 scene G: {N} takes the long way out through the building one last time, past the window where the view has turned with the seasons for thirty years.
-- W | report the expenses fiddle you kept quiet about for years, on your last day | v: conformity, universalism | closed: approval: informing on colleagues; backfire: the leaving do goes cold, and the card has fewer names on it | chance: 80
+- W | report the expenses fiddle you kept quiet about for years, on your last day | v: conformity, universalism | closed: approval: informing on colleagues; backfire: the leaving do goes cold, and the card has fewer names on it | chance: 80 | back: made an enemy
 - U | leave notes with every trick and shortcut nobody ever wrote down | v: benevolence, achievement | chance: 90
 - B | copy your contacts and the client list onto a memory stick on the way out | v: power, security | closed: law: the list belongs to the employer; backfire: a solicitor's letter in the first month | mark: hid a wrong | chance: 85
-- R | tell the boss in your speech what you really thought of the place | identity | v: self-direction | chance: 85
+- R | tell the boss in your speech what you really thought of the place | identity | v: self-direction | chance: 85 | back: defied an authority
 - G | slip out quietly at three, before the speeches, and walk home the long way | v: tradition (acceptance), self-direction | self_control: - | chance: 90
 - W>R | turn the leaving do into a proper party and dance with the whole office | v: hedonism, benevolence | chance: 80
 - U>G | spend the last hour in the archive with forty years of staff newsletters | v: tradition, self-direction | chance: 95
 - B>W | ask to keep your title as an honorary one, with a seat at the yearly dinner | identity | v: power, tradition | chance: 60
 - R>U | enrol that same evening on the course you swore you would take when you stopped | v: self-direction, stimulation | self_control: + | chance: 90
-- G>B | make sure the young one you trained gets your desk and your clients | v: power, tradition | chance: 60
+- G>B | make sure the young one you trained gets your desk and your clients | v: power, tradition | chance: 60 | back: made a friend
 works: {N} walks out into the evening lighter than expected, and the card goes up on the mantelpiece.
 works: The day ends well, and people talk about {Ns} leaving for years afterwards, kindly.
 fails: The day is flat and awkward, and {N} drives home feeling like a piece of furniture someone has moved out.
@@ -305,7 +305,7 @@ scene G: The card says what the knees have been saying for a while. A page has t
 - B | ride the express coaches the pass does not cover, and see if anyone checks | v: hedonism, power | closed: law: a fare dodge; backfire: a fine and a scene at the door of the coach | mark: broke the law | chance: 75
 - R | frame the dreadful photograph and hang it in the downstairs loo | v: hedonism, self-direction | chance: 97
 - G | sit on the back step with the pass, and let the years sink in | v: tradition (acceptance) | chance: 88
-- W>G | join the walking group that takes the Wednesday bus out to the hills | v: universalism (nature), conformity | title: club member | chance: 85
+- W>G | join the walking group that takes the Wednesday bus out to the hills | v: universalism (nature), conformity | title: club member | chance: 85 | back: made a friend
 - U>W | read the small print and learn every right the pass gives you | v: security, conformity | act: read the small print and learn every right the pass gives them | chance: 95
 - B>U | use the free buses to sit in on every free lecture and museum within reach | habit | v: self-direction | chance: 92
 - R>B | ring the bank, the energy firm and the insurer, and demand every pensioner's discount | v: power, security | chance: 60
@@ -386,7 +386,7 @@ scene G: {N} was an apprentice once, at a bench beside an old hand who never exp
 - W>B | accept, and ask for a seat on the college board as well | v: power | chance: 35
 - U>R | teach it as a workshop where the students learn by getting it wrong | v: self-direction, stimulation | chance: 70
 - B>G | keep an eye out for the one student good enough to carry it on | v: tradition, achievement | chance: 70
-- R>W | fight for the students the college wants to turn away | v: universalism, benevolence | chance: 55
+- R>W | fight for the students the college wants to turn away | v: universalism, benevolence | chance: 55 | back: defied an authority
 - G>U | teach it the way you were taught: by showing, slowly, and letting them watch | v: tradition | chance: 75
 works not G: By the end of the first term the room is full, and two of the students are better than {N} hoped.
 works: Teaching it shows {N} things about the work that forty years of doing it never did.
@@ -417,7 +417,7 @@ scene R: The table argues about everything: football, the council, the war, the 
 scene G: Below the window the square fills and empties: the Thursday market, the school run, the pigeons. {N} watches the town go by like a river.
 - W | buy the round when it is your turn, and never miss a morning | habit | v: tradition, conformity | chance: 90
 - U | bring in a harder crossword and win the table over to it | v: achievement, stimulation | chance: 75
-- B | sit beside the one who knows everyone, and trade news for favours | v: power | chance: 80
+- B | sit beside the one who knows everyone, and trade news for favours | v: power | chance: 80 | back: made a friend
 - R | start the argument about the council, and enjoy every minute | habit | v: stimulation, hedonism | chance: 92
 - G | sit back, say little, and watch the square go by | v: hedonism, tradition | chance: 95
 - W>R | organise a table outing to the races, with a kitty and a hired coach | v: hedonism, benevolence | chance: 75
@@ -456,7 +456,7 @@ scene R: In the car park {N} rattles the box like a maraca and laughs, because t
 scene G: The body is an old house now, with a few draughts and a roof to watch. {N} means to keep it in good repair, and to go on living in it.
 - W | take every pill on the dot and tick each one off on a chart | habit | v: conformity, security | self_control: + | chance: 75
 - U | ask the doctor to review every pill, and stop the ones no longer needed | v: self-direction, security | chance: 70
-- B | order the pills cheaper online from abroad, no prescription asked | v: security, power | closed: law: unlicensed medicine; backfire: a fake batch and a night in hospital | death_if_fails: 0.001 | tech: internet | law: prescription medicines | chance: 75
+- B | order the pills cheaper online from abroad, no prescription asked | v: security, power | closed: law: unlicensed medicine; backfire: a fake batch and a night in hospital | death_if_fails: 0.001 | tech: internet | law: prescription medicines | chance: 75 | back: broke the law
 - R | skip the pills that make you feel flat, and say nothing | v: hedonism, self-direction | self_control: - | closed: approval: going against the doctor's orders; backfire: a bad turn and a lecture at the surgery | mark: hid a wrong | act: skip the pills that make them feel flat, and say nothing | chance: 80
 - G | walk every morning and eat from the garden, so the box stays small | habit | v: security, universalism (nature) | body: light | self_control: + | chance: 70
 - W>G | look in on the frail neighbour every morning, and see she has taken hers | v: benevolence | mark: helped someone in need | chance: 80

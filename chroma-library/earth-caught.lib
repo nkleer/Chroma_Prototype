@@ -37,7 +37,7 @@ scene B: The doors are opening at {place_b} now. A cool welcome at {place_a} is 
 scene R: {N} is proud of the step and stung by the coolness. Being judged for it makes {Ns} face burn.
 scene G: Both places are part of who {N} is. Neither tie should be cut over one season of talk.
 - W | stand with {place_a}: give a full, honest account there, and make amends | caught: side_a | v: conformity, benevolence | mark: owned up | chance: 80
-- U | stand with {place_b}, and set out plainly why the step made sense | caught: side_b | v: self-direction, achievement | chance: 60
+- U | stand with {place_b}, and set out plainly why the step made sense | caught: side_b | v: self-direction, achievement | chance: 60 | back: made an enemy
 - B | bring {place_a} and {place_b} to one table, and show each what it gains | caught: bridge | v: power, achievement | chance: 55
 - R | enjoy the praise at {place_b}, and never mention the step at {place_a} | caught: apart | v: hedonism, stimulation | chance: 80
 - G | stay home among family for a season, and let the talk die down | caught: back | v: tradition, security | chance: 85
@@ -45,7 +45,7 @@ scene G: Both places are part of who {N} is. Neither tie should be cut over one 
 - U>B | plan what to say at each place, so neither costs the other anything | caught: apart | v: achievement, security | chance: 80
 - B>R | stop going to either for a season; no place gets to judge the step | caught: back | v: self-direction, hedonism | chance: 85
 - R>G | go to {place_a} tonight, admit the coolness hurt, and ask to be let back in | caught: side_a | v: benevolence, tradition | chance: 60
-- G>W | stand by {place_b}, who backed the step, as loyal people do | caught: side_b | v: benevolence, conformity | chance: 55
+- G>W | stand by {place_b}, who backed the step, as loyal people do | caught: side_b | v: benevolence, conformity | chance: 55 | back: kept your word
 works: The talk settles, and one of the two places greets {N} more warmly than before.
 works not R G B>R: By the end of the season both places have heard {Ns} side, and the step is old news at each.
 fails: One of the places cools for good, and {N} feels it every time the door opens there.
@@ -72,7 +72,7 @@ scene U: {N} sees two honest readings of one act: one counts what was owed, the 
 scene B: The praise at {place_a} does not open many doors. The doors at {place_b} do, and they are closing a little.
 scene R: {N} is fed up with being judged. It felt right at the time, and it still does.
 scene G: {N} was brought up to do things this way. That is not something to apologise for, to anyone.
-- W | stand with {place_b}: keep to its rules from here on, as a member should | caught: side_b | v: conformity, security | chance: 60
+- W | stand with {place_b}: keep to its rules from here on, as a member should | caught: side_b | v: conformity, security | chance: 60 | back: gave in to pressure
 - U | lay out the facts at both places, so each sees why the other reads it so | caught: bridge | v: universalism, self-direction | chance: 55
 - B | let {place_a} honour it, and tell {place_b} it was a one-off | caught: apart | v: power, security | chance: 78
 - R | stay away from both for a while, sick of being judged | caught: back | v: self-direction, stimulation | chance: 88
@@ -193,7 +193,7 @@ scene B: Both names count for something. {N} weighs which one is worth more to k
 scene R: The cheers at {place_b} felt wonderful, and the cold looks at {place_a} sting more than {N} expected.
 scene G: {N} has belonged to {place_a} a long time, and {place_b} feels like home in another way. Neither is easy to give up.
 - W | keep away from both for a season, so neither place splits over it | caught: back | v: conformity, benevolence | chance: 80
-- U | stand with {place_a}: hear their reasons out, and grant where they are right | caught: side_a | v: self-direction, universalism | chance: 85
+- U | stand with {place_a}: hear their reasons out, and grant where they are right | caught: side_a | v: self-direction, universalism | chance: 85 | back: owned up
 - B | stand with {place_b}, where the step has made a name worth keeping | caught: side_b | v: achievement, power | chance: 60
 - R | bring two old hands from {place_a} along to {place_b} one night, to see why | caught: bridge | v: stimulation, benevolence | chance: 50
 - G | keep each place as it always was, and never bring one up at the other | caught: apart | v: tradition, security | chance: 75
@@ -229,7 +229,7 @@ scene B: Praise from {place_a} is useful; scorn at {place_b} is costly. {N} sees
 scene R: It hurts to be looked at sideways by the people {N} feels most alive with.
 scene G: {place_a} has stood by {N} for years, and the new warmth there feels like being taken in at last. The coldness at {place_b} feels like a door closing.
 - W | stand with {place_a}, which judged the choice by the rule, and say so plainly | caught: side_a | v: conformity, security | chance: 80
-- U | stand with {place_b}: grant the point they make, and change course where they are right | caught: side_b | v: self-direction, universalism | chance: 65
+- U | stand with {place_b}: grant the point they make, and change course where they are right | caught: side_b | v: self-direction, universalism | chance: 65 | back: gave in to pressure
 - B | host one night for both crowds, and be the one who brought them together | caught: bridge | v: achievement, power | chance: 55
 - R | laugh it off at {place_b}, and never mention it at {place_a} | caught: apart | v: hedonism, stimulation | chance: 85
 - G | step back from both, and wait for the old rhythm of things to return | caught: back | v: tradition, security | chance: 78
@@ -268,14 +268,14 @@ scene R: {N} can already feel the night at {place_b}: the noise, the heat, the s
 scene G: {place_a} has kept the peace here for generations. That still counts for something.
 - W | stand with {place_b}, because a wrong left unanswered is still a wrong | caught: side_b | v: universalism, benevolence | chance: 65
 - U | draft a joint statement both places could sign, and carry it between them | caught: bridge | v: universalism, self-direction | chance: 55
-- B | tell each place privately what it wants to hear, and keep them from comparing notes | caught: apart | v: security, power | chance: 82
+- B | tell each place privately what it wants to hear, and keep them from comparing notes | caught: apart | v: security, power | chance: 82 | back: hid a wrong
 - R | skip the night and the meetings alike, and go off somewhere free for a while | caught: back | v: hedonism, self-direction | chance: 80
 - G | stand with {place_a}, which has kept the peace here longer than anyone | caught: side_a | v: tradition, security | chance: 80
 - W>R | keep firm, separate rules: free nights at {place_b}, calm at {place_a}, and no crossover | caught: apart | v: conformity, self-direction | chance: 75
 - U>G | think it through slowly at home, and let the season pass with the family | caught: back | v: tradition, security | chance: 85
 - B>W | stand with {place_a}, and take a visible role keeping order on the night | caught: side_a | v: power, conformity | chance: 58
 - R>U | throw in with {place_b}, and stay up nights getting the facts straight for them | caught: side_b | v: stimulation, self-direction | chance: 60
-- G>B | bring the elders of both places to one table, and come away the one they trust | caught: bridge | v: tradition, power | chance: 60
+- G>B | bring the elders of both places to one table, and come away the one they trust | caught: bridge | v: tradition, power | chance: 60 | back: made a friend
 works not R U>G: The night passes without trouble, and one place thanks {N} openly for the part they played.
 works: The two places find a little common ground, and both mention {N} when they tell the story.
 fails: The place {N} did not stand with takes it hard, and the welcome there cools for a long while.
@@ -302,11 +302,11 @@ scene U: {N} counts the evenings and the weeks. There may be a way to fit both i
 scene B: {N} asks which place will matter more in a year, and which favour is likelier to be repaid.
 scene R: The run at {place_b} is the kind of thing that happens once. {N} aches to be there every night.
 scene G: {place_a} has asked the same of every member for as long as anyone remembers. That is how it holds together.
-- W | sit both sides down, agree a fair split of the evenings, and keep to it | caught: bridge | v: conformity, benevolence | chance: 50
+- W | sit both sides down, agree a fair split of the evenings, and keep to it | caught: bridge | v: conformity, benevolence | chance: 50 | back: kept your word
 - U | plan the weeks to the hour, and keep each place's calendar out of the other's sight | caught: apart | v: self-direction, achievement | chance: 78
-- B | skip both for the season, and put the evenings into a side business | caught: back | v: achievement, power | chance: 85
+- B | skip both for the season, and put the evenings into a side business | caught: back | v: achievement, power | chance: 85 | back: broke your word
 - R | stand with {place_a}, because the thought of letting those people down is unbearable | caught: side_a | v: benevolence | chance: 80
-- G | stand with {place_b}, where the old friends are, and be there every night | caught: side_b | v: benevolence, tradition | chance: 68
+- G | stand with {place_b}, where the old friends are, and be there every night | caught: side_b | v: benevolence, tradition | chance: 68 | back: broke your word
 - W>G | step back from both, and keep the season's evenings for the family, as promised long ago | caught: back | v: tradition, conformity | mark: kept your word | chance: 90
 - U>W | stand with {place_a}, once the numbers show the rota falls apart otherwise | caught: side_a | v: security, conformity | chance: 62
 - B>U | stand with {place_b}, and get backstage to learn how such nights are run | caught: side_b | v: achievement, self-direction | chance: 55
@@ -352,11 +352,11 @@ scene R: {N} did it because it felt right, and the cool looks at {place_a} sting
 scene G: These are both {Ns} people now, and a home with two rooms does not wall one of them off.
 - W | keep a firm rule: what is said at each place stays at that place | caught: apart | v: conformity, security | chance: 80
 - U | stay away from both for a few weeks, and think the step through again | caught: back | v: self-direction | chance: 85
-- B | side with {place_a}, call it a lesson learned, and keep the name that opens doors | caught: side_a | v: achievement, power | chance: 85
+- B | side with {place_a}, call it a lesson learned, and keep the name that opens doors | caught: side_a | v: achievement, power | chance: 85 | back: gave in to pressure
 - R | stand up at {place_b} and say it again, louder, whatever {place_a} thinks | caught: side_b | v: stimulation, self-direction | mark: made an enemy | chance: 62
 - G | invite the oldest hands of both places to one table, like neighbours of old | caught: bridge | v: tradition, benevolence | mark: made a friend | chance: 50
 - W>U | own up at {place_a} that the step was rushed, and ask help thinking it through | caught: side_a | v: conformity, self-direction | mark: owned up | chance: 60
-- U>B | side with {place_b}: make the case for the step, and take the credit there | caught: side_b | v: achievement, self-direction | chance: 55
+- U>B | side with {place_b}: make the case for the step, and take the credit there | caught: side_b | v: achievement, self-direction | chance: 55 | back: made an enemy
 - B>R | call in favours to get both places into one room, and let them mix | caught: bridge | v: power, stimulation | chance: 55
 - R>G | give heart and soul to each place on its own night, never bringing one along | caught: apart | v: stimulation, benevolence | chance: 78
 - G>W | let the season pass quietly, trusting both places to settle as they always do | caught: back | v: tradition, security | chance: 90
@@ -425,7 +425,7 @@ scene B: One place will remember who carried the work, the other who showed up o
 scene R: Nights like the ones at {place_b} do not come twice, and {N} can already feel them slipping past.
 scene G: Seasons like this come and go; what lasts is the people {N} goes home to at the end of them.
 - W | keep the promise made to {place_a}, and give it every evening this season | caught: side_a | v: conformity, achievement | mark: kept your word | chance: 85
-- U | side with {place_b}, having reckoned that the work can wait and these nights cannot | caught: side_b | v: self-direction, stimulation | chance: 60
+- U | side with {place_b}, having reckoned that the work can wait and these nights cannot | caught: side_b | v: self-direction, stimulation | chance: 60 | back: broke your word
 - B | get both places into one room for a night, as the one who made it happen | caught: bridge | v: power, achievement | chance: 52
 - R | go wherever the heart pulls each evening, and never speak of one place at the other | caught: apart | v: stimulation, hedonism | chance: 72
 - G | step back from both and spend the season at home among family | caught: back | v: tradition, benevolence | chance: 86
@@ -433,7 +433,7 @@ scene G: Seasons like this come and go; what lasts is the people {N} goes home t
 - U>G | plan the weeks so each place gets its nights, and neither hears about the other | caught: apart | v: security, tradition | chance: 80
 - B>W | plead a full diary to both for a month, and spare everyone the quarrel | caught: back | v: security, conformity | chance: 88
 - R>U | throw everything into the push at {place_a} this season, heart and soul | caught: side_a | v: achievement, stimulation | chance: 68
-- G>B | stand by {place_b} out of loyalty, and become a face it cannot do without | caught: side_b | v: tradition, achievement | chance: 54
+- G>B | stand by {place_b} out of loyalty, and become a face it cannot do without | caught: side_b | v: tradition, achievement | chance: 54 | back: made a friend
 works not G B>W: One place gets the season it hoped for from {N}, and the other, a little to its own surprise, understands.
 works: By the season's end both places count on {N}, and nobody remembers which evenings went where.
 fails: {place_b} stops saving {N} a place, and the big nights go on without them.
@@ -464,11 +464,11 @@ scene G: Quarrels like this blow through every few years, and the places people 
 - U | bring the facts to both places, and arrange a meeting where each hears the other | caught: bridge | v: universalism, self-direction | chance: 55
 - B | keep both: turn up quietly for {place_b}, and stay out of it at {place_a} | caught: apart | v: security, power | chance: 80
 - R | walk away from both for a while: the fighting has taken the joy out of each | caught: back | v: hedonism, self-direction | chance: 80
-- G | keep the peace with {place_a}: hot words fade, and the places people love remain | caught: side_a | v: tradition, security | chance: 85
+- G | keep the peace with {place_a}: hot words fade, and the places people love remain | caught: side_a | v: tradition, security | chance: 85 | back: gave in to pressure
 - W>G | keep to proper form: speak up only at {place_b}, and never carry it into {place_a} | caught: apart | v: conformity, tradition | chance: 82
 - U>W | hold back from both until the facts are in, so nobody is wronged in haste | caught: back | v: universalism, security | chance: 85
 - B>U | side with {place_a}, and use its standing to get the matter properly looked into | caught: side_a | v: power, universalism | chance: 60
-- R>B | stand with {place_b} out front, where everyone can see {N} took a stand | caught: side_b | v: self-direction, stimulation | chance: 60
+- R>B | stand with {place_b} out front, where everyone can see {N} took a stand | caught: side_b | v: self-direction, stimulation | chance: 60 | back: made an enemy
 - G>R | gather both places around one long table, so the anger can be spoken face to face | caught: bridge | v: tradition, benevolence | mark: made a friend | chance: 55
 works not R U>W: The season's anger cools, and the place {N} stood by remembers it, warmly, for a long time.
 works: A bridge holds: the two places end the season on speaking terms, and {N} is trusted in both.
@@ -511,7 +511,7 @@ scene G: {place_b} knew {N} before any of this. Old ties are not dropped over on
 - U | talk the reasons through at {place_a}, and leave the subject at the door of {place_b} | caught: apart | v: self-direction, security | chance: 80
 - B | lie low at both for a few weeks, until the talk moves on to someone else | caught: back | v: security | chance: 85
 - R | stand with {place_a} openly, glad of the people who cheered | caught: side_a | v: stimulation, self-direction | chance: 85
-- G | stand with {place_b}: grant the old hands their doubts and keep to their ways | caught: side_b | v: tradition, conformity | chance: 65
+- G | stand with {place_b}: grant the old hands their doubts and keep to their ways | caught: side_b | v: tradition, conformity | chance: 65 | back: gave in to pressure
 - W>U | take a fair pause from both until each has had time to learn the facts | caught: back | v: universalism, self-direction | chance: 85
 - U>B | stand with {place_a}, where sound reasons are rewarded and doors open | caught: side_a | v: achievement, self-direction | chance: 60
 - B>R | strike a quiet bargain at {place_b}: a nod to their ways for their old warmth | caught: side_b | v: hedonism, power | chance: 55
@@ -618,11 +618,11 @@ scene B: The new project could make {Ns} name. The old season will happen whethe
 scene R: {N} wants the buzz of the new thing and the warmth of the old crowd, and resents having to pick.
 scene G: {place_b} has always counted on its own. Loyalty that only shows up when convenient is not loyalty.
 - W | keep the commitment made to {place_a} first, and tell {place_b} plainly and in person | caught: side_a | v: conformity, achievement | mark: kept your word | chance: 85
-- U | weigh it up and give the season to {place_b}: the project can wait, the season cannot | caught: side_b | v: self-direction, tradition | chance: 65
+- U | weigh it up and give the season to {place_b}: the project can wait, the season cannot | caught: side_b | v: self-direction, tradition | chance: 65 | back: broke your word
 - B | pitch the project to {place_b} as a way to raise its name, and run it there | caught: bridge | v: achievement, power | chance: 55
 - R | go wherever the mood leads each night, and never mention one place at the other | caught: apart | v: hedonism, stimulation | chance: 70
-- G | stay home with the family this season, and let both places manage | caught: back | v: tradition, security | chance: 80
-- W>G | propose a fair rota of alternate weeks, carrying each place's news to the other | caught: bridge | v: universalism, tradition | chance: 55
+- G | stay home with the family this season, and let both places manage | caught: back | v: tradition, security | chance: 80 | back: broke your word
+- W>G | propose a fair rota of alternate weeks, carrying each place's news to the other | caught: bridge | v: universalism, tradition | chance: 55 | back: kept your word
 - U>W | plan every week so each place gets its fair share and never hears of the other | caught: apart | v: security, universalism | chance: 75
 - B>U | drop both this season, and spend the evenings on a course that pays | caught: back | v: achievement, self-direction | mark: turned down a chance | chance: 85
 - R>B | throw every evening into the project at {place_a}, and make a name with it | caught: side_a | v: stimulation, achievement | chance: 70

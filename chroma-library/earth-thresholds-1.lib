@@ -109,14 +109,14 @@ scene U: {N} watches how the others decide who is who in the first weeks, from t
 scene B: Nobody here knows that {Ns} family has no car, or which estate {N} comes from. The story of who {N} is has not been told yet, so {N} can tell it.
 scene R: The old self feels like a coat that never fitted. {N} wants to throw it off all at once and see who is underneath.
 scene G: {N} catches a reflection in the bus window: taller, the face changing. Whatever {N} is becoming is already on its way, whatever anyone decides.
-- W | join the scouts or guides and make the promise, uniform and all | identity | binds | v: conformity, tradition | title: scout or guide | chance: 85
+- W | join the scouts or guides and make the promise, uniform and all | identity | binds | v: conformity, tradition | title: scout or guide | chance: 85 | back: kept your word
 - U | choose the person you mean to become, and practise being them every day | identity | habit | v: self-direction | self_control: + | act: choose the person they mean to become, and practise being that person every day | chance: 55
 - B | invent a better past: a famous uncle, a house abroad, a fight you won | identity | v: power | chance: 62
 - R | go by your middle name, cut your hair short, and answer to nothing else | identity | v: self-direction, stimulation | chance: 75
 - G | stay exactly who you were, and let the right people find you | identity | v: tradition, security | mark: turned down a chance | act: stay exactly who they were, and let the right people find them | chance: 60
 - W>R | audition for the school play, the last thing anyone who knew you would expect | door | v: stimulation, self-direction | act: audition for the school play, the last thing anyone who knew them would expect | chance: 50
 - U>G | spend the evenings finding out who you are, in a notebook nobody reads | habit | v: self-direction | chance: 85
-- B>W | make friends with the teachers' pet, and become one of the trusted ones | v: power, conformity | chance: 70
+- B>W | make friends with the teachers' pet, and become one of the trusted ones | v: power, conformity | chance: 70 | back: made a friend
 - R>U | throw yourself into the one subject that lights you up, and be known for it | v: achievement, self-direction | grants: teachers' favourite | act: throw themselves into the one subject that lights them up, and be known for it | self_control: + | chance: 75
 - G>B | lean on your older cousins' name, so nobody at the new school dares touch you | v: power, security | act: lean on their older cousins' name, so nobody at the new school dares touch them | chance: 55
 works not G: By half term the new {N} feels less like a costume and more like a fit.
@@ -187,7 +187,7 @@ scene G: {N} walks the streets {grandparent} walked at the same age, past the sa
 - W | keep every rule you promised, and text home at each stop | v: conformity, security | mark: kept your word | tech: phone | chance: 85
 - U | find your way round town without looking at the map, to test yourself | v: self-direction | act: find their way round town without looking at the map, as a test | chance: 75
 - B | spend it all on the one thing that will impress the others on Monday | v: power, hedonism | self_control: - | chance: 90
-- R | change the plan halfway and jump on a bus to wherever it goes | v: stimulation | closed: approval: off the agreed route; backfire: lost, with a dead phone | chance: 72
+- R | change the plan halfway and jump on a bus to wherever it goes | v: stimulation | closed: approval: off the agreed route; backfire: lost, with a dead phone | chance: 72 | back: took a wild risk
 - G | spend the afternoon on the grass by the river, just sitting with your friends | v: hedonism, benevolence | chance: 92
 - W>U | get a library card in your own name, signed and stamped | door | v: self-direction, conformity | chance: 92
 - U>B | work out which usher never checks, and get into the older film | v: hedonism, self-direction | closed: approval: an age-rated film; backfire: turned out, and home told | chance: 70
@@ -230,7 +230,7 @@ scene G: Friends come and go like the seasons, {grandparent} says. {N} is not su
 - W>B | tell the head about the window table's vaping, and move in when they are gone | v: power, conformity | closed: approval: telling on classmates; backfire: everyone learns who told | chance: 55
 - U>R | start a lunchtime club for the game you love, and see who turns up | v: self-direction, stimulation | chance: 55
 - B>G | keep your old friend close in secret, while being seen with the new crowd | v: security, benevolence | chance: 70
-- R>W | tell your table to stop mocking a kid from your old school, and mean it | v: universalism, benevolence | chance: 70
+- R>W | tell your table to stop mocking a kid from your old school, and mean it | v: universalism, benevolence | chance: 70 | back: helped someone in need
 - G>U | ask your grandparent how they kept their oldest friend for sixty years | v: tradition, benevolence | chance: 80
 works: {N} ends the year with a place that feels like {Ns} own, and nobody who mattered left behind.
 works: The tables settle, and {N} finds that a friendship can change shape without ending.
@@ -300,16 +300,16 @@ scene U: {N} looks round the bare room and tries to work out which things were t
 scene B: No more asking, no more curfews, no more queueing for the bathroom behind {sibling}: from tonight {N} answers to nobody.
 scene R: {N} has wanted this day for years, and now that it is here {Ns} throat is tight and {N} cannot look at {parent}.
 scene G: {grandparent} has come round to wave {N} off, the way the family has always seen its young ones go, and presses something folded into {Ns} hand.
-- W | say a proper goodbye, and promise to ring home every Sunday | habit | v: tradition, benevolence | chance: 80
+- W | say a proper goodbye, and promise to ring home every Sunday | habit | v: tradition, benevolence | chance: 80 | back: kept your word
 - U | pack only what you used this year, and leave the rest behind for good | v: self-direction | chance: 90
 - B | take the good duvet, the toaster and anything else nobody will miss | v: hedonism, power | chance: 90
 - R | go quickly, without a long goodbye, while you still can | v: self-direction | act: go quickly, without a long goodbye, while they still can | chance: 90
 - G | take a cutting from the garden and a jar of the family's jam | v: tradition | chance: 92
 - W>G | let your parents drive you there and make up the new bed, as they want to | v: benevolence, tradition | chance: 88
-- U>W | brief your younger sibling on everything they need to know about your parents | v: benevolence | chance: 88
+- U>W | brief your younger sibling on everything they need to know about your parents | v: benevolence | chance: 88 | back: helped someone in need
 - B>U | sell your old things online first, to pay for a term of books | v: achievement | tech: internet | chance: 85
-- R>B | tell your parents you will never need their money again | identity | v: self-direction, power | chance: 50
-- G>R | set off with nothing but a rucksack, the way your grandparent left their village | v: self-direction, tradition | chance: 70
+- R>B | tell your parents you will never need their money again | identity | v: self-direction, power | chance: 50 | back: defied an authority
+- G>R | set off with nothing but a rucksack, the way your grandparent left their village | v: self-direction, tradition | chance: 70 | back: took a wild risk
 works: {N} unpacks the first box in the new room, and the strangeness turns slowly into a beginning.
 works: The goodbye is the right size, and {N} leaves with something settled between {N} and home.
 fails: The goodbye goes badly, and the first night in the new room is lonely in a way {N} did not expect.
@@ -383,7 +383,7 @@ scene G: {Ns} grandfather was a joiner, and his tools are still in a box in {Ns}
 - G | take it, and ask for your grandfather's old tools to start with | binds | identity | v: tradition | title: apprentice | role: men | chance: 65
 - W>B | keep the college place, because the qualification will pay more in the end | v: achievement, security | mark: turned down a chance | chance: 70
 - U>R | look for a trade that travels, and take a job rigging stages for touring shows | door | v: stimulation, self-direction | title: stage technician | chance: 55
-- B>G | say yes only if they take your cousin on too, so you start together | v: benevolence, power | title: apprentice | role: men | chance: 50
+- B>G | say yes only if they take your cousin on too, so you start together | v: benevolence, power | title: apprentice | role: men | chance: 50 | back: helped someone in need
 - R>W | join the army on the spot, as you have wanted to since you were small | binds | v: security, stimulation | title: soldier | chance: 60
 - G>U | work a month on site as a trial, and learn what the trade really is first | door | v: self-direction | role: men | chance: 75
 works: {N} turns up on Monday to the road {N} chose, and by spring it already feels like {Ns} own.
@@ -457,7 +457,7 @@ scene G: The smell of the hall, the creak of the third stair, the dog going mad 
 - G | walk the fields behind the house, and let home settle back into you | v: tradition, universalism (nature) | act: walk the fields behind the house, and let home settle back into them | chance: 90
 - W>G | drive up through the night after your shift, so as not to miss Sunday lunch | v: benevolence, tradition | mark: kept your word | death_if_fails: 0.002 | tech: car | chance: 75
 - U>W | notice that your grandparent is struggling, and quietly arrange help from the council | v: benevolence, security | mark: helped someone in need | chance: 70
-- B>U | look up an old teacher with contacts in the city, and ask for introductions | door | v: achievement | chance: 70
+- B>U | look up an old teacher with contacts in the city, and ask for introductions | door | v: achievement | chance: 70 | back: made a friend
 - R>B | tell the friends who stayed exactly what you think of this town, and leave early | v: self-direction, power | mark: made an enemy | chance: 75
 - G>R | swim across the lake at night with the old crowd, as every summer | body: heavy | v: stimulation, tradition | mark: took a wild risk | death_if_fails: 0.002 | closed: law: swimming where it is banned; backfire: fined, or pulled out of the water | chance: 75
 works: The weekend reminds {N} where {N} comes from, and {N} goes back to the new life steadier for it.
@@ -496,7 +496,7 @@ scene G: {parent} sends a photo of {N} at one year old, cake all over a high cha
 - G | sit out on the step at the end, alone, and let the decade go | v: tradition (acceptance) | chance: 90
 - W>U | book the health check you keep putting off, as a birthday present to yourself | v: security | self_control: + | act: book the health check they keep putting off, as a birthday present to themselves | chance: 90
 - U>B | ask the friend who got on fastest exactly how they did it | v: achievement | chance: 85
-- B>R | decide to stop spending your years on people who bore you, from tonight | v: self-direction, hedonism | act: decide to stop spending their years on people who bore them, from tonight | chance: 80
+- B>R | decide to stop spending your years on people who bore you, from tonight | v: self-direction, hedonism | act: decide to stop spending their years on people who bore them, from tonight | chance: 80 | back: made an enemy
 - R>G | dance in the kitchen with the friends who stayed, to the same songs as at nineteen | v: hedonism, benevolence | chance: 90
 - G>W | ring your parents, late as it is, and thank them for all of it | v: benevolence, tradition | chance: 80
 works: The night ends well, and {N} wakes oddly at peace with the years behind.
@@ -568,13 +568,13 @@ scene G: Some part of {N} has always known this was the work {N} was meant for. 
 - W | take the place, train as a teacher, and give the next ten years to it | v: benevolence, achievement | title: teacher | requires: graduate | without: means | lacking: .3 | chance: 55
 - U | sign up for a three-year computing degree on a loan, and see it through | binds | identity | v: achievement, self-direction | title: software developer | self_control: + | chance: 55
 - B | take the training in the field that pays best, and plan your climb from day one | v: achievement, power | title: accountant | requires: graduate | without: means | lacking: .3 | chance: 65
-- R | quit on Friday and start the chef's course at the catering college on Monday | v: stimulation, benevolence | title: cook | requires: savings | without: means | lacking: .5 | chance: 40
+- R | quit on Friday and start the chef's course at the catering college on Monday | v: stimulation, benevolence | title: cook | requires: savings | without: means | lacking: .5 | chance: 40 | back: took a wild risk
 - G | stay in the work you know, and let the old wondering go | v: security, tradition (acceptance) | mark: turned down a chance | self_control: - | chance: 70
 - W>R | train as a bricklayer, and trade the desk for hard work in the open air | body: heavy | v: stimulation, security | title: builder | chance: 40
 - U>G | learn carpentry, and move out to a workshop at the edge of the woods | v: universalism (nature) | mark: moved away | title: carpenter | chance: 50
-- B>W | get your employer to fund the training, in return for staying three more years | binds | v: security, achievement | grants: professional registration | chance: 60
+- B>W | get your employer to fund the training, in return for staying three more years | binds | v: security, achievement | grants: professional registration | chance: 60 | back: kept your word
 - R>U | sell the car to pay for an electrician's course in another city | v: self-direction, achievement | mark: moved away | title: electrician | self_control: + | chance: 35
-- G>B | train under a retiring baker, and buy the shop when they go | binds | v: tradition, achievement | title: shop owner | requires: savings | without: means | lacking: .4 | chance: 20
+- G>B | train under a retiring baker, and buy the shop when they go | binds | v: tradition, achievement | title: shop owner | requires: savings | without: means | lacking: .4 | chance: 20 | back: learned a skill
 works not G: The new road opens and holds, and two years on {N} cannot imagine the old one.
 works: {N} turns out to be good at the new thing, and the people there can tell.
 fails not G: The new start costs more than {N} had, and the old work is gone.
@@ -613,7 +613,7 @@ scene G: {Ns} grandparents' rings are in the same drawer, worn thin by sixty yea
 - W>G | ask your partner's parents for their blessing first, as your family always has | v: tradition | title: engaged | chance: 65
 - U>W | skip the engagement: book the registry office for next month, two witnesses, no fuss | binds | v: self-direction, tradition | title: wife or husband | law: same-sex marriage | chance: 80
 - B>U | wait for the promotion, the savings and the right flat, and decide then | v: security, achievement | chance: 88
-- R>B | admit at last that you do not want this life, and leave | identity | v: self-direction | drops: girlfriend or boyfriend; living together | chance: 65
+- R>B | admit at last that you do not want this life, and leave | identity | v: self-direction | drops: girlfriend or boyfriend; living together | chance: 65 | back: owned up
 - G>R | take your partner back to where you first met, and let the place ask for you | v: benevolence, hedonism | title: engaged | act: take their partner back to where they first met, and let the place ask for them | chance: 60
 works not G R>B: The question gets its answer, and {N} and {partner} wake the next morning on new ground.
 works: Something held in suspense for months is settled, and both of them breathe more easily.
@@ -642,13 +642,13 @@ scene U: {N} has started noticing the small patterns: the café is quieter at te
 scene B: Every hour of {Ns} week is spent on purpose now. {N} looks at the calendar and sees an engine that could be tuned for more.
 scene R: Some days the routine feels like a groove and some days like a rut. On the rut days {N} wants to throw the whole week out of the window.
 scene G: The woman at the market stall knows {Ns} name and keeps back the good tomatoes. {N} realises, with surprise, that this place has become home.
-- W | report every car on the verge and every bin left out, week in, week out | habit | v: conformity, security | closed: approval: policing the neighbours; backfire: a feud with the house next door | chance: 80
+- W | report every car on the verge and every bin left out, week in, week out | habit | v: conformity, security | closed: approval: policing the neighbours; backfire: a feud with the house next door | chance: 80 | back: made an enemy
 - U | plan a hill walk alone each month, mapped to the minute | body: heavy | v: self-direction, stimulation | death_if_fails: 0.003 | mark: took a wild risk | chance: 82
 - B | cut every habit that does not pay back, and give the hours to getting ahead | v: achievement, power | self_control: + | chance: 75
 - R | break the routine on purpose one day a week, and do something unplanned | habit | v: stimulation | chance: 80
 - G | take a patch at the community garden, and give your Sundays to it | habit | v: universalism (nature), tradition | grants: growing food | self_control: + | chance: 70
 - W>U | sign up for an evening class at the college, every Monday, all year | v: self-direction, achievement | chance: 85
-- U>B | quietly take a second remote job, and work both in the same hours | v: achievement, power | closed: approval: a breach of contract; backfire: both employers find out, and both jobs go | tech: remote work | chance: 70
+- U>B | quietly take a second remote job, and work both in the same hours | v: achievement, power | closed: approval: a breach of contract; backfire: both employers find out, and both jobs go | tech: remote work | chance: 70 | back: broke your word
 - B>R | ring in sick on the last Friday of each month, to have a day to yourself | habit | v: hedonism, self-direction | closed: approval: a sick day that is not; backfire: a colleague sees the photos | self_control: - | act: ring in sick on the last Friday of each month, to have a day of their own | mark: hid a wrong | chance: 88
 - R>G | get a dog, so the week has walks in it whether you like it or not | binds | v: benevolence, hedonism | grants: dog of one's own | self_control: + | chance: 80
 - G>W | join the neighbours' street committee, since this is your street now | v: benevolence, tradition | title: neighbourhood volunteer | mark: made a friend | chance: 75
@@ -683,8 +683,8 @@ scene G: {parent} brings a dish from home anyway, the one {N} grew up on, and se
 - U | serve the dish you spent months perfecting, and explain each course | v: achievement | chance: 78
 - B | show them round, the flat, the job, everything you have made of yourself | identity | v: power, achievement | act: show them round, the flat, the job, everything they have made of themselves | chance: 90
 - R | abandon the recipe halfway and cook by feel, laughing with them in the kitchen | v: hedonism, benevolence | chance: 80
-- G | ask your parent to teach you the family dish at your own stove | v: tradition | act: ask their parent to teach them the family dish at their own stove | chance: 85
-- W>B | set out, kindly, the new house rules: visits by invitation from now on | v: power, security | chance: 60
+- G | ask your parent to teach you the family dish at your own stove | v: tradition | act: ask their parent to teach them the family dish at their own stove | chance: 85 | back: learned a skill
+- W>B | set out, kindly, the new house rules: visits by invitation from now on | v: power, security | chance: 60 | back: defied an authority
 - U>R | ask them, glass in hand, the questions about their marriage you never dared ask | v: self-direction, stimulation | chance: 70
 - B>G | ask your parents for help with a deposit, over the second bottle | binds | v: security, power | chance: 60
 - R>W | stand up, a little drunk, and tell your parents what they did right | v: benevolence | chance: 80

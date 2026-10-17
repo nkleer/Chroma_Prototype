@@ -296,7 +296,7 @@ scene U: {N} has kept the book since the start, and can see exactly how short th
 scene B: {Ns} own turn is next month, and the shortfall would come out of it.
 scene R: {N} has half a mind to go round to her door tonight and ask what is going on.
 scene G: She has paid into this circle for twelve years, and her husband lost his job in the summer.
-- W | hold to the rule: she pays what she owes, or she leaves the circle | v: conformity, security | sphere: comm.W | chance: 75
+- W | hold to the rule: she pays what she owes, or she leaves the circle | v: conformity, security | sphere: comm.W | chance: 75 | back: refused someone in need
 - U | lay the book out at the next meeting, so everyone sees the real shortfall | v: universalism, achievement | sphere: comm.U | chance: 75
 - B | ask to move your own turn to this month, before the shortfall reaches it | act: ask to move their own turn to this month, before the shortfall reaches it | v: security, power | sphere: comm.B | chance: 75
 - R | go round to her house tonight and ask her straight | v: self-direction, benevolence | sphere: comm.R | chance: 75

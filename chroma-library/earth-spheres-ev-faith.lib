@@ -192,9 +192,9 @@ scene G: {parent} remembers other lists in other years. "Families look after fam
 - W | keep the box, and tell the family they are still welcome at your table | v: benevolence, universalism | mark: helped someone in need | lever: subvert | pushes: close | sphere: faith.W | chance: 55
 - U | find a lawyer who will take the family's case against the order | v: universalism, self-direction | mark: helped someone in need | lever: voice | pushes: state | sphere: faith.U | chance: 55
 - B | hand the box to the authorities, and keep your own record clean | v: security, power | mark: refused someone in need | sphere: faith.B | chance: 55
-- R | join the crowd outside the town hall calling for the order to go | v: universalism, stimulation | lever: voice | pushes: state | sphere: faith.R | chance: 55
+- R | join the crowd outside the town hall calling for the order to go | v: universalism, stimulation | lever: voice | pushes: state | sphere: faith.R | chance: 55 | back: defied an authority
 - G | say no to the box, but bring the family bread every week | v: benevolence, security | mark: helped someone in need | sphere: faith.G | chance: 55
-- BG | hide the books under the floorboards, and say nothing to anyone | v: security, benevolence | lever: subvert | sphere: faith.BG | chance: 45
+- BG | hide the books under the floorboards, and say nothing to anyone | v: security, benevolence | lever: subvert | sphere: faith.BG | chance: 45 | back: helped someone in need
 - UG | let the family hold their prayers in your back room on rest days | v: universalism, benevolence | mark: defied an authority | lever: subvert | sphere: faith.GU | chance: 45
 - UR | write up the family's story without names, and send it to the papers | v: universalism, self-direction | lever: voice | pushes: culture | sphere: faith.UR | chance: 45
 - WB | ask a friend in the council office how the family can appeal | v: security, benevolence | lever: voice | pushes: institution council | sphere: faith.WB | chance: 45
@@ -755,7 +755,7 @@ scene R: {N} loves that {sibling} is marrying for love, whatever anyone says.
 scene G: {parent} worries aloud about which feasts the new household will keep, and whose graves they will tend.
 - W | ask the couple, gently, whether one of them will take up the other's faith | v: tradition, conformity | sphere: faith.W | chance: 70
 - U | learn the other family's rite, so you can follow it on the day | v: universalism, self-direction | mark: learned a skill | sphere: faith.U | chance: 70
-- B | make friends with the other family's most useful relatives | v: achievement, power | sphere: faith.B | chance: 70
+- B | make friends with the other family's most useful relatives | v: achievement, power | sphere: faith.B | chance: 70 | back: made a friend
 - R | stand up at the wedding and toast the couple, loud and proud | v: benevolence, stimulation | norm: mixed marriage | sphere: faith.R | chance: 70
 - G | stay away from the wedding, and keep to the family's old ways | v: tradition | mark: stayed home | pushes: close | sphere: faith.G | chance: 70
 - BG | pay for the feast, so both families eat as well as each other | v: benevolence, power | sphere: faith.BG | chance: 60

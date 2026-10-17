@@ -627,7 +627,7 @@ THREAD_HOVER = {
     "dream": "Because of {Ns} dream: {dream}.",
     "road": "Because {N} took the road of {road} at {age}.",
     "person": "Because of {who}.",
-    "seed": "{act} It began there, at {age}.",   # Picks come back: {act} is the earlier act as the game tells it
+    "seed": "This came from what {N} did at {age}.",   # Picks come back: the game adds the earlier act and how it went
 }
 # each mark as the hover says it, after "{N}" and before "at {age}"
 THREAD_DID = {

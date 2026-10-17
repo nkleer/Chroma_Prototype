@@ -35,7 +35,7 @@ scene G: It came the way good things grow, slowly and then all at once, like a s
 - WU | check it three times, write it up, and send it to the judges of such work | door | v: achievement, conformity | chance: 58
 - UB | make sure it is on record under your own name before anyone can copy it | v: power, achievement | chance: 80
 - WR | share the credit loudly with everyone who helped, and throw them a party | v: benevolence, hedonism | mark: made a friend | chance: 78
-- RG | drop everything else and follow it wherever your gut leads | door | v: self-direction, stimulation | chance: 64
+- RG | drop everything else and follow it wherever your gut leads | door | v: self-direction, stimulation | chance: 64 | back: took a wild risk
 - BG | say nothing, and let it grow quietly until you are far ahead of the rest | v: power, achievement | chance: 55
 works: What {N} found turns out to be real, and other people start to use it.
 works not BG: {N} is asked to show how it works, and the room goes quiet to listen.
@@ -70,7 +70,7 @@ scene G: The body is knitting itself around the new part, the way bark closes ov
 - W | follow the recovery plan to the letter, every exercise, every day | v: conformity, security | chance: 85
 - U | read up on how the operation works, and ask the surgeon every question you have | v: self-direction | chance: 80
 - B | take charge of your own recovery, and be back on your feet before anyone expects | v: achievement, self-direction | chance: 60
-- R | go straight back to the thing you had given up, long before the doctor says | body: heavy | v: stimulation, hedonism | closed: approval: going against the surgeon's advice; backfire: a setback, and weeks lost | chance: 70
+- R | go straight back to the thing you had given up, long before the doctor says | body: heavy | v: stimulation, hedonism | closed: approval: going against the surgeon's advice; backfire: a setback, and weeks lost | chance: 70 | back: defied an authority
 - G | take it slowly, and let the body heal at its own pace | v: security | chance: 79
 - W>R | keep every rule of recovery, so you can run, dance or play again by summer | v: hedonism, conformity | chance: 66
 - U>G | learn how the body heals, and work with it rather than against it | v: self-direction, universalism (nature) | chance: 75
@@ -154,7 +154,7 @@ scene G: {grandparent} never had the chance to sit for anything like this. {N} t
 - R | throw the biggest party anyone can remember | v: hedonism, stimulation | chance: 78
 - G | put the paper away in a drawer; the work matters, not the certificate | v: tradition (humility) | chance: 59
 - W>G | hold a proper family celebration, with the grandparents in the place of honour | v: tradition, benevolence | chance: 80
-- U>W | tutor the ones coming up behind, for free, with everything you learned | v: benevolence | chance: 71
+- U>W | tutor the ones coming up behind, for free, with everything you learned | v: benevolence | chance: 71 | back: helped someone in need
 - B>U | pull every string you can to get into the best course there is | door | v: achievement, power | chance: 42
 - R>B | ride the high, and apply that same week for the next rung up | v: achievement, stimulation | chance: 55
 - G>R | spend the whole summer outdoors before deciding anything at all | door | v: self-direction, hedonism | chance: 72
@@ -194,7 +194,7 @@ scene G: {grandparent} holds the certificate up to the light and says nobody in 
 - R | beg for a party, and invite the whole class | v: hedonism, stimulation | chance: 70
 - G | put it away in a drawer, and just go on enjoying the thing itself | v: tradition (humility) | chance: 65
 - W>G | show it to the grandparents first, and let them make a fuss | v: tradition, benevolence | chance: 93
-- U>W | help a younger child who is working for the same badge | v: benevolence | chance: 76
+- U>W | help a younger child who is working for the same badge | v: benevolence | chance: 76 | back: helped someone in need
 - B>U | talk the grown-ups into lessons with the best teacher around | door | v: achievement, power | chance: 58
 - R>B | show it off to the ones who laughed at you, and gloat | v: power | mark: made an enemy | act: show it off to the ones who laughed at them, and gloat | chance: 42
 - G>R | spend the rest of the summer outdoors, with no lessons at all | door | v: self-direction, hedonism | chance: 65
@@ -270,7 +270,7 @@ scene G: The lake is flat and quiet again, as if nothing happened. {N} watches i
 - B | sell the story and the video to whoever pays most | v: power, achievement | chance: 48
 - R | hug the stranger and cry, right there on the shore | v: none clear (relief let out) | chance: 90
 - G | take it as a sign that you were meant to be there, that day | identity | v: none clear (a sense of fate) | chance: 72
-- W>R | join the lifesaving club, with its drills and rotas, to be ready next time | door | v: benevolence, stimulation | chance: 65
+- W>R | join the lifesaving club, with its drills and rotas, to be ready next time | door | v: benevolence, stimulation | chance: 65 | back: learned a skill
 - U>G | learn the stranger's whole story, and find out how your lives connect | door | v: self-direction, universalism | mark: made a friend | chance: 50
 - B>W | use all the attention to push the council for a rail and a lifebuoy | v: universalism, power | chance: 68
 - R>U | go back into the water the very next day, to master the fear | body: heavy | v: self-direction, stimulation | mark: took a wild risk | chance: 68
@@ -346,12 +346,12 @@ scene G: {elder} began this fight long before {N} joined it. Now {elder} sits in
 - W | see that the new rule is enforced to the letter on those who fought it | v: conformity, power | mark: made an enemy | closed: approval: using the win to punish neighbours; backfire: the neighbours never forgive it, and fight the next one harder | chance: 50
 - U | study why it worked, and write it down for the next people who need to know | v: universalism, self-direction | mark: learned a skill | chance: 68
 - B | take the credit in the papers, and use the name it makes you | identity | v: power, achievement | mark: made an enemy | act: take the credit in the papers, and use the name it makes them | chance: 55
-- R | celebrate all night with everyone who marched | v: hedonism, benevolence | chance: 88
+- R | celebrate all night with everyone who marched | v: hedonism, benevolence | chance: 88 | back: made a friend
 - G | go home, tend your own garden, and let others carry the movement on | v: tradition (moderation), security | mark: turned down a chance | chance: 45
 - WUBG | keep the campaign going as a proper group, with a fund, a committee and a plan | binds | v: universalism, security | tags: commit:community | chance: 62
 - WUBR | turn the win into a model: a toolkit, a website, the same fight in ten towns | v: universalism, achievement | tags: commit:community | chance: 35
 - WURG | give the credit to everyone, and open the doors to anyone who wants to help | v: benevolence, universalism | tags: commit:community | chance: 78
-- WBRG | strike again while the other side is reeling, and go straight after the next fight | v: power, achievement | tags: commit:faith | chance: 45
+- WBRG | strike again while the other side is reeling, and go straight after the next fight | v: power, achievement | tags: commit:faith | chance: 45 | back: made an enemy
 - UBRG | follow the energy into whatever cause catches fire next, and see where it goes | v: stimulation, self-direction | tags: commit:faith | chance: 50
 works: A year later the change is real, and people who never heard of the campaign live by it.
 works not G: The win draws new people in, and {N} finds a crowd of friends where there were strangers.
@@ -544,10 +544,10 @@ scene G: The body has spoken plainly, in the only language it has. {N} lies stil
 - R | go back to the old habits within the month; life is for living | habit | v: hedonism | closed: approval: against the doctors' orders; backfire: back in hospital within the year | chance: 50
 - G | slow your whole life down: fewer hours, more walks, early nights | v: security | chance: 74
 - W>R | join the rehabilitation class, do every drill, and enter a charity walk | v: achievement, stimulation | chance: 78
-- U>G | learn to cook the way your grandparents ate, plain food made from scratch | v: tradition, security | chance: 65
+- U>G | learn to cook the way your grandparents ate, plain food made from scratch | v: tradition, security | chance: 65 | back: learned a skill
 - B>W | pay for the best private specialist, and get the whole family checked too | v: security | chance: 75
 - R>U | climb the steepest hill around, to find out what the heart can take now | body: heavy | v: stimulation, self-direction | chance: 52
-- G>B | throw away the pills and trust the old remedies, so nobody tells you what to do | v: self-direction, tradition | closed: approval: against medical advice; backfire: a second scare, and a worse one | act: throw away the pills and trust the old remedies, so nobody tells them what to do | chance: 35
+- G>B | throw away the pills and trust the old remedies, so nobody tells you what to do | v: self-direction, tradition | closed: approval: against medical advice; backfire: a second scare, and a worse one | act: throw away the pills and trust the old remedies, so nobody tells them what to do | chance: 35 | back: defied an authority
 works: Six months on, {N} walks further than before, and the numbers on the chart are falling.
 works: {N} looks round the table at the people there and feels lucky in a way {N} never did before.
 fails: Recovery is slow, and the old strength does not come back.
@@ -581,11 +581,11 @@ scene G: Bodies change, the way trees lean with the wind. This is part of {Ns} b
 - W | learn the routine, and keep it every single day without fail | v: security, conformity | chance: 60
 - U | read every study, and test on yourself what helps and what does not | v: self-direction | chance: 57
 - B | fit it into your days on your own terms, and ask nobody for favours | v: self-direction | chance: 65
-- R | ignore the diet and the pills, and carry on as before | v: hedonism, self-direction | chance: 28
+- R | ignore the diet and the pills, and carry on as before | v: hedonism, self-direction | chance: 28 | back: defied an authority
 - G | accept it as your lot, and make room for it without a fuss | v: tradition (accepting your portion) | chance: 62
 - W>G | join the patients' group that meets every month, and become one of its regulars | v: conformity, benevolence | mark: made a friend | chance: 65
-- U>W | learn the illness well, and help the newly diagnosed make sense of it | v: benevolence, universalism | chance: 65
-- B>U | push the doctors hard until they put you on the newest treatment there is | v: power, achievement | act: push the doctors hard until they put them on the newest treatment there is | tech: modern medicine | chance: 75
+- U>W | learn the illness well, and help the newly diagnosed make sense of it | v: benevolence, universalism | chance: 65 | back: helped someone in need
+- B>U | push the doctors hard until they put you on the newest treatment there is | v: power, achievement | act: push the doctors hard until they put them on the newest treatment there is | tech: modern medicine | chance: 75 | back: defied an authority
 - R>B | refuse to be slowed down, and train harder than anyone around you | body: heavy | v: achievement, power | act: refuse to be slowed down, and train harder than anyone around them | chance: 66
 - G>R | go back to the outdoors, walk every day, and let the body find its own strength | habit | v: universalism (nature), hedonism | chance: 66
 works not R: Within a year the routine is second nature, and most days {N} hardly thinks about it.
@@ -665,7 +665,7 @@ scene G: It is like a winter that will not lift. {N} knows that winters end, but
 - W>U | go to the doctor, and follow the treatment exactly as prescribed | v: security, conformity | chance: 65
 - U>B | read up on the illness, and decide for yourself which treatment to take | v: self-direction, power | chance: 52
 - B>R | drop the people and duties dragging you down, without explaining yourself | v: self-direction | mark: broke your word | act: drop the people and duties dragging them down, without explaining themselves | chance: 55
-- R>G | tell a friend the whole raw truth of it, and let the friend stay close | v: benevolence | chance: 74
+- R>G | tell a friend the whole raw truth of it, and let the friend stay close | v: benevolence | chance: 74 | back: made a friend
 - G>W | lean on the family and its old routines, and let them carry the weight a while | v: tradition, security | chance: 57
 works: Slowly, almost without noticing, {N} starts to laugh at things again.
 works: One morning in spring {N} wakes and the weight has lifted a little, and then a little more.
@@ -779,10 +779,10 @@ scene G: {N} thinks of {parent}, who did the same work for thirty years, and won
 - U | take the job with the most to learn, even for less pay | door | v: self-direction, achievement | tags: commit:career | chance: 70
 - B | play the two offers against each other until one pays properly | v: power (resources), achievement | tags: commit:career | chance: 75
 - R | take the job in a new city on the spot, and pack that night | door | v: stimulation | mark: moved away | tags: commit:career | chance: 73
-- G | go back to the line of work you know, close to home, for good | binds | v: tradition, security | tags: commit:career | chance: 85
+- G | go back to the line of work you know, close to home, for good | binds | v: tradition, security | tags: commit:career | chance: 85 | back: stayed home
 - BR | sell the months out of work as a bold year of travel, a little stretched | v: power, stimulation | mark: hid a wrong | closed: approval: stretching the truth on a CV; backfire: caught out at the reference check | tags: commit:career | chance: 72
 - UB | get in through someone who owes a favour, and study the place before day one | v: power, achievement | tags: commit:career | chance: 82
-- UG | retrain for steadier work close to home, and take the first post it offers | door | binds | v: security, self-direction | tags: commit:career | chance: 60
+- UG | retrain for steadier work close to home, and take the first post it offers | door | binds | v: security, self-direction | tags: commit:career | chance: 60 | back: learned a skill
 - WG | join a cooperative where everyone shares the work and the pay | binds | v: universalism, benevolence | tags: commit:career | chance: 66
 - WR | take the hardest job going, the night shift on the ambulances | body: light | identity | v: benevolence, stimulation | tags: commit:career | chance: 62
 works: The first week goes well, and by Friday {colleague} has shown {N} where the good coffee is.

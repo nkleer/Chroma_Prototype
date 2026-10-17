@@ -429,7 +429,7 @@ scene G: {Ns} uncle worked this yard for twenty years. Somebody here must rememb
 - R | push to the front and say you will take any job going, starting now | act: push to the front and say they will take any job going, starting now | v: stimulation, self-direction | sphere: comm.R | chance: 55
 - G | tell the foreman which family you come from, and let your uncle's name speak | act: tell the foreman which family they come from, and let their uncle's name speak | v: tradition, security | sphere: comm.G | chance: 55
 - WU | sign on at the job centre, and apply by the book for every post listed | v: conformity, security | sphere: comm.WU | chance: 50
-- WR | get the line to demand that the foreman picks in turn, and say it out loud | v: universalism, benevolence | lever: voice | pushes: economy | sphere: comm.RW | chance: 50
+- WR | get the line to demand that the foreman picks in turn, and say it out loud | v: universalism, benevolence | lever: voice | pushes: economy | sphere: comm.RW | chance: 50 | back: defied an authority
 - UB | learn which jobs the agencies cannot fill, and train for one of those | v: achievement, self-direction | mark: learned a skill | sphere: comm.UB | chance: 50
 - RG | walk to the next town's yard with a friend from the line, together | v: stimulation, benevolence | mark: made a friend | sphere: comm.RG | chance: 50
 - BG | ask the shopkeeper who has known your family for years to take you on | act: ask the shopkeeper who has known their family for years to take them on | v: security, tradition | sphere: comm.BG | chance: 50

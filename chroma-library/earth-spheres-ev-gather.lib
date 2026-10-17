@@ -698,7 +698,7 @@ scene G: {parent} has read the item out at dinner twice. {N} would rather the fa
 - U | check every claim in the item, and post the true story under it | v: universalism, self-direction | sphere: gather.U | chance: 56
 - B | get to know the person who runs the feed, and bring them better stories | v: power, achievement | sphere: gather.B | chance: 51
 - R | answer the item with a joke so good the whole town laughs along | v: stimulation, hedonism | sphere: gather.R | chance: 45
-- G | ignore the feed, and settle it with your rival over a cup of tea | v: tradition, benevolence | sphere: gather.G | chance: 46
+- G | ignore the feed, and settle it with your rival over a cup of tea | v: tradition, benevolence | sphere: gather.G | chance: 46 | back: made a friend
 - RG | turn off the phone and go to the market as usual, head up | v: self-direction, security | sphere: gather.RG | chance: 74
 - UB | find out who sent the item in, and what they hoped to gain | v: power, security | sphere: gather.UB | chance: 52
 - UR | start your own page about the town, with the arguments and the jokes | v: self-direction, stimulation | lever: found | tech: internet | sphere: gather.UR | chance: 40

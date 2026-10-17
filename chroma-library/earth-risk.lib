@@ -298,7 +298,7 @@ scene G: All these people swaying together under the dark sky feel like one trib
 - G | take it from the stranger's hand like a gift, the way the crowd shares everything | habit | v: universalism, hedonism | self_control: - | mark: used drugs | body: heavy | death_if_fails: 0.003 | closed: law: illegal drugs; backfire: the medical tent, or the police | law: drugs | chance: 74
 - W>B | say no, because the new job starts with a drug test next month | v: security, achievement | chance: 74
 - U>R | let your friend take one first, and take one too only if they seem fine | v: stimulation, hedonism | mark: used drugs | body: heavy | death_if_fails: 0.002 | closed: approval: using a friend to test it; backfire: the friend has a bad night, and knows why | chance: 74
-- B>G | give it to the stranger's friends, and join their camp for the weekend | door | v: hedonism | chance: 76
+- B>G | give it to the stranger's friends, and join their camp for the weekend | door | v: hedonism | chance: 76 | back: made a friend
 - R>W | chase after the stranger and shout at them to stop handing them out | identity | v: benevolence, universalism | mark: made an enemy | body: light | chance: 62
 - G>U | drop it in the grass, and watch the crowd until it makes sense | door | v: self-direction | chance: 76
 works: The night is everything it promised, and {N} watches the sun come up over the tents.
@@ -411,7 +411,7 @@ scene G: {N} kneels by {friend} and holds a cold hand. They have known each othe
 - G | sit holding their hand, talking to them, until they stir | v: benevolence | closed: approval: not calling for help; backfire: they get worse, and everyone asks why nobody rang for help | chance: 66
 - WU | phone for an ambulance, and tell them exactly what was taken and when | v: benevolence, security | mark: owned up | chance: 74
 - WG | wake the neighbours, and get every grown-up in the building to help | v: benevolence | mark: helped someone in need | chance: 62
-- UR | flag down a taxi and get your friend to the hospital faster than any ambulance | v: benevolence | body: heavy | chance: 64
+- UR | flag down a taxi and get your friend to the hospital faster than any ambulance | v: benevolence | body: heavy | chance: 64 | back: helped someone in need
 - BR | run, before anyone can say you were there | v: security, self-direction | mark: refused someone in need | closed: approval: leaving a friend in danger; backfire: someone saw, and everyone knows | chance: 76
 - BG | ring your friend's family, and keep the doctors and the police out of it | v: security, tradition | mark: hid a wrong | closed: approval: keeping a friend in danger from the doctors; backfire: help comes late | chance: 60
 works: {friend} comes round in the end, grey and shaking, and alive.
@@ -492,7 +492,7 @@ scene G: {parent} went the same way: a flushed face and a bad heart at sixty. {N
 - WUR | take on a dry year as a challenge, with a race at the end | binds | v: achievement, stimulation | self_control: + | chance: 50
 - WUB | follow the cardiologist's plan to the letter, with the best specialist money can buy | binds | v: security, achievement | self_control: + | chance: 70
 - WBG | tell the family, and agree a house rule: no drink in the house | v: security, tradition | self_control: + | chance: 60
-- URG | learn to cook properly, cycle to work, and let the body mend | habit | v: self-direction, security | body: light | chance: 62
+- URG | learn to cook properly, cycle to work, and let the body mend | habit | v: self-direction, security | body: light | chance: 62 | back: learned a skill
 - BRG | decide that life is short, and keep the weekends exactly as they are | habit | v: hedonism, tradition (acceptance) | mark: took a wild risk | death_if_fails: 0.003 | self_control: - | chance: 55
 works: The heart settles into its old rhythm, and {N} goes home with a leaflet and a new resolve.
 works: Six months on, the trace on the screen is steady, and the doctor says so.

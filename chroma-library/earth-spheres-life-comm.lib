@@ -228,7 +228,7 @@ scene U: {N} has added the page up: if he never pays, the shop loses the whole o
 scene B: {N} knows what this is. He thinks the shop is soft, and so does everyone watching.
 scene R: {N} has had enough of the smile, the basket and the promise.
 scene G: He has bought here for twenty years, and his wife was ill all winter.
-- W | tell him kindly that the book is closed until the page is paid | v: conformity, security | sphere: comm.W | chance: 60
+- W | tell him kindly that the book is closed until the page is paid | v: conformity, security | sphere: comm.W | chance: 60 | back: refused someone in need
 - U | work out with him what he can pay each week, and write it down | v: security, universalism | sphere: comm.U | chance: 60
 - B | keep his basket behind the till until he pays something today | v: power, security | sphere: comm.B | chance: 60
 - R | tell him in front of the whole queue that he owes you the winter | act: tell him in front of the whole queue that he owes the shop the winter | v: self-direction, stimulation | sphere: comm.R | chance: 60
@@ -408,7 +408,7 @@ scene G: {colleague} at the next stall has been there forty years, and is alread
 - WB | ask the lawyer two stalls down to read the old lease for a clause they broke | v: conformity, power | sphere: comm.WB | chance: 50
 - WG | start a stallholders' co-op, and run your own market in the church car park | act: start a stallholders' co-op, and run their own market in the church car park | v: universalism, benevolence | lever: found | sphere: comm.GW | chance: 50
 - UR | sell online through the week, and from the van at the market gate on Saturdays | v: self-direction, stimulation | tech: internet | sphere: comm.UR | chance: 50
-- UG | share one pitch with the old neighbour, splitting the fee and the days | v: benevolence, security | sphere: comm.GU | chance: 50
+- UG | share one pitch with the old neighbour, splitting the fee and the days | v: benevolence, security | sphere: comm.GU | chance: 50 | back: helped someone in need
 - BR | sell off the stock at one great last market, and start again elsewhere | v: stimulation, achievement | lever: exit | sphere: comm.BR | chance: 50
 works: The stallholders hold together, and the council caps the fee for three years.
 works not G UG: {N} finds a better pitch in a market two towns away, and the takings there are higher within a season.
@@ -443,7 +443,7 @@ scene G: The sauce is an old family recipe, made with the neighbours' tomatoes. 
 - W | sign only for what you know you can deliver, and say so plainly | act: sign only for what they know they can deliver, and say so plainly | v: conformity, security | sphere: comm.W | chance: 60
 - U | ask for a week to cost the order, and come back with a plan | v: security, achievement | sphere: comm.U | chance: 60
 - B | say yes, and hold out for a better price per jar before signing | v: power, achievement | sphere: comm.B | chance: 60
-- R | sign on the spot, and work out the kitchen tomorrow | v: stimulation, hedonism | sphere: comm.R | chance: 60
+- R | sign on the spot, and work out the kitchen tomorrow | v: stimulation, hedonism | sphere: comm.R | chance: 60 | back: took a wild risk
 - G | ask the neighbours who grow the tomatoes whether they can grow ten times as many | v: benevolence, tradition | sphere: comm.G | chance: 60
 - WU | have someone you trust read the contract, clause by clause, before signing | act: have someone they trust read the contract, clause by clause, before signing | v: security, conformity | sphere: comm.WU | chance: 50
 - WB | borrow from the family against the contract, and build a proper kitchen | v: achievement, tradition | sphere: comm.WB | chance: 50
@@ -483,7 +483,7 @@ scene G: {friend} bought a car from the same man last year. {N} wonders how many
 - W | report the sale to the consumer office, with the mechanic's written report | v: conformity, universalism | lever: voice | sphere: comm.W | chance: 60
 - U | find the car's old service records, and prove what the mileage really was | v: self-direction, achievement | sphere: comm.U | chance: 60
 - B | go round with the report and offer him a quiet deal: half back, or court | v: power, security | sphere: comm.B | chance: 60
-- R | park the car outside his house with a sign saying what he did | v: stimulation, self-direction | sphere: comm.R | chance: 60
+- R | park the car outside his house with a sign saying what he did | v: stimulation, self-direction | sphere: comm.R | chance: 60 | back: made an enemy
 - G | warn everyone you know, and ask who else has bought from him | v: benevolence, universalism | sphere: comm.G | chance: 60
 - WG | gather the others he cheated, and take him to the small claims court together | v: universalism, benevolence | lever: voice | sphere: comm.GW | chance: 50
 - WR | stand by his car lot on Saturday morning, and tell every buyer what he did | v: universalism, stimulation | lever: voice | sphere: comm.RW | chance: 50

@@ -31,7 +31,7 @@ scene G: The house has stood for two hundred years and outlived every quarrel in
 - W>U | name their faults at the community's meeting, so the head of the house corrects them | v: conformity | mark: made an enemy | closed: approval: accusing a fellow member in front of the house; backfire: the house closes ranks around them | chance: 40
 - U>B | keep a private note of every correction, in case it ever comes to a complaint | habit | v: power | closed: approval: keeping a file on a fellow member; backfire: the note is found and the house takes sides | chance: 85
 - B>R | offer to take their turn at the pots if they leave your evenings in peace | v: self-direction, hedonism | chance: 75
-- R>G | ask them out on a walk round the fields after evening prayer, and talk | v: benevolence | chance: 65
+- R>G | ask them out on a walk round the fields after evening prayer, and talk | v: benevolence | chance: 65 | back: made a friend
 - G>W | ask the oldest member how the house has always borne such people, and do likewise | v: tradition, conformity | chance: 80
 works: By winter the evenings at the sink are quiet, and once or twice the two of them laugh.
 works: The irritation settles into the rest of the house's weather, and {N} sleeps well again.
@@ -570,7 +570,7 @@ scene G: {friend} ran the fair when their own children were small, and still bak
 - U | offer to work out why the money fell, and leave the organising to others | v: achievement | chance: 92
 - B | say no, and give the evenings to your own career instead | v: achievement | mark: turned down a chance | chance: 95
 - R | say yes, and promise the children a new climbing frame by summer | binds | v: benevolence, stimulation | title: parent-association organiser | chance: 65
-- G | say no, and keep baking for the fair as you always have | habit | v: tradition | chance: 95
+- G | say no, and keep baking for the fair as you always have | habit | v: tradition | chance: 95 | back: turned down a chance
 - W>G | run only the summer fair, the way it was always run, and pass on the rest | v: tradition | chance: 90
 - U>W | take the role, and rebuild how the association collects and reports its money | binds | v: achievement, security | title: parent-association organiser | chance: 70
 - B>U | take the role, and use the seat to learn how the school budget really works | binds | v: power, self-direction | title: parent-association organiser | chance: 85
@@ -691,7 +691,7 @@ scene G: Their seasons, their meals, their prayers for the dead: {N} has been li
 - U>B | ask to sit in on its councils first, to see how the faith is really run | door | v: security, power | chance: 70
 - B>R | turn the teacher down, and keep the freedom to believe whatever you like | v: self-direction | mark: turned down a chance | chance: 95
 - R>G | bring the person closest to you to the next gathering, and decide together | act: bring the person closest to them to the next gathering, and decide together | v: benevolence | chance: 80
-- G>W | stay a friend of the faith, at its feasts and its funerals, without joining | v: tradition, benevolence | chance: 90
+- G>W | stay a friend of the faith, at its feasts and its funerals, without joining | v: tradition, benevolence | chance: 90 | back: turned down a chance
 works not B>R G>W: {N} is received one evening, in front of people who have become friends, and is given the words to say.
 works: The search does not end, but it has a home now, a calendar, and people who notice when {N} is missing.
 fails: At the last step {N} hesitates, and the teacher says gently that the door will stay open.

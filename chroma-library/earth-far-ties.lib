@@ -350,10 +350,10 @@ scene G: Families have always closed ranks when the roof falls in. That is what 
 - U | find out what the insurer and the council owe them before offering anything | v: security, self-direction | chance: 82
 - B | pay for a short let near them, so your own home stays your own | v: security, power | tags: pay:money-.02 | act: pay for a short let near them, so their own home stays their own | chance: 72
 - R | drive there tonight and stay beside them through the worst of it | v: benevolence, stimulation | mark: helped someone in need | chance: 88
-- G | call every evening, and let them find their own way, as they always have | v: tradition, security | chance: 78
+- G | call every evening, and let them find their own way, as they always have | v: tradition, security | chance: 78 | back: refused someone in need
 - W>U | ask the council for the written list of help due to them, item by item | v: security, conformity | chance: 64
 - U>B | work out what the landlord or insurer owes them, and press for every penny | v: power, security | chance: 58
-- B>R | call in a favour from a builder you know, and go and fix the place together | v: stimulation, benevolence | act: call in a favour from a builder they know, and go and fix the place together | chance: 68
+- B>R | call in a favour from a builder you know, and go and fix the place together | v: stimulation, benevolence | act: call in a favour from a builder they know, and go and fix the place together | chance: 68 | back: helped someone in need
 - R>G | phone every brother, sister and cousin tonight: the family must come through | v: benevolence, tradition | chance: 52
 - G>W | rally their old neighbours and friends to take turns giving them a bed | v: benevolence, universalism | chance: 62
 works: {parent} has a roof again sooner than anyone feared, and says {N} made the difference.
@@ -542,7 +542,7 @@ scene G: Old people are cared for by their own, in the end. Homes and offices co
 - G | accept that the home does what it can, and visit as often as you are able | v: tradition, security | act: accept that the home does what it can, and visit as often as they are able | chance: 80
 - W>U | ask for their care plan and the staffing records, as is your right | v: security, self-direction | act: ask for the care plan and the staffing records, as is their right | chance: 64
 - U>B | work out which costs the home must carry, and make them pay them | v: power, security | chance: 68
-- B>R | spend your saved leave taking them out of the home for a week by the sea | v: benevolence, stimulation | act: spend their saved leave taking the parent out of the home for a week by the sea | chance: 66
+- B>R | spend your saved leave taking them out of the home for a week by the sea | v: benevolence, stimulation | act: spend their saved leave taking the parent out of the home for a week by the sea | chance: 66 | back: helped someone in need
 - R>G | bring them home to live with you, whatever it takes | v: benevolence, tradition | mark: took them in | act: bring the parent home to live with them, whatever it takes | chance: 56
 - G>W | rally the other families of the home to share the visits fairly | v: benevolence, universalism | chance: 60
 works: Things steady, and {parent} sounds warm and looked after on the next call.
@@ -767,7 +767,7 @@ scene G: Every friend, every habit, every grave {N} tends is here. The old groun
 - U | ask for three months to compare both towns properly before deciding | v: self-direction, security | chance: 85
 - B | say no: a life that took decades to build stays where it is | identity | v: self-direction, power | mark: stayed home | chance: 66
 - R | go for a month on a whim, and let the town win or lose | v: stimulation | chance: 80
-- G | stay put, and ask them to bring the family home more often | v: tradition | chance: 72
+- G | stay put, and ask them to bring the family home more often | v: tradition | chance: 72 | back: turned down a chance
 - W>G | offer a fair middle: move halfway, so both families can visit easily | v: benevolence, conformity | chance: 70
 - U>W | work out a plan that is fair to every one of the children, then share it | v: universalism, benevolence | chance: 55
 - B>U | rent the flat for a trial season, and keep the right to walk away | v: security, self-direction | tags: pay:money-.02 | chance: 74
@@ -919,7 +919,7 @@ scene G: Some things stay inside the family. A stranger with a notebook does not
 - U | ask the reporter to send the questions in writing first | v: security, self-direction | chance: 75
 - B | make sure the piece says how much the parents gave up | v: achievement, power | chance: 60
 - R | tell every story, the funny and the tender, and laugh all through it | v: hedonism, stimulation | chance: 88
-- G | politely decline: family stories stay in the family | v: tradition, security | chance: 78
+- G | politely decline: family stories stay in the family | v: tradition, security | chance: 78 | back: turned down a chance
 - W>B | agree only on the condition of reading the piece before it is printed | v: power, security | chance: 60
 - U>R | dig out the old photos and letters, and plan one moving story | v: self-direction, stimulation | chance: 65
 - B>G | use the interview to give the old family trade a good mention | v: tradition, achievement | chance: 80
@@ -992,7 +992,7 @@ scene B: Better pay, a title, a foot in the door. {N} is glad, a little envious,
 scene R: {N} can hear how much the list hurts and how much the new post thrills, all in one breath.
 scene G: In a town that size, everyone will remember who was on the list. Families there have long memories.
 - W | tell them to choose by one fair rule for everyone, and say it openly | v: universalism, conformity | chance: 66
-- U | help them set the choice out on paper: skills, years, who has a family to keep | v: self-direction, benevolence | chance: 78
+- U | help them set the choice out on paper: skills, years, who has a family to keep | v: self-direction, benevolence | chance: 78 | back: helped someone in need
 - B | tell them to keep the strongest workers and think of their own future first | v: achievement, power | chance: 75
 - R | tell them to refuse the list, and the post with it if they must | v: self-direction, benevolence | chance: 84
 - G | tell them to keep the old hands, whatever it costs them with the bosses | v: tradition, benevolence | chance: 72
