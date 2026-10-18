@@ -27,7 +27,9 @@ const START = +(startArg || 76), SEED = +(seedArg || 140892), SECONDS = +(secArg
   const browser = await chromium.launch();
   const phone = width < 600, logs = [], warns = [], fails = [], say = (...a) => console.log(...a);
   const ctx = await browser.newContext({ viewport: { width, height }, hasTouch: phone, isMobile: phone });
-  await ctx.addInitScript(() => { try { localStorage.setItem('chroma.pace', 'off'); localStorage.setItem('chroma.motion', 'full'); localStorage.removeItem('chroma.living'); localStorage.removeItem('chroma.autosave'); } catch (_) {} });
+  // the per-piece guard (living/00-core.js) only reports here: on a slow headless machine it would hold the piece still,
+  // and this driver checks the piece's own motion (test/drive_living.js joint checks the guard)
+  await ctx.addInitScript(() => { try { localStorage.setItem('chroma.pace', 'off'); localStorage.setItem('chroma.living.guard', 'off'); localStorage.setItem('chroma.motion', 'full'); localStorage.removeItem('chroma.living'); localStorage.removeItem('chroma.autosave'); } catch (_) {} });
   const page = await ctx.newPage();
   page.on('pageerror', (e) => logs.push('pageerror: ' + e.message));
   page.on('console', (m) => { const t = m.text();
@@ -39,11 +41,14 @@ const START = +(startArg || 76), SEED = +(seedArg || 140892), SECONDS = +(secArg
   const t0 = Date.now();
   await page.goto(url);
   await page.waitForFunction(() => window.CH && CH.pieces && CH.pieces.has('window') && CH.life, null, { timeout: 120000 });
-  // the window's own script time: every frame function it starts (CH.frame), its update and its hooks, by animation frame
+  // the window's own script time: every frame function it starts (CH.frame), its update and its hooks, by animation frame.
+  // Only the window's frames: the other pieces start theirs again when Living comes back on (the sky's in its mount), and
+  // the core names the piece starting one (CH.owner(), living/00-core.js)
   await page.evaluate(() => {
     const T = window.__w = { acc: 0, frames: [], on: false, long: [] };
     const timed = (f) => function (...a) { const s = performance.now(); try { return f.apply(this, a); } finally { T.acc += performance.now() - s; } };
-    const f0 = CH.frame; CH.frame = (fn, el) => f0(timed(fn), el);
+    const mine = () => !CH.owner || !CH.owner() || CH.owner() === 'window';
+    const f0 = CH.frame; CH.frame = (fn, el) => f0(mine() ? timed(fn) : fn, el);
     const p = CH.pieces.get('window'); p.update = timed(p.update); for (const k in p.hooks) p.hooks[k] = timed(p.hooks[k]);
     T.start = () => { T.frames = []; T.acc = 0; T.long = []; T.on = true; const k = () => { T.frames.push(T.acc); T.acc = 0; if (T.on) requestAnimationFrame(k); }; requestAnimationFrame(k); };
     T.stop = () => { T.on = false; const f = T.frames.slice(1).sort((a, b) => a - b), n = f.length || 1;

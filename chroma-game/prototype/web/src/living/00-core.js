@@ -1,11 +1,12 @@
 "use strict";
 /* ---------------- the Living HUD: its core (v23 rows V0 to V6; plan: the Living HUD in v23, section 2) ----------------
    The shared base every living piece stands on, ported from the showcase's core.js: the five colours and their pairs,
-   small helpers, seeded noise, events, one frame loop, canvases, the live life (CH.life, kept by living/90-game.js from
-   the game's own states) and the bridges into the page: tooltips go through the page's one #tip (setTip, tipBox,
-   showTipAt, hideTip), marked text through rich(), icons and pips through ic() and pip(), and the motion setting is the
-   ink look's own (html[data-motion]). Left out of the showcase's core: its own tooltip box, the pips' title=, CH.load and
-   the recorded life (CH.at, CH.synth), its own motion key (chs.motion) and the gallery's demos.
+   small helpers, seeded noise, events, one frame loop (timed piece by piece, with a guard: CH.cost), canvases, the live
+   life (CH.life, kept by living/90-game.js from the game's own states) and the bridges into the page: tooltips go
+   through the page's one #tip (setTip, tipBox, showTipAt, hideTip), marked text through rich(), icons and pips through
+   ic() and pip(), and the motion setting is the ink look's own (html[data-motion]). Left out of the showcase's core: its
+   own tooltip box, the pips' title=, CH.load and the recorded life (CH.at, CH.synth), its own motion key (chs.motion)
+   and the gallery's demos.
    Every piece registers here with CH.piece(name, spec); living/90-game.js mounts the pieces while the Living HUD is on
    (Table menu, ink look only), feeds them a new state S at each update and takes them down when it is turned off. */
 (() => {
@@ -54,10 +55,20 @@ CH.fbm = (x, y, o = 4) => { let s = 0, a = 0.5, f = 1; for (let i = 0; i < o; i+
 CH.rich = (s) => rich(s);
 CH.plain = (s) => plainText(s).replace(/\*/g, "");
 
+/* ---------- owners: which piece is running now ----------
+   living/90-game.js runs each piece's mount, update, hooks and destroy as that piece (CH.as), so whatever a piece starts
+   there is its own: a frame function (CH.frame) is measured as the piece's, and an event handler (CH.on) runs as the
+   piece. Only the per-piece guard (CH.frame, below) reads it: a piece it has dropped to still frames sees motion "off". */
+let owner = "";
+CH.owner = () => owner;
+CH.as = (name, f) => { const was = owner; owner = name || ""; try { return f(); } finally { owner = was; } };
+
 /* ---------- events ---------- */
 const subs = new Map();
-CH.on = (ev, fn) => { if (!subs.has(ev)) subs.set(ev, new Set()); subs.get(ev).add(fn); return () => subs.get(ev).delete(fn); };
-CH.emit = (ev, x) => { (subs.get(ev) || []).forEach((fn) => { try { fn(x); } catch (e) { console.error("living: " + ev, e); } }); };
+CH.on = (ev, fn) => { if (!subs.has(ev)) subs.set(ev, new Set()); const h = { fn, owner }; subs.get(ev).add(h); return () => subs.get(ev).delete(h); };
+// each handler runs as the piece that subscribed; "motion" tells each the motion as that piece sees it
+const call = (h, ev, x) => { const was = owner; owner = h.owner; try { h.fn(ev === "motion" ? CH.motion() : x); } catch (e) { console.error("living: " + ev, e); } finally { owner = was; } };
+CH.emit = (ev, x) => { [...(subs.get(ev) || [])].forEach((h) => call(h, ev, x)); };
 // Events (living/90-game.js): "moment" {cp, S, quiet} and "outcome" {res, S, quiet} when the page shows them; "pick"
 // {cp, o, text, S} when a card is sent; "living" (true while time runs between moments); "motion" (full | calm | off);
 // "piece" (a name, when a piece registers); "resize" after CH.refit().
@@ -65,7 +76,8 @@ CH.emit = (ev, x) => { (subs.get(ev) || []).forEach((fn) => { try { fn(x); } cat
 /* ---------- motion: the ink look's own setting (Table menu: full, calm, off; the system's reduced motion counts as off) ----------
    look.js keeps it on html[data-motion]; any change to it, to the look or to the Living HUD switch is told as "motion" */
 const MOTIONS = ["full", "calm", "off"];
-CH.motion = () => { const m = root.dataset.motion; return MOTIONS.includes(m) ? m : reducedMotion() ? "off" : "full"; };
+const still = new Set();      // the pieces the guard dropped to still frames (CH.frame, below): to them motion is "off"
+CH.motion = () => { if (owner && still.has(owner)) return "off"; const m = root.dataset.motion; return MOTIONS.includes(m) ? m : reducedMotion() ? "off" : "full"; };
 CH.motionForced = () => reducedMotion();
 CH.speed = () => ({ full: 1, calm: 0.35, off: 0 }[CH.motion()]);
 try {
@@ -73,16 +85,69 @@ try {
     .observe(root, { attributes: true, attributeOldValue: true, attributeFilter: ["data-motion", "data-look", "data-living"] });
 } catch (e) { console.warn("living: no MutationObserver, motion changes are not told", e); }
 
-/* ---------- one frame loop: pieces add a draw(now, dt) and are called only while visible and the tab is shown ---------- */
+/* ---------- one frame loop: pieces add a draw(now, dt) and are called only while visible and the tab is shown ----------
+   Each draw belongs to the piece that started it (CH.as) and is timed (performance.now() around it, the script's own
+   time). The guard (plan step 9): when a piece's draws average more than GUARD_MS a frame over GUARD_S seconds, that
+   piece drops to still frames for the rest of the page's life: from then on it sees motion "off" (CH.motion, CH.speed
+   and its "motion" handlers), so it draws one still frame for each change the life brings, as every piece does with
+   motion off, and it says so once with console.warn. CH.cost() gives drivers what each piece costs.
+   A test key: localStorage "chroma.living.guard" = "off" keeps every piece moving (the guard still measures, and says
+   once what it would have done), for the drivers that check a piece's own motion on a slow headless machine. */
+const GUARD_MS = 6, GUARD_S = 5, KEEP = 1200;   // KEEP: frames kept for CH.cost (about 20 s at 60 frames a second)
+const guardOn = () => { try { return localStorage.getItem("chroma.living.guard") !== "off"; } catch (_) { return true; } };
+const tripped = new Map();    // the pieces the guard judged too costly: the mean (ms a frame) it judged them by
 const drawers = new Set(); let raf = 0, lastT = 0;
-CH.frame = (fn, el) => { const d = { fn, el, on: true }; drawers.add(d);
+CH.frame = (fn, el) => { const d = { fn, el, on: true, owner }; drawers.add(d);
   if (el && "IntersectionObserver" in window) { const io = new IntersectionObserver((es) => { d.on = es.some((e) => e.isIntersecting); }); io.observe(el); d.io = io; }
   if (!raf) raf = requestAnimationFrame(tick); return () => { drawers.delete(d); if (d.io) d.io.disconnect(); }; };
+// what each piece's draws cost: the last KEEP frames it drew (ms), the guard's running window, its updates (90-game.js)
+const costs = new Map(), all = { a: [], i: 0, total: 0 };
+const costOf = (name) => { let c = costs.get(name); if (!c) costs.set(name, (c = { a: [], i: 0, total: 0, t0: 0, last: 0, sum: 0, k: 0, un: 0, us: 0 })); return c; };
+const keep = (r, v) => { r.total++; if (r.a.length < KEEP) r.a.push(v); else { r.a[r.i] = v; r.i = (r.i + 1) % KEEP; } };
+// the window is GUARD_S seconds of drawing without a break (a piece out of view or a hidden tab starts it again) and at
+// least 20 frames, so a few costly frames after a pause are never judged alone
+function guard(name, c, ms, t) {
+  if (!c.t0 || t - c.last > 1000) { c.t0 = t; c.sum = 0; c.k = 0; }
+  c.last = t; c.sum += ms; c.k++;
+  if (t - c.t0 < GUARD_S * 1000 || c.k < 20) return;
+  const mean = c.sum / c.k; c.t0 = t; c.sum = 0; c.k = 0;
+  if (mean <= GUARD_MS || tripped.has(name)) return;
+  tripped.set(name, +mean.toFixed(2));
+  if (!guardOn()) { console.warn(`living: the ${name} took ${mean.toFixed(1)} ms a frame over ${GUARD_S} s, more than ${GUARD_MS}; the guard is off in this browser, so it keeps moving`); return; }
+  still.add(name);
+  console.warn(`living: the ${name} took ${mean.toFixed(1)} ms a frame over ${GUARD_S} s, more than ${GUARD_MS}; it now draws only when the life changes`);
+  // the piece's own motion handlers hear "off", so it draws its still frame now
+  [...(subs.get("motion") || [])].forEach((h) => { if (h.owner === name) call(h, "motion"); });
+}
 function tick(t) {
   const dt = Math.min(0.1, lastT ? (t - lastT) / 1000 : 0.016); lastT = t;
-  if (!document.hidden) drawers.forEach((d) => { if (d.on && !d.dead) { try { d.fn(t / 1000, dt); } catch (e) { console.error("living: frame", e); d.dead = true; } } });
+  if (!document.hidden) {
+    const spent = new Map();
+    drawers.forEach((d) => {
+      if (!d.on || d.dead) return;
+      const c0 = performance.now(), was = owner; owner = d.owner;
+      try { d.fn(t / 1000, dt); } catch (e) { console.error("living: frame", e); d.dead = true; } finally { owner = was; }
+      spent.set(d.owner, (spent.get(d.owner) || 0) + performance.now() - c0);
+    });
+    let sum = 0;
+    spent.forEach((ms, name) => { const c = costOf(name || "page"); keep(c, ms); sum += ms; if (name) guard(name, c, ms, t); });
+    if (spent.size) keep(all, sum);
+  }
   raf = drawers.size ? requestAnimationFrame(tick) : 0;
 }
+const stat = (r) => { const s = r.a.slice().sort((p, q) => p - q), n = s.length;
+  return { n, frames: r.total, mean: n ? +(s.reduce((x, v) => x + v, 0) / n).toFixed(3) : 0, p95: n ? +s[Math.min(n - 1, Math.floor(n * 0.95))].toFixed(3) : 0, max: n ? +s[n - 1].toFixed(3) : 0 }; };
+// CH.cost() -> { piece: { mean, p95, max, n, frames, still, tripped, update } } over the last frames each piece drew (ms
+// of script a frame; n: the frames read, at most KEEP; frames: every frame it drew since the counts began; still: the
+// guard dropped it to still frames; tripped: the mean the guard judged it by, also when the guard is off; update: its
+// mean ms an update, from living/90-game.js); "page" holds draws started outside any piece.
+// CH.cost.all(): the same for all the pieces together, a frame at a time. CH.cost.reset() starts the counts over (the
+// guard keeps its own window and its verdicts). CH.cost.note(piece, ms) adds one update's time.
+CH.cost = () => { const out = {}; costs.forEach((c, name) => { out[name] = Object.assign(stat(c), { still: still.has(name), tripped: tripped.get(name) || null, update: c.un ? +(c.us / c.un).toFixed(3) : 0 }); }); return out; };
+CH.cost.all = () => stat(all);
+CH.cost.reset = () => { costs.forEach((c) => { c.a = []; c.i = 0; c.total = 0; c.un = 0; c.us = 0; }); all.a = []; all.i = 0; all.total = 0; };
+CH.cost.note = (name, ms) => { const c = costOf(name); c.un++; c.us += ms; };
+CH.cost.still = (name) => still.has(name);
 /* a canvas sized to its box at the device's pixel ratio (at most 2), refitted on resize. c._w and c._h are its size in CSS
    pixels of the layout (draw in those after ctx.setTransform(c._k, 0, 0, c._k, 0, 0)); c._k also carries any CSS scale
    above it, so the bitmap stays crisp at every scale. Refitting writes only the bitmap's size, never the layout. */

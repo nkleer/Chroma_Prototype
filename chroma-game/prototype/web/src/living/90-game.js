@@ -12,7 +12,12 @@
      is its own outcome's hindsight. Never saved: a load replays the life, so the log comes back as it was.
    - The state S, a new object at each update (hud.life is never changed: the page reads its want, res and pushes).
    - The pieces (CH.piece, living/00-core.js): mounted while the Living HUD is on, updated at most once a frame and 280 ms
-     apart while time runs, told of the page's own redraws through thin hooks.
+     apart while time runs, told of the page's own redraws through thin hooks. Each runs as itself (CH.as), so the core
+     times its frames and guards them piece by piece (CH.cost); html[data-lv-pieces] names the pieces standing, and the
+     ink look's own ink (its drops into the wheel, the river's light) gives way where a piece takes its place
+     (living/90-game.css; the story's wet ink gives way in living/50-story.css).
+   - The Table menu: the Living HUD row, and with the Living HUD on the Motion and Look rows' tooltips say what calm
+     means now (decision 2: slower and fewer).
    - The events: "moment" and "outcome" when the page shows one (an outcome after its reveal beat), "pick" when a card is
      sent, "living" while time runs. During a load's replay the pieces stay still and nothing is told; then one quiet
      update, and the moment or outcome the life is back at is told once, quiet. */
@@ -126,23 +131,27 @@ function stateOf(h) {
 }
 
 /* ---------------- the pieces ---------------- */
+// Each piece's mount, update, hooks and destroy run as that piece (CH.as), so its frames and handlers are its own (the
+// per-piece guard and CH.cost, living/00-core.js). The names of the pieces standing are kept on html[data-lv-pieces], so
+// the ink look's own ink gives way exactly where a piece takes its place (living/90-game.css).
 const mounted = new Map();
 const ctx = { state: () => stateOf(hud) };
+const markPieces = () => { const v = [...mounted.keys()].join(" "); if (v) { if (root.dataset.lvPieces !== v) root.dataset.lvPieces = v; } else delete root.dataset.lvPieces; };
 function mountOne(p) {
   if (!p || mounted.has(p.name)) return;
   let ok = false;
-  try { ok = p.mount ? p.mount(ctx) !== false : true; } catch (e) { console.warn(`living: ${p.name} did not start, today's piece stays`, e); }
-  if (ok) mounted.set(p.name, p);
+  try { ok = CH.as(p.name, () => (p.mount ? p.mount(ctx) !== false : true)); } catch (e) { console.warn(`living: ${p.name} did not start, today's piece stays`, e); }
+  if (ok) { mounted.set(p.name, p); markPieces(); }
 }
 const mountAll = () => [...CH.pieces.values()].sort((a, b) => a.order - b.order).forEach(mountOne);
-function destroyOne(p) { mounted.delete(p.name); safe(p.name + " destroy", () => p.destroy && p.destroy()); }
+function destroyOne(p) { mounted.delete(p.name); markPieces(); safe(p.name + " destroy", () => CH.as(p.name, () => p.destroy && p.destroy())); }
 const destroyAll = () => [...mounted.values()].reverse().forEach(destroyOne);
 // the thin hooks: each mounted piece's hook of that name, after the page function, with its arguments
 function hook(name, args) {
   let skip = false;
   for (const p of [...mounted.values()]) {
     const f = p.hooks && p.hooks[name];
-    if (typeof f === "function" && safe(p.name + " " + name, () => f.apply(p, args)) === true) skip = true;
+    if (typeof f === "function" && safe(p.name + " " + name, () => CH.as(p.name, () => f.apply(p, args))) === true) skip = true;
   }
   return skip;
 }
@@ -171,7 +180,10 @@ function update() {
   const how = Object.assign({ frames }, updHow); updHow = null; frames = [];
   if (!mounted.size || !hud || hud.replay) return;
   const S = stateOf(hud); if (!S) return;
-  for (const p of [...mounted.values()]) if (p.update) safe(p.name + " update", () => p.update(S, how));
+  for (const p of [...mounted.values()]) {
+    if (!p.update) continue;
+    const t = now(); safe(p.name + " update", () => CH.as(p.name, () => p.update(S, how))); CH.cost.note(p.name, now() - t);
+  }
 }
 
 /* ---------------- events ---------------- */
@@ -245,11 +257,29 @@ drawLine = function () { _drawLine(); if (mounted.size) hook("drawLine", []); };
 const _renderReview = renderReview;
 renderReview = function (h) { _renderReview(h); if (mounted.size) hook("renderReview", [h]); };
 const _renderTools = renderTools;
-renderTools = function (h) { _renderTools(h); safe("menu", addRow); if (mounted.size) hook("renderTools", [h]); };
+renderTools = function (h) { _renderTools(h); safe("menu", addRow); safe("menu words", reword); if (mounted.size) hook("renderTools", [h]); };
 
 /* ---------------- the Table menu: the Living HUD row, after the ink look's Motion and Look ---------------- */
 const rowTip = () => tipBox(`${ic("sprout")} Living HUD: ${living ? "on" : "off"}`, "", [],
-  "With the ink look: a moving sky, a living star of their colors, the life as a river, cards with weight, the story in the voice's hand and a window of their years. Off shows the screen as it was.");
+  "With the ink look only. The night sky moves with their mood, their five colors show as a living star, the life line flows as a river, you hold a card to push them (longer when it goes against who they are), the story is written in the hand of the voice telling it, and a small round window gains a pane for each year. Off shows the screen as it was; the life plays the same either way.");
+// Decision 2: with the Living HUD on, calm motion means slower and fewer, and the Motion and Look rows (look.js) say so
+// in their tooltips; with it off (or under the classic look) the ink look's own words come back. The page rebuilds the
+// menu with each state, so each new row is reworded once.
+const WORDS = {
+  motion: (v) => tipBox(`${ic("burst")} Motion: ${v}`, "", [],
+    "How much moves: full (the sky, the star, the river and the window move, pictures breathe, ink soaks in, pages turn), calm (slower and fewer: the same changes, gentler, and fewer at once) or off (nothing moves; each change is drawn once). This device's reduced motion setting counts as off."),
+  look: (v) => tipBox(`${ic("mask")} Look: ${v}`, "", [],
+    "Ink (the engraved look; the Living HUD row below turns its living sky, star, river, cards, story and window on or off) or classic (the drawing of version 22, without the Living HUD). The helpers for choosing stay in both."),
+};
+function reword() {
+  const pop = $("tPop"); if (!pop || typeof tips === "undefined") return;
+  pop.querySelectorAll('[data-lk="motion"], [data-lk="look"]').forEach((b) => {
+    const own = tips.get(b), mine = WORDS[b.dataset.lk];
+    if (b._lvTip || !own || !mine) return;
+    b._lvTip = 1;
+    setTip(b, () => (active() ? mine(((b.querySelector(".v") || {}).textContent || "").trim()) : own()));
+  });
+}
 function addRow() {
   const pop = $("tPop"); if (!pop) return;
   let b = pop.querySelector("[data-lv]");
