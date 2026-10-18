@@ -25,7 +25,9 @@ judge reads both sides and writes chroma-release/out/picks_<UTC>.txt and one res
                    otherwise their memory or someone who heard ("memory:" or "heard:" of that person)
     picks_gap      P3 no return within a year of its seed
     picks_repeats  P4 repeats per life lower with it on than off, over the same lives
-    picks_impact   P5 the player-impact reading: well(reader) - well(random) with it on at least as large as with it off
+    picks_impact   P5 the player-impact reading: well(reader) - well(random) with it on at least as large as with it off,
+                   read as no clear drop (Emren's card choice "No clear drop", 10-18 14:43 UTC): the paired change (on
+                   less off) may be below zero by up to twice its spread
     picks_tilt     P6 a seed that went well tilts its return up and one that went badly down, never by more than .05
 Small counts: a row whose difference sits inside its spread reads more seeds (the SMALL COUNTS ruling), its target stays.
 judge records only when both sides name the same commit (a trial on two commits takes --no-record).
@@ -205,10 +207,12 @@ def judge(a):
     for kk in sorted(set(w(on, "reader")) & set(w(on, "random")) & set(w(off, "reader")) & set(w(off, "random"))):
         gap_on.append(w(on, "reader")[kk] - w(on, "random")[kk]); gap_off.append(w(off, "reader")[kk] - w(off, "random")[kk])
     dd = [x - y for x, y in zip(gap_on, gap_off)]
-    ok = bool(dd) and mean(dd) >= 0
-    res["picks_impact"] = (ok, f"reader - random {mean(gap_on):+.3f} on, {mean(gap_off):+.3f} off ({len(dd)} pairs)")
+    ok = bool(dd) and mean(dd) >= -2 * sd_mean(dd)            # no clear drop: within twice its spread of zero, or above
+    res["picks_impact"] = (ok, f"reader - random {mean(gap_on):+.3f} on, {mean(gap_off):+.3f} off ({len(dd)} pairs; "
+                               f"paired {mean(dd):+.3f} +-{sd_mean(dd):.3f}, no clear drop)")
     lines.append(f"{'ok  ' if ok else 'MISS'} P5 player impact: well(reader) - well(random) {mean(gap_on):+.3f} on, {mean(gap_off):+.3f} off "
-                 f"(paired {mean(dd):+.3f} +-{sd_mean(dd):.3f}, {len(dd)} starts and seeds)")
+                 f"(paired {mean(dd):+.3f} +-{sd_mean(dd):.3f}, {len(dd)} starts and seeds; no clear drop: at least "
+                 f"{-2 * sd_mean(dd):+.3f})")
     for pol in ("reader", "random", "let"):
         for side, nm in ((on, "on"), (off, "off")):
             x, b = w(side, pol), w(side, "none")
