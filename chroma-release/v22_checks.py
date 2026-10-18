@@ -67,7 +67,7 @@ PACKS3 = "science,politics,stage"   # the engine's three-pack fit; the rows that
 # (id, row, owner, level, cores, cwd in the tree, command, rule, after, what)
 # {T} is the work tree; the commands run under bash with PYTHONDONTWRITEBYTECODE=1 OMP_NUM_THREADS=1.
 CX2 = "FINAL_LIB={T}/chroma-library python3 -B calib_v10/cx2/cx2run.py"
-EP = NAMES["engine_v23"][0]   # the Engine's calibration scripts (calib_v7, v8, v10); the candidate engine is laid over them
+EP = NAMES["engine_prototype"][0]   # the Engine's calibration scripts (calib_v7, v8, v10); the candidate engine is laid over them
 V21 = NAMES["library_v21"][0]   # the v21 batch: the go-live rules read it (check_identity --lib)
 CHECKS = [
     # ---- across threads and the release thread's own checks

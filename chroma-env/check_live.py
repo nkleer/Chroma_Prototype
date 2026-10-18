@@ -6,10 +6,17 @@
 Exit code 0 when nothing recorded changed or went missing (new files are listed but do not fail the check).
 
 Versions, with their folders named in paths.py:
-   v22.5  live since 2026-10-12 21:58 UTC (release/v22.5 = 802258f, artifact version 1791842297-d1de): game_live,
-          engine_live, game_tools; live-v22.5-manifest.txt. The v22.5 realism round (chroma-release/records/v22.5): the
-          engine, its re-pin and the rarity table, the Library's dreams.py and new earth_age_fit.py and worlds.py, the
-          game's code and page, and 10 pictures moved into the picture packs (30 files changed or new); the packs are v22.4's
+   v23    live since 2026-10-18 18:13 UTC (release/v23 = 9e8db31, artifact version 1792347212-f059): game_live,
+          engine_live, game_tools; live-v23-manifest.txt. Picks come back, the spheres pack, Stakes on the card and the
+          Living HUD (chroma-release/records/v23): the refit engine, its re-pin and the rarity table, 52 Library files
+          changed and 6 new .lib sources, the game's code and page (the page's script and style now in parts;
+          web/src/app.js is gone, so the shared folder's old copy shows as new), two chroma-art/game files and two
+          chroma-game/tools files (100 files changed, 74 new); the packs are v22.4's
+   v22.5  the rollback, in the same folders, live 2026-10-12 21:58 UTC to 2026-10-18 18:13 UTC (release/v22.5 = 802258f,
+          artifact version 1791842297-d1de): live-v22.5-manifest.txt. The v22.5 realism round (chroma-release/records/v22.5):
+          the engine, its re-pin and the rarity table, the Library's dreams.py and new earth_age_fit.py and worlds.py, the
+          game's code and page, and 10 pictures moved into the picture packs (30 files changed or new); the packs are
+          v22.4's. v23 changed 100 of its files, so its check shows them as changed (release/v22.5 holds them)
    v22.4.1 the rollback, in the same folders, live 2026-10-12 01:00 UTC to 21:58 UTC (release/v22.4.1 = 4b1e4eb, artifact
           version 1791766814-8652): live-v22.4.1-manifest.txt. Text only (chroma-release/records/v22.4.1): 69 Library
           files and 8 game files changed (the review and memory lines, home lines, outcome tags); the engine, packs,
@@ -53,7 +60,7 @@ from paths import ROOT, NAMES  # noqa: E402
 LIB_PY = ["earth.py", "earth_perks_titles.py", "earth_voice.py", "earth_science.py", "earth_politics.py",
           "earth_stage.py", "dreams.py"]                         # plus every .lib at the top of library_live
 OLD_HELPERS = ["build_helpers/sync21.py", "build_helpers/pubmap.py"]
-LIVE = "v22.5"
+LIVE = "v23"
 # game, engine: the version's folders now; trees: folders listed whole; files: single files ("name" or "name/file");
 # moved: recorded path prefix -> the paths.py name of the folder it is read from now
 LIB_V22_2 = LIB_PY + ["earth_play.py", "earth_story.py"]
@@ -61,7 +68,9 @@ LIB_V22_3 = LIB_V22_2 + ["earth_spheres.py"]
 LIB_V22_4 = LIB_V22_3 + ["earth_art.py"]
 LIB_V22_5 = LIB_V22_4 + ["earth_age_fit.py", "worlds.py"]
 VERSIONS = {
-    "v22.5": dict(game="game_live", engine="engine_live", manifest="live_manifest", trees=["game_tools"],
+    "v23": dict(game="game_live", engine="engine_live", manifest="live_manifest", trees=["game_tools"],
+                files=[], lib=LIB_V22_5, packs=["core", "politics", "science", "stage", "art"]),
+    "v22.5": dict(game="game_live", engine="engine_live", manifest="live_manifest_v22_5", trees=["game_tools"],
                   files=[], lib=LIB_V22_5, packs=["core", "politics", "science", "stage", "art"]),
     "v22.4.1": dict(game="game_live", engine="engine_live", manifest="live_manifest_v22_4_1", trees=["game_tools"],
                     files=[], lib=LIB_V22_4, packs=["core", "politics", "science", "stage", "art"]),
