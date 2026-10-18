@@ -1,3 +1,4 @@
+F15 re-pin 2, 2026-10-18 (branch game/repin-313): engine.py 9c31a3448688 (chroma-engine/v22-speedpass on main cb5ad5c: #313, start lean strength up_l0 .35 -> .40, K14 F15 R4); every other engine_pin file as before.
 F15 re-pin, 2026-10-18 (branch game/repin-308): engine.py 2bbc443ecb0b (chroma-engine/v22-speedpass on main b1c09c7: #308, start lean strength up_l0 .30 -> .35, K14 F15); every other engine_pin file as before.
 v23 fix round re-pin, 2026-10-18 (branch game/gone-outcome): earth.py 6ef7d4e606df (chroma-library on main e601035: #304, outcomes_gone for five echoes, a key the game does not read; same lives); every other engine_pin file as before.
 v23 re-pin, commit 2, 2026-10-18 (branch game/v23-repin): Picks come back (GAME returns) on; every engine_pin file as commit 1.
