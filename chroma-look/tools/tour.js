@@ -1,9 +1,12 @@
 // Screenshots of a build in the ink look: the start spread, the first screen, a moment, an outcome (with page errors).
+// v23: the card is held to push it (5b, halfway through the hold; a click on a page without the hold), and the next
+// moment is pushed by its number on the keyboard before the last shot.
 // node tour.js URL OUTDIR [WIDTH] [HEIGHT]   (URL of a served build, e.g. chroma-game/prototype/test/serve.py)
 const path = require('path');
 const { chromium } = (() => { try { return require('playwright'); } catch (e) { return require('/opt/node22/lib/node_modules/playwright'); } })();
 const T = path.join(__dirname, '..', '..', 'chroma-game', 'prototype', 'test') + '/';
 const { startLife, idleOf, nextOf } = require(T + 'start.js');
+const { holdOpt, keyOpt } = require(T + 'hold.js');   // v23: with the Living HUD a pointer pushes a card by holding it
 const [url, out, W, H] = [process.argv[2], process.argv[3], +(process.argv[4] || 1280), +(process.argv[5] || 860)];
 (async () => {
   const browser = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium' }).catch(() => chromium.launch());
@@ -17,16 +20,22 @@ const [url, out, W, H] = [process.argv[2], process.argv[3], +(process.argv[4] ||
   await page.screenshot({ path: `${out}/2-start-hover-${W}.png` });
   await startLife(page, '2', 'Lale'); await idle(); await page.waitForTimeout(800);
   await page.screenshot({ path: `${out}/3-first-${W}.png` });
-  let gotMoment = false, gotOut = false;
-  for (let i = 0; i < 40 && !(gotMoment && gotOut); i++) {
+  let gotMoment = false, gotOut = false, gotKey = false;
+  for (let i = 0; i < 40 && !(gotMoment && gotOut && gotKey); i++) {
     const s = await page.evaluate(() => ({ cp: !!document.querySelector('#evLet') && !document.getElementById('evwrap').hidden,
       res: !!document.querySelector('#goOn') && !document.getElementById('evwrap').hidden }));
     if (s.cp && !gotMoment) {
       await page.waitForTimeout(1200); await page.screenshot({ path: `${out}/4-moment-${W}.png` });
       const o = await page.$('.opt'); if (o) { await o.hover(); await page.waitForTimeout(700); await page.screenshot({ path: `${out}/5-moment-hover-${W}.png` });
-        await o.click(); await page.waitForTimeout(250); await page.screenshot({ path: `${out}/6-choosing-${W}.png` }); await idle(); await page.waitForTimeout(900);
+        const r = await holdOpt(page, o, { midway: () => page.screenshot({ path: `${out}/5b-holding-${W}.png` }) });
+        if (!r.held) await page.waitForTimeout(250);   // a hold lets go 250 ms after the push: the shot is as soon after it
+        await page.screenshot({ path: `${out}/6-choosing-${W}.png` }); await idle(); await page.waitForTimeout(900);
         await page.screenshot({ path: `${out}/7-outcome-${W}.png` }); gotOut = true; }
       gotMoment = true; continue;
+    }
+    if (s.cp && gotOut && !gotKey) {                 // a later moment: a card pushed by its number on the keyboard
+      const k = await page.$('#evOpts .opt:not(.own):not(.onone)'); if (k) { await keyOpt(page, k); await idle(); }
+      gotKey = true; continue;
     }
     await next();
   }
