@@ -27,9 +27,12 @@ module.exports.holdOpt = async (page, x, opts = {}) => {
     else await page.waitForTimeout(ms + 250);
   };
   if (opts.touch) {                                   // a finger: CDP touch events, so the page sees pointerType "touch"
-    await h.scrollIntoViewIfNeeded({ timeout: opts.timeout });
+    // a tap's own checks first (they scroll the card clear of the bar pinned over the lower cards on a phone), then the
+    // finger goes down at the card's centre, which must be the card's
+    await h.tap({ trial: true, timeout: opts.timeout, force: opts.force });
     const b = await h.boundingBox(); if (!b) throw new Error('holdOpt: the card has no box (hidden or detached)');
     const pt = { x: b.x + b.width / 2, y: b.y + b.height / 2 };
+    if (!opts.force && !(await h.evaluate((el, p) => { const e = document.elementFromPoint(p.x, p.y); return !!e && el.contains(e); }, pt))) throw new Error('holdOpt: something covers the card at its centre');
     const cdp = await page.context().newCDPSession(page);
     try {
       await cdp.send('Input.dispatchTouchEvent', { type: 'touchStart', touchPoints: [pt] });
