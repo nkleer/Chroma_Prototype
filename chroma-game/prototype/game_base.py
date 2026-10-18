@@ -191,8 +191,9 @@ GAME = dict(
     # plants a seed (the moment, the way, the person in the scene, how it went, the age). A later moment that answers it
     # (the Engine's echo_play hook; without it, an echo of the same mark ret_gap weeks or more after the pick) is always
     # put to the player, opens on the earlier pick, brings back its person, and leans ret_tilt (logit) toward working if
-    # the first time went well, away if badly; a moment met before waits while a return is due. Off until the joint proof
-    returns=False, ret_tilt=0.15, ret_gap=52,
+    # the first time went well, away if badly; a moment met before waits while a return is due. On from v23
+    # (chroma-release/records/v23/scope.md); off in GAME_OFF and v224
+    returns=True, ret_tilt=0.15, ret_gap=52,
     # Stakes on the card (chroma-ideas/gameplay-2026-10-17/findings.md row 3; Emren "Add it" 10-18 08:27 UTC, for v23): each
     # way's card says what it changes for good, from the Library's own fields: the person it marks (a friend or an enemy
     # made, someone helped or turned away, a word kept or broken), a closed way's backfire and the risk to life if it
@@ -251,9 +252,10 @@ GAME.update(V225)
 # pack's joint refit tunes and switches them on together; CHROMA_GAME="pack" plays a life with it on (the steered row own_even)
 PACK = dict(own_ix=True)
 PACK_OFF = {k: GAME[k] for k in PACK}
+GAME.update(PACK)                                   # v23: the pack's joint refit switched it on (chroma-release/records/v23/scope.md)
 if os.environ.get("CHROMA_GAME"):                   # checks and calibration only: "off", "v224", "pack" or settings as JSON
     import json as _json
-    GAME.update({"off": GAME_OFF, "v224": {**V225_OFF, **PACK_OFF, "stakes": False}, "pack": PACK}.get(os.environ["CHROMA_GAME"])
+    GAME.update({"off": GAME_OFF, "v224": {**V225_OFF, **PACK_OFF, "stakes": False, "returns": False}, "pack": PACK}.get(os.environ["CHROMA_GAME"])
                 or _json.loads(os.environ["CHROMA_GAME"]))
 # checks only: settings for the engine's own P as JSON (for example CHROMA_ENGINE='{"shadows": true}' to see light and
 # shadow on screen), laid over the life's P when it is set up. Read only when set: without it every life is the page's own

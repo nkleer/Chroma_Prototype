@@ -280,17 +280,19 @@ V224 = [
      "S7: falls per way per 10 post-years within 1.5x (20 falls a way at least); years in post per lead colour within 1.2x "
      "(12 seeds x 300 lives, where colour-blind lives pass 1.2x 9 times in 10: shuffle 90th percentile 1.16; scope.md, "
      "Small counts)"),
-    ("c26_choice", "G19", 4, "PX='{{\"role_practice\": true, \"read_skill\": 0.5, \"lens_want\": 0.5, \"app_vigil\": true}}' "
+    ("c26_choice", "G19", 4, "SEEDS=21,22,23,24,31,32,33,34,41,42,43,44,51,52,53,54 "
+     "PX='{{\"role_practice\": true, \"read_skill\": 0.5, \"lens_want\": 0.5, \"app_vigil\": true}}' "
      "PACKS={PACKS} python3 -B chroma-engine/tools/choice_check.py run 240 .01 {W}/c26.npz \"-,W,U,B,R,G\" && "
      "PACKS={PACKS} python3 -B chroma-engine/tools/choice_check.py sum {W}/c26.npz && python3 -B chroma-release/check_c26.py {W}/c26.npz --steer want",
      "re:^C26 PASS", (), "item 26: steered identity in its colour at 40 >= unsteered + .15; contentment 30-70 at most .12 "
      "below unsteered (Black's reported, not judged); perks at 50 (90th percentile) <= 27; Black's edge on (#176) "
-     "(960 lives, 160 a group: each drop's standard error about .013; scope.md, G19's run size; about 75 minutes on 4 cores)"),
+     "(16 seeds, 3,840 lives, 640 a group, seeds 21 to 24 among them: Emren's card choice \"16 seeds\", 10-18 09:43 UTC, "
+     "records/v23/scope.md; v22.4's 960 lives before; about 45 minutes on 4 cores)"),
     ("c26_world", "G19w", 4, "STEER=pick PX='{{\"world\": true, \"role_practice\": true, \"read_skill\": 0.5, \"lens_want\": 0.5, \"app_vigil\": true}}' "
      "PACKS={PACKS} python3 -B chroma-engine/tools/choice_check.py run 240 .01 {W}/c26w.npz \"-,W,U,B,R,G\" && "
      "PACKS={PACKS} python3 -B chroma-engine/tools/choice_check.py sum {W}/c26w.npz && python3 -B chroma-release/check_c26.py {W}/c26w.npz --steer pick --lift-info",
      "re:^C26 PASS", (), "item 26 with the outer world on, as presets 1 to 4 play it (the S parts act only there; the "
-     "shadows and sh_will do not): c26_choice's targets on the same 960 lives, steered lives picking as a player does "
+     "shadows and sh_will do not): c26_choice's targets on 960 lives (seeds 21 to 24), steered lives picking as a player does "
      "(STEER=pick, Engine #191); drops, perks and Black's edge judged, the lift reported (Emren's card choices \"Fix in "
      "v22.4\" 10-11 08:24 UTC and \"Ship it\" 17:14 UTC; scope.md, G19w; about 80 minutes on 4 cores)"),
 ]
