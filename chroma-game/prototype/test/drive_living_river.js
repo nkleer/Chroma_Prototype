@@ -1,6 +1,6 @@
 const { chromium } = require(process.env.PW || 'playwright');
-// v23 Living HUD, row V3: the river (web/src/living/30-river.js), the life line drawn as a river on one canvas under
-// svg#river. Each part prints its checks and PASS or FAIL; the driver exits 1 on a FAIL, a page error or a console error.
+// v23 Living HUD, row V3: the river (web/src/living/30-river.js), the life line drawn as a river on three canvases
+// under svg#river. Each part prints its checks and PASS or FAIL; the driver exits 1 on a FAIL, a page error or a console error.
 //   live    a life lived to AGE as drive_living.js lives it (preset 4, seed 140892: its acts are minded, so pushes are
 //           judged and the river has seams and knots), pushing the act they mind most at every other moment and else the
 //           first considered act; over the first 20 s of it the river's own cost each frame (CH.pieces river perf():
@@ -15,7 +15,9 @@ const { chromium } = require(process.env.PW || 'playwright');
 //           0.8 s apart are equal, byte for byte.
 //   switch  the Table menu's Living HUD row: off takes the river down (no canvas, no .lv-river, the page's own river,
 //           band and fog back), on puts it back.
-//   PW=<playwright> node test/drive_living_river.js URL OUT_DIR [parts: live,look,read,motion,switch] [width 1440] [height 900] [preset 4] [age 30] [seed 140892]
+//   reduced with RV_REDUCED=1 (the system asks for reduced motion): it counts as motion off; after time runs the line
+//           has changed, and two shots of #line 0.8 s apart are equal. Not with live, whose cost wants motion.
+//   PW=<playwright> [RV_REDUCED=1] node test/drive_living_river.js URL OUT_DIR [parts: live,look,read,motion,switch,reduced] [width 1440] [height 900] [preset 4] [age 30] [seed 140892]
 const fs = require('fs');
 const { startLife, idleOf } = require('./start.js');
 const [url, dir, partsArg, W, H, preset, toAge, seedArg] = process.argv.slice(2);
@@ -24,7 +26,7 @@ const tag = `${width}x${height}`;
 (async () => {
   const browser = await chromium.launch();
   const phone = width < 600, logs = [], fails = [], warns = [], say = (...a) => console.log(...a);
-  const ctx = await browser.newContext({ viewport: { width, height }, hasTouch: phone, isMobile: phone });
+  const ctx = await browser.newContext({ viewport: { width, height }, hasTouch: phone, isMobile: phone, reducedMotion: process.env.RV_REDUCED ? 'reduce' : 'no-preference' });
   await ctx.addInitScript(() => { try { localStorage.setItem('chroma.pace', 'off'); ['chroma.living', 'chroma.autosave', 'chroma.motion', 'chroma.look'].forEach((k) => localStorage.removeItem(k)); } catch (_) {} });
   const page = await ctx.newPage();
   page.on('pageerror', (e) => logs.push('pageerror: ' + e.message));
@@ -48,7 +50,7 @@ const tag = `${width}x${height}`;
   await page.waitForFunction(() => window.CH && CH.piece && CH.life && CH.pieces.has('river'), null, { timeout: 120000 });
   check(await page.evaluate(() => document.documentElement.dataset.living === 'on'), 'Living is on by default (html[data-living])');
   // a probe piece keeps the doors of the last state the pieces were given
-  await page.evaluate(() => CH.piece('rvprobe', { mount() {}, update(S) { window.__rvS = { doors: S.doors, about: (S.doorsAbout || []).slice() }; }, destroy() {} }));
+  await page.evaluate(() => CH.piece('rvprobe', { mount() {}, update(S) { window.__rvS = { doors: S.doors, about: (S.doorsAbout || []).slice() }; window.__rvSall = S; }, destroy() {} }));
   await startLife(page, P, 'Lale');
   await idle();
   const saved = async () => { let t = null; for (let i = 0; i < 4 && !t; i++) { t = await page.evaluate(() => askSave()); if (!t) await page.waitForTimeout(1000); } return t; };
@@ -164,6 +166,15 @@ const tag = `${width}x${height}`;
         const t = await page.evaluate(() => document.getElementById('tip').innerText), ab = !!about.about[NAMES.indexOf(m[1])];
         check(/about \d+% of usual/.test(t) === ab, `${m[1]}'s door ${ab ? 'says "about"' : 'gives its reading plainly'} (${(/\(([^)]*of usual)\)/.exec(t) || [])[1]})`);
       }
+      // the same doors with the game holding every way steady (S.doorsAbout all true, handed to the river by hand once)
+      const door = [...heads.entries()].find(([h]) => /'s ways: /.test(h));
+      if (door && about && !about.about.some(Boolean)) {
+        await page.evaluate(() => CH.pieces.get('river').update(Object.assign({}, window.__rvSall, { doorsAbout: [true, true, true, true, true] })));
+        await page.mouse.move(box.x + door[1][0], box.y + door[1][1] + 1); await page.waitForTimeout(250);
+        const t = await page.evaluate(() => document.getElementById('tip').innerText);
+        check(/about \d+% of usual/.test(t) && /holds it steady/.test(t), `a door the game holds steady says "about" (${(/\(([^)]*of usual)\)/.exec(t) || [])[1]})`);
+        await page.evaluate(() => CH.pieces.get('river').update(window.__rvSall));
+      }
       // a reading of the fog, held for the record
       const f = heads.get(hs.find((h) => /^The years ahead/.test(h)) || '');
       if (f) { await page.mouse.move(box.x + f[0], box.y + f[1]); await page.waitForTimeout(250); await shot('reading'); }
@@ -199,6 +210,22 @@ const tag = `${width}x${height}`;
     const a = await lineShot(), _ = await page.waitForTimeout(800), b = await lineShot();
     check(a.equals(b), 'motion off: two shots of the line 0.8 s apart are equal');
     await setMotion('full');
+  }
+
+  if (parts.includes('reduced')) {
+    say('part reduced');
+    await settle();
+    const m = await page.evaluate(() => [document.documentElement.dataset.motion, CH.motion()]);
+    check(m[0] === 'off' && m[1] === 'off', `reduced motion counts as motion off (${m.join(', ')})`);
+    await page.mouse.move(2, height - 2); await page.waitForTimeout(300);
+    const was = await lineShot();
+    // time runs: a year, or with a moment waiting, let them choose
+    const y = await page.$('.steps4 button[data-key="y"]:not([disabled])');
+    if (y) await y.click(); else await page.evaluate(() => send(''));
+    await idle(); await settle(); await page.mouse.move(2, height - 2); await page.waitForTimeout(1500);
+    const a = await lineShot('reduced'), _ = await page.waitForTimeout(800), b = await lineShot();
+    check(!a.equals(was), 'reduced motion: the river still follows the life (a still frame per change)');
+    check(a.equals(b), 'reduced motion: two shots of the line 0.8 s apart are equal');
   }
 
   if (parts.includes('switch')) {

@@ -367,7 +367,7 @@ function make() {
   root.className = "rv";
   lineEl.insertBefore(root, lineEl.firstChild);
   /* three canvases, one over the other (the release's frame budget, PIECES "Cost"): the lived years, drawn again only
-     when the view of them changes; the fog with its stars and doors, every other frame (every fourth when calm); and
+     when the view of them changes; the fog with its stars and doors, every third frame (every sixth when calm); and
      the live layer (the current, its flecks, the gleam at now, a push growing in, the lights), every frame (every other
      when calm). The last one takes the pointer. */
   const cv = CH.canvas(root, "rv-cv"), ctx = cv.getContext("2d");
