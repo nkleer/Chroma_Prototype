@@ -2134,6 +2134,21 @@ function resMoves(dr) {
   const xs = Object.entries(dr || {}).filter(([, v]) => Math.abs(v) >= 0.005);
   return xs.length ? xs.map(([k, v]) => `${ic(RES_ICON[k] || "dot")} ${ptsUp(v)}`).join(" &nbsp;") : "";
 }
+const CAUSE_FOOT = { pick: "Their own pick, back then, is why.", mark: "What happened back then left its mark.", moment: "What they met back then is why.",
+  held: "It grew from what they already had.", money: "The money made it possible.", years: "Its time ran out.", unused: "Unused, it slipped away." };
+function causeTip(pl) {     // marker Y: kind|age|person id|the earlier moment, or a year: event|source|turn|how far|up|down
+  const k = pl[0];
+  if (k === "event" || k === "source" || k === "turn")
+    return tipBox(`${pip(pl[2])} ${ic("push")} A year that turned them`, "", [["How far the colors moved", `${Math.round(+pl[1] * 100)} pts`],
+      ["Most up", `${pip(pl[2])} ${CNAME[pl[2]] || ""}`], ["Most down", `${pip(pl[3])} ${CNAME[pl[3]] || ""}`]],
+      k === "event" ? "The week of this event moved them most the way the year went." : k === "source" ? "What moved them most the way the year went." : "No one event did it: the year moved them a little at a time.");
+  const rows = [];
+  if (pl[3]) rows.push(["Back then", esc(pl[3])]);
+  if (pl[1]) rows.push(["At", `age ${esc(pl[1])}`]);
+  const p = pl[2] ? castById(+pl[2]) : null;
+  if (p) rows.push(["With", esc(p.name) + (p.alive ? "" : ", gone now")]);
+  return tipBox(`${ic("route")} Why it came`, "", rows, CAUSE_FOOT[k] || "");
+}
 function personTip(id) {
   const p = castById(id);
   if (!p) return tipBox(`${ic("people")} Someone in the story`, "", [], "");
@@ -2233,6 +2248,7 @@ function mkTip(el) {
     case "z": return changeTip(pl[0], +pl[1], +pl[2]);
     case "o": { const cur = findRole(pl[0]); return roleTip({ ...(cur || {}), name: pl[0], kind: pl[1], ways: pl[2], title: pl[3] === "1", plus: +pl[4] || 0, say: (cur && cur.say) || el.textContent }, cur); }
     case "y": return tipBox(`${pips(lettersOf(pl[0]))} Closer to ${esc(pl[1])}`, "", [["Still to go", `${(+pl[2] * 100).toFixed(1)} pts`]], "A color joins who they are above 22% and leaves below 18%.");
+    case "Y": return causeTip(pl);   // Every change has a cause (GAME causes): the trail of a change, or a year that turned them
     case "n": return tipBox(`${ic("rune")} How the world works`, "", [], LESSON_WHY[pl[0]] || "What this week showed about the rules of a life.");
   }
   return "";

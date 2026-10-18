@@ -105,7 +105,10 @@ def main():
     seeds = [int(s) for s in a.seeds.split(",") if s.strip()]
     Pj = json.dumps(json.loads(a.P), sort_keys=True)
     md5 = lambda f: hashlib.md5(open(os.path.join(_engine.ENGINE, f), "rb").read()).hexdigest()[:12]
-    key = dict(engine=md5("engine.py"), people=md5("world_people.py"), world=md5("world.py"), N=a.N, years=a.years,
+    # since the split, world_people.py and world.py are each a shell and parts (its _PARTS): the key reads them all
+    md5s = lambda m: hashlib.md5(b"".join(open(os.path.join(_engine.ENGINE, g + ".py"), "rb").read() for g in
+                                          (m,) + tuple(getattr(__import__(m), "_PARTS", ())))).hexdigest()[:12]
+    key = dict(engine=md5("engine.py"), people=md5s("world_people"), world=md5s("world"), N=a.N, years=a.years,
                seeds=seeds, P=Pj, lib=os.path.abspath(os.environ.get("LIB") or _engine.LIBRARY))
     st = None
     if a.stats and os.path.exists(a.stats):

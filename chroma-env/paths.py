@@ -26,13 +26,13 @@ ROOT = os.environ.get("CHROMA_ROOT") or os.path.dirname(os.path.dirname(os.path.
 
 # name: (path under ROOT, what it is)
 NAMES = {
-    # the live version (v22.5, published 10-12 21:58 UTC from release/v22.5 = 802258f, artifact version 1791842297-d1de)
-    "engine_live":    ("chroma-engine/v22-speedpass", "the live engine, v22.5's (engine.py dc9ae1e60b12, release/v22.5); the v22.1 engine is engine_v22_1"),
-    "live_manifest":  ("chroma-env/live-v22.5-manifest.txt", "MD5 of every file the live version is built from (chroma-env/check_live.py)"),
+    # the live version (v23, published 10-18 18:13 UTC from release/v23 = 9e8db31, artifact version 1792347212-f059)
+    "engine_live":    ("chroma-engine/v22-speedpass", "the live engine, v23's (engine.py 9c31a3448688, release/v23); the v22.1 engine is engine_v22_1"),
+    "live_manifest":  ("chroma-env/live-v23-manifest.txt", "MD5 of every file the live version is built from (chroma-env/check_live.py)"),
     "game_live":      ("chroma-game/prototype", "the live game: code, web/src, engine_pin, tests"),
     "library_live":   ("chroma-library", "the live Library: earth*.py, dreams.py, worlds.py and the .lib sources at its top level"),
-    "packs_live":     ("chroma-packs", "the live packs: core, politics (Packs v7), science, stage, art (v22.4, unchanged in v22.4.1 and v22.5)"),
-    "rarity_live":    ("chroma-engine/v22-speedpass/rarity.json", "the rarity table the game's rarity.py is built from: v22.5's, built world-on (6b2f103f8362)"),
+    "packs_live":     ("chroma-packs", "the live packs: core, politics (Packs v7), science, stage, art (v22.4's, as v23 has them)"),
+    "rarity_live":    ("chroma-engine/v22-speedpass/rarity.json", "the rarity table the game's rarity.py is built from: v23's, built world-on (213d24ddc17f)"),
     "rarity_v22_1":   ("chroma-engine/prototype/calib_v8/rarity.json", "the rarity table of v22.1 and v22 (9756b7c91eab), where their manifests record it"),
     "art_game":       ("chroma-art/game", "the pictures the page uses (pictures.json names them, pics/ holds them)"),
     "art":            ("chroma-art", "the visuals folder: kit/ drawing code, data/ scene texts, notes/"),
@@ -44,6 +44,7 @@ NAMES = {
     "release":        ("chroma-release", "release records and check scripts (v22_checks.py runs every owner's checks)"),
     "release_out":    ("chroma-release/out", "check outputs, one folder or file per run"),
     # earlier versions kept as records
+    "live_manifest_v22_5": ("chroma-env/live-v22.5-manifest.txt", "MD5 of the v22.5 files, the rollback; its game, engine and Library are the live folders, so the 100 files v23 changed show as changed (release/v22.5 holds them)"),
     "live_manifest_v22_4_1": ("chroma-env/live-v22.4.1-manifest.txt", "MD5 of the v22.4.1 files, the rollback; its game, engine and Library are the live folders, so the 25 files v22.5 changed show as changed (release/v22.4.1 holds them)"),
     "live_manifest_v22_4": ("chroma-env/live-v22.4-manifest.txt", "MD5 of the v22.4 files, the rollback; its game and Library are the live folders, so the 77 files v22.4.1 changed show as changed (release/v22.4 holds them)"),
     "live_manifest_v22_3": ("chroma-env/live-v22.3-manifest.txt", "MD5 of the v22.3 files (with the 10-11 loading hotfix), the rollback; its game and engine are the live folders, so the files v22.4 changed show as changed (release/v22.3 holds them)"),
@@ -57,16 +58,25 @@ NAMES = {
     "live_manifest_v22": ("chroma-env/live-v22-manifest.txt", "MD5 of the v22 files (paths recorded as chroma-game/prototype; check_live.py reads them as prototype-v22)"),
     "game_v21":       ("_archive/2026-10-08/chroma-game/prototype-v21", "the v21 game, archived 10-08 13:15 UTC (check_identity reads its engine_pin/)"),
     "library_v21":    ("chroma-library/archive/live-2026-10-06-1625", "the Library batch live in v21"),
-    # paused v23 drafts (paused 10-07 21:38 UTC)
-    "engine_v23":     ("chroma-engine/prototype", "the paused v23 engine edits (engine.py, batch.py, world*.py, their import partners) and its checks calib_v11; the Engine's checks are in chroma-engine/tools"),
-    "game_v23":       ("chroma-game/staging-next/v23/prototype", "the single v23 game copy (paused)"),
-    "library_v23":    ("chroma-library/staging/next4", "the v23 Library batch (paused)"),
-    "library_v23_src": ("chroma-library/drafts/next4", "the v23 Library sources (paused): parts that win over the live ones"),
-    "packs_v23":      ("chroma-packs/v23-drafts-paused", "the v23 pack drafts (paused)"),
+    # the old v23 plan's drafts (planned 10-07, paused 10-08 10:14 UTC). The release now called v23 (formerly v22.6:
+    # picks come back and the spheres pack) is a different one; none of these folders is it.
+    "engine_prototype": ("chroma-engine/prototype", "the old v23 plan's paused engine edits (engine.py, batch.py, world*.py, their import partners), its checks calib_v11, and calib_v8/rarity.json (rarity_v22_1); the Engine's checks are in chroma-engine/tools"),
+    "game_paused":    ("chroma-game/staging-next/v23/prototype", "the old v23 plan's single game copy (paused)"),
+    "library_paused": ("chroma-library/staging/next4", "the old v23 plan's Library batch (paused)"),
+    "library_paused_src": ("chroma-library/drafts/next4", "the old v23 plan's Library sources (paused): parts that win over the live ones"),
+    "packs_paused":   ("chroma-packs/v23-drafts-paused", "the old v23 plan's pack drafts (paused)"),
     # the workspace itself
     "env":            ("chroma-env", "MAP.md, check_live.py, this file, the backend plan"),
     "archive":        ("_archive", "old outputs and versions moved out by date, under their old paths"),
 }
+
+# The five names above were engine_v23, game_v23, library_v23, library_v23_src and packs_v23 until 2026-10-18, when
+# the release now live as v23 took the name. The old names still work for the scripts that read them (Release moved to
+# the new ones in #324; Library, in the shared folder: tests/run_pack_handover.sh and drafts/titles_by_source.py, and a
+# comment in check.py); new scripts use the new ones, and the old ones go once nothing reads them.
+OLD_NAMES = {"engine_v23": "engine_prototype", "game_v23": "game_paused", "library_v23": "library_paused",
+             "library_v23_src": "library_paused_src", "packs_v23": "packs_paused"}
+NAMES.update({old: NAMES[new] for old, new in OLD_NAMES.items()})
 
 P = {k: os.path.join(ROOT, v[0]) for k, v in NAMES.items()}
 
@@ -79,4 +89,6 @@ def path(name, *parts):
 if __name__ == "__main__":
     print(f"CHROMA_ROOT = {ROOT}")
     for k, (rel, what) in NAMES.items():
-        print(f"{'ok ' if os.path.exists(P[k]) else 'NO '} {k:17s} {rel:48s} {what}")
+        if k not in OLD_NAMES:
+            print(f"{'ok ' if os.path.exists(P[k]) else 'NO '} {k:17s} {rel:48s} {what}")
+    print("old names:", ", ".join(f"{old} = {new}" for old, new in OLD_NAMES.items()))

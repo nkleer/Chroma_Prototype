@@ -219,6 +219,13 @@ GAME = dict(
     # recession at any age), a law told once for each state it reaches, the government's fall told once with its
     # election, and the same kind of national news at most once in news_gap years (False: as before)
     line_wait=0.0, news_touch=False, news_age=10.0, news_gap=4.0,
+    # Every change has a cause (chroma-ideas/gameplay-2026-10-17/every-change-has-a-cause.md; Emren 10-18 "Staged" and
+    # "Fold"): causes, a title, status or perk gained "in time" says what brought it (the Engine's role_why: the moment,
+    # the pick and its person, the title or perk, money) and one that slipped away or ran its time says how long (G1), the
+    # cause is a hoverable trail (G3), and a year whose colours moved cause_turn or more names its biggest mover instead of
+    # the mood line (G2); causes_fold, small skills, bonds and standings that come and go are told in one year line (G4).
+    # Words only: no draws, so every step plays as before. Off until Release proves them
+    causes=False, causes_fold=False, cause_turn=0.10, cause_share=0.15,
 )
 LINE_WAIT_TAGS = {"read", "world", "world_year", "world_fx", "ordinary", "year", "fortune", "trouble", "memory", "seen", "talk",
                   "temper", "healed", "hardened", "voice"}   # F10: the lines line_wait holds back (scenes, choices, deaths

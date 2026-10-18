@@ -309,6 +309,7 @@ def _roles(cat, R, L, extra=None, extend=None, packs_=None):
     G["rule"] = []
     for i, nm in enumerate(names):
         G["rule"].append(_rule1(nm, dict(rules.get(nm, {})), ID, norm, acc_mv, acc_fs, opt, extend, packs_))
+        G["rule"][-1]["say"] = G["rule"][-1]["say"] or items[i].get("cause")   # role_why: else the catalogue's cause= words
     # item 15, the sphere titles (earth_rules.SPH_TITLE_ROLES): compiled beside the rules, read only with sph_titles on
     G["rule_sph"] = {ID[nm]: _rule1(nm, dict(r_), ID, norm, acc_mv, acc_fs, opt, None)
                      for nm, r_ in getattr(R, "SPH_TITLE_ROLES", {}).items() if nm in ID}
@@ -318,6 +319,8 @@ def _roles(cat, R, L, extra=None, extend=None, packs_=None):
     when_ = {nm: r_ for nm, (needs_, r_) in getattr(R, "ROLES_WHEN", {}).items() if nm in ID and all(x_ in ID for x_ in needs_)}
     G["rule_when"] = {ID[nm]: _rule1(nm, dict(r_), ID, norm, acc_mv, acc_fs, opt, extend, packs_)
                       for nm, r_ in when_.items() if nm not in sph_}
+    for i_, r_ in G["rule_when"].items():
+        r_["say"] = r_["say"] or items[i_].get("cause")
     G["rule_sph_when"] = {ID[nm]: _rule1(nm, dict(r_), ID, norm, acc_mv, acc_fs, opt, None)
                           for nm, r_ in when_.items() if nm in sph_}
     # act fields

@@ -64,7 +64,7 @@ if a.lib:
     batch.LIB_DIR = os.path.abspath(a.lib)
 GOLIVE = a.golive or next((f for f in (os.path.join(ROOT, "chroma-engine", "tools", "engine_v9_golive.py"),   # the Engine's tools
                                          os.path.join(PROTO, "engine_v9_golive.py"),                                 # (backend item 7)
-                                         path("engine_v23", "engine_v9_golive.py")) if os.path.exists(f)),
+                                         path("engine_prototype", "engine_v9_golive.py")) if os.path.exists(f)),
                            os.path.join(PROTO, "engine_v9_golive.py"))
 spec = importlib.util.spec_from_file_location("engine_v9_golive", GOLIVE)
 E9 = importlib.util.module_from_spec(spec); spec.loader.exec_module(E9)

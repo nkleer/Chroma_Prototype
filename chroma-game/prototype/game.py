@@ -24,6 +24,7 @@ from game_world import WorldMixin
 from game_voice import VoiceMixin
 from game_life import LifeMixin
 from game_views import ViewsMixin
+from game_causes import CausesMixin
 
 PRESETS = {
     "1": dict(title="Newborn in an ordinary world",
@@ -49,7 +50,7 @@ PRESETS = {
 }
 
 
-class Game(CheckpointsMixin, WorldMixin, VoiceMixin, LifeMixin, ViewsMixin):
+class Game(CheckpointsMixin, WorldMixin, VoiceMixin, LifeMixin, ViewsMixin, CausesMixin):
     """One life. Drive it with advance() and decide(); read it with status() and the log."""
     _recall_t = -10 ** 6    # week a memory coming back was last told
     # how much each part of temperament must move before the log says so, and the words for up and down
@@ -120,6 +121,8 @@ class Game(CheckpointsMixin, WorldMixin, VoiceMixin, LifeMixin, ViewsMixin):
         P["self_death"] = False
         if GAME["returns"]:
             P["echo_play"] = True       # Picks come back: the Engine's hook, read once as the life starts, set only by the game
+        if GAME["causes"] and "role_why" in E.DEFAULT:
+            P["role_why"] = True        # Every change has a cause: the Engine records why each title or perk came or went
         # the outer world (chroma-world/, approved 10-06 10:51; in the final version by Emren's 22:24 word): on wherever the
         # pinned engine has it, for Earth lives (presets 5 and 6 stay as they are, ruling R1); its seed is the life's
         # The setup's world inputs (release row W41; world-build.md): the history dial (pace 0.5 calm to 2 turbulent, only the

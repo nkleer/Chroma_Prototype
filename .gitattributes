@@ -15,3 +15,4 @@ chroma-library/earth_politics.py -diff linguist-generated
 chroma-library/earth_science.py -diff linguist-generated
 chroma-library/earth_stage.py -diff linguist-generated
 chroma-art/game/lights.json -diff linguist-generated
+chroma-engine/v22-speedpass/sphere_data.py -diff linguist-generated

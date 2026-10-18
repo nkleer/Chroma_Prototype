@@ -207,7 +207,7 @@ def start_fits(PP, W, start):
 BURN_KEEP = 2
 BURN = {}
 BURN_HITS = [0]
-BURN_MODS = ("world", "world_keys", "library", "combos", "sphere_data", "sphere_ev_base")
+BURN_MODS = ("world",) + WM._PARTS + ("world_keys", "library", "combos", "sphere_data", "sphere_ev_base")
 
 
 def _code_md5():

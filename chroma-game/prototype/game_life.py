@@ -291,6 +291,8 @@ class LifeMixin:
             moved = dict(dw=[round(float(x) * 100, 2) for x in w_now - self._w_prev],
                          dres={RNAMES[i]: round(float(res_now[i] - self._res_prev[i]), 3) for i in range(5)
                                if abs(res_now[i] - self._res_prev[i]) >= 0.005})
+        if GAME["causes"]:
+            self._cause_dw = w_now - self._w_prev if self._w_prev is not None else None
         self._w_prev = w_now; self._res_prev = res_now
         cpw = self._cp_week; self._cp_week = None
         tp, self._turn_pick = self._turn_pick, None
@@ -499,15 +501,18 @@ class LifeMixin:
                         lvl = max(lvl, 2)               # a perk that comes and goes (good for a loan) is told once in a while
                     if self.burn_in:
                         lvl += 1                        # the past before the chosen start age is told briefly
+                    cz = self._role_cause(r, d, how) if GAME["causes"] else None   # G1: what brought it, or how long
                     if lvl <= 2:
                         frm = how[len("grew from "):] if how.startswith("grew from ") else None
                         frm = GR["say"][GR["ID"][frm]] if frm in GR["ID"] else None
                         rl = self.story.title_line(r, d, frm)
                         if rl and lvl <= self.detail:
                             self._role_told[r["name"]] = t
+                        if rl and lvl <= self.detail and GAME["causes"] and self._fold_role(r, d, how, cz, lvl):
+                            rl = ""                     # G4: told in the year's fold line
                         if rl:
-                            self._say(rl, lvl, "role", name=r["name"], kind=r["kind"], what=r["what"], how=how, title=d["title"],
-                                      ways=d["ways"])
+                            self._say(self._with_cause(rl, cz[1]) if cz else rl, lvl, "role", name=r["name"], kind=r["kind"],
+                                      what=r["what"], how=how, title=d["title"], ways=d["ways"], **({"cause": cz[0]} if cz else {}))
                 elif "read" in ev:
                     r = ev["read"]
                     lvl = 2 if self.burn_in else 1 if (r["impact"] >= READ_TOLD and t - self._last_read >= READ_GAP
@@ -548,6 +553,8 @@ class LifeMixin:
             taken = self.story.one_roll and bool(TAKEN_IN.search(sit))   # F7: a child taken in is not a birth
             for _ in range(int(loc["alive"][0, 5]) - len(self.story.alive("child"))):
                 self._say(self.story.later_child(taken) if taken else self.story.later_child(), 0 if not self.burn_in else 1, "kin")
+        if GAME["causes"]:
+            self._cause_week(self._week_ev)             # G2: the week's colour move with its told event
         if GAME["lines_tied"]:
             self._temper_week(loc)
         self._force = None
@@ -685,8 +692,12 @@ class LifeMixin:
                               w=[round(float(x), 3) for x in w], content=round(c, 2), peace=round(p, 2),
                               voice=[round(float(x), 3) for x in self.story.voice], weeks=self.story.last_weeks,
                               **({"voice_head": vh} if vh else {})))
+        if GAME["causes"]:
+            body = self._cause_year(body, w, loc)       # G2: a year that turned them names its biggest mover
         if body:
             self._say(body, 0, "year")
+        if GAME["causes"]:
+            self._fold_year()                           # G4: the year's small gains and losses, in one line
         self._voice_chapter(t / 52)
         if not tied_times:
             self._times_year()                      # WL4: one line on how the times touched them this year
