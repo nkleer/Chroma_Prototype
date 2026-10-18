@@ -16,6 +16,22 @@ Owner: the Engine thread. The repository-wide rules are in the root `CLAUDE.md`.
 - `sphere_data.py` holds the nine spheres (`SPHERES`); `world.py`, `world_people.py`, `world_link.py` and
   `world_keys.py` are the outer world; `earth_rules.py` the Earth rules; `rarity.json` the rarity table the game builds
   `rarity.py` from.
+- `world_people.py` (class `People`, 197 lines) and `world.py` (class `World`, 626 lines) keep the module docstring, the
+  class and its core; the rest moved out verbatim. The module code is in `world_people_base.py` and `world_base.py`,
+  the methods in mixin modules of 481 to 780 lines that the class inherits, one or more whole sections each (each
+  module's `_PARTS` lists them). Every name is still importable from `world_people` and `world`, and a patch on
+  `People` or `World` (`People._pt_q = ...`) works as before. Find a method with `rg -n 'def name' v22-speedpass/`;
+  a new module name goes in `_PARTS` (the world cache, `people_check`, `world_check` and the stats keys read it), and
+  `chroma-game/tools/build.py` pins every `world*.py`.
+  - People, in `world_people_<part>.py`: `roster` (the world through world-build.md's names, adding and dropping
+    people, birth), `settings` (settings, spheres phase 2), `ticks` (the ticks, ties, commitments, the life course of
+    settings), `lives` (the cast's own lives, wants, far ties), `sacred` (S5, S6), `eyes` (approval, standing, reach,
+    S3, S4, what the engine reads), `acts` (acts, levers, pushes, body_trust, place_turnover), `lead` (S7, who slots,
+    place and moving), `views` (emigration, views for the game, save and load).
+  - World: `world.py` itself (construction, the clock, emigration), `world_hooks` (nature, the C hooks, abroad),
+    `world_society` (economy, state, institutions, places, culture, society), `world_years` (figures, history, the
+    yearly update, pushes, what the engine reads), `world_spheres` (spheres phases 1c, 2 and 4, place_turnover),
+    `world_events` (spheres phase 3, Replace, save and load).
 - `tools/` holds the checks Release runs (`tools/README.md`). The quick one: `python3 -B chroma-engine/tools/t_steps.py`
   (70 rows, about an hour, 50 to 65 min measured 10-17: `run_steps()` gives `run()`'s lives, the pause order, every `STATE` name, each switch's own rows).
 - `prototype/calib_v8/rarity.json` is the rarity table of v22 and v22.1. The paused v23 engine lives in the shared
