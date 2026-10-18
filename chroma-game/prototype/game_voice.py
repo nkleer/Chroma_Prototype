@@ -91,6 +91,8 @@ class VoiceMixin:
         if len(ks) > 1:                                  # where the pick stood among the open ways, per side (-1 to 1)
             vals = np.array([VOICE_AX @ cv(o) for o in ks]); pv = VOICE_AX @ cv(k)
             rk = ((vals < pv - 1e-9).sum(0) - (vals > pv + 1e-9).sum(0)) / (len(ks) - 1)
+            st = VOICE_AX @ diff                         # K21: a side counts only where the push moved them toward it
+            rk = np.where((np.sign(rk) == np.sign(st)) & (np.abs(st) > 1e-9), rk, 0.0)
             v["rk"] = [round(x + float(y), 4) for x, y in zip(v.get("rk") or [0.0] * len(VOICE_SIDES), rk)]
         dw = np.asarray(moved.get("dw") or np.zeros(C), float) / 100 + np.asarray((rs.get("pivot") or {}).get("moved") or np.zeros(C), float) / 100
         v["dw"] = [round(float(x) + float(y), 4) for x, y in zip(self._vdw(), dw)]; v["dw_t"] = int(self.t)
