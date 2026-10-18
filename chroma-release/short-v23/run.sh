@@ -54,6 +54,9 @@
 #   n3             N3: test/same_life.py presets 1-6, seed 7, on the final commit with `returns` off against N3BASE
 #                  (the Game's re-pin commit before `returns` goes on), byte for byte. N3GAME='<json>' replaces
 #                  CHROMA_GAME's '{"returns": false}', e.g. to switch off a display switch N3BASE lacks (C1)
+#   stakes         C1: test/same_life.py presets 1-6, seed 7, on the final commit with `stakes` on and off: every
+#                  step's input, busy, feed and HUD equal but the HUD moment's stake_card and each way's at_stake,
+#                  only the text moves (results line stakes_same)
 #   page           the page layer against release/v22.5, the fit probes and the tours (K26)
 #   final          the refit's rows on the final commit: v22_checks rows again (reused in seconds where nothing they
 #                  read changed), the hand rows carried (g4's speedpass rows, pie and pie41, f4_age and f6_dreams,
@@ -63,7 +66,7 @@ set -u
 JOBS=" rar1 rar2 rar3 rar4 rar5 rarm f9a f9b f9c f9d f9e f9f f8a f8b f8c engA engA1 engA2 engB engB1 engB2 engB3 mech s7
  c26a c26b lives g4 g4s g4a g4b fit4 fit6 pack1 pack2 pack3 pack4 pack5 packm np quick q1 q2 q3 q4 q5 game gameA gameB
  gameC pr30 pr30a pr30b pr30c pr30m b7A b7B b7C b7D b7AB b7CD roll rollA rollB rollC fit fitk fit12 f15 f15a f15b f15c
- f15d f15m picks_on1 picks_on2 picks_on3 picks_on4 picks_off1 picks_off2 picks_off3 picks_off4 picksm n3 page final "
+ f15d f15m picks_on1 picks_on2 picks_on3 picks_on4 picks_off1 picks_off2 picks_off3 picks_off4 picksm n3 stakes page final "
 [[ "${JOBS//$'\n'/ }" == *" ${1:-none} "* ]] || { sed -n '2,/^set -u/{/^#/p}' "$0"; exit 2; }
 F=${CHROMA_PROJECT:-/mnt/project-files}; R=$F/chroma-release; REPO=${REPO:-/tmp/v23_repo}; X=/tmp/v23_${1:-}; JOB=${1:-}
 K=/tmp/v23_keep   # --keep --work folders: the same path on every machine, so `final` reuses the refit's proofs
@@ -214,6 +217,36 @@ n3() { [ -n "${N3BASE:-}" ] || { echo "N3BASE=<the Game's re-pin commit before r
     echo "N3: $([ $ok = 0 ] && echo PASS || echo FAIL)"; } > $o; cat $o
   python3 -B $R/results.py add prove_same $([ $ok = 0 ] && echo PASS || echo FAIL) ${o#$F/} \
     "same_life.py presets 1-6 seed 7, returns off, against the re-pin before returns ${b:0:12}"; }
+stakes() { local p side ok=0 d=$X/stakes o=$O/stakes_same_${SHA:0:7}_$(date -u +%Y%m%d-%H%M%S).txt
+  rm -rf $d; mkdir -p $d/tree && git -C $REPO archive $SHA chroma-game/prototype | tar -x -C $d/tree || return 1
+  for p in ${N3P:-1 2 3 4 5 6}; do for side in on off; do
+    while [ $(jobs -rp | wc -l) -ge 4 ]; do sleep 2; done
+    ( cd $d/tree/chroma-game/prototype && CHROMA_GAME="{\"stakes\": $([ $side = on ] && echo true || echo false)}" \
+      python3 -B test/same_life.py $p 7 $d/${side}_$p.jsonl > $d/${side}_$p.out 2>&1 ) &
+  done; done; wait
+  { echo "v23 C1 stakes_same on ${SHA:0:12}: test/same_life.py presets ${N3P:-1 2 3 4 5 6}, seed 7, stakes on against off"
+    for p in ${N3P:-1 2 3 4 5 6}; do python3 -B - $d/on_$p.jsonl $d/off_$p.jsonl $p <<'EOF' || ok=1
+import sys, json
+a, b, p = sys.argv[1], sys.argv[2], sys.argv[3]
+A = [json.loads(l) for l in open(a)] if open(a).read(1) else []
+B = [json.loads(l) for l in open(b)] if open(b).read(1) else []
+moved = sum(x[1] != y[1] for x, y in zip(A, B)); cards = 0
+for x in A:   # the stakes' own fields in the HUD's moment (game_checkpoints.py, #298): the card's, and each way's
+    cp = x[4].get("cp") if isinstance(x[4], dict) else None
+    if isinstance(cp, dict):
+        cards += cp.pop("stake_card", None) is not None
+        for o in cp.get("options") or []: o.pop("at_stake", None)
+bad = next((i for i, (x, y) in enumerate(zip(A, B)) if [x[0]] + x[2:] != [y[0]] + y[2:]), None)
+if not A or len(A) != len(B) or bad is not None:
+    print(f"MISS preset {p}: {len(A)} steps on, {len(B)} off" + (f", step {bad} differs outside the text" if bad is not None else ""))
+    sys.exit(1)
+print(f"ok   preset {p}: {len(A)} steps, input, busy, feed and HUD equal but the stakes' fields (stake_card on {cards} steps, "
+      f"each way's at_stake); the text moved on {moved} steps")
+EOF
+    done
+    echo "C1 stakes_same: $([ $ok = 0 ] && echo PASS || echo FAIL)"; } > $o; cat $o
+  python3 -B $R/results.py add stakes_same $([ $ok = 0 ] && echo PASS || echo FAIL) ${o#$F/} \
+    "same_life.py presets 1-6 seed 7, stakes on against off: only the text and the HUD's stakes fields move"; }
 look() { git -C $REPO fetch -q origin "+refs/heads/$LOOKBASE:refs/remotes/origin/$LOOKBASE" || return 2
   local b=$(git -C $REPO rev-parse origin/$LOOKBASE) o=$O/look_same_$(date -u +%Y%m%d-%H%M%S).txt
   local d=$(git -C $REPO diff --name-only $b $SHA -- $LOOK)
@@ -327,6 +360,7 @@ case "${1:-}" in
   picks_off[1-4]) picksp off ${1#picks_off} ;;
   picksm) picksm ;;
   n3) n3 ;;
+  stakes) stakes ;;
   page) look ;;
   final) $CHK --only $ENGA,$ENGB; $CHK --only $MECH --keep --work $K/mech; $CHK --only s7_lead
      $CHK --only c26_choice,c26_world --keep --work $K/c26; $CHK --only $LIVES8 --keep --work $K/lives; carry_final ;;
