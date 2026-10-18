@@ -23,6 +23,7 @@ game-side file must also go in `web/worker.js` `SOURCES`; `test/smoke.py` fails 
 | `game_voice.py` | 667 | `VoiceMixin`: the inner voice, threads, trust, the character's own ways, goals, learning, the weekly hooks |
 | `game_life.py` | 785 | `LifeMixin`: states, roles and titles, recall, temperament, the end of a life (`_on_end`), story lines, yearly chapters |
 | `game_views.py` | 885 | `ViewsMixin`: status, HUD, routine, family, news, cast, saves, plans, identity, health, the Book, the review |
+| `game_causes.py` | 212 | `CausesMixin`: "Every change has a cause" behind `GAME` `causes` and `causes_fold`: a gain or loss names its cause (the Engine's `role_why`), the cause trail (marker `Y`), the year that turned them, the fold line |
 | `story.py` | 126 | the story layer: class `Story`, its core (`__init__`, `new`, `alive`, `get`, `say`, `nm`). Every name the story layer has is importable from `story` |
 | `story_base.py` | 540 | the story's settings, names, places and word lists (values, goals, dreams, the moments' words) and helpers (`mk`, `plain`, `act`, `phase`, `load_library_story`): what `story.py` held before class `Story` |
 | `story_cast.py` | 233 | `CastMixin`: roles, who is due and who dies, picking people, filling a line's slots |

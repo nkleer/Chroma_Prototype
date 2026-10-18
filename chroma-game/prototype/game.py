@@ -24,6 +24,7 @@ from game_world import WorldMixin
 from game_voice import VoiceMixin
 from game_life import LifeMixin
 from game_views import ViewsMixin
+from game_causes import CausesMixin
 
 PRESETS = {
     "1": dict(title="Newborn in an ordinary world",
@@ -49,7 +50,7 @@ PRESETS = {
 }
 
 
-class Game(CheckpointsMixin, WorldMixin, VoiceMixin, LifeMixin, ViewsMixin):
+class Game(CheckpointsMixin, WorldMixin, VoiceMixin, LifeMixin, ViewsMixin, CausesMixin):
     """One life. Drive it with advance() and decide(); read it with status() and the log."""
     _recall_t = -10 ** 6    # week a memory coming back was last told
     # how much each part of temperament must move before the log says so, and the words for up and down
