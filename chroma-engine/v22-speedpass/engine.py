@@ -1906,6 +1906,7 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
         return [0.8 + 0.2 * held[:, CAR], inst_expo(), 0.4 + held[:, FAI] * (0.6 + I[:, FAI])][kind]
     f_need = np.full(N, 0.8); cload = np.zeros(N); tension = np.zeros(N)
     asrc = np.zeros((N, len(ASOURCES), C)); A_src = []          # what moved the want, by source (cumulative)
+    asrc_c = asrc[log_lives[0]] if len(log_lives) else None   # the played life's (a view: it moves with asrc)
     W_hist = []; M_hist = []; S_hist = []; A_hist = []
     reb = np.zeros((N, 2))                                       # v6: tension rebounds over the life (fit together, split)
     trouble = np.zeros(N); fortune = np.zeros(N)                 # v6: recent big events that went badly / well (decay over years)
@@ -2421,7 +2422,7 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
             if RW_ON:
                 why_ = rw_why.pop((int(n), int(i), what), None)
                 if why_ is not None:
-                    rec_["why"] = why_
+                    rec_["why"] = why_; rec_["t"] = t
             events[n].append(dict(role=rec_))
     WL = None                                             # the outer world's link (set below when the world is on)
     EYES_LOSE_SKIP = {"replaced", "time passed", "outgrew it", "retired", "slipped away", "found work", "it ended",
@@ -2709,7 +2710,7 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
         ns.update({"is_" + nm_.replace(" ", "_"): adj[:, i_] for i_, nm_ in enumerate(ADJ_NAMES)})
         return ns
     RW_CODE = {}   # role_why: each clause's source, compiled once
-    def rw_clause(src, ns, n):
+    def rw_clause(src, ns, n, ext=()):
         """role_why: what in a rule's condition (its source) held for life n this week, as a list of the history items
         behind it, or None if it does not hold. Read-only: chance() is never drawn (read as luck), & gives every part, |
         the first part that holds, ~ (an absence) nothing."""
@@ -2730,7 +2731,7 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                         yrs_ = x.args[1].value
                     if f_ in ("mk", "mk_ok", "mkn", "mk_span") and a0 in MIDX:
                         j_ = MIDX[a0]; tm_ = int(mark_last[n, j_]); src_ = rw_mk.get((n, j_))
-                        it_ = dict(kind="mark", name=a0, t=tm_)
+                        it_ = dict(k="mark", mark=a0, t=tm_)
                         if src_ is not None and src_[0] == tm_:
                             it_.update(moment=L["names"][src_[1]], s=src_[1], a=src_[2])
                         return it_, yrs_
@@ -2740,39 +2741,46 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                         if idx_:
                             tl_ = sit_last[n, idx_] if f_ == "had" else np.where(sit_first[n, idx_] <= NEVER // 2, 10 ** 9, sit_first[n, idx_])
                             b_ = idx_[int(np.argmax(tl_) if f_ == "had" else np.argmin(tl_))]
-                            return dict(kind="moment", name=L["names"][b_], s=int(b_),
+                            return dict(k="moment", name=L["names"][b_], s=int(b_),
                                         t=int(sit_last[n, b_] if f_ == "had" else sit_first[n, b_])), yrs_
                     if f_ in ("has", "was", "yrs_has") and a0 in RID:
-                        return dict(kind="title" if RID[a0] < NT_ else "perk", name=a0, t=int(r_since[n, RID[a0]])), None
+                        return dict(k="held", name=a0, t=int(r_since[n, RID[a0]])), None
                     if f_ in ("adj", "yrs_adj"):
-                        return dict(kind="standing", name=a0), None
+                        return dict(k="standing", name=a0), None
                     if f_ == "chance":
-                        return dict(kind="luck"), None
-                    return dict(kind="state", name=f_ if a0 is None else f_ + " " + str(a0)), None
+                        return dict(k="luck"), None
+                    return dict(k="state", name=f_ if a0 is None else f_ + " " + str(a0)), None
             for x in ast.walk(nd):
                 if isinstance(x, ast.Name):
                     nm_ = x.id
+                    if nm_ == "money":
+                        return dict(k="money"), None
                     if nm_ in RESOURCES:
-                        return dict(kind="means", name=nm_), None
+                        return dict(k="means", name=nm_), None
                     if nm_ in NEEDS:
-                        return dict(kind="need", name=nm_), None
+                        return dict(k="need", name=nm_), None
                     if nm_ in COLORS:
-                        return dict(kind="colour", name=nm_), None
-                    if nm_ in ("age", "age_mod", "decade_edge", "round_birthday", "stage") or nm_ in STAGE_NAMES:
-                        return dict(kind="age", name=nm_), None
-                    if nm_.startswith(("held_", "yrs_")) and nm_.split("_", 1)[1] in KNAMES:
-                        return dict(kind="commitment", name=nm_.split("_", 1)[1]), None
+                        return dict(k="colour", name=nm_), None
+                    if nm_ == "stage" or nm_ in STAGE_NAMES:
+                        return dict(k="stage", name=nm_), None
+                    if nm_ in ("age", "age_mod", "decade_edge", "round_birthday"):
+                        return dict(k="age"), None
+                    if nm_.startswith(("held_", "yrs_")) and nm_.split("_", 1)[1] in KNAMES:   # a commitment held, since
+                        k_ = KNAMES.index(nm_.split("_", 1)[1])
+                        return dict(k="held", name=KNAMES[k_], t=int(since[n, k_])), None
                     if nm_.startswith("ago_"):
-                        return dict(kind="since", name=nm_[4:]), None
+                        return dict(k="since", name=nm_[4:]), None
                     if nm_.startswith("is_"):
-                        return dict(kind="standing", name=nm_[3:].replace("_", " ")), None
-                    return dict(kind="state", name=nm_), None
-            return dict(kind="state"), None
+                        return dict(k="standing", name=nm_[3:].replace("_", " ")), None
+                    return dict(k="state", name=nm_), None
+            return dict(k="state"), None
         def walk(nd):
             if isinstance(nd, ast.BinOp) and isinstance(nd.op, ast.BitAnd):
                 return walk(nd.left) + walk(nd.right)
             if isinstance(nd, ast.BinOp) and isinstance(nd.op, ast.BitOr):
-                return walk(nd.left) if val(nd.left) else walk(nd.right)
+                b_ = nd.left if val(nd.left) else nd.right
+                pk_ = ext_.get(ast.dump(b_), False)
+                return ([dict(k="pack", pack=pk_, clause=ast.unparse(b_))] if pk_ is not False else []) + walk(b_)
             if isinstance(nd, ast.UnaryOp) and isinstance(nd.op, (ast.Invert, ast.Not)):
                 return []
             it_, yrs_ = item(nd)
@@ -2782,6 +2790,7 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
             return [it_]
         if not src:
             return []
+        ext_ = {ast.dump(ast.parse(x_, mode="eval").body): p_ for p_, x_ in ext}   # a pack's way in, or-ed into the rule
         body_ = ast.parse(src, mode="eval").body
         return walk(body_) if val(body_) else None
     def ev_cond(code, ns):
@@ -3940,7 +3949,7 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                 dl_t0, dl_cause, bd_cw, bd_ck, bd_sk, HM_ON, DTH_ON, settle_f, e_i, e_p, wfx, option_causes,
                 ev_log, goal_log, brk_log, conv_log, rite_log, commit_log, clash_log, role_log, adj_log,
                 mark_log, read_log, r_has, r_ever, r_since, r_prof, p_acc, p_lev, p_sus, fam, gsr, goal_rel_S,
-                around, retired, ck, ok_, frc_, ONCE_HOLD_, noise, btrust, ep_seeds, ep_now)
+                around, retired, ck, ok_, frc_, ONCE_HOLD_, noise, btrust, ep_seeds, ep_now, asrc, asrc_c)
     if pausing:
         ST_CELLS = tuple(zip(_handed.__code__.co_freevars, _handed.__closure__)); ST_FR = sys._getframe()
         pz_st = PauseState()
@@ -5590,8 +5599,8 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                     if i_ == OW_ and not held[n, CAR]:
                         continue                                   # out of work lasts while there is no work
                     if RW_ON and n in events:   # role_why: how long it was held, against how long it lasts
-                        rw_why[(int(n), int(i_), "lost")] = dict(t=t, via="time", held=round((t - r_since[n, i_]) / 52, 2),
-                                                                lasts=float(GR["lasts"][i_]))
+                        rw_why[(int(n), int(i_), "lost")] = [dict(k="held", years=round((t - r_since[n, i_]) / 52, 2),
+                                                                 lasts=float(GR["lasts"][i_]))]
                     r_lose(n, i_, "time passed")
                 for n, i_ in zip(*np.nonzero(r_has[:, :NT_] & (age > GR["ages"][:NT_, 1]))):   # outgrown: a scout at nineteen
                     r_lose(n, i_, "outgrew it")
@@ -5620,11 +5629,11 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                 for n, p_ in zip(*np.nonzero(r_has[:, NT_:] & ~RULE_LOSS[None] & (rng.random((N, NP_)) < 1 - np.exp(-base_[None] * mult_ / 13)))):
                     if RW_ON and n in events:   # role_why: held how long, unused how long; a bond alone, an asset short of money
                         lu_ = max(int(rw_use[n][p_]), int(r_since[n, NT_ + p_]))
-                        rw_why[(int(n), int(NT_ + p_), "lost")] = dict(
-                            t=t, via=("unused" if pk_[p_] == 0 else "alone" if pk_[p_] == 3 and res[n, TIE] < 0.3
-                                   else "short of money" if pk_[p_] == 4 and res[n, MON] < 0.15 else "time"),
-                            held=round((t - r_since[n, NT_ + p_]) / 52, 2), unused=round((t - lu_) / 52, 2),
-                            use=round(float(use_[n, p_]), 2), ties=round(float(res[n, TIE]), 2), money=round(float(res[n, MON]), 2))
+                        rw_why[(int(n), int(NT_ + p_), "lost")] = [dict(
+                            k="unused", years=round((t - lu_) / 52, 2), held=round((t - r_since[n, NT_ + p_]) / 52, 2),
+                            # as: why it went (a skill unused; a bond while alone; an asset while short of money; else time)
+                            **{"as": ("unused" if pk_[p_] == 0 else "alone" if pk_[p_] == 3 and res[n, TIE] < 0.3
+                                      else "short of money" if pk_[p_] == 4 and res[n, MON] < 0.15 else "time")})]
                     r_lose(n, NT_ + p_, "slipped away")
                 fade_ = MEM_K[None] & ~p_acc & (p_lev > 0)        # a skill without access fades by its half-life
                 p_lev *= np.where(fade_, 0.5 ** (1 / (13 * np.maximum(GR["half"], 1e-9)))[None], 1.0)
@@ -5685,15 +5694,21 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                         fr_ = [j_ for j_ in ru_["after"] if r_has[n, j_] and t - r_since[n, j_] >= 52 * P["rung_min"]]
                         for j_ in fr_:
                             r_lose(n, j_, "became " + GR["names"][i_], succ=i_)
-                        if RW_ON and n in events and not fr_:   # role_why: the clause of its rule that held, read-only
-                            it_ = rw_clause(ru_.get("req_s"), ns_, n); via_ = "rule"
-                            if it_ is None:                  # not the rule itself: a pack's own way in
-                                for src_ in ru_.get("more_s", ()):
+                        if RW_ON and n in events and not fr_:   # role_why: the parts of its rule that held, read-only
+                            it_ = rw_clause(ru_.get("req_s"), ns_, n, ru_.get("ext_s", ()))
+                            if it_ is None:                  # not the rule itself: a pack's own way in (at its own rate)
+                                for pk_, src_ in ru_.get("more_s", ()):
                                     it_ = rw_clause(src_, ns_, n)
                                     if it_ is not None:
-                                        via_ = "pack"
+                                        it_ = [dict(k="pack", pack=pk_, clause=src_)] + it_
                                         break
-                            rw_why[(int(n), int(i_), "gained")] = dict(t=t, via=via_ if it_ else "none", items=it_ or [])
+                            if ru_.get("pack") and not (it_ and it_[0]["k"] == "pack"):   # a rule a pack owns
+                                it_ = [dict(k="pack", pack=ru_["pack"], clause=ru_.get("req_s") or "")] + (it_ or [])
+                            it_ = it_ or [dict(k="none")]
+                            if ru_.get("say"):
+                                for x_ in it_:
+                                    x_["say"] = ru_["say"]
+                            rw_why[(int(n), int(i_), "gained")] = it_
                         r_gain(n, i_, ("grew from " + GR["names"][fr_[0]]) if fr_ else "in time")
                         if RW_ON and not r_has[n, i_] and not any(e_[0] == n and e_[1] == i_ for e_ in f_pend):
                             rw_why.pop((int(n), int(i_), "gained"), None)   # not given after all (ages, a held kind)
@@ -6651,8 +6666,8 @@ STATE_IF = dict.fromkeys(("r_has", "r_ever", "r_since", "r_prof", "p_acc", "p_le
 # and tools/t_steps.py's (this week's drift, at drift_k 0) and the game's picks come back (echo_play: the seeds, and the
 # seed whose return is this week's moment, -1 for none)
 STATE_MORE = ("fam", "gsr", "goal_rel_S", "around", "retired", "ck", "ok_", "frc_", "ONCE_HOLD_", "noise", "ep_seeds", "ep_now",
-              "asrc",   # every change has a cause: what moved the want so far, by source (N x ASOURCES x colours; the game
-              # takes the year's movers as the change between two pauses)
+              "asrc", "asrc_c",   # every change has a cause: what moved the want so far, by source (asrc: N x ASOURCES x
+              # colours; asrc_c: the first logged life's, ASOURCES x colours; the game takes the year's movers between two pauses)
               "btrust")   # body_trust (finishing pack part 3): each life's trust per sphere (N x 9, NaN before 15); None off
 STATE_MISSED = set()   # names read at a pause that are not handed over (STATE, STATE_IF, STATE_MORE): t_steps wants none
 
