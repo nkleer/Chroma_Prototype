@@ -1,4 +1,4 @@
-"""Engine check for the pause points (backend plan item 2, 2026-10-08) and each switch's own rows: 70 rows, about an hour
+"""Engine check for the pause points (backend plan item 2, 2026-10-08) and each switch's own rows: 71 rows, about an hour
 (50 to 65 min measured 10-17: the Engine with T_JOBS=4, Release on #288).
 
 engine.run_steps() is engine.run() pausing six times a week for the game. On a few short runs this checks that
@@ -38,6 +38,10 @@ engine.run_steps() is engine.run() pausing six times a week for the game. On a f
      before trust starts); a release makes 1 or 2 ties a year inside (cap 6) at strength .3, each ended within 10 years;
      the pull back is on only with an active tie, the shadow part over its line and neither a partner nor steady work,
      and moves only the options that break the law, at odds x the data's 1.2.
+ 16. every change has a cause (role_why, the game's played-life hook): switched on, the lives and the logged lives'
+     events of it off (but the causes); every title or perk a logged life gains in time, or loses as time passed or
+     slipped away, carries its cause, and every history item named is before the change and inside the rule's window;
+     asrc (what moved the want, by source) and the played life's asrc_c are handed over at the pauses.
 
     python3 -B chroma-engine/tools/t_steps.py [ENGINE_DIR]
 T_JOBS=N: the rows of 8 and 9 on N processes (default up to 4, by the cores there are; 1: one after another).
@@ -738,6 +742,62 @@ if "place_turnover" in E.DEFAULT and hasattr(E, "bt_care") and hasattr(E, "pt_pu
           f"release at strength {sorted(R_['c'])}, none past 10 years; the pull back on {R_['pull']} life-weeks, off for a "
           f"partner or steady work {R_['freed']}, odds x{TV_['pull_back']['reoffend']} on {R_['pull_u']} options"
           f"{'' if not fails else '; ' + '; '.join(fails[:4])} ({time.process_time() - t0:.0f} s)")
+# 16. every change has a cause (role_why, the game's played-life hook)
+if "role_why" in E.DEFAULT:
+    t0 = time.process_time(); fails = []
+    kw = dict(N=4, years=30, seed=11, lib=EARTH, log_lives=(0, 1))
+    o0_ = E.run(**kw, P=dict(E.DEFAULT)); o1_ = E.run(**kw, P=dict(E.DEFAULT, role_why=True))
+    def _strip(ev_):
+        return {k_: [dict(x, role={a_: b_ for a_, b_ in x["role"].items() if a_ not in ("why", "t")}) if "role" in x else x for x in v_]
+                for k_, v_ in ev_.items()}
+    d0, d1 = digest(dict(o0_, events=None)), digest(dict(o1_, events=None))
+    if d0 != d1 or digest(dict(e=_strip(o1_["events"]))) != digest(dict(e=o0_["events"])):
+        fails.append("on, the lives or their events (but the causes) move")
+    if any("why" in x.get("role", {}) for v_ in o0_["events"].values() for x in v_):
+        fails.append("off, a cause is told")
+    R_ = dict(gain=0, loss=0, items=0, none=0)
+    for v_ in o1_["events"].values():
+        for x in v_:
+            r_ = x.get("role")
+            if not r_ or not (r_["how"] in ("in time", "time passed", "slipped away")):
+                continue
+            w_ = r_.get("why")
+            if not isinstance(w_, list) or not w_ or "t" not in r_:
+                fails.append(f"{r_['what']} {r_['how']} without a cause"); continue
+            R_["gain" if r_["what"] == "gained" else "loss"] += 1
+            if r_["what"] == "gained" and w_[0]["k"] == "none":
+                R_["none"] += 1
+            if r_["what"] == "lost" and [it_["k"] for it_ in w_] != (["held"] if r_["how"] == "time passed" else ["unused"]):
+                fails.append(f"{r_['name']} {r_['how']}: told as {[it_['k'] for it_ in w_]}")
+            for it_ in w_:
+                R_["items"] += 1
+                if it_.get("k") not in ("mark", "moment", "held", "money", "age", "stage", "none", "pack", "luck",
+                                        "unused", "standing", "state", "means", "need", "colour", "since"):
+                    fails.append(f"a cause of kind {it_.get('k')}")
+                if "t" in it_ and not 0 <= it_["t"] <= r_["t"]:
+                    fails.append(f"{r_['name']}: its cause ({it_.get('name', it_.get('mark'))}) not before the change")
+                if "t" in it_ and "within" in it_ and it_["k"] in ("mark", "moment") and r_["t"] - it_["t"] > it_["within"] * 52 + 1:
+                    fails.append(f"{r_['name']}: its cause ({it_.get('name', it_.get('mark'))}) outside the rule's window")
+    if R_["gain"] < 5 or R_["loss"] < 1 or R_["items"] < 5:
+        fails.append(f"too few causes read: {R_}")
+    g = E.run_steps(N=1, years=4, seed=11, lib=EARTH, P=dict(E.DEFAULT), log_lives=(0,)); msg = next(g); seen_ = False
+    while True:
+        kind, t, S, val = msg
+        if S.get("age", 0) >= 3.5 and not seen_:
+            seen_ = True
+            if np.shape(S.get("asrc")) != (1, len(E.ASOURCES), len(E.COLORS)) or np.shape(S.get("asrc_c")) != \
+                    (len(E.ASOURCES), len(E.COLORS)) or not np.array_equal(S["asrc_c"], S["asrc"][0]):
+                fails.append(f"asrc at a pause has shape {np.shape(S.get('asrc'))}, asrc_c {np.shape(S.get('asrc_c'))}")
+        try:
+            msg = g.send(val)
+        except StopIteration:
+            break
+    fails = list(dict.fromkeys(fails))
+    bad += bool(fails)
+    print(f"{'PASS' if not fails else 'FAIL'}  every change has a cause (role_why), switched on: the lives and events of it off; "
+          f"{R_['gain']} gains in time and {R_['loss']} losses as time passed or slipped away, each with its cause "
+          f"({R_['items']} items, {R_['none']} with none to name), each before the change and inside the rule's window; "
+          f"asrc handed over at the pauses{'' if not fails else '; ' + '; '.join(fails[:4])} ({time.process_time() - t0:.0f} s)")
 # 11. nothing read at a pause outside the handed-over names (an engine without STATE_MISSED reads its whole frame)
 if hasattr(E, "STATE_MISSED"):
     bad += bool(E.STATE_MISSED)

@@ -205,7 +205,7 @@ def _lose(r):
     return [(_code(c_), str(w_)) for c_, w_ in pairs]
 
 
-def _rule1(nm, r, ID, norm, acc_mv, acc_fs, opt, extend):
+def _rule1(nm, r, ID, norm, acc_mv, acc_fs, opt, extend, packs_=None):
     """One title's or perk's rule, compiled (_roles)."""
     bad = [x for x in r.get("after", []) if x not in ID]
     if bad:
@@ -214,22 +214,28 @@ def _rule1(nm, r, ID, norm, acc_mv, acc_fs, opt, extend):
     if bad:
         raise ValueError(f"{nm}: 'rungs' names unknown titles or perks {bad}")
     # a pack's EXTEND: a condition or-ed into the rule (at the rule's own rate), or dict(req, rate): a way in of its own
-    more_ = []
-    for x_ in (extend or {}).get(nm, []):
+    more_ = []; more_s = []; ext_s = []   # role_why: (pack, source) of each way in a pack added
+    for j_, x_ in enumerate((extend or {}).get(nm, [])):
+        pk_ = ((packs_ or {}).get("ext", {}).get(nm) or [None] * (j_ + 1))[j_]
         if isinstance(x_, dict):
-            more_.append((_code(x_["req"]), float(x_["rate"])))
+            more_.append((_code(x_["req"]), float(x_["rate"]))); more_s.append((pk_, str(x_["req"])))
         else:
+            ext_s.append((pk_, str(x_)))
             r["req"] = f"({r['req']}) | ({x_})" if r.get("req") else None   # a rule with no condition already lets anyone in
     return dict(req=_code(r.get("req")), rate=r.get("rate"), more=more_, after=[ID[x] for x in r.get("after", [])],
                 lose=_lose(r), lrate=r.get("lrate", 0.0), lend=r.get("lend", "left"),
                 starts=bool(r.get("starts")), entry=r.get("entry", not r.get("after")), weight=r.get("weight"),
                 has_req=bool(r.get("req")),
+                # the engine's role_why (which clause held): the condition's source, the packs' ways in, the pack that owns the
+                # rule and the Library's cause: words
+                req_s=r.get("req") or "", more_s=more_s, ext_s=ext_s, pack=(packs_ or {}).get("rule", {}).get(nm),
+                say=r.get("cause"),
                 rungs=[ID[x] for x in r.get("rungs", [])],   # lower rungs kept on the step (a degree; packs
                 # 11:29): counted as steps by the fit report, never dropped or gated like after=
                 norm=float(norm.get(nm, 1.0)), acc_move=float(acc_mv.get(nm, 1.0)), acc_first=float(acc_fs.get(nm, 1.0)), grants=[ID[x] for x in r.get("grants", []) if x in ID or x not in opt])
 
 
-def _roles(cat, R, L, extra=None, extend=None):
+def _roles(cat, R, L, extra=None, extend=None, packs_=None):
     """Titles and perks (chroma-engine/perks-titles-format.md): the world's catalogue, the engine's reading of how each is
     gained and lost (<world>_rules.ROLES), and the act fields on options (title, drops, grants, takes, suspends, requires,
     without; a field ending in _if_fails acts when the act fails)."""
@@ -302,7 +308,8 @@ def _roles(cat, R, L, extra=None, extend=None):
     G["without_default"] = np.array([WITHOUT_DEFAULT["title"]] * NT + [WITHOUT_DEFAULT[x["kind"]] for x in PP])
     G["rule"] = []
     for i, nm in enumerate(names):
-        G["rule"].append(_rule1(nm, dict(rules.get(nm, {})), ID, norm, acc_mv, acc_fs, opt, extend))
+        G["rule"].append(_rule1(nm, dict(rules.get(nm, {})), ID, norm, acc_mv, acc_fs, opt, extend, packs_))
+        G["rule"][-1]["say"] = G["rule"][-1]["say"] or items[i].get("cause")   # role_why: else the catalogue's cause= words
     # item 15, the sphere titles (earth_rules.SPH_TITLE_ROLES): compiled beside the rules, read only with sph_titles on
     G["rule_sph"] = {ID[nm]: _rule1(nm, dict(r_), ID, norm, acc_mv, acc_fs, opt, None)
                      for nm, r_ in getattr(R, "SPH_TITLE_ROLES", {}).items() if nm in ID}
@@ -310,8 +317,10 @@ def _roles(cat, R, L, extra=None, extend=None):
     # once every title it names is in the catalogue, in place of the title's rule (rule_when) or its sphere-title rule
     sph_ = getattr(R, "SPH_TITLE_ROLES", {})
     when_ = {nm: r_ for nm, (needs_, r_) in getattr(R, "ROLES_WHEN", {}).items() if nm in ID and all(x_ in ID for x_ in needs_)}
-    G["rule_when"] = {ID[nm]: _rule1(nm, dict(r_), ID, norm, acc_mv, acc_fs, opt, extend)
+    G["rule_when"] = {ID[nm]: _rule1(nm, dict(r_), ID, norm, acc_mv, acc_fs, opt, extend, packs_)
                       for nm, r_ in when_.items() if nm not in sph_}
+    for i_, r_ in G["rule_when"].items():
+        r_["say"] = r_["say"] or items[i_].get("cause")
     G["rule_sph_when"] = {ID[nm]: _rule1(nm, dict(r_), ID, norm, acc_mv, acc_fs, opt, None)
                           for nm, r_ in when_.items() if nm in sph_}
     # act fields
@@ -445,6 +454,7 @@ def _packs(world, packs, pack_moments, R):
     a path in pack_moments for a test) and the engine's own conditions for its echoes, inner and read moments
     (<world>_rules.PACK_RULES[<pack>])."""
     out = dict(sits=[], reads=[], titles=[], perks=[], rules={}, helps={}, windows={}, lift={}, extend={}, target={},
+               packs_=dict(rule={}, ext={}),   # role_why: the pack that owns each rule, and each EXTEND's pack
                cond=dict(INNER={}, ECHO={}, LIFE={}, READ={}), names=list(packs))
     if not packs:
         return out
@@ -462,11 +472,12 @@ def _packs(world, packs, pack_moments, R):
         out["titles"] += list(cat.TITLES); out["perks"] += list(getattr(cat, "PERKS", []))
         rl = _module(os.path.join(d_, "roles.py"), f"chroma_pack_{pk}_roles")
         out["rules"].update(getattr(rl, f"ROLES_{up_}", {})); out["rules"].update(getattr(rl, "ROLES_REACH", {}))
+        out["packs_"]["rule"].update(dict.fromkeys(list(getattr(rl, f"ROLES_{up_}", {})) + list(getattr(rl, "ROLES_REACH", {})), pk))
         out["target"].update(getattr(rl, f"TARGET_{up_}", {}))     # fit targets: multiples of the catalogue share
         if FLOORS:   # titles a pack fits only with the floors on (item 16; Packs PR #33)
             out["target"].update(getattr(rl, f"TARGET_{up_}_FLOORS", {}))
         for nm_, x_ in getattr(rl, f"EXTEND_{up_}", {}).items():   # more ways into a rule the pack does not own
-            out["extend"].setdefault(nm_, []).append(x_)
+            out["extend"].setdefault(nm_, []).append(x_); out["packs_"]["ext"].setdefault(nm_, []).append(pk)
         if os.path.exists(os.path.join(d_, "helps.py")):
             hp = _module(os.path.join(d_, "helps.py"), f"chroma_pack_{pk}_helps")
             out["helps"].update(getattr(hp, f"HELPS_{up_}", {})); out["windows"].update(getattr(hp, f"WINDOWS_{up_}", {}))
@@ -652,7 +663,7 @@ def load_batch(world="earth", symmetric=False, roles=None, packs=None, pack_mome
             if dup:
                 raise ValueError(f"pack titles or perks with the name of a base one: {dup}")
             cat = type("Catalogue", (), dict(TITLES=list(cat.TITLES) + PK["titles"], PERKS=list(cat.PERKS) + PK["perks"]))
-        L["ROLES"] = _roles(cat, R, L, extra=PK["rules"], extend=PK["extend"])
+        L["ROLES"] = _roles(cat, R, L, extra=PK["rules"], extend=PK["extend"], packs_=PK.get("packs_"))
         _earned(L, PK)
         _targets(L, PK, R)
     L["PACKS"] = PK["names"]
