@@ -1,17 +1,19 @@
 const { chromium } = require(process.env.PW || 'playwright');
 // v23 Living HUD, row V6: the life's window (web/src/living/60-window.js). Each part prints its checks and PASS or FAIL;
 // the driver exits 1 on a FAIL, a page error or a console error (a picture the server lacks is not counted).
-//   medal   a life to AGE: the medallion sits in the Status panel's crest (right, 46 px) and adds no height to it; the
-//           same medallion stays across the HUD's rebuilds; its glass is glazed; a hover (a tap on a phone) and the arrow
-//           keys read a year; no sideways scroll; shots in motion full, calm and off (off: two shots 0.8 s apart equal);
-//           the switch off (no medallion, the crest as today), on (back); the window's own script per frame over
-//           SECONDS of a running life (mean and p95), and any task over 50 ms meanwhile.
+//   medal   a life to AGE: the medallion sits in the Status panel's crest (right, 46 px; in the narrow screens' drawer,
+//           36 px under its close button) over none of the crest's other parts, and adds no height to it (the drawer's
+//           crest keeps at least 92 px); the same medallion stays across the HUD's rebuilds; its glass is glazed; a hover
+//           (a tap on a phone) and the arrow keys read a year; no sideways scroll; shots in motion full, calm and off
+//           (off: two shots 0.8 s apart equal); the switch off (no medallion, the crest as today), on (back); the
+//           window's own script per frame over SECONDS of a running life (mean and p95), and any task over 50 ms meanwhile.
 //   end     a life that starts old (a save of preset 3 with its setup's start_age set to START and the seed SEED, loaded
 //           back), played to its end with their own picks: the full window in the review where the ink look's portrait
 //           was (.lk-final hidden), their name and years beneath; #again and #rvBook never covered; the light waits for
-//           the "Finis" plate, then lights up in about 11 s ("lighting" to "lit"); during it Enter (kept from the page),
-//           Space on a button (it opens the Book) and Esc (it closes the Book) do not skip; a hover reads a year; the
-//           script per frame while it lights and once lit; the switch off (the portrait back), on (the window back, lit).
+//           the "Finis" plate, then lights up in about 11 s ("lighting" to "lit"; it waits while scrolled out of view);
+//           during it Enter (kept from the page), Space on a button (it opens the Book) and Esc (it closes the Book) do
+//           not skip; a hover reads a year; the script per frame while it lights and once lit; the switch off (the
+//           portrait back), on (the window back, lit).
 //   skip    the same old life to its end three more times: Space (focus on no button), a click in the review and Esc each
 //           skip the light to "lit" at once.
 //   still   the same old life to its end with motion off: lit at once, and two shots 0.8 s apart are equal.
@@ -76,7 +78,10 @@ const START = +(startArg || 76), SEED = +(seedArg || 140892), SECONDS = +(secArg
   const crest = () => page.evaluate(() => { const c = document.querySelector('#hud .crestbox'), m = document.querySelector('#hud .crestbox .hud-medal');
     const r = c && c.getBoundingClientRect(), mr = m && m.getBoundingClientRect(), p = c && c.querySelector('.lk-pc.crest'), pr = p && p.getBoundingClientRect();
     return { h: r ? Math.round(r.height * 10) / 10 : -1, medal: mr ? [Math.round(mr.right - r.right), Math.round(mr.top - r.top), mr.width, mr.height] : null, portrait: pr ? [Math.round(pr.left - r.left), Math.round(pr.top - r.top)] : null,
-      kept: !!(m && m.__kept), cls: !!(c && c.classList.contains('chw-crest')), chw: document.querySelectorAll('.chw').length }; });
+      kept: !!(m && m.__kept), cls: !!(c && c.classList.contains('chw-crest')), chw: document.querySelectorAll('.chw').length,
+      // what of the crest the medallion lies over: its other parts, the drawer's close button
+      over: mr ? [...c.children, document.getElementById('hudClose')].filter((e) => e && e !== m && getComputedStyle(e).display !== 'none').filter((e) => { const b = e.getBoundingClientRect();
+        return b.width && !(b.right <= mr.left || mr.right <= b.left || b.bottom <= mr.top || mr.bottom <= b.top); }).map((e) => e.id || e.className) : [] }; });
   const openHud = async () => { if (!phone) return; await page.click('#evPeek', { timeout: 1500 }).catch(() => {}); await page.click('#tHud').catch(() => {}); await page.waitForTimeout(500); };
   const closeHud = async () => { if (!phone) return; await page.click('#hudClose').catch(() => {}); await page.waitForTimeout(300); };
 
@@ -88,7 +93,10 @@ const START = +(startArg || 76), SEED = +(seedArg || 140892), SECONDS = +(secArg
     await openHud();
     let c = await crest();
     say('  crest', JSON.stringify(c));
-    check(!!c.medal && c.medal[2] === 46 && c.medal[3] === 46 && Math.abs(c.medal[0] + 2) <= 1 && Math.abs(c.medal[1] - 2) <= 1 && c.cls, 'the medallion sits in the crest, top right, 46 px');
+    const drawer = width <= 1040, want = drawer ? [-3, 31, 36] : [-2, 2, 46];
+    check(!!c.medal && c.medal[2] === want[2] && c.medal[3] === want[2] && Math.abs(c.medal[0] - want[0]) <= 1 && Math.abs(c.medal[1] - want[1]) <= 1 && c.cls,
+      `the medallion sits in the crest, ${drawer ? 'under the drawer\'s close button' : 'top right'}, ${want[2]} px`);
+    check(!c.over.length, `the medallion lies over none of the crest's other parts${c.over.length ? ' (' + c.over.join(', ') + ')' : ''}`);
     check(c.chw === 1, 'one window on the page while they live');
     const g1 = await glazed();
     check(g1 > 0.02, `the years lived are glazed (${(g1 * 100).toFixed(1)}% of the medallion's pixels in colour at age ${await page.evaluate(() => hud.life.age.toFixed(1))})`);
@@ -133,7 +141,9 @@ const START = +(startArg || 76), SEED = +(seedArg || 140892), SECONDS = +(secArg
     await living(false); await openHud();
     const off = await crest(); const fin = await page.evaluate(() => ({ chw: document.querySelectorAll('.chw, .hud-medal, .chw-crest').length, living: document.documentElement.dataset.living }));
     check(fin.living === 'off' && fin.chw === 0 && !off.medal, `off: no medallion, no window, the crest as today (${JSON.stringify(fin)})`);
-    check(Math.abs(off.h - hOn) < 0.5, `the medallion adds no height to the crest (${hOn} px on, ${off.h} px off)`);
+    // in the narrow screens' drawer the crest keeps at least 92 px for the close button, the medallion and the key
+    const hWant = width <= 1040 ? Math.max(off.h, 92) : off.h;
+    check(Math.abs(hWant - hOn) < 0.5, `the medallion adds no height to the crest${width <= 1040 ? ' beyond the drawer\'s 92 px' : ''} (${hOn} px on, ${off.h} px off)`);
     await shot('switch-off'); await closeHud();
     await living(true); await openHud(); await page.waitForTimeout(600);
     c = await crest();
@@ -201,7 +211,7 @@ const START = +(startArg || 76), SEED = +(seedArg || 140892), SECONDS = +(secArg
     watch.tried = 0;
     const seen = await watch(40000, async (x, t) => {
       if (x.light === 'lighting' && !x.plate && !watch.tried) {
-        watch.tried = 1; await shot('end-2-lighting');
+        watch.tried = 1; await page.evaluate(() => __w.start()); await shot('end-2-lighting');
         // Enter is the page's (a new life): kept from the page here, it must not skip the light
         await page.evaluate(() => { const r = document.getElementById('review'), stop = (e) => e.stopPropagation(); r.addEventListener('keydown', stop); r.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter', bubbles: true, cancelable: true })); r.removeEventListener('keydown', stop); });
         watch.enter = (await endState()).light;
@@ -209,12 +219,16 @@ const START = +(startArg || 76), SEED = +(seedArg || 140892), SECONDS = +(secArg
         const b = await endState(); watch.space = b.light + (b.book ? ' (the Book open)' : ' (no Book)');
         await page.keyboard.press('Escape'); await page.waitForTimeout(300);
         const e = await endState(); watch.esc = e.light + (e.book ? ' (the Book still open)' : ' (the Book closed)');
-        await page.evaluate(() => document.activeElement && document.activeElement.blur());
+        // the focus on #rvBook scrolled the review down: the light waits while the window is out of view
+        await page.evaluate(() => { document.activeElement && document.activeElement.blur(); document.querySelector('.chw-end').scrollIntoView({ block: 'center' }); });
         return false;
       }
       return x.light === 'lit' && !x.plate;
     });
     say('  the light, ms after the review showed [ms, plate up, light]:', JSON.stringify(seen));
+    const cw = await page.evaluate(() => __w.stop());   // from the light's start to lit (the key checks and the Book meanwhile)
+    say(`  cost while it lights: ${cw.frames} frames, script ${cw.mean.toFixed(3)} ms mean, ${cw.p95.toFixed(3)} ms p95, ${cw.max.toFixed(2)} ms max; tasks over 50 ms (all of the page): ${cw.long.length ? cw.long.join(' ') : 'none'}`);
+    check(cw.frames > 30 && cw.mean < 4 && cw.p95 < 8, `the light's script per frame stays in the budget (${cw.mean.toFixed(3)} ms mean, ${cw.p95.toFixed(3)} ms p95)`);
     const tp = (seen.filter((x) => x[1]).pop() || [0])[0], plateGone = (seen.find((x, i) => i && !x[1] && seen[i - 1][1]) || [0])[0];
     const tl = (seen.find((x) => x[2] === 'lighting') || [-1])[0], tlit = (seen.find((x) => x[2] === 'lit') || [-1])[0];
     check(tl >= 0 && (!tp || tl >= plateGone), `the light waits for the "Finis" plate (plate gone at ${plateGone} ms, lighting at ${tl} ms)`);

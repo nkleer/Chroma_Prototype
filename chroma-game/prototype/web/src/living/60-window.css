@@ -34,13 +34,22 @@
      the panel's key; the crest keeps the ink look's margins (and gets them when there is no portrait) */
   :where(html[data-living="on"]) .hud .crestbox.chw-crest { position: relative; padding-inline: 50px; min-height: 66px; box-sizing: border-box; }
   :where(html[data-living="on"]) .hud-medal { position: absolute; right: 2px; top: 2px; width: 46px; height: 46px; }
+  /* in the narrow screens' drawer (style/05-menus.css, 1040 px) the close button takes that corner: the medallion sits
+     under it, smaller, above the key, and the crest keeps room for the three */
+  @media (max-width: 1040px) {
+    :where(html[data-living="on"]) .hud .crestbox.chw-crest { min-height: 92px; }
+    :where(html[data-living="on"]) .hud-medal { right: 3px; top: 31px; width: 36px; height: 36px; }
+  }
 
   /* the end: the full window in the review, in the portrait's place, their name and years beneath it. Its light stays in
      its own box (overflow clip), so it never falls on the review's words or buttons; as the light comes the room round
      it falls to dusk */
   :where(html[data-living="on"]) .review .lk-final.chw-gone { display: none; }
-  :where(html[data-living="on"]) .chw-end { position: relative; display: grid; justify-items: center; gap: 10px; overflow: clip; padding: 6px 0 4px; }
-  :where(html[data-living="on"]) .chw-endwin { position: relative; width: min(300px, 72vw, 44vh); aspect-ratio: 1; }
+  /* the dusk's room above the window is the box's top padding, partly taken back from the review's gap */
+  :where(html[data-living="on"]) .chw-end { --chw-w: min(300px, 72vw, 44vh); position: relative; display: grid; justify-items: center; gap: 10px; overflow: clip;
+    padding: calc(var(--chw-w) * .13) 0 4px; margin-top: calc(var(--chw-w) * -.06); }
+  :where(html[data-living="on"]) .chw-endwin { position: relative; width: var(--chw-w); aspect-ratio: 1; }
+  :where(html[data-living="on"]) .chw-end > .lk-yrs { position: relative; }
   :where(html[data-living="on"]) .chw-endwin::before { content: ""; position: absolute; inset: -14%; border-radius: 50%; pointer-events: none; opacity: 0;
     background: radial-gradient(closest-side, rgb(16 12 30 / .78) 62%, rgb(16 12 30 / .34) 80%, rgb(16 12 30 / 0));
     transition: opacity 1.6s cubic-bezier(.65, 0, .35, 1); }
