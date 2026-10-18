@@ -850,7 +850,7 @@ DEFAULT = dict(
     sph_levers=True,    # phase 4: the nine levers land on a place or the town's sphere, by reach and rung (world switch)
     sph_fair=True,      # phase 4: felt fairness per life and sphere tilts exit, neglect, subvert against voice, loyalty
     sph_shadow=True,    # phase 5, N5: the spheres' shadow shares; the shadow around a life feeds its own (with shadows)
-    grey_gate=False,    # finishing pack, part 5 (Emren's "Parts 1 to 5", 10-17): a moment with shadow: (a sphere, or town)
+    grey_gate=True,    # finishing pack, part 5 (Emren's "Parts 1 to 5", 10-17): a moment with shadow: (a sphere, or town)
                         # comes only while that sphere's grey share in their town is at least .25 (sphere_data.SHADOW;
                         # the Library's Crime pack moments join with batch.SHADOW_MOMENTS); grey_y reads the shares yearly
     sph_deep=True,      # phase 5: the deep state of a life: the care load, service, debts, holdings (world switch)
@@ -877,11 +877,11 @@ DEFAULT = dict(
                          # tilt young dreams (world switch; chroma-ideas/social-mechanics.md); seen_par: its tuning
                          # (world_people.SEEN_DEFAULT; None: start values)
     seen_par=None,
-    place_turnover=False,   # spheres finishing pack, part 2 (chroma-world/spheres/finish-pack-draft.md): the named places
+    place_turnover=True,   # spheres finishing pack, part 2 (chroma-world/spheres/finish-pack-draft.md): the named places
                             # close (a hazard and three town events) and new ones open; their regulars lose the haunt, a
                             # rung and half the ties made there, a keeper the post (world switch, with sph_haunts; the
                             # moments cast_want place_closed, place_opened come only with it, batch.TURNOVER_MOMENTS)
-    body_trust=False,   # the spheres' finishing pack, part 3: trust in a sphere's bodies per life and sphere (btrust; world
+    body_trust=True,   # the spheres' finishing pack, part 3: trust in a sphere's bodies per life and sphere (btrust; world
                          # switch, with sph_fair; chroma-world/spheres/finish-pack-draft.md, sphere_data.TRUST): it tilts the
                          # levers, care seeking and the felt odds of pursuits in those bodies, and gates trust: moments
     sh_around=0.4,       # phase 5: how far the shadow around a life alone moves its shadow target (a fifth source)
@@ -907,8 +907,8 @@ DEFAULT = dict(
     # (layer 4's line, .02: still among the 150 they know); pull, the re-offending pull (None: the data's 1.2); shadow,
     # the lead colour's shadow part over which their way leans to its shadow side (the pull back's gate); test, (age,
     # years): every life starts a term at that age (checks only; None: never)
-    prison_ties=False,
-    prison_par=dict(years_unknown=2.0, cap=6, active=0.02, pull=None, shadow=0.5, test=None),
+    prison_ties=True,
+    prison_par=dict(years_unknown=2.0, cap=6, active=0.02, pull=None, shadow=0.3, test=None),   # shadow .3: v22.6 refit (.5 never fired)
     inst_even=True,     # phase 3: colour-even institutions, toward their own past and leaders, not W and B (world switch)
     c2_groups=True,     # item 10, C2 rest: group moments judged half by the group's norm; the strike vote and the
     c2_par=None,         # congregation's split on the world's events (world switch; world_link.C2_MOMENTS, C2_DEFAULT)
@@ -1181,6 +1181,9 @@ DEFAULT = dict(
     kid_tie=None,        # F9.39 (ties_people, world on): under 15 a child's ties are first its family's: at least this (the
                          # people model's own closeness builds over the first years, so on its own a child of 4 to 6 sits
                          # near nothing); None: as before
+    pay_col2=((0.0, 0.18, 0.04, 0.0, 0.0), (0.0, 0.4, 0.1, 0.0, 0.0)),   # v22.6 refit: pay_col in its place (Blue's
+                         # pay lean .08 to .18: with the spheres pack on, Blue's money at 30 to 70 fell under the others',
+                         # F9.40); None: pay_col as v22.5 set it
     tie_col=None,        # F9.40 (world on): the colours lean ties: tie_k x exp(tie_col . (5 w - 1)) (five weights). None: even
     work_die=None,       # F9.29 (world on): a death at work, a work-year at this x the job's danger (None: .0005, about
                          # seven times the real rate of deaths at work, about 3 in 100,000 workers a year)
@@ -1556,7 +1559,7 @@ UPD_OFF = dict(dis_match=False,
                # v22.5, the many-lives fixes (F14 to F17, F19)
                set_age=None, up_lean=0.0, up_self=0.0, up_ease=0.0, up_fam=0.0, up_conc=0.3, up_half=20.0, course=False, par_age=None, par_split=None, job_move=None, birth_free=False, home_sale=1.0, loan_end=False,
                retire_hz=((50, 0.0), (54, 0.0), (56, 0.045), (58, 0.05), (60, 0.035), (61.9, 0.035), (62, 0.11), (65, 0.12), (67, 0.12), (70, 0.14), (80, 0.2)),
-               ti_fit=None, birth_par=None, age_free=None, age_rate=None, age_pts=None, mon_drift=0.01, lone=None, low_pay=None, pay_col=None, tie_col=None, kid_tie=None, c_par=None, job_gap=None, pair_pay=None, pen_pay=None, low_net=None, work_die=None, birth_with=None, nest=None, ev_fit=None, ev_gapfit=None, ill_real=False, cond_once=False, risk_norm=False, drv_self=False, deed_canon=0.0, deed_rare=0.0,
+               ti_fit=None, birth_par=None, age_free=None, age_rate=None, age_pts=None, mon_drift=0.01, lone=None, low_pay=None, pay_col=None, pay_col2=None, tie_col=None, kid_tie=None, c_par=None, job_gap=None, pair_pay=None, pen_pay=None, low_net=None, work_die=None, birth_with=None, nest=None, ev_fit=None, ev_gapfit=None, ill_real=False, cond_once=False, risk_norm=False, drv_self=False, deed_canon=0.0, deed_rare=0.0,
                mind_kid=None, mind_u=None,
                # v22.5 realism (chroma-ideas/realism/v22.5-realism-list.md): F6 dreams that grow up, F12 the world and
                # the start hold
@@ -3642,7 +3645,8 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
         lp_sd, lp_rho, lp_half = (float(x_) for x_ in P["low_pay"])
         lp_rng = np.random.default_rng([int(seed), 1723]); lp_z = np.zeros(N); lp_d = np.ones(N); lp_at = np.full(N, NEVER)
         lp_mu = np.zeros(N); lp_sc = np.ones(N)
-        PC_ = None if P["pay_col"] is None else np.asarray(P["pay_col"], float)
+        PC_ = P["pay_col"] if P.get("pay_col2") is None else P["pay_col2"]
+        PC_ = None if PC_ is None else np.asarray(PC_, float)
     TC_ = None if P["tie_col"] is None else np.asarray(P["tie_col"], float)
     NET_ON = P["low_net"] is not None
     if NET_ON:
