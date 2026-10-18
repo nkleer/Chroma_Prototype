@@ -7,10 +7,17 @@ const { chromium } = require(process.env.PW || 'playwright');
 //  - blocked: options whose click point another element takes, after scrolling the card into view the nearest way;
 //  - moved: the window or the hovered card shifting when a card is hovered (jitter);
 //  - real clicks: every other moment the bottom card or Do nothing, otherwise "Let them choose", each timed; a click that
-//    takes over 3 s is a stall.
+//    takes over 3 s is a stall. v23: a card is held as long as its data-hold asks when the page has the hold (the time
+//    counted is the time beyond the hold), and the first card pushed is pushed by its number on the keyboard.
 // Coordinator's v22 bar (10-07 22:09 Emren): covered 0, blocked 0, moved 0, no stall, no failed click, no page error.
 //   node test/probe_fit_cx3.js <url> <shots dir> [moments] [W] [H] [preset]
 const { startLife, idleOf, nextOf } = require('./start.js');
+// v23: with the Living HUD's cards a pointer pushes a card by holding it (hold.js). A copy run beside an older start.js
+// with no hold.js clicks, as before, and stops at a page that wants a hold.
+const { holdOpt, keyOpt } = (() => { try { return require('./hold.js'); } catch (e) { return {
+  holdOpt: async (page, h, o = {}) => { if (await page.evaluate(() => { const t = document.getElementById('table'); return !!t && t.dataset.hold === 'on'; })) throw new Error('the page pushes by a hold: hold.js is needed');
+    await h.click({ timeout: o.timeout }); return { held: false, ms: 0 }; },
+  keyOpt: async (page, h) => { const n = await h.getAttribute('data-num'); for (const d of n) await page.keyboard.press(d); await page.waitForTimeout(600); return +n; } }; } })();
 const [url, dir, M, W, H, preset] = [process.argv[2], process.argv[3], +(process.argv[4] || 60), +(process.argv[5] || 1280), +(process.argv[6] || 800), process.argv[7] || '1'];
 const MEASURE = async (hovered) => {
   const ev = document.getElementById('evOpts'), wrap = document.getElementById('evwrap'), opts = [...ev.querySelectorAll('.opt')];
@@ -40,11 +47,16 @@ const MEASURE = async (hovered) => {
   await page.goto(url);
   await startLife(page, preset, 'Mira');
   const idle = idleOf(page, logs), next = nextOf(page, idle);
-  const out = [], clicks = []; let shots = 0, k2 = 0;
-  const timedClick = async (h, what, age) => {
+  const out = [], clicks = []; let shots = 0, k2 = 0, keyed = 0;
+  const timedClick = async (h, what, age, card) => {   // a card is held (holdOpt clicks it on a page without the hold)
+    const t = Date.now(); let ok = true, r = { held: false, ms: 0 };
+    try { if (card) r = await holdOpt(page, h, { timeout: 15000 }); else await h.click({ timeout: 15000 }); } catch (e) { ok = false; await page.screenshot({ path: `${dir}/clickfail-age${age}.png` }).catch(() => {}); }
+    const ms = Date.now() - t - (r.held ? r.ms + 250 : 0); clicks.push(r.held ? { age, what, ok, ms, hold: r.ms } : { age, what, ok, ms }); return ok;
+  };
+  const timedKey = async (h, what, age) => {           // its printed number; the time counted leaves out keyOpt's 600 ms wait
     const t = Date.now(); let ok = true;
-    try { await h.click({ timeout: 15000 }); } catch (e) { ok = false; await page.screenshot({ path: `${dir}/clickfail-age${age}.png` }).catch(() => {}); }
-    const ms = Date.now() - t; clicks.push({ age, what, ok, ms }); return ok;
+    try { keyed = await keyOpt(page, h); } catch (e) { ok = false; await page.screenshot({ path: `${dir}/keyfail-age${age}.png` }).catch(() => {}); }
+    clicks.push({ age, what: `${what} (key ${keyed})`, ok, ms: Date.now() - t - 600 }); return ok;
   };
   for (let k = 0; k < 4000 && out.length < M; k++) {
     await idle();
@@ -75,7 +87,7 @@ const MEASURE = async (hovered) => {
       if (m.n >= 2 && (k2++ % 2 === 0)) {   // click the bottom card or Do nothing as a player would
         const none = (k2 % 4 === 1);
         const h = (none && await page.$('#evOpts .opt.onone')) || (await page.$$('#evOpts .opt:not(.onone)')).slice(-1)[0];
-        if (await timedClick(h, none ? 'Do nothing' : 'bottom card', age)) { await page.waitForTimeout(200); const p = await page.$('#pushIt'); if (p && await p.isVisible()) await p.click({ timeout: 10000 }); }
+        if (await (keyed ? timedClick(h, none ? 'Do nothing' : 'bottom card', age, true) : timedKey(h, none ? 'Do nothing' : 'bottom card', age))) { await page.waitForTimeout(200); const p = await page.$('#pushIt'); if (p && await p.isVisible()) await p.click({ timeout: 10000 }); }
         else await page.click('#evLet', { timeout: 15000 }).catch(() => {});
       } else await timedClick(await page.$('#evLet'), 'Let them choose', age);
       continue;
