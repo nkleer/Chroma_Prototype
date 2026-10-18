@@ -23,6 +23,7 @@ PERKS += [
        ages=(0, 110), share=.7,   # estimate
        say="always has a home to go back to",
        gained="born to it; or 'making peace with family you had cut off'",
+       cause="born into a family that holds together",
        lost="a deep break, or the old ones dying one by one",
        needs="a family"),
   dict(name="friend for life", kind="bond", ways="R G", odds=.04, skill_half=15, retires=None,
@@ -59,6 +60,7 @@ PERKS += [
        ages=(0, 110), share=.2,   # estimate
        say="has family abroad",
        gained="a family spread over two countries; 'a long-lost relative finds you'",
+       cause="with relatives spread over two countries",
        lost="the cousins die or drift",
        needs="relatives who once 'moved away'"),
   dict(name="old comrades", kind="bond", ways="R W", odds=.04, skill_half=15, retires=None,
@@ -71,12 +73,14 @@ PERKS += [
        ages=(0, 60), share=.15,   # estimate
        say="has a godparent who looks out for them",
        gained="chosen by the parents at a naming day",
+       cause="chosen at the naming",
        lost="a falling-out, the godparent's death",
        needs="parents who chose one"),
   dict(name="dog of one's own", kind="bond", ways="G R", odds=.02, skill_half=3, retires=None,
        ages=(4, 110), share=.4,   # estimate
        say="has a dog",
        gained="'a stray dog follows you home', or a puppy as 'a pet of your own'",
+       cause="after a dog comes into the home",
        lost="'your pet dies', a move to a flat that bans dogs",
        needs="a home that allows one, and money for food"),
   dict(name="in-laws who took you in", kind="bond", ways="R G", odds=.03, skill_half=10, retires=None,

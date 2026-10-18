@@ -111,6 +111,7 @@ PERKS += [
        gained="years on the council's waiting list, or a flat through a housing association after being [homeless] "
               "or 'losing the home'; a [housing-cooperative member] holds one through the cooperative; sometimes "
               "passed on from a parent",
+       cause="after years on the waiting list",
        lost="'buying a home', a move away, or eviction after months of arrears",
        needs="a low income or a housing need, a local connection, and years on the list"),
 ]

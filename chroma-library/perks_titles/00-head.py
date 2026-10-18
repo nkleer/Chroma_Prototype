@@ -32,6 +32,9 @@
 #   gained   plain words: how one comes to hold it. Situations from earth.md and the engine's history marks are in
 #            single quotes ('a new job at last', 'learned a skill'); titles and perks of this file in brackets ([nurse])
 #   lost     plain words: what ends it
+#   cause    optional (every change has a cause, L2, 10-18): when the engine's rule names only an age, a stage, money
+#            or nothing, the closing clause the game tells the gain with ("Ari can swim now, after lessons as a
+#            child."): lower case, no end stop, true for the rule as it stands (chroma-library/notes/cause-audit.md)
 #   needs    plain words: what must come first (a title, a perk, a history mark, an age, money)
 #   profiles optional (engine 12:45): two or three equally valid ways to hold the title, [("W U", "words"), ...]; ways
 #            is the first profile. A person holds the profile that fits them best and may move to another as their
@@ -59,7 +62,7 @@
 #   ages       (youngest, oldest) a person can hold it
 #   share      the share of people who ever hold it (target sum 15 to 30), sourced or "estimate" as for titles
 #   say        a short phrase for the story ("can drive")
-#   gained, lost, needs   plain words, as for titles
+#   gained, lost, needs, cause   plain words, as for titles
 #
 # Balance (checked by check_perks_titles.py): over the commitment-kind TITLES (career, partner, children, community,
 # faith; statuses carry no colors and stay out of it), and separately over PERKS, the ways letters summed per color

@@ -13,6 +13,7 @@ TITLES += [
                                     # Europe; estimate
        say="a parent of three",
        gained="'a child is born' for the third time, and a bigger car",
+       cause="as the family grows",
        lost="never; the house goes quiet when 'the children leave home'",
        needs="[mother or father]"),
   dict(name="single parent", kind="children", ways="B G",
@@ -49,6 +50,7 @@ TITLES += [
        ages=(35, 110), share=.6,   # estimate: most people who live past 65 become grandparents
        say="a grandparent",
        gained="'your first grandchild'",
+       cause="once a grown child has a child of their own",
        lost="never",
        needs="[mother or father], and a child who has a child"),
 ]

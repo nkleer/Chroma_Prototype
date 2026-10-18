@@ -5,6 +5,7 @@ PERKS += [
                                     # the US (FHWA)
        say="can drive",
        gained="lessons, a test failed once and passed the second time; 'a long car journey' as a passenger long before",
+       cause="after lessons and a test",
        lost="a ban for drink-driving, or 'the doctor says to stop driving'; the skill stays",
        needs="age 17 or 18; 'learned a skill'"),
   dict(name="first-aid certificate", kind="credential", ways="W R", odds=0, skill_half=3, retires=None,
@@ -12,6 +13,7 @@ PERKS += [
        say="knows first aid",
        gained="a day's course at work or with the scouts; it comes into its own when 'a stranger saves you, "
               "or you save one'",
+       cause="after a day's course",
        lost="it lapses after three years, and the know-how fades nearly as fast",
        needs="a day's course"),
   dict(name="passport", kind="credential", ways="R U", odds=0, skill_half=20, retires=None,
@@ -19,12 +21,14 @@ PERKS += [
                                    # (US State Department)
        say="has a passport",
        gained="'a trip far from home', 'a long-planned trip', a form and a photo booth",
+       cause="with the forms filled in at last",
        lost="it expires or is taken away; knowing how to travel stays",
        needs="citizenship somewhere, and the fee"),
   dict(name="school-leaving certificate", kind="credential", ways="W U", odds=0, skill_half=20, retires=None,
        ages=(16, 110), share=.85,   # about 8 adults in 10 have finished upper secondary school (OECD average)
        say="has finished school",
        gained="'exams are coming', and then they are passed",
+       cause="at the end of school",
        lost="never",
        needs="'learned a skill' several times"),
   dict(name="professional registration", kind="credential", ways="W U", odds=0, skill_half=10, retires=70,
@@ -55,6 +59,7 @@ PERKS += [
        ages=(16, 85), share=.1,   # estimate
        say="rides a motorbike",
        gained="a test at sixteen or seventeen, or 'the itch to be somewhere else' at forty-five",
+       cause="after a test on two wheels",
        lost="an accident, a ban, a partner's worry",
        needs="a basic training course"),
   dict(name="citizenship", kind="credential", ways="W B", odds=0, skill_half=None, retires=None,

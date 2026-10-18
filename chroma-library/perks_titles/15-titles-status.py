@@ -6,6 +6,7 @@ TITLES += [
        ages=(20, 110), share=.4,   # about 4 adults in 10 aged 25 to 64 hold a tertiary degree (OECD average)
        say="a graduate",
        gained="three or four years of study, 'exams are coming' every spring, then 'earning a qualification'",
+       cause="after years of study",
        lost="never",
        needs="'you win a scholarship or a place'; [school-leaving certificate]"),
   dict(name="veteran", kind="status", ways="",
@@ -53,6 +54,7 @@ TITLES += [
                                    # some point in life
        say="a homeowner",
        gained="'buying a home': a mortgage signed with shaking hands; or 'an unexpected legacy'",
+       cause="with the money for it at last",
        lost="'losing the home', selling up, 'moving to a smaller home or into care'",
        needs="[savings] for a deposit and [good credit]"),
   dict(name="newcomer", kind="status", ways="",   # granted by the engine
@@ -69,6 +71,7 @@ TITLES += [
        say="an immigrant",
        gained="a visa and a one-way ticket ('moved away'), then 'the first months in a new country'; or the "
               "family's move abroad when they were small",
+       cause="after the move",
        lost="never; [citizenship] changes what it costs",
        needs="a reason to leave and a country that lets them in"),
   dict(name="someone with a record", kind="status", ways="",
@@ -109,6 +112,7 @@ TITLES += [
                                    # the eldest
        say="the eldest child",   # 2026-10-07 (Emren's point 4): "the eldest" alone read like an elder's standing
        gained="a younger brother or sister is born, so the first-born becomes the eldest (from about age 2)",
+       cause="now that a younger one has come",
        lost="never",
        needs="a younger sibling"),
   dict(name="carer for a parent", kind="status", ways="",
@@ -118,6 +122,7 @@ TITLES += [
                                    # caring for a parent
        say="a carer",
        gained="'a parent comes to stay for a week' and stays; 'a heart attack or stroke' in the family",
+       cause="as a parent begins to need help",
        lost="the parent's death, or the parent 'moving to a smaller home or into care'",
        needs="a parent who needs care"),
   dict(name="homeless", kind="status", ways="",
@@ -126,6 +131,7 @@ TITLES += [
                                     # estimate for rich countries
        say="homeless",
        gained="'losing the home', 'financial ruin', or a family row at sixteen and nowhere to go",
+       cause="with no money left and no one to turn to",
        lost="a flat through the council or a charity; a friend's sofa that turns into a room",
        needs="nowhere to go"),
   dict(name="out of work", kind="status", ways="",

@@ -48,6 +48,7 @@ PERKS += [
        say="has a cat",
        gained="a kitten as 'a pet of your own', a kitten from a neighbour, a cat from the shelter of an "
               "[animal-shelter campaigner]",
+       cause="after a cat comes into the home",
        lost="'your pet dies'; a move to a flat that bans pets",
        needs="a home that allows one"),
   dict(name="people from home", kind="bond", ways="G B", odds=.04, skill_half=5, retires=None,

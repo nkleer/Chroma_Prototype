@@ -4,6 +4,7 @@ PERKS += [
        ages=(10, 110), share=.5,   # estimate: three months' pay or more put by, at some point in life
        say="has savings put by",
        gained="'a cushion of your own', saving from 'your first pocket money', 'money worries end'",
+       cause="with a little put by each month",
        lost="'a bill you did not expect', 'financial ruin', 'a sudden urge to buy something big'",
        needs="money left over at the end of the month"),
   dict(name="paid-off home", kind="asset", ways="G B", odds=0, skill_half=None, retires=None,
@@ -22,12 +23,14 @@ PERKS += [
        ages=(14, 100), share=.07,   # estimate
        say="has the family business",
        gained="taken in by a relative who runs their own shop, or handed down at a parent's retirement",
+       cause="born into a family with a business of its own",
        lost="'financial ruin', 'a dispute over an inheritance', selling up",
        needs="a family that owns one; [shop owner] or [farmer] often follows"),
   dict(name="inheritance", kind="asset", ways="G B U", odds=0, skill_half=None, retires=None,
        ages=(18, 110), share=.4,   # estimate: a sum that changes something, not a keepsake
        say="has inherited money",
        gained="'a parent dies' or 'a grandparent dies', then 'an unexpected legacy'",
+       cause="after a loss in the family",
        lost="spent, or lost to 'a dispute over an inheritance'",
        needs="a relative with something to leave"),
   dict(name="workplace pension", kind="asset", ways="W U", odds=0, skill_half=None, retires=None,
@@ -85,6 +88,7 @@ PERKS += [
        say="has an instrument of their own",
        gained="a second-hand guitar for a birthday, 'a band or a sport that takes over your life', or 'you take up "
               "an instrument or a language'",
+       cause="after one comes as a gift",
        lost="sold when money is short",
        needs="money, or a generous relative"),
 ]

@@ -29,6 +29,7 @@ PERKS += [
        ages=(18, 110), share=.6,   # estimate
        say="good for a loan",
        gained="bills paid on time, a first credit card handled well",
+       cause="with the bills paid on time",
        lost="missed payments, 'financial ruin'",
        needs="age 18 and an income"),
   dict(name="the one everyone asks", kind="standing", ways="U G", odds=.04, skill_half=10, retires=None,
@@ -71,6 +72,7 @@ PERKS += [
        ages=(0, 110), share=.08,   # estimate
        say="from an old family in the town",
        gained="born to it, or married into it",
+       cause="born into a family the town has known for generations",
        lost="a family scandal, a move far away",
        needs="a family that has lived there for generations"),
   dict(name="inner circle at work", kind="standing", ways="B U", odds=.05, skill_half=3, retires=70,
@@ -83,6 +85,7 @@ PERKS += [
        ages=(5, 19), share=.3,   # estimate
        say="a favourite with the teachers",
        gained="'a test at school tomorrow' passed, homework always in, a hand always up",
+       cause="with homework always in and a hand always up",
        lost="trouble at school ('you are grounded for a week' kind of trouble), a new school",
        needs="school"),
 ]

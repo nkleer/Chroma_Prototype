@@ -5,6 +5,7 @@ TITLES += [
        ages=(7, 60), share=.5,   # estimate: about half of young people play on an organised team at some point
        say="on the team",
        gained="'tryouts for the team', 'sports day', 'a band or a sport that takes over your life'",
+       cause="after enough hard play to earn a place",
        lost="being dropped, an injury, leaving school, growing out of it",
        needs="turning up on Saturday mornings"),
   dict(name="scout or guide", kind="community", sphere="learn", face="learn.G", ways="W G",
@@ -12,6 +13,7 @@ TITLES += [
        ages=(6, 18), share=.2,   # estimate
        say="a scout",
        gained="a friend brings them along to the hall on a Tuesday; 'summer camp'",
+       cause="brought along by a friend, as most are",
        lost="growing out of it, 'the family moves to a new town'",
        needs="age 6 or more"),
   dict(name="prefect", kind="community", sphere="learn", face="learn.W", ways="W U",
@@ -88,6 +90,7 @@ TITLES += [
                                    # fewer in most rich countries
        say="in a gang",
        gained="drifting in through older friends on the estate after 'a fight after school' or 'money runs out at home'",
+       cause="drifting in through older friends",
        lost="growing up, moving away, prison, a death that changes everything",
        needs="age 12 or more"),
 ]
