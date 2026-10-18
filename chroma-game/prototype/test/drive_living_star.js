@@ -189,16 +189,23 @@ const parts = (partsArg || 'look,hover,motion,outcome,interlude,switch,cost').sp
   if (parts.includes('outcome') && !phone) {
     say('part outcome');
     await toMoment(); await page.mouse.move(2, 2);
-    await page.evaluate(() => { window.__out = null; const off = CH.on('outcome', () => { window.__out = performance.now(); off(); }); });
+    // the moment's own arrival may still be playing on the star: the choice comes after it
+    await page.waitForFunction((sel) => { const r = document.querySelector(sel); return r && r.lvPeek && !r.lvPeek().playing; }, HUD, { timeout: 5000 }).catch(() => {});
+    await page.evaluate(() => { window.__out = null; const off = CH.on('outcome', () => { window.__out = performance.now(); off(); });
+      // each time the wheel's motion comes to the star: when, how many frames, and whether a choice was being lived
+      const p = CH.pieces.get('star'), f = p.hooks.animSpider; window.__plays = [];
+      if (!f.__logged) { p.hooks.animSpider = function (svg, fs, ms) { if (svg && svg.id === 'hudWheel') __plays.push({ t: performance.now(), n: fs ? fs.length : 0, ms, choosing: !!choosing }); return f.apply(this, arguments); }; p.hooks.animSpider.__logged = true; } });
     const t1 = await page.evaluate(() => { send(''); return performance.now(); });
     const seen = [];
-    for (let i = 0; i < 60; i++) {
-      await page.waitForTimeout(100);
+    for (let i = 0; i < 120; i++) {
+      await page.waitForTimeout(50);
       const s = await page.evaluate((sel) => { const r = document.querySelector(sel), p = r && r.lvPeek ? r.lvPeek() : {}; return { t: performance.now(), waiting: p.waiting, playing: p.playing, out: window.__out, choosing: !!choosing,
         flare: document.querySelectorAll('.lv-star .st-orb.flare, .lv-star .st-orb.ebb').length }; }, HUD);
       seen.push(s);
       if (s.out && !s.playing && s.t - s.out > 1500) break;
     }
+    const plays = await page.evaluate(() => __plays);
+    say('  the wheel\'s motion came at', plays.map((x) => `${Math.round(x.t - t1)} ms (${x.n} frames over ${x.ms} ms${x.choosing ? ', choosing' : ''})`).join('; ') || 'no time');
     const w = seen.filter((s) => s.waiting), out = seen.find((s) => s.out), played = seen.filter((s) => s.playing && !s.waiting);
     const waitEnd = w.length ? w[w.length - 1].t : null, outAt = out ? out.out : null;
     say('  choice at 0 ms; outcome told at', outAt && Math.round(outAt - t1), 'ms; the star waited', w.length ? `${Math.round(w[0].t - t1)} to ${Math.round(waitEnd - t1)} ms` : 'never',
@@ -262,15 +269,16 @@ const parts = (partsArg || 'look,hover,motion,outcome,interlude,switch,cost').sp
     say('part cost');
     await idle(); await aside(); await page.mouse.move(2, 2);
     await page.evaluate(() => {
-      const C = window.__cost = { cur: 0, depth: 0, samples: [], on: false, calls: 0 };
-      const timed = (fn) => function (...a) { if (C.depth) return fn.apply(this, a); C.depth++; const t = performance.now(); try { return fn.apply(this, a); } finally { C.depth--; C.cur += performance.now() - t; C.calls++; } };
+      const C = window.__cost = { cur: 0, depth: 0, samples: [], on: false, calls: 0, by: {} };
+      const timed = (fn, what) => function (...a) { if (C.depth) return fn.apply(this, a); C.depth++; const t = performance.now();
+        try { return fn.apply(this, a); } finally { C.depth--; const d = performance.now() - t; C.cur += d; C.calls++; if (C.on) { const e = C.by[what] || (C.by[what] = [0, 0]); e[0] += d; e[1]++; } } };
       const p = CH.pieces.get('star');
-      for (const k of ['mount', 'update', 'destroy']) if (p[k]) p[k] = timed(p[k]);
-      for (const k of Object.keys(p.hooks || {})) p.hooks[k] = timed(p.hooks[k]);
+      for (const k of ['mount', 'update', 'destroy']) if (p[k]) p[k] = timed(p[k], k);
+      for (const k of Object.keys(p.hooks || {})) p.hooks[k] = timed(p.hooks[k], 'hook ' + k);
       // the frame loop and the events the star takes on while its own code runs
       const f0 = CH.frame, on0 = CH.on;
-      CH.frame = (fn, el) => f0(C.depth ? timed(fn) : fn, el);
-      CH.on = (ev, fn) => on0(ev, C.depth ? timed(fn) : fn);
+      CH.frame = (fn, el) => f0(C.depth ? timed(fn, 'frame') : fn, el);
+      CH.on = (ev, fn) => on0(ev, C.depth ? timed(fn, 'on ' + ev) : fn);
       const loop = () => { if (C.on) C.samples.push(C.cur); C.cur = 0; requestAnimationFrame(loop); };
       requestAnimationFrame(loop);
     });
@@ -286,11 +294,14 @@ const parts = (partsArg || 'look,hover,motion,outcome,interlude,switch,cost').sp
       await page.waitForTimeout(250);
     }
     const r = await page.evaluate(() => { __cost.on = false; const s = __cost.samples.slice().sort((a, b) => a - b), n = s.length, sum = s.reduce((a, b) => a + b, 0), busyF = s.filter((x) => x > 0.01);
-      return { n, mean: sum / Math.max(1, n), p95: s[Math.floor(n * 0.95)] || 0, p99: s[Math.floor(n * 0.99)] || 0, max: s[n - 1] || 0, drawn: busyF.length, meanDrawn: busyF.reduce((a, b) => a + b, 0) / Math.max(1, busyF.length), calls: __cost.calls }; });
+      const by = Object.fromEntries(Object.entries(__cost.by).map(([k, [t, c]]) => [k, { ms: +t.toFixed(1), calls: c, perFrame: +(t / Math.max(1, n)).toFixed(3) }]));
+      return { n, mean: sum / Math.max(1, n), p95: s[Math.floor(n * 0.95)] || 0, p99: s[Math.floor(n * 0.99)] || 0, max: s[n - 1] || 0, drawn: busyF.length, meanDrawn: busyF.reduce((a, b) => a + b, 0) / Math.max(1, busyF.length), calls: __cost.calls, by }; });
     say(`  ${r.n} frames in 20 s (${sent} keys sent, the interlude on in ${ils} of the polls); the star's script: mean ${r.mean.toFixed(3)} ms a frame, p95 ${r.p95.toFixed(3)}, p99 ${r.p99.toFixed(3)}, max ${r.max.toFixed(2)};`
       + ` ${r.drawn} frames with star work (mean ${r.meanDrawn.toFixed(3)} ms on those)`);
+    say('  by part (ms a frame):', Object.entries(r.by).map(([k, v]) => `${k} ${v.perFrame} (${v.calls} calls)`).join(', '));
     fs.writeFileSync(`${dir}/star-${tag}-cost.json`, JSON.stringify({ ...r, sent, ils, width, height }, null, 1));
-    check(r.n > 300 && r.mean <= 4 && r.p95 <= 8, `the star alone within the budget for all six (4 ms mean, 8 ms p95): mean ${r.mean.toFixed(2)}, p95 ${r.p95.toFixed(2)}`);
+    // headless Chromium draws 7 to 13 frames a second here (no GPU): the bar is 5 frames a second
+    check(r.n >= 100 && r.mean <= 4 && r.p95 <= 8, `the star alone within the budget for all six (4 ms mean, 8 ms p95): mean ${r.mean.toFixed(2)}, p95 ${r.p95.toFixed(2)}`);
     await shot('cost-end');
   }
 

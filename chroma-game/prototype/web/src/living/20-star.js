@@ -399,7 +399,7 @@ function mount(host, opts) {
     // the identity edge (18% to 22%) as a ring, for brightening on hover
     G.band = new Path2D(); G.band.arc(G.cx, G.cy, G.R * CH.spR(CH.IDENT.enter), 0, TAU); G.band.arc(G.cx, G.cy, G.R * CH.spR(CH.IDENT.leave), 0, TAU, true);
     paintBack(); paintEngraving(); paintHi(); paintPairs(); paintPulls();
-    G.wk = null; refreshInk();
+    G.wk = null; G.hk = null; refreshInk();
     return true;
   }
   /* A1: the body's ink, rebuilt only when a share moves by half a point or more (never per frame). The five colours fan from
@@ -410,7 +410,9 @@ function mount(host, opts) {
     G.wk = w.slice(); const K = w.map(inkK);
     G.inkK = K; G.ink = K.map((k, i) => mix(DIM[i], BR[i], k));
     G.conic = conicOf(G.ink, w);
-    paintHeart(K, w);
+    // the deep heart under it moves too little to see within a point and a half (and each new heart is filled again
+    // where it is first copied)
+    if (!G.hk || !G.heart || w.some((v, i) => Math.abs(v - G.hk[i]) >= 0.015)) { G.hk = w.slice(); paintHeart(K, w); }
   }
   /* the fan as one conic sweep: each colour pure at its own axis, and between two neighbours the blend sits nearer the
      weaker one, so a colour that leads them spreads across more of the star (the same rule for every pair) */
@@ -640,39 +642,41 @@ function mount(host, opts) {
     }
   }
 
-  /* A1: the body's ink. While the star moves (a corner moved 0.4 px or more since the last frame) it is drawn straight onto
-     the star's canvas. Once it rests it is drawn into its own layer (a canvas the size of the star, aligned to device
-     pixels) and kept until something it shows changes: a corner drifting 0.4 px from where the layer has it, the ink (the
-     shares), how wet it is or the key's highlight. So a resting star copies one image a frame instead of painting the
-     fills, the heart, the clipped glows and the strokes again, and a moving one never paints a layer it would throw away
-     the next frame (copying a layer just painted makes the browser fill it there and then). The bleed of wet ink round it
-     creeps every frame, so render draws it live. */
+  /* A1: the body's ink. While the star moves (a corner moved 0.4 px or more in one of the last three frames) it is drawn
+     straight onto the star's canvas. Once it rests it is drawn into its own layer and kept until something it shows
+     changes: a corner drifting 0.4 px from where the layer has it, the ink (the shares), how wet it is or the key's
+     highlight. So a resting star copies one image a frame instead of painting the fills, the heart, the clipped glows and
+     the strokes again, and a moving one never paints a layer it would throw away the next frame (copying a layer just
+     painted makes the browser fill it there and then). The layer holds only the soft ink, at 1.25 device pixels a pixel
+     at most (a third of the pixels to fill on a 2x screen); the hairline that edges it is stroked live, crisp. The bleed
+     of wet ink round it creeps every frame, so render draws that live too. */
   const BC = { c: null, P: null };
-  let lastP = null;
+  let lastP = null, calmN = 0;
   const far = (A, B, d) => { for (let i = 0; i < 5; i++) if (Math.abs(A[i][0] - B[i][0]) > d || Math.abs(A[i][1] - B[i][1]) > d) return true; return false; };
   function drawInk(c, P, body, wet, key, xmax, a) {
-    const moving = !lastP || far(P, lastP, 0.4); lastP = P.map((q) => q.slice());
-    const k = G.k, inkv = G.conic, wq = Math.round(wet * 50);
+    calmN = !lastP || far(P, lastP, 0.4) ? 0 : calmN + 1; lastP = P.map((q) => q.slice());
+    const k = G.k, kl = Math.min(k, 1.25), inkv = G.conic, wq = Math.round(wet * 50);
     const kept = BC.c && BC.P && !far(P, BC.P, 0.4) && BC.ink === inkv && BC.wq === wq && BC.key === key && BC.k === k;
-    if (!kept && moving && a >= 0.99) { BC.P = null; drawBody(c, P, body, wet, key, xmax); return; }
+    if (!kept && calmN < 3 && a >= 0.99) { BC.P = null; drawBody(c, P, body, wet, key, xmax, true); return; }
     if (!kept) {
-      const pad = 2 + 2 * G.sc, b = bbox(P, pad), x0 = Math.floor(b[0] * k) / k, y0 = Math.floor(b[1] * k) / k;
-      const pw = Math.max(1, Math.ceil((b[2] - x0) * k)), ph = Math.max(1, Math.ceil((b[3] - y0) * k));
+      const b = bbox(P, 2), x0 = Math.floor(b[0] * kl) / kl, y0 = Math.floor(b[1] * kl) / kl;
+      const pw = Math.max(1, Math.ceil((b[2] - x0) * kl)), ph = Math.max(1, Math.ceil((b[3] - y0) * kl));
       const cnv = BC.c || (BC.c = document.createElement("canvas"));
       if (cnv.width < pw || cnv.height < ph) { cnv.width = Math.max(pw, cnv.width); cnv.height = Math.max(ph, cnv.height); }
       const x = cnv.getContext("2d");
       x.setTransform(1, 0, 0, 1, 0, 0); x.globalAlpha = 1; x.globalCompositeOperation = "source-over"; x.clearRect(0, 0, cnv.width, cnv.height);
-      x.setTransform(k, 0, 0, k, -x0 * k, -y0 * k);
-      drawBody(x, P, body, wet, key, xmax);
-      Object.assign(BC, { P: P.map((q) => q.slice()), ink: inkv, wq, key, k, x0, y0, pw, ph });
+      x.setTransform(kl, 0, 0, kl, -x0 * kl, -y0 * kl);
+      drawBody(x, P, body, wet, key, xmax, false);
+      Object.assign(BC, { P: P.map((q) => q.slice()), ink: inkv, wq, key, k, kl, x0, y0, pw, ph });
     }
-    c.globalAlpha = a; c.drawImage(BC.c, 0, 0, BC.pw, BC.ph, BC.x0, BC.y0, BC.pw / k, BC.ph / k); c.globalAlpha = 1;
+    c.globalAlpha = a; c.drawImage(BC.c, 0, 0, BC.pw, BC.ph, BC.x0, BC.y0, BC.pw / BC.kl, BC.ph / BC.kl);
+    hairline(c, body, wet, key, a);
   }
   /* the body itself: the five inks fan from the centre, each as bright as its share, over a deep heart; each colour's lobe
      lit from within by its share; a faint engraving and facets like a cut stone; inside, light gathers softly toward the
      rim; and one inked hairline round it (crisper the drier). The bleed of wet ink and the slow highlight are drawn live
      in render. */
-  function drawBody(c, P, body, wet, key, xmax) {
+  function drawBody(c, P, body, wet, key, xmax, hair) {
     const { cx, cy, R, sc } = G, fill = G.conic || fanFill(P), bb = bbox(P, 2), reach = R * Math.max(0.3, xmax);
     c.globalAlpha = 0.92; c.fillStyle = fill; c.fill(body);
     c.save(); c.clip(body);
@@ -699,9 +703,12 @@ function mount(host, opts) {
     c.globalCompositeOperation = "lighter"; c.globalAlpha = 0.12; c.lineWidth = 2 * gw; c.stroke(body);   // and catches the light
     c.globalCompositeOperation = "source-over";
     c.restore();
-    // the inked hairline: the pigment gathered at the edge of the wash, crisp when dry, softer while the ink is wet
-    c.lineJoin = "round"; c.strokeStyle = fill; c.globalAlpha = 0.92 - 0.42 * wet;
-    c.lineWidth = Math.max(0.6, (0.85 + 0.7 * wet) * sc) * (key === "pos" ? 1.8 : 1); c.stroke(body);
+    if (hair) hairline(c, body, wet, key, 1);
+  }
+  // the inked hairline: the pigment gathered at the edge of the wash, crisp when dry, softer while the ink is wet
+  function hairline(c, body, wet, key, a) {
+    c.lineJoin = "round"; c.strokeStyle = G.conic || fanFill(G.P); c.globalAlpha = (0.92 - 0.42 * wet) * a;
+    c.lineWidth = Math.max(0.6, (0.85 + 0.7 * wet) * G.sc) * (key === "pos" ? 1.8 : 1); c.stroke(body);
     c.globalAlpha = 1;
   }
 
@@ -895,7 +902,8 @@ function mount(host, opts) {
        stands now, fainter the older, drifting slowly toward now (still: resting). Each is a small silver bead with a soft
        halo, so it reads over bright ink as well as over the night glass. */
     if (lay.after && old.length && !mini) {
-      const sp = glow(AFT);
+      const sp = glow(AFT), beads = [];
+      c.globalCompositeOperation = "lighter";
       for (let i = 0; i < 5; i++) {
         const chain = old.map((o) => [o.Q[i], o.vis]).concat([[P[i], 1]]);
         let L = 0; const seg = [];
@@ -907,11 +915,13 @@ function mount(host, opts) {
           const a = chain[j][0], b = chain[j + 1][0], q = seg[j] > 0 ? Math.min(1, d / seg[j]) : 0, x = a[0] + (b[0] - a[0]) * q, y = a[1] + (b[1] - a[1]) * q;
           const env = CH.smooth(Math.min(1, s * 4)) * CH.smooth(Math.min(1, (1 - s) * 6)), al = (0.1 + 0.4 * s) * env * chain[j][1];
           if (al < 0.01) continue;
-          c.globalCompositeOperation = "lighter"; stamp(c, sp, x, y, (3 + 2 * s) * sc, al * 0.7);
-          c.globalCompositeOperation = "source-over"; c.globalAlpha = 1; c.fillStyle = rgba(mix(AFT, WHITE, 0.4), Math.min(1, al * 1.6)); c.beginPath(); c.arc(x, y, (0.85 + 0.6 * s) * sc, 0, TAU); c.fill();
+          stamp(c, sp, x, y, (3 + 2 * s) * sc, al * 0.7); beads.push(x, y, (0.85 + 0.6 * s) * sc, Math.min(1, al * 1.6));
         }
       }
-      c.globalAlpha = 1; c.globalCompositeOperation = "source-over";
+      // the beads over their halos (one change of drawing mode for all of them)
+      c.globalCompositeOperation = "source-over"; c.fillStyle = rgba(mix(AFT, WHITE, 0.4), 1);
+      for (let n = 0; n < beads.length; n += 4) { c.globalAlpha = beads[n + 3]; c.beginPath(); c.arc(beads[n], beads[n + 1], beads[n + 2], 0, TAU); c.fill(); }
+      c.globalAlpha = 1;
     }
 
     /* A1: wants, a faint luminous ghost star in the wanting colour, breathing on its light alone; a small four-point glint at
@@ -1156,8 +1166,9 @@ function mount(host, opts) {
   // restart an orb's one-off animation: "flare" (it lights and swells) or "ebb" (it draws in and dims, then returns); the
   // class goes when it ends, so the orb's hover and focus lift work again
   function pulseOrb(i, cls) {
-    const o = orbs[i]; o.classList.remove("flare", "ebb"); void o.offsetWidth; o.classList.add(cls);
-    o.addEventListener("animationend", () => o.classList.remove(cls), { once: true });
+    const o = orbs[i]; o.classList.remove("flare", "ebb");
+    // put back on the next frame, so the animation starts again without the page being laid out there and then
+    requestAnimationFrame(() => { if (!o.isConnected) return; o.classList.add(cls); o.addEventListener("animationend", () => o.classList.remove(cls), { once: true }); });
   }
   /* A1, an outcome landing (the page's "outcome" event, its colour moves res.dw in points of share): the person visibly
      takes it in. How strongly is k, all five moves together over 4 points (a move of 4 points or more is the fullest
