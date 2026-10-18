@@ -198,7 +198,8 @@ def build(src):
                     rung_step=int(pt_["on_lives"]["rung_step"]), tie_keep=float(pt_["on_lives"]["tie_keep"]),
                     cast_want=list(pt_["on_lives"]["cast_want"]), checks=dict(pt_["checks"]))
     bt_ = dyn["body_trust"]
-    TRUST = dict(noise=float(bt_["start"]["noise"]), drift_y=float(bt_["drift"]["rate_y"]), drift_k=float(bt_["drift"]["k"]),
+    TRUST = dict(noise=float(bt_["start"]["noise"]), **({"lean": float(bt_["start"]["lean"])} if "lean" in bt_["start"] else {}),
+                 drift_y=float(bt_["drift"]["rate_y"]), drift_k=float(bt_["drift"]["k"]),
                  jumps={k: float(v) for k, v in bt_["jumps"].items() if isinstance(v, (int, float))},
                  low=dict(bt_["effects"]["low"]), high=dict(bt_["effects"]["high"]), gate=dict(bt_["library_gate"]),
                  checks=dict(bt_["checks"]))
