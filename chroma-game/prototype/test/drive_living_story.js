@@ -38,9 +38,13 @@ const P = preset || '4', AGE = +(toAge || 30), SEED = seedArg || '140892';
   // the lines that soak in, counted as they come (an element given sy-in)
   await page.evaluate(() => {
     const T = window.__sy = { soaked: 0, years: 0 };
-    new MutationObserver((rs) => { for (const r of rs) { const e = r.target; if (r.attributeName !== 'class' || !e.classList) continue;
-      if (e.classList.contains('sy-in') && !(r.oldValue || '').includes('sy-in')) T.soaked++;
-      if (e.classList.contains('sy-new') && !(r.oldValue || '').includes('sy-new')) T.years++; } })
+    // a record holds the class before the change; the class after it is the next record's "before" for that element, or
+    // the element's class now
+    const has = (s, c) => ` ${s || ''} `.includes(` ${c} `);
+    new MutationObserver((rs) => { rs.forEach((r, i) => { const e = r.target; if (r.attributeName !== 'class' || !e.classList) return;
+      const nx = rs.slice(i + 1).find((x) => x.target === e), after = nx ? nx.oldValue : e.className;
+      if (has(after, 'sy-in') && !has(r.oldValue, 'sy-in')) T.soaked++;
+      if (has(after, 'sy-new') && !has(r.oldValue, 'sy-new')) T.years++; }); })
       .observe(document.getElementById('feed'), { attributes: true, attributeOldValue: true, attributeFilter: ['class'], subtree: true });
   });
   await startLife(page, P, 'Lale');
@@ -152,8 +156,11 @@ const P = preset || '4', AGE = +(toAge || 30), SEED = seedArg || '140892';
     const qt = await hov('#feed .yr.sy-now > .yh > .sy-hand', "The voice's hand");
     check(!/^MISS|^none/.test(qt), `the quill's hover: ${qt}`);
     if (!phone) await shot('quill-tip');
-    const ht = await hov('#feed .yr.sy-now > .yh > .ag', 'Age');
-    check(!/^MISS|^none/.test(ht), `the year's head keeps its hover: ${ht}`);
+    if (phone) check(await page.evaluate(() => !document.querySelector('#feed .yr.sy-now').classList.contains('closed')), 'a tap on the quill reads it and leaves the year open');
+    else {                                                                   // on a phone a tap on the head folds the year, as today
+      const ht = await hov('#feed .yr.sy-now > .yh > .ag', 'Age');
+      check(!/^MISS|^none/.test(ht), `the year's head keeps its hover: ${ht}`);
+    }
     await page.mouse.move(2, height - 2);
     // a fold: the newest open year closes on a click on its head, then opens again
     const fold = await page.evaluate(async () => {

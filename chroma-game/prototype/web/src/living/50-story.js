@@ -314,6 +314,9 @@ function markHand(sec, v, g) {
     q = document.createElement("span"); q.className = "sy-hand"; q.setAttribute("aria-hidden", "true");
     head.insertBefore(q, head.querySelector(":scope > .mood"));
     setTip(q, () => handTip(sec));
+    // a finger's tap reads the quill (the page's tapped tip) instead of folding the year as a tap on the head does
+    q.addEventListener("pointerdown", (e) => { q._touch = e.pointerType !== "mouse"; });
+    q.addEventListener("click", (e) => { if (q._touch) e.stopPropagation(); });
   }
   const ink = voiceInk(v), gi = g.k > 0 ? voiceInk(g.v) : "", mk = ink + "|" + gi + "|" + g.k;
   if (q.dataset.k === mk) return;
@@ -330,7 +333,8 @@ function handTip(sec) {
 function setWet(sec, wet) {
   const st = sec._sy; if (!st) return;
   const q = Math.round(clampV(wet) * 10) / 10; if (q === st.wet) return; st.wet = q;
-  sec.style.setProperty("--h-wet", q.toFixed(1)); sec.classList.toggle("sy-wet", q >= 0.1);
+  if (q > 0) sec.style.setProperty("--h-wet", q.toFixed(1)); else unstyle(sec, "--h-wet");   // dry: as a year that was never lived here
+  sec.classList.toggle("sy-wet", q >= 0.1);
 }
 let curSec = null;
 const update = timed(function (S, how) {
