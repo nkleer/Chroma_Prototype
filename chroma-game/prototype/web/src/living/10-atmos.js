@@ -1377,7 +1377,10 @@ void main() { gl_FragColor = vec4(mix(texture2D(uA, vUv).rgb, texture2D(uB, vUv)
       down.mx = x; down.my = y; down.mt = t; dirty = true;
     }
     const onUp = (e) => { if (down && e.pointerId === down.id) { inkDrag = e.pointerType !== "mouse" && !!down.st; down = null; } };
+    // a drag that lays ink selects no text in the panels it crosses
+    const onSelect = (e) => { if (down) e.preventDefault(); };
     stage.addEventListener("pointerdown", onDown, { passive: true });
+    stage.addEventListener("selectstart", onSelect);
     stage.addEventListener("pointermove", onMove, { passive: true });
     window.addEventListener("pointerup", onUp, { passive: true });
     window.addEventListener("pointercancel", onUp, { passive: true });
@@ -2198,7 +2201,7 @@ void main() { gl_FragColor = vec4(mix(texture2D(uA, vUv).rgb, texture2D(uB, vUv)
       destroy() {
         offFrame(); offMotion(); offResize(); if (ro) ro.disconnect();
         stage.removeEventListener("pointerdown", onDown); stage.removeEventListener("pointermove", onMove);
-        window.removeEventListener("pointerup", onUp); window.removeEventListener("pointercancel", onUp);
+        window.removeEventListener("pointerup", onUp); window.removeEventListener("pointercancel", onUp); stage.removeEventListener("selectstart", onSelect);
         stage.removeEventListener("pointermove", onHover); stage.removeEventListener("pointerup", onTap); stage.removeEventListener("pointerout", onOut);
         readClose();
         if (primary === inst) primary = null;

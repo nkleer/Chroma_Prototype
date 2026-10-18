@@ -89,11 +89,19 @@ const GL = parts.includes('gl'), tag = `${width}${GL ? '-gl' : ''}`;
     await page.waitForTimeout(700);
     const inked = await page.evaluate(() => getComputedStyle(document.querySelector('.lv-sky .chs-atmos-ink')).visibility);
     check(inked === 'visible', `a press on the open sky drops ink (the ink layer is ${inked})`);
+    const sel = await page.evaluate(() => String(getSelection() || '').length);
+    check(sel === 0, `the drag selected no text in the panels (${sel} characters)`);
     await shot('5-ink');
     await page.click('#evback').catch(() => {}); await page.waitForTimeout(400);
   }
 
-  const menuRow = async (sel) => { await page.click('#tMenu'); await page.waitForTimeout(250); await page.click(`#tPop ${sel}`); await page.waitForTimeout(250); await page.keyboard.press('Escape'); await page.waitForTimeout(250); };
+  // a row of the Table menu (the moment window covers the menu: it is set aside first and brought back after)
+  const menuRow = async (sel) => {
+    const up = await page.evaluate(() => { const w = document.getElementById('evwrap'); return !w.hidden && !w.classList.contains('peek'); });
+    if (up) { await page.click('#evPeek'); await page.waitForTimeout(400); }
+    await page.click('#tMenu'); await page.waitForTimeout(250); await page.click(`#tPop ${sel}`); await page.waitForTimeout(250); await page.keyboard.press('Escape'); await page.waitForTimeout(250);
+    if (up) { await page.click('#evback').catch(() => {}); await page.waitForTimeout(400); }
+  };
   const motionNow = () => page.evaluate(() => [document.documentElement.dataset.motion, CH.motion()]);
   // two shots 0.8 s apart (the pointer parked off the panels' hover areas first)
   const still = async (n) => { await page.mouse.move(width - 2, 2); await page.evaluate(() => hideTip()); await page.waitForTimeout(1500);
