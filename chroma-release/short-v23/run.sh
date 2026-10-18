@@ -1,13 +1,13 @@
 #!/bin/bash
-# v22.6 release record (records/v22.6/scope.md, rows K1 to K28, N1, N3, P1 to P6, W1 to W5; the jobs: plan.md §3):
+# v23 release record (records/v23/scope.md, rows K1 to K28, N1, N3, P1 to P6, W1 to W5; the jobs: plan.md §3):
 # one job a machine of about 4 cores, run from anywhere. Every result lands in chroma-release/out/ with the commit it
 # checked. Scratch under /tmp. Two commits:
 #   the refit   main after the Engine's joint refit merges (engine/v226-refit, #294): the engine-only jobs, while the
 #               rarity table is rebuilt and the Game re-pins
 #   the final   the record's commit: main after the rarity table and the Game's re-pin
 #
-#   SHA=<refit> bash /mnt/project-files/chroma-release/short-v22.6/run.sh <refit job>
-#   SHA=<final> REFIT=<refit> [N3BASE=<re-pin, returns off>] bash /mnt/project-files/chroma-release/short-v22.6/run.sh <final job>
+#   SHA=<refit> bash /mnt/project-files/chroma-release/short-v23/run.sh <refit job>
+#   SHA=<final> REFIT=<refit> [N3BASE=<re-pin, returns off>] bash /mnt/project-files/chroma-release/short-v23/run.sh <final job>
 # A trial keeps its reports and results lines out of the shared folder with CHROMA_PROJECT=<overlay>: a folder of links
 # to every shared-folder entry, whose chroma-release/ links every entry but out/, a scratch folder.
 #
@@ -64,8 +64,8 @@ JOBS=" rar1 rar2 rar3 rar4 rar5 rarm f9a f9b f9c f9d f9e f9f f8a f8b f8c engA en
  gameC pr30 pr30a pr30b pr30c pr30m b7A b7B b7C b7D b7AB b7CD roll rollA rollB rollC fit fitk fit12 f15 f15a f15b f15c
  f15d f15m picks_on1 picks_on2 picks_on3 picks_on4 picks_off1 picks_off2 picks_off3 picks_off4 picksm n3 page final "
 [[ "${JOBS//$'\n'/ }" == *" ${1:-none} "* ]] || { sed -n '2,/^set -u/{/^#/p}' "$0"; exit 2; }
-F=${CHROMA_PROJECT:-/mnt/project-files}; R=$F/chroma-release; REPO=${REPO:-/tmp/v226_repo}; X=/tmp/v226_${1:-}; JOB=${1:-}
-K=/tmp/v226_keep   # --keep --work folders: the same path on every machine, so `final` reuses the refit's proofs
+F=${CHROMA_PROJECT:-/mnt/project-files}; R=$F/chroma-release; REPO=${REPO:-/tmp/v23_repo}; X=/tmp/v23_${1:-}; JOB=${1:-}
+K=/tmp/v23_keep   # --keep --work folders: the same path on every machine, so `final` reuses the refit's proofs
 [ -n "${SHA:-}" ] || { echo "SHA=<commit> is needed"; exit 2; }
 [ -d $REPO/.git ] || git clone -q https://github.com/nkleer/Chroma_Prototype $REPO || exit 2
 git -C $REPO cat-file -e "$SHA^{commit}" 2>/dev/null || git -C $REPO fetch -q origin '+refs/heads/*:refs/remotes/origin/*' || exit 2
@@ -206,7 +206,7 @@ n3() { [ -n "${N3BASE:-}" ] || { echo "N3BASE=<the Game's re-pin commit before r
     ( cd $d/$side/chroma-game/prototype && { [ $side = new ] && export CHROMA_GAME='{"returns": false}'; true; } &&
       python3 -B test/same_life.py $p 7 $d/${side}_$p.jsonl > $d/${side}_$p.out 2>&1 ) &
   done; done; wait
-  { echo "v22.6 N3 on ${SHA:0:12} with returns off (CHROMA_GAME) against ${b:0:12} (N3BASE), test/same_life.py presets ${N3P:-1 2 3 4 5 6}, seed 7"
+  { echo "v23 N3 on ${SHA:0:12} with returns off (CHROMA_GAME) against ${b:0:12} (N3BASE), test/same_life.py presets ${N3P:-1 2 3 4 5 6}, seed 7"
     for p in ${N3P:-1 2 3 4 5 6}; do
       if [ -s $d/new_$p.jsonl ] && cmp -s $d/new_$p.jsonl $d/base_$p.jsonl; then echo "ok   preset $p: $(wc -l < $d/new_$p.jsonl) steps, identical ($(tail -1 $d/new_$p.out))"
       else ok=1; echo "MISS preset $p: $(cmp $d/new_$p.jsonl $d/base_$p.jsonl 2>&1 | head -1)"; fi; done
@@ -216,14 +216,14 @@ n3() { [ -n "${N3BASE:-}" ] || { echo "N3BASE=<the Game's re-pin commit before r
 look() { git -C $REPO fetch -q origin "+refs/heads/$LOOKBASE:refs/remotes/origin/$LOOKBASE" || return 2
   local b=$(git -C $REPO rev-parse origin/$LOOKBASE) o=$O/look_same_$(date -u +%Y%m%d-%H%M%S).txt
   local d=$(git -C $REPO diff --name-only $b $SHA -- $LOOK)
-  { echo "v22.6 K26 look_same: the page layer of ${SHA:0:12} against $LOOKBASE (${b:0:12}): $LOOK" | tr -s ' \n' ' '; echo
-    [ -z "$d" ] && echo "ok   every page-layer file equal" || { echo "differ (each must be a v22.6 change the bar names):"; echo "$d"; }; } > $o; cat $o
+  { echo "v23 K26 look_same: the page layer of ${SHA:0:12} against $LOOKBASE (${b:0:12}): $LOOK" | tr -s ' \n' ' '; echo
+    [ -z "$d" ] && echo "ok   every page-layer file equal" || { echo "differ (each must be a v23 change the bar names):"; echo "$d"; }; } > $o; cat $o
   python3 -B $R/results.py add look_same $([ -z "$d" ] && echo PASS || echo FAIL) $o "page layer against $LOOKBASE ${b:0:12}"
   SHA=$SHA BASE=$LOOKBASE bash $R/short-v22.2.1/run.sh page; }
 carry_final() {   # the refit's hand rows written again for the final commit, with the evidence
   need_refit final
   local c=$O/carry_${SHA:0:7}.txt
-  { echo "v22.6 carry: refit ${REFIT:0:12} -> final ${SHA:0:12}; $(CARRY_NOTE)"
+  { echo "v23 carry: refit ${REFIT:0:12} -> final ${SHA:0:12}; $(CARRY_NOTE)"
     echo "files that differ under $CARRY_READS: $(git -C $REPO diff --name-only $REFIT $SHA -- $CARRY_READS | paste -sd' ')"; } > $c
   python3 -B - "$R" "$REFIT" "$SHA" "$(CARRY_NOTE)" $CARRIED >> $c <<'PY'
 import sys
@@ -256,7 +256,7 @@ PY
   if [ -n "$t" ] && [ "$(cut -d' ' -f1 $t.from)" = "$REFIT" ]; then
     ce=$(git -C $REPO show $SHA:chroma-engine/v22-speedpass/rarity.json | cmp -s - $t && echo same || echo DIFFERENT)
     cg=$(git -C $REPO show $SHA:chroma-game/prototype/rarity.json | cmp -s - $t && echo same || echo DIFFERENT)
-    { echo "v22.6 K25 rarity_w on ${SHA:0:12}: the table rebuilt with the world on from the refit ${REFIT:0:12} ($t, md5"
+    { echo "v23 K25 rarity_w on ${SHA:0:12}: the table rebuilt with the world on from the refit ${REFIT:0:12} ($t, md5"
       echo "$(md5sum < $t | cut -c1-12)); the engine's rarity.json: $ce; the game's rarity.json: $cg; $(CARRY_NOTE)"
       [ $ce = same ] && [ $cg = same ] && echo "RARITY_W: PASS" || echo "RARITY_W: FAIL"; } > $rep
     python3 -B $R/results.py add rarity_w $([ $ce = same ] && [ $cg = same ] && echo PASS || echo FAIL) ${rep#$F/} \
@@ -264,7 +264,7 @@ PY
     echo "rarity_w: engine $ce, game $cg ($rep)" >> $c
   else echo "NOT CARRIED rarity_w: no rebuilt world table from ${REFIT:0:12} (run rar1-5 and rarm on it)" >> $c; fi
   cat $c; }
-echo "v22.6 ${1:-} on $SHA$([ -n "$REFIT" ] && echo " (refit $REFIT)")"
+echo "v23 ${1:-} on $SHA$([ -n "$REFIT" ] && echo " (refit $REFIT)")"
 case "${1:-}" in
   rar[1-5]) n=${1#rar}; a=$((97 + 4 * n)); SHA=$SHA PART=$a-$((a + 3)) REPO=$REPO bash $R/short-v22.4/rarity_w.sh ;;
   rarm) SHA=$SHA PART=merge REPO=$REPO bash $R/short-v22.4/rarity_w.sh
