@@ -52,7 +52,8 @@
 #   picks_off1 .. picks_off4  the same lives with `returns` off, into out/picks_off_<final7>
 #   picksm         check_picks.py judge on the two folders, once the eight parts are in (192 lives a side)
 #   n3             N3: test/same_life.py presets 1-6, seed 7, on the final commit with `returns` off against N3BASE
-#                  (the Game's re-pin commit before `returns` goes on), byte for byte
+#                  (the Game's re-pin commit before `returns` goes on), byte for byte. N3GAME='<json>' replaces
+#                  CHROMA_GAME's '{"returns": false}', e.g. to switch off a display switch N3BASE lacks (C1)
 #   page           the page layer against release/v22.5, the fit probes and the tours (K26)
 #   final          the refit's rows on the final commit: v22_checks rows again (reused in seconds where nothing they
 #                  read changed), the hand rows carried (g4's speedpass rows, pie and pie41, f4_age and f6_dreams,
@@ -203,10 +204,10 @@ n3() { [ -n "${N3BASE:-}" ] || { echo "N3BASE=<the Game's re-pin commit before r
   git -C $REPO archive $SHA chroma-game/prototype | tar -x -C $d/new && git -C $REPO archive $b chroma-game/prototype | tar -x -C $d/base || return 1
   for p in ${N3P:-1 2 3 4 5 6}; do for side in new base; do
     while [ $(jobs -rp | wc -l) -ge 4 ]; do sleep 2; done
-    ( cd $d/$side/chroma-game/prototype && { [ $side = new ] && export CHROMA_GAME='{"returns": false}'; true; } &&
+    ( cd $d/$side/chroma-game/prototype && { [ $side = new ] && export CHROMA_GAME="${N3GAME:-{\"returns\": false\}}"; true; } &&
       python3 -B test/same_life.py $p 7 $d/${side}_$p.jsonl > $d/${side}_$p.out 2>&1 ) &
   done; done; wait
-  { echo "v23 N3 on ${SHA:0:12} with returns off (CHROMA_GAME) against ${b:0:12} (N3BASE), test/same_life.py presets ${N3P:-1 2 3 4 5 6}, seed 7"
+  { echo "v23 N3 on ${SHA:0:12} with CHROMA_GAME ${N3GAME:-{\"returns\": false\}} against ${b:0:12} (N3BASE), test/same_life.py presets ${N3P:-1 2 3 4 5 6}, seed 7"
     for p in ${N3P:-1 2 3 4 5 6}; do
       if [ -s $d/new_$p.jsonl ] && cmp -s $d/new_$p.jsonl $d/base_$p.jsonl; then echo "ok   preset $p: $(wc -l < $d/new_$p.jsonl) steps, identical ($(tail -1 $d/new_$p.out))"
       else ok=1; echo "MISS preset $p: $(cmp $d/new_$p.jsonl $d/base_$p.jsonl 2>&1 | head -1)"; fi; done
