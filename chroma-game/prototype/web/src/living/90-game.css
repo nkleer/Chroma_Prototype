@@ -1,0 +1,14 @@
+  /* ----- one ink (living/90-game.js; plan step 9, decision 12): with the Living HUD on, the ink look's own ink gives way to
+     the new ink, each where the piece that takes its place stands (html[data-lv-pieces] names the pieces standing), so a
+     piece that could not start leaves today's piece with today's ink. look.js and look.css stay as they are. ----- */
+  /* look.js inkDrops: 430 ms after an outcome's reveal (its renderResolution wrap) one span.lk-drop for each colour that
+     moved flies from the turned card into the wheel (svg#hudWheel), as a fixed element on <body>. The star stands over
+     the wheel (the wheel is kept, hidden, for the page's own measures), so its drops are not drawn. */
+  :where(html[data-living="on"][data-lv-pieces~="star"]) body > .lk-drop { display: none; }
+  /* look.js riverLight: after each drawLine, g.lk-river (a drifting nebula and a gleam, clipped to the bands) goes in
+     after svg#river .sheen, and a moving life fades its old bands on svg.lk-rvghost (after svg#river); look.css makes
+     the river's glow breathe (.river .glowl). The river draws its own light under the line, so none of it shows. */
+  :where(html[data-living="on"][data-lv-pieces~="river"]) :is(#river .lk-river, #line svg.lk-rvghost) { display: none; }
+  :where(html[data-living="on"][data-lv-pieces~="river"]) #river .glowl { animation: none; }
+  /* look.js's wet story ink (its addFeed wrap: .lk-in on new lines and years) gives way in living/50-story.css, while
+     the story (#feed.sy-on) stands. */

@@ -22,7 +22,9 @@ const GL = parts.includes('gl'), tag = `${width}${GL ? '-gl' : ''}`;
   const browser = await chromium.launch(GL ? { args: ['--use-gl=swiftshader', '--enable-unsafe-swiftshader', '--ignore-gpu-blocklist'] } : {});
   const phone = width < 600, logs = [], fails = [], warns = [], say = (...a) => console.log(...a);
   const ctx = await browser.newContext({ viewport: { width, height }, hasTouch: phone, isMobile: phone });
-  await ctx.addInitScript((gl) => { try { localStorage.setItem('chroma.pace', 'off'); localStorage.removeItem('chroma.living'); localStorage.removeItem('chroma.autosave');
+  // the per-piece guard (living/00-core.js) only reports here: on a slow headless machine it would hold the piece still,
+  // and this driver checks the piece's own motion (test/drive_living.js joint checks the guard)
+  await ctx.addInitScript((gl) => { try { localStorage.setItem('chroma.pace', 'off'); localStorage.setItem('chroma.living.guard', 'off'); localStorage.removeItem('chroma.living'); localStorage.removeItem('chroma.autosave');
     localStorage.removeItem('chroma.motion'); localStorage.removeItem('chroma.look'); if (gl) localStorage.setItem('chroma.living.gl', 'force'); else localStorage.removeItem('chroma.living.gl'); } catch (_) {} }, GL);
   const page = await ctx.newPage();
   page.on('pageerror', (e) => logs.push('pageerror: ' + e.message));

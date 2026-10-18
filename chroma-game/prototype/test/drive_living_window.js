@@ -27,7 +27,9 @@ const START = +(startArg || 76), SEED = +(seedArg || 140892), SECONDS = +(secArg
   const browser = await chromium.launch();
   const phone = width < 600, logs = [], warns = [], fails = [], say = (...a) => console.log(...a);
   const ctx = await browser.newContext({ viewport: { width, height }, hasTouch: phone, isMobile: phone });
-  await ctx.addInitScript(() => { try { localStorage.setItem('chroma.pace', 'off'); localStorage.setItem('chroma.motion', 'full'); localStorage.removeItem('chroma.living'); localStorage.removeItem('chroma.autosave'); } catch (_) {} });
+  // the per-piece guard (living/00-core.js) only reports here: on a slow headless machine it would hold the piece still,
+  // and this driver checks the piece's own motion (test/drive_living.js joint checks the guard)
+  await ctx.addInitScript(() => { try { localStorage.setItem('chroma.pace', 'off'); localStorage.setItem('chroma.living.guard', 'off'); localStorage.setItem('chroma.motion', 'full'); localStorage.removeItem('chroma.living'); localStorage.removeItem('chroma.autosave'); } catch (_) {} });
   const page = await ctx.newPage();
   page.on('pageerror', (e) => logs.push('pageerror: ' + e.message));
   page.on('console', (m) => { const t = m.text();
