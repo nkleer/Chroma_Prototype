@@ -2,9 +2,11 @@ const { chromium } = require(process.env.PW || 'playwright');
 // v22.1: a life saved by the live v22 page loads in v22.1. On the old page a life is played for a few choices (autosave on,
 // as by default), its autosave slot is read and the save (key s, shown as text outside the viewer) is kept as a file; on the new page the slot is put back and
 // Continue is clicked, and the saved file is loaded with key o. Both must come back at the same name and age, with the
-// same last story line, and play on with no page error.
+// same last story line, and play on with no page error. v23: of the old page's pushes the first is made by its number on
+// the keyboard, the others by holding the card (the Living HUD's hold; a click on a page without it).
 //   node test/save_carry.js <old url> <new url> <shots dir> [preset] [steps]
 const { startLife, idleOf, nextOf } = require('./start.js');
+const { holdOpt, keyOpt } = require('./hold.js');   // v23: with the Living HUD a pointer pushes a card by holding it
 const [oldUrl, newUrl, dir, preset, S] = [process.argv[2], process.argv[3], process.argv[4], process.argv[5] || '1', +(process.argv[6] || 12)];
 (async () => {
   const browser = await chromium.launch();
@@ -17,10 +19,10 @@ const [oldUrl, newUrl, dir, preset, S] = [process.argv[2], process.argv[3], proc
   const a = await open(oldUrl);
   await a.evaluate(() => { try { localStorage.removeItem('chroma.autosave'); } catch (_) {} });
   await startLife(a, preset, 'Lale');
-  const idleA = idleOf(a, logs), nextA = nextOf(a, idleA); let chose = 0;
+  const idleA = idleOf(a, logs), nextA = nextOf(a, idleA); let chose = 0, keyed = 0;
   for (let k = 0; k < 400 && chose < S; k++) {
     await idleA();
-    if (await a.$('#evLet') && await a.isVisible('#evLet')) { const os = await a.$$('#evOpts .opt:not(.onone)'); if (os.length && chose % 2) { await os[os.length - 1].click(); await a.waitForTimeout(200); const pi = await a.$('#pushIt'); if (pi) await pi.click(); } else await a.click('#evLet'); chose++; continue; }
+    if (await a.$('#evLet') && await a.isVisible('#evLet')) { const os = await a.$$('#evOpts .opt:not(.onone)'); if (os.length && chose % 2) { const c = os[os.length - 1]; if (!keyed) { await keyOpt(a, c); keyed++; } else await holdOpt(a, c); await a.waitForTimeout(200); const pi = await a.$('#pushIt'); if (pi) await pi.click(); } else await a.click('#evLet'); chose++; continue; }
     await nextA();
   }
   await idleA();

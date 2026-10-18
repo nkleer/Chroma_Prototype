@@ -6,10 +6,12 @@ const { chromium } = require(process.env.PW || 'playwright');
 //   tribal (preset 5) or magic (preset 6): every picture is that world's tarot card, never an Earth engraving;
 //   Earth (any other preset): no tarot card, and each moment's picture is the one v22's picFor gives (by situation, then
 //   the original of a child version, then the first life domain, then the tier).
-// Also no page error and no sideways scroll.
+// Also no page error, no sideways scroll and every push taken (v23: the first by its number on the keyboard, then held;
+// a phone also taps and pushes with "Push them to this").
 //   node test/world_pics.js <url> <shots dir> <tag> <preset> <width> <height> [minutes] [pace: short|slow|off]
 const [url, dir, tag, preset, W, H, mins, pace] = process.argv.slice(2);
 const { idleOf } = require('./start.js');
+const { holdOpt, pushOpt, keyOpt } = require('./hold.js');   // v23: with the Living HUD a pointer pushes a card by holding it
 (async () => {
   const phone = +W < 600, logs = [];
   const browser = await chromium.launch();
@@ -45,7 +47,7 @@ const { idleOf } = require('./start.js');
   // v22's picFor, as published (Earth lives must read exactly this)
   const OLD = (a) => { if (!a) return ''; const d = String(a.life || '').split(',').map((x) => x.trim()).find((x) => PICS.domain[x]);
     return PICS.situation[a.sit] || PICS.situation[a.variant_of] || (d && PICS.domain[d]) || PICS.tier[a.tier] || ''; };
-  let steps = 0, chosen = 0, left = 0, sideways = 0, moments = 0, il = 0, firstCp = false, firstIl = false, at30 = false;
+  let steps = 0, chosen = 0, keyed = 0, held = 0, notThrough = 0, pushedAt = null, left = 0, sideways = 0, moments = 0, il = 0, firstCp = false, firstIl = false, at30 = false;
   const bad = [];
   const t0 = Date.now(), limit = (+mins || 40) * 60000;
   while (Date.now() - t0 < limit) {
@@ -59,11 +61,12 @@ const { idleOf } = require('./start.js');
       const OLD = eval(old), cp = hud && hud.cp, img = document.querySelector('#evwrap .evart img');
       return { mode: hud && hud.mode, age: hud && hud.life && hud.life.age,
         ev: !document.getElementById('evwrap').hidden, res: !!document.querySelector('#goOn'), cp: !!document.querySelector('#evLet'),
-        rn: !!document.querySelector('#rnKeep'), sx: document.documentElement.scrollWidth > document.documentElement.clientWidth + 1,
+        rn: !!document.querySelector('#rnKeep'), sx: document.documentElement.scrollWidth > document.documentElement.clientWidth + 1, key: lastCpKey,
         shown: img ? img.getAttribute('src') : null, old: cp && cp.art ? OLD(cp.art) : null, sit: cp && cp.art ? cp.art.sit : null,
         il: !!document.querySelector('#ilPic img') };
     }, OLD.toString());
     if (s.mode === 'over') break;
+    if (pushedAt !== null) { if (s.cp && s.key === pushedAt) notThrough++; pushedAt = null; }   // the same moment still waits: the push was lost
     if (s.sx) sideways++;
     if (s.il && !firstIl) { firstIl = true; await shot('interlude'); }
     if (!at30 && s.age >= 30) { at30 = true; await shot('age30'); }
@@ -76,8 +79,13 @@ const { idleOf } = require('./start.js');
       if (want ? s.shown !== want : s.shown !== (s.old || null)) bad.push({ age: s.age, sit: s.sit, shown: s.shown, expected: want || s.old });
       if (Math.random() < 0.5) {
         const opts = await page.$$('#evwrap .opt:not(.pass)'); const o = opts[Math.floor(Math.random() * opts.length)];
-        await o.click(); await page.waitForTimeout(200);
-        const p = await page.$('#pushIt'); if (p) await p.click();
+        // the first push by its number on the keyboard; after it a desktop holds the card (a click, on a page without the
+        // hold), and a phone in turn holds it with a finger or taps it to read it and pushes with "Push them to this"
+        pushedAt = s.key;
+        if (!chosen) { await keyOpt(page, o); keyed++; }
+        else if (!phone) { if ((await holdOpt(page, o)).held) held++; }
+        else if (chosen % 2) { if ((await pushOpt(page, o, { touch: true })).held) held++; }
+        else { await o.tap(); await page.waitForTimeout(200); const p = await page.$('#pushIt'); if (p) await p.click(); }
         chosen++;
       } else { await page.click('#evLet'); left++; }
     } else if (s.ev) {                                   // something else in the window: note it once and look
@@ -92,13 +100,13 @@ const { idleOf } = require('./start.js');
   const tarot = pics.filter(([src]) => /tarot-/.test(src)), other = pics.filter(([src]) => !/tarot-/.test(src));
   il = pics.filter(([, w]) => w === 'ilPic').length;
   const wrong = want ? pics.filter(([src]) => src !== want) : tarot;
-  console.log(JSON.stringify({ tag, preset, setting, width: +W, end, steps, moments, chosen, left, sideways, pictures: pics.length, interludePictures: il,
+  console.log(JSON.stringify({ tag, preset, setting, width: +W, end, steps, moments, chosen, keyed, held, notThrough, left, sideways, pictures: pics.length, interludePictures: il,
     tarotPictures: tarot.length, otherPictures: other.length, wrongPictures: wrong.length, momentMismatches: bad.length }));
   console.log('pictures by source and place', JSON.stringify(by));
   if (wrong.length) console.log('wrong', JSON.stringify(wrong.slice(0, 10)));
   if (bad.length) console.log('moment mismatches', JSON.stringify(bad.slice(0, 10)));
   console.log('errors', JSON.stringify(logs.slice(0, 10)), logs.length);
-  const ok = end.mode === 'over' && moments > 0 && pics.length > 0 && !wrong.length && !bad.length && !sideways && !logs.length;
+  const ok = end.mode === 'over' && moments > 0 && pics.length > 0 && !wrong.length && !bad.length && !sideways && !notThrough && !logs.length;
   console.log(`world pictures ${tag}: ${ok ? 'PASS' : 'FAIL'}`);
   await browser.close();
   process.exit(ok ? 0 : 1);
