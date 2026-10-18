@@ -59,18 +59,22 @@ const parts = (partsArg || 'look,hover,motion,outcome,interlude,switch,cost').sp
   };
   // the moment set aside ("Look at the life"), so the HUD is free to hover
   const aside = async () => { const s = await where(); if (s.cp && !s.peek) { await page.click('#evPeek').catch(() => {}); await page.waitForTimeout(500); } };
+  // the Table menu and its rows: clicked as an element (on the phone the page's own top bar can sit under the moment's
+  // strip, which is not what these checks are about)
+  const menu = (sel) => page.evaluate((x) => document.querySelector(x).click(), sel);
   const motionTo = async (m) => {
-    await page.click('#tMenu'); await page.waitForTimeout(250);
+    await menu('#tMenu'); await page.waitForTimeout(250);
     for (let i = 0; i < 3; i++) {
       const v = await page.evaluate(() => ((document.querySelector('#tPop [data-lk="motion"] .v') || {}).textContent || '').trim());
       if (v === m) break;
-      await page.click('#tPop [data-lk="motion"]'); await page.waitForTimeout(250);
+      await menu('#tPop [data-lk="motion"]'); await page.waitForTimeout(250);
     }
     await page.keyboard.press('Escape'); await page.waitForTimeout(200);
     return page.evaluate(() => document.documentElement.dataset.motion);
   };
   // the HUD's drawer on narrow screens (1040 px or less), open or shut
-  const drawer = async (o) => { if (wide) return; if (await page.evaluate(() => hudEl.classList.contains('open')) !== o) { await page.click('#tHud'); await page.waitForTimeout(800); } };
+  // (open, the drawer covers #tHud on the phone: #hudClose shuts it, as drive_hud2 does)
+  const drawer = async (o) => { if (wide) return; if (await page.evaluate(() => hudEl.classList.contains('open')) !== o) { await page.click(o ? '#tHud' : '#hudClose'); await page.waitForTimeout(800); } };
   const same = (a, b) => a && b && a.length === b.length && a.equals(b);
   const t0 = Date.now();
   await page.goto(url);
@@ -228,9 +232,12 @@ const parts = (partsArg || 'look,hover,motion,outcome,interlude,switch,cost').sp
     if (ok) {
       await page.waitForTimeout(600);
       const side = await page.evaluate(() => IL.side), sel = side ? MINI : HUD, xs = [];
-      for (let i = 0; i < 12; i++) { const p = await peek(sel); const k = await page.evaluate(() => IL.on ? IL.k : -1); if (p && k >= 0) xs.push({ k, x: p.x, f: p.following, s: p.s, has: p.has }); else if (k < 0) break; await page.waitForTimeout(300); if (i === 2) await shot('interlude'); }
+      // (sampled until the weeks have run on 6 or more, 12 s at most: on a loaded machine the weeks can come late)
+      for (let i = 0; i < 40; i++) { const p = await peek(sel); const k = await page.evaluate(() => IL.on ? IL.k : -1); if (p && k >= 0) xs.push({ k, x: p.x, f: p.following, s: p.s, has: p.has }); else if (k < 0) break;
+        if (xs.length > 3 && xs[xs.length - 1].k - xs[0].k >= 6) break; await page.waitForTimeout(300); if (i === 4) await shot('interlude'); }
       say('  samples while it ran (week, following):', xs.map((a) => `${a.k.toFixed(1)}${a.f ? '' : '!'}`).join(' '));
-      const moved = xs.length > 2 && xs.some((a) => a.x.some((v, j) => Math.abs(v - xs[0].x[j]) > 0.002));
+      // moved with the weeks: between two samples the week changed and so did the star
+      const moved = xs.some((a, n) => n && a.k - xs[n - 1].k >= 0.5 && a.x.some((v, j) => Math.abs(v - xs[n - 1].x[j]) > 0.002));
       const st = await page.evaluate(() => ({ minis: document.querySelectorAll('.ilside > .lv-star').length, stars: document.querySelectorAll('.lv-star .chs-star').length,
         ilVis: document.getElementById('ilWheel') ? getComputedStyle(document.getElementById('ilWheel')).visibility : null, hudFollow: (() => { const r = document.querySelector('.wheelw > .lv-star .chs-star'); return r ? r.lvPeek().following : null; })() }));
       say('  side', side, JSON.stringify(st), 'weeks', xs.length ? `${xs[0].k.toFixed(1)} to ${xs[xs.length - 1].k.toFixed(1)}` : '-', 'star', xs[0] && xs[0].s, 'px');
@@ -252,7 +259,7 @@ const parts = (partsArg || 'look,hover,motion,outcome,interlude,switch,cost').sp
     const st = () => page.evaluate(() => { const svg = document.getElementById('hudWheel');
       return { living: document.documentElement.dataset.living, stars: document.querySelectorAll('.lv-star').length, vis: svg && getComputedStyle(svg).visibility, key: (document.getElementById('wKey') || {}).ariaLabel,
         drawn: !!svg && svg.querySelectorAll('*').length > 5 }; });
-    const flip = async () => { await page.click('#tMenu'); await page.waitForTimeout(300); await page.click('#tPop [data-lv]'); await page.waitForTimeout(500); await page.keyboard.press('Escape'); await page.waitForTimeout(500); };
+    const flip = async () => { await menu('#tMenu'); await page.waitForTimeout(300); await menu('#tPop [data-lv]'); await page.waitForTimeout(500); await page.keyboard.press('Escape'); await page.waitForTimeout(500); };
     let s = await st();
     check(s.living === 'on' && s.stars === 1 && s.vis === 'hidden', `on: the star (${JSON.stringify(s)})`);
     await flip(); s = await st();
@@ -282,7 +289,7 @@ const parts = (partsArg || 'look,hover,motion,outcome,interlude,switch,cost').sp
       const loop = () => { if (C.on) C.samples.push(C.cur); C.cur = 0; requestAnimationFrame(loop); };
       requestAnimationFrame(loop);
     });
-    for (let i = 0; i < 2; i++) { await page.click('#tMenu'); await page.waitForTimeout(300); await page.click('#tPop [data-lv]'); await page.waitForTimeout(500); await page.keyboard.press('Escape'); await page.waitForTimeout(300); }
+    for (let i = 0; i < 2; i++) { await menu('#tMenu'); await page.waitForTimeout(300); await menu('#tPop [data-lv]'); await page.waitForTimeout(500); await page.keyboard.press('Escape'); await page.waitForTimeout(300); }
     check(await page.evaluate(() => document.documentElement.dataset.living === 'on' && !!document.querySelector('.wheelw > .lv-star')), 'the star mounted again under the timers');
     await page.evaluate(() => { try { localStorage.setItem('chroma.pace', 'slow'); } catch (_) {} ilPace = 'slow'; __cost.samples.length = 0; __cost.on = true; });
     // a running life for 20 s: Go on after an outcome, let them choose at a moment, else live on (the interlude plays)
