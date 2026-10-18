@@ -41,11 +41,14 @@ const START = +(startArg || 76), SEED = +(seedArg || 140892), SECONDS = +(secArg
   const t0 = Date.now();
   await page.goto(url);
   await page.waitForFunction(() => window.CH && CH.pieces && CH.pieces.has('window') && CH.life, null, { timeout: 120000 });
-  // the window's own script time: every frame function it starts (CH.frame), its update and its hooks, by animation frame
+  // the window's own script time: every frame function it starts (CH.frame), its update and its hooks, by animation frame.
+  // Only the window's frames: the other pieces start theirs again when Living comes back on (the sky's in its mount), and
+  // the core names the piece starting one (CH.owner(), living/00-core.js)
   await page.evaluate(() => {
     const T = window.__w = { acc: 0, frames: [], on: false, long: [] };
     const timed = (f) => function (...a) { const s = performance.now(); try { return f.apply(this, a); } finally { T.acc += performance.now() - s; } };
-    const f0 = CH.frame; CH.frame = (fn, el) => f0(timed(fn), el);
+    const mine = () => !CH.owner || !CH.owner() || CH.owner() === 'window';
+    const f0 = CH.frame; CH.frame = (fn, el) => f0(mine() ? timed(fn) : fn, el);
     const p = CH.pieces.get('window'); p.update = timed(p.update); for (const k in p.hooks) p.hooks[k] = timed(p.hooks[k]);
     T.start = () => { T.frames = []; T.acc = 0; T.long = []; T.on = true; const k = () => { T.frames.push(T.acc); T.acc = 0; if (T.on) requestAnimationFrame(k); }; requestAnimationFrame(k); };
     T.stop = () => { T.on = false; const f = T.frames.slice(1).sort((a, b) => a - b), n = f.length || 1;
