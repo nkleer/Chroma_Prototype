@@ -1,5 +1,6 @@
 """Checks for the played game's story words (earth_story.py): the song, the last conversation, the voice, the thread,
-the world in their life and the disaster readings.
+the world in their life, the disaster readings and the cause words (CAUSE, YEAR_WHY, FOLD, and the cause= phrases
+of earth_perks_titles.py beside it).
 
     python3 -B check_story.py [path/to/earth_story.py] [--setting path/to/check_setting.py]
 
@@ -56,7 +57,13 @@ BANDS = [(a, b) for a in ("high", "mid", "low") for b in ("high", "mid", "low")]
 NAMES_READ = ("SONG", "SONG_WORLD", "MARK_SAY", "LAST_TALK", "VOICE", "THREAD", "THREAD_HOVER", "THREAD_DID", "WORLD",
               "WORLD_CHANNEL", "YEAR", "YEAR_WHAT", "YEAR_WHAT_CHANNEL", "OPTION_CAUSE", "DISASTER_READ",
               "WORLD_EVENT", "MOVEMENT_NAMES", "YEAR_LEAD", "RECALL_IN", "TEMPER_CAUSE", "SHADOW_FAIL", "SHADOW_YEAR",
-              "WORLD_HOME", "WORLD_HOME_CHANNEL", "YEAR_WHAT_HOME", "YEAR_WHAT_HOME_CHANNEL")
+              "WORLD_HOME", "WORLD_HOME_CHANNEL", "YEAR_WHAT_HOME", "YEAR_WHAT_HOME_CHANNEL", "CAUSE", "YEAR_WHY", "FOLD", "CAUSE_HOLD")
+# every change has a cause (L2): the kinds the game names a cause by, and the engine's sources of change (engine.py ASOURCES)
+CAUSE_KEYS = ["pick", "pick_who", "pick_gone", "mark", "moment", "held_title", "held_perk", "money", "years", "years_one",
+              "unused", "unused_one"]
+ASOURCES = ["unmet needs", "surroundings", "role models", "settling back", "turning points", "talking oneself into it",
+            "resolutions", "outside events", "the times", "discontent", "contentment", "restlessness", "dreams and plans",
+            "a shorter horizon"]
 # the Engine's world-effect report (STATE "wfx", stage 1 PR B): its kinds and channels
 KINDS = ["recession", "prices", "housing", "welfare", "rights", "crime wave", "disaster", "war", "law", "unemployment",
          "hospital places", "university places", "pandemic"]   # pandemic: WL2 (Engine #62), on the ties channel
@@ -219,6 +226,22 @@ def rule(path):
         return (("N", "Ns"), ("N",), "sentence", "narration", 20)
     if top == "MOVEMENT_NAMES":
         return ((), (), "phrase", "narration", 6)
+    if top == "CAUSE":          # every change has a cause: the closing clause of a title or perk line
+        fl = {"pick": (("N", "act", "age"), ("act", "age")), "pick_who": (("N", "act", "age", "P"), ("act", "age", "P")),
+              "pick_gone": (("N", "act", "age", "P"), ("act", "age", "P")), "mark": (("N", "what", "age"), ("what", "age")),
+              "moment": (("what", "age"), ("what", "age")), "held_title": (("N", "say"), ("say",)),
+              "held_perk": (("N", "say"), ("say",)), "money": ((), ()), "years": (("n",), ("n",)),
+              "years_one": ((), ()), "unused": (("n",), ("n",)), "unused_one": ((), ())}[k]
+        return fl + ("clause", "narration", 16)
+    if top == "CAUSE_SAY":      # a rule's own cause= words (earth_perks_titles.py), for an age, a stage, money or nothing
+        return (("N", "Ns"), (), "clause", "narration", 14)
+    if top == "YEAR_WHY":
+        if k == "src":
+            return ((), (), "phrase", "narration", 8)
+        return ((("N", "how"), ("N", "how")) if k == "turn" else (("N", "ev", "how"), ("N", "ev", "how"))) + ("sentence", "narration", 20)
+    if top == "FOLD":
+        return {"gain": (("N", "got"), ("N", "got")), "lose": (("N", "lost"), ("N", "lost")),
+                "both": (("N", "got", "lost"), ("N", "got", "lost"))}[k] + ("sentence", "narration", 20)
     raise KeyError(path)
 
 
@@ -236,7 +259,10 @@ SAMPLE = dict(N="Deniz", Ns="Deniz's", ep="steadfast and fire-hearted", age="67"
               plan="a home of their own", dream="the dream of a working life", road="the trades", inst="the factory in Redmouth", place="Redmouth", movement="the Lantern Way",
               what="prices outran their money and the downturn put jobs at risk",
               when="at 17", event="the divorce", m="steadier")
-SAMPLE_AT = {"RECALL_IN": dict(what="leave home early")}
+SAMPLE_AT = {"RECALL_IN": dict(what="leave home early"),
+             "CAUSE": dict(act="lend a friend the rent", P="Cem", what="made a friend for life", say="a nurse", n="three"),
+             "YEAR_WHY": dict(how="growing curious and cooling", ev="a turning point"),
+             "FOLD": dict(got="can swim and has a dog", lost="no longer dances")}
 
 fails = {}
 
@@ -549,6 +575,25 @@ if os.path.exists(EARTH):
 else:
     flood_checked = False
 
+# every change has a cause (L2): every kind, the year's line for every source, the fold line's three forms
+need_keys("CAUSE", getattr(M, "CAUSE", {}), CAUSE_KEYS)
+YWH = getattr(M, "YEAR_WHY", {})
+need_keys("YEAR_WHY", YWH, ["turn", "turn_by", "src"])
+need_keys("YEAR_WHY.src", YWH.get("src", {}), ASOURCES)
+need_keys("FOLD", getattr(M, "FOLD", {}), ["gain", "lose", "both"])
+CAT = os.path.join(os.path.dirname(PATH), "earth_perks_titles.py")
+CAUSE_SAY = {}
+if os.path.exists(CAT):
+    C_ = load_as(CAT, "perks_checked")
+    CAUSE_SAY = {x["name"]: x["cause"] for x in list(C_.TITLES) + list(C_.PERKS) if x.get("cause")}
+    known_ = {x["name"] for x in list(C_.TITLES) + list(C_.PERKS)}
+    HOLD = getattr(M, "CAUSE_HOLD", set())
+    if not isinstance(HOLD, (set, frozenset)) or not all(isinstance(x, str) for x in HOLD):
+        fail("1 coverage", "CAUSE_HOLD: wanted a set of title and perk names")
+    else:
+        for x in sorted(HOLD - known_):
+            fail("1 coverage", f"CAUSE_HOLD names {x!r}, which is not a title or perk")
+
 # -------------------------------------------------------------------------------------------- lines, checks 2 to 9
 ALL = []
 for name in NAMES_READ:
@@ -559,6 +604,7 @@ for name in NAMES_READ:
                                         for k, v in o.items()} for w, o in obj.items()}
     for path, text in walk(obj, (name,)):
         ALL.append((path, text))
+ALL += [(("CAUSE_SAY", nm), t) for nm, t in CAUSE_SAY.items()]
 
 FIRST = re.compile(r"\b(I|I'm|I've|I'd|I'll|me|my|mine|myself)\b")
 seen = {}
@@ -676,7 +722,8 @@ cnt = lambda *ns: sum(1 for p, _ in ALL if p[0] in ns)
 print(f"{len(ALL)} lines: song {cnt('SONG', 'SONG_WORLD', 'MARK_SAY')}, last conversation {cnt('LAST_TALK')}, "
       f"voice {cnt('VOICE')} ({n_answer} answers), thread {cnt('THREAD', 'THREAD_HOVER', 'THREAD_DID')}, "
       f"world {cnt('WORLD', 'WORLD_CHANNEL')}, year {cnt('YEAR', 'YEAR_WHAT', 'YEAR_WHAT_CHANNEL')}, "
-      f"option notes {cnt('OPTION_CAUSE')}, disaster readings {cnt('DISASTER_READ')}")
+      f"option notes {cnt('OPTION_CAUSE')}, disaster readings {cnt('DISASTER_READ')}, "
+      f"cause words {cnt('CAUSE', 'YEAR_WHY', 'FOLD')}, cause= phrases {cnt('CAUSE_SAY')}")
 print("the flood next door matches earth.py: " + ("checked" if flood_checked else "not checked (no earth.py beside it)"))
 print(f"longest: song {longest['song'][0]} words ({longest['song'][1]}), the other lines "
       f"{longest['voice'][0]} words ({longest['voice'][1]})\n")

@@ -190,6 +190,7 @@ TITLES += [
        say="in a choir",
        gained="an audition or an open rehearsal on a weeknight leads to regular membership: a school, church or "
               "community choir",
+       cause="after an open rehearsal one weeknight",
        lost="leaving, a move ('moved away'), the choir closing",
        needs="a willing ensemble and whatever audition in [singing] it asks",
        turning="The newest member has a beautiful voice but keeps rushing the shared phrase. The choir has to make "
@@ -235,6 +236,7 @@ TITLES += [
        say="a historical reenactor",
        gained="a public event at a castle or an old battlefield leads to joining a group, its drill and its sewing "
               "evenings",
+       cause="after a public day at an old castle",
        lost="leaving, interests changing, the group closing",
        needs="a place in the group, [period kit] and the safety arrangements its events require",
        turning="Someone asks whether the costume is accurate. Someone else asks whose history never gets "
@@ -321,6 +323,7 @@ TITLES += [
        say="a member of a housing cooperative",
        gained="they buy a share or come up the waiting list, move in, and take on the duties of membership: meetings, "
               "a rota, a vote on the budget",
+       cause="after coming up the waiting list",
        lost="selling or giving up the membership, a move, the cooperative dissolving",
        needs="actual membership and whatever housing and financial conditions the cooperative sets",
        turning="The roof needs money now; three households cannot afford the proposed contribution."),
@@ -576,6 +579,7 @@ TITLES += [
        ages=(0, 110), share=.02,   # about 2 children in 100 in the US are adopted (US Census 2010)
        say="adopted",
        gained="an adoption in childhood, by new parents, a stepparent or relatives, as the law of the setting defines it",
+       cause="taken in by new parents as a small child",
        lost="never; it is a fact of their history",
        needs="a recorded adoption; distinct from being an [adoptive parent]"),
   # T2-093

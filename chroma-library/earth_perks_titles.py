@@ -32,6 +32,9 @@
 #   gained   plain words: how one comes to hold it. Situations from earth.md and the engine's history marks are in
 #            single quotes ('a new job at last', 'learned a skill'); titles and perks of this file in brackets ([nurse])
 #   lost     plain words: what ends it
+#   cause    optional (every change has a cause, L2, 10-18): when the engine's rule names only an age, a stage, money
+#            or nothing, the closing clause the game tells the gain with ("Ari can swim now, after lessons as a
+#            child."): lower case, no end stop, true for the rule as it stands (chroma-library/notes/cause-audit.md)
 #   needs    plain words: what must come first (a title, a perk, a history mark, an age, money)
 #   profiles optional (engine 12:45): two or three equally valid ways to hold the title, [("W U", "words"), ...]; ways
 #            is the first profile. A person holds the profile that fits them best and may move to another as their
@@ -59,7 +62,7 @@
 #   ages       (youngest, oldest) a person can hold it
 #   share      the share of people who ever hold it (target sum 15 to 30), sourced or "estimate" as for titles
 #   say        a short phrase for the story ("can drive")
-#   gained, lost, needs   plain words, as for titles
+#   gained, lost, needs, cause   plain words, as for titles
 #
 # Balance (checked by check_perks_titles.py): over the commitment-kind TITLES (career, partner, children, community,
 # faith; statuses carry no colors and stay out of it), and separately over PERKS, the ways letters summed per color
@@ -364,6 +367,7 @@ TITLES += [
                                     # Europe; estimate
        say="a parent of three",
        gained="'a child is born' for the third time, and a bigger car",
+       cause="as the family grows",
        lost="never; the house goes quiet when 'the children leave home'",
        needs="[mother or father]"),
   dict(name="single parent", kind="children", ways="B G",
@@ -400,6 +404,7 @@ TITLES += [
        ages=(35, 110), share=.6,   # estimate: most people who live past 65 become grandparents
        say="a grandparent",
        gained="'your first grandchild'",
+       cause="once a grown child has a child of their own",
        lost="never",
        needs="[mother or father], and a child who has a child"),
 ]
@@ -411,6 +416,7 @@ TITLES += [
        ages=(7, 60), share=.5,   # estimate: about half of young people play on an organised team at some point
        say="on the team",
        gained="'tryouts for the team', 'sports day', 'a band or a sport that takes over your life'",
+       cause="after enough hard play to earn a place",
        lost="being dropped, an injury, leaving school, growing out of it",
        needs="turning up on Saturday mornings"),
   dict(name="scout or guide", kind="community", sphere="learn", face="learn.G", ways="W G",
@@ -418,6 +424,7 @@ TITLES += [
        ages=(6, 18), share=.2,   # estimate
        say="a scout",
        gained="a friend brings them along to the hall on a Tuesday; 'summer camp'",
+       cause="brought along by a friend, as most are",
        lost="growing out of it, 'the family moves to a new town'",
        needs="age 6 or more"),
   dict(name="prefect", kind="community", sphere="learn", face="learn.W", ways="W U",
@@ -494,6 +501,7 @@ TITLES += [
                                    # fewer in most rich countries
        say="in a gang",
        gained="drifting in through older friends on the estate after 'a fight after school' or 'money runs out at home'",
+       cause="drifting in through older friends",
        lost="growing up, moving away, prison, a death that changes everything",
        needs="age 12 or more"),
 ]
@@ -538,6 +546,7 @@ TITLES += [
        ages=(16, 100), share=.06,   # estimate: under 2 adults in 100 belong to a party at a time in most of Europe
        say="a party member",
        gained="'a bitter election', or a friend's invitation to a branch meeting above a pub",
+       cause="drawn in by the talk of the day",
        lost="a quarrel with the leadership, letting the membership lapse",
        needs="age 14 to 16 or more"),
   dict(name="convert", kind="faith", sphere="faith", face="faith.B", ways="U B",
@@ -565,6 +574,7 @@ TITLES += [
        ages=(20, 110), share=.4,   # about 4 adults in 10 aged 25 to 64 hold a tertiary degree (OECD average)
        say="a graduate",
        gained="three or four years of study, 'exams are coming' every spring, then 'earning a qualification'",
+       cause="after years of study",
        lost="never",
        needs="'you win a scholarship or a place'; [school-leaving certificate]"),
   dict(name="veteran", kind="status", ways="",
@@ -612,6 +622,7 @@ TITLES += [
                                    # some point in life
        say="a homeowner",
        gained="'buying a home': a mortgage signed with shaking hands; or 'an unexpected legacy'",
+       cause="with the money for it at last",
        lost="'losing the home', selling up, 'moving to a smaller home or into care'",
        needs="[savings] for a deposit and [good credit]"),
   dict(name="newcomer", kind="status", ways="",   # granted by the engine
@@ -628,6 +639,7 @@ TITLES += [
        say="an immigrant",
        gained="a visa and a one-way ticket ('moved away'), then 'the first months in a new country'; or the "
               "family's move abroad when they were small",
+       cause="after the move",
        lost="never; [citizenship] changes what it costs",
        needs="a reason to leave and a country that lets them in"),
   dict(name="someone with a record", kind="status", ways="",
@@ -668,6 +680,7 @@ TITLES += [
                                    # the eldest
        say="the eldest child",   # 2026-10-07 (Emren's point 4): "the eldest" alone read like an elder's standing
        gained="a younger brother or sister is born, so the first-born becomes the eldest (from about age 2)",
+       cause="now that a younger one has come",
        lost="never",
        needs="a younger sibling"),
   dict(name="carer for a parent", kind="status", ways="",
@@ -677,6 +690,7 @@ TITLES += [
                                    # caring for a parent
        say="a carer",
        gained="'a parent comes to stay for a week' and stays; 'a heart attack or stroke' in the family",
+       cause="as a parent begins to need help",
        lost="the parent's death, or the parent 'moving to a smaller home or into care'",
        needs="a parent who needs care"),
   dict(name="homeless", kind="status", ways="",
@@ -685,6 +699,7 @@ TITLES += [
                                     # estimate for rich countries
        say="homeless",
        gained="'losing the home', 'financial ruin', or a family row at sixteen and nowhere to go",
+       cause="with no money left and no one to turn to",
        lost="a flat through the council or a charity; a friend's sofa that turns into a room",
        needs="nowhere to go"),
   dict(name="out of work", kind="status", ways="",
@@ -1492,6 +1507,7 @@ TITLES += [
        say="in a choir",
        gained="an audition or an open rehearsal on a weeknight leads to regular membership: a school, church or "
               "community choir",
+       cause="after an open rehearsal one weeknight",
        lost="leaving, a move ('moved away'), the choir closing",
        needs="a willing ensemble and whatever audition in [singing] it asks",
        turning="The newest member has a beautiful voice but keeps rushing the shared phrase. The choir has to make "
@@ -1537,6 +1553,7 @@ TITLES += [
        say="a historical reenactor",
        gained="a public event at a castle or an old battlefield leads to joining a group, its drill and its sewing "
               "evenings",
+       cause="after a public day at an old castle",
        lost="leaving, interests changing, the group closing",
        needs="a place in the group, [period kit] and the safety arrangements its events require",
        turning="Someone asks whether the costume is accurate. Someone else asks whose history never gets "
@@ -1623,6 +1640,7 @@ TITLES += [
        say="a member of a housing cooperative",
        gained="they buy a share or come up the waiting list, move in, and take on the duties of membership: meetings, "
               "a rota, a vote on the budget",
+       cause="after coming up the waiting list",
        lost="selling or giving up the membership, a move, the cooperative dissolving",
        needs="actual membership and whatever housing and financial conditions the cooperative sets",
        turning="The roof needs money now; three households cannot afford the proposed contribution."),
@@ -1878,6 +1896,7 @@ TITLES += [
        ages=(0, 110), share=.02,   # about 2 children in 100 in the US are adopted (US Census 2010)
        say="adopted",
        gained="an adoption in childhood, by new parents, a stepparent or relatives, as the law of the setting defines it",
+       cause="taken in by new parents as a small child",
        lost="never; it is a fact of their history",
        needs="a recorded adoption; distinct from being an [adoptive parent]"),
   # T2-093
@@ -2545,6 +2564,7 @@ PERKS += [
        say="can swim",
        gained="lessons at the town pool, or a patient parent on 'a day at the beach'; "
               "'you never learned to swim' is the late chance",
+       cause="after lessons as a child",
        lost="only to an injury or great age",
        needs="'learned a skill'"),
   dict(name="cooking for a crowd", kind="skill", ways="G R W", odds=.04, skill_half=30, retires=None,
@@ -2559,6 +2579,7 @@ PERKS += [
                                    # (Eurobarometer 2012); fewer in the UK, far fewer in the US
        say="speaks a second language",
        gained="a parent's mother tongue, school lessons, 'a trip far from home', 'you take up an instrument or a language'",
+       cause="picked up over the years",
        lost="years without speaking it",
        needs="'learned a skill' several times"),
   dict(name="musical instrument", kind="skill", ways="R U", odds=.04, skill_half=10, retires=None,
@@ -2590,6 +2611,7 @@ PERKS += [
        ages=(6, 100), share=.35,   # estimate
        say="grows food",
        gained="a grandmother's garden, 'tending an allotment', 'an afternoon in the garden'",
+       cause="from a garden in childhood",
        lost="nothing; a flat with no garden suspends it",
        needs="a patch of earth and a season"),
   dict(name="sewing and mending", kind="skill", ways="G B", odds=.03, skill_half=30, retires=None,
@@ -2616,12 +2638,14 @@ PERKS += [
        ages=(6, 75), share=.1,   # estimate
        say="can handle themselves",
        gained="a club in a church hall after 'a fight after school' or 'someone starts mocking you online'",
+       cause="after training at a club",
        lost="injury, age, stopping training",
        needs="'learned a skill' several times"),
   dict(name="dancing", kind="skill", ways="R G", odds=.03, skill_half=15, retires=None,
        ages=(4, 100), share=.3,   # estimate
        say="can dance",
        gained="'dancing at a wedding', Saturday classes, 'a festival weekend'",
+       cause="picked up at weddings and parties",
        lost="the knees",
        needs="nerve"),
   dict(name="writing code", kind="skill", ways="U B", odds=.06, skill_half=5, retires=None,
@@ -2647,6 +2671,7 @@ PERKS += [
        say="can hunt and fish",
        gained="'a first fish on a grandparent's line', 'fishing the canal with friends', an uncle's rifle and a "
               "cold morning",
+       cause="taught by an older relative",
        lost="the eyes, the knees, or a move to the city",
        needs="patience; a [hunting licence] to hunt"),
   dict(name="selling", kind="skill", ways="B R", odds=.05, skill_half=10, retires=None,
@@ -2708,6 +2733,7 @@ PERKS += [
                                     # the US (FHWA)
        say="can drive",
        gained="lessons, a test failed once and passed the second time; 'a long car journey' as a passenger long before",
+       cause="after lessons and a test",
        lost="a ban for drink-driving, or 'the doctor says to stop driving'; the skill stays",
        needs="age 17 or 18; 'learned a skill'"),
   dict(name="first-aid certificate", kind="credential", ways="W R", odds=0, skill_half=3, retires=None,
@@ -2715,6 +2741,7 @@ PERKS += [
        say="knows first aid",
        gained="a day's course at work or with the scouts; it comes into its own when 'a stranger saves you, "
               "or you save one'",
+       cause="after a day's course",
        lost="it lapses after three years, and the know-how fades nearly as fast",
        needs="a day's course"),
   dict(name="passport", kind="credential", ways="R U", odds=0, skill_half=20, retires=None,
@@ -2722,12 +2749,14 @@ PERKS += [
                                    # (US State Department)
        say="has a passport",
        gained="'a trip far from home', 'a long-planned trip', a form and a photo booth",
+       cause="with the forms filled in at last",
        lost="it expires or is taken away; knowing how to travel stays",
        needs="citizenship somewhere, and the fee"),
   dict(name="school-leaving certificate", kind="credential", ways="W U", odds=0, skill_half=20, retires=None,
        ages=(16, 110), share=.85,   # about 8 adults in 10 have finished upper secondary school (OECD average)
        say="has finished school",
        gained="'exams are coming', and then they are passed",
+       cause="at the end of school",
        lost="never",
        needs="'learned a skill' several times"),
   dict(name="professional registration", kind="credential", ways="W U", odds=0, skill_half=10, retires=70,
@@ -2758,6 +2787,7 @@ PERKS += [
        ages=(16, 85), share=.1,   # estimate
        say="rides a motorbike",
        gained="a test at sixteen or seventeen, or 'the itch to be somewhere else' at forty-five",
+       cause="after a test on two wheels",
        lost="an accident, a ban, a partner's worry",
        needs="a basic training course"),
   dict(name="citizenship", kind="credential", ways="W B", odds=0, skill_half=None, retires=None,
@@ -2817,6 +2847,7 @@ PERKS += [
        ages=(18, 110), share=.6,   # estimate
        say="good for a loan",
        gained="bills paid on time, a first credit card handled well",
+       cause="with the bills paid on time",
        lost="missed payments, 'financial ruin'",
        needs="age 18 and an income"),
   dict(name="the one everyone asks", kind="standing", ways="U G", odds=.04, skill_half=10, retires=None,
@@ -2859,6 +2890,7 @@ PERKS += [
        ages=(0, 110), share=.08,   # estimate
        say="from an old family in the town",
        gained="born to it, or married into it",
+       cause="born into a family the town has known for generations",
        lost="a family scandal, a move far away",
        needs="a family that has lived there for generations"),
   dict(name="inner circle at work", kind="standing", ways="B U", odds=.05, skill_half=3, retires=70,
@@ -2871,6 +2903,7 @@ PERKS += [
        ages=(5, 19), share=.3,   # estimate
        say="a favourite with the teachers",
        gained="'a test at school tomorrow' passed, homework always in, a hand always up",
+       cause="with homework always in and a hand always up",
        lost="trouble at school ('you are grounded for a week' kind of trouble), a new school",
        needs="school"),
 ]
@@ -2900,6 +2933,7 @@ PERKS += [
        ages=(0, 110), share=.7,   # estimate
        say="always has a home to go back to",
        gained="born to it; or 'making peace with family you had cut off'",
+       cause="born into a family that holds together",
        lost="a deep break, or the old ones dying one by one",
        needs="a family"),
   dict(name="friend for life", kind="bond", ways="R G", odds=.04, skill_half=15, retires=None,
@@ -2936,6 +2970,7 @@ PERKS += [
        ages=(0, 110), share=.2,   # estimate
        say="has family abroad",
        gained="a family spread over two countries; 'a long-lost relative finds you'",
+       cause="with relatives spread over two countries",
        lost="the cousins die or drift",
        needs="relatives who once 'moved away'"),
   dict(name="old comrades", kind="bond", ways="R W", odds=.04, skill_half=15, retires=None,
@@ -2948,12 +2983,14 @@ PERKS += [
        ages=(0, 60), share=.15,   # estimate
        say="has a godparent who looks out for them",
        gained="chosen by the parents at a naming day",
+       cause="chosen at the naming",
        lost="a falling-out, the godparent's death",
        needs="parents who chose one"),
   dict(name="dog of one's own", kind="bond", ways="G R", odds=.02, skill_half=3, retires=None,
        ages=(4, 110), share=.4,   # estimate
        say="has a dog",
        gained="'a stray dog follows you home', or a puppy as 'a pet of your own'",
+       cause="after a dog comes into the home",
        lost="'your pet dies', a move to a flat that bans dogs",
        needs="a home that allows one, and money for food"),
   dict(name="in-laws who took you in", kind="bond", ways="R G", odds=.03, skill_half=10, retires=None,
@@ -2970,6 +3007,7 @@ PERKS += [
        ages=(10, 110), share=.5,   # estimate: three months' pay or more put by, at some point in life
        say="has savings put by",
        gained="'a cushion of your own', saving from 'your first pocket money', 'money worries end'",
+       cause="with a little put by each month",
        lost="'a bill you did not expect', 'financial ruin', 'a sudden urge to buy something big'",
        needs="money left over at the end of the month"),
   dict(name="paid-off home", kind="asset", ways="G B", odds=0, skill_half=None, retires=None,
@@ -2988,12 +3026,14 @@ PERKS += [
        ages=(14, 100), share=.07,   # estimate
        say="has the family business",
        gained="taken in by a relative who runs their own shop, or handed down at a parent's retirement",
+       cause="born into a family with a business of its own",
        lost="'financial ruin', 'a dispute over an inheritance', selling up",
        needs="a family that owns one; [shop owner] or [farmer] often follows"),
   dict(name="inheritance", kind="asset", ways="G B U", odds=0, skill_half=None, retires=None,
        ages=(18, 110), share=.4,   # estimate: a sum that changes something, not a keepsake
        say="has inherited money",
        gained="'a parent dies' or 'a grandparent dies', then 'an unexpected legacy'",
+       cause="after a loss in the family",
        lost="spent, or lost to 'a dispute over an inheritance'",
        needs="a relative with something to leave"),
   dict(name="workplace pension", kind="asset", ways="W U", odds=0, skill_half=None, retires=None,
@@ -3051,6 +3091,7 @@ PERKS += [
        say="has an instrument of their own",
        gained="a second-hand guitar for a birthday, 'a band or a sport that takes over your life', or 'you take up "
               "an instrument or a language'",
+       cause="after one comes as a gift",
        lost="sold when money is short",
        needs="money, or a generous relative"),
 ]
@@ -3618,6 +3659,7 @@ PERKS += [
        say="has a cat",
        gained="a kitten as 'a pet of your own', a kitten from a neighbour, a cat from the shelter of an "
               "[animal-shelter campaigner]",
+       cause="after a cat comes into the home",
        lost="'your pet dies'; a move to a flat that bans pets",
        needs="a home that allows one"),
   dict(name="people from home", kind="bond", ways="G B", odds=.04, skill_half=5, retires=None,
@@ -3742,6 +3784,7 @@ PERKS += [
        gained="years on the council's waiting list, or a flat through a housing association after being [homeless] "
               "or 'losing the home'; a [housing-cooperative member] holds one through the cooperative; sometimes "
               "passed on from a parent",
+       cause="after years on the waiting list",
        lost="'buying a home', a move away, or eviction after months of arrears",
        needs="a low income or a housing need, a local connection, and years on the list"),
 ]

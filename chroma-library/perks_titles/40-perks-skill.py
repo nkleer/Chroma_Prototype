@@ -7,6 +7,7 @@ PERKS += [
        say="can swim",
        gained="lessons at the town pool, or a patient parent on 'a day at the beach'; "
               "'you never learned to swim' is the late chance",
+       cause="after lessons as a child",
        lost="only to an injury or great age",
        needs="'learned a skill'"),
   dict(name="cooking for a crowd", kind="skill", ways="G R W", odds=.04, skill_half=30, retires=None,
@@ -21,6 +22,7 @@ PERKS += [
                                    # (Eurobarometer 2012); fewer in the UK, far fewer in the US
        say="speaks a second language",
        gained="a parent's mother tongue, school lessons, 'a trip far from home', 'you take up an instrument or a language'",
+       cause="picked up over the years",
        lost="years without speaking it",
        needs="'learned a skill' several times"),
   dict(name="musical instrument", kind="skill", ways="R U", odds=.04, skill_half=10, retires=None,
@@ -52,6 +54,7 @@ PERKS += [
        ages=(6, 100), share=.35,   # estimate
        say="grows food",
        gained="a grandmother's garden, 'tending an allotment', 'an afternoon in the garden'",
+       cause="from a garden in childhood",
        lost="nothing; a flat with no garden suspends it",
        needs="a patch of earth and a season"),
   dict(name="sewing and mending", kind="skill", ways="G B", odds=.03, skill_half=30, retires=None,
@@ -78,12 +81,14 @@ PERKS += [
        ages=(6, 75), share=.1,   # estimate
        say="can handle themselves",
        gained="a club in a church hall after 'a fight after school' or 'someone starts mocking you online'",
+       cause="after training at a club",
        lost="injury, age, stopping training",
        needs="'learned a skill' several times"),
   dict(name="dancing", kind="skill", ways="R G", odds=.03, skill_half=15, retires=None,
        ages=(4, 100), share=.3,   # estimate
        say="can dance",
        gained="'dancing at a wedding', Saturday classes, 'a festival weekend'",
+       cause="picked up at weddings and parties",
        lost="the knees",
        needs="nerve"),
   dict(name="writing code", kind="skill", ways="U B", odds=.06, skill_half=5, retires=None,
@@ -109,6 +114,7 @@ PERKS += [
        say="can hunt and fish",
        gained="'a first fish on a grandparent's line', 'fishing the canal with friends', an uncle's rifle and a "
               "cold morning",
+       cause="taught by an older relative",
        lost="the eyes, the knees, or a move to the city",
        needs="patience; a [hunting licence] to hunt"),
   dict(name="selling", kind="skill", ways="B R", odds=.05, skill_half=10, retires=None,

@@ -38,6 +38,7 @@ TITLES += [
        ages=(16, 100), share=.06,   # estimate: under 2 adults in 100 belong to a party at a time in most of Europe
        say="a party member",
        gained="'a bitter election', or a friend's invitation to a branch meeting above a pub",
+       cause="drawn in by the talk of the day",
        lost="a quarrel with the leadership, letting the membership lapse",
        needs="age 14 to 16 or more"),
   dict(name="convert", kind="faith", sphere="faith", face="faith.B", ways="U B",

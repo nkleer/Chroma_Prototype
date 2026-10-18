@@ -872,6 +872,76 @@ RECALL_IN = {
 # game keeps today's line
 TEMPER_CAUSE = ["Since {event}, {N} has become {m}.", "People who know {N} say {event} made them {m}.",
                 "After {event}, {N} slowly became {m}."]
+# every change has a cause (L2, 10-18; chroma-ideas/gameplay-2026-10-17/every-change-has-a-cause.md). Read only with the
+# game's causes switch on, key by key over its stand-ins.
+# CAUSE[kind]: the closing clause of a title or perk line ("Ari can swim now, <clause>."), lower case, no end stop.
+#   pick, pick_who, pick_gone   a mark their own pick left: {act} the act as a verb phrase ("lend a friend the rent"),
+#                               {age}, {P} the person in it; pick_gone is the memory form when {P} has died or moved far
+#                               away (Release's rule for gone people: a time remembered, not a person present)
+#   mark                        a mark a moment left: {what} the mark as MARK_SAY says it ("made a friend for life")
+#   moment                      a moment met: {what} its name, {age}
+#   held_title, held_perk       a title or perk held: {say} the title's say= words after "is" ("a nurse", "on the team"),
+#                               or the perk as a predicate after {N} ("can drive", "is known for turning up")
+#   money                       the money for it
+#   years, unused               a loss: {n} years held until it ran out, or {n} years without it (two or more);
+#   years_one, unused_one       the same when it was one year
+# Rules whose condition names an age, a stage or nothing carry their own cause= words in earth_perks_titles.py.
+CAUSE = {
+    "pick": "since choosing to {act} at {age}",
+    "pick_who": "since choosing to {act} with {P} at {age}",
+    "pick_gone": "since choosing to {act} with {P} at {age}, a time {N} still remembers",
+    "mark": "since the time {N} {what}, at {age}",
+    "moment": "after “{what}” at {age}",
+    "held_title": "since {N} is {say}",
+    "held_perk": "since {N} {say}",
+    "money": "now that there is money for it",
+    "years": "after {n} years",
+    "years_one": "after a year",
+    "unused": "after {n} years without it",
+    "unused_one": "after a year without it",
+}
+# CAUSE_HOLD: the rules whose condition would name a false cause today (tier A of chroma-library/notes/cause-audit.md):
+# the game names no clause for them, only the rule's own cause= words where the catalogue has them. cause_fit retires
+# each name as it tightens that rule
+CAUSE_HOLD = {
+    "adoptive parent", "asylum applicant", "award for bravery", "boxing or martial arts", "business partner",
+    "cancer survivor", "cat of one's own", "citizenship", "convert", "displaced by a disaster", "dog of one's own",
+    "drinks licence", "ex-prisoner", "first-generation university student", "former foster child", "foster parent",
+    "friend for life", "godchild", "graduate", "grandparent", "guardian of an unrelated child", "has killed in war",
+    "home nursing", "immigrant", "inheritance", "living in residential care", "local hero",
+    "parent of an only child", "parent of three or more", "scholarship", "someone with a record",
+    "spouse in a family-arranged marriage", "stepparent"
+}
+# YEAR_WHY: the year's mood line when the colours moved a lot. {how} is the game's words for the move ("growing curious
+# and cooling"); turn_by names the biggest mover, {ev}: a told event of the year, or src[source] for the engine's
+# biggest source of change (its 14 ASOURCES), each a noun phrase that reads after "After"
+YEAR_WHY = {
+    "turn": "{N} changes this year, {how}.",
+    "turn_by": "After {ev}, {N} changes this year, {how}.",
+    "src": {
+        "unmet needs": "going without what they need",
+        "surroundings": "time among the people around them",
+        "role models": "watching the people they look up to",
+        "settling back": "settling back into their old self",
+        "turning points": "a turning point",
+        "talking oneself into it": "talking themselves into it",
+        "resolutions": "a promise made to themselves",
+        "outside events": "what happened around them",
+        "the times": "the way the times are going",
+        "discontent": "a long discontent",
+        "contentment": "a contented stretch",
+        "restlessness": "a restless stretch",
+        "dreams and plans": "chasing their dreams and plans",
+        "a shorter horizon": "feeling time grow shorter",
+    },
+}
+# FOLD (causes_fold): the year's small perk changes as one line. {got} the gains ("can swim (since ...) and has a dog"),
+# {lost} the losses ("no longer dances"), each already a predicate after {N}
+FOLD = {
+    "gain": "By the end of the year, {N} {got}.",
+    "lose": "By the end of the year, {N} {lost}.",
+    "both": "By the end of the year, {N} {got}, and {lost}.",
+}
 # light and shadow (stage 2, item 2; chroma-ideas/shadows-mechanics.md section 6), the Game's outcome naming and chapter
 # line. Keys are the engine's five shadow states. Shown only with the engine's shadows switch on.
 # SHADOW_FAIL[state]: when an act fails because of the shadow, the game prints "<State word>: <clause>." on its own line
