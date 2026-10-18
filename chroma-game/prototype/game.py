@@ -65,6 +65,7 @@ class Game(CheckpointsMixin, WorldMixin, VoiceMixin, LifeMixin, ViewsMixin):
               (r"volunteer|kitchen|shelter", "the volunteers"), (r"radio", "the radio station"), (r"co-?op|committee|resident", "the residents' committee"))
     _kin_t = None           # week the story's family was last matched to the world's
     KIN_WAIT = 12           # weeks a death in the world waits for the engine's own record before the story says it
+    DUE_WAIT = 8            # F7: weeks a world death of kin waits in story.due for an engine death to claim it (F7.2 allows 13)
     NEWS_GAP = 8 * 52       # one public figure's scandals, rises and falls: the story tells one in this many weeks
     world_source = None     # the engine's outer world: a callable, hidden week -> (snapshot, record, cast, standing); None until it lands
     _wloc = None            # the locality they live in, as last told
