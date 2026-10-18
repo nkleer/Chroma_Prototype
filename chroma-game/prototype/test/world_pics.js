@@ -47,7 +47,7 @@ const { holdOpt, pushOpt, keyOpt } = require('./hold.js');   // v23: with the Li
   // v22's picFor, as published (Earth lives must read exactly this)
   const OLD = (a) => { if (!a) return ''; const d = String(a.life || '').split(',').map((x) => x.trim()).find((x) => PICS.domain[x]);
     return PICS.situation[a.sit] || PICS.situation[a.variant_of] || (d && PICS.domain[d]) || PICS.tier[a.tier] || ''; };
-  let steps = 0, chosen = 0, keyed = 0, held = 0, notThrough = 0, pushedAt = null, left = 0, sideways = 0, moments = 0, il = 0, firstCp = false, firstIl = false, at30 = false;
+  let steps = 0, chosen = 0, keyed = 0, held = 0, notThrough = 0, pushedAt = null, noCard = [], left = 0, sideways = 0, moments = 0, il = 0, firstCp = false, firstIl = false, at30 = false;
   const bad = [];
   const t0 = Date.now(), limit = (+mins || 40) * 60000;
   while (Date.now() - t0 < limit) {
@@ -77,8 +77,11 @@ const { holdOpt, pushOpt, keyOpt } = require('./hold.js');   // v23: with the Li
       moments++;
       if (!firstCp) { firstCp = true; await shot('moment'); }
       if (want ? s.shown !== want : s.shown !== (s.old || null)) bad.push({ age: s.age, sit: s.sit, shown: s.shown, expected: want || s.old });
-      if (Math.random() < 0.5) {
-        const opts = await page.$$('#evwrap .opt:not(.pass)'); const o = opts[Math.floor(Math.random() * opts.length)];
+      // a random card, or none: every way but Do nothing can be folded away out of reach (the fold is closed)
+      const opts = Math.random() < 0.5 ? await page.$$('#evwrap .opt:not(.pass)') : null;
+      if (opts && !opts.length) noCard.push(await page.evaluate(() => ({ age: hud.life.age, ways: hud.cp.options.length, oor: hud.cp.options.filter((o) => o.status === 'out of reach').length })));
+      if (opts && opts.length) {
+        const o = opts[Math.floor(Math.random() * opts.length)];
         // the first push by its number on the keyboard; after it a desktop holds the card (a click, on a page without the
         // hold), and a phone in turn holds it with a finger or taps it to read it and pushes with "Push them to this"
         pushedAt = s.key;
@@ -100,7 +103,7 @@ const { holdOpt, pushOpt, keyOpt } = require('./hold.js');   // v23: with the Li
   const tarot = pics.filter(([src]) => /tarot-/.test(src)), other = pics.filter(([src]) => !/tarot-/.test(src));
   il = pics.filter(([, w]) => w === 'ilPic').length;
   const wrong = want ? pics.filter(([src]) => src !== want) : tarot;
-  console.log(JSON.stringify({ tag, preset, setting, width: +W, end, steps, moments, chosen, keyed, held, notThrough, left, sideways, pictures: pics.length, interludePictures: il,
+  console.log(JSON.stringify({ tag, preset, setting, width: +W, end, steps, moments, chosen, keyed, held, notThrough, noCard, left, sideways, pictures: pics.length, interludePictures: il,
     tarotPictures: tarot.length, otherPictures: other.length, wrongPictures: wrong.length, momentMismatches: bad.length }));
   console.log('pictures by source and place', JSON.stringify(by));
   if (wrong.length) console.log('wrong', JSON.stringify(wrong.slice(0, 10)));

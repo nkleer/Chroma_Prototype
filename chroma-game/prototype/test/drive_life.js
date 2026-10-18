@@ -46,7 +46,7 @@ const { holdOpt, pushOpt, keyOpt } = require('./hold.js');   // v23: with the Li
   await page.waitForSelector('#tMain, .opt, #goOn', { timeout: 600000 });   // the years before the player, on a loaded machine
   await idle(); notes.setupWait = Math.round((Date.now() - tGo) / 1000) + ' s to the first idle state, from age ' + (await page.evaluate(() => hud.life && hud.life.age));
   notes.name = await page.evaluate(() => hud.life && hud.life.name);
-  let steps = 0, chosen = 0, keyed = 0, held = 0, notThrough = 0, pushedAt = null, left = 0, sideways = 0, openAfterGoOn = 0, firstCp = false, firstRes = false, at30 = false, renames = 0, autoSeen = null, resume = null;
+  let steps = 0, chosen = 0, keyed = 0, held = 0, notThrough = 0, pushedAt = null, noCard = [], left = 0, sideways = 0, openAfterGoOn = 0, firstCp = false, firstRes = false, at30 = false, renames = 0, autoSeen = null, resume = null;
   const readAuto = () => page.evaluate(() => { try { const d = JSON.parse(localStorage.getItem('chroma.autosave') || 'null'); return d ? { name: d.name, age: d.age } : null; } catch (_) { return 'unreadable'; } });
   const t0 = Date.now(), limit = (+mins || 25) * 60000;
   while (Date.now() - t0 < limit) {
@@ -78,8 +78,11 @@ const { holdOpt, pushOpt, keyOpt } = require('./hold.js');   // v23: with the Li
       if (await page.evaluate(() => !busy && !document.getElementById('evwrap').hidden && !!document.querySelector('#goOn'))) openAfterGoOn++;
     } else if (s.ev && s.cp) {
       if (!firstCp) { firstCp = true; await shot('moment'); }
-      if (Math.random() < 0.5) {
-        const opts = await page.$$('#evwrap .opt:not(.pass)'); const o = opts[Math.floor(Math.random() * opts.length)];
+      // a random card, or none: every way but Do nothing can be folded away out of reach (the fold is closed)
+      const opts = Math.random() < 0.5 ? await page.$$('#evwrap .opt:not(.pass)') : null;
+      if (opts && !opts.length) noCard.push(await page.evaluate(() => ({ age: hud.life.age, ways: hud.cp.options.length, oor: hud.cp.options.filter((o) => o.status === 'out of reach').length })));
+      if (opts && opts.length) {
+        const o = opts[Math.floor(Math.random() * opts.length)];
         // the first push by its number on the keyboard; after it a desktop holds the card (a click, on a page without the
         // hold), and a phone in turn holds it with a finger or taps it to read it and pushes with "Push them to this"
         pushedAt = s.key;
@@ -96,7 +99,7 @@ const { holdOpt, pushOpt, keyOpt } = require('./hold.js');   // v23: with the Li
   const atEnd = await readAuto();                       // a finished life leaves no Continue: the review clears the slot
   const auto = end.mode === 'over' ? (autoSeen && !atEnd ? autoSeen : null) : atEnd || autoSeen;
   const rb = await page.$('#rvBook'); if (rb) { await rb.click(); await page.waitForTimeout(700); await shot('book'); }
-  console.log(JSON.stringify({ tag, preset, width: +W, name: notes.name, step2: notes.step2, setupWait: notes.setupWait, waitLine: notes.waitLine, end, steps, chosen, keyed, held, notThrough, left, renames, sideways, openAfterGoOn, autosave: auto, autosaveAtEnd: atEnd, resume, minutes: ((Date.now() - t0) / 60000).toFixed(1) }));
+  console.log(JSON.stringify({ tag, preset, width: +W, name: notes.name, step2: notes.step2, setupWait: notes.setupWait, waitLine: notes.waitLine, end, steps, chosen, keyed, held, notThrough, noCard, left, renames, sideways, openAfterGoOn, autosave: auto, autosaveAtEnd: atEnd, resume, minutes: ((Date.now() - t0) / 60000).toFixed(1) }));
   console.log('errors', JSON.stringify(logs.slice(0, 10)), logs.length);
   await browser.close();
   process.exit(end.mode === 'over' && !logs.length && !sideways && !openAfterGoOn && !notThrough && auto && (!resume || resume.ok) ? 0 : 1);   // resume stays null only for a life over before 20
