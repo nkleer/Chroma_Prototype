@@ -27,7 +27,7 @@ PERKS += [
   dict(name="inheritance", kind="asset", ways="G B U", odds=0, skill_half=None, retires=None,
        ages=(18, 110), share=.4,   # estimate: a sum that changes something, not a keepsake
        say="has inherited money",
-       gained="'a parent dies', then 'an unexpected legacy'",
+       gained="'a parent dies' or 'a grandparent dies', then 'an unexpected legacy'",
        lost="spent, or lost to 'a dispute over an inheritance'",
        needs="a relative with something to leave"),
   dict(name="workplace pension", kind="asset", ways="W U", odds=0, skill_half=None, retires=None,
@@ -83,7 +83,8 @@ PERKS += [
   dict(name="instrument of one's own", kind="asset", ways="R U", odds=0, skill_half=None, retires=None,
        ages=(5, 110), share=.2,   # estimate
        say="has an instrument of their own",
-       gained="a second-hand guitar for a birthday, or a piano that came with the house",
+       gained="a second-hand guitar for a birthday, 'a band or a sport that takes over your life', or 'you take up "
+              "an instrument or a language'",
        lost="sold when money is short",
        needs="money, or a generous relative"),
 ]

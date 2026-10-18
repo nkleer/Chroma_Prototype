@@ -60,7 +60,7 @@ PERKS += [
   dict(name="citizenship", kind="credential", ways="W B", odds=0, skill_half=None, retires=None,
        ages=(5, 110), share=.08,   # about 14 in 100 people are foreign-born and about 6 in 10 of them naturalise (OECD), so about 8 in 100 (2026-10-07; was .06)
        say="has citizenship",
-       gained="years of residence, a test on the history and laws, an oath at a ceremony with a small flag",
+       gained="years of residence as an [immigrant], a test on the history and laws, then 'the oath of citizenship'",
        lost="almost never",
        needs="[immigrant]; years of legal residence"),
   dict(name="drinks licence", kind="credential", ways="B R", odds=0, skill_half=10, retires=None,

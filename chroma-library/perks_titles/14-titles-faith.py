@@ -45,7 +45,7 @@ TITLES += [
        ages=(14, 110), share=.08,   # about a third of US adults have changed religion, most of them to none (Pew 2015);
                                    # estimate for joining a new faith
        say="a convert",
-       gained="a long search, a partner's faith, 'welcomed into a community'",
+       gained="a long search as a [seeker], a partner's faith, 'welcomed into a community'",
        lost="leaving again",
        needs="a faith they were not raised in"),
   dict(name="seeker", kind="faith", sphere="faith", face="faith.U", ways="G U",

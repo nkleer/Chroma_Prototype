@@ -40,8 +40,8 @@ PERKS += [
                                     # Wildlife Service); England about a million rod licences (Environment Agency);
                                     # estimate for ever
        say="holds a fishing licence",
-       gained="a rod licence bought at the post office or online, after a grandparent's river at dawn ([hunting and "
-              "fishing]) or 'a day at the beach' with a borrowed line; a commercial permit for a [commercial fisher]",
+       gained="a rod licence after 'a first fish on a grandparent's line', 'fishing the canal with friends' or "
+              "[hunting and fishing]; a permit for a [commercial fisher]",
        lost="not renewed one spring; a ban after an offence",
        needs="age 12 or 13 or more for a rod licence; a permit and a quota for commercial fishing"),
   dict(name="gas safety registration", kind="credential", ways="U B", odds=0, skill_half=10, retires=None,
@@ -83,9 +83,8 @@ PERKS += [
                                     # (Attorney-General's Department); in the US many couples are married by a friend
                                     # ordained online; in most of Europe only registrars and clergy marry people
        say="is authorised to conduct weddings",
-       gained="a celebrant course and a place on the state's register, which comes with [civil celebrant]; ordination "
-              "for an [ordained religious minister]; in some places a one-day designation, or an online "
-              "ordination, to lead a friend's wedding after 'dancing at a wedding' many times",
+       gained="a place on the register with [civil celebrant]; ordination for an [ordained religious minister]; a "
+              "one-day designation to lead 'a friend's wedding'",
        lost="struck from the register after a conviction, or the yearly training let go",
        needs="age 18 or more; legal recognition where the country gives it; [public speaking] helps"),
   dict(name="court interpreter accreditation", kind="credential", ways="W U", odds=0, skill_half=10, retires=None,
@@ -189,8 +188,8 @@ PERKS += [
        ages=(16, 85), share=.015,   # estimate: forestry, tree and farm work ask for one in Britain; in Germany people
                                     # who cut their own firewood in a state forest take the course
        say="holds a chainsaw ticket",
-       gained="a week's course on upkeep and felling, then an assessment in the woods; it comes with [forester], and "
-              "a [farmer] or a tree surgeon needs one too",
+       gained="a week's course on upkeep and felling, then an assessment in the woods; it comes with [forester], "
+              "and a [farmer] or a [plot of land] with trees needs one too",
        lost="it does not lapse, but insurers want a refresher after years away",
        needs="age 16 or more; protective kit"),
 ]

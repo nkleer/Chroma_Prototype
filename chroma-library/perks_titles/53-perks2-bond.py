@@ -39,14 +39,15 @@ PERKS += [
   dict(name="godchild", kind="bond", ways="W G", odds=.02, skill_half=15, retires=None,
        ages=(16, 100), share=.2,   # estimate: christenings and naming days are rarer than they were
        say="has a godchild",
-       gained="asked at a christening or a naming day by a sister, a brother or a [friend for life]",
+       gained="'asked to stand for a child at the naming' by a sister, a brother or a [friend for life]",
        lost="a falling-out with the parents, a move far away",
        needs="[friend for life] or family who ask"),
   dict(name="cat of one's own", kind="bond", ways="U G", odds=.02, skill_half=3, retires=None,
        ages=(4, 110), share=.45,   # about 1 UK adult in 4 owns a cat (PDSA, PAW Report 2024), about 1 US household in 3
                                    # (APPA); estimate over a life
        say="has a cat",
-       gained="'a pet of your own', a kitten from a neighbour, a cat from the shelter of an [animal-shelter campaigner]",
+       gained="a kitten as 'a pet of your own', a kitten from a neighbour, a cat from the shelter of an "
+              "[animal-shelter campaigner]",
        lost="'your pet dies'; a move to a flat that bans pets",
        needs="a home that allows one"),
   dict(name="people from home", kind="bond", ways="G B", odds=.04, skill_half=5, retires=None,

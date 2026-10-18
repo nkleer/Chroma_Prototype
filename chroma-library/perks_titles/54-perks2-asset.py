@@ -4,9 +4,8 @@ PERKS += [
        ages=(14, 100), share=.005,   # estimate: the EU counts about 600,000 beekeepers (European Commission), and many
                                      # give up after a few seasons
        say="has hives of their own",
-       gained="'a new hobby you cannot put down': a course with the local beekeepers, a swarm caught in a box or a "
-              "colony bought in spring, and a registration with the bee inspector; a [professional beekeeper] grows "
-              "from here",
+       gained="a course with the local beekeepers and a swarm caught in a box, kept on a [plot of land], a farm or "
+              "an allotment; a [professional beekeeper] grows from here",
        lost="'a third of the hives dead after winter' and not started again; a move with nowhere to keep them; old "
             "age and heavy boxes",
        needs="a garden, a [plot of land] or a farmer's corner where they may stand; neighbours who do not mind"),
@@ -14,8 +13,8 @@ PERKS += [
        ages=(16, 100), share=.08,   # estimate: about 1 US household in 10 owns a boat (NMMA); Sweden counts close to
                                     # 900,000 leisure boats for 10 million people; far fewer in Britain
        say="has a boat of their own",
-       gained="a second-hand dinghy, a fishing boat on a trailer or a narrowboat bought with [savings] after summers "
-              "of 'a day at the beach'",
+       gained="a second-hand dinghy, a fishing boat on a trailer or a narrowboat bought with [savings] after "
+              "summers of [boat handling] or [hunting and fishing]",
        lost="sold when money is short, or left to rot on the hard",
        needs="money for the mooring; [swimming] helps"),
   dict(name="share in a fishing boat", kind="asset", ways="G B", odds=0, skill_half=None, retires=None,
