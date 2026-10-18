@@ -47,8 +47,9 @@ fewer of them also means less test time.
 3. Change only your own folder. On a `feature/` branch, the thread leading the change opens the pull request at once,
    as a draft, and the coordinator asks each other owner to commit its own part to the same branch: fetch the branch,
    commit, push. If the push is refused because the branch moved, fetch it again and merge it in; never force-push it.
-4. When the change includes an engine, Library or packs part, the game's re-pin (`chroma-game/tools/build.py`) is the
-   last commit on the same branch, not a pull request of its own.
+4. An engine, Library or packs change needs no re-pin. The game's `engine_pin/` is not in git:
+   `chroma-game/tools/pin.py` fills it from the owners' folders, and the game's tests run it first, so the game's
+   checks on the same branch play the change.
 5. A fix to an open change goes on its branch, not into a new pull request. Small changes of one owner that nothing
    waits on (comments, notes kept in the repository, check-script tweaks, one-line fixes) collect on one branch and go
    in one pull request.
@@ -100,8 +101,9 @@ Other threads and the checks still read the shared folder, so a merged change is
     python3 -B tools/mirror.py <path> [<path> ...]            # from a clean checkout of main
 
 It copies the tracked files under the paths you name to the same paths in `/mnt/project-files`, prints each file's
-md5, and deletes nothing. It refuses any file of the live version (the files in `chroma-env/live-<version>-manifest.txt`),
-because those change only at a publish.
+md5, and deletes nothing. When a path covers the game's `engine_pin/`, it fills that from the checkout's owners'
+folders with `chroma-game/tools/pin.py` first and copies it too. It refuses any file of the live version (the files in
+`chroma-env/live-<version>-manifest.txt`), because those change only at a publish.
 
 ## Publishing a version
 
@@ -111,8 +113,9 @@ because those change only at a publish.
    `chroma-game/tools/build.py`.
 3. Release pushes that commit as `release/<version>`. From a checkout of that branch, the game writes every live path
    (the game, the engine, the Library's top-level files, the packs, `chroma-art/game`, `chroma-game/tools`) with
-   `python3 -B tools/mirror.py --publish <paths>`.
-4. The workspace thread writes `chroma-env/live-<version>-manifest.txt` from the release branch itself and points
+   `python3 -B tools/mirror.py --publish <paths>`, which fills the game's `engine_pin/` from that checkout first.
+4. The workspace thread writes `chroma-env/live-<version>-manifest.txt` from a checkout of the release branch, after
+   `python3 -B chroma-game/tools/pin.py` has filled its `engine_pin/`, and points
    `chroma-env/paths.py` and `check_live.py` at the new version; `check_live.py check` must then show 0 changed. Until
    the next publish, nothing but `mirror.py --publish` writes a file that manifest lists.
 

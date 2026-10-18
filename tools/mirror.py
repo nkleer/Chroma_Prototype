@@ -6,6 +6,11 @@
 Copies every tracked file under the named paths to CHROMA_ROOT (default /mnt/project-files), prints each file's md5,
 and deletes nothing. Without --publish it refuses files of the live version (chroma-env/live-<version>-manifest.txt,
 the live_manifest entry of chroma-env/paths.py), because those change only at a publish.
+
+The game's engine_pin/ is not in git (plan by function, step 2). When a named path covers it, chroma-game/tools/pin.py
+first fills it in this checkout from the checkout's own engine, Library and packs, and its files are copied with the
+tracked ones, so the shared folder's game plays what the checkout holds. A checkout with a committed pin (one from
+before step 2) is copied as it is.
 """
 import hashlib, os, shutil, subprocess, sys
 
@@ -22,6 +27,23 @@ def live_files():
     return {line.split(None, 2)[2].strip() for line in open(P["live_manifest"]) if line.strip()}
 
 
+PIN = "chroma-game/prototype/engine_pin"
+
+
+def pin_files(paths):
+    """engine_pin/'s files under the named paths, filled first by chroma-game/tools/pin.py (none if no path covers it)."""
+    names = [os.path.normpath(p) for p in paths]
+    under = lambda f: any(n == "." or f == n or f.startswith(n + "/") for n in names)
+    if not any(under(PIN) or n.startswith(PIN + "/") for n in names) or not os.path.isfile("chroma-game/tools/pin.py"):
+        return []
+    subprocess.run([sys.executable, "-B", "chroma-game/tools/pin.py"], check=True)
+    out = []
+    for dp, dn, fn in os.walk(PIN):
+        dn[:] = sorted(d for d in dn if d != "__pycache__")
+        out += [os.path.join(dp, f) for f in sorted(fn)]
+    return [f for f in out if under(f)]
+
+
 def main(argv):
     publish = "--publish" in argv
     paths = [a for a in argv if a != "--publish"]
@@ -34,6 +56,7 @@ def main(argv):
     if publish != branch.startswith("release/") or (not publish and branch != "main"):
         sys.exit(f"STOP: on {branch}; plain mirroring runs on main, --publish on a release/<version> branch")
     files = [f for f in git("ls-files", "-z", "--", *paths).split("\0") if f]
+    files = list(dict.fromkeys(files + pin_files(paths)))
     if not files:
         sys.exit("STOP: no tracked files under " + " ".join(paths))
     if not publish:
