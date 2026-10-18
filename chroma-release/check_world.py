@@ -41,7 +41,7 @@ from paths import P, path, ROOT   # backend plan item 6: every folder is named o
 ap = argparse.ArgumentParser()
 ap.add_argument("--engine", default=os.environ.get("CHROMA_ENGINE") or P["engine_live"])
 ap.add_argument("--tools", default=os.path.join(ROOT, "chroma-engine", "tools"))   # the Engine's scripts (backend plan item 7)
-ap.add_argument("--proto", default=P["engine_v23"])   # before item 7: the engine with the scripts in its calib_v10/
+ap.add_argument("--proto", default=P["engine_prototype"])   # before item 7: the engine with the scripts in its calib_v10/
 ap.add_argument("--lib", default=P["library_live"])
 ap.add_argument("--packs-dir", default=P["packs_live"])
 ap.add_argument("--game", default=P["game_live"])
