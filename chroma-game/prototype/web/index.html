@@ -3543,6 +3543,11 @@ function feltGem(f, cls, arrow) {
   const C = 2 * Math.PI * 6.5, v = clamp(f, 0.01, 0.99);
   return `<span class="gem"><svg viewBox="0 0 16 16" aria-hidden="true"><circle class="g0" cx="8" cy="8" r="6.5"/><circle class="g1" cx="8" cy="8" r="6.5" stroke-dasharray="${(v * C).toFixed(1)} ${C.toFixed(1)}"/></svg><b>${fpct(f)}</b>${arrow && cls !== "eq" ? `<i class="${cls}">${arrow}</i>` : ""}</span>`;
 }
+// Stakes on the card (the game's stakes switch): what a way changes for good, from the Library's own fields. The person
+// its mark touches is a chip ahead of the titles and perks; a closed way's backfire and the risk to life are its "if it fails"
+const STAKE_DOWN = new Set(["made an enemy", "refused someone in need", "broke your word"]);
+const stakeChips = (sk) => sk.people ? [`<span class="mk2 rb stake ${STAKE_DOWN.has(sk.mark) ? "down" : "up"}">${ic("people")}${esc(sk.people)}</span>`] : [];
+const stakeFails = (sk) => [sk.fails, sk.risk].filter(Boolean).join(", and ");
 function optRow(o, i, num) {
   const pass = !o.means.length, st = o.status, ends = [...new Set(o.ends)], f = o.follows || {};
   const acc = o.own ? "their own pick" : o.accept || "okay with it";
@@ -3563,12 +3568,17 @@ function optRow(o, i, num) {
   if (!o.own && Math.abs(o.era || 0) >= 0.3) marks.push(`<span class="mk2 era ${o.era > 0 ? "with" : "against"}">${ic("globe")}${o.era > 0 ? "with the times" : "against the times"}</span>`);   // P3
   const hp = (o.helped || []).find((h) => h.name === o.helped_row);     // a perk that sets this option apart; the strip lists all
   if (hp) marks.push(`<span class="mk2 rb up">${ic(roleIconOf(hp))}${esc(hp.pred)}</span>`);
-  for (const x of (o.roles_fx || []).slice(0, 1)) marks.push(`<span class="mk2 rb ${x.gain ? "up" : "down"}${x.when === "fail" ? " iffail" : ""}">${ic(roleIconOf(x))}${x.gain ? "+" : "−"} ${esc(x.title ? shortSay(x.say) : x.name)}</span>`);
+  const sk = o.at_stake || {}, lasting = stakeChips(sk);   // Stakes on the card: what it changes for good comes first
+  for (const x of (o.roles_fx || [])) lasting.push(`<span class="mk2 rb ${x.gain ? "up" : "down"}${x.when === "fail" ? " iffail" : ""}">${ic(roleIconOf(x))}${x.gain ? "+" : "−"} ${esc(x.title ? shortSay(x.say) : x.name)}</span>`);
+  marks.push(...lasting.slice(0, hud && hud.cp && hud.cp.stake_card ? 2 : 1));
+  if (sk.risk || sk.fails) marks.push(`<span class="mk2 rb down iffail stake">${ic(sk.risk ? "pulse" : "burst")}if it fails: ${esc(sk.risk || sk.fails)}</span>`);
   const bits = [];                                      // the small print, shown on the phone and in the strip
   if (f.needs && f.needs.length) bits.push(`<span>meets ${esc(f.needs.join(" and "))}</span>`);
   for (const x of (f.lift || [])) bits.push(`<span class="up">${ic(NEED_ICON[x.need] || "dot")} ${esc(NEED_LONG[x.need] || x.need)} is ${esc(x.word)}: ${esc(x.lift)}</span>`);
   if (o.commit) bits.push(`<span>${ic(KIND_ICON[o.commit] || "anchor")} could start ${o.commit_say ? esc(o.commit_say) : "a " + esc(o.commit)}</span>`);
   if (o.needs) bits.push(`<span class="why">${ic("lock")} ${esc(o.needs.line)}</span>`);
+  if (sk.people) bits.push(`<span class="${STAKE_DOWN.has(o.mark) ? "down" : "up"}">${ic("people")} ${esc(sk.people)}</span>`);
+  if (sk.risk || sk.fails) bits.push(`<span class="down">if it fails: ${esc(stakeFails(sk))}</span>`);
   if (!pass) bits.push(fxHTML(f));
   if (pass) return `<button class="opt pass onone" data-i="${i}" data-num="${n}" style="--n:${i}" aria-label="${esc(n + ": " + cap(o.label) + ". " + ACC_WORD[acc])}">
     ${ic("hourglass")}<span class="obody"><span class="ot">${esc(cap(o.label))}</span><span class="os"><span>Nothing changes now; wanting and pressure keep building.</span></span></span>
@@ -3595,7 +3605,9 @@ function stripHTML(o, num) {
   if (!o.own && !pass && o.rel >= 0.02) facts.push(`<span${o.resent > o.rel + 0.005 ? ' class="down"' : ""}><b>If you push</b> ${o.resent < 0.05 ? "little resentment" : o.resent < 0.3 ? "some resentment" : o.resent < 0.6 ? "resentment: strain and pent-up wanting" : "strong resentment"}${Math.abs(o.trust || 0) >= 0.05 ? ` (${o.trust > 0 ? "they trust you" : "they distrust you"} in these colors)` : ""}; it counts against their own life unless it gives them something they lack</span>`);
   if (f.cost && f.cost.length) facts.push(`<span><b>Costs</b> ${f.cost.map((x) => `${ic(RES_ICON[x.slice(1)] || "dot")}${esc(x.slice(1))}`).join(" ")}</span>`);
   if (!pass) facts.push(`<span><b>If it works</b> ${f.win && f.win.length ? `<span class="up">${f.win.map((x) => `${x[0] === "+" ? "+" : "−"}${esc(x.slice(1))}`).join(" ")}</span>, ` : ""}toward ${pips(o.ends)}</span>`);
-  if (!pass) facts.push(`<span><b>If it fails</b> <span class="down">${(f.lose || []).map((x) => `${x[0] === "+" ? "+" : "−"}${esc(x.slice(1))}`).concat(["strain", "doubt"]).join(", ")}</span></span>`);
+  const sk = o.at_stake || {};                          // Stakes on the card
+  if (sk.people) facts.push(`<span><b>For good</b> <span class="${STAKE_DOWN.has(o.mark) ? "down" : "up"}">${esc(sk.people)}</span></span>`);
+  if (!pass) facts.push(`<span><b>If it fails</b> <span class="down">${(sk.risk || sk.fails ? [esc(stakeFails(sk))] : []).concat((f.lose || []).map((x) => `${x[0] === "+" ? "+" : "−"}${esc(x.slice(1))}`), ["strain", "doubt"]).join(", ")}</span></span>`);
   if (o.commit) facts.push(`<span><b>Could start</b> ${ic(KIND_ICON[o.commit] || "anchor")} a ${esc(o.commit)}${f.commit_p ? ` (about ${pct(f.commit_p)})` : ""}</span>`);
   if (o.seen) facts.push(`<span><b>Seen it done</b> ${esc(o.seen.text)}</span>`);   // S6
   if (o.lever) facts.push(`<span class="lever"><b>A push on the world</b> ${ic(o.lever.icon)}${esc(o.lever.what || o.lever.name)}${o.lever.target ? ` (${esc(o.lever.target)})` : ""}</span>`);
@@ -3631,7 +3643,9 @@ function tipOption(o, name, num) {
   if (f.cost && f.cost.length) rows.push(["Costs", f.cost.map((x) => `${ic(RES_ICON[x.slice(1)] || "dot")} ${esc(x.slice(1))}`).join(" ")]);
   if (f.win && f.win.length) rows.push(["If it works", `<span class="up">${f.win.map((x) => `${x[0] === "+" ? "+" : "−"}${esc(x.slice(1))}`).join(" ")}</span>, draws them toward ${colorsHTML(o.ends, o.ends)}`]);
   else if (o.means.length) rows.push(["If it works", `draws them toward ${colorsHTML(o.ends, o.ends)}`]);
-  if (o.means.length) rows.push(["If it fails", `<span class="down">${(f.lose || []).map((x) => `${x[0] === "+" ? "+" : "−"}${esc(x.slice(1))}`).concat(["strain", "doubt in these ways"]).join(", ")}</span>`]);
+  const sk = o.at_stake || {};                          // Stakes on the card
+  if (sk.people) rows.push(["For good", `<span class="${STAKE_DOWN.has(o.mark) ? "down" : "up"}">${ic("people")} ${esc(sk.people)}</span>`]);
+  if (o.means.length) rows.push(["If it fails", `<span class="down">${(sk.risk || sk.fails ? [esc(stakeFails(sk))] : []).concat((f.lose || []).map((x) => `${x[0] === "+" ? "+" : "−"}${esc(x.slice(1))}`), ["strain", "doubt in these ways"]).join(", ")}</span>`]);
   if (o.commit) rows.push(["Could start", `${ic(KIND_ICON[o.commit] || "anchor")} a ${esc(o.commit)}` + (f.commit_p ? ` (about ${pct(f.commit_p)})` : "")]);
   if (o.needs) rows.push(["Needs", `${esc(cap(o.needs.line))}` + (o.closed ? `. Without it, ${CLOSED_WORD[o.closed] || "the world"} stands in the way: it can still be tried, at higher risk.` : ".")]);
   if ((o.helped || []).length) rows.push(["Helped by", o.helped.map((h) => `${ic(roleIconOf(h))} ${esc(cap(h.pred))}${h.plus ? ` <span class="up">+${h.plus}%</span>` : ""}`).join("<br>")]);

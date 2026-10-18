@@ -6,8 +6,8 @@ import numpy as np
 import re
 from game_base import (ADJ, ADJ_LOOK, C, CNAME, COLORS, DRIVER_WORD, E, EP, FREQ, GAME, KNAMES, NEED_WORD, STAGES, X,
     act, chooses, ident_name, letters, lever_info, mk, need_level_word, push_words, res_names, role_info, world_says)
-from game_words import (ACC_FROM_ENGINE, PRESSURE, RARE_SHARE, THREAD_COMMIT, THREAD_GOAL, accept_word, clash_with,
-    clean, hint, long_shot_words, reluctance)
+from game_words import (ACC_FROM_ENGINE, PRESSURE, RARE_SHARE, STAKE_KIND, STAKE_MARK, STAKE_NEAR, STAKE_SOON,
+    THREAD_COMMIT, THREAD_GOAL, accept_word, clash_with, clean, hint, long_shot_words, reluctance, stake_risk)
 from story_base import LIB_ECHO, LIB_GONE, PERSON_SLOTS
 
 
@@ -270,6 +270,11 @@ class CheckpointsMixin:
         for o in opts:                                  # the Library's role slots in an option ({friend}, {boss}): the scene's people
             if "{" in o["label"]:
                 o["label"] = self.story.fill_label(o["label"], m)
+        if GAME["stakes"] and "notes" in L:             # Stakes on the card: what each way changes for good (display only)
+            for o in opts:
+                st = self._stake_of(L, s, m, o)
+                if st:
+                    o["at_stake"] = st
         if not recon and t / 52 >= self.start_age:      # F5: a moment that follows from a pick of theirs says so
             _, cause = self._thread_of(loc, s)
             if cause is not None:
@@ -576,6 +581,47 @@ class CheckpointsMixin:
             return None
         return next((x for x in self._seeds if x["kind"] == mark and "came" not in x and self.t - x["t"] >= GAME["ret_gap"]
                      and (x["who"] is None or x["who"]["alive"] or self.L["names"][s] in LIB_GONE)), None)   # the dead: a memory
+
+    def _stake_of(self, L, s, m, o):
+        """Stakes on the card: what a way changes for good, from the Library's own fields for it. people: what its mark
+        does to someone (STAKE_MARK; mark: the Library's word), by name when the way's own words or the moment's one person say who (person: their
+        story id); fails: a closed way's own backfire; risk: the risk to life if it fails (death_if_fails). It reads the
+        moment's people as they stand and creates or introduces no one, so nothing is drawn and nothing else reads
+        differently."""
+        row = L["notes"][s]
+        nt = row[o["idx"]] if o["idx"] < len(row) else None
+        if not isinstance(nt, dict):
+            return None
+        ctx, out = m["ctx"], {}
+        say = STAKE_MARK.get(nt.get("mark"))
+        if say:
+            here = [sl for sl in PERSON_SLOTS if ctx.get("_p_" + sl) is not None]
+            own = [sl for sl in re.findall(r"\{(\w+)\}", L["labels"][s][o["idx"]]) if sl in here]
+            who = [sl for sl in (own or (here if len(here) == 1 else []))
+                   if not (nt["mark"] == "made a friend" and sl in STAKE_NEAR) and not (nt["mark"] in STAKE_KIND and sl == "child")]
+            p = ctx["_p_" + who[0]] if who else None
+            out["people"] = say[0].format(p=p["name"]) if p and p.get("name") else say[1]
+            out["mark"] = nt["mark"]
+            if p and p.get("name"):
+                out["person"] = p.get("id")
+        bf = re.search(r"backfire:\s*(.+)$", str(nt.get("closed") or ""))
+        if bf and not STAKE_SOON.search(bf.group(1)):
+            out["fails"] = self._stake_fill(bf.group(1).strip().rstrip("."), ctx)
+        if nt.get("death_if_fails"):
+            out["risk"] = stake_risk(float(nt["death_if_fails"]))
+        return out or None
+
+    def _stake_fill(self, text, ctx):
+        """A backfire's slots: the character, their place, and the moment's people by name (no one new: "their <role>")."""
+        def one(mm):
+            k = mm.group(1)
+            if k in ("N", "Ns"):
+                return self.name + ("'s" if k == "Ns" else "")
+            if k == "place":
+                return self.story.place
+            p = ctx.get("_p_" + k)
+            return p["name"] if p is not None and p.get("name") else "their " + k
+        return re.sub(r"\{(\w+)\}", one, text)
 
     def _seed_view(self, ret, m, opts):
         """Release's proof rows (chroma-release/check_picks.py): the seed a return answers, as its ask carries it. now:

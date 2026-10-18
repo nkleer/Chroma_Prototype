@@ -590,6 +590,8 @@ class ViewsMixin:
                              mark=marks[o["idx"]] if o["idx"] < len(marks) else ""))
             if o.get("seen"):                           # S6, only while seen_done is on
                 opts[-1]["seen"] = o["seen"]
+            if o.get("at_stake"):                       # Stakes on the card, only while stakes is on
+                opts[-1]["at_stake"] = o["at_stake"]
             if o.get("commit_say"):                     # v22.5, F12 (world_hold): the world's word for a career
                 opts[-1]["commit_say"] = o["commit_say"]
         sp = self.shadow_pull(self.loc, (cp.get("view") or {}).get("heart")) if self.loc is not None else None
@@ -609,11 +611,14 @@ class ViewsMixin:
         v = cp.get("view")
         voice = None if v is None else dict(key=v["key"], line=v["line"], asides=v["asides"], self_control=v["self_control"],
                                             heart_driver=v["heart_driver"], head_driver=v["head_driver"], color=v["voice_color"])
-        return dict(age=round(cp["age"], 1), title=cp["title"], stakes=round(st, 2), season=self.season(),
+        d = dict(age=round(cp["age"], 1), title=cp["title"], stakes=round(st, 2), season=self.season(),
                     stake_word="very high" if st >= 1.2 else "high" if st >= 0.95 else "moderate",
                     scene=cp.get("scene", ""), extra=cp.get("extra", ""), thought=cp.get("thought", ""), recon=cp["recon"],
                     thread=cp.get("thread"), era=self.era_view(), options=opts, voice=voice, art=dict(sit=cp["sit"], life=meta.get("life", ""), tier=meta.get("tier", ""),
                                                          tone=meta.get("tone", ""), variant_of=meta.get("variant_of", ""), recon=cp["recon"]))
+        if GAME["stakes"]:                              # Stakes on the card: up to two lasting-change chips on each card
+            d["stake_card"] = True
+        return d
 
     def season(self, loc=None):
         """Emren's point 6: the crossing they are in (a stage or a new title), in words, or None (engine explain.season)."""

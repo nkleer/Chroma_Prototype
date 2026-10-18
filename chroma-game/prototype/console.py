@@ -720,6 +720,11 @@ class Console:
             if o["idx"] != own and o.get("trust", 0.0) and abs(o["trust"]) >= 0.05:
                 bits.append(("trusts you" if o["trust"] > 0 else "distrusts you") + " in these colors")
             L.append("     " + "; ".join(bits))
+            sk = o.get("at_stake") or {}        # Stakes on the card: what it changes for good, and what failing costs
+            if sk.get("people"):
+                L.append("     for good: " + sk["people"])
+            if sk.get("fails") or sk.get("risk"):
+                L.append("     if it fails: " + "; ".join(x for x in (sk.get("fails"), sk.get("risk")) if x))
             for fx in o.get("roles_fx", []):
                 L.append("     " + fx["line"])
         L.append(f"Enter: let {g.name} choose (*) · a number: push them to it · i: heart, head, what may follow · s: status")

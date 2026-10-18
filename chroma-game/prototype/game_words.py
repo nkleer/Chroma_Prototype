@@ -297,6 +297,26 @@ TURNS_TOLD = 3           # at most this many turns are told: the first identity,
 WHY_YEARS = 2            # a turn's cause is looked for in this many years before it
 RARE_TOLD = 2            # how many of the biggest and rarest things are named
 RARE_SHARE = 0.10        # rare, as the Book says it: under 1 life in 10 meets it
+# Stakes on the card: what a way's mark does to the people side, said about now (named when the moment has the person;
+# the second form when it does not). A mark is left whether the way works or not, so it is for good either way
+STAKE_MARK = {"made a friend": ("makes a friend of {p}", "makes a new friend"),
+              "made an enemy": ("makes an enemy of {p}", "makes an enemy"),
+              "helped someone in need": ("helps {p} when it counts", "helps someone in need"),
+              "refused someone in need": ("turns {p} away", "turns away someone in need"),
+              "kept your word": ("keeps their word to {p}", "keeps their word"),
+              "broke your word": ("breaks their word to {p}", "breaks their word"),
+              "took them in": ("takes {p} in", "takes someone in")}
+STAKE_NEAR = ("friend", "friend2", "partner", "sibling", "parent", "child", "grandparent", "elder")   # already close: a
+# friend made is someone new, so these are never named for it
+STAKE_KIND = ("made an enemy", "refused someone in need", "broke your word")   # never said of a child in the scene
+STAKE_SOON = re.compile(r"\b(later|come back|comes back|came back|return|returns)\b")   # a backfire told this way could read
+# as a pick coming back, so the card leaves it out
+
+
+def stake_risk(p):
+    """The Library's death_if_fails (the share of an act's failures that end the life) in plain words."""
+    return ("a slim risk to their life" if p <= 0.002 else "a small risk to their life" if p <= 0.005
+            else "a real risk to their life" if p < 0.02 else "a grave risk to their life")
 TITLE_KINDS = ("career", "community", "faith", "status")   # the titles that can turn a life or count among its rarest things
 DEATH_WORD = dict(parent="a parent", sibling="a sibling", friend="a friend", grandparent="a grandparent",
                   partner="their partner", child="a child")
