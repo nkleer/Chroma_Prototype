@@ -16,7 +16,7 @@ Owner: the Engine thread. The repository-wide rules are in the root `CLAUDE.md`.
 - `sphere_data.py` holds the nine spheres (`SPHERES`); `world.py`, `world_people.py`, `world_link.py` and
   `world_keys.py` are the outer world; `earth_rules.py` the Earth rules; `rarity.json` the rarity table the game builds
   `rarity.py` from.
-- `world_people.py` (class `People`, 197 lines) and `world.py` (class `World`, 626 lines) keep the module docstring, the
+- `world_people.py` (class `People`, 198 lines) and `world.py` (class `World`, 626 lines) keep the module docstring, the
   class and its core; the rest moved out verbatim. The module code is in `world_people_base.py` and `world_base.py`,
   the methods in mixin modules of 481 to 780 lines that the class inherits, one or more whole sections each (each
   module's `_PARTS` lists them). Every name is still importable from `world_people` and `world`, and a patch on
