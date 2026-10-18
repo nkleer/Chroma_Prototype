@@ -15,7 +15,8 @@ the Library and the output folder changed: they all `import _engine`.
 
 | Tool | Release row | What it checks |
 |---|---|---|
-| t_steps.py | Engine fast check | run_steps() gives run()'s lives; pause order; every STATE name; each switch's own rows (70 rows, about an hour: 50 to 65 min measured 10-17) |
+| t_steps.py | Engine fast check | run_steps() gives run()'s lives; pause order; every STATE name; each switch's own rows (71 rows, about an hour: 50 to 65 min measured 10-17) |
+| same_code.py | Engine, a split or move that keeps lines | two engine folders hold the same code: bytecode of `_run` and every function and method, every module-level value (seconds; `<old folder> <new folder>`) |
 | score_packs.py | C-E1 | the survey scorecard |
 | tier_fit.py | C-E3 | pack careers about 1 in 3, summits about 1 in 20; needs `PACKS=science,politics,stage` (without it, it stops: no pack careers); a fourth argument 1 writes earth_rules.TIER_LIFT, a rate change |
 | roles_check.py | C-E4 | titles and perks a life against the catalogue |
