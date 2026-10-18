@@ -4,7 +4,7 @@ Part of class Story (story.py), which inherits MomentsMixin; moved out of story.
 reads module names through the imports below, the same objects story.py has, and self for everything on the Story."""
 import numpy as np
 import re
-from story_base import (BIG_LOSS, BIG_WIN, BIG_WIN_SOFT, CI, COLORS, DEATH_CHILD, DEATH_FAR, DEATH_LINE, HARDENED,
+from story_base import (BIG_LOSS, BIG_WIN, BIG_WIN_SOFT, CI, COLORS, DEATH_CHILD, DEATH_FAR, DEATH_LINE, GONE_OUT, HARDENED,
     HEALED, KINDREF, LEFT_BEHIND, LIB_ECHO, LIB_GONE, LIB_GRIEF, LIB_OUTCOMES, LIB_OUT_NOT, LIB_READ, LIB_SCENES, MEMORY_YEARS,
     NOW_SHARE, OUTCOMES, OUT_OF_REACH, PERSON_SLOTS, REACT, REACT_GRIEF, REASON, REBOUND_FIT, REBOUND_SPLIT, RELUCT,
     RELUCT_LOW, SCENES, SOMBER, STREAK_BAD, STREAK_GOOD, VALUE, _worlds, act, cap, chooses_mk, mk, phase, plain,
@@ -81,6 +81,8 @@ class MomentsMixin:
             slot = next((x for x in re.findall(r"\{(\w+)\}", tpl) if x in PERSON_SLOTS), None)
             if slot:
                 ctx["_p_" + slot] = who
+                if gone:                                # the slot the outcome must not fill with them as if present
+                    ctx["_gone_slot"] = slot
         m = dict(sit=sit, ctx=ctx, tpl=tpl, text=None, stage=ph, age=age)
         self._moment = {t: m}
         return m
@@ -159,6 +161,9 @@ class MomentsMixin:
                 fit = [i for i in range(len(lines)) if j not in no[i]]
                 if fit:
                     k = fit[k % len(fit)]
+        gs = m["ctx"].get("_gone_slot")
+        if gs and "{" + gs + "}" in lines[k]:          # Picks come back: the person is gone; no line names them as here
+            lines = GONE_OUT[0 if succ else 1]; k %= len(lines)
         out = self.fill(lines[k], m["stage"], m["ctx"])
         if succ and d > 0.6:
             out += " " + self.fill(self.pick(BIG_WIN_SOFT if sit in SOMBER or sit in LIB_GRIEF else BIG_WIN))

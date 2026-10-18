@@ -3,7 +3,7 @@ story.py and the Story mixins import from here."""
 import re
 from collections import deque
 import numpy as np
-from story_text import WORLD_LEAKS, EPITHETS, GOAL_END, NAMED_END, SCENES, OUTCOMES, REACT, MOOD, WEEKS, OUTSIDE, HEALED, HARDENED, SNOUN, CAREER, ACT_FIX, STATUS_LINE  # noqa: E402,F401  the text tables (data only)
+from story_text import WORLD_LEAKS, EPITHETS, GOAL_END, NAMED_END, SCENES, OUTCOMES, GONE_OUT, REACT, MOOD, WEEKS, OUTSIDE, HEALED, HARDENED, SNOUN, CAREER, ACT_FIX, STATUS_LINE  # noqa: E402,F401  the text tables (data only)
 
 COLORS = "WUBRG"
 CI = {c: i for i, c in enumerate(COLORS)}
