@@ -41,12 +41,14 @@ band; play dreams stay possible later, and the leading kind of each band is repo
                                            [--seeds 41-44] [--lives 300] [--jobs 4] [--out DIR] [--no-record]
 
 --repo: the checkout to check (default the tree this script sits in): its chroma-engine/v22-speedpass with its
-chroma-library and chroma-packs (f4_age, f6_dreams, F12.2's engine part) and its chroma-game/prototype with the pin
-(f12_start). Each unit of work runs in its own process (--jobs at a time). Report: <out>/fit_<check>.txt (default
-out/fit_<UTC time>/); one results line per check (results.py) unless --no-record. Exit code 0 when every check run
+chroma-library and chroma-packs (f4_age, f6_dreams, F12.2's engine part) and its chroma-game/prototype (f12_start), its
+engine_pin filled from those same folders first (gamepin.py; a committed pin is played as it is). Each unit of work
+runs in its own process (--jobs at a time). Report: <out>/fit_<check>.txt (default out/fit_<UTC time>/); one results
+line per check (results.py) unless --no-record. Exit code 0 when every check run
 passes. About 15 minutes on 4 cores for all three at the defaults.
 """
 import argparse, json, os, re, subprocess, sys, time
+import gamepin
 import numpy as np
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -547,12 +549,16 @@ def main():
             commit = None
     out = a.out or os.path.join(HERE, "out", time.strftime("fit_%Y%m%d-%H%M%S", time.gmtime()))
     os.makedirs(out, exist_ok=True)
+    game = os.path.join(repo, "chroma-game", "prototype")   # its engine_pin from the folders the engine lives read
+    gamepin.fill(game, root=repo, engine=os.path.join(repo, "chroma-engine", "v22-speedpass"),
+                 lib=os.path.join(repo, "chroma-library"), packs=os.path.join(repo, "chroma-packs"))
     checks = CHECKS if a.check == "all" else (a.check,)
     rc = 0
     for check in checks:
         t0 = time.time(); lines = []
         log = lambda s: (lines.append(s), print(s, flush=True))
-        log(f"{check} (K17), {time.strftime('%Y-%m-%d %H:%M', time.gmtime())} UTC; repo {repo}, commit {commit or '?'}")
+        log(f"{check} (K17), {time.strftime('%Y-%m-%d %H:%M', time.gmtime())} UTC; repo {repo}, commit {commit or '?'}; "
+            f"the game plays {gamepin.where(game)}")
         R = JUDGE[check](run_units(repo, a.jobs, plan(check, seeds, a.lives), out, log))
         for l_ in R.lines:
             log(l_)

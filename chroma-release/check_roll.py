@@ -34,8 +34,8 @@ Each judged row passes or not; a check is PASS when all its rows pass, else FAIL
            [--seeds 41-44] [--lives 300] [--years 100] [--played 1-6x1-4] [--jobs 4] [--as-is] [--out DIR] [--no-record]
 
 --repo: the checkout to check (default the tree this script sits in): its chroma-engine/v22-speedpass with its
-chroma-library and chroma-packs (engine lives) and its chroma-game/prototype with the pin (played lives: they run the
-game's engine_pin, so an engine branch's played lives read its engine only once the Game has re-pinned it). A row's
+chroma-library and chroma-packs (engine lives) and its chroma-game/prototype (played lives), its engine_pin filled from
+those same folders first (gamepin.py; a committed pin, as on a release branch, is played as it is). A row's
 switches that DEFAULT (or the game's GAME) still has off are switched on and named in the report; --as-is judges the
 checkout exactly as it is, so today's main (every v22.5 switch off) reads what the old rules do. f8_after and f10_once
 share their engine lives (with `all`, or given --engine-from earlier runs' folders, pooled seed by seed). The bar's K9 reads
@@ -45,6 +45,7 @@ check run passes. About an hour on 4 cores for the engine lives at the defaults 
 48 played lives.
 """
 import argparse, json, os, re, subprocess, sys, time
+import gamepin
 from collections import Counter
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -512,13 +513,16 @@ def main():
             commit = None
     out = a.out or os.path.join(HERE, "out", time.strftime("roll_%Y%m%d-%H%M%S", time.gmtime()))
     os.makedirs(out, exist_ok=True)
+    game = os.path.join(repo, "chroma-game", "prototype")   # its engine_pin from the folders the engine lives read
+    gamepin.fill(game, root=repo, engine=os.path.join(repo, "chroma-engine", "v22-speedpass"),
+                 lib=os.path.join(repo, "chroma-library"), packs=os.path.join(repo, "chroma-packs"))
     checks = CHECKS if a.check == "all" else (a.check,)
     rc = 0
     for check in checks:
         t0 = time.time(); lines = []
         log = lambda s: (lines.append(s), print(s, flush=True))
         log(f"{check} ({'K9' if check == 'f8_after' else 'K18'}), {time.strftime('%Y-%m-%d %H:%M', time.gmtime())} UTC; "
-            f"repo {repo}, commit {commit or '?'}" + (" (--as-is)" if a.as_is else ""))
+            f"repo {repo}, commit {commit or '?'}" + (" (--as-is)" if a.as_is else "") + f"; the game plays {gamepin.where(game)}")
         ok = True
         if check in ("f8_after", "f10_once"):
             L_, ok_ = judge_engine(check, engine_lives(a, repo, out, log), a)
