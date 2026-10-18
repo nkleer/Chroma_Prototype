@@ -4,6 +4,7 @@ name come from a seeded `random`; at a moment the script alternates letting them
     python3 -B test/same_life.py <preset 1-6> <seed> <out.jsonl>   (prints the md5 of the whole record)"""
 import sys, os, json, random, hashlib
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+import pinned; pinned.ensure()                  # engine_pin/ from the owners' folders (chroma-game/tools/pin.py)
 import numpy as _np
 preset, seed, out = sys.argv[1], int(sys.argv[2]), sys.argv[3]
 random.seed(seed)

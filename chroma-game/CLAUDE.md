@@ -36,7 +36,7 @@ game-side file must also go in `web/worker.js` `SOURCES`; `test/smoke.py` fails 
 | `worldview.py` | 706 | the outer world as the player sees it |
 | `link.py` | 44 | loads `engine_pin/engine.py` as module `engine` and checks its pause points (`week`, `situation`, `choose`, `odds`, `learn`, `end`) |
 | `rarity.json` | | the rarity table; `rarity.py` is built from it |
-| `engine_pin/` | | generated: the engine, Library and packs pinned by `tools/build.py`. Never edit or read it; read `chroma-engine/v22-speedpass/`, `chroma-library/`, `chroma-packs/` |
+| `engine_pin/` | | not in git: the engine, Library and packs copied from their owners' folders by `tools/pin.py` (the tests run it first). Never edit or read it; read `chroma-engine/v22-speedpass/`, `chroma-library/`, `chroma-packs/` |
 | `README.md` | 25 | what the game is, how to play, where to read on |
 | `HISTORY.md` | 644 | history, version by version up to 2026-10-09 (moved from `README.md`). Read one section (`rg -n '^#' HISTORY.md`), not all of it |
 
@@ -90,9 +90,16 @@ game-side file must also go in `web/worker.js` `SOURCES`; `test/smoke.py` fails 
 
 ## Building (`chroma-game/tools/`)
 
-`python3 -B chroma-game/tools/build.py <new out dir>` (about 10 s) pins the engine, Library and packs, writes
-`rarity.py`, completes `SOURCES`, checks the pin (C-X1) and that the game loads, and builds the page and the web folder.
-Build every candidate with it; never pin by hand.
+`engine_pin/` is not committed (plan by function, step 2): an engine, Library or packs merge needs no re-pin.
+`python3 -B chroma-game/tools/pin.py` fills it from the owners' folders (copies what is missing or differs, removes what
+the engine no longer asks for; `--check` only reports). The ladder's tests (`smoke`, `prove`, `same_life`, `same_engine`,
+`saveload`, `timeless`, `text_check --pin`, `causes_check`) run it first; run it yourself after a pull before a script of
+your own. A game folder with `engine_pin/PINNED.txt` (a release branch, main before step 2) is a committed pin, left as
+it is.
+
+`python3 -B chroma-game/tools/build.py <new out dir>` (about 10 s) bundles the engine, Library and packs into the
+build's `engine_pin/` (the same list as `pin.py`), writes `rarity.py`, completes `SOURCES`, checks the bundle (C-X1) and
+that the game loads, and builds the page and the web folder. Build every candidate with it.
 
 ## Which test proves what (`prototype/test/`)
 

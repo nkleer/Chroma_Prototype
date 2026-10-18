@@ -148,6 +148,9 @@ def versions():
 def main():
     opt = args()
     game = opt["game"] or os.path.dirname(HERE)
+    import pinned
+    for g in {game, opt["base"]} - {None}:      # engine_pin/ from the owners' folders (chroma-game/tools/pin.py)
+        pinned.ensure(g)
     t0 = time.time()
     res, errors = play(game)
     errors += [f"web/worker.js SOURCES lacks {m}" for m in page_files(game)]

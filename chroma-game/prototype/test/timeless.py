@@ -6,6 +6,7 @@
    python3 test/timeless.py [lives]"""
 import sys, re, random, collections, json
 sys.path.insert(0, __file__.rsplit("/test/", 1)[0])
+import pinned; pinned.ensure()                  # engine_pin/ from the owners' folders (chroma-game/tools/pin.py)
 from console import Console
 
 REAL = re.compile(r"\b(tiktok|instagram|facebook|twitter|youtube|google|iphone|ipad|android|netflix|spotify|whatsapp|uber|"

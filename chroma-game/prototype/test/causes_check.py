@@ -161,6 +161,7 @@ if __name__ == "__main__":
     if a and a[0] == "_play":
         play(a[1], int(a[2]), a[3]); sys.exit(0)
     import tempfile
+    import pinned; pinned.ensure(GAME_DIR)      # engine_pin/ from the owners' folders (chroma-game/tools/pin.py)
     tmp = opt(a, "--out", None) or tempfile.mkdtemp(prefix="causes-")
     jobs = int(opt(a, "--jobs", "4"))
     if a and a[0] == "same":

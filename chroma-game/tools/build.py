@@ -45,10 +45,8 @@ sys.path.insert(0, ENV)
 from paths import NAMES, P  # noqa: E402
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-ENG = ["engine.py", "library.py", "combos.py", "batch.py", "earth_rules.py", "foresee.py", "explain.py", "life.py", "schwartz.py"]
-LIB = ["earth.py", "earth_perks_titles.py", "earth_voice.py", "dreams.py", "earth_story.py", "earth_play.py", "earth_spheres.py",
-       "worlds.py", "earth_age_fit.py"]   # plus earth_<pack>.py per pack
-PACK_FILES = ["catalogue.py", "roles.py", "helps.py"]                               # plus every core/*.py
+sys.path.insert(0, HERE)
+from pin import PACK_FILES, plan  # noqa: E402  (the files the engine asks for: the same list a checkout's engine_pin/ holds)
 
 
 def md5(p):
@@ -94,20 +92,8 @@ def main():
     log = []
     say = lambda s: (print(s), log.append(s))
 
-    # what the engine asks for: its packs and its outer-world modules
-    m = re.search(r"^PACKS = \[(.*)\]", open(os.path.join(EN, "batch.py")).read(), re.M)
-    PK = re.findall(r'"(\w+)"', m.group(1)) if m else []
-    if not PK:
-        stop("the engine's batch.PACKS is empty")
-    WLD = sorted(f for f in os.listdir(EN) if re.fullmatch(r"world(_\w+)?\.py", f) and not re.match(r"world_(stats|check|test)", f))
-    WLD += sorted(f for f in os.listdir(EN) if re.fullmatch(r"sphere_\w+\.py", f))   # the spheres' tables and fitted event bases (sphere_data.py, PR #52; sphere_ev_base.py, phase 3c)
-    pins = [(os.path.join(EN, f), f) for f in ENG + WLD]
-    pins += [(os.path.join(L, f), f) for f in LIB + [f"earth_{p}.py" for p in PK]]
-    pins += [(os.path.join(PK_DIR, "core", f), f"packs/core/{f}") for f in sorted(os.listdir(os.path.join(PK_DIR, "core"))) if f.endswith(".py")]
-    pins += [(os.path.join(PK_DIR, p, f), f"packs/{p}/{f}") for p in PK for f in PACK_FILES]
-    missing = [s for s, _ in pins if not os.path.isfile(s)]
-    if missing:
-        stop("missing owner files: " + ", ".join(missing))
+    # what the engine asks for: its packs and its outer-world modules (pin.py: the same list a checkout's engine_pin/ holds)
+    pins, PK, WLD = plan(EN, L, PK_DIR)
     rj = os.path.join(EN, "rarity.json")
     if not os.path.isfile(rj):
         rj = os.path.join(root, NAMES["rarity_live"][0])
