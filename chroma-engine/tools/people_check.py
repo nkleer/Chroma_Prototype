@@ -822,7 +822,10 @@ def save_check(PP, W, saved_lines):
 
 def rules_check():
     say("\n== 18. rules in world_people.py's source")
-    src = open(wp.__file__).read()
+    parts = tuple(getattr(wp, "_PARTS", ()))   # since the split: world_people.py and the modules it is made of
+    files = [wp.__file__] + [os.path.join(os.path.dirname(wp.__file__), p_ + ".py") for p_ in parts]
+    srcs = [open(f_).read() for f_ in files]
+    src = "\n".join(srcs)
     names = set()
     for tok in tokenize.generate_tokens(io.StringIO(src).readline):
         if tok.type == tokenize.NAME:
@@ -833,16 +836,18 @@ def rules_check():
     imps = re.findall(r"^\s*(?:from|import)\s+([\w.]+)", src, re.M)
     top = {i_.split(".")[0] for i_ in imps}   # numpy's own submodules count as numpy; sphere_data is a copy of design tables
     check_b("imports: numpy, the standard library (sys), library, world_keys, sphere_data only (never engine.py or world.py)",
-            top <= {"numpy", "sys", "library", "world_keys", "sphere_data"}, ", ".join(sorted(set(imps))),
-            "numpy, sys, library, world_keys, sphere_data")
+            top - set(parts) <= {"numpy", "sys", "library", "world_keys", "sphere_data"},
+            ", ".join(sorted(set(imps) - set(parts))), "numpy, sys, library, world_keys, sphere_data")
     import ast
-    tree = ast.parse(src); docs = set()
-    for nd in ast.walk(tree):
-        if isinstance(nd, (ast.Module, ast.FunctionDef, ast.ClassDef)) and nd.body and isinstance(nd.body[0], ast.Expr) \
-                and isinstance(getattr(nd.body[0], "value", None), ast.Constant):
-            docs.add(id(nd.body[0].value))
-    yrs = [nd.value for nd in ast.walk(tree) if isinstance(nd, ast.Constant) and isinstance(nd.value, str)
-           and id(nd) not in docs and re.search(r"\b(1[89]\d\d|20\d\d)\b", nd.value)]
+    yrs = []
+    for src_ in srcs:   # each file on its own, so each module's docstring is a docstring
+        tree = ast.parse(src_); docs = set()
+        for nd in ast.walk(tree):
+            if isinstance(nd, (ast.Module, ast.FunctionDef, ast.ClassDef)) and nd.body and \
+                    isinstance(nd.body[0], ast.Expr) and isinstance(getattr(nd.body[0], "value", None), ast.Constant):
+                docs.add(id(nd.body[0].value))
+        yrs += [nd.value for nd in ast.walk(tree) if isinstance(nd, ast.Constant) and isinstance(nd.value, str)
+                and id(nd) not in docs and re.search(r"\b(1[89]\d\d|20\d\d)\b", nd.value)]
     check_b("timeless: no year in any string the module produces (docstrings aside)", not yrs, "none" if not yrs else str(yrs[:3]), "none")
 
 

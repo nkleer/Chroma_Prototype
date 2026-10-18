@@ -13,6 +13,7 @@ chroma-library/earth_science.py
 chroma-library/earth_stage.py
 chroma-art/game/lights.json
 chroma-art/game/pics/
+chroma-engine/v22-speedpass/sphere_data.py
 *.webp
 # generated files with one line of 100 to 250 KB, which a search prints whole: the per-option icon map (made by
 # web/src/live_icons.py) and the icon sprite (made by chroma-art/kit/glyph/build_icons.js), with their copies, and the

@@ -644,6 +644,8 @@ def main():
     # W35: no world code reads a pair rule or the framing
     src = open(os.path.join(PROTO, "world.py")).read()
     tree = ast.parse(src)
+    for p_ in getattr(WM, "_PARTS", ()):   # since the split: the modules world.py is made of
+        tree.body += ast.parse(open(os.path.join(PROTO, p_ + ".py")).read()).body
     bad = set()
     forbidden = {"A", "ALLY", "ENEMY", "AXES", "FRAMINGS", "FR", "framing"}
     for node in ast.walk(tree):
