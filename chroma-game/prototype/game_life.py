@@ -540,6 +540,7 @@ class LifeMixin:
                             self._say(old, 0, "ledger")
         if self.story.one_roll and loc.get("WL") is not None:
             self._one_roll(loc, kids=True)              # F7: a child the world lost after the engine's moment
+            self._due_told(t)                           # F7: a world death no engine death claimed in time
         if self.batch and "alive" in loc and loc.get("WL") is not None and (self._kin_t is None or t - self._kin_t >= 4
                                                                      or int(loc["alive"][0, 1]) > len(self.story.alive("sibling"))):
             self._kin_sync(t, loc)          # the family the world was born into, a new sibling the week it comes, else monthly

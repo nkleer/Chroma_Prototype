@@ -443,6 +443,18 @@ class ViewsMixin:
             if all(q is not p for _, q in self.story.due):
                 self.story.due.append((r, p))
 
+    def _due_told(self, t):
+        """F7: a death the world has had that no engine death of its role claims within DUE_WAIT weeks is told quietly,
+        so the story never keeps naming them as alive (siblings and grandparents have their own wait in _kin_sync)."""
+        since = self.__dict__.setdefault("_due_t", {})
+        for r, p in list(self.story.due):
+            if not p["alive"] or r in ("sibling", "grandparent", "child"):
+                continue
+            if t - since.setdefault(p["id"], t) >= self.DUE_WAIT:
+                line = self.story.quiet_deaths(p["role"], len(self.story.alive(p["role"])) - 1, t / 52)
+                if line:
+                    self._say(line, 0 if not self.burn_in else 1, "death")
+
     def world_save(self):
         """The world this life leaves behind, for a later life to begin in (spec 1: legacy worlds): the world's whole
         state, and the character's cast for a grandchild's line. None without a world."""
