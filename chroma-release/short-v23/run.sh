@@ -8,6 +8,11 @@
 #
 #   SHA=<refit> bash /mnt/project-files/chroma-release/short-v23/run.sh <refit job>
 #   SHA=<final> REFIT=<refit> [N3BASE=<re-pin, returns off>] bash /mnt/project-files/chroma-release/short-v23/run.sh <final job>
+# The game rows may run on an earlier game commit P (the re-pin's merge) while a page-only change (the Living HUD) is
+# still to land: run every final job but q1, b7A-D and page on SHA=P, those four on the final, then `final` with
+# GAMEP=P. It reruns the v22_checks game rows (reused in seconds where nothing they read changed) and carries P's other
+# rows when only the page (web/, the test/ browser drivers, chroma-look/tools) and chroma-release/ differ between P and
+# the final (GAME_ONLY; out/carry_game_<final7>.txt).
 # A trial keeps its reports and results lines out of the shared folder with CHROMA_PROJECT=<overlay>: a folder of links
 # to every shared-folder entry, whose chroma-release/ links every entry but out/, a scratch folder.
 #
@@ -75,6 +80,7 @@ K=/tmp/v23_keep   # --keep --work folders: the same path on every machine, so `f
 git -C $REPO cat-file -e "$SHA^{commit}" 2>/dev/null || git -C $REPO fetch -q origin '+refs/heads/*:refs/remotes/origin/*' || exit 2
 SHA=$(git -C $REPO rev-parse "$SHA^{commit}") || exit 2
 REFIT=${REFIT:-}; [ -n "$REFIT" ] && { REFIT=$(git -C $REPO rev-parse "$REFIT^{commit}") || exit 2; }
+GAMEP=${GAMEP:-}; [ -n "$GAMEP" ] && { GAMEP=$(git -C $REPO rev-parse "$GAMEP^{commit}") || exit 2; }
 export CHROMA_COMMIT=$SHA PW=${PW:-/opt/node22/lib/node_modules/playwright}
 O=$R/out; mkdir -p $O
 CHK="python3 -B $R/v22_checks.py --repo $REPO --commit $SHA"
@@ -254,6 +260,34 @@ look() { git -C $REPO fetch -q origin "+refs/heads/$LOOKBASE:refs/remotes/origin
     [ -z "$d" ] && echo "ok   every page-layer file equal" || { echo "differ (each must be a v23 change the bar names):"; echo "$d"; }; } > $o; cat $o
   python3 -B $R/results.py add look_same $([ -z "$d" ] && echo PASS || echo FAIL) $o "page layer against $LOOKBASE ${b:0:12}"
   SHA=$SHA BASE=$LOOKBASE bash $R/short-v22.2.1/run.sh page; }
+GAME_ONLY="^chroma-game/prototype/web/ ^chroma-game/prototype/test/[^/]*\.js$ ^chroma-look/tools/ ^chroma-release/"   # may differ
+# between GAMEP and the final for its rows to carry: the page, its browser drivers and tours (the page rows run on the final)
+carry_game() {   # GAMEP's game rows for the final commit: v22_checks' rerun (its proofs reuse them), the others carried
+  [ -n "$GAMEP" ] || return 0
+  local c=$O/carry_game_${SHA:0:7}.txt d=$(git -C $REPO diff --name-only $GAMEP $SHA) x
+  x=$(echo "$d" | grep -v -E "$(echo $GAME_ONLY | tr ' ' '|')" | grep . )
+  { echo "v23 game carry: ${GAMEP:0:12} (GAMEP) -> final ${SHA:0:12}; may differ: ${GAME_ONLY//^/}"
+    echo "files that differ: $(echo "$d" | paste -sd' ')"; } > $c
+  [ -z "$x" ] || { echo "NOT CARRIED: files outside those differ: $(echo "$x" | paste -sd' ')" >> $c; cat $c; return 1; }
+  $CHK --only $Q2,$Q3,$Q4,$Q5; $CHK --only book_check,kin; $CHK --only @steered; $CHK --only own_even
+  python3 -B - "$R" "$GAMEP" "$SHA" "game rows run on ${GAMEP:0:12}; only ${GAME_ONLY//^/} differ since" >> $c <<'PY'
+import sys
+R, gamep, sha, why = sys.argv[1:5]
+sys.path.insert(0, R)
+import results
+last = {}
+for r in results.read():   # GAMEP's hand rows: every line on it but v22_checks' own (rerun above) and the page's
+    if (r.get("candidate") or {}).get("commit") == gamep and "/v22checks_" not in str(r.get("run", "")) \
+            and r["check"] not in ("look_same",) and not r["check"].startswith("b7"):
+        last[r["check"]] = r
+for i, r in sorted(last.items()):
+    if r["result"] == "PASS":
+        results.add(i, "PASS", r.get("report", ""), why + ": " + r.get("note", ""), candidate={"commit": sha})
+        print("carried", i, "PASS from", r.get("report", ""))
+    else:
+        print("NOT CARRIED", i, r["result"], "on GAMEP: rerun its job on the final commit")
+PY
+  cat $c; }
 carry_final() {   # the refit's hand rows written again for the final commit, with the evidence
   need_refit final
   local c=$O/carry_${SHA:0:7}.txt
@@ -363,6 +397,6 @@ case "${1:-}" in
   stakes) stakes ;;
   page) look ;;
   final) $CHK --only $ENGA,$ENGB; $CHK --only $MECH --keep --work $K/mech; $CHK --only s7_lead
-     $CHK --only c26_choice,c26_world --keep --work $K/c26; $CHK --only $LIVES8 --keep --work $K/lives; carry_final ;;
+     $CHK --only c26_choice,c26_world --keep --work $K/c26; $CHK --only $LIVES8 --keep --work $K/lives; carry_final; carry_game ;;
   *) sed -n '2,/^set -u/{/^#/p}' "$0"; exit 2 ;;
 esac
