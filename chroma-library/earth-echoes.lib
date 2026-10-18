@@ -39,6 +39,10 @@ works not G: {friend} hears it out, and the old promise stops standing between t
 works: The matter is settled, and {friend} says yes to what {N} needs.
 fails: {friend} says no, and tells the old story to anyone who will listen.
 fails not G: The talk goes badly, and an old hurt becomes a fresh one.
+works gone: {N} keeps the promise another way, for someone {friend} cared about, and it stops weighing so much.
+works gone: The matter is settled with the people who are left, and {N} gets what is needed.
+fails gone: There is no one left to set it right with, and the promise keeps its weight.
+fails gone: The old story still goes round without {friend}, and doors stay shut.
 
 == a promise kept for years pays off
 tier: echo
@@ -190,6 +194,10 @@ works: {rival} turns out to have moved on, and treats {N} fairly.
 works: The old feud is set aside, and the work goes on.
 fails: {rival} finds a dozen small ways to make life hard.
 fails: The old quarrel flares up again, in front of everyone.
+works gone: Without {rival} at the table, the new head judges {N} on the work alone.
+works gone: The old feud is set aside, and the work goes on.
+fails gone: {rival}'s old allies still remember, and find small ways to make life hard.
+fails gone: The old quarrel flares up again without {rival}, in front of everyone.
 
 == an old friend turns up when you need one
 tier: echo
@@ -226,6 +234,10 @@ works: The friendship picks up as if it had never stopped.
 works: {friend} stays close through the hard months, and things begin to lift.
 fails: The call is warm, but the old ease does not come back.
 fails: {friend} has troubles of their own, and the visit leaves them both tired.
+works gone: {N} rings another friend from those years, and talking about {friend} brings them close again.
+works gone: The memory of {friend} carries {N} through the hard months, and things begin to lift.
+fails gone: The silence where {friend}'s call used to be makes the bad week longer.
+fails gone: {N} reaches for the phone out of habit, and the hard months stay hard.
 
 == the office you defied remembers
 tier: echo
@@ -596,6 +608,10 @@ works: The family finds an arrangement that holds, and {parent} is cared for.
 works: {N} goes back, and the old streets feel like home again.
 fails: Every choice leaves someone hurt, and the phone calls get shorter.
 fails: {N} is caught between two places, belonging fully to neither.
+works gone: The family finds an arrangement that holds, and the old place is kept the way {parent} kept it.
+works gone: {N} goes back, and the old streets feel like home again.
+fails gone: Every choice leaves someone hurt, and the phone calls get shorter.
+fails gone: {N} is caught between two places, belonging fully to neither.
 
 # ---------------------------------------------------------------- a chance again, and things never done
 
@@ -707,6 +723,10 @@ works not G G>B: The words are finally said, and {sibling} takes {Ns} hand.
 works: Something old and hard between them begins, at last, to soften.
 fails not G G>B: {sibling} listens, nods, and says it is too late.
 fails: The chance passes, and the apology stays unsaid.
+works gone: {N} says the words at last to those closest to {sibling}, and something old begins to soften.
+works gone: Something old and hard begins, at last, to soften.
+fails gone: The words come too late for {sibling} to hear, and {N} carries them anyway.
+fails gone: The chance passes, and the apology stays unsaid.
 
 == words that were never said
 tier: echo
