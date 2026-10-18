@@ -162,6 +162,8 @@ def run(a):
         subprocess.run(["rm", "-rf", tree], check=True); os.makedirs(tree)
         subprocess.run(f"git -C {a.repo} archive {sha} {' '.join(DIRS)} | tar -x -C {tree}", shell=True, check=True)
         open(stamp, "w").write(sha + "\n")
+        for f in glob.glob(os.path.join(a.out, "seed*.json")) + glob.glob(os.path.join(a.out, "test*.json")):
+            os.remove(f)   # worlds of another commit
     json.dump(dict(commit=sha, px=a.px, moments=a.moments, seeds=a.seeds, lives=a.lives, years=a.years,
                    test_seeds=a.test_seeds, test_lives=a.test_lives, time=time.strftime("%Y-%m-%d %H:%M", time.gmtime())),
               open(os.path.join(a.out, "meta.json"), "w"))
@@ -172,7 +174,7 @@ def run(a):
         f = os.path.join(a.out, f"test{sd}.json")
         if not os.path.exists(f):
             jobs.append(base + ["--seed", str(sd), "--lives", str(a.test_lives), "--years", "45", "--test", "--out", f])
-    for sd in span(a.seeds):
+    for sd in span(a.seeds) if a.seeds else []:   # --seeds "": the test worlds only
         f = os.path.join(a.out, f"seed{sd}.json")
         if not os.path.exists(f):
             jobs.append(base + ["--seed", str(sd), "--lives", str(a.lives), "--years", str(a.years), "--out", f])
