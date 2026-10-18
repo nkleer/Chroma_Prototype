@@ -4,7 +4,8 @@ PERKS += [
        ages=(16, 110), share=.3,   # estimate
        say="has a good name in town",
        gained="years of 'kept your word' and 'helped someone in need' where people can see",
-       lost="'a public scandal', 'a rumour about you' that sticks; moving away suspends it",
+       lost="'hid a wrong' that comes out, 'a public scandal', 'a rumour about you' that sticks; moving away "
+            "suspends it",
        needs="'kept your word' and 'helped someone in need' several times"),
   dict(name="rank", kind="standing", ways="W B", odds=.05, skill_half=10, retires=65,
        ages=(20, 67), share=.12,   # estimate: a sergeant, a ward sister, a foreman, a head of department

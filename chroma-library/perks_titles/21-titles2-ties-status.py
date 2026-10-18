@@ -64,8 +64,8 @@ TITLES += [
        ages=(18, 110), share=.06,   # about 18% of Americans lived in a multigenerational home in 2021 (Pew), fewer in
                                     # most of Europe; estimate for a couple sharing a home with a parent
        say="in a multigenerational household",
-       gained="'a parent comes to stay for a week' and stays, or the couple moves in with parents to share the rent "
-              "and the care",
+       gained="'a parent comes to stay for a week' and stays, 'a parent who can no longer live alone' moves in, or "
+              "the couple moves in with parents",
        lost="moving to a home of their own, a separation, the household changing when the older generation dies or "
             "moves into care",
        needs="[wife or husband] and a living parent under the same roof; who owns or rents the home is recorded "
@@ -499,8 +499,8 @@ TITLES += [
        meets="need:meaning+.08 need:autonomy+.03 res:time-.05 res:health-.02",
        ages=(16, 95), share=.01,   # estimate
        say="a disability-rights organiser",
-       gained=("a local barrier, a step with no ramp or a form nobody can use, leads to continuing organising and "
-               "[campaigning] with the people it affects"),
+       gained=("a barrier met after 'a serious accident or illness', 'living with a chronic illness' or in caring "
+               "for someone leads to organising and [campaigning]"),
        lost="handing over, leaving the group, other commitments",
        needs="a recognised role in the cause and accountable participation; no disability status is required"),
   # T2-086
@@ -521,8 +521,8 @@ TITLES += [
        meets="need:meaning+.08 need:belonging+.03 res:ties-.02 res:time-.05",
        ages=(18, 95), share=.005,   # estimate
        say="a restorative-justice advocate",
-       gained="study, a court case close to home or being 'robbed or attacked in the street' leads to a sustained "
-              "advocacy role",
+       gained="study, a court case close to home, a past as [someone with a record] or being 'robbed or attacked "
+              "in the street' leads to a sustained advocacy role",
        lost="leaving the cause, handing over, a change of approach",
        needs=("a cause commitment; facilitating a formal meeting needs separate training in [settling disputes] "
               "([mediation accreditation]) and the consent of everyone involved")),
@@ -533,8 +533,8 @@ TITLES += [
        meets="need:meaning+.05 need:competence+.05 res:time-.05",
        ages=(16, 95), share=.005,   # estimate
        say="a digital-rights advocate",
-       gained="a technology decision, a new surveillance scheme or a data leak, leads to sustained public-interest "
-              "work",
+       gained="'your name in the leaked files', a new surveillance scheme or a technology decision leads to "
+              "sustained public-interest work",
        lost="stepping back, a change of cause, the group closing",
        needs="an ongoing cause role; [writing code] helps, but technical authority is not automatic",
        turning="The convenient new platform would make a volunteer group's work easier, but nobody knows who can keep "

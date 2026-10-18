@@ -78,8 +78,8 @@ PERKS += [
        ages=(12, 95), share=.006,   # UK: about 45,000 beekeepers have hives registered on the National Bee Unit's
                                     # BeeBase, about 1 person in 1,500; many give up within a few years
        say="can keep bees",
-       gained="a local association's course and a first swarm in [hives of one's own]; 'a new hobby you cannot put "
-              "down'; years as a [professional beekeeper]",
+       gained="a local association's course and a first swarm in [hives of one's own]; years as a [professional "
+              "beekeeper]",
        lost="'a third of the hives dead after winter' and no heart to start again; years without hives",
        needs="a place for a hive; 'learned a skill'"),
   # words and records
@@ -94,8 +94,8 @@ PERKS += [
   dict(name="editing", kind="skill", ways="U W", odds=.03, skill_half=15, retires=None,
        ages=(16, 100), share=.02,   # estimate: editors, sub-editors, copy-editors, and academics who edit
        say="can edit a manuscript",
-       gained="a student paper, subbing as a [journalist], years as an editorial assistant before becoming a "
-              "[book editor]",
+       gained="a student paper, subbing as a [journalist], [writing stories] after a degree, years as an editorial "
+              "assistant before becoming a [book editor]",
        lost="years away from other people's pages",
        needs="[graduate] usually; 'learned a skill' several times"),
   dict(name="reporting", kind="skill", ways="U B", odds=.04, skill_half=8, retires=None,
@@ -133,8 +133,8 @@ PERKS += [
   dict(name="working with data", kind="skill", ways="U B", odds=.05, skill_half=5, retires=None,
        ages=(14, 95), share=.08,   # estimate: statistics, spreadsheets and databases, beyond adding up a column
        say="can make sense of data",
-       gained="a statistics course, a spreadsheet that kept growing, 'new technology changes your job'; a post as a "
-              "[data analyst]",
+       gained="a statistics course, 'the spreadsheet the last clerk left behind', 'new technology changes your "
+              "job'; a post as a [data analyst]",
        lost="the tools moving on every five years",
        needs="'learned a skill' several times; [bookkeeping] or [writing code] helps"),
   dict(name="keeping systems secure", kind="skill", ways="U B", odds=.03, skill_half=3, retires=None,
@@ -233,7 +233,7 @@ PERKS += [
        say="is used to night shifts",
        gained="a year of nights as a [nurse], a [paramedic] or an [emergency dispatcher], early starts as a [baker], "
               "a night line in a factory",
-       lost="a day job and a year of normal sleep; the nights grow harder after sixty",
+       lost="leaving the night work and a year of normal sleep; the nights grow harder after sixty",
        needs="a job that runs through the night"),
   dict(name="head for heights", kind="skill", ways="R B", odds=.02, skill_half=3, retires=None,
        ages=(12, 90), share=.06,   # estimate: scaffolders, roofers, riggers, firefighters and climbers

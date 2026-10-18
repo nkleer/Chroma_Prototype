@@ -201,7 +201,8 @@ TITLES += [
        meets="need:competence+.08 need:belonging+.05 need:autonomy-.05 res:money-.03 res:time-.1",
        ages=(15, 30), share=.12,   # estimate: about 1 young person in 10 in the UK; over half in Germany or Switzerland
        say="an apprentice",
-       gained="a place with a firm after school, and a master who shows them; 'a teacher or coach who believes in you'",
+       gained="'an apprenticeship that starts on Monday' with a firm after school, and a master who shows them; 'a "
+              "teacher or coach who believes in you'",
        lost="qualifying (the trade's own title follows), dropping out, the firm folding",
        needs="age 15 or 16 or more"),
 ]

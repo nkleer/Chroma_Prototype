@@ -67,7 +67,8 @@ TITLES += [
        ages=(0, 110), share=.14,   # foreign-born people are about 14% of the population across rich OECD countries
                                    # (OECD)
        say="an immigrant",
-       gained="a visa and a one-way ticket ('moved away'), or the family's move when they were small",
+       gained="a visa and a one-way ticket ('moved away'), then 'the first months in a new country'; or the "
+              "family's move abroad when they were small",
        lost="never; [citizenship] changes what it costs",
        needs="a reason to leave and a country that lets them in"),
   dict(name="someone with a record", kind="status", ways="",
@@ -75,8 +76,8 @@ TITLES += [
        ages=(10, 110), share=.15,   # estimate: UK and US counts of people with any conviction run from about 1 adult
                                     # in 5 to 1 in 3, minor ones included; fewer in much of Europe
        say="someone with a record",
-       gained="a conviction: 'a chance to make money on the side, not quite legal' that went wrong, "
-              "or 'a night out that gets out of hand'",
+       gained="a conviction after 'broke the law': 'a chance to make money on the side, not quite legal' that went "
+              "wrong, or 'a night out that gets out of hand'",
        lost="in some countries a minor record is spent after some years; otherwise never",
        needs="an offence and a court"),
   dict(name="ex-prisoner", kind="status", ways="",

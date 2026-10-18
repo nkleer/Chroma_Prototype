@@ -58,8 +58,8 @@ TITLES += [
        meets="need:meaning+.1 res:money+.05 res:time-.1 res:health-.02",
        ages=(25, 80), share=.003,   # estimate
        say="a psychotherapist",
-       gained=("a long training in [counselling] with supervised clients and therapy of their own, then a caseload in "
-               "a clinic or a private practice"),
+       gained=("a long training in [counselling], often after years as a [nurse] or [teacher], with supervised "
+               "clients and therapy of their own, then a caseload in a clinic or a private practice"),
        lost="closing the practice, a move into other work, losing [therapy accreditation]",
        needs=("[graduate]; a recognised psychotherapy training and supervision; [therapy accreditation], or "
               "registration where the country requires it")),
@@ -336,7 +336,8 @@ TITLES += [
        meets="need:belonging+.05 res:money+.03 res:time-.12 res:health-.03",
        ages=(16, 70), share=.006,   # US: about 200,000 bakers (BLS), with high turnover; estimate
        say="a baker",
-       gained="early shifts as a bakery assistant that become responsibility for the bake",
+       gained="early shifts as a bakery assistant, often after work as a [cook] or a [shop assistant], that become "
+              "responsibility for the bake",
        lost="the bakery closing, another job, opening a business of their own after "
             "'a chance to start a business of your own'",
        needs="[baking] and a [food hygiene certificate]"),

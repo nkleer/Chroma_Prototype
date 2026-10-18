@@ -38,13 +38,14 @@ PERKS += [
   dict(name="fixing things", kind="skill", ways="U", odds=.03, skill_half=25, retires=None,
        ages=(10, 100), share=.45,   # estimate
        say="can fix things",
-       gained="'the house needs repairs' and nobody to call; a parent's toolbox and a Saturday",
+       gained="'the house needs repairs' and nobody to call; 'a broken lamp at the repair cafe'; a parent's "
+              "toolbox and a Saturday",
        lost="only when the hands fail",
        needs="'learned a skill'"),
   dict(name="car mechanics", kind="skill", ways="U R B", odds=.04, skill_half=12, retires=None,
        ages=(12, 90), share=.12,   # estimate
        say="knows engines",
-       gained="a neighbour's shed, an old car that keeps breaking down, a garage job",
+       gained="a neighbour's shed, 'the car no one makes parts for', a garage job",
        lost="cars changing beyond recognition",
        needs="'learned a skill' several times"),
   dict(name="growing food", kind="skill", ways="G U", odds=.04, skill_half=30, retires=None,
@@ -62,8 +63,8 @@ PERKS += [
   dict(name="public speaking", kind="skill", ways="W B", odds=.05, skill_half=8, retires=None,
        ages=(10, 100), share=.2,   # estimate
        say="can hold a room",
-       gained="'a debate or contest at school', 'the school play', a best man's speech; "
-              "'the club or congregation asks you to lead'",
+       gained="'a debate or contest at school', 'the school play', 'the toast at the wedding'; 'the club or "
+              "congregation asks you to lead'",
        lost="years out of practice",
        needs="'learned a skill', and 'took a wild risk' the first time"),
   dict(name="bookkeeping", kind="skill", ways="W B", odds=.04, skill_half=10, retires=None,
@@ -106,7 +107,8 @@ PERKS += [
   dict(name="hunting and fishing", kind="skill", ways="G B", odds=.04, skill_half=20, retires=None,
        ages=(8, 90), share=.15,   # estimate
        say="can hunt and fish",
-       gained="a grandparent's river at dawn, an uncle's rifle and a cold morning",
+       gained="'a first fish on a grandparent's line', 'fishing the canal with friends', an uncle's rifle and a "
+              "cold morning",
        lost="the eyes, the knees, or a move to the city",
        needs="patience; a [hunting licence] to hunt"),
   dict(name="selling", kind="skill", ways="B R", odds=.05, skill_half=10, retires=None,
@@ -137,13 +139,14 @@ PERKS += [
   dict(name="striking a deal", kind="skill", ways="B U", odds=.05, skill_half=10, retires=None,
        ages=(14, 100), share=.15,   # estimate
        say="drives a hard bargain",
-       gained="'a bonus or a raise' asked for and won, a market stall, 'buying a home' at the right price",
+       gained="'a bonus or a raise' asked for and won, 'haggling at the Sunday market', 'buying a home' at the "
+              "right price",
        lost="years away from deals",
        needs="'took a wild risk'"),
   dict(name="scripture", kind="skill", ways="W G", odds=.03, skill_half=25, retires=None,
        ages=(6, 110), share=.15,   # estimate
        say="knows the scriptures",
-       gained="years of Sunday school, madrasa or Hebrew school; being a [regular worshipper]",
+       gained="years of lessons at a house of worship as a child; being a [regular worshipper]",
        lost="only forgetting",
        needs="[regular worshipper] at some time"),
   dict(name="cards for money", kind="skill", ways="B R", odds=.03, skill_half=10, retires=None,

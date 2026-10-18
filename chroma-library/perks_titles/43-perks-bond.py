@@ -70,13 +70,13 @@ PERKS += [
   dict(name="godparent who looks out", kind="bond", ways="W B", odds=.03, skill_half=10, retires=None,
        ages=(0, 60), share=.15,   # estimate
        say="has a godparent who looks out for them",
-       gained="chosen by the parents at a christening or naming day",
+       gained="chosen by the parents at a naming day",
        lost="a falling-out, the godparent's death",
        needs="parents who chose one"),
   dict(name="dog of one's own", kind="bond", ways="G R", odds=.02, skill_half=3, retires=None,
        ages=(4, 110), share=.4,   # estimate
        say="has a dog",
-       gained="'a pet of your own', 'a stray dog follows you home'",
+       gained="'a stray dog follows you home', or a puppy as 'a pet of your own'",
        lost="'your pet dies', a move to a flat that bans dogs",
        needs="a home that allows one, and money for food"),
   dict(name="in-laws who took you in", kind="bond", ways="R G", odds=.03, skill_half=10, retires=None,
