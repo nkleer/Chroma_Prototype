@@ -166,7 +166,8 @@ const GL = parts.includes('gl'), tag = `${width}${GL ? '-gl' : ''}`;
     const f = (v) => (v == null ? '-' : (+v).toFixed(2));
     say(`  ${Math.round((Date.now() - tC) / 1000)} s, ${n} steps sent, ${c.n} frames, renderer ${c.renderer}: mean ${f(c.mean)} ms, p95 ${f(c.p95)} ms, p50 ${f(c.p50)}, max ${f(c.max)}; field ${f(c.field)}, sparks ${f(c.sparks)}, ink ${f(c.ink)}${c.fieldHz ? `, field ${c.fieldHz}/s` : ''}${c.gpu != null ? `, gpu ${f(c.gpu)}` : ''}; ease ${f(c.ease)} s`);
     require('fs').writeFileSync(`${dir}/sky-${tag}-cost.json`, JSON.stringify(c));
-    check(c.n > 200, `the sky drew while the life ran (${c.n} frames)`);
+    // at least 5 frames a second: headless Canvas2D draws about 13, software WebGL (SwiftShader) about 6
+    check(c.n > 100, `the sky drew while the life ran (${c.n} frames)`);
     await shot('cost-end');
   }
 
