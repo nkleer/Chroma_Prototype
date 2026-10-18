@@ -44,7 +44,9 @@ function newLife() {
 const slim = (L) => ({
   label: L.label || "", guild: L.guild || "", magic: L.magic || "", stage: L.stage || "", voice: (L.voice || []).slice(),
   voice_label: L.voice_label || "", w: L.w.slice(), readiness: L.dyn ? L.dyn.readiness : null,
-  titles: (L.titles || []).map((t) => ({ kind: t.kind, years: t.years, invested: t.invested, named: (t.named || []).map((x) => ({ name: x.name, say: x.say, years: x.years })) })),
+  titles: (L.titles || []).map((t) => ({ kind: t.kind, years: t.years, invested: t.invested, named: (t.named || []).map((x) => ({ name: x.name, say: x.say, years: x.years })),
+    // river (V3): a role's colours tint its stratum and a quarrel cracks it
+    expects: t.expects || "", clash: !!t.clash })),
   perks: (L.perks || []).map((p) => ({ name: p.name, say: p.say, kind: p.kind, ways: p.ways, state: p.state, years: p.years })),
   goals: (L.goals || []).map((g) => ({ id: g.id, kind: g.kind, name: g.name, colors: g.colors, strength: g.strength, progress: g.progress })),
   pushes: L.pushes ? { forced: L.pushes.forced, accepted: L.pushes.accepted, resented: L.pushes.resented, passed: (L.pushes.passed || []).slice() } : null,
