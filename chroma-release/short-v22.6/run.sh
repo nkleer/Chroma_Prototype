@@ -206,7 +206,7 @@ n3() { [ -n "${N3BASE:-}" ] || { echo "N3BASE=<the Game's re-pin commit before r
     ( cd $d/$side/chroma-game/prototype && { [ $side = new ] && export CHROMA_GAME='{"returns": false}'; true; } &&
       python3 -B test/same_life.py $p 7 $d/${side}_$p.jsonl > $d/${side}_$p.out 2>&1 ) &
   done; done; wait
-  { echo "v22.6 N3 on ${SHA:0:12} with returns off (CHROMA_GAME) against ${b:0:12} (N3BASE), test/same_life.py presets 1-6, seed 7"
+  { echo "v22.6 N3 on ${SHA:0:12} with returns off (CHROMA_GAME) against ${b:0:12} (N3BASE), test/same_life.py presets ${N3P:-1 2 3 4 5 6}, seed 7"
     for p in ${N3P:-1 2 3 4 5 6}; do
       if [ -s $d/new_$p.jsonl ] && cmp -s $d/new_$p.jsonl $d/base_$p.jsonl; then echo "ok   preset $p: $(wc -l < $d/new_$p.jsonl) steps, identical ($(tail -1 $d/new_$p.out))"
       else ok=1; echo "MISS preset $p: $(cmp $d/new_$p.jsonl $d/base_$p.jsonl 2>&1 | head -1)"; fi; done
