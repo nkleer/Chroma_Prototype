@@ -26,8 +26,19 @@ scratch folder first and run with -B, so nothing is written in the shared folder
             option); every text the console returns and the HUD at every moment must be equal.
   --game    the game folder the new engine plays in (default the live game); --base-game the one the base engine plays
             in (default --game). For a build with a game speed pass: --base-game chroma-game/prototype --game <build>.
+  The base side is kept (step 4 of chroma-env/plan-by-function-2026-10-18.md): each engine run of the base leaves a
+  digest of every output it returns in the cache ($CHROMA_SPEEDPASS_CACHE, else /mnt/project-files/.cache/speedpass when
+  the shared folder exists, else ~/.cache/chroma/speedpass), keyed by what that run reads and how it runs: the base
+  engine's .py files, the Library's top-level files and the packs' files one folder down (*.md aside), the seed, world,
+  lives, years and switches, the CHROMA_, PACK_ and TIER_ environment, this script's worker and digest code, and Python's
+  and numpy's versions. The live engine changes only at a publish, so a same-lives part then runs the new engine alone,
+  about half the time. Only values equal under the comparison below hash alike, so a new run that matches the kept
+  digests is identical; one that does not runs the base again and is compared in full, as before, and a base that then
+  does not give its kept digests fails the check (the key missed an input). Timing runs and game lives always run both.
+  --fresh      run the base again even when it is kept (the new digests are kept); --cache DIR: another cache folder.
+  --base-only  run and keep the base side only (no --new, nothing compared, no result line), for the proofs after it.
 Exit code 0 when every compared run is identical. Report: chroma-release/out/speedpass_<UTC time>.txt."""
-import sys, os, argparse, json, time, pickle, shutil, subprocess, tempfile, glob
+import sys, os, argparse, json, time, pickle, shutil, subprocess, tempfile, glob, hashlib, platform
 
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "chroma-env"))
 os.environ.setdefault("CHROMA_ROOT", os.path.dirname(os.path.dirname(os.path.abspath(__file__))))   # the tree this script sits in
@@ -101,7 +112,7 @@ if len(sys.argv) > 1 and sys.argv[1] == "--gworker":
 import numpy as np
 
 ap = argparse.ArgumentParser()
-ap.add_argument("--new", required=True)
+ap.add_argument("--new", default=None)
 ap.add_argument("--base", default=P["engine_live"])
 ap.add_argument("--lib", default=P["library_live"])
 ap.add_argument("--packs", default=P["packs_live"])
@@ -121,7 +132,14 @@ ap.add_argument("--game", default=P["game_live"])
 ap.add_argument("--base-game", default=None)
 ap.add_argument("--games", default="1,2,3,4,5,6")
 ap.add_argument("--gseed", default="7")
+ap.add_argument("--fresh", action="store_true", help="run the base again even when the cache keeps its side")
+ap.add_argument("--base-only", action="store_true", help="run and keep the base side only, for the proofs after it")
+ap.add_argument("--cache", default=None, help="the cache folder (default $CHROMA_SPEEDPASS_CACHE, else the shared folder's .cache/speedpass)")
 a = ap.parse_args()
+if a.base_only:
+    a.new, a.games, a.timing = a.new or a.base, "", 0
+elif not a.new:
+    ap.error("--new is needed (or --base-only)")
 
 os.makedirs(P["release_out"], exist_ok=True)
 ap2 = a.tag if a.tag else ("s" + a.seeds.replace(",", "-") if a.seeds else "games")
@@ -136,7 +154,7 @@ def say(s=""):
 work = a.scratch or tempfile.mkdtemp(prefix="speedpass_")
 copies = {}
 for tag, src in (("base", a.base), ("new", a.new)):
-    d = os.path.join(work, tag); os.makedirs(d, exist_ok=True)
+    d = os.path.join(work, tag); shutil.rmtree(d, ignore_errors=True); os.makedirs(d)   # a reused --scratch: no earlier engine's files
     for f in glob.glob(os.path.join(os.path.abspath(src), "*.py")):
         shutil.copy(f, d)
     copies[tag] = d
@@ -162,7 +180,8 @@ if games:
                                          f"{', '.join(put)} from {tag}")
 say(f"Speed pass check, {time.strftime('%Y-%m-%d %H:%M', time.gmtime())} UTC")
 say(f"  base {a.base} (engine.py {md5(os.path.join(copies['base'], 'engine.py'))}, {len(os.listdir(copies['base']))} files)")
-say(f"  new  {a.new} (engine.py {md5(os.path.join(copies['new'], 'engine.py'))}, {len(os.listdir(copies['new']))} files)")
+say("  new  none (--base-only: the base side is run and kept, nothing is compared)" if a.base_only else
+    f"  new  {a.new} (engine.py {md5(os.path.join(copies['new'], 'engine.py'))}, {len(os.listdir(copies['new']))} files)")
 NLIB, NPACKS = a.new_lib or a.lib, a.new_packs or a.packs
 say(f"  Library {a.lib}, packs {a.packs}" + (f"; new on Library {NLIB}, packs {NPACKS}" if (NLIB, NPACKS) != (a.lib, a.packs) else "")
     + f"; {a.lives} lives x {a.years} years, seeds {a.seeds}, worlds {a.worlds}; "
@@ -173,7 +192,7 @@ for x in gnotes:
 jobs = []   # (label, tag, seed, world, N, out path)
 for sd in [x for x in a.seeds.split(",") if x]:          # --seeds "": the game lives only
     for w in [x for x in a.worlds.split(",") if x]:
-        for tag in ("base", "new"):
+        for tag in ("base",) if a.base_only else ("base", "new"):
             jobs.append((f"id-{sd}-{w}", tag, sd, w, a.lives, os.path.join(work, f"id_{sd}_{w}_{tag}.pkl")))
 if a.timing:
     for w in [x for x in a.worlds.split(",") if x]:
@@ -182,25 +201,164 @@ if a.timing:
 for g in games:
     for tag in ("base", "new"):
         jobs.append((f"game-{g}", tag, g, "game", 0, os.path.join(work, f"game_{g}_{tag}.pkl")))
+CACHE = a.cache or os.environ.get("CHROMA_SPEEDPASS_CACHE") or (
+    "/mnt/project-files/.cache/speedpass" if os.path.isdir("/mnt/project-files") else os.path.expanduser("~/.cache/chroma/speedpass"))
+CACHE_FORM = "speedpass base side 1"   # a new form of entry or digest: a new number, so no old entry is read
+ENV_FREE = ("CHROMA_COMMIT", "CHROMA_ROOT", "CHROMA_PROJECT", "CHROMA_WORLD_CACHE", "CHROMA_CACHE", "CHROMA_SPEEDPASS_CACHE",
+            "CHROMA_PROOF_CACHE", "CHROMA_ENGINE_DIR", "CHROMA_LIBRARY_DIR", "CHROMA_PACKS_DIR")
+# ENV_FREE: where things are and where caches live (the worker is given its folders); every other CHROMA_, PACK_, TIER_ value is in the key
+load = lambda p: pickle.load(open(p, "rb")) if os.path.exists(p) else None
+
+
+def canon(x, h):
+    """Feed x to the hash h so that two values that hash alike are equal under diff() below (the reverse need not hold:
+    a float32 and a float64 array of the same numbers hash apart, and the base then runs again)."""
+    if isinstance(x, dict):
+        h.update(b"D%d;" % len(x))
+        for k in sorted(x, key=str):
+            canon(k, h); canon(x[k], h)
+        return
+    if x is None:
+        h.update(b"N;"); return
+    if isinstance(x, (list, tuple)) and not (len(x) and isinstance(x[0], (int, float, np.number))):
+        h.update(b"L%d;" % len(x))
+        for u in x:
+            canon(u, h)
+        return
+    try:
+        ax = np.asarray(x)
+    except Exception:
+        h.update(b"P" + pickle.dumps(x) + b";"); return
+    if ax.dtype == object:
+        h.update(b"O" + pickle.dumps(x) + b";"); return
+    body = np.ascontiguousarray(ax).reshape(-1)
+    if ax.dtype.kind in "fc":                       # NaN equals NaN and -0.0 equals 0.0 in diff(), so they hash alike
+        body = body.copy()
+        f = body.view(body.real.dtype) if ax.dtype.kind == "c" else body
+        f[np.isnan(f)] = np.nan; f[f == 0] = 0
+    h.update(b"A" + ax.dtype.str.encode() + repr(ax.shape).encode() + b";" + body.tobytes())
+
+
+def digests(o):
+    """{output: digest} of one engine run's outputs."""
+    out = {}
+    for k, v in o.items():
+        h = hashlib.sha256(); canon(v, h); out[k if isinstance(k, str) else repr(k)] = h.hexdigest()[:24]
+    return out
+
+
+_sig = {}
+
+
+def files_sig(d, deep):
+    """A hash over the names and contents of the files in folder d that a run can read (*.md and caches aside); deep: those
+    one folder down too (the packs: core/ and each pack's own folder)."""
+    d = os.path.abspath(d)
+    if (d, deep) not in _sig:
+        h = hashlib.sha256()
+
+        def walk(p, rel, down):
+            for f in sorted(os.listdir(p)):
+                q = os.path.join(p, f)
+                if os.path.isfile(q) and not f.endswith((".md", ".pyc")):
+                    h.update(f"{rel}{f}\0".encode()); h.update(hashlib.sha256(open(q, "rb").read()).digest())
+                elif down and os.path.isdir(q) and f != "__pycache__":
+                    walk(q, rel + f + "/", False)
+        walk(d, "", deep)
+        _sig[(d, deep)] = h.hexdigest()
+    return _sig[(d, deep)]
+
+
+def base_key(sd, w, N):
+    import inspect
+    env_ = {k: v for k, v in sorted(os.environ.items()) if k.startswith(("CHROMA_", "PACK_", "TIER_")) and k not in ENV_FREE}
+    parts = [CACHE_FORM, files_sig(copies["base"], False), files_sig(a.lib, False), files_sig(a.packs, True), str(sd), w, str(N),
+             str(a.years), json.dumps(json.loads(a.Pbase), sort_keys=True), json.dumps(env_), inspect.getsource(worker),
+             inspect.getsource(canon), platform.python_version(), np.__version__]
+    return hashlib.sha256("\n".join(parts).encode()).hexdigest()[:32]
+
+
+def cache_get(key):
+    try:
+        e = json.load(open(os.path.join(CACHE, key + ".json")))
+        return e if e.get("key") == key else None
+    except (OSError, ValueError):
+        return None
+
+
+def keep(j):
+    """The base engine run j has run: its digests go into the cache (written whole, then moved into place)."""
+    b = load(j[5])
+    if b is None:
+        return None
+    e = dict(key=base_key(j[2], j[3], j[4]), digests=digests(b["out"]), outputs=len(b["out"]), dropped=b["dropped"], cpu=b["cpu"],
+             engine_md5=b["engine_md5"], made=time.strftime("%Y-%m-%d %H:%M UTC", time.gmtime()), host=platform.node(),
+             base=os.path.abspath(a.base), lib=os.path.abspath(a.lib), packs=os.path.abspath(a.packs), seed=j[2], world=j[3],
+             lives=j[4], years=a.years, P=a.Pbase, commit=os.environ.get("CHROMA_COMMIT", ""))
+    os.makedirs(CACHE, exist_ok=True)
+    p = os.path.join(CACHE, e["key"] + ".json"); tmp = f"{p}.{os.getpid()}.tmp"
+    with open(tmp, "w") as f:
+        json.dump(e, f)
+    os.replace(tmp, p)
+    return e
+
+
+engine_runs = [j for j in jobs if j[1] == "base" and j[0].startswith("id-")]
+cached = {} if a.fresh else {j[0]: e for j in engine_runs for e in [cache_get(base_key(j[2], j[3], j[4]))] if e}
+if engine_runs:
+    say(f"  base side kept for {len(cached)} of {len(engine_runs)} engine runs" + (" (--fresh: run again)" if a.fresh else "")
+        + f"; cache {CACHE}")
 env = dict(os.environ, OMP_NUM_THREADS="1", PYTHONDONTWRITEBYTECODE="1")
-running, todo, failed = [], list(jobs), []
-while todo or running:
-    while todo and len(running) < a.jobs:
-        lab, tag, sd, w, N, out = todo.pop(0)
-        P = a.Pnew if tag == "new" else a.Pbase
-        if w == "game":
-            cmd = [sys.executable, "-B", os.path.abspath(__file__), "--gworker", gcopies[tag], sd, a.gseed, P, out]; cwd = gcopies[tag]
-        else:
-            cmd = [sys.executable, "-B", os.path.abspath(__file__), "--worker", copies[tag], os.path.abspath(NLIB if tag == "new" else a.lib),
-                   os.path.abspath(NPACKS if tag == "new" else a.packs), sd, w, str(N), str(a.years), P, out]; cwd = work
-        p = subprocess.Popen(cmd, env=env, cwd=cwd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-        running.append((p, lab, tag, out))
-    time.sleep(2)
-    for r in list(running):
-        if r[0].poll() is not None:
-            running.remove(r)
-            if r[0].returncode != 0:
-                failed.append(r[1] + "/" + r[2]); say(f"MISS run {r[1]} {r[2]} failed: {r[0].stdout.read().decode()[-600:]}")
+failed = []
+
+
+def run(todo):
+    running = []
+    while todo or running:
+        while todo and len(running) < a.jobs:
+            lab, tag, sd, w, N, out = todo.pop(0)
+            P = a.Pnew if tag == "new" else a.Pbase
+            if os.path.exists(out):                         # a reused --scratch: never an earlier run's output in its place
+                os.remove(out)
+            if w == "game":
+                cmd = [sys.executable, "-B", os.path.abspath(__file__), "--gworker", gcopies[tag], sd, a.gseed, P, out]; cwd = gcopies[tag]
+            else:
+                cmd = [sys.executable, "-B", os.path.abspath(__file__), "--worker", copies[tag], os.path.abspath(NLIB if tag == "new" else a.lib),
+                       os.path.abspath(NPACKS if tag == "new" else a.packs), sd, w, str(N), str(a.years), P, out]; cwd = work
+            p = subprocess.Popen(cmd, env=env, cwd=cwd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+            running.append((p, lab, tag, out))
+        time.sleep(2)
+        for r in list(running):
+            if r[0].poll() is not None:
+                running.remove(r)
+                if r[0].returncode != 0:
+                    failed.append(r[1] + "/" + r[2]); say(f"MISS run {r[1]} {r[2]} failed: {r[0].stdout.read().decode()[-600:]}")
+
+
+run([j for j in jobs if not (j[1] == "base" and j[0] in cached)])
+for j in engine_runs:
+    if j[0] not in cached and j[0] + "/base" not in failed:
+        keep(j)
+if a.base_only:
+    say(f"Base side: {'FAIL' if failed else 'kept'} ({len(engine_runs) - len(cached)} run, {len(cached)} already kept)")
+    say(f"report: {REPORT}; scratch {work}")
+    sys.exit(1 if failed else 0)
+matched, again = {}, []   # labels whose new run equals the kept base side by digest; base runs to do after all
+for lab, e in cached.items():
+    n = load(next(j[5] for j in jobs if j[0] == lab and j[1] == "new"))
+    if n is not None and digests(n["out"]) == e["digests"]:
+        matched[lab] = (e, dict(cpu=n["cpu"], outputs=len(n["out"]), dropped=n["dropped"]))
+    elif n is not None:
+        again.append(next(j for j in engine_runs if j[0] == lab))
+if again:
+    say(f"  {len(again)} new run(s) differ from the kept base side: running the base again to compare in full")
+    run(list(again))
+    for j in again:
+        e = keep(j) if j[0] + "/base" not in failed else None
+        if e and e["digests"] != cached[j[0]]["digests"]:
+            failed.append(j[0] + "/cache")
+            say(f"MISS {j[0]}: the base run again does not give its kept digests (kept {cached[j[0]]['made']} on "
+                f"{cached[j[0]]['host']}): the cache key misses an input, so a proof that matched this entry proves nothing")
 
 SKIP = set()
 
@@ -245,9 +403,17 @@ def diff(x, y, path, out):
         out.append((path, "differs"))
 
 
-load = lambda p: pickle.load(open(p, "rb")) if os.path.exists(p) else None
 ok = not failed; cpu = {}
 for lab in dict.fromkeys(j[0] for j in jobs):
+    if lab in matched:
+        e, n = matched[lab]
+        cpu[lab] = (e["cpu"], n["cpu"])
+        say(f"ok   {lab}: base {e['cpu']:.0f} s (kept {e['made']} on {e['host']}), new {n['cpu']:.0f} s CPU "
+            f"({e['cpu'] / max(n['cpu'], 1e-9):.2f}x faster): identical ({n['outputs']} outputs compared by digest)")
+        dropped = sorted(set(e["dropped"]) | set(n["dropped"]))
+        if dropped:
+            say(f"       not compared (not picklable): {', '.join(dropped)}")
+        continue
     b = load(next(j[5] for j in jobs if j[0] == lab and j[1] == "base"))
     n = load(next(j[5] for j in jobs if j[0] == lab and j[1] == "new"))
     if b is None or n is None:
