@@ -3,8 +3,9 @@
 (chroma-art/game/ink-icons.svg, ink-icons.json and pictures.json, read only; Chroma's own icons since 2026-10-05, Emren
 chose "All ours"), body.html and the app (app/*.js, joined in name order inside one <script>; app.js before 10-17), then
 the ink look over it: look.css and look.js, with the pictures' lights (chroma-art/game/lights.json, read only, made by
-chroma-look/tools/extract_lights.js) packed into look.js, and last the clarity layer in both looks: clarity.css and
-clarity.js (thread "HUD and story flow check", Emren 10-10 "apply all of them").
+chroma-look/tools/extract_lights.js) packed into look.js, the clarity layer in both looks: clarity.css and clarity.js
+(thread "HUD and story flow check", Emren 10-10 "apply all of them"), and last the Living HUD (living/, v23 rows V0 to
+V6): one <style> of living/*.css and one <script> for each living/*.js, in name order.
 While web/src/option-icons-live.json exists (made by live_icons.py), it stands in for the icon set's per-option map, which
 follows the Library's audited batch; delete it once that batch is live.
 The pictures themselves (chroma-art/game/pics/*.webp) are published next to the page as pics/...; without them the page
@@ -61,5 +62,12 @@ look = part("look.js").replace("__LIGHTS__", json.dumps(lights, separators=(",",
 STYLE = os.path.join(here, "style")
 head = part("head.html") + "<style>\n" + "".join(part(f, STYLE) for f in sorted(os.listdir(STYLE)) if f.endswith(".css")) + "</style>\n"
 out = head + "\n" + part("sprite.svg") + "\n" + part("ink-icons.svg", art).strip() + "\n" + part("body.html") + "\n" + app + "\n" + part("look.css") + "\n" + look + "\n" + part("clarity.css") + "\n" + part("clarity.js")
+# the Living HUD: after clarity, so it wraps the outermost page functions; one <script> for each part, so an error while one
+# of them loads stops neither the others nor the game
+LIV = os.path.join(here, "living")
+liv = sorted(os.listdir(LIV)) if os.path.isdir(LIV) else []
+if any(f.endswith(".css") for f in liv):
+    out += "<style>\n" + "".join(part(f, LIV) for f in liv if f.endswith(".css")) + "</style>\n"
+out += "".join("<script>\n" + part(f, LIV) + "</script>\n" for f in liv if f.endswith(".js"))
 open(os.path.join(here, "..", "index.html"), "w", encoding="utf-8").write(out)
 print("built web/index.html", len(out))

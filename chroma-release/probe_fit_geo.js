@@ -7,10 +7,17 @@ const { chromium } = require(process.env.PW || 'playwright');
 //  - covered: options the reading strip (or anything else) covers at the point a click lands, after scrolling the card
 //    into view the nearest way; unreachable: options covered at every scroll position tried (nearest, center, the end).
 //  - every other moment it really clicks the bottom option (alternately the last card and Do nothing) as a player would,
-//    and records a click the page refuses.
+//    and records a click the page refuses. v23: a card is held as long as its data-hold asks when the page has the hold,
+//    and the first card pushed is pushed by its number on the keyboard.
 // Coordinator's v22 bar (10-07 21:29 Emren): covered 0, unreachable 0, no failed click; scrolling is reported, not failed.
 //   node test/probe_fit_cx3.js <url> <shots dir> [moments] [W] [H] [preset]
 const { startLife, idleOf, nextOf } = require('./start.js');
+// v23: with the Living HUD's cards a pointer pushes a card by holding it (hold.js). A copy run beside an older start.js
+// with no hold.js clicks, as before, and stops at a page that wants a hold.
+const { holdOpt, keyOpt } = (() => { try { return require('./hold.js'); } catch (e) { return {
+  holdOpt: async (page, h, o = {}) => { if (await page.evaluate(() => { const t = document.getElementById('table'); return !!t && t.dataset.hold === 'on'; })) throw new Error('the page pushes by a hold: hold.js is needed');
+    await h.click({ timeout: o.timeout }); return { held: false, ms: 0 }; },
+  keyOpt: async (page, h) => { const n = await h.getAttribute('data-num'); for (const d of n) await page.keyboard.press(d); await page.waitForTimeout(600); return +n; } }; } })();
 const [url, dir, M, W, H, preset] = [process.argv[2], process.argv[3], +(process.argv[4] || 60), +(process.argv[5] || 1280), +(process.argv[6] || 800), process.argv[7] || '1'];
 (async () => {
   const browser = await chromium.launch();
@@ -19,7 +26,7 @@ const [url, dir, M, W, H, preset] = [process.argv[2], process.argv[3], +(process
   await page.goto(url);
   await startLife(page, preset, 'Mira');
   const idle = idleOf(page, logs), next = nextOf(page, idle);
-  const out = [], clicks = []; let shots = 0, k2 = 0;
+  const out = [], clicks = []; let shots = 0, k2 = 0, keyed = 0;
   for (let k = 0; k < 4000 && out.length < M; k++) {
     await idle();
     const atCp = await page.evaluate(() => { const w = document.getElementById('evwrap'); return !!(w && !w.hidden && document.getElementById('evOpts') && document.getElementById('evLet') && !document.querySelector('#goOn')); });
@@ -63,10 +70,12 @@ const [url, dir, M, W, H, preset] = [process.argv[2], process.argv[3], +(process
         const sel = none ? '#evOpts .opt.onone' : '#evOpts .ogrid:last-of-type .opt:last-child';
         const h = (await page.$(sel)) || (await page.$$('#evOpts .opt')).slice(-1)[0];
         const label = h ? (await h.evaluate((o) => (o.querySelector('.ot') || o).textContent.trim().slice(0, 32))) : '(none found)';
-        let ok = true;
-        try { await h.click({ timeout: 10000 }); await page.waitForTimeout(200); const p = await page.$('#pushIt'); if (p && await p.isVisible()) await p.click({ timeout: 10000 }); }
+        let ok = true, how = '';
+        try {
+          if (!keyed) { keyed = await keyOpt(page, h); how = 'key ' + keyed; } else how = (await holdOpt(page, h, { timeout: 10000 })).held ? 'held' : 'clicked';
+          await page.waitForTimeout(200); const p = await page.$('#pushIt'); if (p && await p.isVisible()) await p.click({ timeout: 10000 }); }
         catch (e) { ok = false; await page.screenshot({ path: `${dir}/clickfail-age${m.age}.png` }).catch(() => {}); }
-        clicks.push({ age: m.age, label, ok });
+        clicks.push({ age: m.age, label, ok, how });
         if (!ok) { try { await page.click('#evLet', { timeout: 10000 }); } catch (_) {} }
         continue;
       }
