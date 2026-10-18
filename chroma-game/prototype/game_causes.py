@@ -11,7 +11,9 @@ Part of class Game (game.py), which inherits CausesMixin. What it reads:
     held    name (the title or perk it builds on), t (since when)
     money   (the money for it)
     age, stage, luck, none, pack (pack, clause): told by the Library's cause: phrase when it has one, else not named
-  and for a loss, k held with years (time passed: years held) or unused with years (slipped away: years since used).
+  and for a loss, k held with years (time passed: years held) or unused with years and as (slipped away: years since
+  used; as unused, alone, short of money or time). Any other k names nothing. A rule in the Library's CAUSE_HOLD (the
+  L1 audit's loose rules) is told only with its cause: phrase, never with the clause that held.
   Without why, a loss that ran its time says the years the game saw it held; a gain names nothing.
 - loc["asrc_c"] (the Engine's E1 (a), at the pause): what moved the colours, by source (ASOURCES), cumulative, shape
   (sources, C). The year line diffs two pauses for the year's movers after its own told events.
@@ -32,7 +34,10 @@ CAUSE0 = dict(
     held_perk="with {say}",
     money="with the money for it",
     years="after {n} years",                                   # a loss: its time ran out
-    unused="after {n} years unused",                           # a loss: it slipped away
+    unused="after {n} years unused",                           # a loss: it slipped away (a skill unused)
+    unused_alone="after {n} years with few people close",     # a bond, while their ties were thin (the Engine's as)
+    unused_money="after {n} years short of money",             # an asset, while money was short
+    unused_time="after {n} years",                             # a standing, as time went by
 )
 YEAR0 = dict(
     turn="A year that turned {N}: {how}.",
@@ -45,6 +50,7 @@ YEAR0 = dict(
          "a shorter horizon": "a shorter horizon"},
 )
 FOLD0 = dict(gain="This year {N} {got}.", lose="This year {N} {lost}.", both="This year {N} {got}, and {lost}.")
+UNUSED_AS = {"alone": "unused_alone", "short of money": "unused_money", "time": "unused_time"}   # the Engine's as on a loss
 CAUSE_HOWS = ("in time", "slipped away", "time passed")       # the ways a change comes with no cause told today
 FOLD_KINDS = ("skill", "standing", "bond")                     # G4: small perks that come and go (titles keep their line)
 FOLD_HOWS = ("in time", "slipped away", "time passed", "regained")
@@ -91,7 +97,11 @@ class CausesMixin:
             if part is None:
                 return None
             k = "years" if part["k"] == "held" else "unused"
-            return k, self._trail(k, W[k].replace("{n}", _years(part["years"])), "")
+            w = W.get(UNUSED_AS.get(part.get("as"), ""), W[k]) if k == "unused" else W[k]
+            return k, self._trail(k, w.replace("{n}", _years(part["years"])), "")
+        if name in (getattr(ES, "CAUSE_HOLD", None) or ()):   # a rule the Library's audit found loose (L1): the clause
+            say = next((p["say"] for p in why if p.get("say")), None)   # that held may read false, so only its cause:
+            return ("none", self._trail("none", say, "")) if say else None   # phrase, until cause_fit tightens it
         for part in why:
             got = self._cause_part(part, W)
             if got:
