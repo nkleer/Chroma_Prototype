@@ -1,0 +1,130 @@
+  /* ================= the Living HUD: the story (living/50-story.js; row V5). Today's chronicle in the voice's hand:
+     every rule sits under :where(html[data-living="on"]) and #feed.sy-on, which the piece sets only while it is mounted,
+     so with it off (or failed) the story is exactly today's. The hand of each year arrives as custom properties on its
+     .yr (--h-wght, --h-opsz, --h-soft, --h-wonk, --h-track, --h-ws, --h-lh, --h-skew, --h-sh, --h-ink, --h-wet, and --h-fbw
+     and --h-fbink for the fallback face). The sizes, the margins, the folds and the markers' own inks stay today's.
+     Nothing that lays text out is animated (a hand is set at once); arrivals animate opacity, transform and one sliding
+     mask per arriving line. Calm is slower; motion off and reduced motion stop every animation here. ================= */
+  :where(html[data-living="on"]) #feed.sy-on {
+    --sy-dur: 1.15s; --sy-dry: 2.8s; --sy-x: 0.6s; --sy-k: 1;
+    --sy-ease: cubic-bezier(.3, .6, .25, 1);
+    --sy-gold: linear-gradient(176deg, #f1d891 0%, #c99a3f 40%, #8c661f 52%, #b88d38 70%, #e6c67a 100%);
+  }
+  :where(html[data-living="on"][data-motion="calm"]) #feed.sy-on { --sy-dur: 2.3s; --sy-dry: 5s; --sy-x: 1.2s; --sy-k: 1.8; }
+
+  /* ---------- the hand: a year's first line and its lines (not the ledger, nor the voice's opening line) ---------- */
+  :where(html[data-living="on"]) #feed.sy-on :is(.lead, .en:not(.ledger):not(.start)) {
+    font-family: var(--voice); font-optical-sizing: none;
+    font-weight: var(--h-wght, 370);
+    font-variation-settings: "opsz" var(--h-opsz, 20), "SOFT" var(--h-soft, 0), "WONK" var(--h-wonk, 0);
+    letter-spacing: var(--h-track, 0em); word-spacing: var(--h-ws, 0em); line-height: var(--h-lh, 1.62);
+    color: rgb(var(--h-ink, 42 33 22));
+    text-wrap: pretty;
+  }
+  /* the quieter lines keep today's quieter ink, mixed into the hand's */
+  :where(html[data-living="on"]) #feed.sy-on :is(.en.minor, .en.moment, .en.wline) { color: color-mix(in srgb, rgb(var(--h-ink, 42 33 22)) 80%, #8a7656); line-height: calc(var(--h-lh, 1.62) - 0.04); }
+  :where(html[data-living="on"]) #feed.sy-on .lead { position: relative; z-index: 0; color: color-mix(in srgb, rgb(var(--h-ink, 42 33 22)) 90%, #6c5d48); }
+  :where(html[data-living="on"]) #feed.sy-on .yr.closed > .lead { color: color-mix(in srgb, rgb(var(--h-ink, 42 33 22)) 62%, #8a7656); }
+  :where(html[data-living="on"]) #feed.sy-on .en.lk-big { font-weight: calc(var(--h-wght, 370) + 110); }
+  /* what keeps its own face inside a line: the icon, the verdict, the chips, clarity's moves, look's marks */
+  :where(html[data-living="on"]) #feed.sy-on :is(.gut, .res, .rchips, .cl-dw, .lk-mk, .lk-rarem) { font-variation-settings: normal; letter-spacing: normal; word-spacing: normal; }
+  :where(html[data-living="on"]) #feed.sy-on .wk { font-variation-settings: normal; word-spacing: normal; }
+  /* their own thoughts are theirs, not the voice's: Spectral italic */
+  :where(html[data-living="on"]) #feed.sy-on :is(.lead, .en) em { font-family: var(--serif); font-style: italic; font-weight: 400; font-variation-settings: normal; letter-spacing: 0; word-spacing: 0; }
+  /* without Fraunces (it has not loaded): Spectral, its medium weight only for a heavy hand, a lighter ink for a fine one */
+  :where(html[data-living="on"].sy-nofr) #feed.sy-on :is(.lead, .en:not(.ledger):not(.start)) { font-weight: var(--h-fbw, 400); color: rgb(var(--h-fbink, 42 33 22)); }
+  :where(html[data-living="on"].sy-nofr) #feed.sy-on :is(.en.minor, .en.moment, .en.wline) { color: color-mix(in srgb, rgb(var(--h-fbink, 42 33 22)) 80%, #8a7656); }
+  :where(html[data-living="on"].sy-nofr) #feed.sy-on .en.lk-big { font-weight: 500; }
+  /* deep (Black) ink sinks into the paper in a soft bleed of its own colour; the year being lived is still a little wet.
+     Shadows cost paint on every letter, so they are on only where they show (the piece sets sy-deep and sy-wet). */
+  :where(html[data-living="on"]) #feed.sy-on .yr.sy-deep :is(.lead, .en) { text-shadow: 0 .5px calc(.3px + var(--h-sh, 0) * 1.6px) color-mix(in srgb, currentColor calc(var(--h-sh, 0) * 42%), transparent); }
+  :where(html[data-living="on"]) #feed.sy-on .yr.sy-wet :is(.lead, .en) { text-shadow: 0 0 calc(.2px + var(--h-wet, 0) * .8px) rgb(var(--h-ink, 42 33 22) / calc(.03 + var(--h-wet, 0) * .14)); }
+  :where(html[data-living="on"]) #feed.sy-on .yr.sy-wet.sy-deep :is(.lead, .en) { text-shadow: 0 0 calc(.2px + var(--h-wet, 0) * .8px) rgb(var(--h-ink, 42 33 22) / calc(.03 + var(--h-wet, 0) * .14)),
+    0 .5px calc(.3px + var(--h-sh, 0) * 1.6px) color-mix(in srgb, currentColor calc(var(--h-sh, 0) * 42%), transparent); }
+  :where(html[data-living="on"].sy-nofr) #feed.sy-on .yr.sy-deep:not(.sy-wet) :is(.lead, .en) { text-shadow: 0 .5px calc(.3px + var(--h-sh, 0) * 1.4px) color-mix(in srgb, currentColor calc(var(--h-sh, 0) * 22%), transparent); }
+
+  /* ---------- the year's first line: a gilt capital, the rest of its first word in small capitals ---------- */
+  :where(html[data-living="on"]) #feed.sy-on .lead .sy-init { display: inline; font: 600 1.72em/0 var(--display); margin-right: -.02em; vertical-align: -.02em; letter-spacing: 0; font-variation-settings: normal;
+    background: var(--sy-gold); background-size: 100% 100%; -webkit-background-clip: text; background-clip: text; color: transparent; -webkit-text-fill-color: transparent; text-shadow: none;
+    filter: drop-shadow(0 .6px 0 rgb(255 248 225 / .8)) drop-shadow(0 -.4px 0 rgb(80 52 10 / .4)); }
+  :where(html[data-living="on"]) #feed.sy-on .lead .sy-sc { font-variant-caps: all-small-caps; letter-spacing: .045em; font-weight: calc(var(--h-wght, 370) + 40); }
+  :where(html[data-living="on"].sy-nofr) #feed.sy-on .lead .sy-sc { font-weight: 500; }
+  /* folded, a year's first line is one plain line, as today */
+  :where(html[data-living="on"]) #feed.sy-on .yr.closed > .lead .sy-init { font: inherit; margin: 0; vertical-align: baseline; letter-spacing: inherit; background: none; filter: none;
+    color: inherit; -webkit-text-fill-color: currentColor; }
+  :where(html[data-living="on"]) #feed.sy-on .yr.closed > .lead .sy-sc { font-variant-caps: normal; letter-spacing: inherit; font-weight: inherit; }
+  /* word by word (an open year with a lean or an old hand): each word a box, so a Red hand slants each word on its own
+     baseline and the line never drifts; a marked phrase keeps its underline on each of its words */
+  :where(html[data-living="on"]) #feed.sy-on .lead .sy-w { display: inline-block; white-space: nowrap; }
+  :where(html[data-living="on"]) #feed.sy-on .yr.sy-lean:not(.closed) > .lead .sy-w { transform: skewX(var(--h-skew, 0deg)); transform-origin: 50% 78%; }
+  :where(html[data-living="on"]) #feed.sy-on .lead .mk > .sy-w { text-decoration: inherit; }
+  /* punctuation that touches a marked phrase rides with its last word but keeps the plain ink and no underline */
+  :where(html[data-living="on"]) #feed.sy-on .lead .sy-p { display: inline-block; color: color-mix(in srgb, rgb(var(--h-ink, 42 33 22)) 90%, #6c5d48); text-decoration: none; }
+  /* the old hand behind the first line while the voice is changing: the same words on the same lines in the earlier
+     lettering, in a lighter, browned ink (old ink fades to brown), so only the letterforms differ. Its letters are
+     generated text, so the story's own words are there once. */
+  :where(html[data-living="on"]) #feed.sy-on .lead > .sy-ghost { position: absolute; inset: 0; z-index: -1; pointer-events: none; user-select: none; opacity: var(--g, .25);
+    font-family: var(--voice); font-optical-sizing: none; font-weight: var(--h-wght, 370);
+    font-variation-settings: "opsz" var(--h-opsz, 20), "SOFT" var(--h-soft, 0), "WONK" var(--h-wonk, 0);
+    letter-spacing: var(--h-track, 0em); word-spacing: var(--h-ws, 0em); line-height: inherit;
+    color: color-mix(in srgb, rgb(var(--h-ink, 42 33 22)) 62%, #8a6634); text-shadow: none; }
+  :where(html[data-living="on"].sy-nofr) #feed.sy-on .lead > .sy-ghost { font-weight: var(--h-fbw, 400); color: color-mix(in srgb, rgb(var(--h-fbink, 42 33 22)) 62%, #8a6634); }
+  :where(html[data-living="on"]) #feed.sy-on .yr.closed > .lead > .sy-ghost { display: none; }
+  :where(html[data-living="on"]) #feed.sy-on .sy-gl { position: absolute; width: max-content; white-space: nowrap; transform-origin: 0 50%; }
+  :where(html[data-living="on"]) #feed.sy-on .sy-gl::after { content: attr(data-w); }
+  :where(html[data-living="on"]) #feed.sy-on .sy-gl0::before { content: attr(data-a); font: 600 1.72em/0 var(--display); margin-right: -.02em; vertical-align: -.02em; letter-spacing: 0; font-variation-settings: normal; }
+  :where(html[data-living="on"]) #feed.sy-on :is(.sy-gl0, .sy-glsc)::after { font-variant-caps: all-small-caps; letter-spacing: .045em; }
+  :where(html[data-living="on"]) #feed.sy-on .sy-ghost.sy-lean .sy-gl::after { display: inline-block; transform: skewX(var(--h-skew, 0deg)); transform-origin: 50% 78%; }
+  /* a change of hand at a stop: the first line comes in again in the new lettering (opacity only) */
+  :where(html[data-living="on"]) #feed.sy-on .lead.sy-x { animation: sy-xin var(--sy-x) cubic-bezier(.4, 0, .3, 1) both; }
+  @keyframes sy-xin { from { opacity: .2; } }
+
+  /* ---------- the quill in the year's head: whose voice tells the year (its words on hover) ---------- */
+  :where(html[data-living="on"]) #feed.sy-on .yh > .sy-hand { position: relative; display: inline-grid; place-items: center; flex: none; width: 16px; height: 16px; cursor: help; transition: color .7s ease; }
+  :where(html[data-living="on"]) #feed.sy-on .sy-hand svg.i { width: 14px; height: 14px; }
+  :where(html[data-living="on"]) #feed.sy-on .sy-hand .sy-hg { position: absolute; left: -5px; top: 1px; }
+  :where(html[data-living="on"]) #feed.sy-on .yr.closed:not(.sy-ghosted) > .yh > .sy-hand { visibility: hidden; }
+
+  /* ---------- arrivals: a new year draws its rule and gilds its age; new lines soak in like ink ---------- */
+  /* look's own arrival steps aside in the story while this piece is on */
+  :where(html[data-living="on"]) #feed.sy-on :is(.en, .wp).lk-in:not(.sy-in), :where(html[data-living="on"]) #feed.sy-on .yr.lk-in > .yh { animation: none; }
+  :where(html[data-living="on"]) #feed.sy-on .yr.sy-new > .yh > .rule { transform-origin: 0 50%; animation: sy-draw calc(1.2s * var(--sy-k)) cubic-bezier(.3, .7, .2, 1) both; }
+  :where(html[data-living="on"]) #feed.sy-on .yr.sy-new > .yh > .ag { animation: sy-gild calc(1.4s * var(--sy-k)) cubic-bezier(.3, .7, .2, 1) both; }
+  :where(html[data-living="on"]) #feed.sy-on .yr.sy-new > .yh > :is(.gd, .icons, .sy-hand, .mood) { animation: sy-up calc(.9s * var(--sy-k)) .25s cubic-bezier(.3, .7, .2, 1) both; }
+  @keyframes sy-draw { from { transform: scaleX(0); opacity: .2; } }
+  @keyframes sy-gild { from { opacity: 0; transform: translateY(4px); } 45% { opacity: 1; } }
+  @keyframes sy-up { from { opacity: 0; transform: translateY(3px); } }
+  /* The words soak in from the first to the last: a soft-edged mask slides along them, so the ink darkens from the start
+     while the rest waits faint on the paper (it repaints only the arriving lines, for about a second). A line's words are
+     held in .sy-tx while it soaks, so its icon in the margin settles on its own. */
+  :where(html[data-living="on"]) #feed.sy-on :is(.en.sy-in > .sy-tx, .lead.sy-in) { --sy-ink: linear-gradient(90deg, #000 38%, rgb(0 0 0 / .1) 62%);
+    -webkit-mask: var(--sy-ink) 0 0 / 260% 100% no-repeat; mask: var(--sy-ink) 0 0 / 260% 100% no-repeat;
+    animation: sy-ink var(--sy-dur) var(--sy-ease) var(--sy-d, 0ms) both; }
+  @keyframes sy-ink { from { -webkit-mask-position: 100% 0; mask-position: 100% 0; } to { -webkit-mask-position: 0 0; mask-position: 0 0; } }
+  :where(html[data-living="on"]) #feed.sy-on .en.sy-in > .gut { animation: sy-settle calc(.9s * var(--sy-k)) cubic-bezier(.2, .7, .3, 1) var(--sy-d, 0ms) both; }
+  :where(html[data-living="on"]) #feed.sy-on .en.sy-in > :is(.res, .rchips, .cl-dw, .lk-mk, .lk-rarem) { animation: sy-fade var(--sy-dur) var(--sy-ease) calc(var(--sy-d, 0ms) + .3s) both; }
+  :where(html[data-living="on"]) #feed.sy-on .wp.sy-in { animation: sy-fade var(--sy-dur) ease var(--sy-d, 0ms) both; }
+  @keyframes sy-settle { from { opacity: 0; transform: scale(.92); } }
+  @keyframes sy-fade { from { opacity: 0; } }
+  /* wet ink is darker and feathered (more on a wet page), then dries in two steps, lighter and then crisp */
+  :where(html[data-living="on"]) #feed.sy-on :is(.en.sy-wet1 > .sy-tx, .lead.sy-wet1) { text-shadow: 0 0 calc(.6px + var(--h-wet, var(--wet, .5)) * 1.3px) rgb(var(--h-ink, 42 33 22) / .5); }
+  :where(html[data-living="on"]) #feed.sy-on :is(.en.sy-wet2 > .sy-tx, .lead.sy-wet2) { text-shadow: 0 0 calc(.4px + var(--h-wet, var(--wet, .5)) * .6px) rgb(var(--h-ink, 42 33 22) / .28); }
+  /* and the paper darkens a little where it soaks, then dries back: a soft stain inside the line's own box (the main
+     lines and the first lines; an everyday line just soaks in) */
+  :where(html[data-living="on"]) #feed.sy-on .en { isolation: isolate; }
+  :where(html[data-living="on"]) #feed.sy-on :is(.en.sy-in:not(.minor), .lead.sy-in)::after { content: ""; position: absolute; z-index: -1; left: -36px; top: -14px; bottom: -14px; width: calc(72% + 56px);
+    pointer-events: none; transform-origin: 18% 40%; background: radial-gradient(closest-side, rgb(150 108 46 / .1), rgb(150 108 46 / .04) 60%, transparent);
+    animation: sy-stain var(--sy-dry) cubic-bezier(.2, .6, .3, 1) var(--sy-d, 0ms) both; }
+  @keyframes sy-stain { from { transform: scale(.15, .4); opacity: 0; } 20% { opacity: 1; } 60% { opacity: .6; } to { transform: scale(1); opacity: 0; } }
+  /* the gilt capital of a new year catches the light once (not in calm motion: fewer things move) */
+  :where(html[data-living="on"]:not([data-motion="calm"])) #feed.sy-on :is(.yr.sy-new > .lead, .lead.sy-in) .sy-init { background-image: linear-gradient(100deg, transparent 35%, rgb(255 251 230 / .95) 48%, transparent 60%), var(--sy-gold);
+    background-size: 300% 100%, 100% 100%; background-repeat: no-repeat; animation: sy-glint 2.2s .5s cubic-bezier(.4, 0, .2, 1) both; }
+  @keyframes sy-glint { from { background-position: 110% 0, 0 0; } to { background-position: -40% 0, 0 0; } }
+
+  /* ---------- motion off, and the system's reduced motion: nothing here moves ---------- */
+  :where(html[data-living="on"][data-motion="off"]) #feed.sy-on :is(.sy-in, .sy-in *, .sy-new *, .sy-hand, .lead.sy-x, .sy-init),
+  :where(html[data-living="on"][data-motion="off"]) #feed.sy-on :is(.sy-in, .sy-in *)::after { animation: none !important; transition: none !important; }
+  @media (prefers-reduced-motion: reduce) {
+    :where(html[data-living="on"]) #feed.sy-on :is(.sy-in, .sy-in *, .sy-new *, .sy-hand, .lead.sy-x, .sy-init),
+    :where(html[data-living="on"]) #feed.sy-on :is(.sy-in, .sy-in *)::after { animation: none !important; transition: none !important; }
+  }
