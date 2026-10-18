@@ -263,7 +263,7 @@ look() { git -C $REPO fetch -q origin "+refs/heads/$LOOKBASE:refs/remotes/origin
   { echo "v23 K26 look_same: the page layer of ${SHA:0:12} against $LOOKBASE (${b:0:12}): $LOOK" | tr -s ' \n' ' '; echo
     [ -z "$d" ] && echo "ok   every page-layer file equal" || { echo "differ (each must be a v23 change the bar names):"; echo "$d"; }; } > $o; cat $o
   python3 -B $R/results.py add look_same $([ -z "$d" ] && echo PASS || echo FAIL) $o "page layer against $LOOKBASE ${b:0:12}"
-  SHA=$SHA BASE=$LOOKBASE bash $R/short-v22.2.1/run.sh page; }
+  SHA=$SHA BASE=$LOOKBASE PAGE_ONLY=${PAGE_ONLY:-} bash $R/short-v22.2.1/run.sh page; }   # (set -u there; empty = every page row)
 GAME_ONLY="^chroma-game/prototype/web/ ^chroma-game/prototype/test/[^/]*\.js$ ^chroma-look/tools/ ^chroma-release/"   # may differ
 # between GAMEP and the final for its rows to carry: the page, its browser drivers and tours (the page rows run on the final)
 carry_game() {   # GAMEP's game rows for the final commit: v22_checks' rerun (its proofs reuse them), the others carried
