@@ -36,7 +36,7 @@ Owner: the Engine thread. The repository-wide rules are in the root `CLAUDE.md`.
   module's `_PARTS` lists them). Every name is still importable from `world_people` and `world`, and a patch on
   `People` or `World` (`People._pt_q = ...`) works as before. Find a method with `rg -n 'def name' v22-speedpass/`;
   a new module name goes in `_PARTS` (the world cache, `people_check`, `world_check` and the stats keys read it), and
-  `chroma-game/tools/build.py` pins every `world*.py` (and `parts.py`, `run_*.py`, `rules_*.py`).
+  `chroma-game/tools/pin.py` takes every `world*.py` (and `parts.py`, `run_*.py`, `rules_*.py`).
   - People, in `world_people_<part>.py`: `roster` (the world through world-build.md's names, adding and dropping
     people, birth), `settings` (settings, spheres phase 2), `ticks` (the ticks, ties, commitments, the life course of
     settings), `lives` (the cast's own lives, wants, far ties), `sacred` (S5, S6), `eyes` (approval, standing, reach,
@@ -56,7 +56,9 @@ Owner: the Engine thread. The repository-wide rules are in the root `CLAUDE.md`.
 - `prototype/calib_v8/rarity.json` is the rarity table of v22 and v22.1. The paused v23 engine lives in the shared
   folder's `chroma-engine/prototype/`, not here.
 
-Any change here reaches the game only through a re-pin (`chroma-game/tools/build.py`). A change meant to keep lives
+The game plays this folder's files: `chroma-game/tools/pin.py` copies them into its `engine_pin/` (not in git) before the
+game's tests run, and `build.py` bundles the same list into the page (`parts.py`, `run_*.py`, `rules_*.py` and every
+`world*.py` included). A new engine file outside those patterns goes in `pin.py`'s list. A change meant to keep lives
 identical needs Release's same-lives proof (`chroma-release/same-lives.sh`, four parts of about 50 minutes); a rate
 change needs the full proof. Moving lines between parts, or out of `_run`, needs the Engine thread and that proof; a
 split that keeps lines unchanged can show Python's code is the same (`chroma-engine/notes/by-function-2026-10-18.md`).

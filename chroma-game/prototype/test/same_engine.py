@@ -7,6 +7,7 @@ own: the player always lets them choose. push: as test/same_life.py, letting the
 """
 import sys, os, json, random, hashlib
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+import pinned; pinned.ensure()                  # engine_pin/ from the owners' folders (chroma-game/tools/pin.py)
 import numpy as np
 preset, seed, mode, out = sys.argv[1], int(sys.argv[2]), sys.argv[3], sys.argv[4]
 random.seed(seed)

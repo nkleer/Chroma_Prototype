@@ -15,15 +15,16 @@ A file that is in the repository is changed only through the repository. The sha
 
 ## Branches
 
-- `release/<version>` (`release/v22`, `release/v22.1`, `release/v22.2`, `release/v22.2.1`, `release/v22.3`): the commit that version was
+- `release/<version>` (`release/v22` to `release/v23`, one per published version): the commit that version was
   published from. Never committed to again and never deleted. The session's git proxy refuses tag pushes, so these
   branches stand in for tags.
 - `main`: the newest live version plus finished work that has passed its owner's checks. It is the base for every
   change and for the next release.
-- A work branch per change, named after the owner's folder: `engine/<topic>`, `game/<topic>`, `library/<topic>`,
-  `packs/<topic>`, `art/<topic>`, `world/<topic>`, `identity/<topic>`, `checks/<topic>` for the release thread
-  (`release/` is taken by the version branches), and `env/<topic>` for `chroma-env/` and this repository's own files
-  (the workspace thread).
+- A work branch per change. A change to one owner's folder is named after that folder: `engine/<topic>`,
+  `game/<topic>`, `library/<topic>`, `packs/<topic>`, `art/<topic>`, `world/<topic>`, `identity/<topic>`,
+  `checks/<topic>` for the release thread (`release/` is taken by the version branches), and `env/<topic>` for
+  `chroma-env/` and this repository's own files (the workspace thread). A change that needs several owners' folders is
+  one `feature/<topic>` branch, which every owner commits its own part to.
 
 ## Setting up in a thread
 
@@ -35,17 +36,31 @@ A file that is in the repository is changed only through the repository. The sha
 
 ## Making a change
 
-1. `git fetch origin main && git checkout -B <owner>/<topic> origin/main`.
+One change, one pull request, however many owners' folders it touches (Emren, 2026-10-18 21:57 UTC, "Start all four";
+the plan is the shared folder's `chroma-env/plan-by-function-2026-10-18.md`). Every pull request runs its own proof, so
+fewer of them also means less test time.
+
+1. `git fetch origin main && git checkout -B <branch> origin/main`, with `<owner>/<topic>` for a change to your own
+   folder only and `feature/<topic>` for one that needs other owners' folders too.
 2. If a file you will change is not in the repository yet, copy it in from the shared folder unchanged and commit that
    first ("Import <path> as it is in the shared folder"). Your own commit then shows only your change.
-3. Change only your own folder. If the change needs another owner's files, ask the coordinator; that owner makes its
-   part on its own branch.
-4. Run your checks on the branch, in your own container, never in the shared folder.
-5. Push the branch and open a pull request into `main`. Its title says what changes in plain words. Its body says why,
-   who decided it (Emren's words and time where there are any), and which checks passed, with their output lines.
-6. Merge it yourself once your checks pass, unless it touches another owner's folder. In that case the coordinator asks
-   that owner to run its checks on the branch first. Use a merge commit, never a force-push. If `main` moved since you
-   branched, merge `origin/main` into your branch, rerun the checks it affects, then merge.
+3. Change only your own folder. On a `feature/` branch, the thread leading the change opens the pull request at once,
+   as a draft, and the coordinator asks each other owner to commit its own part to the same branch: fetch the branch,
+   commit, push. If the push is refused because the branch moved, fetch it again and merge it in; never force-push it.
+4. An engine, Library or packs change needs no re-pin. The game's `engine_pin/` is not in git:
+   `chroma-game/tools/pin.py` fills it from the owners' folders, and the game's tests run it first, so the game's
+   checks on the same branch play the change.
+5. A fix to an open change goes on its branch, not into a new pull request. Small changes of one owner that nothing
+   waits on (comments, notes kept in the repository, check-script tweaks, one-line fixes) collect on one branch and go
+   in one pull request.
+6. Run your checks on the branch, in your own container, never in the shared folder. On a `feature/` branch, the proof
+   the change needs runs once, on the whole branch, when every part is in.
+7. Push the branch and open the pull request into `main` (or mark the draft ready). Its title says what changes in
+   plain words. Its body says why, who decided it (Emren's words and time where there are any), each owner's part, and
+   which checks passed, with their output lines. Each owner posts its own check on the pull request.
+8. Merge it once the checks pass and every owner whose folder it touches has posted its check; the thread leading a
+   `feature/` branch merges it. Use a merge commit, never a force-push. If `main` moved since you branched, merge
+   `origin/main` into your branch, rerun the checks it affects, then merge.
 
 ## Changing a live part (engine, game, Library, packs, pictures)
 
@@ -86,8 +101,9 @@ Other threads and the checks still read the shared folder, so a merged change is
     python3 -B tools/mirror.py <path> [<path> ...]            # from a clean checkout of main
 
 It copies the tracked files under the paths you name to the same paths in `/mnt/project-files`, prints each file's
-md5, and deletes nothing. It refuses any file of the live version (the files in `chroma-env/live-<version>-manifest.txt`),
-because those change only at a publish.
+md5, and deletes nothing. When a path covers the game's `engine_pin/`, it fills that from the checkout's owners'
+folders with `chroma-game/tools/pin.py` first and copies it too. It refuses any file of the live version (the files in
+`chroma-env/live-<version>-manifest.txt`), because those change only at a publish.
 
 ## Publishing a version
 
@@ -97,8 +113,9 @@ because those change only at a publish.
    `chroma-game/tools/build.py`.
 3. Release pushes that commit as `release/<version>`. From a checkout of that branch, the game writes every live path
    (the game, the engine, the Library's top-level files, the packs, `chroma-art/game`, `chroma-game/tools`) with
-   `python3 -B tools/mirror.py --publish <paths>`.
-4. The workspace thread writes `chroma-env/live-<version>-manifest.txt` from the release branch itself and points
+   `python3 -B tools/mirror.py --publish <paths>`, which fills the game's `engine_pin/` from that checkout first.
+4. The workspace thread writes `chroma-env/live-<version>-manifest.txt` from a checkout of the release branch, after
+   `python3 -B chroma-game/tools/pin.py` has filled its `engine_pin/`, and points
    `chroma-env/paths.py` and `check_live.py` at the new version; `check_live.py check` must then show 0 changed. Until
    the next publish, nothing but `mirror.py --publish` writes a file that manifest lists.
 
