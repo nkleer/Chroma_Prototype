@@ -8,9 +8,10 @@ left to them and pushed to option 2.
         step (the text, the HUD, every other line) must match byte for byte
     python3 -B test/causes_check.py rows [--presets 1,2,3,4] [--seeds 1-6] [--jobs 4]
         C2 to C5 over the played Earth lives: the gains and the losses that name a cause (counted apart; a gain or loss
-        whose way already says why counts as named), C3 a named cause before its line (the trail's age), C4 the years
-        whose colours moved cause_turn or more that name a mover, and none reading "like many others", C5 the separate
-        gain and loss lines a life
+        whose way already says why counts as named), C3 a named cause before its line (the trail's age), C4 the played
+        years (from the start's age) whose colours moved cause_turn or more that name a mover, and none reading "like
+        many others" (the years before the start, told briefly without causes, counted apart), C5 the separate gain and
+        loss lines a life
 
 Each life runs in its own process (CHROMA_GAME sets the switches). Prints one line per life and the rows; exit 0 when
 C1 matches (same) or when the counts were made (rows: the bars are Release's; the script prints them beside the counts)."""
@@ -49,6 +50,8 @@ def play(preset, seed, out):
                 k += 1; line = "" if k % 2 else "2"
             while step(line):
                 line = ""
+    with open(out + ".meta", "w") as f:
+        json.dump(dict(start_age=float(c.g.start_age) if c.g is not None else 0.0), f)
 
 
 def run(preset, seed, sw, out):
@@ -94,22 +97,26 @@ def same(presets, seed, tmp, jobs):
 
 
 def counts(path):
-    c = dict(gain=0, gain_named=0, lose=0, lose_named=0, lines=0, c3=0, c3_miss=0, turned=0, turned_named=0, many=0, years=0)
+    c = dict(gain=0, gain_named=0, lose=0, lose_named=0, lines=0, c3=0, c3_miss=0, turned=0, turned_named=0, many=0, years=0,
+             before=0, before_named=0)
+    start = json.load(open(path + ".meta"))["start_age"] if os.path.exists(path + ".meta") else 0.0
     w0 = None
     for line in open(path):
         for x in json.loads(line)[3]:
             tag = x.get("tag")
             if tag == "chapter":
                 w = x.get("w")
+                c.pop("_turn_open", None)
                 if w0 is not None and w is not None and x.get("age", 0) >= 6:
-                    c["years"] += 1
+                    pre = x.get("age", 0) < start
+                    c["years"] += not pre
                     if sum(abs(a - b) for a, b in zip(w, w0)) >= TURN:
-                        c["turned"] += 1
-                        c["_turn_open"] = True
+                        c["before" if pre else "turned"] += 1
+                        c["_turn_open"] = "before" if pre else "turned"
                 w0 = w
-            elif tag == "year" and c.pop("_turn_open", False):
+            elif tag == "year" and c.get("_turn_open"):
                 t = x.get("text", "")
-                c["turned_named"] += bool(re.search(r"⟦Y:(event|source)\|", t))
+                c[c.pop("_turn_open") + "_named"] += bool(re.search(r"⟦Y:(event|source)\|", t))
                 c["many"] += "like many others" in t
             if tag in ("role", "role_fold"):
                 items = x.get("items") or [dict(what=x.get("what"), how=x.get("how", ""), cause=x.get("cause", ""))]
@@ -139,7 +146,8 @@ def rows(presets, seeds, tmp, jobs):
           f"{tot['lose_named']}/{tot['lose']} = {pc(tot['lose_named'], tot['lose'])} (bar: at least 90% each)")
     print(f"C3 trail ages after their line: {tot['c3_miss']} of {tot['c3']} (bar: none)")
     print(f"C4 turned years naming a mover {tot['turned_named']}/{tot['turned']} = {pc(tot['turned_named'], tot['turned'])}, "
-          f"reading 'like many others' {tot['many']} (bar: at least 90%, none)")
+          f"reading 'like many others' {tot['many']} (bar: at least 90%, none); before the start, told briefly: "
+          f"{tot['before_named']}/{tot['before']}")
     print(f"C5 separate gain and loss lines a life {tot['lines'] / max(n, 1):.1f} (bar: at most about 45)")
     return True
 

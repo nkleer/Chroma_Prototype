@@ -179,7 +179,8 @@ class CausesMixin:
         w = np.asarray(w, float)
         prev, self._cause_w0 = self.__dict__.get("_cause_w0"), w
         evs, self._cause_evs = self.__dict__.get("_cause_evs", []), []
-        src_now = np.asarray(loc["asrc_c"][0], float) if "asrc_c" in loc else None
+        src_now = loc.get("asrc_c")                                       # a live view, ASOURCES x colours: copy it
+        src_now = np.array(src_now, float) if src_now is not None else None
         src_prev, self._cause_src0 = self.__dict__.get("_cause_src0"), src_now
         if prev is None or self.burn_in or not body or self.t < 6 * 52:     # a small child: the mood line, as today
             return body
