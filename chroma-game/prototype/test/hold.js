@@ -58,13 +58,17 @@ module.exports.pushOpt = async (page, x, opts = {}) => {
 };
 
 // The card's printed number on the keyboard (13-state.js): a lone "1" waits 450 ms for a second digit when a moment has
-// ten or more options, so this waits 600 ms after the last digit before anything else reads the page. A folded card's
-// number only opens its fold, so a card handed here must be on show. Returns the number pressed.
+// ten or more options, so this waits 600 ms after the last digit and then until the page has acted on the number (its
+// digit buffer empty again: the push sent, or a fold opened) before anything else reads the page. On a loaded machine
+// that 450 ms timer can fire late; a driver that read the page first saw the cards still up, clicked "Let them choose",
+// and the push then took the window away (b7 v14_d, 10-18). A folded card's number only opens its fold, so a card handed
+// here must be on show. Returns the number pressed.
 module.exports.keyOpt = async (page, x, opts = {}) => {
   const h = await handleOf(page, x, opts.timeout);
   const num = await h.getAttribute('data-num');
   if (!num || !/^[0-9]+$/.test(num)) throw new Error('keyOpt: the card has no number (data-num ' + num + ')');
   for (const d of num) await page.keyboard.press(d);
   await page.waitForTimeout(600);
+  await page.waitForFunction(() => typeof digitBuf === 'undefined' || digitBuf === '', null, { timeout: opts.timeout || 30000 });
   return +num;
 };
