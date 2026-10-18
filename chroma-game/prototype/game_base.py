@@ -198,7 +198,7 @@ GAME = dict(
     # way's card says what it changes for good, from the Library's own fields: the person it marks (a friend or an enemy
     # made, someone helped or turned away, a word kept or broken), a closed way's backfire and the risk to life if it
     # fails, and up to two lasting-change chips. Display only: no draws, so with it off every step reads as before
-    stakes=True,
+    stakes=False,
     # v22.5, F12 "The world and the start hold" (chroma-ideas/realism/v22.5-realism-list.md; off until v22.5's refit, with
     # the engine's own_open and start_hold): the tribal and magic worlds speak their own words (the Library's worlds.py:
     # option labels, moment titles, the means, a lost place in the work, a backfire; no money, sirens, profits or votes
