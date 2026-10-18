@@ -1402,14 +1402,18 @@ void main() { gl_FragColor = vec4(mix(texture2D(uA, vUv).rgb, texture2D(uB, vUv)
     }
 
     /* ---------- B1: --wet and the filter follow the eased wetness ---------- */
+    // --wet on <html> is inherited by every element, so each change restyles the whole page: late in a life, with a long
+    // story, that took 0.4 to 1.3 s a time on a slow phone (b7 life_adult_p, 10-18). It moves only after the wetness has
+    // drifted 0.08 from what it last said (the story's own --h-wet moves in tenths for the same reason); the filter,
+    // which restyles nothing, follows the eased value
     const filterEl = ensureFilter("chs-ink");
     const wetHost = document.documentElement;
-    let wetSet = -1;
+    let wetSet = -1, wetSaid = -1;
     function pushWet() {
       const w = X[K.WET];
       if (Math.abs(w - wetSet) < 0.004) return;
       wetSet = w;
-      if (primary === inst) wetHost.style.setProperty("--wet", w.toFixed(3));
+      if (primary === inst && (wetSaid < 0 || Math.abs(w - wetSaid) >= 0.08)) { wetSaid = w; wetHost.style.setProperty("--wet", w.toFixed(3)); }
       setFilterWet(filterEl, w);
     }
 
