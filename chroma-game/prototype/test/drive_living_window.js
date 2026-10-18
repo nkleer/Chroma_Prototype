@@ -13,7 +13,7 @@ const { chromium } = require(process.env.PW || 'playwright');
 //           the "Finis" plate, then lights up in about 11 s ("lighting" to "lit"; it waits while scrolled out of view);
 //           during it Enter (kept from the page), Space on a button (it opens the Book) and Esc (it closes the Book) do
 //           not skip; a hover reads a year; the script per frame while it lights and once lit; the switch off (the
-//           portrait back), on (the window back, lit).
+//           portrait back), on (the window back, lit); #again then starts a new life, the window gone.
 //   skip    the same old life to its end three more times: Space (focus on no button), a click in the review and Esc each
 //           skip the light to "lit" at once.
 //   still   the same old life to its end with motion off: lit at once, and two shots 0.8 s apart are equal.
@@ -256,6 +256,10 @@ const START = +(startArg || 76), SEED = +(seedArg || 140892), SECONDS = +(secArg
     await shot('end-5-off');
     await living(true); await page.waitForTimeout(700); s = await endState();
     check(s.end && s.light === 'lit' && s.fin === 'none', `on again: the window back, lit at once (${s.light})`);
+    // a new life through #again: the review's window goes, the start's cards come
+    await page.click('#again'); await page.waitForSelector('.tarot', { timeout: 60000 }).catch(() => {});
+    const na = await page.evaluate(() => ({ mode: hud.mode, tarot: document.querySelectorAll('.tarot').length, end: document.querySelectorAll('.chw-end').length, chw: document.querySelectorAll('.chw').length }));
+    check(na.tarot > 0 && na.end === 0 && na.chw <= 1, `#again starts a new life, the window gone (${JSON.stringify(na)})`);
   }
 
   if (parts.includes('skip')) {
