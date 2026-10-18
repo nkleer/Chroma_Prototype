@@ -437,7 +437,7 @@ P2_ = [("the spheres' haunts, hours and marks (sph_haunts, sph_hours, sph_marks)
         dict(pen_pay=0.5, low_net=(3.0, 0.1, 1.0), work_die=0.00007), {}, 70, 6),
        ("v22.5 round 3, a home bought again only years later (ev_gapfit)", dict(ev_gapfit={"buying a home": (3, 8)}), {}, 70, 10),
        ("v22.5 round 3d, a lasting illness at its own rates by age (age_pts)",
-        dict(age_pts={"living with a chronic illness": ((0, 0.0045), (40, 0.01), (80, 0.05))}), {}, 70, 6)]
+        dict(age_pts={"living with a chronic illness": ((0, 0.0045), (40, 0.01), (80, 0.05))}), {}, 70, 10)]
 # a switch's own readouts, which are not the lives (the finishing pack's)
 OWN_KEYS_ = ("world", "place_turnover", "pt_lives", "btrust", "btrust_y", "prison_ties", "grey_y")
 
