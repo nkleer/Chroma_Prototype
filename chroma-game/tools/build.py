@@ -26,7 +26,7 @@ It stops at the first failed check:
   1. Library: the Library's own build.py compiles earth.py from its .lib sources byte for byte as the Library keeps it.
   2. Pin (C-X1): every pinned file equals its owner's copy, and every worker source exists.
   3. Load: the game loads the Earth library with its packs (game.library_for).
-  4. With --same-as (a folder or a paths.py name): the built game equals it file for file, engine_pin/PINNED*.txt aside.
+  4. With --same-as (a folder or a paths.py name): the built game equals it file for file, engine_pin/PINNED*.txt and FROM.txt aside.
      With --rarity engine and --same-as game_live the build gives back the live version (v22.1) exactly.
 
 Then run the checks on <out>/chroma-game/prototype: the game's fast check through the release thread's runner,
@@ -180,7 +180,7 @@ def main():
     if a.same_as:
         ref = where(a.same_as)
         A, B = files(ref), files(G)
-        pinned_txt = lambda f: re.fullmatch(r"engine_pin/PINNED.*\.txt", f)
+        pinned_txt = lambda f: re.fullmatch(r"engine_pin/(PINNED.*|FROM)\.txt", f)   # the pin's notes, not the game
         diff = sorted(f for f in A & B if not pinned_txt(f) and not filecmp.cmp(os.path.join(ref, f), os.path.join(G, f), shallow=False))
         only = sorted(f for f in (A ^ B) if not pinned_txt(f))
         say(f"4. Same as {os.path.relpath(ref, root) if ref.startswith(root) else ref}: {len(B)} files, {len(diff)} differ, "
