@@ -1,4 +1,4 @@
-"""The spheres finishing pack (chroma-world/spheres/finish-pack-draft.md): Release's rows W2 to W5 (records/v22.6/scope.md).
+"""The spheres finishing pack (chroma-world/spheres/finish-pack-draft.md): Release's rows W2 to W5 (records/v23/scope.md).
 
     python3 -B chroma-release/check_pack.py run --repo DIR --commit SHA --out DIR [--px JSON] [--moments]
                  [--seeds 41-52] [--lives 100] [--years 80] [--test-seeds 41-44] [--test-lives 60] [--jobs 4]
