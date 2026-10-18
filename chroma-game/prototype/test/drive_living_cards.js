@@ -207,6 +207,15 @@ const t0 = Date.now();
         const c = cs.find((x) => !x.own && !x.pass) || cs[0]; await page.click(c.sel); await pushed(S, s, `Living off: a plain click on card ${c.num}`);
         const r2 = await menuRow(page, 'lv');
         check(r2.living === 'on', 'Living on again');
+        // a load comes back to this outcome: it shows as it was, with no refocus
+        const at = await state(page), rfA = await page.evaluate(() => __lc.rf);
+        let text = null; for (let i = 0; i < 4 && !text; i++) { text = await page.evaluate(() => askSave()); if (!text) await page.waitForTimeout(1000); }
+        await page.evaluate((x) => loadText(x), text);
+        await page.waitForFunction(() => hud && hud.replay, null, { timeout: 120000 }).catch(() => {});
+        await page.waitForFunction(() => hud && !hud.replay && !busy && hud.mode === 'play', null, { timeout: 600000 });
+        await page.waitForTimeout(2500); await S.idle();
+        const back = await state(page), rfB = await page.evaluate(() => ({ n: __lc.rf, on: document.querySelectorAll('.lv-rf').length }));
+        check(back.res && back.key === at.key && rfB.n === rfA && !rfB.on, `after a load back to the outcome, no refocus (${JSON.stringify({ at: at.key, back: back.key, rf: [rfA, rfB.n] })})`);
       }
     }
     check(!todo.length && foldDone && offDone, `every desk step ran (${[...todo, foldDone ? '' : 'fold', offDone ? '' : 'off'].filter(Boolean).join(' ') || 'all'})`);
@@ -214,10 +223,10 @@ const t0 = Date.now();
   }
 
   if (parts.includes('touch') || parts.includes('shots')) {
-    say('part touch (390x844, touch)');
     const S = await open(390, 844, { touch: true }), page = S.page, shot = shotOf(page);
     let s = await toMoment(S), cs = await cards(page);
     if (parts.includes('touch')) {
+      say('part touch (390x844, touch)');
       const hint = await page.evaluate(() => (document.querySelector('#evOpts > .ask small') || {}).textContent);
       check(hint === 'tap to read · hold or tap Push to push', `the hint for touch ("${hint}")`);
       const css = await page.$eval(cs[0].sel, (b) => { const st = getComputedStyle(b); return { callout: st.webkitTouchCallout || st.getPropertyValue('-webkit-touch-callout'), select: st.userSelect || st.webkitUserSelect }; });
@@ -297,11 +306,11 @@ const t0 = Date.now();
         else if (!s.busy && !s.cp) await page.evaluate(() => send(''));
         await page.waitForTimeout(300);
       }
-      const r = await page.evaluate(() => { const T = __fc; T.stop = true; const q = (xs, p) => { const s = xs.slice().sort((a, b) => a - b); return s[Math.min(s.length - 1, Math.floor(p * s.length))] || 0; };
+      const r = await page.evaluate(() => { const T = __fc; T.stop = true; const by = CH.pieces.get('cards').costs(); const q = (xs, p) => { const s = xs.slice().sort((a, b) => a - b); return s[Math.min(s.length - 1, Math.floor(p * s.length))] || 0; };
         const mean = (xs) => xs.reduce((a, b) => a + b, 0) / Math.max(1, xs.length);
         return { frames: T.c.length, mean: +mean(T.c).toFixed(4), p95: +q(T.c, 0.95).toFixed(4), max: +Math.max(0, ...T.c).toFixed(3), total: +T.c.reduce((a, b) => a + b, 0).toFixed(2),
-          dtMean: +mean(T.dt.slice(1)).toFixed(2), dtP95: +q(T.dt.slice(1), 0.95).toFixed(2) }; });
-      say(`  frame cost of the cards piece over 20 s: mean ${r.mean} ms, p95 ${r.p95} ms, max ${r.max} ms, ${r.total} ms in all over ${r.frames} frames; frame interval mean ${r.dtMean} ms, p95 ${r.dtP95} ms; ${pushes} holds`);
+          dtMean: +mean(T.dt.slice(1)).toFixed(2), dtP95: +q(T.dt.slice(1), 0.95).toFixed(2), by: Object.fromEntries(Object.entries(by).map(([k, v]) => [k, +v.toFixed(2)])) }; });
+      say(`  frame cost of the cards piece over 20 s: mean ${r.mean} ms, p95 ${r.p95} ms, max ${r.max} ms, ${r.total} ms in all over ${r.frames} frames; frame interval mean ${r.dtMean} ms, p95 ${r.dtP95} ms; ${pushes} holds; by entry point since the page started (ms): ${JSON.stringify(r.by)}`);
       fs.writeFileSync(`${dir}/living-cards-cost.json`, JSON.stringify({ ...r, pushes }, null, 1));
       check(r.frames > 300 && r.mean <= 4 && r.p95 <= 8, `within the budget (all pieces: mean 4 ms, p95 8 ms a frame)`);
     }

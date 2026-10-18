@@ -6428,13 +6428,13 @@ needTip = function (k, L) {
     box-shadow: inset 0 -2px 0 rgb(40 24 8 / calc(var(--lv-k, 0) * 0.22)), 0 1.5px 0 rgb(40 24 8 / calc(var(--lv-k, 0) * 0.36)),
       0 3px 3px -2px rgb(40 24 8 / calc(var(--lv-k, 0) * 0.62)), 0 8px 12px -9px rgb(60 40 10 / calc((1 - var(--lv-k, 0)) * 0.5));
     transition: box-shadow calc(160ms + var(--lv-k, 0) * 420ms) cubic-bezier(.2, .7, .2, 1); }
-  /* under the pointer a light card rises (its shadow drops away) and catches the light where the pointer is; a heavy one
-     barely stirs, and late (the transition is its mass) */
+  /* under the pointer a light card rises (its shadow drops away) and catches the light; a heavy one barely stirs, and
+     late (the transition is its mass) */
   :where(html[data-living="on"]) .opt.lv:is(:hover, :focus-visible, .sel) > .lv-lift {
     box-shadow: inset 0 -2px 0 rgb(40 24 8 / calc(var(--lv-k, 0) * 0.22)), 0 1.5px 0 rgb(40 24 8 / calc(var(--lv-k, 0) * 0.32)),
       0 3px 3px -2px rgb(40 24 8 / calc(var(--lv-k, 0) * 0.58)), 0 15px 18px -10px rgb(60 40 10 / calc((1 - var(--lv-k, 0)) * 0.6)); }
   :where(html[data-living="on"]) .opt.lv > .lv-lift::after { content: ""; position: absolute; inset: 0; border-radius: inherit; opacity: 0; mix-blend-mode: soft-light;
-    background: radial-gradient(circle at var(--lv-gx, 30%) var(--lv-gy, 30%), rgb(255 255 255 / 0.9), rgb(255 255 255 / 0.2) 30%, transparent 58%);
+    background: radial-gradient(circle at 28% 22%, rgb(255 255 255 / 0.9), rgb(255 255 255 / 0.2) 30%, transparent 62%);
     transition: opacity 0.3s; }
   :where(html[data-living="on"]:not([data-motion="off"])) .opt.lv:hover > .lv-lift::after { opacity: calc((1 - var(--lv-k, 0)) * 0.7); }
   /* the weight in the card's own hover: a heavy card does not jump up (today's small lift stays for the others) */
@@ -6699,8 +6699,16 @@ const LV_CLS = ["lv", "lv-own", "lv-go", "lv-ok", "lv-rel", "lv-against", "lv-fa
 
 let on = false, mo = null, offPick = null, lastPick = null, rfKey = "";
 // the piece's own cost, for the frame budget (plan section 6): every entry point adds the time it took
+// (by entry point too, to find what costs); the page's own work it calls (send) is not counted, though a hook of
+// this piece that runs inside it is (a stack of open entries, the time going to the innermost)
 let costMs = 0;
-const timed = (f) => function (...a) { const t = performance.now(); try { return f.apply(this, a); } catch (e) { console.warn("living: cards", e); } finally { costMs += performance.now() - t; } };
+const COST = {}, STACK = [];
+const seg = () => { const top = STACK[STACK.length - 1]; if (!top) return; const n = performance.now();
+  if (top.name) { const d = n - top.t; costMs += d; COST[top.name] = (COST[top.name] || 0) + d; } top.t = n; };
+const enter = (name) => { seg(); STACK.push({ name, t: performance.now() }); };
+const leave = () => { seg(); STACK.pop(); const top = STACK[STACK.length - 1]; if (top) top.t = performance.now(); };
+const timed = (f, name) => function (...a) { enter(name); try { return f.apply(this, a); } catch (e) { console.warn("living: cards", e); } finally { leave(); } };
+const theirs = (f) => { enter(null); try { return f(); } finally { leave(); } };
 
 /* ---------------- dressing the cards ---------------- */
 function dress(b) {
@@ -6717,7 +6725,7 @@ function dress(b) {
 const dressAll = () => { if (on && hud && hud.cp) tableEl.querySelectorAll(".opt[data-i]:not(.lv)").forEach(dress); };
 function undress(b) {
   b.classList.remove(...LV_CLS, "lv-mid"); b.removeAttribute("data-hold");
-  ["--lv-k", "--lv-ink", "--lv-ms", "--lv-gx", "--lv-gy"].forEach((p) => b.style.removeProperty(p));
+  ["--lv-k", "--lv-ink", "--lv-ms"].forEach((p) => b.style.removeProperty(p));
   b.querySelectorAll(LAYERS.map((c) => "." + c).join(",")).forEach((x) => x.remove());
 }
 // the hint under the question names the hold (decision 1); taken back when the piece goes
@@ -6730,12 +6738,11 @@ function hint(back) {
 
 /* ---------------- the hold: one set of capture listeners on #table (and the document for the release) ---------------- */
 let cur = null, swallow = null;
-const motionOff = () => CH.motion() === "off";
 const cardOf = (e) => { const b = e.target && e.target.closest ? e.target.closest(".opt[data-i]") : null; return b && tableEl.contains(b) ? b : null; };
 function msFor(b, type) { const ms = +b.dataset.hold || 0; return type === "touch" ? Math.max(ms, TOUCH_OWN) : ms; }
 function startFill(b, ms) {
   b.style.setProperty("--lv-ms", ms + "ms");
-  void b.offsetWidth;                  // the fill starts from empty even when a hold was just taken back
+  const i = b.querySelector(".lv-hold > i"); if (i) void getComputedStyle(i).transform;   // a style flush (not a layout): it fills from empty even just after a hold was taken back
   b.classList.add("lv-holding");
 }
 function stopFill(b, held) {
@@ -6751,9 +6758,9 @@ const down = timed((e) => {
   if (b.disabled || busy || !hud || !hud.cp || evWrap.hidden) return;
   const ms = msFor(b, e.pointerType); if (!ms) return;   // their own pick under a mouse: the click acts at once
   cur = { b, id: e.pointerId, type: e.pointerType, t0: e.timeStamp || performance.now(), x: e.clientX, y: e.clientY, ms, key: lastCpKey, done: false };
-  const c = cur; c.timer = setTimeout(timed(() => finish(c)), ms);
+  const c = cur; c.timer = setTimeout(timed(() => finish(c), "finish"), ms);
   startFill(b, ms);
-});
+}, "down");
 function cancel() {
   const c = cur; cur = null; if (!c) return;
   clearTimeout(c.timer); if (!c.done) stopFill(c.b, false);
@@ -6763,9 +6770,9 @@ function finish(c) {
   clearTimeout(c.timer);
   const o = hud && hud.cp && hud.cp.options[+c.b.dataset.i];
   if (!o || !c.b.isConnected || busy || lastCpKey !== c.key || evWrap.hidden) return cancel();
-  c.done = true; cur = null; swallow = { id: c.id, until: performance.now() + 8000 };
+  c.done = true; cur = null; swallow = { id: c.id, key: c.key, until: performance.now() + 8000 };
   stopFill(c.b, true);
-  send(o.own ? "" : String(o.n));      // as the card's own click would: markChoosing, the flyer, the reveal
+  theirs(() => send(o.own ? "" : String(o.n)));   // as the card's own click would: markChoosing, the flyer, the reveal
 }
 const up = timed((e) => {
   if (cur && e.pointerId === cur.id) {
@@ -6773,41 +6780,28 @@ const up = timed((e) => {
     if (e.type === "pointerup" && (e.timeStamp || performance.now()) - cur.t0 >= cur.ms - 8) finish(cur); else cancel();
   }
   if (swallow && e.pointerId === swallow.id) { swallow.until = performance.now() + 700; swallow.id = null; if (e.type === "pointerup") e.stopPropagation(); }
-});
+}, "up");
 const move = timed((e) => {
   if (!cur || e.pointerId !== cur.id) return;
   if (cur.type === "mouse") { if (!cur.b.contains(e.target)) cancel(); return; }   // the mouse left the card
   if (Math.hypot(e.clientX - cur.x, e.clientY - cur.y) > 12) cancel();             // a finger that scrolls
-});
+}, "move");
 const click = timed((e) => {
   if (!on) return;
   const b = cardOf(e); if (!b) return;
   const block = () => {
     e.preventDefault(); e.stopImmediatePropagation();
     // what a click outside them does today (04-line.js): close the drawer and the menu
-    if (hudEl.classList.contains("open")) closeHud();
-    if (menuOpen) setMenu(false);
+    theirs(() => { if (hudEl.classList.contains("open")) closeHud(); if (menuOpen) setMenu(false); });
   };
-  if (swallow && performance.now() < swallow.until) return block();               // the click after a finished hold
+  if (swallow && swallow.key === lastCpKey && performance.now() < swallow.until) return block();   // the click after a finished hold
   if (e.detail === 0) return;                                                      // Enter or Space on a focused card
   if (touchUI) { selected = null; return; }                                       // a tap reads, a second tap reads again
   if (b.dataset.hold === "0") return;                                              // their own pick: a click acts at once
   block();                                                                         // a click is not a hold
-});
-const menu = timed((e) => { if (on && cardOf(e)) e.preventDefault(); });
-// a light card catches the light where the pointer is (mouse only; still with motion off)
-let gxRaf = 0, gxEv = null;
-const sheen = timed((e) => {
-  if (e.pointerType !== "mouse" || motionOff()) return;
-  gxEv = e; if (gxRaf) return;
-  gxRaf = requestAnimationFrame(timed(() => {
-    gxRaf = 0; const ev = gxEv, b = ev && cardOf(ev); if (!b || !b.classList.contains("lv")) return;
-    const r = b.getBoundingClientRect(); if (!r.width) return;
-    b.style.setProperty("--lv-gx", (((ev.clientX - r.left) / r.width) * 100).toFixed(0) + "%");
-    b.style.setProperty("--lv-gy", (((ev.clientY - r.top) / r.height) * 100).toFixed(0) + "%");
-  }));
-});
-const LISTEN = [[tableEl, "pointerdown", down], [tableEl, "click", click], [tableEl, "contextmenu", menu], [tableEl, "pointermove", sheen, { passive: true }],
+}, "click");
+const menu = timed((e) => { if (on && cardOf(e)) e.preventDefault(); }, "menu");
+const LISTEN = [[tableEl, "pointerdown", down], [tableEl, "click", click], [tableEl, "contextmenu", menu],
   [document, "pointerup", up], [document, "pointercancel", up], [document, "pointermove", move, { passive: true }]];
 
 /* ---------------- the refocus: what they hoped and what happened slide into one sharp picture ---------------- */
@@ -6827,22 +6821,23 @@ function refocus(res, reveal) {
   const m = CH.motion(); if (m === "off") return;
   const art = tableEl.querySelector(".evart"), img = art && art.querySelector(":scope > img"); if (!img) return;
   let gone = false; const t = setTimeout(() => { gone = true; }, 1500);
-  const go = timed(() => { clearTimeout(t); if (!gone && img.isConnected && img.naturalWidth && on) play(art, img, res, m, reveal); });
+  const go = timed(() => { clearTimeout(t); if (!gone && img.isConnected && img.naturalWidth && on) play(art, img, res, m, reveal); }, "refocus");
   if (img.complete) go(); else img.addEventListener("load", go, { once: true });
 }
+// Read without a layout or a style flush: the offsets are in % of the picture (which is about 7:4), and the picture's own
+// slow drift (the ink look, full motion) starts at scale(1.01), where the copies come to rest
 function play(art, img, res, m, reveal) {
-  const W = art.clientWidth, H = art.clientHeight; if (!W || !H || !art.animate) return;
+  if (!art.animate) return;
   art.querySelectorAll(".lv-rf").forEach((x) => x.remove());
   const kind = kindOf(res), calm = m === "calm", s = calm ? 1.6 : 1;
-  const D = W * (0.02 + 0.07 * gapOf(res)) * (calm ? 0.6 : 1), Z = 1 + (2.2 * D) / W;
-  const base = getComputedStyle(img).transform, B = base && base !== "none" ? " " + base : "";
+  const D = (0.02 + 0.07 * gapOf(res)) * (calm ? 0.6 : 1), Z = 1 + 2.2 * D, B = m === "full" ? " scale(1.01)" : "";
   const box = document.createElement("span"); box.className = "lv-rf " + kind; box.setAttribute("aria-hidden", "true");
   const src = img.currentSrc || img.src;
   box.innerHTML = `<img class="soft" alt=""><img class="hoped" alt="" style="filter:${HOPED[kind]}"><img class="sharp" alt=""><i class="snap"></i>`;
   box.querySelectorAll("img").forEach((x) => { x._lk = 1; x.src = src; });   // _lk: the ink look's engravings leave the copies alone
   img.after(box);
   const [soft, hoped, sharp] = box.querySelectorAll("img"), snap = box.querySelector(".snap");
-  const at = (dx, dy, z) => `translate(${dx.toFixed(1)}px, ${dy.toFixed(1)}px)${B} scale(${z.toFixed(4)})`;
+  const at = (dx, dy, z) => `translate(${(dx * 100).toFixed(2)}%, ${(dy * 175).toFixed(2)}%)${B} scale(${z.toFixed(4)})`;
   const delay = reveal && flyer ? 240 : 60, dur = 1000 * s, ease = "cubic-bezier(.6, 0, .9, .4)";   // accelerating into place: a snap
   const o = { duration: dur, delay, easing: ease, fill: "both" };
   soft.animate([{ transform: at(D, 0.32 * D, Z) }, { transform: at(0, 0, 1) }], o);
@@ -6867,12 +6862,12 @@ CH.piece("cards", {
     if (!tableEl) return false;
     on = true; tableEl.dataset.hold = "on";
     LISTEN.forEach(([el, ev, f, opt]) => el.addEventListener(ev, f, opt ? { capture: true, ...opt } : true));
-    mo = new MutationObserver(timed((rs) => { if (rs.some((r) => r.addedNodes.length)) dressAll(); }));
+    mo = new MutationObserver(timed((rs) => { if (rs.some((r) => r.addedNodes.length)) dressAll(); }, "dress"));
     mo.observe(tableEl, { childList: true, subtree: true });
     offPick = CH.on("pick", (x) => { lastPick = x && x.o; });
     dressAll(); hint(false);
     return true;
-  }),
+  }, "mount"),
   destroy: timed(function () {
     on = false; cancel(); swallow = null;
     LISTEN.forEach(([el, ev, f, opt]) => el.removeEventListener(ev, f, opt ? { capture: true, ...opt } : true));
@@ -6882,20 +6877,24 @@ CH.piece("cards", {
     tableEl.querySelectorAll(".opt.lv").forEach(undress);
     tableEl.querySelectorAll(".lv-rf").forEach((x) => x.remove());
     hint(true);
-  }),
+  }, "destroy"),
   hooks: {
-    renderTable: timed(function () {
+    renderTable: timed(function (h) {
       if (cur && (!cur.b.isConnected || cur.key !== lastCpKey)) cancel();
+      if (h && h.cp) rfKey = "";
       dressAll(); hint(false);
-    }),
+    }, "renderTable"),
+    // once for each outcome, when it first shows: never during a load's replay or for the outcome a load comes back to
     renderResolution: timed(function (h, reveal) {
-      if (!h || !h.res || h.replay || h.loaded || evWrap.hidden) return;
+      if (!h || !h.res || evWrap.hidden) return;
       const key = "res|" + h.res.age + "|" + h.res.title; if (key === rfKey) return;
-      rfKey = key; refocus(h.res, !!reveal);
-    }),
+      rfKey = key;
+      if (!h.replay && !h.loaded) refocus(h.res, !!reveal);
+    }, "renderResolution"),
   },
-  // the time this piece has spent, in ms since the page started (the frame-cost check reads it each frame)
+  // the time this piece has spent, in ms since the page started (the frame-cost check reads it each frame), and by entry point
   cost: () => costMs,
+  costs: () => Object.assign({}, COST),
 });
 })();
 </script>

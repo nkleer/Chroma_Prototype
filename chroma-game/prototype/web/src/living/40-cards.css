@@ -14,13 +14,13 @@
     box-shadow: inset 0 -2px 0 rgb(40 24 8 / calc(var(--lv-k, 0) * 0.22)), 0 1.5px 0 rgb(40 24 8 / calc(var(--lv-k, 0) * 0.36)),
       0 3px 3px -2px rgb(40 24 8 / calc(var(--lv-k, 0) * 0.62)), 0 8px 12px -9px rgb(60 40 10 / calc((1 - var(--lv-k, 0)) * 0.5));
     transition: box-shadow calc(160ms + var(--lv-k, 0) * 420ms) cubic-bezier(.2, .7, .2, 1); }
-  /* under the pointer a light card rises (its shadow drops away) and catches the light where the pointer is; a heavy one
-     barely stirs, and late (the transition is its mass) */
+  /* under the pointer a light card rises (its shadow drops away) and catches the light; a heavy one barely stirs, and
+     late (the transition is its mass) */
   :where(html[data-living="on"]) .opt.lv:is(:hover, :focus-visible, .sel) > .lv-lift {
     box-shadow: inset 0 -2px 0 rgb(40 24 8 / calc(var(--lv-k, 0) * 0.22)), 0 1.5px 0 rgb(40 24 8 / calc(var(--lv-k, 0) * 0.32)),
       0 3px 3px -2px rgb(40 24 8 / calc(var(--lv-k, 0) * 0.58)), 0 15px 18px -10px rgb(60 40 10 / calc((1 - var(--lv-k, 0)) * 0.6)); }
   :where(html[data-living="on"]) .opt.lv > .lv-lift::after { content: ""; position: absolute; inset: 0; border-radius: inherit; opacity: 0; mix-blend-mode: soft-light;
-    background: radial-gradient(circle at var(--lv-gx, 30%) var(--lv-gy, 30%), rgb(255 255 255 / 0.9), rgb(255 255 255 / 0.2) 30%, transparent 58%);
+    background: radial-gradient(circle at 28% 22%, rgb(255 255 255 / 0.9), rgb(255 255 255 / 0.2) 30%, transparent 62%);
     transition: opacity 0.3s; }
   :where(html[data-living="on"]:not([data-motion="off"])) .opt.lv:hover > .lv-lift::after { opacity: calc((1 - var(--lv-k, 0)) * 0.7); }
   /* the weight in the card's own hover: a heavy card does not jump up (today's small lift stays for the others) */
