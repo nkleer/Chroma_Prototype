@@ -225,10 +225,10 @@ def unit_play(repo, preset, seed, what):
                         births.setdefault(p["_k"], set()).add(now())
         return line
 
-    def moment(self, t, sit, stage, age, kind=None, kills=None):
+    def moment(self, t, sit, stage, age, *a, **kw):   # the game's own arguments passed on (#301 added who)
         if sit == "a child is born" and (not scenes or scenes[-1] != now()):
             scenes.append(now())
-        return moment0(self, t, sit, stage, age, kind, kills)
+        return moment0(self, t, sit, stage, age, *a, **kw)
     ST.Story.later_child, ST.Story._commitment, ST.Story.moment = later_child, commitment, moment
     say0, news0, week0 = GM.Game._say, GM.Game._world_news, GM.Game._on_week
 
