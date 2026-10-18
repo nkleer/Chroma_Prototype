@@ -14,8 +14,8 @@
    - The pieces (CH.piece, living/00-core.js): mounted while the Living HUD is on, updated at most once a frame and 280 ms
      apart while time runs, told of the page's own redraws through thin hooks. Each runs as itself (CH.as), so the core
      times its frames and guards them piece by piece (CH.cost); html[data-lv-pieces] names the pieces standing, and the
-     ink look's own ink (its drops into the wheel, the river's light) gives way where a piece takes its place
-     (living/90-game.css; the story's wet ink gives way in living/50-story.css).
+     ink look's own ink (its drops into the wheel and the rings and points at the wheel's orbs, the river's light) gives
+     way where a piece takes its place (living/90-game.css; the story's wet ink gives way in living/50-story.css).
    - The Table menu: the Living HUD row, and with the Living HUD on the Motion and Look rows' tooltips say what calm
      means now (decision 2: slower and fewer).
    - The events: "moment" and "outcome" when the page shows one (an outcome after its reveal beat), "pick" when a card is

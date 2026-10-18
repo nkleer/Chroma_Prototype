@@ -8,12 +8,16 @@
                   settles, and the age in the top bar (#who .age) glints. The sky's own ripple for it is the sky's
                   (living/10-atmos.js); this beat does not repeat it.
      a year       each new whole year of age while the life is being lived: one 700 ms glint staggered across the age in
-                  the top bar, the rim of the window's medallion (.hud-medal, living/60-window.js) and the story's newest
-                  year (#feed .yr .yh .ag)
-   Motion: full; calm (slower, and fewer: the year's glint every other year); off and reduced motion (nothing plays).
-   Nothing plays during a load's replay or for the update after it (living/90-game.js tells nothing then, and that update
-   is quiet), nor for the years lived before the player takes over. The star's well is whatever the star gives as
-   CH.mods.star.well(), else its host in the Status panel; while the star is not there, the beat leaves it out.
+                  the top bar, the rim of the window's medallion and the story's newest year (#feed .yr .yh .ag)
+   The star's well is the star's own medallion (living/20-star.js: the root .chs-star in the HUD's host .lv-star over
+   svg#hudWheel, its night glass and orbs together); while the HUD is a closed drawer and an interlude shows the small
+   star over #ilWheel, that one. The medallion's rim is the window's glass canvas in the Status panel's crest
+   (living/60-window.js: .hud-medal > .chw-mini > canvas.chw-glass, which draws the gilt octofoil), so the glow follows
+   its lobes and the window's own light layers keep blending as they do. A piece that is not standing (it did not start,
+   or the Living HUD is off) is left out: the beat finds nothing there and plays the rest.
+   Motion: full; calm (slower, and fewer: the outcome swells only the well, the year's glint comes every other year);
+   off and reduced motion (nothing plays). Nothing plays during a load's replay or for the update after it
+   (living/90-game.js tells nothing then, and that update is quiet), nor for the years lived before the player takes over.
    The page rebuilds the top bar with each state and the Status panel with the HUD, so a beat that is playing moves to
    the new element at the same point of its time. */
 (() => {
@@ -21,20 +25,26 @@ const CH = window.CH; if (!CH || !CH.piece) return;
 const EASE = "cubic-bezier(.3, .7, .2, 1)";
 const motion = () => CH.motion();
 const slow = () => (motion() === "calm" ? 1.6 : 1);
-const shown = (el) => !!el && el.isConnected && el.getClientRects().length > 0;
+// on screen: laid out, not hidden, and inside the window (the HUD's drawer, closed, sits beside the screen)
+const shown = (el) => {
+  if (!el || !el.isConnected || !el.getClientRects().length) return false;
+  const r = el.getBoundingClientRect();
+  return r.width > 0 && r.height > 0 && r.right > 0 && r.bottom > 0 && r.left < innerWidth && r.top < innerHeight && getComputedStyle(el).visibility !== "hidden";
+};
 // what has played, for the drivers (test/drive_living.js joint part)
 const count = { pick: 0, outcome: 0, year: 0 };
 
 /* ---------- the elements ---------- */
-const STAR_HOST = "#hud .hud-well, #hud .lv-star, #hud .chs-star:not(.mini)";
+// the star's well: the HUD's star, or the interlude's small one while that is the star on screen (living/20-star.js)
+const HUD_STAR = "#hud .wheelw > .lv-star > .chs-star:not(.mini)", IL_STAR = ".ilside > .lv-star > .chs-star";
 function well() {
-  const s = CH.mods.star;
-  if (s && typeof s.well === "function") { try { const el = s.well(); if (el) return el; } catch (_) { /* the star's own fault: no well this time */ } }
-  return document.querySelector(STAR_HOST);
+  const a = document.querySelector(HUD_STAR); if (shown(a)) return a;
+  const b = document.querySelector(IL_STAR); return shown(b) ? b : a;
 }
 const lineOf = () => document.getElementById("line");
 const ageOf = () => document.querySelector("#who .age > b") || document.querySelector("#who .age");
-const medalOf = () => document.querySelector("#hud .hud-medal");
+// the medallion's glass (living/60-window.js), the canvas its gilt rim is drawn on
+const medalOf = () => document.querySelector("#hud .hud-medal > .chw-mini > canvas.chw-glass");
 function newestYear() {
   const feed = document.getElementById("feed"); if (!feed) return null;
   for (let el = feed.lastElementChild; el; el = el.previousElementSibling) if (el.classList.contains("yr")) return el.querySelector(":scope > .yh > .ag");
@@ -52,6 +62,7 @@ function start(b, el, at) {
   a.onfinish = a.oncancel = () => { if (b.a === a) settle(b); };
 }
 function rehome() {
+  if (typeof hud !== "undefined" && hud && hud.replay) { stop(); return; }      // a load replays the life: still
   playing.forEach((b) => {
     if (!b.find || (b.el && b.el.isConnected)) return;
     const el = b.find(), t = b.a ? b.a.currentTime : 0;
@@ -105,7 +116,7 @@ function onOutcome(x) {
   if (moved < 1) return;
   count.outcome++;
   beat("outcome", well(), swell, { duration: 700, easing: "cubic-bezier(.34, 1.56, .64, 1)" }, well);
-  beat("outcome", ageOf(), glint, { duration: 700 }, ageOf);
+  if (motion() !== "calm") beat("outcome", ageOf(), glint, { duration: 700 }, ageOf);      // calm: fewer at once
 }
 // the year: read at each update. Their age moves only while the life is lived (time runs between moments; the update
 // that brings a year may be the one that stops at a moment), so a new whole year in play is a year lived. The first

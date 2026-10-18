@@ -25,18 +25,26 @@ const { chromium } = require(process.env.PW || 'playwright');
 //           what the shared beat played (living/95-beat.js: on picks and years in full, nothing with motion off or
 //           reduced). The budget is 4 ms a frame on average and 8 ms at the 95th percentile for all the pieces together
 //           on a real graphics card; this headless software build reports its numbers and fails only above three times
-//           that. With motion off and reduced, two shots 0.8 s apart are equal; in full they differ. Then the switch on,
-//           off, on: off takes every piece down and gives today's screen and the ink look's own hooks back (its night,
-//           its river light, its own Motion and Look tooltips, no living frame while the life steps on), on puts the
-//           pieces back; the one-ink rules (living/90-game.css) hide look's drops and river light only with Living on
-//           and the star and river standing (read with stand-ins while those two pieces are not here). Then the guard,
-//           turned on: a stand-in piece that takes 8 ms a frame is dropped to still frames after 5 s (it sees and hears
-//           motion "off"; one console.warn) while the others keep moving. No console error at all on the way.
-//   sky, star, river, cards, story, window   that piece's own driver (test/drive_living_<piece>.js), after the parts
-//           above and after this driver's browser has closed (one browser at a time), with the same URL and OUT_DIR, the
-//           width and height when they are given here (else the driver's own), and the driver's own default parts, or the
-//           ones named after a colon, joined by "+" (sky:look+motion). A piece whose driver is not here yet is skipped with a note. LIVING_PART_TIMEOUT (seconds,
-//           default 2700) stops a piece's driver that runs too long (a FAIL).
+//           that. With motion off and reduced, two shots 0.8 s apart are equal; in full they differ. All the way, the
+//           ink look's own marks over the wheel are counted as look.js makes them (its drops flying into the wheel, the
+//           rings and points at the wheel's orbs): while the star stands, none of them is drawn (living/90-game.css, one
+//           ink). Then the switch on, off, on. On: all seven pieces stand (the sky, the star over the hidden wheel, the
+//           river under the line, the cards holding, the story's hands, the medallion, the beat), and look's drops,
+//           rings, points and river light, made as look.js makes them, are not drawn. Off takes every piece down and
+//           gives today's screen and the ink look's own hooks back (its night, today's wheel, its line without the river,
+//           cards that push on a click, its river light and marks drawn again, its own Motion and Look tooltips, no
+//           living frame while the life steps on); on puts the pieces back. Then the guard, turned on: a stand-in piece
+//           that takes 8 ms a frame is dropped to still frames after 5 s (it sees and hears motion "off"; one
+//           console.warn) while the others keep moving. No console error at all on the way.
+//   sky, star, river, cards, story, window   that piece's own driver (test/drive_living_<piece>.js: rows V1 to V6), after
+//           the parts above and after this driver's browser has closed (one browser at a time), with the same URL and
+//           OUT_DIR, the width and height when they are given here (else the driver's own; the cards' driver sets its own
+//           sizes part by part: desk 1280x800, touch 390x844, shots at 1440x900 and 390x844, cost 1440x900), and the
+//           driver's main checks (its own default parts: sky look+motion+switch+cost; star look+hover+motion+outcome+
+//           interlude+switch+cost; river live+look+read+motion+switch; cards desk+touch+shots+cost; story look; window
+//           medal), or the parts named after a colon, joined by "+" (sky:look+motion, window:medal+end). A piece whose
+//           driver is missing is a FAIL. LIVING_PART_TIMEOUT (seconds, default 2700) stops a piece's driver that runs
+//           too long (a FAIL).
 //   PW=<playwright> node test/drive_living.js URL OUT_DIR [parts: log,switch,joint,sky,star,river,cards,story,window]
 //     [width 1280] [height 800] [preset 4] [age 30] [seed 140892]
 const fs = require('fs'), path = require('path'), { spawn } = require('child_process');
@@ -81,6 +89,16 @@ async function ownParts() {
         own: S !== hud.life && S.items === ITEMS && Array.isArray(S.want) && typeof hud.life.want === 'number' && S.means === hud.life.res && S.pushes === CH.life.pushes }); },
       destroy() { T.mounted--; },
     });
+    // the ink look's marks over the wheel, as look.js makes them (inkDrops: span.lk-drop on <body>; wheelDeltas:
+    // span.lk-ring and em.lk-dl in .wheelw): each one counted with whether it was drawn, and whether the star stood
+    const M = window.__ink = { made: 0, drawn: 0, starMade: 0, starDrawn: 0, offMade: 0, offDrawn: 0, kinds: {} };
+    new MutationObserver((rs) => rs.forEach((r) => r.addedNodes.forEach((n) => {
+      if (n.nodeType !== 1 || !n.matches('body > .lk-drop, .wheelw > .lk-ring, .wheelw > .lk-dl')) return;
+      const kind = n.classList.contains('lk-drop') ? 'drop' : n.classList.contains('lk-ring') ? 'ring' : 'points', drawn = getComputedStyle(n).display !== 'none';
+      const star = document.documentElement.dataset.living === 'on' && (document.documentElement.dataset.lvPieces || '').split(' ').includes('star');
+      M.made++; if (drawn) M.drawn++; M.kinds[kind] = (M.kinds[kind] || 0) + 1;
+      if (star) { M.starMade++; if (drawn) M.starDrawn++; } else if (document.documentElement.dataset.living === 'off') { M.offMade++; if (drawn) M.offDrawn++; }
+    }))).observe(document.body, { childList: true, subtree: true });
     const keyOf = (ev, x) => ev === 'moment' ? x.cp.age + '|' + x.cp.title : ev === 'outcome' ? x.res.age + '|' + x.res.title : ev === 'pick' ? x.cp.age + '|' + x.cp.title + '|' + x.text : String(x);
     for (const ev of ['moment', 'outcome', 'pick', 'living']) CH.on(ev, (x) => T.events.push({ ev, key: keyOf(ev, x), quiet: !!(x && x.quiet), S: !!(x && x.S), ...now() }));
   });
@@ -250,8 +268,10 @@ async function ownParts() {
       say('  the life again from its start, age', await page.evaluate(() => hud.life.age), 'in', Date.now() - tL, 'ms');
     }
     const from = await page.evaluate(() => hud.life.age);
+    const ALL = ['sky', 'star', 'river', 'cards', 'story', 'window', 'beat'];
     const st0 = await page.evaluate(() => ({ pieces: document.documentElement.dataset.lvPieces || '', cost: typeof CH.cost === 'function' && typeof CH.cost.all === 'function' }));
-    check(st0.cost && ['sky', 'story', 'window', 'beat'].every((p) => st0.pieces.split(' ').includes(p)), `the pieces stand: html[data-lv-pieces] "${st0.pieces}"; CH.cost() is there`);
+    check(st0.cost && ALL.every((p) => st0.pieces.split(' ').includes(p)), `the pieces stand: html[data-lv-pieces] "${st0.pieces}"; CH.cost() is there`);
+    const ink0 = await page.evaluate(() => Object.assign({}, __ink));
     const MODES = [['full', false], ['calm', false], ['off', false], ['full', true]], step = (AGE - from) / MODES.length;
     const costs = [];
     for (let i = 0; i < MODES.length; i++) {
@@ -278,6 +298,11 @@ async function ownParts() {
       else say(`    calm: two shots 0.8 s apart ${same ? 'are equal' : 'differ'}`);
     }
     await page.emulateMedia({ reducedMotion: 'no-preference' }); await setMotion('full'); await page.waitForTimeout(500);
+    // one ink, as the life was lived: look made its marks over the wheel at the outcomes, and with the star standing
+    // none of them was drawn
+    const ink1 = await page.evaluate(() => Object.assign({}, __ink, { kinds: Object.assign({}, __ink.kinds) }));
+    say(`  look's marks over the wheel while the life was lived: ${ink1.made - ink0.made} made (${JSON.stringify(ink1.kinds)} in all), ${ink1.starMade - ink0.starMade} with the star standing, ${ink1.starDrawn - ink0.starDrawn} of those drawn`);
+    check(ink1.starMade > ink0.starMade && ink1.starDrawn === ink0.starDrawn, `one ink: look.js made ${ink1.starMade - ink0.starMade} drops, rings and points over the wheel while the star stood, and none was drawn (${ink1.starDrawn - ink0.starDrawn})`);
     const over = await page.evaluate(() => Object.entries(CH.cost()).filter(([, x]) => x.tripped).map(([p, x]) => `${p} ${x.tripped} ms`));
     if (over.length) say(`  note: with the guard on, these would have dropped to still frames on this machine: ${over.join(', ')}`);
     fs.writeFileSync(`${dir}/living-joint-${width}-cost.json`, JSON.stringify(costs));
@@ -286,39 +311,45 @@ async function ownParts() {
     const view = () => page.evaluate(() => {
       const r = document.documentElement, shown = (s) => { const e = document.querySelector(s); return !!e && getComputedStyle(e).display !== 'none'; };
       const rl = document.querySelector('#river .lk-river'), feed = document.getElementById('feed');
+      const wheel = document.getElementById('hudWheel'), line = document.getElementById('line');
       return { living: r.dataset.living, pieces: r.dataset.lvPieces || '', sky: !!document.querySelector('.lv-sky'), medal: !!document.querySelector('#hud .hud-medal'),
+        star: !!document.querySelector('#hud .wheelw > .lv-star > .chs-star'), wheel: wheel ? getComputedStyle(wheel).visibility : 'none there',
+        river: !!(line && line.classList.contains('lv-river') && line.querySelector(':scope > .rv canvas')),
+        hold: tableEl.dataset.hold || '', lvCards: tableEl.querySelectorAll('.opt.lv, .opt[data-hold]').length,
         story: feed.classList.contains('sy-on'), hands: feed.querySelectorAll('.sy-hd, .sy-hand').length, night: ['.sky', '.glow', 'svg.sigil'].map(shown),
         light: rl ? getComputedStyle(rl).display : 'none there', frames: CH.cost.all().frames };
     });
     const tipOf = (sel) => page.evaluate((s) => { const b = document.querySelector(s); if (!b) return ''; showTip(b); const t = tipEl.innerText.replace(/\s+/g, ' '); hideTip(); return t; }, sel);
-    // the one-ink rules, read with stand-ins: look's drop and river light, as they would be with the star and river standing
+    // the one-ink rules with the pieces as they stand: look's marks, made as look.js makes them (a drop on <body>, a ring
+    // and points in .wheelw, the river light in svg#river), read and taken away at once. Not counted by the probe above
     const oneInk = () => page.evaluate(() => {
-      const r = document.documentElement, was = r.dataset.lvPieces;
-      const d = document.createElement('span'); d.className = 'lk-drop'; d.setAttribute('aria-hidden', 'true'); document.body.appendChild(d);
-      const g = document.createElementNS('http://www.w3.org/2000/svg', 'g'); g.setAttribute('class', 'lk-river'); document.getElementById('river').appendChild(g);
-      const read = () => [getComputedStyle(d).display, getComputedStyle(g).display];
-      const now = read();
-      r.dataset.lvPieces = ((was || '') + ' star river').trim();
-      const withThem = read();
-      if (was == null) delete r.dataset.lvPieces; else r.dataset.lvPieces = was;
-      d.remove(); g.remove();
-      return { now, withThem };
+      const wrap = document.querySelector('#hud .wheelw'), river = document.getElementById('river'), made = [];
+      const add = (host, el) => { if (host) { host.appendChild(el); made.push(el); } return el; };
+      const el = (tag, cls) => { const e = document.createElement(tag); e.className = cls; e.setAttribute('aria-hidden', 'true'); return e; };
+      const g = document.createElementNS('http://www.w3.org/2000/svg', 'g'); g.setAttribute('class', 'lk-river');
+      const them = { drop: add(document.body, el('span', 'lk-drop')), ring: add(wrap, el('span', 'lk-ring up')), points: add(wrap, el('em', 'lk-dl wh up even')), light: add(river, g) };
+      const out = {}; for (const [k, e] of Object.entries(them)) out[k] = e.isConnected ? getComputedStyle(e).display : 'no host';
+      made.forEach((e) => e.remove());
+      return out;
     });
     await idle();
     let v = await view(), ink = await oneInk();
     const tips = async () => ({ motion: await tipOf('#tPop [data-lk="motion"]'), look: await tipOf('#tPop [data-lk="look"]'), row: await tipOf('#tPop [data-lv]') });
     let t = await tips();
     say('  on:', JSON.stringify(v), JSON.stringify(ink));
+    check(ALL.every((p) => v.pieces.split(' ').includes(p)) && v.sky && v.star && v.wheel === 'hidden' && v.river && v.hold === 'on' && v.story && v.medal,
+      `on: every piece stands (the sky, the star over the hidden wheel, the river under the line, the cards holding, the story, the medallion: "${v.pieces}")`);
     check(/slower and fewer/.test(t.motion) && /Living HUD/.test(t.look) && /ink look only/.test(t.row), `on: the Motion, Look and Living rows say what they do now ("${t.motion.slice(0, 80)}...")`);
-    check(ink.withThem.every((x) => x === 'none'), `on: with the star and river standing, look's drops and river light are not drawn (${ink.withThem.join(', ')}; now ${ink.now.join(', ')})`);
+    check(Object.values(ink).every((x) => x === 'none') && /none/.test(v.light), `on: with the star and river standing, look's drops, rings, points and river light are not drawn (${JSON.stringify(ink)}; its own light ${v.light})`);
     await shot(`joint-${width}-switch-1-on`);
     await menuRow('[data-lv]');
     v = await view(); ink = await oneInk(); t = await tips();
     say('  off:', JSON.stringify(v), JSON.stringify(ink));
-    check(v.living === 'off' && !v.pieces && !v.sky && !v.medal && !v.story && v.hands === 0, 'off: every piece is taken down (no sky, medallion or hand; html[data-lv-pieces] gone)');
+    check(v.living === 'off' && !v.pieces && !v.sky && !v.medal && !v.story && v.hands === 0 && !v.star && v.wheel === 'visible' && !v.river && !v.hold && v.lvCards === 0,
+      `off: every piece is taken down (no sky, star, river, holding card, medallion or hand; today's wheel shown; html[data-lv-pieces] gone: ${JSON.stringify({ star: v.star, wheel: v.wheel, river: v.river, hold: v.hold, cards: v.lvCards })})`);
     check(v.night.every((x) => x) && !/none/.test(v.light), `off: today's night, glow and sigil and the ink look's river light are back (${v.night.join(' ')}; light ${v.light})`);
     check(/nothing loops/.test(t.motion) && !/slower and fewer/.test(t.motion) && !/Living HUD/.test(t.look), 'off: the Motion and Look rows have the ink look\'s own words again');
-    check(ink.withThem.every((x) => x !== 'none'), `off: the one-ink rules rest (${ink.withThem.join(', ')})`);
+    check(Object.values(ink).every((x) => x !== 'none' && x !== 'no host'), `off: the one-ink rules rest: look's drops, rings, points and river light are drawn (${JSON.stringify(ink)})`);
     const fr0 = v.frames;
     await page.evaluate(() => send(''));            // a step with Living off: their own pick, then Go on
     await idle();
@@ -333,7 +364,8 @@ async function ownParts() {
     await page.waitForTimeout(1500);
     v = await view(); t = await tips();
     say('  on again:', JSON.stringify(v));
-    check(v.living === 'on' && v.sky && v.medal && v.story && v.hands > 0 && ['sky', 'story', 'window', 'beat'].every((p) => v.pieces.split(' ').includes(p)), 'on again: the sky, the medallion and the story\'s hands are back');
+    check(v.living === 'on' && v.sky && v.medal && v.story && v.hands > 0 && v.star && v.wheel === 'hidden' && v.river && v.hold === 'on' && ALL.every((p) => v.pieces.split(' ').includes(p)),
+      `on again: the sky, the star, the river, the holding cards, the medallion and the story's hands are back ("${v.pieces}")`);
     check(v.frames > fr0 && /slower and fewer/.test(t.motion), `on again: the pieces draw (${v.frames - fr0} frames) and the Motion row says slower and fewer`);
     await shot(`joint-${width}-switch-3-on`);
     // the guard itself: a stand-in piece that takes 8 ms a frame drops to still frames after 5 s of it, hears motion "off"
@@ -361,11 +393,14 @@ async function ownParts() {
   return ok;
 }
 
+// how each piece's driver takes its arguments after URL and OUT_DIR: its parts ('' for its main checks, its own
+// defaults), then the width and height, except the cards' driver, which sizes each of its parts itself
+const SIZED = { sky: true, star: true, river: true, cards: false, story: true, window: true };
 // a piece's own driver, as a child process: its lines are printed with the piece's name before them
 function pieceDriver(part) {
   const [name, sub] = part.split(':'), file = path.join(__dirname, `drive_living_${name}.js`);
-  if (!fs.existsSync(file)) { console.log(`part ${name}: skipped, its driver (test/drive_living_${name}.js) is not here yet`); return Promise.resolve('skipped'); }
-  const args = [file, url, dir, sub ? sub.split('+').join(',') : '', W || '', H || ''];
+  if (!fs.existsSync(file)) { console.log(`part ${name}: FAIL, its driver (test/drive_living_${name}.js) is missing`); return Promise.resolve('FAIL'); }
+  const args = [file, url, dir, sub ? sub.split('+').join(',') : ''].concat(SIZED[name] ? [W || '', H || ''] : []);
   console.log(`part ${name}: node ${path.basename(file)} ${args.slice(1).map((a) => (a === '' ? "''" : a)).join(' ')}`);
   return new Promise((done) => {
     const t1 = Date.now(), kid = spawn(process.execPath, args, { cwd: __dirname, env: process.env, stdio: ['ignore', 'pipe', 'pipe'] });
