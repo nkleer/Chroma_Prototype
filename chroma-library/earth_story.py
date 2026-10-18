@@ -885,6 +885,8 @@ TEMPER_CAUSE = ["Since {event}, {N} has become {m}.", "People who know {N} say {
 #   money                       the money for it
 #   years, unused               a loss: {n} years held until it ran out, or {n} years without it (two or more);
 #   years_one, unused_one       the same when it was one year
+#   unused_alone, unused_money, unused_time   a loss the Engine gives a reason (its as): a bond while their ties were
+#                               thin, an asset while money was short, a standing as time went by ({n} optional)
 # Rules whose condition names an age, a stage or nothing carry their own cause= words in earth_perks_titles.py.
 CAUSE = {
     "pick": "since choosing to {act} at {age}",
@@ -899,6 +901,9 @@ CAUSE = {
     "years_one": "after a year",
     "unused": "after {n} years without it",
     "unused_one": "after a year without it",
+    "unused_alone": "after a stretch with few people close",
+    "unused_money": "after a stretch short of money",
+    "unused_time": "as the years went by",
 }
 # CAUSE_HOLD: the rules whose condition would name a false cause today (tier A of chroma-library/notes/cause-audit.md):
 # the game names no clause for them, only the rule's own cause= words where the catalogue has them. cause_fit retires

@@ -60,7 +60,7 @@ NAMES_READ = ("SONG", "SONG_WORLD", "MARK_SAY", "LAST_TALK", "VOICE", "THREAD", 
               "WORLD_HOME", "WORLD_HOME_CHANNEL", "YEAR_WHAT_HOME", "YEAR_WHAT_HOME_CHANNEL", "CAUSE", "YEAR_WHY", "FOLD", "CAUSE_HOLD")
 # every change has a cause (L2): the kinds the game names a cause by, and the engine's sources of change (engine.py ASOURCES)
 CAUSE_KEYS = ["pick", "pick_who", "pick_gone", "mark", "moment", "held_title", "held_perk", "money", "years", "years_one",
-              "unused", "unused_one"]
+              "unused", "unused_one", "unused_alone", "unused_money", "unused_time"]
 ASOURCES = ["unmet needs", "surroundings", "role models", "settling back", "turning points", "talking oneself into it",
             "resolutions", "outside events", "the times", "discontent", "contentment", "restlessness", "dreams and plans",
             "a shorter horizon"]
@@ -231,7 +231,8 @@ def rule(path):
               "pick_gone": (("N", "act", "age", "P"), ("act", "age", "P")), "mark": (("N", "what", "age"), ("what", "age")),
               "moment": (("what", "age"), ("what", "age")), "held_title": (("N", "say"), ("say",)),
               "held_perk": (("N", "say"), ("say",)), "money": ((), ()), "years": (("n",), ("n",)),
-              "years_one": ((), ()), "unused": (("n",), ("n",)), "unused_one": ((), ())}[k]
+              "years_one": ((), ()), "unused": (("n",), ("n",)), "unused_one": ((), ()),
+              "unused_alone": (("n",), ()), "unused_money": (("n",), ()), "unused_time": (("n",), ())}[k]
         return fl + ("clause", "narration", 16)
     if top == "CAUSE_SAY":      # a rule's own cause= words (earth_perks_titles.py), for an age, a stage, money or nothing
         return (("N", "Ns"), (), "clause", "narration", 14)
