@@ -71,9 +71,9 @@ NAMES = {
 }
 
 # The five names above were engine_v23, game_v23, library_v23, library_v23_src and packs_v23 until 2026-10-18, when
-# the coming release took the name v23. The old names still work for the scripts that read them (Release:
-# check_identity.py, check_world.py, v22_checks.py; Library, in the shared folder: check.py, tests/run_pack_handover.sh,
-# drafts/titles_by_source.py); new scripts use the new ones, and the old ones go once nothing reads them.
+# the release now live as v23 took the name. The old names still work for the scripts that read them (Release moved to
+# the new ones in #324; Library, in the shared folder: tests/run_pack_handover.sh and drafts/titles_by_source.py, and a
+# comment in check.py); new scripts use the new ones, and the old ones go once nothing reads them.
 OLD_NAMES = {"engine_v23": "engine_prototype", "game_v23": "game_paused", "library_v23": "library_paused",
              "library_v23_src": "library_paused_src", "packs_v23": "packs_paused"}
 NAMES.update({old: NAMES[new] for old, new in OLD_NAMES.items()})

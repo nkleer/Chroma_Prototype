@@ -11,14 +11,16 @@ Part of class Game (game.py), which inherits CausesMixin. What it reads:
     held    name (the title or perk it builds on), t (since when)
     money   (the money for it)
     age, stage, luck, none, pack (pack, clause): told by the Library's cause: phrase when it has one, else not named
-  and for a loss, k held with years (time passed: years held) or unused with years (slipped away: years since used).
+  and for a loss, k held with years (time passed: years held) or unused with years and as (slipped away: years since
+  used; as unused, alone, short of money or time). Any other k names nothing. A rule in the Library's CAUSE_HOLD (the
+  L1 audit's loose rules) is told only with its cause: phrase, never with the clause that held.
   Without why, a loss that ran its time says the years the game saw it held; a gain names nothing.
 - loc["asrc_c"] (the Engine's E1 (a), at the pause): what moved the colours, by source (ASOURCES), cumulative, shape
   (sources, C). The year line diffs two pauses for the year's movers after its own told events.
 - the Library's words (earth_story CAUSE, YEAR_WHY, FOLD), key by key over the stand-ins below."""
 import re
 import numpy as np
-from game_base import C, COLORS, E, ES, GAME, mk, neg_of, plain
+from game_base import C, COLORS, E, ES, GAME, mk, neg_of, plain, role_info
 from game_words import FADE_WORDS, GROW_WORDS
 
 # stand-in words, until the Library's (L2) replace them key by key: {N} the character, {age} an age, {n} years in words
@@ -26,13 +28,18 @@ CAUSE0 = dict(
     pick="since {N} chose to {act} at {age}",                  # a mark their own asked pick left
     pick_who="since {N} chose to {act} at {age}, with {P}",
     pick_gone="since {N} chose to {act} at {age}, with {P}, gone now",
-    mark="since {what} at {age}",                              # a mark a moment left (no pick of theirs)
+    mark="since the time {N} {what}, at {age}",               # a mark a moment left (no pick of theirs; MARK_SAY words)
     moment="after {what} at {age}",
-    held_title="as {say}",
-    held_perk="with {say}",
+    held_title="as {say}",                                     # {say}: the title as said ("a nurse")
+    held_perk="as one who {say}",                              # {say}: the perk's predicate ("can drive")
     money="with the money for it",
-    years="after {n} years",                                   # a loss: its time ran out
-    unused="after {n} years unused",                           # a loss: it slipped away
+    years="after {n} years",                                   # a loss: its time ran out (years_one, unused_one: n is 1)
+    years_one="after a year",
+    unused_one="after a year unused",
+    unused="after {n} years unused",                           # a loss: it slipped away (a skill unused)
+    unused_alone="after {n} years with few people close",     # a bond, while their ties were thin (the Engine's as)
+    unused_money="after {n} years short of money",             # an asset, while money was short
+    unused_time="after {n} years",                             # a standing, as time went by
 )
 YEAR0 = dict(
     turn="A year that turned {N}: {how}.",
@@ -45,6 +52,7 @@ YEAR0 = dict(
          "a shorter horizon": "a shorter horizon"},
 )
 FOLD0 = dict(gain="This year {N} {got}.", lose="This year {N} {lost}.", both="This year {N} {got}, and {lost}.")
+UNUSED_AS = {"alone": "unused_alone", "short of money": "unused_money", "time": "unused_time"}   # the Engine's as on a loss
 CAUSE_HOWS = ("in time", "slipped away", "time passed")       # the ways a change comes with no cause told today
 FOLD_KINDS = ("skill", "standing", "bond")                     # G4: small perks that come and go (titles keep their line)
 FOLD_HOWS = ("in time", "slipped away", "time passed", "regained")
@@ -60,6 +68,13 @@ def _words(name, base):
 def _years(y):
     n = max(1, int(round(float(y))))
     return _NUMW[n] if n < len(_NUMW) else str(n)
+
+
+def _n_words(W, key, y):
+    """A loss's words with its years: the key's _one form when the years round to one (the Library's years_one)."""
+    if max(1, int(round(float(y)))) == 1 and key in ("years", "unused") and key + "_one" in W:
+        return W[key + "_one"]
+    return W[key].replace("{n}", _years(y))
 
 
 def _clean(s):
@@ -91,7 +106,12 @@ class CausesMixin:
             if part is None:
                 return None
             k = "years" if part["k"] == "held" else "unused"
-            return k, self._trail(k, W[k].replace("{n}", _years(part["years"])), "")
+            w = W[UNUSED_AS[part["as"]]].replace("{n}", _years(part["years"])) \
+                if k == "unused" and UNUSED_AS.get(part.get("as")) in W else _n_words(W, k, part["years"])
+            return k, self._trail(k, w, "")
+        if name in (getattr(ES, "CAUSE_HOLD", None) or ()):   # a rule the Library's audit found loose (L1): the clause
+            say = next((p["say"] for p in why if p.get("say")), None)   # that held may read false, so only its cause:
+            return ("none", self._trail("none", say, "")) if say else None   # phrase, until cause_fit tightens it
         for part in why:
             got = self._cause_part(part, W)
             if got:
@@ -111,10 +131,11 @@ class CausesMixin:
                 txt = tpl.replace("{act}", act).replace("{age}", str(int(pick["age"]))).replace(
                     "{P}", mk("p", p["id"], p["name"]) if known else "")
                 return "pick", self._trail("pick", txt, f"{pick['age']}|{p['id'] if known else ''}|{_clean(pick['moment'])}")
-            if part.get("name"):
+            what = (getattr(ES, "MARK_SAY", None) or {}).get(part.get("mark")) or part.get("mark") or part.get("name")
+            if what:                                    # the mark as the song says it ("kept their word")
                 a = int(part["t"] / 52) if part.get("t") is not None else ""
-                return "mark", self._trail("mark", W["mark"].replace("{what}", _clean(part["name"])).replace("{age}", str(a)),
-                                           f"{a}||{_clean(part['name'])}")
+                return "mark", self._trail("mark", W["mark"].replace("{what}", _clean(what)).replace("{age}", str(a)),
+                                           f"{a}||{_clean(part.get('moment') or what)}")
             return None
         if k == "moment" and part.get("name"):
             a = int(part["t"] / 52) if part.get("t") is not None else ""
@@ -122,10 +143,10 @@ class CausesMixin:
                                          f"{a}||{_clean(part['name'])}")
         GR = self.L.get("ROLES") or {}
         if k == "held" and part.get("name") in GR.get("ID", {}):
-            i = GR["ID"][part["name"]]
-            title = i < GR["NT"]
-            say = GR["say"][i]
-            return "held", self._trail("held", W["held_title" if title else "held_perk"].replace("{say}", say), "||" + _clean(say))
+            d = role_info(GR, GR["ID"][part["name"]])
+            say = d["say"] if d["title"] else d["pred"]  # a perk as a predicate ("is known for turning up")
+            return "held", self._trail("held", W["held_title" if d["title"] else "held_perk"].replace("{say}", say),
+                                       "||" + _clean(d["say"]))
         if k == "money":
             return "money", self._trail("money", W["money"], "")
         if k in ("age", "stage", "none", "pack") and part.get("say"):      # the Library's cause: phrase, as the Engine passes it
@@ -134,7 +155,10 @@ class CausesMixin:
 
     def _trail(self, kind, text, payload):
         """G3: the cause as a hoverable phrase (marker Y: kind|age|person id|the earlier moment)."""
-        return mk("Y", f"{kind}|{payload}" if payload else kind, self.story.fill(text))
+        out = self.story.fill(text)
+        if text[:1].islower():                          # a clause inside the line: fill capitalises a sentence's start
+            out = out[:1].lower() + out[1:]
+        return mk("Y", f"{kind}|{payload}" if payload else kind, out)
 
     def _with_cause(self, line, cause):
         """The role line with its cause as the last clause ("Ari can swim now, since ...")."""
@@ -189,7 +213,7 @@ class CausesMixin:
     def _fold_role(self, r, d, how, cause, lvl):
         """causes_fold: a small perk gained or lost in time is kept for the year's fold line instead of its own line."""
         if not (GAME["causes_fold"] and not self.burn_in and not d["title"] and d["kind"] in FOLD_KINDS and how in FOLD_HOWS
-                and r["what"] in ("gained", "regained", "lost")):
+                and r["what"] in ("gained", "regained", "lost") and not d["pred"].startswith(("once ", "always "))):
             return False
         self.__dict__.setdefault("_fold", []).append((r["what"] != "lost", d, cause, lvl))
         return True
