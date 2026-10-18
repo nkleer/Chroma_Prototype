@@ -62233,6 +62233,11 @@ ECHOES = [
               ['{friend} says no, and tells the old story to anyone who will listen.',
                'The talk goes badly, and an old hurt becomes a fresh one.']),
  'outcomes_not': ([[4], []], [[], [4]]),
+ 'outcomes_gone': (['{N} keeps the promise another way, for someone {friend} cared about, and it stops weighing so '
+                    'much.',
+                    'The matter is settled with the people who are left, and {N} gets what is needed.'],
+                   ['There is no one left to set it right with, and the promise keeps its weight.',
+                    'The old story still goes round without {friend}, and doors stay shut.']),
  'options': [
     ('keep the old promise now, late as it is, whatever it costs', 'W1', None, 0.45, '', {'binds': True, 'v': 'benevolence, conformity', 'mark': 'kept your word', 'chance': 0.85}),
     ('explain what changed back then, and ask what would set it right', 'U1', None, 0.45, '', {'v': 'self-direction, benevolence', 'chance': 0.69}),
@@ -62448,6 +62453,10 @@ ECHOES = [
                'The old feud is set aside, and the work goes on.'],
               ['{rival} finds a dozen small ways to make life hard.',
                'The old quarrel flares up again, in front of everyone.']),
+ 'outcomes_gone': (['Without {rival} at the table, the new head judges {N} on the work alone.',
+                    'The old feud is set aside, and the work goes on.'],
+                   ["{rival}'s old allies still remember, and find small ways to make life hard.",
+                    'The old quarrel flares up again without {rival}, in front of everyone.']),
  'options': [
     ('go through the proper channels and ask for someone neutral to handle your case', 'W1', None, 0.45, '', {'v': 'security, conformity', 'chance': 0.67}),
     ('keep a careful record of every exchange, in case it comes to that', 'U1', None, 0.45, '', {'habit': True, 'v': 'security', 'chance': 0.6}),
@@ -62504,6 +62513,10 @@ ECHOES = [
                '{friend} stays close through the hard months, and things begin to lift.'],
               ['The call is warm, but the old ease does not come back.',
                '{friend} has troubles of their own, and the visit leaves them both tired.']),
+ 'outcomes_gone': (['{N} rings another friend from those years, and talking about {friend} brings them close again.',
+                    'The memory of {friend} carries {N} through the hard months, and things begin to lift.'],
+                   ["The silence where {friend}'s call used to be makes the bad week longer.",
+                    '{N} reaches for the phone out of habit, and the hard months stay hard.']),
  'options': [
     ('set a day each month to call, so it never lapses again', 'W1', None, 0.45, '', {'v': 'benevolence, conformity', 'chance': 0.79}),
     ('tell them honestly how bad things have been, and ask what they would do', 'U1', None, 0.45, '', {'v': 'self-direction, benevolence', 'chance': 0.88}),
@@ -63063,6 +63076,10 @@ ECHOES = [
                '{N} goes back, and the old streets feel like home again.'],
               ['Every choice leaves someone hurt, and the phone calls get shorter.',
                '{N} is caught between two places, belonging fully to neither.']),
+ 'outcomes_gone': (['The family finds an arrangement that holds, and the old place is kept the way {parent} kept it.',
+                    '{N} goes back, and the old streets feel like home again.'],
+                   ['Every choice leaves someone hurt, and the phone calls get shorter.',
+                    '{N} is caught between two places, belonging fully to neither.']),
  'options': [
     ('go back to care for your parent; that is what a child does', 'W1', None, 0.45, '', {'binds': True, 'v': 'benevolence, tradition', 'chance': 0.78}),
     ('draw up a written care agreement with your sibling, costs and turns and all', 'U1', None, 0.45, '', {'binds': True, 'v': 'security, self-direction', 'chance': 0.72}),
@@ -63237,6 +63254,10 @@ ECHOES = [
               ['{sibling} listens, nods, and says it is too late.',
                'The chance passes, and the apology stays unsaid.']),
  'outcomes_not': ([[4, 9], []], [[4, 9], []]),
+ 'outcomes_gone': (['{N} says the words at last to those closest to {sibling}, and something old begins to soften.',
+                    'Something old and hard begins, at last, to soften.'],
+                   ['The words come too late for {sibling} to hear, and {N} carries them anyway.',
+                    'The chance passes, and the apology stays unsaid.']),
  'options': [
     ('go to them, say plainly what you did, and ask forgiveness', 'W1', None, 0.45, '', {'identity': True, 'v': 'benevolence, conformity', 'mark': 'owned up', 'chance': 0.82}),
     ('write a long letter, redrafting it until every word is right', 'U1', None, 0.45, '', {'v': 'self-direction, benevolence', 'mark': 'owned up', 'chance': 0.69}),
