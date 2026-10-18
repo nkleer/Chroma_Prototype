@@ -9,7 +9,8 @@ Both games are copied to a scratch folder first (no __pycache__ or saves land in
     python3 -B chroma-release/check_saves.py --new-game DIR [--base-game DIR] [--presets 1,2,3,4,5,6] [--moments 6]
         [--after 25] [--seed 7] [--jobs 4] [--scratch DIR] [--play-on [--note REGEX]]
 
-  --new-game   the new build's game folder (its own engine_pin); --base-game: default the live game, chroma-game/prototype.
+  --new-game   the new build's game folder; --base-game: default the live game, chroma-game/prototype. Each copy's engine_pin/
+               is filled from its own tree's engine, Library and packs (gamepin.py), unless it holds a committed pin.
   --moments    moments played before saving; --after: steps played on after the load.
   --play-on    for a build whose played lives change by design (v22.2, Emren's card "Replay with a note", 2026-10-09
                19:40 UTC): the save is loaded by the new build only, and it passes when the load ends with a note
@@ -21,6 +22,7 @@ import sys, os, re, argparse, json, time, pickle, shutil, subprocess, tempfile
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "chroma-env"))
 os.environ.setdefault("CHROMA_ROOT", os.path.dirname(os.path.dirname(os.path.abspath(__file__))))   # the tree this script sits in
 from paths import P, path, ROOT   # backend plan item 6: every folder is named once, in chroma-env/paths.py
+import gamepin                    # a game copy's engine_pin/, filled as chroma-game/tools/pin.py fills it
 
 
 def play_on(c, pick, rec, steps, J):
@@ -100,16 +102,14 @@ def say(s=""):
 
 
 work = a.scratch or tempfile.mkdtemp(prefix="saves_")
-skip = shutil.ignore_patterns("__pycache__", "*.pyc", "web", "test")
 g = {}
-for tag, src in (("base", a.base_game), ("new", a.new_game)):
-    d = os.path.join(work, "game_" + tag); shutil.rmtree(d, ignore_errors=True)
-    shutil.copytree(os.path.abspath(src), d, ignore=skip); g[tag] = d
+for tag, src in (("base", a.base_game), ("new", a.new_game)):   # engine_pin filled from src's own tree unless committed
+    g[tag] = gamepin.copy(src, os.path.join(work, "game_" + tag))
 md5 = lambda p: __import__("hashlib").md5(open(p, "rb").read()).hexdigest()[:12]
 say(f"Old saves load, {time.strftime('%Y-%m-%d %H:%M', time.gmtime())} UTC")
 for tag, src in (("base", a.base_game), ("new", a.new_game)):
     say(f"  {tag:4s} {src} (game.py {md5(os.path.join(g[tag], 'game.py'))}, console.py {md5(os.path.join(g[tag], 'console.py'))}, "
-        f"engine.py {md5(os.path.join(g[tag], 'engine_pin', 'engine.py'))})")
+        f"engine.py {md5(os.path.join(g[tag], 'engine_pin', 'engine.py'))}, {gamepin.where(g[tag])})")
 say(f"  presets {a.presets}; saved after {a.moments} moments, played on {a.after} steps after the load; seed {a.seed}"
     + (f"; play-on: the new build only, a note at the load{' matching ' + repr(a.note) if a.note else ''}, then no error" if a.play_on else ""))
 env = dict(os.environ, OMP_NUM_THREADS="1", PYTHONDONTWRITEBYTECODE="1")

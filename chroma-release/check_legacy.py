@@ -1,7 +1,8 @@
 """v22.1 same-lives proof, the one start the other checks never compare (coordinator 10-08 12:07 UTC): a life begun in
 the world an earlier life left behind, as its child and as its grandchild (the setup's "begin in an earlier world").
 
-In a copy of the live game (live v22 engine) and a copy of the new build (its own engine_pin), the same flow runs as the
+In a copy of the live game (live v22 engine) and a copy of the new build (its engine_pin filled from its own tree's
+engine, Library and packs, gamepin.py, unless it holds a committed pin), the same flow runs as the
 game's test/saveload_world.py: life 1 (Build your own, fixed answers) is played to 12 and its world kept (world_out);
 then life 2 begins in that world, once as the child of that world and once as the grandchild, and plays 40 steps with
 seeded picks, pushes and steps. Everything must be equal between the two games: the world JSON life 1 leaves behind,
@@ -16,6 +17,7 @@ import sys, os, argparse, json, time, pickle, shutil, subprocess, tempfile
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "chroma-env"))
 os.environ.setdefault("CHROMA_ROOT", os.path.dirname(os.path.dirname(os.path.abspath(__file__))))   # the tree this script sits in
 from paths import P, path, ROOT   # backend plan item 6: every folder is named once, in chroma-env/paths.py
+import gamepin                    # a game copy's engine_pin/, filled as chroma-game/tools/pin.py fills it
 
 
 def worker(argv):
@@ -88,14 +90,13 @@ def say(s=""):
 
 work = a.scratch or tempfile.mkdtemp(prefix="legacy_")
 g = {}
-for tag, src in (("base", a.base_game), ("new", a.game)):
-    d = os.path.join(work, "game_" + tag); shutil.rmtree(d, ignore_errors=True)
-    shutil.copytree(os.path.abspath(src), d, ignore=shutil.ignore_patterns("__pycache__", "*.pyc", "web", "test")); g[tag] = d
+for tag, src in (("base", a.base_game), ("new", a.game)):   # engine_pin filled from src's own tree unless committed
+    g[tag] = gamepin.copy(src, os.path.join(work, "game_" + tag))
 md5 = lambda p: __import__("hashlib").md5(open(p, "rb").read()).hexdigest()[:12]
 say(f"A life begun in an earlier life's world, {time.strftime('%Y-%m-%d %H:%M', time.gmtime())} UTC")
 for tag, src in (("base", a.base_game), ("new", a.game)):
     say(f"  {tag:4s} {src} (game.py {md5(os.path.join(g[tag], 'game.py'))}, engine.py {md5(os.path.join(g[tag], 'engine_pin', 'engine.py'))}, "
-        f"world.py {md5(os.path.join(g[tag], 'engine_pin', 'world.py'))})")
+        f"world.py {md5(os.path.join(g[tag], 'engine_pin', 'world.py'))}, {gamepin.where(g[tag])})")
 env = dict(os.environ, OMP_NUM_THREADS="1", PYTHONDONTWRITEBYTECODE="1")
 seeds = [x for x in a.seeds.split(",") if x]
 procs = [(s, t, subprocess.Popen([sys.executable, "-B", os.path.abspath(__file__), "--worker", g[t], s, os.path.join(work, f"{t}_{s}.pkl")],

@@ -20,8 +20,9 @@ scratch folder first and run with -B, so nothing is written in the shared folder
             shows too.
   --timing  lives in the separate timing runs (one per engine and world setting, seed 5, same years); 0 skips them.
   --games   presets the game plays (1 to 6, default all; "" skips): a copy of the live game (chroma-game/prototype) runs
-            each preset's whole life through its own console, as the page does, once with engine_pin's engine files from
-            --base and once from --new (link.py must still find its six pause anchors; explain.py and foresee.py read the
+            each preset's whole life through its own console, as the page does, once with its engine_pin/ filled from
+            --base, --lib and --packs and once from --new, --new-lib and --new-packs, by chroma-game/tools/pin.py as the game
+            fills it (gamepin.py; link.py must still find its six pause anchors; explain.py and foresee.py read the
             loop's locals). Picks come from a seeded stream (half the moments the character's own pick, half a numbered
             option); every text the console returns and the HUD at every moment must be equal.
   --game    the game folder the new engine plays in (default the live game); --base-game the one the base engine plays
@@ -143,27 +144,19 @@ for tag, src in (("base", a.base), ("new", a.new)):
 md5 = lambda p: __import__("hashlib").md5(open(p, "rb").read()).hexdigest()[:12]
 games = [x for x in a.games.split(",") if x.strip()]
 gcopies, gnotes = {}, []
+NLIB, NPACKS = a.new_lib or a.lib, a.new_packs or a.packs
 if games:
-    import ast
+    import gamepin
+    trees = [os.path.dirname(os.path.dirname(os.path.abspath(g))) for g in (a.game, a.base_game) if g]   # where pin.py is
     for tag in ("base", "new"):
-        gd = os.path.join(work, "game_" + tag)
-        shutil.rmtree(gd, ignore_errors=True)
         gsrc = (a.base_game or a.game) if tag == "base" else a.game
-        shutil.copytree(os.path.abspath(gsrc), gd, ignore=shutil.ignore_patterns("__pycache__", "*.pyc", "web", "test"))
-        pin = os.path.join(gd, "engine_pin"); eng = copies[tag]
-        tree = ast.parse(open(os.path.join(eng, "engine.py")).read())
-        imported = {n.name.split(".")[0] for nd in ast.walk(tree) if isinstance(nd, ast.Import) for n in nd.names} | \
-                   {nd.module.split(".")[0] for nd in ast.walk(tree) if isinstance(nd, ast.ImportFrom) and nd.module}
-        put = []
-        for f in sorted(os.listdir(eng)):
-            if f.endswith(".py") and (os.path.exists(os.path.join(pin, f)) or f[:-3] in imported):
-                shutil.copy(os.path.join(eng, f), pin); put.append(f)
-        gcopies[tag] = gd; gnotes.append(f"  game {tag}: {gsrc} (game.py {md5(os.path.join(gd, 'game.py'))}) with engine_pin's "
-                                         f"{', '.join(put)} from {tag}")
+        lb, pk = (a.lib, a.packs) if tag == "base" else (NLIB, NPACKS)
+        gd = gamepin.copy(gsrc, os.path.join(work, "game_" + tag), also=trees, engine=copies[tag], lib=lb, packs=pk)
+        gcopies[tag] = gd; gnotes.append(f"  game {tag}: {gsrc} (game.py {md5(os.path.join(gd, 'game.py'))}) with engine_pin filled "
+                                         f"from {tag} (engine.py {md5(os.path.join(gd, 'engine_pin', 'engine.py'))}), Library {lb}, packs {pk}")
 say(f"Speed pass check, {time.strftime('%Y-%m-%d %H:%M', time.gmtime())} UTC")
 say(f"  base {a.base} (engine.py {md5(os.path.join(copies['base'], 'engine.py'))}, {len(os.listdir(copies['base']))} files)")
 say(f"  new  {a.new} (engine.py {md5(os.path.join(copies['new'], 'engine.py'))}, {len(os.listdir(copies['new']))} files)")
-NLIB, NPACKS = a.new_lib or a.lib, a.new_packs or a.packs
 say(f"  Library {a.lib}, packs {a.packs}" + (f"; new on Library {NLIB}, packs {NPACKS}" if (NLIB, NPACKS) != (a.lib, a.packs) else "")
     + f"; {a.lives} lives x {a.years} years, seeds {a.seeds}, worlds {a.worlds}; "
     f"P new {a.Pnew}, P base {a.Pbase}")

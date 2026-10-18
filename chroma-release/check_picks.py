@@ -7,12 +7,12 @@
                  [--years 100] [--worlds off,on,seed] [--jobs 4] [--no-record]
 
 run plays whole lives on the Game object as the page plays them, with Release's copy of the player-impact harness
-(picks/impact.py: let, random, reader, none), on a git archive of the commit's chroma-game/prototype (the game with its
-engine_pin), CHROMA_GAME set to --game: '{"returns": true}' for the "on" side and '{"returns": false}' for the "off" side
-(the GAME switch `returns` sets the engine's echo_play), the same policies, presets and seeds on both, so every life has
-its pair. One JSON a life: impact.py's record plus
-`picks`, one row per ask (age, sit, repeat: the moment was asked before in this life and is not a return, thread: the F5
-line shows, seed). `seed` is what the game puts on a return's ask, cp["seed"]:
+(picks/impact.py: let, random, reader, none), on a git archive of the commit's chroma-game/prototype (its engine_pin
+filled from the commit's own engine, Library and packs, gamepin.py, unless it is committed), CHROMA_GAME set to
+--game: '{"returns": true}' for the "on" side and '{"returns": false}' for the "off" side (the GAME switch `returns` sets
+the engine's echo_play), the same policies, presets and seeds on both, so every life has its pair. One JSON a life:
+impact.py's record plus `picks`, one row per ask (age, sit, repeat: the moment was asked before in this life and is
+not a return, thread: the F5 line shows, seed). `seed` is what the game puts on a return's ask, cp["seed"]:
     age    the seed's age            sit   the seed's moment     way   the way picked then
     t      the seed's week (P3 reads weeks when it is there, else the ages)
     went   "well" or "badly"         person  the seed's person (id), or None for a seed with nobody in it
@@ -39,6 +39,7 @@ be empty (lives with no player plant no seeds). The runs stay in --out; the repo
 chroma-release/out/picks_noplayer_<UTC>.txt and the results line picks_noplayer.
 """
 import argparse, glob, json, os, subprocess, sys, time
+import gamepin
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 PICKS = os.path.join(HERE, "picks")
@@ -95,7 +96,7 @@ def run(a):
     stamp = os.path.join(tree, "tree.sha")
     if not (os.path.exists(stamp) and open(stamp).read().strip() == sha):   # never reuse another commit's tree
         subprocess.run(["rm", "-rf", tree], check=True); os.makedirs(tree)
-        subprocess.run(f"git -C {a.repo} archive {sha} {GAME_DIR} | tar -x -C {tree}", shell=True, check=True)
+        gamepin.archive(a.repo, sha, tree, GAME_DIR)       # engine_pin from the commit's owners' folders, unless committed
         open(stamp, "w").write(sha + "\n")
         for f in glob.glob(os.path.join(a.out, "*_*_*.json")):   # lives of another commit
             os.remove(f)

@@ -53,7 +53,7 @@ import sys, os, argparse, ast, json, re, shutil, subprocess, time, glob, hashlib
 HERE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # the project folder: where this script sits, unless that is a repository checkout (which holds the code and content, not
 # every owner's check scripts, notes and outputs); then the shared folder, or CHROMA_PROJECT
-REAL = os.environ.get("CHROMA_PROJECT") or ("/mnt/project-files" if os.path.isdir(os.path.join(HERE, ".git")) else HERE)
+REAL = os.environ.get("CHROMA_PROJECT") or ("/mnt/project-files" if os.path.exists(os.path.join(HERE, ".git")) else HERE)
 sys.path.insert(0, os.path.join(REAL, "chroma-env")); sys.path.insert(0, os.path.join(REAL, "chroma-release"))
 os.environ.setdefault("CHROMA_ROOT", REAL)
 from paths import NAMES   # backend plan item 6: the live folders are named once, in chroma-env/paths.py
@@ -431,6 +431,16 @@ def fromcand(rel):
     return CAND if CAND and os.path.exists(os.path.join(CAND, rel)) else REAL
 
 
+def load_gamepin():
+    """chroma-release/gamepin.py of the work tree (the candidate's own, else the one beside this script)."""
+    import importlib.util
+    f = next(p for p in (os.path.join(T, "chroma-release", "gamepin.py"), os.path.join(os.path.dirname(os.path.abspath(__file__)), "gamepin.py"))
+             if os.path.isfile(p))
+    spec = importlib.util.spec_from_file_location("chroma_release_gamepin", f)
+    m = importlib.util.module_from_spec(spec); spec.loader.exec_module(m)
+    return m
+
+
 def build_tree():
     """The work tree: the candidate (or live) folders where the checks expect them, plus the scripts that run them."""
     P = os.path.join(T, "chroma-engine", "prototype"); RP = os.path.join(REAL, "chroma-engine", "prototype")
@@ -756,14 +766,17 @@ def main():
     global TOOLS
     TOOLS = os.path.exists(os.path.join(fromcand(TOOLS_MARK), TOOLS_MARK))
     n = build_tree()
+    TG = os.path.join(T, "chroma-game", "prototype")          # no committed pin (step 2): engine_pin from the tree's owners
+    gp = load_gamepin(); gp.fill(TG, root=T)
     log(f"  the Engine's rows run from {TOOLS_DIR if TOOLS else EP + ' (calib_v7, calib_v8, calib_v10)'}")
+    log(f"  the tree's game plays {gp.where(TG).replace(T, '<T>')}")
     log(f"  work tree {T}: {n} copied scripts re-pointed to it; engine.py {md5(os.path.join(T, EP, 'engine.py'))}, "
         f"game.py {md5(os.path.join(T, 'chroma-game/prototype/game.py'))}, earth.py {md5(os.path.join(T, 'chroma-library/earth.py'))}")
     os.makedirs(os.path.join(WORK, "rec"), exist_ok=True)
     open(os.path.join(WORK, "rec", "sitecustomize.py"), "w").write(SITE)
     env = dict(os.environ, PYTHONDONTWRITEBYTECODE="1", OMP_NUM_THREADS="1", MPLBACKEND="Agg")
     for k in ("PACK_DIR", "LIB", "PACKS", "PACK_MOMENTS", "TIER_LIFT", "FINAL_LIB", "PX", "NEXT", "RULES", "CHROMA_ROOT", "CHROMA_ENGINE",
-              "OUT_DIR", "CHROMA_PACKS"):
+              "OUT_DIR", "CHROMA_PACKS", "CHROMA_ENGINE_DIR", "CHROMA_LIBRARY_DIR", "CHROMA_PACKS_DIR"):   # the last three steer pin.py
         env.pop(k, None)
     try:                                     # the packs the checked engine plays (batch.PACKS; CHROMA_PACKS is not read)
         m = re.search(r"^PACKS = (\[[^\]]*\])", open(os.path.join(T, LIVE["engine"], "batch.py"), encoding="utf-8").read(), re.M)
