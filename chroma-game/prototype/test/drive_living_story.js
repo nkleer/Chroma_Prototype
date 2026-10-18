@@ -167,7 +167,9 @@ const P = preset || '4', AGE = +(toAge || 30), SEED = seedArg || '140892';
       const sec = [...document.querySelectorAll('#feed .yr:not(.closed):not(.prologue)')].pop(); if (!sec) return null;
       const head = sec.querySelector(':scope > .yh'), wait = () => new Promise((r) => setTimeout(r, 120));
       head.click(); await wait(); const shut = { closed: sec.classList.contains('closed'), words: sec.querySelectorAll(':scope > .lead .sy-w').length, ghost: sec.querySelectorAll(':scope > .lead .sy-ghost').length };
-      head.click(); await wait(); return { shut, open: !sec.classList.contains('closed') };
+      head.click(); await wait(); const open = !sec.classList.contains('closed');
+      delete sec.dataset.user;                                                 // a load forgets a reader's folds, so the page folds it again later
+      return { shut, open };
     });
     check(fold && fold.shut.closed && fold.shut.words === 0 && fold.shut.ghost === 0 && fold.open, `a year folds (one plain line) and opens again (${JSON.stringify(fold)})`);
     await fromStory();
