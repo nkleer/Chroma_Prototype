@@ -54,7 +54,7 @@ YEAR0 = dict(
 FOLD0 = dict(gain="This year {N} {got}.", lose="This year {N} {lost}.", both="This year {N} {got}, and {lost}.")
 UNUSED_AS = {"alone": "unused_alone", "short of money": "unused_money", "time": "unused_time"}   # the Engine's as on a loss
 CAUSE_HOWS = ("in time", "slipped away", "time passed")       # the ways a change comes with no cause told today
-FOLD_KINDS = ("skill", "standing", "bond")                     # G4: small perks that come and go (titles keep their line)
+FOLD_KINDS = ("skill", "standing", "bond", "asset")            # G4: small perks and things owned that come and go (titles keep their line)
 FOLD_HOWS = ("in time", "slipped away", "time passed", "regained")
 _NUMW = ("no", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve")
 
