@@ -21,7 +21,8 @@
    - One turn-over (decision 8): today's choosing beat (markChoosing, flyUp, flipFlyer, lockInputs, the reveal) is the
      only one; at the outcome the moment's picture refocuses: what they hoped and what happened, two copies of it, slide
      together into one sharp image (with a jolt when it went worse than they expected, a bloom when better, a settle when
-     as expected). The renderResolution hook plays it once for each outcome, never after a load; a lean turns no card.
+     as expected). The renderResolution hook plays it once for each outcome, never after a load; a lean turns no card. A
+     picture out of view (a phone's window still scrolled down to the card) waits, soft and doubled, until it is seen.
    Motion: calm is slower and gentler, off draws every state as it is (the hold's fill in still steps, no refocus).
    Not taken from the showcase: its own window and cards, its LIGHTS (the ink look lights the picture from LK_LIGHTS),
    its document keys (1-9, 0, -, =), its demos and test hooks. */
@@ -176,8 +177,12 @@ function refocus(res, reveal) {
 }
 // Read without a layout or a style flush: the offsets are in % of the picture (which is about 7:4), and the picture's own
 // slow drift (the ink look, full motion) starts at scale(1.01), where the copies come to rest
+// A picture out of view (a phone's window scrolled down to the card it pushed) waits, soft and doubled, until half of it
+// is in view, and refocuses then
+let rfIO = null;
 function play(art, img, res, m, reveal) {
   if (!art.animate) return;
+  if (rfIO) { rfIO.disconnect(); rfIO = null; }
   art.querySelectorAll(".lv-rf").forEach((x) => x.remove());
   const kind = kindOf(res), calm = m === "calm", s = calm ? 1.6 : 1;
   const D = (0.02 + 0.07 * gapOf(res)) * (calm ? 0.6 : 1), Z = 1 + 2.2 * D, B = m === "full" ? " scale(1.01)" : "";
@@ -189,20 +194,29 @@ function play(art, img, res, m, reveal) {
   const [soft, hoped, sharp] = box.querySelectorAll("img"), snap = box.querySelector(".snap");
   const at = (dx, dy, z) => `translate(${(dx * 100).toFixed(2)}%, ${(dy * 175).toFixed(2)}%)${B} scale(${z.toFixed(4)})`;
   const delay = reveal && flyer ? 240 : 60, dur = 1000 * s, ease = "cubic-bezier(.6, 0, .9, .4)";   // accelerating into place: a snap
-  const o = { duration: dur, delay, easing: ease, fill: "both" };
-  soft.animate([{ transform: at(D, 0.32 * D, Z) }, { transform: at(0, 0, 1) }], o);
-  sharp.animate([{ transform: at(D, 0.32 * D, Z), opacity: 0 }, { transform: at(0, 0, 1), opacity: 1 }], o);
-  hoped.animate([{ transform: at(-0.9 * D, -0.32 * D, Z), opacity: 0.55 }, { transform: at(0, 0, 1), opacity: 0 }], { ...o, easing: "cubic-bezier(.5, 0, .8, .6)" });
+  const o = { duration: dur, delay, easing: ease, fill: "both" }, A = [];
+  A.push(soft.animate([{ transform: at(D, 0.32 * D, Z) }, { transform: at(0, 0, 1) }], o));
+  A.push(sharp.animate([{ transform: at(D, 0.32 * D, Z), opacity: 0 }, { transform: at(0, 0, 1), opacity: 1 }], o));
+  A.push(hoped.animate([{ transform: at(-0.9 * D, -0.32 * D, Z), opacity: 0.55 }, { transform: at(0, 0, 1), opacity: 0 }], { ...o, easing: "cubic-bezier(.5, 0, .8, .6)" }));
   const t1 = delay + dur, after = { delay: t1, fill: "forwards" };   // the snap's light waits, unseen, for the snap
   if (kind === "worse") {
-    if (!calm) box.animate([0, 6, -5, 3.5, -2, 1, 0].map((j) => ({ transform: `translate(${j}px, ${(j * 0.25).toFixed(2)}px)` })), { duration: 360, ...after, fill: "none" });
-    snap.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 340 * s, ...after });
-  } else if (kind === "better") snap.animate([{ opacity: 0.85, transform: "scale(.45)" }, { opacity: 0, transform: "scale(1.5)" }], { duration: 1100 * s, easing: "cubic-bezier(.2, .7, .3, 1)", ...after });
-  else snap.animate([{ opacity: 0.7, transform: "scale(1.16)" }, { opacity: 0, transform: "scale(1)" }], { duration: 450 * s, easing: "cubic-bezier(.2, .7, .3, 1)", ...after });
+    if (!calm) A.push(box.animate([0, 6, -5, 3.5, -2, 1, 0].map((j) => ({ transform: `translate(${j}px, ${(j * 0.25).toFixed(2)}px)` })), { duration: 360, ...after, fill: "none" }));
+    A.push(snap.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 340 * s, ...after }));
+  } else if (kind === "better") A.push(snap.animate([{ opacity: 0.85, transform: "scale(.45)" }, { opacity: 0, transform: "scale(1.5)" }], { duration: 1100 * s, easing: "cubic-bezier(.2, .7, .3, 1)", ...after }));
+  else A.push(snap.animate([{ opacity: 0.7, transform: "scale(1.16)" }, { opacity: 0, transform: "scale(1)" }], { duration: 450 * s, easing: "cubic-bezier(.2, .7, .3, 1)", ...after }));
   const end = t1 + (kind === "better" ? 1100 : kind === "worse" ? 360 : 450) * s;
-  const out = box.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 180, delay: end, fill: "forwards" });
+  const out = box.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 180, delay: end, fill: "forwards" }); A.push(out);
   out.onfinish = () => box.remove();
-  setTimeout(() => box.remove(), end + 1200);
+  const start = () => { A.forEach((a) => a.play()); setTimeout(() => box.remove(), end + 1200); };
+  if (typeof IntersectionObserver !== "function") return start();
+  A.forEach((a) => a.pause());                    // held at their first frame (fill both) until the picture is seen
+  const io = rfIO = new IntersectionObserver(timed((es) => {
+    if (!box.isConnected) { io.disconnect(); return; }
+    if (!es.some((e) => e.intersectionRatio >= 0.5)) return;
+    io.disconnect(); if (rfIO === io) rfIO = null;
+    if (CH.motion() === "off" || !on) box.remove(); else start();
+  }, "refocus"), { threshold: [0, 0.5, 1] });
+  io.observe(art);
 }
 
 /* ---------------- the piece ---------------- */
@@ -225,6 +239,7 @@ CH.piece("cards", {
     if (offPick) offPick(); offPick = null;
     delete tableEl.dataset.hold;
     tableEl.querySelectorAll(".opt.lv").forEach(undress);
+    if (rfIO) rfIO.disconnect(); rfIO = null;
     tableEl.querySelectorAll(".lv-rf").forEach((x) => x.remove());
     hint(true);
   }, "destroy"),
