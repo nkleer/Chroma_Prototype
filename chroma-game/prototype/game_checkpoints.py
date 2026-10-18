@@ -580,7 +580,7 @@ class CheckpointsMixin:
     def _seed_view(self, ret, m, opts):
         """Release's proof rows (chroma-release/check_picks.py): the seed a return answers, as its ask carries it. now:
         who fills the return's person slot (a story id; memory:<id> and heard:<id> come with the Library's scenes); tilt:
-        the change to the return's odds, the mean over its ways."""
+        the change to the return's odds, the mean over its ways; t: the pick's week (age is rounded to .1 year)."""
         p = ret.get("who")
         now = next((m["ctx"]["_p_" + sl]["id"] for sl in PERSON_SLOTS if m["ctx"].get("_p_" + sl) is not None), None)
         if now is not None and m["ctx"].get("_gone"):
@@ -588,7 +588,7 @@ class CheckpointsMixin:
         tau = 0.0 if ret["ok"] is None else GAME["ret_tilt"] if ret["ok"] else -GAME["ret_tilt"]
         pt = np.clip([o["true"] for o in opts if o["colors"] != "-"], 1e-6, 1 - 1e-6)
         dp = 1 / (1 + np.exp(-(np.log(pt / (1 - pt)) + tau))) - pt
-        return dict(age=ret["age"], sit=ret["moment"], way=ret["act"], went=None if ret["ok"] is None else "well" if ret["ok"] else "badly",
+        return dict(t=int(ret["t"]), age=ret["age"], sit=ret["moment"], way=ret["act"], went=None if ret["ok"] is None else "well" if ret["ok"] else "badly",
                     person=p["id"] if p else None, near=bool(p and p["alive"] and not p["role"].startswith("old ")),
                     now=now, tilt=round(float(dp.mean()), 4) if len(dp) else 0.0)
 
