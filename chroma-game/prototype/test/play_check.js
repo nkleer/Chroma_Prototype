@@ -39,7 +39,8 @@ const [url, dir, M] = [process.argv[2], process.argv[3], +(process.argv[4] || 24
     } catch (e) { fails.push(`moment ${n.moments}: ${e.message.slice(0, 80)}`); }
     await idle();
     if (key !== null && await page.evaluate((k) => lastCpKey === k && !!document.getElementById('evLet') && !document.getElementById('evwrap').hidden, key)) fails.push(`moment ${n.moments}: the push did not go through`);
-    voice = await page.evaluate(() => { const v = document.getElementById('voiceRow'); return v ? v.textContent.replace(/\s+/g, ' ').trim() : ''; });
+    // clarity's crest shows the voice row as marks and a share; its name is in the row's aria-label
+    voice = await page.evaluate(() => { const v = document.getElementById('voiceRow'); return v ? (v.getAttribute('aria-label') || v.textContent).replace(/\s+/g, ' ').trim() : ''; });
   }
   const story = await page.evaluate(() => ({ x: document.querySelectorAll('.mk-X, [data-mk="X"]').length, text: document.body.innerText.length }));
   await page.screenshot({ path: `${dir}/play-end.png` });
