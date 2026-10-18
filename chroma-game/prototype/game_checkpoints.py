@@ -600,6 +600,8 @@ class CheckpointsMixin:
             who = [sl for sl in (own or (here if len(here) == 1 else []))
                    if not (nt["mark"] == "made a friend" and sl in STAKE_NEAR) and not (nt["mark"] in STAKE_KIND and sl == "child")]
             p = ctx["_p_" + who[0]] if who else None
+            if p is not None and (not p.get("alive", True) or who[0] == ctx.get("_gone_slot")):
+                p = None                                # someone who has died or is gone is never named as here
             out["people"] = say[0].format(p=p["name"]) if p and p.get("name") else say[1]
             out["mark"] = nt["mark"]
             if p and p.get("name"):

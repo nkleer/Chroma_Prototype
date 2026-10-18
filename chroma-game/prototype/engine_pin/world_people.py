@@ -4680,6 +4680,7 @@ class People:
         N = self.N; W = self.W; self.bt = SD.TRUST
         self.btrust = np.full((N, len(SPHERES)), np.nan); self.bt_par = np.full((N, len(SPHERES)), np.nan)
         self.bt_kind = np.full(N, -1, np.int64)
+        self.bt_lean = np.zeros(N)   # each life's own lean of trust (TRUST lean: its spread, 0 none), drawn at the start
         self._bt_rng = np.random.default_rng([self.seed, 103, self.run_seed])
         lg_ = getattr(W, "sph_ev_log", None)
         self._bt_i = 0 if lg_ is None else len(lg_); self._bt_li = len(getattr(W, "log", ())); self._bt_yr = -1
@@ -4712,6 +4713,9 @@ class People:
                 kp = ~np.isnan(self.bt_par[new, 0])
                 if kp.any():
                     st[kp] = self.bt_par[new[kp]] + self._bt_rng.uniform(-self.bt["noise"], self.bt["noise"], (int(kp.sum()), st.shape[1]))
+                if self.bt.get("lean"):   # v22.6 refit: people differ in how far they trust bodies at all, for life
+                    self.bt_lean[new] = self._bt_rng.normal(0.0, self.bt["lean"], len(new))
+                    st = st + self.bt_lean[new][:, None]
                 self.btrust[new] = _uclip(st, J["floor"], J["ceiling"])
         lg_ = getattr(W, "sph_ev_log", None)
         if lg_ is not None:
@@ -4753,7 +4757,7 @@ class People:
             self._bt_li = len(log)
 
     def _bt_year(self, t):
-        """body_trust, yearly: each life's trust moves drift_y of the way toward .5 + drift_k x (fair - .5), fair its felt
+        """body_trust, yearly: each life's trust moves drift_y of the way toward .5 + drift_k x (fair - .5) + its own lean, fair its felt
         fairness in that sphere (sph_fair; S1's read when fair_read is on); a year in a body job (bt_kind) or serving in
         a unit (the host) adds work_or_serve_y in that body's sphere."""
         a = int(self._age(t))
@@ -4763,7 +4767,7 @@ class People:
         on = ~np.isnan(self.btrust[:, 0]) & ~self.dead
         if not on.any():
             return
-        tgt = 0.5 + T_["drift_k"] * (self.fair - 0.5)
+        tgt = 0.5 + T_["drift_k"] * (self.fair - 0.5) + self.bt_lean[:, None]
         self.btrust[on] = _uclip(self.btrust[on] + T_["drift_y"] * (tgt[on] - self.btrust[on]), J["floor"], J["ceiling"])
         jb = np.where(self.bt_kind >= 0, BT_INST_J[np.maximum(self.bt_kind, 0)], -1)
         for j_ in np.unique(jb[jb >= 0]).tolist():
@@ -4776,7 +4780,7 @@ class People:
     def bt_save(self, n):
         """body_trust, for save(): life n's trust (None before it starts), the known parents' mean, and what was read."""
         f_ = lambda v_: [None if np.isnan(x_) else float(x_) for x_ in v_]
-        return dict(v=f_(self.btrust[n]), par=f_(self.bt_par[n]), kind=int(self.bt_kind[n]), i=int(self._bt_i),
+        return dict(v=f_(self.btrust[n]), par=f_(self.bt_par[n]), kind=int(self.bt_kind[n]), lean=float(self.bt_lean[n]), i=int(self._bt_i),
                     li=int(self._bt_li), yr=int(self._bt_yr), rng=self._bt_rng.bit_generator.state if self.N == 1 else None)
 
     def _push(self, n, ma, q, lev, dom, base, target, var, t):
@@ -6164,7 +6168,7 @@ class People:
                 if b_:
                     pp.btrust[n] = [np.nan if x_ is None else x_ for x_ in b_["v"]]
                     pp.bt_par[n] = [np.nan if x_ is None else x_ for x_ in b_["par"]]
-                    pp.bt_kind[n] = int(b_["kind"]); pp._bt_i = int(b_["i"]); pp._bt_li = int(b_["li"]); pp._bt_yr = int(b_["yr"])
+                    pp.bt_kind[n] = int(b_["kind"]); pp.bt_lean[n] = float(b_.get("lean", 0.0)); pp._bt_i = int(b_["i"]); pp._bt_li = int(b_["li"]); pp._bt_yr = int(b_["yr"])
                     if b_.get("rng") is not None and pp.N == 1:
                         pp._bt_rng.bit_generator.state = b_["rng"]
         pp._fsh(); pp._close_index(); pp._alive_counts(np.arange(pp.N)); pp._outputs_settings()

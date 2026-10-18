@@ -865,21 +865,21 @@ FAR_MOMENTS = True   # item 18: moments with cast_want: far_hard, far_good or fa
 EYES_MOMENTS = True    # v22.4, S3 and S4: moments with cast_want: caught or odd join the batch at v22.4's refit
 SACRED_MOMENTS = True  # v22.4, S5: moments with cast_want: sacred, tragic or amends
 LEAD_MOMENTS = True    # v22.4, S7: moments with cast_want: lead_take, lead_crisis, lead_fall, lead_routine or lead_hand
-INMATE_MOMENTS = False  # spheres finishing pack, part 4 (prison_ties): moments with cast_want: fellow_inmate, or whose
+INMATE_MOMENTS = True   # spheres finishing pack, part 4 (prison_ties): moments with cast_want: fellow_inmate, or whose
                         # conditions read inmate_tie or yrs_out, join the batch at the pack's refit
 GREEN_JOBS = True       # v22.4 (green_jobs): the titles only <world>_rules.ROLES_WHEN rules (the Library's green entry
                         # jobs, #152) and the moments that name them in holds:, requires: or an act field join at v22.4's refit
 AGE_FIT = True          # v22.5, F4 (age gates): the Library's age fit (chroma-library/<world>_age_fit.py: later starts and
                         # child wording for moments open to children, stage wording for adult ones, twins apart at 12)
                         # is laid over the moments at v22.5's refit
-TRUST_MOMENTS = False   # the spheres' finishing pack, part 3: moments gated on trust in a sphere's bodies (trust: <sphere>
+TRUST_MOMENTS = True    # the spheres' finishing pack, part 3: moments gated on trust in a sphere's bodies (trust: <sphere>
                         # low|high, body_trust) join the batch at the pack's refit
-SHADOW_MOMENTS = False  # the spheres finishing pack, part 5: moments with shadow: (the Library's Crime pack, A13) join the
+SHADOW_MOMENTS = True   # the spheres finishing pack, part 5: moments with shadow: (the Library's Crime pack, A13) join the
                         # batch at its refit; until then the batch is as before
 RETURN_MOMENTS = False  # picks come back: moments with tier: return join the batch only for a played life with echo_play
                         # on (the game sets it); off, the library and every life are as before
 SPH_MOMENTS = True   # item 15: moments with haunt: or ladder: join the batch once the spheres' haunts and rungs are built
-TURNOVER_MOMENTS = False   # spheres finishing pack, part 2: moments with cast_want: place_closed or place_opened join the
+TURNOVER_MOMENTS = True    # spheres finishing pack, part 2: moments with cast_want: place_closed or place_opened join the
                            # batch at the pack's refit (until then the Library's new moments change no life); in the
                            # batch, they come only with a closing or an opening of the life's place (place_turnover on)
 FLOORS = True      # item 16: the floors for rare titles and perks (earth_rules.BUDGET_FLOORS); off until the v22.3 refit

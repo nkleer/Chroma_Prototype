@@ -376,6 +376,14 @@ SCENES = {
 }
 
 
+# Picks come back: when the seed's person has died or moved far, the moment's scene remembers them (the Library's scene
+# gone); an outcome line that would name them as if present is told as one of these instead (success lines, failure lines)
+GONE_OUT = (["Remembering them steadies {N}, and the hard weeks begin to lift.",
+             "{N} holds on to what they shared, and it is enough to get through."],
+            ["The empty place where they used to be makes it all harder.",
+             "{N} reaches for the old comfort and finds only the quiet."])
+
+
 # ------------------------------------------------------------------ outcomes: (success lines, failure lines)
 OUTCOMES = {
     "playground dispute": (["The grown-ups sort it out, and {N} goes home feeling taller.", "By the end of break the fight is forgotten, and {rival} is almost a friend."],

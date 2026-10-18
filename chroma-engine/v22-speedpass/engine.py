@@ -1259,6 +1259,8 @@ V225 = dict(
     up_fam=1.0,
     up_conc=0.2,
     up_half=4.0,
+    up_l0=0.35,          # v23 (K14 F15): the v22.6 content kept start 2's (W.6 G.4) lean at 35 near .70 of its lean at 15
+                         # on 120 seeds (target .35 to .65; .30 read .61 in v22.5); a fuller start lean fades by more
     course=True,
     deed_canon=2.0,
     deed_rare=0.15,

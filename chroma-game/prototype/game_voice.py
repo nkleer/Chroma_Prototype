@@ -85,7 +85,9 @@ class VoiceMixin:
         v["steer"] += 1; v["rel"] = round(v["rel"] + rel, 3)
         v["d"] = [round(x + float(y), 4) for x, y in zip(v["d"], diff)]
         v["ax"] = [round(x + float(y), 4) for x, y in zip(v["ax"], VOICE_AX @ diff)]
-        ks = [o for o in range(m.shape[0]) if m[o].sum() > 0]
+        bi = cpw["cp"]["by_idx"]                         # the open ways: the card's ways a push could pick (not out of
+        ks = [o for o in sorted(bi) if o < m.shape[0] and m[o].sum() > 0 and bi[o]["colors"] != "-"
+              and bi[o].get("status") != "out of reach"]  # reach, and none the card does not show)
         if len(ks) > 1:                                  # where the pick stood among the open ways, per side (-1 to 1)
             vals = np.array([VOICE_AX @ cv(o) for o in ks]); pv = VOICE_AX @ cv(k)
             rk = ((vals < pv - 1e-9).sum(0) - (vals > pv + 1e-9).sum(0)) / (len(ks) - 1)
