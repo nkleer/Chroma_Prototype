@@ -8,6 +8,8 @@ TOOLS = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abs
 def ensure(game=None):
     """Bring game/engine_pin/ (default: this test folder's game) in line with the owners' folders of its own tree."""
     game = os.path.abspath(game or os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+    if not os.path.isfile(os.path.join(TOOLS, "pin.py")):     # a copy of the game folder by itself: its engine_pin/ as it is
+        return []
     sys.path.insert(0, TOOLS)
     try:
         import pin

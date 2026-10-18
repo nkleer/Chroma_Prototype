@@ -125,8 +125,8 @@ def main():
     shutil.copytree(G0, G, ignore=shutil.ignore_patterns("__pycache__"), symlinks=True)
     os.symlink(ART, os.path.join(OUT, "chroma-art"))
     D = os.path.join(G, "engine_pin")
-    for f in files(D):                                   # old pinned code goes; the PINNED*.txt history stays
-        if f.endswith(".py"):
+    for f in files(D):                                   # old pinned code goes (and pin.py's FROM.txt); the PINNED*.txt history stays
+        if not re.fullmatch(r"PINNED.*\.txt", os.path.basename(f)):
             os.remove(os.path.join(D, f))
     if os.path.isdir(os.path.join(D, "packs")):
         shutil.rmtree(os.path.join(D, "packs"))
