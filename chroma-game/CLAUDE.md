@@ -24,6 +24,7 @@ game-side file must also go in `web/worker.js` `SOURCES`; `test/smoke.py` fails 
 | `game_life.py` | 785 | `LifeMixin`: states, roles and titles, recall, temperament, the end of a life (`_on_end`), story lines, yearly chapters |
 | `game_views.py` | 885 | `ViewsMixin`: status, HUD, routine, family, news, cast, saves, plans, identity, health, the Book, the review |
 | `game_causes.py` | 236 | `CausesMixin`: "Every change has a cause" behind `GAME` `causes` and `causes_fold`: a gain or loss names its cause (the Engine's `role_why`), the cause trail (marker `Y`), the year that turned them, the fold line |
+| `game_bold.py` | 274 | `BoldMixin`: Bold ways behind `GAME` `bold` (with the Engine's `bold_play`): the situation pause asks for a card's bold ways (`bold_ask`), up to two more ways on the card (number `BOLD_IX` + 100 x slot + base; `bix` gives the base), push and own pick (`bold_take`), the fit hint, win and cost lines, outcome lines, links (a bold try's return) and the Book's list |
 | `story.py` | 126 | the story layer: class `Story`, its core (`__init__`, `new`, `alive`, `get`, `say`, `nm`). Every name the story layer has is importable from `story` |
 | `story_base.py` | 540 | the story's settings, names, places and word lists (values, goals, dreams, the moments' words) and helpers (`mk`, `plain`, `act`, `phase`, `load_library_story`): what `story.py` held before class `Story` |
 | `story_cast.py` | 233 | `CastMixin`: roles, who is due and who dies, picking people, filling a line's slots |

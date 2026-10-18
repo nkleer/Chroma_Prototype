@@ -226,7 +226,23 @@ GAME = dict(
     # the mood line (G2); causes_fold, small skills, bonds and standings that come and go are told in one year line (G4).
     # Words only: no draws, so every step plays as before. Off until Release proves them
     causes=False, causes_fold=False, cause_turn=0.10, cause_share=0.15,
+    # Bold ways (chroma-ideas/gameplay-2026-10-17/bold-ways.md; Emren "Build" 10-18 23:29 UTC), with the Engine's played-life
+    # key bold_play: a life-event card the game will put to the player asks the Engine for its bold ways (up to two, the
+    # Library's BOLD rows: lower odds, a lasting change either way), shown with their written chance, "likelier" or "harder
+    # for them" when their own odds sit bold_hint or more from it, and what they win or cost for good. The character
+    # takes one by its colour's pull; a push into a bold way they did not pick (or out of one they did) is at least
+    # bold_rel reluctant. A bold try's follow-up link (a return the Engine plays) takes the place of an everyday ask.
+    # Off until the whole branch's proof
+    bold=False, bold_hint=0.10, bold_rel=0.15,
 )
+BOLD_IX = 1000          # Bold ways: a bold way's number on the card, BOLD_IX + 100 x its slot + its base way (bix: the base)
+
+
+def bix(k):
+    """The engine's option for a card's option number: a bold way plays as its base way."""
+    return int(k) % 100 if int(k) >= BOLD_IX else int(k)
+
+
 LINE_WAIT_TAGS = {"read", "world", "world_year", "world_fx", "ordinary", "year", "fortune", "trouble", "memory", "seen", "talk",
                   "temper", "healed", "hardened", "voice"}   # F10: the lines line_wait holds back (scenes, choices, deaths
 # and commitments are told whenever they happen)
@@ -240,7 +256,7 @@ GAME_OFF = dict(piv=0.0, piv_own=0.0, piv_steady=0.0, learn_full=False, lean=0.0
                 era_cost=0.0, backfire=0.0, turn_max=0, fig_own=False, own_ix=False, trust_judge=False, lines_tied=False,
                 own_mark="", lean_self=0.0, own_teach=0.0, dream_own=False, dream_firm=0.0, dream_help=0.0, hind_thin=0.5, season_need=0.0, season_calm=0.0, fork_k=0.0, fork_told=False, rung_ask=False,
                 world_hold=False, world_seed=False, faith_home=0.0,
-                line_wait=0.0, news_touch=False, rare_ask=False, returns=False, stakes=False,
+                line_wait=0.0, news_touch=False, rare_ask=False, returns=False, stakes=False, bold=False,
                 own_stress=0.5, own_free=0.3, dream_fit=0.5, rare_imp=0.5)
 # v22.5's joint refit (chroma-engine/notes/v22.5-refit-plan.md §2, with the engine's V225): every v22.5 game switch on
 # with its fitted value. F12 world_hold (with the engine's own_open and start_hold), F15 world_seed, F10 line_wait and news_touch (the
