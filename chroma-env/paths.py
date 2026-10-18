@@ -57,16 +57,25 @@ NAMES = {
     "live_manifest_v22": ("chroma-env/live-v22-manifest.txt", "MD5 of the v22 files (paths recorded as chroma-game/prototype; check_live.py reads them as prototype-v22)"),
     "game_v21":       ("_archive/2026-10-08/chroma-game/prototype-v21", "the v21 game, archived 10-08 13:15 UTC (check_identity reads its engine_pin/)"),
     "library_v21":    ("chroma-library/archive/live-2026-10-06-1625", "the Library batch live in v21"),
-    # paused v23 drafts (paused 10-07 21:38 UTC)
-    "engine_v23":     ("chroma-engine/prototype", "the paused v23 engine edits (engine.py, batch.py, world*.py, their import partners) and its checks calib_v11; the Engine's checks are in chroma-engine/tools"),
-    "game_v23":       ("chroma-game/staging-next/v23/prototype", "the single v23 game copy (paused)"),
-    "library_v23":    ("chroma-library/staging/next4", "the v23 Library batch (paused)"),
-    "library_v23_src": ("chroma-library/drafts/next4", "the v23 Library sources (paused): parts that win over the live ones"),
-    "packs_v23":      ("chroma-packs/v23-drafts-paused", "the v23 pack drafts (paused)"),
+    # the old v23 plan's drafts (planned 10-07, paused 10-08 10:14 UTC). The release now called v23 (formerly v22.6:
+    # picks come back and the spheres pack) is a different one; none of these folders is it.
+    "engine_prototype": ("chroma-engine/prototype", "the old v23 plan's paused engine edits (engine.py, batch.py, world*.py, their import partners), its checks calib_v11, and calib_v8/rarity.json (rarity_v22_1); the Engine's checks are in chroma-engine/tools"),
+    "game_paused":    ("chroma-game/staging-next/v23/prototype", "the old v23 plan's single game copy (paused)"),
+    "library_paused": ("chroma-library/staging/next4", "the old v23 plan's Library batch (paused)"),
+    "library_paused_src": ("chroma-library/drafts/next4", "the old v23 plan's Library sources (paused): parts that win over the live ones"),
+    "packs_paused":   ("chroma-packs/v23-drafts-paused", "the old v23 plan's pack drafts (paused)"),
     # the workspace itself
     "env":            ("chroma-env", "MAP.md, check_live.py, this file, the backend plan"),
     "archive":        ("_archive", "old outputs and versions moved out by date, under their old paths"),
 }
+
+# The five names above were engine_v23, game_v23, library_v23, library_v23_src and packs_v23 until 2026-10-18, when
+# the coming release took the name v23. The old names still work for the scripts that read them (Release:
+# check_identity.py, check_world.py, v22_checks.py; Library, in the shared folder: check.py, tests/run_pack_handover.sh,
+# drafts/titles_by_source.py); new scripts use the new ones, and the old ones go once nothing reads them.
+OLD_NAMES = {"engine_v23": "engine_prototype", "game_v23": "game_paused", "library_v23": "library_paused",
+             "library_v23_src": "library_paused_src", "packs_v23": "packs_paused"}
+NAMES.update({old: NAMES[new] for old, new in OLD_NAMES.items()})
 
 P = {k: os.path.join(ROOT, v[0]) for k, v in NAMES.items()}
 
@@ -79,4 +88,6 @@ def path(name, *parts):
 if __name__ == "__main__":
     print(f"CHROMA_ROOT = {ROOT}")
     for k, (rel, what) in NAMES.items():
-        print(f"{'ok ' if os.path.exists(P[k]) else 'NO '} {k:17s} {rel:48s} {what}")
+        if k not in OLD_NAMES:
+            print(f"{'ok ' if os.path.exists(P[k]) else 'NO '} {k:17s} {rel:48s} {what}")
+    print("old names:", ", ".join(f"{old} = {new}" for old, new in OLD_NAMES.items()))
