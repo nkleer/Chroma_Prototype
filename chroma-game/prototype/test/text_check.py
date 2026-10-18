@@ -42,14 +42,25 @@ def literals(src):
 
 def sources(ref=None, pin=False):
     """{path: text} for the game's own files that web/worker.js SOURCES names (engine_pin/ too with pin), from this tree
-    or from git REF."""
+    or from git REF (a REF without a committed engine_pin/: its owners' files, as chroma-game/tools/pin.py fills it)."""
+    top = subprocess.run(["git", "rev-parse", "--show-toplevel"], cwd=GAME, capture_output=True, text=True).stdout.strip()
+    src_of = {}
+    if pin:
+        import pinned
+        pinned.ensure(GAME)
+        sys.path.insert(0, pinned.TOOLS)
+        import pin as P
+        o = P.owners(top)
+        src_of = {"engine_pin/" + d: s for s, d in P.plan(o["engine"], o["lib"], o["packs"])[0]}
     def read(p):
         if ref is None:
             return open(os.path.join(GAME, p), encoding="utf-8").read()
-        top = subprocess.run(["git", "rev-parse", "--show-toplevel"], cwd=GAME, capture_output=True, text=True).stdout.strip()
-        rel = os.path.relpath(os.path.join(GAME, p), top).replace(os.sep, "/")
-        r = subprocess.run(["git", "show", f"{ref}:{rel}"], cwd=top, capture_output=True, text=True)
-        return r.stdout if r.returncode == 0 else None
+        for f in [os.path.join(GAME, p)] + ([src_of[p]] if p in src_of else []):
+            rel = os.path.relpath(f, top).replace(os.sep, "/")
+            r = subprocess.run(["git", "show", f"{ref}:{rel}"], cwd=top, capture_output=True, text=True)
+            if r.returncode == 0:
+                return r.stdout
+        return None
     wjs = read("web/worker.js")
     out = {}
     for p in json.loads(re.search(r"const SOURCES = (\[[^\]]*\]);", wjs).group(1)):

@@ -7,7 +7,9 @@ record and md5 of test/same_life.py) on this tree and on a base, side by side, c
 
 Lives are kept in a cache keyed by the game files they were played from, so a base is played once per state of its game
 files, by whichever session gets there first, and a tree whose game files match the base's is the same by construction.
-The game files are everything under chroma-game/prototype except test/, web/ and *.md (engine_pin/ included). The cache
+The game files are everything under chroma-game/prototype except test/, web/ and *.md, with engine_pin/ as the files it
+holds: a committed pin's, else the owners' engine, Library and packs files that chroma-game/tools/pin.py fills it from
+(both trees' engine_pin/ are filled that way before they play). The cache
 is $CHROMA_PROOF_CACHE, else /mnt/project-files/.cache/same-lives when the shared folder exists, else
 ~/.cache/chroma/same-lives; an entry also needs the same Python and numpy. A base not in the cache is played from a
 temporary git worktree of REF, removed afterwards. Prints one line per preset and a verdict; exit 0 when every life
@@ -25,6 +27,8 @@ if not (os.environ.get("CHROMA_ENGINE") or os.environ.get("CHROMA_GAME")):
 HERE = os.path.dirname(os.path.abspath(__file__))
 GAME = os.path.dirname(HERE)
 SKIP = ("test/", "web/")
+sys.path.insert(0, HERE)
+import pinned  # noqa: E402
 
 
 def git(*a, cwd=GAME):
@@ -48,8 +52,30 @@ def tree_key(ref=None):
         names = [n for n in names if os.path.isfile(os.path.join(top, n))]
         ids = git("hash-object", "--", *names, cwd=top).split() if names else []
         files = {n[len(pre):]: i for n, i in zip(names, ids)}
-    files = {f: i for f, i in files.items() if not f.startswith(SKIP) and not f.endswith(".md")}
+    files = {f: i for f, i in files.items() if not f.startswith(SKIP) and not f.endswith(".md")
+             and not (f.startswith("engine_pin/PINNED") and f.endswith(".txt"))}
+    if not any(f.startswith("engine_pin/") for f in files):     # no committed pin: the owners' files it is filled from
+        files.update(pin_ids(ref, top))
     return hashlib.sha1("".join(f"{f} {files[f]}\n" for f in sorted(files)).encode()).hexdigest()[:16]
+
+
+def pin_ids(ref, top):
+    """{engine_pin/<path>: blob id} of the owners' files chroma-game/tools/pin.py fills engine_pin/ from, at REF or in the
+    working tree."""
+    sys.path.insert(0, pinned.TOOLS)
+    import pin as P
+    o = P.owners(top)
+    rel = lambda p: os.path.relpath(p, top).replace(os.sep, "/")
+    if ref is None:
+        pins = P.plan(o["engine"], o["lib"], o["packs"])[0]
+        ids = git("hash-object", "--", *[s for s, _ in pins], cwd=top).split()
+        return {"engine_pin/" + d: i for (_, d), i in zip(pins, ids)}
+    rows = [ln.split(None, 3) for ln in git("ls-tree", "-r", ref, "--", *[rel(d) for d in o.values()], cwd=top).splitlines()]
+    blob = {r[3]: r[2] for r in rows}
+    ls = lambda d: sorted({f[len(rel(d)) + 1:].split("/")[0] for f in blob if f.startswith(rel(d) + "/")})
+    read = lambda p: git("show", f"{ref}:{rel(p)}", cwd=top)
+    pins = P.plan(o["engine"], o["lib"], o["packs"], ls=ls, read=read, isfile=lambda p: rel(p) in blob)[0]
+    return {"engine_pin/" + d: blob[rel(s)] for s, d in pins}
 
 
 def cache_dir():
@@ -125,6 +151,7 @@ def main():
         return 0
     o = args()
     t0 = time.time()
+    pinned.ensure(GAME)                         # engine_pin/ from the owners' folders (chroma-game/tools/pin.py)
     gold = json.load(open(os.path.join(HERE, "smoke.golden.json")))
     same = ["--same"] if f"py{gold['python']}-np{gold['numpy']}" == versions() else []   # its stored md5s fit this Python
     smoke = subprocess.Popen([sys.executable, "-B", os.path.join(HERE, "smoke.py"), *same], stdout=subprocess.PIPE, text=True)
@@ -148,6 +175,7 @@ def main():
         wt = tempfile.mkdtemp(prefix="prove-base-")
         top = git("rev-parse", "--show-toplevel").strip()
         git("worktree", "add", "--detach", "-f", wt, o["base"], cwd=top)
+        pinned.ensure(os.path.join(wt, os.path.relpath(GAME, top)))    # a base without a committed pin: filled the same way
     try:
         if todo:
             print(f"playing {len(todo)} {'life' if len(todo) == 1 else 'lives'}, {o['jobs']} at a time (about 2 minutes each); "

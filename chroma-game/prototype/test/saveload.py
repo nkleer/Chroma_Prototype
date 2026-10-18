@@ -4,6 +4,7 @@ Run: python3 test/saveload.py [seed]"""
 import os, sys, json
 import numpy as np
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), ".."))
+import pinned; pinned.ensure()                  # engine_pin/ from the owners' folders (chroma-game/tools/pin.py)
 from console import Console
 
 def run(c, line):
