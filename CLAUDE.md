@@ -42,14 +42,17 @@ To search a hidden folder, name it: `rg <pattern> <folder>`. `.gitattributes` ke
   Library's other `.py` files are hand-written and stay searchable.
 - `chroma-art/game/lights.json` (177 KB): `chroma-look/tools/extract_lights.js`. `chroma-art/game/pics/*.webp`: the
   pictures.
+- `chroma-engine/v22-speedpass/sphere_data.py` (405 KB, 8,589 lines): the spheres' design tables, copied from the
+  shared folder's `chroma-world/spheres/data/` by `chroma-engine/tools/sphere_tables.py` (`--check` compares). Find a
+  table by naming the file: `rg -n '^LINKS' chroma-engine/v22-speedpass/sphere_data.py`.
 
 ## Reading
 
 - Never read a file over about 1,500 lines whole. Find the place with `rg -n`, then read a range.
-- Large files people do edit: `chroma-engine/v22-speedpass/engine.py` (6,694 lines). The outer world's `world_people.py`
-  and `world.py` are split into parts of 197 to 780 lines (`chroma-engine/CLAUDE.md`), the game and story layers into
-  files of 126 to 965 lines, the page's script into 13 parts of 93 to 501 lines and its style into 10 parts of 87 to 255
-  lines (`chroma-game/CLAUDE.md`).
+- Large files people do edit, in `chroma-engine/v22-speedpass/`: `engine.py` (6,694 lines), `earth_rules.py` (3,548) and
+  `world_link.py` (1,543). The outer world's `world_people.py` and `world.py` are split into parts of 198 to 780 lines
+  (`chroma-engine/CLAUDE.md`), the game and story layers into files of 126 to 965 lines, the page's script into 13 parts
+  of 93 to 501 lines and its style into 10 parts of 87 to 255 lines (`chroma-game/CLAUDE.md`).
 - `chroma-game/prototype/HISTORY.md` is 60 KB of history. Read one section (`rg -n '^#' HISTORY.md`).
 - Notes, plans, specs and run outputs live in the shared folder (`/mnt/project-files`), not here. Start from
   `chroma-env/MAP.md` there.
