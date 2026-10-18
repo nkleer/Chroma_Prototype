@@ -101,6 +101,7 @@ def main():
         stop("the engine's batch.PACKS is empty")
     WLD = sorted(f for f in os.listdir(EN) if re.fullmatch(r"world(_\w+)?\.py", f) and not re.match(r"world_(stats|check|test)", f))
     WLD += sorted(f for f in os.listdir(EN) if re.fullmatch(r"sphere_\w+\.py", f))   # the spheres' tables and fitted event bases (sphere_data.py, PR #52; sphere_ev_base.py, phase 3c)
+    WLD += sorted(f for f in os.listdir(EN) if f == "parts.py" or re.fullmatch(r"(run|rules)_\w+\.py", f))   # the engine by function: _run's and earth_rules's parts
     pins = [(os.path.join(EN, f), f) for f in ENG + WLD]
     pins += [(os.path.join(L, f), f) for f in LIB + [f"earth_{p}.py" for p in PK]]
     pins += [(os.path.join(PK_DIR, "core", f), f"packs/core/{f}") for f in sorted(os.listdir(os.path.join(PK_DIR, "core"))) if f.endswith(".py")]
