@@ -30,7 +30,7 @@ judge reads both sides and writes chroma-release/out/picks_<UTC>.txt and one res
 Small counts: a row whose difference sits inside its spread reads more seeds (the SMALL COUNTS ruling), its target stays.
 judge records only when both sides name the same commit (a trial on two commits takes --no-record).
 
-noplayer is row N1 (records/v22.6/plan.md, "N1's reading"): batch lives with no player, on a git archive of the
+noplayer is row N1 (records/v23/plan.md, "N1's reading"): batch lives with no player, on a git archive of the
 commit's engine, Library and packs, run by check_speedpass.py's worker twice, with echo_play off and on. Every output
 must be identical, except the hook's own readout `returns`, which only a run with echo_play on returns and which must
 be empty (lives with no player plant no seeds). The runs stay in --out; the report is
