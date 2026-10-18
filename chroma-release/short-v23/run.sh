@@ -96,6 +96,7 @@ LIVES8=lean41,lean42,lean43,lean44,nopack41,nopack42,nopack43,nopack44,lean
 LIVES=$LIVES8,pie,pie41   # pie reads the npz in the run's own work folder (no proof): `final` carries it, the rest reused
 CARRY_READS="chroma-engine chroma-library chroma-packs chroma-env"   # what the engine-only jobs read (the rarity files aside)
 OFF_FLAGS="TURNOVER_MOMENTS TRUST_MOMENTS INMATE_MOMENTS SHADOW_MOMENTS"   # the pack's batch flags, on from the refit (K4: off)
+export G4_BACK=${G4_BACK:-up_l0}   # K4: live settings v23 tuned that have no UPD_OFF value, set back to v22.5's (#308 up_l0)
 CARRIED="speedpass_s41 speedpass_sweepA speedpass_sweepB pie pie41 f4_age f6_dreams sph_places sph_trust sph_inmates sph_grey picks_noplayer"
 F9_TABLES="f9_parents f9_partners f9_homes f9_work f9_illness f9_deaths f9_means f14_settle f17_deeds f19_mind"
 LOOKBASE=${LOOKBASE:-release/v22.5}   # the published page
@@ -136,7 +137,7 @@ g4() { local E=$X/g4 D=chroma-engine/v22-speedpass f; rm -rf $E; mkdir -p $E
   for f in $OFF_FLAGS; do sed -i "s/^$f = True /$f = False/" $E/$D/batch.py
     grep -q "^$f = False" $E/$D/batch.py || { echo "STOP: no '$f = True' line in batch.py"; return 1; }; done
   local pnew; pnew=$(python3 -B - $E/$D $F/$D <<'PY'
-import sys, json, pickle, subprocess, tempfile
+import os, sys, json, pickle, subprocess, tempfile
 import numpy as np
 READ = ("import sys, pickle; sys.path.insert(0, sys.argv[1]); import engine as E; "
         "pickle.dump((E.DEFAULT, E.UPD_OFF), open(sys.argv[2], 'wb'))")
@@ -149,11 +150,14 @@ def same(x, y):
         return bool(np.array_equal(np.asarray(x, dtype=object), np.asarray(y, dtype=object)))
     return x == y
 (ND, NU), (LD, _) = read(sys.argv[1]), read(sys.argv[2])
+BACK = set(filter(None, os.environ.get("G4_BACK", "").split(",")))   # v23's tunes of a live setting (G4_BACK above)
 P, stop, note = {}, [], []
 for k, v in ND.items():
     if k in LD and same(LD[k], v):
         continue
-    if k not in NU:
+    if k not in NU and k in LD and k in BACK:
+        P[k] = LD[k]                            # set back to live v22.5's value
+    elif k not in NU:
         (stop if k in LD else note).append(k)   # a new part's own setting, read only with its switch on
     elif not same(NU[k], LD.get(k, NU[k])):
         stop.append(k)
