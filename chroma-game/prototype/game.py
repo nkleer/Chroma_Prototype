@@ -121,6 +121,8 @@ class Game(CheckpointsMixin, WorldMixin, VoiceMixin, LifeMixin, ViewsMixin, Caus
         P["self_death"] = False
         if GAME["returns"]:
             P["echo_play"] = True       # Picks come back: the Engine's hook, read once as the life starts, set only by the game
+        if GAME["causes"] and "role_why" in E.DEFAULT:
+            P["role_why"] = True        # Every change has a cause: the Engine records why each title or perk came or went
         # the outer world (chroma-world/, approved 10-06 10:51; in the final version by Emren's 22:24 word): on wherever the
         # pinned engine has it, for Earth lives (presets 5 and 6 stay as they are, ruling R1); its seed is the life's
         # The setup's world inputs (release row W41; world-build.md): the history dial (pace 0.5 calm to 2 turbulent, only the
