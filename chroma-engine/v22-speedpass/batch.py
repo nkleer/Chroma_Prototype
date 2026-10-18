@@ -214,16 +214,17 @@ def _rule1(nm, r, ID, norm, acc_mv, acc_fs, opt, extend):
     if bad:
         raise ValueError(f"{nm}: 'rungs' names unknown titles or perks {bad}")
     # a pack's EXTEND: a condition or-ed into the rule (at the rule's own rate), or dict(req, rate): a way in of its own
-    more_ = []
+    more_ = []; more_s = []
     for x_ in (extend or {}).get(nm, []):
         if isinstance(x_, dict):
-            more_.append((_code(x_["req"]), float(x_["rate"])))
+            more_.append((_code(x_["req"]), float(x_["rate"]))); more_s.append(str(x_["req"]))
         else:
             r["req"] = f"({r['req']}) | ({x_})" if r.get("req") else None   # a rule with no condition already lets anyone in
     return dict(req=_code(r.get("req")), rate=r.get("rate"), more=more_, after=[ID[x] for x in r.get("after", [])],
                 lose=_lose(r), lrate=r.get("lrate", 0.0), lend=r.get("lend", "left"),
                 starts=bool(r.get("starts")), entry=r.get("entry", not r.get("after")), weight=r.get("weight"),
                 has_req=bool(r.get("req")),
+                req_s=r.get("req") or "", more_s=more_s,   # the sources, for the engine's role_why (which clause held)
                 rungs=[ID[x] for x in r.get("rungs", [])],   # lower rungs kept on the step (a degree; packs
                 # 11:29): counted as steps by the fit report, never dropped or gated like after=
                 norm=float(norm.get(nm, 1.0)), acc_move=float(acc_mv.get(nm, 1.0)), acc_first=float(acc_fs.get(nm, 1.0)), grants=[ID[x] for x in r.get("grants", []) if x in ID or x not in opt])
