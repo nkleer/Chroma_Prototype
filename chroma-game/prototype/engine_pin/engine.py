@@ -5622,15 +5622,15 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
                 mult_ = np.where(pk_[None] == 3, 1 + 2 * (res[:, TIE] < 0.3)[:, None], mult_)
                 mult_ = np.where(pk_[None] == 4, 1 + 4 * (res[:, MON] < 0.15)[:, None], mult_)
                 base_ = np.select([pk_ == 0, pk_ == 2, pk_ == 3, pk_ == 4], list(P["perk_loss"]), 0.0)
-                if RW_ON:   # role_why: the week each perk was last in use (its ways at least as used as the base rate assumes)
+                if RW_ON:   # role_why: the week each skill was last kept up (its ways used enough that it does not slip)
                     for n in events:
                         lu_ = rw_use.setdefault(n, np.full(NP_, NEVER))
-                        lu_[use_[n] >= 1.0] = t
+                        lu_[use_[n] >= 1.5] = t
                 for n, p_ in zip(*np.nonzero(r_has[:, NT_:] & ~RULE_LOSS[None] & (rng.random((N, NP_)) < 1 - np.exp(-base_[None] * mult_ / 13)))):
                     if RW_ON and n in events:   # role_why: held how long, unused how long; a bond alone, an asset short of money
-                        lu_ = max(int(rw_use[n][p_]), int(r_since[n, NT_ + p_]))
-                        rw_why[(int(n), int(NT_ + p_), "lost")] = [dict(
-                            k="unused", years=round((t - lu_) / 52, 2), held=round((t - r_since[n, NT_ + p_]) / 52, 2),
+                        lu_ = max(int(rw_use[n][p_]), int(r_since[n, NT_ + p_])) if pk_[p_] == 0 else int(r_since[n, NT_ + p_])
+                        rw_why[(int(n), int(NT_ + p_), "lost")] = [dict(   # years: unused (a skill), else held
+                            k="unused", years=round((t - lu_) / 52, 2), held=round(float(t - r_since[n, NT_ + p_]) / 52, 2),
                             # as: why it went (a skill unused; a bond while alone; an asset while short of money; else time)
                             **{"as": ("unused" if pk_[p_] == 0 else "alone" if pk_[p_] == 3 and res[n, TIE] < 0.3
                                       else "short of money" if pk_[p_] == 4 and res[n, MON] < 0.15 else "time")})]
