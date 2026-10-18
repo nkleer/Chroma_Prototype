@@ -2,7 +2,9 @@
 
     python3 -B chroma-release/check_picks.py run --repo DIR --commit SHA --out DIR [--game JSON]
                  [--policies let,random,reader,none] [--presets 1-4] [--seeds 1-6] [--jobs 4]
-    python3 -B chroma-release/check_picks.py judge --on DIR --off DIR
+    python3 -B chroma-release/check_picks.py judge --on DIR --off DIR [--no-record]
+    python3 -B chroma-release/check_picks.py noplayer --repo DIR --commit SHA --out DIR [--seeds 41] [--lives 400]
+                 [--years 100] [--worlds off,on,seed] [--jobs 4] [--no-record]
 
 run plays whole lives on the Game object as the page plays them, with Release's copy of the player-impact harness
 (picks/impact.py: let, random, reader, none), on a git archive of the commit's chroma-game/prototype (the game with its
@@ -26,6 +28,13 @@ judge reads both sides and writes chroma-release/out/picks_<UTC>.txt and one res
     picks_impact   P5 the player-impact reading: well(reader) - well(random) with it on at least as large as with it off
     picks_tilt     P6 a seed that went well tilts its return up and one that went badly down, never by more than .05
 Small counts: a row whose difference sits inside its spread reads more seeds (the SMALL COUNTS ruling), its target stays.
+judge records only when both sides name the same commit (a trial on two commits takes --no-record).
+
+noplayer is row N1 (records/v22.6/plan.md, "N1's reading"): batch lives with no player, on a git archive of the
+commit's engine, Library and packs, run by check_speedpass.py's worker twice, with echo_play off and on. Every output
+must be identical, except the hook's own readout `returns`, which only a run with echo_play on returns and which must
+be empty (lives with no player plant no seeds). The runs stay in --out; the report is
+chroma-release/out/picks_noplayer_<UTC>.txt and the results line picks_noplayer.
 """
 import argparse, glob, json, os, subprocess, sys, time
 
@@ -136,6 +145,10 @@ def sd_mean(xs):
 def judge(a):
     on, mon = load(a.on)
     off, moff = load(a.off)
+    if not a.no_record and (not mon.get("commit") or mon.get("commit") != moff.get("commit")):
+        print(f"STOP: the on side names commit {mon.get('commit')} and the off side {moff.get('commit')}; "
+              "a results line needs both on one commit (a trial: --no-record)")
+        return 2
     keys = sorted(set(on) & set(off))
     played = [k for k in keys if k[0] != "none"]
     lines = [f"Picks come back, played-life rows, {time.strftime('%Y-%m-%d %H:%M', time.gmtime())} UTC",
@@ -225,6 +238,102 @@ def judge(a):
     return 0 if allok else 1
 
 
+NP_DIRS = "chroma-engine/v22-speedpass chroma-library chroma-packs"
+
+
+def np_same(x, y):
+    import pickle
+    import numpy as np
+    if pickle.dumps(x) == pickle.dumps(y):
+        return True
+    if isinstance(x, dict) and isinstance(y, dict):
+        return x.keys() == y.keys() and all(np_same(x[k], y[k]) for k in x)
+    if isinstance(x, (list, tuple)) and isinstance(y, (list, tuple)):
+        return len(x) == len(y) and all(np_same(u, v) for u, v in zip(x, y))
+    try:
+        ax, ay = np.asarray(x), np.asarray(y)
+    except Exception:
+        return False
+    if ax.shape != ay.shape or ax.dtype == object or ay.dtype == object:
+        return False
+    return bool(np.array_equal(ax, ay, equal_nan=ax.dtype.kind in "fc" and ay.dtype.kind in "fc"))
+
+
+def noplayer(a):
+    """N1: the same batch lives with echo_play off and on, on the commit's own engine, Library and packs."""
+    import pickle
+    os.makedirs(a.out, exist_ok=True)
+    sha = subprocess.run(["git", "-C", a.repo, "rev-parse", a.commit], check=True, capture_output=True, text=True).stdout.strip()
+    tree = os.path.join(a.out, "tree")
+    stamp = os.path.join(tree, "tree.sha")
+    if not (os.path.exists(stamp) and open(stamp).read().strip() == sha):   # never reuse another commit's tree
+        subprocess.run(["rm", "-rf", tree], check=True); os.makedirs(tree)
+        subprocess.run(f"git -C {a.repo} archive {sha} {NP_DIRS} | tar -x -C {tree}", shell=True, check=True)
+        open(stamp, "w").write(sha + "\n")
+        for f in glob.glob(os.path.join(a.out, "id_*.pkl")):   # runs of another commit
+            os.remove(f)
+    eng, lib, packs = (os.path.join(tree, d) for d in NP_DIRS.split())
+    env = {k: v for k, v in os.environ.items() if k not in ("CHROMA_ROOT", "CHROMA_ENGINE", "CHROMA_GAME")}
+    env.update(OMP_NUM_THREADS="1", PYTHONDONTWRITEBYTECODE="1")
+    worlds = [w for w in a.worlds.split(",") if w]
+    order = sorted(worlds, key=lambda w: {"on": 0, "off": 1}.get(w, 2))   # the longest runs first
+    runs, jobs = [], []
+    for sd in span(a.seeds):
+        for w in order:
+            for tag, pj in (("off", '{"echo_play": false}'), ("on", '{"echo_play": true}')):
+                f = os.path.join(a.out, f"id_{sd}_{w}_{tag}.pkl")
+                runs.append((sd, w, tag, f))
+                if not os.path.exists(f):
+                    jobs.append([sys.executable, "-B", os.path.join(HERE, "check_speedpass.py"), "--worker", eng, lib, packs,
+                                 str(sd), w, str(a.lives), str(a.years), pj, f])
+    log = open(os.path.join(a.out, "run.log"), "a")
+    live, bad = [], 0
+    while jobs or live:
+        while jobs and len(live) < a.jobs:
+            live.append(subprocess.Popen(jobs.pop(0), env=env, cwd=a.out, stdout=log, stderr=log))
+        time.sleep(2)
+        for p in [p for p in live if p.poll() is not None]:
+            live.remove(p); bad += p.returncode != 0
+    lines = [f"Picks come back, N1 no player, {time.strftime('%Y-%m-%d %H:%M', time.gmtime())} UTC",
+             f"  commit {sha[:12]}: its engine, Library and packs ({tree}); seeds {a.seeds}, {a.lives} lives x {a.years} years, "
+             f"worlds {','.join(worlds)}; echo_play off against on, every output equal but the readout returns, which must be empty"]
+    ok = not bad
+    for sd in span(a.seeds):
+        for w in worlds:
+            fo, fn = (next(r[3] for r in runs if r[:3] == (sd, w, t)) for t in ("off", "on"))
+            if not (os.path.exists(fo) and os.path.exists(fn)):
+                ok = False; lines.append(f"MISS {sd} {w}: a run left no output (see {a.out}/run.log)"); continue
+            b, n = pickle.load(open(fo, "rb")), pickle.load(open(fn, "rb"))
+            extra, gone = sorted(set(n["out"]) - set(b["out"])), sorted(set(b["out"]) - set(n["out"]))
+            both = sorted(set(b["out"]) & set(n["out"]))
+            diff = [k for k in both if not np_same(b["out"][k], n["out"][k])]
+            ret = n["out"].get("returns")
+            empty = ret is None or len(ret) == 0
+            good = not diff and not gone and extra in ([], ["returns"]) and empty and b["dropped"] == n["dropped"]
+            ok &= good
+            lines.append(f"{'ok  ' if good else 'MISS'} {sd} {w}: {len(both) - len(diff)} of {len(both)} outputs identical"
+                         + (f", differ: {', '.join(diff[:12])}" if diff else "")
+                         + (f"; only with it off: {', '.join(gone)}" if gone else "")
+                         + (f"; only with it on: {', '.join(extra)}" if extra else "; no returns readout")
+                         + ("" if ret is None else f" ({len(ret)} entries{'' if empty else ', must be empty'})")
+                         + (f"; not compared (not picklable): {', '.join(sorted(set(b['dropped']) | set(n['dropped'])))}"
+                            if b["dropped"] or n["dropped"] else ""))
+    lines.append(f"noplayer: {'PASS' if ok else 'FAIL'}" + (f" ({bad} runs failed)" if bad else ""))
+    sys.path.insert(0, os.path.join(os.path.dirname(HERE), "chroma-env"))
+    os.environ.setdefault("CHROMA_ROOT", os.path.dirname(HERE))
+    from paths import path
+    rep = path("release_out", f"picks_noplayer_{time.strftime('%Y%m%d-%H%M%S', time.gmtime())}.txt")
+    os.makedirs(os.path.dirname(rep), exist_ok=True)
+    open(rep, "w").write("\n".join(lines) + "\n")
+    print("\n".join(lines)); print("report:", rep)
+    if not a.no_record:
+        sys.path.insert(0, HERE)
+        from results import add
+        add("picks_noplayer", "PASS" if ok else "FAIL", rep, note=f"seeds {a.seeds}, {a.lives} x {a.years}, worlds {a.worlds}",
+            candidate={"commit": sha}, run=" ".join(sys.argv))
+    return 0 if ok else 1
+
+
 ap = argparse.ArgumentParser()
 sub = ap.add_subparsers(dest="cmd", required=True)
 p = sub.add_parser("run")
@@ -237,5 +346,10 @@ for x in ("--game", "--policy", "--preset", "--seed", "--game-json", "--out"):
 p = sub.add_parser("judge")
 p.add_argument("--on", required=True); p.add_argument("--off", required=True)
 p.add_argument("--no-record", action="store_true", help="write the report but no results lines (a trial)")
+p = sub.add_parser("noplayer")
+p.add_argument("--repo", required=True); p.add_argument("--commit", required=True); p.add_argument("--out", required=True)
+p.add_argument("--seeds", default="41"); p.add_argument("--lives", type=int, default=400); p.add_argument("--years", type=int, default=100)
+p.add_argument("--worlds", default="off,on,seed"); p.add_argument("--jobs", type=int, default=4)
+p.add_argument("--no-record", action="store_true", help="write the report but no results line (a trial)")
 a = ap.parse_args()
-sys.exit({"run": run, "life": life, "judge": judge}[a.cmd](a) or 0)
+sys.exit({"run": run, "life": life, "judge": judge, "noplayer": noplayer}[a.cmd](a) or 0)
