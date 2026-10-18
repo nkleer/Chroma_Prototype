@@ -6333,7 +6333,7 @@ SHADOW = {'share': {'start': 0.1,
            'min': 0.0,
            'max': 1.0},
  'gate': 0.25,
- 'grey_gate': 0.25}
+ 'grey_gate': 0.3}
 DEEP = {'care_hours': {'partner': 20.0, 'parent': 12.0, 'parent_in_law': 8.0, 'grandparent': 4.0},
  'care_frail': 0.2,
  'care_frail_x': 1.5,
@@ -6368,8 +6368,12 @@ DEEP = {'care_hours': {'partner': 20.0, 'parent': 12.0, 'parent_in_law': 8.0, 'g
                                              'pull_back': {'reoffend': 1.2,
                                                            'while': 'the tie is active and their way leans to its '
                                                                     'shadow side',
-                                                           'ends': 'a partner or steady work (Sampson and Laub '
-                                                                   '1993)'},
+                                                           'ends': 'a partner or steady work (Sampson and Laub 1993)',
+                                                           'shadow_gate': 0.3,
+                                                           'gate_note': "v22.6 refit: their lead colour's shadow "
+                                                                        'part .3 or more (engine prison_par.shadow); '
+                                                                        'W4 1.49 ties a year inside, none past 10 '
+                                                                        'years'},
                                              'help': {'hiring': 1.1,
                                                       'sectors': ['farm', 'industry'],
                                                       'stress_m': -0.01,
@@ -8565,10 +8569,11 @@ TURNOVER = {'base_y': {'gather.house': 0.08,
  'cast_want': ['place_closed', 'place_opened'],
  'checks': {'closed_share_y': [0.03, 0.07], 'max_empty_q': 6}}
 TRUST = {'noise': 0.1,
+ 'lean': 0.15,
  'drift_y': 0.1,
  'drift_k': 0.6,
- 'jumps': {'event_unfair': -0.06,
-           'event_fair': 0.04,
+ 'jumps': {'event_unfair': -0.1,
+           'event_fair': 0.02,
            'institution.cover-up': -0.12,
            'institution.leak': -0.06,
            'care.neglect_scandal': -0.1,

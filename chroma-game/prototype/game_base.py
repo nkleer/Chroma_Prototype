@@ -251,6 +251,7 @@ GAME.update(V225)
 # pack's joint refit tunes and switches them on together; CHROMA_GAME="pack" plays a life with it on (the steered row own_even)
 PACK = dict(own_ix=True)
 PACK_OFF = {k: GAME[k] for k in PACK}
+GAME.update(PACK)                                   # v23: the pack's joint refit switched it on (chroma-release/records/v23/scope.md)
 if os.environ.get("CHROMA_GAME"):                   # checks and calibration only: "off", "v224", "pack" or settings as JSON
     import json as _json
     GAME.update({"off": GAME_OFF, "v224": {**V225_OFF, **PACK_OFF, "stakes": False}, "pack": PACK}.get(os.environ["CHROMA_GAME"])
