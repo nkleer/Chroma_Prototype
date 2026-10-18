@@ -12745,7 +12745,10 @@ const far = (o) => o.status === "out of reach";
 const holdOf = (o) => { const a = accOf(o); return a === "their own pick" ? 0 : Math.min(MAX_MS, HOLD[a] + (far(o) ? FAR_MS : 0)); };
 const weightOf = (o) => Math.min(1, WEIGHT[accOf(o)] + (far(o) ? 0.15 : 0));
 const inkOf = (o) => { const e = (o.ends && o.ends.length ? o.ends : o.means) || []; return e[0] ? CH.HUE.ink[e[0]] : "#3b2f20"; };
-const HINT = { desk: "hover to read · hold, or press its number, to push", touch: "tap to read · hold or tap Push to push" };
+// the touch hint no wider than today's ("tap to read · tap again to push", 163 px in the 12 px condensed face; this is
+// 158 px), so it never takes a second line where today's does not (at 390 px "... hold or tap Push to push" did, and
+// pushed every card 15 px down)
+const HINT = { desk: "hover to read · hold, or press its number, to push", touch: "tap to read · hold or tap Push" };
 const C = 2 * Math.PI * 22;            // the ring's length (r 22 in a 48 box round the 38 px roundel)
 const RING = (ink) => `<svg class="lv-ring" viewBox="0 0 48 48" aria-hidden="true" style="--lv-ink:${ink}"><circle class="t" cx="24" cy="24" r="22"/><circle class="p" cx="24" cy="24" r="22" stroke-dasharray="${C.toFixed(1)}" stroke-dashoffset="${C.toFixed(1)}"/></svg>`;
 const LAYERS = ["lv-lift", "lv-hold", "lv-halo", "lv-ring"];

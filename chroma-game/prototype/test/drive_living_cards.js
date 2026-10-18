@@ -233,7 +233,7 @@ const t0 = Date.now();
     if (parts.includes('touch')) {
       say('part touch (390x844, touch)');
       const hint = await page.evaluate(() => (document.querySelector('#evOpts > .ask small') || {}).textContent);
-      check(hint === 'tap to read · hold or tap Push to push', `the hint for touch ("${hint}")`);
+      check(hint === 'tap to read · hold or tap Push', `the hint for touch ("${hint}")`);
       const css = await page.$eval(cs[0].sel, (b) => { const st = getComputedStyle(b); return { callout: st.webkitTouchCallout || st.getPropertyValue('-webkit-touch-callout'), select: st.userSelect || st.webkitUserSelect }; });
       check(css.select === 'none' && (!css.callout || css.callout === 'none'), `on cards the callout and text selection are off (${JSON.stringify(css)})`);
       const c = lightest(cs);
