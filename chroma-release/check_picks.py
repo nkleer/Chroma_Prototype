@@ -95,6 +95,8 @@ def run(a):
         subprocess.run(["rm", "-rf", tree], check=True); os.makedirs(tree)
         subprocess.run(f"git -C {a.repo} archive {sha} {GAME_DIR} | tar -x -C {tree}", shell=True, check=True)
         open(stamp, "w").write(sha + "\n")
+        for f in glob.glob(os.path.join(a.out, "*_*_*.json")):   # lives of another commit
+            os.remove(f)
     json.dump(dict(commit=sha, game=a.game, policies=a.policies, presets=a.presets, seeds=a.seeds,
                    time=time.strftime("%Y-%m-%d %H:%M", time.gmtime())), open(os.path.join(a.out, "meta.json"), "w"))
     env = {k: v for k, v in os.environ.items() if k not in ("CHROMA_ROOT", "CHROMA_ENGINE", "CHROMA_GAME")}
