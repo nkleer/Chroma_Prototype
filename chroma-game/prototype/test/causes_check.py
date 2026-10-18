@@ -71,7 +71,7 @@ def masked(line):
         for part in g.split("\n"):
             if part.strip():
                 text = text.replace(part, "")
-    rec[1] = re.sub(r"\s+", " ", text)
+    rec[1] = re.sub(r"\s+", " ", text).strip()
     return json.dumps(rec, sort_keys=True)
 
 
