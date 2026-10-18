@@ -79,8 +79,8 @@ Every life must stay the same unless Emren asked for a change in play. Pick the 
 | game text | `python3 -B chroma-game/prototype/test/text_check.py` after each edit (new real-world words against main); `test/timeless.py` once on the PR | 1 s; 7 to 9 min once |
 | game content or behaviour | `smoke.py --update` (the PR says why play changed), `test/text_check.py`, `test/timeless.py`, `test/saveload.py`, then Release's `python3 -B chroma-release/v22_checks.py --level fast --only @game --repo <checkout>` | a few minutes |
 | page source (`web/src/`) | rebuild `web/index.html`; with no change meant, `git status` must show it unchanged | under 1 s |
-| engine | Engine thread only: `chroma-engine/tools/t_steps.py` (70 rows, about 65 min), then a Game re-pin with `chroma-game/tools/build.py` and Release's `chroma-release/same-lives.sh` (four parts, about 50 min each) | hours |
-| Library or packs | the owner's build and checks, then the Game re-pin | owner's job |
+| engine | Engine thread only: `chroma-engine/tools/t_steps.py` (70 rows, about 65 min), then a Game re-pin with `chroma-game/tools/build.py` as the branch's last commit and Release's `chroma-release/same-lives.sh` (four parts, about 50 min each) | hours |
+| Library or packs | the owner's build and checks, then the Game re-pin on the same branch | owner's job |
 
 If a proof that should match does not, stop and report it. Never update an expected hash to make a check pass.
 

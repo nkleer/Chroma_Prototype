@@ -15,15 +15,16 @@ A file that is in the repository is changed only through the repository. The sha
 
 ## Branches
 
-- `release/<version>` (`release/v22`, `release/v22.1`, `release/v22.2`, `release/v22.2.1`, `release/v22.3`): the commit that version was
+- `release/<version>` (`release/v22` to `release/v23`, one per published version): the commit that version was
   published from. Never committed to again and never deleted. The session's git proxy refuses tag pushes, so these
   branches stand in for tags.
 - `main`: the newest live version plus finished work that has passed its owner's checks. It is the base for every
   change and for the next release.
-- A work branch per change, named after the owner's folder: `engine/<topic>`, `game/<topic>`, `library/<topic>`,
-  `packs/<topic>`, `art/<topic>`, `world/<topic>`, `identity/<topic>`, `checks/<topic>` for the release thread
-  (`release/` is taken by the version branches), and `env/<topic>` for `chroma-env/` and this repository's own files
-  (the workspace thread).
+- A work branch per change. A change to one owner's folder is named after that folder: `engine/<topic>`,
+  `game/<topic>`, `library/<topic>`, `packs/<topic>`, `art/<topic>`, `world/<topic>`, `identity/<topic>`,
+  `checks/<topic>` for the release thread (`release/` is taken by the version branches), and `env/<topic>` for
+  `chroma-env/` and this repository's own files (the workspace thread). A change that needs several owners' folders is
+  one `feature/<topic>` branch, which every owner commits its own part to.
 
 ## Setting up in a thread
 
@@ -35,17 +36,30 @@ A file that is in the repository is changed only through the repository. The sha
 
 ## Making a change
 
-1. `git fetch origin main && git checkout -B <owner>/<topic> origin/main`.
+One change, one pull request, however many owners' folders it touches (Emren, 2026-10-18 21:57 UTC, "Start all four";
+the plan is the shared folder's `chroma-env/plan-by-function-2026-10-18.md`). Every pull request runs its own proof, so
+fewer of them also means less test time.
+
+1. `git fetch origin main && git checkout -B <branch> origin/main`, with `<owner>/<topic>` for a change to your own
+   folder only and `feature/<topic>` for one that needs other owners' folders too.
 2. If a file you will change is not in the repository yet, copy it in from the shared folder unchanged and commit that
    first ("Import <path> as it is in the shared folder"). Your own commit then shows only your change.
-3. Change only your own folder. If the change needs another owner's files, ask the coordinator; that owner makes its
-   part on its own branch.
-4. Run your checks on the branch, in your own container, never in the shared folder.
-5. Push the branch and open a pull request into `main`. Its title says what changes in plain words. Its body says why,
-   who decided it (Emren's words and time where there are any), and which checks passed, with their output lines.
-6. Merge it yourself once your checks pass, unless it touches another owner's folder. In that case the coordinator asks
-   that owner to run its checks on the branch first. Use a merge commit, never a force-push. If `main` moved since you
-   branched, merge `origin/main` into your branch, rerun the checks it affects, then merge.
+3. Change only your own folder. On a `feature/` branch, the thread leading the change opens the pull request at once,
+   as a draft, and the coordinator asks each other owner to commit its own part to the same branch: fetch the branch,
+   commit, push. If the push is refused because the branch moved, fetch it again and merge it in; never force-push it.
+4. When the change includes an engine, Library or packs part, the game's re-pin (`chroma-game/tools/build.py`) is the
+   last commit on the same branch, not a pull request of its own.
+5. A fix to an open change goes on its branch, not into a new pull request. Small changes of one owner that nothing
+   waits on (comments, notes kept in the repository, check-script tweaks, one-line fixes) collect on one branch and go
+   in one pull request.
+6. Run your checks on the branch, in your own container, never in the shared folder. On a `feature/` branch, the proof
+   the change needs runs once, on the whole branch, when every part is in.
+7. Push the branch and open the pull request into `main` (or mark the draft ready). Its title says what changes in
+   plain words. Its body says why, who decided it (Emren's words and time where there are any), each owner's part, and
+   which checks passed, with their output lines. Each owner posts its own check on the pull request.
+8. Merge it once the checks pass and every owner whose folder it touches has posted its check; the thread leading a
+   `feature/` branch merges it. Use a merge commit, never a force-push. If `main` moved since you branched, merge
+   `origin/main` into your branch, rerun the checks it affects, then merge.
 
 ## Changing a live part (engine, game, Library, packs, pictures)
 
