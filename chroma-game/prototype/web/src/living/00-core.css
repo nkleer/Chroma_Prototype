@@ -1,0 +1,9 @@
+  /* ================= the Living HUD (living/*.js; v23 rows V0 to V6). Every rule of living/*.css sits under
+     :where(html[data-living="on"]), which living/90-game.js sets only while the Living HUD is on and the look is ink, so
+     with it off the page is exactly as before. Here: the tokens the pieces share and the page lacks (the engraving inks,
+     the voice's hand, how wet the ink is). ================= */
+  :where(html[data-living="on"]) {
+    --iW: #8f7116; --iU: #1c5ca2; --iB: #4e3966; --iR: #b03c1d; --iG: #22733e;
+    --voice: "Fraunces", "Spectral", Georgia, serif;
+    --wet: 0.5;
+  }
