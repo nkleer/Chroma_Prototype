@@ -222,6 +222,19 @@ function play(art, img, res, m, reveal) {
   io.observe(art);
 }
 
+/* ---------------- a phone's window: a card scrolled to stops clear of the sticky head and foot ----------------
+   At 900 px and less the window (#table) scrolls under a sticky head (.evh) and foot (.evf). The page scrolls a card,
+   its reading or an opened fold into view "nearest", which can leave it under the foot, where a tap meets the buttons
+   (more often now that a card can carry the stakes' lines). While this piece stands, the window's scroll padding is
+   their heights, so each such scroll, and a focus moved by Tab, stops clear of them. */
+const NARROW = window.matchMedia("(max-width: 900px)");
+function pad() {
+  if (!on || !NARROW.matches) { tableEl.style.removeProperty("scroll-padding"); return; }
+  const h = tableEl.querySelector(".evh"), f = tableEl.querySelector(".evf");
+  tableEl.style.scrollPadding = `${h ? h.offsetHeight : 0}px 0 ${f ? f.offsetHeight : 0}px`;
+}
+const onNarrow = () => pad();
+
 /* ---------------- the piece ---------------- */
 CH.piece("cards", {
   order: 40,
@@ -233,6 +246,7 @@ CH.piece("cards", {
     mo.observe(tableEl, { childList: true, subtree: true });
     offPick = CH.on("pick", (x) => { lastPick = x && x.o; });
     dressAll(); hint(false);
+    NARROW.addEventListener("change", onNarrow); window.addEventListener("resize", onNarrow); pad();
     return true;
   }, "mount"),
   destroy: timed(function () {
@@ -244,19 +258,20 @@ CH.piece("cards", {
     tableEl.querySelectorAll(".opt.lv").forEach(undress);
     if (rfIO) rfIO.disconnect(); rfIO = null;
     tableEl.querySelectorAll(".lv-rf").forEach((x) => x.remove());
+    NARROW.removeEventListener("change", onNarrow); window.removeEventListener("resize", onNarrow); pad();
     hint(true);
   }, "destroy"),
   hooks: {
     renderTable: timed(function (h) {
       if (cur && (!cur.b.isConnected || cur.key !== lastCpKey)) cancel();
       if (h && h.cp) rfKey = "";
-      dressAll(); hint(false);
+      dressAll(); hint(false); pad();
     }, "renderTable"),
     // once for each outcome, when it first shows: never during a load's replay or for the outcome a load comes back to
     renderResolution: timed(function (h, reveal) {
       if (!h || !h.res || evWrap.hidden) return;
       const key = "res|" + h.res.age + "|" + h.res.title; if (key === rfKey) return;
-      rfKey = key;
+      rfKey = key; pad();
       if (!h.replay && !h.loaded) refocus(h.res, !!reveal);
     }, "renderResolution"),
   },
