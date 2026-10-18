@@ -1,10 +1,10 @@
 "use strict";
 /* ---------------- the Living HUD: the river (row V3; plan: the Living HUD in v23, step 5) ----------------
-   The life line's ribbon becomes a river, ported from the showcase's river.js (its runtime part). One canvas under
-   svg#river in #line: the page's own line (04-line.js drawLine) still draws every redraw and keeps on top its year marks
-   (.gl), the ages, the hover reading and "click a year to read it" (#lineHov, lineGeo); its bands, glow, sheen, grid and
-   band turn clear, and the fog (#fog, #cosmos) and the ahead layer's thread, now line and bead give way to the river's
-   own. The river keeps the line's one mapping (lnScale, the same width, pad and now), so the marks and ages stay over
+   The life line's ribbon becomes a river, ported from the showcase's river.js (its runtime part). Three canvases under
+   svg#river in #line (the lived years, the fog, the live layer on top, which alone takes the pointer): the page's own
+   line (04-line.js drawLine) still draws every redraw and keeps on top its year marks (.gl), the ages, the hover reading
+   and "click a year to read it" (#lineHov, lineGeo); its bands, glow, sheen, grid and band turn clear, and the fog
+   (#fog, #cosmos) and the ahead layer's thread, now line and bead give way to the river's own. The river keeps the line's one mapping (lnScale, the same width, pad and now), so the marks and ages stay over
    their years.
      the river      five colour bands out of a point at birth, as thick as life was satisfying (the river rows, softened
                     over a few years), in five inks of one lightness and one strength (colour-even), with a slow current
@@ -31,9 +31,11 @@
    (decision 6, 30-river.css). Symbol first, words on hover: each mark the page does not read itself (a thread, a door, a
    gem, a bed, a seam, the years ahead) gives its meaning in the page's one #tip, under the strip as the line's own.
    Motion (the ink look's setting): full; calm, a third of the speed and fewer flecks; off (and reduced motion), one
-   still frame per change. Cost: everything that does not move is drawn into an offscreen layer; each frame draws only
-   the moving layer over it. While the age eases the layer holds the lived years up to the newest age at most, and each
-   frame shows its slice stretched to the age shown; the next layer is built a step a frame in a second canvas. */
+   still frame per change. Cost (PIECES "Cost"): the settled history (sediment, bands, seams, threads) is drawn once into
+   an offscreen layer keyed on CH.life.rev and the size, a few steps a frame, and copied to the still canvas only when it
+   changes; the fog with its doors (cached body and door sprites) redraws every third frame (calm every sixth), the live
+   layer (current, flecks, gleam, hover) every frame (calm every other). While time runs the river grows in steps: a new
+   layer at most every 400 ms (calm 800), and the age shown waits at the layer's end until the next one is in. */
 (() => {
 const CH = window.CH; if (!CH || !CH.piece) return;
 const CS = CH.COLORS, HUE = CH.HUE, NAME = CH.NAME, clamp = CH.clamp;
@@ -100,6 +102,10 @@ const TX = {};
 // noise that wraps every `per` units across x, so a tile repeats with no seam; the blend keeps its contrast
 const pnoise = (x, y, per, o) => { const t = x / per, a = CH.fbm(x, y, o) - 0.5, b = CH.fbm(x - per, y, o) - 0.5; return 0.5 + (a * (1 - t) + b * t) / Math.sqrt((1 - t) * (1 - t) + t * t); };
 const canvasOf = (w, h, f) => { const c = document.createElement("canvas"); c.width = w; c.height = h; f(c.getContext("2d"), w, h); return c; };
+// the same into a canvas kept from before (cleared, resized only when its size changes), so images painted again and
+// again make no new canvases
+const repaint = (c, w, h, f) => { if (!c) return canvasOf(w, h, f); if (c.width !== w || c.height !== h) { c.width = w; c.height = h; }
+  const g = c.getContext("2d"); g.setTransform(1, 0, 0, 1, 0, 0); g.globalAlpha = 1; g.globalCompositeOperation = "source-over"; g.clearRect(0, 0, w, h); f(g, w, h); return c; };
 function pixels(w, h, fn) {
   return canvasOf(w, h, (g) => { const im = g.createImageData(w, h), d = im.data;
     for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) { const p = fn(x, y), i = (y * w + x) * 4; d[i] = p[0]; d[i + 1] = p[1]; d[i + 2] = p[2]; d[i + 3] = p[3]; }
@@ -360,9 +366,14 @@ function make() {
   const root = document.createElement("div");
   root.className = "rv";
   lineEl.insertBefore(root, lineEl.firstChild);
+  /* three canvases, one over the other (the release's frame budget, PIECES "Cost"): the lived years, drawn again only
+     when the view of them changes; the fog with its stars and doors, every other frame (every fourth when calm); and
+     the live layer (the current, its flecks, the gleam at now, a push growing in, the lights), every frame (every other
+     when calm). The last one takes the pointer. */
   const cv = CH.canvas(root, "rv-cv"), ctx = cv.getContext("2d");
-  if (!ctx) { root.remove(); return null; }
-  cv.setAttribute("aria-hidden", "true");                                               // #line itself is the picture's label
+  const cvF = CH.canvas(root, "rv-fog"), fctx = cvF.getContext("2d"), cvL = CH.canvas(root, "rv-live"), lctx = cvL.getContext("2d");
+  if (!ctx || !fctx || !lctx) { root.remove(); return null; }
+  [cv, cvF, cvL].forEach((c) => c.setAttribute("aria-hidden", "true"));                  // #line itself is the picture's label
   let stat = document.createElement("canvas"), sctx = stat.getContext("2d");             // everything that does not move
   let statB = document.createElement("canvas"), sctxB = statB.getContext("2d");          // the next one, built a step a frame
   // a cache's small round things (gems, seals, the turns on the threads), kept apart so that while the age eases they
@@ -381,7 +392,12 @@ function make() {
      pixels) and dnx (now on the page), D the page's own scale at the age shown */
   let I = null, S = null, G = null, V = null, job = null;
   let vAge = null, tAge = 0, wetV = 0, fogV = 1, doorsV = null, dirty = true, rebuild = true;
-  let living = false, livingV = 0, partT = -1, partV = 0, rippleT = -1, tNow = 0, slowV = 1, holdT = -1;
+  // stale: the life has more to show than the layer on hand (a new stop, a push grown in); the next layer is then made
+  // a step at a time while this one stands in. gen counts these, so a layer made before the last one is not taken as
+  // having caught up. rebuild (a new size, a new life, a load, motion changed) makes one at once.
+  let stale = false, gen = 0, gid = 0, fc = 0, waitN = 0, planAt = -1e9, stillKey = "", fogDirty = true, fogHover = -1;
+  const restale = () => { stale = true; gen++; };
+  let living = false, livingV = 0, partT = -1, partV = 0, rippleT = -1, tNow = 0, slowV = 1;
   let hover = null;                               // what the pointer is on: a door or a thread
   const pulses = [], flecks = [];                 // outcome lights, the current's flecks
   const timers = new Set();
@@ -396,11 +412,14 @@ function make() {
   const ring = new Float32Array(1200); let ringN = 0, bucketT = -1, bucketMs = 0;
   const charge = (ms) => { const t = document.timeline ? document.timeline.currentTime : performance.now();
     if (t !== bucketT) { if (bucketT >= 0) ring[ringN++ % ring.length] = bucketMs; bucketT = t; bucketMs = 0; } bucketMs += ms; };
+  // and by part (the layers it draws, the still layers it makes, the updates), for finding where the time goes
+  let parts = {};
+  const costOf = (k, t0) => { const ms = performance.now() - t0, q = parts[k] || (parts[k] = { ms: 0, n: 0, max: 0 }); q.ms += ms; q.n++; if (ms > q.max) q.max = ms; };
   // live, everything the page has is told: a mark shows from its age on
   const knows = (w, upTo) => !!w && w.a <= upTo + 1e-6;
   const stopKey = () => (S && S.stop != null ? S.stop : -1);
   // with motion off nothing ticks: a still frame that must change later (a lit thread going out) asks for it here
-  const later = (ms, re) => { const id = setTimeout(() => { timers.delete(id); dirty = true; if (re) rebuild = true; }, ms); timers.add(id); };
+  const later = (ms, re) => { const id = setTimeout(() => { timers.delete(id); dirty = true; if (re) restale(); }, ms); timers.add(id); };
 
   /* the state asked for: the age eases there (about 400 ms); at once when it is the first, quiet (a load, the years
      before the player takes over), a new life, or motion is off */
@@ -408,8 +427,9 @@ function make() {
     if (!st) return;
     const t0 = performance.now();
     const L = CH.life, fresh = !I || I.L !== L;
-    if (fresh || I.rev !== L.rev) { I = indexOf(L); rebuild = true; }
-    else if (I.nr !== (L.river || []).length) { rowsOf(I); rebuild = true; }
+    if (fresh) { I = indexOf(L); rebuild = true; }
+    else if (I.rev !== L.rev) { I = indexOf(L); restale(); }
+    else if (I.nr !== (L.river || []).length) { rowsOf(I); restale(); }
     const still = vAge == null || fresh || !!(how && how.quiet);
     (L.pushes || []).forEach((p) => { if (seenP.has(p)) return; seenP.add(p); if (!still && !off()) { pend.set(p, performance.now()); later(2600, true); } });
     S = st; tAge = st.age;
@@ -417,15 +437,17 @@ function make() {
     // a moment waiting when the river comes (a load, the switch turned on): the current stands parted round now
     if (st.waiting && partT < 0 && !living) partT = mt;
     dirty = true;
-    charge(performance.now() - t0);
+    charge(performance.now() - t0); costOf("update", t0);
   }
 
   /* ---------- building the still layer ----------
-     exact: the whole still frame at the age shown (fog body, ground, river, band, threads).
-     not exact (while the age eases): only the lived years, cheaper (the strata stacked every 4 px, the glow not
-     softened); the fog and the present are then drawn live each frame.
-     A build is a few steps. When the layer on screen can still stand in, the next one is built into a second canvas a
-     step or two per frame (about 5 ms each) and swapped in when it is done; otherwise it is built at once. */
+     The lived years only (ground, strata, gems, river, band, threads, the pushes grown in); the fog has its own canvas.
+     exact: drawn at the age shown, its small round things in place. A cache (while the age eases): drawn for the newest
+     age, its small round things kept in an atlas and set unstretched at their places in the years shown; one made for
+     the age the life settles at is kept as the layer.
+     A build is a dozen steps. When the layer on screen can still stand in, the next one is built into a second canvas a
+     step or so per frame (about 1 ms each, on frames the fog is not drawn) and swapped in when it is done; otherwise
+     (the first frame, a new size, a new life, a load) it is built at once. */
   function plan(age, exact, canvas, g) {
     const W = cv._w, H = cv._h, k = cv._k;
     if (!W || !H || !I) return null;
@@ -437,28 +459,34 @@ function make() {
     const pad = W < 600 ? 12 : 16, sc = lnScale(W, pad, now, over), ly = layoutOf(H), nx = sc.X(now);
     // know: how far the story is told in this layer; a cache keeps what is told to the age asked (tAge) at most
     const know = exact ? now : Math.min(now, Math.max(0, tAge));
-    const NG = { W, H, k, pad, now, know, over, sc, ly, nx, X: sc.X, exact, wet: wetV, fog: fogV, cw: cv.width, ch: cv.height, sk: stopKey() };
+    // a layer is drawn as wet as the ink is at the age it is made for (S.wet), so the one made for the newest age is
+    // already the one to keep once the age settles there
+    const NG = { W, H, k, pad, now, know, over, sc, ly, nx, X: sc.X, exact, wet: S ? S.wet || 0 : wetV, fog: fogV, cw: cv.width, ch: cv.height, sk: stopKey(), t: mt };
     // a cache keeps its small round things in an atlas (see put), each later set at its place in the years shown
     NG.atlas = exact ? null : { g: gg, W, H, cx: 0, cy: 0, rowH: 0, list: [] };
     NG.bN = canvas === stat ? bloomN : bloomNB;
     const steps = [
-      () => { riverGeo(NG); threadGeo(NG); pushGeo(NG); NG.doors = doorGeo(NG); },
+      () => { riverGeo(NG); },
+      () => { riverPaths(NG); },
+      () => { threadGeo(NG); pushGeo(NG); NG.doors = doorGeo(NG); },
       () => { g.setTransform(1, 0, 0, 1, 0, 0); g.clearRect(0, 0, canvas.width, canvas.height); g.setTransform(k, 0, 0, k, 0, 0);
         g.globalCompositeOperation = "source-over"; g.globalAlpha = 1;
         // the atlas is cleared only as far down as its last use reached
         if (!exact) { gg.setTransform(1, 0, 0, 1, 0, 0); gg.clearRect(0, 0, gc.width, Math.min(gc.height, Math.ceil((gc._used || H) * k) + 2)); gg.setTransform(k, 0, 0, k, 0, 0); }
-        if (exact) drawFogBody(g, NG); drawGround(g, NG); },
+        drawGround(g, NG); },
       () => { drawStrata(g, NG); },
       () => { fadeOut(g, nx - (ly.sm ? 14 : 28), nx + 0.5, ly.strTop - 2, ly.strBot + 2, 1); drawGems(g, NG); },
       () => { drawRiver(g, NG, "glow"); },
       () => { drawRiver(g, NG, "bands"); },
-      () => { drawRiver(g, NG, "ink"); drawPushes(g, mt, true); },
-      () => { drawBand(g, NG); if (exact) drawFogThread(g, NG); },
+      () => { drawRiver(g, NG, "ink"); },
+      () => { drawRiver(g, NG, "ink2"); },
+      () => { drawPushes(g, mt, true); },
+      () => { drawBand(g, NG); },
       () => { drawThreads(g, NG, 1); },
       () => { drawThreads(g, NG, 2); },
       () => { drawPoints(g, NG); if (NG.atlas) gc._used = NG.atlas.cy + NG.atlas.rowH; },
     ];
-    return { G: NG, steps, i: 0, canvas, g, exact, age, wet: wetV, fog: fogV, sk: NG.sk };
+    return { G: NG, steps, i: 0, canvas, g, exact, age, wet: NG.wet, fog: fogV, sk: NG.sk, gen };
   }
   // run a build's steps (at least one) while under `budget` ms; the drawing helpers read the geometry being built. A
   // canvas paints its drawing list when it is first read, so each step is painted at once (one pixel of it read into a
@@ -472,7 +500,8 @@ function make() {
   function swapIn(J) {
     if (J.canvas === statB) { const c = stat; stat = statB; statB = c; const x = sctx; sctx = sctxB; sctxB = x;
       const d = gly; gly = glyB; glyB = d; const e = gctx; gctx = gctxB; gctxB = e; const f = bloomN; bloomN = bloomNB; bloomNB = f; }
-    G = J.G; job = null; rebuild = false;
+    G = J.G; job = null; rebuild = false; gid++;
+    if (J.gen === gen) stale = false;
   }
   function build(age, exact) { job = null; const J = plan(age, exact, stat, sctx); if (!J) return; runSteps(J, Infinity); swapIn(J); }
   // the age to build the lived years at while the age eases: forward, the age asked, which is the newest the life has
@@ -496,7 +525,7 @@ function make() {
     const norm = (s) => { const t = s.reduce((p, q) => p + q, 0) || 1; return s.map((v) => v / t); };
     const rows = [];
     for (const r of I.rows) { if (r[0] > now + 1e-6) break; rows.push([r[0], norm(r.slice(1, 6)), clamp(r[6] || 0), r[8] || "", r[7]]); }
-    G.rows = rows; G.rv = null; G.wetW = 0;
+    G.rows = rows; G.rv = null; G.rv0 = null; G.wetW = 0;
     if (!rows.length) { if (!(now > 0.05)) return; rows.push([now, eq, clamp(S && S.content != null ? S.content : 0.6), "", null]); }
     else {
       const last = rows[rows.length - 1];
@@ -536,11 +565,11 @@ function make() {
     // outward in small irregular lobes and the dividers between the colours waver, as far as the ink is wet (S.wet),
     // more the nearer now. Dry ink behind it keeps the crisp drawn curve. (Its reach is set for a thousand lived pixels
     // and shrinks with a narrower strip, so a phone's river is not wet from end to end.)
-    const span = Math.max(1, G.nx - SX[0]), wetW = Math.min(span, (30 + 260 * wetV) * clamp(span / 1000, 0.3, 1));
+    const span = Math.max(1, G.nx - SX[0]), wetW = Math.min(span, (30 + 260 * G.wet) * clamp(span / 1000, 0.3, 1));
     G.wetW = wetW;
-    if (wetV > 0.02) {
+    if (G.wet > 0.02) {
       for (let i = 0; i < SX.length; i++) {
-        const x = SX[i], r = sstep(G.nx - wetW, G.nx - wetW * 0.3, x) * wetV; if (r <= 0.003) continue;
+        const x = SX[i], r = sstep(G.nx - wetW, G.nx - wetW * 0.3, x) * G.wet; if (r <= 0.003) continue;
         const th = SY[5][i] - SY[0][i], cap = Math.min(1, th / 6);   // a hairline stream (a newborn's) barely runs
         for (let j = 0; j < 6; j++) {
           const outer = j === 0 || j === 5, nz = CH.fbm(x / 7, j * 3.1 + 0.7, 3);
@@ -550,6 +579,12 @@ function make() {
         for (let j = 1; j < 6; j++) if (SY[j][i] < SY[j - 1][i]) SY[j][i] = SY[j - 1][i];   // the colours never cross
       }
     }
+    G.rv0 = { SX, SY };
+  }
+  // its second half (a step of its own, so no one step of a build is long): the lookup and the paths
+  function riverPaths(G) {
+    if (!G.rv0) return;
+    const { SX, SY } = G.rv0; G.rv0 = null;
     // a lookup per pixel column: the six edges' heights (the current's flecks and the threads read it every frame)
     const c0 = Math.floor(SX[0]), c1 = Math.ceil(SX[SX.length - 1]), nc = Math.max(1, c1 - c0 + 1), tab = new Float32Array(nc * 6);
     let p = 0;
@@ -576,25 +611,37 @@ function make() {
   const fogFrom = (D) => D.nx + (birthOf(D) ? Math.min(120, D.W * 0.12) : 0);
   /* the fog's own darkness, behind the drifting veils: the unwritten years sit in a deeper night that begins at now and
      deepens over the next 160 px, so the present opens into the fog rather than into a dark slot */
+  // (painted once into an image for the fog's width and laid on stretched as now moves: the fog draws it every few
+  // frames, and its gradients over the whole fog were the dearest thing in it; made again when the width has changed by
+  // more than a twenty-fifth, or the fog's strength by a fiftieth)
+  let bodyImg = null, bodyKey = "", bodyL = 0;
   function drawFogBody(g, D) {
     if (fogV <= 0.01) return;
-    const { W, H } = D, nx = fogFrom(D), L = Math.max(1, W - nx);
-    const gr = g.createLinearGradient(nx, 0, W, 0);
-    const r1 = Math.min(0.95, 160 / L); soft(gr, 0, r1, "12,9,28", 0, 0.42 * fogV); gr.addColorStop(1, `rgba(16,11,36,${0.62 * fogV})`);
-    g.fillStyle = gr; g.fillRect(nx, 0, L, H);
+    const { W, H } = D, nx = fogFrom(D), L = Math.max(1, W - nx), lit = !D.over && D.now > 0.05, k = G.k;
+    const key = `${W}|${H}|${k}|${Math.round(fogV * 50)}|${lit}|${D.ly.mid}|${D.ly.maxT}`;
+    if (key !== bodyKey || Math.abs(L - bodyL) > bodyL * 0.04 + 2) {
+      bodyKey = key; bodyL = L;
+      bodyImg = repaint(bodyImg, Math.max(1, Math.ceil(L * k)), Math.max(1, Math.ceil(H * k)), (c) => { c.scale(k, k); paintFogBody(c, D, L, H, lit, Math.round(fogV * 50) / 50); });
+    }
+    g.drawImage(bodyImg, nx, 0, L, H);
+  }
+  function paintFogBody(g, D, L, H, lit, fv) {
+    const gr = g.createLinearGradient(0, 0, L, 0);
+    const r1 = Math.min(0.95, 160 / L); soft(gr, 0, r1, "12,9,28", 0, 0.42 * fv); gr.addColorStop(1, `rgba(16,11,36,${0.62 * fv})`);
+    g.fillStyle = gr; g.fillRect(0, 0, L, H);
     // a faint even haze over it, thicker far off, and a low mist along the ground line the doors stand on
-    const hz = g.createLinearGradient(nx, 0, W, 0);
-    soft(hz, 0, 0.3, "150,136,212", 0, 0.05 * fogV); hz.addColorStop(1, `rgba(150,136,212,${0.11 * fogV})`);
-    g.fillStyle = hz; g.fillRect(nx, 0, L, H);
+    const hz = g.createLinearGradient(0, 0, L, 0);
+    soft(hz, 0, 0.3, "150,136,212", 0, 0.05 * fv); hz.addColorStop(1, `rgba(150,136,212,${0.11 * fv})`);
+    g.fillStyle = hz; g.fillRect(0, 0, L, H);
     // the present's own light, opening into the mist just past now (so now is a threshold, not the edge of a dark slot)
-    if (!D.over && D.now > 0.05) {
+    if (lit) {
       const rx = Math.min(170, L * 0.7), ry = D.ly.maxT * 1.25;
-      g.save(); g.globalCompositeOperation = "lighter"; g.translate(nx, D.ly.mid); g.scale(rx / ry, 1);
-      const lg = g.createRadialGradient(0, 0, 0, 0, 0, ry); lg.addColorStop(0, `rgba(226,206,176,${0.08 * fogV})`); lg.addColorStop(0.45, `rgba(176,160,214,${0.035 * fogV})`); lg.addColorStop(1, "rgba(176,160,214,0)");
-      g.fillStyle = lg; g.fillRect(-ry, -ry, ry * 2, ry * 2); g.restore();
+      g.save(); g.globalCompositeOperation = "lighter"; g.translate(0, D.ly.mid); g.scale(rx / ry, 1);
+      const lg = g.createRadialGradient(0, 0, 0, 0, 0, ry); lg.addColorStop(0, `rgba(226,206,176,${0.08 * fv})`); lg.addColorStop(0.45, `rgba(176,160,214,${0.035 * fv})`); lg.addColorStop(1, "rgba(176,160,214,0)");
+      g.fillStyle = lg; g.fillRect(0, -ry, ry, ry * 2); g.restore();
     }
     const y = D.ly.bandY + D.ly.bandH / 2, mh = D.ly.maxT * 0.42;
-    feathered(g, nx, y - mh, L, mh * 2, [176, 164, 226], 0.1 * fogV, Math.min(90, L * 0.4), 0, [[0, 0], [0.55, 1], [1, 0]]);
+    feathered(g, 0, y - mh, L, mh * 2, [176, 164, 226], 0.1 * fv, Math.min(90, L * 0.4), 0, [[0, 0], [0.55, 1], [1, 0]]);
   }
 
   /* ---------- B2: the ground under the river ---------- */
@@ -629,7 +676,7 @@ function make() {
     const { ly, X, now, know } = G, vis = I.runs.filter((r) => knows(r.seenW, know) && r.start < now);
     G.strata = [];
     if (!vis.length) return;
-    const room = ly.strBot - ly.strTop - ly.gemsH, Tm = Math.min(ly.pitchMax * 1.3, room * 0.46), gap = 0.9 * Math.min(1.4, ly.s), stepX = G.exact ? 2 : 4;
+    const room = ly.strBot - ly.strTop - ly.gemsH, Tm = Math.min(ly.pitchMax * 1.3, room * 0.46), gap = 0.9 * Math.min(1.4, ly.s), stepX = 2;
     if (room < 1) return;
     const beds = vis.map((r) => {
       // its samples: the stops that held it so far; later ones stay, as the thickness eases between stops
@@ -816,20 +863,20 @@ function make() {
   // in three parts, so a build can paint them in different frames: the glow, the bands, the shading and the ink
   function drawRiver(g, G, part) {
     const R = G.rv; if (!R) return;
-    if (part !== "ink") riverBody(g, G, R, part);
-    if (part === "ink") riverInk(g, G, R);
+    if (part === "ink" || part === "ink2") riverInk(g, G, R, part);
+    else riverBody(g, G, R, part);
   }
   function riverBody(g, G, R, part) {
     const { ly, nx } = G;
     // its glow: the bands at a quarter size, drawn back large and soft under the crisp ones (the line's blurred copy);
-    // softened once at the small size (not while the age eases), so the cheap stretch back up stays smooth
+    // softened once at the small size, so the cheap stretch back up stays smooth
     const bw = Math.max(1, Math.ceil(G.W / 4)), bh = Math.max(1, Math.ceil(G.H / 4));
     if (part !== "bands") {
       if (bloom.width !== bw || bloom.height !== bh) { bloom.width = bw; bloom.height = bh; }
       bctx.setTransform(1, 0, 0, 1, 0, 0); bctx.clearRect(0, 0, bw, bh); bctx.setTransform(0.25, 0, 0, 0.25, 0, 0);
       CS.forEach((c, j) => { bctx.fillStyle = rgba(BAND[c], 1); bctx.fill(R.bands[j]); });
       bctx.setTransform(1, 0, 0, 1, 0, 0);
-      if (G.exact) {
+      {
         if (bloomS.width !== bw || bloomS.height !== bh) { bloomS.width = bw; bloomS.height = bh; }
         sbctx.clearRect(0, 0, bw, bh); sbctx.filter = "blur(1px)"; sbctx.drawImage(bloom, 0, 0); sbctx.filter = "none";
         bctx.clearRect(0, 0, bw, bh); bctx.drawImage(bloomS, 0, 0);
@@ -847,41 +894,48 @@ function make() {
       g.fillStyle = gr; g.fill(R.bands[j]);
     });
   }
-  function riverInk(g, G, R) {
+  function riverInk(g, G, R, part) {
     const { ly, nx } = G;
+    const span = Math.max(1, nx - R.x0), wetW = G.wetW;
+    const ink = (al) => { const gr = g.createLinearGradient(R.x0, 0, nx, 0); gr.addColorStop(0, `rgba(10,6,22,${al})`); gr.addColorStop(clamp(1 - wetW / span), `rgba(10,6,22,${al})`); gr.addColorStop(1, `rgba(10,6,22,${al * (1 - 0.85 * G.wet)})`); return gr; };
+    g.lineJoin = "round";
+    if (part === "ink2") {      // (the second step: the outer edges, the sheen, the blooms and the wet stretch's copy)
+      g.strokeStyle = ink(0.5); g.lineWidth = 0.85;
+      const oe = new Path2D(); R.edgePath(0, false, oe); R.edgePath(5, false, oe); g.stroke(oe);
+      riverWet(g, G, R, wetW);
+      return;
+    }
     // body: a little shade at the very outer edges, so the river reads round, not flat; the same above and below and
     // kept thin, as White and Green always run on the outside and must not look darker than the colours between
     const sh = g.createLinearGradient(0, ly.mid - ly.maxT / 2, 0, ly.mid + ly.maxT / 2);
     sh.addColorStop(0, "rgba(10,6,24,0.24)"); sh.addColorStop(0.13, "rgba(10,6,24,0)"); sh.addColorStop(0.87, "rgba(10,6,24,0)"); sh.addColorStop(1, "rgba(10,6,24,0.24)");
     g.fillStyle = sh; g.fill(R.outline);
-    // dry ink is engraved: fine dark lines between the bands and round the river, softening toward now as long as the
-    // ink there is still wet (B1: wet near the pen, set behind it)
-    const span = Math.max(1, nx - R.x0), wetW = G.wetW;
-    const ink = (al) => { const gr = g.createLinearGradient(R.x0, 0, nx, 0); gr.addColorStop(0, `rgba(10,6,22,${al})`); gr.addColorStop(clamp(1 - wetW / span), `rgba(10,6,22,${al})`); gr.addColorStop(1, `rgba(10,6,22,${al * (1 - 0.85 * wetV)})`); return gr; };
-    g.lineJoin = "round";
+    // dry ink is engraved: fine dark lines between the bands and round the river (its outer edges in the next step),
+    // softening toward now as long as the ink there is still wet (B1: wet near the pen, set behind it)
     g.strokeStyle = ink(0.30); g.lineWidth = 0.55;
     const dv = new Path2D(); for (let j = 1; j < 5; j++) R.edgePath(j, false, dv); g.stroke(dv);
-    g.strokeStyle = ink(0.5); g.lineWidth = 0.85;
-    const oe = new Path2D(); R.edgePath(0, false, oe); R.edgePath(5, false, oe); g.stroke(oe);
+  }
+  function riverWet(g, G, R, wetW) {
+    const { nx } = G;
     // the sheen along its upper edge (the line's .sheen)
     g.save(); g.translate(0, 0.9); const sp = new Path2D(); R.edgePath(0, false, sp); g.strokeStyle = "rgba(255,255,255,0.2)"; g.lineWidth = 0.8; g.stroke(sp); g.restore();
     // B1 blooms: where wet ink ran past the edge it dried as a small pale wash with a darker rim (a watercolour
     // backrun), a few along the wet stretch, as many and as strong as the ink is wet; seeded, so the same age looks the
     // same
-    if (wetV > 0.05 && wetW > 16) {
-      const r = CH.rng(77), n = Math.round(3 + 3 * wetV);
+    if (G.wet > 0.05 && wetW > 16) {
+      const r = CH.rng(77), n = Math.round(3 + 3 * G.wet);
       for (let i = 0; i < n; i++) {
         const x = nx - 5 - r() * (wetW - 10), top = r() < 0.5, c = top ? CS[0] : CS[4], ey = edge(x, top ? 0 : 5), th = edge(x, 5) - edge(x, 0);
         if (th < 5) { r(); r(); r(); continue; }
-        const rad = (2 + r() * 3.2) * (0.55 + 0.6 * wetV), y = ey + (top ? -1 : 1) * (rad * 0.3 + r() * 1.2), ph = r() * 6.3, b = BAND[c];
+        const rad = (2 + r() * 3.2) * (0.55 + 0.6 * G.wet), y = ey + (top ? -1 : 1) * (rad * 0.3 + r() * 1.2), ph = r() * 6.3, b = BAND[c];
         const blob = () => { g.beginPath(); for (let q = 0; q <= 12; q++) { const t = (q / 12) * Math.PI * 2, w = 1 + 0.26 * (CH.noise(ph + Math.cos(t) * 1.3, Math.sin(t) * 1.3 + i) - 0.5) * 2; g[q ? "lineTo" : "moveTo"](x + Math.cos(t) * rad * 1.35 * w, y + Math.sin(t) * rad * 0.75 * w); } g.closePath(); };
-        blob(); g.fillStyle = rgba(b, 0.16 * wetV); g.fill();
-        g.strokeStyle = rgba(mix3(INK.deep[c], b, 0.45), 0.24 * wetV); g.lineWidth = 0.5; g.stroke();
+        blob(); g.fillStyle = rgba(b, 0.16 * G.wet); g.fill();
+        g.strokeStyle = rgba(mix3(INK.deep[c], b, 0.45), 0.24 * G.wet); g.lineWidth = 0.5; g.stroke();
       }
     }
     // the wet stretch's own soft copy (drawn each frame, breathing): the glow kept only over the last wetW pixels
     G.wetMask = false;
-    if (wetV > 0.02) {
+    if (G.wet > 0.02) {
       const bN = G.bN, nctx = bN.getContext("2d");
       if (bN.width !== bloom.width || bN.height !== bloom.height) { bN.width = bloom.width; bN.height = bloom.height; }
       nctx.setTransform(1, 0, 0, 1, 0, 0); nctx.globalCompositeOperation = "source-over"; nctx.clearRect(0, 0, bN.width, bN.height);
@@ -1114,16 +1168,14 @@ function make() {
     G: (t) => 1 + 0.08 * Math.sin(t * 0.7 + 4) * (0.6 + 0.4 * Math.sin(t * 0.21)),
   };
   const archPath = (g, x, base, w, h) => { const r = w / 2; g.beginPath(); g.moveTo(x - r, base); g.lineTo(x - r, base - h + r); g.arc(x, base - h + r, r, Math.PI, 0); g.lineTo(x + r, base); };
-  function drawDoors(g, t, doors) {
-    if (!doors.length || fogV < 0.02) return;
-    const moving = !off();
-    doors.forEach((d) => {
-      const { lit, w, h, base, x, top } = doorShape(d), hov = hover && hover.door === d.i ? 1.3 : 1, small = d.small;
-      const fx = (moving ? DOOR_FX[d.c](t) : 1) * hov, b = BAND[d.c], p = INK.pale[d.c], r = w / 2;
-      // Black's arch takes a gold-violet rim, so it stands out of the lilac fog as clearly as the others do
-      const rim = d.c === "B" ? mix3(b, GOLD2, 0.3) : mix3(b, p, 0.35);
-      g.save(); g.globalAlpha = fogV;
-      // the light it throws into the fog: a soft halo
+  // a door is painted once into two small images for its shape (made again when its shape or brightness changes): its
+  // light (the halo, the light through the doorway, the pool before it), laid on additively with its colour's flicker
+  // as the image's strength, and its arch, keystone and mist, laid on as they are
+  const doorSpr = new Map();
+  function paintDoor(g, d, sh, which) {
+    const { lit, w, h, base, x, top } = sh, small = d.small, b = BAND[d.c], p = INK.pale[d.c], r = w / 2;
+    if (which === "glow") {
+      const fx = 1.3;    // the image holds the light at its strongest (a hovered door's); the flicker dims it from there
       const halo = g.createRadialGradient(x, base - h * 0.45, 0, x, base - h * 0.45, h * 1.05);
       halo.addColorStop(0, rgba(b, 0.13 * lit * fx)); halo.addColorStop(0.5, rgba(b, 0.045 * lit * fx)); halo.addColorStop(1, rgba(b, 0));
       g.fillStyle = halo; g.fillRect(x - h * 1.1, base - h * 1.5, h * 2.2, h * 2);
@@ -1139,23 +1191,54 @@ function make() {
       g.save(); g.globalCompositeOperation = "lighter"; g.translate(x - w * 0.25, base + 0.6); g.scale(1, 0.2);
       const pool = g.createRadialGradient(0, 0, 0, 0, 0, w * 1.8); pool.addColorStop(0, rgba(p, 0.32 * lit * fx)); pool.addColorStop(1, rgba(p, 0));
       g.fillStyle = pool; g.beginPath(); g.arc(0, 0, w * 1.8, 0, Math.PI * 2); g.fill(); g.restore();
-      // the arch: a fine engraved hairline in the colour's ink, a fainter outer line; Blue's doubled as through glass
-      g.lineWidth = small ? 0.6 : 0.8; g.strokeStyle = rgba(rim, (0.24 + 0.62 * lit) * Math.min(1.2, fx)); archPath(g, x, base, w, h); g.stroke();
-      if (!small) { g.lineWidth = 0.45; g.strokeStyle = rgba(rim, 0.06 + 0.2 * lit); archPath(g, x, base, w + 2.8, h + 1.4); g.stroke(); }
-      if (d.c === "U" && !small) { g.save(); g.globalAlpha *= 0.35; g.translate(1.1, -0.6); g.lineWidth = 0.55; g.strokeStyle = rgba(p, 0.6 * lit); archPath(g, x, base, w, h); g.stroke(); g.restore(); }
-      // the keystone: the colour's own glyph set in the crown of the arch (a small bead of light on a small strip)
-      if (!small) {
-        const kr = Math.max(3.6, w * 0.24), ky = top - 0.3;
-        g.fillStyle = "rgba(12,9,26,0.6)"; g.beginPath(); g.arc(x, ky, kr, 0, Math.PI * 2); g.fill();
-        g.strokeStyle = rgba(rim, 0.25 + 0.6 * lit); g.lineWidth = 0.6; g.stroke();
-        const im = glyphImg(d.c, () => { dirty = true; });
-        if (im) { g.globalAlpha = fogV * (0.45 + 0.55 * lit); g.drawImage(im, x - kr * 0.74, ky - kr * 0.74, kr * 1.48, kr * 1.48); g.globalAlpha = fogV; }
-      } else { g.fillStyle = rgba(rim, 0.3 + 0.6 * lit); g.beginPath(); g.arc(x, top, Math.max(0.8, w * 0.1), 0, Math.PI * 2); g.fill(); }
-      // the mist it stands in: a low veil over its lower third
-      g.save(); g.translate(x, base + h * 0.02); g.scale(1, 0.42);
-      const veil = g.createRadialGradient(0, 0, 0, 0, 0, Math.max(w * 1.5, h * 0.75));
-      veil.addColorStop(0, rgba(FOGC, 0.62)); veil.addColorStop(0.55, rgba(FOGC, 0.32)); veil.addColorStop(1, rgba(FOGC, 0));
-      g.fillStyle = veil; g.beginPath(); g.arc(0, 0, Math.max(w * 1.5, h * 0.75), 0, Math.PI * 2); g.fill(); g.restore();
+      return;
+    }
+    // Black's arch takes a gold-violet rim, so it stands out of the lilac fog as clearly as the others do
+    const rim = d.c === "B" ? mix3(b, GOLD2, 0.3) : mix3(b, p, 0.35);
+    // the arch: a fine engraved hairline in the colour's ink, a fainter outer line; Blue's doubled as through glass
+    g.lineWidth = small ? 0.6 : 0.8; g.strokeStyle = rgba(rim, 0.24 + 0.62 * lit); archPath(g, x, base, w, h); g.stroke();
+    if (!small) { g.lineWidth = 0.45; g.strokeStyle = rgba(rim, 0.06 + 0.2 * lit); archPath(g, x, base, w + 2.8, h + 1.4); g.stroke(); }
+    if (d.c === "U" && !small) { g.save(); g.globalAlpha *= 0.35; g.translate(1.1, -0.6); g.lineWidth = 0.55; g.strokeStyle = rgba(p, 0.6 * lit); archPath(g, x, base, w, h); g.stroke(); g.restore(); }
+    // the keystone: the colour's own glyph set in the crown of the arch (a small bead of light on a small strip)
+    if (!small) {
+      const kr = Math.max(3.6, w * 0.24), ky = top - 0.3;
+      g.fillStyle = "rgba(12,9,26,0.6)"; g.beginPath(); g.arc(x, ky, kr, 0, Math.PI * 2); g.fill();
+      g.strokeStyle = rgba(rim, 0.25 + 0.6 * lit); g.lineWidth = 0.6; g.stroke();
+      const im = glyphImg(d.c, () => { dirty = true; fogDirty = true; });
+      if (im) { g.globalAlpha = 0.45 + 0.55 * lit; g.drawImage(im, x - kr * 0.74, ky - kr * 0.74, kr * 1.48, kr * 1.48); g.globalAlpha = 1; }
+    } else { g.fillStyle = rgba(rim, 0.3 + 0.6 * lit); g.beginPath(); g.arc(x, top, Math.max(0.8, w * 0.1), 0, Math.PI * 2); g.fill(); }
+    // the mist it stands in: a low veil over its lower third
+    g.save(); g.translate(x, base + h * 0.02); g.scale(1, 0.42);
+    const veil = g.createRadialGradient(0, 0, 0, 0, 0, Math.max(w * 1.5, h * 0.75));
+    veil.addColorStop(0, rgba(FOGC, 0.62)); veil.addColorStop(0.55, rgba(FOGC, 0.32)); veil.addColorStop(1, rgba(FOGC, 0));
+    g.fillStyle = veil; g.beginPath(); g.arc(0, 0, Math.max(w * 1.5, h * 0.75), 0, Math.PI * 2); g.fill(); g.restore();
+  }
+  function doorSprite(d, sh) {
+    const k = G.k, { w, h, base, x, top } = sh, im = !d.small && !!glyphImg(d.c, () => { dirty = true; fogDirty = true; });
+    // (to half a pixel and a twentieth of its light: a door easing to its new reading is painted again a few times,
+    // not every time the fog is drawn)
+    const key = `${Math.round(w * 2)}|${Math.round(h * 2)}|${Math.round(sh.lit * 20)}|${k}|${im}|${d.small}`;
+    const had = doorSpr.get(d.i);
+    if (had && had.key === key) return had;
+    const rx = Math.max(1.1 * h, 2.05 * w, 0.75 * h) + 3, y0 = Math.min(base - 1.5 * h, top - Math.max(3.6, w * 0.24)) - 3;
+    const y1 = base + Math.max(0.5 * h, 0.42 * Math.max(w * 1.5, h * 0.75) + 0.02 * h, 0.6 + 0.36 * w) + 3, bw = Math.ceil(rx * 2 * k), bh = Math.ceil((y1 - y0) * k);
+    const at = (c) => c.setTransform(k, 0, 0, k, -(x - rx) * k, -y0 * k);
+    const S2 = { key, bx: x, by: base, dx: x - rx, dy: y0, w: rx * 2, h: y1 - y0, glow: repaint(had && had.glow, bw, bh, (c) => { at(c); paintDoor(c, d, sh, "glow"); }), body: repaint(had && had.body, bw, bh, (c) => { at(c); paintDoor(c, d, sh, "body"); }) };
+    doorSpr.set(d.i, S2);
+    return S2;
+  }
+  function drawDoors(g, t, doors) {
+    if (!doors.length || fogV < 0.02) return;
+    const moving = !off();
+    doors.forEach((d) => {
+      const sh = doorShape(d), hov = hover && hover.door === d.i ? 1.3 : 1, fx = (moving ? DOOR_FX[d.c](t) : 1) * hov, sp = doorSprite(d, sh);
+      // laid where the door stands now (the images keep their shape as now moves the doors along)
+      const px = sp.dx + sh.x - sp.bx, py = sp.dy + sh.base - sp.by;
+      g.save();
+      g.globalCompositeOperation = "lighter"; g.globalAlpha = fogV * Math.min(1, fx / 1.3);
+      g.drawImage(sp.glow, px, py, sp.w, sp.h);
+      g.globalCompositeOperation = "source-over"; g.globalAlpha = fogV;
+      g.drawImage(sp.body, px, py, sp.w, sp.h);
       g.restore();
     });
   }
@@ -1211,8 +1294,10 @@ function make() {
     const ws = clamp(Math.sqrt(G.ly.s), 1, 1.6), tp = (pts, n, w0, w1, col, dx, dy) => taper(g, pts, n, w0 * ws, w1 * ws, col, dx, dy);
     G.pushes.forEach((P) => {
       if (P.p.age > now + 1e-6) return;
-      const age = P.born ? t - P.born : 99, growing = age < 1.5;
-      if (still === growing) return;
+      // a push growing in is drawn live; once grown it goes into the next still layer made, and stays live until that
+      // layer is on screen (so it never blinks out between the two)
+      const age = P.born ? t - P.born : 99, baked = !P.born || G.t >= P.born + 1.5;
+      if (still !== baked) return;
       const how = pushHow(P), grow = easeOut(age / 0.9);
       g.save(); g.lineCap = "round"; g.lineJoin = "round";
       if (how === "knot") {
@@ -1259,7 +1344,7 @@ function make() {
   function settlePushes(t) {
     let done = false;
     born.forEach((b, p) => { if (t - b >= 1.5) { born.delete(p); done = true; } });
-    if (done) rebuild = true;
+    if (done) restale();
   }
 
   /* ---------- the moving layer ---------- */
@@ -1528,14 +1613,18 @@ function make() {
   }
   function step(dt) {
     if (!S || !I) return;
-    const snap = off();
+    const snap = off(), calm = CH.motion() === "calm";
     mt += dt * CH.speed();
     tNow = mt;
+    fc++;
     // ease toward the asked state (an exponential ease: fast at first, settling softly, about 400 ms); the age settles
-    // its last few thousandths of a year at once (well under a pixel), the ink's wetness its last hundredth
+    // its last few thousandths of a year at once (well under a pixel), the ink's wetness its last hundredth. Forward, the
+    // age shown runs at most to the end of the layer on hand: the next layer is made while it waits, a step at a time,
+    // so no frame makes a whole layer at once.
     const k = 1 - Math.exp(-dt * 7.5);
     const ease = (v, tg, eps = 1e-4) => (snap ? tg : Math.abs(tg - v) < eps ? tg : v + (tg - v) * k);
-    vAge = ease(vAge, tAge, 0.004);
+    const tE = !snap && G && !rebuild && tAge > G.now ? Math.max(G.now, Math.min(vAge, tAge)) : tAge;
+    vAge = ease(vAge, tE, 0.004);
     const wT = S.wet || 0; wetV = ease(wetV, wT, 0.01);
     const fT = vAge >= I.end - 0.01 ? 0 : 1;
     if (snap) fogV = fT; else if (fogV !== fT) { const nF = fogV + (fT - fogV) * (1 - Math.exp(-dt * 1.8)); fogV = Math.abs(nF - fT) < 2e-3 ? fT : nF; dirty = true; }
@@ -1547,100 +1636,112 @@ function make() {
     const partTarget = partT >= 0 && !living ? 1 : 0; partV = snap ? partTarget : partV + (partTarget - partV) * (1 - Math.exp(-dt * 3));
     slowV = 1 - 0.85 * partV;
     settlePushes(mt);
+    const hd = hover && hover.door != null ? hover.door : -1; if (hd !== fogHover) { fogHover = hd; fogDirty = true; }
+    // which layers this frame draws: the fog one frame in three (calm: one in six; its veils drift a few pixels a
+    // second), the live layer every frame (calm: every other); a step of the next still layer only on a frame without
+    // the fog (calm: nor the live layer), so the costs do not pile up on one frame
+    const fogDue = snap || fogDirty || fc % (calm ? 6 : 3) === 1, liveDue = snap || !calm || fc % 2 === 0;
+    const buildOK = !fogDue && (!calm || fc % 2 === 1);
     // the still layer: drawn exactly once everything has settled; while the age eases, a cache of the lived years up to
-    // the newest age, made again before the age shown runs past it or stretches it more than about twice. Both are built
-    // a step a frame in the second canvas while the layer on screen can still stand in.
+    // the newest age (cacheAge), made again as the life moves on. Both are built a step at a time in the second canvas
+    // while the layer on screen stands in.
     const sized = !!G && G.cw === cv.width && G.ch === cv.height && G.W === cv._w && G.H === cv._h;
-    const settled = vAge === tAge && wetV === wT && fogV === fT;
-    const vw = sized && !rebuild ? viewOf() : null;
-    if (settled) {
-      const sk = stopKey(), need = rebuild || !sized || !G.exact || G.now !== vAge || G.wet !== wetV || G.fog !== fogV || G.sk !== sk;
+    const settled = vAge === tAge && wetV === wT && fogV === fT, tb = performance.now();
+    if (!G || !sized || rebuild) {
+      // nothing on hand stands in (the first frame, a new size, a new life, a load, motion changed): at once
+      build(settled ? vAge : cacheAge(), settled); dirty = true;
+    } else if (settled) {
+      // a cache made for this very age, as wet and as foggy, is kept as it is: it is drawn as fully as an exact layer
+      // (its small round things are set from its atlas, unstretched at a stretch of 1)
+      const sk = stopKey(), need = stale || G.now !== vAge || (!G.exact && G.know < vAge - 1e-6) || G.wet !== wetV || G.fog !== fogV || G.sk !== sk;
       if (need) {
-        // at once when nothing on hand stands in; else a step a frame
-        if (snap || !sized || rebuild || G.now < vAge - 1e-6 || (G.now === vAge && G.sk > sk)) build(vAge, true);
+        if (snap || G.now < vAge - 1e-6 || (G.now === vAge && G.sk > sk)) build(vAge, true);
         else {
           if (!job || !job.exact || job.age !== vAge || job.wet !== wetV || job.fog !== fogV || job.sk !== sk) job = plan(vAge, true, statB, sctxB);
-          if (job && runSteps(job, 1)) swapIn(job);
+          if (job && buildOK && runSteps(job, 1.5)) swapIn(job);
         }
         dirty = true;
       }
     } else {
       if (job && job.exact) job = null;
-      const covers = !!vw && vw.gap < 5;
-      if (!covers && sized && !rebuild && tAge > G.now && vAge > G.now && (holdT < 0 || mt - holdT < 0.07)) {
-        // a jump forward past the layer on hand: the age waits at the layer's end for a frame or few (under 70 ms, too
-        // short to see in an ease) while the next cache is built a few steps a frame, rather than all in one frame
-        if (holdT < 0) holdT = mt;
-        vAge = G.now;
-        if (!job) job = plan(cacheAge(), false, statB, sctxB);
-        if (job && runSteps(job, 6)) { swapIn(job); holdT = -1; }
-      } else if (!covers || (vw.s > 2.6 && G.now - vAge > 0.6)) {
-        // nothing on hand covers the age shown: finish the cache being made if it does, else make one now
-        holdT = -1;
-        if (job && sized && !rebuild && job.age >= vAge - 1e-6) { runSteps(job, Infinity); swapIn(job); }
-        else build(cacheAge(), false);
-      } else {
-        holdT = -1;
-        // running toward the end of the cache (or stretching it): make the next one over the coming frames
-        const ahead = 1.1 * Math.abs(tAge - vAge) + 0.3;
-        if (job || (tAge > vAge && G.now - vAge < ahead) || (tAge < vAge && vw.s > 1.8)) {
-          if (!job) job = plan(cacheAge(), false, statB, sctxB);
-          // a step a frame, more when the age shown is about to run past the layer on hand
-          const urgent = tAge > vAge && G.now - vAge < 0.25 * (tAge - vAge) + 0.01;
-          if (job && runSteps(job, urgent ? 6 : 1) && job.G.now >= vAge - 1e-6) swapIn(job);
-          else if (job && job.i >= job.steps.length) job = null;
-        }
-      }
+      // while time runs a new stop comes every 280 ms or so: a new layer is begun at most every 400 ms (calm 800), and
+      // the age shown waits at the end of the one on hand meanwhile
+      const fwd = tAge > vAge, target = cacheAge(), tn = performance.now();
+      if (!job && (stale || (fwd && G.now < target - 1e-6) || (!fwd && viewOf().s > 1.8)) && (!living || tn - planAt >= (calm ? 800 : 400))) {
+        job = plan(target, false, statB, sctxB); planAt = tn; }
+      // a layer made before the newest stop is still newer than the one on screen: it is finished and shown, and the
+      // next one follows (dropping it would starve the river while the stops come faster than a layer is made)
+      waitN = job && fwd && vAge >= G.now - 1e-6 ? waitN + 1 : 0;
+      if (job && (buildOK || waitN > 6) && runSteps(job, 1.5)) swapIn(job);
       dirty = true;
     }
+    costOf(job || G.now !== vAge || stillKey === "" ? "build" : "idle", tb);
     V = G ? (G.exact && G.now === vAge ? { s: 1, vnx: G.nx, dnx: G.nx, D: G, cache: false, x0: G.sc.x0 } : viewOf()) : null;
     if (!G || !V) return;
     if (snap && !dirty) return;
     dirty = false;   // cleared before drawing, so anything that asks for another frame while drawing keeps its ask
     if (!snap) stepFlecks(Math.min(dt, 0.05), mt); else stillFlecks();
-    render(mt);
+    render(mt, snap, fogDue, liveDue);
   }
-  function render(t) {
-    const k = G.k, s = V.s, x0 = G.sc.x0, src = () => ctx.setTransform(k * s, 0, 0, k, k * x0 * (1 - s), 0), page = () => ctx.setTransform(k, 0, 0, k, 0, 0);
+  function render(t, all, fogDue, liveDue) {
+    const key = V.cache ? `${gid}|${V.s}|${V.vnx}|${V.dnx}` : `${gid}`;
+    let t0 = performance.now();
+    if (all || key !== stillKey) { stillKey = key; renderStill(); costOf("still", t0); t0 = performance.now(); }
+    if (all || fogDue) { fogDirty = false; renderFog(t); costOf("fog", t0); t0 = performance.now(); }
+    if (all || liveDue) { renderLive(t); costOf("live", t0); }
+  }
+  // the lived years: the layer on hand, or while the age eases its slice up to now stretched to the age shown, with
+  // its small round things set unstretched each at its place in the years shown
+  function renderStill() {
+    const k = G.k, s = V.s, x0 = G.sc.x0;
     ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.globalAlpha = 1; ctx.globalCompositeOperation = "source-over";
     ctx.clearRect(0, 0, cv.width, cv.height);
-    if (!V.cache) { ctx.drawImage(stat, 0, 0); page(); }
-    else {
-      // the age is still easing: the lived years come from the cached layer, its slice up to now stretched to the age
-      // shown; the fog's darkness and the thread of who they are into the fog are drawn live
-      page(); drawFogBody(ctx, V.D);
-      src(); const sw = Math.min(stat.width, Math.ceil(V.vnx * k));
-      if (sw > 0) ctx.drawImage(stat, 0, 0, sw, stat.height, 0, 0, sw / k, G.H);
-      page();
-      // the cache's threads and ground run on past now: there they fade into it, as they do once settled
-      fadeOut(ctx, V.dnx - 18, V.dnx + 0.5, 0, edge(V.vnx, 0) - 1, 0.92);
-      fadeOut(ctx, V.dnx - (G.ly.sm ? 14 : 28), V.dnx + 0.5, G.ly.strTop - 2, G.ly.strBot + 2, 1);
-      // the small round things, unstretched, each at its place in the years shown
-      const al = G.atlas ? G.atlas.list : [];
-      for (let i = 0; i < al.length; i++) {
-        const [sx, sy, hw, up, dn, ax, ay] = al[i]; if (sx > V.vnx + 0.5) continue;
-        const a = Math.floor((ax - hw) * k), b = Math.ceil((ax + hw) * k), t0 = Math.floor((ay - up) * k), t1 = Math.ceil((ay + dn) * k);
-        ctx.drawImage(gly, a, t0, b - a, t1 - t0, x0 + (sx - x0) * s + (a / k - ax), sy + (t0 / k - ay), (b - a) / k, (t1 - t0) / k);
-      }
-      drawFogThread(ctx, V.D);
+    if (!V.cache) { ctx.drawImage(stat, 0, 0); return; }
+    ctx.setTransform(k * s, 0, 0, k, k * x0 * (1 - s), 0);
+    const sw = Math.min(stat.width, Math.ceil(V.vnx * k));
+    if (sw > 0) ctx.drawImage(stat, 0, 0, sw, stat.height, 0, 0, sw / k, G.H);
+    ctx.setTransform(k, 0, 0, k, 0, 0);
+    // the cache's threads and ground run on past now: there they fade into it, as they do once settled
+    fadeOut(ctx, V.dnx - 18, V.dnx + 0.5, 0, edge(V.vnx, 0) - 1, 0.92);
+    fadeOut(ctx, V.dnx - (G.ly.sm ? 14 : 28), V.dnx + 0.5, G.ly.strTop - 2, G.ly.strBot + 2, 1);
+    const al = G.atlas ? G.atlas.list : [];
+    for (let i = 0; i < al.length; i++) {
+      const [sx, sy, hw, up, dn, ax, ay] = al[i]; if (sx > V.vnx + 0.5) continue;
+      const a = Math.floor((ax - hw) * k), b = Math.ceil((ax + hw) * k), t0 = Math.floor((ay - up) * k), t1 = Math.ceil((ay + dn) * k);
+      ctx.drawImage(gly, a, t0, b - a, t1 - t0, x0 + (sx - x0) * s + (a / k - ax), sy + (t0 / k - ay), (b - a) / k, (t1 - t0) / k);
     }
-    // the lived years' moving parts, in the cached layer's own pixels (clipped at now while it runs on past it)
-    src(); ctx.save();
-    if (V.cache) { ctx.beginPath(); ctx.rect(0, 0, V.vnx, G.H); ctx.clip(); }
-    drawFlow(ctx, t);
-    drawPushes(ctx, t, false);
-    ctx.restore();
-    page();
-    const doors = V.cache ? V.D.doors : G.doors;
-    if (fogV > 0.01) { drawStars(ctx, t); drawFog(ctx, t, false); drawDoors(ctx, t, doors); }
-    src(); drawFlecks(ctx, t);
-    page(); if (fogV > 0.01) drawFog(ctx, t, true);
-    drawGleam(ctx, t); drawSource(ctx, t);
-    src(); ctx.save();
-    if (V.cache) { ctx.beginPath(); ctx.rect(0, 0, V.vnx + 1, G.H); ctx.clip(); }
-    drawThreadLight(ctx, t); drawHover(ctx);
-    drawRipple(ctx, t);
-    ctx.restore();
+  }
+  // the years ahead: the fog's darkness, the thread of who they are going on into it, the stars, the back veil, the
+  // doors, the front veil
+  let fogClear = false;
+  function renderFog(t) {
+    const g = fctx;
+    if (fogV <= 0.01) { if (!fogClear) { g.setTransform(1, 0, 0, 1, 0, 0); g.clearRect(0, 0, cvF.width, cvF.height); fogClear = true; } return; }
+    fogClear = false;
+    g.setTransform(1, 0, 0, 1, 0, 0); g.globalAlpha = 1; g.globalCompositeOperation = "source-over";
+    g.clearRect(0, 0, cvF.width, cvF.height);
+    g.setTransform(G.k, 0, 0, G.k, 0, 0);
+    const D = V.cache ? V.D : G;
+    drawFogBody(g, D); drawFogThread(g, D);
+    drawStars(g, t); drawFog(g, t, false); drawDoors(g, t, D.doors || []); drawFog(g, t, true);
+  }
+  // what moves on the lived years and at now
+  function renderLive(t) {
+    const g = lctx, k = G.k, s = V.s, x0 = G.sc.x0, src = () => g.setTransform(k * s, 0, 0, k, k * x0 * (1 - s), 0), page = () => g.setTransform(k, 0, 0, k, 0, 0);
+    g.setTransform(1, 0, 0, 1, 0, 0); g.globalAlpha = 1; g.globalCompositeOperation = "source-over";
+    g.clearRect(0, 0, cvL.width, cvL.height);
+    src(); g.save();
+    if (V.cache) { g.beginPath(); g.rect(0, 0, V.vnx, G.H); g.clip(); }
+    drawFlow(g, t);
+    drawPushes(g, t, false);
+    g.restore();
+    drawFlecks(g, t);
+    page(); drawGleam(g, t); drawSource(g, t);
+    src(); g.save();
+    if (V.cache) { g.beginPath(); g.rect(0, 0, V.vnx + 1, G.H); g.clip(); }
+    drawThreadLight(g, t); drawHover(g);
+    drawRipple(g, t);
+    g.restore();
   }
 
   /* ---------- hover: what each mark means ----------
@@ -1738,20 +1839,20 @@ function make() {
   // the readings go under the strip, as the line's own (04-line.js lnHoverShow), so they never cover the year read
   let shown = false;
   const under = () => { if (!shown || tipOwner !== "line" || tipEl.hidden) return; const b = lineEl.getBoundingClientRect().bottom; if (parseFloat(tipEl.style.top) < b) tipEl.style.top = b + 6 + "px"; };
-  CH.canvasTip(cv, hit);
+  CH.canvasTip(cvL, hit);
   const leave = () => { shown = false; if (hover) { hover = null; dirty = true; } };
   const onMove = (e) => { if (e.pointerType === "mouse") under(); };
   const onUp = (e) => { if (e.pointerType !== "mouse") setTimeout(under, 0); };
-  cv.addEventListener("pointermove", onMove);
-  cv.addEventListener("pointerup", onUp);
-  cv.addEventListener("pointerleave", leave);
+  cvL.addEventListener("pointermove", onMove);
+  cvL.addEventListener("pointerup", onUp);
+  cvL.addEventListener("pointerleave", leave);
   /* over the page's own hover area: its reading of the year stands, unless the pointer is on a seam (or a breakthrough
      or turn), whose own reading then takes its place (the line's own listener runs first, on svg#river) */
   let over = null;
   function onLine(e) {
     if (e.pointerType !== "mouse") return;
     if (!e.target || e.target.id !== "lineHov") { over = null; return; }
-    const [x, y] = CH.local(cv, e), html = markAt(x, y);
+    const [x, y] = CH.local(cvL, e), html = markAt(x, y);
     over = html ? { html, cx: e.clientX } : null;
     if (over) showOver();
   }
@@ -1776,7 +1877,7 @@ function make() {
     if (!res || !I) return;
     if (res.pushed) {
       const p = (CH.life.pushes || []).find((q) => q.age === res.age && q.title === res.title);
-      if (p) { seenP.add(p); pend.delete(p); if (!quiet && !off()) born.set(p, tNow); rebuild = true; }
+      if (p) { seenP.add(p); pend.delete(p); if (!quiet && !off()) born.set(p, tNow); restale(); }
     }
     if (quiet) return;
     // (read from the whole index, not the layer on screen: a line the outcome itself began is drawn once the layer
@@ -1805,7 +1906,7 @@ function make() {
   function align() {
     if (lineEl.firstChild !== root) lineEl.insertBefore(root, lineEl.firstChild);
     lineEl.classList.add("lv-river");
-    const ly = layoutOf(Math.max(48, lineEl.clientHeight)), y1 = ly.mid - ly.maxT / 2 - 3, y2 = ly.bandY + ly.bandH + 3;
+    const ly = layoutOf(Math.max(48, cv._h || lineEl.clientHeight)), y1 = ly.mid - ly.maxT / 2 - 3, y2 = ly.bandY + ly.bandH + 3;
     const hov = document.getElementById("lineHov"); if (hov) { hov.setAttribute("y", (y1 + 1).toFixed(1)); hov.setAttribute("height", (y2 - y1 - 1).toFixed(1)); }
     const cross = document.getElementById("cross"); if (cross) { cross.setAttribute("y1", y1.toFixed(1)); cross.setAttribute("y2", y2.toFixed(1)); }
     const end = riverEl.querySelector(".gl.end");
@@ -1827,7 +1928,8 @@ function make() {
     // this piece's script per frame over the last frames (up to 1200): mean, 95th percentile and worst, in ms
     perf() {
       const n = Math.min(ringN, ring.length), xs = Array.from(ring.slice(0, n)).sort((p, q) => p - q);
-      return { frames: n, mean: n ? xs.reduce((s, v) => s + v, 0) / n : 0, p95: n ? xs[Math.min(n - 1, Math.floor(n * 0.95))] : 0, max: n ? xs[n - 1] : 0, reset() { ringN = 0; } };
+      const by = {}; for (const k in parts) by[k] = { perFrame: n ? parts[k].ms / n : 0, n: parts[k].n, each: parts[k].ms / parts[k].n, max: parts[k].max };
+      return { frames: n, mean: n ? xs.reduce((s, v) => s + v, 0) / n : 0, p95: n ? xs[Math.min(n - 1, Math.floor(n * 0.95))] : 0, max: n ? xs[n - 1] : 0, parts: by, reset() { ringN = 0; parts = {}; } };
     },
   };
 }

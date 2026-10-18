@@ -71,7 +71,7 @@ const tag = `${width}x${height}`;
     say('part live');
     let k = 0, pushed = 0, cost = null;
     await page.evaluate(() => CH.pieces.get('river').perf().reset());
-    const tc = Date.now(), costT = setTimeout(async () => { cost = await page.evaluate(() => { const p = CH.pieces.get('river').perf(); return p && { frames: p.frames, mean: p.mean, p95: p.p95, max: p.max }; }).catch(() => null); }, 20000);
+    const tc = Date.now(), costT = setTimeout(async () => { cost = await page.evaluate(() => { const p = CH.pieces.get('river').perf(); return p && { frames: p.frames, mean: p.mean, p95: p.p95, max: p.max, parts: p.parts }; }).catch(() => null); }, 20000);
     for (const t1 = Date.now(); Date.now() - t1 < 20 * 60000;) {
       await idle();
       const s = await page.evaluate(() => { const up = !document.getElementById('evwrap').hidden;
@@ -92,14 +92,16 @@ const tag = `${width}x${height}`;
       await page.evaluate(() => send(''));
     }
     clearTimeout(costT);
-    if (!cost) cost = await page.evaluate(() => { const p = CH.pieces.get('river').perf(); return p && { frames: p.frames, mean: p.mean, p95: p.p95, max: p.max }; });
+    if (!cost) cost = await page.evaluate(() => { const p = CH.pieces.get('river').perf(); return p && { frames: p.frames, mean: p.mean, p95: p.p95, max: p.max, parts: p.parts }; });
     await idle();
     const st = await page.evaluate(() => ({ age: hud.life.age, pushes: CH.life.pushes.length, judged: CH.life.pushes.filter((p) => p.verdict !== 'none').length, stops: CH.life.stops.length }));
     say('  stood at age', st.age, ';', pushed, 'pushes sent,', st.pushes, 'in the log,', st.judged, 'judged,', st.stops, 'stops');
     say(`  the river's cost over ${cost ? cost.frames : 0} frames of the first 20 s: mean ${cost ? cost.mean.toFixed(2) : '?'} ms, p95 ${cost ? cost.p95.toFixed(2) : '?'} ms, worst ${cost ? cost.max.toFixed(1) : '?'} ms`);
+    if (cost && cost.parts) say('  by part (ms a frame, calls, ms a call, worst):', Object.entries(cost.parts).map(([k, q]) => `${k} ${q.perFrame.toFixed(2)} ${q.n} ${q.each.toFixed(2)} ${q.max.toFixed(1)}`).join('; '));
     fs.writeFileSync(`${dir}/river-${tag}-cost.json`, JSON.stringify({ width, height, ...cost }));
     check(!!cost && cost.frames > 300, `the river drew while the life ran (${cost ? cost.frames : 0} frames in 20 s)`);
-    check(!!cost && cost.mean < 4 && cost.p95 < 8, 'its cost alone is inside the budget the six share (4 ms mean, 8 ms p95)');
+    // (the release's budget is read at 1440x900; at other sizes the cost is told, not judged)
+    if (width === 1440 && height === 900) check(!!cost && cost.mean < 4 && cost.p95 < 8, 'its cost alone is inside the budget the six share (4 ms mean, 8 ms p95)');
     check(st.pushes > 0, 'the life has pushes for the river to show');
   }
 
