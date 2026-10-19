@@ -266,6 +266,14 @@
    "reckless": "ci-shadow-reckless",
    "stuck": "ci-shadow-stuck"
   },
+  "footprint": {
+   "person": "ci-footprint-people",
+   "place": "ci-footprint-places",
+   "means": "ci-footprint-means",
+   "mark": "ci-footprint-marks",
+   "door": "ci-footprint-doors",
+   "lesson": "ci-footprint-lessons"
+  },
   "option": {
    "a performance review": [
     "ci-checklist",
@@ -19191,6 +19199,24 @@
   },
   "ci-shadow-stuck": {
    "name": "shadow-stuck"
+  },
+  "ci-footprint-people": {
+   "name": "footprint people"
+  },
+  "ci-footprint-places": {
+   "name": "footprint places"
+  },
+  "ci-footprint-means": {
+   "name": "footprint means"
+  },
+  "ci-footprint-marks": {
+   "name": "footprint marks"
+  },
+  "ci-footprint-doors": {
+   "name": "footprint doors"
+  },
+  "ci-footprint-lessons": {
+   "name": "footprint lessons"
   }
  }
 }
