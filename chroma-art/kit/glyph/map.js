@@ -57,6 +57,10 @@ const MAP = {
   panel: { world: 'globe', push: 'crowd' },
   // the shadow states, by the state word a colour's shadow shows (item 2 of the implementation list, chroma-ideas/shadows-mechanics.md)
   shadow: { rigid: 'shadow-rigid', indecisive: 'shadow-indecisive', ruthless: 'shadow-ruthless', reckless: 'shadow-reckless', stuck: 'shadow-stuck' },
+  // the six footprint stacks (v24 §3, chroma-ideas/next-table-2026-10-19/plan.md), keyed by the Library's footprint kinds:
+  // one icon heads each stack; no footprint, event or option gets an icon of its own
+  footprint: { person: 'footprint people', place: 'footprint places', means: 'footprint means', mark: 'footprint marks',
+    door: 'footprint doors', lesson: 'footprint lessons' },
   // every option of the live Library (2026-10-06: earth, science, politics, stage; situations and echoes): moment name -> one glyph per option, in option order
   option: require('./option_map.json'),
 };
