@@ -316,3 +316,80 @@ def drop_aim(S, n, q):
         return False
     S["aim_end"](n, int(q), "let go")
     return True
+
+
+# Footprints (plan.md section 3): the marks stack shows a mark only when it nears a title or perk (Emren's condition,
+# "2 of 3 toward ..."). marks_toward reads each title and perk rule's mark clauses (mk, mk_ok: one, within its years;
+# mkn(m) >= k: k of them; mk_span: one) as units: have of need, for the ones the person does not hold yet where one of
+# their marks counts. The rule's other parts (and an "or" around the marks) are not read: it is how near the marks are.
+_MK_RULES = {}
+
+
+def _mark_clauses(GR, gj):
+    import ast
+    key_ = (id(GR), gj)
+    if key_ in _MK_RULES:
+        return _MK_RULES[key_]
+    out = []
+    for i, r_ in enumerate(GR["rule"]):
+        r_ = GR["rule_when"].get(i, r_) if gj else r_   # green_jobs: the newer rule in its place
+        src_ = r_.get("req_s") or ""
+        if "mk" not in src_:
+            continue
+        try:
+            tree_ = ast.parse(src_, mode="eval")
+        except SyntaxError:
+            continue
+        cl_, inner_ = [], set()
+        for x in ast.walk(tree_):   # mkn(m) >= k (or > k): k of that mark
+            if isinstance(x, ast.Compare) and len(x.ops) == 1 and isinstance(x.left, ast.Call) \
+                    and getattr(x.left.func, "id", None) == "mkn" and isinstance(x.comparators[0], ast.Constant) \
+                    and isinstance(x.ops[0], (ast.GtE, ast.Gt)) and x.left.args and isinstance(x.left.args[0], ast.Constant):
+                k_ = int(x.comparators[0].value) + isinstance(x.ops[0], ast.Gt)
+                cl_.append((x.left.args[0].value, "n", max(1, k_))); inner_.add(id(x.left))
+        for x in ast.walk(tree_):
+            if isinstance(x, ast.Call) and getattr(x.func, "id", None) in ("mk", "mk_ok", "mkn", "mk_span") \
+                    and id(x) not in inner_ and x.args and isinstance(x.args[0], ast.Constant):
+                yrs_ = x.args[1].value if len(x.args) > 1 and isinstance(x.args[1], ast.Constant) else None
+                cl_.append((x.args[0].value, "y", yrs_))
+        if cl_:
+            out.append((i, cl_))
+    _MK_RULES[key_] = out
+    return out
+
+
+def marks_toward(S, n):
+    """The titles and perks one of the person's marks counts toward, not held yet, nearest first: a list of
+    dict(mark, title, say, kind ("title" or "perk"), have, need, done), mark the one of theirs left last; the ones still
+    short first (fewest to go), then those whose marks are all there (done: the rule waits on something else, such as
+    years in a career). [] without titles."""
+    L = S["L"]
+    GR = L.get("ROLES") if S.get("RON") else None
+    if GR is None or S.get("mark_n") is None:
+        return []
+    MIDX_ = {m_: j_ for j_, m_ in enumerate(L["MARKS"])}
+    mn_, ml_, t = S["mark_n"][n], S.get("mark_last"), S["t"]
+    out = []
+    for i, cl_ in _mark_clauses(GR, bool(S["P"].get("green_jobs"))):
+        if S["r_has"][n, i]:
+            continue
+        have_ = need_ = 0; last_ = (-1, None)
+        for m_, how_, v_ in cl_:
+            if m_ not in MIDX_:
+                continue
+            j_ = MIDX_[m_]; c_ = int(mn_[j_])
+            if how_ == "n":
+                need_ += v_; h_ = min(c_, v_)
+            else:
+                need_ += 1
+                h_ = int(c_ > 0 and (v_ is None or ml_ is None or (t - ml_[n, j_]) <= v_ * 52 + 1e-9))
+            have_ += h_
+            if h_ and ml_ is not None and ml_[n, j_] > last_[0]:
+                last_ = (int(ml_[n, j_]), m_)
+            elif h_ and last_[1] is None:
+                last_ = (last_[0], m_)
+        if have_ and need_:
+            out.append(dict(mark=last_[1], title=GR["names"][i], say=GR["say"][i],
+                            kind="title" if i < GR["NT"] else "perk", have=have_, need=need_, done=have_ >= need_))
+    out.sort(key=lambda d_: (d_["done"], d_["need"] - d_["have"], -d_["have"], d_["title"]))
+    return out

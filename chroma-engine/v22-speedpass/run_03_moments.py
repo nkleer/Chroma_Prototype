@@ -234,11 +234,15 @@
         for (s_, k_) in L["FOOT"]:
             FT_HAS[s_, k_] = True
         FT_OWN = np.isin(np.array(L["MARKS"], object), L["FOOT_OWN"])
+        # a door only a return reads (none in the batch, or a return of its kind) shuts after foot_par door_yrs, or with
+        # picks coming back (echo_play) after the seed's keep (Library 10-19)
+        FT_DOOR = 52 * (P["echo_play_par"]["keep"] if EP_ON else P["foot_par"]["door_yrs"])
     def foot_apply(live_, hm_, mk_):
         """This week's acts leave their footprints (FOOT_ON); hm_: the lives whose act left its own mark, mk_ (the mark)."""
         for n in np.nonzero(live_)[0]:   # a door shuts when a moment reading its mark is met
             if foot_open[n]:
-                foot_open[n] = [d_ for d_ in foot_open[n] if d_[0] not in MIDX or not L["FOOT_READS"][s[n], MIDX[d_[0]]]]
+                foot_open[n] = [d_ for d_ in foot_open[n] if d_[0] not in MIDX or not (L["FOOT_READS"][s[n], MIDX[d_[0]]]
+                                or (L["FOOT_RET"][MIDX[d_[0]]] and t - d_[1] >= FT_DOOR))]
         fto_ = set(int(n) for n in hm_ if FT_OWN[mk_[n]] and L["FOOT_S"][s[n]])
         for n in np.nonzero(live_ & ~idle)[0]:
             ok_ = bool(succ[n]); feet_ = []; foot[n] = []

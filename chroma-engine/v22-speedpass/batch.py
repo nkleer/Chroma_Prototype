@@ -1247,10 +1247,14 @@ def _foot(L, world, packs):
     # a door waits until a moment that reads its mark is met: FOOT_READS[s, mark], the moment's condition names the mark
     # (req or anchor) or it is a return of that kind (of:)
     L["FOOT_READS"] = np.zeros((L["S"], len(L["MARKS"])), bool)
+    fr_ = np.zeros(len(L["MARKS"]), bool)
     for c_ in L["COND"]:
         tx_ = c_["rtxt"] + " " + c_["atxt"]
         for j_, m_ in enumerate(L["MARKS"]):
-            L["FOOT_READS"][c_["s"], j_] |= f"'{m_}'" in tx_ or f'"{m_}"' in tx_ or c_["of"] == m_
+            rq_ = f"'{m_}'" in tx_ or f'"{m_}"' in tx_
+            L["FOOT_READS"][c_["s"], j_] |= rq_ or c_["of"] == m_
+            fr_[j_] |= rq_
+    L["FOOT_RET"] = ~fr_   # marks no moment's condition reads (a return of their kind at most): such a door expires
 
 
 def _bold_link(x):
