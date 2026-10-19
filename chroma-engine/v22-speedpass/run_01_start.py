@@ -39,6 +39,13 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
     held = np.zeros((N, NK), bool); I = np.zeros((N, NK)); prof = np.full((N, NK, C), 0.2)
     sat = np.full((N, NK), 0.6); since = np.zeros((N, NK)); pension = np.zeros(N)
     LOAD = np.array([c[1] for c in COMMITMENTS]); KPAY = np.array([parse(c[2], NIDX, NJ) for c in COMMITMENTS])
+    if P["need_tab"] == "v7":   # needs that fit life: the reviewed tables (realm_earth)
+        NMAP = NMAP_V7; KPAY = np.array([parse(COMMIT_MEETS_V7[c[0]], NIDX, NJ) for c in COMMITMENTS])
+    elif P["need_tab"] is not None:
+        raise ValueError(f"need_tab {P['need_tab']!r}: None or 'v7'")
+    SH_ON = P["shared_hist"] > 0   # shared history: an act's belonging gain also feeds meaning, more as close bonds last
+    IA_ON = bool(P["imp_age"])      # setbacks only from the age each can happen at
+    IMP_AGE_ = np.asarray(IMP_AGE, float)
     FREE_STAGE = np.asarray(P["freedom_stage"], float)
     IMP_FREE = np.minimum(L["IMP"][:, NIDX["autonomy"]], 0)    # impositions on autonomy also take freedom
     BEREAVE = np.array([nm == "bereavement" for nm in L["names"]])
@@ -171,6 +178,15 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
     nw = np.zeros((N, len(NSOURCES), NJ)) if NW_ON else None   # this week's need moves so far, by source
     nw_imp = np.full(N, -1) if NW_ON else None                 # this week's silent setback (IMPOSITIONS index), -1 none
     nw_prev = need.copy() if NW_ON else None                   # needs at the last mark
+    def shared_history(b0_, room_):
+        """Shared history (needs that fit life): what an act just gave belonging (since b0_) also feeds meaning, by a
+        share that grows as the longest held partnership, children or community lasts (Lambert et al. 2013)."""
+        bd_ = [KIDX["partner"], KIDX["children"], KIDX["community"]]
+        yrs_ = np.max(np.where(held[:, bd_], t - since[:, bd_], 0), 1) / 52
+        k0_, half_ = P["shared_hist_par"]
+        k_ = k0_ + (P["shared_hist"] - k0_) * (1 - 0.5 ** (yrs_ / half_))
+        rm_ = room_[:, NIDX["meaning"]] if np.ndim(room_) else 1.0
+        need[:, NIDX["meaning"]] += k_ * np.maximum(need[:, NIDX["belonging"]] - b0_, 0) * rm_
     def nw_mark(k_):
         """need_why: the needs' moves since the last mark are source k_'s (every write to need is followed by a mark)."""
         nw[:, k_] += need - nw_prev; nw_prev[:] = need

@@ -69,6 +69,37 @@ DUTIES = {
   "community": "belonging.5 safety.5",
   "faith":     "meaning.6 belonging.4",
 }
+# ---- Needs that fit life (the next stage's workstream 4, behind need_tab="v7" and imp_age; read from today's tables
+# unless set). chroma-ideas/next-table-2026-10-19/needs-research.md, one source per cell (section 7):
+# each colour's ends: White's order and duty also make belonging (McMillan & Chavis 1986); Blue's foresight is safety
+# (Aspinwall & Taylor 1997) and its meaning is curiosity's (Kashdan & Steger 2007); Black's means are safety (Kasser
+# et al. 1995) and cost belonging (Dittmar et al. 2014); Red finds meaning in passion and the people loved (King et al.
+# 2006); Green in kin, land and its place in the whole (Howell et al. 2013). Columns still sum to .6; meaning's row
+# rises from 1.0 to 1.1, safety and belonging fall to .95 each
+NEED_MAP_V7 = [
+  #  W     U     B     R     G
+  [0.20, 0.25, 0.25, 0.10, 0.15],   # safety
+  [0.20, 0.10, 0.10, 0.30, 0.25],   # belonging
+  [0.00, 0.00, 0.00, 0.00, 0.00],   # autonomy (the engine: acting as oneself)
+  [0.00, 0.00, 0.00, 0.00, 0.00],   # competence (the engine: succeeding at what is hard for you)
+  [0.20, 0.25, 0.25, 0.20, 0.20],   # meaning
+]
+# what each commitment meets while held (each row still 1.0): a partner gives meaning (Gold et al. 2024), work gives
+# contact and less meaning than a calling (Paul & Batinic 2010, Wrzesniewski et al. 1997), a community gives safety
+# (Sampson et al. 1997), a faith's belonging is its congregation (Lim & Putnam 2010)
+COMMIT_MEETS_V7 = {
+  "career":    "competence.55 meaning.2 safety.15 belonging.1",
+  "partner":   "belonging.55 safety.25 meaning.2",
+  "children":  "meaning.65 belonging.35",
+  "community": "belonging.5 meaning.35 safety.15",
+  "faith":     "meaning.5 belonging.35 safety.15",
+}
+# the youngest age each setback (IMPOSITIONS, in order) can happen at (imp_age): a rule imposed from 10 (Smetana et al.
+# 2006), an institution's betrayal from 12, being lied to from 5 (Heyman et al. 2009), what you earned taken from 4
+# (Kanngiesser & Warneken 2012), the community damaged at any age (Masten & Osofsky 2010), kept from someone loved from
+# 1 (Ainsworth et al. 1978), trusted evidence overturned from 14 (Kuhn et al. 2000), made dependent from 16 (Baltes
+# 1996), traditions mocked from 7 (Brown & Bigler 2005), lawlessness at any age (Fowler et al. 2009)
+IMP_AGE = (10, 12, 5, 4, 0, 1, 14, 16, 7, 0)
 
 
 # ---- Births by the parent's age, and a home together (from engine.py)

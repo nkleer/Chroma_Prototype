@@ -1,4 +1,4 @@
-"""Engine check for the pause points (backend plan item 2, 2026-10-08) and each switch's own rows: 73 rows, about an hour
+"""Engine check for the pause points (backend plan item 2, 2026-10-08) and each switch's own rows: 74 rows, about an hour
 (50 to 65 min measured 10-17: the Engine with T_JOBS=4, Release on #288).
 
 engine.run_steps() is engine.run() pausing six times a week for the game. On a few short runs this checks that
@@ -52,6 +52,8 @@ engine.run_steps() is engine.run() pausing six times a week for the game. On a f
      week's change in each need at the "end" pause; a setback carries its kind; what the caller sets at a pause is the
      player's (at most what was set); off, no record. The hover arrows (foresee.arrows) read at every pick change no
      life, and the picked option's need arrows come within one size of the record's act share.
+ 19. needs that fit life (need_tab "v7", shared_hist, imp_age): each switched on, run_steps() lives as run() and the
+     lives move; no setback comes before its age (realm_earth.IMP_AGE); with the v7 tables a partnership gives meaning.
 
     python3 -B chroma-engine/tools/t_steps.py [ENGINE_DIR]
 T_JOBS=N: the rows of 8 and 9 on N processes (default up to 4, by the cores there are; 1: one after another).
@@ -979,6 +981,42 @@ if "need_why" in E.DEFAULT:
           f"edits {seen_['player']:.2f} of {seen_['edits']:.2f} set (the rest clipped); the hover arrows read-only, the picked "
           f"option's need arrows within a size of the record {seen_['ar_ok']} of {seen_['ar']}{'' if not fails else '; ' + '; '.join(fails[:4])} "
           f"({time.process_time() - t0:.0f} s)")
+# 19. needs that fit life (need_tab, shared_hist, imp_age; workstream 4), Earth and packs, world off
+if "imp_age" in E.DEFAULT:
+    t0 = time.process_time(); fails = []; NS_ = E.NSOURCES
+    kw = dict(N=3, years=40, seed=13, lib=EARTH, log_lives=(0,))
+    o0_ = E.run(**kw, P=dict(E.DEFAULT))
+    early_, par_m_, d_ = 0, 0.0, {}
+    for lab_, sw_ in (("need_tab", dict(need_tab="v7")), ("shared_hist", dict(shared_hist=0.3)), ("imp_age", dict(imp_age=True))):
+        P_ = dict(E.DEFAULT, need_why=True, **sw_)
+        o1_ = E.run(**kw, P=P_)
+        g = E.run_steps(**kw, P=P_); msg = next(g)
+        while True:
+            kind, t, S, val = msg
+            if kind == "end":
+                if lab_ == "imp_age":
+                    for n_ in np.nonzero(S["nw_imp"] >= 0)[0]:
+                        early_ += S["age"] < E.IMP_AGE[int(S["nw_imp"][n_])]
+                if lab_ == "need_tab":
+                    par_m_ += float(S["nw"][:, NS_.index("commitments"), E.NEEDS.index("meaning")]
+                                    [S["held"][:, E.KIDX["partner"]] & ~S["held"][:, E.KIDX["children"]]].clip(0).sum())
+            try:
+                msg = g.send(val)
+            except StopIteration as done:
+                o2_ = done.value
+                break
+        if digest(o1_) != digest(o2_):
+            fails.append(f"{lab_} on: run_steps not the lives of run()")
+        if digest(o1_) == digest(o0_):
+            fails.append(f"{lab_} on: nothing moved")
+    if early_:
+        fails.append(f"imp_age: {early_} setbacks before their age")
+    if par_m_ <= 0:
+        fails.append("need_tab v7: a partnership gave no meaning")
+    bad += bool(fails)
+    print(f"{'PASS' if not fails else 'FAIL'}  needs that fit life (need_tab v7, shared_hist, imp_age), each switched on: "
+          f"run_steps lives as run(), the lives move; no setback before its age; a partnership gives meaning "
+          f"({par_m_:.3f}){'' if not fails else '; ' + '; '.join(fails[:4])} ({time.process_time() - t0:.0f} s)")
 # 11. nothing read at a pause outside the handed-over names (an engine without STATE_MISSED reads its whole frame)
 if hasattr(E, "STATE_MISSED"):
     bad += bool(E.STATE_MISSED)
