@@ -191,12 +191,12 @@
                     boch_ = bor_["change"]["well" if bok_b_ else "badly"]
                     bodl_ = [cd_["delay"] for _, _, cd_ in EP_C.get((bor_["kind"], bok_b_), ()) or EP_C.get(("change:" + boch_, bok_b_), ())]
                     bocap_ = bo_n[n] >= P["bold_cap"]   # past the cap the seed is done at once (it never comes back)
-                    bodue_ = None if bocap_ else t + int(round(ep_rng.uniform(min(d_[0] for d_ in bodl_), max(d_[1] for d_ in bodl_))
-                                                              if bodl_ else ep_rng.uniform(*EPP["delay"])) * 52)
+                    bolo_, bohi_ = (min(d_[0] for d_ in bodl_), max(d_[1] for d_ in bodl_)) if bodl_ else EPP["delay"]
+                    bodue_ = None if bocap_ else t + int(round(ep_rng.uniform(bolo_, bohi_) * 52))
                     ep_seeds.append(dict(n=int(n), t=t, kind=bor_["kind"], src="bold", s=int(s[n]), a=int(a[n]), ok=bok_b_,
                                          due=bodue_, done=-1 if bocap_ else None, got=None, bold=int(bor_["i"]),
                                          alt="change:" + boch_ if boch_ else None, link=False, change=False, who=None, gone=False,
-                                         title=bo_title[n]))
+                                         title=bo_title[n], until=t + int(round((bohi_ + 0.25) * 52))))   # its window: delay + a season
                     bo_seed[n] = len(ep_seeds) - 1; bo_n[n] += not bocap_
             # moves: the family moves, or the person moves away or leaves home (and it works)
             mvk = (L["MOVES"][s] & live_) | (((mk_ == MIDX["moved away"]) | (mk_ == MIDX["left home"]) | (mk_ == MIDX.get("came home", -2))) & succ & ~idle & live_)

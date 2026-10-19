@@ -203,7 +203,8 @@
             n = sd_["n"]
             if sd_["done"] is not None or sd_["due"] is None or t < sd_["due"] or ep_now[n] >= 0:
                 continue
-            if t > sd_["due"] + EPP["keep"] * 52:   # too long past: it stays a seed that never came back
+            if t > sd_["due"] + EPP["keep"] * 52 or t > sd_.get("until", t):   # too long past (a bold seed: its links'
+                # delay and a season): it stays a seed that never came back
                 sd_["done"] = -1
                 continue
             if had_ev[n] or dead[n] or s[n] != s_ep[n] or t - ep_last[n] < EPP["gap"] * 52 or ep_rng.random() >= EPP["w"]:
