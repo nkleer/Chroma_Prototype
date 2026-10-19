@@ -1236,6 +1236,14 @@
   .arws .arw { display: inline-flex; align-items: center; gap: 2px; margin-right: 8px; white-space: nowrap; }
   .arw i { font-style: normal; font-size: var(--fs-1); letter-spacing: -1px; margin-left: 2px; }
   .arw.up i { color: var(--ok); } .arw.down i { color: var(--bad); } .arw.s1 i { opacity: 0.65; }
+  /* v24 footprints: a line per kind after a pick; six stacks in the HUD, the sheet and the Book */
+  .ndmove .r.ft svg.i { color: var(--gold3); }
+  .fstacks { display: grid; gap: 4px; }
+  .fst { display: grid; grid-template-columns: auto auto auto 1fr; align-items: baseline; gap: 6px; cursor: help; min-width: 0; }
+  .fst .k { font: 600 var(--fs-1) var(--ui); letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink2); }
+  .fst .l { color: var(--muted); font-size: var(--fs-1); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0; }
+  .fst.none { opacity: 0.55; }
+  .bfoot { display: inline-flex; gap: 8px; } .bfoot span { display: inline-flex; align-items: center; gap: 2px; }
   /* ---------- the story page: prose with margin glyphs, the world folded into one line a year ---------- */
   .en .gut.nod { visibility: hidden; }
   .en.wline { font: 400 var(--fs-2)/1.55 var(--serif); color: var(--muted); }
@@ -3249,6 +3257,17 @@ const SPH_ICON = { rule: "sign", gather: "people", arts: "feather", faith: "cand
 const FACE_ORDER = ["W", "U", "B", "R", "G"];
 // v22.4: S4's mark on a place where their ways are rare (held on there for years, the odd one out now, or blended in)
 const oddMark = (h) => h.held ? ` ${ic("anchor")}` : h.odd ? ` ${ic("star")}` : h.blended ? ` ${ic("mask")}` : "";
+// v24 footprints (the game's foot switch): the life so far as six stacks, each a count and one plain line; a stack's
+// items wait behind its hover, newest first. Six icons in all, never one per footprint (Emren 10-19)
+function footHTML(F) {
+  return `<div class="fstacks">${F.map((x) => `<div class="fst${x.n ? "" : " none"}" data-fk="${x.kind}">${ic(x.icon)}<span class="k">${esc(x.name)}</span><b>${x.n}</b><span class="l">${esc(x.line || (x.n ? "" : "none yet"))}</span></div>`).join("")}</div>`;
+}
+function footTips(root, F) {
+  root.querySelectorAll("[data-fk]").forEach((el) => {
+    const x = (F || []).find((y) => y.kind === el.dataset.fk);
+    if (x && (x.items || []).length) setTip(el, () => tipBox(`${ic(x.icon)} ${esc(x.name)}: ${x.n}`, x.line ? esc(x.line) : "", x.items.map((i) => [`at ${Math.floor(i.age)}`, `${esc(i.word)} <span class="muted">${esc(i.sit)}</span>`]), ""));
+  });
+}
 function placesHTML(L) {
   const P = L.places; if (!P) return "";
   const hs = (P.haunts || []).map((h, i) => `<span class="perk" data-pl="${i}" style="--pc:var(--c${h.lead})">${ic(SPH_ICON[h.sphere] || "home")}${esc(cap(h.name))}${h.setting ? ` ${ic("people")}` : ""}${oddMark(h)}</span>`).join("")
@@ -3337,6 +3356,7 @@ function renderHud(L) {
     <div class="hsec"><h4>Titles</h4><div class="trows">${titles}</div>${statuses ? `<div class="perks stats">${statuses}</div>` : ""}</div>
     ${perks ? `<div class="hsec"><h4>Perks${pk.length > PERK_SHOW + 2 ? ` <span class="cnt">${pk.length}</span>` : ""}</h4><div class="perks">${perks}</div></div>` : ""}
     ${circle ? `<div class="hsec"><h4>People</h4><div class="circle">${circle}</div></div>` : `<div class="hsec"><h4>People</h4><div class="people">${people || `<span class="empty">Nobody met yet</span>`}</div></div>`}
+    ${L.foot ? `<div class="hsec"><h4>Footprints</h4>${footHTML(L.foot)}</div>` : ""}
     ${placesHTML(L)}
     ${reach ? `<div class="hsec"><h4>Reach</h4><div class="mts">${reach}</div></div>` : ""}
     ${around ? `<div class="hsec"><h4>Around them</h4><div class="chips">${around}</div></div>` : ""}
@@ -3383,6 +3403,7 @@ function renderHud(L) {
   hudEl.querySelectorAll("[data-a]").forEach((el) => { const k = el.dataset.a; setTip(el, () => aroundTip(k, L.around[k])); });
   hudEl.querySelectorAll("[data-tm]").forEach((el) => { const t = TEMPER.find((x) => x[0] === el.dataset.tm); setTip(el, () => tipBox(`${ic(t[2])} ${TEMPER_NAME[t[0]]}`, t[4], [["Now", temperWord(t[0], L.temper[t[0]])]], "")); });
   hudEl.querySelectorAll("[data-st]").forEach((el) => { const x = L.states[+el.dataset.st]; setTip(el, () => x.reads ? stTip(x) : tipBox(`${ic(x.icon)} ${esc(cap(x.word))}`, "", [[esc(x.name), stateValue(x)]], "")); });
+  if (L.foot) footTips(hudEl, L.foot);
   hudEl.querySelectorAll("[data-gj]").forEach((el) => { const g = (L.goals || []).find((x) => x.j === +el.dataset.gj); if (g) setTip(el, () => goalTip({ kind: g.kind, colors: g.colors, domain: g.domain, source: g.source, horizon: g.horizon }, g)); });
   const ap = $("addPlan"); if (ap) { ap.addEventListener("click", (e) => { e.stopPropagation(); send("p"); }); setTip(ap, () => tipBox(`${ic("quill")} Make a plan`, "", [], "Set them a plan: a year, five years or a lifetime, in a life domain or in some colors. You see how sure they feel, and how plans like it usually go. Key p.")); }
   hudEl.querySelectorAll("[data-perk]").forEach((el) => { const d = L.perks[+el.dataset.perk]; setTip(el, () => roleTip(d)); });
@@ -3450,10 +3471,12 @@ const MISREAD_WORD = { hopeful: "they think it likelier than it is", doubtful: "
 
 // Because of you, and meanwhile (GAME because, v23.2): the needs the pick's week moved, split into what the pick did and
 // what else happened, each line with its cause; the week's silent setback as a short line
-function becauseHTML(b) {
+function becauseHTML(b, ft) {
   const row = (x) => `<div class="r">${ic(NEED_ICON[x.need] || "dot")}<span>${esc(cap(NEED_LONG[x.need] || x.need))}</span><span class="${x.delta > 0 ? "up" : "down"}">${sgn(x.delta * 100)}</span><small>${esc(x.why)}</small></div>`;
-  const grp = (k, cls, xs) => xs.length ? `<div class="g ${cls}"><span class="k">${k}</span>${xs.slice(0, 4).map(row).join("")}</div>` : "";
-  return `<div class="ndmove split" id="ndmove">${grp("Because of you", "you", b.you || [])}${grp("Meanwhile", "mw", b.meanwhile || [])}` +
+  const grp = (k, cls, xs, more) => xs.length || more ? `<div class="g ${cls}"><span class="k">${k}</span>${xs.slice(0, 4).map(row).join("")}${more || ""}</div>` : "";
+  // v24 footprints (the game's foot switch): what the pick left, one line per kind it touched, inside "Because of you"
+  const feet = (ft || []).map((x) => `<div class="r ft">${ic(x.icon)}<span>${esc(x.line)}</span></div>`).join("");
+  return `<div class="ndmove split" id="ndmove">${grp("Because of you", "you", b.you || [], feet)}${grp("Meanwhile", "mw", b.meanwhile || [])}` +
     `${b.setback ? `<p class="note setback">${rich(b.setback.line)}</p>` : ""}</div>`;
 }
 function shortName(label) {
@@ -3891,7 +3914,7 @@ function renderResolution(h, reveal) {
       ${r.rename ? `<div class="rename" id="rename"><span class="k">${ic("quill")} A new name?</span><span>${esc(L.name)} names who they are. They may take a new name, or keep their own.</span>
         <div class="inrow"><input class="field" id="rnTxt" type="text" maxlength="24" autocomplete="off" spellcheck="false" value="${esc(r.rename.suggest)}" aria-label="New name"><button class="primary" id="rnTake">${ic("quill")} Take it</button><button class="ghost" id="rnKeep">Keep ${esc(r.rename.old)}</button></div></div>` : ""}
       ${chips ? `<div class="became">${chips}</div>` : ""}
-      ${r.because ? becauseHTML(r.because) : (r.needs || []).length ? `<div class="ndmove" id="ndmove">${r.needs.slice(0, 4).map((x) => `<div class="r">${ic(NEED_ICON[x.need] || "dot")}<span>${esc(cap(NEED_LONG[x.need] || x.need))}</span><span class="${x.delta > 0 ? "up" : "down"}">${pct(x.before)} → ${pct(x.after)}</span>${x.lacking && x.delta > 0 ? `<small class="muted">was lacking</small>` : ""}</div>`).join("")}</div>` : ""}
+      ${r.because || r.foot ? becauseHTML(r.because || {}, r.foot) : (r.needs || []).length ? `<div class="ndmove" id="ndmove">${r.needs.slice(0, 4).map((x) => `<div class="r">${ic(NEED_ICON[x.need] || "dot")}<span>${esc(cap(NEED_LONG[x.need] || x.need))}</span><span class="${x.delta > 0 ? "up" : "down"}">${pct(x.before)} → ${pct(x.after)}</span>${x.lacking && x.delta > 0 ? `<small class="muted">was lacking</small>` : ""}</div>`).join("")}</div>` : ""}
       ${r.hindsight && r.hindsight.line ? `<p class="hind ${r.hindsight.kind === "accepted" ? "up" : "down"}" id="hind">${rich(r.hindsight.line)}</p>` : ""}
       <div class="row2 shiftbox">${cmove}${toward}</div>
       ${(r.states || []).length ? `<div class="states">${r.states.map((x) => `<span class="st g${x.what === "gained" ? x.good : 0}${x.what === "gained" ? "" : " gone"}">${ic(x.icon)}${x.what === "gained" ? "Now " : "No longer "}${esc(x.word)}</span>`).join("")}</div>` : ""}
@@ -4333,6 +4356,7 @@ function bookMerge(r) {
   if (r.reading) L.reading = r.reading.words;
   if (r.voice) L.voice = r.voice;
   if (r.returns) L.returns = r.returns;   // Picks come back: a pick and the moment it came back as
+  if (r.foot) L.foot = r.foot;   // v24 footprints: the life's six stacks at its end
   for (const id of book.order.slice(0, Math.max(0, book.order.length - BOOK_LIVES))) if (book.lives[id]) delete book.lives[id].k;   // counts stay
   storeBook();
 }
@@ -4397,6 +4421,8 @@ function openBook() {
   const voiceRows = vl.slice().reverse().filter(([, L]) => L.voice.line).slice(0, 12).map(([, L]) => `<div class="brow"><span class="bn">${esc(L.voice.line)}</span></div>`).join("");
   const backRows = lives.slice().reverse().flatMap(([, L]) => (L.returns || []).map((x) => [L.name, x])).slice(0, 12).map(([nm, x]) =>
     `<div class="brow"><span class="bn">${ic("link")} At ${Math.floor(x.a)}, “${esc(x.m)}”; at ${Math.floor(x.b)}, “${esc(x.n)}”</span><span class="muted">${esc(nm || "")}</span></div>`).join("");
+  const footRows = lives.slice().reverse().filter(([, L]) => L.foot).slice(0, 6).map(([, L]) =>   // v24 footprints, per life
+    `<div class="brow"><span class="bn">${esc(L.name || "")}</span><span class="bfoot">${L.foot.map((x) => `<span title="${esc(x.name + (x.line ? ": " + x.line : ""))}">${ic(x.icon)}${x.n}</span>`).join("")}</span></div>`).join("");
   const worlds = ["earth", "tribal", "magic"].map((w) => `<span class="chip${has("w|" + w) ? " on" : " off"}">${ic(SETTING_ICON[w] || "globe")}${esc(SETTING_NAME[w] || w)}${has("w|" + w) ? ` <b>${S["w|" + w].n}</b>` : ""}</span>`).join("");
   bookEl.hidden = false;
   bookEl.innerHTML = `<div class="box paper sheet bookp" role="dialog" aria-label="The Book of Moments">
@@ -4405,7 +4431,7 @@ function openBook() {
     ${lives.length ? `<div class="bstats">${stat(lives.length, null, lives.length === 1 ? "life" : "lives")}${stat(met(eMom), eMom.length, "moments, modern Earth", momDef(eMom))}${bMom.length ? stat(met(bMom), bMom.length, "moments, tribal and magic", momDef(bMom)) : ""}${stat(rare.length, rare.length + unmetRare, "rare moments", bookDef.rare)}${longK.length ? stat(longK.length, null, "long shots", bookDef.long) : ""}${stat(met(deeds), deeds.length, "deeds", bookDef.deeds)}${titles.length ? stat(met(titles), titles.length, "titles", bookDef.titles) : ""}${stat(met(idents.map(([l]) => "i|" + l)), idents.length, "identities", bookDef.idents)}</div>
     <div class="shg">
       <section><h4>Rare moments met</h4>${rareRows || `<span class="empty">None yet. ${unmetRare} wait somewhere in a life.</span>`}<h4>Long shots</h4>${longRows || `<span class="empty">None yet. Any title can be reached for against long odds; a miss is kept here too.</span>`}<h4>Lives</h4>${lifeRows}<h4>Worlds</h4><div class="perks">${worlds}</div></section>
-      <section>${voiceSum ? `<h4>Your Voice</h4><p class="muted bvoice">${esc(voiceSum)}</p>${voiceRows}` : ""}${backRows ? `<h4>Picks that came back</h4>${backRows}` : ""}<h4>Identities lived</h4><div class="bids">${identGrid}</div><h4>Deeds</h4><div class="perks">${deedChips}</div></section>
+      <section>${voiceSum ? `<h4>Your Voice</h4><p class="muted bvoice">${esc(voiceSum)}</p>${voiceRows}` : ""}${backRows ? `<h4>Picks that came back</h4>${backRows}` : ""}${footRows ? `<h4>Footprints</h4>${footRows}` : ""}<h4>Identities lived</h4><div class="bids">${identGrid}</div><h4>Deeds</h4><div class="perks">${deedChips}</div></section>
       <section><h4>Moments by part of life</h4><div class="mts">${domRows}</div><h4>Titles held</h4><div class="perks">${titleChips}</div></section>
     </div>` : `<p class="bempty">Nothing yet. Every life you play writes into this book: the moments it meets, the people it becomes, the titles it holds. Rare moments are marked with a star.</p>`}</div>`;
   bookEl.querySelectorAll("[data-def]").forEach((el) => { if (el.dataset.def) setTip(el, () => tipBox(esc(el.querySelector(".bl").textContent), "", [], esc(el.dataset.def))); });

@@ -306,6 +306,17 @@ const SPH_ICON = { rule: "sign", gather: "people", arts: "feather", faith: "cand
 const FACE_ORDER = ["W", "U", "B", "R", "G"];
 // v22.4: S4's mark on a place where their ways are rare (held on there for years, the odd one out now, or blended in)
 const oddMark = (h) => h.held ? ` ${ic("anchor")}` : h.odd ? ` ${ic("star")}` : h.blended ? ` ${ic("mask")}` : "";
+// v24 footprints (the game's foot switch): the life so far as six stacks, each a count and one plain line; a stack's
+// items wait behind its hover, newest first. Six icons in all, never one per footprint (Emren 10-19)
+function footHTML(F) {
+  return `<div class="fstacks">${F.map((x) => `<div class="fst${x.n ? "" : " none"}" data-fk="${x.kind}">${ic(x.icon)}<span class="k">${esc(x.name)}</span><b>${x.n}</b><span class="l">${esc(x.line || (x.n ? "" : "none yet"))}</span></div>`).join("")}</div>`;
+}
+function footTips(root, F) {
+  root.querySelectorAll("[data-fk]").forEach((el) => {
+    const x = (F || []).find((y) => y.kind === el.dataset.fk);
+    if (x && (x.items || []).length) setTip(el, () => tipBox(`${ic(x.icon)} ${esc(x.name)}: ${x.n}`, x.line ? esc(x.line) : "", x.items.map((i) => [`at ${Math.floor(i.age)}`, `${esc(i.word)} <span class="muted">${esc(i.sit)}</span>`]), ""));
+  });
+}
 function placesHTML(L) {
   const P = L.places; if (!P) return "";
   const hs = (P.haunts || []).map((h, i) => `<span class="perk" data-pl="${i}" style="--pc:var(--c${h.lead})">${ic(SPH_ICON[h.sphere] || "home")}${esc(cap(h.name))}${h.setting ? ` ${ic("people")}` : ""}${oddMark(h)}</span>`).join("")
@@ -394,6 +405,7 @@ function renderHud(L) {
     <div class="hsec"><h4>Titles</h4><div class="trows">${titles}</div>${statuses ? `<div class="perks stats">${statuses}</div>` : ""}</div>
     ${perks ? `<div class="hsec"><h4>Perks${pk.length > PERK_SHOW + 2 ? ` <span class="cnt">${pk.length}</span>` : ""}</h4><div class="perks">${perks}</div></div>` : ""}
     ${circle ? `<div class="hsec"><h4>People</h4><div class="circle">${circle}</div></div>` : `<div class="hsec"><h4>People</h4><div class="people">${people || `<span class="empty">Nobody met yet</span>`}</div></div>`}
+    ${L.foot ? `<div class="hsec"><h4>Footprints</h4>${footHTML(L.foot)}</div>` : ""}
     ${placesHTML(L)}
     ${reach ? `<div class="hsec"><h4>Reach</h4><div class="mts">${reach}</div></div>` : ""}
     ${around ? `<div class="hsec"><h4>Around them</h4><div class="chips">${around}</div></div>` : ""}
@@ -440,6 +452,7 @@ function renderHud(L) {
   hudEl.querySelectorAll("[data-a]").forEach((el) => { const k = el.dataset.a; setTip(el, () => aroundTip(k, L.around[k])); });
   hudEl.querySelectorAll("[data-tm]").forEach((el) => { const t = TEMPER.find((x) => x[0] === el.dataset.tm); setTip(el, () => tipBox(`${ic(t[2])} ${TEMPER_NAME[t[0]]}`, t[4], [["Now", temperWord(t[0], L.temper[t[0]])]], "")); });
   hudEl.querySelectorAll("[data-st]").forEach((el) => { const x = L.states[+el.dataset.st]; setTip(el, () => x.reads ? stTip(x) : tipBox(`${ic(x.icon)} ${esc(cap(x.word))}`, "", [[esc(x.name), stateValue(x)]], "")); });
+  if (L.foot) footTips(hudEl, L.foot);
   hudEl.querySelectorAll("[data-gj]").forEach((el) => { const g = (L.goals || []).find((x) => x.j === +el.dataset.gj); if (g) setTip(el, () => goalTip({ kind: g.kind, colors: g.colors, domain: g.domain, source: g.source, horizon: g.horizon }, g)); });
   const ap = $("addPlan"); if (ap) { ap.addEventListener("click", (e) => { e.stopPropagation(); send("p"); }); setTip(ap, () => tipBox(`${ic("quill")} Make a plan`, "", [], "Set them a plan: a year, five years or a lifetime, in a life domain or in some colors. You see how sure they feel, and how plans like it usually go. Key p.")); }
   hudEl.querySelectorAll("[data-perk]").forEach((el) => { const d = L.perks[+el.dataset.perk]; setTip(el, () => roleTip(d)); });

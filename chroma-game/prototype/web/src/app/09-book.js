@@ -35,6 +35,7 @@ function bookMerge(r) {
   if (r.reading) L.reading = r.reading.words;
   if (r.voice) L.voice = r.voice;
   if (r.returns) L.returns = r.returns;   // Picks come back: a pick and the moment it came back as
+  if (r.foot) L.foot = r.foot;   // v24 footprints: the life's six stacks at its end
   for (const id of book.order.slice(0, Math.max(0, book.order.length - BOOK_LIVES))) if (book.lives[id]) delete book.lives[id].k;   // counts stay
   storeBook();
 }
@@ -99,6 +100,8 @@ function openBook() {
   const voiceRows = vl.slice().reverse().filter(([, L]) => L.voice.line).slice(0, 12).map(([, L]) => `<div class="brow"><span class="bn">${esc(L.voice.line)}</span></div>`).join("");
   const backRows = lives.slice().reverse().flatMap(([, L]) => (L.returns || []).map((x) => [L.name, x])).slice(0, 12).map(([nm, x]) =>
     `<div class="brow"><span class="bn">${ic("link")} At ${Math.floor(x.a)}, “${esc(x.m)}”; at ${Math.floor(x.b)}, “${esc(x.n)}”</span><span class="muted">${esc(nm || "")}</span></div>`).join("");
+  const footRows = lives.slice().reverse().filter(([, L]) => L.foot).slice(0, 6).map(([, L]) =>   // v24 footprints, per life
+    `<div class="brow"><span class="bn">${esc(L.name || "")}</span><span class="bfoot">${L.foot.map((x) => `<span title="${esc(x.name + (x.line ? ": " + x.line : ""))}">${ic(x.icon)}${x.n}</span>`).join("")}</span></div>`).join("");
   const worlds = ["earth", "tribal", "magic"].map((w) => `<span class="chip${has("w|" + w) ? " on" : " off"}">${ic(SETTING_ICON[w] || "globe")}${esc(SETTING_NAME[w] || w)}${has("w|" + w) ? ` <b>${S["w|" + w].n}</b>` : ""}</span>`).join("");
   bookEl.hidden = false;
   bookEl.innerHTML = `<div class="box paper sheet bookp" role="dialog" aria-label="The Book of Moments">
@@ -107,7 +110,7 @@ function openBook() {
     ${lives.length ? `<div class="bstats">${stat(lives.length, null, lives.length === 1 ? "life" : "lives")}${stat(met(eMom), eMom.length, "moments, modern Earth", momDef(eMom))}${bMom.length ? stat(met(bMom), bMom.length, "moments, tribal and magic", momDef(bMom)) : ""}${stat(rare.length, rare.length + unmetRare, "rare moments", bookDef.rare)}${longK.length ? stat(longK.length, null, "long shots", bookDef.long) : ""}${stat(met(deeds), deeds.length, "deeds", bookDef.deeds)}${titles.length ? stat(met(titles), titles.length, "titles", bookDef.titles) : ""}${stat(met(idents.map(([l]) => "i|" + l)), idents.length, "identities", bookDef.idents)}</div>
     <div class="shg">
       <section><h4>Rare moments met</h4>${rareRows || `<span class="empty">None yet. ${unmetRare} wait somewhere in a life.</span>`}<h4>Long shots</h4>${longRows || `<span class="empty">None yet. Any title can be reached for against long odds; a miss is kept here too.</span>`}<h4>Lives</h4>${lifeRows}<h4>Worlds</h4><div class="perks">${worlds}</div></section>
-      <section>${voiceSum ? `<h4>Your Voice</h4><p class="muted bvoice">${esc(voiceSum)}</p>${voiceRows}` : ""}${backRows ? `<h4>Picks that came back</h4>${backRows}` : ""}<h4>Identities lived</h4><div class="bids">${identGrid}</div><h4>Deeds</h4><div class="perks">${deedChips}</div></section>
+      <section>${voiceSum ? `<h4>Your Voice</h4><p class="muted bvoice">${esc(voiceSum)}</p>${voiceRows}` : ""}${backRows ? `<h4>Picks that came back</h4>${backRows}` : ""}${footRows ? `<h4>Footprints</h4>${footRows}` : ""}<h4>Identities lived</h4><div class="bids">${identGrid}</div><h4>Deeds</h4><div class="perks">${deedChips}</div></section>
       <section><h4>Moments by part of life</h4><div class="mts">${domRows}</div><h4>Titles held</h4><div class="perks">${titleChips}</div></section>
     </div>` : `<p class="bempty">Nothing yet. Every life you play writes into this book: the moments it meets, the people it becomes, the titles it holds. Rare moments are marked with a star.</p>`}</div>`;
   bookEl.querySelectorAll("[data-def]").forEach((el) => { if (el.dataset.def) setTip(el, () => tipBox(esc(el.querySelector(".bl").textContent), "", [], esc(el.dataset.def))); });

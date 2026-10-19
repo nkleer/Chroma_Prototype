@@ -6,10 +6,12 @@ const MISREAD_WORD = { hopeful: "they think it likelier than it is", doubtful: "
 
 // Because of you, and meanwhile (GAME because, v23.2): the needs the pick's week moved, split into what the pick did and
 // what else happened, each line with its cause; the week's silent setback as a short line
-function becauseHTML(b) {
+function becauseHTML(b, ft) {
   const row = (x) => `<div class="r">${ic(NEED_ICON[x.need] || "dot")}<span>${esc(cap(NEED_LONG[x.need] || x.need))}</span><span class="${x.delta > 0 ? "up" : "down"}">${sgn(x.delta * 100)}</span><small>${esc(x.why)}</small></div>`;
-  const grp = (k, cls, xs) => xs.length ? `<div class="g ${cls}"><span class="k">${k}</span>${xs.slice(0, 4).map(row).join("")}</div>` : "";
-  return `<div class="ndmove split" id="ndmove">${grp("Because of you", "you", b.you || [])}${grp("Meanwhile", "mw", b.meanwhile || [])}` +
+  const grp = (k, cls, xs, more) => xs.length || more ? `<div class="g ${cls}"><span class="k">${k}</span>${xs.slice(0, 4).map(row).join("")}${more || ""}</div>` : "";
+  // v24 footprints (the game's foot switch): what the pick left, one line per kind it touched, inside "Because of you"
+  const feet = (ft || []).map((x) => `<div class="r ft">${ic(x.icon)}<span>${esc(x.line)}</span></div>`).join("");
+  return `<div class="ndmove split" id="ndmove">${grp("Because of you", "you", b.you || [], feet)}${grp("Meanwhile", "mw", b.meanwhile || [])}` +
     `${b.setback ? `<p class="note setback">${rich(b.setback.line)}</p>` : ""}</div>`;
 }
 function shortName(label) {
@@ -447,7 +449,7 @@ function renderResolution(h, reveal) {
       ${r.rename ? `<div class="rename" id="rename"><span class="k">${ic("quill")} A new name?</span><span>${esc(L.name)} names who they are. They may take a new name, or keep their own.</span>
         <div class="inrow"><input class="field" id="rnTxt" type="text" maxlength="24" autocomplete="off" spellcheck="false" value="${esc(r.rename.suggest)}" aria-label="New name"><button class="primary" id="rnTake">${ic("quill")} Take it</button><button class="ghost" id="rnKeep">Keep ${esc(r.rename.old)}</button></div></div>` : ""}
       ${chips ? `<div class="became">${chips}</div>` : ""}
-      ${r.because ? becauseHTML(r.because) : (r.needs || []).length ? `<div class="ndmove" id="ndmove">${r.needs.slice(0, 4).map((x) => `<div class="r">${ic(NEED_ICON[x.need] || "dot")}<span>${esc(cap(NEED_LONG[x.need] || x.need))}</span><span class="${x.delta > 0 ? "up" : "down"}">${pct(x.before)} → ${pct(x.after)}</span>${x.lacking && x.delta > 0 ? `<small class="muted">was lacking</small>` : ""}</div>`).join("")}</div>` : ""}
+      ${r.because || r.foot ? becauseHTML(r.because || {}, r.foot) : (r.needs || []).length ? `<div class="ndmove" id="ndmove">${r.needs.slice(0, 4).map((x) => `<div class="r">${ic(NEED_ICON[x.need] || "dot")}<span>${esc(cap(NEED_LONG[x.need] || x.need))}</span><span class="${x.delta > 0 ? "up" : "down"}">${pct(x.before)} → ${pct(x.after)}</span>${x.lacking && x.delta > 0 ? `<small class="muted">was lacking</small>` : ""}</div>`).join("")}</div>` : ""}
       ${r.hindsight && r.hindsight.line ? `<p class="hind ${r.hindsight.kind === "accepted" ? "up" : "down"}" id="hind">${rich(r.hindsight.line)}</p>` : ""}
       <div class="row2 shiftbox">${cmove}${toward}</div>
       ${(r.states || []).length ? `<div class="states">${r.states.map((x) => `<span class="st g${x.what === "gained" ? x.good : 0}${x.what === "gained" ? "" : " gone"}">${ic(x.icon)}${x.what === "gained" ? "Now " : "No longer "}${esc(x.word)}</span>`).join("")}</div>` : ""}

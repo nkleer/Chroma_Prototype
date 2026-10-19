@@ -244,6 +244,11 @@ GAME = dict(
     # it fails, as arrows in three sizes (a little, clearly, a lot) for needs, means, people and titles, from the
     # Engine's forecast (foresee.arrows). No numbers before the choice. Read-only: every step plays as with it off
     arrows=False,
+    # v24 footprints (plan section 3; Emren 10-19: six stacks, never thousands of symbols), with the Engine's foot_on:
+    # what each pick visibly left (a person, a place, means, a mark, a door, a lesson), one line a kind inside "Because
+    # of you", and the life so far as six stacks (count and one plain line) on the sheet, the HUD and in the Book.
+    # Changes play when on (the Engine gives each footprint real state): off until the joint proof
+    foot=False,
 )
 BOLD_IX = 1000          # Bold ways: a bold way's number on the card, BOLD_IX + 100 x its slot + its base way (bix: the base)
 
@@ -266,7 +271,7 @@ GAME_OFF = dict(piv=0.0, piv_own=0.0, piv_steady=0.0, learn_full=False, lean=0.0
                 era_cost=0.0, backfire=0.0, turn_max=0, fig_own=False, own_ix=False, trust_judge=False, lines_tied=False,
                 own_mark="", lean_self=0.0, own_teach=0.0, dream_own=False, dream_firm=0.0, dream_help=0.0, hind_thin=0.5, season_need=0.0, season_calm=0.0, fork_k=0.0, fork_told=False, rung_ask=False,
                 world_hold=False, world_seed=False, faith_home=0.0,
-                line_wait=0.0, news_touch=False, rare_ask=False, returns=False, stakes=False, causes=False, causes_fold=False, bold=False, because=False, arrows=False,
+                line_wait=0.0, news_touch=False, rare_ask=False, returns=False, stakes=False, causes=False, causes_fold=False, bold=False, because=False, arrows=False, foot=False,
                 own_stress=0.5, own_free=0.3, dream_fit=0.5, rare_imp=0.5)
 # v22.5's joint refit (chroma-engine/notes/v22.5-refit-plan.md §2, with the engine's V225): every v22.5 game switch on
 # with its fitted value. F12 world_hold (with the engine's own_open and start_hold), F15 world_seed, F10 line_wait and news_touch (the
@@ -374,6 +379,8 @@ def library_for(setting):
                 batch.RETURN_MOMENTS = True             # Picks come back: the Library's return moments (earth.RETURNS)
             if GAME["bold"] and hasattr(batch, "BOLD_MOMENTS"):
                 batch.BOLD_MOMENTS = True               # Bold ways: the Library's BOLD rows and LINKS (earth_play)
+            if GAME["foot"] and hasattr(batch, "FOOT"):
+                batch.FOOT = True                       # v24 footprints: the Library's FOOT tables (earth_foot.py)
             _LIBS[key] = (batch.load_batch("earth", packs=PACKS, setting="earth"), sys.modules.get("earth"))
         else:                                       # v22.5 F15 (world_seed): the clan and the towers on the Library's seed
             seed_ = getattr(WDS, "SEED", None) if GAME["world_seed"] and key in ("tribal", "magic") else None
