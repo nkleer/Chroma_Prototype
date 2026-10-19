@@ -430,6 +430,9 @@
     LW_ON = False; LW_T_ = None   # S7 lead_ways (world on, with sph_levers): the office titles a post is made of
     SEEN_ON = False
     BT_ON = False; btrust = None   # body_trust (world on): trust in a sphere's bodies, the People's array
+    WA_ON = bool(P["world_answers"]) and WON   # the world answers v1 (world on; world_people_answers.py): its ledger, the
+    WA2_ON = WA_ON and bool(P["wa_phase2"])    # People's (each life's units and told lines), who is Known (the phase)
+    wa_book = wa_lines = wa_known = None
     TRG_ = np.asarray(L.get("W_TRUST", np.full((L["S"], 2), -1))).reshape(-1, 2)[:L["S"]]   # body_trust's moment gate:
     TRG_S_ = np.nonzero(TRG_[:, 0] >= 0)[0]                  # (sphere, 0 low / 1 high) per moment (batch.py; -1 none)
     OWN_ON = bool(P.get("own_open")) and "OWN" in L       # v22.5, F12: the culture's own acts always on offer

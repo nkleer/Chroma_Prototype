@@ -69,6 +69,14 @@
     if "W_WANT" in L and "fellow_inmate" in WK_.CAST_WANTS:
         INMS_ = np.asarray(L["W_WANT"]) == WK_.CAST_WANTS.index("fellow_inmate")
     INMS_ON_ = bool(INMS_.any())
+    # the world answers v1 (world_answers): an ask, a decision or a figure's moment (cast_want: world_keys.WA_WANTS) comes
+    # only when WorldLink brings it (the switch on), never by the everyday draw or a yearly rate; off, never
+    WAW_ = np.zeros(L["S"], bool)
+    if "W_WANT" in L and hasattr(WK_, "WA_WANTS"):
+        WAW_ = np.isin(np.asarray(L["W_WANT"]), [i_ for i_, w_ in enumerate(WK_.CAST_WANTS) if w_ in WK_.WA_WANTS])
+    WAW_ON_ = bool(WAW_.any())
+    if WAW_ON_:
+        REG_ = REG_ & ~WAW_
     GAPLO_ = np.nan_to_num(GAP_[:, 0])[None]; GAPW_ = np.maximum(np.nan_to_num(GAP_[:, 1] - GAP_[:, 0]), 1 / 52)[None]
     # the same gap on an everyday or inner moment (a stray dog that follows you home is not a weekly thing): its weight ramps
     # from 0 at lo years after it last came to full at hi (the game thread's finding, 2026-10-05 22:00)

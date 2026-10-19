@@ -41,12 +41,14 @@ Owner: the Engine thread. The repository-wide rules are in the root `CLAUDE.md`.
     people, birth), `settings` (settings, spheres phase 2), `ticks` (the ticks, ties, commitments, the life course of
     settings), `lives` (the cast's own lives, wants, far ties), `sacred` (S5, S6), `eyes` (approval, standing, reach,
     S3, S4, what the engine reads), `acts` (acts, levers, pushes, body_trust, place_turnover), `lead` (S7, who slots,
-    place and moving), `views` (emigration, views for the game, save and load).
+    place and moving), `views` (emigration, views for the game, save and load), `answers` (the world answers v1:
+    presence, the footprint ledger, noticing, a Known life's decisions; off unless `world_answers`).
   - WorldLink (`world_link.py`, 497 lines: set-up and the weekly step), split the same way: `world_link_base.py`
     (tables, helpers, the burned-in world's cache), `world_link_week` (what the week brings: congregations, sacred
-    lines, offices, disasters, deaths, far ties, eyes, lead, seen), `world_link_rates` (era, moment and title rates,
-    closures, norms, channels, odds), `world_link_life` (other societies, titles, moves, safety, resources, causes,
-    after the act, output, saves). Each mixin repeats world_link.py's imports so its methods compile as before.
+    lines, offices, disasters, deaths, far ties, eyes, lead, seen, the world answers' moments), `world_link_rates`
+    (era, moment and title rates, closures, norms, channels, odds), `world_link_life` (other societies, titles, moves,
+    safety, resources, causes, after the act, output, saves). Each mixin repeats world_link.py's imports so its
+    methods compile as before.
   - World: `world.py` itself (construction, the clock, emigration), `world_hooks` (nature, the C hooks, abroad),
     `world_society` (economy, state, institutions, places, culture, society), `world_years` (figures, history, the
     yearly update, pushes, what the engine reads), `world_spheres` (spheres phases 1c, 2 and 4, place_turnover),

@@ -35,6 +35,18 @@
                 dst_w = np.stack([np.where(W_SDOM_ == d_, st_t_, 0).max(1) for d_ in range(len(WLM.WK.DOMAINS))], 1)
             if BT_ON and RON and len(BT_TI):   # body_trust: the body each life holds a job at (a year there lifts its trust)
                 WL.PP.bt_kind[:] = np.where(r_has[:, BT_TI], BT_TK[BT_TI][None], -1).max(1)
+            if WA_ON:   # the world answers: the goal pursued (E1; an aim's face where a goal reads as one), and who is Known
+                WL.PP.wa_goal(np.where((gal >= 0)[..., None], AIM["face"][np.maximum(gal, 0)], gm) if AIM_ON else gm, gd, gs, gb)
+                if WA2_ON:   # F1: Known (aims v1's heights; without them, rung 4 or a title's standing), while the standing holds
+                    rg_ = np.floor(np.asarray(WL.PP.rung)).max(1) if hasattr(WL.PP, "rung") else np.zeros(N)
+                    sw_ = st_w if RON else np.zeros(N)
+                    hold_ = (rg_ >= 3) | (sw_ >= 1) | ((r_has[:, HT_I[0]].any(1) if len(HT_I[0]) else False) if HT_ON else False)
+                    kn_ = (ht_t[:, 0] >= 0) if HT_ON else ((rg_ >= 4) | (sw_ >= 1))
+                    WL.PP.wa_set_known(kn_ & hold_ & ~dead, np.asarray(WL.gov_office, bool), t)
+                    hp_, sp_ = WL.PP.wa_price()   # F6: the phase's hours, and its stress in a busy season (monthly)
+                    res[:, TIM] = _uclip(res[:, TIM] - hp_, 0.05, 1)
+                    if t % 4 == 0:
+                        stress = stress + sp_
             WL.week(t, dict(w=w, held=held, res=res, stress=stress, outlook=outlook, attr=attr, dead=dead, lens=softmax(k),
                             partner_same=partner_same if ID2 else None, sector=sec_w if RON else None,
                             title_standing=st_w if RON else None, children=alive[:, 5].copy(),   # the cast keeps every child

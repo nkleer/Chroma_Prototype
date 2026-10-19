@@ -328,10 +328,16 @@ class SettingsMixin:
             hcnt = ba.sum(1) + (a >= 18)
             hmix = np.where(hcnt[:, None] > 0, hsum / np.maximum(hcnt[:, None], 1e-9), self.snorm[hn, hj])
             tgt[hn, hj] = hmix + 0.02 * V
+        if self.wa_g:   # the world answers, A: a member's presence is kept beside the norm (an offset of the target)
+            tgt = tgt + self.wa_soff
+        tsum_ = tgt.sum(-1) if self.wa_l else None
         tgt = _norm(tgt)
         age_y = (t - self.sform) / 52.0
         rate = np.minimum(dm * KTA[g, K_DRIFT] * (1 - 0.5 * self.scoh) / (1 + np.maximum(age_y, 0) / 20), 1) * act
+        s_old_ = self.snorm.copy() if self.wa_l else None
         self.snorm += (rate[..., None] * (tgt - self.snorm)).astype(f32)
+        if self.wa_l:   # the world answers, D: a setting the character leads drifts toward them (the leaders' mix)
+            self._wa_lead_norm(rate, tsum_, s_old_)
         # cohesion: members pulling apart lower it; old ritual groups and outside threat keep it
         disp = np.sqrt(np.maximum(Rw[:, 0] / np.maximum(mw, 1e-9) - _csum(memmix * memmix), 0)) * (mw > 0)
         thr = 0.1 * ((g == G["unit"]) & (int(self._wf("war", 0)) > 0))
@@ -483,6 +489,8 @@ class SettingsMixin:
         ok = ok & ~(fk[None, :] & (self.pfaith[ns] < 0)[:, None])
         if kinds is not None:
             ok = ok & np.isin(np.arange(len(HAUNT_KINDS)), kinds)[None, :]
+        if self.wa_n:   # the world answers, E3: places in the sphere of the goal pursued
+            u = u + self._wa_haunt_bonus(ns)[:, :, None]
         u = u + self._hrng.gumbel(0, 1, u.shape)
         if getattr(self, "pt_on", False) and getattr(W, "pt_open", None) is not None:   # part 2: an empty slot is no place
             u = np.where(W.pt_open[self.loc[ns]] >= 0, -np.inf, u)

@@ -276,6 +276,8 @@ class SpheresMixin:
                     else:
                         cf[lc_] *= T["cas"][c_]
             hz = hz * np.where(T["trade"][None, :, None], cf[:, None, None], 1.0)
+        if getattr(self, "wa_keep", None):   # the world answers, B: a place a life there leads closes less often
+            hz = np.array(hz, float); hz.reshape(-1)[list(self.wa_keep)] *= np.array(list(self.wa_keep.values()))
         return hz
 
     def _pt_close(self, l, h, i, q, why):

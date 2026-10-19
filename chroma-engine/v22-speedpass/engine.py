@@ -852,6 +852,17 @@ DEFAULT = dict(
     # the heights of a life (plan.md section 5), read-only: the week each height (Known, Notable, Historic) was first
     # reached (realm_earth.HEIGHT_NAMES, a sphere rung of pillar or more, a summit title, leading a movement); on with aims
     heights=False,
+    # the world answers v1 (the next stage's workstream 6; chroma-world/spheres/world-answers-v1.md, values in
+    # sphere_data.WORLD_ANSWERS), off until the joint refit; with the world. The forest and the tree: no life moves
+    # nothing. Its parts each have a sub-switch, read only with world_answers on: wa_groups (A: a member's presence leans
+    # their settings' ways, kept beside the norm; a good voice, found or lead act grows the setting), wa_places (B: a
+    # regular leans their haunts a little each year; a place they lead closes less often), wa_ledger (D: record only,
+    # what each life moved by unit, told when a unit passes a step: the run's wa_ledger, events' wa_ledger), wa_notice
+    # (E: the world notices the goal pursued: the people met, the haunt pick, the sphere's asks with the batch's world
+    # answers moments, its events and offers; no moment odds of its own). wa_phase2 (F, off on its own): a Known life
+    # (aims v1's heights: Known reached, its standing still held) decides for others in the sphere it stands in, 4 to 8
+    # times a year (8 to 12 at national standing), with rivals, allies and a successor, at a price in hours and stress
+    world_answers=False, wa_groups=True, wa_places=True, wa_ledger=True, wa_notice=True, wa_phase2=False,
     echo_play_par=dict(p=0.6, w=0.3, delay=(1.0, 8.0), keep=10.0, gap=0.5, again=12.0),
     # bold ways (chroma-ideas/gameplay-2026-10-17/bold-ways.md): set only by the game for a played life, with the batch's
     # BOLD_MOMENTS. In a week the game asks (bold_ask, set at the situation pause and spent at the choice; "all": every
@@ -1523,6 +1534,8 @@ UPD_OFF = dict(dis_match=False,
                need_tab=None, shared_hist=0.0, imp_age=False,
                # aims v1 and the heights reading (workstream 5)
                aims=False, heights=False,
+               # the world answers v1 (workstream 6) and its second phase
+               world_answers=False, wa_phase2=False,
     # the v22.3 refit's satisfaction level (the new mechanics lift satisfaction; the set point moved .80 -> .86)
     sat_mid=0.8)
 # everything since the go-live off, for the identity check (C-E14): lives then equal engine_v9_golive.py
@@ -1773,6 +1786,8 @@ STATE_MORE = ("fam", "gsr", "goal_rel_S", "around", "retired", "ck", "ok_", "frc
               "AIM_ON", "HT_ON", "AIM", "ak", "astr", "astep", "aown", "aby", "atest", "acall", "abirth", "aim_best", "gal",
               "ht_t", "aim_take", "aim_end", "aim_fit", "aim_of_goal",   # aims v1 (foresee's aims track, set_aim, drop_aim)
               # and the heights reached (ht_t, weeks, -1 never); None off
+              "WA_ON", "WA2_ON", "wa_book", "wa_lines", "wa_known",   # the world answers: on, its second phase on, each
+              # life's ledger of rings 1 and out ((unit, key) -> record), its told lines, who is Known (the phase); None off
               "btrust")   # body_trust (finishing pack part 3): each life's trust per sphere (N x 9, NaN before 15); None off
 STATE_MISSED = set()   # names read at a pause that are not handed over (STATE, STATE_IF, STATE_MORE): t_steps wants none
 

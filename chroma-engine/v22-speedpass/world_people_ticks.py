@@ -75,6 +75,8 @@ class TicksMixin:
             self._sac_week(t)
         if getattr(self, "bt_on", False):
             self._bt_week(t)
+        if self.wa_on:   # the world answers (world_people_answers): asks, told events, a Known life's decisions
+            self._wa_week(t)
         self._wants_week(t)
         self._outputs(t)
 
@@ -112,6 +114,8 @@ class TicksMixin:
             self._sph_year4(t)
         if getattr(self, "bt_on", False):   # body_trust: after felt fairness's year
             self._bt_year(t)
+        if self.wa_on:   # the world answers: presence in settings and places, the figures around a Known life
+            self._wa_month(t)
         B = self._bits()
         if getattr(self, "comrade", None) is not None:   # phase 5: whoever shares a unit with them is a comrade from now on
             un_ = (self.skind == G["unit"])

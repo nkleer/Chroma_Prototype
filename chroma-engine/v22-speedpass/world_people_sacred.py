@@ -86,7 +86,7 @@ class SacredMixin:
         # crossed, is settled around them: no more offers come for it; v22.4 fix round: counting only holds kept offers
         # coming to lines that were crossed, so lives that cross more (Black- and Red-led) held more offers and paid more)
         ns, tch = ns[tch.any(1)], tch[tch.any(1)]
-        r_ = self._sac_rng.random(len(ns)) < (sp["reach"] if reach is None else reach)
+        r_ = self._sac_rng.random(len(ns)) < (sp["reach"] if reach is None else reach) * (self._wa_offer_x(ns, key) if self.wa_n else 1.0)
         for n_, tc_ in zip(ns[r_], tch[r_]):
             n_ = int(n_); q_ = self.sac_q.setdefault(n_, [])
             if any(x_.get("key") == key for x_ in q_):

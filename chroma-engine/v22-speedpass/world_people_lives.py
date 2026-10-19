@@ -86,7 +86,11 @@ class LivesMixin:
         if chm.any():   # the character's children are brought up in the household
             ctx[chm] = self.snorm[dn[chm], self.hhj[dn[chm]]]
         pi = self.pie[dn, dk]
+        if self.wa_l:   # the world answers, D: a partner's drift toward the character, a child's toward their household
+            wm_ = dp | chm; wp0_ = pi[wm_].astype(float)
         pi += rate[:, None] * (ctx - pi)
+        if self.wa_l and wm_.any():
+            self._wa_pmove(dn[wm_], dk[wm_], t, col=(pi[wm_] - wp0_) * np.where(chm[wm_], 0.5, 1.0)[:, None], what="the years together")
         bd = bad[dn, dk]
         if bd.any():
             st_ = (0.05 * (1 - _uclip(da[bd], 0, 90) / 100))[:, None]
@@ -191,8 +195,18 @@ class LivesMixin:
             ages = np.maximum(5, a + rng.normal(0, 10, len(nn)))
             far = rng.random(len(nn)) < 0.4
             loc = np.where(far, rng.choice(self.n_loc, len(nn), p=self.loc_p), self.loc[nn])
-            F = self._gen(nn, t - (ages * 52).astype(np.int64), t, loc=loc)
-            self._add(F, t, R["acquaintance"], c0=0.06, trust0=0.45, quiet=True)
+            al_ = self._wa_alike(nn) if self.wa_n else None
+            if al_ is not None and al_.any():   # the world answers, E2: some of them alike what the character pursues
+                bn_ = t - (ages * 52).astype(np.int64)
+                F = self._gen(nn[al_], bn_[al_], t, loc=loc[al_], ctx=self.wa_gmix[nn[al_]], sel=0.6)
+                self._add(F, t, R["acquaintance"], c0=0.06, trust0=0.45, quiet=True)
+                self.wa_met += np.bincount(nn[al_], minlength=N)
+                if (~al_).any():
+                    F = self._gen(nn[~al_], bn_[~al_], t, loc=loc[~al_])
+                    self._add(F, t, R["acquaintance"], c0=0.06, trust0=0.45, quiet=True)
+            else:
+                F = self._gen(nn, t - (ages * 52).astype(np.int64), t, loc=loc)
+                self._add(F, t, R["acquaintance"], c0=0.06, trust0=0.45, quiet=True)
 
     def _roles(self, t):
         """Roles that emerge: friend (a close non-kin tie), mentor, rival, prospect, elder (quarterly)."""
@@ -352,7 +366,10 @@ class LivesMixin:
         if key == "rival" and accepted:   # competing for the place: winning makes an enemy, losing costs trust
             dc, dtr, mk = ((-0.1, -0.1, "made an enemy") if succ else (-0.03, -0.05, None))
             self.rmask[n, k] |= BIT["rival"]
+        c0_, t0_ = float(self.c[n, k]), float(self.trust[n, k])
         self.c[n, k] = _uclip(self.c[n, k] + dc, 0, 1); self.trust[n, k] = _uclip(self.trust[n, k] + dtr, 0, 1)
+        if self.wa_l:   # the world answers, D: a want met or refused moves the person who held it
+            self._wa_pmove(np.array([n]), np.array([k]), t, dc=np.array([self.c[n, k] - c0_]), dtr=np.array([self.trust[n, k] - t0_]))
         if mk:
             bad = mk in ("refused someone in need", "made an enemy", "broke your word")
             if bad:
