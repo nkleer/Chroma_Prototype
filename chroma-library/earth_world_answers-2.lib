@@ -1,0 +1,535 @@
+# Chroma library, modern Earth: THE WORLD ANSWERS, writer 2 (chroma-world/spheres/world-answers-v1.md, 10-19; read
+# only with the Engine's world_answers switch on). Spheres comm (shops, markets, banks), prod (works, farms,
+# workshops) and learn (schools, colleges, libraries).
+#   E4 the sphere asks: asked_help (rung 2), asked_lead (rung 3), asked_speak (rung 4), one of each a sphere; {place}
+#      is the place in that sphere. Everyday layout: five one-colour ways and one cross cycle; lever: on every option
+#      (loyalty or lead a yes, voice a yes in their own way or a bargain, exit or neglect a no).
+#   F2 decisions for others (Known lives): four a sphere, 2 to 4 directions each with scope:. Leading colours over
+#      all twelve: 35 one-colour options (7 a colour) and one cross cycle (W>U U>B B>R R>G G>W), so each colour leads
+#      8 times by first letter and 8 by the checker's split count.
+
+# ================================================================ E4 the sphere asks: comm
+
+== the traders ask for spring fair Saturdays
+tier: everyday
+stages: young_adult adult mature elder
+age: 20-85
+calls: WG
+tone: mixed
+life: work, community
+horizon: months
+roles: colleague, neighbour, friend
+cast_want: asked_help
+sphere: comm
+earth: the traders at the market you know ask if you could give some Saturdays to help run their spring fair
+scene: {N} has been coming to {place} long enough that the traders know {N} by name. One morning the woman who keeps the traders' ledger stops by with a clipboard. The spring fair needs hands on Saturdays: setting out the trestles, minding the cash tin, sorting the pitches. Only a few weekends, she says, and they thought of {N} first.
+scene W: A fair that runs on goodwill needs someone who turns up when the rota says so, and {N} is known for turning up.
+scene G: These are the same faces {N} has bought bread and onions from for years; saying yes would make {N} one of them.
+- W | sign up for every Saturday on the rota and keep the cash tin honest | lever: loyalty | v: conformity, benevolence | foot: place comm.market | chance: 80
+- U | offer to redraw the pitch plan so the fair runs smoother than last year | lever: voice | v: achievement, self-direction | foot: person colleague | chance: 70
+- B | agree to help, in return for a better pitch next season | lever: voice | v: power, achievement | foot: means money+.03 | chance: 75
+- R | say yes on the spot and talk two friends into coming along | lever: loyalty | v: stimulation, benevolence | foot: place comm.market; person friend | chance: 80
+- G | help the old way: bring the tea urn and stay to pack up at dusk | lever: loyalty | v: tradition, benevolence | foot: person neighbour | chance: 85
+- W>G | take on keeping the fair's long-standing rules, the same for every stall | lever: lead | v: conformity, tradition | foot: place comm.market | chance: 70
+- U>W | give one Saturday and write down how the day should run, for whoever comes next | lever: loyalty | v: universalism, achievement | foot: person colleague | chance: 80
+- B>U | keep the Saturdays free, but offer an evening on the traders' accounts | lever: voice | v: power, achievement | foot: means time+.03 | chance: 80
+- R>B | say no warmly: Saturday is the one free day, and it stays free | lever: exit | v: hedonism, self-direction | foot: means freedom+.03 | chance: 85
+- G>R | keep Saturdays for the family, and promise to come to the fair to cheer | lever: neglect | v: tradition, hedonism | foot: means ties+.03 | chance: 85
+works: The fair runs on time that spring, and the traders at {place} start keeping a cup of tea back for {N} on Saturdays.
+works: Whatever {N} gave or held back, it was said plainly, and the traders take it well.
+fails: The Saturday rota falls apart by midsummer, and the clipboard comes round again, with more pleading in it.
+fails: A couple of the old traders take the answer badly, and for a while the greetings at {place} are a little cooler.
+
+== the shop committee wants a new chair
+tier: everyday
+stages: adult mature elder
+age: 25-85
+calls: WB
+tone: mixed
+life: work, community
+horizon: years
+roles: colleague, elder, friend, rival
+cast_want: asked_lead
+sphere: comm
+earth: the committee that runs a shop you know well asks you to take the chair
+scene: The committee that runs {place} has lost its chair, and at the end of a long meeting {colleague} turns to {N}. Everyone at {place} knows {N}: the hours put in, the sense {N} talks at meetings, the way the younger staff come to {N} with questions. The committee would like {N} to take it on, {colleague} says, starting next month.
+scene W: A shop held in common needs someone who will keep the books straight and the meetings fair.
+scene B: The chair decides who is hired, what is stocked and what is paid; it is a real post, with real weight.
+- W | take the chair, and start by writing down how decisions get made | lever: lead | v: conformity, universalism | foot: place comm.shop | chance: 70
+- U | take it for a trial year, after going through the old accounts with the last chair | lever: lead | v: achievement, self-direction | foot: person mentor | chance: 70
+- B | accept, on condition the chair has the final say over hiring | lever: lead | v: power | foot: person rival | chance: 65
+- R | turn it down: running a committee would take the joy out of the place | lever: exit | v: hedonism, stimulation | foot: means freedom+.04 | chance: 85
+- G | say the shop has older hands, and back one of them for the chair | lever: loyalty | v: tradition, benevolence | foot: person elder | chance: 80
+- W>B | take the chair and set firm targets for each quarter | lever: lead | v: achievement, conformity | foot: place comm.shop | chance: 65
+- U>R | offer to train the new staff, and leave the chair to someone else | lever: loyalty | v: self-direction, stimulation | foot: person colleague | chance: 80
+- B>G | accept, and give the friends who backed the move a seat at the table | lever: lead | v: power, benevolence | foot: person friend | chance: 70
+- R>W | accept with a rush of ideas, and promise every member a fair say | lever: lead | v: stimulation, universalism | foot: means time-.06 | chance: 60
+- G>U | keep to the counter as before, and learn the trade properly first | lever: neglect | v: tradition, self-direction | foot: door turned down a chance | chance: 85
+works: By the next spring the committee at {place} runs more smoothly, and the staff speak of how things are done now without thinking about it.
+works: {colleague} says afterwards that {N} answered the way {N} does everything, and that it was the right answer for {place}.
+fails: The first months are rough, and a decision has to be undone in front of the whole committee.
+fails: Somebody at {place} decides they liked it better before, and says so, often, where the rest can hear.
+
+== the traders want a voice at the council
+tier: everyday
+stages: adult mature elder
+age: 30-90
+calls: WR
+tone: mixed
+life: work, community
+horizon: years
+roles: colleague, elder, rival, friend
+cast_want: asked_speak
+sphere: comm
+earth: the council wants someone from the market to speak for the traders, and they have asked you
+scene: The council is about to decide the market square's future: the rents, the parking, whether the weekday market stays at all. The traders of {place} meet in the back of the café and argue for an hour. In the end they agree on one thing: {N} should speak for them. {N} has stood at {place} longer than most, and people listen when {N} talks.
+scene W: The traders do not all want the same thing, and whoever speaks owes each of them a fair hearing first.
+scene R: The square is where half the town meets on a weekday, and {N} can feel how much it would hurt to lose it.
+- W | agree, and gather every trader's view before writing a word | lever: lead | v: universalism, conformity | foot: place rule.counsel | chance: 70
+- U | agree, and come armed with the figures: footfall, takings, what the town would lose | lever: voice | v: achievement | foot: person colleague | chance: 65
+- B | say no: speaking for everyone means answering to everyone | lever: exit | v: self-direction, power | foot: door turned down a chance | chance: 85
+- R | speak, and speak from the heart about what the square means to those who come | lever: voice | v: stimulation, benevolence | foot: place rule.voice | chance: 65
+- G | say the oldest trader should speak, and stand beside her | lever: loyalty | v: tradition, benevolence | foot: person elder | chance: 80
+- W>R | set out the rules the traders agreed, then rally the crowd in the gallery | lever: lead | v: universalism, stimulation | foot: place rule.voice | chance: 60
+- U>G | agree, and tell the council the square's long history from the old records | lever: loyalty | v: tradition, achievement | foot: place learn.keeping | chance: 70
+- B>W | agree, in return for a seat on the market committee afterwards | lever: voice | v: power, conformity | foot: door kept your word | chance: 70
+- R>U | leave the speech to another, but spend the evenings helping find the words | lever: loyalty | v: benevolence, self-direction | foot: person friend | chance: 80
+- G>B | keep to the stall that day: the takings will not wait | lever: neglect | v: security, tradition | foot: means time+.03 | chance: 85
+works: The council hears the traders out, and the weekday market keeps its place in the square for now.
+works: Afterwards the traders at {place} stand {N} a drink and go over the meeting again, line by line.
+fails: The council decides much as it meant to, and the traders grumble that nobody could have changed its mind.
+fails: Not every trader liked how it went, and one of them makes sure {N} hears about it for weeks.
+
+# ================================================================ E4 the sphere asks: prod
+
+== the growers call for harvest weekends
+tier: everyday
+stages: young_adult adult mature elder
+age: 20-85
+calls: GW
+tone: mixed
+life: work, community
+horizon: months
+roles: colleague, neighbour, friend
+cast_want: asked_help
+sphere: prod
+earth: the farm you work near asks if you could help bring in the harvest at the weekends
+scene: Harvest comes early at {place} this year, and rain is forecast for the week after. {colleague} rings on a Thursday night: could {N} give the next three weekends, early starts, to help bring it in? There is no pay to speak of, only the meals at the long table and a box of whatever is picked.
+scene G: The fields have been worked this way for longer than anyone can remember, every hand the town can spare at the end of summer.
+scene W: The crop belongs to everyone who put work into it, and it will not wait for anyone's convenience.
+- W | sign up for all three weekends, the earliest shift, without being asked twice | lever: loyalty | v: conformity, benevolence | foot: place prod.land | chance: 80
+- U | come, and work out a better order for the fields so the crews waste less time | lever: voice | v: achievement, self-direction | foot: person colleague | chance: 70
+- B | agree to come, for a share of the crop to sell on | lever: voice | v: power, achievement | foot: means money+.03 | chance: 75
+- R | turn up with music and a crowd of friends, and make a party of the picking | lever: loyalty | v: hedonism, stimulation | foot: person friend | chance: 75
+- G | come every weekend, and stay for the meal at the long table afterwards | lever: loyalty | v: tradition, benevolence | foot: place prod.land; person neighbour | chance: 85
+- W>U | come, and keep a proper record of what each field gave, for next year | lever: loyalty | v: conformity, achievement | foot: place prod.land | chance: 75
+- U>B | give one weekend and spend it learning the machines, a skill worth having | lever: voice | v: self-direction, achievement | foot: mark learned a skill | chance: 70
+- B>R | decline, and keep the weekends for the trip already planned | lever: exit | v: hedonism, self-direction | foot: means freedom+.03 | chance: 85
+- R>G | stay out of the fields, but bake for the crews and bring it out at noon | lever: loyalty | v: benevolence, hedonism | foot: person neighbour | chance: 85
+- G>W | decline honestly: the household needs those weekends | lever: neglect | v: tradition, security | foot: means ties+.03 | chance: 85
+works: The last cart comes in the day before the rain, and {place} keeps a place at the long table for {N} after that.
+works: However {N} answered, it was taken as meant, and {colleague} says so when they next meet.
+fails: The crews run short on the second weekend, and half the low field is lost to the rain.
+fails: The answer lands badly with one or two at {place}, and it takes a season for the coolness to pass.
+
+== the workshop needs a teacher for its apprentices
+tier: everyday
+stages: adult mature elder
+age: 25-85
+calls: UG
+tone: mixed
+life: work
+horizon: years
+roles: boss, colleague, mentor
+cast_want: asked_lead
+sphere: prod
+earth: the workshop where you work asks you to take on the apprentices
+scene: The old foreman at {place} is retiring at last, and the three apprentices need someone to teach them. {boss} has asked around, and every answer came back with the same name. {N} has the hands for the work and, it seems, the patience.
+scene U: Teaching a craft means knowing it well enough to say why each step is done, and {N} wonders whether {N} does.
+scene G: The trade came to {N} from the old foreman, who had it from someone before him; now it is {Ns} turn to pass it on.
+- W | take them on, with a set plan of what each must learn by the year's end | lever: lead | v: conformity, achievement | foot: place prod.craft | chance: 70
+- U | take them on, and teach the why of each step, not only the how | lever: lead | v: self-direction, universalism | foot: person colleague | chance: 70
+- B | agree, for a foreman's pay and a foreman's title | lever: lead | v: power, achievement | foot: means money+.05 | chance: 65
+- R | turn it down and stay at the bench, where the joy of the work is | lever: exit | v: hedonism, self-direction | foot: door turned down a chance | chance: 85
+- G | take them on the old foreman's way: side by side, one task at a time | lever: lead | v: tradition | foot: person mentor | chance: 75
+- W>R | take them on, with clear rules and a prize for the year's best piece | lever: lead | v: conformity, stimulation | foot: place prod.craft | chance: 70
+- U>G | teach them the old skills, and write each one down before it is lost | lever: loyalty | v: tradition, achievement | foot: place learn.keeping | chance: 70
+- B>W | agree, if the workshop sets fair pay for the extra hours for everyone who teaches | lever: voice | v: power, universalism | foot: means money+.03 | chance: 65
+- R>U | leave the post to another, but show them the tricks no book has, on Fridays | lever: loyalty | v: stimulation, self-direction | foot: person colleague | chance: 80
+- G>B | decline: the household's own business needs those hours | lever: exit | v: security, tradition | foot: means time+.04 | chance: 85
+works: By the spring the apprentices at {place} work with a care the old hands recognise, and {boss} notices.
+works: {N} answers in {Ns} own way, and the workshop finds a way to work with it.
+fails: The first months are hard on everyone, and one of the apprentices nearly gives up the trade.
+fails: {boss} had hoped for a different answer, and the workshop's welcome is a little stiffer for a while.
+
+== the valley asks for someone to speak for its fields
+tier: everyday
+stages: adult mature elder
+age: 30-90
+calls: RG
+tone: mixed
+life: work, community
+horizon: years
+roles: colleague, neighbour, rival, friend
+cast_want: asked_speak
+sphere: prod
+earth: the growers and the people who work the land near you want you to speak for them at the town hall
+scene: The town is deciding where the new houses will go, and the plan on the table takes the fields behind {place}. The growers and the people who work there have met twice in the barn. At the second meeting someone says what most of them were thinking: {N} should speak for them. {N} knows the place, and {N} is trusted.
+scene R: {N} has spent years with hands in that soil, and the thought of it under tarmac makes {Ns} chest tight.
+scene G: Some of these families have worked the same fields for generations, and they want one of their own to stand up.
+- W | agree, and set out the growers' case point by point, with what the rules allow | lever: lead | v: conformity, universalism | foot: place rule.counsel | chance: 65
+- U | agree, and bring the soil surveys and the yields of the last twenty seasons | lever: voice | v: achievement | foot: person colleague | chance: 65
+- B | agree, and quietly look for a deal that pays the growers well to move | lever: voice | v: power, security | foot: person rival | chance: 65
+- R | agree, and speak with all the fire of someone whose hands are in that soil | lever: lead | v: stimulation, benevolence | foot: place rule.voice | chance: 60
+- G | agree, and bring the families who farmed there for generations to stand behind | lever: loyalty | v: tradition, benevolence | foot: place prod.land | chance: 70
+- W>B | agree, and ask that the growers' own committee be written into the plan | lever: voice | v: conformity, power | foot: door kept your word | chance: 65
+- U>R | leave the stand to another, but write the speech for whoever gives it | lever: loyalty | v: self-direction, benevolence | foot: person friend | chance: 80
+- B>G | speak only for the families nearest the fields, whose case is strongest | lever: voice | v: power, benevolence | foot: person neighbour | chance: 70
+- R>W | say no: feelings run too high, and the case needs a cooler voice | lever: exit | v: universalism, security | foot: door turned down a chance | chance: 85
+- G>U | decline, and lend the old field books to whoever does speak | lever: exit | v: tradition, security | foot: means time+.03 | chance: 85
+works: The council sends the plan back to be redrawn, and the fields behind {place} are left alone for now.
+works: Whatever {N} chose, the growers at {place} say it was an honest answer, and they remember it.
+fails: The plan goes through with a few changes, and the growers at {place} start talking about where they will go.
+fails: A few in the barn think {N} let them down, and they say so at the next meeting.
+
+# ================================================================ E4 the sphere asks: learn
+
+== the homework club needs Tuesday helpers
+tier: everyday
+stages: young_adult adult mature elder
+age: 20-85
+calls: UG
+tone: mixed
+life: community, learning
+horizon: months
+roles: colleague, neighbour, friend
+cast_want: asked_help
+sphere: learn
+earth: the library you know asks if you could give an evening a week to its homework club
+scene: {place} has run a homework club on Tuesday evenings for years, and this term two of its helpers have moved away. A note goes round, and then {colleague} asks {N} directly: one evening a week, sitting with whoever needs a hand with sums or spelling or a letter to the council.
+scene U: {N} likes explaining things, and it has been a while since anyone asked {N} to.
+scene G: Someone sat with {N} like this once, long ago, and it made all the difference.
+- W | take a regular Tuesday and never miss one | lever: loyalty | v: conformity, benevolence | foot: place learn.keeping | chance: 85
+- U | come, and bring a box of old workbooks sorted by level | lever: loyalty | v: universalism, achievement | foot: person colleague | chance: 80
+- B | agree, in return for a good reference from the head librarian | lever: voice | v: achievement, power | foot: person patron | chance: 75
+- R | come once, have such a good evening that it turns into every week | lever: loyalty | v: stimulation, benevolence | foot: person friend | chance: 80
+- G | help the way the old librarian once helped: patiently, one person at a time | lever: loyalty | v: tradition, benevolence | foot: place learn.keeping | chance: 80
+- W>B | run the sign-in sheet and the rota, so the club can apply for a grant | lever: lead | v: conformity, achievement | foot: means time-.04 | chance: 70
+- U>R | skip the Tuesdays, but record short lessons the club can play any time | lever: voice | v: self-direction, stimulation | foot: lesson help can come from afar | chance: 75
+- B>G | decline: the evenings go to the second job that keeps the household going | lever: exit | v: security, achievement | foot: means money+.03 | chance: 85
+- R>W | jump in with enthusiasm, then settle on a fixed night once the term starts | lever: loyalty | v: stimulation, conformity | foot: door kept your word | chance: 70
+- G>U | decline for now, and send them a retired teacher from down the street | lever: neglect | v: tradition, benevolence | foot: means time+.03 | chance: 85
+works: By the end of term the Tuesday room at {place} is full, and {colleague} thanks {N} by name in the newsletter.
+works: The answer was honest, and the people at {place} think no less of {N} for it.
+fails: The club limps on short of hands, and {colleague} looks tired every time {N} passes the desk.
+fails: Some at {place} had hoped for more, and for a while the welcome there is polite rather than warm.
+
+== the college asks for an evening teacher
+tier: everyday
+stages: adult mature elder
+age: 25-85
+calls: UB
+tone: mixed
+life: work, learning
+horizon: years
+roles: boss, colleague, friend
+cast_want: asked_lead
+sphere: learn
+earth: the college you know asks you to teach an evening class in what you know best
+scene: The adult classes at {place} have lost their teacher for the spring term, and {boss} has heard that {N} knows the subject better than anyone in town. The pay is small, the room is cold, and the students range from school-leavers to pensioners. Would {N} take it on?
+scene U: There is a way of teaching this that nobody has tried here, and {N} has thought about it for years.
+scene B: A class of one's own is a foot in the door, and doors at {place} do not open often.
+- W | take the class, with a syllabus, a register and a fair test at the end | lever: lead | v: conformity, universalism | foot: place learn.higher | chance: 70
+- U | take it, and rebuild the course from the ground up | lever: lead | v: self-direction, achievement | foot: person colleague | chance: 65
+- B | take it as a step toward a proper post on the staff | lever: lead | v: achievement, power | foot: person boss | chance: 70
+- R | take it, and make the cold room the liveliest evening in town | lever: lead | v: stimulation, hedonism | foot: person friend | chance: 65
+- G | suggest the retired teacher, and offer to sit in as her helper | lever: loyalty | v: tradition, benevolence | foot: person teacher | chance: 80
+- W>U | take it for one term only, and leave notes so the next teacher starts well | lever: loyalty | v: conformity, achievement | foot: door kept your word | chance: 80
+- U>B | decline: the private study takes every spare hour, and this would slow it | lever: exit | v: achievement, self-direction | foot: door turned down a chance | chance: 85
+- B>R | agree, if the hours can bend around everything else | lever: voice | v: self-direction, power | foot: means time-.03 | chance: 70
+- R>G | say no for now: this season belongs to friends and home | lever: neglect | v: hedonism, benevolence | foot: means time+.04 | chance: 85
+- G>W | take it on as a debt repaid to the town that taught the trade | lever: loyalty | v: tradition, universalism | foot: place learn.higher | chance: 75
+works: By the last evening of term nobody misses a class, and {boss} asks whether {N} would think about the autumn.
+works: {N} gave {boss} a clear answer, and {boss} respects it more than a half-hearted yes.
+fails: The class thins out by the fourth week, and the cold room feels colder for the empty chairs.
+fails: The answer leaves {boss} in a bind, and it is a while before {place} asks {N} for anything again.
+
+== the school wants someone to speak for it
+tier: everyday
+stages: adult mature elder
+age: 30-90
+calls: WU
+tone: mixed
+life: work, community, learning
+horizon: years
+roles: colleague, elder, rival
+cast_want: asked_speak
+sphere: learn
+earth: the council wants someone from the school to speak about its future, and the staff have asked you
+scene: The council is weighing whether to merge two schools and close the old reading rooms, and it wants to hear from {place}. The staff and the families have argued about it for weeks. In the end {colleague} brings the letter to {N}: they would like {N} to go and speak for {place}.
+scene W: Whoever speaks must carry what the staff and the families agreed, not a private view.
+scene U: The council will decide on hunches unless someone puts the evidence in front of it.
+- W | agree, and present what the staff and the families agreed, word for word | lever: lead | v: conformity, universalism | foot: place rule.counsel | chance: 70
+- U | agree, and bring the results and the studies, and let them speak | lever: voice | v: achievement | foot: place learn.keeping | chance: 65
+- B | agree, and press for the school to come first in line for the money | lever: voice | v: power, achievement | foot: person rival | chance: 65
+- R | agree, and tell the story of one student whose life the place changed | lever: lead | v: benevolence, stimulation | foot: place rule.voice | chance: 65
+- G | ask the longest-serving teacher to speak, and stand at her side | lever: loyalty | v: tradition, benevolence | foot: person teacher | chance: 80
+- W>G | agree, and speak for keeping what the school has always done well | lever: lead | v: tradition, conformity | foot: person elder | chance: 70
+- U>W | leave the stand to another, but write a clear paper the council can read | lever: voice | v: universalism, self-direction | foot: lesson a clear page outlasts a speech | chance: 75
+- B>U | agree, and ask for a seat on the council's schools panel in return | lever: voice | v: power, achievement | foot: place rule.counsel | chance: 65
+- R>B | say no: a year of meetings would crush the joy out of the job | lever: exit | v: hedonism, self-direction | foot: door turned down a chance | chance: 85
+- G>R | decline: home needs every evening this season | lever: neglect | v: benevolence, security | foot: means time+.04 | chance: 85
+works: The council puts off the merger for a year, and the staff at {place} count it as a win.
+works: However {N} answered, {colleague} says it was the right answer for {N}, and means it.
+fails: The council votes as it was always going to, and the staff at {place} take it hard.
+fails: One or two at {place} think {N} should have done more, and say so in the staff room.
+
+# ================================================================ F2 decisions for others: comm
+
+== the market square's trading hours
+tier: decision
+cast_want: decide
+sphere: comm
+stages: adult mature elder
+age: 25-90
+tone: mixed
+life: work, community
+horizon: years
+roles: colleague, neighbour, rival
+earth: the traders' association must decide when the market runs, and your word now carries
+scene: The market at {place} has grown, and the stalls no longer agree on when to open or close. Some want the early trade, some the late, and the people who live round the square want their evenings quiet. The association meets, and everyone turns to {N}.
+- W | one set of hours for every stall, posted and kept by all | v: conformity, universalism | scope: town_sphere | chance: 70
+- B | let each trader set their own hours and keep what they earn | v: achievement, power | scope: town_sphere | chance: 70
+- R | open late on summer nights, with music, and see who comes | v: stimulation, hedonism | scope: place | chance: 60
+- G | keep the market days the town has always had | v: tradition, security | scope: town_sphere | chance: 75
+works: Within a season the new way at {place} feels as if it was always so, and the square is busy.
+works: The traders who argued hardest at the meeting are the first to say it was the right call.
+fails: Half the stalls ignore the decision, and the square is a muddle of open and shut for months.
+fails: The neighbours and a handful of traders go to the council about it, and the quarrel drags on.
+
+== the shop's pay and the lean year
+tier: decision
+cast_want: decide
+sphere: comm
+stages: adult mature elder
+age: 25-90
+tone: mixed
+life: work
+horizon: years
+roles: colleague, boss, rival
+earth: the shop must decide how it pays its staff in a lean year, and the decision is yours
+scene: Takings at {place} are down for the second year, and the staff are worried. The books say something has to give. {N} is the one who decides how the pay will work from now on, and everyone knows it.
+- W | one pay scale for all, rising with years served | v: universalism, conformity | scope: place | chance: 70
+- U | pay by skill, and pay for the training that builds it | v: achievement, self-direction | scope: place | chance: 65
+- B>R | pay a share of the profits, so a good year is everyone's good year | v: achievement, stimulation | scope: place | chance: 60
+- G | keep everyone on at the old pay, and ride out the lean year together | v: benevolence, tradition | scope: place | chance: 65
+works: The staff at {place} take the new terms better than {N} feared, and the shop comes through the year.
+works: By the next year's end the books are steadier, and the decision is spoken of as the turning point.
+fails: Two of the best hands leave for other shops, and {place} is short-staffed through the winter.
+fails: The takings keep falling, and the decision is blamed for more than it did.
+
+== the credit union's loans to small traders
+tier: decision
+cast_want: decide
+sphere: comm
+stages: adult mature elder
+age: 30-90
+tone: mixed
+life: work, money, community
+horizon: years
+roles: colleague, neighbour, rival
+earth: the town's credit union must decide who it lends to, and you sit at the head of its board
+scene: The credit union at {place} has more money to lend than in years, and more people asking for it. The board cannot agree on who should come first. Small traders, new firms and old families all have a claim, and {N} has the deciding word.
+- U>B | test each plan carefully, and charge what the risk is worth | v: achievement, power | scope: town_sphere | chance: 65
+- B | lend to the firms most likely to grow, and grow the fund with them | v: achievement, power | scope: town_sphere | chance: 65
+- G | lend first to the families the town has known for years | v: tradition, benevolence | scope: town_sphere | chance: 70
+works: The loans go out, and by the next spring there are new shutters going up along the high street.
+works: Most of the money comes back on time, and the board stops arguing about the rule.
+fails: Too many loans go bad in the first year, and the board has to tighten everything again.
+fails: Those left out say the credit union has picked favourites, and they say it loudly.
+
+== the empty shop on the high street
+tier: decision
+cast_want: decide
+sphere: comm
+stages: adult mature elder
+age: 25-90
+tone: mixed
+life: work, community
+horizon: years
+roles: colleague, neighbour, rival
+earth: the traders must decide what becomes of an empty shop on the high street, and they leave it to you
+scene: The old ironmonger's on the high street has stood empty for a year, and the traders' association has the lease. Its dark window makes the whole row look tired. Everyone has an idea, and in the end the decision is left to {N}.
+- W | let it to whoever bids under a fair-rent rule, open to all | v: universalism, conformity | scope: town_sphere | chance: 70
+- U | make it a trial space for a new trade each month | v: self-direction, achievement | scope: place | chance: 65
+- R | hand it to the young makers for a rent-free season | v: stimulation, self-direction | scope: place | chance: 60
+works: Within months the window at {place} is lit again, and people stop to look in.
+works: The row of shops is busier for it, and the other traders say so.
+fails: The shop sits half-used, and by winter the window is dark again.
+fails: The traders argue about the choice for longer than the shop was ever used.
+
+# ================================================================ F2 decisions for others: prod
+
+== the new machines at the works
+tier: decision
+cast_want: decide
+sphere: prod
+stages: adult mature elder
+age: 25-90
+tone: mixed
+life: work
+horizon: years
+roles: colleague, boss, rival
+earth: the works must decide whether to bring in new machines, and the decision is yours
+scene: The new machines would do in a day what the line at {place} does in a week. The salesman has gone, the brochures are on the table, and the crews are waiting to hear. {N} has the final say.
+- U | bring in the machines, and retrain the crews to run them | v: achievement, self-direction | scope: place | chance: 65
+- B | bring them in and cut the line, to stay ahead of the other works | v: power, achievement | scope: place | chance: 65
+- R | let the crews try the machines out, and choose what to keep | v: self-direction, stimulation | scope: place | chance: 60
+- G | keep the old line and the people on it | v: tradition, security | scope: place | chance: 70
+works: A year on, {place} is busier than it has been in a long time, and the crews have settled into the new way.
+works: The other works in the valley come to look, and some of them follow.
+fails: The change costs more than the plan said, and the works has a lean year because of it.
+fails: The crews split over it, and the quarrel at {place} outlasts the machines' first breakdown.
+
+== hiring at the workshop
+tier: decision
+cast_want: decide
+sphere: prod
+stages: adult mature elder
+age: 25-90
+tone: mixed
+life: work, community
+horizon: years
+roles: colleague, neighbour, rival
+earth: the workshop must decide how it hires, and your word is the one that counts
+scene: {place} has three places to fill, and fifty people have asked for them. The old way was a word from someone already there. The foreman, the office and half the town have opinions. {N} decides.
+- W | hire by open notice and a fair test, whoever applies | v: universalism, conformity | scope: place | chance: 70
+- B | hire the most skilled, from wherever, at whatever it costs | v: achievement, power | scope: place | chance: 65
+- R | take on young ones with a spark, trained or not, and let them learn | v: stimulation, benevolence | scope: place | chance: 60
+works: The new hands at {place} settle in quickly, and the work is better for them by the year's end.
+works: Word gets round the town about how {place} hires, and the next notice draws more people than ever.
+fails: One of the new hands leaves within months, and the old ones say they saw it coming.
+fails: Those passed over feel it was unfair, and the workshop's name in town takes a knock.
+
+== the low fields by the river
+tier: decision
+cast_want: decide
+sphere: prod
+stages: adult mature elder
+age: 25-90
+tone: mixed
+life: work, community
+horizon: years
+roles: colleague, neighbour, rival
+earth: the farm must decide what to do with its low fields by the river, and the choice is yours
+scene: The low fields by the river at {place} flood more years than they used to, and the crop there barely pays. The growers' meeting has gone round in circles. They ask {N} to decide what the land should be from now on.
+- U | turn half the fields over to a trial of new crops | v: self-direction, achievement | scope: place | chance: 60
+- R | open the land for the town's growing plots and a summer fair | v: stimulation, benevolence | scope: place | chance: 65
+- G | let the low fields go back to meadow and wetland | v: universalism, tradition | scope: town_sphere | chance: 70
+works: Within a couple of years the low fields at {place} are something the town is proud of.
+works: Other farms along the river start asking how it was done.
+fails: The first year goes badly, and the growers who argued against it say so at every meeting.
+fails: The river floods again before the change has taken hold, and much of the work is lost.
+
+== the fate of the old mill
+tier: decision
+cast_want: decide
+sphere: prod
+stages: adult mature elder
+age: 30-90
+tone: mixed
+life: work, community
+horizon: years
+roles: colleague, neighbour, rival
+earth: the old mill is losing money, and whether it stays open is now your decision
+scene: The old mill at {place} has lost money three years running. Forty people work there, and their parents worked there before them. A buyer wants the site. The workers have their own idea. The town waits on {N}.
+- W | keep it open under a plan everyone signs, with the books open to all | v: conformity, universalism | scope: place | chance: 60
+- B | close it and sell the site, and put the money into the new works | v: power, achievement | scope: town_sphere | chance: 70
+- R>G | hand the mill to its workers to run together | v: self-direction, benevolence | scope: place | chance: 55
+works: Five years on, people in town still say the decision about the mill was the right one.
+works: The mill's workers find their feet, one way or another, and most stay in the valley.
+fails: The plan does not save the money it promised, and the question of the mill comes back within two years.
+fails: The town is bitterly split over it, and some families at {place} do not forgive the decision.
+
+# ================================================================ F2 decisions for others: learn
+
+== how the school teaches
+tier: decision
+cast_want: decide
+sphere: learn
+stages: adult mature elder
+age: 30-90
+tone: mixed
+life: work, learning
+horizon: years
+roles: colleague, boss, rival
+earth: the school must decide how it teaches, and the staff and governors wait on your word
+scene: The governors of {place} have argued about teaching for a year. Results are middling, the staff are tired, and the families want something to change, though not all the same thing. The vote is tied, and the deciding word is {Ns}.
+- W | one curriculum and the same tests for every class in town | v: conformity, universalism | scope: town_sphere | chance: 65
+- U | let the teachers try new methods, and measure what works | v: self-direction, achievement | scope: place | chance: 65
+- R | give the pupils a day a week to follow their own projects | v: stimulation, self-direction | scope: place | chance: 60
+- G | keep the school's old ways: the hall, the songs, the long-standing subjects | v: tradition, conformity | scope: place | chance: 70
+works: Within a couple of years the staff at {place} speak of the new way as simply how the school works.
+works: Other schools in the town come to see how {place} does it.
+fails: The change is bumpy, and the first year's results give the doubters plenty to say.
+fails: Some of the staff never come round, and two of them leave at the end of the year.
+
+== the college's next study
+tier: decision
+cast_want: decide
+sphere: learn
+stages: adult mature elder
+age: 30-90
+tone: mixed
+life: work, learning
+horizon: years
+roles: colleague, mentor, rival
+earth: the college has money for one large study, and the choice is yours
+scene: {place} has been left a sum for research, enough for one large study and no more. The departments have sent their proposals, each sure its own matters most. The committee has narrowed it down, and leaves the last word to {N}.
+- U | fund the slow, careful study nobody else will pay for | v: self-direction, universalism | scope: place | chance: 60
+- B | fund the work most likely to bring money and a name to the college | v: achievement, power | scope: town_sphere | chance: 65
+- W>U | fund the study whose results will be open to anyone, free | v: universalism, self-direction | scope: nation | chance: 55
+works: The study turns up more than anyone hoped, and {place} is spoken of further afield than before.
+works: The departments that lost out come round once the first results are in.
+fails: The study runs late and over budget, and the committee has awkward questions for {N}.
+fails: The results are thin, and the departments that lost out make sure everyone remembers.
+
+== the library's evenings
+tier: decision
+cast_want: decide
+sphere: learn
+stages: adult mature elder
+age: 25-90
+tone: mixed
+life: community, learning
+horizon: years
+roles: colleague, neighbour, rival
+earth: the library must decide what its evenings are for, and the decision is yours
+scene: {place} can afford to stay open three evenings a week, and the town has opinions about what those evenings should be. The quiet readers, the students and the people who want somewhere warm to meet all write in. {N} decides.
+- W | open every weekday evening, free to all, with the same quiet rules for everyone | v: universalism, conformity | scope: town_sphere | chance: 65
+- R | fill the evenings with talks, music and games, and let it be noisy | v: stimulation, hedonism | scope: place | chance: 65
+- G | keep the old reading room just as it has always been | v: tradition, security | scope: place | chance: 75
+works: Within a year the evenings at {place} have their regulars, and the place is fuller than it has been in years.
+works: The town council notices, and finds a little more money for the library's next year.
+fails: The evenings never quite catch on, and the hall is half-empty by the spring.
+fails: The people who wanted something else stop coming, and say why in the local paper.
+
+== the discovery in the college workshop
+tier: decision
+cast_want: decide
+sphere: learn
+stages: adult mature elder
+age: 30-90
+tone: mixed
+life: work, learning
+horizon: years
+roles: colleague, mentor, rival
+earth: a team at the college has found something new, and what happens to it is yours to decide
+scene: A small team at {place} has found a way to make something cheaper and better than anyone has before: a process, a material, a method that works. Firms have already rung. The team is proud and nervous. What becomes of the discovery is now up to {N}.
+- U | publish it in full, so anyone can test it and build on it | v: universalism, self-direction | scope: nation | chance: 60
+- B | patent it and license it, so the college can grow on it | v: achievement, power | scope: town_sphere | chance: 65
+- G>W | share it first with the town's own works and farms | v: benevolence, universalism | scope: town_sphere | chance: 65
+works: Within a few years the discovery is in use far beyond {place}, and the team's names go with it.
+works: The town feels the difference first, in work and in pride.
+fails: Others take the idea further and faster, and {place} gets less from it than it hoped.
+fails: The team quarrels over the decision, and two of them leave for other colleges.

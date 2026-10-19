@@ -47,7 +47,7 @@ def load(p, name):
 def main():
     prob = []
     import build, earth
-    from check_aims import footprints, catalogue, words   # the same footprint count and word rules
+    from check_aims import footprints, catalogue, words, foot_table, lessons   # the same footprint count and word rules
     kind = catalogue()
     rtxt = "".join(open(os.path.join(os.path.dirname(LIB), "chroma-engine", "v22-speedpass", f), encoding="utf-8").read()
                    for f in ("rules_titles.py", "rules_perks.py"))
@@ -56,6 +56,7 @@ def main():
     mf = os.path.join(LIB, "earth_world_answers.py")
     asks, decs, f3, lead = collections.Counter(), collections.Counter(), collections.Counter(), collections.Counter()
     if os.path.exists(mf):
+        FT = foot_table("earth_world_answers")
         for s in load(mf, "earth_world_answers").SITUATIONS:
             w, cw = s["name"], s.get("cast_want")
             sph = str(s.get("sphere") or "").split(".")[0]
@@ -79,11 +80,13 @@ def main():
                 f3[cw] += 1
             else:
                 prob.append(f"{w}: cast_want {cw!r} is not one of the world answers' moments")
+            if not dec:
+                lessons(w, s["options"], FT, prob)
             for o in s["options"]:
                 if o[0] in lab_earth:
                     prob.append(f"{w} / {o[1]}: label also in earth.py: '{o[0]}'")
                 if not dec:
-                    fp = footprints(o, read_marks, kind)
+                    fp = footprints(o, read_marks, kind, FT.get((w, o[0])))
                     if not 1 <= len(fp) <= 2:
                         prob.append(f"{w} / {o[1]} '{o[0][:50]}': {len(fp)} footprints (one or two)")
     if not PART:
