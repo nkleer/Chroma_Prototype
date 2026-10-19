@@ -306,6 +306,7 @@ class LifeMixin:
         stage = int(loc["stage"][0]); age = t / 52
         sev = [ev for ev in new if "situation" in ev]
         fw = self._foot_week(new) if GAME["foot"] else []   # v24 footprints: what this week's act left
+        wa = self._wa_week(new, loc) if GAME["world_answers"] else []   # v24 world answers: the footprints told this week
         self._recall(t, sev)
         kills = self._kills(L, s)
         if self.story.one_roll and loc.get("WL") is not None:
@@ -368,6 +369,8 @@ class LifeMixin:
                         rs["because"] = sp
                     if fw:                              # v24 footprints: one line per kind the pick touched
                         rs["foot"] = self.foot_lines(fw)
+                    if wa and self.wa_card(wa):         # v24 world answers: the world lines this week left, the largest first
+                        rs["world"] = self.wa_card(wa)
                     if pushed:
                         rs["hindsight"] = self._hindsight(loc, cpw, bool(ev["success"]), rs["needs"])
                         self._voice_trust_turn()
@@ -391,6 +394,7 @@ class LifeMixin:
                         line = "\n".join(x for x in (vo[0], line, vo[1]) if x); rs["text"] = line
                     rs["say"] = "\n".join(x for x in (rs["say"], self.because_line(sp) if sp else self.story.needs_line(rs["needs"]),
                                                         "\n".join(f["line"] + "." for f in rs.get("foot", [])),
+                                                        "\n".join(rs.get("world", [])),
                                                         (rs.get("hindsight") or {}).get("line", "")) if x)
                     self._say(line, 0, "choice", sit=sit, ok=bool(ev["success"]), pushed=cpw["choice"] != cpw["own"],
                               colors=o["colors"], act=o["label"], rebound=rb, felt=round(o["felt"], 2), real=round(o["true"], 2),
@@ -543,6 +547,8 @@ class LifeMixin:
                         r = self._disaster_read(r)      # WL6: the disaster that happened, not always a flood
                         self._say(self.story.read(r, stage, c_), lvl, "read", sit=r["name"], reading=r.get("reading", ""),
                                   impact=round(float(r.get("impact", 0.0)), 2), **({"color": c_} if c_ else {}))
+                elif "wa_ledger" in ev:                 # v24 world answers: a footprint told, a sphere event, a decision
+                    self._wa_told(t, ev["wa_ledger"], ev)
                 elif "sphere_lever" in ev:              # spheres phase 4 (sph_levers): their act on the town's sphere
                     self._lever_told(t, loc, ev["sphere_lever"])
                 elif "body" in ev or "decline" in ev:   # v22.5 F1 and F2: the body's and the mind's turns, a last decline
