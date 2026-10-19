@@ -80,7 +80,7 @@ MAGIC_WORDS = re.compile(r"\b(colou?rs?|mana|planeswalker\w*|azorius|dimir|rakdo
 SAFETY = re.compile(r"\b(rap(e|ed|es|ing|ist)|sexual\w*|sex|molest\w*|suicid\w*|kill (yourself|myself|themselves)|"
                     r"self-harm\w*|tortur\w*|gore|blood\w*|corpse\w*|mutilat\w*|abus\w*|naked|groom(ed|ing))\b", re.I)
 FILL = re.compile(r"\{([^{}]*)\}")
-UPPER_FILLS = {"N", "Ns", "Decade", "cheer", "toast", "place", "act"}   # fills whose values start with a capital letter (act: a whole sentence)
+UPPER_FILLS = {"N", "Ns", "Decade", "cheer", "toast", "place", "act", "Years"}   # fills whose values start with a capital letter (act: a whole sentence)
 
 # kinds: "sentence" (one or more whole sentences), "clause" (the game joins it into a sentence: no end punctuation, may
 # start lower case), "phrase" (a few words used inside a line), "quote" (the character's words in curly quotes),
@@ -175,6 +175,8 @@ def rule(path):
                 "own": (("N", "Ns", "voice"), ("Ns",) if tuple(path[2:5]) == ("G", "theirs", 1) else ("N",), "sentence", "narration", 25)}[k]
     if top == "THREAD" and k in ("seed", "seed_alone"):   # Picks come back (10-17): the opener of a moment a pick brought back
         return (("N", "Ns", "who", "years"), ("N", "who", "years") if k == "seed" else ("N", "years"), "sentence", "narration", 25)
+    if top == "THREAD" and k == "bold_link":   # Bold ways (10-18): the opener of a bold way's follow-up
+        return (("N", "Ns", "Years", "years", "moment", "act", "who", "title"), ("N", "act"), "sentence", "narration", 25)
     if top == "THREAD_HOVER" and k == "seed":
         return (("N", "Ns", "age", "act"), ("N", "age"), "sentence", "narration", 25)
     if top == "THREAD":
@@ -263,7 +265,8 @@ SAMPLE = dict(N="Deniz", Ns="Deniz's", ep="steadfast and fire-hearted", age="67"
 SAMPLE_AT = {"RECALL_IN": dict(what="leave home early"),
              "CAUSE": dict(act="lend a friend the rent", P="Cem", what="made a friend for life", say="a nurse", n="three"),
              "YEAR_WHY": dict(how="growing curious and cooling", ev="a turning point"),
-             "FOLD": dict(got="can swim and has a dog", lost="no longer dances")}
+             "FOLD": dict(got="can swim and has a dog", lost="no longer dances"),
+             "THREAD": dict(act="ask the coach to make them captain", Years="Two years")}
 
 fails = {}
 
@@ -448,7 +451,8 @@ need_keys("VOICE.book", V["book"], ["steered", "free"])
 need_keys("VOICE.lean", V["lean"], list(COLORS))
 per_color("VOICE.own", V["own"], ["asked", "ought", "sees", "theirs"], 2)   # S2: two lines, trusted and doubted
 
-need_keys("THREAD", TH, ["mark", "title", "commitment", "plan", "dream", "road", "person", "seed", "seed_alone"])
+need_keys("THREAD", TH, ["mark", "title", "commitment", "plan", "dream", "road", "person", "seed", "seed_alone", "bold_link"])
+need_keys("THREAD.bold_link", TH.get("bold_link", {}), ["well", "badly"])
 SEED_KINDS = [m for m in MARKS if m not in ("came out", "named their gender", "took a life", "hurt someone badly")] + ["took them in"]
 for k_ in ("seed", "seed_alone"):   # Picks come back (10-17): every seed kind, went well and went badly
     need_keys(f"THREAD.{k_}", TH.get(k_, {}), SEED_KINDS)
