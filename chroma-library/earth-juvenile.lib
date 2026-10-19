@@ -758,11 +758,11 @@ scene G: {parent} started work at the same age, in the same kind of place. Some 
 - B | make yourself indispensable, then ask for more hours and better pay | v: achievement, power | tags: commit:career | chance: 76
 - R | throw yourself into it, love the rush, and make friends with the whole crew | v: stimulation | mark: made a friend | tags: commit:career | chance: 88
 - G | settle in, keep your head down, and stay, the way your family always has | v: tradition, security | tags: commit:career | chance: 68
-- BG | work every hour you can get and save every penny, like a squirrel before winter | habit | v: security, achievement | chance: 78
-- BR | quit the moment it gets boring, and blow the pay on a good time | v: hedonism | mark: turned down a chance | chance: 20
-- UR | come up with a better way to run your section, and pitch it to the boss | door | v: achievement, self-direction | chance: 45
-- WG | hand most of your first pay to your family, as is expected | identity | v: tradition, benevolence | chance: 94
-- WU | learn your rights at work and make sure every payslip is right | v: security, universalism (justice) | chance: 92
+- BG | work every hour you can get and save every penny, like a squirrel before winter | habit | v: security, achievement | foot: means money+.06 | chance: 78
+- BR | quit the moment it gets boring, and blow the pay on a good time | v: hedonism | mark: turned down a chance | foot: means freedom+.03 | chance: 20
+- UR | come up with a better way to run your section, and pitch it to the boss | door | v: achievement, self-direction | foot: person boss | chance: 45
+- WG | hand most of your first pay to your family, as is expected | identity | v: tradition, benevolence | foot: means money-.03 | chance: 94
+- WU | learn your rights at work and make sure every payslip is right | v: security, universalism (justice) | foot: mark learned a skill | chance: 92
 works: Within a month {boss} is asking for {N} by name on the busy shifts.
 works not BR: {N} opens a bank account and watches it slowly grow.
 fails: {N} is let go after a few weeks, with no reason given.
@@ -790,15 +790,15 @@ scene B: With {friend} gone, the group will need someone new at its centre. {N} 
 scene R: It is unfair, it is too soon, and nobody asked {N} what they thought.
 scene G: People move like birds and seasons. {N} helps carry the boxes and tries to remember everything.
 - W | promise to write every week, and keep that promise | v: benevolence | mark: kept your word | chance: 45
-- U | plan the visits: train times, savings, the summer holidays | v: benevolence | chance: 62
-- B | help them sell what they cannot take, for a fair cut | v: power (resources), achievement | chance: 75
-- R | skip school to spend their whole last day together | v: benevolence, hedonism | closed: approval: truancy; backfire: detention, and a row at home | chance: 85
-- G | help them pack, say a proper goodbye, and let them go | v: benevolence | chance: 80
+- U | plan the visits: train times, savings, the summer holidays | v: benevolence | foot: means money-.03 | chance: 62
+- B | help them sell what they cannot take, for a fair cut | v: power (resources), achievement | foot: lesson a fair deal eases a goodbye | chance: 75
+- R | skip school to spend their whole last day together | v: benevolence, hedonism | closed: approval: truancy; backfire: detention, and a row at home | foot: door defied an authority | chance: 85
+- G | help them pack, say a proper goodbye, and let them go | v: benevolence | foot: person friend lost | chance: 80
 - RG | spend one last wild night camping out together before the move | body: light | v: stimulation | mark: took a wild risk | closed: approval: out all night; backfire: caught, and grounded for the last week | chance: 80
-- UB | keep tabs on their new life online, and on whoever replaces you | v: security | act: keep tabs on their friend's new life online, and on whoever replaces them | tech: internet | chance: 42
-- UG | bury a time capsule together, to dig up in ten years | binds | v: tradition, benevolence | chance: 90
-- WB | throw the farewell party yourself, and step into their place in the group | v: power, benevolence | chance: 65
-- WR | get the whole group out to wave them off on moving day, with a huge banner | identity | v: benevolence, stimulation | chance: 85
+- UB | keep tabs on their new life online, and on whoever replaces you | v: security | act: keep tabs on their friend's new life online, and on whoever replaces them | tech: internet | foot: lesson watching from afar is lonely | chance: 42
+- UG | bury a time capsule together, to dig up in ten years | binds | v: tradition, benevolence | foot: door kept your word | chance: 90
+- WB | throw the farewell party yourself, and step into their place in the group | v: power, benevolence | foot: place gather.circle | chance: 65
+- WR | get the whole group out to wave them off on moving day, with a huge banner | identity | v: benevolence, stimulation | foot: means ties+.03 | chance: 85
 works: The messages keep coming, and the friendship holds across the miles.
 works: Missing {friend} slowly makes room for new people in {Ns} life.
 fails: The messages thin out, and by spring they have stopped.
@@ -826,15 +826,15 @@ scene U: {N} finds the bank letters in a drawer and reads them twice. The number
 scene B: {friend} has new trainers again. {N} decides they are done waiting for money to come to them.
 scene R: {N} is furious, at the company, at the bank, at the whole unfair world, and nobody at home will say it out loud.
 scene G: {grandparent} talks about the hard winters of their own childhood, when everyone went without and got through together.
-- W | cut back on everything without complaint, and help keep the house running | v: conformity, benevolence | chance: 70
+- W | cut back on everything without complaint, and help keep the house running | v: conformity, benevolence | foot: mark helped someone in need | chance: 70
 - U | compare the prices of everything the family buys, and find where to save | v: security | mark: learned a skill | chance: 82
-- B | do cash jobs for the neighbours, and keep a cut for yourself | v: achievement, power | chance: 80
-- R | keep the house laughing: games, music and silly nights in for everyone | v: benevolence, hedonism | chance: 65
+- B | do cash jobs for the neighbours, and keep a cut for yourself | v: achievement, power | foot: person neighbour | chance: 80
+- R | keep the house laughing: games, music and silly nights in for everyone | v: benevolence, hedonism | foot: lesson laughter makes hard times lighter | chance: 65
 - G | help grow vegetables and cook cheap meals from whatever is in the cupboard | habit | v: security, benevolence | mark: learned a skill | chance: 70
-- WUR | start a Saturday car wash with friends, with a rota, prices and a sign | v: achievement, benevolence | chance: 72
-- WUB | lend your parent your savings, and write down exactly what they owe you | binds | v: security, power | act: lend their parent their savings, and write down exactly what the parent owes them | chance: 72
+- WUR | start a Saturday car wash with friends, with a rota, prices and a sign | v: achievement, benevolence | foot: place gather.circle | chance: 72
+- WUB | lend your parent your savings, and write down exactly what they owe you | binds | v: security, power | act: lend their parent their savings, and write down exactly what the parent owes them | foot: means money-.06 | chance: 72
 - WRG | tell your friends straight out how things are, and share what you all have | identity | v: benevolence | mark: made a friend | chance: 72
-- UBG | find things in the house worth selling, and haggle hard for the best price | v: security, achievement | closed: approval: selling family things without asking; backfire: a row when a parent misses something | chance: 70
+- UBG | find things in the house worth selling, and haggle hard for the best price | v: security, achievement | closed: approval: selling family things without asking; backfire: a row when a parent misses something | foot: mark learned a skill | chance: 70
 - BRG | shoplift food when the cupboards are bare | v: security, benevolence | mark: hid a wrong | closed: law: theft; backfire: caught, and a police caution | chance: 70
 works: The family gets through the worst of it, and {N} learns what they are made of.
 works: {parent} finds new work, and the heating comes back on.
@@ -863,15 +863,15 @@ scene U: The new school has laboratories, a real library, and teachers who have 
 scene B: A place like that opens doors that stay shut for everyone else. {N} intends to walk through every one of them.
 scene R: {N} screams, jumps on the bed, and phones everyone they have ever met.
 scene G: {N} thinks of the friends from the street, the walk to the old school, the corner shop. Not all of it will come along.
-- W | accept, and write proper thank-you letters to everyone who helped | v: conformity, benevolence | chance: 72
-- U | read everything about the new school and arrive already ahead | v: achievement | chance: 72
+- W | accept, and write proper thank-you letters to everyone who helped | v: conformity, benevolence | foot: person mentor | chance: 72
+- U | read everything about the new school and arrive already ahead | v: achievement | foot: place learn.keeping | chance: 72
 - B | take it, and drop the old friends who would hold you back | identity | v: achievement, power | act: take it, and drop the old friends who would hold them back | chance: 68 | back: made an enemy
-- R | ring everyone you know, and celebrate as loudly as you can | v: hedonism | chance: 78
-- G | turn it down, and stay with your friends and family where you belong | identity | v: tradition, security | mark: turned down a chance | closed: approval: turning down the family's hopes; backfire: a long row at home | chance: 60
-- WUG | accept, and keep helping your old friends with their homework after school | v: benevolence | chance: 55
-- WBR | take the place, and race to the top of the new class in the first term | v: achievement | chance: 30
-- WBG | accept for the family's sake, and carry their hopes like a debt to repay | binds | v: tradition, achievement | chance: 65
-- URG | take it, and learn to fend for yourself on the long journey each day | door | v: self-direction | chance: 82
+- R | ring everyone you know, and celebrate as loudly as you can | v: hedonism | foot: means ties+.03 | chance: 78
+- G | turn it down, and stay with your friends and family where you belong | identity | v: tradition, security | mark: turned down a chance | closed: approval: turning down the family's hopes; backfire: a long row at home | foot: door stayed home | chance: 60
+- WUG | accept, and keep helping your old friends with their homework after school | v: benevolence | foot: means time-.03 | chance: 55
+- WBR | take the place, and race to the top of the new class in the first term | v: achievement | foot: person rival | chance: 30
+- WBG | accept for the family's sake, and carry their hopes like a debt to repay | binds | v: tradition, achievement | foot: door gave in to pressure | chance: 65
+- URG | take it, and learn to fend for yourself on the long journey each day | door | v: self-direction | foot: means freedom+.03 | chance: 82
 - UBR | bluff that you have another offer, and hold out for a better one | v: power, achievement | mark: took a wild risk | chance: 25
 works: The first term goes better than {N} dared to hope.
 works not G: {N} finds people at the new place who think the way they do.
@@ -901,15 +901,15 @@ scene U: Street signs, menus, the way people greet each other: everything is a p
 scene B: Nobody here knows who {N} is back home. For two weeks {N} can be anyone they like.
 scene R: The plane drops through the clouds onto a city {N} has only seen in pictures, and {Ns} face is pressed to the window.
 scene G: The air smells different, the trees are different, the light is different. {N} misses home and loves it here, both at once.
-- W | follow the group's rules and be a model guest in your host family's home | door | v: conformity, benevolence | chance: 88
+- W | follow the group's rules and be a model guest in your host family's home | door | v: conformity, benevolence | foot: lesson good guests are asked back | chance: 88
 - U | speak only their language all fortnight, however badly | door | v: self-direction, achievement | mark: learned a skill | chance: 62
-- B | bring sweets from home and sell them at three times the price | v: achievement, power | chance: 58
+- B | bring sweets from home and sell them at three times the price | v: achievement, power | foot: means money+.03 | chance: 58
 - R | slip away from the group to explore the city on your own | door | v: stimulation | mark: took a wild risk | closed: approval: leaving the group; backfire: lost, and sent home early | chance: 80
 - G | spend your days with the host family's grandparents, learning how they live | door | v: tradition, universalism (tolerance) | mark: made a friend | chance: 72
-- W>B | report the friends who broke curfew, so the teachers pick you to lead next time | v: achievement, power | closed: approval: telling on friends; backfire: shunned for the rest of the trip | act: report the friends who broke curfew, so the teachers pick them to lead next time | chance: 30
+- W>B | report the friends who broke curfew, so the teachers pick you to lead next time | v: achievement, power | closed: approval: telling on friends; backfire: shunned for the rest of the trip | act: report the friends who broke curfew, so the teachers pick them to lead next time | foot: person rival | chance: 30
 - U>R | research the city's hidden corners and lead your friends there after curfew | v: stimulation | closed: approval: out after curfew; backfire: the trip cut short | chance: 65 | back: defied an authority
 - B>G | smuggle home a local food that customs forbid, as a present for your family | v: benevolence | closed: law: customs rules; backfire: confiscated at the airport, and a fine | chance: 75 | back: broke the law
-- R>W | throw yourself into the host family's festival as if you were one of them | v: universalism (tolerance) | chance: 92
+- R>W | throw yourself into the host family's festival as if you were one of them | v: universalism (tolerance) | foot: person friend | chance: 92
 - G>U | walk the countryside with your host and learn the name of everything in their language | door | v: self-direction | mark: learned a skill | chance: 75
 works: {N} comes home with a new language half in their head and a friend on the other side of the world.
 works: The trip changes how {N} sees home, in ways that take years to notice.
@@ -938,16 +938,16 @@ scene U: {mentor} lends {N} a book that is far too hard and says to come back wi
 scene B: Someone with influence is on {Ns} side now. {N} begins to see what a word from {mentor} could open.
 scene R: Nobody has ever said that to {N} before. {N} walks home grinning at strangers.
 scene G: {mentor} says {N} has a gift. {N} has always felt it, the way a plant knows where the light is.
-- W | do every piece of extra work they set, on time, and thank them properly | v: conformity, achievement | chance: 70
-- U | ask for a reading list and work through every book on it | v: self-direction | chance: 70
-- B | ask them to put in a word for you with people who can open doors | door | v: achievement, power | act: ask them to put in a word for them with people who can open doors | chance: 75
-- R | throw yourself into it overnight, with everything you have got | v: stimulation, achievement | chance: 68
-- G | thank them, and keep growing at your own pace | v: self-direction | chance: 62
-- W>G | help them coach the younger kids on Saturday mornings | door | v: benevolence | chance: 88
+- W | do every piece of extra work they set, on time, and thank them properly | v: conformity, achievement | foot: person mentor | chance: 70
+- U | ask for a reading list and work through every book on it | v: self-direction | foot: place learn.keeping | chance: 70
+- B | ask them to put in a word for you with people who can open doors | door | v: achievement, power | act: ask them to put in a word for them with people who can open doors | foot: person patron | chance: 75
+- R | throw yourself into it overnight, with everything you have got | v: stimulation, achievement | foot: means time-.06 | chance: 68
+- G | thank them, and keep growing at your own pace | v: self-direction | foot: lesson your own pace is enough | chance: 62
+- W>G | help them coach the younger kids on Saturday mornings | door | v: benevolence | foot: place gather.games | chance: 88
 - U>W | ask to train under them for a year, and learn to teach as they do | binds | v: achievement, benevolence | chance: 75 | back: learned a skill
-- B>U | lean on their kindness for free extra lessons | v: achievement | chance: 73
-- R>B | go after the top prize in your year, fired up by what they said | v: achievement, stimulation | chance: 40
-- G>R | stop holding back the gift you were born with, and let it run | identity | v: self-direction, stimulation | chance: 65
+- B>U | lean on their kindness for free extra lessons | v: achievement | foot: mark learned a skill | chance: 73
+- R>B | go after the top prize in your year, fired up by what they said | v: achievement, stimulation | foot: person rival | chance: 40
+- G>R | stop holding back the gift you were born with, and let it run | identity | v: self-direction, stimulation | foot: lesson the gift grows when used | chance: 65
 works: A year later {N} is doing things nobody expected, least of all {N}.
 works: {mentor} writes a reference that opens a door {N} did not know was there.
 fails: {mentor} leaves at the end of the year, and the momentum goes with them.
@@ -976,16 +976,16 @@ scene U: {mentor} lends {N} a book meant for much older children and says to com
 scene B: {N} is the one {mentor} picked. {rival} has noticed, and so has everyone else in the class.
 scene R: Nobody has ever said that to {N} before. {N} runs the whole way home to tell {parent}.
 scene G: {mentor} says {N} has a gift. {N} has always felt it, the way a seed knows which way is up.
-- W | do every bit of extra work they set, neatly and on time | v: conformity, achievement | chance: 72
-- U | ask them for harder books and puzzles, and work through every one | v: self-direction | chance: 70
-- B | ask them to put you in the special group, ahead of the others | door | v: achievement, power | act: ask the teacher to put them in the special group, ahead of the others | chance: 73
-- R | throw yourself into it, and talk about nothing else at home | v: stimulation, achievement | chance: 80
-- G | say thank you, and keep going at your own pace | v: self-direction | chance: 65
-- W>G | help them look after the little ones at the club or in the playground | door | v: benevolence | chance: 88
-- U>W | ask to be their helper every week, and learn how they do things | binds | v: achievement, benevolence | chance: 82
-- B>U | make yourself their favourite, and get all the extra help going | v: achievement | chance: 68
-- R>B | tell the whole class the teacher says you are the best | v: power | chance: 25
-- G>R | stop hiding what you are good at, and show it off for the joy of it | identity | v: self-direction, stimulation | chance: 60
+- W | do every bit of extra work they set, neatly and on time | v: conformity, achievement | foot: mark learned a skill | chance: 72
+- U | ask them for harder books and puzzles, and work through every one | v: self-direction | foot: place learn.keeping | chance: 70
+- B | ask them to put you in the special group, ahead of the others | door | v: achievement, power | act: ask the teacher to put them in the special group, ahead of the others | foot: means ties-.03 | chance: 73
+- R | throw yourself into it, and talk about nothing else at home | v: stimulation, achievement | foot: lesson being seen lights you up | chance: 80
+- G | say thank you, and keep going at your own pace | v: self-direction | foot: lesson your own pace is enough | chance: 65
+- W>G | help them look after the little ones at the club or in the playground | door | v: benevolence | foot: place gather.hall | chance: 88
+- U>W | ask to be their helper every week, and learn how they do things | binds | v: achievement, benevolence | foot: person mentor | chance: 82
+- B>U | make yourself their favourite, and get all the extra help going | v: achievement | foot: person mentor | chance: 68
+- R>B | tell the whole class the teacher says you are the best | v: power | foot: person rival | chance: 25
+- G>R | stop hiding what you are good at, and show it off for the joy of it | identity | v: self-direction, stimulation | foot: means ties+.03 | chance: 60
 works: By the end of the year {N} can do things that surprise everyone, {N} most of all.
 works: {mentor} tells {parent} at the school gate that {N} is one to watch.
 fails: {mentor} moves to another school, and the extra help stops.

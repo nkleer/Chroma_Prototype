@@ -33,16 +33,16 @@ scene U: {N} has kept count for months: the dates, the excuses, the doctor's car
 scene B: {N} stopped hoping {partner} would change a long time ago. What matters now is who walks out of this house, and how.
 scene R: Something in {N} that has been quiet for years is suddenly wide awake, and it is not afraid any more.
 scene G: {N} thinks of {parent}, who stayed for thirty years, and of the house where {N} grew up listening through walls.
-- W | call the police from the bathroom, and press charges this time | v: security, conformity | chance: 60
-- U | keep calm, talk them down, and plan the way out for the morning | v: security | chance: 50
-- B | agree to everything tonight, and empty the joint account at nine tomorrow | v: security, power | chance: 70
-- R | kill them, here, tonight, before they can hurt you again | act: kill them, there and then, before they could do it again | kills: partner | mark: took a life | closed: law: killing someone; backfire: the police come, and a court hears both stories | death_if_fails: .03 | v: security | chance: 45
-- G | stay, for the family's name and the years together, and hide the bruises again | v: tradition, conformity | chance: 60
-- BG | get your family round tonight, and take everything that is yours | act: get the family round that night, and take everything that was {Ns} | v: security, power | mark: left home | chance: 65
-- BR | fight your way out of the door and run to the neighbours | body: heavy | v: self-direction | mark: left home | death_if_fails: .01 | chance: 55
-- UG | slip out to the refuge whose number you saved months ago | v: security, benevolence | mark: left home | chance: 60
-- WR | stand in front of them and say, out loud, that it ends tonight | identity | v: self-direction, security | death_if_fails: .01 | chance: 50
-- WU | photograph everything tonight, and take it all to a lawyer in the morning | v: security, conformity | chance: 70
+- W | call the police from the bathroom, and press charges this time | v: security, conformity | foot: person partner lost | chance: 60
+- U | keep calm, talk them down, and plan the way out for the morning | v: security | foot: door left home | chance: 50
+- B | agree to everything tonight, and empty the joint account at nine tomorrow | v: security, power | foot: means money+.06 | chance: 70
+- R | kill them, here, tonight, before they can hurt you again | act: kill them, there and then, before they could do it again | kills: partner | mark: took a life | closed: law: killing someone; backfire: the police come, and a court hears both stories | death_if_fails: .03 | v: security | foot: door broke the law | chance: 45
+- G | stay, for the family's name and the years together, and hide the bruises again | v: tradition, conformity | foot: door kept it hidden | chance: 60
+- BG | get your family round tonight, and take everything that is yours | act: get the family round that night, and take everything that was {Ns} | v: security, power | mark: left home | foot: person partner lost | chance: 65
+- BR | fight your way out of the door and run to the neighbours | body: heavy | v: self-direction | mark: left home | death_if_fails: .01 | foot: person neighbour | chance: 55
+- UG | slip out to the refuge whose number you saved months ago | v: security, benevolence | mark: left home | foot: place care.houses | chance: 60
+- WR | stand in front of them and say, out loud, that it ends tonight | identity | v: self-direction, security | death_if_fails: .01 | foot: mark took a wild risk | chance: 50
+- WU | photograph everything tonight, and take it all to a lawyer in the morning | v: security, conformity | foot: means money-.06 | chance: 70
 works not G: By morning {N} is somewhere safe, and the house behind is quiet.
 works: The night ends, and with it something that had to end.
 fails: The night goes worse than {N} feared, and the morning brings police, doctors and questions.
@@ -72,15 +72,15 @@ scene B: The money is real, and so is the chance. {N} wonders how far up these p
 scene R: Part of {N} is terrified, and part of {N} has never felt so awake.
 scene G: {N} thinks of the street where everyone knows everyone, and of how these people always look after their own.
 - W | say no, then walk into the police station and tell them everything | identity | v: conformity, security | mark: made an enemy | death_if_fails: .01 | chance: 45
-- U | ask for a day to think, and find out exactly who these people are | v: security | chance: 60
-- B | take the job, and kill the man they name, for the money | act: take the job and kill the man they named, for the money | title: has taken a life | mark: took a life | closed: law: killing for money; backfire: the police were watching the man too | death_if_fails: .05 | v: power, achievement | chance: 45
+- U | ask for a day to think, and find out exactly who these people are | v: security | foot: lesson a day can buy clarity | chance: 60
+- B | take the job, and kill the man they name, for the money | act: take the job and kill the man they named, for the money | title: has taken a life | mark: took a life | closed: law: killing for money; backfire: the police were watching the man too | death_if_fails: .05 | v: power, achievement | foot: door broke the law | chance: 45
 - R | laugh in his face, get out of the car, and never look back | v: self-direction, stimulation | mark: made an enemy | chance: 55
-- G | ask the cousin who works for them what the job really costs | v: tradition, security | chance: 55
-- W>U | turn him down politely, and remember every detail for the police | v: security, self-direction | chance: 55
-- U>B | agree to drive for them, and never to touch anything else | mark: broke the law | closed: law: driving for a criminal gang; backfire: arrested with the others when the car is stopped | v: power, security | tech: car | chance: 55
-- B>R | ask for a job that pays twice as much and carries half the risk | v: power, stimulation | chance: 40
+- G | ask the cousin who works for them what the job really costs | v: tradition, security | foot: person go-between | chance: 55
+- W>U | turn him down politely, and remember every detail for the police | v: security, self-direction | foot: door turned down a chance | chance: 55
+- U>B | agree to drive for them, and never to touch anything else | mark: broke the law | closed: law: driving for a criminal gang; backfire: arrested with the others when the car is stopped | v: power, security | tech: car | foot: door broke the law | chance: 55
+- B>R | ask for a job that pays twice as much and carries half the risk | v: power, stimulation | foot: door took a wild risk | chance: 40
 - R>G | run tonight to family in another town, and start again there | v: security, tradition | mark: moved away | chance: 60
-- G>W | take it to the elders of your street, and let them deal with these people | v: tradition, conformity | chance: 40
+- G>W | take it to the elders of your street, and let them deal with these people | v: tradition, conformity | foot: person elder | chance: 40
 works: The weeks that follow are quieter than {N} feared, and the man in the coat does not come back.
 works: {N} comes out of it with a story never to be told, and a debt that no longer matters.
 fails: The man in the coat comes back, and this time he is not smiling.
@@ -110,16 +110,16 @@ scene U: {N} has read the whole case file twice. Every mistake the prosecution m
 scene B: {N} knows where he drinks, where he works and where he parks. Knowing things is a kind of power.
 scene R: {N} has to grip the railing to stay where {N} is standing.
 scene G: {sibling} will never walk the hill behind the family house again. {N} thinks of that hill, and of him laughing.
-- W | see that he pays with his life, since the court would not | act: set out to see that he paid with his life, since the court would not | title: has taken a life | mark: took a life | closed: law: killing someone; backfire: the police know exactly who had a reason | death_if_fails: .02 | v: universalism (justice), security | chance: 45
-- U | find the flaw in the case, and push for an appeal until it is heard | binds | v: universalism, self-direction | chance: 35
+- W | see that he pays with his life, since the court would not | act: set out to see that he paid with his life, since the court would not | title: has taken a life | mark: took a life | closed: law: killing someone; backfire: the police know exactly who had a reason | death_if_fails: .02 | v: universalism (justice), security | foot: door broke the law | chance: 45
+- U | find the flaw in the case, and push for an appeal until it is heard | binds | v: universalism, self-direction | foot: means time-.06 | chance: 35
 - B | ruin him within the law: his job, his licence, his name | v: power | mark: made an enemy | chance: 50
 - R | go to his pub tonight and say it to his face, in front of everyone | v: stimulation, self-direction | mark: made an enemy | chance: 55
-- G | turn to your brother or sister, and spend your evenings helping them live again | v: benevolence | chance: 65
-- BR | wait for him in the car park, and give him the beating he got away with | body: heavy | mark: hurt someone badly | closed: law: assault; backfire: he presses charges, and wins | death_if_fails: .01 | v: power, stimulation | role: men | chance: 55
-- UB | dig into his past until you find something the police will want | v: power, achievement | chance: 45
-- UG | set up a fund for your brother or sister, and tell the story to the papers | v: benevolence, universalism | chance: 55
-- WG | forgive him, slowly, so that the hate does not eat the family too | identity | v: benevolence, tradition | chance: 35
-- WR | campaign to change the law, with the family's photograph on every poster | v: universalism | chance: 40
+- G | turn to your brother or sister, and spend your evenings helping them live again | v: benevolence | foot: mark helped someone in need | chance: 65
+- BR | wait for him in the car park, and give him the beating he got away with | body: heavy | mark: hurt someone badly | closed: law: assault; backfire: he presses charges, and wins | death_if_fails: .01 | v: power, stimulation | role: men | foot: door broke the law | chance: 55
+- UB | dig into his past until you find something the police will want | v: power, achievement | foot: person go-between | chance: 45
+- UG | set up a fund for your brother or sister, and tell the story to the papers | v: benevolence, universalism | foot: means ties+.03 | chance: 55
+- WG | forgive him, slowly, so that the hate does not eat the family too | identity | v: benevolence, tradition | foot: lesson letting go takes years | chance: 35
+- WR | campaign to change the law, with the family's photograph on every poster | v: universalism | foot: place rule.voice | chance: 40
 works: Something like justice comes, late and imperfect, and the family can breathe again.
 works: The anger finds somewhere to go, and {N} is still standing when it is spent.
 fails: Nothing changes, and the anger stays, quiet and patient, for years.
@@ -148,16 +148,16 @@ scene U: {N} studies the old map, the new posts and {rival}'s face, and tries to
 scene B: {N} has given ground once. {N} knows what people take from someone who gives ground twice.
 scene R: {N} feels the blood rise, hot and loud, at the sight of {rival} leaning on that post.
 scene G: {Ns} grandparents planted the hedge {rival} has just cut through. The land remembers who belongs on it.
-- W | take the deeds to court, and let the law settle the line | v: conformity, security | chance: 55
-- U | hire a surveyor, and put a camera on the boundary | v: security | chance: 65
-- B | buy up the debt on their farm, quietly, and wait | v: power | chance: 45
+- W | take the deeds to court, and let the law settle the line | v: conformity, security | foot: means money-.06 | chance: 55
+- U | hire a surveyor, and put a camera on the boundary | v: security | foot: means money-.03 | chance: 65
+- B | buy up the debt on their farm, quietly, and wait | v: power | foot: means money-.10 | chance: 45
 - R | pull the posts out with your bare hands, there and then | body: heavy | v: stimulation, self-direction | mark: made an enemy | chance: 60
-- G | take the old shotgun, and shoot them when they next step onto your land | title: has taken a life | mark: took a life | closed: law: killing someone; backfire: the sons saw everything | death_if_fails: .02 | v: tradition, security | chance: 45
+- G | take the old shotgun, and shoot them when they next step onto your land | title: has taken a life | mark: took a life | closed: law: killing someone; backfire: the sons saw everything | death_if_fails: .02 | v: tradition, security | foot: door broke the law | chance: 45
 - W>B | call the police every time, until the record ruins their name | v: power, conformity | mark: made an enemy | chance: 50
-- U>R | rig a floodlight and a siren on the boundary, and enjoy their fright | v: stimulation | chance: 65
-- B>G | offer to buy the strip, and keep the peace on your own terms | v: security, power | chance: 50
-- R>W | stand at the fence every morning, and dare them to cross it | v: self-direction | chance: 50
-- G>U | ask the oldest neighbours where the line really ran, and listen | v: tradition | chance: 60
+- U>R | rig a floodlight and a siren on the boundary, and enjoy their fright | v: stimulation | foot: door made an enemy | chance: 65
+- B>G | offer to buy the strip, and keep the peace on your own terms | v: security, power | foot: means money-.06 | chance: 50
+- R>W | stand at the fence every morning, and dare them to cross it | v: self-direction | foot: means time-.03 | chance: 50
+- G>U | ask the oldest neighbours where the line really ran, and listen | v: tradition | foot: person elder | chance: 60
 works: The line is settled, one way or another, and the field is quiet again.
 works: {N} keeps the land, and the valley talks about it for years.
 fails: The quarrel spreads to the sons, the cousins and the pub, and outlives everyone who started it.
@@ -189,15 +189,15 @@ scene B: {N} is ruined unless {N} moves first, and {N} has always been good at m
 scene R: {N} wants to drive to {colleague}'s house right now, kick the door in and have it out.
 scene G: {N} thinks of the families on the payroll, who have worked here since the firm began.
 - W | hand the books to the fraud squad tomorrow, and face what follows | v: conformity, universalism | mark: made an enemy | chance: 60
-- U | plan their death so carefully that no one ever suspects you | act: plan the partner's death so carefully that no one would ever suspect | title: has taken a life | mark: took a life | closed: law: murder; backfire: one detail was missed, and the police find it | v: security, power | chance: 35
-- B | move what is left into your own name tonight, before they can | mark: broke the law | closed: law: taking the firm's assets before the court decides; backfire: the court freezes everything, and {N} looks like the thief | v: power, security | chance: 55
-- R | drive to their house and have it out, right now | v: stimulation | tech: car | chance: 50
-- G | call the staff together, tell them the truth, and face it together | v: benevolence | chance: 50
-- BG | buy them out with everything you can raise, and keep the jobs alive | v: security, benevolence | chance: 45
-- BR | start a rival firm the next morning, and take your loyal clients with you | v: self-direction, achievement | act: start a rival firm the next morning, and take their loyal clients with them | chance: 45
-- UR | confront them with the proof in front of the board, without warning | v: self-direction | chance: 50
-- WG | ask an old friend of you both to broker a settlement | v: benevolence, conformity | chance: 45
-- WU | have an outside accountant trace every payment, and take the case to court | v: security, universalism | chance: 50
+- U | plan their death so carefully that no one ever suspects you | act: plan the partner's death so carefully that no one would ever suspect | title: has taken a life | mark: took a life | closed: law: murder; backfire: one detail was missed, and the police find it | v: security, power | foot: door kept it hidden | chance: 35
+- B | move what is left into your own name tonight, before they can | mark: broke the law | closed: law: taking the firm's assets before the court decides; backfire: the court freezes everything, and {N} looks like the thief | v: power, security | foot: door broke the law | chance: 55
+- R | drive to their house and have it out, right now | v: stimulation | tech: car | foot: person rival | chance: 50
+- G | call the staff together, tell them the truth, and face it together | v: benevolence | foot: door owned up | chance: 50
+- BG | buy them out with everything you can raise, and keep the jobs alive | v: security, benevolence | foot: means money-.10 | chance: 45
+- BR | start a rival firm the next morning, and take your loyal clients with you | v: self-direction, achievement | act: start a rival firm the next morning, and take their loyal clients with them | foot: person colleague lost | chance: 45
+- UR | confront them with the proof in front of the board, without warning | v: self-direction | foot: door made an enemy | chance: 50
+- WG | ask an old friend of you both to broker a settlement | v: benevolence, conformity | foot: person go-between | chance: 45
+- WU | have an outside accountant trace every payment, and take the case to court | v: security, universalism | foot: means money-.06 | chance: 50
 works: The firm survives, smaller and wiser, and {N} with it.
 works: {N} gets out with less than was earned, and more than seemed possible that night.
 fails: The firm goes under, and {Ns} name goes down with it.

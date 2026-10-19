@@ -1,0 +1,449 @@
+# Chroma library, modern Earth: aims v1, group A (W, W U and W B faces), the spark moments. Syntax: header of build.py.
+# Build: python3 build.py earth_aim_moments. Check: python3 tests/check_aims.py . --part --reach
+# Nothing reads these until the Engine's aims switch is on.
+
+# ---------------------------------------------------------------- to raise a family that holds together (W, cycle s4)
+
+== the whole family round one table
+tier: life event
+aim: to raise a family that holds together
+aim_role: spark
+stages: young_adult adult mature
+age: 24-64
+per_year: 0 0 .3 .4 .3 0
+tone: mixed
+life: family, home
+horizon: week
+roles: parent, sibling, partner, child, grandparent
+earth: a Sunday lunch at one's own table, with every branch of the family asked
+tribal: a feast at one's own hearth, with every branch of the family called in
+magic: a feast-day supper in one's own hall, with every branch of the household summoned
+scene: {N} has asked the whole family for Sunday lunch, the first time at {Ns} own table, and {sibling} and {parent} have not spoken since spring.
+scene W: {N} has set a place for everyone, even the ones who said they might not come.
+scene U: {N} has worked out who sits where, which subjects to steer round, and when to bring out the pudding.
+scene B: This is {Ns} table now, and {N} wants everyone to see the family is run from here.
+scene R: {N} has cooked far too much and turned the music up, and wants the house loud.
+scene G: The smell of the old family dish fills the hall, the one everyone grew up on.
+- W | set a place for everyone, and ring each of them the night before | v: tradition, benevolence | dream: test | foot: means time-.04 | chance: 72
+- U | seat the two who have fallen out at opposite ends of the table | v: security | foot: lesson small plans keep the peace | chance: 80
+- B | keep the best seats for those who came last time, and let the others notice | v: power | foot: door made an enemy | chance: 70
+- R | throw the doors open and ask the neighbours in too, the more the better | v: hedonism, benevolence | foot: person neighbour | chance: 75
+- G | cook the old family dish the way it was always cooked, from memory | v: tradition | foot: mark learned a skill | chance: 82
+- W>G | ask the two who have fallen out to lay the table together | v: benevolence, conformity | dream: seal | foot: means ties+.06 | chance: 55
+- U>W | start a family calendar so that every birthday gets a call | v: conformity, benevolence | foot: door kept your word | chance: 78
+- B>U | find out quietly what the row was really about before anyone arrives | v: power, security | foot: door kept it hidden | chance: 68
+- R>B | tell the two of them straight that this lunch is happening, like it or not | v: power, self-direction | foot: means ties-.04 | chance: 60
+- G>R | call off the lunch and take whoever wants to come out to the park | v: hedonism, benevolence | dream: drop | foot: lesson family needs no table | chance: 85
+works: By the pudding, {sibling} and {parent} are passing each other the jug, and nobody mentions the spring.
+works: The table is too small and the chairs do not match, and {N} has never been happier to wash up.
+fails: {parent} leaves before the main course, and the front door bangs.
+fails: Half the chairs stay empty, and {N} eats the leftovers for a week.
+
+# ---------------------------------------------------------------- to keep the peace in the street (W, cycle s3)
+
+== two neighbours squaring up on the pavement
+tier: life event
+aim: to keep the peace in the street
+aim_role: spark
+stages: young_adult adult mature elder
+age: 16-85
+per_year: 0 0 .3 .4 .4 .3
+tone: trouble
+life: neighbours, community
+horizon: moment
+roles: neighbours, friend, rival
+earth: two neighbours shouting over a parking space, and the whole street coming out to watch
+tribal: two families of the camp shouting over a fishing place, and the whole camp coming out to watch
+magic: two shopkeepers in the lane below the tower shouting over a market pitch, and the lane coming out to watch
+scene: It is a warm evening, and two neighbours are nose to nose over a parking space, voices rising, while curtains twitch the length of the street.
+scene W: Someone has to step in before a fist is thrown, and {N} is already crossing the road.
+scene U: {N} has seen this coming for weeks: the van, the bins, the hedge, and now the parking space.
+scene B: Both men owe {N} a favour, and a favour is a handle.
+scene R: {Ns} heart is pounding; the shouting is like a spark on dry grass.
+scene G: This street has been {Ns} home for years, and {N} hates to see it torn.
+- W | walk between the two of them and ask, calmly, for five minutes of quiet | v: security, benevolence | dream: test | foot: person neighbour | chance: 60
+- U | hear each side out in turn, and note what each one actually wants | v: universalism | foot: lesson every row has two stories | chance: 70
+- B | warn them both that the police will be called, and mean it | v: power, security | foot: place prot.watch | chance: 72
+- R | shout louder than either of them until both stop and stare | v: stimulation | foot: person rival | chance: 55
+- G | bring out chairs and a pot of tea, and sit everyone down on the wall | v: benevolence | foot: means ties+.05 | chance: 68
+- W>R | step in hard and fast, and split them up before it turns ugly | v: security | dream: test | foot: door helped someone in need | chance: 58
+- U>G | propose a rota for the space, drawn up by the whole street together | v: universalism, conformity | foot: place rule.counsel | chance: 62
+- B>W | offer to settle it, so long as both agree to abide by the ruling | v: power, conformity | foot: door made an enemy | chance: 54
+- R>U | film the whole row and play it back to them once they calm down | v: stimulation, self-direction | foot: lesson a mirror cools a temper | chance: 50
+- G>B | stay out of it, draw the curtains, and leave them to it | v: security | dream: drop | foot: means ties-.04 | chance: 90
+works: The shouting stops, and by the weekend the two of them are nodding to each other over the bins.
+works: The street goes back indoors, and someone leaves a cake on {Ns} step the next morning.
+fails: A punch is thrown after all, and a police car sits outside till midnight.
+fails: Both neighbours turn on {N} for interfering, and the row moves to the residents' meeting.
+
+# ---------------------------------------------------------------- to see justice done (W, cycle s2)
+
+== the evening at the free advice desk
+tier: life event
+aim: to see justice done
+aim_role: spark
+stages: young_adult adult mature
+age: 18-65
+per_year: 0 0 .4 .4 .3 0
+tone: mixed
+life: work, law, community
+horizon: months
+roles: mentor, colleague, a tenant, a landlord
+earth: an evening at the free legal advice desk, and an old tenant who has been wrongly locked out
+tribal: an evening at the elders' fire, and an old fisher wrongly turned off the family's fishing place
+magic: an evening at the guild's petition table, and an old lodger wrongly turned out of his rooms
+scene: The free advice desk opens at six, and {Ns} first case is an old man with a carrier bag full of letters: his landlord has changed the locks.
+scene W: The law says plainly that a tenant cannot be put out like this, and {N} means to see the law kept.
+scene U: Somewhere in the bag of letters is the date that wins the case, and {N} means to find it.
+scene B: The landlord owns half the street, and beating him would make {Ns} name.
+scene R: {N} is furious on the old man's behalf and wants to march round to the landlord tonight.
+scene G: The old man has lived in that flat for forty years, and his whole life is behind that locked door.
+- W | take the case properly: file the papers and see it through to the hearing | v: universalism, conformity | dream: test | foot: door kept your word | chance: 60
+- U | sort the letters by date until the one that proves it turns up | v: achievement | foot: mark learned a skill | chance: 75
+- B | ring the landlord and drop a hint about the local paper | v: power | foot: person rival | chance: 55
+- R | go round with the old man that night and demand the keys back | v: stimulation, benevolence | foot: mark took a wild risk | chance: 45
+- G | find him a bed for the night first, and leave the law till morning | v: benevolence | foot: mark helped someone in need | chance: 85
+- W>B | ask the senior lawyer for the lead on the case, under their eye | v: achievement | dream: test | foot: person mentor | chance: 58
+- U>R | stay late every night that week and build the case from nothing | v: achievement, stimulation | foot: means time-.06 | chance: 70
+- B>G | get the landlord to pay for a hotel quietly, in return for no fuss | v: security, power | foot: door turned down a chance | chance: 66
+- R>W | stand up at the residents' meeting and tell the whole street what happened | v: universalism | foot: place rule.voice | chance: 62
+- G>U | pass him to a housing lawyer, and walk him to the office door | v: benevolence | dream: drop | foot: person colleague | chance: 80
+works: The locks are changed back within the fortnight, and the old man brings a tin of biscuits to the desk every week after.
+works: The hearing is short, the ruling is plain, and {N} walks out into the rain grinning.
+fails: The landlord's lawyer finds a missed date, and the case falls apart on a technicality.
+fails: The old man gives up and moves in with his daughter before the hearing comes.
+
+# ---------------------------------------------------------------- to keep one promise for life (W, cycle s1)
+
+== the year the promise gets heavy
+tier: life event
+aim: to keep one promise for life
+aim_role: spark
+stages: young_adult adult mature elder
+age: 18-90
+per_year: 0 0 .3 .3 .3 .3
+needs: partner
+tone: mixed
+life: love, partner
+horizon: months
+roles: partner, friend, parent
+earth: a partner out of work, and the long winter evenings gone quiet
+tribal: a partner hurt in the hunt, and a long winter at the fire begun
+magic: a partner turned away from the tower's service, and a long winter in the rooms begun
+scene: {partner} has lost the job, and the evenings have gone quiet. {N} once promised "in good times and in bad", and these are the bad ones.
+scene W: {N} meant every word of that promise, and a promise means most when it costs something.
+scene U: {N} lies awake working out what {partner} actually needs, and how much of it is hurt pride.
+scene B: {N} has an offer of work in another city, the kind that comes once.
+scene R: {N} misses the laughing, the dancing, the old {partner}, and is tired of this one.
+scene G: The house feels like a burrow in winter, and {N} wants to keep it warm until spring.
+- W | stay close, and say every day that this will pass | v: benevolence, tradition | dream: test | foot: door kept your word | chance: 70
+- U | sit down together and plan the year line by line, so nothing comes as a shock | v: security | foot: lesson a plan halves a fear | chance: 72
+- B | take the job in the other city, and come home at weekends | v: achievement | foot: means money+.06 | chance: 68
+- R | book a weekend away on a whim, to shake the gloom off both of them | v: hedonism, stimulation | foot: means money-.04 | chance: 75
+- G | keep the house warm and the meals coming, and let the winter pass | v: benevolence, security | foot: lesson patience is a kind of love | chance: 80
+- W>U | write the old promise out again by hand and leave it on the pillow | v: tradition, benevolence | dream: seal | foot: mark kept your word | chance: 76
+- U>B | help rewrite the CV and rehearse every interview together | v: achievement | foot: means time-.05 | chance: 70
+- B>R | push the two of them back out to see the old friends, ready or not | v: stimulation | foot: person friend | chance: 60
+- R>G | take on an allotment together, and dig the gloom out | v: hedonism, universalism (nature) | foot: place prod.land | chance: 70
+- G>W | ask both families round, and let them carry some of the weight | v: tradition, benevolence | foot: means ties+.05 | chance: 74
+works: By spring {partner} is laughing again, and the promise feels stronger for the bending.
+works: A new job comes through in the end, and the two of them celebrate on the kitchen floor with a cheap bottle of fizz.
+fails: The winter is long and cold between them, and something is left unsaid.
+fails: {partner} snaps that pity is not love, and the house goes quiet for weeks.
+
+# ---------------------------------------------------------------- to build things that last (W U, cycle s1)
+
+== the first wall laid true
+tier: life event
+aim: to build things that last
+aim_role: spark
+stages: juvenile young_adult adult mature
+age: 15-65
+per_year: 0 .3 .4 .4 .3 0
+tone: joy
+life: work, making
+horizon: week
+roles: mentor, boss, colleague, a neighbour
+earth: a garden wall to build for a neighbour, the first job done without anyone's help
+tribal: a stone fish-trap to build across the stream, the first done without an elder's help
+magic: a footbridge to raise over the tower's moat, the first done without a master's help
+scene: A neighbour wants a garden wall, and {mentor} has said {N} can do it alone this time. The bricks are stacked on the pavement and the string line is up.
+scene W: {N} means to build it by the book: every course level, every joint filled.
+scene U: {N} has worked out the footing depth, the frost line and the drainage, twice.
+scene B: Do this well and the neighbour will tell the whole street who built it.
+scene R: {N} wants the first course down by lunchtime, and to watch it rise.
+scene G: The old wall that fell was made of stone from the field behind, and {N} wants the new one to belong.
+- W | lay every course to the string line, and check each one with the level | v: conformity, achievement | dream: test | foot: mark learned a skill | chance: 70
+- U | dig the footing twice as deep as the book says, for the frost | v: security | foot: lesson the hidden part holds the rest | chance: 72
+- B | finish fast, take the money, and hand out cards up and down the road | v: achievement, power | foot: means money+.04 | chance: 80
+- R | build it in one long day, radio on, without a break | v: stimulation | foot: means health-.03 | chance: 65
+- G | reuse the old stones from the fallen wall, cleaned one by one | v: tradition, universalism | foot: person neighbour | chance: 68
+- W>U | ask the old bricklayer down the road to check each course, and learn why | v: conformity, self-direction | dream: test | foot: person mentor | chance: 75
+- U>B | price the job properly, every hour written down, before the first brick | v: achievement, security | foot: lesson time costs money too | chance: 78
+- B>R | take on a second wall down the street before the first is done | v: achievement, stimulation | foot: means time-.06 | chance: 50
+- R>G | let the neighbour's children press their hands into the last course of mortar | v: benevolence, stimulation | foot: means ties+.04 | chance: 85
+- G>W | build it the old way, in lime mortar, so it can be mended for a century | v: tradition | foot: place prod.craft | chance: 60
+works: The wall stands straight and true, and {mentor} runs a hand along the top and says nothing, which means a great deal.
+works: The neighbour brings out tea and cake, and has already told three houses who built it.
+fails: A course goes out of line halfway up, and the whole lot has to come down again.
+fails: The first hard frost cracks the footing, and the neighbour wants the money back.
+
+# ---------------------------------------------------------------- to serve the public well (W U, cycle s4)
+
+== the claim that went missing
+tier: life event
+aim: to serve the public well
+aim_role: spark
+stages: young_adult adult mature
+age: 17-67
+per_year: 0 0 .4 .4 .3 0
+tone: mixed
+life: work, public life
+horizon: week
+roles: boss, colleague, a family at the counter
+earth: a family at the council counter whose housing claim has been lost in the system
+tribal: a family at the store-keeper's fire whose share of the winter meat was never counted
+magic: a family at the clerks' window whose grain-right was lost in the ledgers
+scene: It is ten to five at the council counter, and a mother with two tired children says her housing claim was sent three months ago. The system says it never arrived.
+scene W: Procedure says she must start again. {N} knows procedure, and knows where it fails.
+scene U: Somewhere between the post room and the database a claim went missing, and {N} wants to know where.
+scene B: {boss} likes a clean queue at five, and {N} likes {boss} to be pleased.
+scene R: {N} cannot bear to send her away with a leaflet.
+scene G: The children are asleep on the plastic chairs, and {N} thinks of {Ns} own family.
+- W | open a new claim on the spot and mark it urgent, by the rules | v: conformity, benevolence | dream: test | foot: door helped someone in need | chance: 75
+- U | stay after five and trace the lost claim through the post-room records | v: achievement, universalism | foot: means time-.04 | chance: 60
+- B | ask her back on Monday, and shut the hatch on time | v: security | foot: door refused someone in need | chance: 90
+- R | ring the housing director's own line and refuse to hang up | v: stimulation, benevolence | foot: mark defied an authority | chance: 45
+- G | find the family a warm place for the weekend through the community hall | v: benevolence | foot: place gather.hall | chance: 70
+- W>G | write up the gap in the system so that no other family falls through it | v: universalism | foot: place rule.counsel | chance: 55
+- U>W | draw up a checklist for the counter, so every claim gets a receipt | v: security, conformity | dream: test | foot: lesson a receipt is a promise | chance: 72
+- B>U | ask the clerk who knows the database to dig, and owe the favour | v: power, achievement | foot: person colleague | chance: 70
+- R>B | threaten to go to the local paper unless the claim is found by Friday | v: power | foot: person rival | chance: 50
+- G>R | give her a direct number, and promise to ring on Monday whatever happens | v: benevolence | foot: door kept your word | chance: 80
+works: On Monday the claim turns up in a box in the basement, and the family is housed by the end of the month.
+works: The mother comes back a week later just to shake {Ns} hand.
+fails: The claim is never found, and the family goes to the back of a very long queue.
+fails: {boss} calls {N} in for breaking procedure, and the family is no better off.
+
+# ---------------------------------------------------------------- to be the one people come to for advice (W U, cycle s2)
+
+== a friend at the kitchen table at midnight
+tier: life event
+aim: to be the one people come to for advice
+aim_role: spark
+stages: young_adult adult mature elder
+age: 18-90
+per_year: 0 0 .3 .4 .4 .4
+tone: mixed
+life: friends
+horizon: week
+roles: friend, sibling, a neighbour
+earth: a friend at the kitchen table at midnight, with a choice they cannot make alone
+tribal: a friend at the fire after dark, with a choice they cannot make alone
+magic: a friend at the study door after the late bells, with a choice they cannot make alone
+scene: It is nearly midnight, and {friend} is at {Ns} kitchen table, turning a mug round and round: take the job across the country, or stay?
+scene W: {friend} came here because {N} always tells the truth, even the unwelcome kind.
+scene U: {N} can see three questions hiding inside the one {friend} is asking.
+scene B: If {friend} takes the job, {N} loses the best ally at work.
+scene R: {N} wants to shout "go!" before {friend} has finished the sentence.
+scene G: {friend} has roots here, a mother on the corner and an old dog, and {N} knows what roots weigh.
+- W | ask the hard questions in turn, and leave the answer to them | v: benevolence, self-direction | dream: test | foot: door made a friend | chance: 70
+- U | draw two columns on a napkin and work through every reason together | v: self-direction | dream: test | foot: lesson the question under the question | chance: 75
+- B | steer them towards staying, for reasons of your own | v: power | foot: door hid a wrong | chance: 68
+- R | tell them to go, now, before the fear wins | v: stimulation | foot: person friend lost | chance: 70
+- G | make up the spare bed and say it will look clearer in the morning | v: benevolence | foot: mark helped someone in need | chance: 85
+- W>B | say plainly what you would do in their place, and stand by it | v: conformity | foot: lesson honest words cost little | chance: 72
+- U>R | look up the new city together that night, street by street | v: stimulation, self-direction | foot: means time-.03 | chance: 80
+- B>G | remind them how much the family here leans on them, and let that weigh | v: tradition, power | foot: means ties+.03 | chance: 64
+- R>W | promise to visit every month if they go, and mean it | v: benevolence | foot: door kept your word | chance: 70
+- G>U | say nothing for a long while, and just listen until they hear themselves | v: benevolence | foot: means ties+.05 | chance: 78
+works: {friend} decides by morning, and rings a year later to say it was the right call, and to thank {N} for it.
+works: Word gets round that {N} is good to talk to, and the kitchen table sees a lot of midnights after that.
+fails: {friend} takes the advice, it goes badly, and for a while {N} is the one who gets the blame.
+fails: {friend} leaves with the question still open, and {N} lies awake wondering what else could have been said.
+
+# ---------------------------------------------------------------- to make a home that runs well (W U, cycle s3)
+
+== a kitchen table covered in bills
+tier: life event
+aim: to make a home that runs well
+aim_role: spark
+stages: young_adult adult mature
+age: 18-70
+per_year: 0 0 .4 .4 .3 0
+needs: partner
+tone: mixed
+life: home, money, partner
+horizon: months
+roles: partner, parent, friend, a landlord
+earth: the first winter in a shared flat, and a kitchen table covered in bills
+tribal: the first winter in a shared shelter, and the stores to be counted and shared out
+magic: the first winter in shared rooms in the tower town, and the household accounts to be kept
+scene: It is the first winter in the new flat, and the kitchen table has vanished under bills, a broken boiler and a list of jobs as long as {Ns} arm. {partner} says it can all wait for the weekend.
+scene W: {N} likes a house where things are in their place and paid on time, and this one is not, yet.
+scene U: {N} suspects the boiler, the damp and the electricity bill are one problem, not three.
+scene B: The rent goes up in spring, and {N} has no intention of being squeezed.
+scene R: {N} would rather be out than sitting in a cold flat with a list.
+scene G: {N} wants the flat to feel like a nest: warm, full, and theirs.
+- W | set up a shared jar, and one day each month for paying everything | v: security, conformity | dream: test | foot: door kept your word | chance: 78
+- U | take the boiler cover off with a video guide and find the fault | v: self-direction | dream: test | foot: mark learned a skill | chance: 55
+- B | write to the landlord with dates and photos, and hold back rent until it is fixed | v: power, security | foot: person rival | chance: 55
+- R | leave the whole list for the weekend and go out with friends instead | v: hedonism | dream: drop | foot: means money-.03 | chance: 90
+- G | ask a parent round to show how they always kept a warm house on little | v: tradition | foot: lesson the old ways still work | chance: 80
+- W>R | turn the jobs into a weekend race, with a takeaway as the prize | v: stimulation, conformity | foot: lesson chores go faster together | chance: 74
+- U>G | draught-proof every window with tape and old blankets, room by room | v: security, universalism | foot: means health+.03 | chance: 80
+- B>W | split every bill exactly in half, on a shared spreadsheet | v: security, power | foot: means ties-.03 | chance: 85
+- R>U | get an electrician friend round for a curry and a look at the wiring | v: stimulation, self-direction | foot: person friend | chance: 70
+- G>B | grow herbs on the sill and cook in bulk, so the food money stretches | v: security, tradition | foot: means money+.04 | chance: 76
+works: By spring the flat is warm, the bills are paid, and the list on the fridge is down to one line.
+works: {partner} admits, over a hot dinner, that {N} has made the place a home.
+fails: The boiler gives up in the coldest week, and the two of them sleep in their coats.
+fails: The bills pile up again, and the rows about money begin.
+
+# ---------------------------------------------------------------- to rise to the top of the firm (W B, cycle s2)
+
+== the day the boss is off sick
+tier: life event
+aim: to rise to the top of the firm
+aim_role: spark
+stages: young_adult adult mature
+age: 20-64
+per_year: 0 0 .4 .4 .3 0
+tone: mixed
+life: work
+horizon: week
+roles: boss, colleague, rival, a client
+earth: the boss off sick on the day of the big client meeting, and someone has to run it
+tribal: the trade leader sick on the day the far clans come to barter, and someone has to lead it
+magic: the guild-master abed on the day a great merchant house comes to bargain, and someone must sit at the head of the table
+scene: {boss} is off sick, the client is already in reception, and every eye in the office turns to {N}.
+scene W: {N} knows the agenda, the figures and the order of things, and the firm's good name is at stake.
+scene U: {N} has read the client's last three reports, and knows what they really want.
+scene B: This is the chance {N} has been waiting for: the top table, with nobody above.
+scene R: {Ns} pulse is racing, and {N} has never wanted anything more.
+scene G: {N} thinks of the team who did the work, and wants them in the room.
+- W | run the meeting exactly as the boss would have, point by point | v: conformity, security | foot: mark kept your word | chance: 70
+- U | open with the one question the client actually came to ask | v: achievement, self-direction | foot: lesson listen first, then speak | chance: 62
+- B | take the head of the table and close the deal before lunch | v: power, achievement | dream: test | foot: means money+.05 | chance: 55
+- R | throw away the slides and pitch it from the heart | v: stimulation | foot: mark took a wild risk | chance: 45
+- G | bring the whole team in, and have each one present their own part | v: benevolence, universalism | foot: person colleague | chance: 72
+- W>B | follow the agenda to the letter, and make sure the directors hear who ran it | v: power, conformity | dream: test | foot: person patron | chance: 60
+- U>R | spot the flaw in the client's own plan, and offer a bolder one on the spot | v: stimulation, achievement | foot: lesson good questions win rooms | chance: 50
+- B>G | promise the team a bonus if the deal closes, and see that they get it | v: power, benevolence | foot: means money-.04 | chance: 65
+- R>W | admit to the client the project is late, and name a date to keep | v: universalism, conformity | foot: door kept your word | chance: 58
+- G>U | ask the client to come down and see the team at work instead | v: benevolence, self-direction | foot: means time-.04 | chance: 66
+works: The client signs before lunch, and by Friday the directors know {Ns} name.
+works: {boss} comes back to find the account won and a note on the desk from the managing director.
+fails: The client walks out halfway through, and the story is all round the office by the afternoon.
+fails: The meeting goes well enough, but {rival} takes the credit in the report upstairs.
+
+# ---------------------------------------------------------------- to keep the family name high (W B, cycle s3)
+
+== the speech at the great-aunt's ninetieth
+tier: life event
+aim: to keep the family name high
+aim_role: spark
+stages: young_adult adult mature elder
+age: 20-85
+per_year: 0 0 .3 .4 .4 .3
+tone: joy
+life: family, tradition
+horizon: week
+roles: parent, grandparent, sibling, elder, cousins
+earth: a great-aunt's ninetieth in a hired hall, half the town invited, and a speech to give for the family
+tribal: an old matriarch's great feast with every band invited, and a speech to give for the clan
+magic: the house matriarch's ninetieth name-day in the guildhall, and a toast to give for the house
+scene: Half the town has come to the great-aunt's ninetieth, the hall is full, and {parent} has asked {N} to give the speech for the family.
+scene W: {N} has the family's history on cards: every name, every date, in the right order.
+scene U: {N} has dug out old letters and photographs nobody has seen for fifty years.
+scene B: The mayor, the bank manager and both of the old rival families are in the room, and they will remember what is said.
+scene R: {N} has no notes at all, only a head full of stories.
+scene G: The great-aunt sits in the front row with her stick, and {N} wants her to feel the whole family around her.
+- W | give the family's history in order, and thank every branch by name | v: tradition, conformity | dream: test | foot: means ties+.04 | chance: 72
+- U | read out one of the old letters, and let it speak for the family | v: tradition, self-direction | foot: lesson the past carries its own weight | chance: 70
+- B | make sure the speech mentions the family firm, the new house and the degree | v: power, achievement | foot: person rival | chance: 66
+- R | tear up the cards and tell the funniest story about the old aunt | v: stimulation, hedonism | foot: mark took a wild risk | chance: 60
+- G | ask the great-aunt to stand, and the whole room to sing to her | v: benevolence, tradition | foot: person elder | chance: 85
+- W>R | end on a toast, and a promise to hold this party again at a hundred | v: tradition, stimulation | foot: door kept your word | chance: 75
+- U>G | have the old photographs framed and hung round the hall before anyone arrives | v: tradition | foot: means money-.03 | chance: 80
+- B>W | ask the mayor to say a few words after, so the town sees the family's standing | v: power, conformity | dream: seal | foot: person patron | chance: 60
+- R>U | make up a quiz on the family's history and set the young cousins against each other | v: stimulation | foot: lesson laughter keeps names alive | chance: 74
+- G>B | hand the speech to the eldest cousin, and stay at the back, out of the light | v: security, tradition | dream: drop | foot: means freedom+.03 | chance: 90
+works: The hall stands for the great-aunt, and for weeks afterwards people stop {N} in the street to say what a family it is.
+works: {grandparent} squeezes {Ns} hand at the end and says the name is in good hands.
+fails: The speech stumbles over a name, and an old family quarrel walks back into the room.
+fails: Someone mutters that the family has come down in the world, and {N} hears it.
+
+# ---------------------------------------------------------------- to own the roof over our heads (W B, cycle s4)
+
+== the small house at the end of the road
+tier: life event
+aim: to own the roof over our heads
+aim_role: spark
+stages: young_adult adult mature
+age: 20-60
+per_year: 0 0 .4 .4 .3 0
+tone: mixed
+life: home, money
+horizon: months
+roles: partner, parent, friend, an estate agent
+earth: a small terraced house for sale at the end of the road, and a deposit almost saved
+tribal: a sheltered hollow by the river where a lodge could stand, and the hides almost gathered to build it
+magic: a narrow house inside the city walls offered for sale, and the deed-price almost saved
+scene: There is a small house for sale at the end of the road, two up and two down, and {N} has walked past it every evening for a month. The savings are close, but not quite there.
+scene W: {N} has put by the same sum every month for years, and never missed one.
+scene U: {N} has the mortgage tables, the survey costs and three different plans spread across the kitchen table.
+scene B: Houses on this road will be worth double in ten years, and {N} intends to be in early.
+scene R: {N} has already pictured the front door painted a bold yellow.
+scene G: {N} grew up moving from one rented place to the next, and wants a door that stays.
+- W | keep to the saving plan, and offer only when the full deposit is there | v: security, conformity | dream: test | foot: means money+.05 | chance: 65
+- U | read the survey report end to end before saying a single word | v: security | foot: lesson read the small print twice | chance: 82
+- B | put in a low offer today and let the seller sweat | v: power, achievement | dream: test | foot: person rival | chance: 45
+- R | borrow the last of it from friends and make an offer tonight | v: stimulation | foot: mark took a wild risk | chance: 55
+- G | ask the family whether they can help, as families always have | v: tradition, security | foot: means ties+.04 | chance: 60
+- W>G | take on a second job for six months to close the gap | v: security, achievement | foot: means time-.08 | chance: 58
+- U>W | sit down with a mortgage adviser and plan to own it outright in twenty years | v: security, conformity | foot: place comm.credit | chance: 75
+- B>U | find out who owns the house and why they are selling, before making a move | v: power, achievement | foot: lesson know who is selling | chance: 70
+- R>B | sell the car and put all of it into the deposit | v: achievement, stimulation | foot: means freedom-.05 | chance: 72
+- G>R | let this one go, sure that the right house will come along | v: self-direction | dream: drop | foot: door turned down a chance | chance: 90
+works: The keys come in a small paper envelope, and {N} stands on the doorstep for a long time before going in.
+works: The offer is accepted on a wet Tuesday, and {N} rings everyone in the phone book.
+fails: Someone else offers more, and the sold sign goes up on Saturday.
+fails: The survey finds the roof is rotten, and the plan is off for another year.
+
+# ---------------------------------------------------------------- to make the rules everyone lives by (W B, cycle s1)
+
+== the yard that needs new rules
+tier: life event
+aim: to make the rules everyone lives by
+aim_role: spark
+stages: young_adult adult mature elder
+age: 18-85
+per_year: 0 0 .3 .4 .4 .3
+tone: mixed
+life: community, public life
+horizon: months
+roles: rival, friend, neighbours, the chair of the residents' meeting
+earth: the residents' meeting votes for new house rules, and someone has to draft them
+tribal: the camp council wants new rules for the shared hunting grounds, and someone has to speak them first
+magic: the lane's guild-moot wants new rules for the shared well, and someone has to draft the charter
+scene: The residents' meeting has voted, at last, for new rules on the shared yard: bins, bikes, noise and parking. The chair looks round for someone to draft them, and {Ns} hand is already halfway up.
+scene W: {N} believes a good rule that everyone keeps is worth ten arguments.
+scene U: {N} has read the rules of six other blocks and seen what works.
+scene B: Whoever writes the rules decides how the yard is run, and {N} means it to be run well.
+scene R: {N} can already hear the complaints, and is itching for the fight.
+scene G: The yard used to run on goodwill, and {N} wants rules that keep the goodwill in them.
+- W | draft the rules in plain words, and read them out at the next meeting | v: conformity, universalism | dream: test | foot: place rule.counsel | chance: 70
+- U | knock on every door first and ask what each household needs | v: universalism | foot: person neighbour | chance: 65
+- B | write the rules alone, and call for a vote that same night | v: power | dream: test | foot: person rival | chance: 52
+- R | stand up and argue against any rules at all, for the fun of it | v: stimulation, self-direction | foot: mark defied an authority | chance: 60
+- G | say the yard needs no rules, only a barbecue to get everyone talking | v: benevolence | dream: drop | foot: means ties+.05 | chance: 70
+- W>U | borrow the best rules from other blocks, and adapt them line by line | v: conformity, achievement | foot: lesson good rules are often borrowed | chance: 75
+- U>B | add a clause that whoever drafted the rules chairs the yearly review | v: power | foot: place rule.voice | chance: 55
+- B>R | win over the loudest neighbours before the vote, so the rules sail through | v: power, achievement | foot: person go-between | chance: 62
+- R>G | hold the meeting out in the yard itself, so everyone argues on the spot | v: stimulation, benevolence | foot: lesson arguing outdoors clears the air | chance: 68
+- G>W | write in a rule that every new neighbour gets a welcome visit | v: benevolence, tradition | foot: door kept your word | chance: 80
+works: The rules pass on a show of hands, and a year later even the grumblers keep them.
+works: A copy of {Ns} rules turns up pinned in the next block's hallway, word for word.
+fails: The vote is lost, and {N} becomes the neighbour everyone avoids on the stairs.
+fails: The rules pass, nobody keeps them, and the bins stay where they always were.

@@ -405,14 +405,14 @@ scene B: There are drugs on the table and {Ns} name is on the lease. An ambulanc
 scene R: {Ns} heart is hammering. {N} cannot just stand here; something has to be done, right now.
 scene G: {N} kneels by {friend} and holds a cold hand. They have known each other since they were small.
 - W | ring the emergency number at once, and do exactly what the operator says | v: benevolence, conformity | mark: helped someone in need | chance: 62
-- U | turn your friend on their side, watch the breathing, and call only if it worsens | v: security, benevolence | chance: 62
+- U | turn your friend on their side, watch the breathing, and call only if it worsens | v: security, benevolence | foot: mark learned a skill | chance: 62
 - B | hide the drugs and clear the flat before ringing anyone | v: security, power | mark: hid a wrong | closed: law: hiding evidence, and a delay; backfire: the delay costs minutes that matter | chance: 64
-- R | haul your friend into a cold shower to shock them awake | v: benevolence | body: heavy | chance: 60
-- G | sit holding their hand, talking to them, until they stir | v: benevolence | closed: approval: not calling for help; backfire: they get worse, and everyone asks why nobody rang for help | chance: 66
-- WU | phone for an ambulance, and tell them exactly what was taken and when | v: benevolence, security | mark: owned up | chance: 74
+- R | haul your friend into a cold shower to shock them awake | v: benevolence | body: heavy | foot: door helped someone in need | chance: 60
+- G | sit holding their hand, talking to them, until they stir | v: benevolence | closed: approval: not calling for help; backfire: they get worse, and everyone asks why nobody rang for help | foot: means ties+.04 | chance: 66
+- WU | phone for an ambulance, and tell them exactly what was taken and when | v: benevolence, security | mark: owned up | foot: mark helped someone in need | chance: 74
 - WG | wake the neighbours, and get every grown-up in the building to help | v: benevolence | mark: helped someone in need | chance: 62
 - UR | flag down a taxi and get your friend to the hospital faster than any ambulance | v: benevolence | body: heavy | chance: 64 | back: helped someone in need
-- BR | run, before anyone can say you were there | v: security, self-direction | mark: refused someone in need | closed: approval: leaving a friend in danger; backfire: someone saw, and everyone knows | chance: 76
+- BR | run, before anyone can say you were there | v: security, self-direction | mark: refused someone in need | closed: approval: leaving a friend in danger; backfire: someone saw, and everyone knows | foot: means ties-.06 | chance: 76
 - BG | ring your friend's family, and keep the doctors and the police out of it | v: security, tradition | mark: hid a wrong | closed: approval: keeping a friend in danger from the doctors; backfire: help comes late | chance: 60
 works: {friend} comes round in the end, grey and shaking, and alive.
 works not G BG: By the next afternoon {friend} is sitting up in a hospital bed, asking for toast.
@@ -444,16 +444,16 @@ scene U: {N} has started watching the clock: the hour before the next pill is th
 scene B: {N} knows which doctor at the practice signs repeat prescriptions without asking questions.
 scene R: The pills take the edge off everything, not just the back. The week feels flat and grey without them.
 scene G: The body heals in its own time. {grandparent} used to say that pain is a messenger, not an enemy.
-- W | finish the course as written, and hand the leftovers back at the pharmacy | v: conformity, security | self_control: + | chance: 66
-- U | keep a diary of the cravings, and come off them on a plan you draw up | habit | v: self-direction, security | self_control: + | chance: 60
-- B | order more from an online pharmacy that asks no questions | habit | v: hedonism, security | mark: used drugs | body: heavy | death_if_fails: 0.002 | closed: law: prescription drugs without a prescription; backfire: the pills are fakes | self_control: - | law: drugs | tech: internet | chance: 66
-- R | buy more from a friend of a friend when the bottle runs out | habit | v: hedonism | mark: used drugs | body: heavy | death_if_fails: 0.003 | closed: law: pills bought on the street; backfire: the pills are not what they seem | self_control: - | law: drugs | chance: 70
-- G | let the pain come back, and go out walking with it every morning | habit | v: security, universalism (nature) | body: light | self_control: + | chance: 66
-- RG | bin the last pills, and go up into the hills to sweat it out | v: self-direction, universalism (nature) | body: heavy | self_control: + | chance: 52
+- W | finish the course as written, and hand the leftovers back at the pharmacy | v: conformity, security | self_control: + | foot: means health+.04 | chance: 66
+- U | keep a diary of the cravings, and come off them on a plan you draw up | habit | v: self-direction, security | self_control: + | foot: lesson name the craving to tame it | chance: 60
+- B | order more from an online pharmacy that asks no questions | habit | v: hedonism, security | mark: used drugs | body: heavy | death_if_fails: 0.002 | closed: law: prescription drugs without a prescription; backfire: the pills are fakes | self_control: - | law: drugs | tech: internet | foot: means health-.06 | chance: 66
+- R | buy more from a friend of a friend when the bottle runs out | habit | v: hedonism | mark: used drugs | body: heavy | death_if_fails: 0.003 | closed: law: pills bought on the street; backfire: the pills are not what they seem | self_control: - | law: drugs | foot: person go-between | chance: 70
+- G | let the pain come back, and go out walking with it every morning | habit | v: security, universalism (nature) | body: light | self_control: + | foot: place prod.wild | chance: 66
+- RG | bin the last pills, and go up into the hills to sweat it out | v: self-direction, universalism (nature) | body: heavy | self_control: + | foot: mark took a wild risk | chance: 52
 - UB | tell the other doctor a well-rehearsed story, for a new prescription | v: hedonism, security | mark: hid a wrong | closed: approval: lying to a doctor; backfire: the records are shared, and every prescription stops | self_control: - | chance: 66
 - UG | ask the physiotherapist about other ways to live with the pain | door | v: security, self-direction | mark: learned a skill | chance: 70
-- WB | sign up for the clinic's programme quietly, so nobody at work finds out | binds | v: security, achievement | self_control: + | chance: 58
-- WR | tell your partner or closest friend everything, and hand them the bottle | binds | v: benevolence, conformity | mark: owned up | chance: 66
+- WB | sign up for the clinic's programme quietly, so nobody at work finds out | binds | v: security, achievement | self_control: + | foot: place care.houses | chance: 58
+- WR | tell your partner or closest friend everything, and hand them the bottle | binds | v: benevolence, conformity | mark: owned up | foot: means ties+.06 | chance: 66
 works: The last pill goes, the bad weeks pass, and {N} sleeps through a night again.
 works: {N} comes off them slowly, and one morning notices that the clock has stopped mattering.
 fails: The bottle runs out on a Friday, and the weekend is the longest of {Ns} life.
@@ -484,14 +484,14 @@ scene U: {N} watches the ragged trace on the monitor and wants to know exactly w
 scene B: {N} knows the right number to give: low enough to sound sensible, high enough to be believed.
 scene R: {N} is frightened, and furious at being frightened. Life without the weekends would hardly be life.
 scene G: {parent} went the same way: a flushed face and a bad heart at sixty. {N} watches the screen and thinks of that.
-- W | give the doctor the true number, and sign up for the clinic | habit | v: conformity, security | mark: owned up | chance: 64
+- W | give the doctor the true number, and sign up for the clinic | habit | v: conformity, security | mark: owned up | foot: place care.houses | chance: 64
 - U | read everything on the heart and drink, and set your own strict limits | habit | v: self-direction, security | mark: learned a skill | self_control: + | chance: 64
 - B | give the doctor a lower number, and carry on as before at home | habit | v: hedonism, security | mark: hid a wrong | self_control: - | chance: 62
 - R | discharge yourself, go to the pub, and drink to being alive | v: hedonism, stimulation | mark: defied an authority | closed: approval: leaving against medical advice; backfire: the heart goes again, worse | self_control: - | chance: 68
-- G | stop drinking quietly, and spend the weekends out of doors instead | v: security, universalism (nature) | self_control: + | chance: 65
-- WUR | take on a dry year as a challenge, with a race at the end | binds | v: achievement, stimulation | self_control: + | chance: 50
-- WUB | follow the cardiologist's plan to the letter, with the best specialist money can buy | binds | v: security, achievement | self_control: + | chance: 70
-- WBG | tell the family, and agree a house rule: no drink in the house | v: security, tradition | self_control: + | chance: 60
+- G | stop drinking quietly, and spend the weekends out of doors instead | v: security, universalism (nature) | self_control: + | foot: place prod.wild | chance: 65
+- WUR | take on a dry year as a challenge, with a race at the end | binds | v: achievement, stimulation | self_control: + | foot: place gather.games | chance: 50
+- WUB | follow the cardiologist's plan to the letter, with the best specialist money can buy | binds | v: security, achievement | self_control: + | foot: means money-.08 | chance: 70
+- WBG | tell the family, and agree a house rule: no drink in the house | v: security, tradition | self_control: + | foot: door kept your word | chance: 60
 - URG | learn to cook properly, cycle to work, and let the body mend | habit | v: self-direction, security | body: light | chance: 62 | back: learned a skill
 - BRG | decide that life is short, and keep the weekends exactly as they are | habit | v: hedonism, tradition (acceptance) | mark: took a wild risk | death_if_fails: 0.003 | self_control: - | chance: 55
 works: The heart settles into its old rhythm, and {N} goes home with a leaflet and a new resolve.
@@ -524,15 +524,15 @@ scene U: {N} replays it: the cyclist had lights. They were there all along, and 
 scene B: Without the car {N} would depend on others for every errand, every visit, every scrap of independence.
 scene R: {Ns} hands are shaking on the wheel, and {N} wants to roar at the cyclist, at the dark, at getting old.
 scene G: The light goes earlier every autumn, and lately {Ns} eyes seem to go with it.
-- W | report the near miss and your eyesight to the licensing office yourself | v: conformity, universalism | mark: owned up | takes: driving licence | chance: 70
-- U | book an eye test for the next morning, and find out exactly what is wrong | v: self-direction, security | chance: 82
+- W | report the near miss and your eyesight to the licensing office yourself | v: conformity, universalism | mark: owned up | takes: driving licence | foot: means freedom-.08 | chance: 70
+- U | book an eye test for the next morning, and find out exactly what is wrong | v: self-direction, security | foot: place care.houses | chance: 82
 - B | say nothing, and stop driving after dark, so nobody need ever know | v: self-direction, security | mark: hid a wrong | chance: 76
-- R | shout after the cyclist, then drive on home as if nothing happened | v: self-direction | chance: 74
-- G | park the car, walk the last mile home, and leave the keys on the hook | v: security, tradition (acceptance) | body: light | chance: 74
-- WUG | have the cataract operation the optician has been urging for years | v: security | chance: 75
-- WRG | tell the family that night, and let them take the car keys | v: benevolence, security | chance: 80
-- WBR | sell the car the same week, and spend the money on taxis | v: self-direction, security | self_control: + | chance: 85
-- UBR | buy a car with every sensor and camera going, and keep on driving | v: self-direction, power | chance: 60
+- R | shout after the cyclist, then drive on home as if nothing happened | v: self-direction | foot: door kept it hidden | chance: 74
+- G | park the car, walk the last mile home, and leave the keys on the hook | v: security, tradition (acceptance) | body: light | foot: means freedom-.05 | chance: 74
+- WUG | have the cataract operation the optician has been urging for years | v: security | foot: means health+.06 | chance: 75
+- WRG | tell the family that night, and let them take the car keys | v: benevolence, security | foot: means ties+.04 | chance: 80
+- WBR | sell the car the same week, and spend the money on taxis | v: self-direction, security | self_control: + | foot: means money-.04 | chance: 85
+- UBR | buy a car with every sensor and camera going, and keep on driving | v: self-direction, power | foot: means money-.10 | chance: 60
 - UBG | map who in the street drives where, and trade favours for lifts | binds | v: security, benevolence | mark: made a friend | chance: 65
 works: The fright passes, and {N} finds a way of getting about that frightens nobody.
 works: Within a month {N} has settled into a new routine, and sleeps better for it.
@@ -565,13 +565,13 @@ scene R: It is a bright, cold morning, {N} feels good today, and the job would t
 scene G: Every autumn of {Ns} life the leaves have come down and someone has gone up to clear them. That someone was always {N}.
 - W | keep your promise, and ring a firm to do it properly | v: conformity, security | mark: kept your word | chance: 88
 - U | set the ladder at the right angle, tie it off, and go up slowly | v: self-direction, achievement | mark: took a wild risk | body: heavy | death_if_fails: 0.005 | chance: 82
-- B | find someone at the pub who will do it for cash, no questions asked | v: security, power | chance: 74
+- B | find someone at the pub who will do it for cash, no questions asked | v: security, power | foot: person regular | chance: 74
 - R | nip up the ladder right now and get it done before anyone can fuss | v: self-direction, stimulation | mark: took a wild risk | body: heavy | death_if_fails: 0.01 | chance: 72
 - G | go up as you have every autumn of your life, and trust your hands | habit | v: tradition | mark: took a wild risk | body: heavy | death_if_fails: 0.01 | chance: 80
-- W>B | ask the council's handyman scheme for older people, which costs next to nothing | v: security, achievement | chance: 60
+- W>B | ask the council's handyman scheme for older people, which costs next to nothing | v: security, achievement | foot: lesson ask and help comes cheap | chance: 60
 - U>R | rig a pole and a hose to clear the gutter from the ground | v: self-direction | mark: learned a skill | chance: 68
-- B>G | guilt your grown child into coming over on Sunday to do it | v: security | chance: 76
-- R>W | bang on the neighbour's door and talk them into doing it today, for lunch | v: benevolence, security | chance: 74
+- B>G | guilt your grown child into coming over on Sunday to do it | v: security | foot: means ties-.03 | chance: 76
+- R>W | bang on the neighbour's door and talk them into doing it today, for lunch | v: benevolence, security | foot: person neighbour | chance: 74
 - G>U | watch where the water runs in the next storm, and learn what the house needs | v: self-direction | mark: learned a skill | chance: 70
 works: The gutters run clear by lunchtime, and the dripping stops.
 works: The job gets done, and {N} sits down with a cup of tea feeling about forty.
