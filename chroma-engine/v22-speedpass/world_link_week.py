@@ -263,6 +263,8 @@ class LinkWeekMixin:
         pv_ = self.pending.get(int(n))
         if pv_ is None or pv_[2] != int(s_n):
             return None
+        if pv_[1] in WK.WA_WANTS:   # the world answers: an ask, a decision or a figure's moment (no want to meet)
+            return self._wa_resolve(n, s_n, a_n, succ_n, idle_n) if getattr(self, "wa_on", False) else None
         if pv_[1] in ("caught", "odd"):   # S3, S4: the option's tag decides (none, or doing nothing: kept apart, held on)
             tg_ = (self.caught if pv_[1] == "caught" else self.odd)[s_n, a_n] if a_n < self.caught.shape[1] else -1
             return self.PP.eyes_resolve(int(n), pv_[1], int(tg_), succ=bool(succ_n), idle=bool(idle_n))
@@ -378,3 +380,74 @@ class LinkWeekMixin:
         return dict(lift_by_colour=(self.sd_stat[0] / np.maximum(self.sd_stat[1], 1e-9)).round(4).tolist(),
                     offered=int(n_[0]), on_path=int(n_[1]), path_lift=round(float(n_[2] / max(n_[1], 1)), 4),
                     mean_lift=round(float(n_[3] / max(n_[0], 1)), 4))
+
+    # ---- the world answers v1 (world_answers; chroma-world/spheres/world-answers-v1.md, world_people_answers.py)
+    def wa_setup(self, P):
+        """The switch on (the engine calls it with the world): the People's state, each world-answers moment's key
+        (cast_want: WK.WA_WANTS) and each option's scope (scope: place, town_sphere, nation; -1 none)."""
+        self.wa_on = True
+        self.PP.wa_setup(P); self.PP._wa_law = self.law_due
+        self.wa_keys = {k_: v_ for k_, v_ in self.want_s.items() if k_ in WK.WA_WANTS}
+        S, K = self.S, self.lev_i.shape[1]
+        self.wa_scope = np.full((S, K), -1, np.int64)
+        for si in np.nonzero(np.isin(self.want, [WK.CAST_WANTS.index(k_) for k_ in WK.WA_WANTS]))[0]:
+            for ki, nt in enumerate((self.L["notes"][si] or [])[:K]):
+                sc_ = str((nt or {}).get("scope") or "").strip()
+                if sc_ in PM.WA_SCOPES:
+                    self.wa_scope[si, ki] = PM.WA_SCOPES.index(sc_)
+        self.wa_pend = {}; self._wa_ma = None
+
+    def _wa_week(self):
+        """The moments the world answers bring this week (an ask, a decision, a figure's), one a life without one."""
+        PP = self.PP; self.wa_pend = {}
+        for x_ in PP.wa_take(PP.t, self.pending):
+            ss_ = self.wa_keys.get(x_["key"]) or []
+            ss2_ = [si for si in ss_ if self.msph[si] == x_["sphere"]]
+            PP.wa_taken(x_)
+            if not (ss2_ or ss_):
+                continue
+            ss_ = ss2_ or ss_
+            si_ = ss_[int(PP._wa_rng.integers(len(ss_)))]
+            n_ = int(x_["n"])
+            self.pending[n_] = (int(x_["cid"]), x_["key"], si_); self.fire_now[n_, si_] = True; self.wa_pend[n_] = x_
+
+    def _wa_resolve(self, n, s_n, a_n, succ_n, idle_n):
+        x_ = self.wa_pend.get(int(n))
+        if x_ is None:
+            return None
+        sc_ = int(self.wa_scope[s_n, a_n]) if a_n < self.wa_scope.shape[1] else -1
+        j_ = int(self.msph[s_n]) if self.msph[s_n] >= 0 else int(x_["sphere"])
+        ma_ = self._wa_ma[int(n)] if self._wa_ma is not None else np.full(PM.C, 1.0 / PM.C)
+        ev_ = self.PP.wa_resolve(int(n), x_["key"], j_, sc_, ma_, bool(succ_n), bool(idle_n))
+        ev_.update(moment=self.L["names"][s_n])
+        return ev_
+
+    def _wa_name(self, a_):
+        """An act in the ledger's causes: (moment, option) as the game names them; a word stays a word."""
+        if isinstance(a_, tuple) and len(a_) == 2:
+            si, ki = int(a_[0]), int(a_[1])
+            lb_ = self.L["labels"][si]
+            return dict(moment=self.L["names"][si], option=lb_[ki] if ki < len(lb_) else "do nothing")
+        return a_
+
+    def _wa_line(self, ln):
+        c_ = ln.get("cause") or {}
+        c2_ = dict(c_, acts=[self._wa_name(a_) for a_ in c_.get("acts", [])])
+        if "last" in c_:
+            c2_["last"] = self._wa_name(c_["last"])
+        return dict(ln, cause=c2_)
+
+    def wa_drain(self):
+        """The told lines and the goal's sphere events since the last call: (life, dict) each, handed over once."""
+        PP = self.PP
+        out = [(n_, dict(told=self._wa_line(ln_))) for n_, ln_ in PP.wa_new] + [(n_, dict(event=e_)) for n_, e_ in PP.wa_ev]
+        PP.wa_new = []; PP.wa_ev = []
+        return out
+
+    def wa_output(self):
+        """The run's wa_ledger: the unit keys, and per life its told lines, rings, decisions and what the world kept."""
+        PP = self.PP; lives = PP.wa_output()
+        for n_, x_ in enumerate(lives):
+            x_["lines"] = [self._wa_line(ln_) for ln_ in PP.wa_told[n_]]
+        return dict(units=list(PM.WA_UNITS), nation=list(PM.WA_NATION), rings=list(PM.WA_RINGS), sizes=list(PM.WA_SIZES),
+                    kept=list(PM.WA_KEPT), lives=lives, decisions=list(PP.wa_dec))

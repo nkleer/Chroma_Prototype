@@ -1,4 +1,4 @@
-"""Engine check for the pause points (backend plan item 2, 2026-10-08) and each switch's own rows: 76 rows, about an hour
+"""Engine check for the pause points (backend plan item 2, 2026-10-08) and each switch's own rows: 78 rows, about an hour
 (50 to 65 min measured 10-17: the Engine with T_JOBS=4, Release on #288).
 
 engine.run_steps() is engine.run() pausing six times a week for the game. On a few short runs this checks that
@@ -66,6 +66,12 @@ engine.run_steps() is engine.run() pausing six times a week for the game. On a f
      life, a door only a return reads shut within foot_par door_yrs; foresee.marks_toward (what a mark nears) well
      formed, nearest first; with FOOT in the batch and the switch off, the lives of the batch without it; the batch
      without FOOT carries none.
+ 22. the world answers v1 (world_answers, wa_phase2), with the batch's world answers moments: world off, the switch moves
+     nothing and no such moment comes; world on, loaded with the switch off, none comes and there is no ledger; on with
+     every part off, and the ledger alone (a record), the lives of it off; all on with phase 2, run_steps() lives as
+     run() and the lives move, the ledger fills for every life with the Library's unit keys, what a life moves a year in
+     its groups, places and town grows with its standing (rung), and only Known lives decide for others; the batch
+     without them carries none.
 
     python3 -B chroma-engine/tools/t_steps.py [ENGINE_DIR]
 T_JOBS=N: the rows of 8 and 9 on N processes (default up to 4, by the cores there are; 1: one after another).
@@ -1196,6 +1202,88 @@ if "foot_on" in E.DEFAULT and "foot" in batch.load_batch.__code__.co_varnames:
           f"{seen_['person named']} people in the cast, {seen_['haunt joined']} haunts joined, {seen_['lesson']} lessons told, "
           f"{seen_['marks toward']} marks toward a title or perk read; foot and foot_open per life at the pauses; the FOOT tables with the switch off change nothing; the batch without FOOT "
           f"carries none{'' if not fails else '; ' + '; '.join(sorted(set(fails))[:4])} ({time.process_time() - t0:.0f} s)")
+# 22. the world answers v1 (world_answers, wa_phase2; workstream 6), Earth and packs with the world answers moments
+if "world_answers" in E.DEFAULT and "wa" in batch.load_batch.__code__.co_varnames:
+    import world_keys as WKA_
+    t0 = time.process_time(); fails = []
+    LWA_ = batch.load_batch("earth", packs=list(batch.PACKS), wa=True)
+    WAI_ = [WKA_.CAST_WANTS.index(k_) for k_ in WKA_.WA_WANTS]
+    if np.isin(np.asarray((EARTH or {}).get("W_WANT", [])), WAI_).any():
+        fails.append("the batch without them carries world answers moments")
+    WAS_ = np.isin(np.asarray(LWA_["W_WANT"]), WAI_)
+    if not WAS_.any():
+        fails.append("the batch with them carries none")
+    nowa_ = lambda o_: digest({k_: ({n_: [e_ for e_ in v_[n_] if not (isinstance(e_, dict) and "wa_ledger" in e_)]
+                                         for n_ in v_} if k_ == "events" else v_)
+                               for k_, v_ in o_.items() if k_ != "wa_ledger"})   # the lives, less the ledger's record
+    met_ = lambda o_: int(np.asarray(o_["sit_n"])[:, WAS_].sum())
+    kw = dict(N=3, years=12, seed=11, lib=LWA_, log_lives=(0,))   # world off: nothing to act on
+    a_ = E.run(**kw, P=dict(E.DEFAULT, world=False))
+    b_ = E.run(**kw, P=dict(E.DEFAULT, world=False, world_answers=True, wa_phase2=True))
+    if digest(a_) != digest(b_) or met_(b_):
+        fails.append("world off: the switch moved a life, or a world answers moment came")
+    kw = dict(N=2, years=46, seed=5, lib=LWA_, log_lives=(0,))
+    PW_ = dict(E.DEFAULT, world=True, heights=True)
+    o0_ = E.run(**kw, P=dict(PW_))
+    if met_(o0_) or "wa_ledger" in o0_:
+        fails.append("loaded with the switch off: a world answers moment came, or a ledger")
+    off_ = dict(wa_groups=False, wa_places=False, wa_ledger=False, wa_notice=False, wa_phase2=False)
+    if nowa_(E.run(**kw, P=dict(PW_, world_answers=True, **off_))) != digest(o0_):
+        fails.append("on with every part off: the lives moved")
+    o_ = E.run(**kw, P=dict(PW_, world_answers=True, **dict(off_, wa_ledger=True)))
+    if nowa_(o_) != digest(o0_):
+        fails.append("the ledger alone moved the lives (it is a record)")
+    if any(x_["told"] == 0 or x_["rings"]["person"]["total"] <= 0 for x_ in o_["wa_ledger"]["lives"]):
+        fails.append("the ledger alone: a life with nothing in it")
+    P_ = dict(PW_, world_answers=True, wa_phase2=True)
+    o1_ = E.run(**kw, P=P_)
+    g = E.run_steps(**kw, P=P_); msg = next(g); kn_ = 0
+    while True:
+        kind, t, S, val = msg
+        if kind == "end" and S.get("WA_ON"):
+            kn_ += int(np.asarray(S["wa_known"]).sum())
+            if len(S["wa_book"]) != kw["N"] or len(S["wa_lines"]) != kw["N"]:
+                fails.append("the ledger handed over at a pause malformed")
+        try:
+            msg = g.send(val)
+        except StopIteration as done:
+            o2_ = done.value
+            break
+    if digest(o1_) != digest(o2_):
+        fails.append("run_steps not the lives of run()")
+    if nowa_(o1_) == digest(o0_):
+        fails.append("switched on, nothing moved")
+    WL_ = o1_["wa_ledger"]; lv_ = WL_["lives"]
+    try:
+        import importlib.util as ilu_
+        sp_ = ilu_.spec_from_file_location("chroma_earth_world_lines", os.path.join(batch.LIB_DIR, "earth_world_lines.py"))
+        wlm_ = ilu_.module_from_spec(sp_); sp_.loader.exec_module(wlm_)
+        if (set(WL_["units"]) != set(wlm_.BECAUSE) or set(WL_["nation"]) != set(wlm_.NATION) or set(WL_["rings"]) != set(wlm_.KEPT)
+                or any(set(v_) != set(WL_["kept"]) for v_ in wlm_.KEPT.values())):
+            fails.append("the ledger's unit keys are not the Library's lines'")
+    except FileNotFoundError:
+        pass
+    lines_ = [ln_ for x_ in lv_ for ln_ in x_["lines"]]
+    if any(ln_["unit"] not in WL_["units"] + ["nation"] or ln_["size"] not in WL_["sizes"] for ln_ in lines_):
+        fails.append("a told line of an unknown unit or size")
+    if any(x_["told"] == 0 or sum(r_["total"] for k_, r_ in x_["rings"].items() if k_ != "person") <= 0 for x_ in lv_):
+        fails.append("a life whose ledger moved nothing past its close circle")
+    mv_ = np.sum([x_["by_rung"]["moved"] for x_ in lv_], 0); wk_ = np.sum([x_["by_rung"]["weeks"] for x_ in lv_], 0)
+    rt_ = [mv_[r_] / wk_[r_] * 52 for r_ in range(5) if wk_[r_] >= 52]
+    lo_, hi_ = mv_[:2].sum() / max(wk_[:2].sum(), 1) * 52, mv_[3:].sum() / max(wk_[3:].sum(), 1) * 52
+    if not wk_[3:].sum() or not hi_ > lo_:
+        fails.append(f"what a life moves did not grow with standing ({lo_:.4f} a year at rung 0-1, {hi_:.4f} at 3-4)")
+    dec_ = WL_["decisions"]; kw_ = sum(x_["known_weeks"] for x_ in lv_)
+    if not dec_ or any(not d_.get("known") for d_ in dec_) or any(x_["decisions"] and not x_["known_weeks"] for x_ in lv_):
+        fails.append("decisions for others: none, or one by a life not Known")
+    if not kn_ or kw_ != kn_:
+        fails.append(f"the Known weeks at the pauses ({kn_}) are not the ledger's ({kw_})")
+    bad += bool(fails)
+    print(f"{'PASS' if not fails else 'FAIL'}  the world answers v1 (world_answers, wa_phase2), with its moments: world off and "
+          f"loaded with it off, nothing; every part off and the ledger alone, the lives of it off; on, run_steps lives as "
+          f"run(), {len(lines_)} lines told ({min(x_['told'] for x_ in lv_)} or more a life), moved a year {lo_:.4f} at rung "
+          f"0-1, {hi_:.4f} at 3-4; {len(dec_)} decisions in {kw_ / 52:.1f} Known years, none outside them"
+          f"{'' if not fails else '; ' + '; '.join(fails[:4])} ({time.process_time() - t0:.0f} s)")
 # 11. nothing read at a pause outside the handed-over names (an engine without STATE_MISSED reads its whole frame)
 if hasattr(E, "STATE_MISSED"):
     bad += bool(E.STATE_MISSED)

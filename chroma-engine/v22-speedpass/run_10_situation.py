@@ -68,6 +68,8 @@
             aff[:, LEADS_] = 0.0
         if PTW_ON_:   # place_turnover: a place moment comes only with its closing or opening (forced)
             aff[:, PTW_] = 0.0
+        if WAW_ON_:   # the world answers: an ask, a decision or a figure's moment comes only when the world brings it
+            aff[:, WAW_] = 0.0
         if WO_ON:   # F10: a world moment only on the world's event; one waiting for the world keeps its gap:
             aff[:, WMZ_] = 0.0
             if len(WG_I):
@@ -192,6 +194,8 @@
                 ev_p[:, SACS_] = 0.0
             if PTW_ON_:
                 ev_p[:, PTW_] = 0.0
+            if WAW_ON_:
+                ev_p[:, WAW_] = 0.0
             if BL_ON:   # v22.5 F1: the body's own risks (constitution, habits, strain, money) reach its moments in the Library
                 bk_ = np.minimum(np.exp(BP_["risk_k"] * (np.interp(age, BAGE_X, BAGE_Y) - body_v)), 2.0)
                 if P["risk_norm"]:   # F9: the risks choose who, the Library's rates how many (the living's mean is 1)

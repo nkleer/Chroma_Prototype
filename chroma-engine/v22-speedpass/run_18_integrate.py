@@ -345,4 +345,5 @@
                 **(dict(aims=dict(names=AIM["names"], log=aim_log, aim=ak, strength=astr, steps=astep, own=aown, by_player=aby,
                                   calling=acall, best=aim_best, goal_aim=gal, missing=AIM["missing"])) if AIM_ON else {}),
                 **(dict(heights=dict(names=list(AIM_HEIGHTS), week=ht_t)) if HT_ON else {}),
+                **(dict(wa_ledger=WL.wa_output()) if WA_ON else {}),
                 **(dict(footprints=dict(log=foot_log, kinds=L["FOOT_KINDS"], missing=L["FOOT_MISS"])) if FOOT_ON else {}))

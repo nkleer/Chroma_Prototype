@@ -555,16 +555,25 @@ class EyesMixin:
                 p_ = int(self.eyes_key[n, q_])
                 if k_ > 0 and getattr(W, "hp_s", None) is not None:
                     l, h, i = (int(x_) for x_ in np.unravel_index(p_, W.hp_s.shape[:3]))
+                    old_ = W.hp_s[l, h, i].copy() if self.wa_l else None
                     W._sph_place_set(l, h, i, W._sph_nudge(W.hp_s[l, h, i], e_, k_))
+                    if self.wa_l:   # the world answers, D: the place the odd one out moved
+                        self._wa_place(n, l, h, i, old_, W.hp_s[l, h, i], t, what="holding out")
                 js = np.nonzero(self.shnt[n] == p_)[0]
             else:
                 js = [q_ - 3]
                 if k_ > 0:
+                    sn0_ = self.snorm[n, q_ - 3].astype(float)
                     self.snorm[n, q_ - 3] = _norm(self.snorm[n, q_ - 3] + k_ * (e_ - self.snorm[n, q_ - 3])).astype(np.float32)
+                    if self.wa_l:
+                        self._wa_gmove(n, q_ - 3, t, dnorm=self.snorm[n, q_ - 3] - sn0_, what="holding out")
             for j_ in js:
                 mem = np.nonzero(self.used[n] & self.lv[n] & ((self.mset[n] & self._bit(int(j_))) > 0))[0]
                 if len(mem):
+                    pm0_ = self.pie[n, mem].astype(float) if self.wa_l else None
                     self.pie[n, mem] = _norm(self.pie[n, mem] + P_["odd_regular"] * (self.w[n] - self.pie[n, mem])).astype(np.float32)
+                    if self.wa_l:
+                        self._wa_pmove(np.full(len(mem), n), mem, t, col=self.pie[n, mem] - pm0_, what="holding out")
                     self._psq[n, mem] = _csum(self.pie[n, mem] ** 2)
 
     def _norm_hist(self, t):

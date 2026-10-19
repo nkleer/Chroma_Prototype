@@ -6,6 +6,9 @@
         import world_link as WLM
         WL = WLM.WorldLink(sys.modules[__name__], P, L, N, seed, female, attr, KILLS, ENDS, CAR)
         WL.PP.or_on = bool(P.get("one_roll"))   # F7: a partner the world takes is not replaced (world_people._sync)
+        if WA_ON:   # the world answers: the People's state and the moments it brings (the batch's, with WORLD_ANSWERS)
+            WL.wa_setup(P)
+            wa_book = WL.PP.wa_u; wa_lines = WL.PP.wa_told; wa_known = WL.PP.wa_known
         if P["work_die"] is not None:   # F9.29: a death at work, a work-year at this x danger (world_people._marks_year)
             WL.PP.mk_die = float(P["work_die"])
         LW_ON = bool(getattr(WL, "lw", False)) and RON
