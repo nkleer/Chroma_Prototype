@@ -1120,9 +1120,12 @@ def _bold(L, table):
             raise ValueError(f"BOLD {nm!r}: one or two bold ways, not {len(rs)}")
         for r in rs:
             lb_ = list(L["labels"][si])
-            if r.get("base") not in lb_:
+            if r.get("base") in lb_:
+                ki = lb_.index(r["base"])
+            elif r.get("base_index") is not None and 0 <= int(r["base_index"]) < len(lb_) - 1:
+                ki = int(r["base_index"])   # a way the engine's FIXES reword (earth_rules) is found by its index
+            else:
                 raise ValueError(f"BOLD {nm!r}: base: {r.get('base')!r} is not one of its ways {lb_}")
-            ki = lb_.index(r["base"])
             if not L["MASK"][si, ki] or L["M"][si, ki].std() < 1e-9:
                 raise ValueError(f"BOLD {nm!r}: base: {r['base']!r} must be a way of acting (not doing nothing)")
             col = int(np.argmax(L["M"][si, ki]))
