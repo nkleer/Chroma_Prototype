@@ -29,6 +29,8 @@ except ImportError:
 
 RINGS = ("person", "group", "place", "town_sphere", "nation")
 RING_NAME = dict(person="People", group="Groups", place="Places", town_sphere="The town", nation="The country")
+RING_REALM = dict(tribal=dict(town_sphere="The camps", nation="The wide lands"), magic=dict(nation="The realm"))   # the
+# outer rings by the world's own name for them (the Library's KEPT and NATION lines say the same)
 RING_OF = dict(person_colours="person", person_closer="person", person_further="person", person_trust_up="person",
                person_trust_down="person", group_norm="group", group_members="group", place_mix="place",
                place_founded="place", place_kept_open="place", town_sphere="town_sphere", nation="nation")
@@ -197,7 +199,8 @@ class WorldAnswersMixin:
         rings = []
         for r in RINGS:
             xs = [x for x in h if x["ring"] == r]
-            rings.append(dict(ring=r, name=RING_NAME[r], n=len(xs), line=xs[-1]["text"] if xs else ""))
+            nm = (RING_REALM.get(self._wa_world()) or {}).get(r, RING_NAME[r])
+            rings.append(dict(ring=r, name=nm, n=len(xs), line=xs[-1]["text"] if xs else ""))
         ms = self.history.get("wa_moments", [])
         return dict(rings=rings, lines=[dict(age=x["age"], ring=x["ring"], size=x["size"], text=x["text"]) for x in reversed(h[-PANEL_LINES:])],
                     asked=sum(1 for m in ms if str(m.get("key", "")).startswith("asked_")),
