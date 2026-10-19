@@ -121,9 +121,11 @@ def check_way(where, r, moment):
         if k in ("takes_if_fails", "suspends_if_fails", "drops_if_fails") and not nm.startswith("kind:") \
                 and nm not in held and nm != "{title}":
             notes.append(f"{where}: {k}: '{nm}' is lost only by those who hold it (not in requires:)")
-    # steps: a title won names its rung below in requires:, unless it needs none
+    # steps: a title won names its rung below in requires:, unless it needs none or the base way gives it too (the
+    # wedding's newlywed: the Engine holds a facet until the title it refines comes)
+    base_gives = set(names(moment["options"][r["base_index"]][5].get("title"))) if moment.get("options") else set()
     for k, nm in wins:
-        if k == "title" and nm in TITLES:
+        if k == "title" and nm in TITLES and nm not in base_gives:
             need = bracket_needs(TITLES[nm])
             if need and not (set(need) & held):
                 problems.append(f"{where}: title: '{nm}' needs {' or '.join('[' + x + ']' for x in need)} first; "

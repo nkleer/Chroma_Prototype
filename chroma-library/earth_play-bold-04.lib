@@ -95,11 +95,11 @@ fails: A bigger firm brings out something like it first, and the savings are gon
 == bold: a new job at last / G
 base: go back to the line of work you know, close to home, for good
 likelier_if: has [old family name] +10; has [contact in the trade] +5
-- G | turn down the city money for the old yard where your family worked | v: tradition, security | act: turn down the city money and take the post at the old yard where their family worked | chance: 45 | grants: crew that has your back | title_if_fails: out of work
+- G | turn down the city money for the old yard where your family worked | v: tradition, security | act: turn down the city money and take the post at the old yard where their family worked | chance: 45 | grants: crew that has your back | takes_if_fails: family who will always take you in
 works: The old hands at the yard take {N} in as one of their own, and stand by {N} from the first week.
 works: Within a month the crew knows {Ns} name and {Ns} family's, and they cover for each other without being asked.
-fails: The yard lays off its newest hands before the spring, and {N} is out of work again.
-fails: The old yard is closing, it turns out, and by the summer {N} has no job at all.
+fails: The yard lays off its newest hands before the spring. {N} blames {parent} for the city money turned down, and the two stop speaking.
+fails: The old yard is closing, it turns out, and the quarrel with {parent} over it shuts the family door on {N}.
 
 == the yard brings in the machines
 tier: link
@@ -178,11 +178,11 @@ fails: The course runs over and costs more than promised, and the savings are go
 == bold: a new job at last / B
 base: play the two offers against each other until one pays properly
 likelier_if: years [reliable record] 3 +10; has [striking a deal] +5
-- B | tell the boss you will come only as shift manager, not on the floor | v: power, achievement | act: tell the boss they will come only as shift manager | chance: 35 | requires: reliable record | title: shift manager | title_if_fails: out of work
+- B | tell the boss you will come only as shift manager, not on the floor | v: power, achievement | act: tell the boss they will come only as shift manager | chance: 35 | requires: reliable record | title: shift manager | takes_if_fails: reliable record
 works: {boss} thinks it over for a day, then rings back: {N} starts as shift manager, with the keys and the rota.
 works: {N} walks in on Monday with the keys and the rota, as shift manager.
-fails: {boss} takes the offer back, and {N} is out of work again.
-fails: The firm gives the post to someone else, and {N} is left with no job at all.
+fails: {boss} takes the offer back and tells the trade that {N} is hard to deal with.
+fails: The firm gives the post to someone else, and word goes round that {N} cannot be counted on.
 
 # ================================================================ buying a home
 
@@ -548,11 +548,11 @@ fails gone: The search for work drags on, and {N} feels the weight of every week
 == bold: the job that went / B
 base: go back to the old boss and ask for the job back, on better terms
 likelier_if: years [reliable record] 3 +10; has [friend in power] +5
-- B | go over the boss's head to the owner, and ask to come back as shift manager | v: power, achievement | act: go over the boss's head to the owner and ask to come back as shift manager | chance: 45 | requires: reliable record | title: shift manager | title_if_fails: out of work
+- B | go over the boss's head to the owner, and ask to come back as shift manager | v: power, achievement | act: go over the boss's head to the owner and ask to come back as shift manager | chance: 45 | requires: reliable record | title: shift manager | takes_if_fails: reliable record
 works: The owner remembers {Ns} years of good work, and {N} comes back with the keys and the rota.
 works: {N} walks back in as shift manager, and the old boss has to get used to it.
-fails: The owner backs the boss, and word goes round the trade; {N} stays out of work for a long while.
-fails: The door is shut for good, and {N} is out of work with no reference to show.
+fails: The owner backs the boss, and word goes round the trade that {N} is trouble.
+fails: The door is shut for good, and {N} leaves with no reference to show for all those years.
 
 # ================================================================ the old well that never ran dry
 

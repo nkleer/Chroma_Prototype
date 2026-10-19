@@ -276,9 +276,9 @@ fails: A row over the takings ends the partnership, and the friendship goes with
 == bold: money worries end / W
 base: pay back the friend who lent to you in the worst year, to the last penny
 likelier_if: mark 'kept your word' +10; years [good credit] 3 +5
-- W | stand guarantor for your sibling's loan, as someone once stood for you | v: benevolence, conformity | act: stand guarantor for the sibling's loan, as someone once stood for them | chance: 40 | requires: good credit | grants: family who will always take you in | takes_if_fails: good credit
-works: {sibling} pays every instalment on time, and the family closes ranks around {N} as it never has before.
-works: {Ns} signature gets {sibling} through the worst year, and {sibling} says there will always be a room for {N} under that roof.
+- W | stand guarantor for your sibling's loan, as someone once stood for you | v: benevolence, conformity | act: stand guarantor for the sibling's loan, as someone once stood for them | chance: 40 | requires: good credit | grants: godchild | takes_if_fails: good credit
+works: {sibling} pays every instalment on time, and asks {N} to stand as godparent to the new baby.
+works: {Ns} signature gets {sibling} through the worst year, and when the next child comes, {N} is asked to be its godparent.
 fails: {sibling} stops paying, the bank comes to {N} for it, and {Ns} good credit is gone for years.
 fails: The loan goes bad, the debt lands on {N} after all, and the bank marks {N} as a poor risk.
 

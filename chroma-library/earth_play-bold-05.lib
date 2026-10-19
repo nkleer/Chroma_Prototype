@@ -829,7 +829,7 @@ fails: The case drags on for a year, the savings go on fees, and the record stan
 == bold: getting married / W
 base: make your vows before everyone you love, and mean every word
 likelier_if: has [calming people down] +10; has [public speaking] +5
-- W | ask both families to make a promise too: to stand by the two of you | v: tradition, benevolence | act: ask both families to make a promise too: to stand by the couple | chance: 40 | grants: in-laws who took you in | takes_if_fails: family who will always take you in
+- W | ask both families to make a promise too: to stand by the two of you | v: tradition, benevolence | act: ask both families to make a promise too: to stand by the couple | chance: 40 | title: newlywed | grants: in-laws who took you in | takes_if_fails: family who will always take you in
 works: Both families stand and give their word, and {Ns} new in-laws take {N} in as one of their own.
 works: {partner}'s family keeps the promise: Sunday lunches, help with the flat, a place at their table for good.
 fails: The promise starts a row between the two families, {Ns} own side walks out of the hall, and they do not come back to {N}.

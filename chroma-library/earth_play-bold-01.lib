@@ -270,15 +270,6 @@ works: Farmers come to see the drip lines, and {N} is the one the town thanks wh
 fails: The pump burns out in the heat, the field cracks anyway, and {Ns} savings are gone.
 fails: The well runs dry in August, and the pipes and the savings are lost together.
 
-== bold: a dry year on the land / R
-base: pack a bag and go to the city for work until the rain comes back
-likelier_if: has [driving licence] +5; has [keeping fit] +5
-- R | go to the city with no job lined up, and take the first work going | v: stimulation, self-direction | act: go to the city with no job lined up, and take the first work going | chance: 35 | title: warehouse worker | title_if_fails: out of work
-works: On the third day {N} is taken on at a warehouse on the edge of the city, on nights.
-works: The warehouse keeps {N} on after the rain comes back, and the wages go home every month.
-fails: The city has no work for one more pair of hands, and {N} comes home with nothing, out of work for months.
-fails: The farm job is gone by the time {N} gives up on the city, and the months out of work stretch on.
-
 == the water plan for next summer
 tier: link
 of_bold: a dry year on the land / U

@@ -768,9 +768,9 @@ fails: The new class laughs, and the friend pretends not to know {N}; the best f
 == bold: financial ruin / G
 base: give up the home, move in with family, and live on very little
 likelier_if: has [old family name] +10; has [people from home] +10
-- G | go back to your home town, and rebuild among the people who knew you young | v: tradition, security | act: go back to their home town, and rebuild among the people who knew them young | chance: 35 | grants: family who will always take you in | drops_if_fails: kind:partner
-works: The old street takes {N} back without a word about the court, and {Ns} family makes it plain that their door will always be open.
-works: {N} rents a room above an aunt's shop, and the family closes round {N} for good.
+- G | go back to your home town, and rebuild among the people who knew you young | v: tradition, security | act: go back to their home town, and rebuild among the people who knew them young | chance: 35 | grants: neighbour who has your back | drops_if_fails: kind:partner
+works: The old street takes {N} back without a word about the court, and the neighbours there make it plain they will look out for {N}.
+works: {N} rents a room above an aunt's shop, and the old street looks out for {N} from then on.
 fails: {partner} will not leave the life they built for a town {N} left years ago, and the move ends the two of them.
 fails: The home town is colder than {N} remembered, and the strain of the move breaks {N} and {partner} apart.
 

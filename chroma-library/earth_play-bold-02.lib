@@ -1030,12 +1030,12 @@ fails: {N} cannot keep up, the depot lets {N} go, and the job centre sees {N} ag
 
 == bold: a teacher or coach who believes in you / B
 base: ask them to put in a word for you with people who can open doors
-likelier_if: has [teachers' favourite] +10; mark 'learned a skill' +5
-- B | ask them to put your name forward to the best academy, this very year | v: achievement, power | act: ask the mentor to put their name forward to the best academy, this very year | chance: 45 | grants: patron | takes_if_fails: mentor
+likelier_if: mark 'learned a skill' +5
+- B | ask them to put your name forward to the best academy, this very year | v: achievement, power | act: ask the mentor to put their name forward to the best academy, this very year | chance: 45 | requires: teachers' favourite | grants: patron | takes_if_fails: teachers' favourite
 works: {mentor} takes {N} to meet the head of the academy, who watches, nods, and takes an interest in {Ns} future from that day.
 works: The academy says yes, and a powerful person there keeps an eye on {N} from then on, opening doors.
-fails: The academy turns {N} down flat, and {mentor}, embarrassed in front of colleagues, keeps a cooler distance after that.
-fails: {N} is not ready, the trial goes badly, and {mentor} quietly stops offering extra help.
+fails: The academy turns {N} down flat, and {mentor}, embarrassed in front of colleagues, stops treating {N} as a favourite.
+fails: {N} is not ready, the trial goes badly, and the teachers stop counting {N} among their best.
 
 == bold: a teacher or coach who believes in you / W
 base: do every piece of extra work they set, on time, and thank them properly
