@@ -95,5 +95,48 @@ class AsksMixin:
         a = a.copy(); a[0] = k
         return a
 
+    # ------------------------------------------------------------------ talking to them before a big moment
+    def talk(self, k):
+        """The player argues for option k at a big moment (an ask from a life event, or one that matters MATTER_SOON or
+        more), once a moment (plan section 7, Vision's call 10-19). The character answers in a line of their own, and
+        that option's reluctance falls for this pick only: more when it fits their heart or head and leads toward an aim,
+        less when it goes against who they are; a tendency, never a wall. It costs a little autonomy. Returns
+        dict(line, fall) or dict(error)."""
+        cp = self.pending
+        if not GAME["talk"] or cp is None:
+            return dict(error="not now")
+        if not cp.get("big"):
+            return dict(error="talking it over is for the big moments")
+        if cp.get("talked") is not None:
+            return dict(error="you have already talked this one over")
+        o = cp["by_idx"].get(int(k))
+        if o is None or o["colors"] == "-":
+            return dict(error="no such option")
+        fit = max(float(o.get("heart") or 0.0), float(o.get("head") or 0.0))   # the share heart or head would give it
+        aim = bool(o.get("aims"))
+        fall = float(np.clip(GAME["talk_k"] * (0.2 + 0.5 * fit + 0.2 * aim - 0.2 * bool(o.get("clash"))), 0.0, 0.8))
+        o["rel"] = round(float(o["rel"]) * (1 - fall), 4)
+        if o["idx"] != cp["own"]:
+            o["acc"] = accept_word(o["rel"])
+        if self.loc is not None and "need" in self.loc:
+            j = E.NEEDS.index("autonomy")
+            self.loc["need"][0, j] = max(0.0, float(self.loc["need"][0, j]) - GAME["talk_cost"])
+        dr = o.get("drivers") or {}
+        pro = [nm for side in ("heart", "head") for nm, x in dr.get(side, []) if x > 0]
+        con = [nm for side in ("heart", "head") for nm, x in dr.get(side, []) if x < 0]
+        if fall >= 0.45:
+            line = f"“You may be right. {('There is ' + pro[0] + ' in it.') if pro else 'I can see it.'}”"
+        elif fall >= 0.25:
+            line = f"“Maybe.{(' ' + cap1(con[0]) + ' gives me pause, but I hear you.') if con else ' I will think about it.'}”"
+        else:
+            line = f"“I hear you, but {con[0] if con else 'it is not me'}.”"
+        cp["talked"] = dict(idx=int(o["idx"]), line=line, fall=round(fall, 2))
+        self.history.setdefault("talks", []).append((round(self.age(), 1), o["label"], round(fall, 2)))
+        return dict(line=line, fall=round(fall, 2))
+
+
+def cap1(s):
+    return s[:1].upper() + s[1:]
+
 
 STEER_YEARS = 2                                       # a lean held between asks lasts at most this long

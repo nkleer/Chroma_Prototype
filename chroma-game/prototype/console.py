@@ -45,6 +45,7 @@ Keys at a checkpoint
   1, 2..  push them to that option. They always go through with it; the less they wanted it,
           the more it costs them (effort, stress, pent-up wanting).
   i       heart and head on each option, and what may follow
+  t1, t2.. at a big moment (when on): talk that option over with them first, once
   s       status
   p a f v l n h work here too
 After each choice
@@ -494,6 +495,11 @@ class Console:
                 return self._keys(k)
             if k == "i":
                 return self._foresee(), False
+            if GAME["talk"] and k[:1] == "t" and k[1:].isdigit() and int(k[1:]) in self.numbering:
+                r = g.talk(self.numbering[int(k[1:])])          # v24: talk one option over with them, once at a big moment
+                if r.get("error"):
+                    return r["error"][:1].upper() + r["error"][1:] + ".", False
+                return f"{g.name}: {r['line']}", False
             if k == "":
                 g.decide(None)
                 self.job = dict(kind="run", until_cp=True)

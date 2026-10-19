@@ -650,6 +650,8 @@ class ViewsMixin:
             d["stake_card"] = True
         if cp.get("why_ask"):                           # v24 asks: why this moment was put to the player
             d["why_ask"] = cp["why_ask"]
+        if cp.get("big"):                               # v24: a big moment can be talked over once, and its answer
+            d["talk"] = dict(open=cp.get("talked") is None, said=cp.get("talked"))
         return d
 
     def season(self, loc=None):

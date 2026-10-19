@@ -71,7 +71,7 @@ class CheckpointsMixin:
         if s == self.ORD and not recon:
             return None
         gap_weeks, thr, again = FREQ[self.freq]
-        self._ask_why = None
+        self._ask_why = None; self._ask_big = False
         if not recon and self._turn_due(t):
             return self._build_turning(t, loc, a)
         sea = None if recon else self.season(loc)
@@ -123,7 +123,7 @@ class CheckpointsMixin:
                     + GAME["tie_pick"] * (cause is not None) + GAME["fork_k"] * fork + GAME["rare_imp"] * rare
                     + GAME["ask_matter"] * matter < thr):
                 return None
-            self._ask_why = why
+            self._ask_why = why; self._ask_big = life or soon
             if GAME["returns"] and s in self._cp_n and self.__dict__.get("_ret_owed", 0) > 0:
                 self._ret_owed -= 1
                 return None                     # Picks come back: a return took this repeat's place: told, not asked
@@ -296,6 +296,8 @@ class CheckpointsMixin:
                   options=sorted(opts, key=lambda o: o["idx"]), own=own, a=a.copy(), by_idx={o["idx"]: o for o in opts})
         if getattr(self, "_ask_why", None):             # v24 asks: what made this moment one to put to the player
             cp["why_ask"] = self._ask_why
+        if GAME["talk"] and getattr(self, "_ask_big", False):
+            cp["big"] = True                            # v24: a big moment, one the player may talk over with them
         for o in opts:                                  # the Library's role slots in an option ({friend}, {boss}): the scene's people
             if "{" in o["label"]:
                 o["label"] = self.story.fill_label(o["label"], m)
