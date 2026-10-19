@@ -7,11 +7,11 @@
 == bold: the club reaches the final / W
 base: turn up early, kit ready, and do exactly the job you are given
 likelier_if: has [keeping fit] +10; years [club member] 2 +5
-- W | promise the coach to train every evening until the final, and ask for a shirt | v: conformity, achievement | act: promise the coach to train every evening until the final, and ask for a shirt | chance: 40 | title: on the team | drops_if_fails: kind:community
-works: The coach watches {N} at every evening session, and hands over a shirt for the final.
-works: {N} plays in the final, and the place in the side is still {Ns} the next season.
-fails: The coach picks someone else, and {N}, stung, stops going to the club at all.
-fails: {N} trains until it hurts and is still left out, and gives up the club that summer.
+- W | promise the coach to train every evening until the final, and play wherever you are put | v: conformity, achievement | act: promise the coach to train every evening until the final, and play wherever they are put | chance: 40 | grants: trophies won | drops_if_fails: kind:community
+works: {N} plays the whole final in the place nobody wanted, and comes home with a winner's medal.
+works: The club lifts the cup, and {Ns} medal goes on the shelf at home, the first of its kind.
+fails: The coach leaves {N} on the bench all day, and {N}, stung, stops going to the club at all.
+fails: {N} trains until it hurts, the side loses anyway, and {N} gives up the club that summer.
 
 == bold: the club reaches the final / U
 base: study the other side's last five games, and share what you find with the coach
@@ -27,7 +27,7 @@ tier: link
 of_bold: the club reaches the final / W
 side: well
 delay: 1-2
-holds: on the team
+holds: trophies won
 stages: all
 age: 9-61
 stakes: .6
@@ -101,6 +101,15 @@ works: The room goes quiet, then {prospect} laughs and kisses {N}, and from that
 works: {prospect} says it back in front of everyone, and the two of them leave together, a couple.
 fails: {prospect} says no, kindly, in front of everyone, and {N} cannot face the club where they all met again.
 fails: The silence is terrible, and {N} gives up the group they all belong to rather than see those faces.
+
+== bold: falling in love / U
+base: ask them a long list of questions, to see whether you truly fit
+likelier_if: has [calming people down] +10; mark 'owned up' +5
+- U | tell them the plain truth about yourself, the worst first, and ask the same back | v: self-direction, benevolence | act: tell the new love the plain truth about themselves, the worst first, and ask the same back | chance: 35 | grants: friend for life | drops_if_fails: kind:community
+works: {prospect} hears all of it and answers in kind, and whatever comes of the romance, the two of them can tell each other anything for life.
+works: The long honest night leaves {N} and {prospect} closer than most couples ever get, friends for good whatever happens.
+fails: {prospect} repeats some of it to the crowd they share, and {N} cannot face that group again.
+fails: The truth lands badly, the story goes round their friends, and {N} gives up the club where they all met.
 
 == a year of being together
 tier: link
@@ -184,11 +193,20 @@ fails: The night flops, and {N} quietly gives up the last club {N} still went to
 == bold: making peace with family you had cut off / B
 base: make peace now, with one eye on the family money
 likelier_if: has [striking a deal] +10; has [family business] +5
-- B | offer to go into business together, and put your savings in | v: achievement, power | act: offer to go into business with the sibling, and put their savings in | chance: 40 | requires: savings | grants: business partner | takes_if_fails: savings
+- B | offer to go into business together, and put up your house to back it | v: achievement, power | act: offer to go into business with the sibling, and put up their house to back it | chance: 40 | grants: business partner | takes_if_fails: homeowner
 works: {sibling} shakes on it, and within months the two of them are partners in a small firm.
 works: The old rift becomes a working partnership, and {N} and {sibling} run the business side by side.
-fails: The venture folds inside a year, and {Ns} savings go with it.
-fails: {sibling} spends the money faster than it comes in, and {Ns} savings are gone by the winter.
+fails: The venture folds inside a year, and the bank takes {Ns} house to cover the loan.
+fails: {sibling} spends the money faster than it comes in, and by the winter {Ns} house is sold to pay the debts.
+
+== bold: making peace with family you had cut off / R
+base: ring them that night and pour out everything held in for years
+likelier_if: mark 'took them in' +10; has [calming people down] +5
+- R | ring them tonight, and ask them to come and stay as long as it takes | v: benevolence, stimulation | act: ring the sibling that night, and ask them to come and stay as long as it takes | chance: 35 | grants: friend for life | drops_if_fails: kind:partner
+works: {sibling} arrives with one bag and stays a month, and by the end the two of them are each other's closest friend.
+works: Weeks under one roof wear the old quarrel away, and {sibling} becomes the one {N} rings first, for life.
+fails: The old rows fill the house within a week, and {Ns} partner, worn out by them, moves out for good.
+fails: {sibling} stays, the quarrels never stop, and by the spring {Ns} partner has had enough and leaves.
 
 == partners at last
 tier: link
@@ -237,9 +255,9 @@ tone: mixed
 life: family, money
 horizon: months
 roles: sibling, parent
-earth: a year after the venture with your brother or sister ate your savings, your parent asks why the two of you never come home together
-scene: The firm with {sibling} folded a year ago, and {Ns} savings went with it. Now {parent} rings: why do the two of them never come home at the same time?
-scene gone: {sibling} has moved abroad since the firm folded, and the savings are still gone. {parent} asks whether the two of them will ever speak again.
+earth: a year after the venture with your brother or sister cost you your house, your parent asks why the two of you never come home together
+scene: The firm with {sibling} folded a year ago, and {Ns} house went with it. Now {parent} rings: why do the two of them never come home at the same time?
+scene gone: {sibling} has moved abroad since the firm folded, and the house is still gone. {parent} asks whether the two of them will ever speak again.
 - W | offer a plain agreement: what each of you owes, written down | v: conformity, security | act: offer a plain agreement: what each of them owes, written down | chance: 75
 - U | go through the old accounts together, to see where it went wrong | v: self-direction | chance: 75
 - B | ask for the lost money back before anything else | v: power, security | chance: 70
@@ -264,11 +282,20 @@ fails: The payments slip, then stop, and people stop counting on {N}.
 == bold: a dry year on the land / U
 base: rig drip lines and mulch so the garden needs half the water
 likelier_if: has [fixing things] +10; has [growing food] +5
-- U | put your savings into a pump and drip lines on the driest field | v: self-direction, achievement | act: put their savings into a pump and drip lines on the driest field | chance: 45 | requires: savings | grants: good name in town | takes_if_fails: savings
+- U | ask the village for the dry common field, and run a drip-line trial for everyone | v: self-direction, universalism | act: ask the village for the dry common field, and run a drip-line trial for everyone | chance: 45 | grants: good name in town | drops_if_fails: kind:community
 works: The trial field is the only living one in the valley, and by autumn the whole town knows {Ns} name.
 works: Farmers come to see the drip lines, and {N} is the one the town thanks when the crop comes in.
-fails: The pump burns out in the heat, the field cracks anyway, and {Ns} savings are gone.
-fails: The well runs dry in August, and the pipes and the savings are lost together.
+fails: The pump burns out in the heat, the common field cracks anyway, and the village committee turns its back on {N}.
+fails: The well runs dry in August, the village blames the trial, and {N} gives up every village group that autumn.
+
+== bold: a dry year on the land / G
+base: help the family grow only what the dry land will carry this year
+likelier_if: has [growing food] +10; has [old family name] +5
+- G | get the neighbours to pool their water and work every field together until the rain | v: universalism, tradition | act: get the neighbours to pool their water and work every field together until the rain | chance: 35 | grants: neighbour who has your back | drops_if_fails: kind:community
+works: The street keeps every field alive between them, and from then on the neighbours look out for {N}.
+works: The shared water sees the valley through to the rain, and the people next door count {N} as one of their own.
+fails: The pooled water turns to quarrels, and {N} walks out of the village committees and clubs that autumn.
+fails: One farm takes more than its share, the plan breaks up in shouting, and {N} gives up every place in the village groups.
 
 == the water plan for next summer
 tier: link
@@ -319,8 +346,8 @@ tone: mixed
 life: work, money
 horizon: months
 roles: boss
-earth: a year after the drip trial failed and took your savings, a farmer up the valley wants hands for the harvest
-scene: The burnt-out pump still sits in the shed, a year after the trial field cracked and took {Ns} savings with it. The rain is back, and {boss} is hiring hands for the harvest.
+earth: a year after the drip trial failed and the village turned its back on you, a farmer up the valley wants hands for the harvest
+scene: The burnt-out pump still sits in the shed, a year after the trial field cracked and the village groups closed their doors to {N}. The rain is back, and {boss} is hiring hands for the harvest.
 scene gone: {boss} has sold up and moved away. The burnt-out pump still sits in the shed, and the new owners up the valley are hiring hands for the harvest.
 - W | take the harvest work, and put a little by every week | v: security, conformity | chance: 85
 - U | take the pump apart, and find out exactly why it failed | v: self-direction | chance: 85
@@ -350,11 +377,20 @@ fails gone: The ask comes at a bad time, the harvest work ends, and {N} is left 
 == bold: deciding for a parent who cannot speak / G
 base: let the body set the pace: keep them comfortable, and wait beside them
 likelier_if: has [home nursing] +10; has [carers' group] +5
-- G | bring them home to their own room, and care for them there yourself | v: benevolence, tradition | act: bring the parent home to their own room, and care for them there themselves | chance: 40 | title: carer for a parent | drops_if_fails: kind:career
+- G | bring them home to their own room, and care for them there yourself | v: benevolence, tradition | act: bring the parent home to their own room, and care for them there themselves | chance: 40 | title: carer for a parent | drops_if_fails: kind:community
 works: {parent} settles in the old room, and {N} becomes the one who cares for them, day after day.
 works: The house finds a rhythm around {Ns} caring, and {parent} seems calmer at home.
-fails: The caring swallows every hour, {parent} has to go back to the ward, and by then {Ns} job is gone.
-fails: {N} cannot be at work and at the bedside both, the job goes, and {parent} returns to the ward all the same.
+fails: The caring swallows every hour, {parent} has to go back to the ward, and by then {N} has dropped out of every club and group.
+fails: {N} gives up the clubs and the groups one by one to be at the bedside, and {parent} returns to the ward all the same.
+
+== bold: deciding for a parent who cannot speak / R
+base: choose the operation now, while it can still make a difference
+likelier_if: has [strong stomach] +10; has [calming people down] +5
+- R | sign for the operation, and sit by the bed every night of the recovery | v: benevolence, stimulation | act: sign for the operation, and sit by the bed every night of the recovery | chance: 40 | grants: home nursing | drops_if_fails: kind:community
+works: The night nurses teach {N} to turn, feed and settle {parent}, and {N} keeps those skills for good.
+works: Night after night on the ward, {N} learns the work of nursing, until {N} can do it as well as the staff.
+fails: The nights on the ward wear {N} out, and the club and the groups {N} belonged to drift away for good.
+fails: {N} lives at the bedside for weeks, lets every other part of life go, and never goes back to the club.
 
 == a year of caring at home
 tier: link
@@ -399,7 +435,7 @@ works gone: The training makes the caring easier, and {N} becomes a paid care wo
 fails gone: The nights of study break {N}, and with no one to share the load, the parent has to move into a care home.
 fails gone: {N} fails the course, the strain grows too much, and the parent goes into residential care.
 
-== after the job went
+== the afternoons on the ward
 tier: link
 of_bold: deciding for a parent who cannot speak / G
 side: badly
@@ -411,9 +447,9 @@ tone: mixed
 life: family, work
 horizon: months
 roles: parent, sibling
-earth: a year after caring for your parent cost you your job, the family says it is time to think about work again
-scene: A year after the caring cost {N} the job, {parent} is on the ward for good, and {N} visits every afternoon. {sibling} says it is time {N} thought about work again.
-scene gone: {sibling} has moved away and rarely calls. A year after the caring cost {N} the job, {N} still visits {parent} on the ward every afternoon, and the bills are mounting.
+earth: a year after caring for your parent took you away from everything, the family says it is time to think about work again
+scene: A year after the caring took {N} away from every club and friend, {parent} is on the ward for good, and {N} visits every afternoon. {sibling} says it is time {N} thought about work, and a life outside the ward, again.
+scene gone: {sibling} has moved away and rarely calls. A year after the caring took {N} away from everything, {N} still visits {parent} on the ward every afternoon, and the bills are mounting.
 - W | look for steady work with hours that leave the afternoons free | v: security, conformity | chance: 80
 - U | write down what the caring taught you, and look for work that uses it | v: self-direction | act: write down what the caring taught them, and look for work that uses it | chance: 80
 - B | ask the old firm to take you back on better terms | v: power, achievement | act: ask the old firm to take them back on better terms | chance: 70
@@ -424,7 +460,7 @@ works: The family shares the visits at last, and {N} can breathe again.
 fails: The job hunt drags on for months.
 fails: {N} feels torn between the ward and the world, and gets neither right.
 
-== bold: after the job went / B
+== bold: the afternoons on the ward / B
 base: ask the old firm to take you back on better terms
 likelier_if: years [reliable record] 5 +10; has [contact in the trade] +5
 - B | ask the old firm for your job back, and a step up besides | v: achievement, power | act: ask the old firm for the job back, and a step up besides | chance: 30 | requires: reliable record | title: shift manager | title_if_fails: out of work
@@ -438,11 +474,20 @@ fails: The ask sounds like a demand, the door closes, and {N} stays out of work 
 == bold: your partner dies / W
 base: arrange the funeral exactly as you both agreed, and keep every custom
 likelier_if: has [neighbour who has your back] +10; has [good name in town] +5
-- W | take on the jobs they did for the neighbours, starting next week | v: benevolence, conformity | act: take on the jobs the partner did for the neighbours, starting next week | chance: 35 | title: neighbourhood volunteer | drops_if_fails: kind:community
+- W | take on the jobs they did for the neighbours, starting next week | v: benevolence, conformity | act: take on the jobs the partner did for the neighbours, starting next week | chance: 35 | title: neighbourhood volunteer | takes_if_fails: trusted with the keys
 works: The neighbours see {N} at their doors the next week, doing what {partner} did, and {N} keeps on doing it.
 works: The jobs give the days a shape, and {N} becomes the street's volunteer in {Ns} own right.
-fails: {N} breaks down on the first morning, and in the months after gives up the club the two of them went to together.
-fails: It is too soon, and {N} withdraws from the street and from every group {N} belonged to.
+fails: {N} misses the first rounds and forgets a door, and the neighbours quietly take their spare keys back.
+fails: It is too soon, jobs are left half done, and one by one the neighbours stop leaving their keys with {N}.
+
+== bold: your partner dies / G
+base: keep their chair, their garden and their routines, as if they were still here
+likelier_if: has [grandparent] +10; has [minding small children] +5
+- G | sell the house you shared, and move to the street where your child lives | v: tradition, benevolence | act: sell the house they shared, and move to the street where their child lives | chance: 30 | grants: family who will always take you in | takes_if_fails: homeowner
+works: {N} buys a small place three doors from {child}, and from then on the family's door is always open to {N}.
+works: {child} and the grandchildren make room in their days, and {N} is welcome in their house at any hour, for good.
+fails: The old house sells, the new one falls through, and {N} ends up renting a flat across town from everyone.
+fails: The move goes wrong at the last step, and {N} is left a tenant in rooms that never feel like home.
 
 == dinner with a friend from the street
 tier: link
@@ -530,12 +575,12 @@ fails: The paper will not touch it, word gets round, and {N} loses the job to a 
 
 == bold: the permits followed the donations / W
 base: ask at the council's open meeting for a proper inquiry, with every name heard
-likelier_if: has [voice at the town hall] +10; years [good name in town] 5 +5
-- W | stand for the councillor's seat yourself, on a promise of open books | v: conformity, universalism | act: stand for the councillor's seat themselves, on a promise of open books | chance: 30 | requires: good name in town | title: local councillor | takes_if_fails: good name in town
-works: The by-election goes {Ns} way, and {N} takes the seat with the books open.
-works: {N} wins the empty seat, and sits as a councillor from the next meeting.
-fails: {N} loses, and the old councillor's friends drag {Ns} name through the paper until it is ruined.
-fails: The campaign fails, and the stories put about by the donors cost {N} the town's good opinion.
+likelier_if: has [good name in town] +10; has [public speaking] +5
+- W | put your own name to a formal complaint, and speak to it at every hearing | v: conformity, universalism | act: put their own name to a formal complaint, and speak to it at every hearing | chance: 30 | grants: voice at the town hall | drops_if_fails: kind:community
+works: The inquiry is opened on {Ns} complaint, and from then on the council listens when {N} stands up to speak.
+works: {N} speaks at every hearing, the rules on permits are rewritten, and the town hall asks {Ns} view before it acts.
+fails: The complaint is thrown out, the councillor's friends close ranks, and {N} is pushed out of the residents' group.
+fails: The hearings drag and sour, and {N} is frozen out of the clubs where the councillor's friends sit.
 
 == the paper calls again
 tier: link
@@ -610,12 +655,21 @@ fails: Old habits come back, the money vanishes, and {N} is left with nothing sa
 
 == bold: the hours of waiting on the maternity ward / B
 base: arrange a private room for the new family, and pay for it yourself
-likelier_if: has [minding small children] +10; has [friend for life] +5
-- B | ask in front of everyone to be the baby's godparent | v: power, achievement | act: ask in front of everyone to be the baby's godparent | chance: 35 | grants: godchild | takes_if_fails: family who will always take you in
-works: {sibling} laughs and says yes, and at the naming {N} stands as the baby's godparent.
-works: The family cheers the idea, and the baby becomes {Ns} godchild.
-fails: {sibling} is hurt that {N} made the night about {N}, the family takes sides, and {N} is no longer welcome the way {N} was.
-fails: The ask sours the whole night, and the family door that was always open to {N} closes.
+likelier_if: has [savings] +10; has [friend for life] +5
+- B | promise to pay for the new family's first year, and ask to be the godparent | v: power, benevolence | act: promise to pay for the new family's first year, and ask to be the godparent | chance: 35 | grants: godchild | takes_if_fails: car
+works: {sibling} takes the help gladly, and at the naming {N} stands beside the baby as godparent.
+works: The first year is paid for, and the baby grows up with {N} as godparent, the one at every birthday.
+fails: The money runs short by spring, {N} sells the car to cover what was promised, and {sibling} feels bought.
+fails: The promise comes with too many strings, {sibling} turns cold, and paying what was promised costs {N} the car.
+
+== bold: the hours of waiting on the maternity ward / U
+base: ask the midwife plainly what each stage means, and explain it to the others
+likelier_if: has [first-aid certificate] +10; has [strong stomach] +5
+- U | sign up that week for the hospital's night course in caring for newborns | v: self-direction, benevolence | act: sign up that week for the hospital's night course in caring for newborns | chance: 40 | grants: minding small children | drops_if_fails: kind:career
+works: {N} finishes the course by spring, and is the one the family hands the baby to without a second thought.
+works: The course teaches {N} feeds, sleep and fevers, and the new parents lean on {N} for months.
+fails: The night classes on top of full days wear {N} down, mistakes pile up at work, and {N} is let go.
+fails: {N} nods off at work once too often in the weeks of the course, and loses the job before the summer.
 
 == the little one's first winter
 tier: link
@@ -704,11 +758,11 @@ fails: Homesickness ends the year in three months, and the firm has filled {Ns} 
 == bold: the children leave home / U
 base: sign up for the degree you put off for twenty years
 likelier_if: has [finding things out] +10; mark 'learned a skill' +5
-- U | give up the job, and study full time for the degree you put off | v: self-direction, achievement | act: give up the job, and study full time for the degree they put off | chance: 30 | requires: school-leaving certificate | title: graduate | title_if_fails: out of work
-works: Three years later {N} crosses the stage in a gown, a graduate at last, with {child} cheering.
-works: The study is hard and wonderful, and {N} comes out of it with the degree.
-fails: {N} drops out in the second year, and with the old job gone, months out of work follow.
-fails: The money runs out before the degree is done, and {N} is left out of work.
+- U | move to the college town for a year, and learn to write code from scratch | v: self-direction, achievement | act: move to the college town for a year, and learn to write code from scratch | chance: 30 | grants: writing code | drops_if_fails: kind:partner
+works: {N} comes home at the end of the year writing code that runs, and starts building things of {Ns} own.
+works: The year of study pays off, and {N} can now build on a screen what {N} once only sketched on paper.
+fails: The course goes badly, the weekends home get rarer, and {partner} and {N} part for good.
+fails: The year apart is too long, and by the time {N} gives up the course, {partner} has moved on.
 
 == the language you brought home
 tier: link
@@ -784,18 +838,27 @@ fails: The work does not come, and {N} is formally out of work by the spring.
 == bold: money runs out at home / G
 base: help grow vegetables and cook cheap meals from whatever is in the cupboard
 likelier_if: mark 'helped someone in need' +10; mark 'made a friend' +5
-- G | tell the neighbours how things are at home, and ask the street to help | v: benevolence, security | act: tell the neighbours how things are at home, and ask the street to help | chance: 35 | grants: neighbour who has your back | takes_if_fails: family who will always take you in
-works: The street rallies round with food and odd jobs, and one neighbour looks out for {N} from then on.
-works: {parent} is embarrassed at first, then grateful, and the neighbour next door becomes the one {N} turns to.
-fails: {parent} is mortified that the street knows, and for years {N} feels the family has not forgiven it.
-fails: The neighbours gossip instead of helping, and something between {N} and the family is lost for good.
+- G | tell the neighbours how things are at home, and ask the street to help | v: benevolence, security | act: tell the neighbours how things are at home, and ask the street to help | chance: 35 | grants: mentor | drops_if_fails: kind:community
+works: The street rallies round with food and odd jobs, and the old neighbour next door takes {N} under a wing from then on.
+works: {parent} is embarrassed at first, then grateful, and the neighbour who helped most becomes the one who shows {N} how things are done.
+fails: {parent} is mortified that the street knows, and {N}, ashamed, stops going to the club and the team.
+fails: The neighbours gossip instead of helping, and {N} cannot face the youth club, with the street's children in it, again.
+
+== bold: money runs out at home / R
+base: keep the house laughing: games, music and silly nights in for everyone
+likelier_if: has [singing] +10; has [musical instrument] +5
+- R | get your friends to put on a show, and give the takings to your family | v: stimulation, benevolence | act: get their friends to put on a show at the hall, and give the takings to their family | chance: 30 | grants: local hero | takes_if_fails: friend for life
+works: The hall is packed, the bucket is full, and the whole town talks about the young one who put on a show for the family.
+works: The show pays for the heating for a month, and for years people stop {N} in the street to say they were there.
+fails: Hardly anyone comes, the friends who gave up their weekends blame {N}, and {Ns} best friend stops speaking to {N}.
+fails: The show falls apart on the night, and the closest friend {N} had walks away over it for good.
 
 == the stall on the corner
 tier: link
 of_bold: money runs out at home / G
 side: well
 delay: 1-2
-holds: neighbour who has your back
+holds: mentor
 stages: juvenile young_adult
 age: 11-20
 stakes: .5
@@ -823,7 +886,7 @@ fails gone: Schoolwork slips, and the family puts a stop to the Saturdays.
 == bold: the stall on the corner / W
 base: promise every Saturday until they are well, and keep it
 likelier_if: has [bookkeeping] +10; has [selling] +5
-- W | promise to run the stall every Saturday for the season, and keep the books straight | v: conformity, benevolence | act: promise to run the stall every Saturday for the season, and keep the books straight | chance: 45 | requires: neighbour who has your back | grants: reliable record | takes_if_fails: neighbour who has your back
+- W | promise to run the stall every Saturday for the season, and keep the books straight | v: conformity, benevolence | act: promise to run the stall every Saturday for the season, and keep the books straight | chance: 45 | requires: mentor | grants: reliable record | takes_if_fails: mentor
 works: {N} opens the stall every Saturday of the season, and the market comes to count on {N}.
 works: The books balance every week, and {N} earns a name for never letting anyone down.
 fails: {N} misses Saturdays, the takings go wrong, and the neighbour's trust is gone.
@@ -876,18 +939,27 @@ fails: Nobody comes to the table, and {N} stops going to the youth club and the 
 == bold: books pulled from the school library / W
 base: hand in the copy as the notice asks, and write to the council asking why
 likelier_if: has [voice at the town hall] +10; has [public speaking] +5
-- W | stand for the school board, promising to bring the books back by a fair rule | v: conformity, universalism | act: stand for the school board, promising to bring the books back by a fair rule | chance: 35 | requires: good name in town | title: school-governance board member | takes_if_fails: good name in town
-works: The parents vote {N} onto the school board, and within the year the books come back by a fair rule.
-works: {N} takes a seat on the board, and writes the rule for judging books that the school still uses.
-fails: {N} loses, and the council's friends paint {N} as a troublemaker until the town believes it.
-fails: The vote goes the other way, and {Ns} good name in town does not survive the campaign.
+- W | stand up at the council and ask it to judge every book by one written rule | v: conformity, universalism | act: stand up at the council and ask it to judge every book by one written rule | chance: 35 | title: activist in a cause | drops_if_fails: kind:community
+works: The council agrees to a written rule, the books come back by it, and {N} stays at the head of the campaign that won it.
+works: Parents and pupils rally behind {Ns} call, and {N} becomes the town's known voice for the right to read.
+fails: The council shouts {N} down, and the parents' group {N} belonged to closes ranks against {N}.
+fails: The call is voted down, {N} is named a troublemaker, and drops out of every group in town that winter.
+
+== bold: books pulled from the school library / U
+base: read the complaints and every pulled book, and judge them for yourself
+likelier_if: has [finding things out] +10; has [writing stories] +5
+- U | write a fair account of every pulled book, and publish it under your own name | v: self-direction, universalism | act: write a fair account of every pulled book, and publish it under their own name | chance: 45 | grants: reporting | drops_if_fails: kind:career
+works: The account runs in the town paper over six weeks, and the editor starts asking {N} to dig into other stories.
+works: {Ns} pieces are read at kitchen tables all over town, and {N} has a reporter's nose from then on.
+fails: The council's friends lean on {Ns} employer, and {N} is let go before the end of the term.
+fails: The account is called biased, and {Ns} boss decides the trouble is not worth it and lets {N} go.
 
 == the complaint before the board
 tier: link
 of_bold: books pulled from the school library / W
 side: well
 delay: 1-2
-holds: school-governance board member
+holds: activist in a cause
 stages: young_adult adult mature elder
 age: 18-87
 stakes: .6
@@ -895,9 +967,9 @@ tone: mixed
 life: school, community
 horizon: months
 roles: mentor
-earth: a year after you won a seat on the school board, the books are back and a new complaint comes in
-scene: The books are back on the shelf, and {N} has sat on the school board for a year. Now a new complaint arrives about a book {mentor} teaches, and the board must answer it by the next meeting.
-scene gone: {mentor} has retired and moved away, but the book {mentor} taught is the one now under complaint, and the board, with {N} on it, must answer by the next meeting.
+earth: a year after your campaign brought the books back, a new complaint comes in
+scene: The books are back on the shelf, and {N} has led the campaign for a year. Now a new complaint arrives about a book {mentor} teaches, and the board wants {Ns} answer by the next meeting.
+scene gone: {mentor} has retired and moved away, but the book {mentor} taught is the one now under complaint, and the board wants {Ns} answer, as the voice of the campaign, by the next meeting.
 - W | apply the board's rule to it, exactly as written | v: conformity, universalism | chance: 85
 - U | read the book again, and the complaint, before saying anything | v: self-direction | chance: 85
 - B | find out who complained, and what they want | v: power, security | chance: 80
@@ -911,11 +983,11 @@ fails: The board splits, and the next meeting is worse.
 == bold: the complaint before the board / U
 base: read the book again, and the complaint, before saying anything
 likelier_if: has [finding things out] +10; has [writing stories] +5
-- U | write a reasoned answer to every complaint, and publish it under your name | v: self-direction, universalism | act: write a reasoned answer to every complaint, and publish it under their own name | chance: 45 | requires: school-governance board member | grants: voice at the town hall | takes_if_fails: school-governance board member
+- U | write a reasoned answer to every complaint, and publish it under your name | v: self-direction, universalism | act: write a reasoned answer to every complaint, and publish it under their own name | chance: 45 | requires: activist in a cause | grants: voice at the town hall | takes_if_fails: activist in a cause
 works: {Ns} answers are read aloud at the council, and from then on the town hall listens when {N} speaks.
 works: The published answers settle the matter, and {N} becomes a voice the council asks before it acts.
-fails: One answer is twisted in the paper, and the board asks {N} to step down.
-fails: The council calls the answers an attack, and {N} loses the seat on the board.
+fails: One answer is twisted in the paper, and the campaign asks {N} to step down.
+fails: The council calls the answers an attack, and the campaign drops {N} for good.
 
 == the list grows longer
 tier: link
@@ -929,9 +1001,9 @@ tone: trouble
 life: school, community, law
 horizon: months
 roles: friend, mentor
-earth: a year after you lost the school board vote, more books are on the list
-scene: A year after {N} lost the vote, the list of pulled books has doubled. {friend} runs a second-hand book stall at the Saturday market and says some of the pulled ones turn up there.
-scene gone: {friend} has moved away. A year after {N} lost the vote, the list of pulled books has doubled, and {mentor} slips {N} a copy of one in a paper bag.
+earth: a year after the council shouted you down, more books are on the list
+scene: A year after the council shouted {N} down, the list of pulled books has doubled. {friend} runs a second-hand book stall at the Saturday market and says some of the pulled ones turn up there.
+scene gone: {friend} has moved away. A year after the council shouted {N} down, the list of pulled books has doubled, and {mentor} slips {N} a copy of one in a paper bag.
 - W | write to the council again, through the proper channels | v: conformity | chance: 80
 - U | keep a record of every book pulled and when, for later | v: self-direction, universalism | chance: 85
 - B | let it go for now, and rebuild your standing first | v: security, achievement | act: let it go for now, and rebuild their standing first | chance: 80
@@ -955,28 +1027,28 @@ fails: The shelf brings complaints, and {Ns} boss decides {N} is more trouble th
 
 == bold: a teacher who sees something in you / U
 base: ask them for harder books and puzzles, and work through every one
-likelier_if: has [teachers' favourite] +10; has [finding things out] +5
-- U | ask to sit the scholarship exam two years early | v: achievement, self-direction | act: ask to sit the scholarship exam two years early | chance: 30 | grants: scholarship | takes_if_fails: mentor
-works: {N} sits the exam among older children, and wins the scholarship outright.
-works: The letter comes in the spring: a scholarship place, two years early, and {mentor} is beaming.
-fails: {N} freezes in the exam hall, and afterwards {mentor} quietly lets the extra lessons drop.
-fails: The exam goes badly, {mentor} feels it was pushed too soon, and the special help ends for good.
+likelier_if: has [teachers' favourite] +10; mark 'learned a skill' +5
+- U | ask to sit the big school's entrance test, two years early | v: achievement, self-direction | act: ask to sit the big school's entrance test, two years early | chance: 30 | grants: finding things out | takes_if_fails: friend for life
+works: {N} passes among children two years older, and at the big school learns to dig into any question until it gives.
+works: The letter comes in the spring with a place two years early, and {N} becomes the child who can look up and work out anything.
+fails: {N} freezes in the test hall, and the months of study have cost {N} a best friend, who has found new friends.
+fails: The test goes badly, and the best friend {N} left alone for all those evenings of study has moved on for good.
 
 == bold: a teacher who sees something in you / B
 base: ask them to put you in the special group, ahead of the others
-likelier_if: has [public speaking] +5; years [teachers' favourite] 2 +5
-- B | ask to be made class prefect, ahead of the rival | v: power, achievement | act: ask the teacher to make them class prefect, ahead of the rival | chance: 35 | requires: teachers' favourite | title: prefect | takes_if_fails: teachers' favourite
-works: {mentor} pins the prefect's badge on {N} in assembly, and {rival} has to clap.
-works: {N} is made prefect, and wears the badge to school every day after.
-fails: {mentor} thinks the ask is pushy, and {N} stops being the one picked for things.
-fails: {rival} gets the badge, and {N} loses the teachers' good opinion along with it.
+likelier_if: has [public speaking] +10; has [finding things out] +5
+- B | ask to lead the school quiz team at the contest, ahead of the rival | v: power, achievement | act: ask the teacher to let them lead the school quiz team at the contest, ahead of the rival | chance: 35 | grants: teachers' favourite | drops_if_fails: kind:community
+works: {mentor} gives {N} the lead, and from then on {N} is the one the teachers pick first for everything.
+works: {N} leads the team well, and every teacher in the school comes to count {N} as a favourite.
+fails: {rival} gets the lead, and {N}, stung, quits the Saturday club and the team.
+fails: The team loses with {N} at the front, and {N}, ashamed, drops out of the club {N} went to every week.
 
-== the new school on a scholarship
+== the youngest at the big school
 tier: link
 of_bold: a teacher who sees something in you / U
 side: well
 delay: 1-2
-holds: scholarship
+holds: finding things out
 stages: child juvenile
 age: 7-14
 stakes: .5
@@ -984,9 +1056,9 @@ tone: mixed
 life: school, mentor
 horizon: months
 roles: mentor, parent, rival
-earth: a year after you won a scholarship early, you are the youngest in a hard new class
-scene: A year on, {N} is at the new school on the scholarship, the youngest in a class of older children. The work is hard, {rival} has turned up there too, and the county contest is coming.
-scene gone: {mentor} has moved to a school far away, and writes now and then. {N} is the youngest in a hard new class on the scholarship, and the county contest is coming.
+earth: a year after you won a place at the big school early, you are the youngest in a hard new class
+scene: A year on, {N} is at the big school two years early, the youngest in a class of older children. The work is hard, {rival} has turned up there too, and the county contest is coming.
+scene gone: {mentor} has moved to a school far away, and writes now and then. {N} is the youngest in a hard new class at the big school, and the county contest is coming.
 - W | do every piece of work on time, and keep your head down | v: conformity, achievement | act: do every piece of work on time, and keep their head down | chance: 80
 - U | ask the new teachers for the hardest problems they have | v: self-direction | chance: 80
 - B | make sure the new teachers know exactly who you are | v: achievement, power | act: make sure the new teachers know exactly who they are | chance: 80
@@ -997,9 +1069,9 @@ works: The new school stops feeling strange, and the work starts to feel like {N
 fails: {N} is lonely for most of the year, and misses the old school.
 fails: The work is too much at first, and the marks dip.
 
-== bold: the new school on a scholarship / R
+== bold: the youngest at the big school / R
 base: throw yourself into everything at once: clubs, contests, the lot
-likelier_if: has [teachers' favourite] +10; years [scholarship] 1 +5
+likelier_if: has [teachers' favourite] +10; years [finding things out] 1 +5
 - R | enter the county contest against children years older | v: stimulation, achievement | act: enter the county contest against children years older | chance: 35 | grants: trophies won | takes_if_fails: mentor
 works: {N} walks off with the county cup, the youngest winner in years.
 works: The cup goes on the shelf at home, the first of several.
@@ -1023,12 +1095,12 @@ fails: The firm was worth less than it looked, and the debts end in bankruptcy.
 
 == bold: a chance to change everything / G
 base: take the money, move back to where you grew up, and slow down
-likelier_if: has [old family name] +10; has [selling] +5
-- G | take the money home, and take over the family shop from the old folk | v: tradition, security | act: take the money home, and take over the family shop from the older generation | chance: 35 | requires: family business | title: shop owner | takes_if_fails: family business
-works: {N} takes the keys of the family shop, and runs it as its owner from that spring.
-works: The old customers come back, and {N} is the shop's owner, as the family always hoped.
-fails: The shop cannot pay its way, and the family business closes for good.
-fails: Trade has moved on, and within two years the family business is sold off.
+likelier_if: has [old family name] +10; has [organising people] +5
+- G | take the money home, and use it to bring back the town's old summer fair | v: tradition, benevolence | act: take the money home, and use it to bring back the town's old summer fair | chance: 35 | title: festival organiser | drops_if_fails: kind:community
+works: The fair comes back after twenty years, and {N} is asked to run it every summer after.
+works: The whole town turns out for the old fair, and {N} heads the committee that keeps it going.
+fails: The fair is rained off and the money is gone, and the town groups that welcomed {N} home close their doors.
+fails: Too few come, the debts are {Ns} to pay, and in the shame of it {N} withdraws from every club in town.
 
 == the offer for the firm
 tier: link

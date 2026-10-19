@@ -18,6 +18,8 @@ What it checks, on every bold way (first and second ways of life events, and eac
   mild (a community place, or a skill, standing or bond perk), never a record, a job, a partner or a faith role;
 - colours: each colour holds 20% +- 4 points of all bold ways, with its mean chance within 3 points of the whole;
 - text: timeless (no years, currencies or brand-like capitals in the outcome lines), and no colour words in labels.
+- open rows, on life events: no requires:, one win and one cost, and what it gives held at all the moment's ages
+  (the Engine offers a bold way only when its win is not held, its cost is held and its gains fit the age).
 On links: each first bold way of a life event has a well link and a badly link (moments only for those under 18: the
 well link only), one link deep, with delay 1 to 3 years and the root moment's people.
 """
@@ -117,13 +119,13 @@ def check_way(where, r, moment):
     if not costs:
         problems.append(f"{where}: no lasting cost on failure ({', '.join(COST_OPS)})")
     held = set(names(nt.get("requires"))) | set(names(moment.get("requires")))
+    base_gives = set(names(moment["options"][r["base_index"]][5].get("title"))) if moment.get("options") else set()
     for k, nm in costs:
         if k in ("takes_if_fails", "suspends_if_fails", "drops_if_fails") and not nm.startswith("kind:") \
                 and nm not in held and nm != "{title}":
             notes.append(f"{where}: {k}: '{nm}' is lost only by those who hold it (not in requires:)")
     # steps: a title won names its rung below in requires:, unless it needs none or the base way gives it too (the
     # wedding's newlywed: the Engine holds a facet until the title it refines comes)
-    base_gives = set(names(moment["options"][r["base_index"]][5].get("title"))) if moment.get("options") else set()
     for k, nm in wins:
         if k == "title" and nm in TITLES and nm not in base_gives:
             need = bracket_needs(TITLES[nm])
@@ -133,6 +135,19 @@ def check_way(where, r, moment):
             a, b = TITLES[nm].get("ages", (0, 200))
             if moment["age"][1] < a or moment["age"][0] > b:
                 problems.append(f"{where}: title: '{nm}' is held at {a}-{b}, outside the moment's ages {moment['age']}")
+    # open rows (10-19, Gameplay): a life event's bold way is offered only when its win can be won and its cost can be
+    # paid (the Engine's gate), so it asks for nothing held, wins one thing and costs one thing, at all the moment's ages
+    if moment.get("tier") == "life event":
+        if names(nt.get("requires")):
+            problems.append(f"{where}: an open row takes no requires: ({nt['requires']}); win what needs no rung, cost what most hold")
+        if len([w for w in wins if w[1] not in base_gives]) > 1 or len(costs) > 1:   # (the wedding's newlywed is the base way's)
+            problems.append(f"{where}: an open row wins one thing and costs one thing, not {wins} and {costs}")
+        hi_ = min(moment["age"][1], 80)   # (a status cost such as out of work keeps its own ages: no job to lose after them)
+        for k, nm in [(k, nm) for k in ("title", "grants") for nm in names(nt.get(k))]:
+            a, b = ITEMS.get(nm, {}).get("ages", (0, 200))
+            if a > moment["age"][0] + 2 or b < hi_:
+                problems.append(f"{where}: {k}: '{nm}' is held at {a}-{b}, so the way is not offered at all of the "
+                                f"moment's ages {moment['age']}")
     # odds
     c = nt.get("chance")
     if c is None or not 0.25 <= c <= 0.5:
