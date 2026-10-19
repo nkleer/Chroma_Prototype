@@ -146,3 +146,14 @@
   .plan .ch:disabled { opacity: 0.38; cursor: default; }
   table.kv { border-collapse: collapse; font-size: var(--fs-2); } table.kv td { padding: 3px 14px 3px 0; vertical-align: top; } table.kv td:first-child { color: var(--muted); white-space: nowrap; }
 
+  /* v24 aims (GAME aims): each aim's ladder of steps, a reached step filled, a height ringed */
+  .aims { display: grid; gap: 8px; }
+  .aim { display: grid; grid-template-columns: 22px 1fr auto; gap: 8px; align-items: start; cursor: help; }
+  .aim > svg.i { color: var(--gold3); margin-top: 3px; }
+  .aim .an { font: 400 var(--fs-2)/1.25 var(--serif); color: var(--ink); display: flex; gap: 6px; align-items: center; min-width: 0; }
+  .aim .ladder { display: flex; gap: 4px; align-items: center; flex-wrap: wrap; margin-top: 3px; font-size: var(--fs-1); }
+  .aim .ladder i { width: 9px; height: 9px; border-radius: 2px; background: rgb(var(--hl) / 0.08); box-shadow: 0 0 0 1px rgb(var(--hl) / 0.18); }
+  .aim .ladder i.on { background: var(--gold3); }
+  .aim .ladder i.h { border-radius: 50%; }
+  .at { font-size: var(--fs-1); margin-top: 2px; }
+  .aimc.felt { box-shadow: 0 0 0 1px var(--gold3); }

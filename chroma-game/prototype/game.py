@@ -28,6 +28,7 @@ from game_causes import CausesMixin
 from game_bold import BoldMixin
 from game_because import BecauseMixin
 from game_foot import FootMixin
+from game_aims import AimsMixin
 
 PRESETS = {
     "1": dict(title="Newborn in an ordinary world",
@@ -53,7 +54,7 @@ PRESETS = {
 }
 
 
-class Game(CheckpointsMixin, WorldMixin, VoiceMixin, LifeMixin, ViewsMixin, CausesMixin, BoldMixin, BecauseMixin, FootMixin):
+class Game(CheckpointsMixin, WorldMixin, VoiceMixin, LifeMixin, ViewsMixin, CausesMixin, BoldMixin, BecauseMixin, FootMixin, AimsMixin):
     """One life. Drive it with advance() and decide(); read it with status() and the log."""
     _recall_t = -10 ** 6    # week a memory coming back was last told
     # how much each part of temperament must move before the log says so, and the words for up and down
@@ -130,6 +131,9 @@ class Game(CheckpointsMixin, WorldMixin, VoiceMixin, LifeMixin, ViewsMixin, Caus
             P["need_why"] = True        # Because of you, and meanwhile: the Engine records why each need moved this week
         if GAME["foot"] and "foot_on" in E.DEFAULT:
             P["foot_on"] = True         # v24 footprints: the Engine gives what a pick leaves real state, and hands it over
+        if GAME["aims"] and "aims" in E.DEFAULT:
+            P["aims"] = True            # v24 aims: ladders toward what they want to become, and the heights reached
+            P["heights"] = True
         if GAME["bold"] and "bold_play" in E.DEFAULT:
             P["bold_play"] = True       # Bold ways: the Engine offers a card's bold ways when the game asks (bold_ask)
         # the outer world (chroma-world/, approved 10-06 10:51; in the final version by Emren's 22:24 word): on wherever the
