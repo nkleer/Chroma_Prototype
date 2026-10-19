@@ -10,7 +10,7 @@ together while playing; it stays the check for releases and for code that builds
 
 Docstrings are left out (the page never shows them).
 """
-import ast, json, os, re, subprocess, sys, time
+import ast, json, os, posixpath, re, subprocess, sys, time
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 GAME = os.path.dirname(HERE)
@@ -72,10 +72,31 @@ def sources(ref=None, pin=False):
     return out
 
 
+def joined(files):
+    """The engine's parts (run_*.py, rules_*.py: stretches of one text since the by-function split, not modules on their
+    own) joined back in their owner's order (RUN_PARTS, RULES_PARTS), as chroma-engine's parts.join does, so they parse."""
+    files = dict(files)
+    for p, src in list(files.items()):
+        if not p.endswith(".py") or "_PARTS" not in src:
+            continue
+        try:
+            tree = ast.parse(src)
+        except SyntaxError:                           # a part itself (it may name another owner's _PARTS)
+            continue
+        for nd in tree.body:
+            if isinstance(nd, ast.Assign) and isinstance(nd.targets[0], ast.Name) and nd.targets[0].id.endswith("_PARTS") \
+                    and isinstance(nd.value, ast.Tuple):
+                keys = [posixpath.join(posixpath.dirname(p), e.value + ".py") for e in nd.value.elts]
+                have = [k for k in keys if k in files]
+                if have:
+                    files[p + "+parts"] = "".join(x if x.endswith("\n") else x + "\n" for x in (files.pop(k) for k in have))
+    return files
+
+
 def hits(files, REAL, MARK):
     """(word, text) -> [where], for every word of REAL in a string literal."""
     out = {}
-    for p, src in files.items():
+    for p, src in joined(files).items():
         for line, s in literals(src):
             s2 = MARK.sub("", s)
             for m in REAL.finditer(s2):
