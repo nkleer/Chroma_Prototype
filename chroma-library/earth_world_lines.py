@@ -1,0 +1,502 @@
+"""The world answers v1 (chroma-world/spheres/world-answers-v1.md sections 4 and 6, 10-19): the told lines.
+
+Plain data, hand-written, no imports. Read only with the Engine's world_answers switch on; the Game tells them in the
+story and in its "your world" panel. Third person, present tense, with {N} (the character) and {Ns} (their possessive).
+Checked by tests/check_world_answers.py.
+
+    BECAUSE[unit][size][world]   the "because of {N}" world lines, when a unit's caused change passes a step (sizes
+                                 "a little", "clearly", "a lot", the hover's arrows); the size is felt in the words.
+                                 Person units name the person {friend} (the Game fills it with whoever moved);
+                                 group units {group}; place units {place}; town_sphere {sphere_name}.
+    NATION[push][world]          a national push of size "clear" or more, told by what it visibly did (a law passed,
+                                 a school opened, a work talked about), never by a hidden number
+    KEPT[ring][level][world]     the end of a life, what the world kept of each ring's largest footprint: "most" (over
+                                 .6 still there), "some", "little" (under .3). The forest grows back: never sad,
+                                 never preachy.
+    CAUSE[world]                 how a line names its cause: {act} (the act as the narrator tells it) and {age}
+
+Worlds: earth (modern towns), tribal (bands and circles, the fire, the camp, the hunting grounds, the turning seasons,
+before cities), magic (towers, guilds and old powers; circles and orders, halls, shrines and the tower).
+"""
+
+BECAUSE = {
+    "person_colours": {
+        "a little": {
+            "earth": ["{friend} has picked up a little of {Ns} way of seeing things.",
+                      "Now and then {friend} says something that sounds a little like {N}."],
+            "tribal": ["At the fire {friend} speaks a little more like {N} these seasons.",
+                       "{friend} has begun to read the trail a little the way {N} does."],
+            "magic": ["{friend} has started to work the craft a little the way {N} does.",
+                      "In the hall, {friend} now and then argues a point just as {N} would."],
+        },
+        "clearly": {
+            "earth": ["{friend} plainly sees the world more the way {N} does than before.",
+                      "People notice that {friend} has taken on {Ns} way of going about things."],
+            "tribal": ["{friend} plainly walks {Ns} way now, on the hunt and at the fire.",
+                       "The band can see that {friend} has taken up {Ns} ways as {Ns} own."],
+            "magic": ["{friend} plainly follows {Ns} school of thought now, in the tower and out of it.",
+                      "The order sees that {friend} has taken on {Ns} habits of mind."],
+        },
+        "a lot": {
+            "earth": ["Those who knew {friend} before say {friend} now thinks and acts very much as {N} does.",
+                      "{friend} has become a different person for knowing {N}, and much of the difference is {Ns}."],
+            "tribal": ["The elders say {friend} has grown in {Ns} likeness, the way a sapling leans toward the light.",
+                       "{friend} has become, in the eyes of the camp, almost a second {N}."],
+            "magic": ["{friend} has become what {N} made of {friend}: the same habits of mind, the same way with the old powers.",
+                      "In the guild they call {friend} {Ns} true pupil, and they do not mean the lessons alone."],
+        },
+    },
+    "person_closer": {
+        "a little": {
+            "earth": ["{friend} and {N} are a little closer than they were.",
+                      "{friend} has started to stop by a little more often, just to talk to {N}."],
+            "tribal": ["{friend} sits a little nearer to {N} at the fire these nights.",
+                       "{friend} and {N} share the trail a little more often than before."],
+            "magic": ["{friend} lingers a little longer in {Ns} rooms after the day's work.",
+                      "{friend} and {N} are a little warmer with each other in the hall."],
+        },
+        "clearly": {
+            "earth": ["{friend} has plainly grown close to {N}.",
+                      "{friend} is one of the first people {N} calls now, and {friend} always picks up."],
+            "tribal": ["{friend} has plainly become one of {Ns} own at the fire.",
+                       "{friend} and {N} hunt side by side now, and the band has noticed."],
+            "magic": ["{friend} has plainly become someone {N} confides in, inside the tower and out.",
+                      "{friend} and {N} are known in the order as close companions now."],
+        },
+        "a lot": {
+            "earth": ["{friend} and {N} have become each other's people, the kind who turn up without asking.",
+                      "{friend} would cross town in the night for {N} now, and both of them know it."],
+            "tribal": ["{friend} and {N} are bound now as close as kin, and the whole camp treats them so.",
+                       "Where {N} goes, {friend} goes; the band no longer speaks of one without the other."],
+            "magic": ["{friend} and {N} have sworn the old bond of the order to each other.",
+                      "{friend} keeps a key to {Ns} rooms in the tower, and {N} keeps one to {friend}'s."],
+        },
+    },
+    "person_further": {
+        "a little": {
+            "earth": ["{friend} keeps a little more distance from {N} than before.",
+                      "{friend} calls {N} a little less often these days."],
+            "tribal": ["{friend} sits a little further from {N} at the fire now.",
+                       "{friend} finds a different trail from {N} a little more often."],
+            "magic": ["{friend} lingers a little less in {Ns} rooms now.",
+                      "In the hall, {friend} greets {N} a little more coolly than before."],
+        },
+        "clearly": {
+            "earth": ["{friend} has plainly drawn away from {N}.",
+                      "{friend} and {N} have plainly fallen out of the habit of each other."],
+            "tribal": ["{friend} plainly keeps to another fire now.",
+                       "{friend} hunts with other people now, and the band has seen it."],
+            "magic": ["{friend} has plainly moved to the far side of the order from {N}.",
+                      "{friend} no longer climbs the stair to {Ns} rooms, and everyone in the tower knows it."],
+        },
+        "a lot": {
+            "earth": ["{friend} and {N} have broken off, and no longer speak.",
+                      "Whatever there was between {friend} and {N} is over now."],
+            "tribal": ["{friend} has gone to another band rather than share a fire with {N}.",
+                       "{friend} and {N} have parted as the seasons part, and do not look back."],
+            "magic": ["{friend} has left the circle {N} keeps, and the break is spoken of in the halls.",
+                      "{friend} and {N} have broken the bond between them, and neither will name the other."],
+        },
+    },
+    "person_trust_up": {
+        "a little": {
+            "earth": ["{friend} trusts {N} a little more than before.",
+                      "{friend} takes {Ns} word a little more readily these days."],
+            "tribal": ["{friend} follows {Ns} lead on the hunt a little more readily.",
+                       "{friend} believes {Ns} word at the fire a little more than before."],
+            "magic": ["{friend} trusts {Ns} counsel a little more than before.",
+                      "{friend} lets {N} see a little more of the work in progress now."],
+        },
+        "clearly": {
+            "earth": ["{friend} now plainly takes {Ns} word as good.",
+                      "{friend} plainly trusts {N} with things {friend} tells nobody else."],
+            "tribal": ["{friend} plainly trusts {N} to lead the way through hard country.",
+                       "{friend} would leave the little ones in {Ns} care now, and says so."],
+            "magic": ["{friend} plainly trusts {N} with the guarded parts of the work.",
+                      "{friend} has shown {N} what {friend} keeps locked away, which says a great deal."],
+        },
+        "a lot": {
+            "earth": ["{friend} would trust {N} with anything now.",
+                      "{friend} has put {Ns} name down for the things that matter most."],
+            "tribal": ["{friend} would follow {N} anywhere, even across the far river in winter.",
+                       "{friend} has given {N} the trust the band gives only its oldest friends."],
+            "magic": ["{friend} has given {N} the keeping of {friend}'s true name, the deepest trust there is.",
+                      "{friend} would put {Ns} word above any oath of the order now."],
+        },
+    },
+    "person_trust_down": {
+        "a little": {
+            "earth": ["{friend} checks {Ns} word a little more often now.",
+                      "{friend} is a little more careful around {N} than before."],
+            "tribal": ["{friend} looks twice at {Ns} lead on the hunt now.",
+                       "{friend} believes {Ns} word at the fire a little less than before."],
+            "magic": ["{friend} keeps a little more of the work hidden from {N} now.",
+                      "{friend} weighs {Ns} counsel a little more carefully than before."],
+        },
+        "clearly": {
+            "earth": ["{friend} plainly no longer takes {N} at {Ns} word.",
+                      "{friend} has plainly stopped telling {N} the things that matter."],
+            "tribal": ["{friend} plainly no longer follows where {N} leads.",
+                       "{friend} keeps {Ns} counsel out of the band's talk now, and it shows."],
+            "magic": ["{friend} has plainly sealed the guarded rooms against {N}.",
+                      "{friend} plainly asks others to witness anything {N} promises now."],
+        },
+        "a lot": {
+            "earth": ["{friend} has stopped trusting {N} at all.",
+                      "{friend} would not take {Ns} word now if it were written and signed."],
+            "tribal": ["{friend} would not follow {N} across a stream now.",
+                       "{friend} has told the elders that {Ns} word is no longer good at the fire."],
+            "magic": ["{friend} has struck {Ns} name from every circle {friend} keeps.",
+                      "{friend} trusts no oath of {Ns} now, however old the words."],
+        },
+    },
+    "group_norm": {
+        "a little": {
+            "earth": ["{group} does things a little more the way {N} would.",
+                      "A little of {Ns} way of doing things has rubbed off on {group}."],
+            "tribal": ["{group} keeps a little more of {Ns} custom than before.",
+                       "Around {group}'s fire, a little of {Ns} way has taken hold."],
+            "magic": ["{group} works its rites a little more the way {N} does.",
+                      "A little of {Ns} school has found its way into {group}'s practice."],
+        },
+        "clearly": {
+            "earth": ["{group} has plainly taken on {Ns} way of doing things.",
+                      "Newcomers to {group} learn {Ns} ways now, without always knowing whose they are."],
+            "tribal": ["{group} plainly keeps {Ns} customs now, at the fire and on the hunt.",
+                       "The young ones in {group} learn {Ns} ways as the ways of the band."],
+            "magic": ["{group} plainly follows {Ns} teaching in its rites now.",
+                      "The novices of {group} learn {Ns} methods as the order's own."],
+        },
+        "a lot": {
+            "earth": ["{group} has become what {N} made of it.",
+                      "It is hard now to say where {group}'s ways end and {Ns} begin."],
+            "tribal": ["{group} has become {Ns} band in all but name.",
+                       "The customs of {group} are {Ns} customs now, and the young ones know no other."],
+            "magic": ["{group} has become {Ns} order in all but name.",
+                      "The rule of {group} is written in {Ns} words now, and read aloud at every gathering."],
+        },
+    },
+    "group_members": {
+        "a little": {
+            "earth": ["{group} has a few more faces than before, and some came because of {N}.",
+                      "{group} has grown a little, partly on {Ns} word."],
+            "tribal": ["A few more people sit at {group}'s fire, drawn there by {N}.",
+                       "{group} has grown a little this season, and {N} brought some of them."],
+            "magic": ["{group} has taken in a few new hands, some of them on {Ns} word.",
+                      "A few more novices have joined {group}, drawn by {Ns} name."],
+        },
+        "clearly": {
+            "earth": ["{group} has plainly grown since {N} became part of it.",
+                      "{group} needs a bigger room these days, and much of that is {Ns} doing."],
+            "tribal": ["{group} has plainly grown, and many of the new faces came because of {N}.",
+                       "{group} needs a wider circle at the fire now, thanks in large part to {N}."],
+            "magic": ["{group} has plainly grown, and much of the growth follows {Ns} name.",
+                      "{group} has had to take a second hall, mostly for those {N} drew in."],
+        },
+        "a lot": {
+            "earth": ["{group} is twice what it was, and people say it is {Ns} doing.",
+                      "{group} grew out of what {N} started, and now it carries on in its own right."],
+            "tribal": ["{group} is twice the band it was, and the elders say it is {Ns} work.",
+                       "{group} began at {Ns} fire, and now it is a band of its own."],
+            "magic": ["{group} is twice the circle it was, and the halls credit {N}.",
+                      "{group} was founded on {Ns} word, and now it keeps its own rule."],
+        },
+    },
+    "place_mix": {
+        "a little": {
+            "earth": ["{place} feels a little more like {Ns} kind of place.",
+                      "A little of {N} has crept into how things go at {place}."],
+            "tribal": ["{place} feels a little more like {Ns} kind of place these seasons.",
+                       "Some of {Ns} ways have settled a little into {place}."],
+            "magic": ["{place} feels a little more like {Ns} kind of hall.",
+                      "A little of {Ns} way hangs in the air at {place} now."],
+        },
+        "clearly": {
+            "earth": ["{place} has plainly taken on {Ns} ways.",
+                      "Anyone who knew {place} before can see {Ns} hand in it now."],
+            "tribal": ["{place} has plainly taken on {Ns} ways, from the first light to the last.",
+                       "Anyone who knew {place} before can see {Ns} hand in it now."],
+            "magic": ["{place} plainly bears {Ns} stamp now, in its rites and its rooms.",
+                      "Anyone who knew {place} before can feel {Ns} hand in it now."],
+        },
+        "a lot": {
+            "earth": ["{place} has become what {N} made it.",
+                      "People in town speak of {place} and {N} as if they were one thing."],
+            "tribal": ["{place} has become what {N} made it.",
+                       "The bands speak of {place} and {N} as if they were one thing."],
+            "magic": ["{place} has become what {N} made it, stone and spirit.",
+                      "The guilds speak of {place} and {N} as if they were one thing."],
+        },
+    },
+    "place_founded": {
+        "a little": {
+            "earth": ["{place}, which {N} started, is still small, but it has its regulars.",
+                      "{place} began with {N}, and a handful of people already count on it."],
+            "tribal": ["{place}, which {N} first made, is still small, but people come back to it.",
+                       "{place} began with {N}, and a few already seek it out each season."],
+            "magic": ["{place}, which {N} founded, is still a small hall, but it keeps its lamps lit.",
+                      "{place} began with {N}, and a few seekers already climb to it."],
+        },
+        "clearly": {
+            "earth": ["{place}, which {N} founded, has plainly found its feet and its people.",
+                      "{place} began with {N}, and now it is part of the town's week."],
+            "tribal": ["{place}, which {N} first made, has plainly become part of the people's year.",
+                       "{place} began with {N}, and now the bands turn toward it in its season."],
+            "magic": ["{place}, which {N} founded, has plainly become a place of some name.",
+                      "{place} began with {N}, and now its rites are kept without fail."],
+        },
+        "a lot": {
+            "earth": ["{place}, which {N} founded, has become a place the town cannot picture itself without.",
+                      "There was no {place} until {N}, and now everyone in town knows the way there."],
+            "tribal": ["{place}, which {N} first made, is now a place every band in the valley knows.",
+                       "There was no {place} until {N}, and now the people cannot remember a year without it."],
+            "magic": ["{place}, which {N} founded, is now one of the great halls of the realm.",
+                      "There was no {place} until {N}, and now it is a name spoken with respect in every tower."],
+        },
+    },
+    "place_kept_open": {
+        "a little": {
+            "earth": ["{place} is still open, a little because of {N}.",
+                      "{N} helped {place} through a lean spell, and its doors are still open."],
+            "tribal": ["{place} is still kept, a little because of {N}.",
+                       "{N} helped keep {place} through a lean season, and the people still gather there."],
+            "magic": ["{place} still keeps its doors open, a little because of {N}.",
+                      "{N} helped {place} through a lean spell, and its lamps still burn."],
+        },
+        "clearly": {
+            "earth": ["{place} would plainly have closed by now without {N}.",
+                      "When {place} nearly went under, {N} was the one who held it up."],
+            "tribal": ["{place} would plainly have been left by now without {N}.",
+                       "When the people nearly moved on from {place}, {N} gave them reason to stay."],
+            "magic": ["{place} would plainly have gone dark by now without {N}.",
+                      "When {place} nearly fell silent, {N} kept its rites going."],
+        },
+        "a lot": {
+            "earth": ["{place} stands today because {N} would not let it close, through all the hard years.",
+                      "Everyone at {place} knows it would be long gone if not for {N}."],
+            "tribal": ["{place} is still the people's because {N} would not let it go, through every hard winter.",
+                       "Every band that gathers at {place} knows it would be grass and ashes if not for {N}."],
+            "magic": ["{place} stands today because {N} would not let it fall, through every lean age.",
+                      "Every seeker at {place} knows its doors would be sealed and dusty if not for {N}."],
+        },
+    },
+    "town_sphere": {
+        "a little": {
+            "earth": ["{sphere_name} in this town leans a little toward {Ns} way.",
+                      "Here and there in the town's {sphere_name}, a little of {Ns} way has taken hold."],
+            "tribal": ["Among the camps, {sphere_name} leans a little toward {Ns} way.",
+                       "Here and there in the people's {sphere_name}, a little of {Ns} way has taken hold."],
+            "magic": ["Across the town's halls, {sphere_name} leans a little toward {Ns} way.",
+                      "Here and there in the town's {sphere_name}, a little of {Ns} school has taken hold."],
+        },
+        "clearly": {
+            "earth": ["{sphere_name} in this town plainly bears {Ns} mark.",
+                      "Ask around town about {sphere_name}, and {Ns} name plainly comes up."],
+            "tribal": ["Among the camps, {sphere_name} plainly bears {Ns} mark.",
+                       "Ask at any fire about {sphere_name}, and {Ns} name plainly comes up."],
+            "magic": ["Across the town's halls, {sphere_name} plainly bears {Ns} mark.",
+                      "Ask in any guild about {sphere_name}, and {Ns} name plainly comes up."],
+        },
+        "a lot": {
+            "earth": ["{sphere_name} in this town has become, in large part, what {N} made it.",
+                      "When people in town think of {sphere_name}, they think of {Ns} way of doing it."],
+            "tribal": ["Among the camps, {sphere_name} has become, in large part, what {N} made it.",
+                       "The people of the valley think of {sphere_name} and see {Ns} way of doing it."],
+            "magic": ["Across the town's halls, {sphere_name} has become, in large part, what {N} made it.",
+                      "In this town {sphere_name} is taught as {Ns} school now, and few remember another."],
+        },
+    },
+}
+
+NATION = {
+    "state": {
+        "earth": ["A law {N} pushed for has passed, and it now holds across the country.",
+                  "The country's rules have changed on a point {N} fought for, and the change is in force."],
+        "tribal": ["The great gathering of all the bands has taken up a custom {N} called for, and every fire keeps it.",
+                   "The elders of the wide lands have set down a new rule that {N} argued for."],
+        "magic": ["The realm's high council has passed a decree {N} urged, and it is read in every tower.",
+                  "The old charter of the realm has been changed on a point {N} fought for."],
+    },
+    "institution": {
+        "earth": ["Schools and offices across the country now work the way {N} argued they should.",
+                  "One of the country's great bodies has changed its ways, and the change carries {Ns} name."],
+        "tribal": ["The elders' circles across the wide lands now meet the way {N} taught.",
+                   "The keepers of the great hunts in every valley now follow the order {N} set."],
+        "magic": ["The great guilds of the realm have rewritten their rules along the lines {N} drew.",
+                  "The academies of the realm now teach and test the way {N} argued they should."],
+    },
+    "economy": {
+        "earth": ["Trade across the country runs differently because of {N}: new works have opened in towns {N} never saw.",
+                  "A change {N} pushed for in how the country earns and spends has reached many ordinary households."],
+        "tribal": ["The trading paths between the bands run differently now, along the lines {N} opened.",
+                   "Bands far from {Ns} own now share the hunt and the harvest the way {N} urged."],
+        "magic": ["The guilds' trade across the realm now follows a road {N} opened, and new markets have grown along it.",
+                  "A change {N} pushed for in how the realm's crafts are paid has reached workshops far away."],
+    },
+    "culture": {
+        "earth": ["People across the country are talking about the work {N} made.",
+                  "Something {N} started has spread far beyond the town, and people who never met {N} take it for granted."],
+        "tribal": ["The songs {N} made are sung at fires across the wide lands now.",
+                   "A way of telling the old stories that {N} began has spread to bands {N} never met."],
+        "magic": ["The work {N} made is spoken of in halls across the realm.",
+                  "A custom {N} began has spread to towers far from here, and few there know where it came from."],
+    },
+    "tech": {
+        "earth": ["A way of doing things {N} brought in has spread to towns far from here.",
+                  "Workshops across the country now use a method that began with {N}."],
+        "tribal": ["A new way of making tools that {N} found has spread from band to band.",
+                   "Hunters in far valleys now use a trick that {N} first worked out."],
+        "magic": ["A working {N} discovered is now taught in towers across the realm.",
+                  "Craft halls far from here now use a method that began in {Ns} rooms."],
+    },
+    "belief": {
+        "earth": ["Across the country more people now hold to the teaching {N} spoke for.",
+                  "Congregations far from here have taken up a reform that began with {N}."],
+        "tribal": ["The bands of the wide lands now honour the spirits the way {N} taught.",
+                   "A teaching {N} brought to the fire is now told at gatherings far away."],
+        "magic": ["Shrines across the realm now keep a rite that began with {N}.",
+                  "More and more of the realm's faithful hold to the teaching {N} spoke for."],
+    },
+}
+
+KEPT = {
+    "person": {
+        "most": {
+            "earth": ["{friend} still goes about things much the way {N} did.",
+                      "Those who knew them both still hear {N} in the way {friend} talks."],
+            "tribal": ["{friend} still walks much of {Ns} way, at the fire and on the hunt.",
+                       "The young ones learn {Ns} ways from {friend} now."],
+            "magic": ["{friend} still works the craft much the way {N} taught.",
+                      "In the tower they still hear {Ns} voice in the way {friend} argues."],
+        },
+        "some": {
+            "earth": ["{friend} kept some of what {N} gave, and made the rest {friend}'s own.",
+                      "Now and then {friend} still does a thing just the way {N} would have."],
+            "tribal": ["{friend} kept some of {Ns} ways and found others of {friend}'s own.",
+                       "Now and then at the fire {friend} still tells a thing the way {N} told it."],
+            "magic": ["{friend} kept some of {Ns} methods and went on to find others.",
+                      "Now and then {friend} still turns a working the way {N} would have."],
+        },
+        "little": {
+            "earth": ["{friend} went {friend}'s own way in the end, as people do.",
+                      "Little of {N} shows in {friend} now; {friend} grew into someone else entirely."],
+            "tribal": ["{friend} found {friend}'s own trail in the end, as the young always do.",
+                       "Little of {N} shows in {friend} now, and the band thinks no less of either."],
+            "magic": ["{friend} found {friend}'s own school in the end, as good pupils do.",
+                      "Little of {Ns} teaching shows in {friend} now; {friend} made a path of {friend}'s own."],
+        },
+    },
+    "group": {
+        "most": {
+            "earth": ["{group} still does things the way {N} set them.",
+                      "Newcomers to {group} still learn {Ns} ways, even those who never heard the name."],
+            "tribal": ["{group} still keeps {Ns} customs at its fire.",
+                       "The young of {group} still learn {Ns} ways as the band's own."],
+            "magic": ["{group} still keeps the rule {N} wrote.",
+                      "The novices of {group} still learn {Ns} methods first."],
+        },
+        "some": {
+            "earth": ["{group} kept some of {Ns} ways and let others go.",
+                      "A few of {Ns} habits linger in {group}, though most have changed."],
+            "tribal": ["{group} kept some of {Ns} customs and found new ones for new seasons.",
+                       "A few of {Ns} ways still linger at {group}'s fire."],
+            "magic": ["{group} kept some of {Ns} rule and rewrote the rest.",
+                      "A few of {Ns} rites still open {group}'s gatherings."],
+        },
+        "little": {
+            "earth": ["{group} has found its own way since {N}, as groups do.",
+                      "{group} remembers {N} fondly, and does things its own way now."],
+            "tribal": ["{group} has found its own ways since {N}, as bands do with the seasons.",
+                       "{group} remembers {N} at the fire, and keeps customs of its own now."],
+            "magic": ["{group} has written a new rule since {N}, as orders do.",
+                      "{group} keeps {Ns} name in its roll, and its own ways in its practice."],
+        },
+    },
+    "place": {
+        "most": {
+            "earth": ["{place} still runs much the way {N} ran it.",
+                      "People still say {place} feels like {N}, years on."],
+            "tribal": ["{place} is still kept much the way {N} kept it.",
+                       "The people still say {place} feels like {Ns} fire."],
+            "magic": ["{place} still keeps the rites the way {N} kept them.",
+                      "Seekers still say {place} feels like {Ns} hall."],
+        },
+        "some": {
+            "earth": ["{place} kept some of {Ns} ways, and others have come since.",
+                      "Here and there at {place}, something is still done the way {N} did it."],
+            "tribal": ["{place} kept some of {Ns} ways, and others came with new seasons.",
+                       "Here and there at {place}, a thing is still done the way {N} did it."],
+            "magic": ["{place} kept some of {Ns} rites, and others have been added since.",
+                      "Here and there at {place}, a working is still done the way {N} did it."],
+        },
+        "little": {
+            "earth": ["{place} has become a different place since {N}, alive in its own way.",
+                      "Little of {N} is left at {place} now; new people made it theirs, as {N} once did."],
+            "tribal": ["{place} has become the place of other people now, and the fire still burns there.",
+                       "Little of {N} is left at {place}; new hands keep it, as {N} once did."],
+            "magic": ["{place} has passed to other hands and other ways, and its lamps still burn.",
+                      "Little of {N} is left at {place} now; new seekers made it theirs, as {N} once did."],
+        },
+    },
+    "town_sphere": {
+        "most": {
+            "earth": ["The town's {sphere_name} still carries {Ns} mark.",
+                      "{sphere_name} in this town is still done much the way {N} did it."],
+            "tribal": ["Among the camps, {sphere_name} still carries {Ns} mark.",
+                       "{sphere_name} among the people is still done much the way {N} did it."],
+            "magic": ["Across the town's halls, {sphere_name} still carries {Ns} mark.",
+                      "{sphere_name} in this town is still taught much as {N} taught it."],
+        },
+        "some": {
+            "earth": ["Some of {Ns} way still runs through the town's {sphere_name}.",
+                      "The town's {sphere_name} has moved on, and kept a part of what {N} began."],
+            "tribal": ["Some of {Ns} way still runs through the people's {sphere_name}.",
+                       "The people's {sphere_name} has moved with the seasons, and kept a part of what {N} began."],
+            "magic": ["Some of {Ns} school still runs through the town's {sphere_name}.",
+                      "The town's {sphere_name} has moved on, and kept a part of what {N} began."],
+        },
+        "little": {
+            "earth": ["The town's {sphere_name} found its own way again within a few years.",
+                      "Little of {N} is left in the town's {sphere_name}; others took it where they wanted, as {N} once did."],
+            "tribal": ["The people's {sphere_name} found its own way again within a few seasons.",
+                       "Little of {N} is left in the people's {sphere_name}; the seasons turned, as they do."],
+            "magic": ["The town's {sphere_name} found its own way again within a few years.",
+                      "Little of {Ns} school is left in the town's {sphere_name}; newer teachers took it on."],
+        },
+    },
+    "nation": {
+        "most": {
+            "earth": ["The law {N} pushed for still stands.",
+                      "What {N} changed in the country is still there, and people take it for granted."],
+            "tribal": ["The custom {N} called for is still kept across the wide lands.",
+                       "What {N} changed among the bands is still there, and the young think it was always so."],
+            "magic": ["The decree {N} urged still stands in the realm.",
+                      "What {N} changed in the realm is still there, and few remember it was ever otherwise."],
+        },
+        "some": {
+            "earth": ["The law {N} pushed for still stands, though it has been changed more than once.",
+                      "Part of what {N} changed in the country remains; the rest was reworked by others."],
+            "tribal": ["The custom {N} called for is kept in some valleys and not in others.",
+                       "Part of what {N} changed among the bands remains; other elders reworked the rest."],
+            "magic": ["The decree {N} urged still stands, though later councils have amended it.",
+                      "Part of what {N} changed in the realm remains; other hands reworked the rest."],
+        },
+        "little": {
+            "earth": ["The law {N} pushed for was undone within a few years, and the country found its own way.",
+                      "The country moved on from what {N} changed, as countries do."],
+            "tribal": ["The custom {N} called for faded within a few seasons, and the bands found their own way.",
+                       "The wide lands moved on from what {N} changed, as the seasons move on."],
+            "magic": ["The decree {N} urged was repealed within a few years, and the realm found its own way.",
+                      "The realm moved on from what {N} changed, as realms do."],
+        },
+    },
+}
+
+CAUSE = {
+    "earth": ["since {N} {act}, at {age}",
+              "ever since {N} {act}, at {age}"],
+    "tribal": ["since the season {N} {act}, at {age} winters",
+               "ever since {N} {act}, at {age} winters"],
+    "magic": ["since {N} {act}, at the age of {age}",
+              "ever since the day {N} {act}, at {age}"],
+}

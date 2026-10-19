@@ -668,4 +668,300 @@ FOOT = {('the doorsteps before the crossing vote', 'take two evenings a week and
  ('the campaign wants a speaker on the town hall steps', "agree, and bring the old swimmers' club to sing on the steps"): [('place',
                                                                                                                             'arts.song')],
  ('the campaign wants a speaker on the town hall steps', 'agree, and speak simply, as a neighbour, of what the baths have meant'): [('person',
-                                                                                                                                     'neighbour')]}
+                                                                                                                                     'neighbour')],
+ ("the rival's plan for the whole sphere", 'take the plan to the open meeting and argue it on its merits, line by line'): [('place',
+                                                                                                                            'rule.counsel')],
+ ("the rival's plan for the whole sphere", 'study the plan properly, and write a reply showing where it would and would not work'): [('means',
+                                                                                                                                      'time-.06')],
+ ("the rival's plan for the whole sphere", 'gather enough backers before the meeting that the plan never reaches a vote'): [('person',
+                                                                                                                             'colleague')],
+ ("the rival's plan for the whole sphere", 'stand up at the next meeting and take the plan apart in front of everyone'): [('door',
+                                                                                                                           'made '
+                                                                                                                           'an '
+                                                                                                                           'enemy')],
+ ("the rival's plan for the whole sphere", "carry on at {place} as always, and let the plan meet the town's old habits"): [('lesson',
+                                                                                                                            'old '
+                                                                                                                            'habits '
+                                                                                                                            'outlast '
+                                                                                                                            'new '
+                                                                                                                            'plans')],
+ ("the rival's plan for the whole sphere", "ask for a fair trial: {rival}'s way at one place for a year, then judge"): [('door',
+                                                                                                                         'kept '
+                                                                                                                         'your '
+                                                                                                                         'word')],
+ ("the rival's plan for the whole sphere", 'find the parts of the plan that would help {Ns} own people, and back only those'): [('means',
+                                                                                                                                 'ties+.03')],
+ ("the rival's plan for the whole sphere", 'offer {rival} a share of the credit if the plan takes in {Ns} changes'): [('door',
+                                                                                                                       'made '
+                                                                                                                       'a '
+                                                                                                                       'friend')],
+ ("the rival's plan for the whole sphere", 'gather the regulars of {place} for a night to say what they would lose'): [('place',
+                                                                                                                        'gather.hall')],
+ ("the rival's plan for the whole sphere", 'ask the oldest hands how such fights were settled before, and hold to that'): [('person',
+                                                                                                                            'elder')],
+ ('the rival drawing the newcomers away', 'keep the doors open and the rules fair, and trust people to come back'): [('lesson',
+                                                                                                                      'steady '
+                                                                                                                      'places '
+                                                                                                                      'draw '
+                                                                                                                      'people '
+                                                                                                                      'back')],
+ ('the rival drawing the newcomers away', "go along to {rival}'s evenings and learn what draws the newcomers there"): [('means',
+                                                                                                                        'time-.03')],
+ ('the rival drawing the newcomers away', 'have a quiet word with the ones who left about what {place} could offer them instead'): [('person',
+                                                                                                                                     'regular')],
+ ('the rival drawing the newcomers away', 'put on something louder and better at {place} than anything {rival} has managed'): [('means',
+                                                                                                                                'money-.06')],
+ ('the rival drawing the newcomers away', 'let them wander; the ones who belong at {place} will be back by winter'): [('means',
+                                                                                                                       'ties-.03')],
+ ('the rival drawing the newcomers away', 'create a proper post at {place} for newcomers, with a real say and title'): [('person',
+                                                                                                                         'colleague')],
+ ('the rival drawing the newcomers away', 'work out what the newcomers want, and let them run one evening a month'): [('person',
+                                                                                                                       'friend')],
+ ('the rival drawing the newcomers away', 'offer {rival} a deal: share the newcomers between the two places and keep the peace'): [('door',
+                                                                                                                                    'made '
+                                                                                                                                    'a '
+                                                                                                                                    'friend')],
+ ('the rival drawing the newcomers away', 'put on a joint evening with {rival}, open to all, and let both ways show'): [('place',
+                                                                                                                         'gather.great')],
+ ('the rival drawing the newcomers away', 'ask the old regulars what kept them coming all these years, and build on that'): [('place',
+                                                                                                                              'gather.circle')],
+ ("the rival who wants the town's backing", 'ask the committee to share it by a fair formula that holds whoever leads where'): [('place',
+                                                                                                                                 'rule.counsel')],
+ ("the rival who wants the town's backing", 'bring the record: what {place} has done with everything it was ever given'): [('lesson',
+                                                                                                                            'the '
+                                                                                                                            'record '
+                                                                                                                            'speaks '
+                                                                                                                            'for '
+                                                                                                                            'itself')],
+ ("the rival who wants the town's backing", 'make sure the committee members owe {place} a favour or two before the vote'): [('person',
+                                                                                                                              'go-between')],
+ ("the rival who wants the town's backing", 'speak at the meeting from the heart about what {place} means to the people in it'): [('place',
+                                                                                                                                   'rule.voice')],
+ ("the rival who wants the town's backing", 'ask nothing of the town, and keep {place} going on what its own people give'): [('means',
+                                                                                                                              'money-.06')],
+ ("the rival who wants the town's backing", 'propose an open day where every place shows its work, and the town chooses'): [('place',
+                                                                                                                             'gather.great')],
+ ("the rival who wants the town's backing", 'write the history of {place}, so the committee sees what would be lost'): [('place',
+                                                                                                                         'learn.keeping')],
+ ("the rival who wants the town's backing", 'propose a fair split in public, knowing {rival} cannot be seen to oppose fairness'): [('door',
+                                                                                                                                    'made '
+                                                                                                                                    'an '
+                                                                                                                                    'enemy')],
+ ("the rival who wants the town's backing", "turn the fight into a public question: what should the town's {sphere_name} be for?"): [('means',
+                                                                                                                                      'ties+.03')],
+ ("the rival who wants the town's backing", 'have the old families of {place} put in a word with the right people'): [('person',
+                                                                                                                       'neighbour')],
+ ('the doubter who comes over', 'welcome {ally} in on the same terms as everyone else, no special place'): [('person',
+                                                                                                             'colleague')],
+ ('the doubter who comes over', "ask {ally} what changed {ally}'s mind, and learn from the answer"): [('lesson',
+                                                                                                       'doubters see '
+                                                                                                       'what friends '
+                                                                                                       'miss')],
+ ('the doubter who comes over', 'give {ally} a seat at the table straight away, where others can see it'): [('means',
+                                                                                                             'ties+.06')],
+ ('the doubter who comes over', 'throw an arm round {ally} and plan something bold together that very evening'): [('person',
+                                                                                                                   'friend')],
+ ('the doubter who comes over', 'let it grow slowly: a shared meal, the regulars, time to see if {ally} belongs'): [('place',
+                                                                                                                     'gather.house')],
+ ('the doubter who comes over', 'write down together what the two places owe each other, in plain words'): [('door',
+                                                                                                             'kept '
+                                                                                                             'your '
+                                                                                                             'word')],
+ ('the doubter who comes over', 'work out with {ally} which way works better, and agree to go by it'): [('means',
+                                                                                                         'time-.03')],
+ ('the doubter who comes over', 'have {ally} train the newest people at {place}, and see what {ally} knows'): [('person',
+                                                                                                                'regular')],
+ ('the doubter who comes over', 'take {ally} to the next big meeting, so the town sees them together'): [('place',
+                                                                                                          'rule.voice')],
+ ('the doubter who comes over', "bring {ally}'s people and {Ns} people together for a night of food and old songs"): [('place',
+                                                                                                                       'gather.hall')],
+ ('the old opponent after a hard year', 'agree, and tell everyone at {place} plainly that the old arguments are closed'): [('door',
+                                                                                                                            'kept '
+                                                                                                                            'your '
+                                                                                                                            'word')],
+ ('the old opponent after a hard year', "look into what went wrong at {ally}'s place before promising anything"): [('means',
+                                                                                                                    'time-.03')],
+ ('the old opponent after a hard year', 'agree, on terms that leave {place} the stronger partner'): [('person',
+                                                                                                      'colleague')],
+ ('the old opponent after a hard year', 'laugh about the old fights over a drink, and start again from tonight'): [('person',
+                                                                                                                    'friend')],
+ ('the old opponent after a hard year', "take {ally} in as one of {place}'s own, the way the place always has"): [('place',
+                                                                                                                   'gather.circle')],
+ ('the old opponent after a hard year', 'set up a shared meeting where both places solve their problems in the open'): [('place',
+                                                                                                                         'rule.counsel')],
+ ('the old opponent after a hard year', "learn what {ally}'s place does well, and use it to grow {place}"): [('mark',
+                                                                                                              'learned '
+                                                                                                              'a '
+                                                                                                              'skill')],
+ ('the old opponent after a hard year', 'let {ally} take the lead on one bold project, with {Ns} name behind it'): [('means',
+                                                                                                                     'ties+.03')],
+ ('the old opponent after a hard year', 'throw a joint feast for both places, so the regulars can make their own peace'): [('place',
+                                                                                                                            'gather.great')],
+ ('the old opponent after a hard year', 'ask the old hands at {place} to agree first, then shake on it before them'): [('person',
+                                                                                                                        'elder')],
+ ('the ally sitting beside the rival', 'ask {ally} straight out where {ally} stands, and accept the answer'): [('lesson',
+                                                                                                                'a '
+                                                                                                                'plain '
+                                                                                                                'question '
+                                                                                                                'saves '
+                                                                                                                'months')],
+ ('the ally sitting beside the rival', 'find out quietly what {rival} offered that {N} did not'): [('person',
+                                                                                                    'go-between')],
+ ('the ally sitting beside the rival', 'make {ally} a better offer than {rival} can'): [('means', 'money-.06')],
+ ('the ally sitting beside the rival', "go round to {ally}'s door that night and have it out, loudly if need be"): [('person',
+                                                                                                                     'friend '
+                                                                                                                     'lost')],
+ ('the ally sitting beside the rival', 'let {ally} go without a word; people find their way back, or they do not'): [('means',
+                                                                                                                      'ties-.03')],
+ ('the ally sitting beside the rival', 'thank {ally} in public for the years together, and fill the gap {ally} leaves fairly'): [('person',
+                                                                                                                                  'colleague')],
+ ('the ally sitting beside the rival', 'work out what {ally} wanted that {place} never gave, and change it for the next ones'): [('means',
+                                                                                                                                  'time-.03')],
+ ('the ally sitting beside the rival', 'keep {ally} close with small kindnesses, so the door never quite shuts'): [('door',
+                                                                                                                    'made '
+                                                                                                                    'a '
+                                                                                                                    'friend')],
+ ('the ally sitting beside the rival', 'wish {ally} well at the next meeting, in front of everyone, and mean it'): [('place',
+                                                                                                                     'rule.counsel')],
+ ('the ally sitting beside the rival', 'ask the old hands at {place} what {ally} said to them, and listen'): [('person',
+                                                                                                               'elder')],
+ ('the ally who cannot back this one', 'hold to the decision, since it was made fairly, and tell {ally} so with respect'): [('door',
+                                                                                                                             'kept '
+                                                                                                                             'your '
+                                                                                                                             'word')],
+ ('the ally who cannot back this one', 'go over the decision again with {ally}, point by point, to see who has missed what'): [('means',
+                                                                                                                                'time-.03')],
+ ('the ally who cannot back this one', 'let {ally} go, and win over someone with more standing to fill the gap'): [('person',
+                                                                                                                    'colleague')],
+ ('the ally who cannot back this one', 'tell {ally} how much this hurts, and hope the friendship holds where the agreement does not'): [('lesson',
+                                                                                                                                         'saying '
+                                                                                                                                         'it '
+                                                                                                                                         'aloud '
+                                                                                                                                         'helps')],
+ ('the ally who cannot back this one', 'let the decision soften with time, and keep {ally} at the table for the old friendship'): [('place',
+                                                                                                                                    'gather.circle')],
+ ('the ally who cannot back this one', "put the decision to an open vote at {place}, so {ally}'s doubt gets a fair hearing"): [('place',
+                                                                                                                                'rule.counsel')],
+ ('the ally who cannot back this one', 'ask the people it touched how it has gone, and let that settle it'): [('person',
+                                                                                                               'neighbour')],
+ ('the ally who cannot back this one', 'offer {ally} the lead on putting the decision right, if {ally} thinks it wrong'): [('door',
+                                                                                                                            'made '
+                                                                                                                            'a '
+                                                                                                                            'friend')],
+ ('the ally who cannot back this one', 'admit the doubt aloud, and ask {ally} to help find a better way'): [('door',
+                                                                                                             'owned '
+                                                                                                             'up')],
+ ('the ally who cannot back this one', "keep close to {ally}'s family, and trust the old ties to pull {ally} back"): [('means',
+                                                                                                                       'ties+.03')],
+ ('the week the younger one held it together', 'thank {successor} in front of everyone, and give {successor} a proper part in running things'): [('person',
+                                                                                                                                                  'colleague')],
+ ('the week the younger one held it together', 'sit down with {successor} and go through exactly what {successor} did and why'): [('lesson',
+                                                                                                                                   'the '
+                                                                                                                                   'young '
+                                                                                                                                   'see '
+                                                                                                                                   'it '
+                                                                                                                                   'differently')],
+ ('the week the younger one held it together', 'keep {successor} close, and make sure {successor} knows who opened the doors'): [('door',
+                                                                                                                                  'made '
+                                                                                                                                  'a '
+                                                                                                                                  'friend')],
+ ('the week the younger one held it together', 'tell {successor} it was brilliant, and hand over the next big thing to run'): [('means',
+                                                                                                                                'time+.03')],
+ ('the week the younger one held it together', 'say little, and watch how {successor} carries it over the coming seasons'): [('lesson',
+                                                                                                                              'time '
+                                                                                                                              'shows '
+                                                                                                                              'who '
+                                                                                                                              'is '
+                                                                                                                              'ready')],
+ ('the week the younger one held it together', 'teach {successor} the old ways of {place}, one season at a time'): [('door',
+                                                                                                                     'kept '
+                                                                                                                     'your '
+                                                                                                                     'word')],
+ ('the week the younger one held it together', 'write down how {place} really runs, so {successor} or anyone could carry it on'): [('place',
+                                                                                                                                    'learn.keeping')],
+ ('the week the younger one held it together', 'send {successor} to train with the best in {sphere_name}, at {Ns} own cost'): [('means',
+                                                                                                                                'money-.06')],
+ ('the week the younger one held it together', 'introduce {successor} to everyone who matters in town, with a word of praise for each meeting'): [('means',
+                                                                                                                                                   'ties+.03')],
+ ('the week the younger one held it together', 'bring {successor} to the big yearly gathering to meet everyone'): [('place',
+                                                                                                                    'gather.great')],
+ ('the younger one who says it better', 'agree in front of the room, and change the practice as {successor} proposed'): [('door',
+                                                                                                                          'owned '
+                                                                                                                          'up')],
+ ('the younger one who says it better', 'ask {successor} to show the working, and test it before changing anything'): [('means',
+                                                                                                                        'time-.03')],
+ ('the younger one who says it better', 'make {successor} prove it by putting {successor} in charge of the fix'): [('person',
+                                                                                                                    'colleague')],
+ ('the younger one who says it better', 'laugh, admit {successor} has a point, and buy the whole room a round'): [('person',
+                                                                                                                   'friend')],
+ ('the younger one who says it better', 'thank {successor}, and say the old way has kept {place} going for a reason'): [('means',
+                                                                                                                         'ties-.03')],
+ ('the younger one who says it better', 'set up a way for anyone at {place} to propose a change and test it'): [('place',
+                                                                                                                 'rule.counsel')],
+ ('the younger one who says it better', 'take {successor} on as a right hand, and learn the new ways in return'): [('mark',
+                                                                                                                    'learned '
+                                                                                                                    'a '
+                                                                                                                    'skill')],
+ ('the younger one who says it better', 'give {successor} the floor at the next big meeting in town, and let them shine'): [('place',
+                                                                                                                             'rule.voice')],
+ ('the younger one who says it better', 'take {successor} out walking and tell the story of how the old way came to be'): [('lesson',
+                                                                                                                            'stories '
+                                                                                                                            'carry '
+                                                                                                                            'the '
+                                                                                                                            'reasons')],
+ ('the younger one who says it better', 'bring the matter to the oldest hands, and let them and {successor} settle it together'): [('person',
+                                                                                                                                    'elder')],
+ ('the first week under the new head', 'hand over every key and every duty on the agreed day, and step back fully'): [('door',
+                                                                                                                       'kept '
+                                                                                                                       'your '
+                                                                                                                       'word')],
+ ('the first week under the new head', 'leave {successor} a full account of how things run and why, then let go'): [('means',
+                                                                                                                     'time+.06')],
+ ('the first week under the new head', 'stay on the board, close enough to steer the biggest decisions'): [('place',
+                                                                                                            'rule.counsel')],
+ ('the first week under the new head', 'tell {successor} to change whatever needs changing, and mean every word'): [('person',
+                                                                                                                     'friend')],
+ ('the first week under the new head', 'keep coming to {place} as an ordinary regular, in the old seat'): [('lesson',
+                                                                                                            'glad to '
+                                                                                                            'be a '
+                                                                                                            'regular '
+                                                                                                            'again')],
+ ('the first week under the new head', "agree with {successor} in writing what is {successor}'s to change and what needs the members' vote"): [('person',
+                                                                                                                                                'colleague')],
+ ('the first week under the new head', 'offer to advise only when asked, and keep the opinions for a notebook'): [('means',
+                                                                                                                   'ties-.03')],
+ ('the first week under the new head', "keep a hand in the old networks, so {successor} still needs {N} for the town's doors"): [('person',
+                                                                                                                                  'go-between')],
+ ('the first week under the new head', 'throw a farewell night, and ask everyone to back {successor} as they backed {N}'): [('place',
+                                                                                                                             'gather.great')],
+ ('the first week under the new head', 'stay one more season beside {successor}, so the old ways are learned before they are changed'): [('means',
+                                                                                                                                          'time-.06')],
+ ('a year after the keys changed hands', "tell the regulars the post is {successor}'s now, and the rules say so"): [('door',
+                                                                                                                     'kept '
+                                                                                                                     'your '
+                                                                                                                     'word')],
+ ('a year after the keys changed hands', 'go and see, for a few weeks, how the new way works before saying anything'): [('means',
+                                                                                                                         'time-.03')],
+ ('a year after the keys changed hands', 'let it be known around town that {N} could come back, and wait to be asked'): [('door',
+                                                                                                                          'made '
+                                                                                                                          'an '
+                                                                                                                          'enemy')],
+ ('a year after the keys changed hands', 'go straight to {successor}, say what is wrong, and leave it there'): [('lesson',
+                                                                                                                 'say '
+                                                                                                                 'it '
+                                                                                                                 'once, '
+                                                                                                                 'then '
+                                                                                                                 'let '
+                                                                                                                 'go')],
+ ('a year after the keys changed hands', 'find somewhere new for the old regulars to meet, the way it used to be'): [('place',
+                                                                                                                      'gather.circle')],
+ ('a year after the keys changed hands', 'call an open meeting where the regulars and {successor} can have it out fairly'): [('place',
+                                                                                                                              'rule.counsel')],
+ ('a year after the keys changed hands', 'write down the old ways of {place}, so whatever is lost can be found again'): [('place',
+                                                                                                                          'learn.keeping')],
+ ('a year after the keys changed hands', "use {Ns} standing to get the members a vote on {successor}'s biggest changes"): [('person',
+                                                                                                                            'rival')],
+ ('a year after the keys changed hands', 'invite {successor} for a long evening, and ask what {successor} sees that {N} missed'): [('person',
+                                                                                                                                    'friend')],
+ ('a year after the keys changed hands', 'stand with the old regulars, quietly, and let {successor} feel how many they are'): [('person',
+                                                                                                                                'regular')]}
