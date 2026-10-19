@@ -24,11 +24,16 @@ BOLD_WORDS = dict(chip="bold", likelier="likelier for them", harder="harder for 
 
 
 def _as_list(x):
+    """A row field as a list: a list as it is, a text split by ';' (the Library's catalogue names)."""
     if x is None:
         return []
     if isinstance(x, (list, tuple)):
         return [y for y in x if y]
-    return [x] if x else []
+    return [y.strip() for y in str(x).split(";") if y.strip()] if x else []
+
+
+KIND_SAY = dict(career="their work", community="their place in the community", partner="their partner",
+                faith="their place in the faith")      # drops_if_fails: kind:<kind>, whatever title of that kind they hold
 
 
 class BoldMixin:
@@ -80,6 +85,8 @@ class BoldMixin:
         neither, any life event may have one: the Engine answers with none)."""
         L = loc["L"]
         of = L.get("BOLD_OF")
+        if of is None and isinstance(L.get("BOLD"), dict):
+            of = L["BOLD"]                              # the Library's table, by moment name
         if of is None:
             return True
         if isinstance(of, dict):
@@ -111,16 +118,22 @@ class BoldMixin:
             self.loc["P"]["bold_take"] = (int(choice) - BOLD_IX) // 100 if int(choice) >= BOLD_IX else -1
 
     # ------------------------------------------------------------------ the card
-    def _bold_row(self, L, r):
-        """The Library's BOLD row r as the game reads it (one place, so a renamed field changes here only)."""
+    def _bold_row(self, L, r, name=None, j=0):
+        """The Library's BOLD row as the game reads it (one place, so a renamed field changes here only): row r of the
+        Engine's L["BOLD_ROWS"], else slot j of the Library's L["BOLD"][moment name]."""
         rows = L.get("BOLD_ROWS")
-        row = rows[r] if rows is not None and 0 <= int(r) < len(rows) else {}
+        row = rows[r] if rows is not None and 0 <= int(r) < len(rows) else None
+        if row is None and isinstance(L.get("BOLD"), dict) and name in L["BOLD"]:
+            rs = L["BOLD"][name]
+            row = rs[j] if 0 <= j < len(rs) else None
         return row if isinstance(row, dict) else {}
 
     def _bold_stake(self, L, row, m):
-        """What a bold way wins and costs for good, from its row's fields in the Library's own vocabulary (title:,
-        grants:, takes:, drops:, title_if_fails:, takes_if_fails:, break:): (win, cost), lists of short phrases, and
-        the names they come from (win and cost: [(field, name)]), for the proof that the card's word holds."""
+        """What a bold way wins and costs for good, from its row's fields in the Library's own vocabulary: on success
+        title, grants, drops (a status shed), takes (rare); on failure title_if_fails, takes_if_fails, drops_if_fails (a
+        title, or kind:<kind>: whatever title of that kind they hold), suspends_if_fails (a perk, for a while). Returns
+        (win, cost), lists of short phrases, and the names they come from (win and cost: [(field, name)]), for the
+        proof that the card's word holds."""
         GR = L.get("ROLES")
         def say(nm):
             if GR is not None and nm in GR["ID"]:
@@ -130,15 +143,19 @@ class BoldMixin:
         def who(sl):
             p = ctx.get("_p_" + str(sl)) if sl else None
             return p["name"] if p is not None and p.get("name") and p.get("alive", True) else f"their {sl}" if sl else "someone close"
+        drop = lambda x: f"loses {KIND_SAY.get(x[5:], 'their ' + x[5:])}" if x.startswith("kind:") else f"loses {say(x)}"
         win = [f"becomes {say(x)}" for x in _as_list(row.get("title"))]
         win += [f"gains {say(x)}" for x in _as_list(row.get("grants"))]
-        win += [f"gives up {say(x)}" for x in _as_list(row.get("drops"))]
+        win += [f"leaves {say(x)} behind" for x in _as_list(row.get("drops"))]
+        win += [f"gives up {say(x)}" for x in _as_list(row.get("takes"))]
         cost = [f"loses {say(x)}" for x in _as_list(row.get("takes_if_fails"))]
-        cost += [f"loses {say(x)}" for x in _as_list(row.get("takes"))]
+        cost += [drop(x) for x in _as_list(row.get("drops_if_fails"))]
         cost += [f"becomes {say(x)}" for x in _as_list(row.get("title_if_fails"))]
+        cost += [f"loses {say(x)} for a while" for x in _as_list(row.get("suspends_if_fails"))]
         cost += [f"breaks with {who(x)}" for x in _as_list(row.get("break"))]
-        names = dict(win=[(f_, x) for f_ in ("title", "grants", "drops") for x in _as_list(row.get(f_))],
-                     cost=[(f_, x) for f_ in ("takes_if_fails", "takes", "title_if_fails", "break") for x in _as_list(row.get(f_))])
+        names = dict(win=[(f_, x) for f_ in ("title", "grants", "drops", "takes") for x in _as_list(row.get(f_))],
+                     cost=[(f_, x) for f_ in ("takes_if_fails", "drops_if_fails", "title_if_fails", "suspends_if_fails", "break")
+                           for x in _as_list(row.get(f_))])
         win = _as_list(row.get("win_say")) or win
         cost = _as_list(row.get("cost_say")) or cost
         return win, cost, names
@@ -156,7 +173,7 @@ class BoldMixin:
             bo = bi.get(base)
             if bo is None or bo["colors"] == "-":
                 continue                                # a bold way grows from a way on the card, never from waiting
-            row = self._bold_row(L, b.get("row", -1))
+            row = self._bold_row(L, b.get("row", -1), L["names"][s], j)
             k = BOLD_IX + 100 * j + base
             col = row.get("colour") or row.get("color") or row.get("colors") or bo["colors"]
             col = "+".join(col) if isinstance(col, (list, tuple)) else str(col)
@@ -225,7 +242,7 @@ class BoldMixin:
         for e_ in new:
             r = e_.get("role")
             if r and r.get("what") in ("gained", "lost") and b["raw"] and str(r.get("how", "")).startswith(via):
-                changed.append(dict(what=r["what"], name=r["name"]))
+                changed.append(dict(what=r["what"], name=r["name"], kind=r.get("kind")))
         rec = dict(t=int(self.t), age=round(age, 1), moment=cp["title"], act=o["label"], colors=o["colors"], chance=b["chance"],
                    p=b["p"], row=b["row"], ok=ok, pushed=k != own, stated=b["names"], changed=changed,
                    engine=dict(eb) if eb else None)

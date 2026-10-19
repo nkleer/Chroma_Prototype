@@ -120,9 +120,14 @@ def rows(lives):
     bad5 = []
     for t in tries:
         st = t.get("stated") or {}
-        want = {str(n) for f_, n in (st.get("win") if t["ok"] else st.get("cost")) or () if f_ != "break"}
-        got = {c["name"] for c in t.get("changed") or ()}
-        if want - got or got - {str(n) for f_, n in (st.get("win") or []) + (st.get("cost") or [])}:
+        ch = t.get("changed") or []
+        said = {str(n) for f_, n in (st.get("win") or []) + (st.get("cost") or [])}
+        kinds = {n[5:] for n in said if n.startswith("kind:")}     # drops_if_fails kind:<kind>: whatever title of that kind
+        want = {str(n) for f_, n in (st.get("win") if t["ok"] else st.get("cost")) or ()
+                if f_ != "break" and not str(n).startswith("kind:")}
+        got = {c["name"] for c in ch}
+        extra = {c["name"] for c in ch if c["name"] not in said and not (c["what"] == "lost" and c.get("kind") in kinds)}
+        if want - got or extra:
             bad5.append(f"{t['moment']} at {t['age']}: stated {sorted(want)}, changed {sorted(got)}")
     out.append(f"B5  bold outcomes that left what the card said and nothing else: {len(tries) - len(bad5)} of {len(tries)}"
                + ("".join("\n      " + b for b in bad5[:8])))
