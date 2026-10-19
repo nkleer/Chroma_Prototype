@@ -803,16 +803,16 @@ scene U: {N} has been tracking it for months without admitting it: the broken sl
 scene B: {N} built this career one sacrifice at a time, and now the body is sending the bill.
 scene R: {N} wants to scream, quit, run, anything but open the laptop one more time.
 scene G: Even a field must lie fallow, {grandparent} used to say. {Ns} body seems to have decided the same.
-- W | see the doctor, take the sick leave, and follow the plan to the letter | v: conformity, security | chance: 68
-- U | work out what is draining your strength, and redesign your days around it | v: self-direction | habit | chance: 65
-- B | push through on coffee and willpower; you cannot afford to fall behind | v: achievement | habit | act: push through on coffee and willpower, since they cannot afford to fall behind | chance: 20
-- R | quit on the spot and walk out into the sunshine | identity | v: self-direction, hedonism | chance: 71
-- G | take time off, walk in the woods each day, and let your body heal slowly | v: security, universalism (nature) | chance: 68
-- WUR | set hard limits on your hours, and fill the evenings with something you love | v: self-direction, hedonism | habit | chance: 68
-- WRG | stop hiding it, tell your family and friends, and lean on them | v: benevolence, security | chance: 75
-- WBG | hand off what you can, keep only what matters, and outlast the bad stretch | v: security | binds | chance: 70
+- W | see the doctor, take the sick leave, and follow the plan to the letter | v: conformity, security | foot: place care.houses | chance: 68
+- U | work out what is draining your strength, and redesign your days around it | v: self-direction | habit | foot: lesson know what drains you | chance: 65
+- B | push through on coffee and willpower; you cannot afford to fall behind | v: achievement | habit | act: push through on coffee and willpower, since they cannot afford to fall behind | foot: means health-.08 | chance: 20
+- R | quit on the spot and walk out into the sunshine | identity | v: self-direction, hedonism | foot: means freedom+.08; means money-.08 | chance: 71
+- G | take time off, walk in the woods each day, and let your body heal slowly | v: security, universalism (nature) | foot: means health+.05 | chance: 68
+- WUR | set hard limits on your hours, and fill the evenings with something you love | v: self-direction, hedonism | habit | foot: means time+.06 | chance: 68
+- WRG | stop hiding it, tell your family and friends, and lean on them | v: benevolence, security | foot: means ties+.06 | chance: 75
+- WBG | hand off what you can, keep only what matters, and outlast the bad stretch | v: security | binds | foot: means time+.04 | chance: 70
 - UBR | walk out in style and take your best clients along | v: power | mark: made an enemy | closed: law: breaking the terms of the contract; backfire: sued by the old firm | chance: 65
-- UBG | quietly pass your workload to others, and rest while they carry it | v: hedonism, security | closed: approval: colleagues left to carry it; backfire: found out, and resented | chance: 70
+- UBG | quietly pass your workload to others, and rest while they carry it | v: hedonism, security | closed: approval: colleagues left to carry it; backfire: found out, and resented | foot: door kept it hidden | chance: 70
 works: Slowly {N} sleeps again, and work takes up less room in the head.
 works: Months later {N} looks back on it as the moment life was rearranged.
 fails not B R UBR: {N} goes back too soon, and the second crash is worse than the first.
@@ -843,15 +843,15 @@ scene U: {N} asks the doctors for every scan and every number, trying to underst
 scene B: The accident was not {Ns} fault, and {N} wants to know who is going to pay for it.
 scene R: {N} hates the bed, the beeping, the ceiling tiles. Every bone wants to get up and go.
 scene G: Outside the ward window a tree is coming into leaf. {N} watches it day by day, healing at the same slow speed.
-- W | follow every instruction from the doctors and the physiotherapist | v: conformity, security | chance: 68
+- W | follow every instruction from the doctors and the physiotherapist | v: conformity, security | foot: place care.houses | chance: 68
 - U | read every study on your condition and question every treatment | v: self-direction, security | mark: learned a skill | chance: 60
 - B | hire a lawyer and sue for every penny you can get | v: power (resources) | mark: made an enemy | chance: 62
-- R | laugh it off, and turn the ward into a party for every visitor | v: hedonism, stimulation | chance: 68
-- G | rest, and trust your body to heal in its own time | v: security | chance: 60
+- R | laugh it off, and turn the ward into a party for every visitor | v: hedonism, stimulation | foot: means ties+.04 | chance: 68
+- G | rest, and trust your body to heal in its own time | v: security | foot: lesson healing will not be hurried | chance: 60
 - WUG | join a recovery group, keep a careful log, and walk a little further each day | v: security, achievement | habit | chance: 75 | back: made a friend
-- WUB | plan your recovery like a project, with targets, aids and deadlines | v: achievement | chance: 72
-- WBR | work from the hospital bed and refuse to lose your place | identity | v: achievement, power | closed: approval: against the doctors' orders; backfire: a relapse | tech: remote work | chance: 48
-- URG | set one fierce goal, a hill to climb by next year, and train for it | v: achievement, stimulation | door | body: heavy | chance: 65
+- WUB | plan your recovery like a project, with targets, aids and deadlines | v: achievement | foot: means health+.06 | chance: 72
+- WBR | work from the hospital bed and refuse to lose your place | identity | v: achievement, power | closed: approval: against the doctors' orders; backfire: a relapse | tech: remote work | foot: means health-.05 | chance: 48
+- URG | set one fierce goal, a hill to climb by next year, and train for it | v: achievement, stimulation | door | body: heavy | foot: means health+.08 | chance: 65
 - BRG | ignore the doctors, trust your body and fight your own way back | v: self-direction | mark: defied an authority | body: heavy | closed: approval: against medical advice; backfire: a setback, and back to hospital | chance: 45
 works: Month by month the body comes back, and {N} walks out of the last appointment unaided.
 works: The recovery is slow but sure, and {N} comes out of it with a new respect for being well.
@@ -882,13 +882,13 @@ scene U: {N} has compared forty houses, three banks and every interest rate in t
 scene B: Property only goes up, {N} reasons, and this one is a bargain because the seller is desperate.
 scene R: {N} fell in love with the house in the first five minutes, and the bank had better keep up.
 scene G: The garden has an old apple tree, and {N} can already imagine children climbing it, and grandchildren after them.
-- W | take a safe fixed-rate mortgage, and never miss a payment | v: security, conformity | chance: 70
-- U | study the market for a year and buy only when the numbers are right | binds | v: security, achievement | chance: 72
-- B | buy from a desperate seller, well below the asking price | binds | v: power (resources) | chance: 72
-- R | buy the house you fell for, even if it stretches you thin | v: hedonism, stimulation | binds | chance: 68
-- G | buy in the town where your family has always lived | v: tradition, security | mark: stayed home | binds | chance: 72
-- W>G | buy close to your family, so you can all look after one another | v: benevolence, tradition | chance: 68
-- U>W | choose the safest, best-run street in town, after months of research | v: security | chance: 78
+- W | take a safe fixed-rate mortgage, and never miss a payment | v: security, conformity | foot: door kept your word | chance: 70
+- U | study the market for a year and buy only when the numbers are right | binds | v: security, achievement | foot: means money+.04 | chance: 72
+- B | buy from a desperate seller, well below the asking price | binds | v: power (resources) | foot: means money+.08 | chance: 72
+- R | buy the house you fell for, even if it stretches you thin | v: hedonism, stimulation | binds | foot: means money-.10 | chance: 68
+- G | buy in the town where your family has always lived | v: tradition, security | mark: stayed home | binds | foot: door stayed home | chance: 72
+- W>G | buy close to your family, so you can all look after one another | v: benevolence, tradition | foot: means ties+.06 | chance: 68
+- U>W | choose the safest, best-run street in town, after months of research | v: security | foot: person neighbour | chance: 78
 - B>U | buy a wreck cheap, and learn to rebuild it with your own hands | v: self-direction, achievement | mark: learned a skill | chance: 65
 - R>B | bid far over the asking price on impulse, sure the house will pay off | binds | v: power (resources) | chance: 60 | back: took a wild risk
 - G>R | buy a cheap cottage far out in the country, away from everything | v: self-direction, universalism (nature) | door | mark: moved away | chance: 65
