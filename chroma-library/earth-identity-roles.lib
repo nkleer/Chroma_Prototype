@@ -225,15 +225,15 @@ scene B: {N} has worked hard for the place {N} holds at work, and knows exactly 
 scene R: {N} cannot imagine handing {child} over to anyone for nine hours a day, and cannot imagine giving up the job either.
 scene G: {Ns} own parents raised a family with one of them at home and the grandparents round the corner. {N} wonders which of the old ways still fits.
 - W | split the leave exactly in half, as you promised each other before the birth | v: universalism, benevolence | mark: kept your word | chance: 68
-- U | keep your job, and plan the baby's care down to the hour | role: men | v: security, achievement | chance: 75
-- B | take every paid week of leave yourself, and claim every benefit going | role: women | v: security, hedonism | chance: 75
-- R | go back to the work you love, and race home every night for bath time | role: men | self_control: + | v: hedonism, benevolence | habit | chance: 73
-- G | let the grandparents take the baby on weekdays, the way families always have | v: tradition, benevolence | chance: 74
-- BG | pay a neighbour who raised a family to mind the baby, and both keep working | role: men | v: achievement, security | closed: means: a minder costs a large share of one wage; backfire: the money runs short, and one of the two cuts back after all | chance: 70
-- UG | ask for flexible hours, and work from home around the baby's sleeps | role: women | tech: remote work | v: benevolence, security | chance: 66
+- U | keep your job, and plan the baby's care down to the hour | role: men | v: security, achievement | foot: lesson a plan makes room for all | chance: 75
+- B | take every paid week of leave yourself, and claim every benefit going | role: women | v: security, hedonism | foot: means money+.03 | chance: 75
+- R | go back to the work you love, and race home every night for bath time | role: men | self_control: + | v: hedonism, benevolence | habit | foot: means time-.06 | chance: 73
+- G | let the grandparents take the baby on weekdays, the way families always have | v: tradition, benevolence | foot: means ties+.06 | chance: 74
+- BG | pay a neighbour who raised a family to mind the baby, and both keep working | role: men | v: achievement, security | closed: means: a minder costs a large share of one wage; backfire: the money runs short, and one of the two cuts back after all | foot: person neighbour | chance: 70
+- UG | ask for flexible hours, and work from home around the baby's sleeps | role: women | tech: remote work | v: benevolence, security | foot: means time+.06 | chance: 66
 - UR | take a year out with the baby, and learn something new in the quiet hours | role: women | v: self-direction, benevolence | mark: learned a skill | chance: 70
-- WB | take on extra shifts to bring in what the family now needs | role: men | v: security, benevolence | chance: 74
-- WR | stay home yourself, and give the baby every hour of the first year | role: women | v: benevolence | chance: 76
+- WB | take on extra shifts to bring in what the family now needs | role: men | v: security, benevolence | foot: means money+.06 | chance: 74
+- WR | stay home yourself, and give the baby every hour of the first year | role: women | v: benevolence | foot: door stayed home | chance: 76
 works: The arrangement settles into a rhythm, and {child} thrives in it.
 works: Whatever was given up, {N} and {partner} agree a year later that it was the right call.
 fails: The plan creaks within months, and there are rows about who gave up more.
@@ -387,11 +387,11 @@ scene G: {N} grew up in a big, untidy family, with cousins taken in and grandpar
 - B | pay a surrogate and a private clinic, whatever it costs | tech: modern medicine | tags: commit:children | v: self-direction | closed: means: a surrogate and the clinic cost more than a year's income; backfire: deep in debt, and still no child | chance: 50
 - R | ask a close friend to be the donor, and start this spring | tech: modern medicine | tags: commit:children | binds | v: stimulation, benevolence | chance: 50
 - G | take in a child who needs a home now, as foster carers | title: foster parent | binds | v: benevolence | mark: helped someone in need | closed: means: fostering needs a spare room and a steady home; backfire: turned down at the home visit, and the wait starts again | tags: commit:children | chance: 52
-- BR | put it off: travel and live well while you are young, and decide later | v: hedonism, stimulation | mark: turned down a chance | chance: 85
-- RG | decide the two of you are family enough, and let that be your life | v: self-direction, benevolence | chance: 80
-- UB | save hard for two years first, so whichever route you choose is paid for | self_control: + | v: security, achievement | habit | chance: 75
-- WG | give your time to the family's children instead, and be the one they run to | v: benevolence, tradition | chance: 80
-- WU | join a group of couples who have done it, and learn each route from them | door | v: self-direction, security | chance: 85
+- BR | put it off: travel and live well while you are young, and decide later | v: hedonism, stimulation | mark: turned down a chance | foot: means freedom+.06 | chance: 85
+- RG | decide the two of you are family enough, and let that be your life | v: self-direction, benevolence | foot: lesson two can be a family | chance: 80
+- UB | save hard for two years first, so whichever route you choose is paid for | self_control: + | v: security, achievement | habit | foot: means money+.06 | chance: 75
+- WG | give your time to the family's children instead, and be the one they run to | v: benevolence, tradition | foot: means ties+.06 | chance: 80
+- WU | join a group of couples who have done it, and learn each route from them | door | v: self-direction, security | foot: place gather.talk | chance: 85
 works not BR RG WG: The long road ends at last, and there is a small coat on the hook by the door.
 works: Whatever the two of them chose, they chose it together, and it holds.
 fails not BR RG WG: The months of checks, tests and forms come to nothing this time, and the spare room stays empty.

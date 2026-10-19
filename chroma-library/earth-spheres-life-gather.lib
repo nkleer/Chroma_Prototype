@@ -49,16 +49,16 @@ scene U: {N} wants to see what the town is like after dark: who goes where, who 
 scene B: Half of {Ns} year from school will be inside. Tonight sets who {N} is to them for the next few years.
 scene R: {N} has waited years for this. The music is loud, the night is long, and {N} means to be the last one off the floor.
 scene G: {Ns} older cousins all had their first night out at the same bar on the corner, and the barman still asks after them.
-- W | keep the group together all night, and see everyone home safe | v: benevolence, security | sphere: gather.W | chance: 60
-- U | stay near the edge for the first hour, and watch how the place works | v: self-direction, universalism | sphere: gather.U | chance: 60
-- B | make sure you are seen with the right crowd, and leave with their numbers | act: make sure they are seen with the right crowd, and leave with their numbers | v: power, achievement | sphere: gather.B | chance: 60
-- R | dance from the first song until the lights come on | v: hedonism, stimulation | sphere: gather.R | chance: 60
-- G | start at the corner bar where your cousins started, and toast them there | act: start at the corner bar where their cousins started, and toast them there | v: tradition | sphere: gather.G | chance: 60
-- WU | agree the plan with everyone first: one meeting place, one taxi, one time home | v: security, conformity | sphere: gather.WU | chance: 50
-- WR | talk the door staff round when they stop the youngest of your group | act: talk the door staff round when they stop the youngest of their group | v: benevolence, stimulation | lever: voice | sphere: gather.RW | chance: 50
-- UB | find out where the good crowd goes on which night, and follow it there | v: achievement, self-direction | sphere: gather.UB | chance: 50
-- RG | leave the club at three with everyone, and watch the sun come up from the hill | v: hedonism, stimulation | sphere: gather.RG | chance: 50
-- BG | make one drink last all night, and get to know the barman instead | v: security, tradition | sphere: gather.BG | chance: 50
+- W | keep the group together all night, and see everyone home safe | v: benevolence, security | sphere: gather.W | foot: mark kept your word | chance: 60
+- U | stay near the edge for the first hour, and watch how the place works | v: self-direction, universalism | sphere: gather.U | foot: lesson watch the room first | chance: 60
+- B | make sure you are seen with the right crowd, and leave with their numbers | act: make sure they are seen with the right crowd, and leave with their numbers | v: power, achievement | sphere: gather.B | foot: means ties+.06 | chance: 60
+- R | dance from the first song until the lights come on | v: hedonism, stimulation | sphere: gather.R | foot: person friend | chance: 60
+- G | start at the corner bar where your cousins started, and toast them there | act: start at the corner bar where their cousins started, and toast them there | v: tradition | sphere: gather.G | foot: place gather.night | chance: 60
+- WU | agree the plan with everyone first: one meeting place, one taxi, one time home | v: security, conformity | sphere: gather.WU | foot: means ties+.03 | chance: 50
+- WR | talk the door staff round when they stop the youngest of your group | act: talk the door staff round when they stop the youngest of their group | v: benevolence, stimulation | lever: voice | sphere: gather.RW | foot: mark helped someone in need | chance: 50
+- UB | find out where the good crowd goes on which night, and follow it there | v: achievement, self-direction | sphere: gather.UB | foot: place gather.night | chance: 50
+- RG | leave the club at three with everyone, and watch the sun come up from the hill | v: hedonism, stimulation | sphere: gather.RG | foot: lesson the best part comes after | chance: 50
+- BG | make one drink last all night, and get to know the barman instead | v: security, tradition | sphere: gather.BG | foot: person keeper | chance: 50
 works: The night becomes the story the group tells for years, and by the end of it the barman knows {Ns} face.
 works: {prospect}, met by the bar at midnight, asks for {Ns} number at the end of the night and calls the next day.
 fails: {friend} is turned away at the door, the group splits up, and {N} spends the night looking for everyone.
@@ -91,16 +91,16 @@ scene U: {N} looks at who was let in and who was not, and starts to see the patt
 scene B: {rival} is just inside the door, watching. Whatever {N} does next will be talked about on Monday.
 scene R: {Ns} face is hot. Every part of {N} wants to tell the doorman exactly what {N} thinks of him.
 scene G: {N} thinks of the old bar on the corner where nobody has ever been turned away, and of the people there who would never do this.
-- W | ask the doorman calmly which rule you broke, and wait for an answer | act: ask the doorman calmly which rule they broke, and wait for an answer | v: conformity, self-direction | lever: voice | sphere: gather.W | chance: 60
-- U | watch the door for ten minutes, and work out whom it lets in and why | v: universalism, self-direction | sphere: gather.U | chance: 60
-- B | ring the friend of a friend who knows the manager, and get put on the list | v: power, achievement | sphere: gather.B | chance: 60
-- R | tell the doorman what you think of him, loudly, and walk off down the street | act: tell the doorman what they think of him, loudly, and walk off down the street | v: self-direction, stimulation | lever: exit | sphere: gather.R | chance: 60
-- G | text the others to meet at the old corner bar, where everyone gets in | v: tradition, benevolence | lever: exit | sphere: gather.G | chance: 60
-- WU | write a plain, fair account of the door, and ask who else it has happened to | v: universalism, conformity | lever: voice | sphere: gather.WU | chance: 50
-- WB | come back next week in the right clothes, learn the doorman's name, and be let in | v: conformity, achievement | sphere: gather.WB | chance: 50
-- UR | start an open night of your own in a cellar, with no list and no door | act: start an open night of their own in a cellar, with no list and no door | v: self-direction, stimulation | lever: found | sphere: gather.UR | chance: 50
-- RG | take the group to the park with music on a phone, and dance under the trees | v: hedonism, stimulation | tech: phone | sphere: gather.RG | chance: 50
-- BG | shrug it off, and make a night of it at the late café by the market | v: security, hedonism | sphere: gather.BG | chance: 50
+- W | ask the doorman calmly which rule you broke, and wait for an answer | act: ask the doorman calmly which rule they broke, and wait for an answer | v: conformity, self-direction | lever: voice | sphere: gather.W | foot: door defied an authority | chance: 60
+- U | watch the door for ten minutes, and work out whom it lets in and why | v: universalism, self-direction | sphere: gather.U | foot: lesson who gets in follows a pattern | chance: 60
+- B | ring the friend of a friend who knows the manager, and get put on the list | v: power, achievement | sphere: gather.B | foot: person go-between | chance: 60
+- R | tell the doorman what you think of him, loudly, and walk off down the street | act: tell the doorman what they think of him, loudly, and walk off down the street | v: self-direction, stimulation | lever: exit | sphere: gather.R | foot: person rival | chance: 60
+- G | text the others to meet at the old corner bar, where everyone gets in | v: tradition, benevolence | lever: exit | sphere: gather.G | foot: place gather.house | chance: 60
+- WU | write a plain, fair account of the door, and ask who else it has happened to | v: universalism, conformity | lever: voice | sphere: gather.WU | foot: place rule.voice | chance: 50
+- WB | come back next week in the right clothes, learn the doorman's name, and be let in | v: conformity, achievement | sphere: gather.WB | foot: door gave in to pressure | chance: 50
+- UR | start an open night of your own in a cellar, with no list and no door | act: start an open night of their own in a cellar, with no list and no door | v: self-direction, stimulation | lever: found | sphere: gather.UR | foot: place gather.night | chance: 50
+- RG | take the group to the park with music on a phone, and dance under the trees | v: hedonism, stimulation | tech: phone | sphere: gather.RG | foot: means ties+.03 | chance: 50
+- BG | shrug it off, and make a night of it at the late café by the market | v: security, hedonism | sphere: gather.BG | foot: person regular | chance: 50
 works: The others come out to join {N}, and the night that follows is better than the club would ever have been.
 works: Word gets round, and the club changes its door within the month; {N} is let in, and finds it no longer matters much.
 fails: The friends stay inside, and {N} goes home alone on the night bus, feeling small.
@@ -221,16 +221,16 @@ scene U: {N} wants to know who bought it, for how much, and whether anything can
 scene B: The keeper is retiring, not ruined. With the right backers, someone could take on the licence somewhere new.
 scene R: {N} is not ready to let it go quietly. If it must end, it should end with the best night it has ever had.
 scene G: {Ns} name is cut into the long table, beside names from fifty years ago. The table, at least, should not go in a skip.
-- W | make a list of every regular, and find each one a table somewhere new | v: benevolence | sphere: gather.W | chance: 60
-- U | look up the sale at the council, and find out whether it can be stopped | v: universalism, self-direction | lever: voice | sphere: gather.U | chance: 60
-- B | ask the keeper about taking on the licence, and find two backers by Saturday | v: achievement, power | lever: lead | sphere: gather.B | chance: 60
-- R | plan the loudest last night the street has heard, with a band and a midnight toast | v: hedonism, stimulation | sphere: gather.R | chance: 60
-- G | ask the buyers for the long table, and carry it home with the regulars | v: tradition | sphere: gather.G | chance: 60
-- WU | call a meeting of the regulars, and put to a vote where the group goes next | v: conformity, universalism | lever: voice | sphere: gather.WU | chance: 50
-- WG | move the Thursday table, rota and all, to the café across the road | v: tradition, benevolence | lever: loyalty | sphere: gather.GW | chance: 50
-- UR | put on a night of stories about the old place, and record every one | v: universalism, stimulation | sphere: gather.UR | chance: 50
-- BR | buy the old sign, and hang it over a back room you rent yourself | act: buy the old sign, and hang it over a back room they rent themselves | v: self-direction, power | lever: found | sphere: gather.BR | chance: 50
-- BG | let it go, and become a regular at the next nearest bar within the month | v: security | lever: exit | sphere: gather.BG | chance: 50
+- W | make a list of every regular, and find each one a table somewhere new | v: benevolence | sphere: gather.W | foot: mark helped someone in need | chance: 60
+- U | look up the sale at the council, and find out whether it can be stopped | v: universalism, self-direction | lever: voice | sphere: gather.U | foot: place rule.counsel | chance: 60
+- B | ask the keeper about taking on the licence, and find two backers by Saturday | v: achievement, power | lever: lead | sphere: gather.B | foot: person patron | chance: 60
+- R | plan the loudest last night the street has heard, with a band and a midnight toast | v: hedonism, stimulation | sphere: gather.R | foot: means ties+.03 | chance: 60
+- G | ask the buyers for the long table, and carry it home with the regulars | v: tradition | sphere: gather.G | foot: place gather.house | chance: 60
+- WU | call a meeting of the regulars, and put to a vote where the group goes next | v: conformity, universalism | lever: voice | sphere: gather.WU | foot: person regular | chance: 50
+- WG | move the Thursday table, rota and all, to the café across the road | v: tradition, benevolence | lever: loyalty | sphere: gather.GW | foot: person keeper | chance: 50
+- UR | put on a night of stories about the old place, and record every one | v: universalism, stimulation | sphere: gather.UR | foot: place arts.tale | chance: 50
+- BR | buy the old sign, and hang it over a back room you rent yourself | act: buy the old sign, and hang it over a back room they rent themselves | v: self-direction, power | lever: found | sphere: gather.BR | foot: means money-.06 | chance: 50
+- BG | let it go, and become a regular at the next nearest bar within the month | v: security | lever: exit | sphere: gather.BG | foot: place gather.night | chance: 50
 works: Most of the regulars follow {N} to the new place, and within a season the long table is full again.
 works not W U R G WU WG UR BG: {N} ends up behind a bar of {Ns} own, with the old sign over the door and the old keeper as the first customer.
 fails: The last night ends, the group scatters, and some of the regulars are not seen out again.
@@ -349,16 +349,16 @@ scene U: {N} has drafted it four times, looking for the one true thing about {fr
 scene B: Half the guests are people {N} would like to know better. A good toast could open doors for years.
 scene R: {N} cannot plan it. It will come out on the night, from the heart, or not at all.
 scene G: {N} has known {friend} since they were small. The toast should be about the street they grew up on and the families in the room.
-- W | name everyone who helped the couple, and leave nobody out | v: benevolence, conformity | sphere: gather.W | chance: 60
-- U | write it out, try it on three friends, and cut every line that rings false | v: achievement, universalism | sphere: gather.U | chance: 60
-- B | keep it short, polished and funny, and work the right tables afterwards | v: achievement, power | sphere: gather.B | chance: 60
-- R | throw away the notes, and say what you feel about your friend | act: throw away the notes, and say what they feel about their friend | v: self-direction, stimulation | sphere: gather.R | chance: 60
-- G | tell the story of the two families, and raise a glass to the grandparents | v: tradition | sphere: gather.G | chance: 60
-- BG | tell the one embarrassing story everyone knows anyway, and let the room laugh along | v: hedonism, benevolence | sphere: gather.BG | chance: 50
-- UG | ask the couple's grandparents how they met, and build the toast round it | v: tradition, universalism | sphere: gather.GU | chance: 50
-- UR | write a short funny poem about the couple, and lead the room in its last line | v: stimulation, self-direction | sphere: gather.UR | chance: 50
-- WB | toast the couple, thank the hosts and the cooks, and pass the hat for the honeymoon | v: benevolence, power | lever: fund | sphere: gather.WB | chance: 50
-- WR | call the couple's oldest friends to their feet to raise their glasses together | v: benevolence, stimulation | sphere: gather.RW | chance: 50
+- W | name everyone who helped the couple, and leave nobody out | v: benevolence, conformity | sphere: gather.W | foot: mark kept your word | chance: 60
+- U | write it out, try it on three friends, and cut every line that rings false | v: achievement, universalism | sphere: gather.U | foot: mark learned a skill | chance: 60
+- B | keep it short, polished and funny, and work the right tables afterwards | v: achievement, power | sphere: gather.B | foot: person patron | chance: 60
+- R | throw away the notes, and say what you feel about your friend | act: throw away the notes, and say what they feel about their friend | v: self-direction, stimulation | sphere: gather.R | foot: mark took a wild risk | chance: 60
+- G | tell the story of the two families, and raise a glass to the grandparents | v: tradition | sphere: gather.G | foot: person elder | chance: 60
+- BG | tell the one embarrassing story everyone knows anyway, and let the room laugh along | v: hedonism, benevolence | sphere: gather.BG | foot: lesson a shared laugh carries a room | chance: 50
+- UG | ask the couple's grandparents how they met, and build the toast round it | v: tradition, universalism | sphere: gather.GU | foot: lesson how they met says much | chance: 50
+- UR | write a short funny poem about the couple, and lead the room in its last line | v: stimulation, self-direction | sphere: gather.UR | foot: means ties+.03 | chance: 50
+- WB | toast the couple, thank the hosts and the cooks, and pass the hat for the honeymoon | v: benevolence, power | lever: fund | sphere: gather.WB | foot: means money-.03 | chance: 50
+- WR | call the couple's oldest friends to their feet to raise their glasses together | v: benevolence, stimulation | sphere: gather.RW | foot: person friend | chance: 50
 works: The hall laughs in the right places and goes quiet in the right one, and {friend} holds {N} hard at the end.
 works: For years afterwards {N} is asked to say a few words at every wedding, and strangers remember {N} as the one who gave that toast.
 fails: The microphone squeals, a joke falls flat, and {N} sits down to polite clapping and a hot face.

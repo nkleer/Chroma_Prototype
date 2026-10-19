@@ -1,0 +1,114 @@
+# Chroma content pack, The Five Callings: the ECHOES of the five long shots (the two echoes of callings/MOMENTS-BRIEF.md,
+# "Echoes (file callings-echoes.lib)"; Pathways and packs thread, 2026-10-19, for v24, switched off until `callings` is
+# in batch.PACKS). Written with the faith road, in the shape of the echoes in ../art/art-longshots.lib. Syntax: header
+# of chroma-library/build.py. Rules: chroma-library/SPEC.md, notes/library-spec.md and the brief's pack rules. Names in
+# title:, grants: and grants_if_fails: come from callings/catalogue.py, core/*.py and the base catalogue; `{missed}` is
+# the title of the person's last failed long shot, as the engine remembers it.
+#
+# Both echoes follow any of the five long shots ('a sermon that goes round the country', 'the garage invention', 'the
+# market stall that became a chain', 'the field commission', 'the remedy that worked'). Their anchors and gates are
+# ECHO_CALLINGS_LONGSHOTS in engine-conditions.py: [a long shot that missed] held, one of those five moments within the
+# month of the miss, and the engine's clock of a real long-shot miss, so they speak of this attempt and not of a perk
+# from another pack; neither comes once the person has reached a road's summit. `once: yes`. Each is even on its own:
+# alpha even, the five one-colour options and one full cross cycle (s2 on the second try, s3 on making peace), with no
+# combinations. Echoes are not life events, so they carry no foot: (the footprints brief).
+#
+# The second try: `title: {missed}`, the same rung again, at 4 against the first try's 3 (a little likelier for the
+# years between, and still a long shot, so each single keeps `grants_if_fails: a long shot that missed`); the cross
+# cycle at 78: letting it pass with the next door noted, letting it pass for something new, a younger one put forward,
+# a younger one helped through every step, the place the first try came from learned again. Every colour's mean is 41,
+# under the brief's 72 to 78 for echoes because the five singles sit at their real long odds, as the art pack's second
+# try does; it is the same for every colour.
+# Making peace with it: the long shot becomes service at the rung the person holds ([good name in town]), a young one
+# taught ([apprentice of one's own]), a door held open, the story told to the family; all ten at 78, so every colour's
+# mean is 78.
+#
+# The text fits all five roads (the congregation, the workshop, the shop, the ranks, the ward) and every world. Nothing
+# graphic; no child is harmed; the young one taught is an adult or a young person in a trade. No real person, faith,
+# firm, army, hospital, school, country or year is named.
+
+# ---------------------------------------------------------------- the second try (cross cycle s2)
+
+== the calling, years later
+tier: echo
+rate: 0.1
+once: yes
+stages: young_adult adult mature elder
+age: 20-100
+times: per person who missed a long shot on one of the five callings' roads: about 1 in 8 meet the same kind of door again years later (estimate); many clerics, inventors, founders, officers and healers say they were taken on a later try, and few long shots land on the first one (estimate)
+tone: mixed
+life: work, meaning
+horizon: months
+roles: friend, partner, mentor, rival, boss
+earth: years after the long shot that missed, the same kind of door opens a crack: a great congregation writes, a firm asks after the old design, backers come back, an officer remembers the crossing, families send from far away
+tribal: winters after the attempt that failed, the same kind of call comes again from the far bands, for the keeper, the toolmaker, the trader, the leader of the guard or the healer
+magic: years after the attempt that failed, the same kind of letter comes again, under the same kind of seal
+after: a long shot missed in one of the five callings' long shots ('a sermon that goes round the country', 'the garage invention', 'the market stall that became a chain', 'the field commission', 'the remedy that worked'), holding [a long shot that missed], within the month of the miss; now 20 or more, not at a road's summit ([head of a faith order], [celebrated inventor], [magnate], [general], [renowned healer]); the try is for the same title again ({missed})
+delay: 3-15
+likelier: the work kept up since; much Red and Black in the colour history; time to spare; a mentor, old comrades or backers who remember
+rarer: stress above 1.5; little money; poor health
+scene: Years after the long shot that missed, the same kind of door opens a crack: a letter from a great congregation, a firm asking after the old design, backers who still remember the shop, an officer who remembers the crossing in the flood, a family travelling a long way to ask for {N} by name. {N} reads it twice, standing very still, and then sits down.
+scene W: The first time, {N} did what was asked and it was not enough. Since then {N} has learned how such doors are opened, step by step, and has kept every step.
+scene U: {N} has gone over the first attempt more often than anyone knows, and can say now exactly what was missing, and why it showed.
+scene B: The people who decide are older now, and some of them know {Ns} name. The odds are still long, but they are not the same odds.
+scene R: The old wanting comes back all at once, as sharp as the first time. {N} is older, and has long since stopped caring who thinks it foolish.
+scene G: {friend} has said for years that one try is not a life. The people who stood by {N} the first time are still here, and would stand by {N} again.
+scene tribal: Winters after the attempt that failed, a runner comes from the far bands with the same kind of call as before. {N} hears it at the edge of the firelight, and the old wanting stirs.
+scene magic: Years after the attempt that failed, a letter comes under the same kind of seal as the first, in a different clerk's hand. {N} reads it twice at the window, and does not go out that day.
+- W | answer by the book this time, every form and step done before the date | title: {missed} | grants_if_fails: a long shot that missed | self_control: + | v: conformity, security | tribal: answer the runner by the old way this time, every step kept before the moon turns | magic: answer under seal this time, every form and step done before the date | chance: 4
+- U | spend a year getting ready, and go back with everything learned since | title: {missed} | grants_if_fails: a long shot that missed | binds | mark: learned a skill | v: achievement, self-direction | tribal: spend a winter getting ready, and go back with everything learned since | chance: 4
+- B | go back only when someone who matters will speak for the try | title: {missed} | grants_if_fails: a long shot that missed | self_control: + | v: power, achievement | tribal: go back only when an elder of standing will speak for the try | magic: go back only when a patron of standing will speak for the try | chance: 4
+- R | go back at once, older and bolder, and stake everything on it | title: {missed} | grants_if_fails: a long shot that missed | identity | mark: took a wild risk | v: stimulation, self-direction | chance: 4
+- G | go back with everyone who stood by the first try behind it this time | title: {missed} | grants_if_fails: a long shot that missed | identity | mark: made a friend | v: tradition, benevolence | tribal: go back with your own band behind it this time, every hearth of it | magic: go back with your own ward behind it this time, every lane of it | chance: 4
+- W>B | let it pass for now, and keep a careful note of when the next door opens | habit | v: security, achievement | tribal: let it pass for now, and keep count of the moons until the next call | chance: 78
+- U>R | let it pass, and spend the year on something new that has caught the eye | door | v: self-direction, stimulation | tribal: let it pass, and spend the winter on something new that has caught the eye | chance: 78
+- B>G | put a younger one forward instead, and use your name to open the door | door | v: benevolence, power | tribal: name a younger one at the fire instead, and use your name to open the way | chance: 78
+- R>W | help a younger one try, and stand beside them through every step | self_control: + | v: benevolence, stimulation | chance: 78
+- G>U | let it pass, and go back to where the first try began, to learn it again | door | self_control: + | v: tradition, self-direction | chance: 78
+works: This time the answer is yes; {N} reads it twice, sits very still, and then goes out to tell the one person who stood by the first try.
+works: Whatever {N} chose, the second time feels different: steadier, and entirely {Ns} own.
+fails: It is the same kind of no as last time, nearly to the word, and {N} finds that it stings less, and is glad to have gone back at all.
+fails: The try gets further than before, and one person who matters says one true thing about it; {N} walks home the long way, in no hurry at all.
+
+# ---------------------------------------------------------------- making peace with it (cross cycle s3)
+
+== the long shot becomes a life of service
+tier: echo
+rate: 0.05
+once: yes
+stages: young_adult adult mature elder
+age: 25-100
+times: per person who missed a long shot on one of the five callings' roads: about 1 in 10 come to serve at the rung they hold, teach a young one or hold a door open for others, years later (estimate); many who teach the young in faith, engineering, business, the forces and healing once tried for something bigger themselves (estimate)
+tone: joy
+life: work, meaning, community
+horizon: years
+roles: friend, partner, colleague, mentor
+earth: years after the long shot that missed, a young one in the same trade asks for help, and the old attempt comes into the room with the one who made it
+tribal: winters after the attempt that failed, a young one of the band asks to learn, and the telling of the attempt comes with the teaching
+magic: years after the attempt that failed, a young one of the guild asks to be taught, and the tale of it comes with the teacher
+after: a long shot missed in one of the five callings' long shots (as for 'the calling, years later'), holding [a long shot that missed]; now 25 or more, not at a road's summit
+delay: 5-30
+likelier: years gone by since the attempt; teaching, a mentor or an apprentice of one's own; much White and Green in the colour history
+rarer: stress above 1.5; poor health
+scene: Years after the long shot that missed, a young one turns up at {Ns} door with the same look {N} once had: a new minister with a sermon in a folder, an apprentice with a drawing of a machine, a shop assistant with a plan, a soldier who wants to lead, a student nurse who wants to know how it is done. Before anything else, the young one asks whether {N} ever tried for something big.
+scene W: {N} tells it straight: what was asked, what {N} gave, and the answer that came back. Then the two of them start on the work, because that is how it should be done.
+scene U: Over the years {N} has understood the attempt better than at the time: what the people who chose were looking for, and what {N} had not yet learned. That is worth passing on.
+scene B: It has become a good story, and {N} knows how to tell it: the long odds, the nerve, the near thing at the end. A story like that opens doors for whoever hears it.
+scene R: The ache has mostly gone, and what is left is the memory of the nerve it took. {N} would like the young one to feel that once.
+scene G: The attempt is part of {Ns} life now, like the old house and the long friendships. What matters today is the young one at the door, who is nervous and trying not to show it.
+scene tribal: One winter a young one of the band asks {N} to teach them, and asks too whether it is true that {N} once went to the far bands for something great and came back without it. The fire goes quiet to hear the telling.
+scene magic: A young one of the guild asks {N} to teach them, and asks too whether {N} once tried for the great hall and was turned away. The workshop goes quiet to hear the tale.
+- W | serve at the post already held, every week for years, and never miss a duty | grants: good name in town | identity | mark: kept your word | v: benevolence, conformity | tribal: keep your place in the band's work, every day for years, and never miss a duty | magic: serve at the post already held, every rest day for years, and never miss a duty | chance: 78
+- U | take the young one on, and teach them everything the long shot taught | grants: apprentice of one's own | habit | v: achievement, benevolence | tribal: take the young one at your side, and teach them everything the long try taught | chance: 78
+- B | use the name the attempt made to raise a fund for the young who try next | identity | v: power, benevolence | tribal: use the name the attempt made to gather gifts for the young ones who try next | magic: use the name the attempt made to raise a purse for the young who try next | chance: 78
+- R | let the old attempt go for good, and throw everything into the work at hand | habit | v: hedonism, stimulation | chance: 78
+- G | tell the whole story to the family one evening, and let them keep it | v: tradition, benevolence | tribal: tell the whole telling to your own hearth one night, and let them keep it | chance: 78
+- W>R | hold the door open: speak up for every newcomer who tries what you tried | door | v: universalism, benevolence | tribal: hold the way open: speak at the fire for every young one who tries what you tried | chance: 78
+- U>G | write down what the attempt taught, and leave it where the young will find it | self_control: + | mark: learned a skill | v: universalism, tradition | tribal: put what the attempt taught into a telling, and leave it with the band's young | magic: write out what the attempt taught, and leave the pages in the guild's library | chance: 78
+- B>W | set up a small yearly prize in the trade for the best first attempt | binds | grants: good name in town | v: power, universalism | tribal: give a fine gift each summer to the young one of the band whose first try was boldest | magic: found a small yearly purse in the guild for the best first attempt | chance: 78
+- R>U | talk the whole attempt through, all night, with the friend who was there | door | v: stimulation, self-direction | tribal: talk the whole attempt through by the fire, all night, with the friend who was there | chance: 78
+- G>B | help the town's young ones set up on their own, as the attempt once tried to | habit | v: benevolence, achievement | tribal: help the band's young ones make their own way, as the attempt once tried to | magic: help the ward's young ones set up on their own, as the attempt once tried to | chance: 78
+works: The young one comes back the next week, and the week after, and years later tells someone else that it all began at {Ns} door.
+works: Whatever {N} chose, the old attempt has found its place in the life, and {N} no longer flinches when it comes up.
+fails: The young one drifts off after a month, and {N} goes back to the work with the old story still untold.
+fails: Someone asks whether it was worth it, the answer comes out sharper than {N} meant, and {N} turns it over for a week.

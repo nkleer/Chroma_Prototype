@@ -61,7 +61,7 @@ for r, _, fs in sorted(os.walk(PIN)):
         elif not filecmp.cmp(os.path.join(PIN, rel), src, shallow=False):
             print(f"MISS {rel}: differs from {src}"); ok = False
 need = ["engine.py", "library.py", "combos.py", "batch.py", "earth_rules.py", "foresee.py", "explain.py", "life.py",
-        "schwartz.py"] + sorted(f for f in os.listdir(EN) if f.startswith("world") and f.endswith(".py")
+        "schwartz.py", "realm_earth.py"] + sorted(f for f in os.listdir(EN) if f.startswith("world") and f.endswith(".py")
                                  and not f.startswith(("world_stats", "world_check", "world_test")))
 for f in need:
     if not os.path.exists(os.path.join(PIN, f)):

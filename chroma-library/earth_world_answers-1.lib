@@ -1,0 +1,584 @@
+# Chroma library, modern Earth: THE WORLD ANSWERS, writer 1 (spec chroma-world/spheres/world-answers-v1.md, 10-19).
+# Spheres rule, prot, care. Nothing reads these until the Engine's world_answers switch is on.
+#   E4 the sphere asks (cast_want asked_help rung 2, asked_lead rung 3, asked_speak rung 4): one moment each, tier
+#      everyday, {place} the place in that sphere, five one-colour ways and one cross cycle; yes ways carry
+#      lever: loyalty or lead, bargains lever: voice or office, a no lever: exit or neglect; one or two foot: each.
+#   F2 decisions for others (tier: decision, cast_want: decide): four a sphere, 40 options, each colour leads 8.
+#      rule  the late hours of the square W B R G | the ruling on the old footpath U G B>W
+#            who sits on the council's committees W U R | the bill on recalling officials G R>W U>B
+#      prot  how the watch walks the town at night W U B G | who goes out with the rescue team W R B
+#            the watch at the march W U R G>W | who oversees the watch U>W B G
+#      care  who the clinic sees first W U B R | the days at the care home G R B>G
+#            the food bank's open door W B G | the reform of care for the old W U R>G
+# Syntax: header of build.py. Footprints: FOOTPRINTS.md.
+
+# ================================================================ E4: rule
+
+== the doorsteps before the crossing vote
+tier: everyday
+stages: young_adult adult mature elder
+age: 20-90
+calls: UG
+rate: 1
+tone: mixed
+life: community, work
+horizon: months
+roles: colleague, elder, regular
+cast_want: asked_help
+sphere: rule
+earth: you are a familiar face at the town's committee: they ask you to give your evenings to knocking on doors before a vote
+gap: 3-8
+scene: {N} has been a familiar face at {place} for two years now. After the meeting {colleague} catches {N} by the coats: the council votes on the new road crossing in six weeks, and the committee wants to know what every street thinks before it does. Could {N} give two evenings a week to knocking on doors with a clipboard? It is cold work, and most people only want to talk about the bins.
+scene W: If the committee is going to speak for the streets, someone has to ask every street, not only the loud ones.
+scene U: Nobody actually knows what the town thinks about the crossing; {N} could be one of the few who finds out.
+scene B: A season of doorsteps would put {Ns} face in front of half the ward, and the councillors would notice.
+scene R: Six weeks of evenings with a clipboard sounds like a long, grey stretch, unless it can be made into something livelier.
+scene G: These are {Ns} own streets, and the people behind the doors are the people {N} has always lived among.
+- W | take two evenings a week and cover every street on the list, fairly | lever: loyalty | v: conformity, universalism | foot: place rule.counsel | chance: 80
+- U | say yes, and draw up a short survey so the answers can be counted | lever: loyalty | v: achievement, self-direction | foot: place rule.voice | chance: 75
+- B | agree, on condition the report names who gathered it | lever: voice | v: achievement, power | foot: person patron | chance: 70
+- R | say no to the clipboard, and keep the evenings free | lever: exit | v: self-direction, hedonism | foot: means time+.06 | chance: 90
+- G | take only the home streets, where every door already opens | lever: loyalty | v: benevolence, tradition | foot: person neighbour | chance: 85
+- W>U | offer instead to keep the committee's record of every answer | lever: loyalty | v: conformity, achievement | foot: person colleague | chance: 80
+- U>B | tally what each street wants and show the councillors where the votes lie | lever: voice | v: power, achievement | foot: lesson numbers move a council | chance: 65
+- B>R | say yes to be polite, and let the clipboard gather dust | lever: neglect | v: hedonism, power | foot: door broke your word | chance: 90
+- R>G | make a street party of it, and ask people their views over cake | lever: loyalty | v: stimulation, benevolence | foot: person friend | chance: 70
+- G>W | go door to door with the oldest neighbour, who knows every family | lever: loyalty | v: tradition, universalism | foot: person elder | chance: 80
+works: By the vote the committee has a stack of answers from every street, and the councillors read them aloud.
+works: People {N} has passed for years start nodding to {N} in the shop, as if {N} had become a bit of the town's furniture.
+fails: Half the doors stay shut, and the report that goes to the council is thinner than anyone hoped.
+fails: The crossing vote goes the way it was always going to go, and {colleague} wonders aloud what the evenings were for.
+
+== the chair of the planning committee
+tier: everyday
+stages: adult mature elder
+age: 25-90
+calls: WB
+rate: 1
+tone: mixed
+life: community, work
+horizon: years
+roles: colleague, elder, rival
+cast_want: asked_lead
+sphere: rule
+earth: you are well known at the town's committee: its members ask you to chair the planning committee
+gap: 3-8
+scene: The chair of the planning committee at {place} is stepping down after eleven years, and {colleague} says the members have talked it over: they would like {N} to take it on. It means every second Tuesday, a stack of plans to read, and neighbours who will stop {N} in the street over every extension and every shopfront. Nobody else has said yes.
+scene W: A committee that decides what the town may build owes everyone the same hearing, and someone has to hold it to that.
+scene U: Plans are long and dull and full of things that matter, and most members only read the first page.
+scene B: The chair of planning is where the town's quiet power sits; whoever holds it is owed a great many favours.
+scene R: Every second Tuesday in a committee room, for years, is a weight; {N} would want to bring some air into it.
+scene G: The committee has its old members and its old ways, and they would want the new chair to be one of them.
+- W | take the chair, and run every meeting by the standing orders | lever: lead | lead: rules | v: conformity, universalism | foot: place rule.counsel | chance: 75
+- U | take it, and read every plan in full before each meeting | lever: lead | lead: knowing | v: achievement, self-direction | foot: mark learned a skill | chance: 70
+- B | accept, and ask for a seat on the town's budget board in return | lever: office | v: power, achievement | foot: person patron | chance: 60
+- R | turn it down, and keep arguing from the public seats instead | lever: exit | v: self-direction, stimulation | foot: door turned down a chance | chance: 90
+- G | agree to stand in for one year, until an old member can take it | lever: loyalty | v: tradition, security | foot: person elder | chance: 80
+- W>B | take the chair, and make the committee's word carry weight with the council | lever: lead | lead: rules | v: power, conformity | foot: person rival | chance: 65
+- U>R | propose a rotating chair instead, so new members take a turn | lever: voice | v: self-direction, universalism | foot: person colleague | chance: 65
+- B>G | accept, and give the longest-serving members the seats of honour | lever: lead | lead: favours | v: power, tradition | foot: person friend | chance: 70
+- R>W | say yes on one condition: every meeting opens to the public | lever: lead | lead: inspiring | v: universalism, stimulation | foot: place rule.voice | chance: 60
+- G>U | decline, and put forward the quiet member who has read every plan for years | lever: exit | v: benevolence, tradition | foot: means time+.05 | chance: 85
+works: Within a year the planning meetings at {place} run the way {N} wanted, and fewer neighbours shout in the street.
+works: {colleague} tells the others it was the right choice, and says so where the old members can hear it.
+fails: The first big plan splits the committee down the middle, and both halves blame the chair.
+fails: {rival} lets it be known around town that the committee has never been slower.
+
+== the hearing on the town's budget
+tier: everyday
+stages: adult mature elder
+age: 30-90
+calls: BR
+rate: 1
+tone: mixed
+life: community, work
+horizon: months
+roles: colleague, rival, neighbour
+cast_want: asked_speak
+sphere: rule
+earth: you are one of the town committee's best-known names: the council wants you to speak for the town at a public hearing
+gap: 3-8
+scene: The town's budget is going before a public hearing in the county hall, and the cuts on the table would close two of the ward offices. The council wants one voice from {place} to stand up for the town's side, someone people know and will listen to. {colleague} brings the letter round: they want {N}. The hall will be full, there will be cameras, and whatever {N} says will be quoted back for years.
+scene W: The town has an agreed position, worked out over months; speaking for it means speaking for everyone who worked it out.
+scene U: The cuts rest on figures, and most of the people in that hall will not have read them.
+scene B: A full hall and cameras: there will not be many better chances for {Ns} name to be known.
+scene R: {N} has strong feelings about the ward offices, and a hall is where feelings can move people.
+scene G: The wards that would lose their offices are the old streets; it is their people who should be heard.
+- W | agree, and speak to the council's agreed position, word for word | lever: loyalty | v: conformity, security | foot: place rule.counsel | chance: 75
+- U | agree, and build the speech on the figures nobody else has read | lever: lead | v: achievement | foot: mark learned a skill | chance: 70
+- B | say yes, and make sure the papers know whose speech it is | lever: lead | v: power, achievement | foot: person rival | chance: 70
+- R | speak, and say what is really felt, the agreed line or not | lever: voice | v: self-direction, stimulation | foot: door defied an authority | chance: 60
+- G | decline, and ask someone from the wards losing their offices to speak | lever: exit | v: benevolence, tradition | foot: person neighbour | chance: 85
+- W>R | agree, and bring three residents from the wards to speak alongside | lever: lead | v: universalism, benevolence | foot: place rule.voice | chance: 65
+- U>G | write the speech for someone else to give, and sit in the gallery | lever: loyalty | v: security, achievement | foot: person colleague | chance: 80
+- B>W | agree, in return for a promise that the wards get a vote on any cut | lever: voice | v: power, universalism | foot: door kept your word | chance: 55
+- R>U | speak from the heart, then hand out the full figures at the door | lever: lead | v: stimulation, self-direction | foot: person friend | chance: 65
+- G>B | say no, with thanks: this season belongs to home | lever: exit | v: tradition, security | foot: means time+.06 | chance: 95
+works: The hearing ends with the ward offices still open, and people stop {N} for weeks to say they heard it.
+works: The words from that afternoon end up in the paper, and the council asks {N} back the next time.
+fails: The cuts go through anyway, and the cameras catch the moment the hall stops listening.
+fails: {rival} gives a sharper speech straight after, and that is the one people repeat.
+
+# ================================================================ E4: prot
+
+== the flood weekends at the rescue post
+tier: everyday
+stages: young_adult adult mature elder
+age: 20-80
+calls: RG
+rate: 1
+tone: mixed
+life: community, health
+horizon: months
+roles: colleague, neighbour, elder
+cast_want: asked_help
+sphere: prot
+earth: you volunteer with the rescue team: the river is high and they ask you to give your weekends until it goes down
+gap: 3-8
+scene: The river is high again this spring, and the volunteer rescue team at {place} is short of hands. {colleague} rings on a Thursday: would {N} give the weekends until the water goes down, filling sandbags, driving the van, sitting up with the radio overnight? It is cold, wet work, and it might be most weekends until summer.
+scene W: A team only works if people turn up when they said they would, and the rota has holes in it.
+scene U: Half the trouble on flood nights is not knowing where the water will go next.
+scene B: The rescue team is well thought of in town, and a hard spring on it would be noticed.
+scene R: There is something in {N} that wakes up at the thought of the boats out on a dark, rushing night.
+scene G: The low streets flood every few years, and the people there have always turned out for each other.
+- W | sign up for the full rota, every weekend until the water goes down | lever: loyalty | v: conformity, benevolence | foot: place prot.rescue | chance: 80
+- U | say yes, and keep the radio log and the river readings | lever: loyalty | v: achievement, security | foot: mark learned a skill | chance: 75
+- B | give one weekend in three, and ask for the first-aid course in return | lever: voice | v: achievement, self-direction | foot: person colleague | chance: 70
+- R | skip the rota, but come out on the worst nights when the call goes up | lever: voice | v: stimulation | foot: mark took a wild risk | chance: 65
+- G | turn out with the neighbours from the low street, as everyone there does | lever: loyalty | v: tradition, benevolence | foot: person neighbour | chance: 85
+- W>G | drive round the old people on the low streets and check on each one | lever: loyalty | v: benevolence, universalism | foot: door helped someone in need | chance: 80
+- U>W | decline the sandbags, but draw up the team a proper call-out list | lever: voice | v: self-direction, conformity | foot: lesson a good list saves hours | chance: 80
+- B>U | say no: the weekends go to studying for the next step up | lever: exit | v: achievement | foot: means time+.06 | chance: 90
+- R>B | join the boat crew, where the hardest work is and where it shows | lever: loyalty | v: stimulation, power | foot: person friend | chance: 65
+- G>R | say not this year: the house and the garden need every weekend | lever: neglect | v: security, hedonism | foot: door turned down a chance | chance: 90
+works: The water goes down in May, and the team's chief shakes {Ns} hand in front of everyone at the post.
+works: One of the families on the low street brings round a cake with a note, and {N} keeps the note.
+fails: The rota falls apart in the third week, and the worst night finds the post half empty.
+fails: The cold gets into {Ns} chest, and the last weekends are spent coughing in a wet coat.
+
+== the new volunteers need a trainer
+tier: everyday
+stages: adult mature elder
+age: 25-80
+calls: WU
+rate: 1
+tone: mixed
+life: work, community
+horizon: years
+roles: boss, colleague, mentor
+cast_want: asked_lead
+sphere: prot
+earth: you are trusted in the watch's volunteer section: they ask you to train this year's new volunteers
+gap: 3-8
+scene: The watch's volunteer section at {place} has taken on eight new people this year, and {boss} wants someone who has been around long enough to train them: the rules, the radios, how to talk someone down on a bad night. {N} has the hours in and the trust of the old hands. It is two evenings a week, and the blame when a new one gets it wrong.
+scene W: The new ones will do whatever they are shown, so what they are shown had better be right, and the same for all.
+scene U: The manual says one thing and the streets teach another; {N} knows which one keeps people safe.
+scene B: Whoever trains the new intake has a say in who rises, and that is worth something.
+scene R: Two evenings a week in a classroom is the last thing {N} joined the watch for.
+scene G: {N} was trained by {mentor}, walking the streets side by side, and that is how {N} learned what mattered.
+- W | take it on, and teach the procedures exactly as the manual sets them | lever: lead | lead: rules | v: conformity, security | foot: place prot.watch | chance: 75
+- U | take it on, and rewrite the course from what really happens on the streets | lever: lead | lead: knowing | v: achievement, self-direction | foot: mark learned a skill | chance: 65
+- B | accept, if it comes with a rank and a say in who is taken on | lever: office | v: power | foot: person rival | chance: 60
+- R | decline, and stay out on the streets where the work is | lever: exit | v: stimulation, self-direction | foot: door turned down a chance | chance: 90
+- G | train them the old way, out walking the beat beside them | lever: lead | lead: custom | v: tradition, security | foot: person colleague | chance: 80
+- W>U | agree, and set every recruit a fair test before they go out alone | lever: lead | lead: rules | v: conformity, achievement | foot: lesson a fair test protects everyone | chance: 70
+- U>B | take it on, and pick out the two best for the quick road up | lever: lead | lead: knowing | v: achievement, power | foot: means time-.06 | chance: 65
+- B>R | agree to one season only, and keep the night shifts | lever: voice | v: self-direction, power | foot: means freedom+.04 | chance: 75
+- R>G | take them on as a crew, with suppers after the long shifts | lever: lead | lead: inspiring | v: benevolence, hedonism | foot: person friend | chance: 75
+- G>W | say no, and put forward the old hand who has waited years for the job | lever: exit | v: benevolence, tradition | foot: person elder | chance: 85
+works: By the end of the year the new ones are out on their own, and {boss} says they are the steadiest intake in a long while.
+works: One of the recruits rings {N} months later, after a hard night, just to say the training held.
+fails: Two of the eight drop out before spring, and {boss} asks pointedly what went wrong.
+fails: A new volunteer makes a mess of a call that everyone hears about, and the trainer gets the questions.
+
+== the town meeting on the night post
+tier: everyday
+stages: adult mature elder
+age: 30-85
+calls: WR
+rate: 1
+tone: mixed
+life: community, work
+horizon: months
+roles: boss, colleague, neighbour
+cast_want: asked_speak
+sphere: prot
+earth: you are one of the rescue station's best-known people: the town wants to close its night post and the station asks you to speak for it
+gap: 3-8
+scene: The town wants to close the rescue station's night post to save money, and there is a public meeting on Thursday. {boss}, who runs the station, asks {N} to speak for {place}: people trust {N}, and {N} has been out on enough nights to say what the post is for. The council will be on the stage, and the papers in the front row.
+scene W: The post exists for everyone in the town, including the ones who will never know they needed it; someone should say so.
+scene U: {N} knows the call-out times, and the times show what the post is worth better than any speech.
+scene B: A full hall and the papers in the front row: whoever saves the night post will be remembered for it.
+scene R: {N} remembers the night on the ice, and the faces in the hall should feel what that night was like.
+scene G: The families the post has helped over the years are the ones whose word should count most.
+- W | speak, and set out plainly what the post has done, call by call | lever: loyalty | v: universalism, security | foot: place prot.rescue | chance: 75
+- U | agree, and bring the response times for every night of the last five years | lever: loyalty | v: achievement | foot: person colleague | chance: 70
+- B | speak, and ask for a seat on whatever review comes after | lever: office | v: power, achievement | foot: person patron | chance: 60
+- R | speak from the heart about the night on the ice, and let the hall feel it | lever: lead | v: stimulation, benevolence | foot: person friend | chance: 65
+- G | decline the stage, and ask the families the post has helped to speak instead | lever: exit | v: benevolence, tradition | foot: person neighbour | chance: 80
+- W>B | speak for the post, and propose a smaller night crew that still covers the town | lever: voice | v: security, power | foot: door kept your word | chance: 65
+- U>R | write it all down for the station's head to read out, and stay off the stage | lever: loyalty | v: self-direction, security | foot: person boss | chance: 80
+- B>G | speak, and see that the old families in the front rows are thanked by name | lever: lead | v: power, tradition | foot: person elder | chance: 70
+- R>W | turn the meeting into a rally, and call on everyone to sign the petition | lever: lead | v: stimulation, universalism | foot: place rule.voice | chance: 60
+- G>U | say no: the station's head knows the work better and should speak | lever: exit | v: tradition, security | foot: means time+.04 | chance: 90
+works: The council puts the closure off for a year, and the post's lights stay on through the winter.
+works: For weeks afterwards strangers at the shops tell {N} they were in the hall that night.
+fails: The council closes the night post anyway, by two votes, and the hall empties in silence.
+fails: The paper prints one clumsy sentence of {Ns} and nothing else, and it follows {N} around for a while.
+
+# ================================================================ E4: care
+
+== the Saturday food drive
+tier: everyday
+stages: young_adult adult mature elder
+age: 18-90
+calls: WG
+rate: 1
+tone: mixed
+life: community
+horizon: months
+roles: colleague, neighbour, boss
+cast_want: asked_help
+sphere: care
+earth: you help out at the charity: they ask you to give your Saturdays to the winter food drive
+gap: 3-8
+scene: The charity at {place} runs a food drive every Saturday through the winter, and since two of the regulars moved away there is a gap on the rota. {colleague} asks {N}, a little shyly, over the tea urn: could {N} give Saturdays until spring, sorting the tins, packing the boxes, driving them round?
+scene W: Somebody has to fill the gap, and the families waiting on the boxes do not care whose turn it was.
+scene U: The stockroom is a muddle of tins and dates, and {N} can see how much better it could run.
+scene B: Saturdays are worth something to {N}, and it is fair to ask what giving them would bring.
+scene R: A whole winter of Saturdays in a cold hall sounds like a long time, unless it can be fun.
+scene G: The drive has always run on neighbours helping neighbours, and {N} is one of them now.
+- W | give every Saturday until spring, and turn up on time | lever: loyalty | v: benevolence, conformity | foot: place gather.hall | chance: 85
+- U | say yes, and sort out the stock list so nothing goes past its date | lever: loyalty | v: achievement, security | foot: mark learned a skill | chance: 80
+- B | give two Saturdays a month, and ask for a say in how the boxes are shared | lever: voice | v: power, self-direction | foot: person colleague | chance: 70
+- R | skip the rota, and drop in on the mornings that feel right | lever: neglect | v: hedonism, self-direction | foot: means freedom+.04 | chance: 90
+- G | say yes, and bring the household along to pack the boxes | lever: loyalty | v: benevolence, tradition | foot: means ties+.05 | chance: 80
+- W>R | sign up, and start a Saturday breakfast for the volunteers too | lever: loyalty | v: benevolence, hedonism | foot: person friend | chance: 75
+- U>G | take the van round the outlying farms, where nobody knows the drive exists | lever: loyalty | v: universalism, benevolence | foot: door helped someone in need | chance: 70
+- B>W | decline the Saturdays, and get the workplace to give a month of stock | lever: voice | v: benevolence, power | foot: person boss | chance: 60
+- R>U | put out a lively appeal on the local radio, and count what comes in | lever: voice | v: stimulation, achievement | foot: person go-between | chance: 65
+- G>B | say no: Saturdays belong to home, and home needs them | lever: exit | v: tradition, security | foot: means time+.05 | chance: 95
+works: By spring the drive has never missed a Saturday, and the boxes go out fuller than last year.
+works: {colleague} saves {N} a seat by the tea urn every week, and the two of them become a fixture of the place.
+fails: The cold hall and the early starts wear thin, and by February the gap on the rota is back.
+fails: A van breaks down on the busiest Saturday, and twenty households wait for boxes that come a day late.
+
+== the carers' group needs someone to run it
+tier: everyday
+stages: adult mature elder
+age: 25-90
+calls: UG
+rate: 1
+tone: mixed
+life: community, health
+horizon: years
+roles: colleague, friend, boss
+cast_want: asked_lead
+sphere: care
+earth: you have gone to the carers' group for years: its founder is leaving and asks you to take it on
+gap: 3-8
+scene: For three years {N} has gone to the carers' group at {place}, the Tuesday evenings where people who look after someone at home sit with tea and say what they cannot say anywhere else. The woman who has run it since the start is moving away to be near her daughter, and at the last meeting she asked {N}, in front of everyone, whether {N} would take it on.
+scene W: A group like this keeps people safe only if it is there every week, with the same rules, whoever turns up.
+scene U: Half the questions asked on Tuesdays have answers that nobody in the room knows.
+scene B: The group could be more than a room and a kettle, if someone used what it has.
+scene R: Holding everyone's worries every Tuesday would be a lot, and {N} has worries of {Ns} own.
+scene G: The group has its own ways, its chairs and its biscuits, and people come back for exactly that.
+- W | take it on, with set times, ground rules and a sign-in sheet | lever: lead | lead: rules | v: conformity, security | foot: place gather.talk | chance: 75
+- U | take it on, and bring in a nurse each month to answer the hard questions | lever: lead | lead: knowing | v: achievement, benevolence | foot: person colleague | chance: 70
+- B | agree, if the clinic pays for the room and puts the group in its leaflet | lever: voice | v: power, security | foot: person patron | chance: 60
+- R | say no: holding everyone else's worries every week is too much just now | lever: exit | v: self-direction | foot: means health+.04 | chance: 90
+- G | carry it on as she ran it, the same chairs and the same biscuits | lever: loyalty | v: tradition, benevolence | foot: person friend | chance: 85
+- W>G | take it on, and ring every member who has stopped coming | lever: lead | lead: rules | v: benevolence, conformity | foot: door helped someone in need | chance: 75
+- U>W | run it for a year while writing down how it works, for whoever comes next | lever: loyalty | v: security, achievement | foot: lesson write it down for later | chance: 75
+- B>U | decline the running of it, but find a grant for a paid organiser | lever: voice | v: achievement, power | foot: means time+.03 | chance: 55
+- R>B | take it on, and grow it into the biggest carers' group in town | lever: lead | lead: inspiring | v: stimulation, achievement | foot: place care.houses | chance: 60
+- G>R | share it with two of the others, taking turns, as friends do | lever: loyalty | v: benevolence, hedonism | foot: person regular | chance: 80
+works: The Tuesdays go on, a little different and just as full, and the founder writes from her new town to say she heard.
+works: A newcomer who sat silent for weeks finally speaks one evening, and {N} knows why the group matters.
+fails: Attendance drops by half in the first season, and {N} spends Tuesdays wondering what changed.
+fails: An argument between two members spills over, and {N} is the one who has to sort it out.
+
+== the clinic's case before the council
+tier: everyday
+stages: adult mature elder
+age: 30-90
+calls: WBR
+rate: 1
+tone: mixed
+life: community, health
+horizon: months
+roles: boss, colleague, rival
+cast_want: asked_speak
+sphere: care
+earth: you are one of the clinic's best-known people: the council is deciding its funding and the clinic asks you to speak for it
+gap: 3-8
+scene: The council is deciding whether to keep funding the evening clinic at {place}, and the clinic wants someone the town knows to speak for it at the open session. {boss} asks {N}: a doctor would sound like asking for money, but {N} has been there for years and people listen. There are ten minutes on the agenda and a vote straight after.
+scene W: The evening clinic is there for anyone who cannot come in the day; that is the case, and it is a fair one.
+scene U: The council will vote on a line in a budget unless someone shows them what the line pays for.
+scene B: Councillors care about their seats, and the clinic's patients are a great many votes.
+scene R: Ten minutes is enough to make a room feel what one evening at the clinic is like.
+scene G: The people who use the clinic are the town's own, and they should not need a stranger to speak for them.
+- W | speak for every patient, and ask that the clinic stay open to all | lever: loyalty | v: universalism, benevolence | foot: place rule.counsel | chance: 70
+- U | agree, and set out who uses the evening hours and what they save | lever: loyalty | v: achievement | foot: person colleague | chance: 70
+- B | speak, and remind the councillors who will remember their vote | lever: lead | v: power | foot: person rival | chance: 60
+- R | tell the story of one evening at the clinic, and leave the room quiet | lever: lead | v: benevolence, stimulation | foot: person friend | chance: 65
+- G | decline: a patient from the estate should speak, not someone with standing | lever: exit | v: tradition, benevolence | foot: person neighbour | chance: 85
+- W>U | agree, and ask the council for an independent count before any cut | lever: voice | v: universalism, achievement | foot: door kept your word | chance: 60
+- U>B | brief the councillors one by one, so the vote is won before the session | lever: lead | v: power, achievement | foot: person patron | chance: 65
+- B>R | take the case to the local paper instead of the council chamber | lever: voice | v: self-direction, power | foot: person go-between | chance: 60
+- R>G | bring the waiting room's regulars along to fill the public seats | lever: lead | v: benevolence, stimulation | foot: place rule.voice | chance: 70
+- G>W | say no this time: the season at home is too full | lever: neglect | v: security, tradition | foot: means time+.05 | chance: 95
+works: The vote goes the clinic's way, and the evening doors stay open for another three years.
+works: {boss} puts a copy of the council's minutes on the staff room wall, with {Ns} name in them.
+fails: The council cuts the evening hours to two nights a week, and the waiting room fills on those two.
+fails: {rival} stands up after and calls the clinic a luxury, and that is what the paper prints.
+
+# ================================================================ F2: rule
+
+== the late hours of the square
+tier: decision
+cast_want: decide
+sphere: rule
+stages: adult mature elder
+age: 25-90
+tone: mixed
+life: community, work
+horizon: years
+roles: colleague, rival, regular
+earth: the council must settle how late the square may trade and play, and {N}'s word now carries
+scene: Every summer the square fills later and louder: the cafes want to stay open past midnight, the flats above want to sleep, and the market traders want their pitches clear by dawn. The council has argued about it for two years. Now the bylaw sits with {N}, and what {N} proposes is what the council will pass.
+- W | one closing hour for every venue in the square, the same all year | v: conformity, universalism | scope: town_sphere | chance: 70
+- B | late licences for any venue that applies and pays the fee | v: achievement, power | scope: town_sphere | chance: 65
+- R | let the square stay open late on summer weekends, and see how it goes | v: hedonism, stimulation | scope: town_sphere | chance: 60
+- G | keep the old market-day hours, written into the bylaw | v: tradition, security | scope: town_sphere | chance: 75
+works: The square settles into its new rhythm within a season, and the letters to the council thin out.
+works: {colleague} says it is the first bylaw in years that nobody has tried to overturn.
+fails: The flats and the cafes both feel cheated, and the complaints keep coming to {Ns} door.
+fails: {rival} gets the bylaw sent back for review, and the summer passes under the old muddle.
+
+== the ruling on the old footpath
+tier: decision
+cast_want: decide
+sphere: rule
+stages: adult mature elder
+age: 25-90
+tone: mixed
+life: community
+horizon: years
+roles: colleague, rival, elder
+earth: a landowner has fenced an old footpath, and the panel {N} chairs must rule on it
+scene: A landowner has fenced the footpath that runs along the old mill race, saying it was never a right of way. Half the town walked it as children; the other half has never heard of it. The dispute has come to the council's rights-of-way panel, which {N} now chairs, and the ruling will set the rule for every path like it.
+- U | commission a survey of the old deeds, and rule by what they show | v: achievement, universalism | scope: town_sphere | chance: 70
+- G | rule for the path as the town has always walked it | v: tradition, security | scope: town_sphere | chance: 70
+- B>W | sell the strip to the landowner, and spend the money on the town's other paths | v: power, universalism | scope: town_sphere | chance: 60
+works: The ruling holds, and within a year the path is simply part of how the town gets about.
+works: {elder} writes to the paper to say the panel has done right by the town, and others agree.
+fails: The landowner appeals, and the path stays fenced while the lawyers take their time.
+fails: {rival} says the panel decided before it listened, and the panel's next ruling is watched closely.
+
+== who sits on the council's committees
+tier: decision
+cast_want: decide
+sphere: rule
+stages: adult mature elder
+age: 25-90
+tone: mixed
+life: community, work
+horizon: years
+roles: colleague, rival, boss
+earth: the council asks {N} to propose a new way of filling its committees
+scene: The council's committees have been filled the same way for as long as anyone remembers: the members pick each other. Turnout is low, the same names keep coming round, and the papers have started calling it a closed shop. {N} has been asked to put forward a new way, and the council will take whatever {N} brings.
+- W | open every committee seat to election by the wards | v: universalism, conformity | scope: town_sphere | chance: 65
+- U | appoint members by what they know of the matter in hand | v: achievement, self-direction | scope: town_sphere | chance: 70
+- R | draw some members by lot from the residents, for one year at a time | v: universalism, stimulation | scope: town_sphere | chance: 55
+works: The new committees meet for the first time with faces nobody has seen there before, and the papers notice.
+works: {colleague} admits, after a year, that the meetings are better than they used to be.
+fails: The first year is slow and quarrelsome, and the old members say they told everyone so.
+fails: {rival} wins the council round to a review, and the change is put on hold.
+
+== the bill on recalling officials
+tier: decision
+cast_want: decide
+sphere: rule
+stages: adult mature elder
+age: 30-90
+tone: mixed
+life: community, work
+horizon: years
+roles: colleague, rival, boss
+earth: a national bill would let residents recall their officials by petition, and {N} is asked where the town stands
+scene: A bill in the national assembly would let residents remove any local official before the end of a term, if enough of them sign a petition. {Ns} name now carries beyond the town, and both sides want it. The minister's office has asked {N} to give evidence, and the town council wants to know which way {N} will go before it decides its own position.
+- G | keep the town's charter as it stands: it has served for generations | v: tradition, security | scope: town_sphere | chance: 70
+- R>W | back the bill: any official can be recalled if enough residents sign | v: self-direction, universalism | scope: nation | chance: 45
+- U>B | propose a trial in this town first, with every result measured and published | v: achievement, self-direction | scope: town_sphere | chance: 60
+works: {Ns} evidence is quoted in the assembly, and the town's own council follows {N} the same week.
+works: The way {N} put it becomes the way people in town talk about the question.
+fails: The assembly hears {N} out and does what it was going to do anyway.
+fails: {rival} paints {Ns} evidence as one person's hobby horse, and some of it sticks.
+
+# ================================================================ F2: prot
+
+== how the watch walks the town at night
+tier: decision
+cast_want: decide
+sphere: prot
+stages: adult mature elder
+age: 25-90
+tone: mixed
+life: community, work
+horizon: years
+roles: boss, colleague, rival
+earth: the watch must settle how it covers the town after dark, and {N} has the say
+scene: After a winter of break-ins on the east side, the watch at {place} is rethinking how it covers the town at night. There are only so many officers and so many hours. {boss} has asked {N} to decide the new plan, and whatever {N} chooses will be how the town is walked for years.
+- W | fixed patrols on every street, the same for every ward | v: universalism, security | scope: town_sphere | chance: 70
+- U | send the patrols where the figures show the trouble is | v: achievement, security | scope: town_sphere | chance: 70
+- B | let traders who pay towards it have extra patrols on their streets | v: power, security | scope: town_sphere | chance: 65
+- G | bring back officers who walk the same streets for years and know the families | v: tradition, benevolence | scope: town_sphere | chance: 65
+works: The break-ins fall off by spring, and people on the east side start leaving their lights off again.
+works: {colleague} says the night shifts have never run so smoothly.
+fails: The trouble simply moves to the streets the patrols do not cover, and the letters follow it.
+fails: {rival} calls the plan a waste of good officers, and the council starts asking the same.
+
+== who goes out with the rescue team
+tier: decision
+cast_want: decide
+sphere: prot
+stages: adult mature elder
+age: 25-90
+tone: mixed
+life: community, health
+horizon: years
+roles: colleague, boss, rival
+earth: the rescue team has more volunteers than it can safely send, and {N} must set how it takes people on
+scene: The rescue team at {place} has twice as many willing volunteers as it can safely send out, and two near misses this year. The old hands want stricter rules, the new ones want to be useful now, and the treasurer says the team cannot go on unpaid much longer. {N} has been asked to set how the team takes people on.
+- W | every volunteer passes the full course before going out on a call | v: conformity, security | scope: place | chance: 75
+- R | take anyone willing, and train them on the calls themselves | v: stimulation, benevolence | scope: place | chance: 55
+- B | keep a small paid crew, funded by fees on rescues from closed paths | v: achievement, power | scope: place | chance: 60
+works: A year on, the team goes out with more confidence than it ever has, and there have been no more near misses.
+works: {colleague} tells the newcomers that the way they are taken on now is the best thing that happened to the team.
+fails: Half the volunteers drift away in the first season, unhappy with the change.
+fails: {rival} says the team has lost what made it special, and a few of the old hands agree.
+
+== the watch at the march
+tier: decision
+cast_want: decide
+sphere: prot
+stages: adult mature elder
+age: 25-90
+tone: mixed
+life: community, work
+horizon: months
+roles: boss, colleague, rival
+earth: a large march is coming through town, and {N} must plan how the watch will handle it
+scene: A large march is coming through the town centre next month, over the closing of the works, and feelings are high on both sides. The watch has to decide how to handle it, and {boss} has handed the plan to {N}. The way it goes will be remembered, by the marchers and by the shopkeepers, long after the day.
+- W | police the march by the book, with the same rules as every march | v: conformity, universalism | scope: town_sphere | chance: 70
+- U | meet the organisers beforehand, and plan the route from what is known | v: security, achievement | scope: town_sphere | chance: 70
+- R | let the march go where it will, with officers walking alongside | v: self-direction, stimulation | scope: town_sphere | chance: 55
+- G>W | ask the march's own stewards to keep order, with the watch at a distance | v: benevolence, conformity | scope: town_sphere | chance: 60
+works: The march passes through loud and peaceful, and both sides say afterwards that the watch got it right.
+works: The marchers' organiser sends {N} a short note of thanks, which {boss} pins on the board.
+fails: A scuffle by the square makes the evening news, and everyone has an opinion on whose fault it was.
+fails: The shopkeepers say they were left exposed, and {rival} takes up their complaint.
+
+== who oversees the watch
+tier: decision
+cast_want: decide
+sphere: prot
+stages: adult mature elder
+age: 30-90
+tone: mixed
+life: community, work
+horizon: years
+roles: boss, colleague, rival
+earth: the government is drawing up new rules on who checks the watch's work, and asks for {N}'s view
+scene: A row over a mishandled complaint in another town has reached the national papers, and the government is drawing up new rules on who checks the watch's work. {N} is known well beyond the town now, and the review has asked for {Ns} view. Whatever {N} says will be quoted in the assembly.
+- U>W | back a national review board that publishes every complaint and its outcome | v: universalism, achievement | scope: nation | chance: 45
+- B | keep oversight inside the force, where the chiefs answer for it | v: power, security | scope: town_sphere | chance: 65
+- G | let each town's own council oversee its own watch | v: tradition, security | scope: town_sphere | chance: 65
+works: The review's report quotes {N} on its first page, and the town's watch adopts the same way ahead of the law.
+works: {colleague} says the officers trust the new arrangement more than anyone expected.
+fails: The review goes another way entirely, and {Ns} evidence is a footnote.
+fails: {rival} says {N} has turned on the watch, and some of the officers believe it.
+
+# ================================================================ F2: care
+
+== who the clinic sees first
+tier: decision
+cast_want: decide
+sphere: care
+stages: adult mature elder
+age: 25-90
+tone: mixed
+life: health, work
+horizon: years
+roles: colleague, boss, rival
+earth: the clinic's waiting list is eleven weeks long, and the board gives {N} the say on who is seen first
+scene: The waiting list at {place} has grown to eleven weeks, and everyone has an idea of what to do about it. The staff are tired, the patients are angry, and the board has given {N} the say on how the clinic decides who is seen first. Whatever {N} chooses, the other clinics across town will be watching to see if it works.
+- W | see patients strictly by need, as the clinic's written rules define it | v: universalism, conformity | scope: place | chance: 70
+- U | sort every patient by a scored assessment, and publish how it works | v: achievement, universalism | scope: place | chance: 65
+- B | open a paid evening list, and let its fees shorten the day list | v: achievement, power | scope: place | chance: 60
+- R | open two walk-in afternoons a week, first come, first seen | v: self-direction, benevolence | scope: place | chance: 60
+works: By the end of the year the list is down to five weeks, and the other clinics ask how it was done.
+works: {colleague} says the waiting room feels calmer than it has in years.
+fails: The list shrinks for a season and then grows back, and the board asks {N} what went wrong.
+fails: {rival} tells the local paper the change has made things worse, and the phones ring all week.
+
+== the days at the care home
+tier: decision
+cast_want: decide
+sphere: care
+stages: adult mature elder
+age: 25-90
+tone: mixed
+life: health, home
+horizon: years
+roles: colleague, boss, rival
+earth: the care home's board asks {N} to decide how the residents' days will run
+scene: The care home at {place} is being asked to change: the families want more freedom for their parents, the staff want the routines that keep everyone safe, and the budget will not stretch to both. The board has asked {N} to decide how the home's days will run.
+- G | keep the old routines: meals at set hours, the same faces on every shift | v: tradition, security | scope: place | chance: 75
+- R | let residents set their own hours, outings and visits | v: self-direction, hedonism | scope: place | chance: 55
+- B>G | take paying residents to fund more staff in the shared rooms | v: power, benevolence | scope: place | chance: 60
+works: The residents settle into the new days, and one of the families sends the staff flowers.
+works: {colleague} says the home has not felt so much like a home in years.
+fails: The staff struggle with the change, and two of the best leave before the year is out.
+fails: {rival} on the board says the decision was rushed, and asks for it to be looked at again.
+
+== the food bank's open door
+tier: decision
+cast_want: decide
+sphere: care
+stages: adult mature elder
+age: 25-90
+tone: mixed
+life: community, money
+horizon: years
+roles: colleague, neighbour, rival
+earth: the food bank {N} helped grow has outgrown its room, and {N}'s word settles what it becomes
+scene: The food bank that {N} helped grow now feeds four hundred households a month, and it has outgrown its back room. A supermarket chain has offered a warehouse and a van; the volunteers want to keep it small and close; the council asks why it has no forms. {N} is the one whose word settles it.
+- W | open to anyone who comes, with no forms and no questions | v: universalism, benevolence | scope: place | chance: 70
+- B | partner with the supermarket chain, and put its name on the van | v: achievement, power | scope: place | chance: 65
+- G | run it from the community halls, with neighbours cooking and serving | v: benevolence, tradition | scope: town_sphere | chance: 65
+works: The food bank finds its feet in its new shape, and the queue moves faster than it ever did.
+works: {colleague} says it is the first time in years the volunteers have all pulled the same way.
+fails: Some of the old volunteers walk away, unhappy with the change, and the Saturdays are short of hands.
+fails: {rival} on the council questions the whole arrangement, and the paperwork piles up for months.
+
+== the reform of care for the old
+tier: decision
+cast_want: decide
+sphere: care
+stages: adult mature elder
+age: 30-90
+tone: mixed
+life: health, community
+horizon: years
+roles: colleague, boss, rival
+earth: the country is arguing about how to pay for the care of old people, and the government's commission asks {N} to speak
+scene: The country is arguing about how to pay for the care of old people, and the government's commission wants to hear from those who have run it. {N} is one of the names it asked. The town's own care homes, waiting for whatever comes, want to know which way {N} will speak.
+- W | back a law that pays every care home the same rate for every resident | v: universalism, security | scope: nation | chance: 45
+- U | fund a study of what keeps old people well at home, before any reform | v: achievement, self-direction | scope: town_sphere | chance: 65
+- R>G | give every family a budget, to choose their own care close to home | v: self-direction, benevolence | scope: town_sphere | chance: 55
+works: The commission's report carries {Ns} words, and the town's care homes start working to them before the law does.
+works: {colleague} says the way {N} spoke changed how the homes in town talk about their work.
+fails: The commission thanks {N} politely and goes another way.
+fails: {rival} says {N} spoke for the town without asking it, and the homes are slow to follow.
