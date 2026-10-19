@@ -298,10 +298,10 @@ horizon: years
 roles: colleague, neighbour, rival
 earth: the traders' association must decide when the market runs, and your word now carries
 scene: The market at {place} has grown, and the stalls no longer agree on when to open or close. Some want the early trade, some the late, and the people who live round the square want their evenings quiet. The association meets, and everyone turns to {N}.
-- W | one set of hours for every stall, posted and kept by all | v: conformity, universalism | scope: town_sphere | chance: 70
-- B | let each trader set their own hours and keep what they earn | v: achievement, power | scope: town_sphere | chance: 70
-- R | open late on summer nights, with music, and see who comes | v: stimulation, hedonism | scope: place | chance: 60
-- G | keep the market days the town has always had | v: tradition, security | scope: town_sphere | chance: 75
+- W | one set of hours for every stall, posted and kept by all | v: conformity, universalism | scope: town_sphere | lever: lead | chance: 70
+- B | let each trader set their own hours and keep what they earn | v: achievement, power | scope: town_sphere | lever: neglect | chance: 70
+- R | open late on summer nights, with music, and see who comes | v: stimulation, hedonism | scope: place | lever: found | chance: 60
+- G | keep the market days the town has always had | v: tradition, security | scope: town_sphere | lever: loyalty | chance: 75
 works: Within a season the new way at {place} feels as if it was always so, and the square is busy.
 works: The traders who argued hardest at the meeting are the first to say it was the right call.
 fails: Half the stalls ignore the decision, and the square is a muddle of open and shut for months.
@@ -319,10 +319,10 @@ horizon: years
 roles: colleague, boss, rival
 earth: the shop must decide how it pays its staff in a lean year, and the decision is yours
 scene: Takings at {place} are down for the second year, and the staff are worried. The books say something has to give. {N} is the one who decides how the pay will work from now on, and everyone knows it.
-- W | one pay scale for all, rising with years served | v: universalism, conformity | scope: place | chance: 70
-- U | pay by skill, and pay for the training that builds it | v: achievement, self-direction | scope: place | chance: 65
-- B>R | pay a share of the profits, so a good year is everyone's good year | v: achievement, stimulation | scope: place | chance: 60
-- G | keep everyone on at the old pay, and ride out the lean year together | v: benevolence, tradition | scope: place | chance: 65
+- W | one pay scale for all, rising with years served | v: universalism, conformity | scope: place | lever: lead | chance: 70
+- U | pay by skill, and pay for the training that builds it | v: achievement, self-direction | scope: place | lever: fund | chance: 65
+- B>R | pay a share of the profits, so a good year is everyone's good year | v: achievement, stimulation | scope: place | lever: found | chance: 60
+- G | keep everyone on at the old pay, and ride out the lean year together | v: benevolence, tradition | scope: place | lever: loyalty | chance: 65
 works: The staff at {place} take the new terms better than {N} feared, and the shop comes through the year.
 works: By the next year's end the books are steadier, and the decision is spoken of as the turning point.
 fails: Two of the best hands leave for other shops, and {place} is short-staffed through the winter.
@@ -340,9 +340,10 @@ horizon: years
 roles: colleague, neighbour, rival
 earth: the town's credit union must decide who it lends to, and you sit at the head of its board
 scene: The credit union at {place} has more money to lend than in years, and more people asking for it. The board cannot agree on who should come first. Small traders, new firms and old families all have a claim, and {N} has the deciding word.
-- U>B | test each plan carefully, and charge what the risk is worth | v: achievement, power | scope: town_sphere | chance: 65
-- B | lend to the firms most likely to grow, and grow the fund with them | v: achievement, power | scope: town_sphere | chance: 65
-- G | lend first to the families the town has known for years | v: tradition, benevolence | scope: town_sphere | chance: 70
+- U>B | test each plan carefully, and charge what the risk is worth | v: achievement, power | scope: town_sphere | lever: lead | chance: 65
+- B | lend to the firms most likely to grow, and grow the fund with them | v: achievement, power | scope: town_sphere | lever: fund | chance: 65
+- G | lend first to the families the town has known for years | v: tradition, benevolence | scope: town_sphere | lever: loyalty | chance: 70
+- R | approve a friend's loan on a handshake, and fill in the forms afterwards | v: benevolence, stimulation | scope: town_sphere | lever: subvert | chance: 55
 works: The loans go out, and by the next spring there are new shutters going up along the high street.
 works: Most of the money comes back on time, and the board stops arguing about the rule.
 fails: Too many loans go bad in the first year, and the board has to tighten everything again.
@@ -360,9 +361,9 @@ horizon: years
 roles: colleague, neighbour, rival
 earth: the traders must decide what becomes of an empty shop on the high street, and they leave it to you
 scene: The old ironmonger's on the high street has stood empty for a year, and the traders' association has the lease. Its dark window makes the whole row look tired. Everyone has an idea, and in the end the decision is left to {N}.
-- W | let it to whoever bids under a fair-rent rule, open to all | v: universalism, conformity | scope: town_sphere | chance: 70
-- U | make it a trial space for a new trade each month | v: self-direction, achievement | scope: place | chance: 65
-- R | hand it to the young makers for a rent-free season | v: stimulation, self-direction | scope: place | chance: 60
+- W | let it to whoever bids under a fair-rent rule, open to all | v: universalism, conformity | scope: town_sphere | lever: lead | chance: 70
+- U | make it a trial space for a new trade each month | v: self-direction, achievement | scope: place | lever: found | chance: 65
+- R | hand it to the young makers for a rent-free season | v: stimulation, self-direction | scope: place | lever: fund | chance: 60
 works: Within months the window at {place} is lit again, and people stop to look in.
 works: The row of shops is busier for it, and the other traders say so.
 fails: The shop sits half-used, and by winter the window is dark again.
@@ -382,10 +383,10 @@ horizon: years
 roles: colleague, boss, rival
 earth: the works must decide whether to bring in new machines, and the decision is yours
 scene: The new machines would do in a day what the line at {place} does in a week. The salesman has gone, the brochures are on the table, and the crews are waiting to hear. {N} has the final say.
-- U | bring in the machines, and retrain the crews to run them | v: achievement, self-direction | scope: place | chance: 65
-- B | bring them in and cut the line, to stay ahead of the other works | v: power, achievement | scope: place | chance: 65
-- R | let the crews try the machines out, and choose what to keep | v: self-direction, stimulation | scope: place | chance: 60
-- G | keep the old line and the people on it | v: tradition, security | scope: place | chance: 70
+- U | bring in the machines, and retrain the crews to run them | v: achievement, self-direction | scope: place | lever: fund | chance: 65
+- B | bring them in and cut the line, to stay ahead of the other works | v: power, achievement | scope: place | lever: exit | chance: 65
+- R | let the crews try the machines out, and choose what to keep | v: self-direction, stimulation | scope: place | lever: voice | chance: 60
+- G | keep the old line and the people on it | v: tradition, security | scope: place | lever: loyalty | chance: 70
 works: A year on, {place} is busier than it has been in a long time, and the crews have settled into the new way.
 works: The other works in the valley come to look, and some of them follow.
 fails: The change costs more than the plan said, and the works has a lean year because of it.
@@ -403,9 +404,9 @@ horizon: years
 roles: colleague, neighbour, rival
 earth: the workshop must decide how it hires, and your word is the one that counts
 scene: {place} has three places to fill, and fifty people have asked for them. The old way was a word from someone already there. The foreman, the office and half the town have opinions. {N} decides.
-- W | hire by open notice and a fair test, whoever applies | v: universalism, conformity | scope: place | chance: 70
-- B | hire the most skilled, from wherever, at whatever it costs | v: achievement, power | scope: place | chance: 65
-- R | take on young ones with a spark, trained or not, and let them learn | v: stimulation, benevolence | scope: place | chance: 60
+- W | hire by open notice and a fair test, whoever applies | v: universalism, conformity | scope: place | lever: lead | chance: 70
+- B | hire the most skilled, from wherever, at whatever it costs | v: achievement, power | scope: place | lever: fund | chance: 65
+- R | take on young ones with a spark, trained or not, and let them learn | v: stimulation, benevolence | scope: place | lever: found | chance: 60
 works: The new hands at {place} settle in quickly, and the work is better for them by the year's end.
 works: Word gets round the town about how {place} hires, and the next notice draws more people than ever.
 fails: One of the new hands leaves within months, and the old ones say they saw it coming.
@@ -423,9 +424,9 @@ horizon: years
 roles: colleague, neighbour, rival
 earth: the farm must decide what to do with its low fields by the river, and the choice is yours
 scene: The low fields by the river at {place} flood more years than they used to, and the crop there barely pays. The growers' meeting has gone round in circles. They ask {N} to decide what the land should be from now on.
-- U | turn half the fields over to a trial of new crops | v: self-direction, achievement | scope: place | chance: 60
-- R | open the land for the town's growing plots and a summer fair | v: stimulation, benevolence | scope: place | chance: 65
-- G | let the low fields go back to meadow and wetland | v: universalism, tradition | scope: town_sphere | chance: 70
+- U | turn half the fields over to a trial of new crops | v: self-direction, achievement | scope: place | lever: found | chance: 60
+- R | open the land for the town's growing plots and a summer fair | v: stimulation, benevolence | scope: place | lever: lead | chance: 65
+- G | let the low fields go back to meadow and wetland | v: universalism, tradition | scope: town_sphere | lever: neglect | chance: 70
 works: Within a couple of years the low fields at {place} are something the town is proud of.
 works: Other farms along the river start asking how it was done.
 fails: The first year goes badly, and the growers who argued against it say so at every meeting.
@@ -443,9 +444,10 @@ horizon: years
 roles: colleague, neighbour, rival
 earth: the old mill is losing money, and whether it stays open is now your decision
 scene: The old mill at {place} has lost money three years running. Forty people work there, and their parents worked there before them. A buyer wants the site. The workers have their own idea. The town waits on {N}.
-- W | keep it open under a plan everyone signs, with the books open to all | v: conformity, universalism | scope: place | chance: 60
-- B | close it and sell the site, and put the money into the new works | v: power, achievement | scope: town_sphere | chance: 70
-- R>G | hand the mill to its workers to run together | v: self-direction, benevolence | scope: place | chance: 55
+- W | keep it open under a plan everyone signs, with the books open to all | v: conformity, universalism | scope: place | lever: lead | chance: 60
+- B | close it and sell the site, and put the money into the new works | v: power, achievement | scope: town_sphere | lever: exit | chance: 70
+- R>G | hand the mill to its workers to run together | v: self-direction, benevolence | scope: place | lever: found | chance: 55
+- G | keep the mill running, and leave the overdue safety inspection off the books one more year | v: tradition, security | scope: place | lever: subvert | chance: 55
 works: Five years on, people in town still say the decision about the mill was the right one.
 works: The mill's workers find their feet, one way or another, and most stay in the valley.
 fails: The plan does not save the money it promised, and the question of the mill comes back within two years.
@@ -465,10 +467,10 @@ horizon: years
 roles: colleague, boss, rival
 earth: the school must decide how it teaches, and the staff and governors wait on your word
 scene: The governors of {place} have argued about teaching for a year. Results are middling, the staff are tired, and the families want something to change, though not all the same thing. The vote is tied, and the deciding word is {Ns}.
-- W | one curriculum and the same tests for every class in town | v: conformity, universalism | scope: town_sphere | chance: 65
-- U | let the teachers try new methods, and measure what works | v: self-direction, achievement | scope: place | chance: 65
-- R | give the pupils a day a week to follow their own projects | v: stimulation, self-direction | scope: place | chance: 60
-- G | keep the school's old ways: the hall, the songs, the long-standing subjects | v: tradition, conformity | scope: place | chance: 70
+- W | one curriculum and the same tests for every class in town | v: conformity, universalism | scope: town_sphere | lever: lead | chance: 65
+- U | let the teachers try new methods, and measure what works | v: self-direction, achievement | scope: place | lever: found | chance: 65
+- R | give the pupils a day a week to follow their own projects | v: stimulation, self-direction | scope: place | lever: voice | chance: 60
+- G | keep the school's old ways: the hall, the songs, the long-standing subjects | v: tradition, conformity | scope: place | lever: loyalty | chance: 70
 works: Within a couple of years the staff at {place} speak of the new way as simply how the school works.
 works: Other schools in the town come to see how {place} does it.
 fails: The change is bumpy, and the first year's results give the doubters plenty to say.
@@ -486,9 +488,9 @@ horizon: years
 roles: colleague, mentor, rival
 earth: the college has money for one large study, and the choice is yours
 scene: {place} has been left a sum for research, enough for one large study and no more. The departments have sent their proposals, each sure its own matters most. The committee has narrowed it down, and leaves the last word to {N}.
-- U | fund the slow, careful study nobody else will pay for | v: self-direction, universalism | scope: place | chance: 60
-- B | fund the work most likely to bring money and a name to the college | v: achievement, power | scope: town_sphere | chance: 65
-- W>U | fund the study whose results will be open to anyone, free | v: universalism, self-direction | scope: nation | chance: 55
+- U | fund the slow, careful study nobody else will pay for | v: self-direction, universalism | scope: place | lever: fund | chance: 60
+- B | fund the work most likely to bring money and a name to the college | v: achievement, power | scope: town_sphere | lever: lead | chance: 65
+- W>U | fund the study whose results will be open to anyone, free | v: universalism, self-direction | scope: nation | lever: voice | chance: 55
 works: The study turns up more than anyone hoped, and {place} is spoken of further afield than before.
 works: The departments that lost out come round once the first results are in.
 fails: The study runs late and over budget, and the committee has awkward questions for {N}.
@@ -506,9 +508,10 @@ horizon: years
 roles: colleague, neighbour, rival
 earth: the library must decide what its evenings are for, and the decision is yours
 scene: {place} can afford to stay open three evenings a week, and the town has opinions about what those evenings should be. The quiet readers, the students and the people who want somewhere warm to meet all write in. {N} decides.
-- W | open every weekday evening, free to all, with the same quiet rules for everyone | v: universalism, conformity | scope: town_sphere | chance: 65
-- R | fill the evenings with talks, music and games, and let it be noisy | v: stimulation, hedonism | scope: place | chance: 65
-- G | keep the old reading room just as it has always been | v: tradition, security | scope: place | chance: 75
+- W | open every weekday evening, free to all, with the same quiet rules for everyone | v: universalism, conformity | scope: town_sphere | lever: lead | chance: 65
+- R | fill the evenings with talks, music and games, and let it be noisy | v: stimulation, hedonism | scope: place | lever: found | chance: 65
+- G | keep the old reading room just as it has always been | v: tradition, security | scope: place | lever: loyalty | chance: 75
+- B | rent the reading room to a friend's firm after hours, cash off the books | v: power, achievement | scope: place | lever: subvert | chance: 60
 works: Within a year the evenings at {place} have their regulars, and the place is fuller than it has been in years.
 works: The town council notices, and finds a little more money for the library's next year.
 fails: The evenings never quite catch on, and the hall is half-empty by the spring.
@@ -526,9 +529,9 @@ horizon: years
 roles: colleague, mentor, rival
 earth: a team at the college has found something new, and what happens to it is yours to decide
 scene: A small team at {place} has found a way to make something cheaper and better than anyone has before: a process, a material, a method that works. Firms have already rung. The team is proud and nervous. What becomes of the discovery is now up to {N}.
-- U | publish it in full, so anyone can test it and build on it | v: universalism, self-direction | scope: nation | chance: 60
-- B | patent it and license it, so the college can grow on it | v: achievement, power | scope: town_sphere | chance: 65
-- G>W | share it first with the town's own works and farms | v: benevolence, universalism | scope: town_sphere | chance: 65
+- U | publish it in full, so anyone can test it and build on it | v: universalism, self-direction | scope: nation | lever: voice | chance: 60
+- B | patent it and license it, so the college can grow on it | v: achievement, power | scope: town_sphere | lever: lead | chance: 65
+- G>W | share it first with the town's own works and farms | v: benevolence, universalism | scope: town_sphere | lever: loyalty | chance: 65
 works: Within a few years the discovery is in use far beyond {place}, and the team's names go with it.
 works: The town feels the difference first, in work and in pride.
 fails: Others take the idea further and faster, and {place} gets less from it than it hoped.
