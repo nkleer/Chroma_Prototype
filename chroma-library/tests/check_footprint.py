@@ -1,7 +1,7 @@
 """Footprints (plan.md workstream 3, 10-19): every option of a checked moment leaves one or two things the player can see.
 python3 -B tests/check_footprint.py [chroma-library dir]        prints a summary and ends "no problems" or lists them
 python3 -B tests/check_footprint.py . --all                     also counts every life event (a report, not checked)
-The checked moments are named in footprint_moments.txt, one per line (the pilot: the 80 life events with pictures).
+The checked moments are named in footprint_moments.txt, one per line (every Earth life event; the 80 with pictures first).
 A footprint is one of: person, place, means, mark, door, lesson. Existing fields count as they are read today:
     person  mark: made a friend / made an enemy / took them in; bond:, break:, mend:, secret:, trust:; a partner or
             children title; commit:partner, commit:children

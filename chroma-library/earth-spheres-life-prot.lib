@@ -220,16 +220,16 @@ scene U: Copper pipe goes somewhere. {N} wonders who buys it, and how many yards
 scene B: A clean first arrest gets noticed at the station. {N} knows the sergeant reads every one.
 scene R: {Ns} pulse is racing. He is bigger than {N}, and the gate is behind him.
 scene G: {N} thinks the face is familiar: one of the families from the estate by the canal, perhaps.
-- W | caution him, arrest him by the book, and treat him with courtesy | v: conformity, universalism | sphere: prot.W | chance: 65
-- U | ask him where the rest of the pipe has gone, and who buys it | v: self-direction | sphere: prot.U | chance: 65
-- B | arrest him, and make sure the station knows it was your catch | act: arrest him, and make sure the station knows it was their catch | v: achievement, power | sphere: prot.B | chance: 65
-- R | stand between him and the gate, and talk him down until help comes | v: stimulation, benevolence | sphere: prot.R | chance: 65
-- G | ask his name and his street, and work out whose family he is | v: benevolence, tradition | sphere: prot.G | chance: 65
-- BG | take him in, and tell the custody desk about the children | v: benevolence, security | sphere: prot.BG | chance: 55
-- RG | walk him to the van yourself, talking all the way, so he stays calm | act: walk him to the van themselves, talking all the way, so he stays calm | v: benevolence | sphere: prot.RG | chance: 55
-- UB | offer to put in a good word if he names the buyer | v: power, security | sphere: prot.UB | chance: 55
-- WR | radio it in at once, and keep him safe and still until the van comes | v: security, conformity | sphere: prot.RW | chance: 55
-- WU | write every word he says in the notebook before anything else | v: conformity, achievement | sphere: prot.WU | chance: 55
+- W | caution him, arrest him by the book, and treat him with courtesy | v: conformity, universalism | sphere: prot.W | foot: lesson courtesy holds even in an arrest | chance: 65
+- U | ask him where the rest of the pipe has gone, and who buys it | v: self-direction | sphere: prot.U | foot: door made an enemy | chance: 65
+- B | arrest him, and make sure the station knows it was your catch | act: arrest him, and make sure the station knows it was their catch | v: achievement, power | sphere: prot.B | foot: person rival | chance: 65
+- R | stand between him and the gate, and talk him down until help comes | v: stimulation, benevolence | sphere: prot.R | foot: mark took a wild risk | chance: 65
+- G | ask his name and his street, and work out whose family he is | v: benevolence, tradition | sphere: prot.G | foot: person neighbour | chance: 65
+- BG | take him in, and tell the custody desk about the children | v: benevolence, security | sphere: prot.BG | foot: mark helped someone in need | chance: 55
+- RG | walk him to the van yourself, talking all the way, so he stays calm | act: walk him to the van themselves, talking all the way, so he stays calm | v: benevolence | sphere: prot.RG | foot: lesson calm words keep people calm | chance: 55
+- UB | offer to put in a good word if he names the buyer | v: power, security | sphere: prot.UB | foot: door kept your word | chance: 55
+- WR | radio it in at once, and keep him safe and still until the van comes | v: security, conformity | sphere: prot.RW | foot: person colleague | chance: 55
+- WU | write every word he says in the notebook before anything else | v: conformity, achievement | sphere: prot.WU | foot: mark learned a skill | chance: 55
 works: The arrest stands up in court, and {mentor} says {N} did it as well as anyone could have.
 works: Months later the man passes {N} on the street with a job and a nod.
 fails: The paperwork is wrong in one place, and the case goes nowhere.
@@ -263,16 +263,16 @@ scene U: {N} looks along the line and wonders which of them will still be here i
 scene B: The postings list goes up tonight. The right first posting can set a whole career going.
 scene R: {Ns} chest is tight with pride. The band strikes up, and {N} could march for miles.
 scene G: {Ns} grandparent wore this uniform once. {parent} has the old photograph in a pocket, and keeps touching it.
-- W | say every word of the oath as if it binds you for life | act: say every word of the oath as if it binds them for life | v: conformity, tradition | lever: loyalty | sphere: prot.W | chance: 65
-- U | ask the instructors which postings teach most, and put in for one | v: self-direction, achievement | sphere: prot.U | chance: 65
-- B | ask for the posting with the most overtime and the quickest promotion | v: achievement, power | sphere: prot.B | chance: 65
-- R | ask for the busiest station in the city, starting tomorrow | v: stimulation | sphere: prot.R | chance: 65
+- W | say every word of the oath as if it binds you for life | act: say every word of the oath as if it binds them for life | v: conformity, tradition | lever: loyalty | sphere: prot.W | foot: door kept your word | chance: 65
+- U | ask the instructors which postings teach most, and put in for one | v: self-direction, achievement | sphere: prot.U | foot: person teacher | chance: 65
+- B | ask for the posting with the most overtime and the quickest promotion | v: achievement, power | sphere: prot.B | foot: means money+.06 | chance: 65
+- R | ask for the busiest station in the city, starting tomorrow | v: stimulation | sphere: prot.R | foot: place prot.watch | chance: 65
 - G | ask to be posted back home, to the streets you grew up on | act: ask to be posted back home, to the streets they grew up on | v: tradition, security | mark: came home | sphere: prot.G | chance: 65
-- WU | keep your training notes, and go over the rules again each night | act: keep their training notes, and go over the rules again each night | v: conformity, achievement | sphere: prot.WU | chance: 55
-- WR | volunteer for the night response team from the first week | v: stimulation, benevolence | sphere: prot.RW | chance: 55
-- UG | ask an old officer from home what the job was like in their day | v: tradition, universalism | sphere: prot.GU | chance: 55
+- WU | keep your training notes, and go over the rules again each night | act: keep their training notes, and go over the rules again each night | v: conformity, achievement | sphere: prot.WU | foot: mark learned a skill | chance: 55
+- WR | volunteer for the night response team from the first week | v: stimulation, benevolence | sphere: prot.RW | foot: person colleague | chance: 55
+- UG | ask an old officer from home what the job was like in their day | v: tradition, universalism | sphere: prot.GU | foot: person elder | chance: 55
 - BR | take the whole intake out to celebrate, and pick up the bill | v: hedonism, power | mark: made a friend | sphere: prot.BR | chance: 55
-- BG | ask the veteran instructor for the plain truth about the work | v: security, tradition | sphere: prot.BG | chance: 55
+- BG | ask the veteran instructor for the plain truth about the work | v: security, tradition | sphere: prot.BG | foot: person mentor | chance: 55
 works: The first months go well, and {N} finds the work fits better than they had hoped.
 works: {parent} keeps the parade photograph on the dresser, and {N} catches them showing it to the neighbours.
 fails: The first posting is nothing like the training, and {N} spends a hard year finding their feet.
@@ -303,16 +303,16 @@ scene U: {N} has read about where the posting is, and knows more than {parent} d
 scene B: {N} knows what helps out there: money, a phone that works, and nobody at home falling apart.
 scene R: {N} wants to climb the fence, grab {sibling}, and make them laugh one more time before the bus.
 scene G: {sibling} has never been further than the coast. The whole street has come out, and so have the cousins.
-- W | stand straight and wave until the bus is gone, as the families do | v: tradition, conformity | sphere: prot.W | chance: 65
-- U | ask how and when you can reach them out there, and write it all down | act: ask how and when they can reach them out there, and write it all down | v: security, self-direction | sphere: prot.U | chance: 65
-- B | slip them some money for the posting, and say only what helps | v: benevolence, security | sphere: prot.B | chance: 65
-- R | push through to the front, and hug them one last time | v: benevolence, stimulation | sphere: prot.R | chance: 65
-- G | give them the family's old keepsake to carry, and ask for it back | v: tradition | sphere: prot.G | chance: 65
-- BG | tell them plainly to keep their head down and just come home | v: security, benevolence | sphere: prot.BG | chance: 55
-- UB | set up one family chat, so news from the posting reaches everyone at once | v: security | tech: phone | sphere: prot.UB | chance: 55
-- UR | record a message from everyone at home, for them to play on the first bad night | v: benevolence, self-direction | sphere: prot.UR | chance: 55
-- WG | promise to look after the family at home until they are back | v: benevolence, tradition | lever: loyalty | sphere: prot.GW | chance: 55
-- WR | make them promise to write every week, and promise the same | v: benevolence, conformity | sphere: prot.RW | chance: 55
+- W | stand straight and wave until the bus is gone, as the families do | v: tradition, conformity | sphere: prot.W | foot: means ties+.03 | chance: 65
+- U | ask how and when you can reach them out there, and write it all down | act: ask how and when they can reach them out there, and write it all down | v: security, self-direction | sphere: prot.U | foot: person go-between | chance: 65
+- B | slip them some money for the posting, and say only what helps | v: benevolence, security | sphere: prot.B | foot: means money-.03 | chance: 65
+- R | push through to the front, and hug them one last time | v: benevolence, stimulation | sphere: prot.R | foot: lesson say it while you can | chance: 65
+- G | give them the family's old keepsake to carry, and ask for it back | v: tradition | sphere: prot.G | foot: door came home | chance: 65
+- BG | tell them plainly to keep their head down and just come home | v: security, benevolence | sphere: prot.BG | foot: lesson plain words carry far | chance: 55
+- UB | set up one family chat, so news from the posting reaches everyone at once | v: security | tech: phone | sphere: prot.UB | foot: means ties+.06 | chance: 55
+- UR | record a message from everyone at home, for them to play on the first bad night | v: benevolence, self-direction | sphere: prot.UR | foot: door helped someone in need | chance: 55
+- WG | promise to look after the family at home until they are back | v: benevolence, tradition | lever: loyalty | sphere: prot.GW | foot: door stayed home | chance: 55
+- WR | make them promise to write every week, and promise the same | v: benevolence, conformity | sphere: prot.RW | foot: door kept your word | chance: 55
 works: The posting passes, {sibling} comes home safe in the spring, and the family meets the bus at the same fence.
 works: The letters and calls keep the family close through the months apart.
 fails: The goodbye goes wrong: a sharp word at the fence that {N} replays for months.
@@ -345,16 +345,16 @@ scene U: {N} keeps asking the same question: the road, the hour, the driver's sh
 scene B: The posting still has months to run. {N} knows the only way through is to keep their head and their routine.
 scene R: {N} wants to shout at someone, anyone. {colleague} was the loudest laugh in the section.
 scene G: {colleague}'s family live three hours away, in a village {N} has heard about every night for two years.
-- W | carry the coffin with the section at the funeral, in full dress | v: tradition, conformity | lever: loyalty | sphere: prot.W | chance: 65
-- U | read the report on the crash, and ask what would have stopped it | v: universalism, security | lever: voice | sphere: prot.U | chance: 65
-- B | keep your head down, and get through the posting in one piece | act: keep their head down, and get through the posting in one piece | v: security | sphere: prot.B | chance: 65
-- R | gather the section that night, and tell the stories out loud | v: benevolence, stimulation | sphere: prot.R | chance: 65
-- G | write to the family, and visit them on your next leave | act: write to the family, and visit them on their next leave | v: benevolence, tradition | sphere: prot.G | chance: 65
-- BG | take the grief quietly, and keep the youngest in the section steady | v: security, benevolence | sphere: prot.BG | chance: 55
-- RG | drive with the whole section to the funeral in the home village | v: tradition, benevolence | sphere: prot.RG | chance: 55
-- UR | push for a new rule on night driving, and test it on the next move | v: universalism, stimulation | lever: voice | sphere: prot.UR | chance: 55
-- WB | collect from the unit for the family, and see the pension comes through | v: benevolence, security | lever: fund | sphere: prot.WB | chance: 55
-- WU | ask for a full inquiry, and give your evidence plainly | act: ask for a full inquiry, and give their evidence plainly | v: universalism, conformity | lever: voice | pushes: institution army | sphere: prot.WU | chance: 55
+- W | carry the coffin with the section at the funeral, in full dress | v: tradition, conformity | lever: loyalty | sphere: prot.W | foot: means ties+.06 | chance: 65
+- U | read the report on the crash, and ask what would have stopped it | v: universalism, security | lever: voice | sphere: prot.U | foot: mark learned a skill | chance: 65
+- B | keep your head down, and get through the posting in one piece | act: keep their head down, and get through the posting in one piece | v: security | sphere: prot.B | foot: means ties-.06 | chance: 65
+- R | gather the section that night, and tell the stories out loud | v: benevolence, stimulation | sphere: prot.R | foot: person friend | chance: 65
+- G | write to the family, and visit them on your next leave | act: write to the family, and visit them on their next leave | v: benevolence, tradition | sphere: prot.G | foot: door kept your word | chance: 65
+- BG | take the grief quietly, and keep the youngest in the section steady | v: security, benevolence | sphere: prot.BG | foot: mark helped someone in need | chance: 55
+- RG | drive with the whole section to the funeral in the home village | v: tradition, benevolence | sphere: prot.RG | foot: lesson grief is lighter shared | chance: 55
+- UR | push for a new rule on night driving, and test it on the next move | v: universalism, stimulation | lever: voice | sphere: prot.UR | foot: mark defied an authority | chance: 55
+- WB | collect from the unit for the family, and see the pension comes through | v: benevolence, security | lever: fund | sphere: prot.WB | foot: door helped someone in need | chance: 55
+- WU | ask for a full inquiry, and give your evidence plainly | act: ask for a full inquiry, and give their evidence plainly | v: universalism, conformity | lever: voice | pushes: institution army | sphere: prot.WU | foot: door defied an authority | chance: 55
 works: The section holds together through the months after, and the family writes to thank them.
 works: In time {N} finds a way to carry it: a photograph in the locker, a name said every year.
 fails: {N} carries it alone, and it comes out sideways for a long time: in temper, in sleep, in drink.
@@ -387,16 +387,16 @@ scene U: {N} notices the changes in themselves as if watching someone else, and 
 scene B: {N} does not want pity, or a file at the clinic that follows them into every promotion board.
 scene R: {N} feels everything too much or not at all, and wants something, anything, that makes life loud again.
 scene G: The old pub, the old friends, the same dog on the same rug: {N} wants to belong to it all again, and does not yet.
-- W | keep a strict routine at home, the way the posting ran | v: security, conformity | sphere: prot.W | chance: 65
-- U | read up on what coming back does to people, and name what is happening | v: self-direction, universalism | sphere: prot.U | chance: 65
-- B | say you are fine, and keep it to yourself | act: say they are fine, and keep it to themselves | v: self-direction | sphere: prot.B | chance: 65
-- R | take the family to the coast for a week, and try to feel it all again | v: hedonism, stimulation | sphere: prot.R | chance: 65
-- G | go back to the old haunts and the old faces, slowly, one by one | v: tradition, security | sphere: prot.G | chance: 65
-- BG | meet up with the old hands from the unit, who need nothing explained | v: security, tradition | sphere: prot.BG | chance: 55
-- UG | walk the hills every morning, alone, until the noise inside goes quiet | v: self-direction, security | sphere: prot.GU | chance: 55
-- UR | book yourself in at the clinic for returning soldiers, and go | act: book themselves in at the clinic for returning soldiers, and go | v: self-direction, security | sphere: prot.UR | chance: 55
-- WB | put in for a home posting, and plan the next five years | v: security, achievement | sphere: prot.WB | chance: 55
-- WR | tell your partner the whole truth one night, however hard it is to say | act: tell their partner the whole truth one night, however hard it is to say | v: benevolence, self-direction | sphere: prot.RW | chance: 55
+- W | keep a strict routine at home, the way the posting ran | v: security, conformity | sphere: prot.W | foot: means ties-.03 | chance: 65
+- U | read up on what coming back does to people, and name what is happening | v: self-direction, universalism | sphere: prot.U | foot: lesson naming it makes it smaller | chance: 65
+- B | say you are fine, and keep it to yourself | act: say they are fine, and keep it to themselves | v: self-direction | sphere: prot.B | foot: door kept it hidden | chance: 65
+- R | take the family to the coast for a week, and try to feel it all again | v: hedonism, stimulation | sphere: prot.R | foot: means money-.03 | chance: 65
+- G | go back to the old haunts and the old faces, slowly, one by one | v: tradition, security | sphere: prot.G | foot: person friend | chance: 65
+- BG | meet up with the old hands from the unit, who need nothing explained | v: security, tradition | sphere: prot.BG | foot: place gather.circle | chance: 55
+- UG | walk the hills every morning, alone, until the noise inside goes quiet | v: self-direction, security | sphere: prot.GU | foot: means health+.06 | chance: 55
+- UR | book yourself in at the clinic for returning soldiers, and go | act: book themselves in at the clinic for returning soldiers, and go | v: self-direction, security | sphere: prot.UR | foot: place care.houses | chance: 55
+- WB | put in for a home posting, and plan the next five years | v: security, achievement | sphere: prot.WB | foot: door stayed home | chance: 55
+- WR | tell your partner the whole truth one night, however hard it is to say | act: tell their partner the whole truth one night, however hard it is to say | v: benevolence, self-direction | sphere: prot.RW | foot: door owned up | chance: 55
 works: By the spring {N} sleeps through the night again, and the dinners have their old noise back.
 works: The family finds a new shape around {N}, and it holds.
 fails: The distance at home grows, and {partner} says they hardly know {N} any more.
@@ -429,16 +429,16 @@ scene U: {N} realises they know almost nothing about half the names: who they we
 scene B: The councillors come every year for the photograph and do nothing for the veterans' home. {N} has a captive audience at last.
 scene R: Every year the speeches say glory. {N} remembers the faces, and none of them looked glorious.
 scene G: The families still come: the same mothers, older each year, and now grandchildren holding their hands.
-- W | read every name slowly and clearly, exactly as it is cut in the stone | v: tradition, conformity | lever: loyalty | sphere: prot.W | chance: 65
-- U | find out something true about each name, and say a line for each | v: universalism, benevolence | sphere: prot.U | chance: 65
-- B | read them, then press the councillors on the veterans' home before the cameras | v: power, benevolence | lever: voice | pushes: place | sphere: prot.B | chance: 65
-- R | say what nobody says out loud: what it cost, and who sent them | v: self-direction | lever: voice | sphere: prot.R | chance: 65
-- G | bring the families of the names to stand at the front | v: tradition, benevolence | sphere: prot.G | chance: 65
-- BG | read the names, then take the youngest soldiers for a quiet drink after | v: tradition, security | sphere: prot.BG | chance: 55
-- BR | turn the evening after into a loud night for the old unit, on you | act: turn the evening after into a loud night for the old unit, on them | v: hedonism | lever: fund | sphere: prot.BR | chance: 55
-- UR | record the old hands' stories after the service, before they are lost | v: universalism, stimulation | sphere: prot.UR | chance: 55
-- WG | ask one relative from each family to lay a flower beside you | act: ask one relative from each family to lay a flower beside them | v: tradition, benevolence | sphere: prot.GW | chance: 55
-- WU | get the stone corrected where one name has been spelled wrong for years | v: conformity, universalism | sphere: prot.WU | chance: 55
+- W | read every name slowly and clearly, exactly as it is cut in the stone | v: tradition, conformity | lever: loyalty | sphere: prot.W | foot: lesson every name deserves its time | chance: 65
+- U | find out something true about each name, and say a line for each | v: universalism, benevolence | sphere: prot.U | foot: place learn.keeping | chance: 65
+- B | read them, then press the councillors on the veterans' home before the cameras | v: power, benevolence | lever: voice | pushes: place | sphere: prot.B | foot: place rule.voice | chance: 65
+- R | say what nobody says out loud: what it cost, and who sent them | v: self-direction | lever: voice | sphere: prot.R | foot: mark defied an authority | chance: 65
+- G | bring the families of the names to stand at the front | v: tradition, benevolence | sphere: prot.G | foot: means ties+.06 | chance: 65
+- BG | read the names, then take the youngest soldiers for a quiet drink after | v: tradition, security | sphere: prot.BG | foot: person friend | chance: 55
+- BR | turn the evening after into a loud night for the old unit, on you | act: turn the evening after into a loud night for the old unit, on them | v: hedonism | lever: fund | sphere: prot.BR | foot: means money-.03 | chance: 55
+- UR | record the old hands' stories after the service, before they are lost | v: universalism, stimulation | sphere: prot.UR | foot: person elder | chance: 55
+- WG | ask one relative from each family to lay a flower beside you | act: ask one relative from each family to lay a flower beside them | v: tradition, benevolence | sphere: prot.GW | foot: means ties+.03 | chance: 55
+- WU | get the stone corrected where one name has been spelled wrong for years | v: conformity, universalism | sphere: prot.WU | foot: place rule.counsel | chance: 55
 works: The names are read well, and afterwards a mother {N} has never met holds {Ns} hands and thanks them.
 works: The morning leaves {N} lighter, as if something owed has been paid at last.
 fails: {Ns} voice breaks on the third name, and {N} has to stop and start again.
@@ -469,16 +469,16 @@ scene U: {N} looks around the room: the guards, the other families, the children
 scene B: What matters now is the appeal, the lawyer, and getting {sibling} out sooner. {N} has a list of questions.
 scene R: {N} wants to shout at the walls. Instead {N} grins, and asks what the food is like.
 scene G: {parent} could not face coming. {N} has brought every bit of news from home, down to the neighbour's new dog.
-- W | keep to every rule of the visit, so nothing stops the next one | v: conformity, security | sphere: prot.W | chance: 65
-- U | ask what the days are like inside, and what would help them most | v: universalism, benevolence | sphere: prot.U | chance: 65
-- B | talk through the appeal and the lawyer, and what it will cost | v: achievement, security | sphere: prot.B | chance: 65
-- R | make them laugh about the old days for the whole hour | v: hedonism, benevolence | sphere: prot.R | chance: 65
-- G | bring news of every cousin and aunt, so they know home is waiting | v: tradition, benevolence | sphere: prot.G | chance: 65
-- RG | promise to come every week, whatever the bus fare and the queue | v: benevolence, tradition | lever: loyalty | sphere: prot.RG | chance: 55
-- UB | find out about the college course inside, and how to get them a place | v: achievement, self-direction | sphere: prot.UB | chance: 55
-- UR | write them a long letter that night, saying all the room would not let you | act: write them a long letter that night, saying all the room would not let them | v: benevolence, self-direction | sphere: prot.UR | chance: 55
-- WB | put money on their account each month, and keep a careful record | v: security, benevolence | lever: fund | sphere: prot.WB | chance: 55
-- WG | make their room ready at home, for whenever they come out | v: benevolence, tradition | sphere: prot.GW | chance: 55
+- W | keep to every rule of the visit, so nothing stops the next one | v: conformity, security | sphere: prot.W | foot: lesson small rules keep the door open | chance: 65
+- U | ask what the days are like inside, and what would help them most | v: universalism, benevolence | sphere: prot.U | foot: door helped someone in need | chance: 65
+- B | talk through the appeal and the lawyer, and what it will cost | v: achievement, security | sphere: prot.B | foot: means money-.10 | chance: 65
+- R | make them laugh about the old days for the whole hour | v: hedonism, benevolence | sphere: prot.R | foot: lesson laughter fits in any room | chance: 65
+- G | bring news of every cousin and aunt, so they know home is waiting | v: tradition, benevolence | sphere: prot.G | foot: means ties+.06 | chance: 65
+- RG | promise to come every week, whatever the bus fare and the queue | v: benevolence, tradition | lever: loyalty | sphere: prot.RG | foot: door kept your word | chance: 55
+- UB | find out about the college course inside, and how to get them a place | v: achievement, self-direction | sphere: prot.UB | foot: person go-between | chance: 55
+- UR | write them a long letter that night, saying all the room would not let you | act: write them a long letter that night, saying all the room would not let them | v: benevolence, self-direction | sphere: prot.UR | foot: means ties+.03 | chance: 55
+- WB | put money on their account each month, and keep a careful record | v: security, benevolence | lever: fund | sphere: prot.WB | foot: means money-.06 | chance: 55
+- WG | make their room ready at home, for whenever they come out | v: benevolence, tradition | sphere: prot.GW | foot: door took them in | chance: 55
 works: The visits become a habit, and when {sibling} comes out, {N} is waiting at the gate.
 works: {sibling} starts a course inside, and the letters home grow longer and lighter.
 fails: The visit goes badly: an old quarrel, raised voices, and a guard ending it early.
@@ -511,16 +511,16 @@ scene U: {N} stands in the doorway and reads the room: what was taken, what was 
 scene B: {N} is already adding it up: the door, the laptop, the insurance, and what it will take to make sure this never happens again.
 scene R: {N} is shaking with anger. Someone walked through these rooms and touched everything.
 scene G: The rings were the last thing of {grandparent}'s that {N} had. The street, too, feels less like theirs tonight.
-- W | report it at once, and give the police a full and honest list | v: conformity, security | sphere: prot.W | chance: 65
-- U | walk the house slowly, and work out how they got in and when | v: self-direction, security | sphere: prot.U | chance: 65
-- B | fit the best locks and an alarm that week, whatever it costs | v: security | sphere: prot.B | chance: 65
-- R | knock on every door in the street tonight, asking who saw what | v: stimulation | sphere: prot.R | chance: 65
-- G | go next door, and stay with the neighbours until the house feels safe | v: security, tradition | sphere: prot.G | chance: 65
-- BR | post the doorbell camera clips online, and offer a reward for the rings | v: power, stimulation | tech: internet | sphere: prot.BR | chance: 55
-- UG | ask the old neighbours what has changed on the street lately | v: universalism, tradition | sphere: prot.GU | chance: 55
-- UR | rig up lights and a homemade alarm that very night, and test them | v: self-direction, stimulation | sphere: prot.UR | chance: 55
-- WB | chase the insurer and the police every week until the claim is settled | v: security, power | sphere: prot.WB | chance: 55
-- WG | start a phone tree with the neighbours, so the street watches each other's doors | v: benevolence, security | lever: found | pushes: group neighbours | sphere: prot.GW | chance: 55
+- W | report it at once, and give the police a full and honest list | v: conformity, security | sphere: prot.W | foot: means time-.03 | chance: 65
+- U | walk the house slowly, and work out how they got in and when | v: self-direction, security | sphere: prot.U | foot: lesson a house shows its weak spots | chance: 65
+- B | fit the best locks and an alarm that week, whatever it costs | v: security | sphere: prot.B | foot: means money-.06 | chance: 65
+- R | knock on every door in the street tonight, asking who saw what | v: stimulation | sphere: prot.R | foot: person neighbour | chance: 65
+- G | go next door, and stay with the neighbours until the house feels safe | v: security, tradition | sphere: prot.G | foot: person friend | chance: 65
+- BR | post the doorbell camera clips online, and offer a reward for the rings | v: power, stimulation | tech: internet | sphere: prot.BR | foot: means money-.03 | chance: 55
+- UG | ask the old neighbours what has changed on the street lately | v: universalism, tradition | sphere: prot.GU | foot: person elder | chance: 55
+- UR | rig up lights and a homemade alarm that very night, and test them | v: self-direction, stimulation | sphere: prot.UR | foot: mark learned a skill | chance: 55
+- WB | chase the insurer and the police every week until the claim is settled | v: security, power | sphere: prot.WB | foot: means money+.03 | chance: 55
+- WG | start a phone tree with the neighbours, so the street watches each other's doors | v: benevolence, security | lever: found | pushes: group neighbours | sphere: prot.GW | foot: place prot.watch | chance: 55
 works: The rings turn up at a pawn shop, and {N} has them back by the end of the month.
 works: The house feels like home again within a season, and the street is closer for it.
 fails: Nothing comes back, and for months {N} lies awake at every noise.
@@ -550,16 +550,16 @@ scene U: {N} takes in the scene in one long second: the smell of fuel or not, th
 scene B: {N} has no training and a family at home. Someone better at this will be along in a minute.
 scene R: {N} is out of the car before thinking about it.
 scene G: Whoever is in that car is somebody's child, somebody's parent. {N} cannot leave them alone in the dark.
-- W | ring the emergency line, and set warning lights behind the crash | v: security, conformity | sphere: prot.W | chance: 65
-- U | check for fuel and smoke before you go near, and send others back | act: check for fuel and smoke before they go near, and send others back | v: security, self-direction | sphere: prot.U | chance: 65
+- W | ring the emergency line, and set warning lights behind the crash | v: security, conformity | sphere: prot.W | foot: door helped someone in need | chance: 65
+- U | check for fuel and smoke before you go near, and send others back | act: check for fuel and smoke before they go near, and send others back | v: security, self-direction | sphere: prot.U | foot: lesson danger first, then help | chance: 65
 - B | drive on slowly: others are stopping, and you would only be in the way | act: drive on slowly, since others are stopping and they would only be in the way | v: security | sphere: prot.B | chance: 65 | back: refused someone in need
 - R | run straight down into the ditch to the car | v: benevolence, stimulation | mark: took a wild risk | sphere: prot.R | chance: 65
 - G | climb down, hold the driver's hand through the window, and keep them talking | v: benevolence | mark: helped someone in need | sphere: prot.G | chance: 65
-- BR | take charge of the scene, and tell the next drivers where to stand | v: power, stimulation | sphere: prot.BR | chance: 55
-- UB | film the scene from a safe distance, for the police and the insurers | v: security | tech: phone | sphere: prot.UB | chance: 55
-- UG | flag down the farmer from the next field, who knows how this ditch floods | v: tradition, security | sphere: prot.GU | chance: 55
-- WG | get the stopped drivers working together: blankets, torches, the traffic | v: benevolence, conformity | sphere: prot.GW | chance: 55
-- WR | go down with the first-aid kit, doing what the course taught you | act: go down with the first-aid kit, doing what the course taught them | v: benevolence, stimulation | sphere: prot.RW | chance: 55
+- BR | take charge of the scene, and tell the next drivers where to stand | v: power, stimulation | sphere: prot.BR | foot: lesson people follow a clear voice | chance: 55
+- UB | film the scene from a safe distance, for the police and the insurers | v: security | tech: phone | sphere: prot.UB | foot: means ties-.03 | chance: 55
+- UG | flag down the farmer from the next field, who knows how this ditch floods | v: tradition, security | sphere: prot.GU | foot: person neighbour | chance: 55
+- WG | get the stopped drivers working together: blankets, torches, the traffic | v: benevolence, conformity | sphere: prot.GW | foot: person friend | chance: 55
+- WR | go down with the first-aid kit, doing what the course taught you | act: go down with the first-aid kit, doing what the course taught them | v: benevolence, stimulation | sphere: prot.RW | foot: mark helped someone in need | chance: 55
 works not B: The driver is out of the car and wrapped in a coat when the ambulance comes, and later sends a card.
 works: {N} drives home shaking, but sure they did what they could.
 fails: {N} freezes for a long minute, and the memory of it stings for years.
@@ -590,15 +590,15 @@ scene U: {N} sniffs the air: which way is the smoke coming from, up the stairs o
 scene B: {Ns} own things, {Ns} own way out. Every second counts, and the crew will be here soon.
 scene R: {N} does not wait to think. Her door is six steps away.
 scene G: She gave {N} a spare key years ago, for emergencies, and it hangs on the hook by the door.
-- W | follow the drill: close the door, take the stairs, report who is missing | v: conformity, security | sphere: prot.W | chance: 65
-- U | check which floor the smoke is coming from before you choose a stair | act: check which floor the smoke is coming from before they choose a stair | v: security, self-direction | sphere: prot.U | chance: 65
+- W | follow the drill: close the door, take the stairs, report who is missing | v: conformity, security | sphere: prot.W | foot: lesson the drill is for tonight | chance: 65
+- U | check which floor the smoke is coming from before you choose a stair | act: check which floor the smoke is coming from before they choose a stair | v: security, self-direction | sphere: prot.U | foot: lesson a calm look picks the stair | chance: 65
 - B | get yourself out fast, and tell the crew at the door about her | act: get themselves out fast, and tell the crew at the door about her | v: security | sphere: prot.B | chance: 65 | back: refused someone in need
 - R | hammer on her door until she opens, and take her down with you | act: hammer on her door until she opens, and take her down with them | v: benevolence, stimulation | mark: helped someone in need | sphere: prot.R | chance: 65
 - G | take the spare key off the hook, and let yourself in to fetch her | act: take the spare key off the hook, and let themselves in to fetch her | v: benevolence, tradition | mark: helped someone in need | sphere: prot.G | chance: 65
 - RG | run the landing banging on every door, hers first | v: benevolence, stimulation | sphere: prot.RG | chance: 55 | back: helped someone in need
-- UB | ring her phone from the stairs while getting yourself clear | act: ring her phone from the stairs while getting themselves clear | v: security | tech: phone | sphere: prot.UB | chance: 55
+- UB | ring her phone from the stairs while getting yourself clear | act: ring her phone from the stairs while getting themselves clear | v: security | tech: phone | sphere: prot.UB | foot: person neighbour | chance: 55
 - UG | tell the crew who lives alone on each floor, from memory | v: benevolence, universalism | sphere: prot.GU | chance: 55 | back: helped someone in need
-- WB | take charge at the meeting point, and count the residents off the list | v: conformity, power | sphere: prot.WB | chance: 55
+- WB | take charge at the meeting point, and count the residents off the list | v: conformity, power | sphere: prot.WB | foot: means ties+.03 | chance: 55
 - WR | get her out, then go back up for the family on the floor below | v: benevolence, stimulation | mark: took a wild risk | sphere: prot.RW | chance: 55
 works: Everyone is out on the pavement by the time the engines arrive, and the old woman holds {Ns} arm the whole time.
 works: The fire is small and soon out, and from that week the landing keeps an eye on one another.
@@ -635,16 +635,16 @@ scene U: {N} tries to picture the house before they reach it: the doors, the sta
 scene B: Everyone remembers how a new one does on the first real call. {N} means to come out of it well.
 scene R: {N} has been waiting months for this. The bell, the engine, the open road at night: it is everything.
 scene G: Two streets away. {N} might know the family. {N} might have walked past that door this morning.
-- W | do exactly what the crew leader tells you, and nothing more | act: do exactly what the crew leader tells them, and nothing more | v: conformity, security | lever: loyalty | sphere: prot.W | chance: 65
-- U | read the house as you pull up: the doors, the windows, where people sleep | act: read the house as they pull up: the doors, the windows, where people sleep | v: self-direction, security | sphere: prot.U | chance: 65
-- B | stay with the pump and the hoses, the job you know best | act: stay with the pump and the hoses, the job they know best | v: security, achievement | sphere: prot.B | chance: 65
+- W | do exactly what the crew leader tells you, and nothing more | act: do exactly what the crew leader tells them, and nothing more | v: conformity, security | lever: loyalty | sphere: prot.W | foot: person boss | chance: 65
+- U | read the house as you pull up: the doors, the windows, where people sleep | act: read the house as they pull up: the doors, the windows, where people sleep | v: self-direction, security | sphere: prot.U | foot: mark learned a skill | chance: 65
+- B | stay with the pump and the hoses, the job you know best | act: stay with the pump and the hoses, the job they know best | v: security, achievement | sphere: prot.B | foot: lesson the known job still matters | chance: 65
 - R | ask to go in with the breathing team, first night or not | v: stimulation, benevolence | mark: took a wild risk | sphere: prot.R | chance: 65
-- G | look after the family on the pavement, with blankets and names, while the crew works | v: benevolence | sphere: prot.G | chance: 65
-- BR | take the hose at the front, and show the old hands what you can do | act: take the hose at the front, and show the old hands what they can do | v: achievement, stimulation | sphere: prot.BR | chance: 55
-- RG | run to wake the houses either side before the smoke reaches them | v: benevolence, stimulation | sphere: prot.RG | chance: 55
-- UB | keep the radio log and the timings, and learn from every minute | v: achievement, self-direction | sphere: prot.UB | chance: 55
-- WG | knock on the neighbours' doors in turn, and count everyone out | v: benevolence, conformity | sphere: prot.GW | chance: 55
-- WU | check the gear and the air twice, as the drill says, before moving | v: conformity, security | sphere: prot.WU | chance: 55
+- G | look after the family on the pavement, with blankets and names, while the crew works | v: benevolence | sphere: prot.G | foot: mark helped someone in need | chance: 65
+- BR | take the hose at the front, and show the old hands what you can do | act: take the hose at the front, and show the old hands what they can do | v: achievement, stimulation | sphere: prot.BR | foot: mark took a wild risk | chance: 55
+- RG | run to wake the houses either side before the smoke reaches them | v: benevolence, stimulation | sphere: prot.RG | foot: door helped someone in need | chance: 55
+- UB | keep the radio log and the timings, and learn from every minute | v: achievement, self-direction | sphere: prot.UB | foot: lesson every minute can teach something | chance: 55
+- WG | knock on the neighbours' doors in turn, and count everyone out | v: benevolence, conformity | sphere: prot.GW | foot: person neighbour | chance: 55
+- WU | check the gear and the air twice, as the drill says, before moving | v: conformity, security | sphere: prot.WU | foot: person colleague | chance: 55
 works: Everyone is out of the house by the time the roof goes, and {mentor} claps {N} on the back on the drive home.
 works: Back at the station at dawn, drinking tea in wet kit, {N} feels part of the crew for the first time.
 fails: {N} fumbles the gear at the worst moment, and the crew leader's look says enough.

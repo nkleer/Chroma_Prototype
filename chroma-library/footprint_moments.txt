@@ -1,4 +1,5 @@
-# Footprints pilot (plan.md workstream 3, 10-19): the 80 life events with pictures (chroma-art/data/life_events_live.json)
+# Footprints (plan.md workstream 3, 10-19): every Earth life event. The first 80 are the pilot (the life events with pictures,
+# chroma-art/data/life_events_live.json); the rest follow in earth.py order. Emren 10-19 11:56: all life events in v24.
 getting married
 a child is born
 burnout
@@ -79,3 +80,303 @@ losing your job
 a baby on the way, planned or not
 an unexpected chance: a grant, a role, a stage
 going into foster care
+your child falls seriously ill
+your child dies
+the night it goes too far
+an offer from people who do not ask twice
+the man who hurt your family walks free
+the neighbour who wants your land
+a business partner about to ruin you
+a stranger on the pavement who does not get up
+who stays home with the baby
+a child of your own, another way
+telling the family who you are
+an invitation for three
+a holiday romance
+a friend who will not wake up
+the last week of the painkillers
+a racing heart after a heavy weekend
+the cyclist at dusk
+up the ladder to clear the gutters
+the house rota, again
+a rule bent for a good reason
+everyone's first call
+the family does things differently now
+an answer needed by Friday
+a friend wants comfort, not a plan
+the plan still in the drawer
+the move put off another winter
+credit for the group's work
+a deal without your partner in it
+a quiet phone at the top
+the family and the will
+another night that runs into morning
+the row that could end the job
+the body says stop
+a bridge burned years ago
+a door out of town
+the trade changes around you
+the roof that needs more than patching
+help you have not asked for
+a sound with no name yet
+the first club is a chain bar now
+the film they pulled from the cinemas
+the last voice that knew the old songs
+the folk festival in the field
+the series with the ending nobody agrees on
+the arts centre in the old station
+the venues close and the band plays kitchens
+every song in your pocket
+the song about the empty chair
+the sketch about the minister
+a classmate's song is everywhere
+the director everyone admired
+the last night at the little theatre
+the village pottery sells far away
+a free music school with instruments to borrow
+the archive wiped clean
+a novel in the home tongue
+the band comes home after the flood
+the street pulls together after the storm
+a medicine in the cupboard is withdrawn
+the new vaccine splits the dinner table
+a new birth centre in town
+the labour that stalls in the night
+the hospice nurse comes every morning
+a clinic opens on the corner
+the tap water is safe again
+a grandparent's remedy no one else knows
+a mutual aid fund on the street
+a carer lets a parent stay at home
+care becomes free at the point of need
+the treatment the insurance will not cover
+the care home where nobody knows the names
+a brother or sister home from the war, changed
+the famous surgeon's two-year list
+the care home on the evening news
+the loan the new owners call in
+the depot at the edge of town
+the market in the empty car park
+the weekly shop buys less each month
+the shop that tripled the price of water
+the letter that writes off the debt
+a ten-year wait for a permit
+the man with the van at the market
+the investment club's phone goes dead
+a second flat with almost nothing down
+money that buys less every month
+your turn at the savings circle's pot
+the first bank branch in the village
+the superstore on the ring road
+the part that will not come
+the gift book at a cousin's wedding
+new shops on the empty high street
+the stall that takes payment by phone
+the rent goes up by a fifth
+the job centre in the old bank
+the young one's rite of passage
+the old walking road is full again
+the building fund is gone
+a box of books from next door
+the leaders of every faith share a meal
+a face in the window
+ten people at the graveside
+the new house of worship opens
+none of your friends go any more
+the fast ends and the table fills
+a call to serve after a loss
+the hill of offerings is cleared
+the food bank opens five days a week
+a broken shop window on the high street
+the leader of thirty years steps down
+the retreat house is sold
+a wedding with two rites
+a fortune left to the food bank
+the funeral bill
+a new café on the corner
+the wake in the old bar
+the morning after the fight outside the club
+the bars must close at ten
+the dry years
+the flood in the community centre
+long tables in the street when the war ends
+hard times fill the soup night
+three days at the convention
+the club adds a waiting list
+someone at the table passes it on
+the team is down to nine players
+a dozen new groups in a year
+the whole street watches the final
+a post says the water is poisoned
+the town's new news feed
+the old rail yard becomes a park
+nobody can find the drawings for the pumps
+a new school across the river
+a university on the old army base
+two more years at school
+four points short on the results letter
+the works is hiring two hundred
+books pulled from the school library
+half the class takes jobs abroad
+new teachers at the college from far away
+the library reopens after the refit
+six weeks with the schools on strike
+a year with the schools shut
+a degree and a job at the till
+a weekend school for the old language
+the archive floods overnight
+the family in the flat below
+the metal under the hills
+the plant moves its line abroad
+the third week on the picket line
+the scaffolding comes down
+the last family farm in the valley
+a title to the fields your family worked
+the boats tied up in the harbour
+the count comes back rising
+a sign in every window
+the cooperative's own cheese plant
+overtime for the war abroad
+the valley's oil in the papers
+the school bus leaves half empty
+four of the old crew in a rented unit
+the van that keeps circling
+the city is surrounded
+the ceasefire holds
+home from service for good
+a night guard for the main street
+the new radios and phone maps
+officers on foot on the estate
+break-ins on your side of town
+a crew collecting from the late shops
+the camp in the square is cleared
+more patrols and more stops
+the street starts its own watch
+lights and cameras on the estate
+a college inside the prison
+the army splits
+your name in the leaked files
+a feud spills into the street
+trouble on the late bus
+the quake on the old side of town
+the flood wall gives way
+the long quarrel next door ends
+the permits followed the donations
+the petition saves the bus route
+the old laws come back
+the court clears the builder
+the amnesty list
+a new charge on the water bill
+new powers after the attack
+the district gets its own council
+the budget fails again
+the paramedic is named online
+the counter at the door
+ruled from the other capital
+a month to leave
+the councillor wins the playground
+asked to stand for a child at the naming
+who comes to the wedding
+a new teacher with a way of their own
+picked at the gate at dawn
+back at the job centre after thirty years
+the branch splits over the candidate
+the chair of the council steps down
+the society splits over the open nights
+the players' grant is cut
+the kitchen in the back hall is running out
+the small ward's last winter
+the college ends its evening classes
+the warden of the makers' association retires
+the queue at the credit union
+the night desk at the station closes
+nominations close on Friday
+lost fairly at the small claims hearing
+the foreman's inquiry into the jammed press
+the song learned at a parent's knee
+the hall committee turns down your play
+asked to play at a friend's wedding
+strangers singing your song
+the funeral where everyone sings
+the last telling at the bedside
+a child picks up your old instrument
+the hours of waiting on the maternity ward
+fourteen months on the list for a new hip
+deciding for a parent who cannot speak
+the carer's afternoon off
+the first coins at the car-boot table
+the shop's opening day
+the regular who never pays
+the keys of the shop to a grown child
+the first signature on monthly payments
+the lender's yes or no
+the pitch fee doubles
+the order that makes the business
+the bargain that was a cheat
+the last market day at the old pitch
+the first fast kept to the end
+naming your own child
+a wedding without the old rite
+telling the family you have left the faith
+a vow made before the gathering
+the twelfth day on the pilgrim road
+the first night out at eighteen
+turned away at the door
+the old bar is sold
+the toast at the wedding
+leaving school for a wage
+the first year at the master's bench
+the final piece before the judges
+the first in the family to graduate
+the old well that never ran dry
+a row of your own on the family plot
+the test piece on the judges' bench
+hurt on the job
+taking on your first hand
+no one to take the trade on
+the first thing you made that sold
+a backer for the workshop
+the first arrest you make
+the first day in uniform
+the farewell at the barracks fence
+a comrade lost on the mountain road
+home from the posting, and not the same
+the names read at the stone
+the first visit to a brother or sister inside
+the back door forced
+the car in the ditch ahead
+the old woman across the landing
+the pager goes at two in the morning
+called as a witness against someone you know
+the clerk who wants something for the licence
+the trial of a friend
+the crowd at the town hall steps
+the call to serve
+a landslide on election night
+the old order falls
+a revival fills the square
+a cure is found at last
+everyone is suddenly on the new medium
+the machines come for the work
+the power and the networks go down
+a crash takes the savings
+new owners take over the firm
+folded into a bigger firm
+the state takes over the failing firm
+the private files get out
+the thing the bosses are hiding
+a new faith comes to town
+the hall on the corner is shut
+a season of bad air
+the river runs foul
+a dry year on the land
+a glorious spring
+the town builds itself back
+a boom year
+the jobs come back to town
+a bumper harvest
+a new law opens a door
+a feast in a year of trust
+the congregation splits in two
+the gang's test of loyalty
+the club reaches the final
