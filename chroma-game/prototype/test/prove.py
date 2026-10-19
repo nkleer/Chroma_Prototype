@@ -11,7 +11,7 @@ The game files are everything under chroma-game/prototype except test/, web/ and
 holds: a committed pin's, else the owners' engine, Library and packs files that chroma-game/tools/pin.py fills it from
 (both trees' engine_pin/ are filled that way before they play). The cache
 is $CHROMA_PROOF_CACHE, else /mnt/project-files/.cache/same-lives when the shared folder exists, else
-~/.cache/chroma/same-lives; an entry also needs the same Python and numpy. A base not in the cache is played from a
+~/.cache/chroma/same-lives; an entry also needs the same Python, numpy, CHROMA_GAME and CHROMA_ENGINE. A base not in the cache is played from a
 temporary git worktree of REF, removed afterwards. Prints one line per preset and a verdict; exit 0 when every life
 matches and the smoke test passes. When a life differs, it names the first step that differs and its age.
 """
@@ -38,6 +38,13 @@ def git(*a, cwd=GAME):
 def versions():
     import numpy as np
     return f"py{platform.python_version()}-np{np.__version__}"
+
+
+def settings_tag():
+    """The cache entry's settings: Python's and numpy's versions, and CHROMA_GAME and CHROMA_ENGINE when set, so a life
+    played with other settings is never taken for this one."""
+    env = "|".join(os.environ.get(k, "") for k in ("CHROMA_GAME", "CHROMA_ENGINE"))
+    return versions() + (f"-env{hashlib.md5(env.encode()).hexdigest()[:8]}" if env != "|" else "")
 
 
 def tree_key(ref=None):
@@ -86,7 +93,7 @@ def cache_dir():
 
 
 def cache_get(key, preset, seed):
-    p = os.path.join(cache_dir(), f"{key}-{versions()}-p{preset}-s{seed}.json")
+    p = os.path.join(cache_dir(), f"{key}-{settings_tag()}-p{preset}-s{seed}.json")
     try:
         return json.load(open(p))
     except (OSError, ValueError):
@@ -94,7 +101,7 @@ def cache_get(key, preset, seed):
 
 
 def cache_put(key, preset, seed, res):
-    p = os.path.join(cache_dir(), f"{key}-{versions()}-p{preset}-s{seed}.json")
+    p = os.path.join(cache_dir(), f"{key}-{settings_tag()}-p{preset}-s{seed}.json")
     tmp = f"{p}.{os.getpid()}.tmp"
     json.dump(dict(res, made=time.strftime("%Y-%m-%d %H:%M UTC", time.gmtime()), host=platform.node()), open(tmp, "w"))
     os.replace(tmp, p)
