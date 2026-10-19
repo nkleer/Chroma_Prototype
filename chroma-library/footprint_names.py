@@ -48,3 +48,26 @@ def line(kind, value):
     if kind in ("mark", "door"):
         return MARK.get(value, value)
     return value
+
+
+# Which history marks count as a footprint in the marks stack (Library 10-19, the 14 marks no title or perk rule reads;
+# the coordinator asked for a call on each, with the reason). A mark counts when something in the life visibly answers
+# it. The 11 marks the title and perk rules read count already (tests/check_footprint.py reads them from the rules).
+MARKS_WIRED = {   # read today by the engine's people and world code, so the deed shows in how others treat the character
+    "owned up": "trust and the cast's view of them (engine.py, world_link_base.py)",
+    "left home": "the household, distance and the leaving years (run_14_marks.py, world_people_ticks.py)",
+    "stayed home": "the household and the home town's people (world_people_base.py)",
+    "turned down a chance": "the doors that close and the people who offered (world_link.py, world_people_base.py)",
+    "refused someone in need": "the cast's trust and the one refused (world_link.py, world_people_lives.py)",
+    "gave in to pressure": "self-control and the pressure's source (engine.py)",
+    "broke the law": "the law's reach: caught, records, the watch (run_08_fixes.py, world_link_base.py)",
+}
+MARKS_RETIRED = {   # stay history marks the engine reads as now, but never a footprint in the marks stack
+    "came out": "who they love, not a deed to stack; never judged by a footprint (as the seed kinds leave it out)",
+    "named their gender": "who they are, not a deed to stack (as the seed kinds leave it out)",
+    "hurt someone badly": "rare and never graphic; not something the game collects or shows as a stack item",
+    "took a life": "rare and never graphic; not something the game collects or shows as a stack item",
+    "used drugs": "not a mark to collect; the engine's drug reading stays as it is",
+    "kept it hidden": "no engine reader; it stays a door kind (back:) and an echo's condition",
+    "took them in": "already a person footprint (a tie moves into the household)",
+}

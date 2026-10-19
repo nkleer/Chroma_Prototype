@@ -1,5 +1,5 @@
 # Footprints (plan.md workstream 3; Engine 10-19): what each option visibly leaves, compiled by build.py from the
-# foot: fields of earth-*.lib. FOOT[(moment, option label)] = [(kind, value), ...]; kinds person, place, means,
+# foot: fields of the .lib parts. FOOT[(moment, option label)] = [(kind, value), ...]; kinds person, place, means,
 # mark, door, lesson. Read only with the engine's foot_on switch; earth.py carries none of it.
 FOOT = {('burnout', 'see the doctor, take the sick leave, and follow the plan to the letter'): [('place', 'care.houses')],
  ('burnout', 'work out what is draining your strength, and redesign your days around it'): [('lesson',
@@ -412,12 +412,6 @@ FOOT = {('burnout', 'see the doctor, take the sick leave, and follow the plan to
                                                                                                                     'care.houses')],
  ('moving to a smaller home or into care', 'sell to the highest bidder and buy the best flat money can buy'): [('means',
                                                                                                                 'money+.06')],
- ('moving to a smaller home or into care', 'give the furniture to whoever will love it, and keep only the photographs'): [('lesson',
-                                                                                                                           'memories '
-                                                                                                                           'matter '
-                                                                                                                           'more '
-                                                                                                                           'than '
-                                                                                                                           'things')],
  ('moving to a smaller home or into care', 'hold a farewell evening: a story for each room, then a dance in the empty one'): [('means',
                                                                                                                                'ties+.06')],
  ('moving to a smaller home or into care', 'choose a place in your own neighbourhood, with a garden, and move in slowly'): [('person',
@@ -980,10 +974,6 @@ FOOT = {('burnout', 'see the doctor, take the sick leave, and follow the plan to
                                                                                                       'money+.06')],
  ('a breakthrough in your work', 'tell everyone you know tonight, without checking a thing'): [('mark',
                                                                                                 'took a wild risk')],
- ('a breakthrough in your work', 'take it as a gift, and fold it quietly into the everyday work'): [('lesson',
-                                                                                                     'the work '
-                                                                                                     'itself is '
-                                                                                                     'enough')],
  ('a breakthrough in your work', 'check it three times, write it up, and send it to the judges of such work'): [('mark',
                                                                                                                  'learned '
                                                                                                                  'a '
@@ -1155,9 +1145,7 @@ FOOT = {('burnout', 'see the doctor, take the sick leave, and follow the plan to
  ('war comes', 'take up arms with the neighbours, and hold the street yourselves'): [('place', 'prot.watch'),
                                                                                      ('mark', 'took a wild risk')],
  ('war comes', 'slip across the border before the call-up, and start over wherever you land'): [('mark',
-                                                                                                 'moved away'),
-                                                                                                ('door',
-                                                                                                 'broke the law')],
+                                                                                                 'moved away')],
  ('a public scandal', 'own up in public, and name everyone else who was in on it too'): [('person', 'rival')],
  ('a public scandal', 'face them all down, head up, and refuse to hide'): [('lesson', 'head up, the talk fades')],
  ('a public scandal', 'stay out of sight for a while, and let it blow over'): [('means', 'ties-.05')],
@@ -1372,10 +1360,7 @@ FOOT = {('burnout', 'see the doctor, take the sick leave, and follow the plan to
                                                                                                                               'a '
                                                                                                                               'skill')],
  ('a chance to change everything', 'sell up, cut every tie, and sail a small boat around the world'): [('means',
-                                                                                                        'ties-.10'),
-                                                                                                       ('mark',
-                                                                                                        'took a wild '
-                                                                                                        'risk')],
+                                                                                                        'ties-.10')],
  ('a friend who will not wake up', 'turn your friend on their side, watch the breathing, and call only if it worsens'): [('mark',
                                                                                                                           'learned '
                                                                                                                           'a '
@@ -2291,9 +2276,6 @@ FOOT = {('burnout', 'see the doctor, take the sick leave, and follow the plan to
                                                                                                                     'neighbour')],
  ('a free music school with instruments to borrow', "help teach the beginners' class one evening a week"): [('person',
                                                                                                              'colleague')],
- ('the archive wiped clean', 'hand the phone in, as the new rules say, and keep the peace'): [('lesson',
-                                                                                               'some losses are '
-                                                                                               'chosen')],
  ('the archive wiped clean', 'make a quiet list of every song and dance the archive held'): [('place',
                                                                                               'learn.keeping')],
  ('the archive wiped clean', 'copy the recording, and pass it only to people who can repay the favour'): [('person',
@@ -2955,12 +2937,6 @@ FOOT = {('burnout', 'see the doctor, take the sick leave, and follow the plan to
                                                                                                                   'rule.counsel')],
  ('the man with the van at the market', 'report the van to the inspectors, with the days and times it parks'): [('person',
                                                                                                                  'rival')],
- ('the man with the van at the market', 'turn the driving down, since the sums show far more risk than pay'): [('lesson',
-                                                                                                                'some '
-                                                                                                                'pay '
-                                                                                                                'costs '
-                                                                                                                'too '
-                                                                                                                'much')],
  ('the man with the van at the market', 'buy a few cartons and sell them on to colleagues at a margin'): [('means',
                                                                                                            'money+.03')],
  ('the man with the van at the market', "buy your parent's usual cartons from the van, as the whole street does"): [('means',
@@ -2991,13 +2967,6 @@ FOOT = {('burnout', 'see the doctor, take the sick leave, and follow the plan to
                                                                                                                     'time-.05')],
  ("the investment club's phone goes dead", "hire a lawyer to claim the founder's house before the others do"): [('means',
                                                                                                                  'money-.06')],
- ("the investment club's phone goes dead", 'tell your parent they were right all along, and ask for their help'): [('lesson',
-                                                                                                                    'pride '
-                                                                                                                    'is '
-                                                                                                                    'worth '
-                                                                                                                    'less '
-                                                                                                                    'than '
-                                                                                                                    'help')],
  ("the investment club's phone goes dead", 'bring the members together for a meal, so nobody faces it alone'): [('place',
                                                                                                                  'gather.talk')],
  ("the investment club's phone goes dead", "start a page that warns others about schemes that pay from newcomers' money"): [('place',
@@ -3755,8 +3724,7 @@ FOOT = {('burnout', 'see the doctor, take the sick leave, and follow the plan to
                                                                                                                     'writing '
                                                                                                                     'gets '
                                                                                                                     'answers')],
- ('the bars must close at ten', 'rent a basement and run the after-hours door yourself'): [('means', 'money+.06'),
-                                                                                           ('door', 'broke the law')],
+ ('the bars must close at ten', 'rent a basement and run the after-hours door yourself'): [('means', 'money+.06')],
  ('the bars must close at ten', 'move the Saturday gathering to your kitchen, and invite the whole street'): [('place',
                                                                                                                'gather.house')],
  ('the bars must close at ten', 'throw your own party in a flat, music loud, door open to friends of friends'): [('person',
@@ -3774,8 +3742,7 @@ FOOT = {('burnout', 'see the doctor, take the sick leave, and follow the plan to
                                                                                                  'money+.06')],
  ('the dry years', 'learn the knock, and keep your Friday nights at the teacup club'): [('place', 'gather.night')],
  ('the dry years', 'brew a little at home for the family feasts, as the old ones did'): [('door', 'kept it hidden')],
- ('the dry years', 'open a teacup club of your own at the back of a café'): [('place', 'gather.night'),
-                                                                             ('door', 'broke the law')],
+ ('the dry years', 'open a teacup club of your own at the back of a café'): [('place', 'gather.night')],
  ('the dry years', 'keep the dances going in the hall, with fruit punch and the same band'): [('place',
                                                                                                'gather.hall')],
  ('the dry years', "pay the old bar's rent through the ban, so it can open again one day"): [('means', 'money-.10')],
@@ -6810,11 +6777,6 @@ FOOT = {('burnout', 'see the doctor, take the sick leave, and follow the plan to
                                                                                                                       'answers '
                                                                                                                       'carry '
                                                                                                                       'weight')],
- ('the final piece before the judges', 'point out the flaw yourself, and explain how you would fix it'): [('lesson',
-                                                                                                           'naming a '
-                                                                                                           'flaw '
-                                                                                                           'builds '
-                                                                                                           'trust')],
  ('the final piece before the judges', "lead with the piece's strongest part, and steer the judges past its weak one"): [('door',
                                                                                                                           'kept '
                                                                                                                           'it '
@@ -6915,9 +6877,6 @@ FOOT = {('burnout', 'see the doctor, take the sick leave, and follow the plan to
                                                                                                                      'friend')],
  ('a row of your own on the family plot', "weigh every picking on the kitchen scales and keep the family's harvest list"): [('means',
                                                                                                                              'time-.03')],
- ("the test piece on the judges' bench", 'tell the judges about the gap before they find it'): [('lesson',
-                                                                                                 'say it before they '
-                                                                                                 'see it')],
  ("the test piece on the judges' bench", 'set the piece in the light so the eye goes to its best side'): [('door',
                                                                                                            'kept it '
                                                                                                            'hidden')],
@@ -6991,12 +6950,6 @@ FOOT = {('burnout', 'see the doctor, take the sick leave, and follow the plan to
                                                                                                                      'prod.craft')],
  ('no one to take the trade on', 'offer the whole place to the hands and the neighbours as a cooperative'): [('means',
                                                                                                               'money-.06')],
- ('no one to take the trade on', 'turn down the buyer who would close it, though they offer most, and say why'): [('lesson',
-                                                                                                                   'some '
-                                                                                                                   'offers '
-                                                                                                                   'cost '
-                                                                                                                   'too '
-                                                                                                                   'much')],
  ('the first thing you made that sold', 'price the rest by the hours and the materials, no more and no less'): [('lesson',
                                                                                                                  'a '
                                                                                                                  'fair '
@@ -7579,12 +7532,6 @@ FOOT = {('burnout', 'see the doctor, take the sick leave, and follow the plan to
                                                                                                                    'for')],
  ('the power and the networks go down', 'buy up fuel, water and batteries in the first hour, and sell the spare'): [('means',
                                                                                                                      'money+.06')],
- ('the power and the networks go down', 'make the larder last, a little each day, and wait calmly for the lights'): [('lesson',
-                                                                                                                      'a '
-                                                                                                                      'little '
-                                                                                                                      'each '
-                                                                                                                      'day '
-                                                                                                                      'lasts')],
  ('the power and the networks go down', 'slip into the shut shop and take what the household needs'): [('door',
                                                                                                         'hid a '
                                                                                                         'wrong')],
