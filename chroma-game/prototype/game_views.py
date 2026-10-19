@@ -608,6 +608,8 @@ class ViewsMixin:
                 opts[-1]["commit_say"] = o["commit_say"]
             if o.get("bold"):                           # Bold ways: the chip, the fit hint, what it wins and costs
                 opts[-1]["bold"] = o["bold"]
+            if o.get("arrows"):                         # v24 hover arrows, only while arrows is on
+                opts[-1]["arrows"] = o["arrows"]
         sp = self.shadow_pull(self.loc, (cp.get("view") or {}).get("heart")) if self.loc is not None else None
         if sp is not None:                           # item 2: once seen, the heart's pick their shadow drives carries a mark
             for o in opts:
