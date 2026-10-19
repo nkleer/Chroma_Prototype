@@ -120,8 +120,9 @@
                     bow_ = np.zeros(2)
                     for boj_, bori_ in enumerate(BO_S.get(int(s[n]), ())):
                         bor_ = BO_ROWS[bori_]; bok_ = bor_["base"]
-                        if not mask[n, bok_] or bor_["req"] and not (RON and r_has[n, bor_["req"]].any()):
-                            continue   # its base way open, and its own requires: held
+                        if not mask[n, bok_] or bor_["req"] and not (RON and r_has[n, bor_["req"]].any()) \
+                                or P["title_ages"] and not bor_["ages"][0] <= t / 52 <= bor_["ages"][1]:
+                            continue   # its base way open, its own requires: held, and what it gives inside its ages
                         boma_ = m[n, bok_]   # the base way's true odds, as the odds draw below has them
                         boz_ = P["gain"] * ((boma_ * (sig[n] + f_tot[n])).sum() + P["fit"] * (boma_ * (alpha[n] - alpha[n].mean())).sum()
                                           - diff[n, bok_]) + (pbump[n, bok_] if RON else 0.0) - (P["sh_fail"] * (boma_ * shA[n]).sum() if SHON else 0.0)

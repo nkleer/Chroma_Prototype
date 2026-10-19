@@ -1193,10 +1193,12 @@ def _bold(L, table):
             rq_ = _names(str(r.get("requires") or "").replace("|", ";"))   # the bold way's own gate: a title or perk held
             if rq_ and (G is None or any(x_ not in G["ID"] for x_ in rq_)):   # (any of several)
                 raise ValueError(f"BOLD {nm!r}: requires: {r['requires']!r} names no title or perk")
-            ch_ = r.get("change") or {}
+            gv_ = [j for w_ in ("ok", "fail") for op, j, _ in fx[w_] if op in ("title", "grants") and j >= 0]
+            ag_ = (max([0.0] + [float(G["ages"][j, 0]) for j in gv_]), min([200.0] + [float(G["ages"][j, 1]) for j in gv_]))
+            ch_ = r.get("change") or {}   # ages: offered only where what it gives can be gained (title_ages)
             rows.append(dict(i=len(rows), moment=nm, s=si, base=ki, colour=col, kind=f"bold:{nm}/{E.COLORS[col]}",
                              label=str(r.get("label") or r["base"]), chance=c, c_base=cb, shift=float(lg_(c) - lg_(cb)),
-                             fx=fx, mark=mk, lik=lik, req=[G["ID"][x_] for x_ in rq_], change=dict(well=str(ch_.get("well") or "").strip(),
+                             fx=fx, mark=mk, lik=lik, req=[G["ID"][x_] for x_ in rq_], ages=ag_, change=dict(well=str(ch_.get("well") or "").strip(),
                                                                   badly=str(ch_.get("badly") or "").strip()), src=dict(r)))
             by_s.setdefault(si, []).append(len(rows) - 1)
     kinds_ = {x_["kind"] for x_ in rows}

@@ -1,4 +1,4 @@
-fdabc9bf36c2f41c173f3b0b10438786  batch.py
+fa9c9a0b71b63bddb48293311a40b900  batch.py
 757721ec4414965232f272d129713c58  combos.py
 249f655cc2aeb32b9a86500a9cd5554e  earth_rules.py
 887a5362c0a473b912e85605d6c6204b  engine.py
@@ -41,7 +41,7 @@ f67d8d7e8e0d3972e9791608451ee961  run_07_body.py
 41c1596c272c0f1283c41492ef76898e  run_08_fixes.py
 56c55a9074df6ab3042ba6bd920448f8  run_09_week.py
 58fbdd8212fcdd7d981fc2576ea9d06f  run_10_situation.py
-f4f1642cbc5e9ca540ec2146c9fcaba9  run_11_choice.py
+36d4221de3faa0e6d8ad2fdd3b08e98f  run_11_choice.py
 396f5b4d692312def55e0313d47bbd50  run_12_commitments.py
 0089ee1984049b514c52ab6c010a7e73  run_13_learning.py
 0662488a7a75f66e80be0392fb495989  run_14_marks.py
