@@ -56,16 +56,16 @@ scene U: {N} wants to know how deep the seam runs and how long the price will ho
 scene B: Land that was worth nothing a year ago is worth a fortune now. {N} can see who will get rich, and how.
 scene R: Double pay, a camp full of strangers, and the whole town awake at night. {N} wants in.
 scene G: The ranch has been in the family for four generations. A company man has left an offer on the kitchen table and says it will not be made twice.
-- W | ask the town meeting to set one fair rent for every new hand in the camp | v: universalism, benevolence | lever: voice | pushes: place | sphere: prod.W | chance: 69
-- U | work out how long the seam will last, then decide what to stake on it | v: self-direction, security | sphere: prod.U | chance: 73
-- B | lease your field to the company at the new price, and bank every payment | v: achievement, power | sphere: prod.B | chance: 72
+- W | ask the town meeting to set one fair rent for every new hand in the camp | v: universalism, benevolence | lever: voice | pushes: place | sphere: prod.W | foot: place rule.voice | chance: 69
+- U | work out how long the seam will last, then decide what to stake on it | v: self-direction, security | sphere: prod.U | foot: lesson every boom has an end | chance: 73
+- B | lease your field to the company at the new price, and bank every payment | v: achievement, power | sphere: prod.B | foot: means money+.10 | chance: 72
 - R | sign on at the mine for double pay and the nights in the camp | v: stimulation, hedonism | mark: took a wild risk | sphere: prod.R | chance: 65
-- G | dig in on the ranch, and let the company build round you | v: tradition, security | mark: turned down a chance | lever: loyalty | pushes: place | sphere: prod.G | chance: 68
-- BR | work double shifts for a year, spend freely, and get out before the bust | v: hedonism, achievement | sphere: prod.BR | chance: 56
-- RG | guide the prospectors over the hills you know by heart, for a fee | v: self-direction, stimulation | sphere: prod.RG | chance: 72
-- UG | count the springs on the old range, and show the council what the digging does | v: universalism, tradition | lever: voice | pushes: nature | sphere: prod.GU | chance: 50
-- WB | open a boarding house for the new hands, with fair rent and clean beds | v: benevolence, achievement | lever: found | sphere: prod.WB | chance: 58
-- WU | get yourself trained as the mine's safety inspector | v: security, achievement | lever: office | sphere: prod.WU | chance: 62
+- G | dig in on the ranch, and let the company build round you | v: tradition, security | mark: turned down a chance | lever: loyalty | pushes: place | sphere: prod.G | foot: door stayed home | chance: 68
+- BR | work double shifts for a year, spend freely, and get out before the bust | v: hedonism, achievement | sphere: prod.BR | foot: means health-.06 | chance: 56
+- RG | guide the prospectors over the hills you know by heart, for a fee | v: self-direction, stimulation | sphere: prod.RG | foot: means money+.03 | chance: 72
+- UG | count the springs on the old range, and show the council what the digging does | v: universalism, tradition | lever: voice | pushes: nature | sphere: prod.GU | foot: place rule.counsel | chance: 50
+- WB | open a boarding house for the new hands, with fair rent and clean beds | v: benevolence, achievement | lever: found | sphere: prod.WB | foot: place gather.house | chance: 58
+- WU | get yourself trained as the mine's safety inspector | v: security, achievement | lever: office | sphere: prod.WU | foot: mark learned a skill | chance: 62
 works: The boom lasts long enough, and {N} comes out of it with money put by and the family still talking.
 works: When the mine winds down years later, {N} is one of the few who saw it coming and is ready.
 fails: The price falls in the third year, the camp empties, and the rents stay high.
@@ -100,13 +100,13 @@ scene R: {N} feels the anger in every bar in town. Somebody should block the gat
 scene G: Three generations of the family have clocked in at those gates. {N} cannot picture the town without them.
 - W | help the older hands claim every payment and pension they are owed | v: benevolence, universalism | mark: helped someone in need | sphere: prod.W | chance: 75
 - U | train for a trade that is hiring, at the college in the next town | v: achievement, self-direction | mark: learned a skill | sphere: prod.U | chance: 55
-- B | buy two old machines at the auction, and take orders from the plant's customers | v: achievement, power | lever: found | sphere: prod.B | chance: 66
+- B | buy two old machines at the auction, and take orders from the plant's customers | v: achievement, power | lever: found | sphere: prod.B | foot: place prod.craft | chance: 66
 - R | leave for the city, where the work is, and do not look back | v: self-direction, stimulation | mark: moved away | lever: exit | sphere: prod.R | chance: 64
-- G | stay and scrape by, so the family is still here when work comes back | v: tradition, security | mark: stayed home | lever: loyalty | pushes: place | sphere: prod.G | chance: 47
-- RG | fix the neighbours' cars and boilers by hand in your garage, a job at a time | v: self-direction, security | sphere: prod.RG | chance: 64
-- UB | find out who is buying the line, and sell them what only you know about it | v: achievement, power | sphere: prod.UB | chance: 48
-- UG | write down how the old line ran, so the skill is not lost with the plant | v: tradition, universalism | sphere: prod.GU | chance: 64
-- WB | put your payout into a small firm that hires the old crew | v: benevolence, achievement | lever: fund | pushes: place | sphere: prod.WB | chance: 42
+- G | stay and scrape by, so the family is still here when work comes back | v: tradition, security | mark: stayed home | lever: loyalty | pushes: place | sphere: prod.G | foot: means money-.06 | chance: 47
+- RG | fix the neighbours' cars and boilers by hand in your garage, a job at a time | v: self-direction, security | sphere: prod.RG | foot: means money+.03 | chance: 64
+- UB | find out who is buying the line, and sell them what only you know about it | v: achievement, power | sphere: prod.UB | foot: means money+.06 | chance: 48
+- UG | write down how the old line ran, so the skill is not lost with the plant | v: tradition, universalism | sphere: prod.GU | foot: lesson skill lives on in writing | chance: 64
+- WB | put your payout into a small firm that hires the old crew | v: benevolence, achievement | lever: fund | pushes: place | sphere: prod.WB | foot: means money-.10 | chance: 42
 - WR | join the hands blocking the gates on the day the lorries come for the line | v: universalism, self-direction | mark: defied an authority | lever: voice | pushes: institution employer | sphere: prod.RW | chance: 30
 works: A small firm grows in the empty units, and {N} has work again, or a friend does, within a year.
 works not R: The town is poorer, but {N} finds a way to make a living and stay among people {N} knows.
@@ -142,15 +142,15 @@ scene B: {N} has a loan on the house and a family to feed. The firm has hinted t
 scene R: The fire in the brazier, the songs, the cars that sound their horns as they pass. {N} has never felt so alive at work.
 scene G: {Ns} {parent} stood at the same gate in another strike, years ago. {N} knows that how the crew ends this matters for a long time.
 - W | keep your word to the crew, and stand your shifts at the gate | v: conformity, benevolence | mark: kept your word | lever: voice | pushes: institution employer | sphere: prod.W | chance: 89
-- U | show the crew what the offer is worth against prices, month by month | v: universalism, self-direction | sphere: prod.U | chance: 80
+- U | show the crew what the offer is worth against prices, month by month | v: universalism, self-direction | sphere: prod.U | foot: lesson the figures speak plainly | chance: 80
 - B | go back in on the skeleton shift, and take the overtime | v: security, achievement | mark: made an enemy | sphere: prod.B | chance: 71
-- R | keep the brazier going every night, and lead the songs at the gate | v: stimulation, benevolence | sphere: prod.R | chance: 79
-- G | bring the young hands to the gate, and tell them how the last strike was won | v: tradition, benevolence | sphere: prod.G | chance: 64
-- BG | take cleaning work across town to see the family through, and say so openly | v: security | sphere: prod.BG | chance: 70
-- RG | spend the strike weeks mending the neighbours' roofs and fences for food and favours | v: benevolence, self-direction | sphere: prod.RG | chance: 72
-- UB | find out quietly how long the firm can run on the skeleton shift | v: power, achievement | sphere: prod.UB | chance: 58
+- R | keep the brazier going every night, and lead the songs at the gate | v: stimulation, benevolence | sphere: prod.R | foot: person friend | chance: 79
+- G | bring the young hands to the gate, and tell them how the last strike was won | v: tradition, benevolence | sphere: prod.G | foot: means ties+.03 | chance: 64
+- BG | take cleaning work across town to see the family through, and say so openly | v: security | sphere: prod.BG | foot: means money+.03 | chance: 70
+- RG | spend the strike weeks mending the neighbours' roofs and fences for food and favours | v: benevolence, self-direction | sphere: prod.RG | foot: person neighbour | chance: 72
+- UB | find out quietly how long the firm can run on the skeleton shift | v: power, achievement | sphere: prod.UB | foot: lesson every side has its limit | chance: 58
 - WR | stand in the road in front of the bus that brings the skeleton shift in | v: universalism, self-direction | mark: defied an authority | lever: voice | pushes: institution employer | sphere: prod.RW | chance: 40
-- WU | join the union team that checks the firm's books and drafts a fair counter-offer | v: universalism, achievement | lever: voice | pushes: institution employer | sphere: prod.WU | chance: 52
+- WU | join the union team that checks the firm's books and drafts a fair counter-offer | v: universalism, achievement | lever: voice | pushes: institution employer | sphere: prod.WU | foot: place rule.counsel | chance: 52
 works not B: The firm gives way, the strike ends with a raise that beats prices, and {N} walks back in with the crew.
 works: Whatever was done, {N} comes out of the strike with a friend made at the gate for life.
 fails: The strike ends with little won, and some at the gate never speak to {N} again.
@@ -183,16 +183,16 @@ scene U: {N} looked at those clamps the week before. Something about them was wr
 scene B: The firm has offered a bonus to everyone who finishes the job on time. Nobody is saying the word inspection.
 scene R: {N} was ten metres away. Every time a pole clangs, {Ns} heart jumps, and a voice says walk away from this trade.
 scene G: {colleague} has three children at home. Someone has to look after the family while the hospital does its work.
-- W | give the inspectors a full statement of everything you saw on the site | v: universalism, conformity | lever: voice | pushes: institution employer | sphere: prod.W | chance: 79
-- U | photograph the clamps and the failed joints before the firm clears them away | v: self-direction, universalism | sphere: prod.U | chance: 70
-- B | finish the job on time, take the firm's bonus, and keep your head down | v: achievement, security | sphere: prod.B | chance: 68
-- R | walk off the site for good, and find work in another trade | v: self-direction, security | lever: exit | sphere: prod.R | chance: 78
+- W | give the inspectors a full statement of everything you saw on the site | v: universalism, conformity | lever: voice | pushes: institution employer | sphere: prod.W | foot: door made an enemy | chance: 79
+- U | photograph the clamps and the failed joints before the firm clears them away | v: self-direction, universalism | sphere: prod.U | foot: lesson proof outlasts memory | chance: 70
+- B | finish the job on time, take the firm's bonus, and keep your head down | v: achievement, security | sphere: prod.B | foot: means money+.06 | chance: 68
+- R | walk off the site for good, and find work in another trade | v: self-direction, security | lever: exit | sphere: prod.R | foot: person colleague lost | chance: 78
 - G | visit your colleague's family every week with food and news from the site | v: benevolence | mark: helped someone in need | sphere: prod.G | chance: 65
-- BG | go back on Monday, and check every clamp you climb on yourself | v: security | sphere: prod.BG | chance: 66
-- BR | sign on with a better-paid crew on a safer site across town | v: achievement, security | lever: exit | sphere: prod.BR | chance: 58
-- UG | teach the young hands on the site how to check a scaffold before they climb | v: benevolence, security | sphere: prod.GU | chance: 64
+- BG | go back on Monday, and check every clamp you climb on yourself | v: security | sphere: prod.BG | foot: lesson check it yourself every time | chance: 66
+- BR | sign on with a better-paid crew on a safer site across town | v: achievement, security | lever: exit | sphere: prod.BR | foot: means money+.06 | chance: 58
+- UG | teach the young hands on the site how to check a scaffold before they climb | v: benevolence, security | sphere: prod.GU | foot: person colleague | chance: 64
 - WR | refuse to climb, and get the crew to stop work until the scaffold is checked | v: security, universalism | mark: defied an authority | lever: voice | pushes: institution employer | sphere: prod.RW | chance: 46
-- WU | stand as the site's safety rep, with the right to stop the job | v: security, universalism | lever: office | sphere: prod.WU | chance: 56
+- WU | stand as the site's safety rep, with the right to stop the job | v: security, universalism | lever: office | sphere: prod.WU | foot: place rule.counsel | chance: 56
 works: The inquiry backs the crew, the firm is fined, and the new scaffold is checked every morning.
 works: {colleague} walks again by the summer, and knows who stood by the family.
 fails: The firm blames a worn part, nobody is charged, and the site slips back to the old ways within a month.
@@ -226,16 +226,16 @@ scene U: {N} has worked the numbers. The firm farms bigger and cheaper, and a sm
 scene B: The offer is good, and offers like it do not come twice. {N} could buy a smaller farm somewhere else and still be ahead.
 scene R: {N} hates being told what the land is worth by a man who has never dug it.
 scene G: {grandparent} planted the orchard behind the house. {N} cannot imagine selling the trees.
-- W | take the offer only if the firm keeps on every hand who works the farm | v: benevolence, universalism | sphere: prod.W | chance: 73
-- U | work out what the farm could earn with new crops, then answer | v: self-direction, security | sphere: prod.U | chance: 64
-- B | bargain the offer up, sell, and buy a smaller farm in another valley | v: achievement, power | lever: exit | sphere: prod.B | chance: 68
+- W | take the offer only if the firm keeps on every hand who works the farm | v: benevolence, universalism | sphere: prod.W | foot: mark helped someone in need | chance: 73
+- U | work out what the farm could earn with new crops, then answer | v: self-direction, security | sphere: prod.U | foot: lesson land has more than one use | chance: 64
+- B | bargain the offer up, sell, and buy a smaller farm in another valley | v: achievement, power | lever: exit | sphere: prod.B | foot: mark moved away | chance: 68
 - R | tell the firm's agent to get off the land, and mean it | v: self-direction | mark: made an enemy | sphere: prod.R | chance: 55
-- G | turn the offer down, and keep the farm for the children | v: tradition | mark: turned down a chance | lever: loyalty | pushes: place | sphere: prod.G | chance: 58
-- RG | keep the orchard worked by hand, and sell the fruit at the farm gate | v: self-direction, tradition | sphere: prod.RG | chance: 66
-- UB | find out what the firm truly needs your land for, and price it to match | v: power, achievement | sphere: prod.UB | chance: 48
-- UR | turn the farm into something the firm cannot copy, a cider press or a farm shop | v: self-direction, stimulation | lever: found | sphere: prod.UR | chance: 44
-- WB | buy the neighbour's last field before the firm can, and hire their hands | v: power, benevolence | sphere: prod.WB | chance: 36
-- WG | get the last farmers to pool their land and farm it together | v: universalism, tradition | lever: found | pushes: place | sphere: prod.GW | chance: 38
+- G | turn the offer down, and keep the farm for the children | v: tradition | mark: turned down a chance | lever: loyalty | pushes: place | sphere: prod.G | foot: door stayed home | chance: 58
+- RG | keep the orchard worked by hand, and sell the fruit at the farm gate | v: self-direction, tradition | sphere: prod.RG | foot: means money+.03 | chance: 66
+- UB | find out what the firm truly needs your land for, and price it to match | v: power, achievement | sphere: prod.UB | foot: means money+.10 | chance: 48
+- UR | turn the farm into something the firm cannot copy, a cider press or a farm shop | v: self-direction, stimulation | lever: found | sphere: prod.UR | foot: place comm.shop | chance: 44
+- WB | buy the neighbour's last field before the firm can, and hire their hands | v: power, benevolence | sphere: prod.WB | foot: means money-.10 | chance: 36
+- WG | get the last farmers to pool their land and farm it together | v: universalism, tradition | lever: found | pushes: place | sphere: prod.GW | foot: place prod.land | chance: 38
 works not B UB: The farm stays in the family another generation, smaller in what it earns and larger in what it means.
 works not G R RG UR WB WG: {N} sells well, and makes a new start without bitterness.
 fails not B UB: The firm's fences go up round the farm, the water rights go first, and the offer is lower next year.
@@ -269,16 +269,16 @@ scene U: Four fields, and no one in the family has ever chosen what to plant. {N
 scene B: Land of their own at last. {N} is already looking at the next field over.
 scene R: No more foreman. {N} can work the fields to {Ns} own hours, and that alone feels like flying.
 scene G: {grandparent} worked those fields for another family for sixty years. Now they will pass to the children.
-- W | ask the land office to put the day labourers on the list too | v: universalism, benevolence | lever: voice | pushes: state | sphere: prod.W | chance: 70
+- W | ask the land office to put the day labourers on the list too | v: universalism, benevolence | lever: voice | pushes: state | sphere: prod.W | foot: mark helped someone in need | chance: 70
 - U | test the soil in each field, and plan the first crops on paper | v: self-direction, achievement | mark: learned a skill | sphere: prod.U | chance: 69
 - B | borrow against the title for seed, tools and the next field over | v: achievement, power | mark: took a wild risk | sphere: prod.B | chance: 62
-- R | plant what you always wanted to grow, and work the hours you choose | v: self-direction, hedonism | sphere: prod.R | chance: 77
-- G | hold a family supper in the barn, and give the old hands the first toast | v: tradition, benevolence | sphere: prod.G | chance: 62
-- BG | sell the far field to clear the family's debts, and farm the rest well | v: security | sphere: prod.BG | chance: 66
-- UB | learn which crop the town will pay most for, before the neighbours do | v: achievement, power | sphere: prod.UB | chance: 66
-- UR | try a crop nobody in the valley has grown, on one field | v: stimulation, self-direction | sphere: prod.UR | chance: 52
-- WG | share the plough and the harvest work with the families on either side | v: benevolence, universalism | sphere: prod.GW | chance: 66
-- WR | stand with the families whose titles the old estate is fighting in court | v: universalism, benevolence | lever: voice | pushes: state | sphere: prod.RW | chance: 50
+- R | plant what you always wanted to grow, and work the hours you choose | v: self-direction, hedonism | sphere: prod.R | foot: means freedom+.06 | chance: 77
+- G | hold a family supper in the barn, and give the old hands the first toast | v: tradition, benevolence | sphere: prod.G | foot: means ties+.03 | chance: 62
+- BG | sell the far field to clear the family's debts, and farm the rest well | v: security | sphere: prod.BG | foot: means money+.06 | chance: 66
+- UB | learn which crop the town will pay most for, before the neighbours do | v: achievement, power | sphere: prod.UB | foot: place comm.market | chance: 66
+- UR | try a crop nobody in the valley has grown, on one field | v: stimulation, self-direction | sphere: prod.UR | foot: lesson try small before going big | chance: 52
+- WG | share the plough and the harvest work with the families on either side | v: benevolence, universalism | sphere: prod.GW | foot: person neighbour | chance: 66
+- WR | stand with the families whose titles the old estate is fighting in court | v: universalism, benevolence | lever: voice | pushes: state | sphere: prod.RW | foot: place rule.voice | chance: 50
 works: The first harvest on the family's own land comes in, and {N} remembers it for the rest of {Ns} life.
 works: The fields feed the family, and something is put by for the first time in years.
 fails: The first year is dry, the loan comes due, and the title is pledged before it is a year old.
@@ -312,16 +312,16 @@ scene U: The scientists warned for years. {N} wants to see their counts, and to 
 scene B: A boat tied up for ten years is worth almost nothing. A boat sold now, to a buyer up the coast, is worth something.
 scene R: {N} has never wanted any work but the sea. The thought of an office makes {N} want to shout.
 scene G: Four generations of the family fished from this harbour. {N} wonders what will be left to hand on.
-- W | keep the closure, and report the boats that slip out at night | v: conformity, universalism | sphere: prod.W | chance: 76
-- U | sign on with the scientists to count the fish through the closed years | v: universalism, achievement | sphere: prod.U | chance: 74
-- B | sell the boat up the coast now, while it still fetches a price | v: security, achievement | sphere: prod.B | chance: 60
+- W | keep the closure, and report the boats that slip out at night | v: conformity, universalism | sphere: prod.W | foot: person rival | chance: 76
+- U | sign on with the scientists to count the fish through the closed years | v: universalism, achievement | sphere: prod.U | foot: place prod.wild | chance: 74
+- B | sell the boat up the coast now, while it still fetches a price | v: security, achievement | sphere: prod.B | foot: means money+.10 | chance: 60
 - R | crew on a boat in a fishery far away, and send money home | v: stimulation, self-direction | mark: moved away | lever: exit | sphere: prod.R | chance: 78
-- G | keep the boat painted and ready for the day the fishery opens again | v: tradition | lever: loyalty | pushes: place | sphere: prod.G | chance: 63
-- BG | strip the old boats for engines and timber, and sell what can be sold | v: security, achievement | sphere: prod.BG | chance: 78
+- G | keep the boat painted and ready for the day the fishery opens again | v: tradition | lever: loyalty | pushes: place | sphere: prod.G | foot: door stayed home | chance: 63
+- BG | strip the old boats for engines and timber, and sell what can be sold | v: security, achievement | sphere: prod.BG | foot: means money+.06 | chance: 78
 - UG | learn to farm shellfish in the bay, where the water is still healthy | v: self-direction, tradition | mark: learned a skill | sphere: prod.GU | chance: 54
-- UR | refit your boat to take visitors out to see the seals | v: stimulation, self-direction | lever: found | sphere: prod.UR | chance: 56
-- WB | lend the crews out of work enough to see them through the first winter | v: benevolence, power | lever: fund | sphere: prod.WB | chance: 60
-- WR | lead the crews to the harbour office to demand help for the families | v: universalism, benevolence | lever: voice | pushes: state | sphere: prod.RW | chance: 46
+- UR | refit your boat to take visitors out to see the seals | v: stimulation, self-direction | lever: found | sphere: prod.UR | foot: means money-.06 | chance: 56
+- WB | lend the crews out of work enough to see them through the first winter | v: benevolence, power | lever: fund | sphere: prod.WB | foot: door helped someone in need | chance: 60
+- WR | lead the crews to the harbour office to demand help for the families | v: universalism, benevolence | lever: voice | pushes: state | sphere: prod.RW | foot: place rule.voice | chance: 46
 works not R: {N} finds a living by the sea that does not need the fish, and stays.
 works: Ten years on the counts are rising, and {N} is on the quay when the first boat goes out again.
 fails not R: The harbour empties of young people, and {N} spends the winters watching the boats rot.
@@ -356,15 +356,15 @@ scene U: {N} has kept a log of every catch for four years. It matches the scient
 scene B: A rising stock means the limits will be raised. Whoever holds quota to spare will do well.
 scene R: Four lean years of short trips and early nights. {N} wants one good long trip out past the point.
 scene G: {N} learned the old grounds from {parent}. For the first time in years, there may be something to hand on.
-- W | ask the meeting to check every boat's landings the same way, your own first | v: universalism, conformity | lever: voice | pushes: place | sphere: prod.W | chance: 84
-- U | bring your four years of catch logs to the next count | v: universalism, achievement | sphere: prod.U | chance: 68
-- B | buy up the quota of a crew that is retiring, before the limits rise | v: achievement, power | sphere: prod.B | chance: 68
-- R | take the boat out past the point for one long trip, within your share | v: stimulation, hedonism | sphere: prod.R | chance: 79
-- G | take the youngest of the family out on the first good trip to the old grounds | v: tradition, benevolence | sphere: prod.G | chance: 70
-- BR | fish every day the season allows, and spend the summer as you please | v: hedonism, achievement | sphere: prod.BR | chance: 76
-- UB | keep your best grounds to yourself until the new limits are set | v: power, security | sphere: prod.UB | chance: 70
-- UG | help the scientists tag the young fish, so next year's count is truer | v: universalism, tradition | sphere: prod.GU | chance: 76
-- WG | land your catch together with the small boats, so all get the same price | v: universalism, benevolence | lever: loyalty | pushes: place | sphere: prod.GW | chance: 66
+- W | ask the meeting to check every boat's landings the same way, your own first | v: universalism, conformity | lever: voice | pushes: place | sphere: prod.W | foot: place rule.counsel | chance: 84
+- U | bring your four years of catch logs to the next count | v: universalism, achievement | sphere: prod.U | foot: lesson careful records earn trust | chance: 68
+- B | buy up the quota of a crew that is retiring, before the limits rise | v: achievement, power | sphere: prod.B | foot: means money-.10 | chance: 68
+- R | take the boat out past the point for one long trip, within your share | v: stimulation, hedonism | sphere: prod.R | foot: lesson the open water still calls | chance: 79
+- G | take the youngest of the family out on the first good trip to the old grounds | v: tradition, benevolence | sphere: prod.G | foot: means ties+.03 | chance: 70
+- BR | fish every day the season allows, and spend the summer as you please | v: hedonism, achievement | sphere: prod.BR | foot: means money+.06 | chance: 76
+- UB | keep your best grounds to yourself until the new limits are set | v: power, security | sphere: prod.UB | foot: door kept it hidden | chance: 70
+- UG | help the scientists tag the young fish, so next year's count is truer | v: universalism, tradition | sphere: prod.GU | foot: place prod.wild | chance: 76
+- WG | land your catch together with the small boats, so all get the same price | v: universalism, benevolence | lever: loyalty | pushes: place | sphere: prod.GW | foot: place comm.market | chance: 66
 - WR | go to the rival's boat and tell them, in front of the crews, to land fair | v: universalism, self-direction | mark: made an enemy | lever: voice | pushes: place | sphere: prod.RW | chance: 48
 works: The count rises again the next year, and {N} is proud of a rule the towns made themselves.
 works: The cheating is put right without a feud, and the boats go out on fair terms.
@@ -398,16 +398,16 @@ scene U: The picking machine does the work of twenty. {N} wants to know how it w
 scene B: For once the hands hold the cards. {N} knows exactly what {N} is worth this year.
 scene R: Every window has a sign. {N} could walk out tomorrow and start somewhere else by Monday.
 scene G: The farm had the same pickers for years, and half of them did not come back. {N} worries about the next harvest.
-- W | ask for the same raise for every hand on the team, not only yourself | v: universalism, benevolence | lever: voice | pushes: institution employer | sphere: prod.W | chance: 85
+- W | ask for the same raise for every hand on the team, not only yourself | v: universalism, benevolence | lever: voice | pushes: institution employer | sphere: prod.W | foot: means ties+.03 | chance: 85
 - U | learn to run and mend the picking machine | v: achievement, self-direction | mark: learned a skill | sphere: prod.U | chance: 79
-- B | name a high figure and a say in the rota, and get it in writing | v: power, achievement | sphere: prod.B | chance: 68
-- R | walk out, and take the best-paid job going across town | v: self-direction, stimulation | lever: exit | sphere: prod.R | chance: 69
-- G | stay on at the old rate, and help the farm bring in the harvest | v: tradition, benevolence | lever: loyalty | sphere: prod.G | chance: 70
-- BR | work two jobs at the new rates for a year, and spend it on living well | v: hedonism, achievement | sphere: prod.BR | chance: 66
-- RG | cook by eye and by the day, for whichever kitchen pays most | v: self-direction, hedonism | sphere: prod.RG | chance: 74
-- UB | find out what every kitchen in town is paying, then bargain | v: achievement, power | sphere: prod.UB | chance: 76
-- WG | bring in friends and neighbours to share the harvest work for fair pay | v: benevolence, universalism | sphere: prod.GW | chance: 64
-- WU | help draw up a fair pay scale for the trade in town, posted for all | v: universalism, conformity | lever: voice | pushes: place | sphere: prod.WU | chance: 44
+- B | name a high figure and a say in the rota, and get it in writing | v: power, achievement | sphere: prod.B | foot: means money+.06 | chance: 68
+- R | walk out, and take the best-paid job going across town | v: self-direction, stimulation | lever: exit | sphere: prod.R | foot: person boss lost | chance: 69
+- G | stay on at the old rate, and help the farm bring in the harvest | v: tradition, benevolence | lever: loyalty | sphere: prod.G | foot: means money-.03 | chance: 70
+- BR | work two jobs at the new rates for a year, and spend it on living well | v: hedonism, achievement | sphere: prod.BR | foot: means time-.06 | chance: 66
+- RG | cook by eye and by the day, for whichever kitchen pays most | v: self-direction, hedonism | sphere: prod.RG | foot: means freedom+.06 | chance: 74
+- UB | find out what every kitchen in town is paying, then bargain | v: achievement, power | sphere: prod.UB | foot: means money+.03 | chance: 76
+- WG | bring in friends and neighbours to share the harvest work for fair pay | v: benevolence, universalism | sphere: prod.GW | foot: place prod.land | chance: 64
+- WU | help draw up a fair pay scale for the trade in town, posted for all | v: universalism, conformity | lever: voice | pushes: place | sphere: prod.WU | foot: place rule.counsel | chance: 44
 works: {N} comes out of the hard year with better pay, more say and a trade worth keeping.
 works not R: The farm and the kitchens find their hands again, and {N} helped them do it fairly.
 fails: The machine takes the picking work, and the raise lasts one season.
@@ -441,16 +441,16 @@ scene U: {N} has offered to keep the books. The plant only works if someone coun
 scene B: {N} could get a better price elsewhere this month. But a share in a plant is a share in something that grows.
 scene R: The long meetings make {N} restless. But the plant itself is something {N} can put {Ns} hands to.
 scene G: The family farm was close to being sold. With the cooperative, {N} thinks it may last another generation.
-- W | sell every load through the cooperative, even in a month the buyer pays more | v: conformity, benevolence | lever: loyalty | pushes: place | sphere: prod.W | chance: 70
-- U | keep the cooperative's books, and post the figures every month | v: universalism, achievement | sphere: prod.U | chance: 79
-- B | put your savings into extra shares while they are cheap | v: achievement, security | lever: fund | sphere: prod.B | chance: 79
-- R | help build the plant with your own hands, weekends and all | v: stimulation, benevolence | sphere: prod.R | chance: 80
-- G | bring your children to the meetings, so they learn how it is run | v: tradition, benevolence | sphere: prod.G | chance: 65
-- BR | drive the cooperative's cheese to the city markets yourself, and sell it hard | v: achievement, stimulation | sphere: prod.BR | chance: 60
+- W | sell every load through the cooperative, even in a month the buyer pays more | v: conformity, benevolence | lever: loyalty | pushes: place | sphere: prod.W | foot: mark kept your word | chance: 70
+- U | keep the cooperative's books, and post the figures every month | v: universalism, achievement | sphere: prod.U | foot: means time-.03 | chance: 79
+- B | put your savings into extra shares while they are cheap | v: achievement, security | lever: fund | sphere: prod.B | foot: means money-.06 | chance: 79
+- R | help build the plant with your own hands, weekends and all | v: stimulation, benevolence | sphere: prod.R | foot: person friend | chance: 80
+- G | bring your children to the meetings, so they learn how it is run | v: tradition, benevolence | sphere: prod.G | foot: lesson the young keep what they see | chance: 65
+- BR | drive the cooperative's cheese to the city markets yourself, and sell it hard | v: achievement, stimulation | sphere: prod.BR | foot: place comm.market | chance: 60
 - UG | learn the old cheese-making from the last farm that does it, and teach the plant | v: tradition, self-direction | mark: learned a skill | sphere: prod.GU | chance: 62
-- UR | build a cheaper way to cool the milk on the farms, and show the members | v: self-direction, achievement | sphere: prod.UR | chance: 50
-- WB | stand for the board, and see that the small farms get the same as the large | v: power, universalism | lever: office | sphere: prod.WB | chance: 52
-- WG | share the milk run with the neighbours, so no farm's load is left behind | v: benevolence, universalism | sphere: prod.GW | chance: 78
+- UR | build a cheaper way to cool the milk on the farms, and show the members | v: self-direction, achievement | sphere: prod.UR | foot: mark learned a skill | chance: 50
+- WB | stand for the board, and see that the small farms get the same as the large | v: power, universalism | lever: office | sphere: prod.WB | foot: place rule.counsel | chance: 52
+- WG | share the milk run with the neighbours, so no farm's load is left behind | v: benevolence, universalism | sphere: prod.GW | foot: person neighbour | chance: 78
 works: The buyer gives up, the first cheeses sell out, and {N} has a share in something that will outlast them all.
 works: The cooperative holds, and the family farm is safe for another generation.
 fails: Two big farms sell to the buyer in the hardest month, and the plant opens a year late.
@@ -483,16 +483,16 @@ scene U: {N} has seen the drawings. The new parts are not what the plant used to
 scene B: Double pay every weekend. {N} could clear the loan on the house by spring.
 scene R: {N} walks past the protesters every morning, and part of {N} wants to stand with them.
 scene G: {sibling} is serving abroad. {N} thinks of every family waiting for news, and of what the town will be after.
-- W | ask the union to set a limit on the weekend hours for everyone | v: benevolence, security | lever: voice | pushes: institution employer | sphere: prod.W | chance: 63
-- U | ask the engineers exactly what the new parts are for | v: self-direction, universalism | sphere: prod.U | chance: 68
-- B | take every weekend of overtime, and clear the loan by spring | v: achievement, security | sphere: prod.B | chance: 65
-- R | quit the plant, and join the protesters at the gate | v: universalism, self-direction | lever: exit | sphere: prod.R | chance: 69
-- G | keep the plant's old customers supplied on the side, for when the war ends | v: tradition, security | sphere: prod.G | chance: 66
-- BG | take the overtime as it comes, and save it all for when the orders stop | v: security | sphere: prod.BG | chance: 66
-- BR | sign on for the double shifts, and spend the pay as fast as it comes | v: hedonism, achievement | sphere: prod.BR | chance: 70
-- UR | rig up a faster way to make the new part, just to see if it works | v: stimulation, achievement | sphere: prod.UR | chance: 58
-- WG | set up a rota so the weekend shifts are shared fairly across the floor | v: universalism, benevolence | sphere: prod.GW | chance: 68
-- WU | check every new part against the standard, however fast the orders come | v: conformity, security | sphere: prod.WU | chance: 72
+- W | ask the union to set a limit on the weekend hours for everyone | v: benevolence, security | lever: voice | pushes: institution employer | sphere: prod.W | foot: means time+.03 | chance: 63
+- U | ask the engineers exactly what the new parts are for | v: self-direction, universalism | sphere: prod.U | foot: lesson know what your work makes | chance: 68
+- B | take every weekend of overtime, and clear the loan by spring | v: achievement, security | sphere: prod.B | foot: means money+.10 | chance: 65
+- R | quit the plant, and join the protesters at the gate | v: universalism, self-direction | lever: exit | sphere: prod.R | foot: place rule.voice | chance: 69
+- G | keep the plant's old customers supplied on the side, for when the war ends | v: tradition, security | sphere: prod.G | foot: person regular | chance: 66
+- BG | take the overtime as it comes, and save it all for when the orders stop | v: security | sphere: prod.BG | foot: means money+.06 | chance: 66
+- BR | sign on for the double shifts, and spend the pay as fast as it comes | v: hedonism, achievement | sphere: prod.BR | foot: means health-.06 | chance: 70
+- UR | rig up a faster way to make the new part, just to see if it works | v: stimulation, achievement | sphere: prod.UR | foot: mark learned a skill | chance: 58
+- WG | set up a rota so the weekend shifts are shared fairly across the floor | v: universalism, benevolence | sphere: prod.GW | foot: person colleague | chance: 68
+- WU | check every new part against the standard, however fast the orders come | v: conformity, security | sphere: prod.WU | foot: lesson careful work outlasts the rush | chance: 72
 works: The orders keep the town in work, and {N} comes through the war with money saved and no shame in how it was earned.
 works not R: {sibling} comes home, and the overtime money pays for the welcome.
 fails not R: The hours grind {N} down, and the money goes as fast as it comes.
@@ -526,16 +526,16 @@ scene U: {N} wants to know what makes this oil better, down to the soil and the 
 scene B: Twice the orders, twice the price. {N} sees money in every jar with the valley's name on it.
 scene R: Visitors, music in the square, a stall at the press. {N} loves the noise of it.
 scene G: {grandparent} pressed oil the same way for sixty years. Now strangers photograph the old stone.
-- W | press only what meets the old standard, however many orders come | v: conformity, tradition | sphere: prod.W | chance: 83
-- U | send the oil to be tested, and learn what makes it the best | v: self-direction, achievement | sphere: prod.U | chance: 80
-- B | raise your price, and sign the city shop's biggest order | v: achievement, power | sphere: prod.B | chance: 77
-- R | open a stall at the press for the visitors, with tastings and music | v: hedonism, stimulation | sphere: prod.R | chance: 72
-- G | teach the young of the family the old pressing, before the rush changes it | v: tradition, benevolence | sphere: prod.G | chance: 63
-- BG | keep the grove as it is, and sell only the land you cannot work | v: security | sphere: prod.BG | chance: 70
-- RG | pick by hand on the morning the fruit feels right, as the old ones did | v: tradition, self-direction | sphere: prod.RG | chance: 74
-- UR | try a new pressing of your own, and enter it at the fair | v: stimulation, achievement | sphere: prod.UR | chance: 52
-- WB | build a shared press the small growers can use at a fair rate | v: benevolence, achievement | lever: found | pushes: place | sphere: prod.WB | chance: 46
-- WU | help write a mark that only the valley's true oil may carry | v: universalism, tradition | sphere: prod.WU | chance: 58
+- W | press only what meets the old standard, however many orders come | v: conformity, tradition | sphere: prod.W | foot: means money-.06 | chance: 83
+- U | send the oil to be tested, and learn what makes it the best | v: self-direction, achievement | sphere: prod.U | foot: mark learned a skill | chance: 80
+- B | raise your price, and sign the city shop's biggest order | v: achievement, power | sphere: prod.B | foot: means money+.10 | chance: 77
+- R | open a stall at the press for the visitors, with tastings and music | v: hedonism, stimulation | sphere: prod.R | foot: place comm.market | chance: 72
+- G | teach the young of the family the old pressing, before the rush changes it | v: tradition, benevolence | sphere: prod.G | foot: lesson skills pass on by hand | chance: 63
+- BG | keep the grove as it is, and sell only the land you cannot work | v: security | sphere: prod.BG | foot: means money+.06 | chance: 70
+- RG | pick by hand on the morning the fruit feels right, as the old ones did | v: tradition, self-direction | sphere: prod.RG | foot: place prod.land | chance: 74
+- UR | try a new pressing of your own, and enter it at the fair | v: stimulation, achievement | sphere: prod.UR | foot: place gather.great | chance: 52
+- WB | build a shared press the small growers can use at a fair rate | v: benevolence, achievement | lever: found | pushes: place | sphere: prod.WB | foot: person neighbour | chance: 46
+- WU | help write a mark that only the valley's true oil may carry | v: universalism, tradition | sphere: prod.WU | foot: place rule.counsel | chance: 58
 works: The valley's oil keeps its name, and {N} is proud of every jar.
 works: The good years pay for a new roof and a wedding, and the grove is still the family's.
 fails: The orders outrun the groves, cheap oil is sold under the valley's name, and the name fades.
@@ -568,16 +568,16 @@ scene U: {N} has set the city wages and the city rents side by side. The sums ar
 scene B: The city is where the money and the chances are. {N} knows nobody gets rich in the valley.
 scene R: Four to a flat, noise all night, work in a new place every month. It sounds like freedom.
 scene G: The farm has been in the family for generations, and {parent} is getting old. Someone has to stay.
-- W | stay, and take on the shared harvest work the young have left behind | v: benevolence, conformity | mark: stayed home | sphere: prod.W | chance: 75
-- U | weigh the city wages against the city rents, and only then decide | v: security, self-direction | sphere: prod.U | chance: 75
+- W | stay, and take on the shared harvest work the young have left behind | v: benevolence, conformity | mark: stayed home | sphere: prod.W | foot: means time-.06 | chance: 75
+- U | weigh the city wages against the city rents, and only then decide | v: security, self-direction | sphere: prod.U | foot: lesson count the rent before the wage | chance: 75
 - B | take the room in the city, and save for a business of your own | v: achievement, power | mark: moved away | lever: exit | sphere: prod.B | chance: 70
-- R | go to the city with one bag and no plan, and see what happens | v: stimulation, self-direction | mark: left home | lever: exit | sphere: prod.R | chance: 75
-- G | stay, and take on the farm from your parent | v: tradition | mark: stayed home | lever: loyalty | pushes: place | sphere: prod.G | chance: 65
-- BR | work the city season, and come home flush for the winter | v: hedonism, achievement | sphere: prod.BR | chance: 70
-- UB | learn a skill the city pays for, and sell it from the valley online | v: self-direction, achievement | tech: remote work | sphere: prod.UB | chance: 50
+- R | go to the city with one bag and no plan, and see what happens | v: stimulation, self-direction | mark: left home | lever: exit | sphere: prod.R | foot: mark took a wild risk | chance: 75
+- G | stay, and take on the farm from your parent | v: tradition | mark: stayed home | lever: loyalty | pushes: place | sphere: prod.G | foot: place prod.land | chance: 65
+- BR | work the city season, and come home flush for the winter | v: hedonism, achievement | sphere: prod.BR | foot: means money+.06 | chance: 70
+- UB | learn a skill the city pays for, and sell it from the valley online | v: self-direction, achievement | tech: remote work | sphere: prod.UB | foot: mark learned a skill | chance: 50
 - UG | learn to grow what the city markets pay for, and stay on the land | v: self-direction, tradition | mark: learned a skill | sphere: prod.GU | chance: 60
-- WG | help the families who stayed share the work of the farms that lost their young | v: benevolence, universalism | sphere: prod.GW | chance: 70
-- WR | campaign to keep the valley school open, though the bus is half empty | v: universalism, tradition | lever: voice | pushes: place | sphere: prod.RW | chance: 40
+- WG | help the families who stayed share the work of the farms that lost their young | v: benevolence, universalism | sphere: prod.GW | foot: person neighbour | chance: 70
+- WR | campaign to keep the valley school open, though the bus is half empty | v: universalism, tradition | lever: voice | pushes: place | sphere: prod.RW | foot: place rule.voice | chance: 40
 works: {N} chooses, and keeps a good bond with the ones on the other side of the choice.
 works not B R: The valley keeps enough of its young, and {N} is one of the reasons why.
 fails: {sibling} calls home less and less, and then hardly at all.
@@ -611,16 +611,16 @@ scene U: {N} has seen the plans. The idea is clever, and {N} wants to help make 
 scene B: A small firm that grows needs partners. {N} wonders what a stake would cost.
 scene R: No managers, no forms, a radio on the bench. {N} has wanted work like this for years.
 scene G: {N} would be leaving a safe job with a pension. {N} thinks of the family, and of what this could become.
-- W | join on a fair wage, and help your friend set the safety rules from day one | v: benevolence, security | sphere: prod.W | chance: 72
-- U | join as the one who works out how to make the product better and cheaper | v: achievement, self-direction | sphere: prod.U | chance: 78
+- W | join on a fair wage, and help your friend set the safety rules from day one | v: benevolence, security | sphere: prod.W | foot: place prod.craft | chance: 72
+- U | join as the one who works out how to make the product better and cheaper | v: achievement, self-direction | sphere: prod.U | foot: place prod.craft | chance: 78
 - B | put your savings in for a share, and a say in where the firm goes | v: achievement, power | mark: took a wild risk | lever: fund | sphere: prod.B | chance: 63
-- R | quit the safe job on Friday, and start at the unit on Monday | v: stimulation, self-direction | lever: exit | sphere: prod.R | chance: 75
-- G | keep the safe job for the family's sake, and help at the unit on Saturdays | v: security, benevolence | sphere: prod.G | chance: 68
-- BG | join, but keep your savings out of it until the first year's books are in | v: security | sphere: prod.BG | chance: 78
-- BR | take piece work from the new firm, and keep your own hours | v: self-direction, achievement | sphere: prod.BR | chance: 76
-- UR | build the unit's first machine from parts out of the old plant | v: stimulation, achievement | sphere: prod.UR | chance: 54
+- R | quit the safe job on Friday, and start at the unit on Monday | v: stimulation, self-direction | lever: exit | sphere: prod.R | foot: mark took a wild risk | chance: 75
+- G | keep the safe job for the family's sake, and help at the unit on Saturdays | v: security, benevolence | sphere: prod.G | foot: means time-.03 | chance: 68
+- BG | join, but keep your savings out of it until the first year's books are in | v: security | sphere: prod.BG | foot: place prod.craft | chance: 78
+- BR | take piece work from the new firm, and keep your own hours | v: self-direction, achievement | sphere: prod.BR | foot: means freedom+.06 | chance: 76
+- UR | build the unit's first machine from parts out of the old plant | v: stimulation, achievement | sphere: prod.UR | foot: mark learned a skill | chance: 54
 - WG | bring in two of the old crew who have found no work since the plant shut | v: benevolence | mark: helped someone in need | sphere: prod.GW | chance: 66
-- WU | set up the firm's quality checks, so its first orders go out right | v: achievement, conformity | sphere: prod.WU | chance: 70
+- WU | set up the firm's quality checks, so its first orders go out right | v: achievement, conformity | sphere: prod.WU | foot: lesson first orders make the name | chance: 70
 works: The firm wins its first big order, and {N} is there at the start of something.
 works: Two years on there are twelve on the payroll, and {friend} still buys the first round on Fridays.
 fails: The first year is hard, a big customer does not pay, and the unit closes.

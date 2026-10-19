@@ -31,7 +31,7 @@ d865fc1f5677aea56397dec4dfa14c6c  world_people_lives.py
 ecc7e5efc381381b70aadb40f4f16ab7  world_people_views.py
 1f5fd6b3e78a19633af121f8d26e637e  sphere_ev_base.py
 5b79f1b02f83cb4328e289212ce528f7  parts.py
-8436642c15b3b687ea185672af784cef  run_01_start.py
+dab5123368ab03c8e884b644f9669b96  run_01_start.py
 79a12800ae06bf35663d851b447827f9  run_02_goals.py
 3f760cfe89c4b9ab8f88d4870b8271b6  run_03_moments.py
 36320841f77db49aa95cbd9f85cebd9e  run_04_titles.py
@@ -43,7 +43,7 @@ f67d8d7e8e0d3972e9791608451ee961  run_07_body.py
 4d3ae2b3b89800134fe37da7f0e58520  run_10_situation.py
 122311fe548690d3bebad3e9d916f49e  run_11_choice.py
 66fa59607a92977650664442ba140525  run_12_commitments.py
-78f87f8193afefa18c10cf00147b3559  run_13_learning.py
+01720ff1695150c870cf71f115857ef5  run_13_learning.py
 b907683dc1fb80e7b50a6588d12f43ae  run_14_marks.py
 e35bf8299974503b2b64274c78adf3f7  run_15_titles.py
 d2ebcdd782681d20a1c8c47c6e73946a  run_16_world.py

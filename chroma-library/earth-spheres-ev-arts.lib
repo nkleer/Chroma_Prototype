@@ -54,16 +54,16 @@ scene U: Nobody can say how the sound is made: the beat is wrong and somehow rig
 scene B: The queue goes round the block and the clubs are tiny. Whoever opens a bigger room first will do well.
 scene R: The bass comes up through the floor and {N} feels it in the chest. This is the sound {N} has been waiting for.
 scene G: To {N} it sounds like noise, and the old songs had words a whole wedding could sing. Still, the young ones on the street talk of nothing else.
-- W | help the club run a safe door, so every newcomer gets in and gets home | v: benevolence, universalism | sphere: arts.W | chance: 69
+- W | help the club run a safe door, so every newcomer gets in and gets home | v: benevolence, universalism | sphere: arts.W | foot: mark helped someone in need | chance: 69
 - U | learn how the sound is made, and try it on a borrowed machine at home | v: self-direction, stimulation | mark: learned a skill | sphere: arts.U | chance: 71
-- B | book the bands into a bigger room, and take a share of the door | v: achievement, power | sphere: arts.B | chance: 69
-- R | queue round the block every Friday and dance until the lights come on | v: hedonism, stimulation | sphere: arts.R | chance: 75
-- G | keep to the old tunes night at the local, and let the young have their noise | v: tradition, security | lever: loyalty | pushes: place | sphere: arts.G | chance: 74
-- BR | put on a night of your own in an empty warehouse, and fill it | v: achievement, hedonism | lever: found | pushes: place | sphere: arts.BR | chance: 42
-- UG | mix a song your grandmother sang into the new sound | v: tradition, self-direction | sphere: arts.GU | chance: 50
-- UR | form a band with friends, and play the new sound your own way | v: self-direction, stimulation | lever: found | pushes: group scene | sphere: arts.UR | chance: 48
-- WB | lend the band your van and your savings for their first record | v: benevolence, achievement | lever: fund | pushes: group scene | sphere: arts.WB | chance: 60
-- WG | ask the neighbours who complain about the noise to come along one night | v: benevolence, universalism | sphere: arts.GW | chance: 42
+- B | book the bands into a bigger room, and take a share of the door | v: achievement, power | sphere: arts.B | foot: means money+.06 | chance: 69
+- R | queue round the block every Friday and dance until the lights come on | v: hedonism, stimulation | sphere: arts.R | foot: place gather.night | chance: 75
+- G | keep to the old tunes night at the local, and let the young have their noise | v: tradition, security | lever: loyalty | pushes: place | sphere: arts.G | foot: person regular | chance: 74
+- BR | put on a night of your own in an empty warehouse, and fill it | v: achievement, hedonism | lever: found | pushes: place | sphere: arts.BR | foot: mark took a wild risk | chance: 42
+- UG | mix a song your grandmother sang into the new sound | v: tradition, self-direction | sphere: arts.GU | foot: lesson old songs can carry new beats | chance: 50
+- UR | form a band with friends, and play the new sound your own way | v: self-direction, stimulation | lever: found | pushes: group scene | sphere: arts.UR | foot: place arts.song | chance: 48
+- WB | lend the band your van and your savings for their first record | v: benevolence, achievement | lever: fund | pushes: group scene | sphere: arts.WB | foot: means money-.08 | chance: 60
+- WG | ask the neighbours who complain about the noise to come along one night | v: benevolence, universalism | sphere: arts.GW | foot: person neighbour | chance: 42
 works: The sound becomes {Ns} sound, and the friends from that queue are friends for life.
 works: Years later, a few bars of it on the radio and {N} is back on that dance floor.
 fails: The clubs are shut by spring after complaints, and the scene moves on without {N}.
@@ -98,16 +98,16 @@ scene U: {N} can hear exactly what the label changed: the rough edges sanded off
 scene B: The money has arrived, and it will not stay long. {N} knows which old names the agencies will pay for.
 scene R: The adverts, the chain bar, the shiny new versions. {N} feels as if someone has stolen a summer and sold it back.
 scene G: {N} still has the first flyers in a box and the old songs in the head. They belong to the people who were there.
-- W | turn the agency down, and ask the old crowd not to sell the old days either | v: universalism, conformity | sphere: arts.W | chance: 70
-- U | write down how the scene really began, before the adverts rewrite it | v: universalism, self-direction | sphere: arts.U | chance: 73
-- B | take the agency's fee and help them sell the old days, on your terms | v: achievement, power | sphere: arts.B | chance: 75
-- R | throw a party with the rough old records, the way they used to sound | v: hedonism, stimulation | sphere: arts.R | chance: 74
-- G | keep the first flyers and the old songs for the people who were there | v: tradition, security | lever: loyalty | sphere: arts.G | chance: 69
-- RG | find the cellar where the next sound is starting, and dance there instead | v: stimulation, hedonism | lever: exit | pushes: group scene | sphere: arts.RG | chance: 54
-- UB | study what the label changed, and sell your own old tracks the same way | v: achievement, power | sphere: arts.UB | chance: 56
-- UR | remix the old songs rougher than ever, and post them for free | v: self-direction, stimulation | tech: internet | sphere: arts.UR | chance: 56
-- WB | ask your signed friend to put the unsigned bands on the bill | v: benevolence, power | sphere: arts.WB | chance: 52
-- WG | gather the old crowd for a reunion night, signed and unsigned alike | v: benevolence, tradition | sphere: arts.GW | chance: 66
+- W | turn the agency down, and ask the old crowd not to sell the old days either | v: universalism, conformity | sphere: arts.W | foot: door turned down a chance | chance: 70
+- U | write down how the scene really began, before the adverts rewrite it | v: universalism, self-direction | sphere: arts.U | foot: place arts.page | chance: 73
+- B | take the agency's fee and help them sell the old days, on your terms | v: achievement, power | sphere: arts.B | foot: means money+.06 | chance: 75
+- R | throw a party with the rough old records, the way they used to sound | v: hedonism, stimulation | sphere: arts.R | foot: place gather.house | chance: 74
+- G | keep the first flyers and the old songs for the people who were there | v: tradition, security | lever: loyalty | sphere: arts.G | foot: lesson some memories are for sharing | chance: 69
+- RG | find the cellar where the next sound is starting, and dance there instead | v: stimulation, hedonism | lever: exit | pushes: group scene | sphere: arts.RG | foot: place gather.night | chance: 54
+- UB | study what the label changed, and sell your own old tracks the same way | v: achievement, power | sphere: arts.UB | foot: means money+.04 | chance: 56
+- UR | remix the old songs rougher than ever, and post them for free | v: self-direction, stimulation | tech: internet | sphere: arts.UR | foot: mark learned a skill | chance: 56
+- WB | ask your signed friend to put the unsigned bands on the bill | v: benevolence, power | sphere: arts.WB | foot: mark helped someone in need | chance: 52
+- WG | gather the old crowd for a reunion night, signed and unsigned alike | v: benevolence, tradition | sphere: arts.GW | foot: means ties+.06 | chance: 66
 works: {N} comes out of it with a fair share, of money or of memory, and the friends that mattered.
 works: Years later the old crowd meet again, and the songs sound like theirs once more.
 fails: The friends who signed and the friends who did not stop speaking, and {N} is caught between.
@@ -141,16 +141,16 @@ scene U: {N} has read what the campaign says the film shows. Most of it is not i
 scene B: Banned things sell. {N} knows that a copy of the film is worth more this week than last.
 scene R: Nobody tells {N} what to watch. The ban only makes {N} want to see it more.
 scene G: {parent} says some things are better not shown, and the old family friends agree. {N} is not so sure.
-- W | keep the ban, and write to the board to ask why it was made | v: conformity, universalism | lever: voice | pushes: state | sphere: arts.W | chance: 66
-- U | set the campaign's claims beside what the film really shows | v: universalism, self-direction | sphere: arts.U | chance: 67
-- B | sell copies of the film from your phone, at a price | v: achievement, power | mark: broke the law | lever: subvert | sphere: arts.B | chance: 79
+- W | keep the ban, and write to the board to ask why it was made | v: conformity, universalism | lever: voice | pushes: state | sphere: arts.W | foot: place rule.voice | chance: 66
+- U | set the campaign's claims beside what the film really shows | v: universalism, self-direction | sphere: arts.U | foot: lesson check claims against the thing itself | chance: 67
+- B | sell copies of the film from your phone, at a price | v: achievement, power | mark: broke the law | lever: subvert | sphere: arts.B | foot: means money+.04 | chance: 79
 - R | watch it with your friend in the back room, and talk about it all night | v: stimulation, hedonism | mark: defied an authority | lever: subvert | sphere: arts.R | chance: 76
-- G | let the film go, and keep the peace with your family | v: tradition, conformity | sphere: arts.G | chance: 66
+- G | let the film go, and keep the peace with your family | v: tradition, conformity | sphere: arts.G | foot: door gave in to pressure | chance: 66
 - BR | project the film on a wall in the square one night, and slip away | v: stimulation, self-direction | mark: defied an authority | lever: subvert | pushes: state | sphere: arts.BR | chance: 38
-- UB | find out who paid for the campaign, and what they wanted from it | v: power, security | sphere: arts.UB | chance: 56
-- UG | keep a copy hidden safely, for the day the ban is lifted | v: tradition, security | mark: broke the law | sphere: arts.GU | chance: 62
-- WG | talk the film through with your family at the kitchen table, in your own words | v: benevolence, tradition | sphere: arts.GW | chance: 58
-- WR | sign the open letter against the ban, with your name in full | v: universalism, self-direction | lever: voice | pushes: state | sphere: arts.RW | chance: 62
+- UB | find out who paid for the campaign, and what they wanted from it | v: power, security | sphere: arts.UB | foot: lesson ask who gains from it | chance: 56
+- UG | keep a copy hidden safely, for the day the ban is lifted | v: tradition, security | mark: broke the law | sphere: arts.GU | foot: door kept it hidden | chance: 62
+- WG | talk the film through with your family at the kitchen table, in your own words | v: benevolence, tradition | sphere: arts.GW | foot: means ties+.04 | chance: 58
+- WR | sign the open letter against the ban, with your name in full | v: universalism, self-direction | lever: voice | pushes: state | sphere: arts.RW | foot: door defied an authority | chance: 62
 works: The ban is lifted within a year, and {N} sees the film again on a big screen with a full house.
 works: {N} keeps faith with the film and with the people who matter, and comes through without trouble.
 fails: The police knock on a door in {Ns} street over a copy of the film, and everyone grows careful.
@@ -185,15 +185,15 @@ scene U: {N} remembers fragments: a tune, a refrain, two lines of a verse. With 
 scene B: A university once offered to pay her to record the songs. {N} wonders if they kept anything.
 scene R: {N} keeps hearing her voice at the kitchen table, loud and off-key and wonderful. The silence is hard to bear.
 scene G: Those songs came down through ten generations, and they stopped with her. {N} feels the weight of that.
-- W | gather the family to sing together at the funeral, whatever anyone remembers | v: tradition, benevolence | sphere: arts.W | chance: 65
-- U | piece the songs together from fragments, old letters and notebooks | v: self-direction, universalism | sphere: arts.U | chance: 62
-- B | ask the university for any recording they made, and offer to pay for a copy | v: achievement, security | sphere: arts.B | chance: 52
-- R | sing the one verse you know at the wake, loud and off-key, the way she did | v: stimulation, benevolence | sphere: arts.R | chance: 65
+- W | gather the family to sing together at the funeral, whatever anyone remembers | v: tradition, benevolence | sphere: arts.W | foot: means ties+.05 | chance: 65
+- U | piece the songs together from fragments, old letters and notebooks | v: self-direction, universalism | sphere: arts.U | foot: mark learned a skill | chance: 62
+- B | ask the university for any recording they made, and offer to pay for a copy | v: achievement, security | sphere: arts.B | foot: person keeper | chance: 52
+- R | sing the one verse you know at the wake, loud and off-key, the way she did | v: stimulation, benevolence | sphere: arts.R | foot: lesson sing it badly but sing it | chance: 65
 - G | ask the oldest neighbours who heard her to teach you what they can | v: tradition | mark: learned a skill | lever: loyalty | sphere: arts.G | chance: 48
-- BG | let the songs go, and keep her in the stories the family still tells | v: security, tradition | lever: neglect | sphere: arts.BG | chance: 80
-- BR | make a song of your own about her, and play it wherever they will have you | v: self-direction, achievement | sphere: arts.BR | chance: 52
-- UG | write down every line anyone remembers, with the tunes, for the children | v: tradition, universalism | sphere: arts.GU | chance: 60
-- WR | start a yearly night in her name where anyone may sing what they remember | v: tradition, benevolence | lever: found | sphere: arts.RW | chance: 54
+- BG | let the songs go, and keep her in the stories the family still tells | v: security, tradition | lever: neglect | sphere: arts.BG | foot: lesson stories outlast the songs | chance: 80
+- BR | make a song of your own about her, and play it wherever they will have you | v: self-direction, achievement | sphere: arts.BR | foot: place arts.song | chance: 52
+- UG | write down every line anyone remembers, with the tunes, for the children | v: tradition, universalism | sphere: arts.GU | foot: place arts.page | chance: 60
+- WR | start a yearly night in her name where anyone may sing what they remember | v: tradition, benevolence | lever: found | sphere: arts.RW | foot: place gather.hall | chance: 54
 - WU | take up the old tongue properly, with lessons, so the songs can be sung again | v: tradition, self-direction | mark: learned a skill | sphere: arts.WU | chance: 52
 works not BG: Enough of the songs come back, pieced together, that the children learn three of them by heart.
 works: {N} grieves her properly, and carries one song of hers for the rest of {Ns} life.
@@ -227,16 +227,16 @@ scene U: Half the tunes have five versions, and the old players argue over which
 scene B: The craft stalls sell out by noon. {N} sees that the old songs have become something people pay for.
 scene R: The fiddles start up and the plank floor shakes. {N} cannot keep still.
 scene G: {grandparent} used to sing one of these songs at the kitchen table. Hearing it here, with a thousand people, {N} has to sit down.
-- W | learn the closing song's words, and sing it with the whole field on the last night | v: tradition, conformity | sphere: arts.W | chance: 80
+- W | learn the closing song's words, and sing it with the whole field on the last night | v: tradition, conformity | sphere: arts.W | foot: lesson one song can hold a field | chance: 80
 - U | go round the old players with a notebook, and write down every version of a tune | v: universalism, self-direction | mark: learned a skill | sphere: arts.U | chance: 67
-- B | sell the family's old craft at a stall, and come home with an order book | v: achievement | sphere: arts.B | chance: 76
-- R | dance every set until the band packs up | v: hedonism, stimulation | sphere: arts.R | chance: 69
-- G | go up on the small stage and sing the song you learned at home | v: tradition, achievement | sphere: arts.G | chance: 61
+- B | sell the family's old craft at a stall, and come home with an order book | v: achievement | sphere: arts.B | foot: means money+.06 | chance: 76
+- R | dance every set until the band packs up | v: hedonism, stimulation | sphere: arts.R | foot: place gather.great | chance: 69
+- G | go up on the small stage and sing the song you learned at home | v: tradition, achievement | sphere: arts.G | foot: place arts.song | chance: 61
 - RG | learn the old dance from a grandmother in the food queue, and teach your friends | v: tradition, hedonism | mark: made a friend | sphere: arts.RG | chance: 78
-- UB | ask the organisers how the festival pays, and what it would take to run one | v: achievement, self-direction | sphere: arts.UB | chance: 66
-- UG | record the oldest singers on your phone, with their names and their stories | v: tradition, universalism | tech: phone | sphere: arts.GU | chance: 74
-- WB | pay for a coach so the care home's old folk can come for a day | v: benevolence | lever: fund | sphere: arts.WB | chance: 56
-- WR | join the procession with the town's banner and the drums | v: tradition, stimulation | sphere: arts.RW | chance: 58
+- UB | ask the organisers how the festival pays, and what it would take to run one | v: achievement, self-direction | sphere: arts.UB | foot: person mentor | chance: 66
+- UG | record the oldest singers on your phone, with their names and their stories | v: tradition, universalism | tech: phone | sphere: arts.GU | foot: person elder | chance: 74
+- WB | pay for a coach so the care home's old folk can come for a day | v: benevolence | lever: fund | sphere: arts.WB | foot: mark helped someone in need | chance: 56
+- WR | join the procession with the town's banner and the drums | v: tradition, stimulation | sphere: arts.RW | foot: means ties+.04 | chance: 58
 works: {N} comes home with a song, a dance and a reason to go back next year.
 works: The old songs are sung at the next family gathering, and the young ones know the words.
 fails: It rains for three days, and {N} goes home soaked and sore with little to show for it.
@@ -270,16 +270,16 @@ scene U: {N} has watched the last episode twice. The clues were there all along,
 scene B: Everyone has an opinion and nobody is listening. {N} notices whose opinion gets repeated.
 scene R: {N} shouted at the screen in the last ten minutes, and is still angry about it.
 scene G: {parent} says it was rubbish and the old shows were better. {N} is not sure the old shows asked anything at all.
-- W | say what you think at dinner, and listen to every side of the table | v: universalism, benevolence | sphere: arts.W | chance: 75
-- U | write a long post showing how the clues pointed to the ending all along | v: self-direction, achievement | tech: internet | sphere: arts.U | chance: 74
-- B | keep your view to yourself, and agree with whoever matters in the room | v: security, conformity | sphere: arts.B | chance: 75
-- R | argue it out with your friend until one of you storms off | v: stimulation, self-direction | sphere: arts.R | chance: 74
-- G | turn it off and watch the old shows with your family instead | v: tradition, security | sphere: arts.G | chance: 66
-- BG | say plainly it was only a story, and change the subject to the weekend | v: security, hedonism | sphere: arts.BG | chance: 66
-- RG | hold a watch party for the last episode, with food and the whole street | v: hedonism, benevolence | sphere: arts.RG | chance: 66
-- UR | make a short video of your own ending, and see who shares it | v: self-direction, stimulation | tech: internet | sphere: arts.UR | chance: 50
-- WB | get a speaker to the community centre to talk about the question it asks | v: universalism, achievement | sphere: arts.WB | chance: 48
-- WU | start a reading group on the book the series came from | v: universalism, self-direction | lever: found | sphere: arts.WU | chance: 66
+- W | say what you think at dinner, and listen to every side of the table | v: universalism, benevolence | sphere: arts.W | foot: means ties+.03 | chance: 75
+- U | write a long post showing how the clues pointed to the ending all along | v: self-direction, achievement | tech: internet | sphere: arts.U | foot: lesson the clues were there all along | chance: 74
+- B | keep your view to yourself, and agree with whoever matters in the room | v: security, conformity | sphere: arts.B | foot: door gave in to pressure | chance: 75
+- R | argue it out with your friend until one of you storms off | v: stimulation, self-direction | sphere: arts.R | foot: means ties-.03 | chance: 74
+- G | turn it off and watch the old shows with your family instead | v: tradition, security | sphere: arts.G | foot: means ties+.04 | chance: 66
+- BG | say plainly it was only a story, and change the subject to the weekend | v: security, hedonism | sphere: arts.BG | foot: lesson some stories are only stories | chance: 66
+- RG | hold a watch party for the last episode, with food and the whole street | v: hedonism, benevolence | sphere: arts.RG | foot: person neighbour | chance: 66
+- UR | make a short video of your own ending, and see who shares it | v: self-direction, stimulation | tech: internet | sphere: arts.UR | foot: place arts.screen | chance: 50
+- WB | get a speaker to the community centre to talk about the question it asks | v: universalism, achievement | sphere: arts.WB | foot: place gather.hall | chance: 48
+- WU | start a reading group on the book the series came from | v: universalism, self-direction | lever: found | sphere: arts.WU | foot: place arts.page | chance: 66
 works not G: The argument changes {Ns} mind about something, and {N} is glad it did.
 works: {N} and {friend} end up laughing about it, and watch the next series together.
 fails: A joke about the ending goes down badly, and it is a chilly month at home.
@@ -314,16 +314,16 @@ scene U: The centre has a proper rehearsal room and a piano that is in tune. {N}
 scene B: The founder means to be remembered, and needs people who can make that happen. {N} sees a job with a future.
 scene R: Open auditions on Saturday, for anyone at all. {N} has been waiting for a stage like this.
 scene G: The old station was where {Ns} family waved off the trains. {N} wonders if the new place will remember that.
-- W | join the town choir for the opening night, and learn your part by heart | v: conformity, benevolence | sphere: arts.W | chance: 69
+- W | join the town choir for the opening night, and learn your part by heart | v: conformity, benevolence | sphere: arts.W | foot: place arts.song | chance: 69
 - U | ask for an hour a week in the rehearsal room, and use every minute | v: self-direction, achievement | mark: learned a skill | sphere: arts.U | chance: 71
-- B | apply for the job running the founder's programme | v: achievement, power | sphere: arts.B | chance: 58
-- R | go to the open auditions on Saturday and give it everything | v: stimulation, achievement | sphere: arts.R | chance: 67
-- G | ask the centre to hang the old station photos in the foyer | v: tradition | lever: voice | pushes: place | sphere: arts.G | chance: 55
-- BG | take a job backstage shifting sets, and keep your eyes open | v: security, achievement | sphere: arts.BG | chance: 78
-- UG | offer to make a show of the old station's history from the families' stories | v: tradition, self-direction | sphere: arts.GU | chance: 48
-- UR | pitch the centre a strange new show nobody has seen before | v: self-direction, stimulation | sphere: arts.UR | chance: 46
-- WB | sit on the centre's board, and see that the cheap seats stay cheap | v: power, universalism | lever: lead | pushes: place | sphere: arts.WB | chance: 42
-- WR | start a youth theatre in the centre that anyone can join for free | v: universalism, stimulation | lever: found | pushes: place | sphere: arts.RW | chance: 56
+- B | apply for the job running the founder's programme | v: achievement, power | sphere: arts.B | foot: person patron | chance: 58
+- R | go to the open auditions on Saturday and give it everything | v: stimulation, achievement | sphere: arts.R | foot: place arts.stage | chance: 67
+- G | ask the centre to hang the old station photos in the foyer | v: tradition | lever: voice | pushes: place | sphere: arts.G | foot: lesson a building can remember | chance: 55
+- BG | take a job backstage shifting sets, and keep your eyes open | v: security, achievement | sphere: arts.BG | foot: means money+.04 | chance: 78
+- UG | offer to make a show of the old station's history from the families' stories | v: tradition, self-direction | sphere: arts.GU | foot: place arts.tale | chance: 48
+- UR | pitch the centre a strange new show nobody has seen before | v: self-direction, stimulation | sphere: arts.UR | foot: mark took a wild risk | chance: 46
+- WB | sit on the centre's board, and see that the cheap seats stay cheap | v: power, universalism | lever: lead | pushes: place | sphere: arts.WB | foot: place rule.counsel | chance: 42
+- WR | start a youth theatre in the centre that anyone can join for free | v: universalism, stimulation | lever: found | pushes: place | sphere: arts.RW | foot: place arts.stage; means time-.06 | chance: 56
 works: The centre becomes part of {Ns} week, and some of {Ns} best nights are there.
 works: A door opens at the centre, and {N} walks through it into work or a part.
 fails: The founder loses interest after three years, and the centre fills with weddings and conferences.
@@ -357,16 +357,16 @@ scene U: Practice still matters, slump or not. {N} has more hours than ever, and
 scene B: {N} has rent to pay. A song is worth what someone will pay for it, and this month nobody can.
 scene R: Kitchens, cellars, back gardens: {N} will play anywhere there is a crowd. The best nights of the year pay nothing at all.
 scene G: The old songs come back at the kitchen parties, ones nobody played at the venue. The grandparents sing along.
-- W | put in for the council's free concerts in the square | v: benevolence, security | sphere: arts.W | chance: 75
+- W | put in for the council's free concerts in the square | v: benevolence, security | sphere: arts.W | foot: means money+.03 | chance: 75
 - U | use the empty months to practise the hard pieces you never had time for | v: self-direction, achievement | mark: learned a skill | sphere: arts.U | chance: 79
-- B | take a day job, and play only when the pay is decent | v: security, achievement | sphere: arts.B | chance: 73
-- R | play every kitchen party going, for food and the hat | v: hedonism, stimulation | sphere: arts.R | chance: 84
+- B | take a day job, and play only when the pay is decent | v: security, achievement | sphere: arts.B | foot: means money+.06 | chance: 73
+- R | play every kitchen party going, for food and the hat | v: hedonism, stimulation | sphere: arts.R | foot: place gather.house | chance: 84
 - G | learn the old songs the grandparents ask for, and play them at every party | v: tradition, benevolence | mark: learned a skill | sphere: arts.G | chance: 67
-- BG | sell the spare gear to get through the winter, and keep the one guitar | v: security | sphere: arts.BG | chance: 66
-- UB | teach lessons by video to pupils far away who can still pay | v: achievement, self-direction | tech: video calls | sphere: arts.UB | chance: 60
-- UR | record an album in the kitchen on a laptop, rough and live | v: self-direction, stimulation | tech: computer | sphere: arts.UR | chance: 54
+- BG | sell the spare gear to get through the winter, and keep the one guitar | v: security | sphere: arts.BG | foot: means money+.04 | chance: 66
+- UB | teach lessons by video to pupils far away who can still pay | v: achievement, self-direction | tech: video calls | sphere: arts.UB | foot: means money+.05 | chance: 60
+- UR | record an album in the kitchen on a laptop, rough and live | v: self-direction, stimulation | tech: computer | sphere: arts.UR | foot: lesson rough can still be true | chance: 54
 - WG | play a free afternoon at the care home and the food bank each week | v: benevolence | mark: helped someone in need | sphere: arts.GW | chance: 72
-- WR | gather the out-of-work players into one big band for a free night in the square | v: universalism, stimulation | lever: found | pushes: place | sphere: arts.RW | chance: 50
+- WR | gather the out-of-work players into one big band for a free night in the square | v: universalism, stimulation | lever: found | pushes: place | sphere: arts.RW | foot: means ties+.06 | chance: 50
 works: The venue reopens when the slump lifts, and the band plays its first night back to a full room.
 works: The kitchen parties turn out to be the best playing {N} ever did, and they leave a lasting crowd.
 fails: The band splits over money in the second winter, and {N} stops playing for years.
@@ -399,16 +399,16 @@ scene U: Every recording of every master, free, at any hour. {N} could learn any
 scene B: The few names at the top are making a fortune, and everyone else almost nothing. {N} means to be one of the few.
 scene R: {N} can make a song tonight and have it out in the world by morning. Nobody needs to give permission.
 scene G: {grandparent} learned every tune by ear from a neighbour. {N} wonders who will learn that way now.
-- W | start a singing night at the hall, where the whole room sings the same songs | v: tradition, benevolence | lever: found | pushes: place | sphere: arts.W | chance: 63
+- W | start a singing night at the hall, where the whole room sings the same songs | v: tradition, benevolence | lever: found | pushes: place | sphere: arts.W | foot: place gather.hall | chance: 63
 - U | study the old masters' recordings one by one, and learn what they did | v: self-direction | mark: learned a skill | sphere: arts.U | chance: 66
-- B | build a following online, one song a week, and charge for the live shows | v: achievement, power | tech: internet | sphere: arts.B | chance: 65
-- R | make a song tonight and put it out by morning | v: self-direction, stimulation | tech: internet | sphere: arts.R | chance: 75
+- B | build a following online, one song a week, and charge for the live shows | v: achievement, power | tech: internet | sphere: arts.B | foot: means money+.05 | chance: 65
+- R | make a song tonight and put it out by morning | v: self-direction, stimulation | tech: internet | sphere: arts.R | foot: lesson nobody needs to give permission | chance: 75
 - G | learn a tune by ear from an old player, the way it was always done | v: tradition | mark: learned a skill | sphere: arts.G | chance: 53
-- BG | take the playing to weddings and parties, where people still pay for a band | v: security, achievement | sphere: arts.BG | chance: 76
-- BR | team up with your friend and push the song until it goes everywhere | v: achievement, stimulation | sphere: arts.BR | chance: 38
-- UR | build a new sound from samples of a hundred old records | v: self-direction, stimulation | tech: computer | sphere: arts.UR | chance: 56
-- WG | keep the cover band going once a month, for those who still come | v: tradition, benevolence | lever: loyalty | pushes: place | sphere: arts.GW | chance: 62
-- WU | teach the neighbours' children to play, so they make music as well as hear it | v: universalism, benevolence | sphere: arts.WU | chance: 56
+- BG | take the playing to weddings and parties, where people still pay for a band | v: security, achievement | sphere: arts.BG | foot: means money+.04 | chance: 76
+- BR | team up with your friend and push the song until it goes everywhere | v: achievement, stimulation | sphere: arts.BR | foot: mark took a wild risk | chance: 38
+- UR | build a new sound from samples of a hundred old records | v: self-direction, stimulation | tech: computer | sphere: arts.UR | foot: lesson old records hold new songs | chance: 56
+- WG | keep the cover band going once a month, for those who still come | v: tradition, benevolence | lever: loyalty | pushes: place | sphere: arts.GW | foot: place arts.song | chance: 62
+- WU | teach the neighbours' children to play, so they make music as well as hear it | v: universalism, benevolence | sphere: arts.WU | foot: person neighbour | chance: 56
 works: The new way opens a door, and {N} reaches people {N} never could have reached before.
 works: {N} finds a way to keep the music in the room, among people, whatever the phone can do.
 fails: The work {N} counted on dries up, and the songs in the pocket do not pay the rent.
@@ -441,16 +441,16 @@ scene U: {N} notices how the songs have changed: from drums and flags to a singl
 scene B: The singer of the anthem's new version is on every chat show. {N} wonders what the war songs are earning.
 scene R: The anthem made {N} want to march, and the new song makes {N} want to scream. Both are true.
 scene G: The empty-chair song is an old tune with new words. {Ns} grandmother sang the old words in another war.
-- W | stand for the anthem at the match, and sing every word | v: conformity, tradition | sphere: arts.W | chance: 67
-- U | ask why the songs changed, and write about what each one left out | v: universalism, self-direction | sphere: arts.U | chance: 61
-- B | sing the war songs at the camps and the town halls, and make your name | v: achievement, power | sphere: arts.B | chance: 53
+- W | stand for the anthem at the match, and sing every word | v: conformity, tradition | sphere: arts.W | foot: place gather.games | chance: 67
+- U | ask why the songs changed, and write about what each one left out | v: universalism, self-direction | sphere: arts.U | foot: place arts.page | chance: 61
+- B | sing the war songs at the camps and the town halls, and make your name | v: achievement, power | sphere: arts.B | foot: means money+.05 | chance: 53
 - R | stop standing for the anthem, and say out loud why | v: self-direction | mark: defied an authority | lever: voice | pushes: state | sphere: arts.R | chance: 64
-- G | teach the children the old tune with the old words, as your grandmother did | v: tradition | sphere: arts.G | chance: 59
-- BG | sing the empty-chair song at a neighbour's wake, plainly, as it is | v: benevolence | sphere: arts.BG | chance: 72
-- RG | play the old dance tunes at the homecoming, so people can dance again | v: hedonism, benevolence | sphere: arts.RG | chance: 62
-- UB | notice which songs the news plays and which it never does | v: security, universalism | sphere: arts.UB | chance: 74
-- WR | lead the choir in the empty-chair song at the memorial in the square | v: tradition, benevolence | sphere: arts.RW | chance: 62
-- WU | collect the soldiers' own songs and letters for the town's memorial book | v: universalism, tradition | sphere: arts.WU | chance: 56
+- G | teach the children the old tune with the old words, as your grandmother did | v: tradition | sphere: arts.G | foot: means ties+.04 | chance: 59
+- BG | sing the empty-chair song at a neighbour's wake, plainly, as it is | v: benevolence | sphere: arts.BG | foot: person neighbour | chance: 72
+- RG | play the old dance tunes at the homecoming, so people can dance again | v: hedonism, benevolence | sphere: arts.RG | foot: place gather.great | chance: 62
+- UB | notice which songs the news plays and which it never does | v: security, universalism | sphere: arts.UB | foot: lesson what is left out matters | chance: 74
+- WR | lead the choir in the empty-chair song at the memorial in the square | v: tradition, benevolence | sphere: arts.RW | foot: place arts.song | chance: 62
+- WU | collect the soldiers' own songs and letters for the town's memorial book | v: universalism, tradition | sphere: arts.WU | foot: place learn.keeping | chance: 56
 works: The songs carry {N} through the war years, and one of them stays with {N} for life.
 works: The town grieves together, and {N} is part of the singing that helps it.
 fails: The anthem becomes a test of loyalty, and {N} is marked down for how it was or was not sung.
@@ -483,16 +483,16 @@ scene U: {N} has worked out why the sketch works: every line is something the mi
 scene B: The comedian has gone from small rooms to sold-out halls in a week. {N} notes how fast a name can be made.
 scene R: {N} laughed until it hurt, and has already sent it to everyone. Let them feel it at the top.
 scene G: {N} grew up in the minister's home town. The sketch mocks the voice of everyone {N} grew up with.
-- W | say at the table that the sketch should mock what he did, not how he talks | v: universalism, benevolence | sphere: arts.W | chance: 73
-- U | look up the minister's real words, and share them beside the sketch | v: universalism, self-direction | tech: internet | sphere: arts.U | chance: 73
-- B | keep quiet about it, since you cannot know who is listening | v: security | sphere: arts.B | chance: 77
-- R | sing the best line out loud in the canteen, and get the room going | v: stimulation, hedonism | sphere: arts.R | chance: 75
-- G | stand up for the home town's way of talking, and leave the minister to his own | v: tradition, security | sphere: arts.G | chance: 58
-- BR | write your own sketch about the local council, and do it at the open mic | v: stimulation, achievement | lever: voice | pushes: place | sphere: arts.BR | chance: 38
-- RG | sing it with the crowd at the match, a whole stand at once | v: hedonism, stimulation | sphere: arts.RG | chance: 76
-- UB | watch who laughs and who does not, and remember it | v: power, security | sphere: arts.UB | chance: 72
-- WG | keep the sketch away from the family dinner, where half the table voted for him | v: benevolence, tradition | sphere: arts.GW | chance: 72
-- WU | write to the paper asking for an inquiry into what the minister did | v: universalism | lever: voice | pushes: state | sphere: arts.WU | chance: 46
+- W | say at the table that the sketch should mock what he did, not how he talks | v: universalism, benevolence | sphere: arts.W | foot: lesson mock the deed not the voice | chance: 73
+- U | look up the minister's real words, and share them beside the sketch | v: universalism, self-direction | tech: internet | sphere: arts.U | foot: lesson the record speaks for itself | chance: 73
+- B | keep quiet about it, since you cannot know who is listening | v: security | sphere: arts.B | foot: door gave in to pressure | chance: 77
+- R | sing the best line out loud in the canteen, and get the room going | v: stimulation, hedonism | sphere: arts.R | foot: person colleague | chance: 75
+- G | stand up for the home town's way of talking, and leave the minister to his own | v: tradition, security | sphere: arts.G | foot: means ties+.03 | chance: 58
+- BR | write your own sketch about the local council, and do it at the open mic | v: stimulation, achievement | lever: voice | pushes: place | sphere: arts.BR | foot: place arts.stage | chance: 38
+- RG | sing it with the crowd at the match, a whole stand at once | v: hedonism, stimulation | sphere: arts.RG | foot: place gather.games | chance: 76
+- UB | watch who laughs and who does not, and remember it | v: power, security | sphere: arts.UB | foot: door made an enemy | chance: 72
+- WG | keep the sketch away from the family dinner, where half the table voted for him | v: benevolence, tradition | sphere: arts.GW | foot: means ties+.04 | chance: 72
+- WU | write to the paper asking for an inquiry into what the minister did | v: universalism | lever: voice | pushes: state | sphere: arts.WU | foot: place rule.voice | chance: 46
 works: The laughter does its work, and something at the top changes for the better.
 works: {N} enjoys the joke, keeps the friends, and is not caught up in what follows.
 fails not B WG: A line {N} shared is quoted back at {N} by someone who did not find it funny.
@@ -525,16 +525,16 @@ scene U: {N} plays the song twenty times. It is simple and very well made, and {
 scene B: The message asks if {N} still has the old band's van. A famous friend can open doors.
 scene R: {N} played in a band with the classmate at fifteen. That could have been {N} up there, and still could be.
 scene G: The song is about the old high street and the river. {N} hears the town in every line.
-- W | send a warm message saying the whole town is proud, and mean it | v: benevolence, universalism | sphere: arts.W | chance: 81
+- W | send a warm message saying the whole town is proud, and mean it | v: benevolence, universalism | sphere: arts.W | foot: person friend | chance: 81
 - U | learn the song note for note, and work out why it works | v: self-direction | mark: learned a skill | sphere: arts.U | chance: 78
-- B | answer the message, and offer to help run the tour | v: achievement, power | sphere: arts.B | chance: 74
-- R | pick up the old guitar again, and play your own songs at the open mic | v: stimulation, self-direction | sphere: arts.R | chance: 66
-- G | play the song at the family's Sunday dinner, and tell everyone where it comes from | v: tradition, benevolence | sphere: arts.G | chance: 68
+- B | answer the message, and offer to help run the tour | v: achievement, power | sphere: arts.B | foot: person colleague | chance: 74
+- R | pick up the old guitar again, and play your own songs at the open mic | v: stimulation, self-direction | sphere: arts.R | foot: place arts.song | chance: 66
+- G | play the song at the family's Sunday dinner, and tell everyone where it comes from | v: tradition, benevolence | sphere: arts.G | foot: means ties+.03 | chance: 68
 - RG | go to the classmate's first big gig and dance at the front | v: hedonism | mark: made a friend | sphere: arts.RG | chance: 78
-- UB | ask the classmate how they got the song heard, and do the same | v: achievement, self-direction | sphere: arts.UB | chance: 54
-- UR | write a song of your own about the town, and post it the same night | v: self-direction, stimulation | tech: internet | sphere: arts.UR | chance: 44
-- WB | put up the money for a homecoming gig, and give the takings to the school | v: benevolence, power | lever: fund | sphere: arts.WB | chance: 52
-- WG | ask the classmate to come back and sing at the summer fair | v: tradition, benevolence | sphere: arts.GW | chance: 40
+- UB | ask the classmate how they got the song heard, and do the same | v: achievement, self-direction | sphere: arts.UB | foot: person mentor | chance: 54
+- UR | write a song of your own about the town, and post it the same night | v: self-direction, stimulation | tech: internet | sphere: arts.UR | foot: lesson your own town is a song | chance: 44
+- WB | put up the money for a homecoming gig, and give the takings to the school | v: benevolence, power | lever: fund | sphere: arts.WB | foot: means money-.06 | chance: 52
+- WG | ask the classmate to come back and sing at the summer fair | v: tradition, benevolence | sphere: arts.GW | foot: place gather.great | chance: 40
 works: The classmate's luck rubs off a little, and {N} gets a door or a dream out of it.
 works: {N} is glad for the classmate, and the old friendship comes back.
 fails: Envy sours it, and {N} cannot listen to the radio for a month.
@@ -568,16 +568,16 @@ scene U: {N} wants to read every account before deciding anything. Some say one 
 scene B: The director's name sold the films. Without it, {N} wonders what the films are worth now.
 scene R: {N} feels sick and furious at once, and a little foolish for every time {N} defended him.
 scene G: {N} watched the films with the family every winter, and they are part of those winters.
-- W | stand with the actors who spoke, and say so where people can hear | v: universalism, benevolence | lever: voice | sphere: arts.W | chance: 64
-- U | read every account in full before judging | v: universalism, self-direction | sphere: arts.U | chance: 78
-- B | sell your signed posters while they still fetch a price | v: achievement, security | sphere: arts.B | chance: 71
-- R | throw out the box set in a rage, and tell everyone why | v: self-direction, stimulation | lever: exit | sphere: arts.R | chance: 88
-- G | keep watching the films quietly with the family, as you always have | v: tradition, security | lever: loyalty | sphere: arts.G | chance: 71
+- W | stand with the actors who spoke, and say so where people can hear | v: universalism, benevolence | lever: voice | sphere: arts.W | foot: mark defied an authority | chance: 64
+- U | read every account in full before judging | v: universalism, self-direction | sphere: arts.U | foot: lesson hear every side first | chance: 78
+- B | sell your signed posters while they still fetch a price | v: achievement, security | sphere: arts.B | foot: means money+.03 | chance: 71
+- R | throw out the box set in a rage, and tell everyone why | v: self-direction, stimulation | lever: exit | sphere: arts.R | foot: means ties-.03 | chance: 88
+- G | keep watching the films quietly with the family, as you always have | v: tradition, security | lever: loyalty | sphere: arts.G | foot: means ties+.03 | chance: 71
 - BR | defend the director loudly online, and take the abuse that follows | v: self-direction, stimulation | mark: made an enemy | sphere: arts.BR | chance: 44
-- UG | keep the films, and learn what the actors themselves put into them | v: universalism, tradition | sphere: arts.GU | chance: 64
-- UR | make a short film of your own about a set where nobody shouts | v: self-direction, stimulation | sphere: arts.UR | chance: 44
-- WB | give to the fund the actors have set up for others in the same trade | v: benevolence | lever: fund | sphere: arts.WB | chance: 78
-- WG | talk it through with your friend, and agree to differ without falling out | v: benevolence | sphere: arts.GW | chance: 58
+- UG | keep the films, and learn what the actors themselves put into them | v: universalism, tradition | sphere: arts.GU | foot: lesson the actors made it too | chance: 64
+- UR | make a short film of your own about a set where nobody shouts | v: self-direction, stimulation | sphere: arts.UR | foot: place arts.screen | chance: 44
+- WB | give to the fund the actors have set up for others in the same trade | v: benevolence | lever: fund | sphere: arts.WB | foot: mark helped someone in need | chance: 78
+- WG | talk it through with your friend, and agree to differ without falling out | v: benevolence | sphere: arts.GW | foot: means ties+.04 | chance: 58
 works not R: {N} finds a way to keep what was good in the films without excusing the man.
 works: The actors who spoke up are heard, and {N} is glad to have stood where {N} stood.
 fails: The quarrel over the director spills into {Ns} friendships, and one does not survive it.
@@ -612,16 +612,16 @@ scene U: {mentor} taught {N} to act on that stage. {N} wonders where the next pu
 scene B: Flats on the main street will sell well. {N} knows the developer, and knows the plans might still change.
 scene R: {N} played a first part on those boards to a half-empty house, and it was the best night of {Ns} life.
 scene G: Three generations of {Ns} family have sat in the same row for the winter play. It will not be the same anywhere else.
-- W | sell programmes at the final show, so the last night runs as it should | v: tradition, conformity | lever: loyalty | pushes: place | sphere: arts.W | chance: 75
-- U | find out what saving the building would truly cost, and show the town | v: self-direction, security | sphere: arts.U | chance: 66
-- B | ask the developer to keep a small stage on the ground floor of the flats | v: power, achievement | lever: voice | pushes: place | sphere: arts.B | chance: 60
-- R | stage one last wild show of your own on the night after the final one | v: stimulation, hedonism | sphere: arts.R | chance: 71
-- G | sit in the family's row at the final show, and take home the seat plate | v: tradition | sphere: arts.G | chance: 57
-- BG | say goodbye on the last night, and take the family to the new place in town | v: security, benevolence | lever: exit | sphere: arts.BG | chance: 62
-- BR | start a company of your own in a room above a shop with the old cast | v: self-direction, achievement | lever: found | pushes: group scene | sphere: arts.BR | chance: 52
-- UG | gather the theatre's programmes and photos for the town archive | v: tradition, universalism | sphere: arts.GU | chance: 58
-- WR | lead a march down the main street to save the theatre | v: universalism, stimulation | lever: voice | pushes: place | sphere: arts.RW | chance: 40
-- WU | raise a petition, and put a costed plan for a trust to the council | v: universalism, security | lever: voice | pushes: institution council | sphere: arts.WU | chance: 44
+- W | sell programmes at the final show, so the last night runs as it should | v: tradition, conformity | lever: loyalty | pushes: place | sphere: arts.W | foot: person regular | chance: 75
+- U | find out what saving the building would truly cost, and show the town | v: self-direction, security | sphere: arts.U | foot: lesson know the cost before the fight | chance: 66
+- B | ask the developer to keep a small stage on the ground floor of the flats | v: power, achievement | lever: voice | pushes: place | sphere: arts.B | foot: person patron | chance: 60
+- R | stage one last wild show of your own on the night after the final one | v: stimulation, hedonism | sphere: arts.R | foot: mark took a wild risk | chance: 71
+- G | sit in the family's row at the final show, and take home the seat plate | v: tradition | sphere: arts.G | foot: means ties+.03 | chance: 57
+- BG | say goodbye on the last night, and take the family to the new place in town | v: security, benevolence | lever: exit | sphere: arts.BG | foot: place arts.stage | chance: 62
+- BR | start a company of your own in a room above a shop with the old cast | v: self-direction, achievement | lever: found | pushes: group scene | sphere: arts.BR | foot: place arts.stage | chance: 52
+- UG | gather the theatre's programmes and photos for the town archive | v: tradition, universalism | sphere: arts.GU | foot: place learn.keeping | chance: 58
+- WR | lead a march down the main street to save the theatre | v: universalism, stimulation | lever: voice | pushes: place | sphere: arts.RW | foot: place rule.voice | chance: 40
+- WU | raise a petition, and put a costed plan for a trust to the council | v: universalism, security | lever: voice | pushes: institution council | sphere: arts.WU | foot: place rule.counsel | chance: 44
 works: The campaign wins a reprieve, and the theatre opens again under a trust run by its regulars.
 works: The last night is one {N} never forgets, and the old company meets somewhere new.
 fails: The theatre is gone by summer, and the street goes quiet at night.
@@ -655,16 +655,16 @@ scene U: The old patterns have rules: every line means something. {N} sees the d
 scene B: A thousand pieces at the dealer's price would pay off the family's debts. {N} can do the sums.
 scene R: The orders, the new faces, the music from the workshops at night. The village has woken up, and {N} with it.
 scene G: {grandparent} learned the patterns from their own mother at the same wheel. {N} wonders what they would make of a thousand of one design.
-- W | ask the village to register the old patterns, so no factory can copy them | v: security, tradition | lever: voice | pushes: place | sphere: arts.W | chance: 61
-- U | let no piece leave the kiln until it is right, orders or not | v: achievement, self-direction | sphere: arts.U | chance: 67
-- B | take the dealer's order for a thousand, and hire help to fill it | v: achievement, power | sphere: arts.B | chance: 60
-- R | throw the workshop open to the visitors, with music and the wheel going | v: stimulation, hedonism | sphere: arts.R | chance: 75
-- G | keep making the old patterns only, whatever the dealer offers | v: tradition | mark: turned down a chance | lever: loyalty | sphere: arts.G | chance: 59
-- BG | make the dealer's design on weekdays and the old patterns at the weekend | v: security, tradition | sphere: arts.BG | chance: 70
-- BR | open your own shop online, with your own name and your own designs | v: self-direction, achievement | tech: internet | lever: found | sphere: arts.BR | chance: 50
-- UR | invent a new glaze that keeps the old lines and catches a visitor's eye | v: self-direction, stimulation | sphere: arts.UR | chance: 40
-- WG | help the co-op set fair prices, so every family's kiln gets orders | v: universalism, benevolence | lever: lead | sphere: arts.GW | chance: 52
-- WU | start classes in the old craft for the young who have come home | v: tradition, benevolence | lever: found | sphere: arts.WU | chance: 66
+- W | ask the village to register the old patterns, so no factory can copy them | v: security, tradition | lever: voice | pushes: place | sphere: arts.W | foot: place rule.counsel | chance: 61
+- U | let no piece leave the kiln until it is right, orders or not | v: achievement, self-direction | sphere: arts.U | foot: lesson right is worth the wait | chance: 67
+- B | take the dealer's order for a thousand, and hire help to fill it | v: achievement, power | sphere: arts.B | foot: means money+.10 | chance: 60
+- R | throw the workshop open to the visitors, with music and the wheel going | v: stimulation, hedonism | sphere: arts.R | foot: means ties+.05 | chance: 75
+- G | keep making the old patterns only, whatever the dealer offers | v: tradition | mark: turned down a chance | lever: loyalty | sphere: arts.G | foot: means money-.04 | chance: 59
+- BG | make the dealer's design on weekdays and the old patterns at the weekend | v: security, tradition | sphere: arts.BG | foot: means time-.05 | chance: 70
+- BR | open your own shop online, with your own name and your own designs | v: self-direction, achievement | tech: internet | lever: found | sphere: arts.BR | foot: place comm.shop | chance: 50
+- UR | invent a new glaze that keeps the old lines and catches a visitor's eye | v: self-direction, stimulation | sphere: arts.UR | foot: mark learned a skill | chance: 40
+- WG | help the co-op set fair prices, so every family's kiln gets orders | v: universalism, benevolence | lever: lead | sphere: arts.GW | foot: place comm.market | chance: 52
+- WU | start classes in the old craft for the young who have come home | v: tradition, benevolence | lever: found | sphere: arts.WU | foot: place arts.craft | chance: 66
 works: The craft pays and stays itself, and {N} has a living from the family wheel.
 works: The young potters stay, and the village is full of work and noise again.
 fails: The dealer moves on to the next village, and the family is left with a kiln full of unsold pieces.
@@ -698,16 +698,16 @@ scene U: A real teacher, a real instrument and a lesson every week. {N} has want
 scene B: The school will need someone to run it, and there is talk of a paid post. {N} has run things before.
 scene R: There is a drum kit in the back room that anyone can play. {N} is already there.
 scene G: {N} has the old fiddle {Ns} grandfather played, and nobody left in the family who can teach it.
-- W | join the open choir, and sing in the spring concert | v: conformity, benevolence | sphere: arts.W | chance: 70
+- W | join the open choir, and sing in the spring concert | v: conformity, benevolence | sphere: arts.W | foot: place arts.song | chance: 70
 - U | borrow an instrument and take a lesson every week for a year | v: self-direction, achievement | mark: learned a skill | sphere: arts.U | chance: 73
-- B | apply for the paid post running the school | v: achievement, power | sphere: arts.B | chance: 65
-- R | play the drum kit in the back room every night it is open | v: hedonism, stimulation | sphere: arts.R | chance: 69
+- B | apply for the paid post running the school | v: achievement, power | sphere: arts.B | foot: means money+.05 | chance: 65
+- R | play the drum kit in the back room every night it is open | v: hedonism, stimulation | sphere: arts.R | foot: place gather.hall | chance: 69
 - G | bring your grandfather's fiddle, and find a teacher who knows the old tunes | v: tradition | mark: learned a skill | sphere: arts.G | chance: 62
 - BG | help mend the borrowed instruments on Saturdays, and learn the trade | v: security, benevolence | mark: learned a skill | sphere: arts.BG | chance: 74
-- RG | start a band with the other beginners in your class | v: hedonism, self-direction | lever: found | sphere: arts.RG | chance: 60
-- UB | audition for the school's top group, and the scholarship that comes with it | v: achievement | sphere: arts.UB | chance: 54
-- WR | play with the school's band at the street party in summer | v: stimulation, benevolence | sphere: arts.RW | chance: 60
-- WU | help teach the beginners' class one evening a week | v: benevolence, universalism | sphere: arts.WU | chance: 58
+- RG | start a band with the other beginners in your class | v: hedonism, self-direction | lever: found | sphere: arts.RG | foot: person friend | chance: 60
+- UB | audition for the school's top group, and the scholarship that comes with it | v: achievement | sphere: arts.UB | foot: person teacher | chance: 54
+- WR | play with the school's band at the street party in summer | v: stimulation, benevolence | sphere: arts.RW | foot: person neighbour | chance: 60
+- WU | help teach the beginners' class one evening a week | v: benevolence, universalism | sphere: arts.WU | foot: person colleague | chance: 58
 works: {N} plays at the spring concert, and the hall claps.
 works: The school becomes part of {Ns} week for years, and the music stays in {Ns} hands.
 fails: The lessons fall away after the first winter, and the instrument goes back to its shelf.
@@ -741,15 +741,15 @@ scene B: People are already offering money for the copies. {N} knows what is on 
 scene R: They can ban the songs, but they cannot stop people singing. {N} wants to sing one in the street.
 scene G: The songs were how the family remembered its dead. Now they will be sung only in whispers at home.
 - W | hand the phone in, as the new rules say, and keep the peace | v: conformity, security | mark: gave in to pressure | sphere: arts.W | chance: 75
-- U | make a quiet list of every song and dance the archive held | v: universalism, tradition | sphere: arts.U | chance: 66
-- B | copy the recording, and pass it only to people who can repay the favour | v: power, security | mark: broke the law | lever: subvert | sphere: arts.B | chance: 58
+- U | make a quiet list of every song and dance the archive held | v: universalism, tradition | sphere: arts.U | foot: place learn.keeping | chance: 66
+- B | copy the recording, and pass it only to people who can repay the favour | v: power, security | mark: broke the law | lever: subvert | sphere: arts.B | foot: person patron | chance: 58
 - R | sing one of the old songs in the street on the day of the ban | v: self-direction, stimulation | mark: defied an authority | lever: voice | pushes: state | sphere: arts.R | chance: 56
-- G | sing the old songs to the children at home, behind closed curtains | v: tradition | mark: broke the law | lever: subvert | sphere: arts.G | chance: 63
-- BR | play the banned songs at an underground night, for a paying crowd | v: hedonism, achievement | mark: broke the law | lever: subvert | sphere: arts.BR | chance: 60
+- G | sing the old songs to the children at home, behind closed curtains | v: tradition | mark: broke the law | lever: subvert | sphere: arts.G | foot: means ties+.04 | chance: 63
+- BR | play the banned songs at an underground night, for a paying crowd | v: hedonism, achievement | mark: broke the law | lever: subvert | sphere: arts.BR | foot: means money+.04 | chance: 60
 - RG | dance the old dances at a family wedding, whoever is watching | v: tradition, stimulation | mark: defied an authority | sphere: arts.RG | chance: 68
-- UB | hide copies in a dozen places nobody would think to look | v: security, self-direction | mark: broke the law | sphere: arts.UB | chance: 64
-- WG | teach the old songs to the neighbours' children along with your own | v: tradition, benevolence | mark: broke the law | sphere: arts.GW | chance: 46
-- WU | send a copy to a library abroad that keeps what others destroy | v: universalism | mark: broke the law | sphere: arts.WU | chance: 44
+- UB | hide copies in a dozen places nobody would think to look | v: security, self-direction | mark: broke the law | sphere: arts.UB | foot: door kept it hidden | chance: 64
+- WG | teach the old songs to the neighbours' children along with your own | v: tradition, benevolence | mark: broke the law | sphere: arts.GW | foot: person neighbour | chance: 46
+- WU | send a copy to a library abroad that keeps what others destroy | v: universalism | mark: broke the law | sphere: arts.WU | foot: door defied an authority | chance: 44
 works: The ban falls in time, and the copy on {Ns} phone helps bring the old songs back.
 works: {N} keeps the songs alive at home, and the children grow up knowing them.
 fails: A neighbour reports the singing, and {N} spends a frightening night answering questions.
@@ -783,16 +783,16 @@ scene U: {N} speaks the home tongue but has never read it. The spelling is stran
 scene B: The bookshop cannot keep the novel in stock. {N} wonders how many more books like it the town would buy.
 scene R: The novel swears, laughs and shouts in the words {N} grew up with. It reads like a voice in the kitchen.
 scene G: {grandparent} cried at the first chapter. It is the first time they have seen their own words in print.
-- W | ask the school to teach the home tongue to every child who wants it | v: universalism, tradition | lever: voice | pushes: institution school | sphere: arts.W | chance: 64
+- W | ask the school to teach the home tongue to every child who wants it | v: universalism, tradition | lever: voice | pushes: institution school | sphere: arts.W | foot: place rule.voice | chance: 64
 - U | learn to read and write the home tongue properly, grammar and all | v: self-direction, tradition | mark: learned a skill | sphere: arts.U | chance: 65
-- B | keep to the ruling tongue at work and in letters, where it still counts for more | v: security, achievement | sphere: arts.B | chance: 80
-- R | quote the best lines loudly, online and in the street | v: stimulation, hedonism | sphere: arts.R | chance: 88
-- G | read the novel aloud at the family table, a chapter every evening | v: tradition, benevolence | sphere: arts.G | chance: 70
-- BR | write a story of your own in the home tongue, and send it to a publisher | v: self-direction, achievement | sphere: arts.BR | chance: 34
-- RG | turn a chapter into a play for the street party, in the home tongue | v: hedonism, tradition | sphere: arts.RG | chance: 56
-- UG | write down the old sayings your grandparents use, before they are lost | v: tradition, universalism | sphere: arts.GU | chance: 70
-- WB | pay for copies of the novel for the town library and the care home | v: benevolence | lever: fund | sphere: arts.WB | chance: 72
-- WU | start a reading group in the home tongue at the library | v: universalism, tradition | lever: found | sphere: arts.WU | chance: 66
+- B | keep to the ruling tongue at work and in letters, where it still counts for more | v: security, achievement | sphere: arts.B | foot: door gave in to pressure | chance: 80
+- R | quote the best lines loudly, online and in the street | v: stimulation, hedonism | sphere: arts.R | foot: lesson the old words still bite | chance: 88
+- G | read the novel aloud at the family table, a chapter every evening | v: tradition, benevolence | sphere: arts.G | foot: means ties+.05 | chance: 70
+- BR | write a story of your own in the home tongue, and send it to a publisher | v: self-direction, achievement | sphere: arts.BR | foot: place arts.page | chance: 34
+- RG | turn a chapter into a play for the street party, in the home tongue | v: hedonism, tradition | sphere: arts.RG | foot: person neighbour | chance: 56
+- UG | write down the old sayings your grandparents use, before they are lost | v: tradition, universalism | sphere: arts.GU | foot: place arts.tale | chance: 70
+- WB | pay for copies of the novel for the town library and the care home | v: benevolence | lever: fund | sphere: arts.WB | foot: means money-.04 | chance: 72
+- WU | start a reading group in the home tongue at the library | v: universalism, tradition | lever: found | sphere: arts.WU | foot: place learn.keeping | chance: 66
 works: The home tongue comes back into {Ns} life, at the table and on the page.
 works: {N} finds a voice in the words {N} grew up with, and others hear it.
 fails: The fashion passes, and the novel ends up on the charity shop shelf.
@@ -826,16 +826,16 @@ scene U: The money will come in a rush, and it needs counting and tracking. {N} 
 scene B: Everyone in town will see who gives and who helps. {N} knows a night like this is remembered for years.
 scene R: A free gig, a crowd of thousands, and a reason to be there. {N} means to make the buckets overflow.
 scene G: The neighbours down the street lost everything in the flood. {N} thinks of them first.
-- W | lead the closing song for the families who lost their homes | v: benevolence, tradition | sphere: arts.W | chance: 71
-- U | keep the books for the night, so every gift is counted and seen | v: security, universalism | sphere: arts.U | chance: 75
-- B | have your business named on the poster, in return for a big gift | v: power, benevolence | lever: fund | sphere: arts.B | chance: 68
-- R | warm up the crowd before the band, and get the buckets filled | v: stimulation, benevolence | sphere: arts.R | chance: 68
+- W | lead the closing song for the families who lost their homes | v: benevolence, tradition | sphere: arts.W | foot: means ties+.04 | chance: 71
+- U | keep the books for the night, so every gift is counted and seen | v: security, universalism | sphere: arts.U | foot: lesson counted gifts are trusted gifts | chance: 75
+- B | have your business named on the poster, in return for a big gift | v: power, benevolence | lever: fund | sphere: arts.B | foot: means money-.08 | chance: 68
+- R | warm up the crowd before the band, and get the buckets filled | v: stimulation, benevolence | sphere: arts.R | foot: place arts.stage | chance: 68
 - G | bring food to the neighbours who lost everything, and take them to the front | v: benevolence | mark: helped someone in need | sphere: arts.G | chance: 64
-- BG | sell tea and cakes at the gate, and hand over all the takings | v: benevolence, security | sphere: arts.BG | chance: 72
-- UG | record the night, and the stories of the flooded families, for the town | v: tradition, universalism | sphere: arts.GU | chance: 52
+- BG | sell tea and cakes at the gate, and hand over all the takings | v: benevolence, security | sphere: arts.BG | foot: mark helped someone in need | chance: 72
+- UG | record the night, and the stories of the flooded families, for the town | v: tradition, universalism | sphere: arts.GU | foot: place learn.keeping | chance: 52
 - UR | build a stage from salvaged doors and pallets in two days | v: self-direction, stimulation | mark: learned a skill | sphere: arts.UR | chance: 50
-- WB | match every bucket's takings from your own savings, and say so on the night | v: benevolence, power | lever: fund | sphere: arts.WB | chance: 44
-- WR | rally the crowd to sign up for the rebuilding, then and there | v: benevolence, universalism | sphere: arts.RW | chance: 66
+- WB | match every bucket's takings from your own savings, and say so on the night | v: benevolence, power | lever: fund | sphere: arts.WB | foot: means money-.10 | chance: 44
+- WR | rally the crowd to sign up for the rebuilding, then and there | v: benevolence, universalism | sphere: arts.RW | foot: place prot.rescue | chance: 66
 works: The youth club is rebuilt by spring, and the night is talked about for years.
 works: {N} is thanked by people {N} barely knew, and favours from that night come back for years.
 fails: The night is a great success, but the money is slow to arrive and the arguments over it are bitter.

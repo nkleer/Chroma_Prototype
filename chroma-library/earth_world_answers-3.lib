@@ -1,0 +1,571 @@
+# The world answers v1 (chroma-world/spheres/world-answers-v1.md, 10-19), writer 3: faith, arts, gather.
+# E4 the sphere asks (asked_help at rung 2, asked_lead at rung 3, asked_speak at rung 4), one of each a sphere, and
+# F2 decisions for others, four a sphere. Read only with the Engine's world_answers switch on.
+# Decision colours over this file: each colour leads 7 times (4 one-colour options, 3 crosses), and the 15 crosses are
+# the cycles s1, s2 and s3 once each, so the count is even whether a cross counts for its first colour or for both.
+
+# ================================================================ E4, faith
+
+== the elders ask for Saturday mornings at the shared meal
+tier: everyday
+sphere: faith
+stages: young_adult adult mature elder
+age: 20-85
+calls: WG
+rate: 1
+tone: mixed
+life: community, faith
+horizon: months
+roles: elder, regular, friend
+cast_want: asked_help
+earth: you have gone to your congregation for some years, and the elders ask whether you could give your Saturday mornings to the meal it serves for anyone who comes
+gap: 3-8
+scene: For years {N} has sat in the same row at {place}, come for the holy days and stayed for the tea after. This week one of the elders takes {N} aside by the coat pegs. The shared meal on Saturday mornings feeds forty people from the street, the cook is getting old, and they need someone steady to help. "Only if it suits," the elder says, and means it.
+scene W: Forty people come to that meal every week, and the work of it falls on fewer hands each year.
+scene U: {N} has watched how the kitchen runs, and can see how much better it could run.
+scene B: Being asked means {N} has been noticed, and the ones who run the meal are the ones who run {place}.
+scene R: Saturday morning is the one slow morning in {Ns} week, and it is precious.
+scene G: The meal is older than anyone who serves it, and the ones who keep it going are a family of a kind.
+- W | take a fixed Saturday on the rota, every week, without fail | v: benevolence, conformity | lever: loyalty | foot: place faith.congregation | chance: 85
+- U | help for a month, then rework how the kitchen orders and stores its food | v: achievement, universalism | lever: voice | foot: mark learned a skill | chance: 70
+- B | say yes, and ask for a seat on the committee that runs the meal | v: power, achievement | lever: lead | foot: person elder | chance: 65
+- R | come when the mood is right, and bring a guitar for the people in the queue | v: stimulation, benevolence | lever: voice | foot: place arts.song | chance: 75
+- G | cook beside the old cook and learn the dishes the meal has always served | v: tradition, benevolence | lever: loyalty | foot: person mentor | chance: 85
+- W>U | offer to keep the meal's rota and accounts, so nobody is left alone at the stove | v: conformity, universalism | lever: loyalty | foot: means time-.06 | chance: 80
+- U>B | find a grocer who will give the day's leftovers, in return for public thanks | v: achievement, power | lever: fund | foot: person patron | chance: 65
+- B>R | keep the Saturdays, but offer to run one big fund-raising night instead | v: power, stimulation | lever: fund | foot: place gather.great | chance: 70
+- R>G | say yes on the spot, and talk a friend into coming too | v: benevolence, hedonism | lever: loyalty | foot: person friend | chance: 80
+- G>W | say gently that the family needs Saturdays, and keep coming as before | v: tradition, security | lever: neglect | foot: means time+.03 | chance: 90
+works: By spring {N} knows the regulars at the meal by name, and the elders speak of {N} warmly whatever the answer was.
+works: The arrangement {N} settles on holds, and the Saturday meal goes on without anyone being worn thin.
+fails: The arrangement {N} settles on does not hold, and by the next season the elders are asking around again.
+fails: {N} misjudges what the answer would cost, and the weeks after are more tiring than anyone expected.
+
+== the young people's group needs someone to lead it
+tier: everyday
+sphere: faith
+stages: adult mature elder
+age: 25-80
+calls: GR
+rate: 1
+tone: mixed
+life: community, faith
+horizon: years
+roles: elder, regular, colleague
+cast_want: asked_lead
+earth: the leader of your congregation's young people's group is moving away, and the elders ask whether you would take it on
+gap: 3-8
+scene: The young people's group at {place} meets on the evening after the holy day, a dozen of them between twelve and eighteen, and its leader is moving away. The elders have watched {N} for years now, and they ask whether {N} would take it on: the meetings, the summer trip, the questions nobody else wants to answer.
+scene W: The young ones need someone reliable, the same face every week, who keeps the ways of the house.
+scene U: Half the group's questions are hard ones, and {N} would want to answer them honestly or not at all.
+scene B: Whoever shapes the young ones shapes what {place} will be in twenty years.
+scene R: {N} remembers being fourteen and bored on a hard bench, and would want these evenings to be alive.
+scene G: The group has its old songs and its summer camp by the lake; someone has to carry them on.
+- W | take it on, with house rules agreed with the parents from the start | v: conformity, security | lever: lead | lead: rules | foot: place faith.congregation | chance: 75
+- U | take it on for hard questions, reading the old texts side by side | v: self-direction, universalism | lever: lead | lead: knowing | foot: place faith.seeking | chance: 70
+- B | agree, on condition that the group gets a room and a budget of its own | v: power, achievement | lever: voice | foot: person elder | chance: 65
+- R | say yes, and fill the evenings with music, cooking and long walks | v: stimulation, hedonism | lever: lead | lead: inspiring | foot: means time-.06 | chance: 70
+- G | leave the leading to another, but keep helping with the summer camp | v: tradition, benevolence | lever: loyalty | foot: person regular | chance: 85
+- W>B | lead it for one year, with a successor named from the start | v: conformity, achievement | lever: lead | lead: rules | foot: door kept your word | chance: 75
+- U>R | say no to leading, but offer one evening a month of open questions | v: self-direction, stimulation | lever: voice | foot: means time+.03 | chance: 80
+- B>G | suggest a younger member for the post, and offer to stand behind them | v: power, tradition | lever: voice | foot: person friend | chance: 75
+- R>W | say honestly that a reluctant leader would waste the young ones' evenings | v: self-direction, universalism | lever: exit | foot: door turned down a chance | chance: 90
+- G>U | ask the old leader to stay one more season and teach the ways first | v: tradition, achievement | lever: loyalty | foot: person mentor | chance: 70
+works: The group meets on through the year, and a few of the young ones start staying behind to talk with {N} afterwards.
+works: Whatever {N} chose, the elders see it was thought through, and the group is in steady hands by the summer.
+fails: The first months are harder than {N} thought, and twice the parents come to the elders with worries.
+fails: The arrangement falls between two stools, and the group meets less often than it did before.
+
+== the council wants a voice from the congregation
+tier: everyday
+sphere: faith
+stages: adult mature elder
+age: 30-90
+calls: WU
+rate: 1
+tone: mixed
+life: community, faith
+horizon: months
+roles: elder, neighbour, regular
+cast_want: asked_speak
+earth: the town council will decide the fate of the old burial ground by the river, and the elders ask you to speak for the congregation at the hearing
+gap: 4-10
+scene: The town council means to sell the old burial ground by the river, where the families of {place} have laid their dead for two hundred years, and it is holding a hearing first. It wants someone to speak for the congregation, and the elders ask {N}, a name people in {sphere_name} know. The hearing is in three weeks, with the local paper watching and the buyers in the front row.
+scene W: The congregation has a right to be heard, and a duty to speak for the whole town, not only for itself.
+scene U: {N} would want the history of that ground, its deeds and its maps, before standing up to say a word.
+scene B: A speech before the council is a chance to become the face of {place} in town.
+scene R: {N} feels strongly about that ground, and fears the feeling would show in every word.
+scene G: People's grandparents lie in that ground; whoever speaks, speaks for them too.
+- W | agree, and first ask the members what the congregation wants said | v: universalism, conformity | lever: lead | lead: rules | foot: place rule.voice | chance: 75
+- U | agree, and spend the three weeks in the archive with the old deeds and maps | v: achievement, universalism | lever: voice | foot: place learn.keeping | chance: 75
+- B | agree, and meet the council members one by one before the hearing | v: power, achievement | lever: lead | lead: favours | foot: person go-between | chance: 65
+- R | agree, and read aloud the names of those buried there | v: benevolence, stimulation | lever: voice | foot: person rival | chance: 60
+- G | stand with the families, and let the eldest of them speak instead | v: tradition, benevolence | lever: loyalty | foot: person elder | chance: 80
+- W>R | agree, on the condition that the young members speak alongside | v: universalism, self-direction | lever: lead | lead: inspiring | foot: person colleague | chance: 70
+- U>G | write a careful statement for the hearing, and let another read it | v: tradition, achievement | lever: voice | foot: lesson a written case travels far | chance: 80
+- B>W | say yes only with a free hand over what is said | v: power, self-direction | lever: voice | foot: lesson a free hand has a price | chance: 65
+- R>U | decline, saying plainly that it is too close to speak about calmly | v: self-direction, security | lever: exit | foot: door turned down a chance | chance: 90
+- G>B | put forward the head of the oldest family, and quietly back them | v: tradition, power | lever: loyalty | foot: person neighbour | chance: 75
+works: The hearing is put off for a year, and people in town say the congregation's case was put well.
+works: Whoever stood up for {place}, the families feel they were heard, and some of them thank {N} after.
+fails: The council hears the case politely and carries on, and the sale goes ahead in the spring.
+fails: The hearing goes badly, and for a while {place} is talked about in town more than it would like.
+
+# ================================================================ E4, arts
+
+== the company is short of hands for the spring show
+tier: everyday
+sphere: arts
+stages: young_adult adult mature elder
+age: 20-85
+calls: RW
+rate: 1
+tone: mixed
+life: leisure, community
+horizon: months
+roles: colleague, regular, friend
+cast_want: asked_help
+earth: the amateur company you have followed for years is short of hands for its spring show, and the director asks whether you could give it a few weekends
+gap: 3-8
+scene: The amateur company at {place} puts on one big show each spring, and this year it is short of hands: someone to build the set, run the lights, sell tickets at the door. {N} has been a face in the audience and at the drinks after the show for years. The director catches {N} at the bar and asks whether {N} could give the company a few weekends.
+scene W: A show lives or dies on the people nobody sees, and the company has been short for two seasons now.
+scene U: {N} has always wondered how the lights and the set are done, and here is a way to find out.
+scene B: Being in with the company means being in with the people who decide who gets seen.
+scene R: The thought of being backstage on a first night makes {Ns} heart beat faster.
+scene G: These are {Ns} people, the same faces every spring, and the show is the town's own.
+- W | take the ticket desk for every night of the run | v: conformity, benevolence | lever: loyalty | foot: place arts.stage | chance: 85
+- U | learn the lighting desk from the company's old technician | v: achievement, self-direction | lever: loyalty | foot: person mentor | chance: 75
+- B | offer to handle the publicity, with a credit in the programme | v: achievement, power | lever: voice | foot: person patron | chance: 75
+- R | say yes, and talk the director into a small part on stage as well | v: stimulation, self-direction | lever: voice | foot: person friend | chance: 65
+- G | build the set with the old crew, over the long weekends before the show | v: tradition, benevolence | lever: loyalty | foot: place arts.craft | chance: 85
+- W>G | draw up a proper rota, so the old hands finally get a rest | v: benevolence, conformity | lever: loyalty | foot: means time-.06 | chance: 80
+- U>W | keep the weekends, but offer to train two new volunteers one evening | v: universalism, achievement | lever: voice | foot: means time+.03 | chance: 80
+- B>U | agree, if the company will try reading a new play next season | v: power, self-direction | lever: voice | foot: person colleague | chance: 70
+- R>B | decline cheerfully, keeping the weekends for painting of one's own | v: self-direction, hedonism | lever: exit | foot: door turned down a chance | chance: 90
+- G>R | bring the family along and make the set-building a weekend party | v: hedonism, tradition | lever: loyalty | foot: means ties+.06 | chance: 80
+works: The spring show goes up on time, and at the party afterwards the director raises a glass in {Ns} direction.
+works: The company gets through the season with the hands it needs, and {N} is glad of the answer given.
+fails: The run is chaotic, a cue goes missing on the first night, and everyone backstage is short-tempered for a week.
+fails: The arrangement {N} offered does not quite fit, and the director is asking around again by the next spring.
+
+== the choir's director steps down
+tier: everyday
+sphere: arts
+stages: adult mature elder
+age: 25-85
+calls: UG
+rate: 1
+tone: mixed
+life: leisure, community
+horizon: years
+roles: colleague, elder, regular
+cast_want: asked_lead
+earth: the director of the choir you have sung in for years is stepping down, and the committee asks you to take the baton
+gap: 3-8
+scene: For years {N} has sung at {place}, in the middle row, rarely missing a week. Now the director is stepping down after twenty seasons, and the committee asks {N} to take the baton: the weekly practice, the choice of music, the winter concert that half the town comes to.
+scene W: A choir needs someone who starts on time, knows every part and treats every voice alike.
+scene U: {N} would want to learn the craft properly first: reading scores, shaping a sound, keeping time for forty.
+scene B: The director of the town's choir is somebody, and {N} would be the one people thank on concert night.
+scene R: {N} has always wanted the choir to sing something that makes people cry, not only nod along.
+scene G: The choir has its old pieces, sung every winter for longer than anyone can remember.
+- W | take the baton, and keep practice to the same hour and the same rules each week | v: conformity, security | lever: lead | lead: rules | foot: place arts.song | chance: 75
+- U | take a conducting course first, then take the choir in the new year | v: achievement, self-direction | lever: lead | lead: knowing | foot: place learn.higher | chance: 70
+- B | agree, and ask for the director's name on the concert posters | v: power, achievement | lever: lead | lead: favours | foot: person rival | chance: 65
+- R | say yes, and open the winter concert with something new and wild | v: stimulation, self-direction | lever: lead | lead: inspiring | foot: place gather.great | chance: 65
+- G | stay in the middle row, and put forward the oldest alto instead | v: tradition, benevolence | lever: loyalty | foot: person elder | chance: 85
+- W>U | share the post with the accompanist, each with set duties | v: conformity, universalism | lever: lead | foot: person colleague | chance: 75
+- U>B | lead the choir, and enter it in the regional competition | v: achievement, power | lever: lead | lead: knowing | foot: means time-.10 | chance: 60
+- B>R | decline the post, but offer to sing the solos at every concert | v: hedonism, power | lever: voice | foot: means time+.03 | chance: 80
+- R>G | say no kindly, since leading would spoil the joy of simply singing | v: hedonism, tradition | lever: neglect | foot: door turned down a chance | chance: 90
+- G>W | agree for one season, to keep the winter concert going while they look | v: tradition, conformity | lever: loyalty | foot: door kept your word | chance: 80
+works: The winter concert fills the hall again, and the old director, in the front row, is seen wiping an eye.
+works: The choir settles into its new shape within a season, and the middle row is as full as ever.
+fails: Two of the strongest voices leave over the changes, and the winter concert is thinner than anyone hoped.
+fails: The first practices are awkward, and for a few months the choir sounds like a room of strangers.
+
+== the town's artists want one voice at the budget meeting
+tier: everyday
+sphere: arts
+stages: adult mature elder
+age: 30-90
+calls: RB
+rate: 1
+tone: mixed
+life: work, community
+horizon: months
+roles: colleague, rival, elder
+cast_want: asked_speak
+earth: the council means to cut the grant that keeps your arts house open, and the town's artists ask you to speak for them at the budget meeting
+gap: 4-10
+scene: The council means to cut the grant that keeps {place} open, and the town's artists want one voice at the budget meeting: someone people know, whose work has been seen. They ask {N}. There will be five minutes at the microphone, the local paper in the room, and councillors who think art is a luxury.
+scene W: The grant is public money, and the case for it must be made to the whole town, fairly.
+scene U: Numbers will move this council more than feelings: visitors, classes, money spent in town.
+scene B: Five minutes at that microphone could make {N} the one the town thinks of when it thinks of art.
+scene R: {N} is angry about the cut, and the anger might be the best thing to bring into that room.
+scene G: {place} has stood for forty years; it is part of what this town is.
+- W | agree, and gather a statement every artist in town can sign | v: universalism, conformity | lever: lead | lead: rules | foot: place rule.voice | chance: 75
+- U | agree, and bring the figures on visitors, classes and money spent in town | v: achievement, universalism | lever: voice | foot: lesson numbers open closed minds | chance: 70
+- B | agree, and line up an interview with the local paper beforehand | v: power, achievement | lever: lead | lead: favours | foot: person go-between | chance: 65
+- R | agree, and bring a piece of work to show in place of a speech | v: stimulation, self-direction | lever: voice | foot: place arts.stage | chance: 60
+- G | put forward the founder of the house, now old, and sit beside them | v: tradition, benevolence | lever: loyalty | foot: person elder | chance: 80
+- W>B | agree, if the artists will first choose their speaker by a fair vote | v: universalism, power | lever: voice | foot: place gather.hall | chance: 75
+- U>R | decline the microphone, but write the open letter the others will read | v: self-direction, universalism | lever: voice | foot: place arts.page | chance: 80
+- B>G | agree, and invite the councillors to an opening night first | v: power, tradition | lever: lead | lead: favours | foot: person patron | chance: 65
+- R>W | decline, saying the work should speak for itself | v: self-direction, universalism | lever: exit | foot: door turned down a chance | chance: 90
+- G>U | ask the oldest members what saved the house last time, and say that | v: tradition, achievement | lever: loyalty | foot: person mentor | chance: 70
+works: The cut is halved at the meeting, and the local paper runs a picture of {place} with its doors open.
+works: The artists come away feeling their case was made well, and they say so to {N} in their different ways.
+fails: The council listens, thanks everyone for coming, and passes the cut as it stood.
+fails: The meeting turns sour, and the artists spend the next month arguing among themselves about what went wrong.
+
+# ================================================================ E4, gather
+
+== the residents' club needs hands for the street fair
+tier: everyday
+sphere: gather
+stages: young_adult adult mature elder
+age: 20-85
+calls: GR
+rate: 1
+tone: joy
+life: community, leisure
+horizon: months
+roles: neighbour, regular, friend
+cast_want: asked_help
+earth: the residents' club you belong to runs the street fair every summer, and the secretary asks whether you could help set it up
+gap: 3-8
+scene: The residents' club at {place} runs the street fair every summer: stalls, a band, games for the children, a raffle. {N} has been a member for a few years and has hardly missed a meeting. This year the secretary asks whether {N} could help: three Saturdays of setting up beforehand, and the whole of the day itself.
+scene W: The fair pays for the club's whole year, and it only happens because someone turns up.
+scene U: {N} has noticed that the fair loses money on the same things every year.
+scene B: Whoever runs a stall gets to know everybody on the street, and everybody gets to know them.
+scene R: A street full of music and people on a summer day is {Ns} idea of a good time.
+scene G: The fair is older than most of the houses on the street, and the old families still run the cake stall.
+- W | take on the setting-up crew for all three Saturdays | v: benevolence, conformity | lever: loyalty | foot: place gather.hall | chance: 85
+- U | help by working out the fair's costs, and where the money has been leaking | v: achievement, universalism | lever: voice | foot: lesson small sums add up | chance: 75
+- B | run the raffle, and see that the local shops donate the prizes | v: achievement, power | lever: fund | foot: person patron | chance: 70
+- R | say yes and book the band, the louder the better | v: stimulation, hedonism | lever: loyalty | foot: place arts.song | chance: 75
+- G | help the old families with the cake stall, as it has always been done | v: tradition, benevolence | lever: loyalty | foot: person neighbour | chance: 85
+- W>R | set up a games corner where every child on the street gets a turn | v: universalism, stimulation | lever: loyalty | foot: means time-.06 | chance: 80
+- U>G | lend the club tools and tables, but keep the Saturdays free | v: benevolence, security | lever: fund | foot: means time+.03 | chance: 90
+- B>W | agree, in exchange for a place on the club's committee | v: power, conformity | lever: voice | foot: place rule.counsel | chance: 70
+- R>U | say no this year, with a promise to think about next summer | v: hedonism, self-direction | lever: exit | foot: door turned down a chance | chance: 90
+- G>B | bring the whole family to run a stall together | v: tradition, achievement | lever: loyalty | foot: means ties+.06 | chance: 80
+works: The fair is the best in years, and on the evening of it the whole street is still out in the warm air.
+works: The club gets the help it needs, and the secretary thanks {N} at the next meeting in front of everyone.
+fails: Rain comes in at noon, the stalls are packed away early, and the takings barely cover the band.
+fails: The arrangement {N} offered does not quite fit, and the secretary is still a pair of hands short on the day.
+
+== the walking club needs a new organiser
+tier: everyday
+sphere: gather
+stages: adult mature elder
+age: 25-85
+calls: UB
+rate: 1
+tone: mixed
+life: friends, leisure
+horizon: years
+roles: regular, elder, friend
+cast_want: asked_lead
+earth: the organiser of the walking club you have walked with for years can no longer manage it, and asks in front of everyone whether you would take over
+gap: 3-8
+scene: The walking club at {place} has gone out every second weekend for thirty years: thirty or forty people, a route over the hills, a long lunch at the end. Its organiser has bad knees now, and at the annual meeting she asks, in front of everyone, whether {N} would take over: the routes, the insurance, the newsletter, the newcomers who need looking after.
+scene W: Forty people trust the organiser to plan a safe route and to treat the slow walkers like the fast.
+scene U: {N} knows the hills better than most in the club, and has ideas for routes nobody has tried.
+scene B: The club is the one thing in town that brings the doctor, the mayor's brother and the baker to the same table.
+scene R: {N} loves the walks for the freedom of them, and fears the paperwork would kill that.
+scene G: The club walks the same old paths each year, and its members are a second family.
+- W | take over, and write down the club's rules on safety and pace | v: conformity, security | lever: lead | lead: rules | foot: place gather.games | chance: 75
+- U | take over, and map a new route for every season | v: self-direction, achievement | lever: lead | lead: knowing | foot: place prod.wild | chance: 70
+- B | agree, and grow the club by inviting the town's best-known people | v: power, achievement | lever: lead | lead: favours | foot: person patron | chance: 65
+- R | say no to the paperwork, but lead the odd wild walk off the map | v: stimulation, self-direction | lever: voice | foot: door turned down a chance | chance: 80
+- G | keep walking at the back, and help the organiser through the hard days | v: benevolence, tradition | lever: loyalty | foot: person elder | chance: 85
+- W>G | share the post with two others, so the club never hangs on one person | v: universalism, tradition | lever: lead | foot: person colleague | chance: 75
+- U>W | agree for one year, and use it to set up a proper committee | v: achievement, conformity | lever: lead | lead: rules | foot: place gather.hall | chance: 70
+- B>U | agree, if the club will pay for a first aid course for its leaders | v: security, achievement | lever: voice | foot: place prot.rescue | chance: 75
+- R>B | decline, and start a smaller, faster walking group instead | v: stimulation, self-direction | lever: exit | foot: person friend | chance: 70
+- G>R | say yes, and keep the long lunch at the end as the heart of every walk | v: hedonism, tradition | lever: lead | lead: custom | foot: means ties+.06 | chance: 80
+works: The club's next season is its busiest in years, and the old organiser comes along on the flat walks.
+works: Whatever {N} answered, the club finds its feet again, and the newsletter comes out on time.
+fails: The first season is a muddle of lost bookings and wrong turns, and a few members drift off to other clubs.
+fails: The club argues for months over who should run it, and the walks go out half as often as before.
+
+== the campaign wants a speaker on the town hall steps
+tier: everyday
+sphere: gather
+stages: adult mature elder
+age: 30-90
+calls: WB
+rate: 1
+tone: mixed
+life: community, work
+horizon: months
+roles: neighbour, regular, rival
+cast_want: asked_speak
+earth: the campaign to save the town's swimming baths asks you to speak from the town hall steps at the end of its march
+gap: 4-10
+scene: The campaign to save the town's swimming baths has three thousand names on its petition and a march on the town hall next month. Its organisers want someone the town knows and trusts to speak from the steps at the end, and they ask {N}, who has been at every meeting at {place} for years. There will be a crowd, a microphone and the evening news.
+scene W: The baths serve the whole town, the old and the poor most of all, and somebody has to say so plainly.
+scene U: {N} would want to know the real costs and the council's real reasons before saying a word.
+scene B: A speech from the town hall steps could make a name, or cost one.
+scene R: A crowd, a cause and a microphone: {N} can feel the speech already.
+scene G: Three generations of the town learned to swim in those baths; the speech would be for all of them.
+- W | agree, and speak for the whole town, not only the campaign | v: universalism, benevolence | lever: lead | lead: rules | foot: place gather.great | chance: 75
+- U | agree, and spend the month learning the council's budget inside out | v: achievement, universalism | lever: voice | foot: place rule.voice | chance: 75
+- B | agree, and meet the councillors privately before the march | v: power, achievement | lever: lead | lead: favours | foot: person go-between | chance: 65
+- R | agree, and write the speech in one fierce night | v: stimulation, self-direction | lever: voice | foot: person rival | chance: 60
+- G | ask the old swimming teacher to speak, and stand beside them | v: tradition, benevolence | lever: loyalty | foot: person elder | chance: 80
+- W>U | agree, if the campaign publishes its facts and figures alongside | v: universalism, achievement | lever: voice | foot: place gather.talk | chance: 75
+- U>B | decline the steps, but brief whoever speaks on every figure | v: achievement, security | lever: loyalty | foot: person colleague | chance: 85
+- B>R | say no, and keep to marching and singing in the crowd | v: self-direction, hedonism | lever: neglect | foot: door turned down a chance | chance: 90
+- R>G | agree, and bring the old swimmers' club to sing on the steps | v: stimulation, tradition | lever: lead | lead: inspiring | foot: place arts.song | chance: 70
+- G>W | agree, and speak simply, as a neighbour, of what the baths have meant | v: tradition, universalism | lever: lead | lead: custom | foot: person neighbour | chance: 75
+works: The march fills the square, and that week the council agrees to keep the baths open for another five years.
+works: The campaign is heard, and people stop {N} in the street for a month to talk about the baths.
+fails: The crowd is smaller than hoped, the microphone fails halfway, and the council does not budge.
+fails: The evening news cuts the speeches to a few seconds, and the vote goes against the baths all the same.
+
+# ================================================================ F2, faith
+
+== the old tongue or the town's tongue at the rites
+tier: decision
+cast_want: decide
+sphere: faith
+stages: adult mature elder
+age: 25-90
+tone: mixed
+life: faith, community
+horizon: years
+roles: elder, regular, neighbour
+earth: the congregation must decide whether its rites stay in the old tongue or move to the tongue people speak at home, and {N}'s word now carries
+scene: For as long as anyone remembers, the rites at {place} have been said in the old tongue. The young ones follow the sounds and not the meaning, and the newcomers follow neither. The elders have argued it for a year, and now they look to {N}.
+- G | keep the rites in the old tongue, as they have always been said | v: tradition | scope: place | chance: 75
+- W | keep the old tongue on holy days, and the home tongue on all the others | v: conformity, universalism | scope: place | chance: 70
+- U>R | put the rites into the home tongue, so each can follow and judge for themselves | v: self-direction, universalism | scope: town_sphere | chance: 60
+works: Within a year the new way at {place} feels like the old one, and other congregations in town come to see how it is done.
+works: The elders who argued longest are the first to say it was decided well.
+fails: A handful of families leave for a congregation across town, and the rows at {place} are thinner for it.
+fails: The change is half made and half resisted, and for a while every rite is an argument.
+
+== what the house of worship does with its empty hall
+tier: decision
+cast_want: decide
+sphere: faith
+stages: adult mature elder
+age: 25-90
+tone: mixed
+life: faith, community
+horizon: years
+roles: elder, neighbour, colleague
+earth: the congregation's old hall stands empty most of the week, and {N} must help decide what it becomes
+scene: The hall behind {place} was built for a congregation twice the size. Now it stands empty six days in seven, the roof leaks, and the heating costs more each winter. Three plans are on the table, and the elders want {Ns} word before they vote.
+- R | hand the hall to the young people for music, dances and their own nights | v: stimulation, hedonism | scope: place | chance: 65
+- U | turn it into a reading room and study hall, open to anyone in town | v: universalism, self-direction | scope: place | chance: 70
+- B>G | rent it out to local businesses, and let the money keep the old building standing | v: security, tradition | scope: place | chance: 75
+works: Within a season the hall is full on most evenings, and people who never came to {place} now know where it is.
+works: The roof is mended before the winter, and the plan that was chosen turns out to suit the street.
+fails: The plan costs more than anyone counted, and the elders have to come back to it within a year.
+fails: Some members feel the hall has been given away, and they say so at every meeting.
+
+== whether to marry couples from two faiths
+tier: decision
+cast_want: decide
+sphere: faith
+stages: adult mature elder
+age: 25-90
+tone: mixed
+life: faith, family
+horizon: years
+roles: elder, regular, neighbour
+earth: couples from two faiths have asked to be married at the house of worship, and {N}'s word decides the congregation's answer
+scene: Three couples this year have asked to be married at {place}, each of them with one partner from another faith. The elders are split. Some say the house must stay what it is; some say a congregation that turns away love will empty. They have asked {N} to settle it.
+- R>W | welcome every couple who asks, with a rite written for the two of them | v: benevolence, universalism | scope: town_sphere | chance: 60
+- G>U | marry them in the old rite, once the couple has learned what it means | v: tradition, achievement | scope: place | chance: 70
+- B | welcome them, and let the new families and their gifts grow the congregation | v: achievement, power | scope: place | chance: 70
+works: The first of the weddings fills {place}, and both families stay on for the meal.
+works: Other congregations in town hear how {place} decided, and some of them follow.
+fails: Two elders step back from their duties in protest, and the house is quieter for a season.
+fails: The answer pleases nobody fully, and the couples and the elders both feel half heard.
+
+== the reform on who may be buried with their family
+tier: decision
+cast_want: decide
+sphere: faith
+stages: adult mature elder
+age: 30-90
+tone: mixed
+life: faith, family
+horizon: years
+roles: elder, colleague, rival
+earth: the congregations of the whole country meet to vote on whether those who left the faith may still be buried beside their families, and {N} is sent to speak
+scene: For generations, one who left the faith could not be laid in its ground beside their family. Now the congregations of the whole country are gathering to vote on a reform, and {place} sends {N}, whose name is known beyond the town. The hall is full of elders who have argued this for decades.
+- W | write one rule for every congregation: all families may bury their dead together | v: universalism, benevolence | scope: nation | chance: 45
+- G | leave it to each congregation's elders, as it has always been | v: tradition, security | scope: town_sphere | chance: 70
+- B>W | back the reform in return for a seat on the council that writes the rules | v: power, universalism | scope: town_sphere | chance: 55
+works: The vote goes the way {N} spoke, and within a few years the families who were kept apart lie together.
+works: The gathering ends with an agreement most can live with, and the town's own congregations take it up.
+fails: The vote is put off for another five years, and the old rule stands.
+fails: The reform passes in words but is kept by few, and the argument goes on in every town.
+
+# ================================================================ F2, arts
+
+== what the town theatre stages next season
+tier: decision
+cast_want: decide
+sphere: arts
+stages: adult mature elder
+age: 25-90
+tone: mixed
+life: work, leisure
+horizon: months
+roles: colleague, rival, regular
+earth: the theatre's board must choose next season's programme, and {N}'s word now carries
+scene: The board of {place} meets to choose next season. The money is tight, the audience is getting older, and three proposals are on the table. Everyone at the long table turns to {N} before the vote.
+- G | the old favourites the town loves, done well | v: tradition, security | scope: place | chance: 80
+- U | a hard new play about the town's closed mill, written here | v: self-direction, universalism | scope: place | chance: 55
+- B>R | one big touring show that sells out, to pay for wilder work after | v: achievement, stimulation | scope: place | chance: 65
+works: The season sells better than the last, and people talk about one of its nights for years.
+works: The board agrees it chose well, and the theatre goes into the winter with money in the bank.
+fails: The season loses money, and the board has to cut a show in the spring.
+fails: Half the regulars love the season and half stay away, and the reviews say the same.
+
+== the mural on the market wall
+tier: decision
+cast_want: decide
+sphere: arts
+stages: adult mature elder
+age: 25-90
+tone: joy
+life: community, leisure
+horizon: years
+roles: neighbour, colleague, rival
+earth: the town has the money for one great mural on the market wall, and {N} has been asked to decide how it is chosen
+scene: The long blank wall over the market has been grey for decades, and now there is money for a mural. The council has asked {N}, the best-known artist at {place}, to decide how it will be chosen and who will paint it.
+- W | let the whole town vote among three designs | v: universalism, conformity | scope: town_sphere | chance: 70
+- R | hand the wall to the young painters, with no conditions | v: self-direction, stimulation | scope: town_sphere | chance: 60
+- G>W | paint the town's own history, from the old families' stories, for everyone | v: tradition, universalism | scope: town_sphere | chance: 70
+works: The mural goes up by midsummer, and people stop in the market to point out the parts they know.
+works: Other towns ask how it was done, and the wall becomes something the town shows visitors.
+fails: The mural starts a quarrel in the local paper that runs for months.
+fails: The painting drags on for two years, and the scaffolding becomes a joke in town.
+
+== what the book about the town will say
+tier: decision
+cast_want: decide
+sphere: arts
+stages: adult mature elder
+age: 30-90
+tone: mixed
+life: work
+horizon: years
+roles: colleague, elder, rival
+earth: {N}'s new book about the town will be read across the country, and what it says is {Ns} to decide
+scene: {N} has spent three years on a book about the town, and the publisher says it will be read across the country. The last chapters are still open. The old families have told {N} their stories; the archive holds others they did not tell.
+- U | tell the town's history as it was, the hard parts included | v: universalism, self-direction | scope: nation | chance: 50
+- B | shape it into a story the whole country will want to buy | v: achievement, power | scope: town_sphere | chance: 60
+- R>G | write the town's old ways as a love song, so they are not forgotten | v: benevolence, tradition | scope: town_sphere | chance: 65
+works: The book is read far beyond the town, and people write to {N} to say it changed how they see their own towns.
+works: The town recognises itself in the book, and the library cannot keep copies on the shelf.
+fails: The book is quietly reviewed and quickly forgotten, outside the town at least.
+fails: Some of the old families feel the book got them wrong, and they say so where {N} can hear.
+
+== who gets the arts fund's money this year
+tier: decision
+cast_want: decide
+sphere: arts
+stages: adult mature elder
+age: 25-90
+tone: mixed
+life: work, community
+horizon: years
+roles: colleague, rival, regular
+earth: {N} chairs the town's arts fund this year, and the money must be shared among more groups than it can carry
+scene: The town's arts fund has twelve applications and money for four. {N} chairs the panel this year, and every company, choir and workshop in {sphere_name} is waiting to hear.
+- W | share it equally among every group that applies | v: universalism, conformity | scope: town_sphere | chance: 75
+- B | give most of it to the one company good enough to make the town's name | v: achievement, power | scope: town_sphere | chance: 60
+- U>G | fund the old craft teachers, so their skills are written down and taught | v: tradition, achievement | scope: town_sphere | chance: 65
+works: The groups that were funded do good work with it, and even those left out admit the panel was fair.
+works: By the end of the year the town's arts are livelier than they have been in a while.
+fails: The groups left out say the panel had its favourites, and the argument reaches the council.
+fails: The money is spread so the work it pays for is thinner than anyone hoped.
+
+# ================================================================ F2, gather
+
+== what the tenants' movement asks for
+tier: decision
+cast_want: decide
+sphere: gather
+stages: adult mature elder
+age: 25-90
+tone: mixed
+life: community, home
+horizon: years
+roles: neighbour, colleague, rival
+earth: the tenants' movement {N} leads must choose its one demand
+scene: Rents in town have risen every year for five, and the tenants' movement that meets at {place} has grown from a dozen to a thousand. Now it must choose one demand to fight for, and the meeting waits on {N}.
+- R | march for a freeze on every rent in town, starting now | v: stimulation, benevolence | scope: town_sphere | chance: 50
+- W>U | press for a rent board across the country, with open, published rules | v: universalism, security | scope: nation | chance: 40
+- G>B | settle street by street with the landlords who know their tenants | v: security, tradition | scope: place | chance: 70
+works: The demand is heard, and within a year some rents in town have stopped climbing.
+works: The movement holds together through the fight, and more people come to {place} than ever.
+fails: The landlords hold firm, and the movement loses half its members over the winter.
+fails: The demand splits the meeting, and two groups now claim to speak for the tenants.
+
+== who may join the residents' club
+tier: decision
+cast_want: decide
+sphere: gather
+stages: adult mature elder
+age: 25-90
+tone: mixed
+life: community, friends
+horizon: years
+roles: neighbour, regular, elder
+earth: newcomers to the street want to join the residents' club, and {N} must decide who may
+scene: The residents' club at {place} was founded by the street's own families sixty years ago. New people have moved in, and a dozen of them want to join. The committee has asked {N}, its best-known member, to settle what the club will be.
+- W>R | open the doors to anyone in town, newcomers welcome at every meeting | v: universalism, stimulation | scope: place | chance: 70
+- G | keep it for the families of the street, as it was founded | v: tradition, security | scope: place | chance: 75
+- B | charge a membership fee, and use it to make the club stronger | v: power, achievement | scope: place | chance: 70
+works: The club finds its new shape within a year, and the summer fair is busier than before.
+works: The old members and the new settle into the same room, more or less, and the club holds.
+fails: A few of the old members stop coming, and the club feels like two clubs for a while.
+fails: The choice causes more argument than it settles, and the committee has to vote on it again.
+
+== the festival in the square
+tier: decision
+cast_want: decide
+sphere: gather
+stages: adult mature elder
+age: 25-90
+tone: joy
+life: community, leisure
+horizon: months
+roles: neighbour, colleague, regular
+earth: the town's summer festival needs a new shape, and {N}'s word now decides it
+scene: The summer festival in the square has run for thirty years, but it lost money last year and the committee has run out of ideas. They ask {N}, the person in {sphere_name} people listen to, what the festival should become.
+- R | a free festival, music late into the night, open to everyone | v: hedonism, stimulation | scope: town_sphere | chance: 65
+- U>B | a festival planned on the numbers, with sponsors paying the bill | v: achievement, power | scope: town_sphere | chance: 70
+- W>B | fixed, fair fees for every stall, so the traders can make their living | v: conformity, achievement | scope: town_sphere | chance: 70
+works: The square is full on the festival weekend, and the committee ends the year with money in hand.
+works: The new festival becomes a fixture, and people from other towns start coming to it.
+fails: The weekend rains out, and the new plan is blamed for what the weather did.
+fails: The festival runs at a loss again, and the committee is back at the table by autumn.
+
+== what the movement asks of the council about the empty shops
+tier: decision
+cast_want: decide
+sphere: gather
+stages: adult mature elder
+age: 25-90
+tone: mixed
+life: community
+horizon: months
+roles: neighbour, colleague, rival
+earth: a third of the high street stands empty, and the movement {N} leads must decide what to ask of the council
+scene: A third of the shops on the high street have stood empty for years. The movement that meets at {place} wants them back in use, and {N}'s word will set how it goes about it.
+- U | ask for a full study of the empty buildings before any demand | v: universalism, achievement | scope: town_sphere | chance: 75
+- R>U | hold a week of open meetings in one empty shop, to show what could be | v: stimulation, self-direction | scope: place | chance: 60
+works: Within a year two of the empty shops have new life in them, and the movement takes some of the credit.
+works: The council takes the question up, and the movement is asked to sit at the table.
+fails: The council thanks the movement and files the matter away.
+fails: The effort runs out of steam over the summer, and the shops stay dark.

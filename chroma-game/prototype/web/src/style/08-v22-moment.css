@@ -182,6 +182,13 @@
   .ndmove { display: grid; gap: 3px; margin: 6px 0; cursor: help; }
   .ndmove .r { display: flex; gap: 6px; align-items: center; font-size: 13px; }
   .ndmove .r svg.i { color: var(--peace); }
+  .ndmove.split { gap: 6px; }
+  .ndmove .g { display: grid; gap: 3px; }
+  .ndmove .g .k { font-size: 11px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+  .ndmove .r small { color: var(--muted); }
+  .ndmove .g.mw .r { opacity: .78; font-style: italic; }
+  .ndmove .g.mw .r svg.i { color: var(--muted); }
+  .ndmove .setback { margin: 2px 0 0; font-size: 13px; color: var(--muted); }
   .hind { margin: 6px 0; font-style: italic; cursor: help; }
   .hind.up, .ndmove .up, .opt .os > .up { color: var(--ok); } .hind.down, .ndmove .down { color: var(--bad); }
   .means5 { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 4px; padding-top: 2px; }

@@ -130,16 +130,16 @@ scene U: {N} has been checking the row every morning, and has questions about wh
 scene B: {N} has noticed people pay for vegetables at the farm gate, and wonders what this row is worth.
 scene R: {N} mostly wants to see how big the marrow can grow before someone makes it into soup.
 scene G: {N} likes doing what {grandparent} does, and wants next year's row to come from this one.
-- W | pick it all and share it out at supper, a fair helping for everyone | v: benevolence, conformity | sphere: prod.W | chance: 55
+- W | pick it all and share it out at supper, a fair helping for everyone | v: benevolence, conformity | sphere: prod.W | foot: means ties+.03 | chance: 55
 - U | keep a notebook of what grew best, and why you think it did | act: keep a notebook of what grew best, and why they think it did | v: self-direction, universalism | mark: learned a skill | sphere: prod.U | chance: 55
-- B | set out a box of beans at the farm gate with a price you chose | act: set out a box of beans at the farm gate with a price they chose | v: achievement, power | sphere: prod.B | chance: 55
-- R | leave the marrow on the vine to see how huge it can get | v: stimulation, hedonism | sphere: prod.R | chance: 55
-- G | save seeds from the best plants for next spring, the way your grandparent does | act: save seeds from the best plants for next spring, the way their grandparent does | v: tradition | sphere: prod.G | chance: 55
-- BG | turn the bruised ones into jam and give the tops to the hens | v: security, tradition | sphere: prod.BG | chance: 50
-- BR | swap the strawberries at school for whatever you want most that week | act: swap the strawberries at school for whatever they want most that week | v: hedonism, achievement | sphere: prod.BR | chance: 50
+- B | set out a box of beans at the farm gate with a price you chose | act: set out a box of beans at the farm gate with a price they chose | v: achievement, power | sphere: prod.B | foot: lesson a fair price sells | chance: 55
+- R | leave the marrow on the vine to see how huge it can get | v: stimulation, hedonism | sphere: prod.R | foot: lesson waiting can be exciting | chance: 55
+- G | save seeds from the best plants for next spring, the way your grandparent does | act: save seeds from the best plants for next spring, the way their grandparent does | v: tradition | sphere: prod.G | foot: mark learned a skill | chance: 55
+- BG | turn the bruised ones into jam and give the tops to the hens | v: security, tradition | sphere: prod.BG | foot: place prod.land | chance: 50
+- BR | swap the strawberries at school for whatever you want most that week | act: swap the strawberries at school for whatever they want most that week | v: hedonism, achievement | sphere: prod.BR | foot: person friend | chance: 50
 - UG | learn from your grandparent which plants grow well side by side | act: learn from their grandparent which plants grow well side by side | v: tradition, universalism | mark: learned a skill | sphere: prod.GU | chance: 50
 - WR | carry a basket round to the old neighbour who can no longer garden | v: benevolence | mark: helped someone in need | sphere: prod.RW | chance: 50
-- WU | weigh every picking on the kitchen scales and keep the family's harvest list | v: conformity, achievement | sphere: prod.WU | chance: 50
+- WU | weigh every picking on the kitchen scales and keep the family's harvest list | v: conformity, achievement | sphere: prod.WU | foot: means time-.03 | chance: 50
 works: The row does well, the family praises the beans at supper, and {N} asks for two rows next spring.
 works: {grandparent} shows {N} the seed store and its labelled jars, and {N} is given a jar of their own.
 fails: Slugs get most of the row in a wet week, and {N} learns how quickly a summer's work can go.
@@ -174,13 +174,13 @@ scene R: {N} is half tempted to start again tonight with something bolder, gap a
 scene G: {N} thinks of {mentor}, who taught every cut, and does not want to shame the bench they learned at.
 - W | tell the judges about the gap before they find it | v: conformity, universalism | mark: owned up | sphere: prod.W | chance: 55
 - U | work through the night to recut the joint, and note every step | v: achievement, self-direction | mark: learned a skill | sphere: prod.U | chance: 55
-- B | set the piece in the light so the eye goes to its best side | v: achievement, power | sphere: prod.B | chance: 55
+- B | set the piece in the light so the eye goes to its best side | v: achievement, power | sphere: prod.B | foot: door kept it hidden | chance: 55
 - R | start a new drawer from scratch tonight, to a bolder design | v: stimulation, self-direction | mark: took a wild risk | sphere: prod.R | chance: 55
-- G | finish it exactly the way your mentor taught, step by careful step | act: finish it exactly the way their mentor taught, step by careful step | v: tradition, conformity | sphere: prod.G | chance: 55
-- RG | put the rule away and finish the joint by feel, as your hands tell you | act: put the rule away and finish the joint by feel, as their hands tell them | v: self-direction, stimulation | sphere: prod.RG | chance: 50
-- UB | find out from past apprentices what these judges always mark down | v: achievement, power | sphere: prod.UB | chance: 50
-- UG | pick a seasoned board from the old stock and read its grain before you cut | act: pick a seasoned board from the old stock and read its grain before they cut | v: tradition, universalism | sphere: prod.GU | chance: 50
-- WB | ask the workshop to stand behind a second attempt if this one fails | v: security, power | sphere: prod.WB | chance: 50
+- G | finish it exactly the way your mentor taught, step by careful step | act: finish it exactly the way their mentor taught, step by careful step | v: tradition, conformity | sphere: prod.G | foot: mark learned a skill | chance: 55
+- RG | put the rule away and finish the joint by feel, as your hands tell you | act: put the rule away and finish the joint by feel, as their hands tell them | v: self-direction, stimulation | sphere: prod.RG | foot: lesson hands know more than rules | chance: 50
+- UB | find out from past apprentices what these judges always mark down | v: achievement, power | sphere: prod.UB | foot: person colleague | chance: 50
+- UG | pick a seasoned board from the old stock and read its grain before you cut | act: pick a seasoned board from the old stock and read its grain before they cut | v: tradition, universalism | sphere: prod.GU | foot: mark learned a skill | chance: 50
+- WB | ask the workshop to stand behind a second attempt if this one fails | v: security, power | sphere: prod.WB | foot: place prod.craft | chance: 50
 - WR | lend your rival your best chisel when theirs breaks on the morning of the test | act: lend their rival their best chisel when theirs breaks on the morning of the test | v: benevolence, universalism | mark: made a friend | sphere: prod.RW | chance: 50
 works: The masters turn the drawer over twice and nod, and {N} goes home with the trade's mark and a new rate of pay.
 works: The judges find the gap but praise the honesty and the rest of the work, and the pass is the sweeter for it.
@@ -213,15 +213,15 @@ scene B: {N} has six weeks without pay to think about, and a boss who needs a fa
 scene R: {N} hates being stuck at home already, and the hand hurts less than the boredom.
 scene G: {N} thinks of {partner} and the household that runs on {Ns} wage, and of the young hands on that same machine.
 - W | put the accident in the book, exactly as it happened | v: conformity, universalism | lever: voice | pushes: institution | mark: defied an authority | sphere: prod.W | chance: 55
-- U | work out why the guard failed, and write down how to stop it next time | v: universalism, self-direction | sphere: prod.U | chance: 55
+- U | work out why the guard failed, and write down how to stop it next time | v: universalism, self-direction | sphere: prod.U | foot: lesson find the cause not the blame | chance: 55
 - B | agree to keep quiet in return for full pay until you are back | act: agree to keep quiet in return for full pay until they are back | v: power, security | sphere: prod.B | chance: 55 | back: gave in to pressure
 - R | go back as soon as the stitches are out, and laugh about it in the canteen | v: stimulation | mark: took a wild risk | sphere: prod.R | chance: 55
-- G | let the family carry you through the weeks off, and heal properly | act: let the family carry them through the weeks off, and heal properly | v: security, tradition | sphere: prod.G | chance: 55
-- BG | take the payout, and look for work your hand can still do | act: take the payout, and look for work their hand can still do | v: security, achievement | sphere: prod.BG | chance: 50
-- RG | spend the weeks off working your hand back into shape at the old bench at home | act: spend the weeks off working their hand back into shape at the old bench at home | v: self-direction, tradition | sphere: prod.RG | chance: 50
-- UB | read the rules on claims, and claim every week of pay you are owed | act: read the rules on claims, and claim every week of pay they are owed | v: security, power | sphere: prod.UB | chance: 50
+- G | let the family carry you through the weeks off, and heal properly | act: let the family carry them through the weeks off, and heal properly | v: security, tradition | sphere: prod.G | foot: means health+.06 | chance: 55
+- BG | take the payout, and look for work your hand can still do | act: take the payout, and look for work their hand can still do | v: security, achievement | sphere: prod.BG | foot: means money+.06 | chance: 50
+- RG | spend the weeks off working your hand back into shape at the old bench at home | act: spend the weeks off working their hand back into shape at the old bench at home | v: self-direction, tradition | sphere: prod.RG | foot: place prod.craft | chance: 50
+- UB | read the rules on claims, and claim every week of pay you are owed | act: read the rules on claims, and claim every week of pay they are owed | v: security, power | sphere: prod.UB | foot: means money+.03 | chance: 50
 - WR | ring the crew and get the machine stopped until the guard is fixed for everyone | v: benevolence, universalism | lever: voice | pushes: institution | sphere: prod.RW | chance: 50 | back: defied an authority
-- WU | ask for the inspector, and have every machine on the floor checked | v: conformity, security | lever: voice | pushes: institution | sphere: prod.WU | chance: 50
+- WU | ask for the inspector, and have every machine on the floor checked | v: conformity, security | lever: voice | pushes: institution | sphere: prod.WU | foot: mark defied an authority | chance: 50
 works not BG: The hand heals, the guard is fixed, and {N} goes back to a floor that is a little safer for the next person.
 works: The weeks off are hard, but the pay comes, and {N} returns with the respect of the whole crew.
 fails: The hand never quite heals, and {N} has to find lighter work, on less pay.
@@ -254,15 +254,15 @@ scene U: {N} wants to see each of them work before deciding anything.
 scene B: {N} knows the wage comes straight out of the margin, and the margin is thin.
 scene R: {N} likes working alone, loud music and odd hours, and wonders whether anyone could fit that.
 scene G: {N} thinks of who could take this on one day, and of the master who once took a chance on {N}.
-- W | write a fair contract, the wage and the hours, before anyone starts | v: conformity, universalism | sphere: prod.W | chance: 55
-- U | give each of them a trial day and keep the one who works best | v: achievement, self-direction | sphere: prod.U | chance: 55
-- B | hire the one who will take the lowest wage, and keep the margin | v: power, achievement | sphere: prod.B | chance: 55
-- R | hire the one you would most like to spend long days beside | act: hire the one they would most like to spend long days beside | v: hedonism, self-direction | sphere: prod.R | chance: 55
-- G | take on the friend's daughter, and teach her the trade from the start | v: benevolence, tradition | lever: lead | sphere: prod.G | chance: 55
-- BR | pay someone by the job instead, and keep the workshop your own | v: self-direction, power | sphere: prod.BR | chance: 50
-- UB | hire the one who worked at your rival's shop, and learn how they do it | act: hire the one who worked at their rival's shop, and learn how they do it | v: power, achievement | sphere: prod.UB | chance: 50
-- UG | look for the one who learns fastest, and train them in your methods | act: look for the one who learns fastest, and train them in their methods | v: universalism, tradition | sphere: prod.GU | chance: 50
-- WG | offer the new hand a share of the profits as well as the wage | v: benevolence, universalism | sphere: prod.GW | chance: 50
+- W | write a fair contract, the wage and the hours, before anyone starts | v: conformity, universalism | sphere: prod.W | foot: door kept your word | chance: 55
+- U | give each of them a trial day and keep the one who works best | v: achievement, self-direction | sphere: prod.U | foot: lesson the work shows who fits | chance: 55
+- B | hire the one who will take the lowest wage, and keep the margin | v: power, achievement | sphere: prod.B | foot: means money+.03 | chance: 55
+- R | hire the one you would most like to spend long days beside | act: hire the one they would most like to spend long days beside | v: hedonism, self-direction | sphere: prod.R | foot: person friend | chance: 55
+- G | take on the friend's daughter, and teach her the trade from the start | v: benevolence, tradition | lever: lead | sphere: prod.G | foot: person colleague | chance: 55
+- BR | pay someone by the job instead, and keep the workshop your own | v: self-direction, power | sphere: prod.BR | foot: means freedom+.03 | chance: 50
+- UB | hire the one who worked at your rival's shop, and learn how they do it | act: hire the one who worked at their rival's shop, and learn how they do it | v: power, achievement | sphere: prod.UB | foot: person colleague | chance: 50
+- UG | look for the one who learns fastest, and train them in your methods | act: look for the one who learns fastest, and train them in their methods | v: universalism, tradition | sphere: prod.GU | foot: person colleague | chance: 50
+- WG | offer the new hand a share of the profits as well as the wage | v: benevolence, universalism | sphere: prod.GW | foot: means money-.06 | chance: 50
 - WR | promise the new hand you will never ask for an unsafe job, and mean it | act: promise the new hand they will never ask for an unsafe job, and mean it | v: benevolence | mark: kept your word | sphere: prod.RW | chance: 50
 works: The new hand fits, the orders go out on time, and for the first time {N} takes a whole weekend off.
 works: Within a year the workshop has two hands, and {N} realises they have become someone's boss.
@@ -296,15 +296,15 @@ scene U: {N} has forty years of knowledge in their head and in shoeboxes of note
 scene B: {N} built this, and wants the best price for it, and a comfortable old age.
 scene R: Part of {N} would be glad to lock the gate and finally see something of the world.
 scene G: {N} cannot bear to think of the place going quiet, kin or no kin.
-- W | draw up a fair sale, and see that the hands keep their jobs | v: universalism, conformity | sphere: prod.W | chance: 55
-- U | write down everything you know about the work, for whoever comes next | act: write down everything they know about the work, for whoever comes next | v: universalism, self-direction | sphere: prod.U | chance: 55
-- B | sell to the highest bidder, and enjoy what you earned | act: sell to the highest bidder, and enjoy what they earned | v: power, hedonism | sphere: prod.B | chance: 55
-- R | lock the gate for a year, and take the long trip you always put off | act: lock the gate for a year, and take the long trip they always put off | v: stimulation, hedonism | sphere: prod.R | chance: 55
-- G | offer the place to the hired hand who loves it, though they are not kin | v: benevolence, tradition | lever: loyalty | sphere: prod.G | chance: 55
-- BG | sell the land and the tools piece by piece, and let nothing go to waste | v: security, power | sphere: prod.BG | chance: 50
-- UB | keep the name and the recipes, and license them to a bigger firm | v: power, achievement | sphere: prod.UB | chance: 50
-- UR | turn the old barn into something new, a school for the trade or a maker space | v: self-direction, stimulation | lever: found | sphere: prod.UR | chance: 50
-- WG | offer the whole place to the hands and the neighbours as a cooperative | v: benevolence, universalism | lever: found | pushes: economy | sphere: prod.GW | chance: 50
+- W | draw up a fair sale, and see that the hands keep their jobs | v: universalism, conformity | sphere: prod.W | foot: mark helped someone in need | chance: 55
+- U | write down everything you know about the work, for whoever comes next | act: write down everything they know about the work, for whoever comes next | v: universalism, self-direction | sphere: prod.U | foot: lesson what you know outlives the work | chance: 55
+- B | sell to the highest bidder, and enjoy what you earned | act: sell to the highest bidder, and enjoy what they earned | v: power, hedonism | sphere: prod.B | foot: means money+.10 | chance: 55
+- R | lock the gate for a year, and take the long trip you always put off | act: lock the gate for a year, and take the long trip they always put off | v: stimulation, hedonism | sphere: prod.R | foot: means freedom+.10 | chance: 55
+- G | offer the place to the hired hand who loves it, though they are not kin | v: benevolence, tradition | lever: loyalty | sphere: prod.G | foot: means ties+.06 | chance: 55
+- BG | sell the land and the tools piece by piece, and let nothing go to waste | v: security, power | sphere: prod.BG | foot: means money+.03 | chance: 50
+- UB | keep the name and the recipes, and license them to a bigger firm | v: power, achievement | sphere: prod.UB | foot: means money+.06 | chance: 50
+- UR | turn the old barn into something new, a school for the trade or a maker space | v: self-direction, stimulation | lever: found | sphere: prod.UR | foot: place prod.craft | chance: 50
+- WG | offer the whole place to the hands and the neighbours as a cooperative | v: benevolence, universalism | lever: found | pushes: economy | sphere: prod.GW | foot: means money-.06 | chance: 50
 - WR | turn down the buyer who would close it, though they offer most, and say why | act: turn down the buyer who would close it, though they offer most, and say why | v: universalism, benevolence | mark: turned down a chance | sphere: prod.RW | chance: 50
 works not R: The place goes on, in new hands, and {N} still drops by most mornings to see how the work is going.
 works: {N} lets go, gladly, and the years after the work turn out better than {N} feared.
@@ -338,16 +338,16 @@ scene U: {N} wants to know what the stranger saw in that bowl and not the others
 scene B: {N} is already wondering how many more could be sold, and at what price.
 scene R: {N} feels like shouting, and has the money spent in their head already.
 scene G: {N} wants to tell {mentor}, who first showed {N} how to hold the tools.
-- W | price the rest by the hours and the materials, no more and no less | v: universalism, conformity | sphere: prod.W | chance: 55
-- U | ask the buyer what made them choose it, and remember every word | v: self-direction, universalism | sphere: prod.U | chance: 55
-- B | raise the price on the rest of the row straight away | v: achievement, power | sphere: prod.B | chance: 55
-- R | spend it that afternoon on something you have wanted for ages | act: spend it that afternoon on something they have wanted for ages | v: hedonism, stimulation | sphere: prod.R | chance: 55
-- G | go straight round to show your mentor the first sale | act: go straight round to show their mentor the first sale | v: tradition, benevolence | sphere: prod.G | chance: 55
-- BR | make ten more before next weekend and take a stall of your own | act: make ten more before next weekend and take a stall of their own | v: achievement, stimulation | sphere: prod.BR | chance: 50
-- RG | make the next one by feel alone, with no pattern at all | v: self-direction, stimulation | sphere: prod.RG | chance: 50
-- UB | work out which pieces sell best, and make only those | v: achievement, power | sphere: prod.UB | chance: 50
+- W | price the rest by the hours and the materials, no more and no less | v: universalism, conformity | sphere: prod.W | foot: lesson a fair price is simple sums | chance: 55
+- U | ask the buyer what made them choose it, and remember every word | v: self-direction, universalism | sphere: prod.U | foot: person regular | chance: 55
+- B | raise the price on the rest of the row straight away | v: achievement, power | sphere: prod.B | foot: means money+.03 | chance: 55
+- R | spend it that afternoon on something you have wanted for ages | act: spend it that afternoon on something they have wanted for ages | v: hedonism, stimulation | sphere: prod.R | foot: means money-.03 | chance: 55
+- G | go straight round to show your mentor the first sale | act: go straight round to show their mentor the first sale | v: tradition, benevolence | sphere: prod.G | foot: means ties+.03 | chance: 55
+- BR | make ten more before next weekend and take a stall of your own | act: make ten more before next weekend and take a stall of their own | v: achievement, stimulation | sphere: prod.BR | foot: place comm.market | chance: 50
+- RG | make the next one by feel alone, with no pattern at all | v: self-direction, stimulation | sphere: prod.RG | foot: lesson the hands can lead | chance: 50
+- UB | work out which pieces sell best, and make only those | v: achievement, power | sphere: prod.UB | foot: means money+.06 | chance: 50
 - WG | split the takings with the friend who lent you the stall | act: split the takings with the friend who lent them the stall | v: benevolence | mark: made a friend | sphere: prod.GW | chance: 50
-- WU | put your own mark on the base of every piece, and stand behind each one | act: put their own mark on the base of every piece, and stand behind each one | v: conformity, achievement | sphere: prod.WU | chance: 50
+- WU | put your own mark on the base of every piece, and stand behind each one | act: put their own mark on the base of every piece, and stand behind each one | v: conformity, achievement | sphere: prod.WU | foot: door kept your word | chance: 50
 works: The stranger comes back the next month for another, and {N} starts to think of the making as more than a hobby.
 works: {N} keeps the first takings in the tool box for luck, and the work gets better from that day on.
 fails: Nothing else sells for the rest of the summer, and {N} wonders whether the first sale was a fluke.
@@ -380,16 +380,16 @@ scene U: {N} wants to know what she has backed before, and how those ventures en
 scene B: {N} wants the money and the growth, but on {Ns} own terms.
 scene R: {N} started this workshop to answer to no one, and the word "say" has spoiled the coffee.
 scene G: {N} thinks of {Ns} family, of the name over the door, and of whether there will still be a workshop to hand on.
-- W | have a lawyer write down every share and every duty before you sign | act: have a lawyer write down every share and every duty before they sign | v: security, conformity | sphere: prod.W | chance: 55
-- U | look into every venture she has backed before you answer | act: look into every venture she has backed before they answer | v: self-direction, security | sphere: prod.U | chance: 55
-- B | bargain until you keep the larger share and the last word | act: bargain until they keep the larger share and the last word | v: power, achievement | sphere: prod.B | chance: 55
-- R | turn it down, and keep the freedom to make whatever you like | act: turn it down, and keep the freedom to make whatever they like | v: self-direction | mark: turned down a chance | sphere: prod.R | chance: 55
-- G | ask the family to put in their savings instead, so it stays in the family | v: tradition, security | lever: fund | sphere: prod.G | chance: 55
-- RG | stay small and keep making things the slow way, by hand | v: self-direction, tradition | sphere: prod.RG | chance: 50
-- UB | take the money, but keep your methods out of the contract | act: take the money, but keep their methods out of the contract | v: power, security | sphere: prod.UB | chance: 50
+- W | have a lawyer write down every share and every duty before you sign | act: have a lawyer write down every share and every duty before they sign | v: security, conformity | sphere: prod.W | foot: person patron | chance: 55
+- U | look into every venture she has backed before you answer | act: look into every venture she has backed before they answer | v: self-direction, security | sphere: prod.U | foot: lesson know who you deal with | chance: 55
+- B | bargain until you keep the larger share and the last word | act: bargain until they keep the larger share and the last word | v: power, achievement | sphere: prod.B | foot: means money+.10 | chance: 55
+- R | turn it down, and keep the freedom to make whatever you like | act: turn it down, and keep the freedom to make whatever they like | v: self-direction | mark: turned down a chance | sphere: prod.R | foot: means freedom+.06 | chance: 55
+- G | ask the family to put in their savings instead, so it stays in the family | v: tradition, security | lever: fund | sphere: prod.G | foot: means money+.06 | chance: 55
+- RG | stay small and keep making things the slow way, by hand | v: self-direction, tradition | sphere: prod.RG | foot: lesson small can be enough | chance: 50
+- UB | take the money, but keep your methods out of the contract | act: take the money, but keep their methods out of the contract | v: power, security | sphere: prod.UB | foot: person patron | chance: 50
 - UR | spend her money on the new machine you have dreamed of building | act: spend her money on the new machine they have dreamed of building | v: stimulation, self-direction | mark: took a wild risk | sphere: prod.UR | chance: 50
-- WB | take the money, build the bigger workshop, and hire from the town | v: achievement, benevolence | lever: lead | pushes: economy | sphere: prod.WB | chance: 50
-- WG | ask the hands and the regulars to buy in instead, a small share each | v: benevolence, universalism | lever: found | sphere: prod.GW | chance: 50
+- WB | take the money, build the bigger workshop, and hire from the town | v: achievement, benevolence | lever: lead | pushes: economy | sphere: prod.WB | foot: person patron; person colleague | chance: 50
+- WG | ask the hands and the regulars to buy in instead, a small share each | v: benevolence, universalism | lever: found | sphere: prod.GW | foot: means ties+.06 | chance: 50
 works not R RG: The workshop grows without losing what made it good, and {N} hires three people from the street where it began.
 works: {N} finds a way forward on {Ns} own terms, and the workshop is still {Ns} own ten years later.
 fails not R RG G WG: The backer's say grows into the last word, and within two years {N} is working for her in {Ns} own workshop.

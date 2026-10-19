@@ -216,15 +216,15 @@ scene B: Whatever {N} says will cost something: a friend, a job, a name at the y
 scene R: {N} is angry at being dragged into it, and angrier at {Ns} colleague for doing it.
 scene G: In {place} people do not stand up in court against their own. The street will remember which side {N} took.
 - W | swear the oath, and tell the court exactly what you saw | act: swear the oath, and tell the court exactly what they saw | v: conformity, universalism | mark: kept your word | lever: loyalty | pushes: institution court | sphere: rule.W | chance: 60
-- U | write down tonight what you saw, before anyone else can tell you | act: write down tonight what they saw, before anyone else can tell them | v: self-direction, universalism | sphere: rule.U | chance: 60
-- B | ask the lawyer whether you can be let off, and keep your head down | act: ask the lawyer whether they can be let off, and keep their head down | v: security | lever: neglect | sphere: rule.B | chance: 60
+- U | write down tonight what you saw, before anyone else can tell you | act: write down tonight what they saw, before anyone else can tell them | v: self-direction, universalism | sphere: rule.U | foot: lesson write it while it is fresh | chance: 60
+- B | ask the lawyer whether you can be let off, and keep your head down | act: ask the lawyer whether they can be let off, and keep their head down | v: security | lever: neglect | sphere: rule.B | foot: door kept it hidden | chance: 60
 - R | tell your colleague to their face that you will not lie for them | act: tell their colleague to their face that they will not lie for them | v: self-direction | lever: voice | pushes: close colleague | sphere: rule.R | chance: 60 | back: made an enemy
-- G | go to your colleague's family first, so they hear it from you | act: go to their colleague's family first, so they hear it from them | v: tradition, benevolence | sphere: rule.G | chance: 60
-- RG | go with the family to urge your colleague to own up before the trial | act: go with the family to urge their colleague to own up before the trial | v: benevolence, tradition | pushes: close colleague | sphere: rule.RG | chance: 50
-- UB | tell the defence lawyer, too, which parts you are sure of and which not | act: tell the defence lawyer, too, which parts they are sure of and which not | v: universalism, security | sphere: rule.UB | chance: 50
-- UR | say in court what you saw, and that the yard's careless rules made it easy | act: say in court what they saw, and that the yard's careless rules made it easy | v: universalism, self-direction | lever: voice | pushes: institution court | sphere: rule.UR | chance: 50
-- WB | ask the yard's manager to stand by you, so your job is safe after the trial | act: ask the yard's manager to stand by them, so their job is safe after the trial | v: security, conformity | sphere: rule.WB | chance: 50
-- WG | give your evidence plainly, then call on the family the next day as before | act: give their evidence plainly, then call on the family the next day as before | v: benevolence, conformity | sphere: rule.GW | chance: 50
+- G | go to your colleague's family first, so they hear it from you | act: go to their colleague's family first, so they hear it from them | v: tradition, benevolence | sphere: rule.G | foot: lesson hard news is kinder in person | chance: 60
+- RG | go with the family to urge your colleague to own up before the trial | act: go with the family to urge their colleague to own up before the trial | v: benevolence, tradition | pushes: close colleague | sphere: rule.RG | foot: door helped someone in need | chance: 50
+- UB | tell the defence lawyer, too, which parts you are sure of and which not | act: tell the defence lawyer, too, which parts they are sure of and which not | v: universalism, security | sphere: rule.UB | foot: mark kept your word | chance: 50
+- UR | say in court what you saw, and that the yard's careless rules made it easy | act: say in court what they saw, and that the yard's careless rules made it easy | v: universalism, self-direction | lever: voice | pushes: institution court | sphere: rule.UR | foot: mark defied an authority | chance: 50
+- WB | ask the yard's manager to stand by you, so your job is safe after the trial | act: ask the yard's manager to stand by them, so their job is safe after the trial | v: security, conformity | sphere: rule.WB | foot: person patron | chance: 50
+- WG | give your evidence plainly, then call on the family the next day as before | act: give their evidence plainly, then call on the family the next day as before | v: benevolence, conformity | sphere: rule.GW | foot: means ties+.03 | chance: 50
 works not B: {N} tells it straight, the court weighs it, and in time the street respects it.
 works: {Ns} colleague owns up before the trial, and {N} never has to stand in the witness box.
 fails: The defence lawyer picks {Ns} memory apart, and {N} leaves the box feeling like the one on trial.
@@ -256,16 +256,16 @@ scene U: {N} wants to know who else has been asked, and whether the delays follo
 scene B: It is a small sum next to a year's lost rent. {N} knows that is exactly how the clerk has done the sum.
 scene R: {N} wants to say it again, loudly, across the whole office.
 scene G: The old shopkeepers on the street would know how this is done here. They always have.
-- W | tell the clerk you will wait your turn, and ask for a written date | act: tell the clerk they will wait their turn, and ask for a written date | v: conformity, universalism | lever: loyalty | pushes: institution council | sphere: rule.W | chance: 60
-- U | note the clerk's words and the time, and ask round who else was asked | v: universalism, security | sphere: rule.U | chance: 60
-- B | slip an envelope into the file, and ask when the licence will be ready | v: achievement, power | lever: subvert | mark: broke the law | sphere: rule.B | chance: 60
-- R | ask the clerk to say that again, loudly, so the whole queue can hear | v: self-direction, stimulation | lever: voice | sphere: rule.R | chance: 60
-- G | ask the oldest shopkeeper on the street how it is done here | v: tradition, security | sphere: rule.G | chance: 60
-- BG | ask an old family friend on the council to have a quiet word with the clerk | v: security, tradition | lever: subvert | sphere: rule.BG | chance: 50
-- BR | record the clerk on the phone the next time, and let the clerk know it | v: power, self-direction | tech: phone | sphere: rule.BR | chance: 50
-- UR | gather the other shopkeepers' stories, and take them to the local paper | v: universalism, self-direction | lever: voice | pushes: institution media | sphere: rule.UR | chance: 50
-- WG | get the traders' association to complain together, so nobody stands alone | v: universalism, tradition | lever: voice | pushes: institution council | sphere: rule.GW | chance: 50
-- WU | write to the council's auditor with the dates, the words and the file number | v: universalism, conformity | lever: voice | pushes: institution council | sphere: rule.WU | chance: 50
+- W | tell the clerk you will wait your turn, and ask for a written date | act: tell the clerk they will wait their turn, and ask for a written date | v: conformity, universalism | lever: loyalty | pushes: institution council | sphere: rule.W | foot: means time-.06 | chance: 60
+- U | note the clerk's words and the time, and ask round who else was asked | v: universalism, security | sphere: rule.U | foot: means ties+.03 | chance: 60
+- B | slip an envelope into the file, and ask when the licence will be ready | v: achievement, power | lever: subvert | mark: broke the law | sphere: rule.B | foot: door hid a wrong | chance: 60
+- R | ask the clerk to say that again, loudly, so the whole queue can hear | v: self-direction, stimulation | lever: voice | sphere: rule.R | foot: mark defied an authority | chance: 60
+- G | ask the oldest shopkeeper on the street how it is done here | v: tradition, security | sphere: rule.G | foot: person elder | chance: 60
+- BG | ask an old family friend on the council to have a quiet word with the clerk | v: security, tradition | lever: subvert | sphere: rule.BG | foot: person go-between | chance: 50
+- BR | record the clerk on the phone the next time, and let the clerk know it | v: power, self-direction | tech: phone | sphere: rule.BR | foot: person rival | chance: 50
+- UR | gather the other shopkeepers' stories, and take them to the local paper | v: universalism, self-direction | lever: voice | pushes: institution media | sphere: rule.UR | foot: place rule.voice | chance: 50
+- WG | get the traders' association to complain together, so nobody stands alone | v: universalism, tradition | lever: voice | pushes: institution council | sphere: rule.GW | foot: place comm.shop | chance: 50
+- WU | write to the council's auditor with the dates, the words and the file number | v: universalism, conformity | lever: voice | pushes: institution council | sphere: rule.WU | foot: lesson dates and file numbers carry weight | chance: 50
 works: The licence comes through on time, and {N} pays nothing beyond the fee.
 works: The clerk is moved off the counter, and the next shopkeeper in the queue is not asked.
 fails: The file stays lost for a year, and the rent on the empty shop eats the savings.
@@ -297,16 +297,16 @@ scene U: {N} follows every exhibit, and wonders how much of this {friend} hid fr
 scene B: {N} has to weigh what being seen in that gallery is costing, at work and with the neighbours.
 scene R: {N} wants to stand up and shout that the lawyers have it wrong, and is less sure each day that they do.
 scene G: {Ns} friend's mother sits in the gallery too, every day, in the same seat, and nobody else from the family has come.
-- W | keep your seat in the gallery every day until the verdict, whatever it is | act: keep their seat in the gallery every day until the verdict, whatever it is | v: benevolence, conformity | lever: loyalty | sphere: rule.W | chance: 60
-- U | ask your friend for the whole truth, and decide after hearing it | act: ask their friend for the whole truth, and decide after hearing it | v: self-direction, universalism | sphere: rule.U | chance: 60
+- W | keep your seat in the gallery every day until the verdict, whatever it is | act: keep their seat in the gallery every day until the verdict, whatever it is | v: benevolence, conformity | lever: loyalty | sphere: rule.W | foot: means time-.06 | chance: 60
+- U | ask your friend for the whole truth, and decide after hearing it | act: ask their friend for the whole truth, and decide after hearing it | v: self-direction, universalism | sphere: rule.U | foot: lesson hear the whole truth first | chance: 60
 - B | stop going, and keep your name well away from the case | act: stop going, and keep their name well away from the case | v: security | lever: exit | sphere: rule.B | chance: 60 | back: refused someone in need
-- R | tell your friend straight that you are angry, and that you are staying anyway | act: tell their friend straight that they are angry, and that they are staying anyway | v: benevolence, self-direction | pushes: close friend | sphere: rule.R | chance: 60
+- R | tell your friend straight that you are angry, and that you are staying anyway | act: tell their friend straight that they are angry, and that they are staying anyway | v: benevolence, self-direction | pushes: close friend | sphere: rule.R | foot: mark kept your word | chance: 60
 - G | sit beside your friend's mother every day, so she is not alone there | act: sit beside their friend's mother every day, so she is not alone there | v: benevolence, tradition | mark: helped someone in need | sphere: rule.G | chance: 60
-- BR | visit your friend in the cells at lunch, and urge them to take the plea | act: visit their friend in the cells at lunch, and urge them to take the plea | v: power, self-direction | pushes: close friend | sphere: rule.BR | chance: 50
-- UG | find out who lost money, and what the family could pay back | v: universalism, benevolence | sphere: rule.GU | chance: 50
-- UR | write to the judge about who your friend was before, and what went wrong | act: write to the judge about who their friend was before, and what went wrong | v: benevolence, self-direction | lever: voice | pushes: institution court | sphere: rule.UR | chance: 50
-- WB | find your friend a sharper lawyer through someone you know, and pay the first fee | act: find their friend a sharper lawyer through someone they know, and pay the first fee | v: benevolence, power | lever: fund | sphere: rule.WB | chance: 50
-- WG | promise the mother you will visit, whatever the sentence | act: promise the mother they will visit, whatever the sentence | v: benevolence, tradition | sphere: rule.GW | chance: 50
+- BR | visit your friend in the cells at lunch, and urge them to take the plea | act: visit their friend in the cells at lunch, and urge them to take the plea | v: power, self-direction | pushes: close friend | sphere: rule.BR | foot: lesson hard advice is still advice | chance: 50
+- UG | find out who lost money, and what the family could pay back | v: universalism, benevolence | sphere: rule.GU | foot: person go-between | chance: 50
+- UR | write to the judge about who your friend was before, and what went wrong | act: write to the judge about who their friend was before, and what went wrong | v: benevolence, self-direction | lever: voice | pushes: institution court | sphere: rule.UR | foot: door helped someone in need | chance: 50
+- WB | find your friend a sharper lawyer through someone you know, and pay the first fee | act: find their friend a sharper lawyer through someone they know, and pay the first fee | v: benevolence, power | lever: fund | sphere: rule.WB | foot: means money-.06 | chance: 50
+- WG | promise the mother you will visit, whatever the sentence | act: promise the mother they will visit, whatever the sentence | v: benevolence, tradition | sphere: rule.GW | foot: door kept your word | chance: 50
 works not B: Whatever the verdict, {friend} knows who stayed, and the friendship comes through it changed but whole.
 works: {friend} owns up, pleads to a lesser charge, and starts to pay the money back.
 fails: The verdict is guilty, and {friend} will not see {N} at the visiting hour.
@@ -338,16 +338,16 @@ scene U: {N} looks for the way out of the square, and for who threw that bottle.
 scene B: The crowd is waiting for someone to tell it what to do next. Whoever does will be remembered.
 scene R: The anger in the square is {Ns} anger too, and it is rising fast.
 scene G: These are {Ns} neighbours, the families from the street that is closing. {N} will not leave them standing here alone.
-- W | link arms with the stewards, and hold the front still and quiet | v: security, conformity | lever: loyalty | sphere: rule.W | chance: 60
-- U | lead your friend down the side street before the square closes | act: lead their friend down the side street before the square closes | v: security, self-direction | lever: exit | sphere: rule.U | chance: 60
-- B | climb onto the fountain, and tell the crowd where to go next | v: power, stimulation | lever: lead | sphere: rule.B | chance: 60
-- R | stay at the front, and chant until the doors open | v: stimulation, self-direction | lever: voice | pushes: institution council | sphere: rule.R | chance: 60
-- G | gather the families from your street, and see every one of them home | act: gather the families from their street, and see every one of them home | v: benevolence, tradition | sphere: rule.G | chance: 60
-- BG | find the councillor you know, and get the street's elders in by the side door | act: find the councillor they know, and get the street's elders in by the side door | v: tradition, power | sphere: rule.BG | chance: 50
-- RG | start the town's old song, loud, until the whole square is singing instead | v: tradition, stimulation | sphere: rule.RG | chance: 50
-- UR | film the police line and the front calmly, so the truth of the night is kept | v: universalism, self-direction | tech: phone | sphere: rule.UR | chance: 50
-- WB | offer the officer in charge three speakers to go in and see the council tonight | v: security, power | lever: voice | pushes: institution council | sphere: rule.WB | chance: 50
-- WU | tell the stewards who threw the bottle, and which way they went | v: security, conformity | sphere: rule.WU | chance: 50
+- W | link arms with the stewards, and hold the front still and quiet | v: security, conformity | lever: loyalty | sphere: rule.W | foot: place rule.voice | chance: 60
+- U | lead your friend down the side street before the square closes | act: lead their friend down the side street before the square closes | v: security, self-direction | lever: exit | sphere: rule.U | foot: mark helped someone in need | chance: 60
+- B | climb onto the fountain, and tell the crowd where to go next | v: power, stimulation | lever: lead | sphere: rule.B | foot: mark took a wild risk | chance: 60
+- R | stay at the front, and chant until the doors open | v: stimulation, self-direction | lever: voice | pushes: institution council | sphere: rule.R | foot: mark defied an authority | chance: 60
+- G | gather the families from your street, and see every one of them home | act: gather the families from their street, and see every one of them home | v: benevolence, tradition | sphere: rule.G | foot: means ties+.06 | chance: 60
+- BG | find the councillor you know, and get the street's elders in by the side door | act: find the councillor they know, and get the street's elders in by the side door | v: tradition, power | sphere: rule.BG | foot: person elder | chance: 50
+- RG | start the town's old song, loud, until the whole square is singing instead | v: tradition, stimulation | sphere: rule.RG | foot: lesson a song can turn a crowd | chance: 50
+- UR | film the police line and the front calmly, so the truth of the night is kept | v: universalism, self-direction | tech: phone | sphere: rule.UR | foot: lesson a calm record outlasts the night | chance: 50
+- WB | offer the officer in charge three speakers to go in and see the council tonight | v: security, power | lever: voice | pushes: institution council | sphere: rule.WB | foot: person go-between | chance: 50
+- WU | tell the stewards who threw the bottle, and which way they went | v: security, conformity | sphere: rule.WU | foot: door made an enemy | chance: 50
 works: The square calms, the doors open, and three of the crowd go in to speak; the closures are put off for a month.
 works: {N} gets home with everyone {N} came with, and the night is remembered for the singing, not the bottle.
 fails not U: The police clear the square, and {N} spends half the night at the station giving a statement.

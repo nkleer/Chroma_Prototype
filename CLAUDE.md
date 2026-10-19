@@ -85,6 +85,12 @@ Every life must stay the same unless Emren asked for a change in play. Pick the 
 
 If a proof that should match does not, stop and report it. Never update an expected hash to make a check pass.
 
+## Building something new
+
+Every new mechanic is realm-ready: it is defined on the core (colours, needs, means, people, places, powers), what is
+Earth's about it is data in Earth's files, and its design note says in one paragraph how it reads in a magic realm
+(`CONTRIBUTING.md`, "New mechanics are realm-ready").
+
 ## Never
 
 - Edit `engine_pin/`, a built file, or a compiled Library file by hand.

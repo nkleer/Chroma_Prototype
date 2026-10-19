@@ -109,16 +109,16 @@ scene U: {N} sees everything with a strange, slow clarity: the camera over the t
 scene B: In a few minutes there will be police here asking who pushed whom. Only {friend} saw it properly. {N} starts thinking very fast.
 scene R: It happened in a second. {Ns} hands are shaking, the blood is roaring, and the stranger's friend is coming straight at {N}, shouting.
 scene G: The stranger is somebody's son, lying very still on the cold pavement. The whole street seems to go quiet around him.
-- W | wait by him for the police, and tell them the push was yours | binds | v: conformity, benevolence | mark: owned up | title_if_fails: someone with a record | act: wait by him for the police, and tell them the push was theirs | chance: 56
+- W | wait by him for the police, and tell them the push was yours | binds | v: conformity, benevolence | mark: owned up | title_if_fails: someone with a record | act: wait by him for the police, and tell them the push was theirs | foot: means freedom-.05 | chance: 56
 - U | tell the police he slipped, and leave the push out of it | v: security | closed: law: lying to the police; backfire: the footage shows the push, and the lie makes it worse | mark: hid a wrong | title_if_fails: someone with a record | chance: 60
-- B | walk away fast, before the camera over the door gets a good look | v: security | closed: law: leaving the scene of an assault; backfire: picked out on the footage and charged | mark: broke the law | title_if_fails: someone with a record | chance: 72
+- B | walk away fast, before the camera over the door gets a good look | v: security | closed: law: leaving the scene of an assault; backfire: picked out on the footage and charged | mark: broke the law | title_if_fails: someone with a record | foot: door kept it hidden | chance: 72
 - R | run into the takeaway shouting for someone to ring an ambulance | v: benevolence | mark: helped someone in need | chance: 77
-- G | send your friend home, so they are not caught up in it | v: benevolence | chance: 75
-- WB | give a full statement that makes clear he shoved first | v: security, conformity | chance: 70
-- WU | ring for an ambulance and do exactly what the call handler says | v: benevolence, conformity | chance: 90
+- G | send your friend home, so they are not caught up in it | v: benevolence | foot: lesson get your friends clear first | chance: 75
+- WB | give a full statement that makes clear he shoved first | v: security, conformity | foot: person rival | chance: 70
+- WU | ring for an ambulance and do exactly what the call handler says | v: benevolence, conformity | foot: mark helped someone in need | chance: 90
 - UG | kneel by him, keep him warm, and keep talking to him until help comes | v: benevolence | mark: helped someone in need | chance: 62
-- BR | film the whole scene on your phone, loudly, so nobody can twist it later | v: security | tech: phone | chance: 58
-- RG | stand between him and his furious friend until the paramedics come | body: heavy | v: benevolence, security | chance: 60
+- BR | film the whole scene on your phone, loudly, so nobody can twist it later | v: security | tech: phone | foot: lesson the footage tells the truth | chance: 58
+- RG | stand between him and his furious friend until the paramedics come | body: heavy | v: benevolence, security | foot: mark took a wild risk | chance: 60
 works: The stranger sits up before the ambulance arrives, dazed and swearing, and is home by morning.
 works: The police take statements, the footage shows a shove and a fall, and nothing more comes of it.
 fails: The stranger spends a week in hospital, and the police want to talk to {N} again.

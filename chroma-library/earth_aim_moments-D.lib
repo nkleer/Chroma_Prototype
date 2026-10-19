@@ -1,0 +1,469 @@
+# Chroma library, modern Earth: aims v1, group D (R, R G and R W faces): the spark moments of earth_aims.py.
+# Syntax: header of build.py. Build: python3 build.py earth_aim_moments. Nothing reads it until the Engine's aims switch is on.
+
+# ---------------------------------------------------------------- to see the world (R), spark; cycle s1
+
+== a ticket bought on a whim
+tier: life event
+aim: to see the world
+aim_role: spark
+stages: young_adult adult mature
+age: 18-65
+per_year: 0 0 .5 .4 .3 0
+times: While the aim is set, a cheap far-off ticket within reach comes most years in the young years, less often later (estimate)
+gap: 1-4
+tone: joy
+life: travel, leisure
+horizon: months
+roles: friend, parent
+earth: a cheap ticket to a city across the sea, bought at midnight with money meant for something else
+tribal: a band of traders heading past the far hills offers a place on the walk
+magic: a caravan leaving for the far realm has one seat left on the last wagon
+scene: At midnight {N} buys a cheap ticket to a city on the far side of the sea, with money meant for something sensible. The flight is on Friday. {parent} thinks it is madness, and {friend} wants to come.
+scene W: {N} has never gone anywhere without telling everyone first, and does not mean to start now.
+scene U: {N} already has the city's map open, and the names of its streets are strange and wonderful.
+scene B: The ticket was a bargain. {N} wonders, a little, what it would fetch on Thursday.
+scene R: {Ns} heart has not slowed since the button was pressed. Friday cannot come fast enough.
+scene G: Somewhere over there are cousins nobody has visited in two generations.
+- W | tell everyone the plan and promise to ring home every night | v: security, benevolence | foot: door kept your word | chance: 85
+- U | read up on the place at the library every evening until Friday | v: self-direction | foot: place learn.keeping | chance: 90
+- B | sell the ticket on at a profit and keep the money | v: achievement | dream: drop | foot: means money+.03 | chance: 75
+- R | go alone, with one bag and no plan past the first night | v: stimulation, self-direction | dream: test | foot: mark took a wild risk | chance: 70
+- G | go to the town the grandparents left, and find the cousins who stayed | v: tradition, benevolence | foot: means ties+.04 | chance: 70
+- W>U | sign up for an evening class in the language before the flight | v: conformity, self-direction | foot: place learn.higher | chance: 80
+- U>B | work out how to make the money stretch to three weeks instead of one | v: security, achievement | foot: lesson every coin can go further | chance: 70
+- B>R | pick up casual work out there and stay a month longer than planned | v: achievement, stimulation | foot: means freedom+.06 | chance: 60
+- R>G | leave the tourist trail and stay with a family in a hill village | v: stimulation, benevolence | foot: person friend | chance: 65
+- G>W | bring back a small gift for every house on the street | v: benevolence, tradition | foot: person neighbour | chance: 85
+works: {N} comes home sunburnt, with a head full of streets and a list of places still to go.
+works: The trip is everything {N} hoped, and the first night back {N} is already looking at the departure board.
+fails: The trip is cut short by a lost bag and a fever, and {N} comes home early and flat.
+fails: The city is grey and expensive, and {N} spends most of the week wishing to be somewhere else.
+
+# ---------------------------------------------------------------- to love with everything (R), spark; cycle s2
+
+== saying it first
+tier: life event
+aim: to love with everything
+aim_role: spark
+stages: young_adult adult mature
+age: 16-65
+per_year: 0 0 .5 .4 .3 0
+times: While the aim is set and someone new is close, the moment to say it first comes once in most such loves (estimate)
+gap: 1-5
+tone: mixed
+life: love
+horizon: months
+roles: prospect, friend, grandparent
+earth: three months into something new, and the words are right there
+tribal: the one {N} has watched across the fire all season is leaving with their band at dawn
+magic: at the guild's ball, the one {N} cannot stop thinking of is leaving for a far tower in the morning
+scene: Three months of long walks and late calls, and {N} is sure. Tonight, on the bridge, with {prospect} talking about something else entirely, the words are right there.
+scene W: {N} has always thought some things should be said properly, at the right time and in the right place.
+scene B: Whoever says it first has shown their hand. {N} has never liked showing a hand.
+scene R: {N} has never been able to hold a feeling in for long, and this one is the biggest yet.
+scene G: {N} keeps thinking of the old couple next door, still holding hands at the bus stop.
+- W | wait until after meeting their family, and then say it properly | v: tradition, conformity | foot: lesson love can wait a little | chance: 80
+- U | write it all in a letter and leave it in their coat pocket | v: self-direction | foot: person prospect | chance: 70
+- B | wait for them to say it first, however long it takes | v: security, power | foot: door turned down a chance | chance: 75
+- R | say it now, on the bridge, loud enough for the whole river to hear | v: stimulation, hedonism | dream: test | foot: person prospect; mark took a wild risk | chance: 70
+- G | bring them home for a long Sunday lunch with everyone | v: tradition, benevolence | foot: means ties+.04 | chance: 80
+- W>B | ask them plainly whether they mean to stay in town | v: security, achievement | foot: lesson ask plainly and know | chance: 75
+- U>R | plan a whole surprise day out of every small thing they ever loved | v: stimulation, benevolence | foot: means time-.04 | chance: 70
+- B>G | keep the feeling to yourself, and keep the friendship safe | v: security | dream: drop | foot: person friend | chance: 85
+- R>W | propose a summer away together, and mean it for good | v: stimulation, benevolence | dream: seal | foot: person prospect; door kept your word | chance: 60
+- G>U | ask the old couple next door how they knew, all those years ago | v: tradition, self-direction | foot: person neighbour | chance: 85
+works: {prospect} laughs, then goes quiet, and says it back, and the night goes on for a very long time.
+works: Whatever {N} did, it lands; by the end of the week everyone who matters knows they are together.
+fails: {prospect} is kind about it, and careful, and {N} walks home knowing it was not the same for both of them.
+fails: The moment passes, the summer passes, and the words are still unsaid when {prospect} moves away.
+
+# ---------------------------------------------------------------- to stand up for the underdog (R), spark; cycle s3
+
+== the shouting in the queue
+tier: life event
+aim: to stand up for the underdog
+aim_role: spark
+stages: juvenile+
+age: 12-90
+per_year: 0 .4 .5 .4 .3 .3
+times: While the aim is set, seeing someone pushed about in public, and having the chance to step in, comes every year or two (estimate)
+gap: 1-3
+tone: trouble
+life: strangers, justice
+horizon: moment
+roles: neighbour, a stranger, the regulars
+earth: in the queue at the post office, a man is shouting at an old woman who cannot read the form
+tribal: at the waterhole a big hunter shoves an old widow out of the line, and nobody moves
+magic: in the market a guild bully kicks a hedge-witch's basket into the gutter, and the crowd looks away
+scene: The queue at the post office is long and hot. At the front, a big man is shouting at an old woman who cannot read the form, and everyone has found something interesting to look at on the floor.
+scene W: There are rules for a queue, and none of them says a man may shout at a frightened old woman.
+scene U: {N} notices the clerk behind the glass, pretending not to hear, and the man's car left across the doorway outside.
+scene B: {N} is third in line and in a hurry. Getting involved would cost the afternoon.
+scene R: Something hot rises in {N}. It always does, when someone smaller is pushed about.
+scene G: {N} thinks the woman might be from the flats behind the church, where {Ns} own grandmother lived.
+- W | call the manager over and ask for the queue's rules to be kept | v: conformity, universalism | foot: person keeper | chance: 75
+- U | film the man quietly, in case it ends in a complaint | v: security | foot: lesson a record speaks later | chance: 85
+- B | let it play out, and keep your place in the line | v: security, power | dream: drop | foot: door refused someone in need | chance: 90
+- R | step between them and tell him to stop, now | v: benevolence, stimulation | dream: test | foot: mark helped someone in need | chance: 65
+- G | stand beside the woman so she is not alone, and help her with the form | v: benevolence | foot: person neighbour | chance: 85
+- W>R | get the whole queue to say together that enough is enough | v: universalism, stimulation | foot: means ties+.04 | chance: 60
+- U>G | find out afterwards who she is, and look in on her next week | v: benevolence | foot: door helped someone in need | chance: 80
+- B>W | have a quiet word at the counter and get him barred from the place | v: power, conformity | foot: lesson the right ear matters | chance: 65
+- R>U | ask him loudly, in front of everyone, what exactly she has done to him | v: stimulation, universalism | dream: test | foot: person rival | chance: 60
+- G>B | ask the regulars to walk her home, and keep an eye on him | v: benevolence, security | foot: person regular | chance: 80
+works: The man goes quiet, then goes, and the old woman holds on to {Ns} arm a moment longer than she needs to.
+works: The queue comes back to life, people start talking to each other, and someone pats {N} on the shoulder on the way out.
+fails: The man turns on {N} instead, and the whole queue watches it happen and does nothing.
+fails: The old woman leaves in tears before anyone can stop her, and {N} cannot shake it for days.
+
+# ---------------------------------------------------------------- to feel something greater in the music (R), spark; cycle s4
+
+== the night the singing lifts the roof
+tier: life event
+aim: to feel something greater in the music
+aim_role: spark
+stages: juvenile+
+age: 12-95
+per_year: 0 .4 .4 .4 .4 .4
+times: While the aim is set, a gathering where a whole room sings comes a few times a year to those who go (estimate)
+gap: .5-2
+tone: joy
+life: faith, music
+horizon: moment
+roles: elder, friend, grandparent
+earth: at the midwinter service the old hymn starts, and the whole packed hall is singing
+tribal: the drums go on past midnight at the gathering, and the dancers circle the fire
+magic: in the old temple the chant rises, and the stones seem to hum with it
+scene: The hall is packed for the midwinter service, and when the old hymn starts the whole room is singing. Something rises in {N}, in the chest and the throat, that has no name.
+scene W: The words are on the sheet, and {N} has known them since childhood. Tonight they sound new.
+scene U: {N} has always wondered what the old words actually mean, and why they move people so.
+scene B: {N} came because {friend} asked, and keeps one eye on the clock.
+scene R: The sound goes right through {N}, like standing too close to the sea.
+scene G: {Ns} grandmother sang this one every winter, a little flat and very loud.
+- W | sing every verse as written, standing with the whole congregation | v: tradition, conformity | foot: place faith.congregation | chance: 90
+- U | listen hard for what the old words are really saying | v: self-direction | foot: place faith.seeking | chance: 85
+- B | slip out before the collection comes round | v: security, hedonism | dream: drop | foot: door turned down a chance | chance: 90
+- R | close your eyes and sing out, with everything there is | v: stimulation, hedonism | dream: test | foot: place arts.song | chance: 80
+- G | sing the harmony the grandmother used to sing, word for word | v: tradition | foot: lesson the old songs still carry | chance: 85
+- W>G | ask the choir leader if there is room for one more voice | v: conformity, benevolence | foot: person mentor | chance: 75
+- U>W | stay behind to ask the organist where the old tune came from | v: self-direction, tradition | foot: person elder | chance: 85
+- B>U | record the singing on a phone to learn the harmony at home | v: self-direction, achievement | foot: mark learned a skill | chance: 80
+- R>B | dance in the aisle until the young ones start to join in | v: stimulation, hedonism | dream: test | foot: person friend | chance: 70
+- G>R | stamp and clap the beat the old way, until the whole row is clapping | v: tradition, stimulation | foot: means ties+.04 | chance: 80
+works: For a few minutes {N} is not one person but part of the sound, and walks out into the frost lit up from inside.
+works: The last chord hangs in the rafters, and {N} knows, without words for it, that this will be sought again.
+fails: {N} tries to feel it and feels only tired, and a little foolish, among all those raised voices.
+fails: The moment is broken by a cough, a phone and a crying baby, and it never comes back that night.
+
+# ---------------------------------------------------------------- to live wild and free outdoors (R G), spark; cycle s1
+
+== the first night alone on the hill
+tier: life event
+aim: to live wild and free outdoors
+aim_role: spark
+stages: juvenile young_adult adult mature
+age: 14-70
+per_year: 0 .4 .5 .4 .3 0
+times: While the aim is set, the chance to spend a night out alone in wild country comes most years (estimate)
+gap: 1-3
+tone: mixed
+life: nature, leisure
+horizon: week
+roles: friend, parent, mentor
+earth: a tent, a map and a hill nobody else is walking, with rain coming in from the west
+tribal: the young ones are sent alone past the river to spend a night in the wild and come back changed
+magic: the old forest past the last tower is said to keep travellers, and {N} goes in alone
+scene: {N} has walked up past the last farm with a small tent and a map, meaning to sleep out alone for the first time. The light is going, and there is rain coming in from the west.
+scene W: {N} told {parent} exactly where, and when, and means to keep to it.
+scene U: {N} has studied the map for a week and knows every contour, but not yet the feel of the ground.
+scene B: This is a test, and {N} intends to pass it, whatever it takes.
+scene R: There is nobody for miles. {N} has never felt so free, or so small.
+scene G: The hill has been here for ever, and {N} feels, for once, that it does not mind the company.
+- W | leave a note of the route and the hour to be back by | v: security, conformity | foot: door kept your word | chance: 90
+- U | learn the stars and the map well enough to need neither | v: self-direction | foot: mark learned a skill | chance: 65
+- B | turn back at the first rain, and call it a good walk | v: security | dream: drop | foot: lesson the hill will still be there | chance: 92
+- R | go on past the last path and sleep wherever the dark comes down | v: stimulation, self-direction | dream: test | foot: mark took a wild risk | chance: 65
+- G | build a shelter of branches, the old way, and stay three nights | v: tradition, self-direction | dream: test | foot: place prod.wild | chance: 65
+- W>U | go to the mountain rescue's open day and learn the ropes first | v: conformity, security | foot: place prot.rescue | chance: 85
+- U>B | test new kit on the hill and write it up for the outdoor shop | v: achievement, self-direction | foot: means money+.03 | chance: 70
+- B>R | bet a friend a week out there alone is easy | v: stimulation, achievement | foot: person rival | chance: 55
+- R>G | follow the deer trail up to the high tarn and swim at dawn | v: stimulation, hedonism | foot: means health+.04 | chance: 75
+- G>W | walk out with the old shepherd who knows every fold of the hill | v: tradition, benevolence | foot: person mentor | chance: 85
+works: {N} wakes at dawn to mist in the valley below and a hare sitting ten feet away, and walks home a different person.
+works: The rain comes and goes, the tent holds, and {N} comes down the hill already planning the next one.
+fails: The tent leaks, the cold gets in, and {N} trudges home before midnight, wet through and cross.
+fails: {N} gets lost in the cloud and has to ring for help, and the walk home is a long and quiet one.
+
+# ---------------------------------------------------------------- to raise a big, loud family (R G), spark; cycle s2
+
+== a whole weekend of other people's children
+tier: life event
+aim: to raise a big, loud family
+aim_role: spark
+stages: young_adult adult
+age: 18-50
+per_year: 0 0 .4 .4 0 0
+times: While the aim is set, a weekend with a house full of nieces, nephews or the neighbours' children comes most years (estimate)
+gap: 1-3
+tone: joy
+life: family, home
+horizon: week
+roles: sibling, neighbour, partner
+earth: the cousins' three and two of the neighbours' children stay the whole weekend, and the house is chaos
+tribal: the families go out to the hunt, and every child of the camp is left at {Ns} fire for two days
+magic: the lane's families go to the fair, and every child in the lane ends up in {Ns} kitchen
+scene: {sibling}'s three are staying the whole weekend, and by Saturday lunchtime two of the neighbours' children have joined them. There are shoes on the stairs, a dog under the table and somebody crying in the garden.
+scene W: {N} believes children are happiest with rules they can count on, and has written some down.
+scene U: {N} looks at five children and sees five little engineers waiting for a project.
+scene B: {N} loves them all, and also has plans for Sunday afternoon.
+scene R: The noise is enormous. {N} has never been happier.
+scene G: This is how a house should sound, {N} thinks: full, and loud, and alive.
+- W | set bedtimes, chores and a rota on the fridge, and keep to it | v: conformity, security | foot: lesson children like knowing the rules | chance: 75
+- U | turn the weekend into one big building project with a job for every child | v: self-direction, achievement | foot: means time-.03 | chance: 75
+- B | pay the teenager next door to take them all to the park for a day | v: hedonism | dream: drop | foot: means money-.03 | chance: 90
+- R | build a den of every cushion in the house and lead a pillow war | v: stimulation, hedonism | dream: test | foot: means ties+.04 | chance: 80
+- G | cook one huge pot of stew and sit everyone round the one table | v: benevolence, tradition | dream: test | foot: place gather.house | chance: 80
+- W>B | agree a fixed handover time with the parents, and hold them to it | v: security, power | foot: door kept your word | chance: 85
+- U>R | invent a treasure hunt that runs the length of the street | v: stimulation, self-direction | foot: person neighbour | chance: 80
+- B>G | set up a weekend swap with the other parents, so the favour comes back | v: security, benevolence | foot: means time+.04 | chance: 80
+- R>W | march the whole gang to the park and referee their match | v: stimulation, conformity | foot: place gather.games | chance: 80
+- G>U | let the oldest teach the youngest how to bake the family bread | v: tradition, self-direction | foot: lesson children teach each other best | chance: 85
+works: By Sunday night the house is wrecked and quiet, and {N} sits on the stairs grinning at the mess.
+works: The children beg to come back next weekend, and {sibling} says {N} has spoiled them for anywhere else.
+fails: By Saturday night there are two fights, one broken window and a headache that lasts until Tuesday.
+fails: The weekend is long and loud and joyless, and {N} wonders, for the first time, whether a houseful is really the dream.
+
+# ---------------------------------------------------------------- to dance (R G), spark; cycle s3
+
+== the empty floor at the wedding
+tier: life event
+aim: to dance
+aim_role: spark
+stages: juvenile+
+age: 12-85
+per_year: 0 .4 .5 .4 .3 .3
+times: While the aim is set, a wedding, party or gathering with music and an empty floor comes a few times a year (estimate)
+gap: .5-2
+tone: joy
+life: celebration, music
+horizon: moment
+roles: friend, elder, a band
+earth: at a cousin's wedding the band strikes up and the floor stays empty, everyone waiting for someone else
+tribal: the drums start at the summer gathering, and the whole circle waits for the first dancer
+magic: at the harvest ball the fiddlers begin, and the whole hall waits for someone to step out
+scene: At a cousin's wedding the band strikes up an old song everybody knows, and the floor stays empty. A hundred people sit with their drinks, each waiting for somebody else to go first.
+scene W: There is an order to these things: the couple first, then the families, then everyone else.
+scene U: {N} has been watching one old woman's feet under the table, keeping a step {N} has never seen.
+scene B: {N} knows exactly how foolish the first dancer will look. It will not be {N}.
+scene R: The music gets into {Ns} legs and will not leave.
+scene G: The song is one the whole family dances to, and the old ones are already tapping their feet.
+- W | wait for the couple's first dance, and follow on as is proper | v: conformity, tradition | foot: place gather.great | chance: 92
+- U | watch the best dancer in the room and copy her steps under the table | v: self-direction | foot: mark learned a skill | chance: 80
+- B | stay at the table and make jokes about the dancers | v: power, hedonism | dream: drop | foot: means ties-.03 | chance: 90
+- R | walk out alone onto the empty floor and dance as if nobody were watching | v: stimulation, hedonism | dream: test | foot: mark took a wild risk | chance: 70
+- G | take the bride's grandfather by the hand for the old step he knows | v: tradition, benevolence | dream: test | foot: person elder | chance: 80
+- W>R | ask the band for the song everyone knows, so the whole room joins | v: universalism, stimulation | foot: means ties+.04 | chance: 75
+- U>G | ask the old aunts afterwards where the steps came from | v: self-direction, tradition | foot: lesson every step has a story | chance: 85
+- B>W | sign up on the spot for the dance class the singer runs on Thursdays | v: achievement, conformity | foot: place arts.stage | chance: 80
+- R>U | dance with every stranger on the floor, one song each | v: stimulation, self-direction | foot: person friend | chance: 75
+- G>B | get the cousins up in a line to show the room how it is done | v: tradition, power | foot: lesson a family dances best together | chance: 75
+works: The floor fills behind {N} in a single song, and the dancing goes on until the band packs up.
+works: Someone {N} has never met says it was the best thing at the whole wedding, and {N} cannot stop smiling.
+fails: {N} dances one song alone, flushed and awkward, and sits down to a ripple of polite applause.
+fails: The band switches to something slow before anyone is up, and the moment passes.
+
+# ---------------------------------------------------------------- to save the wild places (R G), spark; cycle s4
+
+== the diggers at the edge of the wood
+tier: life event
+aim: to save the wild places
+aim_role: spark
+stages: juvenile+
+age: 12-85
+per_year: 0 .3 .4 .4 .4 .3
+times: While the aim is set, a wood, a marsh or a field nearby marked for clearing comes every few years (estimate)
+gap: 2-6
+tone: trouble
+life: nature, community
+horizon: months
+roles: neighbour, friend, a council officer
+earth: notices go up on the old wood by town: it is to be cleared for a car park, and the diggers come on Saturday
+tribal: strangers from downriver have come to burn the old grove for fields
+magic: a lord's foresters are marking the old wood for felling, tree by tree
+scene: Notices are tied to the trees of the old wood by {place}: it is to be cleared for a car park, and the diggers are due on Saturday. {N} has walked through this wood since before school.
+scene W: There must be a proper way to object, {N} thinks, and a date by which to do it.
+scene U: {N} has seen owls in this wood, and orchids by the stream. Somebody must have written that down.
+scene B: Land like this is worth a fortune with a car park on it. {N} cannot help doing the sums.
+scene R: The thought of the old oak coming down makes {N} want to shout at somebody.
+scene G: The wood was here before the town, and {N} has always thought it would be here after.
+- W | write a formal objection and get it in before the deadline | v: conformity, universalism | foot: place rule.counsel | chance: 70
+- U | survey the wood for the rare birds and flowers the law protects | v: self-direction, universalism | foot: mark learned a skill | chance: 65
+- B | ask the developer what the land is worth, and whether he wants a local partner | v: achievement, power | dream: drop | foot: person patron | chance: 60
+- R | chain yourself to the oldest oak on the morning the diggers come | v: stimulation, universalism | dream: test | foot: mark defied an authority | chance: 55
+- G | walk the wood with the children from the street and name every tree | v: tradition, benevolence | dream: test | foot: place prod.wild | chance: 80
+- W>G | set up a friends-of-the-wood group that meets every month | v: universalism, benevolence | foot: place gather.hall | chance: 70
+- U>W | dig out the old maps that show the wood as common land | v: self-direction, tradition | foot: place learn.keeping | chance: 55
+- B>U | get the local paper to run the story with your own photographs | v: achievement, universalism | foot: lesson a good picture moves people | chance: 65
+- R>B | camp out in the wood with a crowd until the cameras come | v: stimulation, power | foot: place rule.voice | chance: 55
+- G>R | plant a hundred saplings at the wood's edge in a single weekend | v: universalism, stimulation | foot: means time-.04 | chance: 75
+works: The diggers come on Saturday and go away again, and by spring the plan is quietly withdrawn.
+works: The wood is saved, or half of it, and {N} walks the path on Sunday knowing which half and why.
+fails: The diggers come anyway, and by Monday evening there is mud and a fence where the wood was.
+fails: The plan goes through on a technicality, and the people who promised to help go quiet one by one.
+
+# ---------------------------------------------------------------- to be there when it counts (R W), spark; cycle s2
+
+== the car in the ditch on the bend
+tier: life event
+aim: to be there when it counts
+aim_role: spark
+stages: young_adult adult mature
+age: 16-65
+per_year: 0 0 .5 .4 .3 0
+times: While the aim is set, being first on the scene of a crash, a fall or a fire comes every few years (estimate)
+gap: 1-4
+tone: trouble
+life: safety, strangers
+horizon: moment
+roles: a driver, a stranger, friend
+earth: a car has slid off the wet bend into the ditch, and {N} is first there
+tribal: a hunter has fallen into the ravine, and the band stands frozen at the edge
+magic: a cart has overturned on the bridge, and a carter is caught beneath the wheel
+scene: A car has slid off the wet bend and into the ditch. There is steam, a horn stuck on, and somebody inside calling out. {N} is the first one there, and the next car is a long way behind.
+scene W: {N} knows there is a right order to do things in, and that the first call matters most.
+scene U: {N} takes it in all at once: the smell of fuel, the angle of the car, the road behind.
+scene B: {N} is late already, and there will be others along in a minute.
+scene R: {N} is out of the car and running before the thought has finished.
+scene G: Whoever is in there is somebody's child, somebody's parent, and frightened.
+- W | ring for help, and promise the driver to stay until it comes | v: conformity, benevolence | foot: door kept your word | chance: 85
+- U | check for fuel and oncoming traffic before going near | v: security, self-direction | foot: lesson look first, then go | chance: 80
+- B | drive on; somebody behind will have rung it in | v: security, hedonism | dream: drop | foot: door refused someone in need | chance: 92
+- R | scramble down into the ditch and get to the driver | v: benevolence, stimulation | dream: test | foot: mark helped someone in need | chance: 65
+- G | sit with the driver, hold their hand and keep them talking | v: benevolence | foot: person friend | chance: 80
+- W>B | take charge of the passers-by and give each of them a job | v: power, security | foot: means ties+.03 | chance: 70
+- U>R | use the first aid half remembered from school, step by careful step | v: benevolence, self-direction | foot: mark learned a skill | chance: 60
+- B>G | flag down the lorry behind for its tools and its strong driver | v: achievement, benevolence | foot: lesson strangers help when asked | chance: 75
+- R>W | go back the next week and sign up with the rescue volunteers | v: benevolence, conformity | dream: seal | foot: place prot.rescue | chance: 80
+- G>U | find out which hospital took them, and visit with flowers | v: benevolence, tradition | foot: place care.houses | chance: 85
+works: The ambulance crew arrive to find the driver talking and warm, and one of them nods at {N} as if to say well done.
+works: Weeks later a card arrives, in shaky handwriting, from the driver, and {N} keeps it in a drawer for years.
+fails: {N} freezes for a long minute at the edge of the ditch, and someone else gets there first.
+fails: Help comes, but {N} goes home shaking, and dreams about the stuck horn for a week.
+
+# ---------------------------------------------------------------- to fight for what is right (R W), spark; cycle s3
+
+== the sacking nobody would talk about
+tier: life event
+aim: to fight for what is right
+aim_role: spark
+stages: young_adult adult mature
+age: 16-70
+per_year: 0 0 .4 .4 .3 0
+times: While the aim is set, a plain wrong done at work, and the chance to speak up about it, comes every few years (estimate)
+gap: 2-5
+tone: trouble
+life: work, justice
+horizon: months
+roles: colleague, boss, elder
+earth: a colleague who complained about a broken ladder is let go on a Friday afternoon, and everyone knows why
+tribal: the headman has cast out a young hunter for speaking against him at the council fire
+magic: the guildmaster has struck a journeyman from the rolls for reporting a rotten beam
+scene: On Friday afternoon {colleague}, who complained twice about the broken ladder in the stockroom, is called upstairs and let go. On Monday the ladder is still broken, and nobody will meet anybody else's eye.
+scene W: There are laws about this, {N} is fairly sure, and procedures, and somebody is meant to follow them.
+scene U: {N} remembers the two complaints, and wonders whether anyone kept a copy.
+scene B: {N} has rent to pay and a promotion half promised. The manager has been very friendly lately.
+scene R: It is plainly wrong, and {N} cannot believe everyone is just carrying on.
+scene G: {colleague} has three children and has worked here eleven years. People here look after their own, or used to.
+- W | take it to the union and put in a grievance, by the book | v: conformity, universalism | foot: means time-.04 | chance: 65
+- U | gather the safety records that show the ladder was reported | v: self-direction, universalism | foot: lesson keep every record | chance: 70
+- B | keep your head down; there are bills to pay | v: security | dream: drop | foot: door gave in to pressure | chance: 92
+- R | stand up at the morning meeting and say what everyone is thinking | v: stimulation, universalism | dream: test | foot: mark defied an authority | chance: 60
+- G | take round a collection for the family until the next job comes | v: benevolence | foot: means money-.03 | chance: 88
+- W>R | get every name on the shop floor onto one letter to head office | v: universalism, stimulation | dream: test | foot: means ties+.04 | chance: 55
+- U>G | find the others the firm let go the same way, and compare notes | v: universalism, benevolence | foot: person friend | chance: 70
+- B>W | tell the manager quietly the law is on your side, and see what he offers | v: power, security | foot: person rival | chance: 60
+- R>U | post the whole story online under your own name | v: stimulation, self-direction | foot: door made an enemy | chance: 55
+- G>B | ask the old hands who have been here thirty years to stand with the rest | v: tradition, security | foot: person elder | chance: 65
+works: Within a month {colleague} is back at work, the ladder is fixed, and the manager is suddenly very polite.
+works: The firm settles quietly, and the floor knows exactly who made it happen.
+fails: Nothing changes, except that {N} is now the one the manager watches.
+fails: The others back away one by one, and {N} is left standing alone with a cause and a cold canteen.
+
+# ---------------------------------------------------------------- to throw the parties the town remembers (R W), spark; cycle s2
+
+== the street party nobody else would organise
+tier: life event
+aim: to throw the parties the town remembers
+aim_role: spark
+stages: juvenile+
+age: 14-85
+per_year: 0 .3 .5 .4 .4 .3
+times: While the aim is set, a holiday, an anniversary or a summer weekend that wants a party comes most years (estimate)
+gap: 1-3
+tone: joy
+life: neighbours, leisure
+horizon: months
+roles: neighbour, friend, elder
+earth: midsummer is coming, the street has not had a party in years, and somebody has to ask the council
+tribal: the band's midsummer feast needs someone to call the families and set the fires
+magic: the lane's harvest feast has lapsed, and somebody must ask the guild for the square
+scene: Midsummer is coming and the street has not had a party in years. Somebody has to ask the council, borrow the tables and talk round the grumpy house at number nine. {N} hears {Ns} own voice offering.
+scene W: If it is going to happen, {N} thinks, it should be done properly, with the forms in on time.
+scene U: {N} is already drawing a plan of the street on the back of an envelope.
+scene B: A party is a lot of work for no pay. Or is it?
+scene R: A street full of music, lights in the trees, everyone dancing: {N} can see it already.
+scene G: {N} remembers the street parties of childhood, and the old neighbours who made them happen.
+- W | fill in the council's road-closure form and do it all properly | v: conformity, security | foot: place rule.counsel | chance: 80
+- U | draw up a plan for every table, plug and bin on the street | v: self-direction, security | foot: means time-.03 | chance: 85
+- B | charge a little for the stalls and keep what is left over | v: achievement | foot: means money+.03 | chance: 75
+- R | knock on every door with a bag of balloons and a big grin | v: stimulation, benevolence | dream: test | foot: means ties+.05 | chance: 80
+- G | ask the oldest neighbour what the street parties were like long ago | v: tradition | foot: person elder | chance: 90
+- W>B | get a committee together and keep a firm hand on the list | v: power, conformity | foot: place gather.hall | chance: 70
+- U>R | find a band from the next street who will play for their supper | v: stimulation, self-direction | foot: place arts.song | chance: 70
+- B>G | leave it to the ones who always end up doing it | v: hedonism, security | dream: drop | foot: door turned down a chance | chance: 92
+- R>W | promise the whole street the best night of the year, and set the date in stone | v: stimulation, benevolence | dream: seal | foot: door kept your word | chance: 65
+- G>U | win over the grumpy house at number nine with a cake and a long talk | v: benevolence, self-direction | foot: person neighbour | chance: 70
+works: The street is full until long after dark, and people who have lived ten doors apart for twenty years finally meet.
+works: By the end of the night three people have asked {N} to do it again next year.
+fails: It rains all afternoon, and a dozen people huddle under one gazebo eating soggy sandwiches.
+fails: The council form is lost, the road stays open, and the party never quite happens.
+
+# ---------------------------------------------------------------- to protect the ones I love (R W), spark; cycle s1
+
+== the man who followed them home
+tier: life event
+aim: to protect the ones I love
+aim_role: spark
+stages: young_adult adult mature elder
+age: 18-90
+per_year: 0 0 .4 .4 .3 .3
+times: While the aim is set and there is someone to protect, a moment of danger on the way home comes once or twice in a life (estimate)
+gap: 3-10
+tone: trouble
+life: love, safety
+horizon: moment
+roles: partner, neighbour, a stranger
+earth: walking home late from the station, a man has followed {N} and {partner} for three streets, shouting
+tribal: a stranger from another band has been circling {Ns} shelter after dark, watching {partner}
+magic: a hooded figure has followed {N} and {partner} through the lanes since the tavern
+scene: Walking home late from the station, {N} and {partner} realise the man behind them has followed for three streets now, shouting something neither of them can make out. {partner} has gone very quiet and very pale.
+scene W: There are people whose job this is, {N} thinks, and a lit shop on the corner.
+scene U: {N} wants to be sure first: is he really following, or only going the same way?
+scene B: {N} is frightened, and hates being frightened, and wants this over.
+scene R: Something fierce wakes in {N}. Nobody frightens {partner}. Nobody.
+scene G: The houses here are full of neighbours, and one of them has a light on.
+- W | walk to the lit corner shop together and ring the police from inside | v: security, conformity | foot: person keeper | chance: 85
+- U | cross and recross the road to be sure he is really following | v: security, self-direction | foot: lesson trust what the eyes see | chance: 80
+- B | hurry on, eyes down, and hope he loses interest | v: security | dream: drop | foot: door gave in to pressure | chance: 80
+- R | turn round, step in front of your partner and tell him to back off | v: benevolence, stimulation | dream: test | foot: mark took a wild risk | chance: 65
+- G | knock at the neighbours with the light on and go in together | v: benevolence, security | foot: person neighbour | chance: 85
+- W>U | note his face and his coat, and report it all the next morning | v: conformity, security | foot: place prot.watch | chance: 80
+- U>B | lead him the long way round, so he never learns which door is theirs | v: security, power | foot: door kept it hidden | chance: 70
+- B>R | shout back twice as loud, and make it plain this is the wrong pair to follow | v: power, stimulation | foot: person rival | chance: 60
+- R>G | take your partner's arm and sing all the way home, loud enough to wake the street | v: stimulation, benevolence | dream: test | foot: means ties+.03 | chance: 70
+- G>W | fit a stronger lock and a light over the door that same week | v: security, tradition | foot: means money-.03 | chance: 90
+works: The man stops, mutters, and turns away, and {partner} holds on to {N} all the rest of the way home.
+works: They get home safe, and {partner} says, much later, that it was the night they knew {N} would always be there.
+fails: The man shouts something ugly and lurches closer before he goes, and {partner} is frightened of that street for months.
+fails: They get home, but both of them lie awake, and {N} cannot shake the feeling of having done it wrong.
