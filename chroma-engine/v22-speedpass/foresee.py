@@ -253,3 +253,66 @@ def arrows(S, n):
 def _title_held(S, n, s):
     import explain
     return explain.title_held_index(S, n, s)
+
+
+# Aims v1 (chroma-ideas/next-table-2026-10-19/plan.md section 5; aims on, with the batch's aims): the aims track for the
+# sheet and the HUD (where they stand, the next step, what helps), the aims the character already feels, and the
+# player's setting or dropping of an aim. None of these changes a life but set_aim and drop_aim.
+def aims(S, n):
+    """The aims person n holds: [dict(slot, aim, face, domain, own ("set by you" until a spark makes it theirs),
+    by_player, strength, calling, steps=[dict(say, height, reached)], reached, next (the next step's say), helps (the
+    next step's titles and perks))]; [] with aims off."""
+    if not S.get("AIM_ON"):
+        return []
+    A, ak = S["AIM"], S["ak"]
+    out = []
+    for q in np.nonzero(ak[n] >= 0)[0]:
+        x = A["aims"][int(ak[n, q])]; k = int(S["astep"][n, q])
+        st = [dict(say=s_["say"], height=E.AIM_HEIGHTS[s_["h"] - 1] if s_["h"] else None, reached=i < k)
+              for i, s_ in enumerate(x["steps"])]
+        nx = x["steps"][k] if k < len(x["steps"]) else None
+        out.append(dict(slot=int(q), aim=x["name"], face="".join(E.COLORS[c] for c in np.nonzero(x["face"])[0]),
+                        domain=E.KNAMES[x["dom"]] if x["dom"] >= 0 else "a pursuit", own=bool(S["aown"][n, q]),
+                        by_player=bool(S["aby"][n, q]), strength=round(float(S["astr"][n, q]), 2),
+                        calling=bool(S["acall"][n, q]), steps=st, reached=k, next=nx["say"] if nx else None,
+                        helps=list(nx["names"]) if nx is not None else [],
+                        below=x["below"]))
+    return out
+
+
+def aim_choices(S, n, k=6):
+    """The aims person n already feels (the aims their dreams, passions and plans read as, held or not) and then the
+    nearest to who they are now (their colours), k in all, held ones left out: [dict(aim, face, domain, felt, fit)]."""
+    if not S.get("AIM_ON"):
+        return []
+    A, ak = S["AIM"], S["ak"]
+    held = set(int(a) for a in ak[n] if a >= 0)
+    felt = [int(a) for j, a in enumerate(S["gal"][n]) if a >= 0 and S["gk"][n, j] >= 0 and int(a) not in held]
+    fit = S["aim_fit"](np.asarray(S["w"][n], float))
+    rest = [int(a) for a in np.argsort(-fit) if int(a) not in held and int(a) not in felt]
+    pick = list(dict.fromkeys(felt))[:k]
+    pick += rest[:max(0, k - len(pick))]
+    return [dict(aim=A["aims"][a]["name"], face="".join(E.COLORS[c] for c in np.nonzero(A["aims"][a]["face"])[0]),
+                 domain=E.KNAMES[A["aims"][a]["dom"]] if A["aims"][a]["dom"] >= 0 else "a pursuit", felt=a in felt,
+                 fit=round(float(fit[a]), 2)) for a in pick]
+
+
+def set_aim(S, n, aim):
+    """The player sets an aim (its name): held as "set by you" until a try at its spark moment works (and a rite, or
+    the moment's own seal, makes it theirs); until then it pulls at aims_par reluctant and fades sooner. Returns the
+    slot, or -1 with the reason."""
+    if not S.get("AIM_ON"):
+        return -1, "aims are off"
+    A = S["AIM"]
+    if aim not in A["names"]:
+        return -1, f"no aim {aim!r}"
+    q = S["aim_take"](n, A["names"].index(aim), S["P"]["aims_par"]["set_s"], own=False, by=True, src="player")
+    return (q, None) if q >= 0 else (-1, "no room for another aim")
+
+
+def drop_aim(S, n, q):
+    """The player lets aim slot q go."""
+    if not S.get("AIM_ON") or S["ak"][n, q] < 0:
+        return False
+    S["aim_end"](n, int(q), "let go")
+    return True

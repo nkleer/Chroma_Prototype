@@ -1,4 +1,4 @@
-"""Engine check for the pause points (backend plan item 2, 2026-10-08) and each switch's own rows: 74 rows, about an hour
+"""Engine check for the pause points (backend plan item 2, 2026-10-08) and each switch's own rows: 75 rows, about an hour
 (50 to 65 min measured 10-17: the Engine with T_JOBS=4, Release on #288).
 
 engine.run_steps() is engine.run() pausing six times a week for the game. On a few short runs this checks that
@@ -54,6 +54,10 @@ engine.run_steps() is engine.run() pausing six times a week for the game. On a f
      life, and the picked option's need arrows come within one size of the record's act share.
  19. needs that fit life (need_tab "v7", shared_hist, imp_age): each switched on, run_steps() lives as run() and the
      lives move; no setback comes before its age (realm_earth.IMP_AGE); with the v7 tables a partnership gives meaning.
+ 20. aims v1 and the heights (aims, heights), with the batch's aims, world off and on: run_steps() lives as run(); every
+     step reached has a name of it held (or is a Known step, by a sphere rung); a height's week never moves once reached;
+     an aim the player sets (foresee.set_aim) is held as theirs, not the character's own; the track and the choices
+     (foresee.aims, aim_choices) are well formed; the batch without aims carries none.
 
     python3 -B chroma-engine/tools/t_steps.py [ENGINE_DIR]
 T_JOBS=N: the rows of 8 and 9 on N processes (default up to 4, by the cores there are; 1: one after another).
@@ -1017,6 +1021,70 @@ if "imp_age" in E.DEFAULT:
     print(f"{'PASS' if not fails else 'FAIL'}  needs that fit life (need_tab v7, shared_hist, imp_age), each switched on: "
           f"run_steps lives as run(), the lives move; no setback before its age; a partnership gives meaning "
           f"({par_m_:.3f}){'' if not fails else '; ' + '; '.join(fails[:4])} ({time.process_time() - t0:.0f} s)")
+# 20. aims v1 and the heights reading (aims, heights; workstream 5), Earth and packs with the aim catalogue
+if "aims" in E.DEFAULT and "aims" in batch.load_batch.__code__.co_varnames:
+    import foresee as FS_
+    t0 = time.process_time(); fails = []
+    LA_ = batch.load_batch("earth", packs=list(batch.PACKS), aims=True)
+    if "AIMS" in (EARTH or {}):
+        fails.append("the batch without aims carries them")
+    seen_ = dict(steps=0, own=0, set=0, calls=0, track=0, heights=0)
+    for wl_, N_, Y_, sd_ in ((False, 4, 50, 9), (True, 2, 30, 4)):
+        P_ = dict(E.DEFAULT, aims=True, world=wl_)
+        kw = dict(N=N_, years=Y_, seed=sd_, lib=LA_, log_lives=(0,))
+        o1_ = E.run(**kw, P=P_)
+        for edit_ in (False, True):
+            g = E.run_steps(**kw, P=P_); msg = next(g); set_ = None; ht0_ = None
+            while True:
+                kind, t, S, val = msg
+                if kind == "week" and S.get("AIM_ON"):
+                    ht_ = S["ht_t"].copy()
+                    if ht0_ is not None and ((ht0_ >= 0) & (ht_ != ht0_)).any():
+                        fails.append("a height's week changed once reached")
+                    ht0_ = ht_
+                    if edit_ and set_ is None and S["age"] >= 20:   # the player sets the aim that fits life 0 least
+                        held_ = set(int(a_) for a_ in S["ak"][0] if a_ >= 0)
+                        a_ = next(int(x_) for x_ in np.argsort(S["aim_fit"](np.asarray(S["w"][0], float))) if int(x_) not in held_)
+                        q_, why_ = FS_.set_aim(S, 0, S["AIM"]["names"][a_])
+                        if q_ < 0 or S["ak"][0, q_] != a_ or S["aown"][0, q_] or not S["aby"][0, q_]:
+                            fails.append(f"set_aim: not held as set by the player ({why_})")
+                        set_ = (q_, a_); seen_["set"] += 1
+                if kind == "end" and S.get("AIM_ON"):
+                    A_ = S["AIM"]
+                    for n_, q_ in zip(*np.nonzero(S["ak"] >= 0)):
+                        a_ = int(S["ak"][n_, q_]); k_ = int(S["astep"][n_, q_]); st_ = A_["aims"][a_]["steps"]
+                        if k_ > len(st_):
+                            fails.append("more steps than the ladder"); continue
+                        if k_ and not (S["r_ever"][n_, st_[k_ - 1]["any"]].any() or (st_[k_ - 1]["h"] == 1 and wl_)):
+                            fails.append(f"{A_['names'][a_]}: step {k_} reached with none of its names held")
+                    if (S["aim_best"] < np.where(S["ak"][..., None] == np.arange(A_["A"]), S["astep"][..., None], 0).max(1)).any():
+                        fails.append("an aim's best below its steps now")
+            if kind == "end" and S.get("AIM_ON") and t % 260 == 0:   # the track and the choices, now and then
+                for n_ in range(N_):
+                    tr_ = FS_.aims(S, n_); ch_ = FS_.aim_choices(S, n_)
+                    seen_["track"] += len(tr_)
+                    if any(x_["reached"] > len(x_["steps"]) or (x_["next"] is None) != (x_["reached"] == len(x_["steps"]))
+                           for x_ in tr_) or len(ch_) > 6:
+                        fails.append("the aims track or choices malformed")
+            try:
+                msg = g.send(val)
+            except StopIteration as done:
+                o2_ = done.value
+                break
+        if not edit_ and digest(o1_) != digest(o2_):
+                fails.append(f"world {'on' if wl_ else 'off'}: run_steps not the lives of run()")
+        lg_ = o1_["aims"]["log"]
+        seen_["steps"] += sum(r_["what"] == "step" for r_ in lg_); seen_["own"] += sum(r_["what"] == "became their own" for r_ in lg_)
+        seen_["calls"] += sum(r_["what"] == "became a calling" for r_ in lg_)
+        seen_["heights"] += int((o1_["heights"]["week"] >= 0).sum())
+    if not seen_["steps"]:
+        fails.append("no step reached")
+    bad += bool(fails)
+    print(f"{'PASS' if not fails else 'FAIL'}  aims v1 and the heights, switched on (world off and on): run_steps lives as "
+          f"run(); {seen_['steps']} steps reached, each with a name of it held; {seen_['own']} sparked, {seen_['calls']} "
+          f"callings, {seen_['heights']} heights reached (never moved once reached); set_aim held as the player's "
+          f"({seen_['set']}); the track well formed ({seen_['track']} read){'' if not fails else '; ' + '; '.join(sorted(set(fails))[:4])} "
+          f"({time.process_time() - t0:.0f} s)")
 # 11. nothing read at a pause outside the handed-over names (an engine without STATE_MISSED reads its whole frame)
 if hasattr(E, "STATE_MISSED"):
     bad += bool(E.STATE_MISSED)

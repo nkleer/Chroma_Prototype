@@ -102,6 +102,18 @@ COMMIT_MEETS_V7 = {
 IMP_AGE = (10, 12, 5, 4, 0, 1, 14, 16, 7, 0)
 
 
+# ---- The heights of a life (aims v1, plan.md section 5, behind aims and heights): Earth's names for each height. The
+# core reads a sphere rung of pillar or leader as Known and a summit title (TIER 2) as Notable in every realm; what a
+# realm names here is its own. Read as Release reads them (chroma-release/out/heights/heights_judge.py, 10-19): Known,
+# a good name in town or a master's mark (no master's perk exists; the craft's top title and hallmark stand in);
+# Notable, reach across the country; Historic, head of a state (head of government stands in), of a movement, or a
+# work that outlives them (chroma-packs/core/legacy.py)
+HEIGHT_NAMES = dict(
+    Known=["good name in town", "master craftsperson", "a maker's hallmark"],
+    Notable=["known across the country", "a household name"],
+    Historic=["head of government", "founder of a movement", "a work that outlives you"],
+)
+
 # ---- Births by the parent's age, and a home together (from engine.py)
 # births by the parent's age (birth_age): births a year per 1,000 women and per 1,000 men at each age (US NCHS natality,
 # mothers 2019 and fathers' age-specific rates), read as a share of the peak; own births only

@@ -171,3 +171,7 @@
                         elif RW_ON:
                             rw_why.pop((int(n), int(i_), "gained"), None)
                     f_pend[:] = keep_
+                if AIM_ON:   # aims v1: strength, steps reached, callings
+                    aim_month(ns_)
+                if HT_ON:    # the heights reached (read-only)
+                    ht_month()

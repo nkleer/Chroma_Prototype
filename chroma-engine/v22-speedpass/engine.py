@@ -47,6 +47,8 @@ NMAP_V6 = np.array(NEED_MAP_V6, float)    # v6: autonomy is met by acting as one
 NMAP = NMAP_V6
 from realm_earth import NEED_MAP_V7, COMMIT_MEETS_V7, IMP_AGE   # needs that fit life (need_tab "v7", imp_age): Earth's
 NMAP_V7 = np.array(NEED_MAP_V7, float)
+from realm_earth import HEIGHT_NAMES   # aims v1: Earth's names of the three heights
+AIM_HEIGHTS = ["Known", "Notable", "Historic"]   # a step's height: 0 none, 1 Known, 2 Notable, 3 Historic
 STAGE_NAMES = [s[0] for s in STAGES]
 STAGE_LO = np.array([s[1][0] for s in STAGES], float)
 STAGE_HI = np.array([s[1][1] for s in STAGES], float)
@@ -835,6 +837,21 @@ DEFAULT = dict(
     # rising to shared_hist as the longest held partnership, children or community lasts, halfway in its years); imp_age,
     # setbacks only from the age each can happen at (realm_earth.IMP_AGE)
     need_tab=None, shared_hist=0.0, shared_hist_par=(0.10, 5.0), imp_age=False,
+    # aims v1 (the next stage's workstream 5; plan.md section 5), off until the joint refit; needs the batch's aims
+    # (batch.AIMS or load_batch(aims=True)). An aim is a ladder of steps (titles or perks held or once held) toward what a
+    # person wants to become, in up to aims_par slots: one grows from below out of a dream, passion or plan whose
+    # concrete dream it names or whose domain and colours it fits (fit, the lean's cosine), or the player sets one (it
+    # stays "set by you", pulling at reluctant, the spark moment sought at spark_seek, until a try at its spark moment
+    # works and a rite or the moment's own seal makes it theirs). It raises the odds of moments with a way into its next
+    # step (seek, by its strength) and each step reached meets meaning (meet, by the step's height: none, Known,
+    # Notable, Historic). With no goal behind it an aim fades (half, in years; half_set for one not yet their own) and
+    # goes below drop. A calling: an aim of their own that leads to a height, held as a passion for call_yrs
+    aims=False,
+    aims_par=dict(slots=3, fit=0.3, seek=1.0, reluctant=0.5, spark_seek=2.0, meet=(0.03, 0.06, 0.09, 0.12), half=4.0,
+                  half_set=2.0, drop=0.05, call_yrs=3.0, set_s=0.5, spark_up=0.15),
+    # the heights of a life (plan.md section 5), read-only: the week each height (Known, Notable, Historic) was first
+    # reached (realm_earth.HEIGHT_NAMES, a sphere rung of pillar or more, a summit title, leading a movement); on with aims
+    heights=False,
     echo_play_par=dict(p=0.6, w=0.3, delay=(1.0, 8.0), keep=10.0, gap=0.5, again=12.0),
     # bold ways (chroma-ideas/gameplay-2026-10-17/bold-ways.md): set only by the game for a played life, with the batch's
     # BOLD_MOMENTS. In a week the game asks (bold_ask, set at the situation pause and spent at the choice; "all": every
@@ -1504,6 +1521,8 @@ UPD_OFF = dict(dis_match=False,
                need_why=False,
                # needs that fit life (workstream 4)
                need_tab=None, shared_hist=0.0, imp_age=False,
+               # aims v1 and the heights reading (workstream 5)
+               aims=False, heights=False,
     # the v22.3 refit's satisfaction level (the new mechanics lift satisfaction; the set point moved .80 -> .86)
     sat_mid=0.8)
 # everything since the go-live off, for the identity check (C-E14): lives then equal engine_v9_golive.py
@@ -1751,6 +1770,9 @@ STATE_MORE = ("fam", "gsr", "goal_rel_S", "around", "retired", "ck", "ok_", "frc
               # world's opposed pairs and this week's closures in units (with CLU_ON)
               "nw", "nw_imp",   # need_why: this week's need moves by source (N x NSOURCES x needs) and silent setback
               # (IMPOSITIONS index, -1 none), from the start of the week; None off. The game takes the pick's from the choose pause on
+              "AIM_ON", "HT_ON", "AIM", "ak", "astr", "astep", "aown", "aby", "atest", "acall", "abirth", "aim_best", "gal",
+              "ht_t", "aim_take", "aim_end", "aim_fit", "aim_of_goal",   # aims v1 (foresee's aims track, set_aim, drop_aim)
+              # and the heights reached (ht_t, weeks, -1 never); None off
               "btrust")   # body_trust (finishing pack part 3): each life's trust per sphere (N x 9, NaN before 15); None off
 STATE_MISSED = set()   # names read at a pause that are not handed over (STATE, STATE_IF, STATE_MORE): t_steps wants none
 
