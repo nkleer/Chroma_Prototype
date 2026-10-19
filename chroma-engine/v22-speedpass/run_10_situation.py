@@ -285,7 +285,9 @@
                 kp_ = ((rs_ + rse_) > 0)[:, 0] & (tot_ > 0)
                 aff_d[kp_] = oth_[kp_] + (1 - oth_[kp_].sum(1, keepdims=True)) * fill_[kp_]
             aff = np.where(aff_d.sum(1, keepdims=True) > 0, aff_d, np.where(aff_e.sum(1, keepdims=True) > 0, aff_e, aff))
-        aff /= aff.sum(1, keepdims=True)
+        # a week with nothing open at all (once seen in the clan life, preset 5) has a zero row: no NaN weights, and the
+        # pick is situation 0 as before (the NaN row's argmax); every other row divides as before, bit for bit
+        aff /= np.maximum(aff.sum(1, keepdims=True), 1e-300)
         s = (aff.cumsum(1) > rng.random((N, 1))).argmax(1)
         if pausing:
             _pause_state(pz_st, ST_CELLS, ST_FR)
