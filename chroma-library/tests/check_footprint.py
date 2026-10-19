@@ -53,10 +53,11 @@ def existing(o):
     for k in ("bond", "break", "mend", "secret", "trust"):
         if nt.get(k):
             out.append(("person", f"{k}: {nt[k]}"))
+    commits = {t[7:] for t in tags.split() if t.startswith("commit:")}
     for k in ("title", "grants", "takes", "drops", "suspends"):
         for x in names(nt.get(k)):
-            if BY_KIND.get(KIND.get(x)):
-                out.append((BY_KIND[KIND[x]], x))
+            if BY_KIND.get(KIND.get(x)) and not (k == "title" and KIND[x] in commits):   # the commitment's own title
+                out.append((BY_KIND[KIND[x]], x))                                       # and its commit: count once
     for t in tags.split():
         if t.startswith("commit:"):
             out.append(({"partner": "person", "children": "person"}.get(t[7:], "place"), t))
