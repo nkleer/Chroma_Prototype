@@ -86,11 +86,17 @@ def names(v):
     return [x.strip() for x in re.split(r"[;,]", v) if x.strip()] if isinstance(v, str) else list(v or [])
 
 
-def footprints(o, read_marks, kind):
+def foot_table(module):
+    """The module's foot: items, from <module>_foot.py (build.py, Engine 10-19), as {(moment, label): items}."""
+    f = os.path.join(LIB, f"{module}_foot.py")
+    return load(f, f"{module}_foot").FOOT if os.path.exists(f) else {}
+
+
+def footprints(o, read_marks, kind, foot=()):
     """As check_footprint.py: the footprints an option leaves through today's fields and foot:."""
     tags = str(o[4] or "")
     nt = o[5] if len(o) > 5 and isinstance(o[5], dict) else {}
-    out = list(nt.get("foot") or [])
+    out = list(foot or nt.get("foot") or [])
     m = nt.get("mark")
     if m in PERSON_MARKS or m in read_marks:
         out.append(("person" if m in PERSON_MARKS else "mark", m))
@@ -110,6 +116,15 @@ def footprints(o, read_marks, kind):
     if nt.get("back"):
         out.append(("door", nt["back"]))
     return out
+
+
+def lessons(w, options, FT, prob):
+    """As check_footprint.py: lessons on 1 option in 5 or fewer a moment, each in its own words."""
+    les = [v for o in options for k, v in (FT.get((w, o[0])) or (o[5] or {}).get("foot") or []) if k == "lesson"]
+    if len(les) * 5 > len(options):
+        prob.append(f"{w}: {len(les)} of {len(options)} options have only a lesson (at most 1 in 5)")
+    if len(set(les)) < len(les):
+        prob.append(f"{w}: two options teach the same lesson words")
 
 
 def words(where, text, prob):
@@ -220,6 +235,7 @@ def main():
         import earth
         lab_earth = {o[0] for s in earth.SITUATIONS for o in s["options"]}
         M = load(mf, "earth_aim_moments")
+        FT = foot_table("earth_aim_moments")
         txt = "".join(open(os.path.join(RULES, f), encoding="utf-8").read() for f in ("rules_titles.py", "rules_perks.py"))
         import build
         read_marks = {m for m in build.MARKS if f"'{m}'" in txt}
@@ -250,11 +266,12 @@ def main():
                         prob.append(f"{w}: no option grants a name of step {k} ({', '.join(st[k - 1]['any'])})")
                     steps_done.add((aim, k))
             for o in s["options"]:
-                fp = footprints(o, read_marks, kind)
+                fp = footprints(o, read_marks, kind, FT.get((w, o[0])))
                 if not 1 <= len(fp) <= 2:
                     prob.append(f"{w} / {o[1]} '{o[0][:50]}': {len(fp)} footprints (one or two)")
                 if o[0] in lab_earth:
                     prob.append(f"{w} / {o[1]}: label also in earth.py: '{o[0]}'")
+            lessons(w, s["options"], FT, prob)
     for aim in A:
         if sparks[aim] != 1:
             prob.append(f"{aim!r}: {sparks[aim]} spark moments (one)")

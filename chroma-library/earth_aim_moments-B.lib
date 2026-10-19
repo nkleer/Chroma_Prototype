@@ -1,0 +1,474 @@
+# Chroma library, modern Earth: AIM MOMENTS, group B (aims of knowing and mastering: U, U B and U R), aims v1 (10-19).
+# Syntax: header of build.py. Build: python3 build.py earth_aim_moments. Check: python3 tests/check_aims.py . --part
+# Every moment is a life event with the five single ways and one full cross cycle. Nothing reads this file until
+# the Engine's aims switch is on, so no life changes.
+
+# ---------------------------------------------------------------- to know one thing better than anyone (U, cycle s1)
+
+== the question nobody at the library could answer
+tier: life event
+aim: to know one thing better than anyone
+aim_role: spark
+stages: juvenile young_adult adult mature elder
+age: 12-85
+per_year: 0 .5 .4 .4 .3 .3
+tone: joy
+life: learning, interests
+horizon: months
+roles: mentor, grandparent, friend, rival
+earth: a question about one odd subject that the library has no book to answer
+tribal: a question about the river stones that no elder of the clan has ever asked
+magic: a question about one corner of the tower's archive that the shelves no longer answer
+scene: {N} has a question about one small, odd subject, and the library has run out of books that answer it. The librarian shrugs, and {mentor} wonders aloud who might know.
+scene W: {N} wants to do this properly: every source noted, every claim checked against another.
+scene U: {N} has filled a notebook already, and the gaps in it are the only interesting part.
+scene B: Nobody in town knows more about it than {N} now, and {N} would like that to stay true.
+scene R: {N} stayed up until three following one footnote to the next, and is not tired at all.
+scene G: {grandparent} knew a little about this once, the old way, and {N} wants to know what they knew.
+scene tribal: The elders shrug at {Ns} question about the river stones. Nobody has asked it before, and the only way to know is to watch them for a whole season.
+scene magic: The tower's archive holds three shelves on {Ns} odd subject, and {N} has read them all. The keeper says the rest is locked away, or lost.
+- W | follow the reading list of the society that studies it, to the letter | v: conformity, achievement | foot: lesson method beats luck | chance: 75
+- U | go out and look for the answer yourself, noting every try | v: self-direction, achievement | dream: test | foot: mark learned a skill | chance: 60
+- B | track down the one expert who might know, and make them take you seriously | v: power, achievement | foot: person mentor | chance: 50
+- R | chase the strangest lead wherever it goes, for a whole summer | v: stimulation, self-direction | foot: means time-.06 | chance: 55
+- G | sit with {grandparent} and write down everything they remember of it | v: tradition, benevolence | bond: grandparent +.1 | chance: 80
+- W>U | enrol in the evening class on it at the college, and do every exercise | v: conformity, self-direction | foot: place learn.higher | chance: 78
+- U>B | trade what you know for a look at a private collection | v: achievement, power | foot: person patron | chance: 45
+- B>R | bet {rival} you will have the answer by the spring | v: power, stimulation | foot: person rival | chance: 50
+- R>G | drag {friend} along on the hunt for the answer, out in the open air | v: stimulation, benevolence | foot: person friend | chance: 70
+- G>W | give your notes to the town library, so the next one starts further on | v: benevolence, universalism | foot: place learn.keeping | chance: 85
+works: The answer turns up at last, in the place nobody thought to look, and {N} reads it twice to be sure.
+works: {N} knows more about it now than anyone in town, and the question has grown three new ones.
+fails: The trail goes cold, and every book {N} finds only repeats the last one.
+fails: Months of notes come to nothing, and {N} puts the notebook away for a while.
+
+# ---------------------------------------------------------------- to master an instrument (U, cycle s2)
+
+== the piece that finally plays itself
+tier: life event
+aim: to master an instrument
+aim_role: spark
+stages: child juvenile young_adult adult mature elder
+age: 8-85
+per_year: .3 .5 .4 .4 .4 .3
+tone: mixed
+life: music, interests
+horizon: months
+roles: grandparent, mentor, friend, teacher
+earth: one hard piece that has never once been played through without a stumble
+tribal: the long song of the bone flute that only the old player could play without a breath out of place
+magic: the hard piece the guild of players asks of every candidate, played by heart
+scene: There is one piece {N} has never managed to play through, and the evening is quiet, and the instrument is waiting.
+scene W: {N} has a practice chart on the wall, and today's box is still empty.
+scene U: {N} has worked out that the trouble is two bars in the middle, and only those two.
+scene B: The concert is in a month, and {N} wants the solo more than anyone else does.
+scene R: {N} would rather play it wrong and loud than right and dull.
+scene G: The piece was {grandparent}'s favourite, and {N} wants to play it the way they used to hum it.
+scene tribal: The bone flute has one long song the old player could play through without a breath out of place, and {N} has tried it every night since the thaw.
+scene magic: The guild's examiners ask for one hard piece by heart, and {N} has a month and a cold practice room in the tower.
+- W | practise the hard bars slowly every morning, a little faster each week | habit | v: conformity, achievement | foot: mark learned a skill | chance: 70
+- U | take the two bars apart note by note until the hands understand them | v: self-direction, achievement | dream: test | foot: means time-.06 | chance: 62
+- B | play it for the teacher who picks the soloists, before anyone else can | v: achievement, power | foot: person teacher | chance: 48
+- R | play it straight through tonight, mistakes and all, as loud as it wants | v: stimulation, hedonism | foot: lesson mistakes can sound alive | chance: 58
+- G | play it for {grandparent}, slowly, the old way | v: tradition, benevolence | bond: grandparent +.1 | chance: 80
+- W>B | enter the town's music competition and play what the judges expect | v: achievement, conformity | foot: place arts.stage | chance: 45
+- U>R | take the hard bars to the Saturday jam at the music shop and play around them | v: self-direction, stimulation | dream: test | foot: place arts.song | chance: 60
+- B>G | strike a deal with the old player down the street: garden work for lessons | v: power, benevolence | foot: person mentor | chance: 70
+- R>W | play it at the school's open evening, in front of everyone | v: stimulation, conformity | foot: mark took a wild risk | chance: 50
+- G>U | learn the piece by ear from an old recording, the way the first players did | v: tradition, self-direction | foot: lesson the ear learns first | chance: 66
+works: Somewhere in the second week the hard bars stop being hard, and the piece plays itself.
+works: {N} plays it through without a stumble, and the room is very quiet afterwards.
+fails: The same two bars break down again, and {N} closes the lid harder than meant to.
+fails: The piece gets worse before it gets better, and this week it only gets worse.
+
+# ---------------------------------------------------------------- to teach well (U, cycle s3)
+
+== the lesson that finally lands
+tier: life event
+aim: to teach well
+aim_role: spark
+stages: juvenile young_adult adult mature elder
+age: 15-80
+per_year: 0 .4 .5 .5 .4 .2
+tone: mixed
+life: school, work
+horizon: week
+roles: colleague, mentor, parent, a pupil who has given up
+earth: a pupil who has not understood the same thing after three tries
+tribal: a young one of the band who cannot learn the knot that holds the snare
+magic: a first-year of the academy who cannot hold the simplest figure in mind
+scene: {N} has been asked to explain something to a younger pupil who has not understood it in three tries, and the hour is running out.
+scene W: {N} follows the method in the textbook, step by careful step.
+scene U: {N} keeps wondering where exactly the pupil's picture of it goes wrong.
+scene B: {N} would like this pupil's marks to go up, visibly, and soon.
+scene R: {N} is bored of the worksheet too, and suspects the pupil can tell.
+scene G: {N} remembers being stuck on exactly this, and how it felt.
+scene tribal: A young one of the band cannot learn the knot that holds the snare, and has cried over it twice. The elders have left {N} to show it again.
+scene magic: A first-year at the academy cannot hold the simplest figure in mind, and the master has handed the pupil to {N} for the afternoon.
+- W | go back to the first step and build it up, one rule at a time | v: conformity, benevolence | foot: lesson start from the beginning | chance: 75
+- U | ask the pupil to explain it back, and listen for where it breaks | v: self-direction, benevolence | dream: test | foot: mark learned a skill | chance: 65
+- B | promise the pupil's parents better marks by the end of term | v: achievement, power | foot: door kept your word | chance: 50
+- R | throw away the worksheet and teach it as a game, and let the others join in | v: stimulation, hedonism | foot: means ties+.03 | chance: 60
+- G | admit how long it took you, and sit with the pupil till it comes | v: benevolence | foot: means time-.04 | chance: 80
+- W>R | start a lively study group for the whole class, every Friday | v: conformity, stimulation | foot: place gather.circle | chance: 70
+- U>G | take the lesson outside and show it with sticks and stones on the ground | v: self-direction, universalism | dream: test | foot: mark helped someone in need | chance: 62
+- B>W | sign up with the tutoring agency in town, and be paid for it | v: achievement, security | title: private tutor | chance: 60
+- R>U | make up a silly song that holds the rule, and sing it till it sticks | v: stimulation, self-direction | foot: lesson a joke can carry a rule | chance: 66
+- G>B | ask the old teacher who taught you how they would do it | v: tradition, achievement | foot: person mentor | chance: 75
+works: Halfway through the fourth try the pupil's face changes, and {N} sees the moment it lands.
+works: The pupil gets the next one right alone, and then the one after that.
+fails: The pupil nods politely and has clearly understood nothing.
+fails: The hour runs out with the pupil more muddled than before, and {N} goes home turning it over.
+
+# ---------------------------------------------------------------- to find out what is true (U, cycle s4)
+
+== the argument with the old believer
+tier: life event
+aim: to find out what is true
+aim_role: spark
+stages: juvenile young_adult adult mature elder
+age: 13-90
+per_year: 0 .4 .4 .4 .4 .3
+tone: mixed
+life: faith, meaning
+horizon: months
+roles: elder, friend, mentor, parent
+earth: a long evening with an old believer, and a question that will not be left alone
+tribal: the old telling of how the first people came out of the river, and a river that ends in marsh
+magic: an old servant of the temple, and a scroll in the archive that tells the story differently
+scene: {N} has spent a long evening with {elder}, who has believed the same thing all their life, and {N} has a question that will not be left alone.
+scene W: {N} wants to be fair to both sides, and to the old ways.
+scene U: {N} has read three books that disagree, and wants to know which one is true.
+scene B: {N} suspects most people believe what is useful to them, and wonders what is useful to {elder}.
+scene R: {N} feels something huge just behind the words, and wants to feel it properly.
+scene G: {elder} raised half the street in this faith, and {N} does not want to break anything.
+scene tribal: Around the fire {elder} tells again how the first people came out of the river. {N} has walked the river to its end and found only marsh.
+scene magic: {elder} has served the temple of the old powers for fifty years. {N} has found a scroll in the archive that tells the story differently.
+- W | hear {elder} out to the end before saying a word | v: tradition, benevolence | bond: elder +.1 | chance: 85
+- U | ask {elder} the hard question plainly, and weigh the answer honestly | v: self-direction, universalism | dream: test | foot: person mentor | chance: 55
+- B | win the argument point by point, whatever it costs | v: power, achievement | break: elder | chance: 60
+- R | go to the service with {elder}, and see what it feels like from inside | v: stimulation, self-direction | foot: place faith.congregation | chance: 70
+- G | let it lie, and keep the peace at the table | v: tradition, security | dream: drop | foot: lesson some questions can wait | chance: 85
+- W>G | join the circle where believers and doubters talk once a month | v: universalism, benevolence | foot: place gather.talk | chance: 75
+- U>W | read the holy book from the first page to the last, with notes | v: self-direction, conformity | dream: test | foot: place learn.keeping | chance: 65
+- B>U | put to the clergy the questions you know they cannot answer | v: power, self-direction | foot: mark defied an authority | chance: 50
+- R>B | go off alone to the retreat in the hills to find out for yourself | v: stimulation, self-direction | foot: place faith.seeking | chance: 60
+- G>R | walk the old pilgrim path with {elder}, and argue the whole way | v: tradition, stimulation | foot: place faith.shrines | chance: 70
+works: {N} comes away without a final answer but with a truer question, and {elder} looks almost pleased.
+works: Something in {Ns} thinking settles, and the next morning the world looks slightly different.
+fails: The evening ends in a silence neither of them knows how to break.
+fails: Every answer {N} finds only leads to two more, and none of them feels like the truth.
+
+# ---------------------------------------------------------------- to be the best at what I do (U B, cycle s1)
+
+== the job only the best could finish
+tier: life event
+aim: to be the best at what I do
+aim_role: spark
+stages: young_adult adult mature
+age: 17-70
+needs: career
+per_year: 0 0 .4 .4 .3 0
+tone: mixed
+life: work
+horizon: months
+roles: boss, colleague, rival, mentor
+earth: a job two others have already given up on, left on one desk
+tribal: the old hunter's great spear-thrower, cracked, that two carvers have failed to mend
+magic: a commission for a great house that a master of the guild has failed to finish
+scene: A job has come in that two others have already given up on, and {boss} has put it on {Ns} desk with a look that says: if anyone can.
+scene W: {N} intends to do it by the book, every check signed off.
+scene U: {N} has already spotted why the others failed, and it is almost beautiful.
+scene B: Whoever finishes this will be talked about, and {N} means to be the one.
+scene R: {N} has never wanted a job so badly, and has never been so unsure of finishing it.
+scene G: The job is for a small firm that has been with the company for thirty years, and {N} knows the family.
+scene tribal: The old hunter's great spear-thrower has cracked, and two carvers have failed to mend it. {elder} hands it to {N} without a word.
+scene magic: A master of the guild has failed at a commission for a great house, and the guild gives it to {N} with a month to finish.
+- W | work through it step by step, checking each part against the standard | v: conformity, achievement | foot: lesson the standard has its reasons | chance: 60
+- U | find the flaw the others missed and solve it from the root | v: achievement, self-direction | dream: test | foot: mark learned a skill | chance: 50
+- B | take the job and the credit, and let nobody else near it | v: power, achievement | dream: test | foot: person colleague lost | chance: 52
+- R | stay late every night until it is done | v: stimulation, achievement | foot: means health-.05 | chance: 55
+- G | ring the family the job is for, and ask what they really need | v: benevolence, security | foot: means ties+.04 | chance: 80
+- W>U | ask for the proper training course before touching it | v: conformity, self-direction | foot: place learn.higher | chance: 75
+- U>B | solve it quietly, then name your price for the next one | v: achievement, power | foot: means money+.06 | chance: 50
+- B>R | bet {rival} in the next office that you will crack it by Friday | v: power, stimulation | foot: person rival | chance: 50
+- R>G | bring {colleague} in on it, and make it fun | v: stimulation, benevolence | foot: person friend | chance: 68
+- G>W | turn it down, and say plainly that it needs a specialist | v: security, benevolence | dream: drop | foot: door turned down a chance | chance: 90
+works: It takes longer than anyone hoped, but it works, and {boss} stops by twice to look at it.
+works: Word goes round the floor that {N} finished what nobody else could.
+fails: The job beats {N} too, and goes back on the pile with a third name on it.
+fails: It almost works, and almost is what everyone remembers.
+
+# ---------------------------------------------------------------- to marry well (U B, cycle s2)
+
+== the dinner with the family who matters
+tier: life event
+aim: to marry well
+aim_role: spark
+stages: young_adult adult
+age: 18-50
+per_year: 0 0 .4 .3 0 0
+tone: mixed
+life: love, family
+horizon: week
+roles: prospect, parent, friend, elder
+earth: Sunday dinner with the family of someone worth marrying: the big house, the old name, the questions
+tribal: a meal at the fire of a strong clan, whose mother has asked to see the one her child favours
+magic: a dinner at an old house of the city, with the steward watching every move
+scene: {prospect} has asked {N} to Sunday dinner with the family: the big house, the old name, and an uncle who asks about prospects.
+scene W: {N} has brought flowers, a gift for the hosts, and the best manners {N} owns.
+scene U: {N} has quietly worked out who in the family decides things, and it is not the one doing the talking.
+scene B: The family has a firm, land and a name, and {N} can see the life that comes with them.
+scene R: {N} cannot stop looking at {prospect}, and the family is a blur.
+scene G: {N} is watching how the family treat each other, and whether there is room at the table for one more.
+scene tribal: {prospect}'s clan holds the best grounds by the river, and the mother of the clan has asked {N} to eat at her fire.
+scene magic: {prospect} is of an old house of the city, and the house has asked {N} to dine, with the steward watching every move.
+- W | thank the hosts properly and mind every manner | v: conformity, tradition | foot: lesson manners open doors | chance: 80
+- U | listen more than talk, and learn how this family really works | v: self-direction, security | dream: test | bond: prospect +.1 | chance: 70
+- B | let the uncle know exactly what you bring to the match | v: power, achievement | dream: test | foot: person patron | chance: 50
+- R | forget the family and spend the evening making {prospect} laugh | v: hedonism, stimulation | foot: lesson love does not do sums | chance: 75
+- G | help the grandmother clear the table, and hear the family's stories | v: benevolence, tradition | foot: person elder | chance: 85
+- W>B | ask the family's leave to court {prospect}, as the old families expect | v: tradition, power | foot: door kept your word | chance: 55
+- U>R | debate the uncle across the table, and enjoy every minute | v: self-direction, stimulation | foot: person rival | chance: 55
+- B>G | offer to help out in the family firm, and see where it leads | v: power, security | foot: place comm.shop | chance: 60
+- R>W | propose to {prospect} on the walk home, ring or no ring | v: stimulation, conformity | title: engaged | chance: 40
+- G>U | decide on the way home that a good match is not enough, and say so kindly | v: benevolence, self-direction | dream: drop | break: prospect | chance: 85
+works: The head of the family walks {N} to the door and lingers over the goodbye.
+works: On the way home {prospect} says the family liked {N}, and sounds surprised.
+fails: The uncle's questions get sharper with every course, and {N} leaves with a headache.
+fails: The family is polite all evening, and that is all it is.
+
+# ---------------------------------------------------------------- to keep a sharp eye on money (U B, cycle s3)
+
+== the accounts that do not add up
+tier: life event
+aim: to keep a sharp eye on money
+aim_role: spark
+stages: juvenile young_adult adult mature elder
+age: 14-80
+per_year: 0 .3 .5 .5 .4 .2
+tone: trouble
+life: money, work
+horizon: week
+roles: boss, colleague, friend, parent
+earth: the books of the club, the shop or the family firm, with a gap nobody can explain
+tribal: the clan's winter stores, fewer baskets than the tally sticks say
+magic: the vault-book of a merchant house that does not match the coin in the vault
+scene: {N} has been handed the books of the club, or the shop, or the family firm, and there is a gap in them that nobody can explain.
+scene W: {N} wants every figure right, and right in writing.
+scene U: {N} has the columns spread across the table and a feeling the answer is in the dates.
+scene B: Someone has been careless, or clever, and {N} wants to know which, and what it is worth.
+scene R: {N} is itching to rip the whole system up and start again.
+scene G: The firm feeds three families, and {N} keeps thinking of them while turning the pages.
+scene tribal: The clan's winter stores were counted at the first frost, and now there are fewer baskets than the tally sticks say. The elders want {N} to find out why.
+scene magic: The vault-book of the merchant house does not match the coin in the vault, and the steward has given {N} three days to find the missing sum.
+- W | go through every line twice, and report exactly what you find | v: conformity, security | foot: lesson write everything down | chance: 70
+- U | trace the gap back through the dates until the pattern shows | v: self-direction, achievement | dream: test | foot: mark learned a skill | chance: 60
+- B | find the gap, and keep quiet about it until it is useful | v: power, security | dream: test | foot: door kept it hidden | chance: 55
+- R | throw out the old ledgers and set up a new system from scratch | v: stimulation, self-direction | foot: means time-.06 | chance: 50
+- G | ask the old bookkeeper over a cup of tea how it used to be done | v: tradition, benevolence | foot: person mentor | chance: 80
+- W>R | call a meeting of the committee and lay the whole thing on the table, loudly | v: conformity, stimulation | foot: place rule.counsel | chance: 55
+- U>G | build a simple sheet so that anyone in the family can follow the money | v: self-direction, benevolence | foot: means ties+.04 | chance: 75
+- B>W | offer to keep the books properly from now on, for a fee | v: power, security | foot: means money+.05 | chance: 65
+- R>U | sign up for the night course in accounts on a whim | v: stimulation, self-direction | foot: place learn.higher | chance: 75
+- G>B | quietly cover the gap from your own savings, to spare the family | v: benevolence, security | foot: means money-.06 | chance: 85
+works: The gap closes at last: a payment made twice, three years back, and {N} can prove it.
+works: The books balance to the last coin, and {N} sleeps well for the first time in a week.
+fails: The figures refuse to meet, and the gap is still there at the end of the month.
+fails: {N} finds the mistake, and makes a new one fixing it.
+
+# ---------------------------------------------------------------- to study the old texts (U B, cycle s4)
+
+== the page in the old tongue
+tier: life event
+aim: to study the old texts
+aim_role: spark
+stages: juvenile young_adult adult mature elder
+age: 14-90
+per_year: 0 .3 .4 .4 .4 .4
+tone: joy
+life: faith, learning
+horizon: months
+roles: mentor, elder, grandparent, rival
+earth: a page of the old book of the faith in its first tongue, and a translation that says something else
+tribal: the oldest telling of the first people, with words in it that nobody alive understands
+magic: the temple's first scroll, in a tongue only three scholars of the realm can read
+scene: In the back of {Ns} old book of the faith there is a page in the first tongue, and the translation beside it does not say the same thing.
+scene W: {N} has always trusted the translation, and wants to keep trusting it.
+scene U: {N} has started a list of words in the old tongue, and the list is longer every week.
+scene B: Whoever can read this page will know something the preachers do not, and {N} would like to be that person.
+scene R: The page feels alive, as if someone is shouting through it from very far away.
+scene G: The book was {grandparent}'s, and the old tongue was spoken in the family once.
+scene tribal: The oldest telling of the first people has words in it that nobody alive understands. {elder} says the meaning went with the last old singer.
+scene magic: The temple's first scroll is in a tongue only three scholars in the realm can read, and one of them has just agreed to see {N}.
+- W | take the page to the minister and ask for the accepted reading | v: tradition, conformity | foot: place faith.congregation | chance: 80
+- U | learn the old tongue word by word until the page reads itself | v: self-direction, achievement | dream: test | foot: mark learned a skill | chance: 50
+- B | find the one scholar who reads it, and make yourself useful to them | v: power, achievement | dream: test | foot: person mentor | chance: 55
+- R | read the page aloud over and over until it means something | v: stimulation, self-direction | foot: lesson words carry more than meaning | chance: 60
+- G | ask {grandparent} how the old words sounded at home | v: tradition, benevolence | bond: grandparent +.1 | chance: 85
+- W>G | join the study group that meets in the old chapel on Thursdays | v: conformity, benevolence | foot: place gather.talk | chance: 78
+- U>W | get a reader's ticket for the old collection at the university | v: self-direction, conformity | grants: reader's ticket | foot: place learn.keeping | chance: 75
+- B>U | argue the new reading at the study night, and see who has an answer | v: power, self-direction | foot: person rival | chance: 50
+- R>B | post the new reading online, and let the arguments come | v: stimulation, power | foot: mark defied an authority | chance: 55
+- G>R | close the book, and leave the old words in peace | v: tradition, security | dream: drop | foot: lesson not every door needs opening | chance: 90
+works: One word at a time the page opens, and what it says is stranger and kinder than the translation.
+works: {N} reads the first line in the old tongue unaided, and has to sit down.
+fails: The old words stay shut, and the dictionary only argues with itself.
+fails: Every reading {N} tries falls apart at the same word.
+
+# ---------------------------------------------------------------- to cook like nobody else (U R, cycle s1)
+
+== the dish that has never been made before
+tier: life event
+aim: to cook like nobody else
+aim_role: spark
+stages: juvenile young_adult adult mature elder
+age: 12-80
+per_year: 0 .3 .5 .5 .4 .2
+tone: joy
+life: home, work
+horizon: moment
+roles: friend, grandparent, mentor, rival
+earth: an idea for a dish nobody has cooked, and a friend coming to dinner tonight
+tribal: a beast the hunters have brought in that nobody has cooked before, and an idea for the herbs
+magic: one night in the inn's kitchen, with spices from across the realm and a room full of travellers
+scene: {N} has an idea for a dish nobody has cooked, a strange pairing that might be wonderful, and {friend} is coming to dinner tonight.
+scene W: {N} has the recipe written out neatly on a card, with every measure to the gram.
+scene U: {N} has been testing the pairing in tiny batches all week, writing down every result.
+scene B: If this works it goes on the menu, and the menu has {Ns} name at the top.
+scene R: {N} is cooking from a feeling, and the feeling is very strong tonight.
+scene G: The dish starts from {grandparent}'s old stew, with one wild thing added.
+scene tribal: The hunters have brought in a beast nobody has cooked before, and {N} has the fire, the herbs and an idea.
+scene magic: The innkeeper has let {N} have the kitchen for one night, with spices from across the realm and a dining room full of travellers.
+- W | cook it exactly to the card, and serve it on time | v: conformity, security | foot: lesson measures matter | chance: 75
+- U | cook three small versions and taste them side by side | v: self-direction, achievement | dream: test | foot: mark learned a skill | chance: 65
+- B | put it on the specials board tonight, with your name beside it | v: achievement, power | foot: means money+.04 | chance: 50
+- R | throw in the wild ingredient at the last minute, and trust it | v: stimulation, hedonism | dream: test | foot: mark took a wild risk | chance: 50
+- G | cook it for the whole family, and let {grandparent} judge | v: tradition, benevolence | bond: grandparent +.1 | chance: 80
+- W>U | ask the head cook at the restaurant for a lesson in the technique first | v: conformity, self-direction | foot: person mentor | chance: 70
+- U>B | write the recipe down, and keep it to yourself | v: self-direction, power | foot: lesson keep the best thing back | chance: 85
+- B>R | challenge {rival} to a cook-off, winner takes the kitchen | v: power, stimulation | foot: person rival | chance: 50
+- R>G | cook it at a street-food stall at the Saturday market | v: stimulation, universalism | foot: place comm.market | chance: 60
+- G>W | cook a huge pot of it for the community kitchen | v: benevolence, conformity | foot: place gather.hall | chance: 80
+works: The first forkful stops the table talking, and {friend} asks for the recipe.
+works: The strange pairing works, better than {N} dared hope, and the plate comes back clean.
+fails: The wild ingredient wins, and the dish tastes of nothing else.
+fails: Dinner is late, then burnt, and they send out for food.
+
+# ---------------------------------------------------------------- to speak every language I meet (U R, cycle s2)
+
+== lost for words in a strange town
+tier: life event
+aim: to speak every language I meet
+aim_role: spark
+stages: juvenile young_adult adult mature elder
+age: 14-80
+per_year: 0 .3 .5 .4 .4 .3
+tone: mixed
+life: travel, learning
+horizon: week
+roles: friend, teacher, a stallholder, a family at the next table
+earth: a town where nobody speaks a word one knows, after the last bus has gone
+tribal: a fire past the last of the clan's trading places, where the people speak a tongue nobody back home has heard
+magic: a land of the realm beyond the mountain pass, where the speech is old and the inn sign means nothing
+scene: {N} is in a town where nobody speaks a word {N} knows, the last bus has gone, and the woman at the stall is asking something, kindly and fast.
+scene W: {N} has a phrasebook and intends to use it properly, page by page.
+scene U: {N} has noticed that the same three sounds keep coming back, and is sure they mean something.
+scene B: {N} needs a bed for the night at a fair price, and knows the price goes up for people who cannot ask.
+scene R: {N} is lost, a little scared, and more alive than in months.
+scene G: {N} keeps watching how the families at the next table talk, and wants to be let in.
+scene tribal: {N} has walked past the last of the clan's trading places, and the people at this fire speak a tongue nobody back home has heard.
+scene magic: {N} has come through the mountain pass into a land where the speech is old and strange, and the inn sign means nothing.
+- W | find the right page of the phrasebook and ask, word by careful word | v: conformity, security | foot: lesson manners need few words | chance: 70
+- U | point, listen hard, and repeat every word back until you have ten | v: self-direction, achievement | dream: test | foot: mark learned a skill | chance: 60
+- B | haggle for a room with numbers on your fingers, and win | v: power, achievement | foot: means money+.03 | chance: 55
+- R | follow the stallholder's waving hands wherever they lead | v: stimulation, self-direction | dream: test | foot: person friend | chance: 60
+- G | sit with the family at the next table until they make room | v: benevolence, tradition | foot: means ties+.04 | chance: 70
+- W>B | find someone official who speaks a little of your tongue | v: conformity, security | foot: person go-between | chance: 65
+- U>R | stay a month in the town and learn the speech from the street up | v: self-direction, stimulation | foot: means time-.08 | chance: 55
+- B>G | pay a local youngster to be guide and teacher for the week | v: power, benevolence | foot: person teacher | chance: 70
+- R>W | sing the one song you both know, and let the whole stall join in | v: stimulation, benevolence | foot: lesson songs need no translation | chance: 65
+- G>U | take the first bus home in the morning, and stay home | v: security, tradition | dream: drop | foot: mark came home | chance: 90
+works: By the end of the week {N} can order bread, argue the price and tell a joke that nearly works.
+works: The stallholder laughs at {Ns} accent, then teaches {N} ten words over tea.
+fails: Every try comes out wrong, and {N} spends a cold night in the bus shelter.
+fails: {N} learns one word, and it turns out to be a rude one.
+
+# ---------------------------------------------------------------- to fall for a mind as quick as mine (U R, cycle s3)
+
+== the argument that turns into something else
+tier: life event
+aim: to fall for a mind as quick as mine
+aim_role: spark
+stages: juvenile young_adult adult mature
+age: 16-65
+per_year: 0 .2 .5 .4 .2 0
+tone: joy
+life: love, friends
+horizon: week
+roles: prospect, friend, ex, rival
+earth: an argument at a party about something that does not matter, that neither side wants to end
+tribal: a game of riddles at the gathering of the clans, and someone who answers every one with a harder one
+magic: three evenings in the tower library, disagreeing about one line of an old book
+scene: At a party {N} and {prospect} have been arguing for an hour about something that does not matter, and neither of them wants to stop.
+scene W: {N} keeps the argument fair, and notices that {prospect} does too.
+scene U: Every time {N} thinks the point is won, {prospect} finds a new angle, and {N} has never enjoyed losing so much.
+scene B: {N} wants to win, and wants {prospect} to see it.
+scene R: {Ns} heart is going faster than the argument deserves.
+scene G: {N} keeps noticing how {prospect} listens, really listens, before answering.
+scene tribal: At the gathering of the clans, {prospect} has answered every one of {Ns} riddles with a harder one, and the fire is burning low.
+scene magic: In the tower library, {prospect} has disagreed with {N} about one line of an old book for three evenings running.
+- W | concede the good point graciously, and ask to carry on tomorrow | v: benevolence, conformity | foot: lesson a good loser is remembered | chance: 75
+- U | push the argument somewhere neither of you has been before | v: self-direction, stimulation | dream: test | bond: prospect +.1 | chance: 65
+- B | win the argument outright, and watch {prospect} take it | v: power, achievement | foot: means ties-.03 | chance: 55
+- R | say out loud that this is the best evening in years | v: stimulation, hedonism | dream: seal | title: girlfriend or boyfriend | chance: 50
+- G | walk {prospect} home, and keep talking at the gate | v: benevolence, security | foot: person prospect | chance: 75
+- W>R | swap numbers, and set a date to finish the argument properly | v: conformity, stimulation | foot: door kept your word | chance: 80
+- U>G | lend {prospect} the book that started it, with notes in the margins | v: self-direction, benevolence | foot: door made a friend | chance: 80
+- B>W | take {friend} aside and ask what they know about {prospect} | v: power, security | foot: person go-between | chance: 70
+- R>U | slip out of the party with {prospect} to argue somewhere quieter | v: stimulation, self-direction | foot: mark took a wild risk | chance: 60
+- G>B | step back, and leave {prospect} to {friend}, who saw them first | v: benevolence, security | dream: drop | bond: friend +.1 | chance: 85
+works: By the end of the night they have agreed on nothing at all, and {N} has {prospect}'s number.
+works: The argument goes on for weeks, over coffee and long walks, and stops being an argument.
+fails: {prospect} goes home with someone who agreed with everything.
+fails: The point is won, and the evening is lost.
+
+# ---------------------------------------------------------------- to raise children who question everything (U R, cycle s4)
+
+== the night of a hundred whys
+tier: life event
+aim: to raise children who question everything
+aim_role: spark
+stages: young_adult adult mature
+age: 20-60
+needs: children
+per_year: 0 0 .4 .5 .3 0
+tone: joy
+life: children, family
+horizon: moment
+roles: child, partner, parent, grandparent
+earth: a child's why, long past bedtime, and then forty more
+tribal: a child under the stars asking why the moon follows the band when it moves camp
+magic: a child asking why the tower's lights never go out, and why the masters lock their books
+scene: It is long past bedtime, and {child} has asked why the sky goes dark, and then why, and then why again, forty times, and {N} is running out of answers.
+scene W: {N} knows bedtime matters, and so does the question.
+scene U: {N} is delighted, and a little worried about question forty-one.
+scene B: {N} wants {child} to be the sharpest one in the class, and this is how it starts.
+scene R: {N} would happily stay up all night with this, bedtime or not.
+scene G: {N} remembers asking {parent} the same things, and being told to hush.
+scene tribal: Under the stars {child} has asked why the moon follows the band when it moves camp, and why, and why again.
+scene magic: {child} has asked why the tower's lights never go out, and why the masters keep their books locked, and why again.
+- W | answer the first three, and promise to look up the rest tomorrow | v: conformity, benevolence | foot: door kept your word | chance: 80
+- U | answer each why with a question that lets {child} work it out | v: self-direction, benevolence | dream: test | bond: child +.1 | chance: 65
+- B | enter {child} for the junior quiz team at the town library | v: achievement, power | foot: place learn.keeping | chance: 70
+- R | throw open the window and look at the stars together until midnight | v: stimulation, hedonism | dream: test | foot: lesson wonder is worth lost sleep | chance: 85
+- G | ring {parent} so that {child} can ask them too | v: tradition, benevolence | bond: parent +.1 | chance: 80
+- W>G | make it a family rule: every question gets its turn at dinner | v: conformity, benevolence | foot: means time-.04 | chance: 75
+- U>W | buy a proper encyclopedia and look things up together, every night | v: self-direction, conformity | foot: means money-.04 | chance: 85
+- B>U | tell {child} to put the question to the teacher tomorrow, and see what happens | v: power, self-direction | foot: door defied an authority | chance: 55
+- R>B | build a rocket in the garden at the weekend to find out | v: stimulation, achievement | foot: mark learned a skill | chance: 60
+- G>R | tell {child} it is a mystery, and some things are allowed to stay one | v: tradition, stimulation | dream: drop | foot: lesson a mystery can be kept | chance: 85
+works: Somewhere around the thirtieth why, {child} answers one alone, and is very pleased about it.
+works: {child} falls asleep in the middle of a question, and asks the next one at breakfast.
+fails: {N} runs out of answers and snaps, and {child} goes quiet in a way that lasts.
+fails: The questions go round in a circle, and everyone goes to bed cross.
