@@ -1085,13 +1085,17 @@ def _aims_load(world, PK):
     """Aims v1 (plan.md section 5; the packs' format in chroma-packs/tools/check_aims.py, the Library's four more fields in
     chroma-library/tests/check_aims.py): the Library's AIMS_<WORLD> (<world>_aims.py) and each loaded pack's AIMS_<PACK>,
     in that order; the spark moments (<world>_aim_moments.py SITUATIONS); and, with packs, the Historic marker [a work
-    that outlives you] (core/legacy.py PERKS_AIMS) with its rule, whose req is the or of the loaded packs' LEGACY_<PACK>.
+    that outlives you] (core/legacy.py PERKS_AIMS) with its rule, whose req is the or of LEGACY_<WORLD> (the world's
+    own callings, in <world>_aims.py) and the loaded packs' LEGACY_<PACK>.
     The marker joins the packs' perks and rules here, before the catalogue is built."""
     table = {}; sits = []; legacy = []
     ap_ = os.path.join(LIB_DIR, f"{world}_aims.py")
     if os.path.exists(ap_):
-        for nm, x in getattr(_module(ap_, f"chroma_{world}_aims"), f"AIMS_{world.upper()}", {}).items():
+        am_ = _module(ap_, f"chroma_{world}_aims")
+        for nm, x in getattr(am_, f"AIMS_{world.upper()}", {}).items():
             table[nm] = dict(x, src=world)
+        if getattr(am_, f"LEGACY_{world.upper()}", None):   # the world's own callings' way to the Historic marker
+            legacy.append(str(getattr(am_, f"LEGACY_{world.upper()}")))
     mp_ = os.path.join(LIB_DIR, f"{world}_aim_moments.py")
     if os.path.exists(mp_):
         sits = [copy.deepcopy(x) for x in _module(mp_, f"chroma_{world}_aim_moments").SITUATIONS]

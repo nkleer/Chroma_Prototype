@@ -316,3 +316,30 @@ def drop_aim(S, n, q):
         return False
     S["aim_end"](n, int(q), "let go")
     return True
+
+
+def aim_ways(S, n):
+    """At the "choose" pause: which options are a way into the next step of an aim person n holds, {k: [dict(slot, aim,
+    step (its say), height, if_fails)]}: the option gives (title or grants) one of that step's names when it works, or
+    when it fails (if_fails). The moment itself may be a door to the step through another option; only the options
+    that give it are named. Read-only; {} with aims off."""
+    if not S.get("AIM_ON"):
+        return {}
+    L = S["L"]; GR = L["ROLES"]; A = S["AIM"]; s = int(S["s"][n]); K = S["e"].shape[1]
+    nxt = []
+    for q in np.nonzero(S["ak"][n] >= 0)[0]:
+        x = A["aims"][int(S["ak"][n, q])]; k_ = int(S["astep"][n, q])
+        if k_ < len(x["steps"]):
+            nxt.append((int(q), x, x["steps"][k_]))
+    out = {}
+    for k in range(K):
+        if not S["mask"][n, k] or S["do_nothing"][n, k] or (s, k) not in GR["A_FX"]:
+            continue
+        for when in ("ok", "fail"):
+            gives = {j for op_, j, _ in GR["A_FX"][(s, k)][when] if op_ in ("title", "grants") and j >= 0}
+            for q, x, st in nxt:
+                if gives & set(int(j) for j in st["any"]):
+                    out.setdefault(k, []).append(dict(slot=q, aim=x["name"], step=st["say"],
+                                                      height=E.AIM_HEIGHTS[st["h"] - 1] if st["h"] else None,
+                                                      if_fails=when == "fail"))
+    return out
