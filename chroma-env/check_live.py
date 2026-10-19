@@ -6,12 +6,20 @@
 Exit code 0 when nothing recorded changed or went missing (new files are listed but do not fail the check).
 
 Versions, with their folders named in paths.py:
-   v23    live since 2026-10-18 18:13 UTC (release/v23 = 9e8db31, artifact version 1792347212-f059): game_live,
-          engine_live, game_tools; live-v23-manifest.txt. Picks come back, the spheres pack, Stakes on the card and the
-          Living HUD (chroma-release/records/v23): the refit engine, its re-pin and the rarity table, 52 Library files
-          changed and 6 new .lib sources, the game's code and page (the page's script and style now in parts;
-          web/src/app.js is gone, so the shared folder's old copy shows as new), two chroma-art/game files and two
-          chroma-game/tools files (100 files changed, 74 new); the packs are v22.4's
+   v23.1  live since 2026-10-19 11:47 UTC (release/v23.1 = e69b3bf, artifact version 1792410461-e65a): game_live,
+          engine_live, game_tools; live-v23.1-manifest.txt, written from release/v23.1 after pin.py filled its
+          engine_pin/. The backend by function and the cause lines switched on (chroma-release/records/v23.1): the
+          engine in parts (run_, rules_, world_ and world_link_ files, joined by parts.py), the game's engine_pin/ no
+          longer committed but filled by chroma-game/tools/pin.py (its PINNED*.txt are gone, so the shared folder's old
+          copies show as new), the cause words in three Library files, 8 new .lib sources for Bold ways (off), and the
+          game's code, tests and page (42 files changed, 113 new); the packs, the pictures and the rarity table are v23's
+   v23    the rollback, in the same folders, live 2026-10-18 18:13 UTC to 2026-10-19 11:47 UTC (release/v23 = 9e8db31,
+          artifact version 1792347212-f059): live-v23-manifest.txt. Picks come back, the spheres pack, Stakes on the
+          card and the Living HUD (chroma-release/records/v23): the refit engine, its re-pin and the rarity table, 52
+          Library files changed and 6 new .lib sources, the game's code and page (the page's script and style now in
+          parts; web/src/app.js is gone, so the shared folder's old copy shows as new), two chroma-art/game files and
+          two chroma-game/tools files (100 files changed, 74 new); the packs are v22.4's. v23.1 changed 42 of its
+          files, so its check shows them as changed (release/v23 holds them)
    v22.5  the rollback, in the same folders, live 2026-10-12 21:58 UTC to 2026-10-18 18:13 UTC (release/v22.5 = 802258f,
           artifact version 1791842297-d1de): live-v22.5-manifest.txt. The v22.5 realism round (chroma-release/records/v22.5):
           the engine, its re-pin and the rarity table, the Library's dreams.py and new earth_age_fit.py and worlds.py, the
@@ -50,7 +58,9 @@ A manifest is written from the shared folder only after its files match the rele
 
 An .svg or .webp is recorded and compared without the C2PA stamp the shared folder adds to it. Every recorded file is
 checked at the path it was recorded under; the folders paths.py names decide only which files are listed as new.
-Read-only on the project folder: it only hashes files. Caches (__pycache__) are skipped.
+Read-only on the project folder: it only hashes files. Caches (__pycache__) are skipped, and so is the game's
+engine_pin/FROM.txt (from v23.1 on, pin.py fills engine_pin/ at each checkout; FROM.txt names that checkout's folders, so
+it differs from one copy to the next, while every file it lists is recorded on its own row).
 """
 import hashlib, os, re, struct, sys
 
@@ -60,7 +70,7 @@ from paths import ROOT, NAMES  # noqa: E402
 LIB_PY = ["earth.py", "earth_perks_titles.py", "earth_voice.py", "earth_science.py", "earth_politics.py",
           "earth_stage.py", "dreams.py"]                         # plus every .lib at the top of library_live
 OLD_HELPERS = ["build_helpers/sync21.py", "build_helpers/pubmap.py"]
-LIVE = "v23"
+LIVE = "v23.1"
 # game, engine: the version's folders now; trees: folders listed whole; files: single files ("name" or "name/file");
 # moved: recorded path prefix -> the paths.py name of the folder it is read from now
 LIB_V22_2 = LIB_PY + ["earth_play.py", "earth_story.py"]
@@ -68,7 +78,9 @@ LIB_V22_3 = LIB_V22_2 + ["earth_spheres.py"]
 LIB_V22_4 = LIB_V22_3 + ["earth_art.py"]
 LIB_V22_5 = LIB_V22_4 + ["earth_age_fit.py", "worlds.py"]
 VERSIONS = {
-    "v23": dict(game="game_live", engine="engine_live", manifest="live_manifest", trees=["game_tools"],
+    "v23.1": dict(game="game_live", engine="engine_live", manifest="live_manifest", trees=["game_tools"],
+                  files=[], lib=LIB_V22_5, packs=["core", "politics", "science", "stage", "art"]),
+    "v23": dict(game="game_live", engine="engine_live", manifest="live_manifest_v23", trees=["game_tools"],
                 files=[], lib=LIB_V22_5, packs=["core", "politics", "science", "stage", "art"]),
     "v22.5": dict(game="game_live", engine="engine_live", manifest="live_manifest_v22_5", trees=["game_tools"],
                   files=[], lib=LIB_V22_5, packs=["core", "politics", "science", "stage", "art"]),
@@ -111,7 +123,8 @@ def listing(version):
     for f in v["files"]:
         name, _, rest = f.partition("/")
         out.append(os.path.join(ROOT, rel(name, rest) if rest else rel(name)))
-    return list(dict.fromkeys(out))
+    pin_from = os.path.join(rel("game_live"), "engine_pin", "FROM.txt")
+    return [p for p in dict.fromkeys(out) if os.path.relpath(p, ROOT) != pin_from]
 
 
 def md5(p):
