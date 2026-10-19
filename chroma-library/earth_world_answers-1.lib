@@ -347,10 +347,10 @@ horizon: years
 roles: colleague, rival, regular
 earth: the council must settle how late the square may trade and play, and {N}'s word now carries
 scene: Every summer the square fills later and louder: the cafes want to stay open past midnight, the flats above want to sleep, and the market traders want their pitches clear by dawn. The council has argued about it for two years. Now the bylaw sits with {N}, and what {N} proposes is what the council will pass.
-- W | one closing hour for every venue in the square, the same all year | v: conformity, universalism | scope: town_sphere | chance: 70
-- B | late licences for any venue that applies and pays the fee | v: achievement, power | scope: town_sphere | chance: 65
-- R | let the square stay open late on summer weekends, and see how it goes | v: hedonism, stimulation | scope: town_sphere | chance: 60
-- G | keep the old market-day hours, written into the bylaw | v: tradition, security | scope: town_sphere | chance: 75
+- W | one closing hour for every venue in the square, the same all year | v: conformity, universalism | scope: town_sphere | lever: lead | chance: 70
+- B | late licences for any venue that applies and pays the fee | v: achievement, power | scope: town_sphere | lever: fund | chance: 65
+- R | let the square stay open late on summer weekends, and see how it goes | v: hedonism, stimulation | scope: town_sphere | lever: found | chance: 60
+- G | keep the old market-day hours, written into the bylaw | v: tradition, security | scope: town_sphere | lever: loyalty | chance: 75
 works: The square settles into its new rhythm within a season, and the letters to the council thin out.
 works: {colleague} says it is the first bylaw in years that nobody has tried to overturn.
 fails: The flats and the cafes both feel cheated, and the complaints keep coming to {Ns} door.
@@ -368,9 +368,9 @@ horizon: years
 roles: colleague, rival, elder
 earth: a landowner has fenced an old footpath, and the panel {N} chairs must rule on it
 scene: A landowner has fenced the footpath that runs along the old mill race, saying it was never a right of way. Half the town walked it as children; the other half has never heard of it. The dispute has come to the council's rights-of-way panel, which {N} now chairs, and the ruling will set the rule for every path like it.
-- U | commission a survey of the old deeds, and rule by what they show | v: achievement, universalism | scope: town_sphere | chance: 70
-- G | rule for the path as the town has always walked it | v: tradition, security | scope: town_sphere | chance: 70
-- B>W | sell the strip to the landowner, and spend the money on the town's other paths | v: power, universalism | scope: town_sphere | chance: 60
+- U | commission a survey of the old deeds, and rule by what they show | v: achievement, universalism | scope: town_sphere | lever: lead | chance: 70
+- G | rule for the path as the town has always walked it | v: tradition, security | scope: town_sphere | lever: loyalty | chance: 70
+- B>W | sell the strip to the landowner, and spend the money on the town's other paths | v: power, universalism | scope: town_sphere | lever: exit | chance: 60
 works: The ruling holds, and within a year the path is simply part of how the town gets about.
 works: {elder} writes to the paper to say the panel has done right by the town, and others agree.
 fails: The landowner appeals, and the path stays fenced while the lawyers take their time.
@@ -388,9 +388,10 @@ horizon: years
 roles: colleague, rival, boss
 earth: the council asks {N} to propose a new way of filling its committees
 scene: The council's committees have been filled the same way for as long as anyone remembers: the members pick each other. Turnout is low, the same names keep coming round, and the papers have started calling it a closed shop. {N} has been asked to put forward a new way, and the council will take whatever {N} brings.
-- W | open every committee seat to election by the wards | v: universalism, conformity | scope: town_sphere | chance: 65
-- U | appoint members by what they know of the matter in hand | v: achievement, self-direction | scope: town_sphere | chance: 70
-- R | draw some members by lot from the residents, for one year at a time | v: universalism, stimulation | scope: town_sphere | chance: 55
+- W | open every committee seat to election by the wards | v: universalism, conformity | scope: town_sphere | lever: voice | chance: 65
+- U | appoint members by what they know of the matter in hand | v: achievement, self-direction | scope: town_sphere | lever: lead | chance: 70
+- R | draw some members by lot from the residents, for one year at a time | v: universalism, stimulation | scope: town_sphere | lever: found | chance: 55
+- B | quietly fill the open seats with people who owe {N} a favour | v: power, achievement | scope: town_sphere | lever: subvert | chance: 60
 works: The new committees meet for the first time with faces nobody has seen there before, and the papers notice.
 works: {colleague} admits, after a year, that the meetings are better than they used to be.
 fails: The first year is slow and quarrelsome, and the old members say they told everyone so.
@@ -408,9 +409,9 @@ horizon: years
 roles: colleague, rival, boss
 earth: a national bill would let residents recall their officials by petition, and {N} is asked where the town stands
 scene: A bill in the national assembly would let residents remove any local official before the end of a term, if enough of them sign a petition. {Ns} name now carries beyond the town, and both sides want it. The minister's office has asked {N} to give evidence, and the town council wants to know which way {N} will go before it decides its own position.
-- G | keep the town's charter as it stands: it has served for generations | v: tradition, security | scope: town_sphere | chance: 70
-- R>W | back the bill: any official can be recalled if enough residents sign | v: self-direction, universalism | scope: nation | chance: 45
-- U>B | propose a trial in this town first, with every result measured and published | v: achievement, self-direction | scope: town_sphere | chance: 60
+- G | keep the town's charter as it stands: it has served for generations | v: tradition, security | scope: town_sphere | lever: loyalty | chance: 70
+- R>W | back the bill: any official can be recalled if enough residents sign | v: self-direction, universalism | scope: nation | lever: voice | chance: 45
+- U>B | propose a trial in this town first, with every result measured and published | v: achievement, self-direction | scope: town_sphere | lever: found | chance: 60
 works: {Ns} evidence is quoted in the assembly, and the town's own council follows {N} the same week.
 works: The way {N} put it becomes the way people in town talk about the question.
 fails: The assembly hears {N} out and does what it was going to do anyway.
@@ -430,10 +431,10 @@ horizon: years
 roles: boss, colleague, rival
 earth: the watch must settle how it covers the town after dark, and {N} has the say
 scene: After a winter of break-ins on the east side, the watch at {place} is rethinking how it covers the town at night. There are only so many officers and so many hours. {boss} has asked {N} to decide the new plan, and whatever {N} chooses will be how the town is walked for years.
-- W | fixed patrols on every street, the same for every ward | v: universalism, security | scope: town_sphere | chance: 70
-- U | send the patrols where the figures show the trouble is | v: achievement, security | scope: town_sphere | chance: 70
-- B | let traders who pay towards it have extra patrols on their streets | v: power, security | scope: town_sphere | chance: 65
-- G | bring back officers who walk the same streets for years and know the families | v: tradition, benevolence | scope: town_sphere | chance: 65
+- W | fixed patrols on every street, the same for every ward | v: universalism, security | scope: town_sphere | lever: lead | chance: 70
+- U | send the patrols where the figures show the trouble is | v: achievement, security | scope: town_sphere | lever: lead | chance: 70
+- B | let traders who pay towards it have extra patrols on their streets | v: power, security | scope: town_sphere | lever: fund | chance: 65
+- G | bring back officers who walk the same streets for years and know the families | v: tradition, benevolence | scope: town_sphere | lever: loyalty | chance: 65
 works: The break-ins fall off by spring, and people on the east side start leaving their lights off again.
 works: {colleague} says the night shifts have never run so smoothly.
 fails: The trouble simply moves to the streets the patrols do not cover, and the letters follow it.
@@ -451,9 +452,10 @@ horizon: years
 roles: colleague, boss, rival
 earth: the rescue team has more volunteers than it can safely send, and {N} must set how it takes people on
 scene: The rescue team at {place} has twice as many willing volunteers as it can safely send out, and two near misses this year. The old hands want stricter rules, the new ones want to be useful now, and the treasurer says the team cannot go on unpaid much longer. {N} has been asked to set how the team takes people on.
-- W | every volunteer passes the full course before going out on a call | v: conformity, security | scope: place | chance: 75
-- R | take anyone willing, and train them on the calls themselves | v: stimulation, benevolence | scope: place | chance: 55
-- B | keep a small paid crew, funded by fees on rescues from closed paths | v: achievement, power | scope: place | chance: 60
+- W | every volunteer passes the full course before going out on a call | v: conformity, security | scope: place | lever: lead | chance: 75
+- R | take anyone willing, and train them on the calls themselves | v: stimulation, benevolence | scope: place | lever: found | chance: 55
+- B | keep a small paid crew, funded by fees on rescues from closed paths | v: achievement, power | scope: place | lever: fund | chance: 60
+- G | sign off the old hands' lapsed certificates, as a favour for their long years | v: tradition, benevolence | scope: place | lever: subvert | chance: 60
 works: A year on, the team goes out with more confidence than it ever has, and there have been no more near misses.
 works: {colleague} tells the newcomers that the way they are taken on now is the best thing that happened to the team.
 fails: Half the volunteers drift away in the first season, unhappy with the change.
@@ -471,10 +473,10 @@ horizon: months
 roles: boss, colleague, rival
 earth: a large march is coming through town, and {N} must plan how the watch will handle it
 scene: A large march is coming through the town centre next month, over the closing of the works, and feelings are high on both sides. The watch has to decide how to handle it, and {boss} has handed the plan to {N}. The way it goes will be remembered, by the marchers and by the shopkeepers, long after the day.
-- W | police the march by the book, with the same rules as every march | v: conformity, universalism | scope: town_sphere | chance: 70
-- U | meet the organisers beforehand, and plan the route from what is known | v: security, achievement | scope: town_sphere | chance: 70
-- R | let the march go where it will, with officers walking alongside | v: self-direction, stimulation | scope: town_sphere | chance: 55
-- G>W | ask the march's own stewards to keep order, with the watch at a distance | v: benevolence, conformity | scope: town_sphere | chance: 60
+- W | police the march by the book, with the same rules as every march | v: conformity, universalism | scope: town_sphere | lever: lead | chance: 70
+- U | meet the organisers beforehand, and plan the route from what is known | v: security, achievement | scope: town_sphere | lever: voice | chance: 70
+- R | let the march go where it will, with officers walking alongside | v: self-direction, stimulation | scope: town_sphere | lever: neglect | chance: 55
+- G>W | ask the march's own stewards to keep order, with the watch at a distance | v: benevolence, conformity | scope: town_sphere | lever: loyalty | chance: 60
 works: The march passes through loud and peaceful, and both sides say afterwards that the watch got it right.
 works: The marchers' organiser sends {N} a short note of thanks, which {boss} pins on the board.
 fails: A scuffle by the square makes the evening news, and everyone has an opinion on whose fault it was.
@@ -492,9 +494,9 @@ horizon: years
 roles: boss, colleague, rival
 earth: the government is drawing up new rules on who checks the watch's work, and asks for {N}'s view
 scene: A row over a mishandled complaint in another town has reached the national papers, and the government is drawing up new rules on who checks the watch's work. {N} is known well beyond the town now, and the review has asked for {Ns} view. Whatever {N} says will be quoted in the assembly.
-- U>W | back a national review board that publishes every complaint and its outcome | v: universalism, achievement | scope: nation | chance: 45
-- B | keep oversight inside the force, where the chiefs answer for it | v: power, security | scope: town_sphere | chance: 65
-- G | let each town's own council oversee its own watch | v: tradition, security | scope: town_sphere | chance: 65
+- U>W | back a national review board that publishes every complaint and its outcome | v: universalism, achievement | scope: nation | lever: voice | chance: 45
+- B | keep oversight inside the force, where the chiefs answer for it | v: power, security | scope: town_sphere | lever: lead | chance: 65
+- G | let each town's own council oversee its own watch | v: tradition, security | scope: town_sphere | lever: loyalty | chance: 65
 works: The review's report quotes {N} on its first page, and the town's watch adopts the same way ahead of the law.
 works: {colleague} says the officers trust the new arrangement more than anyone expected.
 fails: The review goes another way entirely, and {Ns} evidence is a footnote.
@@ -514,10 +516,10 @@ horizon: years
 roles: colleague, boss, rival
 earth: the clinic's waiting list is eleven weeks long, and the board gives {N} the say on who is seen first
 scene: The waiting list at {place} has grown to eleven weeks, and everyone has an idea of what to do about it. The staff are tired, the patients are angry, and the board has given {N} the say on how the clinic decides who is seen first. Whatever {N} chooses, the other clinics across town will be watching to see if it works.
-- W | see patients strictly by need, as the clinic's written rules define it | v: universalism, conformity | scope: place | chance: 70
-- U | sort every patient by a scored assessment, and publish how it works | v: achievement, universalism | scope: place | chance: 65
-- B | open a paid evening list, and let its fees shorten the day list | v: achievement, power | scope: place | chance: 60
-- R | open two walk-in afternoons a week, first come, first seen | v: self-direction, benevolence | scope: place | chance: 60
+- W | see patients strictly by need, as the clinic's written rules define it | v: universalism, conformity | scope: place | lever: loyalty | chance: 70
+- U | sort every patient by a scored assessment, and publish how it works | v: achievement, universalism | scope: place | lever: lead | chance: 65
+- B | open a paid evening list, and let its fees shorten the day list | v: achievement, power | scope: place | lever: fund | chance: 60
+- R | open two walk-in afternoons a week, first come, first seen | v: self-direction, benevolence | scope: place | lever: found | chance: 60
 works: By the end of the year the list is down to five weeks, and the other clinics ask how it was done.
 works: {colleague} says the waiting room feels calmer than it has in years.
 fails: The list shrinks for a season and then grows back, and the board asks {N} what went wrong.
@@ -535,9 +537,10 @@ horizon: years
 roles: colleague, boss, rival
 earth: the care home's board asks {N} to decide how the residents' days will run
 scene: The care home at {place} is being asked to change: the families want more freedom for their parents, the staff want the routines that keep everyone safe, and the budget will not stretch to both. The board has asked {N} to decide how the home's days will run.
-- G | keep the old routines: meals at set hours, the same faces on every shift | v: tradition, security | scope: place | chance: 75
-- R | let residents set their own hours, outings and visits | v: self-direction, hedonism | scope: place | chance: 55
-- B>G | take paying residents to fund more staff in the shared rooms | v: power, benevolence | scope: place | chance: 60
+- G | keep the old routines: meals at set hours, the same faces on every shift | v: tradition, security | scope: place | lever: loyalty | chance: 75
+- R | let residents set their own hours, outings and visits | v: self-direction, hedonism | scope: place | lever: voice | chance: 55
+- B>G | take paying residents to fund more staff in the shared rooms | v: power, benevolence | scope: place | lever: fund | chance: 60
+- U | hold the inspection report back from the board until the new staff are hired | v: self-direction, security | scope: place | lever: subvert | chance: 55
 works: The residents settle into the new days, and one of the families sends the staff flowers.
 works: {colleague} says the home has not felt so much like a home in years.
 fails: The staff struggle with the change, and two of the best leave before the year is out.
@@ -555,9 +558,9 @@ horizon: years
 roles: colleague, neighbour, rival
 earth: the food bank {N} helped grow has outgrown its room, and {N}'s word settles what it becomes
 scene: The food bank that {N} helped grow now feeds four hundred households a month, and it has outgrown its back room. A supermarket chain has offered a warehouse and a van; the volunteers want to keep it small and close; the council asks why it has no forms. {N} is the one whose word settles it.
-- W | open to anyone who comes, with no forms and no questions | v: universalism, benevolence | scope: place | chance: 70
-- B | partner with the supermarket chain, and put its name on the van | v: achievement, power | scope: place | chance: 65
-- G | run it from the community halls, with neighbours cooking and serving | v: benevolence, tradition | scope: town_sphere | chance: 65
+- W | open to anyone who comes, with no forms and no questions | v: universalism, benevolence | scope: place | lever: loyalty | chance: 70
+- B | partner with the supermarket chain, and put its name on the van | v: achievement, power | scope: place | lever: fund | chance: 65
+- G | run it from the community halls, with neighbours cooking and serving | v: benevolence, tradition | scope: town_sphere | lever: found | chance: 65
 works: The food bank finds its feet in its new shape, and the queue moves faster than it ever did.
 works: {colleague} says it is the first time in years the volunteers have all pulled the same way.
 fails: Some of the old volunteers walk away, unhappy with the change, and the Saturdays are short of hands.
@@ -575,9 +578,9 @@ horizon: years
 roles: colleague, boss, rival
 earth: the country is arguing about how to pay for the care of old people, and the government's commission asks {N} to speak
 scene: The country is arguing about how to pay for the care of old people, and the government's commission wants to hear from those who have run it. {N} is one of the names it asked. The town's own care homes, waiting for whatever comes, want to know which way {N} will speak.
-- W | back a law that pays every care home the same rate for every resident | v: universalism, security | scope: nation | chance: 45
-- U | fund a study of what keeps old people well at home, before any reform | v: achievement, self-direction | scope: town_sphere | chance: 65
-- R>G | give every family a budget, to choose their own care close to home | v: self-direction, benevolence | scope: town_sphere | chance: 55
+- W | back a law that pays every care home the same rate for every resident | v: universalism, security | scope: nation | lever: voice | chance: 45
+- U | fund a study of what keeps old people well at home, before any reform | v: achievement, self-direction | scope: town_sphere | lever: fund | chance: 65
+- R>G | give every family a budget, to choose their own care close to home | v: self-direction, benevolence | scope: town_sphere | lever: found | chance: 55
 works: The commission's report carries {Ns} words, and the town's care homes start working to them before the law does.
 works: {colleague} says the way {N} spoke changed how the homes in town talk about their work.
 fails: The commission thanks {N} politely and goes another way.
