@@ -235,6 +235,15 @@ GAME = dict(
     # bold_rel reluctant. A bold try's follow-up link (a return the Engine plays) takes the place of an everyday ask.
     # Off until the whole branch's proof
     bold=False, bold_hint=0.10, bold_rel=0.15,
+    # Because of you, and meanwhile (chroma-ideas/next-table-2026-10-19/plan.md section 1; Emren "Clarity first" 10-19,
+    # v23.2), with the Engine's played-life key need_why: the outcome splits the needs the pick's week moved into what the
+    # pick did and what else happened, each with its cause, and a silent setback gets a short told line. Words only: no
+    # draws, so every step plays as before. On from v23.2 (Release's proof; GAME_OFF keeps it off)
+    because=True,
+    # v24 hover arrows (plan section 1): before a pick, each option's hover shows what it would move if it works and if
+    # it fails, as arrows in three sizes (a little, clearly, a lot) for needs, means, people and titles, from the
+    # Engine's forecast (foresee.arrows). No numbers before the choice. Read-only: every step plays as with it off
+    arrows=False,
 )
 BOLD_IX = 1000          # Bold ways: a bold way's number on the card, BOLD_IX + 100 x its slot + its base way (bix: the base)
 
@@ -245,7 +254,7 @@ def bix(k):
 
 
 LINE_WAIT_TAGS = {"read", "world", "world_year", "world_fx", "ordinary", "year", "fortune", "trouble", "memory", "seen", "talk",
-                  "temper", "healed", "hardened", "voice"}   # F10: the lines line_wait holds back (scenes, choices, deaths
+                  "temper", "healed", "hardened", "voice", "setback"}   # F10: the lines line_wait holds back (scenes, choices, deaths
 # and commitments are told whenever they happen)
 NEWS_ALL = {"war", "war_end", "pandemic", "recession", "world_recession", "revolution", "regime"}   # F10: news that touches
 # everyone, at any age (the rest of the national news from news_age)
@@ -257,7 +266,7 @@ GAME_OFF = dict(piv=0.0, piv_own=0.0, piv_steady=0.0, learn_full=False, lean=0.0
                 era_cost=0.0, backfire=0.0, turn_max=0, fig_own=False, own_ix=False, trust_judge=False, lines_tied=False,
                 own_mark="", lean_self=0.0, own_teach=0.0, dream_own=False, dream_firm=0.0, dream_help=0.0, hind_thin=0.5, season_need=0.0, season_calm=0.0, fork_k=0.0, fork_told=False, rung_ask=False,
                 world_hold=False, world_seed=False, faith_home=0.0,
-                line_wait=0.0, news_touch=False, rare_ask=False, returns=False, stakes=False, causes=False, causes_fold=False, bold=False,
+                line_wait=0.0, news_touch=False, rare_ask=False, returns=False, stakes=False, causes=False, causes_fold=False, bold=False, because=False, arrows=False,
                 own_stress=0.5, own_free=0.3, dream_fit=0.5, rare_imp=0.5)
 # v22.5's joint refit (chroma-engine/notes/v22.5-refit-plan.md §2, with the engine's V225): every v22.5 game switch on
 # with its fitted value. F12 world_hold (with the engine's own_open and start_hold), F15 world_seed, F10 line_wait and news_touch (the
