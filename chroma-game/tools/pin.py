@@ -19,8 +19,7 @@ engine_pin/ holds a PINNED.txt is a committed pin (a release branch, or main bef
 import argparse, filecmp, hashlib, os, re, shutil, sys
 
 TREE = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))   # the tree this script sits in
-ENG = ["engine.py", "library.py", "combos.py", "batch.py", "earth_rules.py", "foresee.py", "explain.py", "life.py", "schwartz.py",
-       "realm_earth.py"]
+ENG = ["engine.py", "library.py", "combos.py", "batch.py", "earth_rules.py", "foresee.py", "explain.py", "life.py", "schwartz.py"]
 LIB = ["earth.py", "earth_perks_titles.py", "earth_voice.py", "dreams.py", "earth_story.py", "earth_play.py", "earth_spheres.py",
        "worlds.py", "earth_age_fit.py"]   # plus earth_<pack>.py per pack
 PACK_FILES = ["catalogue.py", "roles.py", "helps.py"]                               # plus every core/*.py
@@ -57,6 +56,7 @@ def plan(EN, L, PK_DIR, ls=os.listdir, read=None, isfile=os.path.isfile):
     WLD = sorted(f for f in names if re.fullmatch(r"world(_\w+)?\.py", f) and not re.match(r"world_(stats|check|test)", f))
     WLD += sorted(f for f in names if re.fullmatch(r"sphere_\w+\.py", f))   # the spheres' tables and fitted event bases
     WLD += sorted(f for f in names if f == "parts.py" or re.fullmatch(r"(run|rules)_\w+\.py", f))   # the engine by function
+    WLD += sorted(f for f in names if re.fullmatch(r"realm_\w+\.py", f))   # each realm's constants (realm_earth.py)
     pins = [(os.path.join(EN, f), f) for f in ENG + WLD]
     pins += [(os.path.join(L, f), f) for f in LIB + [f"earth_{p}.py" for p in PK]]
     pins += [(os.path.join(PK_DIR, "core", f), f"packs/core/{f}") for f in sorted(ls(os.path.join(PK_DIR, "core"))) if f.endswith(".py")]
