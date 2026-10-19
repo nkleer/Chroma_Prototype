@@ -1058,8 +1058,8 @@ fails: The class folds, and {N} gives up the groups and evenings that were left.
 
 == bold: a novel in the home tongue / W
 base: ask the school to teach the home tongue to every child who wants it
-likelier_if: has [campaigning] +10; has [second language] +5; has [public speaking] +5
-- W | lead a petition for the home tongue in every school, with your name first | v: universalism, tradition | act: lead a petition for the home tongue in every school, with their name first | chance: 35 | title: activist in a cause | drops_if_fails: kind:community
+likelier_if: has [organising people] +10; has [second language] +5; has [public speaking] +5
+- W | lead a petition for the home tongue in every school, with your name first | v: universalism, tradition | act: lead a petition for the home tongue in every school, with their name first | chance: 35 | title: campaigning | drops_if_fails: kind:community
 works: The petition fills three books of names, the council agrees, and {N} is the voice of the home tongue's cause from then on.
 works: {N} carries the petition into the town hall, the home tongue goes on the timetable, and {N} keeps working for the cause for years.
 fails: The council turns the petition down, {Ns} own club splits over it, and {N} is asked to leave.
@@ -1079,7 +1079,7 @@ tier: link
 of_bold: a novel in the home tongue / W
 side: well
 delay: 1-3
-holds: activist in a cause
+holds: campaigning
 stages: juvenile+
 age: 13-98
 stakes: .6
@@ -1103,7 +1103,7 @@ fails: The first term is a muddle, and some parents pull their children out.
 == bold: the old ones in the new classroom / G
 base: bring the old ones into the classroom to teach in their own words
 likelier_if: has [second language] +10; has [teaching] +10
-- G | sit beside the old ones in every lesson, and learn the tongue with the children | v: tradition, benevolence | chance: 30 | grants: second language | takes_if_fails: activist in a cause
+- G | sit beside the old ones in every lesson, and learn the tongue with the children | v: tradition, benevolence | chance: 30 | grants: second language | takes_if_fails: campaigning
 works: By the end of the year {N} speaks, reads and writes the home tongue as well as any of the old ones.
 works: {N} learns the tongue properly beside the children, and speaks it at every meeting after.
 fails: The council hears that the class is taught by people with no papers, closes it, and {N}, worn down, gives up the cause.

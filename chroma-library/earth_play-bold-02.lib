@@ -693,8 +693,8 @@ fails gone: The nights wear {N} down, a shift is slept through, and the job goes
 
 == bold: the hall on the corner is shut / R
 base: stand outside the shut hall with those who want it open again
-likelier_if: mark 'defied an authority' +10; has [campaigning] +10
-- R | go inside the shut hall with the others, and refuse to leave until it opens | v: universalism, stimulation | act: go inside the shut hall with the others, and refuse to leave until it opens | chance: 35 | title: activist in a cause | title_if_fails: someone with a record
+likelier_if: mark 'defied an authority' +10; has [organising people] +10
+- R | go inside the shut hall with the others, and refuse to leave until it opens | v: universalism, stimulation | act: go inside the shut hall with the others, and refuse to leave until it opens | chance: 35 | title: campaigning | title_if_fails: someone with a record
 works: After nine days inside, the council gives way and the hall opens. {N} walks out into a crowd, one of the people the town now knows stood for it.
 works: The sit-in makes the papers, the hall reopens, and {N} has found a cause to give years to.
 fails: The police carry them out on the third night, and {N} is charged and fined. It goes on {Ns} record.
@@ -714,7 +714,7 @@ tier: link
 of_bold: the hall on the corner is shut / R
 side: well
 delay: 1-2
-holds: activist in a cause
+holds: campaigning
 stages: juvenile+
 age: 15-100
 stakes: .6
@@ -742,7 +742,7 @@ fails gone: One side walks out, and the quarrel flares again.
 == bold: the agreement between the halls / U
 base: sit with both sides until you understand each objection, then write
 likelier_if: has [calming people down] +10; has [finding things out] +5
-- U | draft every line yourself, and take each one to both halls until they agree | v: universalism, self-direction | act: draft every line themselves, and take each one to both halls until they agree | chance: 45 | grants: settling disputes | takes_if_fails: activist in a cause
+- U | draft every line yourself, and take each one to both halls until they agree | v: universalism, self-direction | act: draft every line themselves, and take each one to both halls until they agree | chance: 45 | grants: settling disputes | takes_if_fails: campaigning
 works: Line by line, both halls sign. Afterwards people from either side bring their quarrels to {N}, who has learned how to settle them.
 works: The agreement holds, and {N} comes out of it with a name for fairness and the knack of bringing two sides to terms.
 fails: The draft is torn up at the last meeting, and the movement that stood with {N} drops {N} as too soft on the other side.

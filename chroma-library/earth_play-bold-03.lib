@@ -111,8 +111,8 @@ fails gone: {N} falls behind on the loan for the new venture, and no bank will l
 
 == bold: a season of bad air / R
 base: go out anyway and run your usual route, haze or no haze
-likelier_if: mark 'defied an authority' +10; has [campaigning] +5; has [good name in town] +5
-- R | chain yourself to the plant gates, and stay there until the police cut you free | v: stimulation, universalism | act: chain themselves to the plant gates, and stay there until the police cut them free | chance: 30 | title: activist in a cause | title_if_fails: someone with a record
+likelier_if: mark 'defied an authority' +10; has [organising people] +5; has [good name in town] +5
+- R | chain yourself to the plant gates, and stay there until the police cut you free | v: stimulation, universalism | act: chain themselves to the plant gates, and stay there until the police cut them free | chance: 30 | title: campaigning | title_if_fails: someone with a record
 works: The chained gates make the evening news, and the plant cuts its night shifts until the air clears. {N} has a cause now, and a place in it.
 works: People who never met {N} come to the gates the next morning, and {N} is one of the ones they look to in the campaign against the smoke.
 fails: The police cut {N} free and charge {N} with blocking the gates, and the court hands down a record.
@@ -132,7 +132,7 @@ tier: link
 of_bold: a season of bad air / R
 side: well
 delay: 1-2
-holds: activist in a cause
+holds: campaigning
 stages: juvenile+
 age: 15-100
 stakes: .6
@@ -156,7 +156,7 @@ fails: Some neighbours think too much was given away, and say so.
 == bold: the plant asks the street to talk / G
 base: take the oldest neighbours with you, so the owners see who breathes the air
 likelier_if: years [homeowner] 5 +5; has [organising people] +10
-- G | bring the whole street into the meeting, and refuse to sit down without them | v: benevolence, tradition | act: bring the whole street into the meeting, and refuse to sit down without them | chance: 35 | requires: homeowner | title: residents' committee member | takes_if_fails: activist in a cause
+- G | bring the whole street into the meeting, and refuse to sit down without them | v: benevolence, tradition | act: bring the whole street into the meeting, and refuse to sit down without them | chance: 35 | requires: homeowner | title: residents' committee member | takes_if_fails: campaigning
 works: The owners face forty neighbours instead of one, give way on the filter, and the street sets up a residents' committee with {N} on it.
 works: The street goes in together and comes out with a promise, and {N} takes a seat on the new residents' committee.
 fails: The owners call off the meeting, the street blames the crowd, and the campaign drops {N} and goes on without {N}.
@@ -1161,8 +1161,8 @@ fails: The circle tires, and one or two drop out.
 
 == bold: a neighbour's father has no carer / R
 base: go to the council office with the whole circle, and refuse to leave
-likelier_if: has [public speaking] +10; has [campaigning] +5
-- R | lead the circle into the council chamber, and speak for every old person on the street | v: stimulation, universalism | act: lead the circle into the council chamber, and speak for every old person on the street | chance: 30 | requires: carers' group | title: activist in a cause | takes_if_fails: carers' group
+likelier_if: has [public speaking] +10; has [organising people] +5
+- R | lead the circle into the council chamber, and speak for every old person on the street | v: stimulation, universalism | act: lead the circle into the council chamber, and speak for every old person on the street | chance: 30 | requires: carers' group | title: campaigning | takes_if_fails: carers' group
 works: {N} speaks in the chamber, the council funds the visits, and {N} is drawn into the town's campaign for care at home.
 works: The circle's protest makes the paper, and {N} becomes one of the voices of the campaign for the old.
 fails: The protest embarrasses the circle, half of them quit, and the Friday teas stop.

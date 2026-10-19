@@ -939,7 +939,7 @@ fails: Nobody comes to the table, and {N} stops going to the youth club and the 
 == bold: books pulled from the school library / W
 base: hand in the copy as the notice asks, and write to the council asking why
 likelier_if: has [voice at the town hall] +10; has [public speaking] +5
-- W | stand up at the council and ask it to judge every book by one written rule | v: conformity, universalism | act: stand up at the council and ask it to judge every book by one written rule | chance: 35 | title: activist in a cause | drops_if_fails: kind:community
+- W | stand up at the council and ask it to judge every book by one written rule | v: conformity, universalism | act: stand up at the council and ask it to judge every book by one written rule | chance: 35 | title: campaigning | drops_if_fails: kind:community
 works: The council agrees to a written rule, the books come back by it, and {N} stays at the head of the campaign that won it.
 works: Parents and pupils rally behind {Ns} call, and {N} becomes the town's known voice for the right to read.
 fails: The council shouts {N} down, and the parents' group {N} belonged to closes ranks against {N}.
@@ -959,7 +959,7 @@ tier: link
 of_bold: books pulled from the school library / W
 side: well
 delay: 1-2
-holds: activist in a cause
+holds: campaigning
 stages: young_adult adult mature elder
 age: 18-87
 stakes: .6
@@ -983,7 +983,7 @@ fails: The board splits, and the next meeting is worse.
 == bold: the complaint before the board / U
 base: read the book again, and the complaint, before saying anything
 likelier_if: has [finding things out] +10; has [writing stories] +5
-- U | write a reasoned answer to every complaint, and publish it under your name | v: self-direction, universalism | act: write a reasoned answer to every complaint, and publish it under their own name | chance: 45 | requires: activist in a cause | grants: voice at the town hall | takes_if_fails: activist in a cause
+- U | write a reasoned answer to every complaint, and publish it under your name | v: self-direction, universalism | act: write a reasoned answer to every complaint, and publish it under their own name | chance: 45 | requires: campaigning | grants: voice at the town hall | takes_if_fails: campaigning
 works: {Ns} answers are read aloud at the council, and from then on the town hall listens when {N} speaks.
 works: The published answers settle the matter, and {N} becomes a voice the council asks before it acts.
 fails: One answer is twisted in the paper, and the campaign asks {N} to step down.

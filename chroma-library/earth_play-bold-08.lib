@@ -500,8 +500,8 @@ fails: The proof is not enough, {boss} hears of it, and {N} is let go before the
 
 == bold: the private files get out / R
 base: tell the callers the truth, whatever the bosses' script says
-likelier_if: has [campaigning] +10; mark 'defied an authority' +5
-- R | go to the papers under your own name, and tell the town what the bosses hid | v: universalism, stimulation | act: go to the papers under their own name and tell the town what the bosses hid | chance: 40 | title: civil-liberties campaigner | drops_if_fails: kind:career
+likelier_if: has [finding things out] +10; mark 'defied an authority' +5
+- R | go to the papers under your own name, and tell the town what the bosses hid | v: universalism, stimulation | act: go to the papers under their own name and tell the town what the bosses hid | chance: 40 | title: campaigning | drops_if_fails: kind:career
 works: The story runs on the front page, the bosses cannot touch {N} after it, and the group campaigning for private records asks {N} to join them.
 works: {N} becomes a known voice for the people whose records were lost, and stays in the job to see the changes through.
 fails: The paper buries the story, and the bosses sack {N} for speaking out within the week.
@@ -783,7 +783,7 @@ fails: The claim fails on a technicality, the bills pile up, and the bank marks 
 == bold: more patrols and more stops / W
 base: carry your papers, answer every stop politely, and keep a note of each one
 likelier_if: has [voice at the town hall] +10; years [good name in town] 5 +5
-- W | put your name to the street's log of stops, and read it out at the council | v: universalism, conformity | act: put their name to the street's log of stops and read it out at the council | chance: 35 | title: activist in a cause | drops_if_fails: kind:community
+- W | put your name to the street's log of stops, and read it out at the council | v: universalism, conformity | act: put their name to the street's log of stops and read it out at the council | chance: 35 | title: campaigning | drops_if_fails: kind:community
 works: The council hears the log in silence, the rules on stops come up for review, and {N} is the first name on the campaign against them.
 works: {N} reads every stop aloud, and from then on the street's campaign for the same rules on every street meets in {Ns} kitchen.
 fails: The meeting turns ugly, {N} is painted as soft on crime, and {N} gives up the residents' group and every club in the ward.
@@ -803,7 +803,7 @@ tier: link
 of_bold: more patrols and more stops / W
 side: well
 delay: 1-2
-holds: activist in a cause
+holds: campaigning
 stages: juvenile+
 age: 15-95
 stakes: .7
@@ -830,8 +830,8 @@ fails gone: The council chamber turns into a shouting match, and nothing changes
 
 == bold: the vote on the stops / B
 base: trade the campaign's backing for something the street needs more
-likelier_if: years [activist in a cause] 1 +5; has [public speaking] +10
-- B | make a deal with the council leader: the campaign's backing now, the leader's help later | v: power, achievement | act: make a deal with the council leader, the campaign's backing now for the leader's help later | chance: 45 | grants: friend in power | drops_if_fails: activist in a cause
+likelier_if: years [campaigning] 1 +5; has [public speaking] +10
+- B | make a deal with the council leader: the campaign's backing now, the leader's help later | v: power, achievement | act: make a deal with the council leader, the campaign's backing now for the leader's help later | chance: 45 | grants: friend in power | drops_if_fails: campaigning
 works: The council leader keeps the bargain, and from then on {N} has a powerful friend at the top of the town hall.
 works: The deal holds, the stops are cut back in {Ns} ward, and the council leader treats {N} as an ally.
 fails: The deal leaks to the paper, the street calls it a sell-out, and the campaign throws {N} out.
