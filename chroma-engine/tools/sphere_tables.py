@@ -206,7 +206,7 @@ def build(src):
     wa_ = dyn["world_answers"]   # the world answers v1 (world-answers-v1.md): the numbers, without the prose and the baseline
     num_ = lambda d: {k: (num_(v) if isinstance(v, dict) else v) for k, v in d.items()
                       if isinstance(v, (int, float, list, dict)) and not isinstance(v, bool)}
-    WORLD_ANSWERS = {k: num_(wa_[k]) for k in ("groups", "places", "ledger", "notice", "checks", "phase2") if k in wa_}
+    WORLD_ANSWERS = {k: num_(wa_[k]) for k in ("groups", "places", "ledger", "notice", "checks", "phase2", "recover") if k in wa_}
     WORLD_ANSWERS["ledger"]["words"] = list(wa_["ledger"]["words"])
     WORLD_ANSWERS["notice"]["goal_sphere"] = dict(wa_["notice"]["goal_sphere"])
     WORLD_ANSWERS["groups"]["grow"]["levers"] = list(wa_["groups"]["grow"]["levers"])

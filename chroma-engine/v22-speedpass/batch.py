@@ -540,6 +540,11 @@ def load_batch(world="earth", symmetric=False, roles=None, packs=None, pack_mome
         clash = sorted({x["name"] for x in WA_} & {x["name"] for x in sits})
         if clash:
             raise ValueError(f"world answers moments with the name of another moment: {clash}")
+        for x_ in WA_:   # a decision's option without a lever is voice (Outer world 10-19, until the Library writes each)
+            if str(x_.get("cast_want") or "").strip() == "decide":
+                for o_ in x_.get("options", []):
+                    if len(o_) > 5 and isinstance(o_[5], dict) and not o_[5].get("lever"):
+                        o_[5]["lever"] = "voice"
         sits += WA_
     sits = [x for x in sits if not x.get("only") or setting in [w_.strip() for w_ in str(x["only"]).replace(",", " ").split()]]
     if not SHADOW_MOMENTS:   # the spheres finishing pack, part 5: moments in a town gone grey (shadow:) wait for its refit

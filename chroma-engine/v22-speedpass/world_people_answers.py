@@ -57,6 +57,8 @@ class AnswersMixin:
         self.wa_g, self.wa_p, self.wa_l, self.wa_n, self.wa_2 = (bool(P.get(k_, False)) for k_ in
                                                                  ("wa_groups", "wa_places", "wa_ledger", "wa_notice", "wa_phase2"))
         self.wa_T = T; self.wa_steps = dict(T["ledger"]["steps"])
+        self.wa_rec = float(T.get("recover", {}).get("y", 0.0))   # what a life caused fades back by this a year
+        self.wa_hcaus = None                                       # B: the caused part of each place's lasting lean
         self._wa_rng = np.random.default_rng([self.seed, 107, self.run_seed])
         self._wa_act = {}            # this week's act of each life that acted: (moment, option), set by WorldLink
         # D, the close circle (N x K: the person in each cast slot since their first caused change, uid)
@@ -264,7 +266,11 @@ class AnswersMixin:
             self.wa_gwhat[n].pop(j, None)
 
     def _wa_place(self, n, l, h, i, old, new, t, unit="place_mix", size=None, what=None):
-        """A place (town l, kind h, slot i) moved by the life from old to new."""
+        """A place (town l, kind h, slot i) moved by the life from old to new (the move kept as caused, to fade back)."""
+        if self.wa_rec > 0 and self.wa_p:   # the fading is wa_places' (the ledger alone is a record)
+            if self.wa_hcaus is None:
+                self.wa_hcaus = np.zeros(self.W.hp_off.shape)
+            self.wa_hcaus[int(l), int(h), int(i)] += np.log(np.maximum(new, 1e-9)) - np.log(np.maximum(old, 1e-9))
         p_ = int(np.ravel_multi_index((int(l), int(h), int(i)), self.W.hp_s.shape[:3]))
         self._wa_unit(int(n), unit, p_, float(_tv(new, old)), dict(place=p_, kind=HAUNT_KINDS[int(h)]), t,
                       base=old, d=np.asarray(new, float) - old, size=size, what=what)
@@ -335,10 +341,28 @@ class AnswersMixin:
         yr = int(self._age(t))
         if yr != self._wa_yr:
             self._wa_yr = yr
+            if self.wa_rec > 0:
+                self._wa_recover()
             if self.wa_p:
                 self._wa_presence(t)
             if self.wa_2:
                 self._wa_figures(t)
+
+    def _wa_recover(self):
+        """Yearly (recover y): what lives caused in a place's lasting lean (hp_off) and in a setting's norm (wa_soff) fades
+        back toward its own way by y; a regular's or member's presence renews its share as it goes."""
+        y = self.wa_rec; W = self.W
+        if self.wa_hcaus is not None:
+            op_ = getattr(W, "pt_open", None)
+            if op_ is not None:   # a place closed or opened again: a new place, its lean its own
+                self.wa_hcaus[op_ >= 0] = 0.0
+            d_ = y * self.wa_hcaus
+            W.hp_off -= d_; self.wa_hcaus -= d_
+        if self.wa_g:
+            d_ = (y * self.wa_soff).astype(np.float32)
+            nm_ = np.maximum(self.snorm - d_, 1e-6)
+            self.snorm[...] = np.where((self.skind >= 0)[..., None], nm_ / nm_.sum(-1, keepdims=True), self.snorm)
+            self.wa_soff -= d_
 
     def _wa_presence(self, t):
         """B, yearly: each regular leans each haunt toward their colours by pres_lean[rung in its sphere] x the share of
