@@ -244,6 +244,10 @@
                         if n in events:
                             events[n].append(dict(sacred=ev_))
                         continue
+                    if WA_ON and isinstance(ev_, dict) and ev_.get("kind") == "world answers":
+                        if n in events:   # an ask, a decision (F2) or a figure's moment the world brought
+                            events[n].append(dict(wa_ledger=dict(moment=ev_)))
+                        continue
                     if ev_ is not None and n in events:
                         events[n].append(dict(cast_want=ev_))
                 if SAC_ON_:   # S5: offers decided off-screen this week (no moment for them)
@@ -254,6 +258,10 @@
                         if n_ in events:
                             events[n_].append(dict(sacred=ev_))
                 world_cast(WL.drain())   # the act's own cast events (the world's events came at the week's start)
+                if WA_ON:   # the world answers: the footprints told this week, and the goal's sphere events (E5)
+                    for n_, x_ in WL.wa_drain():
+                        if n_ in events:
+                            events[n_].append(dict(wa_ledger=x_))
             # tags: habit pulls harder, a door opens the niche, identity teaches more, binds holds and costs autonomy
             tg_ = L["TAG"][s, a] & (~idle & live_)[:, None]
             habit += P["tag_habit"] * tg_[:, :1] * ma

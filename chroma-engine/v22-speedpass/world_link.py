@@ -387,6 +387,8 @@ class WorldLink(LinkWeekMixin, LinkRatesMixin, LinkLifeMixin):
     def week(self, t, S_):
         W, PP = self.W, self.PP
         self._carry.extend(PP.events[self._pp_i:])   # cast events the engine has not had yet (the birth's, the act's)
+        if PP.wa_on:
+            PP._wa_act = {}   # (the week's acts: the world answers' causes)
         W.tick(self.t0 + t)
         PP.tick(self.t0 + t, S_)
         self._pp_i = 0
@@ -403,6 +405,8 @@ class WorldLink(LinkWeekMixin, LinkRatesMixin, LinkLifeMixin):
                 n_, t_ = self.self_law.pop(e["key"])
                 if W.t - t_ <= 26:
                     e["self"] = True; e["by_life"] = n_
+                    if PP.wa_on:   # the world answers, D: a law passed is a national footprint, told by what it did
+                        PP._wa_nation(n_, "state", 2.0, W.t, what="a law passed")
             elif e.get("domain") == "nature" and e.get("kind") == "disaster" and isinstance(e.get("value"), dict):
                 l_ = int(e["value"].get("loc", -1)); sv_ = float(e["value"].get("severity", 0.5))
                 own_ = PP.loc == l_
@@ -494,4 +498,6 @@ class WorldLink(LinkWeekMixin, LinkRatesMixin, LinkLifeMixin):
                         PP.sac_q[n_].remove(it_)
                     continue
                 self.pending[n_] = (-1, it_["kind"], si_); self.fire_now[n_, si_] = True; self.sac_pend[n_] = it_
+        if getattr(self, "wa_on", False):   # the world answers: an ask, a Known life's decision, a figure's moment
+            self._wa_week()
         return self.week_events

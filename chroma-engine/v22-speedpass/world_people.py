@@ -43,15 +43,16 @@ from world_people_eyes import EyesMixin
 from world_people_acts import ActsMixin
 from world_people_lead import LeadMixin
 from world_people_views import ViewsMixin
+from world_people_answers import AnswersMixin, WA_KEPT, WA_NATION, WA_RINGS, WA_SCOPES, WA_SIZES, WA_UNITS  # noqa: F401
 
 # the modules that make up world_people (the Engine's checks read their sources, and the world cache hashes them)
 _PARTS = ('world_people_base', 'world_people_roster', 'world_people_settings', 'world_people_ticks',
           'world_people_lives', 'world_people_sacred', 'world_people_eyes', 'world_people_acts', 'world_people_lead',
-          'world_people_views')
+          'world_people_views', 'world_people_answers')
 
 
 class People(RosterMixin, SettingsMixin, TicksMixin, LivesMixin, SacredMixin, EyesMixin, ActsMixin, LeadMixin,
-             ViewsMixin):
+             ViewsMixin, AnswersMixin):
     """The cast, settings, place and reach of N characters in one World (see the module docstring)."""
 
     def __init__(self, W, N, run_seed=0, female=None, cfg=None):

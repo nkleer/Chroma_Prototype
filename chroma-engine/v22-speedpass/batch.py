@@ -500,13 +500,15 @@ def _packs(world, packs, pack_moments, R):
 
 
 def load_batch(world="earth", symmetric=False, roles=None, packs=None, pack_moments=None, setting="earth", more=None,
-               bold=None, links=None, aims=None, foot=None):
+               bold=None, links=None, aims=None, foot=None, wa=None):
     """packs: the content packs on top of the base (default PACKS, the approved ones); pack_moments: {pack: path of a
     compiled moments file} for a pack the Library has not built into chroma-library/ yet (tests). setting: the world the
     life is played in (earth, tribal, magic: the game's presets); a moment with only: <another world> is left out.
     more: moments added after the packs' (tests: tools/t_steps.py's return moment). bold, links: the bold ways and their
     links in place of <world>_play.BOLD and LINKS (tests: tools/t_steps.py's); given, they load without BOLD_MOMENTS.
     aims: aims v1 (the engine's aims switch) in place of AIMS: the aim catalogue, its spark moments and the Historic marker.
+    wa: the world answers (the engine's world_answers switch) in place of WORLD_ANSWERS: the Library's asked, decision
+    and figure moments (<world>_world_answers.py), last in the batch.
     foot: footprints (the engine's foot_on switch) in place of FOOT: the Library's FOOT tables, compiled to L["FOOT"]."""
     sys.path.insert(0, os.path.abspath(LIB_DIR))
     sys.modules.pop(world, None)                          # always read the batch from LIB_DIR as it is now
@@ -533,6 +535,18 @@ def load_batch(world="earth", symmetric=False, roles=None, packs=None, pack_mome
             raise ValueError(f"aim moments with the name of another moment: {clash}")
         sits += AT_["sits"]
     sits += PK["sits"] + [copy.deepcopy(x) for x in (more or [])]
+    wp_ = os.path.join(LIB_DIR, f"{world}_world_answers.py")
+    if (WORLD_ANSWERS if wa is None else wa) and os.path.exists(wp_):   # the world answers: last, so every index stays
+        WA_ = [copy.deepcopy(x) for x in getattr(_module(wp_, f"chroma_{world}_world_answers"), "SITUATIONS", [])]
+        clash = sorted({x["name"] for x in WA_} & {x["name"] for x in sits})
+        if clash:
+            raise ValueError(f"world answers moments with the name of another moment: {clash}")
+        for x_ in WA_:   # a decision's option without a lever is voice (Outer world 10-19, until the Library writes each)
+            if str(x_.get("cast_want") or "").strip() == "decide":
+                for o_ in x_.get("options", []):
+                    if len(o_) > 5 and isinstance(o_[5], dict) and not o_[5].get("lever"):
+                        o_[5]["lever"] = "voice"
+        sits += WA_
     sits = [x for x in sits if not x.get("only") or setting in [w_.strip() for w_ in str(x["only"]).replace(",", " ").split()]]
     if not SHADOW_MOMENTS:   # the spheres finishing pack, part 5: moments in a town gone grey (shadow:) wait for its refit
         sits = [x for x in sits if not x.get("shadow")]
@@ -918,6 +932,10 @@ FOOT = False   # footprints (chroma-ideas/next-table-2026-10-19/plan.md section 
 AIMS = False   # aims v1 (chroma-ideas/next-table-2026-10-19/plan.md section 5): the aim catalogue (the Library's
                # <world>_aims.py and each pack's aims.py), its spark moments and the Historic marker (the packs' core/legacy.py)
                # load only with the engine's aims switch on (the game sets both); off, the library and every life are as before
+WORLD_ANSWERS = False   # the world answers v1 (chroma-world/spheres/world-answers-v1.md): the Library's asked, decision and
+                        # figure moments (<world>_world_answers.py: cast_want asked_*, decide, rival_push, ally_*,
+                        # successor_*) load only with the engine's world_answers switch on (the game sets both); off, the
+                        # library and every life are as before. Loaded, they come only when the world brings them
 RETURN_MOMENTS = False  # picks come back: moments with tier: return join the batch only for a played life with echo_play
                         # on (the game sets it); off, the library and every life are as before
 SPH_MOMENTS = True   # item 15: moments with haunt: or ladder: join the batch once the spheres' haunts and rungs are built

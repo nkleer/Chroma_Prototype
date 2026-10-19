@@ -47,8 +47,11 @@ class ActsMixin:
         ft = C * np.matmul(self._cpie[ix], ma[:, :, None])[..., 0] - 1.0
         wt = obs * c
         appr = (wt * ft).sum(1) / np.maximum(wt.sum(1), 1e-9)
-        tr = np.take(self.trust, fi); tr += f32(0.01) * obs * np.minimum(np.maximum(ft, -1.0), 1.0).astype(f32)
+        tr = np.take(self.trust, fi); tr0_ = tr.copy() if self.wa_l else None
+        tr += f32(0.01) * obs * np.minimum(np.maximum(ft, -1.0), 1.0).astype(f32)
         np.minimum(np.maximum(tr, f32(0), out=tr), f32(1), out=tr); np.put(self.trust, fi, tr)
+        if self.wa_l:   # the world answers, D: the trust the act moved in those who saw it
+            self._wa_pflat(fi, t, dtr=tr - tr0_)
         strong = (ft < -0.6) & (obs > 0) & (c >= L2)
         hasn = nk >= 0
         if hasn.any():
@@ -75,6 +78,8 @@ class ActsMixin:
                 r_ = self._sph_lever(int(idx[e_]), int(js[e_]), int(lev[e_]), ma[e_], float(q[e_]), int(ok_[e_]), int(dom[e_]), t)
                 if r_ is not None:
                     res.append(r_)
+        if self.wa_g:   # the world answers, A: a good voice, found or lead act grows the setting it was made in
+            self._wa_grow(idx, lev, q, None if sphere is None else np.broadcast_to(np.asarray(sphere, np.int64), (E,)), t)
         return dict(approval=appr, results=res)
 
     def _sph_lever(self, n, j, lev, ma, q, office, dom, t):
@@ -111,8 +116,13 @@ class ActsMixin:
                 if rg >= 4:
                     span = self._lead_left(p_, t)
                 self._lead_act(p_, lv, q, t)
+        if self.wa_l:   # the world answers, D: what the lever moves in their town, its places and spheres
+            hp0_ = W.hp_s[int(self.loc[n])].copy() if getattr(W, "hp_s", None) is not None else None
+            ss0_ = W.sph_s[int(self.loc[n])].copy() if getattr(W, "sph_s", None) is not None else None
         what = W.sph_lever(int(self.loc[n]), j, place, lv, ma, size, rg, self.rng, office=("ban", "licence", "budget")[office],
                            span=span, went=q)
+        if self.wa_l and ss0_ is not None:
+            self._wa_lever(n, int(self.loc[n]), hp0_, ss0_, lv, rg, t)
         return dict(kind="sphere lever", n=int(n), t=int(t), lever=lv, sphere=SPHERES[j], place=place, size=round(size, 4), reach=reach, went=q,
                     rung=LADDER[min(max(rg, 0), 4)], moved=what)
 
@@ -336,6 +346,8 @@ class ActsMixin:
                 k = int(cand[np.argmax(self.c[n, cand])]) if len(cand) else -1
             if k >= 0:
                 tgt_out = int(self.uid[n, k]); s_ = size / 3.0
+                if self.wa_l:
+                    p0_, c0_, t0_ = self.pie[n, k].astype(float), float(self.c[n, k]), float(self.trust[n, k])
                 if lv == "voice":
                     self.trust[n, k] = min(1, self.trust[n, k] + 0.05 * s_)
                     self.pie[n, k] = _norm(self.pie[n, k] + 0.02 * s_ * (ma - self.pie[n, k]))
@@ -351,6 +363,9 @@ class ActsMixin:
                     self.debt[n, k] = min(100, int(self.debt[n, k]) + 1)
                 if back:
                     self.trust[n, k] *= 0.85; self.c[n, k] *= 0.9; self.mbad[n, k] = min(255, int(self.mbad[n, k]) + 1)
+                if self.wa_l:   # the world answers, D: the person the push moved
+                    self._wa_pmove(np.array([n]), np.array([k]), t, col=(self.pie[n, k] - p0_)[None],
+                                   dc=np.array([self.c[n, k] - c0_]), dtr=np.array([self.trust[n, k] - t0_]))
         elif ring == 1:   # a group (or the neighbourhood): norms, cohesion, rank
             if DOMAINS[dom] == "place":
                 js = np.nonzero(self.skind[n] == G["neighbours"])[0]
@@ -362,7 +377,10 @@ class ActsMixin:
             if len(js):
                 j = int(js[0]); tgt_out = GROUP_KINDS[int(self.skind[n, j])]; s_ = size / 3.0
                 if lv == "voice":
+                    sn0_ = self.snorm[n, j].astype(float)
                     self.snorm[n, j] = _norm(self.snorm[n, j] + 0.03 * s_ * (1 - self.scoh[n, j] / 2) * (ma - self.snorm[n, j]))
+                    if self.wa_l:   # the world answers, D: the group's ways the voice moved
+                        self._wa_gmove(n, j, t, dnorm=self.snorm[n, j] - sn0_)
                     self.srank[n, j] = min(1, self.srank[n, j] + 0.02 * s_)
                 elif lv == "loyalty":
                     self.srank[n, j] = min(1, self.srank[n, j] + 0.03 * s_); self.scoh[n, j] = min(0.98, self.scoh[n, j] + 0.02 * s_)
@@ -379,6 +397,8 @@ class ActsMixin:
             tgt_out = DOMAINS[dom] if target is None or isinstance(target, (int, np.integer)) else f"{DOMAINS[dom]} {target}"
             if amt > 0:
                 W.push(DOMAINS[dom], self._push_var(n, dom, ma, var), float(amt), int(P["lever_sign"][lv]))
+                if self.wa_l and not back and reach > 0:   # the world answers, D: a national push, told when clear or more
+                    self._wa_nation(n, dom, float(amt), t)
             if back:   # a backfire in an institution or the state: rank at work falls; the engine may add the rest
                 js = np.nonzero(self.skind[n] == G["work"])[0]
                 if len(js):

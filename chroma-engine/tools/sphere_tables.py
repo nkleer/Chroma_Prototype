@@ -203,6 +203,14 @@ def build(src):
                  jumps={k: float(v) for k, v in bt_["jumps"].items() if isinstance(v, (int, float))},
                  low=dict(bt_["effects"]["low"]), high=dict(bt_["effects"]["high"]), gate=dict(bt_["library_gate"]),
                  checks=dict(bt_["checks"]))
+    wa_ = dyn["world_answers"]   # the world answers v1 (world-answers-v1.md): the numbers, without the prose and the baseline
+    num_ = lambda d: {k: (num_(v) if isinstance(v, dict) else v) for k, v in d.items()
+                      if isinstance(v, (int, float, list, dict)) and not isinstance(v, bool)}
+    WORLD_ANSWERS = {k: num_(wa_[k]) for k in ("groups", "places", "ledger", "notice", "checks", "phase2", "recover") if k in wa_}
+    WORLD_ANSWERS["ledger"]["words"] = list(wa_["ledger"]["words"])
+    WORLD_ANSWERS["notice"]["goal_sphere"] = dict(wa_["notice"]["goal_sphere"])
+    WORLD_ANSWERS["groups"]["grow"]["levers"] = list(wa_["groups"]["grow"]["levers"])
+    WORLD_ANSWERS["notice"]["ask"]["by_rung"] = {int(k): v for k, v in wa_["notice"]["ask"]["by_rung"].items()}
     return dict(SPHERES=SPHERES, COLORS=list(COLS), EPOCHS=EPOCHS, DRIVERS=DRIVERS, FACE_NEEDS=FACE_NEEDS, M0=M0, J=J,
                 D=D, MEETS=MEETS, FACE_NAMES=FACE_NAMES, PARAMS=PARAMS, SUBSECTORS=SUB, PLACE_BY_EPOCH=PLACE, EVENTS=EVENTS,
                 TEACH=TEACH, TIME=TIME, TIME_AGES=TIME_AGES, TIME_GROUPS=["early", "middle", "machine", "modern"], DEPTH=DEPTH,
@@ -212,7 +220,7 @@ def build(src):
                 LINKS=LINKS, LINK_COLOUR=LINK_COLOUR, MEMORIES=MEMORIES, MEM_FADE=MEM_FADE, PAIR_QUARRELS=PAIR_QUARRELS,
                 CASCADES=CASCADES, LEVER_OFFICE=LEVER_OFFICE, FAIR=FAIR, SHADOW=SHADOW, DEEP=DEEP, FAR=FAR,
                 PLACE_READ=PLACE_READ, PLACE_READING=PLACE_READING, LEAD_POSTS=LEAD_POSTS, OFFER=OFFER, TURNOVER=TURNOVER,
-                TRUST=TRUST)
+                TRUST=TRUST, WORLD_ANSWERS=WORLD_ANSWERS)
 
 
 def audit(T):

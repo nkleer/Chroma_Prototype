@@ -168,6 +168,8 @@ class LinkLifeMixin:
         if not len(idx):
             return []
         si_, ai_ = s[idx], a[idx]
+        if self.PP.wa_on:   # the world answers: the week's act of each life, the cause of what it moves
+            self.PP._wa_act = {int(n_): (int(s2_), int(a2_)) for n_, s2_, a2_ in zip(idx, si_, ai_)}; self._wa_ma = ma
         out = self.PP.on_act(idx, ma[idx], succ[idx].astype(float), lever=self.lev_i[si_, ai_], pushes=self.dom_i[si_, ai_],
                              target=self.tgt_i[si_, ai_], norm=self.nrm_i[si_, ai_], var=self.var_i[si_, ai_], t=self.PP.t,
                              sphere=self.lsph[si_, ai_], office=self.loff[si_, ai_])

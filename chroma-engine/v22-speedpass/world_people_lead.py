@@ -535,6 +535,8 @@ class LeadMixin:
                 cand = np.zeros(0, np.int64); score = cand
             keep = np.array([k_ not in taken for k_ in cand], bool) if len(cand) else np.zeros(0, bool)
             cand, score = cand[keep], np.asarray(score)[keep]
+            if self.wa_n and len(cand) and s_ not in ("dead", "partner"):   # the world answers, E2: who fits the goal
+                score = score + self._wa_fill_bonus(n, cand)
             if len(cand):
                 k = int(cand[np.argmax(score)])
             else:

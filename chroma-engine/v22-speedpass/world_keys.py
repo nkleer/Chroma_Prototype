@@ -30,6 +30,14 @@ PLACE_WANTS = ["place_closed", "place_opened"]
 # spheres finishing pack, part 4 (former inmates as ties, prison_ties): a moment with a fellow inmate, open only while the
 # life holds an active former-inmate tie, the closest of whom takes its first who: slot (never a cast member's wish)
 CAST_WANTS += ["fellow_inmate"]
+# the world answers v1 (chroma-world/spheres/world-answers-v1.md, engine switch world_answers): the world asks something of a
+# life pursuing a goal at rung 2 or more in its sphere (E4: asked_help, asked_lead, asked_speak), and a Known life's
+# decisions for others and the people with their own aims around them (F2, F3: decide, rival_push, ally_won, ally_lost,
+# successor_seen, successor_hand). Brought by WorldLink with no holder or with the figure as holder, never a cast
+# member's wish nor an everyday draw; after every earlier key, so every index before them stays
+WA_WANTS = ["asked_help", "asked_lead", "asked_speak", "decide", "rival_push", "ally_won", "ally_lost", "successor_seen",
+            "successor_hand"]
+CAST_WANTS += WA_WANTS
 SACRED_KINDS = ["promise", "truth", "own_say", "loved", "home"]   # a line's kind (sacred:), W U B R G in the Canon's order
 OFFER_KINDS = ["money", "post", "favour"]                          # what an offer gives (offer:; dynamics.json offers kind)
 OFFER_ROUNDS = ["first", "raised"]                                 # the first offer, or the raised one after a refusal (round:)
