@@ -45,8 +45,8 @@ engine.run_steps() is engine.run() pausing six times a week for the game. On a f
  17. bold ways (bold_play, the game's played-life hook), on a made-up BOLD table and links: switched on and never asked,
      the lives of it off; asked at every pick, run_steps() lives as run(); asked by the game, the character and the game
      take bold ways, at the odds bold_now told (between .1 and .9), each bold pick outside a link's week plants one seed
-     of its kind and side, at most bold_cap due, and the links come back of their side, after their delay, a shared link
-     only with no own link open, and only as links; the bold way's win comes "through" it.
+     of its kind and side, at most bold_cap due, and the links come back of their side, inside their delay (and a
+     season), a shared link only with no own link open, and only as links; the bold way's win comes "through" it.
 
     python3 -B chroma-engine/tools/t_steps.py [ENGINE_DIR]
 T_JOBS=N: the rows of 8 and 9 on N processes (default up to 4, by the cores there are; 1: one after another).
@@ -877,7 +877,7 @@ if "bold_play" in E.DEFAULT and "bold" in batch.load_batch.__code__.co_varnames:
     for x in got_:
         c_ = [c_ for c_ in L_["COND"] if c_["s"] == x["got"]][0]
         if c_["side"] != ("well" if x["ok"] else "badly") or c_["of"] != (x["alt"] if x["change"] else x["kind"]) \
-                or not x["link"] or x["done"] - x["t"] < c_["delay"][0] * 52:
+                or not x["link"] or not c_["delay"][0] * 52 <= x["done"] - x["t"] <= (c_["delay"][1] + 0.25) * 52 + 1:
             fails.append(f"a link of the wrong kind, side or time: {L_['names'][x['got']]}")
     if not got_ or not any(x["change"] for x in got_):
         fails.append(f"{len(got_)} links, {sum(x['change'] for x in got_)} shared")

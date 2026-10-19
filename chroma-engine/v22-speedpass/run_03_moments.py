@@ -185,3 +185,14 @@
                     h_ = RON and r_has[n, j_] and (op_ == "has" or t - r_since[n, j_] >= y_ * 52)
                 p_ += pts_ / 100 * bool(h_)
             return min(max(p_, 0.1), 0.9)
+        def bo_live(n, rw_):
+            """Whether a bold way's win and cost would both change something for life n: each title or perk it gives
+            not held yet, each it drops, takes or suspends held (else the card would state what cannot happen)."""
+            if not RON:
+                return True
+            for w_ in ("ok", "fail"):
+                for op_, j0_, _ in rw_["fx"][w_]:
+                    js_ = fx_targets(n, rw_["s"], j0_)
+                    if not js_ or (any(r_has[n, j_] for j_ in js_) if op_ in ("title", "grants") else not any(r_has[n, j_] for j_ in js_)):
+                        return False
+            return True
