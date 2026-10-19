@@ -402,6 +402,7 @@ LIB_OUT_NOT = {}   # F11b (v22.4.1): per moment, (option labels, per works line 
 LIB_GRIEF = set()          # moments in which someone dies (kills:)
 LIB_ECHO = {}              # echo -> the mark it answers ("a promise you broke comes back" -> "broke your word")
 LIB_GONE = {}              # Picks come back: an echo's or return's scenes for a seed person who died or moved far (scenes_gone)
+LIB_OUT_GONE = {}          # Bold ways: a link's outcome lines when its person is gone (outcomes_gone; links only)
 WCODE = dict(earth="E", tribal="T", magic="M")
 PERSON_SLOTS = ("friend", "rival", "partner", "prospect", "sibling", "colleague", "boss", "mentor", "parent", "child",
                 "grandparent", "elder")
@@ -410,7 +411,7 @@ PERSON_SLOTS = ("friend", "rival", "partner", "prospect", "sibling", "colleague"
 def load_library_story(situations, read_events=()):
     """Take the Library's story fields from its situation dicts (and its read outside events, when given).
     Called once per life: an empty call clears them (settings the Library has not written use the game's own lines)."""
-    for d in (LIB_SCENES, LIB_OUTCOMES, LIB_ACTS, LIB_READ, LIB_ECHO, LIB_OUT_NOT, LIB_GONE):
+    for d in (LIB_SCENES, LIB_OUTCOMES, LIB_ACTS, LIB_READ, LIB_ECHO, LIB_OUT_NOT, LIB_GONE, LIB_OUT_GONE):
         d.clear()
     LIB_GRIEF.clear()
 
@@ -426,6 +427,8 @@ def load_library_story(situations, read_events=()):
             LIB_SCENES[x["name"]] = pool(x["scenes"])
         if x.get("scenes_gone"):
             LIB_GONE[x["name"]] = pool(x["scenes_gone"])
+        if x.get("tier") == "link" and x.get("outcomes_gone"):
+            LIB_OUT_GONE[x["name"]] = (list(x["outcomes_gone"][0]), list(x["outcomes_gone"][1]))
         if x.get("outcomes"):
             LIB_OUTCOMES[x["name"]] = (list(x["outcomes"][0]), list(x["outcomes"][1]))
             if x.get("outcomes_not") and any(any(n) for n in x["outcomes_not"]):
