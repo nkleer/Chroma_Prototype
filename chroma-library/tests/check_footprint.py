@@ -9,7 +9,7 @@ A footprint is one of: person, place, means, mark, door, lesson. Existing fields
     means   tags win: / lose: / pay:; an asset perk
     mark    mark: a mark some title or perk rule reads (chroma-engine/v22-speedpass/rules_titles.py, rules_perks.py)
     door    back: <seed kind>
-and foot: adds the rest (read only with the engine's footprint switch on). Rules:
+and foot: adds the rest (compiled to earth_foot.py's FOOT; read only with the engine's foot_on switch). Rules:
     one or two footprints an option; a lesson only when nothing else fits, on 1 option in 5 or fewer a moment, each
     in its own words; foot: mark only a mark a rule reads;
     foot: never repeats what an existing field already leaves.
@@ -20,6 +20,7 @@ sys.dont_write_bytecode = True
 LIB = os.path.abspath(sys.argv[1] if len(sys.argv) > 1 and not sys.argv[1].startswith("--") else ".")
 sys.path.insert(0, LIB)
 import earth, earth_perks_titles as ept
+from earth_foot import FOOT   # foot: compiled to its own table (Engine 10-19), so earth.py stays byte-identical
 
 ROOT = os.path.dirname(LIB)
 RULES = os.path.join(ROOT, "chroma-engine", "v22-speedpass")
@@ -78,7 +79,7 @@ def check(names_, src):
         for o in s["options"]:
             where = f"{name} / {o[1]} '{o[0][:50]}'"
             ex = existing(o)
-            ft = list((o[5] or {}).get("foot") or []) if len(o) > 5 and isinstance(o[5], dict) else []
+            ft = list(FOOT.get((name, o[0]), []))
             allf = ex + ft
             dist[min(len(allf), 3)] += 1
             for k, _ in allf:
@@ -97,8 +98,7 @@ def check(names_, src):
                 if (k, v) in ex or (k == "mark" and (o[5] or {}).get("mark") == v) or \
                         (k == "door" and (o[5] or {}).get("back") == v):
                     problems.append(f"{where}: foot: {k} {v} repeats what the option already leaves")
-        les = [v for o in s["options"] if len(o) > 5 and isinstance(o[5], dict)
-               for k, v in (o[5].get("foot") or []) if k == "lesson"]
+        les = [v for o in s["options"] for k, v in FOOT.get((name, o[0]), []) if k == "lesson"]
         if len(les) * 5 > len(s["options"]):   # Vision 10-19: lessons are the weakest footprint, 1 in 5 or fewer a moment
             problems.append(f"{name}: {len(les)} of {len(s['options'])} options have only a lesson (at most 1 in 5)")
         if len(set(les)) < len(les):
