@@ -244,7 +244,8 @@
                 mark_log, read_log, r_has, r_ever, r_since, r_prof, p_acc, p_lev, p_sus, fam, gsr, goal_rel_S,
                 around, retired, ck, ok_, frc_, ONCE_HOLD_, noise, btrust, ep_seeds, ep_now, asrc, asrc_c,
                 bold_now, bold_pick, nw, nw_imp, J, FRpos, clu_, CLU_ON, AIM_ON, HT_ON, AIM, ak, astr, astep, aown,
-                aby, atest, acall, abirth, aim_best, gal, ht_t, aim_take, aim_end, aim_fit, aim_of_goal)
+                aby, atest, acall, abirth, aim_best, gal, ht_t, aim_take, aim_end, aim_fit, aim_of_goal, FOOT_ON, foot_log,
+                foot, foot_open)
     if pausing:
         ST_CELLS = tuple(zip(_handed.__code__.co_freevars, _handed.__closure__)); ST_FR = sys._getframe()
         pz_st = PauseState()

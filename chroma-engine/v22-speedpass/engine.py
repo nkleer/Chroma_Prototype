@@ -852,6 +852,10 @@ DEFAULT = dict(
     # the heights of a life (plan.md section 5), read-only: the week each height (Known, Notable, Historic) was first
     # reached (realm_earth.HEIGHT_NAMES, a sphere rung of pillar or more, a summit title, leading a movement); on with aims
     heights=False,
+    # footprints (the next stage's workstream 3; plan.md section 3), off until the joint refit; needs the batch's FOOT
+    # (batch.FOOT or load_batch(foot=True)). Each picked option's footprints get real state (run_03_moments.py, the
+    # footprints): a person in the cast (off-world, ties by foot_par ties), a haunt, a means, a mark or door, a lesson told
+    foot_on=False, foot_par=dict(ties=0.05),
     echo_play_par=dict(p=0.6, w=0.3, delay=(1.0, 8.0), keep=10.0, gap=0.5, again=12.0),
     # bold ways (chroma-ideas/gameplay-2026-10-17/bold-ways.md): set only by the game for a played life, with the batch's
     # BOLD_MOMENTS. In a week the game asks (bold_ask, set at the situation pause and spent at the choice; "all": every
@@ -1523,6 +1527,8 @@ UPD_OFF = dict(dis_match=False,
                need_tab=None, shared_hist=0.0, imp_age=False,
                # aims v1 and the heights reading (workstream 5)
                aims=False, heights=False,
+               # footprints (workstream 3)
+               foot_on=False,
     # the v22.3 refit's satisfaction level (the new mechanics lift satisfaction; the set point moved .80 -> .86)
     sat_mid=0.8)
 # everything since the go-live off, for the identity check (C-E14): lives then equal engine_v9_golive.py
@@ -1773,6 +1779,8 @@ STATE_MORE = ("fam", "gsr", "goal_rel_S", "around", "retired", "ck", "ok_", "frc
               "AIM_ON", "HT_ON", "AIM", "ak", "astr", "astep", "aown", "aby", "atest", "acall", "abirth", "aim_best", "gal",
               "ht_t", "aim_take", "aim_end", "aim_fit", "aim_of_goal",   # aims v1 (foresee's aims track, set_aim, drop_aim)
               # and the heights reached (ht_t, weeks, -1 never); None off
+              "FOOT_ON", "foot_log",   # footprints: on, and every pick's footprints so far (foot_log, a list of dicts)
+              "foot", "foot_open",     # per life (None off): the last act's footprints (kind, value, who); doors (kind, since)
               "btrust")   # body_trust (finishing pack part 3): each life's trust per sphere (N x 9, NaN before 15); None off
 STATE_MISSED = set()   # names read at a pause that are not handed over (STATE, STATE_IF, STATE_MORE): t_steps wants none
 
