@@ -61,6 +61,14 @@ def plan(EN, L, PK_DIR, ls=os.listdir, read=None, isfile=os.path.isfile):
     pins += [(os.path.join(L, f), f) for f in LIB + [f"earth_{p}.py" for p in PK]]
     pins += [(os.path.join(PK_DIR, "core", f), f"packs/core/{f}") for f in sorted(ls(os.path.join(PK_DIR, "core"))) if f.endswith(".py")]
     pins += [(os.path.join(PK_DIR, p, f), f"packs/{p}/{f}") for p in PK for f in PACK_FILES]
+    # v24's Library tables and the packs' aims (footprints, aims, world answers), whichever the Library and packs have;
+    # the batch reads them only with their switches on (FOOT, AIMS)
+    lx = [f for f in ["earth_foot.py"] + [f"earth_{p}_foot.py" for p in PK] + ["earth_aims.py", "earth_aim_moments.py",
+          "earth_aim_moments_foot.py", "earth_world_answers.py", "earth_world_answers_foot.py", "earth_world_lines.py",
+          "footprint_names.py"] if isfile(os.path.join(L, f))]
+    px = [f"packs/{p}/aims.py" for p in PK if isfile(os.path.join(PK_DIR, p, "aims.py"))]
+    pins += [(os.path.join(L, f), f) for f in lx] + [(os.path.join(PK_DIR, f[6:]), f) for f in px]
+    WLD = WLD + lx + px                                  # build.py lists these in the worker's SOURCES too
     missing = [s for s, _ in pins if not isfile(s)]
     if missing:
         raise SystemExit("STOP: missing owner files: " + ", ".join(missing))

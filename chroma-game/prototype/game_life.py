@@ -305,6 +305,7 @@ class LifeMixin:
         s = int(loc["s"][0]); sit = L["names"][s]
         stage = int(loc["stage"][0]); age = t / 52
         sev = [ev for ev in new if "situation" in ev]
+        fw = self._foot_week(new) if GAME["foot"] else []   # v24 footprints: what this week's act left
         self._recall(t, sev)
         kills = self._kills(L, s)
         if self.story.one_roll and loc.get("WL") is not None:
@@ -365,6 +366,8 @@ class LifeMixin:
                     sp = self._because(loc, cpw, rs["needs"]) if GAME["because"] else None
                     if sp:                              # Because of you, and meanwhile: the needs split by cause
                         rs["because"] = sp
+                    if fw:                              # v24 footprints: one line per kind the pick touched
+                        rs["foot"] = self.foot_lines(fw)
                     if pushed:
                         rs["hindsight"] = self._hindsight(loc, cpw, bool(ev["success"]), rs["needs"])
                         self._voice_trust_turn()
@@ -387,6 +390,7 @@ class LifeMixin:
                     if vo:                              # item 3: their answer to the voice, and whether it was right
                         line = "\n".join(x for x in (vo[0], line, vo[1]) if x); rs["text"] = line
                     rs["say"] = "\n".join(x for x in (rs["say"], self.because_line(sp) if sp else self.story.needs_line(rs["needs"]),
+                                                        "\n".join(f["line"] + "." for f in rs.get("foot", [])),
                                                         (rs.get("hindsight") or {}).get("line", "")) if x)
                     self._say(line, 0, "choice", sit=sit, ok=bool(ev["success"]), pushed=cpw["choice"] != cpw["own"],
                               colors=o["colors"], act=o["label"], rebound=rb, felt=round(o["felt"], 2), real=round(o["true"], 2),

@@ -211,3 +211,11 @@
   .arws .arw { display: inline-flex; align-items: center; gap: 2px; margin-right: 8px; white-space: nowrap; }
   .arw i { font-style: normal; font-size: var(--fs-1); letter-spacing: -1px; margin-left: 2px; }
   .arw.up i { color: var(--ok); } .arw.down i { color: var(--bad); } .arw.s1 i { opacity: 0.65; }
+  /* v24 footprints: a line per kind after a pick; six stacks in the HUD, the sheet and the Book */
+  .ndmove .r.ft svg.i { color: var(--gold3); }
+  .fstacks { display: grid; gap: 4px; }
+  .fst { display: grid; grid-template-columns: auto auto auto 1fr; align-items: baseline; gap: 6px; cursor: help; min-width: 0; }
+  .fst .k { font: 600 var(--fs-1) var(--ui); letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink2); }
+  .fst .l { color: var(--muted); font-size: var(--fs-1); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0; }
+  .fst.none { opacity: 0.55; }
+  .bfoot { display: inline-flex; gap: 8px; } .bfoot span { display: inline-flex; align-items: center; gap: 2px; }

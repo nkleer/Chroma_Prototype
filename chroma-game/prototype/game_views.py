@@ -169,6 +169,8 @@ class ViewsMixin:
                       zip(self.history["w"], self.history["content"], self.history["peace"], self.history["label"])]
         d["guilds"] = dict({k: v for k, v in IDENT_NAME.items() if k}, **{l_: ident_name(l_) for _, l_ in self.history["label"] if l_})
         d["goals"] = self.goals()
+        if GAME["foot"]:                                # v24 footprints: the life so far as six stacks
+            d["foot"] = self.foot_stacks()
         pv = self.places_view()
         if pv:
             d["places"] = pv
@@ -860,6 +862,8 @@ class ViewsMixin:
             d["returns"] = [dict(a=x["seed"]["age"], m=x["seed"]["moment"], b=x["age"], n=x["moment"]) for x in self.history["returns"]]
         if self.history.get("bold"):                 # Bold ways: each try (taken, won or lost), with its link
             d["bold"] = self._bold_book()
+        if GAME["foot"]:                                # v24 footprints: the whole life's six stacks, for the Book
+            d["foot"] = [dict(kind=x["kind"], name=x["name"], icon=x["icon"], n=x["n"], line=x["line"]) for x in self.foot_stacks() or []]
         return d
 
     def _life_review(self):
