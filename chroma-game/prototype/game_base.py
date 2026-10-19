@@ -238,8 +238,8 @@ GAME = dict(
     # Because of you, and meanwhile (chroma-ideas/next-table-2026-10-19/plan.md section 1; Emren "Clarity first" 10-19,
     # v23.2), with the Engine's played-life key need_why: the outcome splits the needs the pick's week moved into what the
     # pick did and what else happened, each with its cause, and a silent setback gets a short told line. Words only: no
-    # draws, so every step plays as before. Off until Release proves it
-    because=False,
+    # draws, so every step plays as before. On from v23.2 (Release's proof; GAME_OFF keeps it off)
+    because=True,
     # v24 hover arrows (plan section 1): before a pick, each option's hover shows what it would move if it works and if
     # it fails, as arrows in three sizes (a little, clearly, a lot) for needs, means, people and titles, from the
     # Engine's forecast (foresee.arrows). No numbers before the choice. Read-only: every step plays as with it off
