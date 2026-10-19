@@ -9,6 +9,7 @@ from game_base import (ADJ, ADJ_LOOK, BOLD_IX, C, CNAME, COLORS, DRIVER_WORD, E,
 from game_words import (ACC_FROM_ENGINE, PRESSURE, RARE_SHARE, STAKE_KIND, STAKE_MARK, STAKE_NEAR, STAKE_SOON,
     THREAD_COMMIT, THREAD_GOAL, accept_word, clash_with, clean, hint, long_shot_words, reluctance, stake_risk)
 from story_base import LIB_ECHO, LIB_GONE, PERSON_SLOTS
+from game_base import F
 
 
 class CheckpointsMixin:
@@ -271,6 +272,13 @@ class CheckpointsMixin:
             o["era"] = round(fit, 2); o["era_k"] = float(np.clip(1 - GAME["era_cost"] * fit, 0.5, 1.5))
             if causes and o["idx"] < len(causes) and causes[o["idx"]]:
                 o["wcause"] = self._option_cause(causes[o["idx"]])   # WL3: the world closes it, or makes it harder or easier
+        if GAME["arrows"] and hasattr(F, "arrows"):     # v24: the hover arrows, the Engine's forecast without its numbers
+            fa = {d["k"]: d for d in F.arrows(loc, 0)}
+            for o in opts:
+                d = fa.get(o["idx"])
+                if d:
+                    o["arrows"] = {w: [{x_: a_[x_] for x_ in ("kind", "name", "dir", "size", "word")} for a_ in d[w]]
+                                   for w in ("win", "fail")}
         cp = dict(t=t, age=t / 52, title=title, extra=extra, stakes=float(L["STAKES"][s]), recon=recon, s=s, sit=L["names"][s],
                   scene=self.story.scene(m), thought=thought, moment=m,
                   options=sorted(opts, key=lambda o: o["idx"]), own=own, a=a.copy(), by_idx={o["idx"]: o for o in opts})
