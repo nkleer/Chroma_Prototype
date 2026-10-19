@@ -31,7 +31,8 @@ MISSED_TITLE = -3   # {missed}: the title of the person's last failed long shot 
 KIND_ACT = -10
 # content packs (Emren's point 8; card 21:03: approved packs are always on, with no switch at setup). A pack joins this list
 # once the Library has built it and Emren has said go; its moments are then the Library's chroma-library/<world>_<pack>.py
-PACKS = ["science", "politics", "stage", "art"]   # the ONE GO-LIVE (Emren 10-06 01:32); art joins at v22.4 (Packs #154)
+PACKS = ["science", "politics", "stage", "art", "callings"]   # the ONE GO-LIVE (Emren 10-06 01:32); art joins at v22.4
+# (Packs #154); the Five Callings at the v24 refit (chroma-packs/callings, the single colours' public callings)
 if os.environ.get("CHROMA_PACKS") is not None:   # a check's own set (v22.4's G4 runs v22.3's three packs), comma list
     PACKS = [p_.strip() for p_ in os.environ["CHROMA_PACKS"].split(",") if p_.strip()]
 
