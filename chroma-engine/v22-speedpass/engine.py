@@ -832,14 +832,14 @@ DEFAULT = dict(
     # none). Read-only (no draw): every life plays the same with it on or off. Changes the caller makes at the "end"
     # pause fall in no week's record
     need_why=False,
-    # needs that fit life (the next stage's workstream 4; chroma-ideas/next-table-2026-10-19/needs-research.md), each off
-    # until the joint refit: need_tab "v7" reads the colour-to-needs table and what commitments meet from realm_earth
+    # needs that fit life (the next stage's workstream 4; chroma-ideas/next-table-2026-10-19/needs-research.md), each on
+    # since v24 (V24_OFF): need_tab "v7" reads the colour-to-needs table and what commitments meet from realm_earth
     # (NEED_MAP_V7, COMMIT_MEETS_V7: a partner gives meaning, each colour a meaning of its own); shared_hist, the most of
     # an act's belonging gain that also feeds meaning (shared history: shared_hist_par's share with no close bond,
     # rising to shared_hist as the longest held partnership, children or community lasts, halfway in its years); imp_age,
     # setbacks only from the age each can happen at (realm_earth.IMP_AGE)
     need_tab="v7", shared_hist=0.2, shared_hist_par=(0.10, 5.0), imp_age=True,   # on at the v24 refit
-    # aims v1 (the next stage's workstream 5; plan.md section 5), off until the joint refit; needs the batch's aims
+    # aims v1 (the next stage's workstream 5; plan.md section 5), on since v24 (V24_OFF); needs the batch's aims
     # (batch.AIMS or load_batch(aims=True)). An aim is a ladder of steps (titles or perks held or once held) toward what a
     # person wants to become, in up to aims_par slots: one grows from below out of a dream, passion or plan whose
     # concrete dream it names or whose domain and colours it fits (fit, the lean's cosine), or the player sets one (it
@@ -855,7 +855,7 @@ DEFAULT = dict(
     # reached (realm_earth.HEIGHT_NAMES, leading a sphere (rung 4), a summit title, leading a movement); on with aims
     heights=True,
     # the world answers v1 (the next stage's workstream 6; chroma-world/spheres/world-answers-v1.md, values in
-    # sphere_data.WORLD_ANSWERS), off until the joint refit; with the world. The forest and the tree: no life moves
+    # sphere_data.WORLD_ANSWERS), on since v24 (V24_OFF); with the world. The forest and the tree: no life moves
     # nothing. Its parts each have a sub-switch, read only with world_answers on: wa_groups (A: a member's presence leans
     # their settings' ways, kept beside the norm; a good voice, found or lead act grows the setting), wa_places (B: a
     # regular leans their haunts a little each year; a place they lead closes less often), wa_ledger (D: record only,
@@ -865,7 +865,7 @@ DEFAULT = dict(
     # (aims v1's heights: Known reached, its standing still held) decides for others in the sphere it stands in, 4 to 8
     # times a year (8 to 12 at national standing), with rivals, allies and a successor, at a price in hours and stress
     world_answers=True, wa_groups=True, wa_places=True, wa_ledger=True, wa_notice=True, wa_phase2=True,   # on at v24
-    # footprints (the next stage's workstream 3; plan.md section 3), off until the joint refit; needs the batch's FOOT
+    # footprints (the next stage's workstream 3; plan.md section 3), on since v24 (V24_OFF); needs the batch's FOOT
     # (batch.FOOT or load_batch(foot=True)). Each picked option's footprints get real state (run_03_moments.py, the
     # footprints): a person in the cast (off-world, ties by foot_par ties), a haunt, a means, a mark or door (one only a
     # return reads shuts after foot_par door_yrs), a lesson told

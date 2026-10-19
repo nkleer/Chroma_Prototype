@@ -1,4 +1,4 @@
-"""Engine check for the pause points (backend plan item 2, 2026-10-08) and each switch's own rows: 78 rows, about an hour
+"""Engine check for the pause points (backend plan item 2, 2026-10-08) and each switch's own rows: 79 rows, about an hour
 (50 to 65 min measured 10-17: the Engine with T_JOBS=4, Release on #288).
 
 engine.run_steps() is engine.run() pausing six times a week for the game. On a few short runs this checks that
@@ -72,6 +72,8 @@ engine.run_steps() is engine.run() pausing six times a week for the game. On a f
      run() and the lives move, the ledger fills for every life with the Library's unit keys, what a life moves a year in
      its groups, places and town grows with its standing (rung), and only Known lives decide for others; the batch
      without them carries none.
+ 23. cause_fit (E2, the Library's cause audit's tightened rules): switched on, run_steps() lives as run() and the lives
+     move; a dog of one's own only within a year of a stray dog, a record only within two years of a law broken.
 
     python3 -B chroma-engine/tools/t_steps.py [ENGINE_DIR]
 T_JOBS=N: the rows of 8 and 9 on N processes (default up to 4, by the cores there are; 1: one after another).
@@ -999,14 +1001,19 @@ if "need_why" in E.DEFAULT:
           f"edits {seen_['player']:.2f} of {seen_['edits']:.2f} set (the rest clipped); the hover arrows read-only, the picked "
           f"option's need arrows within a size of the record {seen_['ar_ok']} of {seen_['ar']}{'' if not fails else '; ' + '; '.join(fails[:4])} "
           f"({time.process_time() - t0:.0f} s)")
+# rows 19 to 22 and 23 each switch one v24 part on from every v24 switch off (engine.V24_OFF; the v24 refit turned
+# them on in DEFAULT), on a batch without the v24 moments and tables where a row needs one
+B24_ = dict(E.DEFAULT, **getattr(E, "V24_OFF", {}))
+NO24_ = batch.load_batch("earth", packs=list(batch.PACKS), aims=False, foot=False, wa=False) \
+    if "wa" in batch.load_batch.__code__.co_varnames else EARTH
 # 19. needs that fit life (need_tab, shared_hist, imp_age; workstream 4), Earth and packs, world off
 if "imp_age" in E.DEFAULT:
     t0 = time.process_time(); fails = []; NS_ = E.NSOURCES
-    kw = dict(N=3, years=40, seed=13, lib=EARTH, log_lives=(0,))
-    o0_ = E.run(**kw, P=dict(E.DEFAULT))
+    kw = dict(N=3, years=40, seed=13, lib=NO24_, log_lives=(0,))
+    o0_ = E.run(**kw, P=dict(B24_))
     early_, par_m_, d_ = 0, 0.0, {}
     for lab_, sw_ in (("need_tab", dict(need_tab="v7")), ("shared_hist", dict(shared_hist=0.3)), ("imp_age", dict(imp_age=True))):
-        P_ = dict(E.DEFAULT, need_why=True, **sw_)
+        P_ = dict(B24_, need_why=True, **sw_)
         o1_ = E.run(**kw, P=P_)
         g = E.run_steps(**kw, P=P_); msg = next(g)
         while True:
@@ -1039,12 +1046,12 @@ if "imp_age" in E.DEFAULT:
 if "aims" in E.DEFAULT and "aims" in batch.load_batch.__code__.co_varnames:
     import foresee as FS_
     t0 = time.process_time(); fails = []
-    LA_ = batch.load_batch("earth", packs=list(batch.PACKS), aims=True)
-    if "AIMS" in (EARTH or {}):
+    LA_ = batch.load_batch("earth", packs=list(batch.PACKS), aims=True, foot=False, wa=False)
+    if "AIMS" in (NO24_ or {}):
         fails.append("the batch without aims carries them")
     seen_ = dict(steps=0, own=0, set=0, calls=0, track=0, heights=0, ways=0)
     for wl_, N_, Y_, sd_ in ((False, 4, 50, 9), (True, 2, 30, 4)):
-        P_ = dict(E.DEFAULT, aims=True, world=wl_)
+        P_ = dict(B24_, aims=True, world=wl_)
         kw = dict(N=N_, years=Y_, seed=sd_, lib=LA_, log_lives=(0,))
         o1_ = E.run(**kw, P=P_)
         for edit_ in (False, True):
@@ -1109,17 +1116,17 @@ if "aims" in E.DEFAULT and "aims" in batch.load_batch.__code__.co_varnames:
 if "foot_on" in E.DEFAULT and "foot" in batch.load_batch.__code__.co_varnames:
     t0 = time.process_time(); fails = []
     import foresee
-    LF_ = batch.load_batch("earth", packs=list(batch.PACKS), foot=True)
-    if "FOOT" in (EARTH or {}):
+    LF_ = batch.load_batch("earth", packs=list(batch.PACKS), foot=True, aims=False, wa=False)
+    if "FOOT" in (NO24_ or {}):
         fails.append("the batch without FOOT carries it")
     kw = dict(N=3, years=20, seed=11, log_lives=(0,))
-    o0_ = E.run(**kw, lib=LF_, P=dict(E.DEFAULT))
-    if digest(E.run(**kw, lib=EARTH, P=dict(E.DEFAULT))) != digest(o0_) or "footprints" in o0_:
+    o0_ = E.run(**kw, lib=LF_, P=dict(B24_))
+    if digest(E.run(**kw, lib=NO24_, P=dict(B24_))) != digest(o0_) or "footprints" in o0_:
         fails.append("with FOOT in the batch and foot_on off, the lives moved")
     import collections as _co
     seen_ = _co.Counter()
     for wl_, N_, Y_, sd_ in ((False, 4, 40, 3), (True, 2, 25, 4)):
-        P_ = dict(E.DEFAULT, foot_on=True, world=wl_)
+        P_ = dict(B24_, foot_on=True, world=wl_)
         kw = dict(N=N_, years=Y_, seed=sd_, lib=LF_, log_lives=(0,))
         o1_ = E.run(**kw, P=P_)
         g = E.run_steps(**kw, P=P_); msg = next(g); done_ = ml_done_ = 0; open_ = {}
@@ -1190,7 +1197,7 @@ if "foot_on" in E.DEFAULT and "foot" in batch.load_batch.__code__.co_varnames:
                 break
         if digest(o1_) != digest(o2_):
             fails.append(f"world {'on' if wl_ else 'off'}: run_steps not the lives of run()")
-        if digest(o1_) == digest(E.run(**kw, P=dict(E.DEFAULT, world=wl_))):
+        if digest(o1_) == digest(E.run(**kw, P=dict(B24_, world=wl_))):
             fails.append(f"world {'on' if wl_ else 'off'}: nothing moved")
     for k_ in ("means", "mark", "door", "lesson", "person named", "own marks", "marks toward"):
         if not seen_[k_]:
@@ -1206,9 +1213,9 @@ if "foot_on" in E.DEFAULT and "foot" in batch.load_batch.__code__.co_varnames:
 if "world_answers" in E.DEFAULT and "wa" in batch.load_batch.__code__.co_varnames:
     import world_keys as WKA_
     t0 = time.process_time(); fails = []
-    LWA_ = batch.load_batch("earth", packs=list(batch.PACKS), wa=True)
+    LWA_ = batch.load_batch("earth", packs=list(batch.PACKS), wa=True, aims=False, foot=False)
     WAI_ = [WKA_.CAST_WANTS.index(k_) for k_ in WKA_.WA_WANTS]
-    if np.isin(np.asarray((EARTH or {}).get("W_WANT", [])), WAI_).any():
+    if np.isin(np.asarray((NO24_ or {}).get("W_WANT", [])), WAI_).any():
         fails.append("the batch without them carries world answers moments")
     WAS_ = np.isin(np.asarray(LWA_["W_WANT"]), WAI_)
     if not WAS_.any():
@@ -1218,12 +1225,12 @@ if "world_answers" in E.DEFAULT and "wa" in batch.load_batch.__code__.co_varname
                                for k_, v_ in o_.items() if k_ != "wa_ledger"})   # the lives, less the ledger's record
     met_ = lambda o_: int(np.asarray(o_["sit_n"])[:, WAS_].sum())
     kw = dict(N=3, years=12, seed=11, lib=LWA_, log_lives=(0,))   # world off: nothing to act on
-    a_ = E.run(**kw, P=dict(E.DEFAULT, world=False))
-    b_ = E.run(**kw, P=dict(E.DEFAULT, world=False, world_answers=True, wa_phase2=True))
+    a_ = E.run(**kw, P=dict(B24_, world=False))
+    b_ = E.run(**kw, P=dict(B24_, world=False, world_answers=True, wa_phase2=True))
     if digest(a_) != digest(b_) or met_(b_):
         fails.append("world off: the switch moved a life, or a world answers moment came")
-    kw = dict(N=2, years=46, seed=5, lib=LWA_, log_lives=(0,))
-    PW_ = dict(E.DEFAULT, world=True, heights=True)
+    kw = dict(N=2, years=46, seed=10, lib=LWA_, log_lives=(0,))   # seed 10 (v24 refit): a Known life and a pillar
+    PW_ = dict(B24_, world=True, heights=True)
     o0_ = E.run(**kw, P=dict(PW_))
     if met_(o0_) or "wa_ledger" in o0_:
         fails.append("loaded with the switch off: a world answers moment came, or a ledger")
@@ -1284,6 +1291,56 @@ if "world_answers" in E.DEFAULT and "wa" in batch.load_batch.__code__.co_varname
           f"run(), {len(lines_)} lines told ({min(x_['told'] for x_ in lv_)} or more a life), moved a year {lo_:.4f} at rung "
           f"0-1, {hi_:.4f} at 3-4; {len(dec_)} decisions in {kw_ / 52:.1f} Known years, none outside them"
           f"{'' if not fails else '; ' + '; '.join(fails[:4])} ({time.process_time() - t0:.0f} s)")
+# 23. cause_fit (E2): the cause audit's tightened rules (earth_rules.ROLES_FIT), Earth and packs, world off
+if "cause_fit" in E.DEFAULT:
+    t0 = time.process_time(); fails = []
+    LC_ = NO24_; GC_ = LC_["ROLES"]; IDC_ = GC_["ID"]
+    if not GC_.get("rule_fit"):
+        fails.append("no fitted rule compiled")
+    kw = dict(N=40, years=60, seed=21, lib=LC_, log_lives=(0,))
+    o0_ = E.run(**kw, P=dict(B24_))
+    P_ = dict(B24_, cause_fit=True)
+    o1_ = E.run(**kw, P=P_)
+    if digest(o1_) == digest(o0_):
+        fails.append("on: nothing moved")
+    dog_, rec_ = IDC_.get("dog of one's own"), IDC_.get("someone with a record")
+    sd_ = LC_["names"].index("a stray dog follows you home"); mb_ = LC_["MARKS"].index("broke the law")
+    rule_t_ = {}
+    for pn_, tt_, i_, what_, how_ in o1_["roles"]["log"]:
+        if what_ == "gained" and how_ == "in time":
+            rule_t_.setdefault(int(tt_), set()).add((int(pn_), int(i_)))
+    g = E.run_steps(**kw, P=P_); msg = next(g); prev_ = None; stray_ = None; gains_ = [0, 0]
+    while True:
+        kind, t, S, val = msg
+        if kind == "end":
+            sn_ = np.asarray(S["sit_n"])[:, sd_]
+            if stray_ is None:
+                stray_ = np.full(len(sn_), -10 ** 9); sn0_ = sn_.copy()
+            stray_ = np.where(sn_ > sn0_, t, stray_); sn0_ = sn_.copy()
+            rh_ = np.asarray(S["r_has"])
+            if prev_ is not None:   # gains by the rule itself ("in time"; an act may give one with its own cause)
+                for n_ in np.nonzero(rh_[:, dog_] & ~prev_[:, dog_])[0]:
+                    if (int(n_), dog_) in rule_t_.get(t, ()):
+                        gains_[0] += 1
+                        if t - stray_[n_] > 53:
+                            fails.append(f"a dog of one's own with no stray dog within the year (life {n_}, week {t})")
+                for n_ in np.nonzero(rh_[:, rec_] & ~prev_[:, rec_])[0]:
+                    if (int(n_), rec_) in rule_t_.get(t, ()):
+                        gains_[1] += 1
+                        if t - S["mark_last"][n_, mb_] > 2 * 52 + 1:
+                            fails.append(f"a record with no law broken within two years (life {n_}, week {t})")
+            prev_ = rh_.copy()
+        try:
+            msg = g.send(val)
+        except StopIteration as done:
+            o2_ = done.value
+            break
+    if digest(o1_) != digest(o2_):
+        fails.append("on: run_steps not the lives of run()")
+    bad += bool(fails)
+    print(f"{'PASS' if not fails else 'FAIL'}  cause_fit (the cause audit's {len(GC_.get('rule_fit') or {})} rules), switched "
+          f"on: run_steps lives as run(), the lives move; a dog only after a stray dog ({gains_[0]}), a record only after a law "
+          f"broken ({gains_[1]}){'' if not fails else '; ' + '; '.join(fails[:4])} ({time.process_time() - t0:.0f} s)")
 # 11. nothing read at a pause outside the handed-over names (an engine without STATE_MISSED reads its whole frame)
 if hasattr(E, "STATE_MISSED"):
     bad += bool(E.STATE_MISSED)
