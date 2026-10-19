@@ -474,15 +474,19 @@ ROLES_FIT = {
                               "had(['you take in a child who needs a home'], 1))"),
     "adoptive parent": dict(req="(age >= 25) & ~held_children & (mk('took them in', 2) | "
                                 "had(['you take in a child who needs a home'], 1))"),
-    "grandparent": dict(req="has('mother or father') & had(['your first grandchild'], 1)"),
+    "grandparent": dict(req="has('mother or father') & had(['your first grandchild', \"a grandchild's visit\", "
+                          "'teaching a grandchild to fish', \"a call from the grandchild's parent\"], 1)"),
     "convert": dict(req="held_faith & (was('seeker') | had(['welcomed into a community', 'a friend takes another faith', "
                         "'a new faith comes to town'], 2))"),
     "graduate": dict(req="has('school-leaving certificate') & (age >= 20) & "
-                         "(had(['you win a scholarship or a place'], 12) | was('first-generation university student'))"),
-    "has killed in war": dict(req="has('soldier') & had(['war comes'], 3)"),
+                         "(had(['you win a scholarship or a place'], 12) | was('first-generation university student') | "
+                         "had(['the first in the family to graduate', 'pens down on the last exam', 'the degree show', "
+                         "'a degree and a job at the till'], 2))"),
+    "has killed in war": dict(req="has('soldier') & had(['war comes', 'the unit comes home one short', "
+                                "'home from the posting, and not the same'], 3)"),
     "immigrant": dict(req="had(['the first months in a new country', 'work and a room abroad, if you go this month'], 1)"),
     "someone with a record": dict(req="mk('broke the law', 2)"),
-    "ex-prisoner": dict(req="has('someone with a record') & (yrs_out < 1)"),
+    "ex-prisoner": dict(req="has('someone with a record') & ((yrs_out < 1) | had(['the first night in a cell'], 6))"),
     "cancer survivor": dict(req="had(['a frightening diagnosis'], 3) & (health > .4)"),
     "citizenship": dict(req="(has('immigrant') & (yrs_has('immigrant') >= 5)) | had(['the oath of citizenship'], 1)"),
     "drinks licence": dict(req="~has('someone with a record') & (age >= 18) & (has('shop owner') | has('waiter or bartender'))"),
@@ -491,13 +495,15 @@ ROLES_FIT = {
     "dog of one's own": dict(req="had(['a stray dog follows you home'], 1)"),
     "inheritance": dict(req="had(['a parent dies', 'a grandparent dies', 'losing a grandparent', 'an unexpected legacy'], 1)"),
     "scholarship": dict(req="had(['you win a scholarship or a place'], 1)"),
-    "parent of an only child": dict(req="has('mother or father') & (yrs_children >= 4) & (kid_young >= yrs_children) & "
+    "parent of an only child": dict(req="has('mother or father') & (yrs_children >= 4) & (kid_young >= yrs_children - .1) & "
                                         "~was('parent of an only child')"),
     "guardian of an unrelated child": dict(req="(age >= 21) & had(['you take in a child who needs a home'], 1) & "
                                                "mk('took them in')"),
     "former foster child": dict(req="had(['going into foster care'], 110)"),
     "asylum applicant": dict(req="(ago_move < 1) & had(['war comes'], 3) & ~was('asylum applicant')"),
-    "displaced by a disaster": dict(req="had(['losing the home'], 1) & had(['war comes', 'the flood wall gives way'], 1)"),
+    "displaced by a disaster": dict(req="had(['the flood wall gives way'], 1) | (had(['losing the home'], 1) & "
+                                      "had(['war comes', 'the street pulls together after the storm', "
+                                      "'the flood in the community centre'], 2))"),
     "award for bravery": dict(req="(has('firefighter') | has('lifeboat volunteer') | has('search-and-rescue volunteer') | "
                                   "has('paramedic') | has('police officer') | has('soldier') | has('local hero')) & "
                                   "had(['a stranger saves you, or you save one'], 1)"),

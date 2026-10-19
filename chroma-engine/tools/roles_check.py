@@ -30,10 +30,11 @@ ENGINE_GRANTED = {"widowed", "divorced", "retiree", "out of work", "newcomer", "
 def one(args):
     seed, n, norm, accs = args
     L = _load()
-    for i, r in enumerate(L["ROLES"]["rule"]):
-        r["norm"] = norm.get(L["ROLES"]["names"][i], r["norm"])
-        r["acc_move"] = accs[0].get(L["ROLES"]["names"][i], r.get("acc_move", 1.0))
-        r["acc_first"] = accs[1].get(L["ROLES"]["names"][i], r.get("acc_first", 1.0))
+    G_ = L["ROLES"]   # the cause audit's conditions (rule_fit, swapped in with cause_fit) take the same fitted values
+    for i, r in [*enumerate(G_["rule"]), *G_.get("rule_fit", {}).items()]:
+        r["norm"] = norm.get(G_["names"][i], r["norm"])
+        r["acc_move"] = accs[0].get(G_["names"][i], r.get("acc_move", 1.0))
+        r["acc_first"] = accs[1].get(G_["names"][i], r.get("acc_first", 1.0))
     o = E.run(N=n, years=80, seed=seed, lib=L)
     R = o["roles"]; NT = R["NT"]
     ends = {}
