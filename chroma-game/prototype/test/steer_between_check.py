@@ -2,7 +2,7 @@
 page's own bridge (console.Console), each moment left to them; one way with no lean, the other leaning toward one color
 (--color, default R) after every ask from age 16. With the switch off the game plays as main (prove.py).
 
-    python3 -B test/steer_check.py [--color R] [--presets 1,2,3,4] [--seeds 1] [--jobs 4]
+    python3 -B test/steer_between_check.py [--color R] [--presets 1,2,3,4] [--seeds 1] [--jobs 4]
 
     S1   every life plays to its end both ways (no crash)
     S2   a lean ends at the next ask (none is held while a moment waits), and each moved choice is in the steers record
