@@ -31,9 +31,11 @@
         # drain needs: a world that frames colors as opposed adds inner tension (peace), not deprivation (v4)
         if NM_ON:   # P4: through each person's own table
             need += -P["need_drain"] + P["need_drain"] * 0.7 * 5 * np.einsum("njc,nc->nj", NMP, nic)
+            if NW_ON: nw_mark(NW_FADE)
             room = (1 - need) if P["satiate"] else 1.0
             need += 0.12 * np.maximum(stakes, P["need_floor"])[:, None] * np.where(succ[:, None], np.einsum("njc,nc->nj", NMP, np.maximum(ea, 0)), 0) * act_ * room
             need += 0.06 * np.einsum("njc,nc->nj", NMP, np.minimum(ea0, 0)) * act_
+            if NW_ON: nw_mark(NW_ACT)
             # the table moves (§1): an act that worked feeds what lacked most, through its colours (one that failed, the
             # reverse, at half); habit ties the colours used to what lacks; held goals tie theirs to their domain's needs
             ep_ = np.maximum(ea, 0); sg_ = np.where(succ, 1.0, -0.5) * stakes * (~idle)
@@ -47,9 +49,11 @@
             NMP = NMP * (NM_TOT / np.maximum(NMP.sum(1), 1e-9))[:, None, :]     # each colour's column keeps its total
         else:
             need += -P["need_drain"] + P["need_drain"] * 0.7 * 5 * (nic @ NMAP.T)
+            if NW_ON: nw_mark(NW_FADE)
             room = (1 - need) if P["satiate"] else 1.0    # v6: a need that is nearly met gains less from each act (satiation)
             need += 0.12 * np.maximum(stakes, P["need_floor"])[:, None] * np.where(succ[:, None], np.maximum(ea, 0) @ NMAP.T, 0) * act_ * room   # v6: quiet weeks meet needs too
             need += 0.06 * (np.minimum(ea0, 0) @ NMAP.T) * act_
+            if NW_ON: nw_mark(NW_ACT)
         if P["disc_win"]:   # v7 discipline: a hard thing done on purpose (the act the person meant, against the odds), most
             hw_ = tried & succ & (p_true < 0.4)          # formative in childhood as temperament is; slowly drifts back to even
             dsc[hw_] += P["disc_win"] * TST[stage[hw_]] / TST[2] * (P["disc_range"][1] - dsc[hw_])
@@ -60,24 +64,30 @@
             need[:, NIDX["autonomy"]] += P["aut_act"] * concord * (~idle) * np.where(concord > 0, room[:, NIDX["autonomy"]] if P["satiate"] else 1, 1)
             # competence: succeeding at what was hard for you, in any color; failing drains it a little
             need[:, NIDX["competence"]] += P["comp_act"] * np.where(succ, (0.5 + (1 - p_true)) * (room[:, NIDX["competence"]] if P["satiate"] else 1), -0.3 * appf_) * (~idle)
+            if NW_ON: nw_mark(NW_ACT)
         if CU_ON:   # a curious, thinking life (item 7): its own goods
             ln_ = ma[:, 1] * (1 - sg0_) * (~idle)                        # C3: learning in Blue's ways, worked or not
             need[:, NIDX["meaning"]] += P["cu_learn"] * ln_; need[:, NIDX["autonomy"]] += 0.5 * P["cu_learn"] * ln_
+            if NW_ON: nw_mark(NW_ACT)
             late_ = _uclip((age - 55) / 10, 0, 1) * np.maximum(sig[:, 1] - 0.3, 0)   # C2: understanding pays late
             need[:, NIDX["competence"]] += P["cu_late"] * late_; need[:, NIDX["meaning"]] += 0.5 * P["cu_late"] * late_
+            if NW_ON: nw_mark(NW_AGE)
             ask_on_ = (age >= 35) & (sig[:, 1] > 0.55) & (w[:, 1] > 0.22)  # C4: the one people ask
             asked += P["cu_ask_rate"] * np.where(ask_on_, 1 - asked, -0.1 * asked)
             ak_ = P["cu_ask"] * asked * (age >= 50)
             need[:, NIDX["belonging"]] += ak_; need[:, NIDX["meaning"]] += ak_
+            if NW_ON: nw_mark(NW_PEOPLE)
         duty_ = np.minimum(1, (held * I) @ DUTY)                      # needs of those the person answers for
         served = ((np.maximum(ea, 0) @ NMAP.T) * duty_).sum(1)
         need[:, NIDX["meaning"]] += P["duty_mean"] * served * succ * (~idle) * (room[:, NIDX["meaning"]] if P["satiate"] else 1)
+        if NW_ON: nw_mark(NW_ACT)
         # v6: tension rebounds both ways (Emren 22:46). An act that joins colors the world reads as opposed is a bet on
         # holding both: when it works the two fit together (integration, meaning, calm); when it fails the split hurts
         # (integration loosens, stress). The more the person holds both, the bigger the stakes
         span = np.einsum("ni,ij,nj->n", ma, FRpos, ma) * (~idle) * (1 + 4 * np.einsum("ni,nij,nj->n", w, FRpos[None] * (1 - J), w))
         if P["ten_good"] or P["ten_bad"]:
             need[:, NIDX["meaning"]] += P["ten_good"] * span * succ * (room[:, NIDX["meaning"]] if P["satiate"] else 1)
+            if NW_ON: nw_mark(NW_ACT)
             stress += P["ten_bad"] * span * ~succ
         reb += np.stack([span * succ, span * ~succ], 1)
         # v6 (Library notes C1, A2): a big event that goes badly feeds later trouble and leaves the person open for months;

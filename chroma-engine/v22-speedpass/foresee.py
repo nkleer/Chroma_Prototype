@@ -147,3 +147,108 @@ def drop_plan(S, n, j):
     fa = np.clip((S["tries"][n] - S["wins"][n] + S["blocked"][n] - S["P"]["flex_exp"][0]) / S["P"]["flex_exp"][1], 0, 1)
     S["quit_"](n, j, "let go", 0.3 + 0.7 * fa)
     return True
+
+
+# Hover arrows (WS1, "because of you, and meanwhile"; chroma-ideas/next-table-2026-10-19/plan.md section 1): before a
+# pick, what each option would move if it works and if it does not, as arrows in three sizes (1 a little, 2 clearly, 3 a
+# lot), never as numbers. Needs follow the engine's own weekly rules for the act (its ends met or drained, acting as
+# oneself, succeeding at what was hard, at the character's felt odds); means and people the Library's costs, wins and
+# losses (ties are people); titles the act's own fields and the commitment it may start. SIZES: the smallest move of
+# each size, in each kind's units (a need's share of one; a means' share of one; a chance for a commitment to start).
+SIZES = dict(need=(0.003, 0.01, 0.03), means=(0.02, 0.06, 0.15), people=(0.02, 0.06, 0.15), start=(0.1, 0.3, 0.6))
+SIZE_WORDS = {1: "a little", 2: "clearly", 3: "a lot"}
+PEOPLE_KINDS = ("partner", "children", "community")   # a commitment to people; the others (career, faith) are titles
+
+
+def _size(kind, v):
+    lo = SIZES[kind]
+    return sum(abs(v) >= x for x in lo)
+
+
+def _arrow(kind, name, v, size=None):
+    sz = _size(kind if kind != "title" else "start", v) if size is None else size
+    return dict(kind=kind, name=name, dir="up" if v > 0 else "down", size=int(sz), word=SIZE_WORDS[int(sz)],
+                v=round(float(v), 4)) if sz else None
+
+
+def arrows(S, n):
+    """At the "choose" pause: for each option open to person n (seen or unnoticed, not "do nothing"), the arrows of what
+    it would move if it works ("win") and if it does not ("fail"): [dict(k, win=[...], fail=[...])], each arrow
+    dict(kind (need, means, people or title), name, dir (up or down), size (1 to 3), word, v). v is the engine's own
+    estimate, for tests and the game's hidden layer only: the hover shows the arrow and its word, never the number.
+    Read-only."""
+    P = S["P"]; L = S["L"]; s = int(S["s"][n]); K = S["e"].shape[1]
+    NIDX = {nm: j for j, nm in enumerate(E.NEEDS)}
+    need = np.asarray(S["need"][n], float)
+    room = (1 - need) if P["satiate"] else np.ones(len(need))
+    T = np.asarray(S["NMP"][n], float) if S.get("NM_ON") else E.NMAP
+    st = max(float(S["stakes"][n]), P["need_floor"])
+    og = 0.5 * (np.asarray(S["w"][n], float) + E.softmax(S["y"][n]))
+    GR = L.get("ROLES") if S.get("RON") else None
+    TIE = E.RIDX["ties"]
+    out = []
+    for k in range(K):
+        if not S["mask"][n, k] or S["do_nothing"][n, k]:
+            continue
+        e = np.asarray(S["e"][n, k], float); e0 = np.asarray(S["e0"][n, k], float)
+        ma = np.asarray(S["m"][n, k], float); p = float(S["p_hat"][n, k])
+        both = 0.06 * (T @ np.minimum(e0, 0))                       # acting against a value's ends drains, worked or not
+        win = both + 0.12 * st * (T @ np.maximum(e, 0)) * room       # ends met when it works
+        fail = both.copy()
+        if P["aut_self"]:   # acting as oneself meets autonomy, worked or not; succeeding at what was hard meets competence
+            cc = float(np.clip(2 * (ma * og).sum() / og.max() - 1, -0.5, 1))
+            a_ = P["aut_act"] * cc * (room[NIDX["autonomy"]] if cc > 0 and P["satiate"] else 1)
+            win[NIDX["autonomy"]] += a_; fail[NIDX["autonomy"]] += a_
+            win[NIDX["competence"]] += P["comp_act"] * (0.5 + (1 - p)) * (room[NIDX["competence"]] if P["satiate"] else 1)
+            fail[NIDX["competence"]] -= P["comp_act"] * 0.3
+        if S.get("CU_ON"):   # learning in Blue's ways, worked or not
+            ln_ = ma[1] * (1 - float(S["sig"][n, 1]))
+            win[NIDX["meaning"]] += P["cu_learn"] * ln_; win[NIDX["autonomy"]] += 0.5 * P["cu_learn"] * ln_
+            fail[NIDX["meaning"]] += P["cu_learn"] * ln_; fail[NIDX["autonomy"]] += 0.5 * P["cu_learn"] * ln_
+        rm_ = room[NIDX["meaning"]] if P["satiate"] else 1
+        duty_ = np.minimum(1, (np.asarray(S["held"][n], float) * np.asarray(S["I"][n], float)) @ E.DUTY)
+        win[NIDX["meaning"]] += P["duty_mean"] * float(((np.maximum(e, 0) @ E.NMAP.T) * duty_).sum()) * rm_   # serving those
+        # one answers for; holding colours the world reads as opposed, when it works
+        if P["ten_good"] and S.get("FRpos") is not None and S.get("J") is not None:
+            FRp = np.asarray(S["FRpos"], float); wn_ = np.asarray(S["w"][n], float)
+            span = float(ma @ FRp @ ma) * (1 + 4 * float(wn_ @ (FRp * (1 - np.asarray(S["J"][n], float))) @ wn_))
+            win[NIDX["meaning"]] += P["ten_good"] * span * rm_
+        cl_ = S["closed_s"][n, k] if S.get("closed_s") is not None else -1
+        if cl_ == 1:   # an option others frown on backfires on belonging when it fails
+            bk_ = min(float(S["clu_"][n, k]), 1.0) if S.get("CLU_ON") and S.get("clu_") is not None else 1.0
+            fail[NIDX["belonging"]] -= 0.1 * bk_
+        pay = np.asarray(L["PAY"][s, k], float) if "PAY" in L else np.zeros(len(E.RESOURCES))
+        rw = pay + (np.asarray(L["WIN"][s, k], float) if "WIN" in L else 0)
+        rl = pay + (np.asarray(L["LOSE"][s, k], float) if "LOSE" in L else 0)
+        side = dict(win=[], fail=[])
+        for nm_, nv_, rv_ in (("win", win, rw), ("fail", fail, rl)):
+            ar_ = [_arrow("need", E.NEEDS[j], nv_[j]) for j in np.argsort(-np.abs(nv_))]
+            ar_ += [_arrow("people" if j == TIE else "means", E.RESOURCES[j], rv_[j]) for j in np.argsort(-np.abs(rv_))]
+            side[nm_] = [a for a in ar_ if a]
+        kk = int(L["COMMIT"][s, k]) if "COMMIT" in L else -1
+        if kk >= 0 and not S["held"][n, kk]:   # the commitment it may start, when it works
+            a_ = _arrow("people" if E.KNAMES[kk] in PEOPLE_KINDS else "title", E.KNAMES[kk], float(P["commit_p"][kk]),
+                        size=_size("start", float(P["commit_p"][kk])))
+            if a_:
+                side["win"].append(a_)
+        if GR is not None and GR["A_HASFX"][s, k]:   # the act's own titles and perks, gained or given up
+            for nm_ in ("win", "fail"):
+                for op_, j_, _ in GR["A_FX"][(s, k)]["ok" if nm_ == "win" else "fail"]:
+                    if j_ == -2:
+                        j_ = _title_held(S, n, s)
+                    if j_ < 0 or j_ >= len(GR["names"]):
+                        continue
+                    has_ = bool(S["r_has"][n, j_])
+                    if op_ in ("title", "grants") and not has_:
+                        side[nm_].append(dict(kind="title", name=GR["names"][j_], dir="up", size=3 if j_ < GR["NT"] else 2,
+                                              word=SIZE_WORDS[3 if j_ < GR["NT"] else 2], v=1.0))
+                    elif op_ in ("drops", "takes", "suspends") and has_:
+                        side[nm_].append(dict(kind="title", name=GR["names"][j_], dir="down", size=3 if j_ < GR["NT"] else 2,
+                                              word=SIZE_WORDS[3 if j_ < GR["NT"] else 2], v=-1.0))
+        out.append(dict(k=k, **side))
+    return out
+
+
+def _title_held(S, n, s):
+    import explain
+    return explain.title_held_index(S, n, s)

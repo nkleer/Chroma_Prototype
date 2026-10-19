@@ -295,6 +295,8 @@ class CheckpointsMixin:
                 self._ret_owed = self.__dict__.get("_ret_owed", 0) + 1   # it takes the place of the next repeat that would be asked
         b = X.say(X.before(loc, 0, rng=self.vrng), self.name)
         cp["snap"] = X.snapshot(loc, 0, b)
+        if GAME["because"]:
+            cp["nw0"] = self._nw(loc)                   # Because of you: the week's need record at the pick
         cp["view"] = self._view(loc, b, cp)
         if GAME["bold"] and self._bold_now and not recon:
             self._bold_options(loc, cp)                 # Bold ways: up to two more ways, after the moment's own

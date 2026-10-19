@@ -35,6 +35,7 @@
                     ac[hm] = accept(ii[hm], msg[hm], (src[hm] <= 1).astype(float))
                     take_in(ii[hm], msg[hm], EV["s"][j[hm]] * expo[hm] * ac[hm], 7)
                 need[ii] += EV["need"][j]; res[ii] = _uclip(res[ii] + EV["res"][j], 0, 1)
+                if NW_ON: nw_mark(NW_OUT)
                 stress[ii] += 0.3 * EV["s"][j] * (EV["need"][j].sum(1) < 0)
                 mv = EV["move"][j]; nic[ii[mv]] = 0.5 * nic[ii[mv]] + 0.5 * msg[mv]; res[ii[mv], TIE] = np.maximum(0, res[ii[mv], TIE] - 0.2)
                 dr = EV["door"][j]; nic[ii[dr]] += 0.15 * EV["s"][j[dr], None] * (msg[dr] - nic[ii[dr]])
@@ -95,6 +96,7 @@
                         if P["ev_need_k"]:   # it lands harder on a need already lacking
                             imp_ = imp_ * _uclip(1 + P["ev_need_k"] * (lack[ii_] @ thr_ - 0.3), 0.5, 2.0)
                     need[ii_] += P["read_k"] * imp_[:, None] * e_["base_need"][None] + an_
+                    if NW_ON: nw_mark(NW_READ)
                     r0_ = res[ii_].copy() if WFX_ON and j_ in DIS_J_ else None
                     res[ii_] = _uclip(res[ii_] + imp_[:, None] * e_["base_res"][None] + ar_, 0, 1)
                     if r0_ is not None:   # what a disaster cost them: money, time, health, ties, freedom
@@ -129,13 +131,17 @@
             if WFX_ON:   # what the place gives to feeling safe, by the world's cause
                 wfx_track("safety", WL.safety_parts(), age, dead)
         need[:, :3] += P["res_need"] * (supply - 0.5)
+        if NW_ON: nw_mark(NW_MEANS)
         need += P["commit_need"] * ((held * I) @ KPAY) * ((1 - need) if P["satiate"] else 1)
+        if NW_ON: nw_mark(NW_COMMIT)
         if MK_ON:   # the mark of the work: a trade with say and skill meets autonomy and competence more (Jahoda 1982)
             mz_ = np.asarray(WL.PP.mark_z, float) * (held[:, CAR] * I[:, CAR])[:, None]
             need[:, NIDX["autonomy"]] += 0.1 * P["commit_need"] * mz_[:, 0]; need[:, NIDX["competence"]] += 0.1 * P["commit_need"] * mz_[:, 1]
+            if NW_ON: nw_mark(NW_COMMIT)
         if RON:   # a title's own needs on top of its kind's, scaled the same way (statuses at full strength)
             tn_ = (r_has[:, :NT_] * np.where(TK_ < NK, I[:, np.minimum(TK_, NK - 1)], 1.0)) @ GR["meets_need"]
             need += P["commit_need"] * P["title_need"] * tn_ * np.where(tn_ > 0, (1 - need) if P["satiate"] else 1, 1)
+            if NW_ON: nw_mark(NW_TITLE)
         stress += 0.01 * np.maximum(0, 0.5 - res[:, HEA])
         if DEEP_ON and getattr(WL.PP, "care_load", None) is not None:   # phase 5: the care load wears on the carer
             stress += P["care_stress"] / 4.33 * np.asarray(WL.PP.care_load, float) / 10
@@ -143,7 +149,9 @@
         care = P["family_care"] * np.where(stage == 0, 1.0, np.where(stage == 1, 0.5, 0.0))
         need[:, :2] += care[:, None] * (0.85 - need[:, :2])
         need[:, 3:] += 0.5 * care[:, None] * (0.7 - need[:, 3:])     # and school and play give some competence and meaning (v5)
+        if NW_ON: nw_mark(NW_CARE)
         need = _uclip(need, 0, 1)
+        if NW_ON: nw_clip()
         lack_raw = np.maximum(0, P["need_set"] - need) / P["need_set"]
         if P["flex"]:      # v6: needs that stay unmet lose importance, slowly, and faster with age; met ones regain it
             # driven by experience, not age (Emren 2026-10-04: favor comes from preference, mindset and experience):

@@ -819,6 +819,13 @@ DEFAULT = dict(
     # money, age), and each lost as time passed or slipped away how long it was held and unused; read-only (no draw), so
     # every life plays the same with it on or off. The game's causes switch turns it on
     role_why=False,
+    # need_why (WS1, "because of you, and meanwhile"; chroma-ideas/next-table-2026-10-19/plan.md section 1): a record of
+    # why each need moved this week, by source (NSOURCES): nw, N x NSOURCES x needs, from the start of the week (before
+    # the "week" pause) to the "end" pause, summing exactly to the week's change (what the clip to 0..1 takes off goes
+    # back to the week's moves of its sign, pro rata), and nw_imp, the week's silent setback (IMPOSITIONS index, -1
+    # none). Read-only (no draw): every life plays the same with it on or off. Changes the caller makes at the "end"
+    # pause fall in no week's record
+    need_why=False,
     echo_play_par=dict(p=0.6, w=0.3, delay=(1.0, 8.0), keep=10.0, gap=0.5, again=12.0),
     # bold ways (chroma-ideas/gameplay-2026-10-17/bold-ways.md): set only by the game for a played life, with the batch's
     # BOLD_MOMENTS. In a week the game asks (bold_ask, set at the situation pause and spent at the choice; "all": every
@@ -1484,6 +1491,8 @@ UPD_OFF = dict(dis_match=False,
                bold_play=False,
                # every change has a cause: the played life's role causes (read-only)
                role_why=False,
+               # because of you, and meanwhile: why each need moved (read-only)
+               need_why=False,
     # the v22.3 refit's satisfaction level (the new mechanics lift satisfaction; the set point moved .80 -> .86)
     sat_mid=0.8)
 # everything since the go-live off, for the identity check (C-E14): lives then equal engine_v9_golive.py
@@ -1546,6 +1555,16 @@ ASOURCES = ["unmet needs", "surroundings", "role models", "settling back", "turn
             "resolutions", "outside events", "the times", "discontent", "contentment", "restlessness", "dreams and plans",
             "a shorter horizon"]
 AS_WEEKLY = [0, 1, 2, 3, 8, 9, 10, 11, 12, 13]  # sources that act every week, in the order they are stacked
+# need_why (WS1, "because of you, and meanwhile"): what moved each need this week, by source. act: the week's act (its
+# ends met or drained, acting as oneself, succeeding at what was hard, learning, serving those one answers for, holding
+# opposed colours, a binding act, a closed option that backfired); fade: the weekly drain, net of what one's niche gives;
+# setback: an unchosen imposition (its kind in nw_imp); outside: a personal event from outside; reading: a batch event
+# read through one's own colours; loss: a close person died; means: money, health, ties, freedom and time (and the
+# place, with the world on); commitments: what held commitments meet, the mark of the work, leaving one; titles: what
+# titles and statuses meet; care: a family looking after its child; goals: a goal reached or given up; people: being
+# the one people ask; age: understanding that pays late; player: what the caller changed at a pause
+NSOURCES = ["act", "fade", "setback", "outside", "reading", "loss", "means", "commitments", "titles", "care", "goals",
+            "people", "age", "player"]
 
 # v7 goals: dreams (before adulthood, and later sparks), passions (a dream sealed by a rite) and plans (adult, with a horizon)
 G_KINDS = ["dream", "passion", "plan"]
@@ -1717,6 +1736,10 @@ STATE_MORE = ("fam", "gsr", "goal_rel_S", "around", "retired", "ck", "ok_", "frc
               # chance, p (the card's: p_act x the chance its win is kept), p_act, seen; None when not asked) and the slot taken (-1 none), from the choose pause on
               "asrc", "asrc_c",   # every change has a cause: what moved the want so far, by source (asrc: N x ASOURCES x
               # colours; asrc_c: the first logged life's, ASOURCES x colours; the game takes the year's movers between two pauses)
+              "J", "FRpos", "clu_", "CLU_ON",   # foresee.arrows: how far each pair of colours is held together, the
+              # world's opposed pairs and this week's closures in units (with CLU_ON)
+              "nw", "nw_imp",   # need_why: this week's need moves by source (N x NSOURCES x needs) and silent setback
+              # (IMPOSITIONS index, -1 none), from the start of the week; None off. The game takes the pick's from the choose pause on
               "btrust")   # body_trust (finishing pack part 3): each life's trust per sphere (N x 9, NaN before 15); None off
 STATE_MISSED = set()   # names read at a pause that are not handed over (STATE, STATE_IF, STATE_MORE): t_steps wants none
 

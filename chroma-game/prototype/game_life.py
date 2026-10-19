@@ -3,6 +3,7 @@
 Part of class Game (game.py), which inherits LifeMixin; moved out of game.py verbatim. A method here reads
 module names through the imports below, the same objects game.py has, and self for everything on the Game."""
 import numpy as np
+from game_because import SETBACK_AGE
 from game_base import (ADJ_LOOK, ADJ_READS, ADJ_SCALE, C, CNAME, COLORS, E, EPITHETS, ES, EngineWorld, GAME, KNAMES,
     PERK_ORDER, READ_GAP, READ_TOLD, RNAMES, ROLE_AGAIN, ROLE_QUIET, ROLE_QUIET_LOST, RUSTY, SPAN_TOLD, STAGES,
     STATES, STATE_NAME, STREAK_TOLD, SUS_T, TAKEN_IN, TOLD_GAP, WOUND_TOLD, X, act, an, batch_mod, from_engine,
@@ -361,6 +362,9 @@ class LifeMixin:
                     self.history["acts"].append((round(age, 1), o["colors"], bool(ev["success"]), bool(pushed)))   # the song's deeds
                     rs = self.resolution
                     rs["needs"] = self._needs_moved(loc, cpw["cp"]["snap"])
+                    sp = self._because(loc, cpw, rs["needs"]) if GAME["because"] else None
+                    if sp:                              # Because of you, and meanwhile: the needs split by cause
+                        rs["because"] = sp
                     if pushed:
                         rs["hindsight"] = self._hindsight(loc, cpw, bool(ev["success"]), rs["needs"])
                         self._voice_trust_turn()
@@ -382,7 +386,7 @@ class LifeMixin:
                         rs["own"] = self._own_lived(loc, cpw)
                     if vo:                              # item 3: their answer to the voice, and whether it was right
                         line = "\n".join(x for x in (vo[0], line, vo[1]) if x); rs["text"] = line
-                    rs["say"] = "\n".join(x for x in (rs["say"], self.story.needs_line(rs["needs"]),
+                    rs["say"] = "\n".join(x for x in (rs["say"], self.because_line(sp) if sp else self.story.needs_line(rs["needs"]),
                                                         (rs.get("hindsight") or {}).get("line", "")) if x)
                     self._say(line, 0, "choice", sit=sit, ok=bool(ev["success"]), pushed=cpw["choice"] != cpw["own"],
                               colors=o["colors"], act=o["label"], rebound=rb, felt=round(o["felt"], 2), real=round(o["true"], 2),
@@ -555,6 +559,11 @@ class LifeMixin:
                         old = self._event_line(ev)
                         if old:
                             self._say(old, 0, "ledger")
+        if GAME["because"] and age >= max(self.start_age, SETBACK_AGE):
+            sb = self._setback(loc)                     # a silent setback this week: a short told line
+            if sb:
+                self._say(sb[1], 1, "setback", name=sb[0])
+                self.history.setdefault("setbacks", []).append((round(age, 1), sb[0]))
         if self.story.one_roll and loc.get("WL") is not None:
             self._one_roll(loc, kids=True)              # F7: a child the world lost after the engine's moment
             self._due_told(t)                           # F7: a world death no engine death claimed in time

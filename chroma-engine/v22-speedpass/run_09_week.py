@@ -109,10 +109,13 @@
                 y = y + dy_; asrc[:, 1] += dy_
         if EP_ON:
             ep_now[:] = -1   # no return yet this week (set after the situation pause, read from the choose pause on)
+        if NW_ON:   # need_why: a new week's record (what the caller changes at the "week" pause is the player's)
+            nw[:] = 0; nw_imp[:] = -1; nw_prev[:] = need
         if pausing:
             _pause_state(pz_st, ST_CELLS, ST_FR)
             _ = yield Pause("week", t, pz_st, None)
             pz_st._fr = None
+            if NW_ON: nw_mark(NW_PLAYER)
             if WFX_ON:
                 wfx = [[] for _ in range(N)]
         e_i, e_p = era_i[t], era_p[t]
