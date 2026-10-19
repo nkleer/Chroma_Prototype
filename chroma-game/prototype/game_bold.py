@@ -133,12 +133,14 @@ class BoldMixin:
         out["colour"] = c if c in "WUBRG" and c else (row.get("src") or {}).get("colour", "")
         return out
 
-    def _bold_stake(self, L, row, m):
+    def _bold_stake(self, L, row, m, loc=None):
         """What a bold way wins and costs for good, from its row's fields in the Library's own vocabulary: on success
         title, grants, drops (a status shed), takes (rare); on failure title_if_fails, takes_if_fails, drops_if_fails (a
-        title, or kind:<kind>: whatever title of that kind they hold), suspends_if_fails (a perk, for a while). Returns
-        (win, cost), lists of short phrases, and the names they come from (win and cost: [(field, name)]), for the
-        proof that the card's word holds."""
+        title, or kind:<kind>: whatever title of that kind they hold), suspends_if_fails (a perk, for a while). A gain
+        they already hold or cannot get at their age (the catalogue's ages=), or a loss of what they do not hold, changes
+        nothing and is not said. Returns (win, cost),
+        lists of short phrases, and the names they come from (win and cost: [(field, name)]), for the proof that the
+        card's word holds."""
         GR = L.get("ROLES")
         def say(nm):
             if GR is not None and nm in GR["ID"]:
@@ -148,21 +150,46 @@ class BoldMixin:
         def who(sl):
             p = ctx.get("_p_" + str(sl)) if sl else None
             return p["name"] if p is not None and p.get("name") and p.get("alive", True) else f"their {sl}" if sl else "someone close"
-        drop = lambda x: f"loses {KIND_SAY.get(x[5:], 'their ' + x[5:])}" if x.startswith("kind:") else f"loses {say(x)}"
-        win = [f"becomes {say(x)}" for x in _as_list(row.get("title"))]
-        win += [f"gains {say(x)}" for x in _as_list(row.get("grants"))]
-        win += [f"leaves {say(x)} behind" for x in _as_list(row.get("drops"))]
-        win += [f"gives up {say(x)}" for x in _as_list(row.get("takes"))]
-        cost = [f"loses {say(x)}" for x in _as_list(row.get("takes_if_fails"))]
-        cost += [drop(x) for x in _as_list(row.get("drops_if_fails"))]
-        cost += [f"becomes {say(x)}" for x in _as_list(row.get("title_if_fails"))]
-        cost += [f"loses {say(x)} for a while" for x in _as_list(row.get("suspends_if_fails"))]
-        cost += [f"breaks with {who(x)}" for x in _as_list(row.get("break"))]
-        names = dict(win=[(f_, x) for f_ in ("title", "grants", "drops", "takes") for x in _as_list(row.get(f_))],
-                     cost=[(f_, x) for f_ in ("takes_if_fails", "drops_if_fails", "title_if_fails", "suspends_if_fails", "break")
-                           for x in _as_list(row.get(f_))])
-        win = _as_list(row.get("win_say")) or win
-        cost = _as_list(row.get("cost_say")) or cost
+        has = np.asarray(loc["r_has"][0], bool) if loc is not None and GR is not None and "r_has" in loc else None
+        def held(nm):                                   # None: not known (no catalogue), so it is said
+            if has is None:
+                return None
+            if nm.startswith("kind:"):
+                return any(has[i] and GR["kindname"][i] == nm[5:] for i in range(min(len(has), len(GR["kindname"]))))
+            i = GR["ID"].get(nm)
+            return None if i is None or i >= len(has) else bool(has[i])
+        P_ = loc.get("P") if loc is not None else None
+        gate = P_ is None or bool(P_.get("title_ages", True))
+        def too_young_or_old(nm):                       # the Engine gives a title or perk only inside its ages
+            i = GR["ID"].get(nm) if GR is not None and gate and "ages" in GR else None
+            return i is not None and not (GR["ages"][i][0] <= self.t / 52 <= GR["ages"][i][1])
+        GAIN = dict(title="becomes {}", grants="gains {}", title_if_fails="becomes {}")
+        LOSE = dict(drops="leaves {} behind", takes="gives up {}", takes_if_fails="loses {}", drops_if_fails="loses {}",
+                    suspends_if_fails="loses {} for a while")
+        def phrase(f_, x):
+            if f_ == "break":
+                return f"breaks with {who(x)}"
+            if x.startswith("kind:"):
+                return "loses " + KIND_SAY.get(x[5:], "their " + x[5:])
+            return (GAIN.get(f_) or LOSE[f_]).format(say(x))
+        def side(fields):
+            out = []
+            for f_ in fields:
+                for x in _as_list(row.get(f_)):
+                    h = held(x) if f_ != "break" else None
+                    if (f_ in GAIN and (h is True or too_young_or_old(x))) or (f_ in LOSE and h is False):
+                        continue                        # nothing would change
+                    out.append((f_, x))
+            return out
+        names = dict(win=side(("title", "grants", "drops", "takes")),
+                     cost=side(("takes_if_fails", "drops_if_fails", "title_if_fails", "suspends_if_fails", "break")))
+        def course(nm):                                 # F16: a title that would start a partnership, children or a faith
+            i = GR["ID"].get(nm) if GR is not None else None   # the life course can still turn down (its own chance)
+            k = GR["kindname"][i] if i is not None else None
+            return k in ("partner", "children", "faith") and held("kind:" + k) is False
+        names["course"] = [x for f_, x in names["win"] + names["cost"] if f_ in GAIN and course(x)]
+        win = _as_list(row.get("win_say")) or [phrase(f_, x) for f_, x in names["win"]]
+        cost = _as_list(row.get("cost_say")) or [phrase(f_, x) for f_, x in names["cost"]]
         return win, cost, names
 
     def _bold_options(self, loc, cp):
@@ -195,7 +222,7 @@ class BoldMixin:
                 lg = np.log(p / (1 - p)) - GAME["effort"] * rel - (GAME["out_of_reach"] if bo["status"] == "out of reach" else 0)
                 pt = float(1 / (1 + np.exp(-lg)))
             fit = None if abs(p - chance) < GAME["bold_hint"] else "likelier" if p > chance else "harder"
-            win, cost, names = self._bold_stake(L, row, cp["moment"])
+            win, cost, names = self._bold_stake(L, row, cp["moment"], loc)
             o = dict(bo, idx=k, label=label, colors=col, felt=chance, true=pt, true0=p, hint=hint(pt - chance), rel=rel,
                      acc="their own pick" if k == own else accept_word(rel), lean=0.0,
                      clash=clash_with(col, self._prev_label), commit=None, follows=bo.get("follows") or {},
@@ -249,19 +276,38 @@ class BoldMixin:
         o = cp["by_idx"][k]; b = o["bold"]
         ok = bool(ev["success"])
         eb = next((e_["bold"] for e_ in new if isinstance(e_.get("bold"), dict)), None)   # the Engine's record of the try
-        changed = []                                    # what came through the bold act (the Engine's "through <label>")
-        via = "through " + b["raw"]
+        changed = []                                    # what came through the bold act (the Engine's "through <label>"), and
+        via = "through " + b["raw"]                     # any change the card named for it, however the Engine applied it
+        said = {str(n) for _f, n in b["names"]["win"] + b["names"]["cost"]}
+        kinds = {n[5:] for n in said if n.startswith("kind:")}
         for e_ in new:
             r = e_.get("role")
-            if r and r.get("what") in ("gained", "lost") and b["raw"] and str(r.get("how", "")).startswith(via):
+            named = r is not None and (r.get("name") in said or (r.get("what") == "lost" and r.get("kind") in kinds))
+            if r and r.get("what") in ("gained", "lost", "suspended") and (named or b["raw"] and str(r.get("how", "")).startswith(via)):
                 changed.append(dict(what=r["what"], name=r["name"], kind=r.get("kind")))
         rec = dict(t=int(self.t), age=round(age, 1), moment=cp["title"], act=o["label"], colors=o["colors"], chance=b["chance"],
-                   p=b["p"], row=b["row"], ok=ok, pushed=k != own, stated=b["names"], changed=changed,
+                   p=b["p"], p_used=round(float(o["true"]), 4), row=b["row"], ok=ok, pushed=k != own, stated=b["names"], changed=changed,
                    engine=dict(eb) if eb else None)
         self.history.setdefault("bold", []).append(rec)
+        self._bold_watch = dict(rec=rec, said=said, kinds=kinds, via=via, t_end=int(self.t) + 8)
         said = b["win"] if ok else b["cost"]
         line = ("" if not said else self.story.fill("For good: {N} " + "; ".join(said) + "."))
         return dict(kind="won" if ok else "lost", line=line, chance=b["chance"], p=b["p"], colors=o["colors"])
+
+    def _bold_late(self, new):
+        """A change a bold way gave that lands in the weeks after the try (a facet waits up to 8 weeks for the title it
+        refines): added to the try's record, for the proof that the card's word holds."""
+        bw = self._bold_watch
+        if bw is None or int(self.t) <= bw["rec"]["t"]:
+            return
+        if int(self.t) > bw["t_end"]:
+            self._bold_watch = None
+            return
+        for e_ in new:
+            r = e_.get("role")
+            if r and r.get("what") in ("gained", "lost", "suspended") and (r.get("name") in bw["said"] or (r.get("what") == "lost" and r.get("kind") in bw["kinds"])
+                                                              or str(r.get("how", "")).startswith(bw["via"])):
+                bw["rec"]["changed"].append(dict(what=r["what"], name=r["name"], kind=r.get("kind"), late=int(self.t) - bw["rec"]["t"]))
 
     def _bold_link_came(self, ret, cpw, ev, age):
         """A bold way's link was played: paired with its try in the Book's list."""

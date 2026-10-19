@@ -285,6 +285,8 @@ class LifeMixin:
                 self._ix_exp += np.bincount(lead[o_], minlength=C) / o_.sum()
         evs = loc["events"][0]
         new = evs[self._ev_i:]; self._ev_i = len(evs)
+        if self._bold_watch is not None:
+            self._bold_late(new)
         w_now = E.softmax(loc["z"][0]); res_now = loc["res"][0].copy()
         moved = {}
         if self._w_prev is not None:     # what this week moved: colors in points, means, as the browser's hover shows them

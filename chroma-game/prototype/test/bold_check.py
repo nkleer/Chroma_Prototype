@@ -2,16 +2,21 @@
 2026-10-17/bold-ways.md, Release bar). Whole Earth lives played with bold on, a card alternately left to them, pushed to
 a bold way and pushed to the bold way's ordinary base way.
 
-    python3 -B test/bold_check.py [--presets 1,2,3,4] [--seeds 1-6] [--jobs 4] [--mock]
+    python3 -B test/bold_check.py [--presets 1,2,3,4] [--seeds 1-6] [--jobs 4] [--mock] [--no-base]
 
-    B3   life-event asks that carry a bold way (bar: 90% or more); the colours of the bold ways offered (each 20% +- 4
+    B3   life-event asks that carry a bold way, over the asks whose moment has a BOLD row (the stage's bar: 90% or more)
+         and over all of them (the bar once every life event has rows); the colours of the bold ways offered (each 20% +- 4
          points) and their mean written chance per colour (within +- 3 points of the mean)
     B4   bold tries that worked against the Engine's own mean odds for them, pooled (+- 5 points); at an ordinary start
-         (preset 1) the Engine's odds against the card's written chance (+- 5 points)
-    B5   every bold outcome left what the card stated (a win's title or perk gained, a failure's cost) and nothing
-         lasting it did not state (titles and perks gained or lost through it)
+         (preset 1: the offers where their own odds for the base way still sit within 5 points of its written chance, a
+         fresh character for that way; also the first 3 years, and whole lives) the Engine's odds against the card's
+         written chance (+- 5 points)
+    B5   every bold outcome left what the card stated (a win's title or perk gained, a failure's cost, in that week or
+         the 8 after, as a facet waits for its title) and nothing lasting it did not state (titles and perks gained or
+         lost through it); a new partnership, child or faith the life course turns down (F16) is the act's own chance
     B9   every link follows its own try's side (a win link only after a win), one to three years after it (plus a
-         season), at most 6 a life; asks a life (Release compares them with main's plus 5%)
+         season), at most 6 a life; asks a life against the same lives with bold off (main's lives, prove.py: the same;
+         bar: plus 5% at most; --no-base skips them)
     B10  "likelier" and "harder for them" true: shown exactly when their own odds sit 10 points or more from the written
          chance
 
@@ -46,19 +51,19 @@ def mock(game):
     BoldMixin._bold_choose = choose
 
 
-def play(preset, seed, out, use_mock):
+def play(preset, seed, out, use_mock, off=False):
     sys.path.insert(0, GAME_DIR)
     os.chdir(GAME_DIR)
     import numpy as np
     import game
-    if use_mock:
+    if use_mock and not off:
         mock(game)
-    elif "bold_play" not in game.E.DEFAULT:
+    elif not off and "bold_play" not in game.E.DEFAULT:
         json.dump(dict(no_engine=True), open(out, "w"))
         return
     p = {k: v for k, v in game.PRESETS[preset].items() if k not in ("title", "blurb")}
     g = game.Game(name="Ari", seed=seed, **p)
-    life_asks, offered, fits, asks, k = [], [], [], 0, 0
+    life_asks, no_bold, offered, fits, asks, k = [], [], [], [], 0, 0
     while not g.over and k < 3000:
         if g.advance() != "checkpoint":
             continue
@@ -68,8 +73,12 @@ def play(preset, seed, out, use_mock):
         bold = [o for o in cp["options"] if o.get("bold")]
         if life:
             life_asks.append(bool(bold))
+            if not bold:                                # why not: no row for the moment, or a row with no slot offered
+                no_bold.append(int(cp["s"]) in (loc["L"].get("BOLD_S") or {}))
         for o in bold:
-            offered.append(dict(c=o["colors"], chance=o["bold"]["chance"], p=o["bold"]["p"]))
+            bo = cp["by_idx"].get(o["bold"]["base"], {})   # its base way: written chance and their own odds for it
+            offered.append(dict(c=o["colors"], chance=o["bold"]["chance"], p=o["bold"]["p"], age=round(cp["age"], 1),
+                                start=float(g.start_age), base_c=bo.get("base"), base_p=bo.get("true0")))
             fits.append(dict(p=o["bold"]["p"], chance=o["bold"]["chance"], fit=o["bold"]["fit"]))
         pick = None
         if bold and k % 3 == 1:
@@ -80,14 +89,14 @@ def play(preset, seed, out, use_mock):
             pick = None
         g.decide(pick)
     links = [x for x in g.history.get("bold", []) if x.get("link")]
-    json.dump(dict(preset=preset, seed=seed, age=round(g.age(), 1), asks=asks, life_asks=life_asks, offered=offered, fits=fits,
+    json.dump(dict(preset=preset, seed=seed, age=round(g.age(), 1), asks=asks, life_asks=life_asks, no_bold=no_bold, offered=offered, fits=fits,
                    tries=g.history.get("bold", []), links=len(links)), open(out, "w"), default=str)
 
 
-def run(preset, seed, out, use_mock):
-    env = dict(os.environ, CHROMA_GAME=json.dumps(ON))
-    subprocess.run([sys.executable, "-B", os.path.abspath(__file__), "_play", preset, str(seed), out, "1" if use_mock else "0"],
-                   env=env, check=True, cwd=GAME_DIR)
+def run(preset, seed, out, use_mock, off=False):
+    env = dict(os.environ, CHROMA_GAME=json.dumps({"bold": False} if off else ON))
+    subprocess.run([sys.executable, "-B", os.path.abspath(__file__), "_play", preset, str(seed), out, "1" if use_mock else "0",
+                    "off" if off else "on"], env=env, check=True, cwd=GAME_DIR)
     return json.load(open(out))
 
 
@@ -96,10 +105,16 @@ def seeds_of(txt):
     return list(range(int(a), int(b or a) + 1))
 
 
-def rows(lives):
+def rows(lives, base=None):
     out = []
     la = [x for l in lives for x in l["life_asks"]]
-    out.append(f"B3  life-event asks with a bold way: {sum(la)} of {len(la)} ({100 * sum(la) / max(len(la), 1):.0f}%; bar 90%)")
+    nb = [x for l in lives for x in l.get("no_bold", [])]
+    rw = sum(la) + sum(nb)                              # the asks whose moment has a BOLD row (the stage's own bar)
+    out.append(f"B3  life-event asks with a bold way: {sum(la)} of {rw} whose moment has a BOLD row ({100 * sum(la) / max(rw, 1):.0f}%; "
+               f"bar 90%); {sum(la)} of all {len(la)} ({100 * sum(la) / max(len(la), 1):.0f}%; the bar once every life event has rows)")
+    if nb:
+        out.append(f"    without one: {len(nb) - sum(nb)} on moments with no BOLD row yet, {sum(nb)} with a row but no slot offered "
+                   "(its base way closed, its requires: not held, or the ages)")
     off = [x for l in lives for x in l["offered"]]
     if off:
         cols = {}
@@ -112,12 +127,19 @@ def rows(lives):
     tries = [t for l in lives for t in l["tries"]]
     if tries:
         won = sum(t["ok"] for t in tries) / len(tries); mp = sum(t["p"] for t in tries) / len(tries)
-        out.append(f"B4  bold tries {len(tries)}: worked {100 * won:.1f}% against the Engine's mean odds {100 * mp:.1f}% (bar +- 5 points)")
+        mu = sum(t.get("p_used", t["p"]) for t in tries) / len(tries)   # a push's effort comes off the odds, as for any way
+        out.append(f"B4  bold tries {len(tries)}: worked {100 * won:.1f}% against their odds as tried {100 * mu:.1f}% (bar +- 5 points; "
+                   f"the Engine's own odds before a push's effort {100 * mp:.1f}%)")
         p1 = [x for l in lives if l["preset"] == "1" for x in l["offered"]]
-        if p1:
-            d = sum(x["p"] - x["chance"] for x in p1) / len(p1)
-            out.append(f"    preset 1: own odds minus written chance {100 * d:+.1f} points over {len(p1)} offers (bar +- 5)")
-    bad5 = []
+        if p1:                                          # an ordinary start: a fresh character, whose own odds for the bold way's
+            d = sum(x["p"] - x["chance"] for x in p1) / len(p1)   # base way still sit at that way's written chance
+            fresh = [x for x in p1 if x.get("base_c") is not None and x.get("base_p") is not None and abs(x["base_p"] - x["base_c"]) < 0.05]
+            early = [x for x in p1 if x["age"] < x["start"] + 3]
+            say = lambda xs: f"{100 * sum(x['p'] - x['chance'] for x in xs) / len(xs):+.1f} points over {len(xs)}" if xs else "none"
+            out.append(f"    preset 1, own odds minus written chance (bar +- 5 at an ordinary start): where their odds for the base way "
+                       f"still sit within 5 points of its written chance {say(fresh)}; in the first 3 years {say(early)}; "
+                       f"whole lives {100 * d:+.1f} over {len(p1)}")
+    bad5, n5c = [], 0
     for t in tries:
         st = t.get("stated") or {}
         ch = t.get("changed") or []
@@ -127,9 +149,12 @@ def rows(lives):
                 if f_ != "break" and not str(n).startswith("kind:")}
         got = {c["name"] for c in ch}
         extra = {c["name"] for c in ch if c["name"] not in said and not (c["what"] == "lost" and c.get("kind") in kinds)}
-        if want - got or extra:
+        if not extra and want - got and want - got <= set(st.get("course") or ()):
+            n5c += 1                                        # F16: the life course turned the new commitment down
+        elif want - got or extra:
             bad5.append(f"{t['moment']} at {t['age']}: stated {sorted(want)}, changed {sorted(got)}")
     out.append(f"B5  bold outcomes that left what the card said and nothing else: {len(tries) - len(bad5)} of {len(tries)}"
+               + f" ({n5c} of them a new partnership, child or faith the life course turned down, its own chance)"
                + ("".join("\n      " + b for b in bad5[:8])))
     bad9, n_links = [], 0
     for l in lives:
@@ -144,8 +169,10 @@ def rows(lives):
         if l["links"] > 6:
             bad9.append(f"preset {l['preset']} seed {l['seed']}: {l['links']} links")
     asks = [l["asks"] for l in lives]
-    out.append(f"B9  links {n_links}, wrong side, delay or count: {len(bad9)}; asks a life {sum(asks) / max(len(asks), 1):.1f} "
-               "(Release: main's plus 5% at most)" + "".join("\n      " + b for b in bad9[:8]))
+    ba = [l["asks"] for l in base or ()]
+    out.append(f"B9  links {n_links}, wrong side, delay or count: {len(bad9)}; asks a life {sum(asks) / max(len(asks), 1):.1f}"
+               + (f" against {sum(ba) / len(ba):.1f} with bold off (main's lives; bar +5%: {1.05 * sum(ba) / len(ba):.1f})" if ba else "")
+               + "".join("\n      " + b for b in bad9[:8]))
     fits = [x for l in lives for x in l["fits"]]
     bad10 = [x for x in fits if (x["fit"] is not None) != (abs(x["p"] - x["chance"]) >= 0.10 - 1e-9)
              or (x["fit"] == "likelier") != (x["fit"] is not None and x["p"] > x["chance"])]
@@ -155,7 +182,7 @@ def rows(lives):
 
 def main(argv):
     if argv[:1] == ["_play"]:
-        return play(argv[1], int(argv[2]), argv[3], argv[4] == "1")
+        return play(argv[1], int(argv[2]), argv[3], argv[4] == "1", len(argv) > 5 and argv[5] == "off")
     a = {"presets": "1,2,3,4", "seeds": "1-6", "jobs": "4"}
     for k in a:
         if "--" + k in argv:
@@ -169,13 +196,14 @@ def main(argv):
     jobs = [(p, s, os.path.join(tmp, f"{p}_{s}.json")) for p in a["presets"].split(",") for s in seeds_of(a["seeds"])]
     with ThreadPoolExecutor(int(a["jobs"])) as ex:
         lives = list(ex.map(lambda j: run(*j, use_mock), jobs))
+        base = list(ex.map(lambda j: run(j[0], j[1], j[2] + ".off", use_mock, True), jobs)) if "--no-base" not in argv else None
     if any(l.get("no_engine") for l in lives):
         print("STOP: this engine has no bold_play (the Engine's part); --mock plays the game's plumbing with a stand-in")
         return 2
     for l in lives:
         print(f"preset {l['preset']} seed {l['seed']}: age {l['age']}, {l['asks']} asks, {sum(l['life_asks'])} of "
               f"{len(l['life_asks'])} life-event asks bold, {len(l['tries'])} bold tries, {l['links']} links")
-    print("\n".join(rows(lives)) + ("\n(--mock: the Engine's part is a stand-in; B4 and B5 mean nothing)" if use_mock else ""))
+    print("\n".join(rows(lives, base)) + ("\n(--mock: the Engine's part is a stand-in; B4 and B5 mean nothing)" if use_mock else ""))
     return 0
 
 
