@@ -43,7 +43,7 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
         NMAP = NMAP_V7; KPAY = np.array([parse(COMMIT_MEETS_V7[c[0]], NIDX, NJ) for c in COMMITMENTS])
     elif P["need_tab"] is not None:
         raise ValueError(f"need_tab {P['need_tab']!r}: None or 'v7'")
-    SH_ON = P["shared_hist"] > 0   # shared history: an act's belonging gain also feeds meaning, more as close bonds last
+    SHH_ON = P["shared_hist"] > 0   # shared history: an act's belonging gain also feeds meaning, more as close bonds last
     IA_ON = bool(P["imp_age"])      # setbacks only from the age each can happen at
     IMP_AGE_ = np.asarray(IMP_AGE, float)
     FREE_STAGE = np.asarray(P["freedom_stage"], float)
