@@ -6,11 +6,16 @@ The Library's checker (chroma-library/drafts/check_footprint.py in the shared fo
 branch), read for the packs: the same rules, word for word in check(), with three differences:
   - the moments come from each pack's compiled module: DIR/<pack>.py or DIR/<pack>/<pack>.py when --built is given
     (the Library's build.py run on a copy of the pack's .lib files, which parses foot:), else
-    chroma-library/earth_<pack>.py;
+    chroma-library/earth_<pack>.py; the foot: fields from the table build.py writes beside it (<module>_foot.py, FOOT
+    keyed by (moment, option label): the Engine's 10-19 format, so the moments' file stays byte-identical), and from
+    the options themselves for a module built before that;
   - the checked moments are every life event of the pack (its tier: life event);
   - a pack's own titles and perks count as the base ones do (a career, community or faith title or a standing perk is a
     place, an asset a means, a bond a person), and a mark counts as read when a pack's roles.py reads it too.
-Ends "no problems" or lists them. Standard library only; nothing is written.
+One difference in the reading: an option that already leaves three or more footprints through its own fields (a
+title given, a mark, a career dropped) and has no foot: is listed as left as it is, not as a problem, as the brief says
+("If an option already has three or more footprints, leave it as it is and list it"); with a foot: added it stays a
+problem. Ends "no problems" (exit 0) or lists them (exit 1). Standard library only; nothing is written.
 """
 import collections
 import glob
@@ -90,8 +95,14 @@ def existing(o):
     return out
 
 
-def check(names_, src):
-    problems, dist, kinds = [], collections.Counter(), collections.Counter()
+def feet(o, name, FOOT):
+    """The option's foot: items: the FOOT table's, then any left in the option itself (an older build)."""
+    nt = o[5] if len(o) > 5 and isinstance(o[5], dict) else {}
+    return [tuple(x) for x in FOOT.get((name, o[0]), [])] + [tuple(x) for x in (nt.get("foot") or [])]
+
+
+def check(names_, src, FOOT):
+    problems, kept, dist, kinds = [], [], collections.Counter(), collections.Counter()
     for name in names_:
         s = src.get(name)
         if not s:
@@ -100,15 +111,15 @@ def check(names_, src):
         for o in s["options"]:
             where = f"{name} / {o[1]} '{o[0][:50]}'"
             ex = existing(o)
-            ft = list((o[5] or {}).get("foot") or []) if len(o) > 5 and isinstance(o[5], dict) else []
+            ft = feet(o, name, FOOT)
             allf = ex + ft
             dist[min(len(allf), 3)] += 1
             for k, _ in allf:
                 kinds[k] += 1
             if not allf:
                 problems.append(f"{where}: no footprint")
-            elif len(allf) > 2:
-                problems.append(f"{where}: {len(allf)} footprints (at most two): {allf}")
+            elif len(allf) > 2:   # the brief: three or more through its own fields, left as it is and listed
+                (problems if ft else kept).append(f"{where}: {len(allf)} footprints (at most two): {allf}")
             if any(k == "lesson" for k, _ in ft) and len(allf) > 1:
                 problems.append(f"{where}: a lesson only when nothing else fits: {allf}")
             for k, v in ft:
@@ -119,13 +130,12 @@ def check(names_, src):
                 if (k, v) in ex or (k == "mark" and (o[5] or {}).get("mark") == v) or \
                         (k == "door" and (o[5] or {}).get("back") == v):
                     problems.append(f"{where}: foot: {k} {v} repeats what the option already leaves")
-        les = [v for o in s["options"] if len(o) > 5 and isinstance(o[5], dict)
-               for k, v in (o[5].get("foot") or []) if k == "lesson"]
+        les = [v for o in s["options"] for k, v in feet(o, name, FOOT) if k == "lesson"]
         if len(les) * 5 > len(s["options"]):   # Vision 10-19: lessons are the weakest footprint, 1 in 5 or fewer a moment
             problems.append(f"{name}: {len(les)} of {len(s['options'])} options have only a lesson (at most 1 in 5)")
         if len(set(les)) < len(les):
             problems.append(f"{name}: two options teach the same lesson words")
-    return problems, dist, kinds
+    return problems, kept, dist, kinds
 
 
 def main():
@@ -140,15 +150,25 @@ def main():
         if built:   # DIR/<pack>.py, or DIR/<pack>/<pack>.py where build.py wrote it beside the pack's .lib copies
             f_ = next((x for x in (os.path.join(built, f"{pk}.py"), os.path.join(built, pk, f"{pk}.py"))
                        if os.path.exists(x)), os.path.join(built, f"{pk}.py"))
+        if not os.path.exists(f_):   # a pack not yet built (one not in batch.PACKS has no earth_<pack>.py): build it first
+            print(f"{pk}: no compiled moments at {os.path.relpath(f_, ROOT) if f_.startswith(ROOT) else f_}; "
+                  f"build its .lib files and pass --built")
+            continue
         M = load(f_, f"moments_{pk}")
+        ff = f_[:-3] + "_foot.py"
+        FOOT = load(ff, f"foot_{pk}").FOOT if os.path.exists(ff) else {}
         src = {s["name"]: s for s in M.SITUATIONS}
         listed = [s["name"] for s in M.SITUATIONS if s.get("tier") == "life event"]
-        problems, dist, kinds = check(listed, src)
+        problems, kept, dist, kinds = check(listed, src, FOOT)
         n = sum(dist.values())
         print(f"{pk} ({os.path.relpath(f_, ROOT) if f_.startswith(ROOT) else f_}): {len(listed)} life events, {n} options; "
               f"with 0/1/2/3+ footprints: {dist[0]}/{dist[1]}/{dist[2]}/{dist[3]}; by kind: {dict(kinds.most_common())}")
         for p_ in problems:
             print("  " + p_)
+        if kept:
+            print(f"  left as they are (three or more footprints through their own fields, no foot:): {len(kept)}")
+            for k_ in kept:
+                print("    " + k_)
         bad += len(problems)
     print(f"{bad} problems" if bad else "no problems")
     sys.exit(1 if bad else 0)
