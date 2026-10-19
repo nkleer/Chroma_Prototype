@@ -28,6 +28,7 @@ def load(path, name):
     return m
 
 
+sys.path.insert(0, a.proto)   # earth_rules.py joins its parts (rules_*.py) with the engine's parts.py since #339
 R = load(os.path.join(a.proto, "earth_rules.py"), "earth_rules_checked")
 print(f"C-P3 pack gates in {os.path.join(a.proto, 'earth_rules.py')}; moments from {a.batch}")
 ok = True
