@@ -118,7 +118,10 @@ def paste(key, res):
     """Write earth_rules.TIER_LIFT[key] (other pack sets kept)."""
     import earth_rules as R
     tl = dict(R.TIER_LIFT); tl[key] = res
-    p = os.path.join(PROTO, "earth_rules.py"); s = open(p).read()
+    import glob   # earth_rules' tables live in its parts (rules_*.py, earth_rules.RULES_PARTS): the one with TIER_LIFT
+    p = next(f_ for f_ in sorted(glob.glob(os.path.join(PROTO, "rules_*.py"))) + [os.path.join(PROTO, "earth_rules.py")]
+             if "\nTIER_LIFT = {" in open(f_).read())
+    s = open(p).read()
     a = s.index("\nTIER_LIFT = {")
     b = a + len("\nTIER_LIFT = {}\n") if s.startswith("\nTIER_LIFT = {}\n", a) else s.index("\n}\n", a) + 3
     body = "".join(f"    {k_!r}: {json.dumps(v_, sort_keys=True)},\n" for k_, v_ in sorted(tl.items()))

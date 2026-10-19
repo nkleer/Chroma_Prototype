@@ -57,7 +57,7 @@ aef8174a20d1c73d793ff87cbd344278  rules_chance.py
 614ba4dd8a966100773f7f3c4612483f  rules_more.py
 b8b4d6e5531740cc22fd493ce9edbeb5  rules_norms.py
 ec5143a19d07823924456ec47db5af06  rules_packs.py
-e47b984b207ff713e122e947281b5b4a  rules_perks.py
+101584af28dfaf5fa512f293a14910cd  rules_perks.py
 de2fb10388ea825710f13263ff961c15  rules_titles.py
 703c99edc963ecc11c52e6f94863f1f6  rules_world.py
 fede3c5d1ffd369591b7c161c2ef62fa  world_link_base.py
