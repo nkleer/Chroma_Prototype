@@ -1,0 +1,510 @@
+# Chroma content pack, The Five Callings: THE INVENTION ROAD (Blue, the inventor), moments 1 to 9 of
+# callings/MOMENTS-BRIEF.md, "The invention road" (Pathways and packs thread, 2026-10-19, for v24; switched off until
+# `callings` is in batch.PACKS). Syntax: header of chroma-library/build.py. Rules: chroma-library/SPEC.md,
+# notes/library-spec.md, the footprints brief (chroma-library/drafts/footprints-brief.md) and callings/MOMENTS-BRIEF.md
+# (pack rules, calibration lessons, balance layout). Names in title:, grants:, takes:, requires:, holds: and aims: come
+# from callings/catalogue.py, core/*.py and the base catalogue (chroma-library/earth_perks_titles.py); the world lines
+# follow the forms of callings/worlds.py.
+#
+# The road climbs from the base trades ([software developer], [civil engineer], [machinist], [electrician], [founder
+# of a firm], [apprentice]) to [inventor], the Known rung, and to [celebrated inventor], the summit, a facet on
+# [inventor]. A tendency, never a wall: every colour has its honest way up every rung (White's rule and the test done to
+# the letter, Blue's study and the clever design, Black's backers and the deal, Red's risky prototype and the night at
+# the bench, Green's old machine mended and the street that gets the first ones).
+#   1-2  everyday pair U-A, held by the trades: calls UR / calls WBG, cross cycle s1
+#   3-4  everyday pair U-B, held by [inventor]: calls UG / calls WBR, cross cycle s3
+#   5    step: the prototype works (pairs D2a): [inventor] at 25
+#   6    step: an invention in every home (pairs D2b): [celebrated inventor] at 6, with [an invention in everyday use]
+#   7    fall and wrong: the safety test you could skip (triads D1b)
+#   8    long shot: the garage invention (triads D4a): [inventor] at 3
+#   9    world-only, only: magic: the guild commissions a flying ship (pairs D6b)
+#
+# Holder pairs (calibration lesson 1) use aims: and never give a new title: rate .5, gap 1-3, no share: line (the holds:
+# gate does the drawing); grants: gives only a perk plainly earned. The two halves of a pair share stages, ages, holds:,
+# rate and gap, and both use the cycle named on the pair's header line. Life events are each even on their own: alpha
+# even, stakes 1.0, the five one-colour options plus the combination half named in their header comment (build.py D
+# and PAIRSETS). Chances are set so every colour's mean is the same inside each moment (a pair counts half to each of
+# its colours, a triad a third), so the file is even in every stage. Steps carry their real chances (the brief's pack
+# rules), the same for every colour that tries for the same title inside a moment, and no perk on failure; the earned-
+# odds lifts (helps.py, half on the summit) come on top in the engine. The long shot's five singles carry
+# `grants_if_fails: a long shot that missed` (core/longshot.py). per_year is the brief's: the yearly rate of meeting the
+# moment per eligible person, inside the gates of engine-conditions.py (LIFE_CALLINGS, LIFE_CALLINGS_LONGSHOTS);
+# drivers are the brief's, except the fall (7), whose drivers are this file's own reading. Every option of a life event
+# leaves one or two footprints: a field it already has (a title, a perk of a kind the footprint check reads, a mark the
+# rules read) or `foot:` just before `chance:`; the everyday moments need none.
+#
+# Wrongs are pickable with plain labels and no preaching, each marked and closed with a real backfire, spread over the
+# colours: Red's idea built on the firm's time with the firm's parts (1, law), Green's parts taken from a machine already
+# sold for scrap (2, law), Black's patent sold to be shelved behind a partner's back (3, approval), Blue's fault kept
+# from the backers (4, approval), the triad UBR's safety test skipped (7, law), the pair UB's enchanter's binding bought
+# without the Order's leave (9, approval). White's line locked off against the manager's word (2) is a closed act of
+# defiance, not a wrong.
+#
+# Content: a failed test stays plain and offstage (smoke, a small fire put out, a burnt hand under the cold tap); the
+# customer hurt in the skipped test's backfire is one plain clause; no child is harmed in any text, and children appear
+# only in safe forms (a family at the kitchen table, the band's young ones carrying a toy about). No real person, firm,
+# brand, product, place, country or year is named: "the big firm", "the trade fair", "the engineers' journal". In the
+# magic world the binding that makes the ship rise is an enchanter's, bought, with the Order's disapproval on a closed:
+# approval line and its price in the backfire; nothing rests on the person's own gift. Modern Earth has no magic. Every
+# moment carries earth:, tribal: and magic: lines (the world-only moment its own world's alone) and an untagged scene
+# for each other world; an option whose act reads differently there carries its own wording; the works and fails lines
+# read in every world.
+
+# ================================================================ everyday pair U-A: the trades (cycle s1)
+
+# ---------------------------------------------------------------- 1. the idea in the shed at night (calls UR)
+# An idea that will not let go, built at night from parts. [prototyping] for the one who builds it properly; aims:
+# inventor on the careful build and the summer saved up for. The wrong is Red's: the idea built on the firm's time with
+# the firm's parts, and nothing said (hid a wrong; closed: law; backfire: the firm claims the idea). Every colour's mean
+# is 70.
+
+== the idea in the shed at night
+tier: everyday
+rate: 0.5
+gap: 1-3
+times: per software developer, civil engineer, machinist, electrician, founder of a firm or apprentice a year: about 1 in 6 works at an idea of their own in the evenings for a while (estimate); about 1 life in 5 holds one of these trades at some time, and about 5 lives in 10,000 come to live from their own inventions (catalogue shares)
+stages: young_adult adult mature elder
+age: 18-90
+calls: UR
+holds: software developer | civil engineer | machinist | electrician | founder of a firm | apprentice
+tone: joy
+life: work, making
+horizon: months
+roles: partner, boss, mentor
+earth: an idea that will not let go, and the shed at the bottom of the garden: a bench, a lamp and a box of old parts
+tribal: an idea for a new kind of tool that will not let go, worked at by the embers after the band sleeps
+magic: an idea for a new device that will not let go, built at night in the workshop's back room from odds and ends
+scene: It started as a sketch on the back of a work rota, and now it will not leave {N} alone. Most nights after supper {N} goes down to the shed at the bottom of the garden, switches on the lamp over the bench and tips out the box of old parts: small motors, springs, the circuit board from a broken washing machine. {partner} has stopped asking when {N} is coming to bed.
+scene W: Somewhere in {Ns} contract at work there is a clause about ideas. Before the next screw goes in, {N} would like to know exactly whose idea this is, and to have it written down.
+scene U: The thing almost works on paper. There is one joint that will not take the load, and {N} has drawn it eleven ways in the notebook, each a little closer.
+scene B: {N} keeps doing the sums in the dark: what it would cost to make, what a shop would charge, who would buy the first thousand.
+scene R: {N} cannot sleep for thinking about it. The urge is to build the whole thing tonight, all at once, and watch it move.
+scene G: The shed smells of oil and cut wood, and half the parts on the bench came from things {Ns} grandfather mended and never threw away. Somewhere in that box is everything the idea needs.
+scene tribal: When the band sleeps, {N} sits by the embers turning a new kind of tool over and over: a scraper with a bone grip that will not slip, a hook that holds what the old ones lose. It will not leave {N} alone, and the others laugh at the heap of broken tries by the shelter.
+scene magic: Most nights, when the workshop has closed, {N} takes a lamp into the back room and works at a device of {Ns} own: brass wheels, a spring from a broken clock, a lens from the glazier's scraps. The master does not know, and {N} has not decided whether to say.
+- W | read what your contract says about ideas, and keep a dated notebook of every step | v: conformity, security | tribal: ask the elders whether a new tool belongs to its maker or the band, and keep to it | magic: read the guild's rules on new devices, and keep a dated book of every step | chance: 80
+- U | draw it, model it, and build the first working part properly | grants: prototyping | aims: inventor | v: achievement, self-direction | tribal: shape it in soft wood first, then in bone, trying each part in turn | magic: draw it, build a small model, then make the first working part in brass | chance: 60
+- B | take a rough one to the Saturday market every week, and see what people pay | habit | v: achievement, power | tribal: take a rough one to every trading meet, and see what people would give for it | magic: take a rough one to the market every week, and see what people pay | chance: 70
+- R | build it on the firm's time, with the firm's parts, and say nothing | mark: hid a wrong | closed: law: an employer's design taken; backfire: the firm finds out, claims the idea as its own, and the patent with it | self_control: - | v: stimulation, self-direction | tribal: make it from the band's own store of good flint, and say nothing | magic: build it on the master's time, with the master's brass, and say nothing | chance: 70
+- G | build it from what is already in the shed: old motors, offcuts, a mended vice | v: tradition, universalism | tribal: make it from what is already by the shelter: old antler, offcuts of bone, worn stones | magic: build it from what is already in the back room: old wheels, offcuts, a mended vice | chance: 80
+- W>U | keep two evenings a week for it, every week, and never more | self_control: + | habit | v: achievement, conformity | tribal: keep two evenings of every moon for it, and never more | chance: 60
+- U>B | look up every patent near the idea, and find the gap nobody owns yet | v: achievement, power | tribal: ask the traders which tools the far bands already make, and find the one nobody makes | magic: search the guild's register of designs, and find the gap nobody holds yet | chance: 80
+- B>R | save up for the parts first, then give yourself one summer to make it run | aims: inventor | self_control: + | v: self-direction, achievement | tribal: put by furs for good stone first, then give yourself one summer to make it work | chance: 70
+- R>G | build it at the kitchen table every weekend, with the whole family's hands in it | habit | v: benevolence, stimulation | tribal: make it at the hearth every evening, with the whole family's hands in it | magic: build it at the kitchen table every feast day, with the whole household's hands in it | chance: 70
+- G>W | turn it to the allotments' broken water pump, built as the plot holders need it | mark: helped someone in need | v: benevolence, universalism | tribal: turn it to the band's leaking water skins, made as those who carry the water need it | magic: turn it to the ward's broken well pump, built as the neighbours need it | chance: 60
+works: The idea takes shape, and one night it moves the way {N} saw it move in {Ns} head.
+works: Whatever {N} chose, the idea is further on by the spring, and the notebook is full of it.
+fails: The part that would not take the load still will not, and the tries are put away for the winter.
+fails: Work and sleep win, the evenings go to other things for weeks at a time, and the idea cools.
+
+# ---------------------------------------------------------------- 2. the machine nobody can fix (calls WBG)
+# At work the old machine everyone depends on stops, and its maker is long gone. [prototyping] for the new part made
+# from the old one's drawings, [fixing things] for the manual written and the old fitter's tricks learned; aims: inventor
+# on the new part and on the replacement pitched to the boss. White's lock-off against the manager's word is a closed act
+# (defied an authority); the wrong is Green's: parts taken from the old twin in the scrapyard, already sold (hid a wrong;
+# closed: law). Every colour's mean is 70.
+
+== the machine nobody can fix
+tier: everyday
+rate: 0.5
+gap: 1-3
+times: per software developer, civil engineer, machinist, electrician, founder of a firm or apprentice a year: about 1 in 5 sees an old machine or system the work depends on fail with nobody left who knows it well (estimate); about 1 life in 5 holds one of these trades at some time (catalogue shares)
+stages: young_adult adult mature elder
+age: 18-90
+calls: WBG
+holds: software developer | civil engineer | machinist | electrician | founder of a firm | apprentice
+tone: trouble
+life: work
+horizon: week
+roles: boss, colleague, mentor
+earth: the old machine the whole works depends on has stopped, and the firm that made it closed decades ago
+tribal: the great fish weir across the river has given way at the middle, days before the salmon run, and nobody alive knows how it was first laid
+magic: the great water-wheel that drives the guild's mill has seized, and the artificer who built its governor is fifty years dead
+scene: Monday morning, and the old machine at the heart of the works has stopped: a press the size of a lorry, older than anyone on the floor, run by a grey control box nobody has opened in years. The firm that made it closed decades ago, the manual is a few stained pages, and the whole line stands still. {boss} looks round the room for someone who can fix it.
+scene W: There is a right way to do this: lock it off, read what manual there is, test one thing at a time and write each one down. {N} has seen what happens when people skip the steps.
+scene U: {N} has wondered for years how the old thing actually works. Now it stands open on the floor, and nobody will stop {N} finding out.
+scene B: The works is losing money by the hour, and whoever gets it running will be remembered at review time. {N} knows it, and so does {colleague}.
+scene R: The line is silent, the floor is full of people standing about, and {N} wants to be inside that machine with a torch and a spanner now.
+scene G: The old machine has run through three generations of workers, and {mentor}, who kept it going for thirty years, retired last spring. {N} thinks of the old tricks that went out of the door with {mentor}.
+scene tribal: The great fish weir across the river, built by the grandparents of the oldest elder, has given way at the middle, and the salmon run is days off. Nobody alive knows how it was first laid, and the band looks to the ones who make things.
+scene magic: The great water-wheel that drives the guild's mill has seized, its clockwork governor jammed solid, and the artificer who built it has been dead fifty years. The millers stand idle, the city's flour runs low, and the guild master looks round for someone who can mend it.
+- W | lock it off by the safety rules, though the manager wants it running today | mark: defied an authority | closed: approval: the line stopped against the manager's word; backfire: a written warning, and the shift's pay docked for the lost day | identity | v: conformity, security | tribal: forbid anyone to wade out to the weir until it is made safe, whatever the elders say | magic: chain the wheel still by the guild's rules, though the master wants it turning today | chance: 55
+- U | take it apart, draw how it works, and make a new part that does the same | grants: prototyping | aims: inventor | v: achievement, self-direction | tribal: take the weir apart stake by stake, learn how it was laid, and cut a new middle | magic: take the governor apart, draw how it works, and make a new part that does the same | chance: 70
+- B | tell the boss you can fix it, and name your price first | v: power, achievement | tribal: tell the elders you can mend the weir, and ask for the first fish of the run | magic: tell the guild master you can mend it, and name your fee first | chance: 65
+- R | climb inside with a torch and a spanner, and get it running tonight | body: light | v: stimulation | tribal: wade out into the cold river, and lash the weir back together before dark | magic: climb into the wheel housing with a lamp and a spanner, and get it turning tonight | chance: 65
+- G | visit the old fitter who kept it going, every evening, until you know it too | grants: fixing things | habit | v: tradition, benevolence | tribal: sit with the oldest weir-builder every evening, until you know how the grandparents laid it | magic: visit the old millwright who kept it turning, every evening, until you know it too | chance: 75
+- W>U | write down every fault and every fix, so the next person has a manual | grants: fixing things | v: universalism, conformity | tribal: teach the young ones each stake and knot as it goes back, so the next mending is easier | magic: write down every fault and every fix, and leave the guild a proper manual | chance: 85
+- U>B | design a modern replacement, and pitch it to the boss as your own project | aims: inventor | v: achievement, power | tribal: plan a better weir of your own making, and ask the elders for leave to build it | magic: design a new governor, and offer it to the guild master as your own work | chance: 70
+- B>R | get the boss to pay double for a weekend crew, and lead the strip-down yourself | v: power, stimulation | tribal: promise the helpers a share of the first catch, and lead the rebuilding yourself | magic: get the guild to pay double for a feast-day crew, and lead the work yourself | chance: 75
+- R>G | work through the weekend to save the old machine, and the jobs that hang on it | self_control: + | v: benevolence, tradition | tribal: work day and night to save the old weir, and the winter food that hangs on it | magic: work through the feast days to save the old wheel, and the millers' bread | chance: 75
+- G>W | take the parts it needs from the old twin in the scrapyard, though it is sold | mark: hid a wrong | closed: law: parts taken from a machine already sold for scrap; backfire: the scrap dealer counts the gaps, sends the firm a bill, and the boss wants a name | v: security, tradition | tribal: take the stakes it needs from the old weir of the band upriver, though it is theirs | magic: take the parts it needs from the old twin wheel in the breaker's yard, though it is sold | chance: 65
+works: By the end of the week the old machine is running again, and people stop by to look at it as if it were new.
+works: Whatever {N} chose, the work starts again, and {N} knows the old thing better than anyone now living.
+fails: The fix holds for a day and then fails again, and the whole floor waits another week for help from outside.
+fails: Nothing {N} tries brings it back, and {boss} sends far away for someone who costs a great deal.
+
+# ================================================================ everyday pair U-B: the inventor (cycle s3)
+
+# ---------------------------------------------------------------- 3. a big firm wants to buy the patent (calls UG)
+# A big firm offers to buy the patent outright, and it makes the very thing the invention would replace. [savings] for
+# the sales that bring money in, [investors who back you] for the refusal that finds backers instead; aims: celebrated
+# inventor on the refusal and on the cheap licence that lets it spread. The wrong is Black's: the biggest offer, from the
+# firm that will shelve it, with the partner who helped kept out of it (broke your word; closed: approval). Every
+# colour's mean is 70.
+
+== a big firm wants to buy the patent
+tier: everyday
+rate: 0.5
+gap: 1-3
+times: per inventor a year: about 1 in 6 is offered money for a patent or a design, outright or as a licence, and a few of those offers come from firms that would rather the idea never reached the shops (estimate); about 5 lives in 10,000 come to live from their own inventions (catalogue share)
+stages: young_adult adult mature elder
+age: 20-95
+calls: UG
+holds: inventor
+tone: mixed
+life: work, money
+horizon: months
+roles: colleague, partner, boss
+earth: a letter from a big firm: it wants to buy the patent outright, and it makes the very thing the invention would replace
+tribal: a trader from the far bands comes with a canoe of goods for the sole right to make the new tool
+magic: a great merchant house offers a purse of gold for the guild's grant on the design, and it sells the very device the design would replace
+scene: The letter from the big firm is two pages long and very polite. They would like to buy {Ns} patent outright, the one {N} and {colleague} spent three years of evenings on, for more money than {N} has ever seen in one place. A smaller firm in town has rung as well. {N} knows the big firm makes the very thing the invention would replace.
+scene W: There was never a written agreement with {colleague}, only a handshake over the bench. {N} thinks a handshake is still a promise.
+scene U: {N} reads the offer three times, then the small print, then the patent itself. A patent runs twenty years, and the right licence could be worth more than any sale.
+scene B: The number in the letter is real money, and {N} knows the big firm would pay more if pushed. Somebody is going to do well out of this, and it may as well be {N}.
+scene R: Sell it, and someone in a meeting room decides what becomes of it. {N} built the thing, and the thought of handing it over makes {Ns} jaw tighten.
+scene G: The small firm in town employs forty people, half of them {Ns} neighbours. {N} pictures the invention being made down the road, by hands {N} knows.
+scene tribal: A trader from the far bands has come with a canoe full of goods: flints, furs and shells. The trader wants the sole right to make {Ns} new tool, for the far bands alone. {N} made it with {colleague}, over three winters by the fire.
+scene magic: A great merchant house has sent its steward with a purse of gold and a contract on vellum: it would buy the guild's grant on {Ns} design outright. {N} made it with {colleague} over three years in the back room, and the merchant house sells the very device the design would replace.
+- W | sell only on fair terms, read through by a lawyer, with the partner's share written in | grants: savings | mark: kept your word | v: security, conformity | tribal: trade only before the elders, with the partner's share set out for all to hear | magic: sell only on fair terms, witnessed at the guildhall, with the partner's share written in | chance: 70
+- U | keep the patent, and license it to both firms for a fee on every one made | v: achievement, security | tribal: keep the making in your own hands, and let both bands make it for a gift on every one | magic: keep the guild's grant, and let both houses make it for a fee on every one made | chance: 65
+- B | sell to the firm that will shelve it, for top money, and keep the partner out | grants: savings | mark: broke your word | closed: approval: a shared invention sold to be shelved, behind a partner's back; backfire: the partner finds the contract, and the whole trade hears who sold out | v: power | tribal: give the far trader the sole right to it, and tell the partner nothing until the canoe has gone | magic: sell to the house that will bury it, for the most gold, and keep the partner out | chance: 75
+- R | turn them down flat, and find backers to make it yourself | grants: investors who back you | aims: celebrated inventor | binds | v: self-direction, stimulation | tribal: send the trader away, and find traders who will share their goods while you make it yourself | magic: turn the steward away, and find backers among the merchant houses to make it yourself | chance: 55
+- G | sell it to the small firm in town, so it is made by people you know | grants: savings | identity | v: tradition, benevolence | tribal: give the right to your own band's toolmakers, so it is made by hands you know | magic: sell it to the small workshop in the ward, so it is made by people you know | chance: 80
+- W>R | license it for five years only, so the idea is free again after | v: self-direction, security | tribal: let the far trader make it for five summers only, and then it is free again | magic: grant the merchant house five years only, so the design is free again after | chance: 70
+- U>G | license it cheaply to small makers everywhere, so it spreads on its own | aims: celebrated inventor | v: universalism, achievement | tribal: show any band's toolmaker how to make it for a small gift, so it spreads on its own | magic: grant it cheaply to small workshops everywhere, so it spreads on its own | chance: 75
+- B>W | play the two firms against each other, and put the winnings in trust for the team | grants: savings | self_control: + | mark: made an enemy | v: power, benevolence | tribal: let the far trader and the near one bid against each other, and share the winnings with all who helped | magic: play the two houses against each other, and set the winnings in trust for the workshop | chance: 65
+- R>U | tell them straight it is not finished, and walk away to make it better | v: achievement, self-direction | tribal: tell the trader plainly the tool is not finished, and go back to the fire to make it better | magic: tell the steward plainly it is not finished, and go back to the bench to make it better | chance: 85
+- G>B | wait, let the big firm come back twice, and let the price grow | self_control: + | v: power, security | tribal: wait, let the trader come back at the next two gatherings, and let the offer grow | magic: wait, let the steward call twice more, and let the price grow | chance: 60
+works: The matter is settled the way {N} wanted it, and the money, the rights and the friendship are where {N} meant them to be.
+works: Whatever {N} chose, a year later the invention is out in the world in some form, and {N} is working on the next one.
+fails: The deal goes sour over the terms, and {N} spends the year arguing instead of making.
+fails: The offer is withdrawn while {N} is still thinking, and the buyer brings out something very like it of their own.
+
+# ---------------------------------------------------------------- 4. the prototype catches fire (calls WBR)
+# A test run goes wrong in the workshop: smoke, a small fire put out at once, a burnt hand under the cold tap, nothing
+# worse. [prototyping] for the rebuild and the filmed rerun, [investors who back you] for the backers asked for the next
+# round, [mentor] for the old engineer down the road; aims: celebrated inventor on the cooler, simpler redesign. The
+# wrong is Blue's: the fault found quietly and kept from the backers until it is fixed (hid a wrong; closed: approval;
+# backfire: it fails again in front of them). Every colour's mean is 70.
+
+== the prototype catches fire
+tier: everyday
+rate: 0.5
+gap: 1-3
+times: per inventor a year: about 1 in 4 has a test that goes wrong badly enough to stop the work for a while, most with no harm beyond a scare and a small burn (estimate); about 5 lives in 10,000 come to live from their own inventions (catalogue share)
+stages: young_adult adult mature elder
+age: 20-95
+calls: WBR
+holds: inventor
+tone: trouble
+life: work, money
+horizon: week
+roles: partner, colleague, mentor
+earth: a test run in the workshop goes wrong: smoke, a small fire put out at once, and a burnt hand under the cold tap
+tribal: a trial of the new tool goes wrong by the fire: the pitch flares, and a burnt hand goes into the stream
+magic: a trial of the new device goes wrong in the workshop: a split boiler, a small blaze, and a burnt hand in the water butt
+scene: Ten minutes into the test run the prototype starts to smell, then to smoke, then a small flame runs along the casing. {N} has it out with the extinguisher in seconds, but the workshop is full of smoke and the back of {Ns} hand is sore where it touched the casing. It is nothing a cold tap and a dressing will not mend. The backers' showing is in three weeks.
+scene W: There is a book of rules for the workshop, and {N} wrote half of it. Every one of them says: stop, write it down, tell people.
+scene U: {N} stands in the smoke already thinking: the casing, the wiring, the heat at the joint. A failure is the most a test can ever tell anyone.
+scene B: Three weeks to the showing, and the backers' money runs out in four. {N} thinks about what the backers need to hear, and what they do not.
+scene R: {Ns} heart is still going hard and {N} is half laughing. It nearly worked; for nine minutes it was the best thing {N} has ever made.
+scene G: The workshop is quiet again, the smoke drifting out through the open door into the garden. {N} sits on the step with a wet cloth round the hand and lets the shaking stop.
+scene tribal: The new tool was to set the fire-pitch on the arrows faster, and at the trial the pitch flared up all at once along the shaft. {N} beat it out in the sand and plunged the burnt hand into the stream. The traders who backed the making with good flint come at the next moon.
+scene magic: The new device was to turn the mill's stones by steam, and at the trial its little boiler hissed, split a seam and set the shavings on the floor alight. {N} smothered it with a wet sack, and stands with a burnt hand in the water butt. The merchant house that backs the work comes to see it in three weeks.
+- W | stop every test, write up exactly what happened, and send it to the backers | mark: owned up | v: conformity, security | tribal: stop every trial, and tell the traders exactly what happened when they come | magic: stop every trial, write it up exactly, and send it to the merchant house | chance: 70
+- U | find the fault quietly, and keep it from the backers until it is fixed | mark: hid a wrong | closed: approval: a fault kept from the backers; backfire: it fails again, in front of them, at the showing | v: achievement, security | tribal: find the fault alone, and say nothing to the traders until it is right | magic: find the fault quietly, and keep it from the merchant house until it is mended | chance: 65
+- B | show the backers how close it came, and ask for the next round now | grants: investors who back you | mark: took a wild risk | v: power, achievement | tribal: show the traders how near the tool came, and ask for more flint now | magic: show the merchant house how near it came, and ask for the next purse now | chance: 55
+- R | air the workshop, rebuild it overnight, and run it again at dawn | grants: prototyping | body: light | self_control: + | v: stimulation | tribal: make the shaft again by the fire tonight, and try it again at first light | magic: air the workshop, rebuild it tonight, and fire it again at dawn | chance: 65
+- G | let the workshop and the hand rest a week, and come back to it calm | self_control: + | v: security, universalism | tribal: let the hand heal and the work rest a moon, and come back to it calm | chance: 80
+- W>R | fit a proper fire screen and a test bench, so it can be pushed hard safely | v: security, stimulation | tribal: clear a ring of sand to test in, so the next trial can be pushed hard safely | magic: build a stone test bench with a water tank, so it can be pushed hard safely | chance: 70
+- U>G | redesign it to run cooler and simpler, with fewer parts to fail | aims: celebrated inventor | v: universalism, achievement | tribal: make it plainer, with less pitch and fewer bindings to fail | magic: redesign it to run cooler and plainer, with fewer seams to split | chance: 75
+- B>W | ring the insurer at once, and get every safety paper in order before the showing | v: security, power | tribal: go to the elders first, before the story spreads, and make it right with them | magic: go to the guild's inspector first, and get every paper in order before the showing | chance: 85
+- R>U | film the next run from three sides, and set it off again to see why | grants: prototyping | v: stimulation, achievement | tribal: have two friends watch from either side, and fire the next shaft to see why | magic: set three apprentices to watch from three sides, and fire it again to see why | chance: 75
+- G>B | ask the retired engineer down the road, and get it right before the rivals do | grants: mentor | door | v: achievement, benevolence | tribal: ask the oldest toolmaker of the band, and get it right before the next band does | magic: ask the old artificer down the lane, and get it right before the rival houses do | chance: 60
+works: The fault is found, the next run goes the full hour, and the backers leave the showing talking among themselves.
+works: Whatever {N} chose, the burn heals in a fortnight, and the work goes on wiser for the scare.
+fails: The fault stays hidden somewhere in the design, and the next two runs end in smoke as well.
+fails: The backers hear about it from someone else first, and they go cold on the whole thing.
+
+# ================================================================ steps
+
+# ---------------------------------------------------------------- 5. the prototype works (pairs D2a)
+# The door to [inventor]: a working model of one's own at last, for someone two years or more in a trade with the knack
+# for it (LIFE_CALLINGS gate: fixing things or prototyping, and the years). Every colour's way of making a living from
+# it takes [inventor] at the real chance, 25. White's and Black's ways file a patent first ([a patent of your own]),
+# which costs money: requires savings, and someone without them borrows the fees (lacking .5). The pairs, at 75, are
+# the honest other ways to weigh it: a bonus and a share from one's own firm, the trade fair on one's own money, the
+# plans put online for others to build on, the job and the family evenings kept, a paper for the engineers' journal.
+# Every colour's mean is 50.
+
+== the prototype works
+tier: life event
+stages: young_adult adult mature elder
+age: 20-90
+holds: software developer | civil engineer | machinist | electrician | founder of a firm | apprentice
+tenure: 2-100
+per_year: 0 0 .03 .04 .03 .01
+drivers: era+.3 fortune+.2
+times: per software developer, civil engineer, machinist, electrician or apprentice of two years, or founder of a firm of one, with the knack for making things, a year: about 1 in 30 has a working model of an invention of their own; most never make a living from one: about 5 lives in 10,000 come to live from their own inventions for years, and about 2 in 1,000 hold a patent (catalogue shares; patent studies find about 1.6 in 1,000 people hold one by their thirties)
+likelier: years in a trade, a workshop or a bench of one's own, good years for new machines and new ways of working, a partner who backs it, a lucky first buyer
+rarer: no time or money for it, a firm that owns whatever its staff make, a lean year, a family that needs every evening
+gap: 3-8
+domain: career.5
+tone: joy
+life: work, making, money
+horizon: months
+roles: partner, boss, friend, colleague, mentor
+earth: a working model of an invention of one's own, on the bench at last, and the question of what to do with it
+tribal: a new tool of one's own that works at last, and the question of whether to make it the work of a life
+magic: a working model of a device of one's own on the bench at last, and the question of whether to live as an artificer
+scene: At a quarter to midnight on a Tuesday the thing on the bench does what it was built to do, and then does it again, a hundred times, without a fault. {N} rings {partner} from the shed, unable to say anything sensible. It has taken three years of evenings. Now there is a working model, a notebook of drawings, a job to go to in the morning, and a choice.
+scene W: {N} knows how this should be done: a patent filed first, every test written up, the safety marks earned before a single one is sold.
+scene U: It works, and {N} can already see four ways it could work better. The model on the bench is the ninth version; the twelfth would be something else again.
+scene B: For a year {N} has kept a list of everyone who might buy it, back it or copy it. The order in which they are rung matters a great deal.
+scene R: {N} wants to hand in the notice tomorrow, rent a unit, and make a living from this or go broke trying.
+scene G: {Ns} neighbours have watched the light in the shed for three years. The first ones, {N} thinks, should go to the people up and down the street who put up with the noise.
+scene tribal: By the stream the new tool does what {N} meant it to: the hook holds every fish it takes, and the scraper bites without slipping. The others crowd round to try it. {N} could go back to the hunt as before, or become the one the bands come to for tools.
+scene magic: On the bench in the back room the little device turns, and turns, and does not stop: the model {N} has worked at for three years. The master has seen it now. {N} could go back to the master's orders, or ask the guild for an artificer's mark.
+- W | file the patent first, and show it to makers with every test written up | title: inventor | grants: a patent of your own | requires: savings | without: means | lacking: .5 | v: conformity, security | tribal: show the elders first, so all know whose tool it is, and let each band see it tried | magic: file for the guild's grant first, and show it to the workshops with every trial written up | chance: 25
+- U | build three more versions until it is truly ready, then take it to market | title: inventor | mark: learned a skill | self_control: + | identity | v: achievement, self-direction | tribal: make three more until it is truly right, then take it to the gathering | magic: build three more models until it is truly ready, then take it to the market | chance: 25
+- B | patent it in your own name, and sell it hard to every buyer on the list | title: inventor | grants: a patent of your own | requires: savings | without: means | lacking: .5 | aims: celebrated inventor | identity | v: power, achievement | tribal: make sure every band knows whose tool it is, and trade it hard at every camp | magic: take the guild's grant in your own name, and sell it hard to every buyer on the list | chance: 25
+- R | hand in your notice, rent a unit, and make your living from it | title: inventor | mark: took a wild risk | v: stimulation, self-direction | tribal: leave the hunt to the others, and live by making the tool from now on | magic: leave the master's workshop, take a room of your own, and live by it | chance: 25
+- G | make the first ones by hand for the street, and grow it from there | title: inventor | v: tradition, benevolence | tribal: make the first ones for your own hearth and the next, and let it grow from there | magic: make the first ones by hand for the lane, and grow it from there | foot: person neighbour | chance: 25
+- BG | offer it to your own firm, for a bonus and a share in every one sold | grants: stake in the firm | v: security, power | tribal: give it to your own band's toolmakers, for the best share of every trade | magic: offer it to your own master, for a purse and a share in every one made | chance: 75
+- BR | take it to the trade fair on your own money, and see who bites | grants: contact in the trade | door | v: stimulation, achievement | tribal: carry it to the great gathering yourself, and see which trader wants it | magic: take it to the great fair at your own cost, and see which merchant bites | chance: 75
+- UR | put the plans online for free, and see what other tinkerers make of it | aims: inventor | door | v: self-direction, stimulation | tribal: show any toolmaker who asks how it is made, and see what they make of it | magic: nail the plans to the guildhall door for any tinker, and see what they make of it | foot: person colleague | chance: 75
+- WG | keep the job and the family evenings, and let it be a fine thing made | self_control: - | v: security, benevolence | tribal: keep to the hunt and the hearth, and let it be a fine thing made | magic: keep the master's work and the household's evenings, and let it be a fine thing made | foot: means ties+.05 | chance: 75
+- WU | write it up for the engineers' journal, with every measurement checked twice | grants: name in the field | v: achievement, conformity | tribal: tell the making of it at the gathering's fire, every step in its right order | magic: write it up for the artificers' guild book, with every measure checked twice | chance: 75
+works: Within the year the first ones have gone to people who paid for them, and {N} is an inventor, with a living to make from it.
+works: Whatever {N} chose, the thing on the bench goes out into the world in some form, and {N} is proud of the road taken.
+fails: The first buyers are slow, the money runs out before the orders come, and {N} goes back to the trade with the model on a shelf.
+fails: A rival with deeper pockets brings out something very like it, and {Ns} version is lost in the crowd.
+
+# ---------------------------------------------------------------- 6. an invention in every home (pairs D2b)
+# The summit door: an inventor of four years or more whose invention has a following (LIFE_CALLINGS gate). Every
+# colour's way of getting it into every home takes the facet [celebrated inventor] at the real chance, 6, with [an
+# invention in everyday use]: a step at real odds, not a long shot, so no perk on failure. The pairs, at 75, are the
+# honest other ways: the design given away, a licence for a share of every one sold, an apprentice taught the whole of
+# it, investors and a board with honest books, faith kept with the small makers who took it on first. Every colour's
+# mean is 40.5.
+
+== an invention in every home
+tier: life event
+stages: adult mature elder
+age: 25-100
+holds: inventor
+tenure: 4-100
+per_year: 0 0 0 .02 .03 .02
+drivers: era+.3 prosper+.2
+times: per inventor of four years or more a year: about 1 in 40 has a real chance to get an invention into ordinary homes everywhere; most never do, and about 5 lives in 100,000 become inventors whose invention most households know (catalogue share; estimate)
+likelier: good years when people buy new things, a patent held, a big maker looking for something new, a name in the field
+rarer: hard years, a rival's copy already in the shops, no money for the tooling, an invention only specialists need
+gap: 4-10
+domain: career.5
+tone: joy
+life: work, money, publiclife
+horizon: years
+roles: boss, rival, partner, colleague, friend
+earth: the invention sells, the big makers ring, and it could be in every home in the land, or in hardly any
+tribal: other bands want the new tool, and it could become a tool every band makes, or be forgotten in a few winters
+magic: the device sells at the fairs, the great houses send their stewards, and it could stand in every household of the realm
+scene: Four years after the first one sold, {Ns} invention has a following: a few thousand in use, letters from strangers, a shop in the city that sells out every month. Now a big maker wants to talk, a morning show wants a demonstration, and {rival}'s cheaper copy has turned up on a market stall. This is the year it goes into every home, or goes back to being a good idea a few people liked.
+scene W: Every home means every safety standard, every shop's buyer and every rule about what may go on a shelf. {N} has the forms spread out on the kitchen table.
+scene U: At the price it costs now, only the keen buy it. {N} keeps coming back to one question: how to make it so simple and so cheap that anyone would.
+scene B: The big maker has shops on every high street. One signature on the right terms, and {Ns} name goes into all of them; on the wrong terms, the name goes nowhere.
+scene R: {N} would rather show it to people than talk about it: in town squares, at fairs, on the morning show, wherever there is a crowd.
+scene G: The letters are the best part: a farmer, a nurse, an old man who can open his own jars again. {N} wants it to reach people like them, and to go on reaching them.
+scene tribal: Traders from three bands have asked for {Ns} new tool this summer, and at the gathering a far band's toolmaker was already making a poor copy. Made well and shown widely, it could become a tool every band makes; if not, it will be forgotten in a few winters.
+scene magic: The device sells out at every fair, the great houses send their stewards with contracts, and a rival workshop's cheap copy has appeared in the market. {N} can see it standing in every household of the realm, or fading into a curiosity in a few cabinets.
+- W | get it through every safety standard, so every shop in the land can stock it | title: celebrated inventor | grants: an invention in everyday use | v: conformity, security | tribal: make each one to the same sure pattern, so every band can trust it | magic: get it through every guild's standard, so every shop in the realm may stock it | chance: 6
+- U | redesign it until it costs a tenth as much, and anyone can afford one | title: celebrated inventor | grants: an invention in everyday use | self_control: + | v: achievement, universalism | tribal: make it so plain that any band's toolmaker can make it in an afternoon | magic: redesign it until it costs a tenth as much, and any household can afford one | chance: 6
+- B | sign with the biggest maker in the land, on your own terms | title: celebrated inventor | grants: an invention in everyday use | v: power, achievement | tribal: give the strongest trader of the rivers the making of it, on your own terms | magic: sign with the greatest merchant house of the realm, on your own terms | chance: 6
+- R | take it on the road, and show it to the crowd in every town square | title: celebrated inventor | grants: an invention in everyday use | identity | v: stimulation | tribal: carry it to every camp along the rivers, and show it off at every fire | magic: take it on the road, and show it off in every market square of the realm | chance: 6
+- G | let it spread by word of mouth, family to family, the way good things do | title: celebrated inventor | grants: an invention in everyday use | v: benevolence, tradition | tribal: let it pass from hearth to hearth and band to band, the way good things do | magic: let it spread by word of mouth, household to household, the way good things do | chance: 6
+- RG | give the design away free, so every family that wants one can make it | grants: good name in town | v: universalism, benevolence | tribal: show every band how to make it, freely, as the old ones gave the bow | magic: give the design away freely, so every household that wants one can make it | chance: 75
+- UB | license it to the big maker for a share of every one sold | grants: shares | v: power, achievement | tribal: let the strongest trader make it, for a share of every trade | magic: license it to a great house for a share of every one sold | chance: 75
+- UG | take on an apprentice, and teach them the whole design from the first drawing | grants: apprentice of one's own | binds | v: benevolence, achievement | tribal: take a young one of the band, and teach them the whole making from the first stone | magic: take an apprentice, and teach them the whole design from the first drawing | chance: 75
+- WB | bring in investors, with a board and honest books, and make it at scale | grants: investors who back you | v: security, power | tribal: bring in traders who will share their goods, with every share agreed before the elders | magic: bring in backers from the merchant houses, with a council and honest books | chance: 75
+- WR | keep faith with the small makers who took it on first, and stay small | mark: kept your word | v: benevolence, conformity | tribal: keep faith with the toolmakers of your own band who made it first, and stay small | magic: keep faith with the small workshops that took it on first, and stay small | chance: 75
+works: Within two years it is everywhere: in kitchens and sheds and workplaces up and down the land, and people who have never heard {Ns} name use it every day.
+works: Whatever {N} chose, the invention keeps its following, and {N} is glad of the way it went out into the world.
+fails: The big push comes to nothing: a cheaper copy takes the shelves, and {Ns} invention stays a thing a few thousand people love.
+fails: The year goes on meetings, forms and arguments, and at the end of it the invention is where it was.
+
+# ================================================================ fall and wrong
+
+# ---------------------------------------------------------------- 7. the safety test you could skip (triads D1b)
+# The launch is next week and the last safety test takes a month. The wrong sits on the triad UBR (Blue's trust in its
+# own numbers, Black's deadline and the orders, Red's impatience): skip it and launch on the promised day. It grants
+# [savings] when it works; its closed: law line carries the backfire (it fails in use, a customer is hurt, plainly and
+# offstage, and the recall takes the name), and a failed try takes [an invention in everyday use] and [name in the field]
+# where they are held. The other ways: the launch delayed and the test run to the letter, a faster test that finds the
+# same faults, a test house paid to run it round the clock, the thing used hard by its maker first (a plain risk, no
+# harm told), the first buyers told the truth, a small signed trial, the team in shifts, a staged launch, a cheap test
+# in the yard. Chances differ by act, set so every colour's mean is 70. drivers are this file's reading (stress and
+# short money make the shortcut likelier, as the art pack's forgery).
+
+== the safety test you could skip
+tier: life event
+stages: young_adult adult mature elder
+age: 22-95
+holds: inventor | civil engineer | celebrated inventor | founder of a firm
+per_year: 0 0 .01 .015 .01 .005
+drivers: stress+.2 money-.2
+times: per inventor, civil engineer or founder of a firm a year: about 1 in 80 faces a launch or a handover with the last safety test still to run and a reason to skip it (estimate); product recalls are common enough that most makers can name one; the four titles are about 3 lives in 100 (catalogue shares)
+likelier: a date already sold to the buyers, money running short, a test that takes longer than the launch can wait, a design that has never failed so far
+rarer: a firm with a safety officer who can say no, buyers who check, a maker who has lived through a recall
+gap: 4-10
+domain: career.5
+tone: trouble
+life: work, money
+horizon: months
+roles: boss, colleague, partner, friend
+earth: the launch is next week, and the last safety test takes a month
+tribal: the bands gather in seven days to take the new tool, and its last trial takes a moon
+magic: the great fair opens in a week, and the guild's last trial of the device takes a month
+scene: The launch is booked for next Thursday: the first orders signed, the boxes printed, a room hired for the trade press. Then {colleague} comes in with the test plan and points at the last line. The long-run safety test, a month of use without a break, has not been done; everything else has passed. The buyers, the bank and {boss} would all rather not hear about it, and nobody would know.
+scene W: {N} signed the test plan six months ago, and it says plainly what has to pass before anything is sold. A signature is a promise.
+scene U: {N} looks at the results so far and runs the numbers again. The design is sound, almost certainly. Almost.
+scene B: A month's delay costs the orders, the room, the bank's patience and maybe the firm. {N} weighs what it would cost to wait against what it would cost to be wrong.
+scene R: {N} is sick of waiting. Every part has passed every test, the thing works, and next Thursday it is meant to go out into the world.
+scene G: The first buyers are people {N} knows: a farm, a builder's yard, the hardware shop in town. {N} pictures the thing in their hands a year from now, still working.
+scene tribal: In seven days the bands gather, and each has asked for the new tool. The last trial, a whole moon of hard use on the hunt, is not done, though every other trial went well. The elders want the gift ready, and nobody would know.
+scene magic: The great fair opens in a week, the merchant houses have ordered, and the guild's last trial, a month of turning without a rest, has not been run. Every other trial has passed. The guild's inspector is busy, and nobody would know.
+- W | delay the launch a month, and run the full test as the plan says | self_control: + | v: conformity, security | tribal: tell the bands to wait a moon, and finish the trial as the old way asks | magic: put off the fair a month, and run the guild's full trial as written | foot: means money-.06 | chance: 75
+- U | design a faster test that finds the same faults in a week | mark: learned a skill | v: achievement, self-direction | tribal: find a harder trial that tests the tool as well in seven days | magic: devise a faster trial that finds the same faults in a week | chance: 70
+- B | pay a test house to run it round the clock, whatever it costs | v: power, security | tribal: give good furs to every hunter who will use it day and night until the gathering | magic: pay the guild's testers to run it day and night, whatever it costs | foot: means money-.10 | chance: 75
+- R | use it hard yourself first, every day until the launch | body: light | mark: took a wild risk | v: stimulation, benevolence | tribal: use it yourself, hard, on every hunt until the gathering | magic: work it yourself, hard, every day until the fair | chance: 65
+- G | ring the first buyers yourself, tell them why, and ask them to wait | mark: owned up | v: benevolence, tradition | tribal: go to each band's elders yourself, tell them why, and ask them to wait | magic: visit the first buyers yourself, tell them why, and ask them to wait | chance: 70
+- WUB | launch with ten trial buyers who sign for it, and finish the test alongside | v: security, achievement | tribal: give the tool to ten hunters who agree to try it, and finish the trial with them | magic: sell to ten trial buyers who sign for it, and finish the trial alongside | foot: lesson a careful start still counts | chance: 60
+- WRG | call the team in, and run the test in shifts with them, day and night | v: benevolence, conformity | tribal: gather the band's young hunters, and work the trial in turns, day and night | magic: call the whole workshop in, and run the trial in shifts, day and night | foot: person colleague | chance: 75
+- WBG | ask the standards office for a staged launch: half now, the rest after the test | v: security, power | tribal: ask the elders to let half the bands take it now, and the rest after the trial | magic: ask the guild's inspector for half the fair now, and the rest after the trial | foot: means money-.04 | chance: 60
+- URG | run the test cheaply in the yard, with what is to hand, and launch late | v: self-direction, universalism | tribal: run the trial roughly by the camp, with what is to hand, and come late to the gathering | magic: run the trial cheaply in the yard, with what is to hand, and come late to the fair | foot: means time-.06 | chance: 75
+- UBR | skip the last test, and launch on the day you promised | grants: savings | takes_if_fails: an invention in everyday use; name in the field | mark: hid a wrong | closed: law: a safety test skipped; backfire: it fails in use, a customer is hurt, and the recall and the papers take the invention's good name with it | self_control: - | v: achievement, power | tribal: skip the last trial, and give the tool at the gathering as promised | magic: skip the guild's last trial, and open at the fair as promised | chance: 75
+works: The thing goes out into the world and keeps working, year after year, and the buyers come back for more.
+works: Whatever {N} chose, the launch is a good one in the end, and {N} sleeps well the night after.
+fails: The delay costs the first orders and the bank's patience, and the year is a hard one.
+fails: Something goes wrong between the bench and the buyers, and {N} spends the season putting it right, one buyer at a time.
+
+# ================================================================ long shot
+
+# ---------------------------------------------------------------- 8. the garage invention (triads D4a)
+# Something built for the fun of it, and strangers start to ask for one. It comes to an apprentice, machinist,
+# electrician or software developer of a year or more, or a repair-café volunteer of two, with the knack for it and
+# never an inventor before (LIFE_CALLINGS_LONGSHOTS; `tenure: 1-99` here). Every colour's long shot is the next rung for
+# all of them, [inventor], at 3, with `grants_if_fails: a long shot that missed`. The triads, at 83, are the honest
+# other ways: weigh it (the patents club at the library, the boss and the firm's team), a smaller step (a second,
+# better one built for the joy of it: [prototyping]; the first few sold at the weekend market), or walk away (the
+# evenings given back to the family). It comes from eighteen, [inventor]'s first age, so an apprentice of sixteen
+# meets it later. Every colour's mean is 43.
+
+== the garage invention
+tier: life event
+stages: young_adult adult mature elder
+age: 18-95
+holds: apprentice | machinist | electrician | software developer | repair-cafe volunteer
+tenure: 1-99
+per_year: 0 0 .01 .01 .005 .005
+drivers: era+.3 fortune+.3
+times: per apprentice, machinist, electrician or software developer of a year, or repair-café volunteer of two, with the knack for making things, a year: about 1 in 150 builds something in a garage or a back room that strangers start to ask about (estimate); most such things stay a hobby, and about 5 lives in 10,000 come to live from their own inventions (catalogue share; estimate)
+likelier: a garage or a workshop, good years for new gadgets, a friend who films it, a lucky stranger who asks
+rarer: no space and no free evenings, a lean year, a family that needs the money, nobody to show it to
+gap: 4-10
+domain: career.5
+tone: joy
+life: work, making
+horizon: months
+roles: friend, parent, partner, mentor, boss
+earth: something built in the garage for the fun of it, and strangers start to ask where to get one
+tribal: a new thing made by the fire for the fun of it, and people from other bands start to ask for one
+magic: a small device built in a back room for the fun of it, and strangers at the market start to ask for one
+scene: It began as a way to stop the garage door sticking, and now it opens jars, lifts bikes onto the wall and waters the tomatoes on a timer. {friend} filmed it for a laugh, and strangers have started asking where to buy one. {N} has a workbench, a soldering iron, a few evenings a week, and a feeling that this could be something, or nothing at all.
+scene W: Nobody becomes an inventor by accident, {N} thinks. There are competitions, forms, safety marks and a proper way in, and {N} would rather take it.
+scene U: {N} can see exactly what is wrong with it: the motor is too big and the timer drifts. A year of evenings would make it something else.
+scene B: Strangers asking where to buy one means a market. {N} wonders who will be at the trade show this spring, and what a backer would want in return.
+scene R: {N} built it laughing, and the best things are the ones built laughing. Why not just put it out there and see what happens?
+scene G: The first person who asked was the old neighbour two doors down, who cannot reach the high shelves any more. {N} thinks about the street before the world.
+scene tribal: It began as a way to keep the fire-sticks dry, and now the little thing of bark and sinew keeps an ember alive through a whole day's walk. The band's young ones carry it about at the camp, and people from the next band asked for one at the last meeting. {N} wonders whether it is a toy or the start of something.
+scene magic: It began as a toy to amuse the household: a little brass bird that sings at sunrise. Now it opens the shutters, rings for the baker and wakes the whole lane. Strangers at the market have asked where to buy one, and a merchant's clerk has left a card.
+- W | enter it in the national inventors' competition, with every form filled in | title: inventor | grants_if_fails: a long shot that missed | door | v: conformity, achievement | tribal: bring it to the elders' meeting of the bands, where new things are judged | magic: enter it for the guild's prize for new devices, with every form filled in | chance: 3
+- U | spend a year of evenings perfecting it, then take it to a maker | title: inventor | grants_if_fails: a long shot that missed | habit | v: achievement | tribal: spend a winter of evenings making it right, then take it to the best toolmaker of the rivers | magic: spend a year of evenings perfecting it, then take it to a great workshop | chance: 3
+- B | find a backer at the spring trade show, and sign before they think twice | title: inventor | grants_if_fails: a long shot that missed | v: power, achievement | tribal: find a strong trader at the spring gathering, and strike the bargain at once | magic: find a backer at the spring fair, and set your seal before the merchant thinks twice | chance: 3
+- R | put the film of it online tonight, and see what happens | title: inventor | grants_if_fails: a long shot that missed | v: stimulation, hedonism | tribal: show it off at every fire of the gathering, and see what happens | magic: show it off in the market square on the feast day, and see what happens | chance: 3
+- G | make one for every neighbour who asks, and let word travel | title: inventor | grants_if_fails: a long shot that missed | v: benevolence, tradition | tribal: make one for every hearth that asks, and let word travel down the river | magic: make one for every household in the lane that asks, and let word travel | foot: person neighbour | chance: 3
+- WUR | join the inventors' club at the library, and learn how patents work first | v: self-direction, conformity | tribal: sit with the old toolmakers at the gathering, and learn first how a tool becomes one's own | magic: join the artificers' reading room at the guildhall, and learn how a grant on a design works | foot: place learn.keeping | chance: 83
+- WUB | show it to the boss, and ask for a place on the team that develops it | grants: inner circle at work | door | v: security, achievement | tribal: show it to the band's best toolmaker, and ask to help with the making of it | magic: show it to your master, and ask for a place at the bench that develops it | chance: 83
+- WBG | let it go, and give the evenings back to the family and the job | self_control: - | v: security, benevolence | tribal: let it go, and give the evenings back to the hearth and the hunt | magic: let it go, and give the evenings back to the household and the master's work | foot: means ties+.05 | chance: 83
+- URG | build a second, better one just for the joy of it, and keep it at home | grants: prototyping | v: self-direction, hedonism | tribal: make a second, better one just for the joy of it, and keep it at your own hearth | magic: build a second, better one just for the joy of it, and keep it for the household | foot: place prod.craft | chance: 83
+- BRG | sell the first few at the weekend market, and see who comes back for more | v: stimulation, power | tribal: trade the first few at the gathering, and see who comes back for more | magic: sell the first few at the weekend market in the square, and see who comes back for more | foot: place comm.market | chance: 83
+works: A year later strangers are paying for it, a maker has taken it on, and {N} gives up the old work to be an inventor, with a bench and a list of orders.
+works: Whatever {N} chose, the thing made for fun turns out to be a good beginning, and {N} is still making things a year on.
+fails: The interest fades as fast as it came, and the thing goes back to being a toy for the household.
+fails: The answers are polite and few, and {N} puts the drawings in a drawer, where they stay for years.
+
+# ================================================================ world-only
+
+# ---------------------------------------------------------------- 9. the guild commissions a flying ship (only: magic; pairs D6b)
+# The artificers' guild wants a ship that flies (callings/worlds.py, WORLD_ONLY_CALLINGS), for an inventor of three
+# years or a civil engineer or machinist of six (LIFE_CALLINGS gate; `tenure: 3-99` here). The singles are each for one
+# rung, as the art pack's 'the manuscript in the pile on the floor' (option requires: names one title, so each single
+# carries `requires: <its rung> | without: impossible` and is never offered to anyone it does not fit): Blue's and
+# Black's are the inventor's try for the facet [celebrated inventor] (the realm's artificer) at its real chance, 6;
+# White's is the civil engineer's and Red's and Green's the machinist's try for [inventor] (an artificer) at 25. The
+# inventor sees two singles, the civil engineer one and the machinist two; every colour still has its answer in the
+# pairs, which everyone the gate lets in meets. The enchanter's binding that makes the hull rise sits on the pair UB
+# (Blue's knowledge of what a binding does, Black's purse): someone else's magic, bought (requires savings; a loan
+# otherwise, lacking .5), never the artificer's own gift, with the Order's disapproval on a closed: approval line and
+# its price in the backfire; it gives the talk of the guild ([name in the field]), not the title, which the guild gives
+# only for a ship of the artificer's own making. The other pairs, at 55, are the honest ways: a kite-ship for the fair,
+# the hill-folk's kite-makers, the old artificer put forward, a year for a small model first. The binding, at 93, is
+# solved around the two singles at 6 until every colour's mean is 40.
+
+== the guild commissions a flying ship
+tier: life event
+only: magic
+stages: adult mature elder
+age: 25-100
+holds: inventor | civil engineer | machinist
+tenure: 3-99
+per_year: 0 0 0 .02 .02 .01
+times: per artificer of three years, or engineer or machinist of the guild of six, in the magic world a year: about 1 in 50 hears that the artificers' guild wants a ship that flies and will choose who builds it (estimate); a ship that keeps the air is the realm's newest wonder, and few artificers in a generation build one
+likelier: a guild flush with the court's silver, a name for clever work, a flood or a famine that needs fast carrying, an old artificer retiring
+rarer: lean years, a guild master with a favourite, an Order that frowns on new wonders, a workshop far from the capital
+gap: 5-10
+domain: career.5
+tone: joy
+life: work, publiclife
+horizon: years
+roles: boss, rival, mentor, colleague
+magic: the artificers' guild wants a ship that flies, and will choose who builds it
+scene magic: The guild master reads the commission aloud in the long hall: the court wants a ship that flies, to carry the realm's letters over the mountains in a day, and the guild will choose who builds it. A model of a hull hangs from the rafters, and nobody has yet made one keep the air. In the lanes behind the guildhall an enchanter sells bindings that make a thing rise, for a price, and without the Order's leave.
+scene magic W: The guild has a code for every beam and rivet, learned the hard way over two hundred years of fallen bridges. {N} means to build a ship that keeps every line of it.
+scene magic U: Nobody knows yet why a bird stays up. {N} has watched gulls over the harbour for a month with a notebook, and suspects it is not the flapping at all.
+scene magic B: Whoever builds this ship will be the realm's artificer, with a hall of their own and the court's ear. {rival} has already been seen dining with the guild master, and {N} has heard about the enchanter's bindings.
+scene magic R: {N} wants to be the first one up there: over the rooftops, over the river, with the wind in the rigging and the whole city looking up.
+scene magic G: The hill-folk have flown great kites over the high pastures for longer than the guild has existed. {N} wonders whether anyone in the long hall has ever thought to ask them.
+- W | draw the ship to the guild's every rule, and prove each beam on paper first | title: inventor | requires: civil engineer | without: impossible | v: conformity, security | chance: 25
+- U | work out from first principles how wings and wind could carry a hull | title: celebrated inventor | requires: inventor | without: impossible | v: achievement, self-direction | chance: 6
+- B | promise the guild a ship by midsummer, and hire the best hands in the city | title: celebrated inventor | requires: inventor | without: impossible | binds | v: power, achievement | chance: 6
+- R | build a small ship in the yard with your own hands, and fly it yourself | title: inventor | requires: machinist | without: impossible | body: light | v: stimulation | chance: 25
+- G | build it light, the way the birds and the old kite-makers of the hills do | title: inventor | requires: machinist | without: impossible | v: tradition, universalism | chance: 25
+- BR | build a kite-ship for the midsummer fair, and charge for the first rides | v: stimulation, power | foot: means money+.05 | chance: 55
+- RG | go up to the hill-folk's kite-makers, and learn how their great kites ride the wind | grants: mentor | v: self-direction, universalism | chance: 55
+- UB | buy an enchanter's binding that makes the hull rise, without the Order's leave | grants: name in the field | requires: savings | without: means | lacking: .5 | mark: defied an authority | closed: approval: an enchanter's binding bought without the Order's leave; backfire: the binding fades with the year, and the enchanter's price to renew it rises each time | self_control: - | v: power, achievement | chance: 93
+- WG | put the old artificer forward, who has waited all their life for this | mark: helped someone in need | v: benevolence, universalism | chance: 55
+- WU | ask the guild for a year to build and test a small model first | grants: prototyping | binds | v: security, achievement | foot: place prod.craft | chance: 55
+works: On a still morning in late summer the ship lifts off the guild's field, turns once over the river, and the whole city comes out onto the roofs to watch.
+works: Whatever {N} chose, the guild remembers the year of the flying ship, and {Ns} part in it.
+fails: The ship rises a few feet, lurches, and settles back onto the field, and the guild gives the commission to {rival}.
+fails: The court's silver runs out before the hull is finished, and the commission is put away for a better year.

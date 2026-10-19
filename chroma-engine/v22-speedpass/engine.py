@@ -45,6 +45,10 @@ NIDX = {n: i for i, n in enumerate(NEEDS)}
 NMAP_V5 = np.array(NEED_MAP, float)       # needs x colors
 NMAP_V6 = np.array(NEED_MAP_V6, float)    # v6: autonomy is met by acting as oneself, not by a color
 NMAP = NMAP_V6
+from realm_earth import NEED_MAP_V7, COMMIT_MEETS_V7, IMP_AGE   # needs that fit life (need_tab "v7", imp_age): Earth's
+NMAP_V7 = np.array(NEED_MAP_V7, float)
+from realm_earth import HEIGHT_NAMES   # aims v1: Earth's names of the three heights
+AIM_HEIGHTS = ["Known", "Notable", "Historic"]   # a step's height: 0 none, 1 Known, 2 Notable, 3 Historic
 STAGE_NAMES = [s[0] for s in STAGES]
 STAGE_LO = np.array([s[1][0] for s in STAGES], float)
 STAGE_HI = np.array([s[1][1] for s in STAGES], float)
@@ -826,6 +830,32 @@ DEFAULT = dict(
     # none). Read-only (no draw): every life plays the same with it on or off. Changes the caller makes at the "end"
     # pause fall in no week's record
     need_why=False,
+    # needs that fit life (the next stage's workstream 4; chroma-ideas/next-table-2026-10-19/needs-research.md), each off
+    # until the joint refit: need_tab "v7" reads the colour-to-needs table and what commitments meet from realm_earth
+    # (NEED_MAP_V7, COMMIT_MEETS_V7: a partner gives meaning, each colour a meaning of its own); shared_hist, the most of
+    # an act's belonging gain that also feeds meaning (shared history: shared_hist_par's share with no close bond,
+    # rising to shared_hist as the longest held partnership, children or community lasts, halfway in its years); imp_age,
+    # setbacks only from the age each can happen at (realm_earth.IMP_AGE)
+    need_tab=None, shared_hist=0.0, shared_hist_par=(0.10, 5.0), imp_age=False,
+    # aims v1 (the next stage's workstream 5; plan.md section 5), off until the joint refit; needs the batch's aims
+    # (batch.AIMS or load_batch(aims=True)). An aim is a ladder of steps (titles or perks held or once held) toward what a
+    # person wants to become, in up to aims_par slots: one grows from below out of a dream, passion or plan whose
+    # concrete dream it names or whose domain and colours it fits (fit, the lean's cosine), or the player sets one (it
+    # stays "set by you", pulling at reluctant, the spark moment sought at spark_seek, until a try at its spark moment
+    # works and a rite or the moment's own seal makes it theirs). It raises the odds of moments with a way into its next
+    # step (seek, by its strength) and each step reached meets meaning (meet, by the step's height: none, Known,
+    # Notable, Historic). With no goal behind it an aim fades (half, in years; half_set for one not yet their own) and
+    # goes below drop. A calling: an aim of their own that leads to a height, held as a passion for call_yrs
+    aims=False,
+    aims_par=dict(slots=3, fit=0.3, seek=1.0, reluctant=0.5, spark_seek=2.0, meet=(0.03, 0.06, 0.09, 0.12), half=4.0,
+                  half_set=2.0, drop=0.05, call_yrs=3.0, set_s=0.5, spark_up=0.15),
+    # the heights of a life (plan.md section 5), read-only: the week each height (Known, Notable, Historic) was first
+    # reached (realm_earth.HEIGHT_NAMES, a sphere rung of pillar or more, a summit title, leading a movement); on with aims
+    heights=False,
+    # footprints (the next stage's workstream 3; plan.md section 3), off until the joint refit; needs the batch's FOOT
+    # (batch.FOOT or load_batch(foot=True)). Each picked option's footprints get real state (run_03_moments.py, the
+    # footprints): a person in the cast (off-world, ties by foot_par ties), a haunt, a means, a mark or door, a lesson told
+    foot_on=False, foot_par=dict(ties=0.05),
     echo_play_par=dict(p=0.6, w=0.3, delay=(1.0, 8.0), keep=10.0, gap=0.5, again=12.0),
     # bold ways (chroma-ideas/gameplay-2026-10-17/bold-ways.md): set only by the game for a played life, with the batch's
     # BOLD_MOMENTS. In a week the game asks (bold_ask, set at the situation pause and spent at the choice; "all": every
@@ -1411,14 +1441,7 @@ V10_OFF = dict(app_k=0.0, app_learn=0.0, mis_focus=0.0, mis_mem=0.0, mis_scar=0.
                scar_pull=0.0)
 # the next update's new mechanics off and its refitted values at v22.1's (implementation list; Release's C-E14 rule, 10-09):
 # each stage adds its switches here and names them in the engine CHANGELOG
-# births by the parent's age (birth_age): births a year per 1,000 women and per 1,000 men at each age (US NCHS natality,
-# mothers 2019 and fathers' age-specific rates), read as a share of the peak; own births only
-FERT_F = ((15, 0.0), (17, 17), (22, 66), (27, 93), (32, 98), (37, 52), (42, 12), (47, 1), (51, 0.0))
-FERT_M = ((15, 0.0), (17, 8), (22, 60), (27, 95), (32, 100), (37, 60), (42, 25), (47, 9), (52, 3), (57, 1), (62, 0.0))
-BIRTH_OWN = ("a child is born", "a baby on the way, planned or not")   # the moments of a life's own births
-BIRTH_NOT = re.compile(r"adopt|foster|take (?:them )?in|surrogate|clinic|donor", re.I)   # other ways to a child
-HOME_TOGETHER = ("living together", "wife or husband", "married again", "partner of many years",
-                 "spouse in a family-arranged marriage")   # the titles of a home together (birth_with)
+from realm_earth import FERT_F, FERT_M, BIRTH_OWN, BIRTH_NOT, HOME_TOGETHER   # Earth's (realm_earth.py)
 
 
 def toward(lv, m):
@@ -1433,116 +1456,8 @@ def fert(age, table):
     return np.interp(age, xs, ys) / max(ys)
 
 
-# v22.5 F1, a body and a mind (chroma-ideas/realism/v22.5-realism-list.md; Emren 10-11 11:25 UTC; the modifiers are
-# chroma-ideas/means/modifiers.md H1 to H17). Rates are a year, sizes in health units (0 to 1). Every colour lean is a
-# tendency, never a limit (Emren 10-11 17:35 UTC): a colour's share above or below the even .2, per .2, times its lean,
-# so a life far into one colour moves a few points, and no colour closes or guarantees anything. The values are
-# estimates for the one v22.5 refit (no part is tuned on its own before it). W U B R G in every 5-tuple.
-BODY_PAR = dict(
-    con_sd=0.035, con_frail=(0.04, 0.08),   # H1 constitution, lifelong: robust around 0 (sd); a few frail (share, extra loss)
-    age=((0, 0.90), (25, 0.95), (35, 0.95), (60, 0.86), (70, 0.78), (80, 0.66), (90, 0.50), (100, 0.30)),   # H2 the body's
-                             # level by age, alone (conditions, illness and injury come off it)
-    base_half=1.0,           # R2 two speeds: years for the body's slow level to move halfway to where the life puts it
-    ill_rate=((3, 2.0), (10, 1.5), (16, 1.0), (60, 0.8), (80, 1.2), (100, 1.5)),   # H4 short illnesses a year (flu, a bug)
-    ill_size=(0.08, 0.22), ill_half=1.5,    # H4 a dip (drawn between) and the weeks it takes to halve
-    inj_rate=((3, 0.10), (15, 0.12), (25, 0.08), (65, 0.06), (80, 0.15), (100, 0.25)),   # H5 injuries a year (falls late)
-    inj_size=(0.12, 0.35), inj_half=5.0,    # H5 a dip and the weeks it takes to halve
-    inj_keep=(0.1, 0.03),    # H5 the share of injuries that leave a lasting mark on the body, and its size
-    cond_young=0.06,         # H3 a long-term condition from birth or early childhood (with the moments, about 1 in 8 by 16)
-    cond_size=(0.03, 0.12),  # H3 a condition's weight on the body (drawn between; a second one adds)
-    cond_max=0.25,           # the most the conditions together take
-    cond_ease=0.03,          # H3 a young person's condition eases (asthma often does): a yearly chance, to 18
-    cond_rate=((12, 0.004), (30, 0.008), (50, 0.02), (70, 0.035), (100, 0.04)),   # H3 without the Library's moments
-    ser_size=(0.25, 0.45),   # H6 a serious illness: the dip while it lasts
-    ser_months=(3, 24),      # H6 how long it lasts (treatment, recovery)
-    ser_keep=(0.02, 0.08),   # H6 what it takes from the body for good, if they come through
-    ser_rate=((35, 0.0), (45, 0.003), (60, 0.008), (75, 0.015), (100, 0.02)),   # H6 without the Library's moments
-    preg=0.10, preg_half=8.0,   # H7 pregnancy and a birth: a dip, and the weeks it takes to halve
-    # H8 to H10 habits by colour: rest and sleep (Blue's late nights, Red burning the candle; Green and White rest), moving
-    # the body (Red and Green move, Blue sits, Black trains), moderation (White moderate, Red and Black indulge)
-    rest=(0.02, -0.03, 0.0, -0.02, 0.02), move=(0.0, -0.02, 0.01, 0.03, 0.02), moderate=(0.02, 0.0, -0.01, -0.03, 0.0),
-    disc=0.02,               # learned self-control holds the habits up: x (discipline - 1)
-    care=(0.25, 0.25, 0.0, -0.1, -0.15),   # H11 early care (W keeps appointments, U reads the signs, G trusts the body too long):
-                             # this share shorter dips and lighter serious illness
-    heal=(0.0, 0.0, 0.0, 0.1, 0.25),       # how much faster dips heal: Green heals well, Red bounces back
-    risk=(-0.1, 0.0, 0.1, 0.5, 0.15),      # H5 injury risk (log units): Red's risks and sport, Green outdoors
-    strain=0.08, strain_from=0.4, strain_years=3.0,   # H12 years of strain (stress above this, a slow average) wear the body
-    lonely=0.06, lonely_line=0.7,   # H13 few people: the level falls by up to this (belonging under the line)
-    money=0.05, money_years=3.0,    # H14 money and class: +- this from the poorest to the best off (slow average; a child's
-                                    # family's class with the world on); poorer lives also heal slower
-    care_load=0.03,          # H16 years of caring for someone (world on): up to this at 20 hours a week
-    mind_wear=0.12,          # each wears the other: a low mind (under .6) pulls the body's level down by up to this
-    ill_mind=0.5,            # and a low season or anxiety makes short illnesses this much likelier
-    moments=True,            # the Library's own body moments happen to the body: a diagnosis is a serious illness, "living
-                             # with a chronic illness" a condition, a serious accident an injury or an illness
-    risk_k=2.0,              # the body's risks on those moments: x exp(risk_k x (the level for the age - the body)), at most x2
-    dip_level=False,         # v22.5 F9.37: what an illness or injury takes (its dip, a condition's weight, the mark it leaves) is a
-                             # share of what the body has at its age (x its level for the age over its best), less at 90 than at 30
-)
-# what each of the Library's body and mind moments is (moments=True); the engine's own rates stand in where a Library has none
-BODY_MOMENTS = {"living with a chronic illness": "condition", "growing up with an illness": "condition",
-                "the body remembers the wild years": "condition", "a frightening diagnosis": "serious",
-                "a serious accident or illness": "accident or illness", "a fall at home": "injury",
-                "burnout": "burnout"}
-MIND_MOMENTS = {"a long dark season": "low", "a sadness that will not lift": "low", "burnout": "low",
-                "an addiction takes hold": "numb"}
-CO_TITLES = ("living together", "wife or husband", "married again", "partner of many years",
-             "spouse in a family-arranged marriage")   # a home together (F9.6; pair_pay)
-SPLIT_SOFT = ("a breakup",)   # F9 par_split: the young couple's moments that may end a home together or pass
-COND_KINDS = ("asthma", "diabetes", "arthritis", "chronic pain", "heart condition", "epilepsy")
-COND_P = ((0.45, 0.15, 0.0, 0.05, 0.05, 0.3), (0.1, 0.3, 0.3, 0.15, 0.15, 0.0))   # which, as a child and as an adult
-COND_LETHAL = (0.3, 1.0, 0.0, 0.0, 1.5, 0.3)   # how far each condition's complications can end a life (F2; arthritis and pain do
-                                               # not, they wear the body)
-COND_DEATH = ("of a severe asthma attack", "of complications of their diabetes", "", "", "of heart failure", "of a seizure")
-SER_KINDS = ("cancer", "heart disease", "a stroke", "lung disease")
-MIND_PAR = dict(
-    start=0.82,              # a young child's mind (the family holds it up)
-    level=0.78,              # where the mind settles with nothing pulling it
-    half=13.0,               # weeks for the mind to move halfway: it is built over months
-    mood=0.4, content=0.2,   # a person's usual mood and how content life is, above or below their references, lift it
-    mood_ref=0.7, content_ref=0.7,
-    strain=0.2, strain_from=0.4,   # months of strain: stress above this (a three-month average)
-    loss=0.07,               # losses and hard blows (the wound, to 1.5)
-    scar=0.02,               # hurts built up over the years (the scars, to 3)
-    lonely=0.12, lonely_line=0.7,  # few people: belonging under the line
-    meaning=0.3,             # the meaning need above or below .9
-    rest=0.04,               # rest: time left over under .15 drains the mind
-    body=0.2,                # each wears the other: a body under .7 pulls the mind down by this x the gap
-    low_dip=0.20, low_months=(2, 9),     # a low season: its weight on the mind and how long it lasts
-    anx_dip=0.12, anx_months=(1, 6),     # anxiety
-    numb_dip=0.08, numb_months=(3, 18),  # numbing (drink, pills, a screen all night): relief now, cost later
-    low_rate=0.012, numb_rate=0.006,     # a year at an even mind, where a Library has no such moment
-    anx_rate=0.02,           # a year at an even mind (no Library moment tells it)
-    risk_k=3.0,              # each threat is likelier as the mind falls: x exp(risk_k x (.75 - mind)), at most x3, on the
-                             # moments too
-    steady=0.004,            # steadier picks: an act that works and fits who they are lifts the mind this much
-    resil=0.1, resil_max=0.5,   # resilience: coming through a threat with people around adds this (to the max); it wards off
-                             # the threats and shortens them
-    moments=True,            # the Library's own mind moments start a threat: a long dark season, a sadness that will not
-                             # lift, burnout, an addiction
-    mind_w=0.5,              # health, the one number everything reads: (1 - mind_w) x body + mind_w x mind
-)
-# v22.5 F2, death from the life: the character's death risk reads the body, and the cause is what they had
-DEATH_PAR = dict(
-    acc=((0, 2e-4), (15, 2.5e-4), (20, 5e-4), (30, 3e-4), (70, 3e-4), (85, 1.2e-3), (100, 3e-3)),   # accidents a year
-    acc_red=0.3,             # Red's risks: x exp(acc_red x (Red - .2) / .2)
-    frail=(1.7e-5, 0.09),    # the body's own failing, a e^(b age) a year at the level for the age (Gompertz)
-    frail_k=2.5,             # x exp(frail_k x (the level for the age - the body)): a weaker body fails sooner
-    sudden=0.5,              # before old age, this share of a failing body goes at once (a heart attack, a stroke); the
-                             # rest fail over weeks, of their heaviest condition or else of heart failure
-    old_age=85.0,            # from this age a failing body with nothing named is old age
-    frail_c=0.0,             # v22.5 F9.35: from 15, a failing body's background a year beside the Gompertz term (Makeham):
-                             # the young who die of an illness, not only of an accident
-    frail_late=None,         # v22.5 F9.33: (age, slope): from this age the body's own failing rises at this slope instead (its
-                             # last reserves go), so almost no one lives past 105. None: one slope
-    ser_fatal=dict(cancer=0.4, **{"heart disease": 0.15, "a stroke": 0.2, "lung disease": 0.4}),   # a serious
-                             # illness's course ends in death this often (at 60, with the body at its age's level)
-    ser_age=0.02, ser_age_lim=(0.4, 2.0),   # x (1 + this x (age - 60)), within these: the young come through more often
-    cond_k=0.005,            # a condition's complications: its weight x this x e^(.06 (age - 50)) a year
-    decline=dict(old=(12, 52), serious=(4, 20), condition=(8, 30)),   # weeks of the last decline, by what ends the life
-    decline_k=1.0,           # v22.5 F9.37: the decline deepens as (the share of its weeks gone) ** this; 2: slowly at first and
-                             # steeply at the end, as a last decline does (most of its weeks are not yet the lowest)
-)
+from realm_earth import (BODY_PAR, BODY_MOMENTS, MIND_MOMENTS, CO_TITLES, SPLIT_SOFT, COND_KINDS, COND_P, COND_LETHAL,   # Earth's
+                         COND_DEATH, SER_KINDS, MIND_PAR, DEATH_PAR)                                                    # (realm_earth.py)
 
 
 UPD_OFF = dict(dis_match=False,
@@ -1608,13 +1523,17 @@ UPD_OFF = dict(dis_match=False,
                role_why=False,
                # because of you, and meanwhile: why each need moved (read-only)
                need_why=False,
+               # needs that fit life (workstream 4)
+               need_tab=None, shared_hist=0.0, imp_age=False,
+               # aims v1 and the heights reading (workstream 5)
+               aims=False, heights=False,
+               # footprints (workstream 3)
+               foot_on=False,
     # the v22.3 refit's satisfaction level (the new mechanics lift satisfaction; the set point moved .80 -> .86)
     sat_mid=0.8)
 # everything since the go-live off, for the identity check (C-E14): lives then equal engine_v9_golive.py
 GOLIVE = {**V10_OFF, **ID_OFF, **FIX_OFF, **UPD_OFF, "world": False}
-ROLE_BY_SETTING = dict(earth=0.3, tribal=0.7, magic=0.5)     # role_strict when None (estimates; ISSP 2012, WVS 7)
-ACCEPT_BY_SETTING = dict(earth=0.5, tribal=0.3, magic=0.5)   # accept_trans when None (estimates)
-
+from realm_earth import ROLE_BY_SETTING, ACCEPT_BY_SETTING   # Earth's (realm_earth.py)
 # v7 adjectives (Emren's point 3): plain states read from the meta variables, needs and resources. The Library can use
 # them in conditions (is_happy, adj('wealthy')) and in an act's or a situation's requires:, like perks; the game shows
 # them. Each reads its value over the last few months (adj_smooth); it holds from when that passes `on` until it falls
@@ -1857,6 +1776,11 @@ STATE_MORE = ("fam", "gsr", "goal_rel_S", "around", "retired", "ck", "ok_", "frc
               # world's opposed pairs and this week's closures in units (with CLU_ON)
               "nw", "nw_imp",   # need_why: this week's need moves by source (N x NSOURCES x needs) and silent setback
               # (IMPOSITIONS index, -1 none), from the start of the week; None off. The game takes the pick's from the choose pause on
+              "AIM_ON", "HT_ON", "AIM", "ak", "astr", "astep", "aown", "aby", "atest", "acall", "abirth", "aim_best", "gal",
+              "ht_t", "aim_take", "aim_end", "aim_fit", "aim_of_goal",   # aims v1 (foresee's aims track, set_aim, drop_aim)
+              # and the heights reached (ht_t, weeks, -1 never); None off
+              "FOOT_ON", "foot_log",   # footprints: on, and every pick's footprints so far (foot_log, a list of dicts)
+              "foot", "foot_open",     # per life (None off): the last act's footprints (kind, value, who); doors (kind, since)
               "btrust")   # body_trust (finishing pack part 3): each life's trust per sphere (N x 9, NaN before 15); None off
 STATE_MISSED = set()   # names read at a pause that are not handed over (STATE, STATE_IF, STATE_MORE): t_steps wants none
 

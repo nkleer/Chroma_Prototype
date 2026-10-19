@@ -1,4 +1,4 @@
-"""Engine check for the pause points (backend plan item 2, 2026-10-08) and each switch's own rows: 73 rows, about an hour
+"""Engine check for the pause points (backend plan item 2, 2026-10-08) and each switch's own rows: 76 rows, about an hour
 (50 to 65 min measured 10-17: the Engine with T_JOBS=4, Release on #288).
 
 engine.run_steps() is engine.run() pausing six times a week for the game. On a few short runs this checks that
@@ -52,6 +52,18 @@ engine.run_steps() is engine.run() pausing six times a week for the game. On a f
      week's change in each need at the "end" pause; a setback carries its kind; what the caller sets at a pause is the
      player's (at most what was set); off, no record. The hover arrows (foresee.arrows) read at every pick change no
      life, and the picked option's need arrows come within one size of the record's act share.
+ 19. needs that fit life (need_tab "v7", shared_hist, imp_age): each switched on, run_steps() lives as run() and the
+     lives move; no setback comes before its age (realm_earth.IMP_AGE); with the v7 tables a partnership gives meaning.
+ 20. aims v1 and the heights (aims, heights), with the batch's aims, world off and on: run_steps() lives as run(); every
+     step reached has a name of it held (or is a Known step, by a sphere rung); a height's week never moves once reached;
+     an aim the player sets (foresee.set_aim) is held as theirs, not the character's own; the track and the choices
+     (foresee.aims, aim_choices) are well formed; the batch without aims carries none.
+ 21. footprints (foot_on), with the batch's FOOT tables, world off and on: run_steps() lives as run() and the lives move;
+     every pick's footprints are its option's; a means moves by its value (or to 0 or 1), a mark or door is left that
+     week, the act's own mark counts only when a rule reads it, a person met is in the cast and a place joined is a
+     haunt (world on); at the pauses foot (the last act's footprints) and foot_open (the doors waiting, each once) per
+     life; with FOOT in the batch and the switch off, the lives of the batch without it; the batch without FOOT carries
+     none.
 
     python3 -B chroma-engine/tools/t_steps.py [ENGINE_DIR]
 T_JOBS=N: the rows of 8 and 9 on N processes (default up to 4, by the cores there are; 1: one after another).
@@ -979,6 +991,188 @@ if "need_why" in E.DEFAULT:
           f"edits {seen_['player']:.2f} of {seen_['edits']:.2f} set (the rest clipped); the hover arrows read-only, the picked "
           f"option's need arrows within a size of the record {seen_['ar_ok']} of {seen_['ar']}{'' if not fails else '; ' + '; '.join(fails[:4])} "
           f"({time.process_time() - t0:.0f} s)")
+# 19. needs that fit life (need_tab, shared_hist, imp_age; workstream 4), Earth and packs, world off
+if "imp_age" in E.DEFAULT:
+    t0 = time.process_time(); fails = []; NS_ = E.NSOURCES
+    kw = dict(N=3, years=40, seed=13, lib=EARTH, log_lives=(0,))
+    o0_ = E.run(**kw, P=dict(E.DEFAULT))
+    early_, par_m_, d_ = 0, 0.0, {}
+    for lab_, sw_ in (("need_tab", dict(need_tab="v7")), ("shared_hist", dict(shared_hist=0.3)), ("imp_age", dict(imp_age=True))):
+        P_ = dict(E.DEFAULT, need_why=True, **sw_)
+        o1_ = E.run(**kw, P=P_)
+        g = E.run_steps(**kw, P=P_); msg = next(g)
+        while True:
+            kind, t, S, val = msg
+            if kind == "end":
+                if lab_ == "imp_age":
+                    for n_ in np.nonzero(S["nw_imp"] >= 0)[0]:
+                        early_ += S["age"] < E.IMP_AGE[int(S["nw_imp"][n_])]
+                if lab_ == "need_tab":
+                    par_m_ += float(S["nw"][:, NS_.index("commitments"), E.NEEDS.index("meaning")]
+                                    [S["held"][:, E.KIDX["partner"]] & ~S["held"][:, E.KIDX["children"]]].clip(0).sum())
+            try:
+                msg = g.send(val)
+            except StopIteration as done:
+                o2_ = done.value
+                break
+        if digest(o1_) != digest(o2_):
+            fails.append(f"{lab_} on: run_steps not the lives of run()")
+        if digest(o1_) == digest(o0_):
+            fails.append(f"{lab_} on: nothing moved")
+    if early_:
+        fails.append(f"imp_age: {early_} setbacks before their age")
+    if par_m_ <= 0:
+        fails.append("need_tab v7: a partnership gave no meaning")
+    bad += bool(fails)
+    print(f"{'PASS' if not fails else 'FAIL'}  needs that fit life (need_tab v7, shared_hist, imp_age), each switched on: "
+          f"run_steps lives as run(), the lives move; no setback before its age; a partnership gives meaning "
+          f"({par_m_:.3f}){'' if not fails else '; ' + '; '.join(fails[:4])} ({time.process_time() - t0:.0f} s)")
+# 20. aims v1 and the heights reading (aims, heights; workstream 5), Earth and packs with the aim catalogue
+if "aims" in E.DEFAULT and "aims" in batch.load_batch.__code__.co_varnames:
+    import foresee as FS_
+    t0 = time.process_time(); fails = []
+    LA_ = batch.load_batch("earth", packs=list(batch.PACKS), aims=True)
+    if "AIMS" in (EARTH or {}):
+        fails.append("the batch without aims carries them")
+    seen_ = dict(steps=0, own=0, set=0, calls=0, track=0, heights=0)
+    for wl_, N_, Y_, sd_ in ((False, 4, 50, 9), (True, 2, 30, 4)):
+        P_ = dict(E.DEFAULT, aims=True, world=wl_)
+        kw = dict(N=N_, years=Y_, seed=sd_, lib=LA_, log_lives=(0,))
+        o1_ = E.run(**kw, P=P_)
+        for edit_ in (False, True):
+            g = E.run_steps(**kw, P=P_); msg = next(g); set_ = None; ht0_ = None
+            while True:
+                kind, t, S, val = msg
+                if kind == "week" and S.get("AIM_ON"):
+                    ht_ = S["ht_t"].copy()
+                    if ht0_ is not None and ((ht0_ >= 0) & (ht_ != ht0_)).any():
+                        fails.append("a height's week changed once reached")
+                    ht0_ = ht_
+                    if edit_ and set_ is None and S["age"] >= 20:   # the player sets the aim that fits life 0 least
+                        held_ = set(int(a_) for a_ in S["ak"][0] if a_ >= 0)
+                        a_ = next(int(x_) for x_ in np.argsort(S["aim_fit"](np.asarray(S["w"][0], float))) if int(x_) not in held_)
+                        q_, why_ = FS_.set_aim(S, 0, S["AIM"]["names"][a_])
+                        if q_ < 0 or S["ak"][0, q_] != a_ or S["aown"][0, q_] or not S["aby"][0, q_]:
+                            fails.append(f"set_aim: not held as set by the player ({why_})")
+                        set_ = (q_, a_); seen_["set"] += 1
+                if kind == "end" and S.get("AIM_ON"):
+                    A_ = S["AIM"]
+                    for n_, q_ in zip(*np.nonzero(S["ak"] >= 0)):
+                        a_ = int(S["ak"][n_, q_]); k_ = int(S["astep"][n_, q_]); st_ = A_["aims"][a_]["steps"]
+                        if k_ > len(st_):
+                            fails.append("more steps than the ladder"); continue
+                        if k_ and not (S["r_ever"][n_, st_[k_ - 1]["any"]].any() or (st_[k_ - 1]["h"] == 1 and wl_)):
+                            fails.append(f"{A_['names'][a_]}: step {k_} reached with none of its names held")
+                    if (S["aim_best"] < np.where(S["ak"][..., None] == np.arange(A_["A"]), S["astep"][..., None], 0).max(1)).any():
+                        fails.append("an aim's best below its steps now")
+            if kind == "end" and S.get("AIM_ON") and t % 260 == 0:   # the track and the choices, now and then
+                for n_ in range(N_):
+                    tr_ = FS_.aims(S, n_); ch_ = FS_.aim_choices(S, n_)
+                    seen_["track"] += len(tr_)
+                    if any(x_["reached"] > len(x_["steps"]) or (x_["next"] is None) != (x_["reached"] == len(x_["steps"]))
+                           for x_ in tr_) or len(ch_) > 6:
+                        fails.append("the aims track or choices malformed")
+            try:
+                msg = g.send(val)
+            except StopIteration as done:
+                o2_ = done.value
+                break
+        if not edit_ and digest(o1_) != digest(o2_):
+                fails.append(f"world {'on' if wl_ else 'off'}: run_steps not the lives of run()")
+        lg_ = o1_["aims"]["log"]
+        seen_["steps"] += sum(r_["what"] == "step" for r_ in lg_); seen_["own"] += sum(r_["what"] == "became their own" for r_ in lg_)
+        seen_["calls"] += sum(r_["what"] == "became a calling" for r_ in lg_)
+        seen_["heights"] += int((o1_["heights"]["week"] >= 0).sum())
+    if not seen_["steps"]:
+        fails.append("no step reached")
+    bad += bool(fails)
+    print(f"{'PASS' if not fails else 'FAIL'}  aims v1 and the heights, switched on (world off and on): run_steps lives as "
+          f"run(); {seen_['steps']} steps reached, each with a name of it held; {seen_['own']} sparked, {seen_['calls']} "
+          f"callings, {seen_['heights']} heights reached (never moved once reached); set_aim held as the player's "
+          f"({seen_['set']}); the track well formed ({seen_['track']} read){'' if not fails else '; ' + '; '.join(sorted(set(fails))[:4])} "
+          f"({time.process_time() - t0:.0f} s)")
+# 21. footprints (foot_on; workstream 3), Earth and packs with the batch's FOOT tables
+if "foot_on" in E.DEFAULT and "foot" in batch.load_batch.__code__.co_varnames:
+    t0 = time.process_time(); fails = []
+    LF_ = batch.load_batch("earth", packs=list(batch.PACKS), foot=True)
+    if "FOOT" in (EARTH or {}):
+        fails.append("the batch without FOOT carries it")
+    kw = dict(N=3, years=20, seed=11, log_lives=(0,))
+    o0_ = E.run(**kw, lib=LF_, P=dict(E.DEFAULT))
+    if digest(E.run(**kw, lib=EARTH, P=dict(E.DEFAULT))) != digest(o0_) or "footprints" in o0_:
+        fails.append("with FOOT in the batch and foot_on off, the lives moved")
+    import collections as _co
+    seen_ = _co.Counter()
+    for wl_, N_, Y_, sd_ in ((False, 4, 40, 3), (True, 2, 25, 4)):
+        P_ = dict(E.DEFAULT, foot_on=True, world=wl_)
+        kw = dict(N=N_, years=Y_, seed=sd_, lib=LF_, log_lives=(0,))
+        o1_ = E.run(**kw, P=P_)
+        g = E.run_steps(**kw, P=P_); msg = next(g); done_ = ml_done_ = 0; open_ = {}
+        while True:
+            kind, t, S, val = msg
+            if kind == "end" and S.get("FOOT_ON"):
+                MI_ = {m_: i_ for i_, m_ in enumerate(LF_["MARKS"])}
+                left_ = {(e_[0], e_[1], e_[2]) for e_ in S["mark_log"][ml_done_:]}; ml_done_ = len(S["mark_log"])
+                if len(S["foot"]) != N_ or len(S["foot_open"]) != N_:
+                    fails.append("foot and foot_open not one list a life")
+                for n_ in range(N_):   # the doors: one each kind, since a past week; a door gone was shut by a moment met
+                    op_ = {d_[0]: d_[1] for d_ in S["foot_open"][n_]}
+                    if len(op_) != len(S["foot_open"][n_]) or any(v_ > t for v_ in op_.values()):
+                        fails.append("foot_open: a door twice or from the future")
+                    seen_["doors shut"] += sum(k_ not in op_ for k_ in open_.get(n_, {}))
+                    open_[n_] = op_
+                for r_ in S["foot_log"][done_:]:
+                    n_ = r_["life"]; si_ = LF_["names"].index(r_["moment"]); ki_ = LF_["labels"][si_].index(r_["label"])
+                    if (si_, ki_) not in LF_["FOOT"] and not all(f_.get("own") for f_ in r_["feet"]):
+                        fails.append(f"{r_['moment']}: footprints of an option without them")
+                    now_ = abs(r_["age"] - round(t / 52, 2)) < 1e-9   # this week's (the first end pause also sees earlier ones)
+                    if now_ and S["foot"][n_] != [(f_["kind"], f_["value"], f_.get("cid", -1)) for f_ in r_["feet"]]:
+                        fails.append("foot: not the last act's footprints")
+                    for f_ in r_["feet"]:
+                        seen_[f_["kind"]] += 1; seen_["own marks"] += bool(f_.get("own"))
+                        if f_.get("own") and f_["value"] not in LF_["FOOT_OWN"]:
+                            fails.append(f"own mark {f_['value']} counted")
+                        if now_ and f_["kind"] == "door" and f_["value"] not in [d_[0] for d_ in S["foot_open"][n_]]:
+                            fails.append(f"door {f_['value']} not waiting")
+                        if f_["kind"] == "means":
+                            y_ = float(f_["value"].lstrip("abcdefghijklmnopqrstuvwxyz"))
+                            if not (abs(f_["moved"] - y_) < 1e-9 or (abs(f_["moved"]) <= abs(y_) + 1e-9 and f_["moved"] * y_ >= 0)):
+                                fails.append(f"means {f_['value']} moved {f_['moved']}")
+                            seen_["means moved"] += abs(f_["moved"] - y_) < 1e-9
+                        if now_ and f_["kind"] in ("mark", "door") and (n_, t, MI_.get(f_["value"], -1)) not in left_:
+                            fails.append(f"{f_['kind']} {f_['value']} not left")
+                        if wl_ and f_["kind"] == "person" and "cid" not in f_:
+                            fails.append(f"person {f_['value']} with no one in the cast")
+                        if wl_ and f_["kind"] == "person" and not f_["value"].endswith(" lost"):
+                            if "cid" not in f_ or not (S["WL"].PP.uid[n_] == f_["cid"]).any():
+                                fails.append(f"person {f_['value']} not in the cast")
+                            else:
+                                seen_["person named"] += 1
+                        if wl_ and f_["kind"] == "place" and "place" in f_:
+                            if f_["place"] not in list(S["WL"].PP.hnt[n_]):
+                                fails.append(f"place {f_['value']} not a haunt")
+                            else:
+                                seen_["haunt joined"] += 1
+                done_ = len(S["foot_log"])
+            try:
+                msg = g.send(val)
+            except StopIteration as done:
+                o2_ = done.value
+                break
+        if digest(o1_) != digest(o2_):
+            fails.append(f"world {'on' if wl_ else 'off'}: run_steps not the lives of run()")
+        if digest(o1_) == digest(E.run(**kw, P=dict(E.DEFAULT, world=wl_))):
+            fails.append(f"world {'on' if wl_ else 'off'}: nothing moved")
+    for k_ in ("means", "mark", "door", "lesson", "person named", "own marks"):
+        if not seen_[k_]:
+            fails.append(f"no {k_} seen")
+    bad += bool(fails)
+    print(f"{'PASS' if not fails else 'FAIL'}  footprints, switched on (world off and on): run_steps lives as run(), the lives "
+          f"move; {seen_['means']} means ({seen_['means moved']} by their value, the rest clipped), {seen_['mark']} marks "
+          f"({seen_['own marks']} the act's own) and {seen_['door']} doors left ({seen_['doors shut']} shut since), "
+          f"{seen_['person named']} people in the cast, {seen_['haunt joined']} haunts joined, {seen_['lesson']} lessons told; "
+          f"foot and foot_open per life at the pauses; the FOOT tables with the switch off change nothing; the batch without FOOT "
+          f"carries none{'' if not fails else '; ' + '; '.join(sorted(set(fails))[:4])} ({time.process_time() - t0:.0f} s)")
 # 11. nothing read at a pause outside the handed-over names (an engine without STATE_MISSED reads its whole frame)
 if hasattr(E, "STATE_MISSED"):
     bad += bool(E.STATE_MISSED)

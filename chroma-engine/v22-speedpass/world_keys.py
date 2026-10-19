@@ -48,22 +48,9 @@ FEATURES = ["city", "town", "village", "remote", "capital", "suburb", "universit
 INST_KINDS = ["school", "university", "employer", "bank", "hospital", "police", "court", "prison", "army", "faith body",
               "media", "party", "union", "charity", "council", "ministry"]
 # options
-LAW_KEYS = ["drugs", "divorce", "abortion", "same-sex marriage", "conscription", "guns", "gambling", "alcohol", "sex work",
-            "euthanasia", "home schooling", "death penalty", "adoption"]
-# v23: a key written with a leading minus closes the option the other way round (law: -conscription, evading a call-up
-# where conscription is in force; norm: -same-sex marriage, snubbing a same-sex partner where it is accepted)
-NORM_KEYS = LAW_KEYS + ["cohabiting", "tattoos", "single parenthood", "faith in public", "leaving a faith", "coming out",
-                        "role crossing", "transition", "mixed marriage"]
-# W38b (the Library's held-back law keys): options may name them in law: and norm:. The world does not model them yet:
-# they read at their modern state (world.py LAW_MOD, NORM_MOD) until the world's switch for them is built (v22.3 refit).
-LAW_V23 = ["tobacco", "knives", "drink-driving", "prescription medicines", "childminding", "gender on papers"]
-LAW_KEYS_ALL = LAW_KEYS + LAW_V23           # what an option's law: may name
-NORM_KEYS_ALL = NORM_KEYS + LAW_V23         # what an option's norm: may name
-# "role crossing": acceptance of living across the expected role for one's sex (was "women at work"); options use role:
-# "transition": acceptance of living as one's own gender (chroma-identity/for-the-engine.md)
+from realm_earth import LAW_KEYS, NORM_KEYS, LAW_V23, LAW_KEYS_ALL, NORM_KEYS_ALL   # Earth's (realm_earth.py)
 LAW_STATES = ["legal", "restricted", "banned"]
-TECH_KEYS = ["phone", "computer", "internet", "video calls", "online dating", "remote work", "ai helper", "modern medicine",
-             "car", "plane"]
+from realm_earth import TECH_KEYS   # Earth's (realm_earth.py)
 LEVERS = ["exit", "voice", "loyalty", "neglect", "subvert"]
 LEVERS += ["found", "fund", "lead", "office"]                # spheres (item 15): levers by standing (phase 4 gives them effects)
 DOMAINS = ["close", "group", "place", "institution", "state", "economy", "culture", "tech", "nature", "belief", "abroad"]

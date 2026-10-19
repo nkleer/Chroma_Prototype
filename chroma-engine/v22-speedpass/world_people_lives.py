@@ -572,6 +572,38 @@ class LivesMixin:
             self.events.append(ev)
         return ev
 
+    def foot_person(self, n, role, lost=False, colour=None, t=None):
+        """A footprint's person (foot_on; plan.md section 3): not lost, the closest living one of the cast holding that
+        role grows closer, else someone new comes into the cast in that role, met in the moment (alike the character's
+        act, colour: the act's mix), at the second layer's closeness; lost, the closest one of that role drifts to half
+        (a non-kin role is let go). Returns dict(cid, role, new) or None (lost, and nobody of that role)."""
+        t = self.t if t is None else t; n = int(n); P = self.P; L2 = P["layer_c"][1]
+        bit = BIT[role]
+        have = self.used[n] & self.lv[n] & ((self.rmask[n] & bit) != 0)
+        if lost:
+            if not have.any():
+                return None
+            k = int(np.argmax(np.where(have, self.c[n], -1.0)))
+            self.c[n, k] *= 0.5
+            if not (bit & (KINMASK | CORE)):
+                self.rmask[n, k] &= ~bit
+            self._evs(np.array([n]), np.array([k]), t, "drifted", why="footprint")
+            return dict(cid=int(self.uid[n, k]), role=role, new=False)
+        if have.any():
+            k = int(np.argmax(np.where(have, self.c[n], -1.0)))
+            self.c[n, k] = min(1.0, max(self.c[n, k], L2) + 0.1); self.cmax[n, k] = max(self.cmax[n, k], self.c[n, k])
+            self.last[n, k] = t
+            return dict(cid=int(self.uid[n, k]), role=role, new=False)
+        a = self._age(t); age = a + {"elder": 30, "mentor": 15, "patron": 20, "boss": 12, "teacher": 20,
+                                     "keeper": 15}.get(role, 0) + self.rng.normal(0, 4)
+        ctx = np.asarray(colour if colour is not None else self.w[n], float)[None]
+        F = self._gen(np.array([n]), np.array([t - int(max(5.0, age) * 52)]), t, ctx=ctx, sel=0.4)
+        k = int(self._add(F, t, R[role], c0=L2, trust0=0.55, ctx_read=ctx, quiet=False)[0])
+        if k < 0:
+            return None
+        self.rmask[n, k] |= bit
+        return dict(cid=int(self.uid[n, k]), role=role, new=True)
+
     def _far_month(self, t):
         """F4: a year in the household over, a tie taken in finds a place in town or goes back home."""
         nn, kk = np.nonzero(self.far_in <= t)

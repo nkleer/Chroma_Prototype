@@ -304,5 +304,204 @@
                 out_.add(pick_)
         r_gain(n, pick_, "changed jobs" if move else "came with the " + KNAMES[kk])
 
+    # ---- aims v1 (aims; chroma-ideas/next-table-2026-10-19/plan.md section 5): up to aims_par slots a life, each an aim
+    # of the batch's catalogue (L["AIMS"]: the Library's and the packs' ladders) with its strength, the steps reached, and
+    # whether it is the character's own (grown from below, or sparked) or still set by the player; a calling. The heights
+    # (Known, Notable, Historic) are read with it, or alone (heights, read-only)
+    AIM_ON = bool(P["aims"]) and GON and RON and bool(L.get("AIMS"))
+    HT_ON = (bool(P["heights"]) or AIM_ON) and RON
+    AP_ = P["aims_par"]
+    AIM = ak = astr = astep = aown = aby = atest = acall = abirth = aim_best = gal = ht_t = None; aim_log = []
+    if AIM_ON:
+        AIM = L["AIMS"]; NAIM_ = AIM["A"]; AQ_ = int(AP_["slots"])
+        ak = np.full((N, AQ_), -1); astr = np.zeros((N, AQ_)); astep = np.zeros((N, AQ_), int)   # aim, strength, steps
+        aown = np.zeros((N, AQ_), bool); aby = np.zeros((N, AQ_), bool)   # the character's own; set by the player
+        atest = np.zeros((N, AQ_), bool); acall = np.zeros((N, AQ_), bool); abirth = np.zeros((N, AQ_), int)   # a spark's
+        # try worked (the next rite makes it their own); a calling; the week it was taken
+        aim_best = np.zeros((N, NAIM_), int)   # the most steps each aim reached in this life
+        gal = np.full((N, NGS), -1)            # the aim each goal slot reads as (-1 none)
+        AIM_LEAN = AIM["face"] - 1 / C; AIM_LEAN = AIM_LEAN / np.linalg.norm(AIM_LEAN, axis=1, keepdims=True)
+        DRM_AIM = [[] for _ in DRM_]           # the aims each concrete dream can grow into (the aims' dreams)
+        ix_ = {d_["name"]: i_ for i_, d_ in enumerate(DRM_)}
+        for a_, x_ in enumerate(AIM["aims"]):
+            for d_ in x_["dreams"]:
+                if d_ in ix_:
+                    DRM_AIM[ix_[d_]].append(a_)
+        SPK_A = np.full(L["S"], -1); SPK_ROLE = {}   # a spark moment's aim; each of its options' dream: test, seal or drop
+        for a_, s_ in enumerate(AIM["spark"]):
+            if s_ >= 0:
+                SPK_A[s_] = a_
+                for k_, nt_ in enumerate(L["notes"][s_]):
+                    if (nt_ or {}).get("dream") in ("test", "seal", "drop"):
+                        SPK_ROLE[(int(s_), k_)] = nt_["dream"]
+    if HT_ON:   # the names of each height (realm_earth.HEIGHT_NAMES) in this catalogue; Notable also every summit title
+        HT_I = [np.array([RID[x_] for x_ in HEIGHT_NAMES[h_] if x_ in RID], int) for h_ in ("Known", "Notable", "Historic")]
+        HT_I[1] = np.union1d(HT_I[1], np.nonzero(TIER_ == 2)[0]).astype(int)
+        ht_t = np.full((N, 3), -1)             # the week each height was first reached, -1 never
+    def aim_fit(mix):
+        """How each aim's face fits a mix of colours: the cosine of their leans (1 the same lean)."""
+        lm_ = mix / mix.sum() - 1 / C; nr_ = float(np.linalg.norm(lm_))
+        return AIM_LEAN @ (lm_ / nr_) if nr_ > 1e-9 else np.zeros(NAIM_)
+    def aim_of_goal(n, j):
+        """The aim goal slot j reads as: one its concrete dream can grow into (the best fit among them), else the best fit
+        of its domain if it fits at least aims_par fit; -1 none."""
+        f_ = aim_fit(gm[n, j])
+        c_ = DRM_AIM[gname[n, j]] if gname[n, j] >= 0 else []
+        if c_:
+            return max(c_, key=lambda a_: f_[a_])
+        ok_ = (AIM["dom"] == gd[n, j]) & (f_ >= AP_["fit"])
+        return int(np.argmax(np.where(ok_, f_, -np.inf))) if ok_.any() else -1
+    def alog(n, q_, what, **extra):
+        x_ = AIM["aims"][ak[n, q_]]
+        rec = dict(life=int(n), age=round(t / 52, 2), what=what, aim=x_["name"], slot=int(q_), own=bool(aown[n, q_]),
+                   by_player=bool(aby[n, q_]), steps=int(astep[n, q_]), of=len(x_["steps"]),
+                   strength=round(float(astr[n, q_]), 2), **extra)
+        aim_log.append(rec)
+        if n in events:
+            events[n].append(dict(aim=rec))
+    def aim_take(n, a_, s0, own, by=False, src="dream"):
+        """Life n takes aim a_ (one already held is strengthened to s0). When the slots are full the weakest gives way if
+        it is weaker, has no step reached, is no calling and is not the player's (the player's own choice gives way to
+        nothing but the player). Returns the slot, -1 for no room. Its steps already reached are read at the next month,
+        without meaning."""
+        q_ = np.nonzero(ak[n] == a_)[0]
+        if len(q_):
+            q_ = int(q_[0]); astr[n, q_] = max(astr[n, q_], s0)
+            aby[n, q_] |= by
+            return q_
+        fr_ = np.nonzero(ak[n] < 0)[0]
+        if len(fr_):
+            q_ = int(fr_[0])
+        else:
+            cd_ = np.arange(AQ_) if by else np.nonzero(~aby[n] & (astep[n] == 0) & ~acall[n])[0]
+            if not len(cd_):
+                return -1
+            q_ = int(cd_[np.argmin(astr[n, cd_])])
+            if astr[n, q_] >= s0 and not by:
+                return -1
+            aim_end(n, q_, "pushed aside")
+        ak[n, q_] = a_; astr[n, q_] = s0; astep[n, q_] = 0; aown[n, q_] = own; aby[n, q_] = by
+        atest[n, q_] = acall[n, q_] = False; abirth[n, q_] = t
+        alog(n, q_, "begins", source=src)
+        return q_
+    def aim_end(n, q_, what):
+        alog(n, q_, what)
+        gal[n, gal[n] == ak[n, q_]] = -1
+        ak[n, q_] = -1; astr[n, q_] = 0.0; astep[n, q_] = 0
+        aown[n, q_] = aby[n, q_] = atest[n, q_] = acall[n, q_] = False
+    def aim_from_goal(n, j):
+        """From below: the aim a dream, passion or plan of the character's reads as is taken (a player's plan: set by the
+        player, not yet their own), at half the goal's strength."""
+        a_ = aim_of_goal(n, j)
+        gal[n, j] = a_
+        if a_ >= 0:
+            aim_take(n, a_, 0.5 * gs[n, j], own=not gby[n, j], by=bool(gby[n, j]), src=G_KINDS[gk[n, j]])
+    def aim_pull():
+        """Each moment's pull from the aims held: a way into an aim's next step (ROLES DOORS), by its strength (a player's
+        aim not yet their own at reluctant), and the spark moment of an aim not yet their own (spark_seek)."""
+        pu_ = np.zeros((N, L["S"]), np.float32)
+        for q_ in range(AQ_):
+            on_ = np.nonzero(ak[:, q_] >= 0)[0]
+            if not len(on_):
+                continue
+            a_ = ak[on_, q_]
+            wq_ = astr[on_, q_] * np.where(aown[on_, q_], 1.0, AP_["reluctant"])
+            pu_[on_] += (wq_[:, None] * AIM["door"][a_, np.minimum(astep[on_, q_], AIM["K"])]).astype(np.float32)
+            sp_ = ~aown[on_, q_] & (AIM["spark"][a_] >= 0)
+            if sp_.any():
+                pu_[on_[sp_], AIM["spark"][a_[sp_]]] += AP_["spark_seek"] * astr[on_[sp_], q_]
+        return pu_
+    def aim_spark():
+        """A spark moment's pick (its options' dream: test, seal or drop). A try that works opens the aim (their own) or
+        brings it on, and readies one set by the player to become theirs at the next rite; a seal that works makes it
+        theirs; a try that fails weakens it; a drop lets a player's aim go and weakens their own."""
+        for n in np.nonzero(~idle & (SPK_A[s] >= 0))[0]:
+            a_ = int(SPK_A[s[n]]); ro_ = SPK_ROLE.get((int(s[n]), int(a[n])))
+            if ro_ is None:
+                continue
+            q_ = np.nonzero(ak[n] == a_)[0]; q_ = int(q_[0]) if len(q_) else -1
+            if ro_ in ("test", "seal") and succ[n]:
+                if q_ < 0:
+                    q_ = aim_take(n, a_, 0.3, own=True, src="spark")
+                    if q_ < 0:
+                        continue
+                else:
+                    astr[n, q_] = min(1.0, astr[n, q_] + AP_["spark_up"])
+                if not aown[n, q_]:
+                    if ro_ == "seal":
+                        aown[n, q_] = True; alog(n, q_, "became their own", how="a try that worked, sealed")
+                    else:
+                        atest[n, q_] = True
+            elif ro_ in ("test", "seal") and q_ >= 0:
+                astr[n, q_] *= 0.9
+            elif ro_ == "drop" and q_ >= 0:
+                if aown[n, q_]:
+                    astr[n, q_] *= 0.7
+                else:
+                    aim_end(n, q_, "let go")
+    def aim_rite(n, how):
+        """A rite of passage or a turning point makes an aim set by the player theirs, once a try at it has worked."""
+        for q_ in np.nonzero((ak[n] >= 0) & atest[n] & ~aown[n])[0]:
+            aown[n, q_] = True; alog(n, q_, "became their own", how=how)
+    def aim_month(ns_):
+        """Each month: an aim's strength follows the goals that read as it, else fades by its half-life; the steps reached
+        (held or once held, the step's req then, or for the Known step a rung of pillar or leader in the aim's sphere),
+        each new one meeting meaning by its height; a calling (an aim of their own toward a height, held as a passion for
+        call_yrs)."""
+        for q_ in range(AQ_):
+            on_ = ak[:, q_] >= 0
+            if not on_.any():
+                continue
+            lk_ = on_[:, None] & (gal == ak[:, q_][:, None]) & (gk >= 0)
+            fd_ = astr[:, q_] * 0.5 ** (4 / 52 / np.where(aown[:, q_], AP_["half"], AP_["half_set"]))
+            astr[:, q_] = np.where(on_, np.where(lk_.any(1), np.maximum(np.where(lk_, gs, 0.0).max(1), fd_), fd_), 0.0)
+            for n in np.nonzero(on_ & (astr[:, q_] < AP_["drop"]))[0]:
+                aim_end(n, q_, "faded")
+        met_ = False
+        for a_ in np.unique(ak[ak >= 0]):
+            rows_, qs_ = np.nonzero(ak == a_)
+            x_ = AIM["aims"][a_]; best_ = np.zeros(len(rows_), int)
+            for k_, st_ in enumerate(x_["steps"]):
+                ok_ = r_ever[rows_][:, st_["any"]].any(1) if len(st_["any"]) else np.zeros(len(rows_), bool)
+                if st_["req"] is not None and ok_.any():
+                    ok_ &= ev_cond(st_["req"], ns_)[rows_]
+                if st_["h"] == 1 and AIM["sph"][a_] >= 0 and WON:
+                    ok_ |= np.floor(np.asarray(WL.PP.rung)[rows_, AIM["sph"][a_]]) >= 3
+                best_ = np.where(ok_, k_ + 1, best_)
+            for n, q_, b_ in zip(rows_, qs_, best_):
+                o_ = int(astep[n, q_])
+                if b_ <= o_:
+                    continue
+                astep[n, q_] = b_; aim_best[n, a_] = max(aim_best[n, a_], b_)
+                if abirth[n, q_] > t - 4:   # taken since the last month: what was already reached, without meaning
+                    alog(n, q_, "stands at", say=x_["steps"][b_ - 1]["say"])
+                    continue
+                h_ = max(st_["h"] for st_ in x_["steps"][o_:b_])
+                need[n, NIDX["meaning"]] += AP_["meet"][h_] * (1 - need[n, NIDX["meaning"]]); met_ = True
+                astr[n, q_] = min(1.0, astr[n, q_] + 0.1)
+                alog(n, q_, "step", say=x_["steps"][b_ - 1]["say"], height=AIM_HEIGHTS[h_ - 1] if h_ else None)
+        if met_ and NW_ON:
+            nw_mark(NW_GOAL)
+        cl_ = (ak >= 0) & aown & ~acall & AIM["calling"][np.maximum(ak, 0)]
+        for n, q_ in zip(*np.nonzero(cl_)):
+            ps_ = (gk[n] == 1) & (gal[n] == ak[n, q_])
+            if ps_.any() and (t - gb[n, ps_]).max() >= 52 * AP_["call_yrs"]:
+                acall[n, q_] = True; alog(n, q_, "became a calling")
+    def ht_month():
+        """The heights reached (read-only): Known, a sphere rung of pillar or leader or a Known name; Notable, a Notable
+        name or a summit title; Historic, a Historic name or leading a movement."""
+        hs_ = [r_ever[:, HT_I[h_]].any(1) if len(HT_I[h_]) else np.zeros(N, bool) for h_ in range(3)]
+        if WON:
+            hs_[0] = hs_[0] | (np.floor(np.asarray(WL.PP.rung)) >= 3).any(1)
+            from world_people_base import G as WG_   # the kinds of the world's settings (a movement's)
+            if "movement" in WG_ and hasattr(WL.PP, "slead"):
+                hs_[2] = hs_[2] | ((np.asarray(WL.PP.slead) == -2) & (np.asarray(WL.PP.skind) == WG_["movement"])).any(1)
+        for h_ in range(3):
+            nw_ = hs_[h_] & (ht_t[:, h_] < 0)
+            ht_t[nw_, h_] = t
+            for n in np.nonzero(nw_)[0]:
+                if n in events:
+                    events[n].append(dict(height=dict(age=round(t / 52, 2), height=AIM_HEIGHTS[h_])))
+
     HAD_IDX = {}
     NO_FOUND = np.zeros(N, bool)   # C5 founding (earth_rules INNER "a following of your own"): open only with c5_faith

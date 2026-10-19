@@ -172,6 +172,8 @@
                         rw_mk[(int(n), int(j_))] = (t, int(s[n]), int(a[n]))
                     if n in events:
                         events[n].append(dict(mark=dict(age=round(age, 2), mark=L["MARKS"][j_], worked=bool(succ[n]))))
+            if FOOT_ON:   # footprints: what the picks leave (foot_on)
+                foot_apply(live_, hm_, mk_)
             if EP_ON and P["echo_asked"]:   # picks come back: an asked pick's mark (as left) and back: plant seeds
                 P["echo_asked"] = False
                 left_ = set(hm_.tolist())
@@ -351,8 +353,10 @@
             ep_ = np.maximum(ea, 0); ep_ = ep_ / np.maximum(ep_.sum(1, keepdims=True), 1e-9)
             hist_e = np.where(idle[:, None], hist_e, hist_e + (ep_ - hist_e) / 520)
         imp = rng.random(N) < P["impose_p"]
+        if IA_ON:   # imp_age: only the setbacks that can happen at this age (realm_earth.IMP_AGE)
+            pa_ = pb * (age >= IMP_AGE_); imp &= pa_.sum() > 0
         if imp.any():
-            which = rng.choice(nI, size=imp.sum(), p=pb)
+            which = rng.choice(nI, size=imp.sum(), p=pa_ / pa_.sum()) if IA_ON else rng.choice(nI, size=imp.sum(), p=pb)
             need[imp] += 0.5 * L["IMP"][which]
             if NW_ON:
                 nw_mark(NW_SET); nw_imp[imp] = which

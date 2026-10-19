@@ -128,16 +128,16 @@ scene U: {N} wants to know what the words of the rite actually mean before sayin
 scene B: {N} sees that the one who stands for the child gets a say in the family for twenty years, and the grandparents know it too.
 scene R: {N} has already said yes, hugged everyone and cried. The details can come later.
 scene G: {grandparent} still has the shawl every child in the family has been named in. It lies folded on the dresser, waiting.
-- W | say yes, and learn every word of the rite by heart for the day | v: tradition, conformity | sphere: faith.W | chance: 65
-- U | ask whoever leads the rite to explain each part before you agree | act: ask whoever leads the rite to explain each part before they agree | v: self-direction, universalism | sphere: faith.U | chance: 65
-- B | agree, on condition that you get a real say in the child's schooling | act: agree, on condition that they get a real say in the child's schooling | v: power | sphere: faith.B | chance: 65
-- R | say yes on the spot, and swear to be the most fun person in her life | v: stimulation, benevolence | sphere: faith.R | chance: 65
-- G | ask for the old family shawl, and hold the baby in it at the rite | v: tradition | sphere: faith.G | chance: 65
-- WU | draw up a fair order for the rite, with a part for each side | v: universalism, conformity | sphere: faith.WU | chance: 55
-- WR | ring the parent who is staying away, and tell them plainly they are needed | v: benevolence, tradition | lever: voice | pushes: close parent | sphere: faith.RW | chance: 55
-- UG | ask the oldest relatives how namings were done in their day, and keep some of it | v: tradition, universalism | sphere: faith.GU | chance: 55
-- BR | throw the naming party yourself, so big and loud that nobody wants to miss it | act: throw the naming party themselves, so big and loud that nobody wants to miss it | v: hedonism, power | lever: fund | sphere: faith.BR | chance: 55
-- BG | let the grandparents lead the rite, and quietly win their help for the young parents | v: tradition, security | sphere: faith.BG | chance: 55
+- W | say yes, and learn every word of the rite by heart for the day | v: tradition, conformity | sphere: faith.W | foot: place faith.congregation | chance: 65
+- U | ask whoever leads the rite to explain each part before you agree | act: ask whoever leads the rite to explain each part before they agree | v: self-direction, universalism | sphere: faith.U | foot: place faith.seeking | chance: 65
+- B | agree, on condition that you get a real say in the child's schooling | act: agree, on condition that they get a real say in the child's schooling | v: power | sphere: faith.B | foot: lesson a say comes with a duty | chance: 65
+- R | say yes on the spot, and swear to be the most fun person in her life | v: stimulation, benevolence | sphere: faith.R | foot: door kept your word | chance: 65
+- G | ask for the old family shawl, and hold the baby in it at the rite | v: tradition | sphere: faith.G | foot: lesson old things carry the family | chance: 65
+- WU | draw up a fair order for the rite, with a part for each side | v: universalism, conformity | sphere: faith.WU | foot: means ties+.03 | chance: 55
+- WR | ring the parent who is staying away, and tell them plainly they are needed | v: benevolence, tradition | lever: voice | pushes: close parent | sphere: faith.RW | foot: means ties+.06 | chance: 55
+- UG | ask the oldest relatives how namings were done in their day, and keep some of it | v: tradition, universalism | sphere: faith.GU | foot: person elder | chance: 55
+- BR | throw the naming party yourself, so big and loud that nobody wants to miss it | act: throw the naming party themselves, so big and loud that nobody wants to miss it | v: hedonism, power | lever: fund | sphere: faith.BR | foot: means money-.06 | chance: 55
+- BG | let the grandparents lead the rite, and quietly win their help for the young parents | v: tradition, security | sphere: faith.BG | foot: mark helped someone in need | chance: 55
 works: On the day everyone comes, even {parent}, and the child's name is said in a full room.
 works: The promise sticks: years later the child still runs to {N} at every family meal.
 fails: {parent} stays away, and the empty chair is all the family talks about afterwards.
@@ -211,15 +211,15 @@ scene B: Somebody is going to broker this wedding, and whoever does will have bo
 scene R: {N} is furious on {Ns} sibling's behalf. It is their day, and they should marry however they like.
 scene G: {grandparent} married in the old way, and so did everyone before. {N} feels the pull of it, and the hurt in {Ns} parent's refusal.
 - W | stand beside your brother or sister whatever happens, as you promised | act: stand beside their brother or sister whatever happens, as they promised | v: benevolence, conformity | mark: kept your word | sphere: faith.W | chance: 60
-- U | meet both families, and find what each rite truly cannot do without | v: universalism | sphere: faith.U | chance: 60
-- B | broker a deal: the old way at the rite, the new way at the party | v: power, achievement | sphere: faith.B | chance: 60
-- R | tell your parent that if they stay away, they will regret it all their life | act: tell their parent that if they stay away, they will regret it all their life | v: self-direction, benevolence | lever: voice | pushes: close parent | sphere: faith.R | chance: 60
-- G | ask the eldest of both families to lead the rite together | v: tradition | sphere: faith.G | chance: 60
-- BG | host the wedding meal at your own home, so both families come to your table | act: host the wedding meal at their own home, so both families come to their table | v: tradition, power | lever: fund | sphere: faith.BG | chance: 52
-- UB | find a hall and a leader for the rite that neither family can object to | v: security, achievement | sphere: faith.UB | chance: 52
-- UR | help the couple write a rite of their own, with something from each side | v: self-direction, universalism | sphere: faith.UR | chance: 52
-- WG | sit with your parent every evening that week until they agree to come | act: sit with their parent every evening that week until they agree to come | v: benevolence, tradition | sphere: faith.GW | chance: 52
-- WR | stand up at the family meal, and say the wedding goes ahead with or without them | v: self-direction, benevolence | lever: voice | pushes: close parent | sphere: faith.RW | chance: 52
+- U | meet both families, and find what each rite truly cannot do without | v: universalism | sphere: faith.U | foot: lesson every rite has a core | chance: 60
+- B | broker a deal: the old way at the rite, the new way at the party | v: power, achievement | sphere: faith.B | foot: means ties+.03 | chance: 60
+- R | tell your parent that if they stay away, they will regret it all their life | act: tell their parent that if they stay away, they will regret it all their life | v: self-direction, benevolence | lever: voice | pushes: close parent | sphere: faith.R | foot: means ties-.03 | chance: 60
+- G | ask the eldest of both families to lead the rite together | v: tradition | sphere: faith.G | foot: person elder | chance: 60
+- BG | host the wedding meal at your own home, so both families come to your table | act: host the wedding meal at their own home, so both families come to their table | v: tradition, power | lever: fund | sphere: faith.BG | foot: place gather.house | chance: 52
+- UB | find a hall and a leader for the rite that neither family can object to | v: security, achievement | sphere: faith.UB | foot: place gather.hall | chance: 52
+- UR | help the couple write a rite of their own, with something from each side | v: self-direction, universalism | sphere: faith.UR | foot: place faith.seeking | chance: 52
+- WG | sit with your parent every evening that week until they agree to come | act: sit with their parent every evening that week until they agree to come | v: benevolence, tradition | sphere: faith.GW | foot: means ties+.06 | chance: 52
+- WR | stand up at the family meal, and say the wedding goes ahead with or without them | v: self-direction, benevolence | lever: voice | pushes: close parent | sphere: faith.RW | foot: lesson say it once out loud | chance: 52
 works: On the day both families come, and by the dancing nobody remembers whose rite it was.
 works: {parent} arrives late and stands at the back, and at the end comes forward to embrace the couple.
 fails: {parent} stays away, and the empty chair at the front is in every photograph.
@@ -340,15 +340,15 @@ scene U: {mentor} answers a question with another question, and {N} goes home st
 scene B: {mentor} pins up a chart of the top marks every Friday. {N} wants their name at the top of it.
 scene R: {mentor} takes the class outside when the sun shines, and {N} learns more in one afternoon at the pond than in a month at a desk.
 scene G: {mentor} grew up in {place} and teaches the old names of the hills and the river. {N} hears {grandparent}'s words in the lesson.
-- W | keep every rule of the class, and help the slow ones keep up | v: conformity, benevolence | sphere: learn.W | chance: 70
+- W | keep every rule of the class, and help the slow ones keep up | v: conformity, benevolence | sphere: learn.W | foot: person friend | chance: 70
 - U | stay behind with the question that bothers you until you have an answer | act: stay behind with the question that bothers them until they have an answer | v: self-direction | mark: learned a skill | sphere: learn.U | chance: 70
-- B | aim for the top of the chart, and ask exactly how to get there | v: achievement | sphere: learn.B | chance: 70
-- R | volunteer for every experiment and every outing, first in line | v: stimulation | sphere: learn.R | chance: 70
-- G | ask the teacher to teach you the old names of the places around you | act: ask the teacher to teach them the old names of the places around them | v: tradition | sphere: learn.G | chance: 70
-- RG | dig the class garden with the teacher, and keep it growing all summer | v: stimulation, tradition | sphere: learn.RG | chance: 60
-- UB | find out what the teacher thinks the best pupils do, and do just that | v: achievement | sphere: learn.UB | chance: 60
-- UG | write down the old stories the teacher tells, in a book of your own | act: write down the old stories the teacher tells, in a book of their own | v: tradition, universalism | sphere: learn.GU | chance: 60
-- WB | ask to be the class monitor, and keep the register yourself | act: ask to be the class monitor, and keep the register themselves | v: power, conformity | sphere: learn.WB | chance: 60
+- B | aim for the top of the chart, and ask exactly how to get there | v: achievement | sphere: learn.B | foot: means time-.06 | chance: 70
+- R | volunteer for every experiment and every outing, first in line | v: stimulation | sphere: learn.R | foot: lesson first in line sees most | chance: 70
+- G | ask the teacher to teach you the old names of the places around you | act: ask the teacher to teach them the old names of the places around them | v: tradition | sphere: learn.G | foot: mark learned a skill | chance: 70
+- RG | dig the class garden with the teacher, and keep it growing all summer | v: stimulation, tradition | sphere: learn.RG | foot: person mentor | chance: 60
+- UB | find out what the teacher thinks the best pupils do, and do just that | v: achievement | sphere: learn.UB | foot: lesson watch what gets praised | chance: 60
+- UG | write down the old stories the teacher tells, in a book of your own | act: write down the old stories the teacher tells, in a book of their own | v: tradition, universalism | sphere: learn.GU | foot: place arts.page | chance: 60
+- WB | ask to be the class monitor, and keep the register yourself | act: ask to be the class monitor, and keep the register themselves | v: power, conformity | sphere: learn.WB | foot: means time-.03 | chance: 60
 - WR | speak up for the classmate the others laugh at, in front of the teacher | v: benevolence, universalism | mark: helped someone in need | lever: voice | sphere: learn.RW | chance: 60
 works: {N} ends the year with more than marks: a way of working that {mentor} taught them, and that lasts for years.
 works: Long afterwards {N} can still hear {mentor}'s voice whenever a problem gets hard.
@@ -423,16 +423,16 @@ scene U: {N} has watched the foreman for three mornings now: who he picks, what 
 scene B: {N} needs the day's pay, and means to be picked whatever it takes.
 scene R: {N} has been up since four and is buzzing with it. Any work, anywhere, today.
 scene G: {Ns} uncle worked this yard for twenty years. Somebody here must remember the family name.
-- W | wait your turn in the line, and trust the foreman to pick fairly | act: wait their turn in the line, and trust the foreman to pick fairly | v: conformity, security | sphere: comm.W | chance: 55
-- U | show the foreman the safety card you earned at the job centre last week | act: show the foreman the safety card they earned at the job centre last week | v: achievement, security | sphere: comm.U | chance: 55
-- B | step forward and name a day rate lower than anyone else's | v: power, achievement | sphere: comm.B | chance: 55
-- R | push to the front and say you will take any job going, starting now | act: push to the front and say they will take any job going, starting now | v: stimulation, self-direction | sphere: comm.R | chance: 55
-- G | tell the foreman which family you come from, and let your uncle's name speak | act: tell the foreman which family they come from, and let their uncle's name speak | v: tradition, security | sphere: comm.G | chance: 55
-- WU | sign on at the job centre, and apply by the book for every post listed | v: conformity, security | sphere: comm.WU | chance: 50
+- W | wait your turn in the line, and trust the foreman to pick fairly | act: wait their turn in the line, and trust the foreman to pick fairly | v: conformity, security | sphere: comm.W | foot: lesson fair lines move slowly | chance: 55
+- U | show the foreman the safety card you earned at the job centre last week | act: show the foreman the safety card they earned at the job centre last week | v: achievement, security | sphere: comm.U | foot: person boss | chance: 55
+- B | step forward and name a day rate lower than anyone else's | v: power, achievement | sphere: comm.B | foot: person rival | chance: 55
+- R | push to the front and say you will take any job going, starting now | act: push to the front and say they will take any job going, starting now | v: stimulation, self-direction | sphere: comm.R | foot: means money+.03 | chance: 55
+- G | tell the foreman which family you come from, and let your uncle's name speak | act: tell the foreman which family they come from, and let their uncle's name speak | v: tradition, security | sphere: comm.G | foot: lesson a name opens doors | chance: 55
+- WU | sign on at the job centre, and apply by the book for every post listed | v: conformity, security | sphere: comm.WU | foot: means time-.03 | chance: 50
 - WR | get the line to demand that the foreman picks in turn, and say it out loud | v: universalism, benevolence | lever: voice | pushes: economy | sphere: comm.RW | chance: 50 | back: defied an authority
 - UB | learn which jobs the agencies cannot fill, and train for one of those | v: achievement, self-direction | mark: learned a skill | sphere: comm.UB | chance: 50
 - RG | walk to the next town's yard with a friend from the line, together | v: stimulation, benevolence | mark: made a friend | sphere: comm.RG | chance: 50
-- BG | ask the shopkeeper who has known your family for years to take you on | act: ask the shopkeeper who has known their family for years to take them on | v: security, tradition | sphere: comm.BG | chance: 50
+- BG | ask the shopkeeper who has known your family for years to take you on | act: ask the shopkeeper who has known their family for years to take them on | v: security, tradition | sphere: comm.BG | foot: place comm.shop | chance: 50
 works not WU UB RG BG: The foreman's pen stops at {N}, and by evening {N} has a day's pay and a name the yard will remember.
 works: Within a month {N} has steady work, and stops coming to the gate.
 fails not WU UB RG BG: The foreman picks four and walks off, and {N} goes home with nothing but cold feet.
@@ -463,16 +463,16 @@ scene U: {N} knows the old machines inside out, and has started to wonder which 
 scene B: {N} is not finished. {N} means to be hired on {Ns} own terms, or to hire themselves.
 scene R: {N} hated the last ten years at that works anyway. Part of {N} feels free for the first time since school.
 scene G: {N} thinks of the young ones {N} trained on the line, and of what becomes of everything {N} knows if nobody needs it.
-- W | sign on, keep every appointment, and apply for every post the adviser lists | v: conformity, security | sphere: prod.W | chance: 50
+- W | sign on, keep every appointment, and apply for every post the adviser lists | v: conformity, security | sphere: prod.W | foot: means time-.06 | chance: 50
 - U | take a short course on the new machines, and add it to the folder | v: achievement, self-direction | mark: learned a skill | sphere: prod.U | chance: 50
-- B | set up on your own account with the payout and the old customers | act: set up on their own account with the payout and the old customers | v: self-direction, power | lever: found | pushes: economy | sphere: prod.B | chance: 50
-- R | take the first thing going, anything outdoors, and see where it leads | v: stimulation | sphere: prod.R | chance: 50
-- G | ask the old hands from the works who is taking people on | v: tradition, security | sphere: prod.G | chance: 50
-- BR | sell your skills by the day to whoever pays most, and keep your own hours | act: sell their skills by the day to whoever pays most, and keep their own hours | v: self-direction, achievement | sphere: prod.BR | chance: 45
-- UB | find the firm that took over the old works' orders, and show them what you know | act: find the firm that took over the old works' orders, and show them what they know | v: achievement, power | sphere: prod.UB | chance: 45
-- UG | offer to train a new firm's young hands in the old trade | v: tradition, benevolence | sphere: prod.GU | chance: 45
-- WG | join the other laid-off hands to start a small workshop as a co-op | v: benevolence, security | lever: found | pushes: economy | sphere: prod.GW | chance: 45
-- WR | stand up at the jobs fair, and say plainly that older hands are being passed over | v: universalism | lever: voice | pushes: economy | sphere: prod.RW | chance: 45
+- B | set up on your own account with the payout and the old customers | act: set up on their own account with the payout and the old customers | v: self-direction, power | lever: found | pushes: economy | sphere: prod.B | foot: place prod.craft | chance: 50
+- R | take the first thing going, anything outdoors, and see where it leads | v: stimulation | sphere: prod.R | foot: lesson new ground at any age | chance: 50
+- G | ask the old hands from the works who is taking people on | v: tradition, security | sphere: prod.G | foot: means ties+.03 | chance: 50
+- BR | sell your skills by the day to whoever pays most, and keep your own hours | act: sell their skills by the day to whoever pays most, and keep their own hours | v: self-direction, achievement | sphere: prod.BR | foot: means freedom+.06 | chance: 45
+- UB | find the firm that took over the old works' orders, and show them what you know | act: find the firm that took over the old works' orders, and show them what they know | v: achievement, power | sphere: prod.UB | foot: person boss | chance: 45
+- UG | offer to train a new firm's young hands in the old trade | v: tradition, benevolence | sphere: prod.GU | foot: person colleague | chance: 45
+- WG | join the other laid-off hands to start a small workshop as a co-op | v: benevolence, security | lever: found | pushes: economy | sphere: prod.GW | foot: place prod.craft | chance: 45
+- WR | stand up at the jobs fair, and say plainly that older hands are being passed over | v: universalism | lever: voice | pushes: economy | sphere: prod.RW | foot: place rule.voice | chance: 45
 works: Within months {N} is working again, and the years at the works turn out to count after all.
 works: The new work pays less, but {N} likes the people, and goes home tired in the right way.
 fails not B BR WG: A year of letters goes unanswered, and {N} starts telling people they have retired early.

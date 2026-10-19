@@ -35,13 +35,13 @@ scene R: {N} reads the email standing up, then goes out to the car park and walk
 scene G: The lab has come to feel like a second home: the hum of the freezers, the same faces at morning coffee. {N} can feel the season turning.
 - W | apply for a funded doctoral place, and do it the proper way first | door | binds | drops: research assistant | v: conformity, achievement | self_control: + | aims: research scientist | chance: 55
 - U | apply for the scientist post on the strength of the work, papers attached | title: research scientist | requires: doctoral graduate | without: approval | v: achievement | chance: 45
-- B | ring everyone who owes a favour until someone finds money for a new contract | v: power, security | self_control: + | chance: 65
+- B | ring everyone who owes a favour until someone finds money for a new contract | v: power, security | self_control: + | foot: person patron | chance: 65
 - R | let it end, and spend the summer travelling before deciding anything | drops: research assistant | v: hedonism, stimulation | chance: 92
 - G | ask to stay on as the keeper of the group's data and records | title: research data steward | requires: working with data | without: approval | v: security, tradition | chance: 12
-- BG | become the one person who knows where every sample is kept, and make it known | habit | v: power | chance: 65
+- BG | become the one person who knows where every sample is kept, and make it known | habit | v: power | foot: place learn.keeping | chance: 65
 - BR | take a better-paid post at a company lab abroad, and leave within the month | door | mark: moved away | v: achievement, stimulation | chance: 60
-- UG | write up two years of notes as a clean dataset while looking for the next post | v: achievement, universalism | self_control: + | chance: 85
-- WR | argue at the group meeting that the project cannot finish without the post | v: achievement, self-direction | chance: 55
+- UG | write up two years of notes as a clean dataset while looking for the next post | v: achievement, universalism | self_control: + | foot: mark learned a skill | chance: 85
+- WR | argue at the group meeting that the project cannot finish without the post | v: achievement, self-direction | foot: lesson your worth must be said aloud | chance: 55
 - WU | take the technician post the group can offer, and keep its methods in good order | title: laboratory technician | v: security, conformity | chance: 90
 works: By the end of June the next step is settled, and {N} knows where the autumn will be spent.
 works: {boss} writes a warm reference, and the first door {N} knocks on opens.
@@ -79,10 +79,10 @@ scene B: For the first time nobody else's name sits above {Ns} on the money. {N}
 scene R: {N} rings {partner}, then {mentor}, then anyone who picks up, and is laughing too hard to finish a sentence.
 scene G: {N} thinks of the old field notebooks on the shelf at home, where the question first appeared. It has taken this long to grow, and it is finally ready.
 - W | accept, and keep every reporting promise to the funder to the letter | grants: research grant; a research project under way | v: conformity, achievement | chance: 90
-- U | take a month to test whether the question deserves five years before saying yes | v: self-direction, achievement | chance: 90
-- B | use the offer to bargain the institute into a permanent post | v: power, security | chance: 60
+- U | take a month to test whether the question deserves five years before saying yes | v: self-direction, achievement | foot: lesson test a question before trusting it | chance: 90
+- B | use the offer to bargain the institute into a permanent post | v: power, security | foot: means money+.06 | chance: 60
 - R | say yes on the spot, and set up on your own terms | title: independent investigator | grants: research grant; a research project under way | v: self-direction, stimulation | chance: 15
-- G | turn it down, and stay with the group and the place the work belongs to | identity | mark: turned down a chance | v: tradition | chance: 95
+- G | turn it down, and stay with the group and the place the work belongs to | identity | mark: turned down a chance | v: tradition | foot: door stayed home | chance: 95
 - RG | take it abroad, to the field station by the reef you always wanted to study | door | binds | mark: moved away | grants: research grant; a research project under way | v: stimulation, self-direction | chance: 65
 - UB | build a speciality nobody else has, and answer to no one for five years | identity | binds | title: independent investigator | grants: research grant; a research project under way | v: self-direction, power | chance: 15
 - UR | go it alone on the risky question no grant panel would ever touch | title: independent investigator | grants: research grant; a research project under way | v: stimulation | chance: 15
@@ -122,14 +122,14 @@ scene U: {N} wonders how much science is left in a job made of budgets and meeti
 scene B: Eight people, a budget and a say in the department's plans. {N} has wanted this kind of room for years, and {rival} wanted it too.
 scene R: {Ns} first thought is of the bench, and the experiment still running there. Then a jolt of excitement: everything could be done differently.
 scene G: {N} thinks of the old head of the group, who kept everyone together through two lean decades. Those are big shoes, and the people in the group are like family.
-- W | ask for the post to be advertised, and go through the open competition like anyone else | v: universalism, conformity | chance: 75
-- U | talk to three group leaders about their real weeks before answering | v: self-direction | chance: 85
+- W | ask for the post to be advertised, and go through the open competition like anyone else | v: universalism, conformity | foot: person rival | chance: 75
+- U | talk to three group leaders about their real weeks before answering | v: self-direction | foot: person colleague | chance: 85
 - B | say yes only with more starting money, and hold out until they agree | title: research group leader | v: power | self_control: + | chance: 60
 - R | say yes before the meeting is over, and work out the rest as you go | binds | title: research group leader | v: stimulation, achievement | chance: 80
-- G | ask the retiring head to stay on one more year, and decide beside them | v: tradition | chance: 75
+- G | ask the retiring head to stay on one more year, and decide beside them | v: tradition | foot: person mentor | chance: 75
 - BG | take the group, and keep the best of the old team and the equipment close | title: research group leader | v: power | chance: 60
 - BR | take the group and run it your own way from the first week | identity | title: research group leader | v: power, self-direction | chance: 75
-- UR | decline, and ask instead for a year to try the odd idea you keep putting off | door | mark: turned down a chance | v: stimulation | chance: 45
+- UR | decline, and ask instead for a year to try the odd idea you keep putting off | door | mark: turned down a chance | v: stimulation | foot: means freedom+.06 | chance: 45
 - WG | accept, and bring on the juniors the way your own mentor once did | title: research group leader | v: benevolence, tradition | chance: 80
 - WU | accept the chair that comes with the group, and set down five years' goals | title: research group leader; professor | v: achievement, conformity | chance: 70
 works: {boss} takes the answer well, and by the spring the next years have the shape {N} wanted.
@@ -168,14 +168,14 @@ scene B: Head of facility comes with a salary grade, a budget and a say in what 
 scene R: {N} loves the moment the image comes up sharp on the screen. Running the facility means spreadsheets and meetings, and the thought sits badly.
 scene G: {elder} trained {N} on these machines, and someone trained {elder} before that. The instruments and the know-how have always been handed on this way.
 - W | accept, and write the booking rules and safety training before anything else | title: research facility lead | requires: lab work | without: impossible | v: security, conformity | chance: 75
-- U | ask for a month to learn every instrument down to the last setting first | v: achievement, conformity | self_control: + | chance: 85
+- U | ask for a month to learn every instrument down to the last setting first | v: achievement, conformity | self_control: + | foot: mark learned a skill | chance: 85
 - B | accept, and make the facility pay its way by selling machine time to companies | title: research facility lead | requires: lab work | without: impossible | v: power, achievement | chance: 75
-- R | tell the institute bluntly what the facility needs, whoever ends up leading it | v: universalism, self-direction | chance: 65
+- R | tell the institute bluntly what the facility needs, whoever ends up leading it | v: universalism, self-direction | foot: lesson plain words get things moving | chance: 65
 - G | accept, and run it as the old head did, every user known by name | binds | title: research facility lead | requires: lab work | without: impossible | v: tradition, benevolence | chance: 70
-- RG | turn the post down, but offer to run the training days on the machines you love | mark: turned down a chance | v: benevolence, self-direction | chance: 75
-- UB | negotiate a specialist post instead, as the one person who can run the new machine | v: achievement, power | chance: 65
+- RG | turn the post down, but offer to run the training days on the machines you love | mark: turned down a chance | v: benevolence, self-direction | foot: place learn.higher | chance: 75
+- UB | negotiate a specialist post instead, as the one person who can run the new machine | v: achievement, power | foot: means money+.03 | chance: 65
 - UG | take it on jointly with a colleague, as some other facilities do | title: research facility lead | requires: lab work | without: impossible | v: universalism, benevolence | chance: 55
-- WB | write the dean a costed case for proper funding before anyone takes the job | v: security | chance: 45
+- WB | write the dean a costed case for proper funding before anyone takes the job | v: security | foot: lesson money follows a costed case | chance: 45
 - WR | speak up at the meeting for a junior technician who has earned the chance | mark: helped someone in need | v: universalism | chance: 55
 works: The facility has a head by the year's end, and the booking calendar fills up again.
 works: The first users' meeting goes well, and even the busiest group leaders nod along.
@@ -215,8 +215,8 @@ scene G: Research has been {Ns} whole working life. Leaving would feel like leav
 - B | leave to start a small company on what you know best | door | binds | title: founder of a firm | v: power, self-direction | mark: took a wild risk | chance: 45
 - R | become a science communicator, at a museum or on the radio | identity | title: science communication specialist | requires: explaining science | without: means | v: stimulation, benevolence | chance: 40
 - G | leave research to be at home for the family, for as long as they need | identity | drops: research scientist | v: benevolence, tradition | chance: 75
-- WUR | stay, and campaign for fair contracts for everyone on short posts | identity | v: universalism | chance: 40
-- WUB | stay one more year, and build a case with figures for a permanent post | v: security, achievement | self_control: + | chance: 45
+- WUR | stay, and campaign for fair contracts for everyone on short posts | identity | v: universalism | foot: place rule.voice | chance: 40
+- WUB | stay one more year, and build a case with figures for a permanent post | v: security, achievement | self_control: + | foot: door stayed home | chance: 45
 - WRG | move back home and start a science club in the town where you grew up | drops: research scientist | mark: came home | v: benevolence, tradition | chance: 70
 - UBG | move into evidence synthesis, weighing whole fields for the people who decide | title: evidence synthesis specialist | v: universalism, achievement | chance: 30
 - BRG | take a paid job outside, and keep the question you love going at weekends | drops: research scientist | grants: a research project under way | v: self-direction | chance: 75
@@ -256,11 +256,11 @@ scene G: Funding calls come and go like weather. {N} looks at the work on the be
 - B | bend the project to fit what the call wants to fund this year | grants: research grant; grant writing | grants_if_fails: grant writing | v: power, achievement | chance: 30
 - R | write it in three nights on pure conviction, and send it at midnight | habit | grants: research grant; grant writing | grants_if_fails: grant writing | v: stimulation | self_control: + | chance: 22
 - G | build the case on the long record of the place, and send it plainly | grants: research grant; grant writing | grants_if_fails: grant writing | v: tradition | chance: 24
-- WUG | write it with the whole team, each part by whoever knows it best | grants: grant writing | v: benevolence, achievement | chance: 80
-- WBR | skip this call, and press the funder's officer for one that fits next year | v: power, achievement | chance: 55
-- WBG | ask the old hand who sits on funding panels to read it and mark it up | grants: grant writing | v: tradition, achievement | chance: 75
-- URG | let it pass: the deadline is mad, and the work itself matters more | mark: turned down a chance | v: self-direction | chance: 92
-- UBR | read last year's winning proposals first, and learn how they are built | grants: grant writing | v: achievement | chance: 85
+- WUG | write it with the whole team, each part by whoever knows it best | grants: grant writing | v: benevolence, achievement | foot: means ties+.03 | chance: 80
+- WBR | skip this call, and press the funder's officer for one that fits next year | v: power, achievement | foot: person go-between | chance: 55
+- WBG | ask the old hand who sits on funding panels to read it and mark it up | grants: grant writing | v: tradition, achievement | foot: person mentor | chance: 75
+- URG | let it pass: the deadline is mad, and the work itself matters more | mark: turned down a chance | v: self-direction | foot: means time+.03 | chance: 92
+- UBR | read last year's winning proposals first, and learn how they are built | grants: grant writing | v: achievement | foot: mark learned a skill | chance: 85
 works: By Friday evening the decision is behind {N}, and it was the right one for the work.
 works: Months later the project has money for another year, from this call or the next one.
 fails: At ten to five the upload portal freezes, and nothing goes in.
@@ -315,16 +315,16 @@ scene U: {N} reads the headline against the figure: one subgroup, wide error bar
 scene B: The partner company pays for half the project and has hinted at a second phase. A strong headline helps everyone, and {N} could ask for something in return.
 scene R: {N} reads the headline and feels heat rise up the neck. It is not true, and everyone in the room knows it.
 scene G: {N} has seen this before: a big claim, a season of fuss, then the quiet years when the real result settles in. The work will outlast the headline either way.
-- W | report the pressure through the proper channel, the research integrity office | identity | grants: research integrity | v: conformity, universalism | chance: 55
-- U | rewrite the summary yourself, every claim matched to the figure behind it | identity | grants: research integrity | v: universalism, achievement | self_control: + | chance: 75
+- W | report the pressure through the proper channel, the research integrity office | identity | grants: research integrity | v: conformity, universalism | foot: door defied an authority | chance: 55
+- U | rewrite the summary yourself, every claim matched to the figure behind it | identity | grants: research integrity | v: universalism, achievement | self_control: + | foot: mark learned a skill | chance: 75
 - B | agree to the stronger wording in return for your name on the follow-up grant | mark: hid a wrong | closed: approval: a claim the data do not support; backfire: a larger study finds the effect is small, and the strong claim carries this name | v: power, achievement | self_control: - | chance: 80
 - R | refuse flatly in the meeting, and say out loud that the claim is not true | identity | mark: defied an authority | v: self-direction, universalism | chance: 65
-- G | say nothing to the press, and let the paper speak for itself in time | v: tradition | chance: 65
-- BG | stall politely until the press interest moves on to something else | v: security, power | chance: 80
-- RG | take the press officer to see the actual samples, so the numbers feel real | v: benevolence, universalism | chance: 45
-- UR | write the press release yourself, exciting and exact at once | v: achievement, stimulation | chance: 70
-- WB | negotiate wording everyone can live with: strong verbs, honest numbers | v: conformity, power | chance: 70
-- WU | add a plain paragraph on what the data cannot show, and insist it stays in | grants: research integrity | v: universalism, conformity | chance: 65
+- G | say nothing to the press, and let the paper speak for itself in time | v: tradition | foot: lesson the work outlasts the headline | chance: 65
+- BG | stall politely until the press interest moves on to something else | v: security, power | foot: door turned down a chance | chance: 80
+- RG | take the press officer to see the actual samples, so the numbers feel real | v: benevolence, universalism | foot: person colleague | chance: 45
+- UR | write the press release yourself, exciting and exact at once | v: achievement, stimulation | foot: lesson exciting and exact can live together | chance: 70
+- WB | negotiate wording everyone can live with: strong verbs, honest numbers | v: conformity, power | foot: means ties+.03 | chance: 70
+- WU | add a plain paragraph on what the data cannot show, and insist it stays in | grants: research integrity | v: universalism, conformity | foot: mark defied an authority | chance: 65
 works: The wording is settled, the partner is satisfied, and the project's next phase looks safe.
 works: The press interest passes without harm, and {N} comes out of it with standing intact.
 fails: The strong headline runs anyway, with {Ns} name under it.
@@ -360,9 +360,9 @@ scene G: Mistakes find their way into every harvest. What matters now is what to
 - R | tell the whole lab that afternoon, embarrassed and honest, and fix it together | mark: owned up | v: benevolence, self-direction | self_control: + | chance: 92
 - G | let it lie: the paper is old, and the field has moved on | mark: hid a wrong | closed: approval: a known error left in the record; backfire: a review repeats the old number, and the error spreads | v: security, tradition | self_control: - | chance: 75
 - BR | publish the correction yourself before anyone else can, on your own terms | mark: owned up | v: power, self-direction | self_control: + | chance: 80
-- UB | rerun everything first, to know exactly how bad it is before telling anyone | habit | v: achievement, security | chance: 90
+- UB | rerun everything first, to know exactly how bad it is before telling anyone | habit | v: achievement, security | foot: door kept it hidden | chance: 90
 - UG | thank the student, and redo the whole analysis together, line by line | mark: made a friend | v: benevolence, achievement | chance: 80
-- WG | tell the co-authors first, and decide together how to set it right | v: conformity, benevolence | chance: 80
+- WG | tell the co-authors first, and decide together how to set it right | v: conformity, benevolence | foot: mark owned up | chance: 80
 - WR | retract the whole paper, though the main finding mostly survives | grants: research integrity | mark: owned up | v: universalism | chance: 90
 works: The matter is settled the way {N} chose, and the work goes on without a scandal.
 works: The main finding survives, smaller but solid, and the grant renewal goes through.
@@ -393,16 +393,16 @@ scene U: {N} spreads out the charts and the old data. If the boat cannot go, the
 scene B: A whole year's budget is committed to a season that will not happen. {N} starts working out what can be saved, sold or traded.
 scene R: {N} paces the quay, looking at the water out past the harbour wall, so close it hurts. There has to be a way out there.
 scene G: The sea keeps its own calendar, and this year it has said no. {N} always knew the season was a gift, not a promise.
-- W | ask the funder formally for a year's extension, with every reason documented | v: security, conformity | chance: 70
-- U | rebuild the study around satellite images and old records instead | door | v: achievement, self-direction | chance: 60
-- B | trade your place in the field for a share of a partner team's samples | v: power, achievement | chance: 70
+- W | ask the funder formally for a year's extension, with every reason documented | v: security, conformity | foot: means time+.06 | chance: 70
+- U | rebuild the study around satellite images and old records instead | door | v: achievement, self-direction | foot: place learn.keeping | chance: 60
+- B | trade your place in the field for a share of a partner team's samples | v: power, achievement | foot: person colleague | chance: 70
 - R | go out anyway on a hired fishing boat, permit or no permit | body: heavy | mark: took a wild risk | closed: law: sampling a protected site without the permit; backfire: the samples are seized and the fine comes in the project's name | v: stimulation | self_control: - | chance: 60
 - G | close the project well: archive what there is and hand the site on | takes: a research project under way | grants: project triage | v: tradition | chance: 75
-- BG | narrow the project to the one site still in reach, and guard its data | v: security, achievement | chance: 85
-- UB | rewrite the question so that last year's samples can answer it | v: achievement | chance: 60
+- BG | narrow the project to the one site still in reach, and guard its data | v: security, achievement | foot: lesson a smaller question still counts | chance: 85
+- UB | rewrite the question so that last year's samples can answer it | v: achievement | foot: mark learned a skill | chance: 60
 - UR | build a cheap floating sensor and send it out with a local boat | mark: learned a skill | v: stimulation | chance: 45
 - WG | wait for next season, and keep the local helpers paid in the meantime | binds | mark: kept your word | v: benevolence, tradition | self_control: + | chance: 75
-- WR | write to every partner and fight for a berth on another ship | v: achievement | self_control: + | chance: 50
+- WR | write to every partner and fight for a berth on another ship | v: achievement | self_control: + | foot: means ties+.03 | chance: 50
 works: The project bends but does not break, and next year's work stands on what was saved.
 works: The new plan turns out better than the old one, and {N} wonders why it was not tried first.
 fails: The season is lost for good, and a gap opens in the record that will never be filled.
@@ -432,15 +432,15 @@ scene U: {N} opens the old files and sees at once what they could show now, with
 scene B: Three parties want the same data, and only {N} has them. That is a position worth thinking about carefully.
 scene R: {N} remembers the fishermen who rowed out with the sample bottles every month. Their work matters now, and {N} wants everyone to know it.
 scene G: The samples sat in the freezer for ten years, like seed in a dry season. Now the rain has come.
-- W | check every consent form, then reuse the data only within those terms | habit | v: conformity, universalism | self_control: + | chance: 75
+- W | check every consent form, then reuse the data only within those terms | habit | v: conformity, universalism | self_control: + | foot: mark kept your word | chance: 75
 - U | run the new analysis at once, without rereading the old consent forms | mark: hid a wrong | closed: approval: using people's data beyond what they agreed to; backfire: the ethics board halts the paper, and the families read about it in the newspaper | v: achievement | self_control: - | chance: 85
-- B | sell access to the cleaned, nameless data to a consultancy, at a good price | v: power, achievement | chance: 80
-- R | put the water data online tonight, names stripped, for anyone to use | v: universalism, stimulation | chance: 85
-- G | guard it: the data belong to the town and the river they came from | identity | v: tradition | chance: 70
-- BR | ring the reporters yourself, and make sure the story says whose data these are | v: power, stimulation | chance: 70
-- RG | drive back to the town to tell the families their samples matter now | v: benevolence | chance: 80
+- B | sell access to the cleaned, nameless data to a consultancy, at a good price | v: power, achievement | foot: means money+.06 | chance: 80
+- R | put the water data online tonight, names stripped, for anyone to use | v: universalism, stimulation | foot: mark took a wild risk | chance: 85
+- G | guard it: the data belong to the town and the river they came from | identity | v: tradition | foot: door kept your word | chance: 70
+- BR | ring the reporters yourself, and make sure the story says whose data these are | v: power, stimulation | foot: person go-between | chance: 70
+- RG | drive back to the town to tell the families their samples matter now | v: benevolence | foot: person elder | chance: 80
 - UG | clean and document it properly, so others can use it for decades | habit | grants: a dataset others use | v: universalism | self_control: + | chance: 70
-- WB | license it through the institute, on terms that protect the families | v: security | chance: 70
+- WB | license it through the institute, on terms that protect the families | v: security | foot: means money+.03 | chance: 70
 - WU | publish a proper data paper describing it, then open it to all | grants: a dataset others use | v: universalism, achievement | chance: 65
 works: The old data are handled the way {N} chose, and nobody can say they were misused.
 works: Requests keep coming for years, and the dataset becomes the one everyone cites.
@@ -476,15 +476,15 @@ scene U: {N} feels the click of a better question landing. The weir, the eels, f
 scene B: The funder pays for the question in the proposal, not this one. Then again, a question the whole valley cares about is worth something too.
 scene R: {N} wants to leap up and say yes, of course, that is the question, start tomorrow.
 scene G: The old fishers have watched this river longer than any instrument. {N} feels a little ashamed not to have asked them first.
-- W | invite them onto a proper steering group, with minutes and a vote | grants: community listening | v: universalism, conformity | chance: 70
-- U | explain clearly what this study can and cannot answer, and why | v: universalism, achievement | chance: 85
-- B | thank them, and keep the project on the question the funder pays for | v: security, power | chance: 92
-- R | throw out the old plan and start again with their question | door | v: stimulation | aims: participatory research coordinator | chance: 45
+- W | invite them onto a proper steering group, with minutes and a vote | grants: community listening | v: universalism, conformity | foot: place rule.counsel | chance: 70
+- U | explain clearly what this study can and cannot answer, and why | v: universalism, achievement | foot: lesson honest limits keep trust | chance: 85
+- B | thank them, and keep the project on the question the funder pays for | v: security, power | foot: door turned down a chance | chance: 92
+- R | throw out the old plan and start again with their question | door | v: stimulation | aims: participatory research coordinator | foot: mark took a wild risk | chance: 45
 - G | share the work with the valley, and take on coordinating it with them | door | binds | title: participatory research coordinator | requires: research scientist | without: impossible | v: benevolence, universalism | chance: 30
 - BG | take their question, and run it as your own study without them | mark: hid a wrong | closed: approval: using a community's question without credit or consent; backfire: the valley stops letting the team onto the river | v: power, achievement | chance: 75
-- UG | spend a season listening in the valley before changing anything | door | grants: community listening | v: universalism, tradition | self_control: + | chance: 80
-- UR | redesign the study on the spot with them, sketching on the whiteboard together | v: stimulation, universalism | chance: 70
-- WB | strike a deal: their question gets a work package if they help with sampling | v: power, conformity | chance: 70
+- UG | spend a season listening in the valley before changing anything | door | grants: community listening | v: universalism, tradition | self_control: + | foot: person elder | chance: 80
+- UR | redesign the study on the spot with them, sketching on the whiteboard together | v: stimulation, universalism | foot: person colleague | chance: 70
+- WB | strike a deal: their question gets a work package if they help with sampling | v: power, conformity | foot: door kept your word | chance: 70
 - WR | stand up and say in front of everyone that they are right | identity | mark: owned up | v: universalism | chance: 92
 works: The meeting ends with a plan everyone can live with, and the valley stays on the project's side.
 works: The meeting ends with handshakes, and a list of names who want to help.
@@ -516,15 +516,15 @@ scene B: The first name on this paper will matter for the next grant and the nex
 scene R: {N} cannot bear a fight over names after a year of good work together. It should simply be fair, and someone should say so out loud.
 scene G: In this lab the order has always gone a certain way. {N} remembers being the junior once, and how that felt.
 - W | follow the lab's custom and give the head of the lab the place the junior earned | mark: hid a wrong | closed: approval: an author order that does not match the work; backfire: the junior complains to the journal, and the list is corrected in public | v: conformity, power | self_control: - | chance: 90
-- U | write down who did what, task by task, and let the list decide | identity | grants: credit negotiation | v: universalism, achievement | chance: 75
+- U | write down who did what, task by task, and let the list decide | identity | grants: credit negotiation | v: universalism, achievement | foot: lesson let the record decide | chance: 75
 - B | claim first place outright, on the strength of the idea and the money | identity | v: power, achievement | mark: made an enemy | chance: 65
 - R | fight openly for the junior who did the analysis to be named first | mark: helped someone in need | v: benevolence, universalism | chance: 70
-- G | talk it over with everyone at the lab dinner until it feels fair to all | v: benevolence, tradition | chance: 60
-- BR | trade first place for the lead on the next paper, and shake on it | binds | grants: credit negotiation | v: power, achievement | chance: 85
-- RG | take your own name off it, if that keeps the team together | v: benevolence | chance: 92
-- UB | propose shared first place, with each person's part spelled out | grants: credit negotiation | v: achievement | chance: 70
+- G | talk it over with everyone at the lab dinner until it feels fair to all | v: benevolence, tradition | foot: means ties+.03 | chance: 60
+- BR | trade first place for the lead on the next paper, and shake on it | binds | grants: credit negotiation | v: power, achievement | foot: door kept your word | chance: 85
+- RG | take your own name off it, if that keeps the team together | v: benevolence | foot: means ties+.06 | chance: 92
+- UB | propose shared first place, with each person's part spelled out | grants: credit negotiation | v: achievement | foot: door made a friend | chance: 70
 - WG | add the technician as an author, since the work could not exist without them | mark: helped someone in need | v: universalism, benevolence | chance: 70
-- WU | bring in a written contribution policy for the whole group, from now on | habit | binds | grants: credit negotiation | v: universalism, conformity | chance: 75
+- WU | bring in a written contribution policy for the whole group, from now on | habit | binds | grants: credit negotiation | v: universalism, conformity | foot: lesson written rules spare later quarrels | chance: 75
 works: The list is settled, everyone signs off, and the paper goes out with no hard feelings.
 works: {colleague} reads the final order and smiles, and the next project starts on trust.
 fails: The argument drags on for weeks, and the paper sits unsent.
@@ -556,14 +556,14 @@ scene R: The calls run late with laughter, and {N} looks forward to them all wee
 scene G: It grew on its own, from one shared dataset and a chat at a conference. {N} would rather not dig it up to see how the roots are doing.
 - W | put it on a sound footing: a written agreement on data, credit and duties | binds | grants: research collaborators | v: security, conformity | chance: 80
 - U | spend a week in their lab to learn how they think | door | mark: learned a skill | v: self-direction, achievement | chance: 90
-- B | make sure your group is the one the funders see at the centre of it | v: power | chance: 70
-- R | fly the whole team over for a week of work and long dinners | v: hedonism, benevolence | chance: 85
-- G | keep it small and easy, the way it grew, and do not force it | v: tradition | chance: 70
-- WUR | turn it into a joint project on an urgent public question | v: universalism, achievement | chance: 50
+- B | make sure your group is the one the funders see at the centre of it | v: power | foot: person patron | chance: 70
+- R | fly the whole team over for a week of work and long dinners | v: hedonism, benevolence | foot: person friend | chance: 85
+- G | keep it small and easy, the way it grew, and do not force it | v: tradition | foot: lesson let good things grow slowly | chance: 70
+- WUR | turn it into a joint project on an urgent public question | v: universalism, achievement | foot: means time-.06 | chance: 50
 - WUG | write a shared methods handbook, so the partnership outlives any one person | grants: research collaborators | v: tradition, universalism | chance: 70
-- WBR | invite three more labs in, and start a proper network | door | v: achievement, power | chance: 65
+- WBR | invite three more labs in, and start a proper network | door | v: achievement, power | foot: means ties+.06 | chance: 65
 - UBG | build a long-term partnership around the one dataset both teams depend on | grants: research collaborators | v: security, achievement | chance: 75
-- BRG | go and work alongside them for a season, on their ground | door | v: stimulation, self-direction | chance: 80
+- BRG | go and work alongside them for a season, on their ground | door | v: stimulation, self-direction | foot: person colleague | chance: 80
 works: The work doubles, the papers come, and the friendship holds.
 works: Years later, both groups still date their best work from this year.
 fails: The partnership grows faster than anyone can manage, and small frictions start to show.
@@ -593,16 +593,16 @@ scene U: {N} starts listing other ways to get the same measurement: a smaller ma
 scene B: The consortium has forty names and a great deal of money. {N} has samples they might want, and that is something to bargain with.
 scene R: {N} is out of the chair before reaching the end of the email, already halfway to the facility office.
 scene G: Big groups have always gone first in this building. {N} looks at the samples in the freezer, which will keep, and at the calendar, which will turn.
-- W | appeal to the booking committee, with the written confirmation attached | takes_if_fails: instrument time | v: conformity, security | chance: 55
+- W | appeal to the booking committee, with the written confirmation attached | takes_if_fails: instrument time | v: conformity, security | foot: lesson paper trails are worth keeping | chance: 55
 - U | redesign the experiment to run on the older machine down the corridor | takes: instrument time | mark: learned a skill | v: achievement | chance: 70
-- B | offer the big group a share of the data in exchange for half the slot | door | takes_if_fails: instrument time | v: power | chance: 65
+- B | offer the big group a share of the data in exchange for half the slot | door | takes_if_fails: instrument time | v: power | foot: person colleague | chance: 65
 - R | come in at night and run the samples on the machine anyway | takes: instrument time | mark: hid a wrong | closed: approval: using the instrument without a booking; backfire: the facility bans the whole group for a month | v: self-direction, stimulation | self_control: - | chance: 65
 - G | wait for the next round, and use the months to prepare better samples | takes: instrument time | v: security, tradition | self_control: + | chance: 75
-- WUB | take it to the facility board as a question of fair rules for small groups | identity | takes_if_fails: instrument time | v: universalism, power | chance: 45
+- WUB | take it to the facility board as a question of fair rules for small groups | identity | takes_if_fails: instrument time | v: universalism, power | foot: place rule.counsel | chance: 45
 - WRG | ring a friend who runs the same machine in another city and ask a favour | door | takes: instrument time | v: benevolence | chance: 70
 - WBG | accept the change gracefully, and get a written promise of priority next time | takes: instrument time | v: security | chance: 80
 - URG | build a makeshift rig from parts in the workshop and get rough data | door | takes: instrument time | mark: learned a skill | v: self-direction, stimulation | chance: 50
-- UBR | march into the facility manager's office and argue the slot back | takes_if_fails: instrument time | v: power, achievement | chance: 45
+- UBR | march into the facility manager's office and argue the slot back | takes_if_fails: instrument time | v: power, achievement | foot: mark defied an authority | chance: 45
 works: The samples get measured, one way or another, and the project keeps to its timetable.
 works: The facility apologises, and the next booking comes with a guarantee in writing.
 fails: The slot is gone, the next free week is in the spring, and the project slips half a year.
@@ -634,14 +634,14 @@ scene U: {N} winces at the headline, which says more than the study did. The int
 scene B: Attention like this comes once in a career, if at all. {N} can feel how much it could open, and how fast it will fade.
 scene R: {N} is lit up: people care about this, ordinary people at their kitchen tables. {N} wants to tell them everything.
 scene G: {N} watches the fuss from a little distance. News blows through like wind; the work took years to make and will take years to settle.
-- W | give one careful interview, and insist on checking every quote before it runs | grants: explaining science | v: universalism, conformity | chance: 55
-- U | send the reporter a one-page note on what the finding does and does not mean | v: universalism | chance: 75
-- B | say yes to every programme that calls, while the interest lasts | habit | v: power, achievement | chance: 90
-- R | go on the breakfast show and let the excitement show | grants: explaining science | v: stimulation | chance: 90
-- G | take the reporter out to the field site, and let the place tell the story | v: tradition, universalism | chance: 60
-- WUR | write a piece for a national paper that explains the uncertainty honestly | grants: explaining science | v: universalism, stimulation | chance: 60
-- WUG | turn the reporters away politely, and send them to a colleague who knows more | mark: turned down a chance | v: benevolence, universalism | chance: 92
-- WBG | let the press office's bolder headline stand, because the institute wants it | mark: gave in to pressure | closed: approval: a headline that claims more than the paper; backfire: colleagues write a public letter correcting it | v: security, conformity | self_control: - | chance: 80
+- W | give one careful interview, and insist on checking every quote before it runs | grants: explaining science | v: universalism, conformity | foot: person go-between | chance: 55
+- U | send the reporter a one-page note on what the finding does and does not mean | v: universalism | foot: lesson one clear page goes far | chance: 75
+- B | say yes to every programme that calls, while the interest lasts | habit | v: power, achievement | foot: means time-.06 | chance: 90
+- R | go on the breakfast show and let the excitement show | grants: explaining science | v: stimulation | foot: lesson excitement is catching | chance: 90
+- G | take the reporter out to the field site, and let the place tell the story | v: tradition, universalism | foot: person friend | chance: 60
+- WUR | write a piece for a national paper that explains the uncertainty honestly | grants: explaining science | v: universalism, stimulation | foot: place arts.page | chance: 60
+- WUG | turn the reporters away politely, and send them to a colleague who knows more | mark: turned down a chance | v: benevolence, universalism | foot: door made a friend | chance: 92
+- WBG | let the press office's bolder headline stand, because the institute wants it | mark: gave in to pressure | closed: approval: a headline that claims more than the paper; backfire: colleagues write a public letter correcting it | v: security, conformity | self_control: - | foot: means ties-.03 | chance: 80
 - UBR | turn the attention into a book proposal and a lecture tour | grants: known across the country | v: achievement, power | chance: 15
 - BRG | lead a public campaign for the place the finding is about | identity | grants: known across the country | v: power, universalism | chance: 15
 works: The finding reaches the public the way it deserves, and the right people get in touch.
@@ -678,11 +678,11 @@ scene G: Findings are like trees: some stand for a century, some fall in the fir
 - U | repeat your own experiment step by step, with their method alongside | grants: a finding that held up | v: achievement, universalism | chance: 60
 - B | publish a sharp reply that takes their methods apart | identity | v: power, achievement | mark: made an enemy | chance: 70
 - R | ring the rival and suggest settling it together, at one bench | grants: research collaborators | v: stimulation, benevolence | chance: 55
-- G | let time decide: good findings last, and weak ones fade | v: tradition | chance: 60
+- G | let time decide: good findings last, and weak ones fade | v: tradition | foot: lesson time sorts strong from weak | chance: 60
 - WUB | propose a joint replication with the rival, its plan registered in advance | grants: a finding that held up | v: universalism, achievement | chance: 45
 - WRG | concede in public that their result is the stronger one, and thank them | identity | mark: owned up | v: universalism, benevolence | chance: 92
-- WBR | rally the co-authors and answer in one strong joint letter | v: power, conformity | chance: 70
-- URG | go back to the original site and look again with fresh eyes | grants: a nose for the odd result | v: self-direction, stimulation | chance: 65
+- WBR | rally the co-authors and answer in one strong joint letter | v: power, conformity | foot: means ties+.03 | chance: 70
+- URG | go back to the original site and look again with fresh eyes | grants: a nose for the odd result | v: self-direction, stimulation | foot: means time-.06 | chance: 65
 - UBG | accept the journal's request to review their next paper, and pick it apart | mark: hid a wrong | closed: approval: reviewing a rival's work without declaring the conflict; backfire: the editor finds out, and both groups' papers are pulled for review | v: power | chance: 75
 works: The question is settled in the open, and {Ns} standing in the field survives it, or grows.
 works: The two groups work out why their results differ, and the field moves forward.

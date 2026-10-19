@@ -62,7 +62,7 @@ scene tribal G: The oldest walls of the cave were painted by the first painters,
 - R | paint for three nights without sleep, by torchlight, as the beasts come | title: renowned artist | requires: painter or sculptor | without: impossible | mark: took a wild risk | body: light | v: stimulation, hedonism | chance: 8
 - G | paint the chief's hunt among the old herds, so the new wall speaks with the old | title: renowned artist | requires: painter or sculptor | without: impossible | v: tradition, universalism | chance: 8
 - WUR | paint it with the other painters of the band, each beast by a different hand | mark: made a friend | door | v: universalism, stimulation | chance: 70
-- WBR | paint the chief at the head of the hunt, larger than life, as the chief wants | self_control: - | v: power, conformity | chance: 70
+- WBR | paint the chief at the head of the hunt, larger than life, as the chief wants | self_control: - | v: power, conformity | foot: person patron | chance: 70
 - WBG | ask the elders to give a place at the wall to the apprentice who has waited | mark: helped someone in need | v: benevolence, security | chance: 70
 - URG | paint the old herds of the first painters, not the hunt the elders chose | mark: defied an authority | closed: approval: painting against the elders' word; backfire: the elders have the wall rubbed out, and the next wall goes to another painter | v: self-direction, tradition | chance: 70
 - UBG | mark the whole wall out in charcoal, and let the apprentices fill it in | grants: pupils who remember you | binds | self_control: + | v: achievement, tradition | chance: 70
@@ -108,10 +108,10 @@ scene tribal G: The pine by the chief's hearth was old when the chief was young.
 - R | carve through the nights of mourning, with the grief in every cut | title: master craftsperson | grants: a maker's hallmark | requires: craft maker | without: impossible | habit | self_control: + | v: stimulation, benevolence | chance: 35
 - G | carve it from the old pine by the chief's hearth, as the chief would have wished | title: master craftsperson | grants: a maker's hallmark | requires: craft maker | without: impossible | identity | v: tradition, benevolence | chance: 35
 - WUG | carve it with the oldest carvers, as the band's mask and no one hand's | mark: made a friend | v: tradition, conformity | chance: 70
-- WUB | carve a second mask for the band to keep, so the chief's face is not lost | binds | v: security, achievement | chance: 70
+- WUB | carve a second mask for the band to keep, so the chief's face is not lost | binds | v: security, achievement | foot: lesson a face can outlast a life | chance: 70
 - WRG | carve it with the young carvers beside, each cutting one line of it | grants: pupils who remember you | door | v: benevolence, tradition | chance: 70
 - UBR | carve the chief as the chief truly was, scars and temper and all | mark: defied an authority | closed: approval: an unkind likeness of the dead chief; backfire: the chief's kin refuse the mask, and the band talks of it all winter | identity | v: self-direction, stimulation | chance: 70
-- BRG | carve it fierce in a single night, from the skull of the bear the chief killed | body: light | self_control: - | v: stimulation, tradition | chance: 70
+- BRG | carve it fierce in a single night, from the skull of the bear the chief killed | body: light | self_control: - | v: stimulation, tradition | foot: mark took a wild risk | chance: 70
 works: At the burying the chief's eldest wears the mask, and the whole band falls silent when the face comes into the firelight.
 works: Whatever {N} chose, the mask goes into the ground with the chief, and the band speaks of it at every mourning after.
 fails: The wood splits along a hidden fault on the last night, and the mask is finished in haste by another hand.
@@ -158,9 +158,9 @@ scene magic G: The queen grew up in the river country, far from the capital. {N}
 - G | paint her among the fields and the people of the river country she came from | title: renowned artist | v: tradition, benevolence | chance: 8
 - BG | ask for a field by the river for the family, in place of the fee | grants: plot of land | door | self_control: + | v: security, tradition | chance: 60
 - BR | paint her quickly, as she wishes to be seen, and charge the court double | grants: savings | v: power, stimulation | chance: 60
-- UG | ask to paint her at ease in her garden, over many quiet sittings | habit | v: universalism, achievement | chance: 80
+- UG | ask to paint her at ease in her garden, over many quiet sittings | habit | v: universalism, achievement | foot: person patron | chance: 80
 - WR | turn the court down, to keep the promise to paint the town hall first | mark: kept your word | identity | v: conformity, self-direction | chance: 80
-- WU | ask the last court painter's widow for his notes on painting the queen | v: achievement, conformity | chance: 60
+- WU | ask the last court painter's widow for his notes on painting the queen | v: achievement, conformity | foot: mark learned a skill | chance: 60
 works: At midsummer the court gathers in the long gallery, and the queen looks at the portrait a long time before she smiles.
 works: Whatever {N} chose, the spring at court is remembered well, and the name is spoken in the salons for years.
 fails: The court chooses {rival}'s portrait, and {N} is thanked, paid and shown the door.
@@ -205,7 +205,7 @@ scene magic G: The herbs and birds of the valley fill the old books {N} saw as a
 - RG | paint the town's own people and beasts into the margins, for them to find | grants: good name in town | v: benevolence, stimulation | chance: 70
 - UB | sell the printers the right to copy the pages, for a share of every copy | grants: royalties | door | v: achievement, power | chance: 70
 - UR | buy a wizard's gold that shines by itself in the dark nave, and gild every capital | mark: took a wild risk | closed: approval: unblessed wizard's gold in the Order's book; backfire: the gold turns to lead on the feast day, and the chapter takes the book from the illuminator | self_control: - | binds | v: stimulation, achievement | chance: 70
-- WB | agree a fee for every page with the chapter, and hire two helpers | grants: organising people | v: security, power | chance: 70
+- WB | agree a fee for every page with the chapter, and hire two helpers | grants: organising people | v: security, power | foot: person colleague | chance: 70
 - WG | work the whole year at the chapter's side, and keep every page and sketch | grants: a body of work | habit | binds | v: conformity, tradition | chance: 70
 works: On the feast day the book is carried up the nave, and the gold catches the candlelight on every page.
 works: Whatever {N} chose, the year's work is done, and the chapter's clerk asks whether {N} would take the next book.

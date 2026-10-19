@@ -500,12 +500,14 @@ def _packs(world, packs, pack_moments, R):
 
 
 def load_batch(world="earth", symmetric=False, roles=None, packs=None, pack_moments=None, setting="earth", more=None,
-               bold=None, links=None):
+               bold=None, links=None, aims=None, foot=None):
     """packs: the content packs on top of the base (default PACKS, the approved ones); pack_moments: {pack: path of a
     compiled moments file} for a pack the Library has not built into chroma-library/ yet (tests). setting: the world the
     life is played in (earth, tribal, magic: the game's presets); a moment with only: <another world> is left out.
     more: moments added after the packs' (tests: tools/t_steps.py's return moment). bold, links: the bold ways and their
-    links in place of <world>_play.BOLD and LINKS (tests: tools/t_steps.py's); given, they load without BOLD_MOMENTS."""
+    links in place of <world>_play.BOLD and LINKS (tests: tools/t_steps.py's); given, they load without BOLD_MOMENTS.
+    aims: aims v1 (the engine's aims switch) in place of AIMS: the aim catalogue, its spark moments and the Historic marker.
+    foot: footprints (the engine's foot_on switch) in place of FOOT: the Library's FOOT tables, compiled to L["FOOT"]."""
     sys.path.insert(0, os.path.abspath(LIB_DIR))
     sys.modules.pop(world, None)                          # always read the batch from LIB_DIR as it is now
     try:
@@ -524,6 +526,12 @@ def load_batch(world="earth", symmetric=False, roles=None, packs=None, pack_mome
     clash = [s["name"] for s in PK["sits"] if s["name"] in base_names]
     if clash:
         raise ValueError(f"pack moments with the name of a base moment: {clash}")
+    AT_ = _aims_load(world, PK) if (AIMS if aims is None else aims) else None
+    if AT_:   # aims v1: the spark moments (<world>_aim_moments.py) join after the packs'
+        clash = [x["name"] for x in AT_["sits"] if x["name"] in base_names or x["name"] in {y["name"] for y in PK["sits"]}]
+        if clash:
+            raise ValueError(f"aim moments with the name of another moment: {clash}")
+        sits += AT_["sits"]
     sits += PK["sits"] + [copy.deepcopy(x) for x in (more or [])]
     sits = [x for x in sits if not x.get("only") or setting in [w_.strip() for w_ in str(x["only"]).replace(",", " ").split()]]
     if not SHADOW_MOMENTS:   # the spheres finishing pack, part 5: moments in a town gone grey (shadow:) wait for its refit
@@ -676,6 +684,10 @@ def load_batch(world="earth", symmetric=False, roles=None, packs=None, pack_mome
         _earned(L, PK)
         _targets(L, PK, R)
     L["PACKS"] = PK["names"]
+    if AT_ and "ROLES" in L:
+        _aims(L, AT_)
+    if FOOT if foot is None else foot:
+        _foot(L, world, PK["names"])
     _adjectives(L)
     _chance(L, R)
     if BOLD_ or any(c_.get("of", "").startswith("bold:") for c_ in L["COND"]):
@@ -900,6 +912,12 @@ SHADOW_MOMENTS = True   # the spheres finishing pack, part 5: moments with shado
                         # batch at its refit; until then the batch is as before
 BOLD_MOMENTS = False    # bold ways (chroma-ideas/gameplay-2026-10-17/bold-ways.md): the Library's <world>_play.BOLD rows and
                         # LINKS load only for a played life with bold_play on (the game sets it); off, every life is as before
+FOOT = False   # footprints (chroma-ideas/next-table-2026-10-19/plan.md section 3): the Library's FOOT tables (<world>_foot.py
+               # and its packs', aim moments' and world answers' *_foot.py) load only with the engine's foot_on switch on (the
+               # game sets both); off, the library and every life are as before
+AIMS = False   # aims v1 (chroma-ideas/next-table-2026-10-19/plan.md section 5): the aim catalogue (the Library's
+               # <world>_aims.py and each pack's aims.py), its spark moments and the Historic marker (the packs' core/legacy.py)
+               # load only with the engine's aims switch on (the game sets both); off, the library and every life are as before
 RETURN_MOMENTS = False  # picks come back: moments with tier: return join the batch only for a played life with echo_play
                         # on (the game sets it); off, the library and every life are as before
 SPH_MOMENTS = True   # item 15: moments with haunt: or ladder: join the batch once the spheres' haunts and rungs are built
@@ -1067,6 +1085,172 @@ def _earned(L, PK):
             G["A_TITLE"][si, ki] = tt_[0]
         if tt_ or gp_:
             G["A_EARN"][si, ki] = (tt_ or gp_)[0]
+
+
+def _aims_load(world, PK):
+    """Aims v1 (plan.md section 5; the packs' format in chroma-packs/tools/check_aims.py, the Library's four more fields in
+    chroma-library/tests/check_aims.py): the Library's AIMS_<WORLD> (<world>_aims.py) and each loaded pack's AIMS_<PACK>,
+    in that order; the spark moments (<world>_aim_moments.py SITUATIONS); and, with packs, the Historic marker [a work
+    that outlives you] (core/legacy.py PERKS_AIMS) with its rule, whose req is the or of the loaded packs' LEGACY_<PACK>.
+    The marker joins the packs' perks and rules here, before the catalogue is built."""
+    table = {}; sits = []; legacy = []
+    ap_ = os.path.join(LIB_DIR, f"{world}_aims.py")
+    if os.path.exists(ap_):
+        for nm, x in getattr(_module(ap_, f"chroma_{world}_aims"), f"AIMS_{world.upper()}", {}).items():
+            table[nm] = dict(x, src=world)
+    mp_ = os.path.join(LIB_DIR, f"{world}_aim_moments.py")
+    if os.path.exists(mp_):
+        sits = [copy.deepcopy(x) for x in _module(mp_, f"chroma_{world}_aim_moments").SITUATIONS]
+    for pk in PK["names"]:
+        f_ = os.path.join(PACK_DIR, pk, "aims.py")
+        if not os.path.exists(f_):
+            continue
+        m_ = _module(f_, f"chroma_pack_{pk}_aims")
+        for nm, x in getattr(m_, f"AIMS_{pk.upper()}", {}).items():
+            if nm in table:
+                raise ValueError(f"aim {nm!r} in two catalogues ({table[nm]['src']}, {pk})")
+            table[nm] = dict(x, src=pk)
+        if getattr(m_, f"LEGACY_{pk.upper()}", None):
+            legacy.append(str(getattr(m_, f"LEGACY_{pk.upper()}")))
+    lf_ = os.path.join(PACK_DIR, "core", "legacy.py")
+    if PK["names"] and os.path.exists(lf_):
+        lm_ = _module(lf_, "chroma_pack_core_legacy")
+        PK["perks"] += [dict(x) for x in getattr(lm_, "PERKS_AIMS", [])]
+        for nm, r in getattr(lm_, "ROLES_AIMS", {}).items():
+            r = dict(r)
+            if r.get("req") == "LEGACY":   # the or of the loaded packs' LEGACY_<PACK>; none loaded, nobody earns it
+                r["req"] = " | ".join(f"({x})" for x in legacy) if legacy else "False"
+            PK["rules"][nm] = r
+    return dict(table=table, sits=sits)
+
+
+def _aims(L, AT):
+    """Aims v1: the catalogue compiled for the engine (L["AIMS"]). Each aim: its face (a colour or a pair, as shares),
+    domain (KIDX, -1 a pursuit), sphere (world_keys.SPHERES, -1 none), dreams (names), calling, spark (its moment, -1
+    when not in this batch) and steps. A step: its names (titles or perks) held or once held, in this catalogue (a name
+    of a pack not loaded is left out and listed in "missing"), its req (compiled; None: none) and its height (0 to 3).
+    door: aims x steps x moments, the moments with a way into a step's names (ROLES DOORS), for the seeking."""
+    from world_keys import SPHERES as SPH_
+    GR = L["ROLES"]; RID = {nm: i for i, nm in enumerate(GR["names"])}; SIDX = {nm: i for i, nm in enumerate(L["names"])}
+    C = len(E.COLORS); names, out, missing = [], [], set()
+    for nm, x in AT["table"].items():
+        steps = []
+        for st in x["steps"]:
+            ids = [RID[y] for y in st["any"] if y in RID]
+            missing |= {y for y in st["any"] if y not in RID}
+            h = st.get("height") or ""
+            if h and h not in E.AIM_HEIGHTS:
+                raise ValueError(f"aim {nm!r}: height {h!r} is not one of {E.AIM_HEIGHTS}")
+            steps.append(dict(say=st["say"], any=np.array(ids, int), names=[y for y in st["any"] if y in RID], req=_code(st["req"]) if st.get("req") else None,
+                              req_s=st.get("req") or "", h=E.AIM_HEIGHTS.index(h) + 1 if h else 0))
+        if not any(len(st["any"]) for st in steps):
+            continue   # none of its names in this catalogue (a pack's aim with the pack not loaded)
+        face = np.zeros(C)
+        for c in str(x["face"]).replace(",", " ").split():
+            face[E.COLORS.index(c.strip())] += 1.0
+        sph = str(x.get("sphere") or "")
+        if sph and sph not in SPH_:
+            raise ValueError(f"aim {nm!r}: sphere {sph!r} is not one of {SPH_}")
+        dom = str(x.get("domain") or "")
+        if dom and dom not in E.KIDX:
+            raise ValueError(f"aim {nm!r}: domain {dom!r} is not one of {list(E.KIDX)}")
+        names.append(nm)
+        out.append(dict(name=nm, src=x["src"], face=face / face.sum(), dom=E.KIDX[dom] if dom else -1,
+                        sph=SPH_.index(sph) if sph else -1, dreams=list(x.get("dreams") or []),
+                        calling=bool(x.get("calling", any(st["h"] for st in steps))), area=x.get("area", ""),
+                        below=x.get("below", ""), tribal=x.get("tribal", ""), magic=x.get("magic", ""),
+                        spark=SIDX.get(x.get("spark") or "", -1), steps=steps))
+    A = len(out); K = max([len(a["steps"]) for a in out] or [0])
+    door = np.zeros((A, K + 1, L["S"]), np.float32)   # step K (none left): no pull
+    for i, a in enumerate(out):
+        for k, st in enumerate(a["steps"]):
+            if len(st["any"]):
+                door[i, k] = GR["DOORS"][st["any"]].any(0)
+    L["AIMS"] = dict(names=names, aims=out, A=A, K=K, door=door, missing=sorted(missing),
+                     face=np.array([a["face"] for a in out]).reshape(A, C), dom=np.array([a["dom"] for a in out], int),
+                     sph=np.array([a["sph"] for a in out], int), calling=np.array([a["calling"] for a in out], bool),
+                     spark=np.array([a["spark"] for a in out], int), nsteps=np.array([len(a["steps"]) for a in out], int))
+
+
+FOOT_KINDS = ["person", "place", "means", "mark", "door", "lesson"]
+
+
+def _foot(L, world, packs):
+    """Footprints (plan.md section 3; the format in chroma-library/footprint_names.py and tests/check_footprint.py): the
+    Library's FOOT[(moment, option label)] = [(kind, value), ...] of the base (<world>_foot.py), each loaded pack
+    (<world>_<pack>_foot.py), the aim moments and the world answers, compiled per moment and option: L["FOOT"][(s, k)] =
+    [(kind, a, b, value)], kind an index of FOOT_KINDS; person: a = the cast role (world_keys.WHO_SLOTS), b = 1 when
+    lost; place: a = the haunt kind (world_keys.HAUNT_KINDS); means: a = the resource (E.RESOURCES), b = the amount; mark
+    and door: a = the mark (L["MARKS"], -1 for one the batch has not: recorded only); lesson: the words. A child version
+    (variant_of) takes its original's footprints for the same label. L["FOOT_MISS"]: names the batch could not place."""
+    from world_keys import HAUNT_KINDS as HK_, WHO_SLOTS as WS_
+    tab = {}
+    for f_ in [f"{world}_foot.py"] + [f"{world}_{pk}_foot.py" for pk in packs] + [f"{world}_aim_moments_foot.py",
+                                                                                 f"{world}_world_answers_foot.py"]:
+        p_ = os.path.join(LIB_DIR, f_)
+        if os.path.exists(p_):
+            for k_, v_ in getattr(_module(p_, "chroma_" + f_[:-3]), "FOOT", {}).items():
+                tab.setdefault(k_, list(v_))
+    MI_ = {m_: i_ for i_, m_ in enumerate(L["MARKS"])}; out = {}; miss = set()
+    for si, nm in enumerate(L["names"]):
+        src_ = L["src"][si] if si < len(L["src"]) else {}
+        roots = [nm] + ([src_["variant_of"]] if src_.get("variant_of") else [])
+        for ki, lab in enumerate(L["labels"][si]):
+            fs_ = next((tab[(r_, lab)] for r_ in roots if (r_, lab) in tab), None)
+            if not fs_:
+                continue
+            ops = []
+            for kind, val in fs_:
+                kind = str(kind).strip(); val = str(val).strip()
+                if kind == "person":
+                    role, _, lost = val.partition(" ")
+                    if role not in WS_:
+                        miss.add(f"person {role}"); continue
+                    ops.append((0, WS_.index(role), int(lost.strip() == "lost"), val))
+                elif kind == "place":
+                    if val not in HK_:
+                        miss.add(f"place {val}"); continue
+                    ops.append((1, HK_.index(val), 0, val))
+                elif kind == "means":
+                    m_ = re.fullmatch(r"([a-z]+)\s*([+-]\s*\.?\d*\.?\d+)", val)
+                    if not m_ or m_.group(1) not in E.RESOURCES:
+                        miss.add(f"means {val}"); continue
+                    ops.append((2, E.RESOURCES.index(m_.group(1)), float(m_.group(2).replace(" ", "")), val))
+                elif kind in ("mark", "door"):
+                    if val not in MI_:
+                        miss.add(f"{kind} {val}")
+                    ops.append((FOOT_KINDS.index(kind), MI_.get(val, -1), 0, val))
+                elif kind == "lesson":
+                    ops.append((5, -1, 0, val))
+                else:
+                    miss.add(f"kind {kind}")
+            if ops:
+                out[(si, ki)] = ops
+    L["FOOT"] = out; L["FOOT_MISS"] = sorted(miss); L["FOOT_KINDS"] = list(FOOT_KINDS)
+    # an option's own mark: is a mark footprint too when a title or perk rule reads it or the engine's people and world
+    # code answers it (footprint_names.MARKS_WIRED), never a retired one or a person's (as tests/check_footprint.py)
+    rt_ = "".join(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), f_), encoding="utf-8").read()
+                  for f_ in ("rules_titles.py", "rules_perks.py"))
+    fn_ = os.path.join(LIB_DIR, "footprint_names.py")
+    fm_ = _module(fn_, "chroma_footprint_names") if os.path.exists(fn_) else None
+    wired_, retired_ = set(getattr(fm_, "MARKS_WIRED", ())), set(getattr(fm_, "MARKS_RETIRED", ()))
+    L["FOOT_OWN"] = [m_ for m_ in L["MARKS"] if (f"'{m_}'" in rt_ or m_ in wired_) and m_ not in retired_
+                     and m_ not in ("made a friend", "made an enemy", "took them in")]
+    # ... in the moments the footprints are for (FOOT_S): the Library's checked ones (footprint_moments.txt, the life
+    # events) and any with a FOOT table, so an everyday moment met week after week (a thunderstorm at night) stacks none
+    fl_ = os.path.join(LIB_DIR, "footprint_moments.txt")
+    ck_ = {x_.strip() for x_ in open(fl_, encoding="utf-8")} if os.path.exists(fl_) else set()
+    L["FOOT_S"] = np.array([nm_ in ck_ or (L["src"][si_].get("variant_of") or nm_) in ck_
+                            for si_, nm_ in enumerate(L["names"])], bool)
+    for (s_, _) in out:
+        L["FOOT_S"][s_] = True
+    # a door waits until a moment that reads its mark is met: FOOT_READS[s, mark], the moment's condition names the mark
+    # (req or anchor) or it is a return of that kind (of:)
+    L["FOOT_READS"] = np.zeros((L["S"], len(L["MARKS"])), bool)
+    for c_ in L["COND"]:
+        tx_ = c_["rtxt"] + " " + c_["atxt"]
+        for j_, m_ in enumerate(L["MARKS"]):
+            L["FOOT_READS"][c_["s"], j_] |= f"'{m_}'" in tx_ or f'"{m_}"' in tx_ or c_["of"] == m_
 
 
 def _bold_link(x):

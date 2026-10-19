@@ -46,16 +46,16 @@ scene U: {N} looks up the new owners that weekend: what they bought before, and 
 scene B: Every takeover has winners. {N} watches who the new managers smile at in the first meeting, and who they do not.
 scene R: The old {boss} cleared a desk on Friday without a word to anyone. {N} is angry: nobody asked the people who do the work.
 scene G: {N} has worked there for years, through three bosses and two moves. On Monday the place feels the same, and also not.
-- W | stay on, learn the new owners' rules, and do the job as well as ever | v: conformity, security | lever: loyalty | pushes: institution employer | chance: 67
-- U | read up on the new owners' past deals before deciding anything | v: self-direction, security | chance: 65
-- B | get to the new managers first, and make yourself the one they rely on | v: power, achievement | lever: loyalty | pushes: institution employer | chance: 67
-- R | hand in your notice the week the new name goes up over the door | v: self-direction, stimulation | lever: exit | pushes: institution employer | chance: 77
-- G | keep doing your hours, and wait to see what the year brings | v: security, tradition | lever: neglect | chance: 57
-- WU | ask the new owners in writing what happens to pay, pensions and jobs | v: security, conformity | lever: voice | pushes: institution employer | chance: 60
-- WR | speak for the whole team at the new owners' first staff meeting | v: benevolence, universalism | lever: voice | pushes: institution employer | chance: 56
-- UG | line up another post quietly, and stay until the new plan is clear | v: security, self-direction | chance: 60
-- BR | ask for a rise as the price of staying, and mean it | v: power, achievement | lever: voice | pushes: institution employer | chance: 40
-- BG | take the payout offered to anyone who leaves, and put it by | v: security | lever: exit | pushes: institution employer | chance: 76
+- W | stay on, learn the new owners' rules, and do the job as well as ever | v: conformity, security | lever: loyalty | pushes: institution employer | foot: person boss | chance: 67
+- U | read up on the new owners' past deals before deciding anything | v: self-direction, security | foot: lesson know who you work for | chance: 65
+- B | get to the new managers first, and make yourself the one they rely on | v: power, achievement | lever: loyalty | pushes: institution employer | foot: person patron | chance: 67
+- R | hand in your notice the week the new name goes up over the door | v: self-direction, stimulation | lever: exit | pushes: institution employer | foot: means freedom+.06 | chance: 77
+- G | keep doing your hours, and wait to see what the year brings | v: security, tradition | lever: neglect | foot: lesson most storms blow over | chance: 57
+- WU | ask the new owners in writing what happens to pay, pensions and jobs | v: security, conformity | lever: voice | pushes: institution employer | foot: door defied an authority | chance: 60
+- WR | speak for the whole team at the new owners' first staff meeting | v: benevolence, universalism | lever: voice | pushes: institution employer | foot: person colleague | chance: 56
+- UG | line up another post quietly, and stay until the new plan is clear | v: security, self-direction | foot: door kept it hidden | chance: 60
+- BR | ask for a rise as the price of staying, and mean it | v: power, achievement | lever: voice | pushes: institution employer | foot: means money+.06 | chance: 40
+- BG | take the payout offered to anyone who leaves, and put it by | v: security | lever: exit | pushes: institution employer | foot: means money+.10 | chance: 76
 works not R BG: The new owners keep most of what worked, and {N} finds solid ground under the new name.
 works: A year on, {N} is glad of the choice made in that first uneasy month.
 fails not R BG: The new owners bring in their own people, and {N} is left on the edge of everything.
@@ -85,15 +85,15 @@ scene U: {N} lays the two charts side by side and sees which jobs the bigger fir
 scene B: Someone will decide who stays. {N} means to be known to that someone before the list is drawn up.
 scene R: Twenty years of the old firm's name, gone in an afternoon. {N} is furious, and not good at hiding it.
 scene G: The old team has eaten lunch together every day for years. {N} wonders who will still be at the table by summer.
-- W | apply for your post in the new structure, properly and on time | v: conformity, security | lever: loyalty | pushes: institution employer | chance: 72
-- U | work out where your role stands on the new chart before anyone says | v: self-direction, achievement | chance: 67
-- B | make sure whoever draws up the cuts knows your name and your numbers | v: power, achievement | lever: loyalty | pushes: institution employer | chance: 65
-- R | leave before the choice is made over your head, and say why on the way out | v: self-direction, stimulation | lever: exit | pushes: institution employer | chance: 62
-- G | stick with the old team, whatever the new chart says | v: benevolence, tradition | lever: loyalty | pushes: group work | chance: 57
-- RG | throw a send-off for everyone from the old firm, the leavers first | v: benevolence, hedonism | pushes: group work | chance: 80
-- UB | volunteer for the team that maps the old jobs onto the new ones | v: power, achievement | lever: loyalty | pushes: institution employer | chance: 60
+- W | apply for your post in the new structure, properly and on time | v: conformity, security | lever: loyalty | pushes: institution employer | foot: person boss | chance: 72
+- U | work out where your role stands on the new chart before anyone says | v: self-direction, achievement | foot: lesson the chart tells its own story | chance: 67
+- B | make sure whoever draws up the cuts knows your name and your numbers | v: power, achievement | lever: loyalty | pushes: institution employer | foot: person patron | chance: 65
+- R | leave before the choice is made over your head, and say why on the way out | v: self-direction, stimulation | lever: exit | pushes: institution employer | foot: means money-.06 | chance: 62
+- G | stick with the old team, whatever the new chart says | v: benevolence, tradition | lever: loyalty | pushes: group work | foot: person colleague | chance: 57
+- RG | throw a send-off for everyone from the old firm, the leavers first | v: benevolence, hedonism | pushes: group work | foot: means ties+.06 | chance: 80
+- UB | volunteer for the team that maps the old jobs onto the new ones | v: power, achievement | lever: loyalty | pushes: institution employer | foot: means time-.06 | chance: 60
 - UG | retrain for the work the bigger firm is short of | v: security, achievement | mark: learned a skill | chance: 56
-- WB | ask the union what the law owes the staff, and hold the firm to it | v: security, universalism | lever: voice | pushes: institution employer | chance: 60
+- WB | ask the union what the law owes the staff, and hold the firm to it | v: security, universalism | lever: voice | pushes: institution employer | foot: door defied an authority | chance: 60
 - WR | stand up for the colleague whose post is first on the list | v: benevolence, universalism | mark: helped someone in need | lever: voice | pushes: institution employer | chance: 46
 works not R: {N} comes through the merger with a job and the trust of the people who stayed.
 works: The new firm turns out larger, slower and safer, and {N} makes a place in it.
@@ -124,16 +124,16 @@ scene U: {N} wants to know how a public body decides things: who sits on the boa
 scene B: Old managers are leaving and new posts are opening. {N} sees a ladder where others see a binder.
 scene R: {N} never signed up to work for the government, and does not like being saved by it.
 scene G: The jobs are safe. {N} goes home and tells {partner}, and the two of them sit in the kitchen for a while without speaking.
-- W | sign the new public contract and keep to its rules from the first day | v: conformity, security | lever: loyalty | pushes: institution employer | chance: 77
+- W | sign the new public contract and keep to its rules from the first day | v: conformity, security | lever: loyalty | pushes: institution employer | foot: person boss | chance: 77
 - U | learn how the public body works: its board, its budget, its rules | v: self-direction, achievement | mark: learned a skill | chance: 72
-- B | put yourself forward for one of the posts the old managers left | v: power, achievement | lever: loyalty | pushes: institution employer | chance: 65
-- R | leave for a private firm rather than work for the government | v: self-direction | lever: exit | pushes: institution employer | chance: 70
-- G | stay for the steady job and the pension, and be glad of them | v: security | lever: loyalty | pushes: institution employer | chance: 60
-- BG | get the redundancy terms the old firm promised in writing, just in case | v: security, power | lever: voice | pushes: institution employer | chance: 70
+- B | put yourself forward for one of the posts the old managers left | v: power, achievement | lever: loyalty | pushes: institution employer | foot: means money+.06 | chance: 65
+- R | leave for a private firm rather than work for the government | v: self-direction | lever: exit | pushes: institution employer | foot: person colleague lost | chance: 70
+- G | stay for the steady job and the pension, and be glad of them | v: security | lever: loyalty | pushes: institution employer | foot: means money+.03 | chance: 60
+- BG | get the redundancy terms the old firm promised in writing, just in case | v: security, power | lever: voice | pushes: institution employer | foot: lesson get promises on paper | chance: 70
 - RG | throw a party in the yard for the jobs that were saved | v: hedonism, benevolence | mark: made a friend | pushes: group work | chance: 70
-- UB | find out which old contracts the new body will honour, and be the one who knows | v: power, achievement | chance: 60
-- WR | speak up at the handover meeting for the service the town depends on | v: universalism | lever: voice | pushes: institution employer | chance: 50
-- WU | help write the new body's working rules so they are clear and fair | v: universalism, conformity | lever: voice | pushes: institution employer | chance: 56
+- UB | find out which old contracts the new body will honour, and be the one who knows | v: power, achievement | foot: means ties+.03 | chance: 60
+- WR | speak up at the handover meeting for the service the town depends on | v: universalism | lever: voice | pushes: institution employer | foot: place rule.voice | chance: 50
+- WU | help write the new body's working rules so they are clear and fair | v: universalism, conformity | lever: voice | pushes: institution employer | foot: place rule.counsel | chance: 56
 works not R: The firm settles into its new life, slower and steadier, and {N} with it.
 works: A year on, the jobs are still there and {N} has learned how the new place works.
 fails: The new rules pile up faster than the work, and {N} spends the year on forms.
@@ -163,16 +163,16 @@ scene U: {N} wants to know how it got out: an attack from outside, a lost laptop
 scene B: Somebody will be blamed for this. {N} means to make sure it is someone else.
 scene R: The callers are scared and furious, and {N} is the one who has to hear it while the bosses hide upstairs.
 scene G: {N} keeps thinking of {friend}, whose name is on that list too, and of all the people in town who trusted the place.
-- W | follow the bosses' script to the letter, and pass every complaint up the line | v: conformity, security | lever: loyalty | pushes: institution employer | chance: 67
-- U | trace how the records got out, and write it up for the bosses | v: self-direction, achievement | chance: 65
-- B | keep your own part clean, and let the blame land where it falls | v: security, power | chance: 62
+- W | follow the bosses' script to the letter, and pass every complaint up the line | v: conformity, security | lever: loyalty | pushes: institution employer | foot: door gave in to pressure | chance: 67
+- U | trace how the records got out, and write it up for the bosses | v: self-direction, achievement | foot: mark learned a skill | chance: 65
+- B | keep your own part clean, and let the blame land where it falls | v: security, power | foot: lesson keep your own record clean | chance: 62
 - R | tell the callers the truth, whatever the bosses' script says | v: universalism, stimulation | mark: defied an authority | lever: voice | pushes: institution employer | chance: 65
 - G | ring friends whose names are on the list, and help them lock their accounts | v: benevolence | mark: helped someone in need | chance: 55
-- BG | change your own passwords and bank details tonight, before anything else | v: security | tech: internet | chance: 70
-- RG | stay on the line with the frightened callers as long as they need | v: benevolence | chance: 60
+- BG | change your own passwords and bank details tonight, before anything else | v: security | tech: internet | foot: means time-.03 | chance: 70
+- RG | stay on the line with the frightened callers as long as they need | v: benevolence | foot: mark helped someone in need | chance: 60
 - UR | tell the reporter who rings what you saw, without giving your name | v: universalism, stimulation | lever: subvert | pushes: institution employer | chance: 50 | back: defied an authority
-- WB | press the bosses to tell every customer plainly what was lost | v: universalism, security | lever: voice | pushes: institution employer | chance: 46
-- WU | draw up a plain guide for callers on what to do now, and share it round | v: benevolence, universalism | chance: 60
+- WB | press the bosses to tell every customer plainly what was lost | v: universalism, security | lever: voice | pushes: institution employer | foot: door made an enemy | chance: 46
+- WU | draw up a plain guide for callers on what to do now, and share it round | v: benevolence, universalism | foot: lesson plain words calm frightened people | chance: 60
 works: The storm passes in a few weeks, and {N} keeps the trust of the people on the other end of the phone.
 works: The bosses change how the records are kept, and {Ns} part in it is noticed.
 fails: The bosses look for someone to blame, and {N} stands close enough to be looked at hard.
@@ -203,14 +203,14 @@ scene B: {N} knows something the bosses would give a lot to keep quiet, and know
 scene R: {N} cannot sleep. People trust this place, and the people at the top are lying to them.
 scene G: {N} has a family, a mortgage and friends on every floor. Speaking up could cost all of it, and silence costs something too.
 - W | report it in writing to the board, and sign it with your own name | identity | v: universalism, conformity | mark: defied an authority | lever: voice | pushes: institution employer | chance: 57
-- U | copy every document quietly and keep it safe before deciding anything | v: security, self-direction | chance: 52
+- U | copy every document quietly and keep it safe before deciding anything | v: security, self-direction | foot: door kept it hidden | chance: 52
 - B | say nothing, and let the bosses see they can rely on your silence | v: power, security | mark: hid a wrong | lever: loyalty | pushes: institution employer | chance: 55
 - R | take what you know to a reporter, and let the whole town hear it | v: universalism, stimulation | mark: made an enemy | lever: voice | pushes: institution employer | chance: 58
-- G | hand in your notice, and find work you can do with a clear conscience | v: security, universalism | lever: exit | pushes: institution employer | chance: 47
+- G | hand in your notice, and find work you can do with a clear conscience | v: security, universalism | lever: exit | pushes: institution employer | foot: means money-.06 | chance: 47
 - BR | let your boss see you know, and ask for the promotion you were denied | v: power | mark: hid a wrong | closed: approval: trading silence for a promotion; backfire: the bosses never trust {N} again | lever: subvert | pushes: institution employer | chance: 54
-- UB | send the papers to the inspectors without your name on them | v: universalism, security | lever: subvert | pushes: institution employer | chance: 46
-- UG | put things right in your own corner, quietly, and keep a note of everything | v: benevolence, security | chance: 60
-- WG | talk to the others who know, and go to the bosses together | v: universalism, benevolence | lever: voice | pushes: institution employer | chance: 56
+- UB | send the papers to the inspectors without your name on them | v: universalism, security | lever: subvert | pushes: institution employer | foot: door defied an authority | chance: 46
+- UG | put things right in your own corner, quietly, and keep a note of everything | v: benevolence, security | foot: lesson small quiet fixes still count | chance: 60
+- WG | talk to the others who know, and go to the bosses together | v: universalism, benevolence | lever: voice | pushes: institution employer | foot: person colleague | chance: 56
 - WR | raise it out loud at the next staff meeting, in front of everyone | v: universalism, stimulation | mark: defied an authority | lever: voice | pushes: institution employer | chance: 40
 works: The matter is settled one way or another, and {N} can live with the part {N} played.
 works: Months later {N} still has a livelihood, and the choice made in that sleepless week holds.
@@ -241,16 +241,16 @@ scene U: {N} picks up one of their leaflets and reads it twice: where does {move
 scene B: The followers of {movement} are many, hopeful and in need of a hall, printing and a great many chairs. {N} notices.
 scene R: {friend} went to one meeting and came back glowing, talking fast about a new life. {N} wants to know what that feels like.
 scene G: {grandparent} has seen new faiths come and go. Most of them, {grandparent} says, are gone in ten years, and a few stay for ever.
-- W | stand with your own faith's elders, and warn the neighbours off the new movement | v: tradition, conformity | lever: voice | pushes: belief | chance: 65
+- W | stand with your own faith's elders, and warn the neighbours off the new movement | v: tradition, conformity | lever: voice | pushes: belief | foot: person elder | chance: 65
 - U | study the new movement's teachings for a season, then join it on your own terms | identity | v: self-direction, universalism | title: convert | pushes: belief | chance: 60
-- B | rent the new movement a hall at a good price, and sell them the chairs | v: achievement, power | chance: 75
-- R | go to one of their open nights, for the singing and the stir of it | v: stimulation, hedonism | chance: 65
-- G | hold to the faith you were raised in, and say so when they come knocking | identity | v: tradition, security | lever: loyalty | pushes: belief | chance: 60
-- BR | join the new movement for the friends and the standing, and rise fast in it | v: power, achievement | pushes: belief | chance: 50
-- RG | let the fuss pass, and spend your weekends as you always have | v: hedonism, security | lever: neglect | chance: 70
-- UG | ask the friend who joined how it has changed their life, and really listen | v: benevolence, universalism | chance: 60
-- WB | ask the council to check the new movement's permits and its money | v: security, power | lever: voice | pushes: institution council | chance: 50
-- WU | read the new movement's teachings side by side with those of your own faith | v: tradition, self-direction | chance: 70
+- B | rent the new movement a hall at a good price, and sell them the chairs | v: achievement, power | foot: means money+.06 | chance: 75
+- R | go to one of their open nights, for the singing and the stir of it | v: stimulation, hedonism | foot: place faith.seeking | chance: 65
+- G | hold to the faith you were raised in, and say so when they come knocking | identity | v: tradition, security | lever: loyalty | pushes: belief | foot: lesson knowing where you stand | chance: 60
+- BR | join the new movement for the friends and the standing, and rise fast in it | v: power, achievement | pushes: belief | foot: place faith.congregation; person friend | chance: 50
+- RG | let the fuss pass, and spend your weekends as you always have | v: hedonism, security | lever: neglect | foot: door stayed home | chance: 70
+- UG | ask the friend who joined how it has changed their life, and really listen | v: benevolence, universalism | foot: means ties+.03 | chance: 60
+- WB | ask the council to check the new movement's permits and its money | v: security, power | lever: voice | pushes: institution council | foot: person rival | chance: 50
+- WU | read the new movement's teachings side by side with those of your own faith | v: tradition, self-direction | foot: lesson both teachings share old roots | chance: 70
 works: Whatever {N} makes of {movement}, {N} comes to it with open eyes and does not regret the choice.
 works: The stir in town settles, and {N} knows where {N} stands.
 fails: {movement} splits the street in two, and {N} ends up on a side with fewer friends than before.
@@ -280,15 +280,15 @@ scene U: {N} has heard two stories about why the hall was shut, and neither of t
 scene B: People are choosing sides, and the ones who choose late will be remembered. {N} weighs which side the town will end up on.
 scene R: Every weekend the protesters shout at each other across the street, and {N} is sick of it, or ready to join in.
 scene G: {parent} sits by the window watching the shut hall. "It was never like this," {parent} says, and nobody answers.
-- W | keep the family table open to all, with one rule: no arguing at meals | v: tradition, benevolence | lever: loyalty | pushes: close | chance: 60
+- W | keep the family table open to all, with one rule: no arguing at meals | v: tradition, benevolence | lever: loyalty | pushes: close | foot: means ties+.06 | chance: 60
 - U | sit down with someone from the other faith, and hear their side out | v: universalism, self-direction | mark: made a friend | pushes: belief | chance: 70
 - B | side firmly with your own faith, and let the whole street see it | identity | v: power, conformity | mark: made an enemy | lever: loyalty | pushes: belief | chance: 55
 - R | stand outside the shut hall with those who want it open again | v: universalism, stimulation | lever: voice | pushes: institution council | chance: 65 | back: defied an authority
-- G | keep out of it, and wait for the town to calm down | v: security | lever: neglect | chance: 60
-- BG | move the family across town, away from the trouble | v: security | lever: exit | chance: 60
-- UG | help the elders of both halls find a quiet room to talk in | v: universalism, benevolence | lever: voice | pushes: belief | chance: 40
-- UR | write an open letter to the town, asking both sides to stop | v: universalism, self-direction | lever: voice | pushes: culture | chance: 40
-- WB | ask the council for firm rules on protests near any hall | v: security, conformity | lever: voice | pushes: institution council | chance: 50
+- G | keep out of it, and wait for the town to calm down | v: security | lever: neglect | foot: lesson trouble passes if left alone | chance: 60
+- BG | move the family across town, away from the trouble | v: security | lever: exit | foot: mark moved away | chance: 60
+- UG | help the elders of both halls find a quiet room to talk in | v: universalism, benevolence | lever: voice | pushes: belief | foot: person elder | chance: 40
+- UR | write an open letter to the town, asking both sides to stop | v: universalism, self-direction | lever: voice | pushes: culture | foot: place rule.voice | chance: 40
+- WB | ask the council for firm rules on protests near any hall | v: security, conformity | lever: voice | pushes: institution council | foot: place rule.counsel | chance: 50
 - WR | invite your brother or sister back to the family meal, whatever they now believe | v: benevolence | mend: sibling | chance: 50
 works: In time the hall opens again, and {Ns} family sits down together, if carefully.
 works: The worst of it passes, and {N} can live with where {N} stood.

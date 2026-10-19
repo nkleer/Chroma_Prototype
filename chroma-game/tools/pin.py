@@ -56,6 +56,7 @@ def plan(EN, L, PK_DIR, ls=os.listdir, read=None, isfile=os.path.isfile):
     WLD = sorted(f for f in names if re.fullmatch(r"world(_\w+)?\.py", f) and not re.match(r"world_(stats|check|test)", f))
     WLD += sorted(f for f in names if re.fullmatch(r"sphere_\w+\.py", f))   # the spheres' tables and fitted event bases
     WLD += sorted(f for f in names if f == "parts.py" or re.fullmatch(r"(run|rules)_\w+\.py", f))   # the engine by function
+    WLD += sorted(f for f in names if re.fullmatch(r"realm_\w+\.py", f))   # each realm's constants (realm_earth.py)
     pins = [(os.path.join(EN, f), f) for f in ENG + WLD]
     pins += [(os.path.join(L, f), f) for f in LIB + [f"earth_{p}.py" for p in PK]]
     pins += [(os.path.join(PK_DIR, "core", f), f"packs/core/{f}") for f in sorted(ls(os.path.join(PK_DIR, "core"))) if f.endswith(".py")]

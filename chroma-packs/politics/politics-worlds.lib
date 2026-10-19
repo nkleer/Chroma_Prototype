@@ -46,10 +46,10 @@ scene tribal G: The hawk has hunted over this valley for as long as {N} can reme
 - R | jump up while every face is turned, and speak from the heart about the winter | title: local councillor | aims: local councillor | v: stimulation, self-direction | chance: 50
 - G | carry the feather to the shaman, and let its meaning come in its own time | title: local councillor | v: tradition | self_control: + | chance: 50
 - WUR | say a hunting hawk is no sign, and ask to be judged on your work | identity | grants: a name for straight talk | v: universalism, self-direction | chance: 75
-- WRG | say the sign fell for your friend, and stand behind your friend instead | mark: turned down a chance | v: benevolence | chance: 80
+- WRG | say the sign fell for your friend, and stand behind your friend instead | mark: turned down a chance | v: benevolence | foot: person friend | chance: 80
 - WBG | remind the band that your family has spoken at this fire for three generations | grants: a following in the party | v: tradition, power | chance: 60
 - UBR | promise the young hunters first share of the next kill for their voices | grants: a loyal campaign team | v: power, achievement | chance: 80
-- UBG | say nothing, and watch who looks at the feather and who looks away | grants: counting the votes | v: security, power | chance: 85
+- UBG | say nothing, and watch who looks at the feather and who looks away | grants: counting the votes | v: security, power | foot: lesson watch the faces, not the feather | chance: 85
 works: By the time the fire burns low, the band has settled things the way {N} hoped.
 works: The elders nod to {N} across the fire, and the talk of the sign goes on for days.
 fails: The elders read the sign another way, and the band's eyes move on to {rival}.
@@ -80,15 +80,15 @@ scene tribal U: {N} goes over every step of the last hunts, the winds and the tr
 scene tribal B: {N} hears the whispers for what they are: {rival} reaching for the place at the head of the fire. The surest answer to hunger is meat, brought home by the one who leads.
 scene tribal R: {N} is sick of the whispering and the long faces, and of {rival} smiling through all of it. Sitting by the fire and waiting is the worst of it.
 scene tribal G: The seasons turn as they will, lean years after fat ones. {N} wonders whether this is a sign to lead differently, or to let another lead.
-- W | perform the rite of asking pardon before the whole band, as custom demands | identity | habit | v: tradition, conformity | chance: 60
-- U | follow the herds' old trails for days, and show the band where they went | body: heavy | v: universalism, achievement | self_control: + | chance: 70
-- B | swear to bring meat home, and drive the best hunters out over the far ridge | binds | body: heavy | v: achievement, power | chance: 55
+- W | perform the rite of asking pardon before the whole band, as custom demands | identity | habit | v: tradition, conformity | foot: door owned up | chance: 60
+- U | follow the herds' old trails for days, and show the band where they went | body: heavy | v: universalism, achievement | self_control: + | foot: place prod.wild | chance: 70
+- B | swear to bring meat home, and drive the best hunters out over the far ridge | binds | body: heavy | v: achievement, power | foot: door kept your word | chance: 55
 - R | accuse a rival at the fire of breaking a hunting taboo before the hunt | mark: made an enemy | closed: approval: a charge made without proof; backfire: the rival's kin prove it false, and the band turns on the accuser | v: power, security | chance: 65
 - G | step down, and let the band choose another to lead through the lean time | drops: mayor; member of parliament | identity | v: tradition | mark: gave in to pressure | chance: 90
-- WUG | sit with the shaman and the old hunters until they agree where the herds went | door | v: tradition, universalism | chance: 65
-- WUB | share out the stored meat by strict rule, with a tally the whole band can see | v: security, conformity | self_control: + | chance: 75
-- WBR | call the band to the fire, and dare any doubter to say it to your face | identity | v: power | chance: 65
-- URG | move camp to cleaner ground by the river, and take the sick to the healer there | body: heavy | v: tradition, benevolence | chance: 65
+- WUG | sit with the shaman and the old hunters until they agree where the herds went | door | v: tradition, universalism | foot: person elder | chance: 65
+- WUB | share out the stored meat by strict rule, with a tally the whole band can see | v: security, conformity | self_control: + | foot: lesson an open tally stills the whispers | chance: 75
+- WBR | call the band to the fire, and dare any doubter to say it to your face | identity | v: power | foot: person rival | chance: 65
+- URG | move camp to cleaner ground by the river, and take the sick to the healer there | body: heavy | v: tradition, benevolence | foot: mark helped someone in need | chance: 65
 - BRG | go alone to the high rocks for three days, and come back with a vision | body: heavy | mark: took a wild risk | v: power, tradition | chance: 60
 works: Before the next moon the mood of the band turns, and the whispering dies away.
 works: The herds come back down the valley, and the families speak of {N} with respect again.
@@ -120,16 +120,16 @@ scene tribal U: {N} turns the dream over in the dark. Was the shaman reading the
 scene tribal B: A speaker at the gathering sits with the heads of every clan. {N} begins to count which families would stand behind the shaman's words.
 scene tribal R: {N} cannot sleep for the joy of it. The great fire, the plain, the clans: {N} can already feel the heat of it.
 scene tribal G: Dreams come when they come, like rain. {N} thinks of {parent}, who was never sent, and of the old way of thanking a shaman with the best of the hunt.
-- W | take the shaman's reading to the elders, and ask them to put your name forward | title: parliamentary candidate | aims: member of parliament | v: conformity, tradition | chance: 55
-- U | ask the shaman for a second sign before believing the first | v: self-direction | chance: 85
-- B | go to each family head alone, and say what a speaker could do for them | title: parliamentary candidate | aims: member of parliament | v: power, achievement | chance: 60
-- R | stand up at the fire that night and tell the band the dream yourself | title: parliamentary candidate | aims: member of parliament | v: stimulation, self-direction | chance: 60
+- W | take the shaman's reading to the elders, and ask them to put your name forward | title: parliamentary candidate | aims: member of parliament | v: conformity, tradition | foot: person elder | chance: 55
+- U | ask the shaman for a second sign before believing the first | v: self-direction | foot: lesson one sign is not enough | chance: 85
+- B | go to each family head alone, and say what a speaker could do for them | title: parliamentary candidate | aims: member of parliament | v: power, achievement | foot: door kept your word | chance: 60
+- R | stand up at the fire that night and tell the band the dream yourself | title: parliamentary candidate | aims: member of parliament | v: stimulation, self-direction | foot: place rule.voice | chance: 60
 - G | bring the shaman the best of your kill, so the reading is told at every hearth | title: parliamentary candidate | mark: hid a wrong | closed: approval: a gift for a louder reading; backfire: the elders learn of the gift, and the dream counts for nothing | v: tradition, power | chance: 50
 - BG | remind the families that your line has spoken for the band before | grants: a following in the party | v: tradition, power | chance: 65
 - BR | call in every gift the families owe you, and ask for their voices | grants: allies in the party | v: power | chance: 65
-- UR | tell the dream as a story at every hearth, and watch who leans in | door | grants: canvassing | v: stimulation, achievement | chance: 85
-- WG | ask your partner and kin whether the hearth can spare you for a summer | v: benevolence, tradition | chance: 85
-- WU | thank the shaman, and say the band must choose its speaker in the open | mark: turned down a chance | v: universalism, conformity | chance: 85
+- UR | tell the dream as a story at every hearth, and watch who leans in | door | grants: canvassing | v: stimulation, achievement | foot: means ties+.06 | chance: 85
+- WG | ask your partner and kin whether the hearth can spare you for a summer | v: benevolence, tradition | foot: lesson ask the hearth before the fire | chance: 85
+- WU | thank the shaman, and say the band must choose its speaker in the open | mark: turned down a chance | v: universalism, conformity | foot: place rule.counsel | chance: 85
 works: The band takes the dream to heart, and things move the way {N} hoped.
 works: By the new moon the families are talking about {N}, and most of the talk is kind.
 fails: The elders say a dream is only a dream, and the talk moves on to other hearths.
@@ -162,13 +162,13 @@ scene tribal B: A feast is a bargain made in public. {N} wants to know which fam
 scene tribal R: {N} can already hear the drums and smell the meat over the fire. If there is to be a feast, it should be one the valley talks about for years.
 scene tribal G: The feasts of {Ns} grandmother are still remembered: the first meat of the season, the elders served first. Some ways are old because they work.
 - W | give a fair feast by custom, an equal share for every hearth | grants: good name in town | v: conformity, tradition | chance: 75
-- U | count the stores, keep enough for winter, and feast the band on the rest | v: security, achievement | chance: 85
+- U | count the stores, keep enough for winter, and feast the band on the rest | v: security, achievement | foot: means money-.03 | chance: 85
 - B | feast only the families whose voices will count at the fire | grants: allies in the party | v: power | mark: made an enemy | chance: 75
 - R | give it all: every skin and basket, one great night by the fire | takes: a campaign war chest | grants: a following in the party | v: achievement, stimulation | self_control: - | chance: 70
-- G | feast the families the old way, with the first meat and the elders served first | habit | v: tradition | chance: 70
+- G | feast the families the old way, with the first meat and the elders served first | habit | v: tradition | foot: person elder | chance: 70
 - RG | take the young hunters out, and feast the band on what you bring home | body: heavy | grants: a loyal campaign team | v: stimulation, benevolence | chance: 70
 - UB | borrow stores from kin, and keep a careful tally of what is owed | binds | grants: a campaign war chest | v: power, security | chance: 80
-- UG | refuse the custom: the stores belong to the winter, and the band knows it | identity | mark: turned down a chance | v: security, universalism | chance: 55
+- UG | refuse the custom: the stores belong to the winter, and the band knows it | identity | mark: turned down a chance | v: security, universalism | foot: mark defied an authority | chance: 55
 - WB | let the families who bring the most stand nearest the fire | grants: donors | v: power | chance: 75
 - WR | invite the families of your rival as well, and serve them first | grants: friends across the aisle | door | v: benevolence, universalism | chance: 55
 works: The feast is talked about at every hearth, and the families lean toward {N}.
@@ -203,16 +203,16 @@ scene magic U: {N} knows the oracle's old sayings by heart, and how many came tr
 scene magic B: By evening three lords who never knew {Ns} name have sent invitations to dine. {N} notes every one of them.
 scene magic R: The blood rushes to {Ns} face, and {N} has to stop from laughing aloud. Rise to what, and when?
 scene magic G: Some things are woven before anyone is born. {N} wonders whether this is one of them, or only an old voice in a tower.
-- W | tell the faction at once, and let its lord decide what to make of it | v: conformity | chance: 85
-- U | find out what the oracle asks of those it names, before doing anything else | v: self-direction, security | chance: 80
+- W | tell the faction at once, and let its lord decide what to make of it | v: conformity | foot: person patron | chance: 85
+- U | find out what the oracle asks of those it names, before doing anything else | v: self-direction, security | foot: person mentor | chance: 80
 - B | let the court believe it, and gather the favours that come with it | grants: friend in power | door | habit | v: power | mark: made a friend | chance: 75
-- R | laugh it off before the whole court, and say your fate is your own | v: self-direction | chance: 90
-- G | go home to the ward, and let what is meant to come find its way | v: tradition | chance: 85
+- R | laugh it off before the whole court, and say your fate is your own | v: self-direction | foot: mark defied an authority | chance: 90
+- G | go home to the ward, and let what is meant to come find its way | v: tradition | foot: lesson what is meant will find you | chance: 85
 - WUR | speak out against any office given by prophecy, your own included | mark: turned down a chance | grants: a name for straight talk | v: universalism | chance: 65
 - WBR | make the most of the stir, and speak in every hall while the realm listens | grants: known across the country | v: power, achievement | chance: 12
 - WBG | pledge the faction your loyalty, so that the prophecy rises with it | grants: allies in the party | v: security, conformity | chance: 70
 - URG | take the prophecy to heart, and ask the throne for a seat on its council | title: minister | requires: member of parliament | without: impossible | aims: minister | mark: took a wild risk | takes_if_fails: allies in the party | v: achievement, stimulation | chance: 25
-- UBG | say nothing, and quietly learn who at court now fears you | grants: counting the votes | v: power, security | chance: 80
+- UBG | say nothing, and quietly learn who at court now fears you | grants: counting the votes | v: power, security | foot: person rival | chance: 80
 works: The court's attention settles where {N} wants it, and the prophecy works in {Ns} favour.
 works: A year on, people still speak of the day the oracle named {N}, and doors open that were shut before.
 fails: The prophecy turns sour at court, and the lords who dined with {N} stop sending invitations.
@@ -244,14 +244,14 @@ scene magic U: {N} listens to every word with great care. Things under hills are
 scene magic B: Tomorrow the lots may go either way. Here is a certainty, and {N} has never turned down a certainty without hearing the price.
 scene magic R: The hair stands up on {Ns} arms. Part of {N} wants to run, and part wants to shout yes into the dark just to see what happens.
 scene magic G: The barrow was old when the city was a ring of huts. {N} remembers the stories {grandparent} told about people who made deals with what sleeps there.
-- W | tell the Order what lies under the hill, and let its wardens deal with it | mark: turned down a chance | v: conformity, security | chance: 85
+- W | tell the Order what lies under the hill, and let its wardens deal with it | mark: turned down a chance | v: conformity, security | foot: lesson some voices are best reported | chance: 85
 - U | answer with a promise worded so cleverly that it can never come due | title: member of parliament | mark: took a wild risk | v: self-direction, achievement | chance: 35
-- B | make it name the full price first, and promise nothing yet | v: power | chance: 75
+- B | make it name the full price first, and promise nothing yet | v: power | foot: door took a wild risk | chance: 75
 - R | accept: the seat tomorrow, and whatever it asks later | title: member of parliament | aims: member of parliament | binds | mark: took a wild risk | closed: law: a pact with an old power, forbidden by the Order; backfire: the Order finds the mark of it, and the seat is stripped | v: stimulation, achievement | chance: 70
-- G | leave bread and salt at the barrow's door, and go home without an answer | v: tradition | chance: 80
+- G | leave bread and salt at the barrow's door, and go home without an answer | v: tradition | foot: place faith.shrines | chance: 80
 - WUG | bind it by oath on its old name: the seat, at a price you set | title: member of parliament | binds | mark: took a wild risk | closed: law: a pact with an old power, forbidden by the Order; backfire: the Order's court, and the seat lost | v: security, tradition | chance: 45
-- WUB | refuse, and win the lots the long way, with every pledge counted twice | grants: counting the votes | v: achievement, conformity | self_control: + | chance: 70
-- WRG | go home, tell your partner everything, and decide together by morning | v: benevolence | chance: 85
+- WUB | refuse, and win the lots the long way, with every pledge counted twice | grants: counting the votes | v: achievement, conformity | self_control: + | foot: place rule.voice | chance: 70
+- WRG | go home, tell your partner everything, and decide together by morning | v: benevolence | foot: lesson a shared fear is lighter | chance: 85
 - UBR | ask for the seat and a following in the faction, and haggle hard over the price | title: member of parliament | grants: a following in the party | binds | mark: took a wild risk | closed: law: a pact with an old power, forbidden by the Order; backfire: the Order finds the mark of it, and the seat and the following are lost | v: power | chance: 70
 - BRG | refuse, and fight for every lot with your own people and your own strength | grants: a loyal campaign team | identity | v: achievement, self-direction | self_control: + | chance: 70
 works: By the time the urns are opened, {N} is sure the choice was right, whatever comes later.
@@ -286,16 +286,16 @@ scene magic U: {N} reads ahead while speaking. The fourth clause is broader than
 scene magic B: The oath binds whoever swears it. {N} wonders who else in the hall has sworn it, and how carefully.
 scene magic R: The words burn on the tongue. {N} has never liked promises that cannot be taken back, and these cannot.
 scene magic G: The first holders of the office swore these same words by the old well, before the city had walls. {N} feels the weight of all of them.
-- W | swear the oath plainly, every word, before the whole hall | binds | v: conformity, tradition | chance: 95
-- U | read every clause three times, and ask the mages what each one binds | grants: knowing the rules of the house | identity | habit | v: self-direction, security | chance: 90
+- W | swear the oath plainly, every word, before the whole hall | binds | v: conformity, tradition | foot: door kept your word | chance: 95
+- U | read every clause three times, and ask the mages what each one binds | grants: knowing the rules of the house | identity | habit | v: self-direction, security | foot: person mentor | chance: 90
 - B | swear it with a reservation held silent in your mind | mark: hid a wrong | closed: approval: an oath of office sworn in bad faith; backfire: the oath bites, and its mark shows on the oath-taker's hands for all to see | v: power, self-direction | self_control: - | chance: 85
 - R | refuse to swear, and give up the offices that need the oath | drops: minister; mayor; head of government | identity | mark: turned down a chance | v: self-direction | chance: 90
-- G | ask to swear it by the old well, as the first holders did | binds | v: tradition | chance: 70
-- BG | swear, and use the oath as a shield against every favour asked of you | v: tradition | self_control: + | chance: 85
-- BR | demand the old words be changed first, or swear no oath at all | v: power, self-direction | chance: 50
-- UG | ask the eldest mage for the oath's oldest wording, and swear that instead | door | binds | v: tradition, universalism | chance: 55
+- G | ask to swear it by the old well, as the first holders did | binds | v: tradition | foot: place faith.shrines | chance: 70
+- BG | swear, and use the oath as a shield against every favour asked of you | v: tradition | self_control: + | foot: lesson an oath makes refusing easier | chance: 85
+- BR | demand the old words be changed first, or swear no oath at all | v: power, self-direction | foot: mark defied an authority | chance: 50
+- UG | ask the eldest mage for the oath's oldest wording, and swear that instead | door | binds | v: tradition, universalism | foot: person elder | chance: 55
 - WR | swear, and tell the hall plainly which clause you will never turn on the people | grants: a name for straight talk | binds | v: benevolence, universalism | chance: 85
-- WU | petition the Order through the proper channel for a gentler wording | grants: drafting policy | v: conformity, universalism | chance: 35
+- WU | petition the Order through the proper channel for a gentler wording | grants: drafting policy | v: conformity, universalism | foot: place rule.counsel | chance: 35
 works: The oath settles, and {N} takes up the office with a clear sense of what it holds.
 works: Months later {N} feels the oath only as a quiet weight, the way an old ring feels on a finger.
 fails: The hall murmurs, and the Order's mages exchange a long look that {N} does not like.
@@ -327,14 +327,14 @@ scene magic B: {N} knows what the curse is for: to make {N} look weak before the
 scene magic R: {N} is furious, and hoarse, and more determined than ever to stand up in that chamber every single day.
 scene magic G: {N} thinks of the old healer beyond the walls, who knows the herbs for fevers and the salts for hexes, and of home, where nobody has to speak at all.
 - W | take the hex-mark to the Order's court, and name the rival though you lack proof | mark: made an enemy | closed: approval: an accusation without proof; backfire: the court clears the rival, and the accuser pays the costs | v: conformity, security | chance: 50
-- U | trace the hex-mark to whoever drew it, and take the proof to the Order | v: self-direction, security | chance: 65
+- U | trace the hex-mark to whoever drew it, and take the proof to the Order | v: self-direction, security | foot: person rival | chance: 65
 - B | pay a hedge-witch to turn the curse back on the rival | mark: hid a wrong | closed: law: buying a curse against an office-holder; backfire: the Order's court, and the office in danger | v: power | chance: 65
-- R | rise in the chamber every day anyway, cracked voice and all | habit | v: self-direction, stimulation | self_control: + | chance: 70
-- G | go to the old healer beyond the walls for a counter-charm of herbs and salt | v: tradition | chance: 65
+- R | rise in the chamber every day anyway, cracked voice and all | habit | v: self-direction, stimulation | self_control: + | foot: means health-.03 | chance: 70
+- G | go to the old healer beyond the walls for a counter-charm of herbs and salt | v: tradition | foot: place care.houses | chance: 65
 - RG | go home to your district, and tell your own people the story yourself | grants: good name in town | v: benevolence, tradition | chance: 70
-- UB | let it be known the hex has failed, and watch who in the faction flinches | v: power, security | chance: 70
-- UR | have a friend read out your speech mocking the hex, and dare the rival again | grants: rousing a crowd | v: stimulation, self-direction | chance: 65
-- WB | ask the faction to ward your house and lend you a stand-in for the votes | v: power | chance: 80
+- UB | let it be known the hex has failed, and watch who in the faction flinches | v: power, security | foot: lesson the guilty flinch first | chance: 70
+- UR | have a friend read out your speech mocking the hex, and dare the rival again | grants: rousing a crowd | v: stimulation, self-direction | foot: person friend | chance: 65
+- WB | ask the faction to ward your house and lend you a stand-in for the votes | v: power | foot: person colleague | chance: 80
 - WG | give up your offices with dignity, and wait out the hex at home | drops: member of parliament; mayor | mark: gave in to pressure | v: security, tradition | self_control: - | chance: 90
 works: Within a month {Ns} voice is back, and the matter is settled the way {N} chose.
 works: The story of the hex goes round the city, and most of the sympathy goes to {N}.

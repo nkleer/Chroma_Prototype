@@ -314,3 +314,5 @@
                 gp[n, j] = 1.0
                 end_goal(n, j, "achieved")
 
+        if AIM_ON:   # aims v1: a spark moment's try, seal or drop
+            aim_spark()

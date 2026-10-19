@@ -33,8 +33,12 @@
             need += -P["need_drain"] + P["need_drain"] * 0.7 * 5 * np.einsum("njc,nc->nj", NMP, nic)
             if NW_ON: nw_mark(NW_FADE)
             room = (1 - need) if P["satiate"] else 1.0
+            if SHH_ON:
+                sh_b0 = need[:, NIDX["belonging"]].copy()
             need += 0.12 * np.maximum(stakes, P["need_floor"])[:, None] * np.where(succ[:, None], np.einsum("njc,nc->nj", NMP, np.maximum(ea, 0)), 0) * act_ * room
             need += 0.06 * np.einsum("njc,nc->nj", NMP, np.minimum(ea0, 0)) * act_
+            if SHH_ON:
+                shared_history(sh_b0, room)
             if NW_ON: nw_mark(NW_ACT)
             # the table moves (§1): an act that worked feeds what lacked most, through its colours (one that failed, the
             # reverse, at half); habit ties the colours used to what lacks; held goals tie theirs to their domain's needs
@@ -51,8 +55,12 @@
             need += -P["need_drain"] + P["need_drain"] * 0.7 * 5 * (nic @ NMAP.T)
             if NW_ON: nw_mark(NW_FADE)
             room = (1 - need) if P["satiate"] else 1.0    # v6: a need that is nearly met gains less from each act (satiation)
+            if SHH_ON:
+                sh_b0 = need[:, NIDX["belonging"]].copy()
             need += 0.12 * np.maximum(stakes, P["need_floor"])[:, None] * np.where(succ[:, None], np.maximum(ea, 0) @ NMAP.T, 0) * act_ * room   # v6: quiet weeks meet needs too
             need += 0.06 * (np.minimum(ea0, 0) @ NMAP.T) * act_
+            if SHH_ON:
+                shared_history(sh_b0, room)
             if NW_ON: nw_mark(NW_ACT)
         if P["disc_win"]:   # v7 discipline: a hard thing done on purpose (the act the person meant, against the odds), most
             hw_ = tried & succ & (p_true < 0.4)          # formative in childhood as temperament is; slowly drifts back to even
