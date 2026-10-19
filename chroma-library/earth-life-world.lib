@@ -27,16 +27,16 @@ scene U: It works, and {N} can see why it works, which is better still. A dozen 
 scene B: Nobody else has this yet. {N} turns over what it could be worth, and to whom.
 scene R: {N} whoops out loud, alone in the room, and wants to ring everyone at once.
 scene G: It came the way good things grow, slowly and then all at once, like a seed that waited all winter in the ground.
-- W | take it to your mentor first, and let them judge it before anyone else hears | v: tradition, conformity | chance: 60
+- W | take it to your mentor first, and let them judge it before anyone else hears | v: tradition, conformity | foot: person mentor | chance: 60
 - U | quietly leave out the one result that does not fit, so the find looks clean | v: achievement | mark: hid a wrong | closed: approval: doctored results; backfire: someone repeats the work, and the whole find falls apart | chance: 45
-- B | keep it secret until you have worked out how to profit from it | v: power, achievement | chance: 55
-- R | tell everyone you know tonight, without checking a thing | v: stimulation | chance: 58
+- B | keep it secret until you have worked out how to profit from it | v: power, achievement | foot: means money+.06 | chance: 55
+- R | tell everyone you know tonight, without checking a thing | v: stimulation | foot: mark took a wild risk | chance: 58
 - G | take it as a gift, and fold it quietly into the everyday work | v: tradition (humility), security | mark: turned down a chance | chance: 66
-- WU | check it three times, write it up, and send it to the judges of such work | door | v: achievement, conformity | chance: 58
-- UB | make sure it is on record under your own name before anyone can copy it | v: power, achievement | chance: 80
+- WU | check it three times, write it up, and send it to the judges of such work | door | v: achievement, conformity | foot: mark learned a skill | chance: 58
+- UB | make sure it is on record under your own name before anyone can copy it | v: power, achievement | foot: means money+.05 | chance: 80
 - WR | share the credit loudly with everyone who helped, and throw them a party | v: benevolence, hedonism | mark: made a friend | chance: 78
 - RG | drop everything else and follow it wherever your gut leads | door | v: self-direction, stimulation | chance: 64 | back: took a wild risk
-- BG | say nothing, and let it grow quietly until you are far ahead of the rest | v: power, achievement | chance: 55
+- BG | say nothing, and let it grow quietly until you are far ahead of the rest | v: power, achievement | foot: door kept it hidden | chance: 55
 works: What {N} found turns out to be real, and other people start to use it.
 works not BG: {N} is asked to show how it works, and the room goes quiet to listen.
 fails: A week later it stops working, and {N} cannot make it happen again.
@@ -67,16 +67,16 @@ scene U: {N} wants to know exactly what the surgeon did, and how a few millimetr
 scene B: {N} has been given years back, years that were being taken away, and does not mean to waste a single one of them waiting on anyone.
 scene R: {N} cannot stop grinning. The world feels wide open again, and {N} wants to be out in it today.
 scene G: The body is knitting itself around the new part, the way bark closes over a cut branch. {N} lies still and lets it.
-- W | follow the recovery plan to the letter, every exercise, every day | v: conformity, security | chance: 85
-- U | read up on how the operation works, and ask the surgeon every question you have | v: self-direction | chance: 80
-- B | take charge of your own recovery, and be back on your feet before anyone expects | v: achievement, self-direction | chance: 60
+- W | follow the recovery plan to the letter, every exercise, every day | v: conformity, security | foot: means health+.06 | chance: 85
+- U | read up on how the operation works, and ask the surgeon every question you have | v: self-direction | foot: lesson knowing how it works helps | chance: 80
+- B | take charge of your own recovery, and be back on your feet before anyone expects | v: achievement, self-direction | foot: means freedom+.06 | chance: 60
 - R | go straight back to the thing you had given up, long before the doctor says | body: heavy | v: stimulation, hedonism | closed: approval: going against the surgeon's advice; backfire: a setback, and weeks lost | chance: 70 | back: defied an authority
-- G | take it slowly, and let the body heal at its own pace | v: security | chance: 79
-- W>R | keep every rule of recovery, so you can run, dance or play again by summer | v: hedonism, conformity | chance: 66
-- U>G | learn how the body heals, and work with it rather than against it | v: self-direction, universalism (nature) | chance: 75
-- B>W | promise yourself a reward for every week the exercises get done | v: achievement, conformity | chance: 88
-- R>U | test what the new body can do, a little further each day, to find its limits | body: light | v: stimulation, self-direction | chance: 88
-- G>B | let the family carry everything for months, long after you need them to | v: hedonism | act: let the family carry everything for months, long after they need them to | chance: 48
+- G | take it slowly, and let the body heal at its own pace | v: security | foot: lesson healing cannot be hurried | chance: 79
+- W>R | keep every rule of recovery, so you can run, dance or play again by summer | v: hedonism, conformity | foot: place gather.games | chance: 66
+- U>G | learn how the body heals, and work with it rather than against it | v: self-direction, universalism (nature) | foot: mark learned a skill | chance: 75
+- B>W | promise yourself a reward for every week the exercises get done | v: achievement, conformity | foot: mark kept your word | chance: 88
+- R>U | test what the new body can do, a little further each day, to find its limits | body: light | v: stimulation, self-direction | foot: means health+.05 | chance: 88
+- G>B | let the family carry everything for months, long after you need them to | v: hedonism | act: let the family carry everything for months, long after they need them to | foot: means ties-.05 | chance: 48
 works: Within weeks {N} is doing things that had slipped away years ago.
 works: {N} wakes one morning and realises the old trouble has not crossed {Ns} mind for days.
 fails: Recovery is slow and painful, and the gain is smaller than {N} was promised.
@@ -107,16 +107,16 @@ scene U: {N} wants to see the pictures from inside: the tiny tube, the eardrum, 
 scene B: There were presents in hospital, there is ice cream at home, and everybody is being very nice. {N} could get used to this.
 scene R: {N} can hear everything now, the birds, the television, a friend shouting from the end of the street, and wants to be out in all of it at once.
 scene G: {N} lies in the garden with eyes shut, listening to the bees and the leaves, sounds that were there all along.
-- W | keep every rule the nurse gave you, even the boring ones | v: conformity, security | chance: 82
-- U | ask the doctor to show you the pictures, and explain what they did | v: self-direction | act: ask the doctor to show them the pictures, and explain what was done | chance: 80
-- B | enjoy being fussed over, and ask for ice cream and the remote | v: hedonism, power | chance: 90
-- R | race back out to play long before you are allowed | act: race back out to play long before they are allowed | body: heavy | v: stimulation, hedonism | closed: approval: going against the doctor's advice; backfire: a setback, and weeks lost | chance: 78
-- G | rest, and let it mend in its own good time | v: security | chance: 90
-- W>R | keep to the doctor's rules, so you can be out playing again by summer | v: hedonism, conformity | chance: 84
-- U>G | ask how the body heals itself, and watch it get better day by day | v: self-direction, universalism (nature) | chance: 80
-- B>W | bargain for a treat for every day you stick to the rules without a fuss | v: conformity, hedonism | chance: 90
-- R>U | try out what you can do now, a little more each day, just to see | body: light | v: stimulation, self-direction | chance: 88
-- G>B | let the family wait on you for weeks, long after you need it | v: hedonism | act: let the family wait on them for weeks, long after they need it | chance: 68
+- W | keep every rule the nurse gave you, even the boring ones | v: conformity, security | foot: means health+.06 | chance: 82
+- U | ask the doctor to show you the pictures, and explain what they did | v: self-direction | act: ask the doctor to show them the pictures, and explain what was done | foot: lesson asking makes it less scary | chance: 80
+- B | enjoy being fussed over, and ask for ice cream and the remote | v: hedonism, power | foot: means ties+.03 | chance: 90
+- R | race back out to play long before you are allowed | act: race back out to play long before they are allowed | body: heavy | v: stimulation, hedonism | closed: approval: going against the doctor's advice; backfire: a setback, and weeks lost | foot: mark defied an authority | chance: 78
+- G | rest, and let it mend in its own good time | v: security | foot: lesson rest does its own work | chance: 90
+- W>R | keep to the doctor's rules, so you can be out playing again by summer | v: hedonism, conformity | foot: place gather.games | chance: 84
+- U>G | ask how the body heals itself, and watch it get better day by day | v: self-direction, universalism (nature) | foot: mark learned a skill | chance: 80
+- B>W | bargain for a treat for every day you stick to the rules without a fuss | v: conformity, hedonism | foot: mark kept your word | chance: 90
+- R>U | try out what you can do now, a little more each day, just to see | body: light | v: stimulation, self-direction | foot: means health+.05 | chance: 88
+- G>B | let the family wait on you for weeks, long after you need it | v: hedonism | act: let the family wait on them for weeks, long after they need it | foot: means ties-.04 | chance: 68
 works: Within a few weeks {N} has forgotten there was ever anything wrong, and so has everyone else.
 works: The teacher says {N} is a different child in class: listening, laughing, joining in.
 fails: Getting better is slow and sore, and {N} misses the end of term.
@@ -149,15 +149,15 @@ scene B: With this in hand, {N} can ask for more: a better place, better pay, a 
 scene R: {N} reads the result, drops the envelope on the floor, and runs to find {friend}.
 scene G: {grandparent} never had the chance to sit for anything like this. {N} thinks of that, holding the paper.
 - W | report the others you saw cheating, now that your own result is safe | v: conformity, universalism | mark: made an enemy | closed: approval: informing on classmates; backfire: the whole year shuts them out | chance: 38
-- U | go straight on to the next level of study, years more of it | binds | v: achievement, self-direction | chance: 72
-- B | use it at once to bargain for more: more money, more say, a better place | v: power, achievement | chance: 72
-- R | throw the biggest party anyone can remember | v: hedonism, stimulation | chance: 78
-- G | put the paper away in a drawer; the work matters, not the certificate | v: tradition (humility) | chance: 59
-- W>G | hold a proper family celebration, with the grandparents in the place of honour | v: tradition, benevolence | chance: 80
+- U | go straight on to the next level of study, years more of it | binds | v: achievement, self-direction | foot: place learn.higher | chance: 72
+- B | use it at once to bargain for more: more money, more say, a better place | v: power, achievement | foot: means money+.06 | chance: 72
+- R | throw the biggest party anyone can remember | v: hedonism, stimulation | foot: person friend | chance: 78
+- G | put the paper away in a drawer; the work matters, not the certificate | v: tradition (humility) | foot: mark learned a skill | chance: 59
+- W>G | hold a proper family celebration, with the grandparents in the place of honour | v: tradition, benevolence | foot: means ties+.05 | chance: 80
 - U>W | tutor the ones coming up behind, for free, with everything you learned | v: benevolence | chance: 71 | back: helped someone in need
-- B>U | pull every string you can to get into the best course there is | door | v: achievement, power | chance: 42
-- R>B | ride the high, and apply that same week for the next rung up | v: achievement, stimulation | chance: 55
-- G>R | spend the whole summer outdoors before deciding anything at all | door | v: self-direction, hedonism | chance: 72
+- B>U | pull every string you can to get into the best course there is | door | v: achievement, power | foot: person patron | chance: 42
+- R>B | ride the high, and apply that same week for the next rung up | v: achievement, stimulation | foot: mark took a wild risk | chance: 55
+- G>R | spend the whole summer outdoors before deciding anything at all | door | v: self-direction, hedonism | foot: means freedom+.05 | chance: 72
 works: The paper opens a door that was shut before.
 works not G: {N} hangs it on the wall, and for years catches sight of it with a quiet glow.
 fails: Everyone else seems to have the same paper, and it counts for less than {N} hoped.
@@ -189,15 +189,15 @@ scene B: {rival} only got a pass. {N} got a merit, and intends to make sure ever
 scene R: {N} reads the result, whoops, and runs to find {friend}.
 scene G: {grandparent} holds the certificate up to the light and says nobody in the family ever had one of these. {N} feels it go right through.
 - W | tell the teacher who skipped the hard parts and still passed | v: conformity, universalism | mark: made an enemy | closed: approval: telling tales on classmates; backfire: the class freezes the tell-tale out | chance: 35
-- U | start on the next grade straight away, and the one after that | binds | v: achievement, self-direction | chance: 65
-- B | ask for a reward for it: a later bedtime, more pocket money | v: power, achievement | chance: 82
-- R | beg for a party, and invite the whole class | v: hedonism, stimulation | chance: 70
-- G | put it away in a drawer, and just go on enjoying the thing itself | v: tradition (humility) | chance: 65
-- W>G | show it to the grandparents first, and let them make a fuss | v: tradition, benevolence | chance: 93
+- U | start on the next grade straight away, and the one after that | binds | v: achievement, self-direction | foot: mark learned a skill | chance: 65
+- B | ask for a reward for it: a later bedtime, more pocket money | v: power, achievement | foot: means freedom+.03 | chance: 82
+- R | beg for a party, and invite the whole class | v: hedonism, stimulation | foot: person friend | chance: 70
+- G | put it away in a drawer, and just go on enjoying the thing itself | v: tradition (humility) | foot: lesson the fun is in doing it | chance: 65
+- W>G | show it to the grandparents first, and let them make a fuss | v: tradition, benevolence | foot: means ties+.04 | chance: 93
 - U>W | help a younger child who is working for the same badge | v: benevolence | chance: 76 | back: helped someone in need
-- B>U | talk the grown-ups into lessons with the best teacher around | door | v: achievement, power | chance: 58
+- B>U | talk the grown-ups into lessons with the best teacher around | door | v: achievement, power | foot: person teacher | chance: 58
 - R>B | show it off to the ones who laughed at you, and gloat | v: power | mark: made an enemy | act: show it off to the ones who laughed at them, and gloat | chance: 42
-- G>R | spend the rest of the summer outdoors, with no lessons at all | door | v: self-direction, hedonism | chance: 65
+- G>R | spend the rest of the summer outdoors, with no lessons at all | door | v: self-direction, hedonism | foot: means freedom+.05 | chance: 65
 works not G: The certificate goes up on the fridge, and {N} stops to look at it every morning.
 works: {N} moves up to the next class with the older ones, a little taller than before.
 fails: Half the class got the same badge, and nobody seems very impressed.
@@ -228,9 +228,9 @@ scene R: {N} walks out of the bank into the sunshine, feeling light enough to fl
 scene G: That night {N} sleeps straight through until morning, the way {N} slept as a child.
 - W | pay back the friend who lent to you in the worst year, to the last penny | v: benevolence, conformity | mark: kept your word | act: pay back the friend who lent to them in the worst year, to the last penny | chance: 76
 - U | study money properly, so it never happens again | v: self-direction, security | mark: learned a skill | chance: 72
-- B | buy yourself the expensive thing you were refused all those years | v: hedonism, power | chance: 64
+- B | buy yourself the expensive thing you were refused all those years | v: hedonism, power | foot: means money-.06 | chance: 64
 - R | quit the job you only kept for the debts | door | v: self-direction, stimulation | mark: took a wild risk | chance: 62
-- G | keep every spare penny inside the family, and turn away the friend who asks | v: security, tradition | mark: refused someone in need | closed: approval: refusing the friend who stood by them; backfire: the friendship sours, and word gets round | chance: 75
+- G | keep every spare penny inside the family, and turn away the friend who asks | v: security, tradition | mark: refused someone in need | closed: approval: refusing the friend who stood by them; backfire: the friendship sours, and word gets round | foot: person friend lost | chance: 75
 - W>U | sit down with an adviser and draw up a proper plan for the years ahead | v: security | tags: win:money+.05 | chance: 74
 - U>B | work out how to make the spare money earn more money | v: achievement, power | tags: win:money+.05 | chance: 65
 - B>R | take out a new loan at once for the motorbike or the trip you always wanted | binds | v: hedonism, stimulation | mark: took a wild risk | tags: pay:money-.1 | chance: 32
@@ -266,13 +266,13 @@ scene B: A crowd has gathered and someone is filming. Even now, {N} notices that
 scene R: {Ns} heart is still hammering. {N} grips the stranger's hand and will not let go.
 scene G: The lake is flat and quiet again, as if nothing happened. {N} watches it and feels very small and very alive.
 - W | visit the stranger's family with a proper gift, and keep in touch every year | v: tradition, benevolence | mark: made a friend | chance: 59
-- U | go back to the spot and work out exactly what went wrong | v: self-direction, security | chance: 61
-- B | sell the story and the video to whoever pays most | v: power, achievement | chance: 48
-- R | hug the stranger and cry, right there on the shore | v: none clear (relief let out) | chance: 90
-- G | take it as a sign that you were meant to be there, that day | identity | v: none clear (a sense of fate) | chance: 72
+- U | go back to the spot and work out exactly what went wrong | v: self-direction, security | foot: lesson know the water before trusting it | chance: 61
+- B | sell the story and the video to whoever pays most | v: power, achievement | foot: means money+.05 | chance: 48
+- R | hug the stranger and cry, right there on the shore | v: none clear (relief let out) | foot: person friend | chance: 90
+- G | take it as a sign that you were meant to be there, that day | identity | v: none clear (a sense of fate) | foot: lesson some days you are needed | chance: 72
 - W>R | join the lifesaving club, with its drills and rotas, to be ready next time | door | v: benevolence, stimulation | chance: 65 | back: learned a skill
 - U>G | learn the stranger's whole story, and find out how your lives connect | door | v: self-direction, universalism | mark: made a friend | chance: 50
-- B>W | use all the attention to push the council for a rail and a lifebuoy | v: universalism, power | chance: 68
+- B>W | use all the attention to push the council for a rail and a lifebuoy | v: universalism, power | foot: place rule.voice | chance: 68
 - R>U | go back into the water the very next day, to master the fear | body: heavy | v: self-direction, stimulation | mark: took a wild risk | chance: 68
 - G>B | treat the stranger as kin from now on, and expect kin's loyalty back | binds | v: power, tradition | mark: made a friend | chance: 42
 works: {N} and the stranger stay in touch for years, two lives tied together by one afternoon.
@@ -305,14 +305,14 @@ scene B: A photographer from the local paper has come. {N}, wrapped in a blanket
 scene R: {N} clings to the stranger's wet sleeve and will not let go, crying and laughing at once.
 scene G: The lake is flat and quiet again, as if nothing happened. {N} watches the ducks come back and feels very small.
 - W | make a thank-you card for the stranger, and hand it over in person | v: tradition, benevolence | mark: made a friend | chance: 60
-- U | ask exactly what went wrong, and how the stranger knew what to do | v: self-direction, security | chance: 70
-- B | tell the story at school until everyone wants to hear it | v: power, achievement | chance: 90
-- R | cling to the stranger and cry, and refuse to let go | v: none clear (relief let out) | chance: 90
-- G | decide that someone was looking out for you that day | identity | v: none clear (a sense of fate) | act: decide that someone was looking out for them that day | chance: 75
-- W>R | start swimming lessons, and keep at them until you can swim a length | door | v: security, stimulation | chance: 72
+- U | ask exactly what went wrong, and how the stranger knew what to do | v: self-direction, security | foot: mark learned a skill | chance: 70
+- B | tell the story at school until everyone wants to hear it | v: power, achievement | foot: means ties+.04 | chance: 90
+- R | cling to the stranger and cry, and refuse to let go | v: none clear (relief let out) | foot: person friend | chance: 90
+- G | decide that someone was looking out for you that day | identity | v: none clear (a sense of fate) | act: decide that someone was looking out for them that day | foot: lesson help can come from nowhere | chance: 75
+- W>R | start swimming lessons, and keep at them until you can swim a length | door | v: security, stimulation | foot: mark learned a skill | chance: 72
 - U>G | write to the stranger to ask about their life, and keep writing | door | v: self-direction, universalism | mark: made a friend | chance: 50
-- B>W | use your picture in the paper to warn other children about the lake | v: universalism, power | chance: 66
-- R>U | go back into the water next week, with a grown-up close by, to beat the fear | body: heavy | v: self-direction, stimulation | chance: 75
+- B>W | use your picture in the paper to warn other children about the lake | v: universalism, power | foot: mark helped someone in need | chance: 66
+- R>U | go back into the water next week, with a grown-up close by, to beat the fear | body: heavy | v: self-direction, stimulation | foot: lesson the water can be trusted again | chance: 75
 - G>B | claim the stranger as one of the family, a grown-up on your side | binds | v: security, tradition | mark: made a friend | chance: 48
 works: The stranger comes to {Ns} birthday that year, and stays a friend of the family for years.
 works: The fright fades, and what stays is a story {N} tells with a strange, bright pride.
@@ -347,7 +347,7 @@ scene G: {elder} began this fight long before {N} joined it. Now {elder} sits in
 - U | study why it worked, and write it down for the next people who need to know | v: universalism, self-direction | mark: learned a skill | chance: 68
 - B | take the credit in the papers, and use the name it makes you | identity | v: power, achievement | mark: made an enemy | act: take the credit in the papers, and use the name it makes them | chance: 55
 - R | celebrate all night with everyone who marched | v: hedonism, benevolence | chance: 88 | back: made a friend
-- G | go home, tend your own garden, and let others carry the movement on | v: tradition (moderation), security | mark: turned down a chance | chance: 45
+- G | go home, tend your own garden, and let others carry the movement on | v: tradition (moderation), security | mark: turned down a chance | foot: means time+.06 | chance: 45
 - WUBG | keep the campaign going as a proper group, with a fund, a committee and a plan | binds | v: universalism, security | tags: commit:community | chance: 62
 - WUBR | turn the win into a model: a toolkit, a website, the same fight in ten towns | v: universalism, achievement | tags: commit:community | chance: 35
 - WURG | give the credit to everyone, and open the doors to anyone who wants to help | v: benevolence, universalism | tags: commit:community | chance: 78
@@ -381,16 +381,16 @@ scene U: {N} spreads every statement across the kitchen table and traces it back
 scene B: There are rules in bankruptcy, and there are gaps in the rules. {N} has already started to see them.
 scene R: {N} wants to smash something, shout at someone, and then stake the last of it on one throw.
 scene G: {grandparent} lost everything once, in a bad year, and started again from one rented room. Families come through this.
-- W | file for bankruptcy properly, declare everything, and start again from nothing | v: conformity, security | mark: owned up | chance: 70
+- W | file for bankruptcy properly, declare everything, and start again from nothing | v: conformity, security | mark: owned up | foot: means money-.10 | chance: 70
 - U | cook the books to hide how deep it goes, and buy a little time | v: security, power | mark: hid a wrong | closed: law: false accounts; backfire: the fraud is found, and the debt becomes a crime | chance: 35
 - B | move what is left into a relative's name before the creditors come | v: power, security | mark: hid a wrong | closed: law: hiding assets from creditors; backfire: the court undoes the transfer, and adds a fine | chance: 58
 - R | borrow from anyone who will lend, and stake it all on one last throw | binds | v: stimulation, power | mark: took a wild risk | chance: 12
 - G | give up the home, move in with family, and live on very little | v: security, tradition | mark: moved away | chance: 72
 - WUBG | agree a ten-year plan with every creditor, and pay each one back in full | binds | v: security, conformity | mark: kept your word | chance: 45
-- WUBR | retrain in a new trade, and build a new business from the wreck of the old | door | v: achievement, self-direction | chance: 50
-- WURG | pay the friends and small traders you owe first, and keep nothing back | identity | v: benevolence, universalism | chance: 70
+- WUBR | retrain in a new trade, and build a new business from the wreck of the old | door | v: achievement, self-direction | foot: mark learned a skill | chance: 50
+- WURG | pay the friends and small traders you owe first, and keep nothing back | identity | v: benevolence, universalism | foot: mark kept your word | chance: 70
 - WBRG | fight every creditor in court, and keep your home at any cost | v: power (resources) | mark: made an enemy | chance: 30
-- UBRG | walk away from the wreck, leave town, and start over where nobody knows you | v: self-direction | mark: left home | act: walk away from the wreck, leave town, and start over where nobody knows them | chance: 50
+- UBRG | walk away from the wreck, leave town, and start over where nobody knows you | v: self-direction | mark: left home | act: walk away from the wreck, leave town, and start over where nobody knows them | foot: mark moved away | chance: 50
 works: It takes years, but {N} stands up again, poorer and steadier.
 works: Old friends turn up with small loans and large kindness, and {N} does not forget it.
 fails: The debts follow {N} for a decade, into every new start.
@@ -420,16 +420,16 @@ scene U: {N} reads the tenancy agreement line by line at midnight, looking for t
 scene B: The landlord wants the place empty so the rent can double. {N} knows exactly what it is worth to be rid of a tenant who will not leave.
 scene R: {N} rips the notice off the door, then stands shaking in the hallway, too angry to think.
 scene G: The worn step, the tree at the window, the pencil marks on the door frame: {N} has put down roots here, and now they are being pulled up.
-- W | go to legal aid, pay what you can, and keep every letter in order | v: security, conformity | chance: 58
+- W | go to legal aid, pay what you can, and keep every letter in order | v: security, conformity | foot: means money-.05 | chance: 58
 - U | dig through the tenancy law until you find the clause that buys more time | v: security, self-direction | mark: learned a skill | chance: 45
 - B | strike a deal: leave early and quietly, in return for cash in hand | v: power, security | mark: moved away | chance: 78
 - R | refuse to go, and bar the door when the bailiffs come | body: heavy | v: self-direction | mark: defied an authority | closed: law: resisting a lawful eviction; backfire: removed by force, with a fine and a record | chance: 25
-- G | take any room at all in the same neighbourhood, to stay near your roots | v: tradition, security | mark: stayed home | chance: 62
-- WUBG | move somewhere cheaper, save for years, and buy a small place nobody can take | binds | v: security, achievement | chance: 60
+- G | take any room at all in the same neighbourhood, to stay near your roots | v: tradition, security | mark: stayed home | foot: person neighbour | chance: 62
+- WUBG | move somewhere cheaper, save for years, and buy a small place nobody can take | binds | v: security, achievement | foot: mark moved away; means money+.06 | chance: 60
 - WUBR | go where the work is, and rebuild from a single rented room in the city | v: achievement, self-direction | mark: moved away | chance: 65
 - WURG | join the neighbours facing the same, and form a tenants' union together | v: universalism, benevolence | mark: made a friend | chance: 60
 - WBRG | fight the landlord in court and on the doorstep until they back down | v: power (resources) | mark: made an enemy | chance: 40
-- UBRG | sell almost everything, live out of a van, and see where the road goes | door | v: self-direction, stimulation | mark: left home | tech: car | chance: 68
+- UBRG | sell almost everything, live out of a van, and see where the road goes | door | v: self-direction, stimulation | mark: left home | tech: car | foot: means freedom+.10 | chance: 68
 works not R WBRG: {N} finds a new place before the month is out, smaller and somehow lighter.
 works: The neighbours rally round, and {N} learns who will turn up with a van at seven in the morning.
 fails: {N} spends months on friends' sofas, moving every few weeks.
@@ -460,15 +460,15 @@ scene B: Fuel, medicine and batteries are worth three times what they were yeste
 scene R: {Ns} blood is up. Someone is coming for {Ns} town, {Ns} people, {Ns} street, and {N} will not sit still for it.
 scene G: {N} looks at the house, the garden, the old trees along the street. People have lived here through other wars, and stayed.
 - W | report the neighbour you suspect of helping the other side | v: security, conformity | mark: made an enemy | closed: approval: informing on a neighbour on a suspicion; backfire: the neighbour is taken away, and the street never trusts them again | chance: 35
-- U | keep your head down, hide the food, and plan every road out | v: security | chance: 65
+- U | keep your head down, hide the food, and plan every road out | v: security | foot: door kept it hidden | chance: 65
 - B | sell fuel and medicine under the counter, at whatever people will pay | v: power, achievement | mark: hid a wrong | closed: law: wartime profiteering; backfire: denounced, and the stock seized | chance: 62
 - R | join the fighting at the front, as soon as they will take you | binds | body: heavy | v: security, stimulation | mark: took a wild risk | act: join the fighting at the front, as soon as they will take them | role: men | chance: 55
-- G | bar the door, keep every scrap of food for your own, and turn strangers away | v: security | mark: refused someone in need | closed: approval: turning away people in need in wartime; backfire: shunned when their own turn comes | chance: 52
-- WUBG | dig in for a long war: ration, store, and keep the household going for years | v: security, tradition | mark: stayed home | chance: 58
-- WUBR | put your trade to work for the war: the factory, the radio room, the field hospital | v: security, achievement | chance: 68
+- G | bar the door, keep every scrap of food for your own, and turn strangers away | v: security | mark: refused someone in need | closed: approval: turning away people in need in wartime; backfire: shunned when their own turn comes | foot: means ties-.06 | chance: 52
+- WUBG | dig in for a long war: ration, store, and keep the household going for years | v: security, tradition | mark: stayed home | foot: means money-.06 | chance: 58
+- WUBR | put your trade to work for the war: the factory, the radio room, the field hospital | v: security, achievement | foot: place prot.host | chance: 68
 - WURG | open your home to the wounded and the families fleeing, and share what you have | v: benevolence, universalism | mark: helped someone in need | chance: 68
-- WBRG | take up arms with the neighbours, and hold the street yourselves | body: heavy | v: benevolence (in-group), power | role: men | chance: 42
-- UBRG | slip across the border before the call-up, and start over wherever you land | v: self-direction, security | mark: left home | closed: law: evading the call-up; backfire: turned back at the border, and charged | law: -conscription | chance: 55
+- WBRG | take up arms with the neighbours, and hold the street yourselves | body: heavy | v: benevolence (in-group), power | role: men | foot: place prot.watch; mark took a wild risk | chance: 42
+- UBRG | slip across the border before the call-up, and start over wherever you land | v: self-direction, security | mark: left home | closed: law: evading the call-up; backfire: turned back at the border, and charged | law: -conscription | foot: mark moved away | chance: 55
 works: When the guns finally stop, {N} is still standing, and so are the people {N} loves most.
 works: {N} comes through the war with a few friends for life, made in the worst of it.
 fails: The war takes years from {N}, and the house with it.
@@ -498,16 +498,16 @@ scene U: {N} wants to know exactly how it got out: who saw it first, who passed 
 scene B: Somebody leaked this on purpose. {N} wants to know who gains from it, and how to turn it round.
 scene R: {Ns} face burns. {N} wants to shout at every one of them that they have no idea what really happened.
 scene G: It will pass, like weather. {N} has watched other people's storms blow over, and everyone forget.
-- W | own up in public, and name everyone else who was in on it too | identity | v: conformity, universalism | mark: owned up | closed: approval: informing on the others; backfire: they turn on the one who named them, and the story doubles | chance: 42
+- W | own up in public, and name everyone else who was in on it too | identity | v: conformity, universalism | mark: owned up | closed: approval: informing on the others; backfire: they turn on the one who named them, and the story doubles | foot: person rival | chance: 42
 - U | put out a careful account that tells the truth but leaves out the worst part | v: security | mark: hid a wrong | closed: approval: misleading people; backfire: the missing part comes out, and nobody believes a word after | chance: 55
 - B | get your side out first, and turn the story so you look like the wronged party | v: power, security | mark: hid a wrong | chance: 60
-- R | face them all down, head up, and refuse to hide | identity | v: self-direction | chance: 65
-- G | stay out of sight for a while, and let it blow over | v: security | chance: 65
-- W>B | get someone everyone respects to vouch for you in public | v: power, security | act: get someone everyone respects to vouch for them in public | chance: 52
-- U>R | write your whole side of it, honestly and at length, where everyone can read it | identity | v: self-direction | chance: 45
-- B>G | quietly call in favours until the group takes you back | v: security, power | act: quietly call in favours until the group takes them back | chance: 65
-- R>W | go to each person you hurt, face to face, and say sorry | v: benevolence | mark: owned up | chance: 80
-- G>U | talk it through with the oldest, wisest person you know, until you understand it | v: tradition, self-direction | chance: 72
+- R | face them all down, head up, and refuse to hide | identity | v: self-direction | foot: lesson head up, the talk fades | chance: 65
+- G | stay out of sight for a while, and let it blow over | v: security | foot: means ties-.05 | chance: 65
+- W>B | get someone everyone respects to vouch for you in public | v: power, security | act: get someone everyone respects to vouch for them in public | foot: person patron | chance: 52
+- U>R | write your whole side of it, honestly and at length, where everyone can read it | identity | v: self-direction | foot: door owned up | chance: 45
+- B>G | quietly call in favours until the group takes you back | v: security, power | act: quietly call in favours until the group takes them back | foot: person go-between | chance: 65
+- R>W | go to each person you hurt, face to face, and say sorry | v: benevolence | mark: owned up | foot: means ties+.05 | chance: 80
+- G>U | talk it through with the oldest, wisest person you know, until you understand it | v: tradition, self-direction | foot: person elder | chance: 72
 works: Within a month people are talking about something else, and {N} can breathe again.
 works: The friends who stay through it turn out to be the ones worth having.
 fails: It follows {N} for years: every new person seems to have heard.
@@ -538,15 +538,15 @@ scene U: {N} wants the numbers: the blood pressure, the cholesterol, the odds fo
 scene B: There are people who would step in fast if {N} looked weak. Nobody needs to know the whole of it.
 scene R: {N} nearly went, and now every sound and taste is sharper. {N} wants to live every hour that is left, loudly.
 scene G: The body has spoken plainly, in the only language it has. {N} lies still and listens.
-- W | take every pill, keep every appointment, and keep to the diet to the letter | habit | v: security, conformity | chance: 68
-- U | track every number, and test what brings each one down | habit | v: self-direction, security | chance: 65
-- B | hide how bad it was, and go back early, so nobody thinks you are slipping | v: power, achievement | chance: 60
-- R | go back to the old habits within the month; life is for living | habit | v: hedonism | closed: approval: against the doctors' orders; backfire: back in hospital within the year | chance: 50
-- G | slow your whole life down: fewer hours, more walks, early nights | v: security | chance: 74
-- W>R | join the rehabilitation class, do every drill, and enter a charity walk | v: achievement, stimulation | chance: 78
+- W | take every pill, keep every appointment, and keep to the diet to the letter | habit | v: security, conformity | foot: means health+.06 | chance: 68
+- U | track every number, and test what brings each one down | habit | v: self-direction, security | foot: mark learned a skill | chance: 65
+- B | hide how bad it was, and go back early, so nobody thinks you are slipping | v: power, achievement | foot: door kept it hidden | chance: 60
+- R | go back to the old habits within the month; life is for living | habit | v: hedonism | closed: approval: against the doctors' orders; backfire: back in hospital within the year | foot: means health-.06 | chance: 50
+- G | slow your whole life down: fewer hours, more walks, early nights | v: security | foot: means time+.06 | chance: 74
+- W>R | join the rehabilitation class, do every drill, and enter a charity walk | v: achievement, stimulation | foot: place care.houses | chance: 78
 - U>G | learn to cook the way your grandparents ate, plain food made from scratch | v: tradition, security | chance: 65 | back: learned a skill
-- B>W | pay for the best private specialist, and get the whole family checked too | v: security | chance: 75
-- R>U | climb the steepest hill around, to find out what the heart can take now | body: heavy | v: stimulation, self-direction | chance: 52
+- B>W | pay for the best private specialist, and get the whole family checked too | v: security | foot: means money-.08 | chance: 75
+- R>U | climb the steepest hill around, to find out what the heart can take now | body: heavy | v: stimulation, self-direction | foot: mark took a wild risk | chance: 52
 - G>B | throw away the pills and trust the old remedies, so nobody tells you what to do | v: self-direction, tradition | closed: approval: against medical advice; backfire: a second scare, and a worse one | act: throw away the pills and trust the old remedies, so nobody tells them what to do | chance: 35 | back: defied an authority
 works: Six months on, {N} walks further than before, and the numbers on the chart are falling.
 works: {N} looks round the table at the people there and feels lucky in a way {N} never did before.
@@ -578,16 +578,16 @@ scene U: {N} goes home and reads everything: how it works, the trials, the forum
 scene B: {N} will not let this decide what {N} can and cannot do. If there is a way round it, {N} will find it.
 scene R: {N} wants to tear the leaflet in half. {N} is not ill; {N} feels fine, mostly, most days.
 scene G: Bodies change, the way trees lean with the wind. This is part of {Ns} body now, and {N} will have to learn its ways.
-- W | learn the routine, and keep it every single day without fail | v: security, conformity | chance: 60
-- U | read every study, and test on yourself what helps and what does not | v: self-direction | chance: 57
-- B | fit it into your days on your own terms, and ask nobody for favours | v: self-direction | chance: 65
+- W | learn the routine, and keep it every single day without fail | v: security, conformity | foot: means health+.06 | chance: 60
+- U | read every study, and test on yourself what helps and what does not | v: self-direction | foot: mark learned a skill | chance: 57
+- B | fit it into your days on your own terms, and ask nobody for favours | v: self-direction | foot: means freedom+.05 | chance: 65
 - R | ignore the diet and the pills, and carry on as before | v: hedonism, self-direction | chance: 28 | back: defied an authority
-- G | accept it as your lot, and make room for it without a fuss | v: tradition (accepting your portion) | chance: 62
+- G | accept it as your lot, and make room for it without a fuss | v: tradition (accepting your portion) | foot: lesson make room and carry on | chance: 62
 - W>G | join the patients' group that meets every month, and become one of its regulars | v: conformity, benevolence | mark: made a friend | chance: 65
 - U>W | learn the illness well, and help the newly diagnosed make sense of it | v: benevolence, universalism | chance: 65 | back: helped someone in need
 - B>U | push the doctors hard until they put you on the newest treatment there is | v: power, achievement | act: push the doctors hard until they put them on the newest treatment there is | tech: modern medicine | chance: 75 | back: defied an authority
-- R>B | refuse to be slowed down, and train harder than anyone around you | body: heavy | v: achievement, power | act: refuse to be slowed down, and train harder than anyone around them | chance: 66
-- G>R | go back to the outdoors, walk every day, and let the body find its own strength | habit | v: universalism (nature), hedonism | chance: 66
+- R>B | refuse to be slowed down, and train harder than anyone around you | body: heavy | v: achievement, power | act: refuse to be slowed down, and train harder than anyone around them | foot: place gather.games | chance: 66
+- G>R | go back to the outdoors, walk every day, and let the body find its own strength | habit | v: universalism (nature), hedonism | foot: means health+.05 | chance: 66
 works not R: Within a year the routine is second nature, and most days {N} hardly thinks about it.
 works: {N} learns the illness well enough to bend life around it, rather than the other way round.
 fails: A bad spell lands {N} in hospital, and the illness takes a step forward.
@@ -618,16 +618,16 @@ scene U: {N} wants to know how the little machine at the clinic can tell what is
 scene B: Since the diagnosis {N} gets let off games, gets extra snacks and gets asked every day how {N} is feeling. Some of that, {N} decides, is not so bad.
 scene R: {N} hates the medicine, hates the check-ups, and hates being the one who has to stop and sit down while everyone else is still running.
 scene G: {grandparent} has had the same thing for forty years, and shows {N} the little kit kept in a handbag. It is just part of the day, {grandparent} says, like brushing teeth.
-- W | take the medicine at the right times every day, without being reminded | v: security, conformity | chance: 55
-- U | ask the nurse how it all works, and learn to check it yourself | v: self-direction | chance: 64
-- B | use it to get out of the lessons and jobs you do not like | v: hedonism, power | chance: 48
-- R | skip the medicine when nobody is looking, and play as if nothing were wrong | v: hedonism, self-direction | chance: 22
-- G | get used to it little by little, until it is just part of the day | v: tradition (accepting your portion) | chance: 78
+- W | take the medicine at the right times every day, without being reminded | v: security, conformity | foot: means health+.06 | chance: 55
+- U | ask the nurse how it all works, and learn to check it yourself | v: self-direction | foot: mark learned a skill | chance: 64
+- B | use it to get out of the lessons and jobs you do not like | v: hedonism, power | foot: means freedom+.03 | chance: 48
+- R | skip the medicine when nobody is looking, and play as if nothing were wrong | v: hedonism, self-direction | foot: means health-.06 | chance: 22
+- G | get used to it little by little, until it is just part of the day | v: tradition (accepting your portion) | foot: lesson hard things become ordinary | chance: 78
 - W>G | join the club for children with the same illness, and go every month | v: conformity, benevolence | mark: made a friend | chance: 68
-- U>W | explain the illness to your class, so everyone knows what to do if needed | v: benevolence, universalism | chance: 64
-- B>U | pester the grown-ups and the doctor until you get the newest gadget for it | v: power, hedonism | tech: modern medicine | chance: 68
-- R>B | refuse to sit out, and race to beat everyone at sports day anyway | body: heavy | v: achievement, power | chance: 68
-- G>R | play outdoors every spare hour, and let the body grow strong in its own way | habit | v: universalism (nature), hedonism | chance: 62
+- U>W | explain the illness to your class, so everyone knows what to do if needed | v: benevolence, universalism | foot: means ties+.04 | chance: 64
+- B>U | pester the grown-ups and the doctor until you get the newest gadget for it | v: power, hedonism | tech: modern medicine | foot: lesson pestering sometimes pays off | chance: 68
+- R>B | refuse to sit out, and race to beat everyone at sports day anyway | body: heavy | v: achievement, power | foot: place gather.games | chance: 68
+- G>R | play outdoors every spare hour, and let the body grow strong in its own way | habit | v: universalism (nature), hedonism | foot: means health+.05 | chance: 62
 works not R: Within a few months the routine is just part of the day, and {N} hardly mentions it.
 works: {N} knows the illness so well by now that {N} explains it to a new teacher without being asked.
 fails: A bad spell means a night in hospital, and {N} misses the school trip everyone was talking about.
@@ -657,16 +657,16 @@ scene U: {N} notices the thoughts run round the same tracks every night, and tri
 scene B: {N} has stopped answering messages. Better to be alone than to let anyone see how weak {N} feels.
 scene R: Some days {N} feels nothing at all; other days everything hurts at once, and {N} snaps at whoever is nearest.
 scene G: It is like a winter that will not lift. {N} knows that winters end, but cannot feel it.
-- W | keep every duty and appointment, and hold the days together by force of will | v: conformity, security | chance: 46
-- U | keep a diary of every mood, and work out what sets it off | habit | v: self-direction | chance: 49
-- B | cut everyone off, and rely on nobody but yourself | habit | v: security, self-direction | chance: 30
-- R | stay up all night with loud music and screens, anything to stop thinking | habit | v: hedonism | chance: 24
-- G | rest, eat what you can, and wait for the season to turn | v: security | chance: 48
-- W>U | go to the doctor, and follow the treatment exactly as prescribed | v: security, conformity | chance: 65
-- U>B | read up on the illness, and decide for yourself which treatment to take | v: self-direction, power | chance: 52
+- W | keep every duty and appointment, and hold the days together by force of will | v: conformity, security | foot: lesson duty can carry you a while | chance: 46
+- U | keep a diary of every mood, and work out what sets it off | habit | v: self-direction | foot: mark learned a skill | chance: 49
+- B | cut everyone off, and rely on nobody but yourself | habit | v: security, self-direction | foot: means ties-.08 | chance: 30
+- R | stay up all night with loud music and screens, anything to stop thinking | habit | v: hedonism | foot: means health-.05 | chance: 24
+- G | rest, eat what you can, and wait for the season to turn | v: security | foot: lesson some seasons only pass slowly | chance: 48
+- W>U | go to the doctor, and follow the treatment exactly as prescribed | v: security, conformity | foot: place care.houses | chance: 65
+- U>B | read up on the illness, and decide for yourself which treatment to take | v: self-direction, power | foot: mark learned a skill | chance: 52
 - B>R | drop the people and duties dragging you down, without explaining yourself | v: self-direction | mark: broke your word | act: drop the people and duties dragging them down, without explaining themselves | chance: 55
 - R>G | tell a friend the whole raw truth of it, and let the friend stay close | v: benevolence | chance: 74 | back: made a friend
-- G>W | lean on the family and its old routines, and let them carry the weight a while | v: tradition, security | chance: 57
+- G>W | lean on the family and its old routines, and let them carry the weight a while | v: tradition, security | foot: means ties+.05 | chance: 57
 works: Slowly, almost without noticing, {N} starts to laugh at things again.
 works: One morning in spring {N} wakes and the weight has lifted a little, and then a little more.
 fails: The dark season drags on for months, and {N} loses a term, a job or a friend to it.
@@ -696,16 +696,16 @@ scene U: {N} lies awake trying to work out why everything feels so heavy, when n
 scene B: {N} has started saying "fine" to everyone, in just the right voice. It is easier than anyone knowing.
 scene R: Some days {N} cries over nothing; other days {N} snaps at {sibling} over nothing at all, and then feels worse.
 scene G: It is like a long grey winter inside. {N} sits on the windowsill and watches the rain, waiting for something to change.
-- W | keep going to school and doing the homework, even on the worst days | v: conformity, security | chance: 45
-- U | draw or write how each day feels, to find out what makes it worse | habit | v: self-direction | chance: 50
-- B | tell everyone you are fine, and keep to your room | habit | v: security, self-direction | chance: 26
-- R | play games on a screen late into the night, anything not to think | habit | v: hedonism | chance: 22
-- G | rest, curl up somewhere cosy, and wait for the grey to pass | v: security | chance: 46
-- W>U | tell a parent or a teacher, and go with them to see the doctor | v: security, conformity | chance: 66
-- U>B | look up why people feel like this, and work out your own ways to cope | v: self-direction, power | chance: 45
+- W | keep going to school and doing the homework, even on the worst days | v: conformity, security | foot: lesson small days still count | chance: 45
+- U | draw or write how each day feels, to find out what makes it worse | habit | v: self-direction | foot: mark learned a skill | chance: 50
+- B | tell everyone you are fine, and keep to your room | habit | v: security, self-direction | foot: means ties-.05 | chance: 26
+- R | play games on a screen late into the night, anything not to think | habit | v: hedonism | foot: means health-.04 | chance: 22
+- G | rest, curl up somewhere cosy, and wait for the grey to pass | v: security | foot: lesson rest helps a little | chance: 46
+- W>U | tell a parent or a teacher, and go with them to see the doctor | v: security, conformity | foot: place care.houses | chance: 66
+- U>B | look up why people feel like this, and work out your own ways to cope | v: self-direction, power | foot: mark learned a skill | chance: 45
 - B>R | quit the clubs and lessons that feel like too much, and refuse to explain | v: self-direction | mark: broke your word | chance: 50
-- R>G | tell a friend how it really feels, and let them stay close | v: benevolence | chance: 72
-- G>W | stay close to the family, and let the everyday routines carry you along | v: tradition, security | act: stay close to the family, and let the everyday routines carry them along | chance: 60
+- R>G | tell a friend how it really feels, and let them stay close | v: benevolence | foot: person friend | chance: 72
+- G>W | stay close to the family, and let the everyday routines carry you along | v: tradition, security | act: stay close to the family, and let the everyday routines carry them along | foot: means ties+.04 | chance: 60
 works: One Saturday {N} asks to go out to play, for the first time in weeks.
 works: With help the grey lifts slowly, and by spring {N} is laughing with {friend} again.
 fails: The grey drags on for months, and {N} falls behind at school and drifts away from friends.
@@ -734,15 +734,15 @@ scene U: {N} has a theory about why it is all under control. The theory has more
 scene B: {N} can handle it. {N} has handled everything else. Nobody needs to know, as long as {N} is careful.
 scene R: It is the one bright thing in a flat week, and {N} is not ready to give it up.
 scene G: It runs in the family: {parent} had the same hunger, and {N} always swore it would stop here.
-- W | promise someone you trust that you will stop, and check in every week | binds | v: conformity, security | chance: 36
+- W | promise someone you trust that you will stop, and check in every week | binds | v: conformity, security | foot: person mentor | chance: 36
 - U | invent a cover story for every missing hour and every missing coin | v: hedonism, security | mark: hid a wrong | closed: approval: lying to the people closest; backfire: the stories unravel all at once | self_control: - | chance: 12
-- B | tell yourself you can manage it, and arrange your days around it | habit | v: hedonism, self-direction | chance: 20
-- R | chase the high again tonight, and worry about it tomorrow | habit | v: hedonism, stimulation | chance: 10
-- G | stop for the sake of the family, starting today | v: benevolence, tradition | chance: 35
-- W>R | join a twelve-step group, and follow the steps to get your life back | habit | v: conformity, self-direction | chance: 40
-- U>G | go on a doctor's programme, and cut down slowly over months | binds | v: security | chance: 50
-- B>W | strike a bargain with yourself: strict limits, and weekends only | v: security, hedonism | chance: 38
-- R>U | quit overnight, tell everyone, and find out what you are made of | v: self-direction, stimulation | mark: owned up | self_control: + | chance: 42
+- B | tell yourself you can manage it, and arrange your days around it | habit | v: hedonism, self-direction | foot: means time-.06 | chance: 20
+- R | chase the high again tonight, and worry about it tomorrow | habit | v: hedonism, stimulation | foot: means health-.06 | chance: 10
+- G | stop for the sake of the family, starting today | v: benevolence, tradition | foot: means ties+.05 | chance: 35
+- W>R | join a twelve-step group, and follow the steps to get your life back | habit | v: conformity, self-direction | foot: place gather.talk | chance: 40
+- U>G | go on a doctor's programme, and cut down slowly over months | binds | v: security | foot: place care.houses | chance: 50
+- B>W | strike a bargain with yourself: strict limits, and weekends only | v: security, hedonism | foot: door kept your word | chance: 38
+- R>U | quit overnight, tell everyone, and find out what you are made of | v: self-direction, stimulation | mark: owned up | self_control: + | foot: means health+.06 | chance: 42
 - G>B | close ranks with the family, and shut out anyone who asks questions | v: security | mark: hid a wrong | closed: approval: hiding it from those who could help; backfire: it grows in the dark, and help comes late | chance: 15
 works not U B R: With help, {N} gets free of it, one day and then another.
 works: {N} stops, slips, and stops again, and this time it holds.

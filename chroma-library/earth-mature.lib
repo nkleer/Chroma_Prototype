@@ -740,14 +740,14 @@ scene U: {N} stands in the empty bedroom and realises there are whole hours in t
 scene B: For twenty years every choice was made around the children. Now {N} gets the choosing back.
 scene R: {N} waves until the car turns the corner, then sits down on the stairs and sobs.
 scene G: The nest is empty, as nests become. {N} remembers {Ns} own parents standing on a doorstep just like this.
-- W | keep the Sunday family dinner going, and expect them home for it | v: tradition, conformity | chance: 65
-- U | sign up for the degree you put off for twenty years | binds | v: self-direction | chance: 75
-- B | turn their bedroom into the study you always wanted, that same week | v: self-direction | chance: 90
-- R | book the trip you postponed for twenty years, leaving next week | door | v: stimulation | chance: 85
-- G | leave their room exactly as it is, and let the quiet settle | v: tradition | chance: 68
+- W | keep the Sunday family dinner going, and expect them home for it | v: tradition, conformity | foot: place gather.house | chance: 65
+- U | sign up for the degree you put off for twenty years | binds | v: self-direction | foot: place learn.higher | chance: 75
+- B | turn their bedroom into the study you always wanted, that same week | v: self-direction | foot: means freedom+.03 | chance: 90
+- R | book the trip you postponed for twenty years, leaving next week | door | v: stimulation | foot: means money-.06 | chance: 85
+- G | leave their room exactly as it is, and let the quiet settle | v: tradition | foot: lesson letting go takes time | chance: 68
 - BG | sell the big family house and move to a small cottage near the woods | v: security, universalism (nature) | mark: moved away | tags: win:money+.1 | chance: 68
-- UB | check where they are on the family phone plan every night | v: security, power | closed: approval: spying on a grown child; backfire: found out, and the sharing is switched off | tech: phone | chance: 50
-- UR | turn the garage into a workshop and start inventing again | v: self-direction, stimulation | chance: 72
+- UB | check where they are on the family phone plan every night | v: security, power | closed: approval: spying on a grown child; backfire: found out, and the sharing is switched off | tech: phone | foot: door kept it hidden | chance: 50
+- UR | turn the garage into a workshop and start inventing again | v: self-direction, stimulation | foot: place prod.craft | chance: 72
 - WG | take in a foster child, now that there is room | binds | v: benevolence | mark: helped someone in need | chance: 50
 - WR | throw yourself into volunteering at the hospice, with all the energy you gave them | v: benevolence | chance: 80 | back: helped someone in need
 works: The house finds a new rhythm, and {N} likes it more than expected.
@@ -780,16 +780,16 @@ scene U: {N} keeps going back over the years, looking for the moment it began to
 scene B: Half the house, half the savings, half the pension. {N} sits down with a pad and starts counting what to keep.
 scene R: {N} is furious, then heartbroken, then strangely light, all within the same hour.
 scene G: Some things grow together for a while and then grow apart. {N} looks at the old wedding photograph and recognises neither face.
-- W | insist on a year of counselling before anything is signed | v: tradition, security | chance: 50
+- W | insist on a year of counselling before anything is signed | v: tradition, security | foot: place gather.talk | chance: 50
 - U | read everything on dividing a household fairly, and draw up the plan yourself | v: security, self-direction | mark: learned a skill | chance: 60
 - B | hire the toughest lawyer in town and fight for every asset | v: power | mark: made an enemy | tags: pay:money-.1 | chance: 48
-- R | pack a bag that night and walk out | v: self-direction | mark: left home | chance: 58
-- G | let it end gently, as things end, and wish them well | v: universalism (tolerance), benevolence | chance: 70
+- R | pack a bag that night and walk out | v: self-direction | mark: left home | foot: means freedom+.06 | chance: 58
+- G | let it end gently, as things end, and wish them well | v: universalism (tolerance), benevolence | foot: lesson some endings can be kind | chance: 70
 - BR | empty the joint account before they can, and start a new life | v: power, hedonism | mark: broke your word | closed: law: hiding shared money from the court; backfire: ordered to pay it back, with costs | chance: 50
 - RG | sell what you do not need and go to live by the sea | door | v: self-direction, universalism (nature) | mark: moved away | chance: 70
-- UG | spend a long season alone, learning who you are outside the marriage | door | v: self-direction | chance: 72
-- WB | negotiate a strict settlement in writing, and enforce every line of it | v: security, power | chance: 65
-- WU | go to a mediator and agree a fair split of the house and everything else | v: universalism (justice), security | chance: 75
+- UG | spend a long season alone, learning who you are outside the marriage | door | v: self-direction | foot: lesson you are whole on your own | chance: 72
+- WB | negotiate a strict settlement in writing, and enforce every line of it | v: security, power | foot: means money+.06 | chance: 65
+- WU | go to a mediator and agree a fair split of the house and everything else | v: universalism (justice), security | foot: means money-.06 | chance: 75
 works: The split is done without a war, and {N} and {partner} can still sit in the same room.
 works: A year later, {N} wakes up one morning and realises {N} is happy.
 fails: The divorce drags on for two years and eats half of everything.
@@ -821,16 +821,16 @@ scene U: {N} holds the baby and studies the tiny face, trying to see whose nose 
 scene B: Before the thought can be stopped, {N} wonders which side of the family the child will take after, and who will get to see it most.
 scene R: {N} has not cried like this since {child} was born. The baby grips {Ns} finger, and that is that.
 scene G: Another ring on the tree. Holding the baby, {N} feels {Ns} own parents and grandparents standing somewhere close behind.
-- W | offer to look after the baby on one fixed day every week | v: benevolence | chance: 85
-- U | read up on how babies are raised now, so your advice is not out of date | v: self-direction, benevolence | chance: 90
+- W | offer to look after the baby on one fixed day every week | v: benevolence | foot: means time-.06 | chance: 85
+- U | read up on how babies are raised now, so your advice is not out of date | v: self-direction, benevolence | foot: lesson the old ways have changed | chance: 90
 - B | open a savings account in the baby's name, and keep control of it yourself | v: power, benevolence | tags: pay:money-.05 | chance: 90
-- R | set off at once and travel through the night to see them | v: stimulation, benevolence | chance: 88
-- G | plant a tree in the garden on the day the baby was born | v: tradition, universalism (nature) | chance: 93
-- WUR | organise the naming party, give the speech, and keep the whole room laughing | v: benevolence, hedonism | chance: 82
-- WBR | move in for the first month and run the new household like a sergeant | v: power, benevolence | closed: approval: overbearing; backfire: asked to leave early | chance: 62
+- R | set off at once and travel through the night to see them | v: stimulation, benevolence | foot: means ties+.03 | chance: 88
+- G | plant a tree in the garden on the day the baby was born | v: tradition, universalism (nature) | foot: lesson some gifts are for later | chance: 93
+- WUR | organise the naming party, give the speech, and keep the whole room laughing | v: benevolence, hedonism | foot: means ties+.06 | chance: 82
+- WBR | move in for the first month and run the new household like a sergeant | v: power, benevolence | closed: approval: overbearing; backfire: asked to leave early | foot: means ties-.03 | chance: 62
 - WBG | sell up and move close to the new family, to help with money and time | v: benevolence, tradition | tags: req:money.4; pay:money-.2 | chance: 78 | back: moved away
 - URG | build the baby a wooden cradle with your own hands, learning as you go | v: benevolence, self-direction | mark: learned a skill | chance: 75
-- UBG | quietly steer the new parents toward the name and the school you prefer | v: power, tradition | closed: approval: meddling; backfire: the new parents shut the door for a while | chance: 45
+- UBG | quietly steer the new parents toward the name and the school you prefer | v: power, tradition | closed: approval: meddling; backfire: the new parents shut the door for a while | foot: door kept it hidden | chance: 45
 works: The baby grows up knowing {Ns} lap as one of the safe places in the world.
 works: The new life pulls the whole family closer for a while.
 fails: The new parents keep {N} at arm's length, and the visits are rare.
@@ -861,16 +861,16 @@ scene U: {N} wants the numbers: stages, survival rates, trials, side effects. Fe
 scene B: {N} has things to finish and no intention of dying before they are done. Whoever the best surgeon is, {N} wants them.
 scene R: {N} walks out into a bright afternoon where everyone else is buying sandwiches, and wants to shout at all of them.
 scene G: {N} sits in the car park and thinks of {Ns} parents, of the body that has carried {N} this far, and of what is meant to be.
-- W | follow the treatment plan to the letter, and never miss an appointment | habit | v: conformity, security | chance: 65
-- U | read every study, and get a second opinion from another hospital | v: security, self-direction | chance: 68
+- W | follow the treatment plan to the letter, and never miss an appointment | habit | v: conformity, security | foot: place care.houses | chance: 65
+- U | read every study, and get a second opinion from another hospital | v: security, self-direction | foot: lesson fear is smaller with a shape | chance: 68
 - B | pay to go private and skip the waiting list | v: power, security | tags: req:money.3; pay:money-.15 | chance: 70
-- R | tell everyone at once, and refuse to let it stop you living | v: stimulation, self-direction | chance: 70
-- G | accept what comes, and spend the time with the people you love | v: benevolence, tradition (accepting one's lot) | chance: 62
-- WUG | build a calm routine around the treatment: walks, good food, early nights | habit | v: security, conformity | chance: 70
-- WUB | put your affairs in order: the will, the accounts, who gets what | v: security, power | chance: 75
-- WRG | gather the whole family for a big meal, and tell them all together | v: benevolence | chance: 72
+- R | tell everyone at once, and refuse to let it stop you living | v: stimulation, self-direction | foot: means ties+.03 | chance: 70
+- G | accept what comes, and spend the time with the people you love | v: benevolence, tradition (accepting one's lot) | foot: means ties+.06 | chance: 62
+- WUG | build a calm routine around the treatment: walks, good food, early nights | habit | v: security, conformity | foot: means health+.06 | chance: 70
+- WUB | put your affairs in order: the will, the accounts, who gets what | v: security, power | foot: lesson order brings a little calm | chance: 75
+- WRG | gather the whole family for a big meal, and tell them all together | v: benevolence | foot: place gather.house | chance: 72
 - UBR | sign up for a risky experimental trial abroad | door | v: self-direction, security | mark: took a wild risk | tags: pay:money-.1 | tech: modern medicine | chance: 40
-- BRG | refuse to slow down, and fight it like an enemy | identity | v: none clear (defiance) | body: heavy | chance: 55
+- BRG | refuse to slow down, and fight it like an enemy | identity | v: none clear (defiance) | body: heavy | foot: means health-.06 | chance: 55
 works: The treatment works, and a year later the scans are clear.
 works: The illness stays, but {N} learns to live well around it.
 fails: The first treatment fails, and the doctors start again.
@@ -899,16 +899,16 @@ scene U: {N} sits down with the letter and begins to list what the money could b
 scene B: {N} reads the figure, then reads it again. For once in {Ns} life there is room to move.
 scene R: {N} reads the letter on the doorstep and lets out a whoop that sends the neighbour's cat under the hedge.
 scene G: {N} remembers the little flat: shells on the windowsill, the sound of the sea at night. It feels like a gift handed down from the past.
-- W | give a tenth to the charity she cared about, and save the rest | v: benevolence, security | chance: 80
-- U | leave it untouched for a year while you study what to do with it | v: security | chance: 90
+- W | give a tenth to the charity she cared about, and save the rest | v: benevolence, security | foot: means money+.10; mark helped someone in need | chance: 80
+- U | leave it untouched for a year while you study what to do with it | v: security | foot: means money+.10 | chance: 90
 - B | clear every debt, and put the rest where it will grow fastest | v: power, security | tags: win:money+.1 | chance: 82
 - R | drop everything and spend a year in her flat by the sea | v: stimulation, hedonism | tags: pay:money-.1 | chance: 83
 - G | move into her flat and live quietly by the sea, as she did | door | v: tradition | mark: moved away | chance: 82
-- W>U | set up a trust to pay for the family's children through university | binds | v: benevolence | chance: 65
+- W>U | set up a trust to pay for the family's children through university | binds | v: benevolence | foot: means money-.10; means ties+.06 | chance: 65
 - U>B | time the sale of the flat for the very top of the market | v: achievement, power | tags: win:money+.1 | chance: 55
-- B>R | use it to buy yourself years of doing only what you please | v: self-direction, hedonism | chance: 75
-- R>G | share it out on the spot among the whole family | v: benevolence | chance: 75
-- G>W | keep the flat as a holiday home for the whole family to share | binds | v: tradition, benevolence | chance: 68
+- B>R | use it to buy yourself years of doing only what you please | v: self-direction, hedonism | foot: means freedom+.10 | chance: 75
+- R>G | share it out on the spot among the whole family | v: benevolence | foot: means ties+.06 | chance: 75
+- G>W | keep the flat as a holiday home for the whole family to share | binds | v: tradition, benevolence | foot: place gather.house | chance: 68
 works: The money brings {N} a few years of rare freedom, and {N} uses them well.
 works: Years later, {N} still says a quiet word of thanks every time {N} passes the sea.
 fails: The money slips away far faster than {N} thought possible.
@@ -938,16 +938,16 @@ scene U: {N} draws two columns on the back of an envelope: the life {N} has, and
 scene B: The offer is generous. With the savings, it makes a stake big enough to bet on something of {Ns} own.
 scene R: {N} reads the offer and feels the old wildness rise: the boat, the road, the thing never tried.
 scene G: Halfway up the hill of a life, {N} stops to look back down the path, and up at the rest of the slope.
-- W | turn it down, and keep faith with the people who depend on you | v: benevolence, conformity | mark: turned down a chance | act: turn it down, and keep faith with the people who depend on them | chance: 65
-- U | take a year to research and test three possible new lives before choosing | door | v: self-direction | chance: 72
+- W | turn it down, and keep faith with the people who depend on you | v: benevolence, conformity | mark: turned down a chance | act: turn it down, and keep faith with the people who depend on them | foot: means ties+.06 | chance: 65
+- U | take a year to research and test three possible new lives before choosing | door | v: self-direction | foot: lesson try a life before choosing | chance: 72
 - B | take the money and buy a business that already turns a profit | binds | v: power, achievement | tags: win:money+.1 | chance: 74
 - R | take the money, and go back to the thing you loved and gave up at twenty-five | v: self-direction, stimulation | mark: took a wild risk | chance: 68
 - G | take the money, move back to where you grew up, and slow down | identity | v: tradition | mark: moved away | chance: 72
-- WUBG | take the money, spend three years retraining for work your home town needs, and stay | binds | v: achievement, benevolence | chance: 65
+- WUBG | take the money, spend three years retraining for work your home town needs, and stay | binds | v: achievement, benevolence | foot: mark learned a skill | chance: 65
 - WUBR | take the money, write a proper business plan, and build the invention you sketched years ago | v: achievement, self-direction | mark: took a wild risk | chance: 40
 - WURG | take the money, and give two years to rebuilding schools where the need is greatest | door | v: universalism, benevolence | mark: moved away | chance: 75
 - WBRG | buy a run-down farm with the money, and fight to make the land pay | binds | v: achievement, tradition | body: heavy | grants: plot of land | chance: 40
-- UBRG | sell up, cut every tie, and sail a small boat around the world | v: self-direction, stimulation | mark: left home | chance: 50
+- UBRG | sell up, cut every tie, and sail a small boat around the world | v: self-direction, stimulation | mark: left home | foot: means ties-.10 | chance: 50
 works: Two years on, {N} is sure it was the right choice.
 works: The path {N} chose turns out harder than expected, and better.
 fails not W: The money runs out before {Ns} plans find their feet.

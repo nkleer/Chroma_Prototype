@@ -33,15 +33,15 @@ earth: in a shared house the rota has broken down again, and {N} is the only one
 scene: The bins have not gone out for the third week. {N} wrote the rota, laminated it and pinned it by the kettle, and {N} is the only one who still keeps to it. {friend} has started eating out to avoid the kitchen.
 scene W: {N} cannot see why a promise on paper should mean less than one said aloud. The rota was agreed, and everyone signed it.
 - W | call a house meeting and read the rota out, line by line, until everyone signs again | v: conformity, universalism | mark: made an enemy | chance: 40
-- U | work out a fairer rota from who is home when, and try it for a month | v: self-direction, universalism | chance: 62
-- B | stop doing anyone else's share, and let the mess land where it falls | v: self-direction, power | chance: 66
-- R | leave the rota alone, cook a big dinner for everyone, and talk of other things | v: hedonism, benevolence | chance: 66
-- G | let it go for a while, and see what the house settles into on its own | v: tradition, benevolence | chance: 62
-- W>U | keep the rule, but ask each housemate what would make it work for them | v: universalism, self-direction | chance: 52
-- U>B | price the cleaning out, and suggest everyone pays a cleaner instead | v: achievement, security | chance: 58
-- B>R | swap the jobs you hate for the ones you don't mind, and enjoy the bargain | v: hedonism, power | chance: 62
-- R>G | turn Sunday cleaning into a house ritual with loud music and a fry-up | v: stimulation, tradition | chance: 62
-- G>W | quietly do a little extra yourself, as an example rather than a lecture | v: benevolence, conformity | chance: 58
+- U | work out a fairer rota from who is home when, and try it for a month | v: self-direction, universalism | foot: lesson fair rules are easier kept | chance: 62
+- B | stop doing anyone else's share, and let the mess land where it falls | v: self-direction, power | foot: means ties-.03 | chance: 66
+- R | leave the rota alone, cook a big dinner for everyone, and talk of other things | v: hedonism, benevolence | foot: means ties+.03 | chance: 66
+- G | let it go for a while, and see what the house settles into on its own | v: tradition, benevolence | foot: lesson a house finds its rhythm | chance: 62
+- W>U | keep the rule, but ask each housemate what would make it work for them | v: universalism, self-direction | foot: person friend | chance: 52
+- U>B | price the cleaning out, and suggest everyone pays a cleaner instead | v: achievement, security | foot: means money-.03 | chance: 58
+- B>R | swap the jobs you hate for the ones you don't mind, and enjoy the bargain | v: hedonism, power | foot: means freedom+.03 | chance: 62
+- R>G | turn Sunday cleaning into a house ritual with loud music and a fry-up | v: stimulation, tradition | foot: place gather.circle | chance: 62
+- G>W | quietly do a little extra yourself, as an example rather than a lecture | v: benevolence, conformity | foot: means time-.03 | chance: 58
 works: The house finds a rhythm, and {friend} is back in the kitchen by the end of the month.
 works: The rota fades from the fridge, and nobody misses it much.
 fails: {friend} finds a room somewhere else and moves out at the end of the month.
@@ -67,15 +67,15 @@ earth: a colleague bent a rule to help someone, and {N} is the one who saw it
 scene: {colleague} let an old customer off a late fee, against the rules, because the woman had just buried her husband. {N} saw it, and {colleague} knows {N} saw it.
 scene W: A rule bent once for a good reason is a rule bent twice for a worse one. {N} has watched it happen before.
 - W | report it to {boss}, as the rules say you must | v: conformity, security | mark: made an enemy | chance: 40
-- U | look up why the rule exists, and whether there is a proper way to waive it | v: self-direction, universalism | chance: 62
-- B | say nothing, and remember that {colleague} owes you one | v: power, security | chance: 66
-- R | tell {colleague} you would have done the same, and buy them a drink after work | v: benevolence, hedonism | chance: 66
-- G | let it pass: some kindnesses are older than rules | v: benevolence, tradition | chance: 62
-- W>B | have a quiet word with {colleague}, so it stays on record between the two of you | v: conformity, power | chance: 52
-- U>R | draft a hardship rule that lets staff use their own judgement, and push it through | v: universalism, self-direction | chance: 58
-- B>G | tidy the paperwork, so the widow keeps her break and the team keeps its good name | v: power, benevolence | chance: 62
+- U | look up why the rule exists, and whether there is a proper way to waive it | v: self-direction, universalism | foot: lesson every rule has its reason | chance: 62
+- B | say nothing, and remember that {colleague} owes you one | v: power, security | foot: door kept it hidden | chance: 66
+- R | tell {colleague} you would have done the same, and buy them a drink after work | v: benevolence, hedonism | foot: person friend | chance: 66
+- G | let it pass: some kindnesses are older than rules | v: benevolence, tradition | foot: lesson kindness sometimes comes first | chance: 62
+- W>B | have a quiet word with {colleague}, so it stays on record between the two of you | v: conformity, power | foot: door kept it hidden | chance: 52
+- U>R | draft a hardship rule that lets staff use their own judgement, and push it through | v: universalism, self-direction | foot: place rule.counsel | chance: 58
+- B>G | tidy the paperwork, so the widow keeps her break and the team keeps its good name | v: power, benevolence | foot: door hid a wrong | chance: 62
 - R>W | tell {boss} yourself, hotly, that the rule is the thing that is wrong | v: universalism, stimulation | mark: defied an authority | chance: 62
-- G>U | ask the old hands how such cases were handled before the rule was written | v: tradition, self-direction | chance: 58
+- G>U | ask the old hands how such cases were handled before the rule was written | v: tradition, self-direction | foot: person mentor | chance: 58
 works: The matter closes quietly, and {colleague} trusts {N} a little more than before.
 works: Months later the rule is changed, and nobody remembers who started it.
 fails: {colleague} stops talking to {N}, and the team takes sides.
@@ -100,15 +100,15 @@ earth: {N} is the one everyone calls, and there is nothing left over for {N}
 scene: The treasurer's job at the club, the lifts for {parent}, the rota at the food bank, {sibling}'s paperwork. {N} said yes to all of it, and tonight the phone rings again.
 scene W: {N} was raised to believe that anyone who can help must. Nobody ever said where it stops.
 - W | say yes again: someone has to, and it is always you | v: benevolence, conformity | mark: kept your word | chance: 40
-- U | write down every duty and the hours it takes, and decide what can go | v: self-direction, security | chance: 62
-- B | say no, plainly, and keep one evening a week that belongs to nobody but you | v: self-direction, hedonism | self_control: + | chance: 66
-- R | switch the phone off and go to the coast for the weekend, alone | v: stimulation, hedonism | chance: 66
-- G | let the club and the food bank find their own way for a season | v: benevolence, tradition | chance: 62
-- W>R | hand the treasurer's job on, as the rules allow, and take up something for joy | v: conformity, hedonism | chance: 52
-- U>G | train two others in the work, so the help can go on in other hands | v: universalism, benevolence | chance: 58
-- B>W | ask {sibling} to pay a fair share for the help, so the load is split evenly | v: power, universalism | chance: 62
-- R>U | book a week's course in something you always wanted to learn, and go | v: stimulation, self-direction | chance: 62
-- G>B | step back to your own house and garden for a while, and let that be enough | v: security, self-direction | chance: 58
+- U | write down every duty and the hours it takes, and decide what can go | v: self-direction, security | foot: means time+.06 | chance: 62
+- B | say no, plainly, and keep one evening a week that belongs to nobody but you | v: self-direction, hedonism | self_control: + | foot: means freedom+.03 | chance: 66
+- R | switch the phone off and go to the coast for the weekend, alone | v: stimulation, hedonism | foot: means health+.03 | chance: 66
+- G | let the club and the food bank find their own way for a season | v: benevolence, tradition | foot: means ties-.03 | chance: 62
+- W>R | hand the treasurer's job on, as the rules allow, and take up something for joy | v: conformity, hedonism | foot: means freedom+.06 | chance: 52
+- U>G | train two others in the work, so the help can go on in other hands | v: universalism, benevolence | foot: lesson others can carry it too | chance: 58
+- B>W | ask {sibling} to pay a fair share for the help, so the load is split evenly | v: power, universalism | foot: means money+.03 | chance: 62
+- R>U | book a week's course in something you always wanted to learn, and go | v: stimulation, self-direction | foot: mark learned a skill | chance: 62
+- G>B | step back to your own house and garden for a while, and let that be enough | v: security, self-direction | foot: lesson home can be enough | chance: 58
 works: The calls slow down, the world keeps turning, and {N} sleeps through the night again.
 works: Others step in, and {N} finds that some of the duties were never really needed.
 fails: {N} keeps going until the body forces a stop, and a doctor says the word exhaustion.
@@ -133,16 +133,16 @@ roles: child
 earth: at a family gathering, {Ns} grown children do everything differently, and {N} says so
 scene: Sunday lunch at {Ns} table. {child} lets the little ones eat on the sofa, nobody says grace, and the phones stay on. {N} has said something about it every visit this year, and the visits are getting shorter.
 scene W: {N} kept this family together with a few plain rules. It is hard to watch them dropped as if they never mattered.
-- W | say it once more, clearly: in this house, there are rules | v: tradition, conformity | chance: 40
-- U | ask {child} why they do things their way, and listen to the answer | v: self-direction, universalism | chance: 62
-- B | stop hosting, keep your own days full, and let them come when they want | v: self-direction, hedonism | chance: 66
-- R | sit on the floor with the grandchildren and let lunch be loud | v: hedonism, benevolence | chance: 66
-- G | let each generation raise its own, as it always was | v: tradition, benevolence | chance: 62
-- W>G | keep one rule only, grace before the meal, and let everything else go | v: tradition, conformity | chance: 52
-- U>W | write the family's rules and recipes into a book for the grandchildren, to keep or ignore | v: universalism, tradition | chance: 58
-- B>U | strike a deal with the eldest grandchild: you teach them chess, they teach you the phone | v: achievement, self-direction | chance: 62
-- R>B | announce that you are off travelling this summer, and see who misses whom | v: stimulation, self-direction | chance: 62
-- G>R | take the little ones out to the garden, and let them get muddy the old way | v: benevolence, hedonism | chance: 58
+- W | say it once more, clearly: in this house, there are rules | v: tradition, conformity | foot: means ties-.03 | chance: 40
+- U | ask {child} why they do things their way, and listen to the answer | v: self-direction, universalism | foot: lesson their ways have reasons too | chance: 62
+- B | stop hosting, keep your own days full, and let them come when they want | v: self-direction, hedonism | foot: place gather.hall | chance: 66
+- R | sit on the floor with the grandchildren and let lunch be loud | v: hedonism, benevolence | foot: place gather.house | chance: 66
+- G | let each generation raise its own, as it always was | v: tradition, benevolence | foot: means freedom+.03 | chance: 62
+- W>G | keep one rule only, grace before the meal, and let everything else go | v: tradition, conformity | foot: lesson one rule is enough | chance: 52
+- U>W | write the family's rules and recipes into a book for the grandchildren, to keep or ignore | v: universalism, tradition | foot: place arts.page | chance: 58
+- B>U | strike a deal with the eldest grandchild: you teach them chess, they teach you the phone | v: achievement, self-direction | foot: mark learned a skill | chance: 62
+- R>B | announce that you are off travelling this summer, and see who misses whom | v: stimulation, self-direction | foot: means money-.06 | chance: 62
+- G>R | take the little ones out to the garden, and let them get muddy the old way | v: benevolence, hedonism | foot: means ties+.03 | chance: 58
 works: The visits get longer again, and {child} starts asking {N} for advice.
 works: {N} finds the house louder and happier than any rule ever made it.
 fails: {child} starts finding reasons not to come, and Sunday lunch is set for two.
@@ -168,16 +168,16 @@ roles: friend, mentor
 earth: an offer must be answered by Friday, and {N} is still comparing
 scene: The offer came on Monday: a place on the course, or the job in another town, if {N} answers by Friday. It is Thursday night, and {N} has three spreadsheets and no answer.
 scene U: Every option has a column, every column has a weight, and the weights keep changing. One more night of thinking could settle it.
-- U | ask for another week to weigh it properly | v: self-direction, security | mark: turned down a chance | chance: 40
-- W | ask {mentor} what someone in your place ought to do, and do it | v: conformity, security | chance: 62
-- B | take whichever pays more, and keep your options open for later | v: achievement, power | chance: 62
+- U | ask for another week to weigh it properly | v: self-direction, security | mark: turned down a chance | foot: means time+.03 | chance: 40
+- W | ask {mentor} what someone in your place ought to do, and do it | v: conformity, security | foot: person mentor | chance: 62
+- B | take whichever pays more, and keep your options open for later | v: achievement, power | foot: means money+.06 | chance: 62
 - R | say yes tonight, before the doubt can catch up | v: stimulation, self-direction | mark: took a wild risk | chance: 66
-- G | go with what your gut said on Monday, before the spreadsheets | v: self-direction, security | chance: 66
-- W>B | keep the half promise to go with {friend}, and make it work | v: conformity, achievement | chance: 58
-- U>R | give yourself one hour and a coin: whatever you feel when it lands is the answer | v: self-direction, stimulation | chance: 52
-- B>G | ring them and bargain for a later start, to stay near home a little longer | v: power, tradition | chance: 58
-- R>W | ring {mentor} at midnight, say your heart is set, and ask to be held to it | v: stimulation, conformity | chance: 62
-- G>U | walk the long way home, and write the answer down when it comes | v: tradition, self-direction | chance: 62
+- G | go with what your gut said on Monday, before the spreadsheets | v: self-direction, security | foot: lesson first feelings can be trusted | chance: 66
+- W>B | keep the half promise to go with {friend}, and make it work | v: conformity, achievement | foot: mark kept your word | chance: 58
+- U>R | give yourself one hour and a coin: whatever you feel when it lands is the answer | v: self-direction, stimulation | foot: mark took a wild risk | chance: 52
+- B>G | ring them and bargain for a later start, to stay near home a little longer | v: power, tradition | foot: door stayed home | chance: 58
+- R>W | ring {mentor} at midnight, say your heart is set, and ask to be held to it | v: stimulation, conformity | foot: door kept your word | chance: 62
+- G>U | walk the long way home, and write the answer down when it comes | v: tradition, self-direction | foot: lesson the answer comes on its own | chance: 62
 works: The answer goes in on time, and {N} wonders why it took so long.
 works: Whatever {N} chose, {N} is busy living it by the autumn.
 fails: Friday comes and goes, and the place goes to someone on the waiting list.
@@ -201,16 +201,16 @@ roles: friend
 earth: {friend} is going through something hard, and {N} answers with solutions
 scene: {friend} rings late, crying: the marriage is over. {N} listens for a minute, then starts on lawyers, the house and the next steps. There is a long silence on the line.
 scene U: Feelings pass and problems stay. {N} has always helped people by working out what to do, and it is the kindest thing {N} knows how to give.
-- U | send a clear list of next steps in the morning, with the numbers to ring | v: self-direction, universalism | chance: 40
+- U | send a clear list of next steps in the morning, with the numbers to ring | v: self-direction, universalism | foot: lesson help comes in different shapes | chance: 40
 - W | promise to be there through the worst of it, and keep the promise every week | v: benevolence, conformity | mark: kept your word | chance: 62
 - B | find {friend} the best lawyer you know, and call in a favour to get them seen | v: power, benevolence | mark: helped someone in need | chance: 62
-- R | drive over now, with a bottle and nothing to say | v: benevolence, stimulation | chance: 66
+- R | drive over now, with a bottle and nothing to say | v: benevolence, stimulation | foot: means ties+.03 | chance: 66
 - G | go and sit with {friend}, and let the silence be | v: benevolence | mark: helped someone in need | chance: 66
-- W>R | keep your Saturdays free for {friend}, for whatever they feel like doing | v: benevolence, hedonism | chance: 58
+- W>R | keep your Saturdays free for {friend}, for whatever they feel like doing | v: benevolence, hedonism | foot: means time-.06 | chance: 58
 - U>G | read up on what helps people through a break-up, and learn to just listen | v: self-direction, benevolence | mark: learned a skill | chance: 52
-- B>W | take over the paperwork {friend} cannot face, so the settlement is fair | v: power, universalism | chance: 58
-- R>U | admit to {friend} that comfort does not come easily, and ask what would help | v: benevolence, self-direction | chance: 62
-- G>B | have {friend} to stay for a while, until they are back on their feet | v: benevolence, security | chance: 62
+- B>W | take over the paperwork {friend} cannot face, so the settlement is fair | v: power, universalism | foot: mark helped someone in need | chance: 58
+- R>U | admit to {friend} that comfort does not come easily, and ask what would help | v: benevolence, self-direction | foot: lesson asking is a kind of comfort | chance: 62
+- G>B | have {friend} to stay for a while, until they are back on their feet | v: benevolence, security | foot: door took them in | chance: 62
 works: {friend} says later that {N} was the one who got them through it.
 works: Something shifts between them, and the friendship is closer than before.
 fails: {friend} stops ringing, and {N} hears the news from others.
@@ -234,16 +234,16 @@ roles: friend
 earth: a plan {N} has refined for years has still not been started
 scene: The plan for the business, the book or the boat has been in the drawer for eleven years. It has been costed, redrawn and improved every winter. {friend} asks, as {friend} does every year, when {N} is going to start.
 scene U: It is nearly ready. There is one more thing to check, one more number to firm up, and then it will be right.
-- U | revise the plan once more, properly this time, with this year's figures | v: achievement, self-direction | chance: 40
-- W | set a date, tell everyone, and hold yourself to it | v: conformity, achievement | self_control: + | chance: 62
-- B | take the first small risk this month, and let the plan catch up | v: achievement, power | chance: 62
+- U | revise the plan once more, properly this time, with this year's figures | v: achievement, self-direction | foot: means time-.03 | chance: 40
+- W | set a date, tell everyone, and hold yourself to it | v: conformity, achievement | self_control: + | foot: lesson a date makes it real | chance: 62
+- B | take the first small risk this month, and let the plan catch up | v: achievement, power | foot: means money-.03 | chance: 62
 - R | start tomorrow, badly, and learn as you go | v: stimulation, self-direction | mark: took a wild risk | chance: 66
-- G | ask whether the plan still fits the life you have, and let it go if not | v: security, tradition | chance: 66
-- W>G | promise {friend} the two of you will build the first piece together this spring | v: benevolence, conformity | chance: 58
-- U>W | give the plan to a club that can use it, so the work is not wasted | v: universalism, self-direction | chance: 52
-- B>U | sell a share of the idea to someone who will push you to finish it | v: power, achievement | chance: 58
-- R>B | give up the evening job and put every free hour into it, for yourself at last | v: stimulation, self-direction | chance: 62
-- G>R | start with the part you enjoy most, outdoors, with your own hands | v: hedonism, tradition | chance: 62
+- G | ask whether the plan still fits the life you have, and let it go if not | v: security, tradition | foot: door turned down a chance | chance: 66
+- W>G | promise {friend} the two of you will build the first piece together this spring | v: benevolence, conformity | foot: door kept your word | chance: 58
+- U>W | give the plan to a club that can use it, so the work is not wasted | v: universalism, self-direction | foot: place gather.hall | chance: 52
+- B>U | sell a share of the idea to someone who will push you to finish it | v: power, achievement | foot: person patron | chance: 58
+- R>B | give up the evening job and put every free hour into it, for yourself at last | v: stimulation, self-direction | foot: means money-.06 | chance: 62
+- G>R | start with the part you enjoy most, outdoors, with your own hands | v: hedonism, tradition | foot: mark learned a skill | chance: 62
 works: The first piece is built by the summer, rougher than planned and better for it.
 works not U W B R W>G B>U R>B G>R: Letting it go brings a lightness {N} had not expected.
 fails: Another winter goes by, and the plan goes back in the drawer with new figures.
@@ -267,15 +267,15 @@ roles: friend
 earth: the stairs are getting hard, and {N} has been weighing a move for years
 scene: The stairs are steeper every winter, and the garden has gone wild. {N} has kept the brochures for sheltered flats in a folder for three years, with notes in the margins, and still cannot decide.
 scene U: There are seven options, each with its own drawbacks, and the costs keep changing. Deciding wrong would be worse than not deciding at all.
-- U | compare the options once more, with the latest prices | v: security, self-direction | chance: 40
-- W | ask the family what would be best for everyone, and go along with it | v: conformity, benevolence | chance: 62
-- B | pick the place that keeps your money and your independence, and book a viewing | v: self-direction, security | chance: 62
-- R | ring the first place in the folder, and say yes on the phone | v: stimulation, self-direction | chance: 66
-- G | stay put, and change the house instead: a bed downstairs, a rail on the wall | v: tradition, security | mark: stayed home | chance: 66
-- W>U | promise {friend} a decision by the end of the month, and keep the promise | v: conformity, self-direction | chance: 58
-- U>B | pay an adviser to choose, and take their answer | v: security, achievement | chance: 52
-- B>R | sell the house and spend the difference on living well | v: hedonism, power | chance: 58
-- R>G | move in with the friend down the road, and argue happily about the garden | v: stimulation, benevolence | chance: 62
+- U | compare the options once more, with the latest prices | v: security, self-direction | foot: lesson more figures bring no answer | chance: 40
+- W | ask the family what would be best for everyone, and go along with it | v: conformity, benevolence | foot: means ties+.03 | chance: 62
+- B | pick the place that keeps your money and your independence, and book a viewing | v: self-direction, security | foot: means freedom+.03 | chance: 62
+- R | ring the first place in the folder, and say yes on the phone | v: stimulation, self-direction | foot: mark moved away | chance: 66
+- G | stay put, and change the house instead: a bed downstairs, a rail on the wall | v: tradition, security | mark: stayed home | foot: means health+.03 | chance: 66
+- W>U | promise {friend} a decision by the end of the month, and keep the promise | v: conformity, self-direction | foot: mark kept your word | chance: 58
+- U>B | pay an adviser to choose, and take their answer | v: security, achievement | foot: means money-.03 | chance: 52
+- B>R | sell the house and spend the difference on living well | v: hedonism, power | foot: means money+.10; mark moved away | chance: 58
+- R>G | move in with the friend down the road, and argue happily about the garden | v: stimulation, benevolence | foot: means ties+.06 | chance: 62
 - G>W | move to where your oldest friends already live, and take your place among them | v: tradition, benevolence | mark: moved away | chance: 62
 works not G: The move is made by spring, and {N} wonders why it took three winters.
 works not B R B>R R>G G>W: The house is changed around {N}, and the stairs stop ruling the day.
@@ -303,15 +303,15 @@ earth: a shared project went well, and {N} could take the credit alone
 scene: The group project went well, and {boss} wants to know whose idea it was. It was half {friend}'s. {friend} is not in the room.
 scene B: Nobody gets anywhere by waiting to be noticed. {N} did the work that showed, and the room is listening now.
 - B | take the credit, and the meeting that comes with it | v: achievement, power | mark: made an enemy | chance: 40
-- W | say plainly that the idea was half {friend}'s | v: universalism, benevolence | chance: 66
-- U | explain exactly who did what, with the drafts to show it | v: universalism, achievement | chance: 62
-- R | grin, say it was the two of you, and go and find {friend} to celebrate | v: hedonism, benevolence | chance: 62
-- G | let the work speak for the group, and the group for itself | v: benevolence, tradition | chance: 66
-- W>R | insist the whole group comes to the meeting, and make it a party afterwards | v: universalism, hedonism | chance: 62
-- U>G | write the group's method up so the others can build on it | v: universalism, benevolence | chance: 58
+- W | say plainly that the idea was half {friend}'s | v: universalism, benevolence | foot: door made a friend | chance: 66
+- U | explain exactly who did what, with the drafts to show it | v: universalism, achievement | foot: lesson the drafts tell the story | chance: 62
+- R | grin, say it was the two of you, and go and find {friend} to celebrate | v: hedonism, benevolence | foot: means ties+.03 | chance: 62
+- G | let the work speak for the group, and the group for itself | v: benevolence, tradition | foot: place gather.circle | chance: 66
+- W>R | insist the whole group comes to the meeting, and make it a party afterwards | v: universalism, hedonism | foot: means ties+.06 | chance: 62
+- U>G | write the group's method up so the others can build on it | v: universalism, benevolence | foot: lesson a method others can use | chance: 58
 - B>W | take the meeting, then use it to get {friend} a place on the next project | v: power, benevolence | mark: made a friend | chance: 52
-- R>U | tell {boss} the two of you want the harder project next, and grab it together | v: stimulation, achievement | chance: 58
-- G>B | stay quiet now, and trust that people who share credit go further over the years | v: tradition, achievement | chance: 62
+- R>U | tell {boss} the two of you want the harder project next, and grab it together | v: stimulation, achievement | foot: means time-.06 | chance: 58
+- G>B | stay quiet now, and trust that people who share credit go further over the years | v: tradition, achievement | foot: door turned down a chance | chance: 62
 works: {friend} hears what {N} said in the room, and does not forget it.
 works: The meeting goes well, and the group stays a group.
 fails: {friend} finds out from someone else, and the friendship goes cold.
@@ -338,14 +338,14 @@ scene: The buyer wants the firm, but not {colleague}, who started it with {N} in
 scene B: Sentiment does not pay the mortgage. {N} has carried more of the weight for years, and this is the chance to be paid for it.
 - B | sign, and let the lawyers tell {colleague} | v: power, achievement | mark: broke your word | chance: 40
 - W | tell {colleague} everything tonight, and decide together | v: universalism, conformity | mark: kept your word | chance: 66
-- U | work out a deal that values both shares fairly, and put it to the buyer | v: achievement, universalism | chance: 62
-- R | walk out of the meeting: some things are not for sale | v: benevolence, self-direction | chance: 62
-- G | keep the firm as it is, with the people who built it | v: tradition, benevolence | chance: 66
-- W>G | make the buyer keep every job in the firm, in writing, or there is no deal | v: universalism, benevolence | chance: 62
-- U>W | have the firm valued by someone independent, so whatever happens is fair | v: universalism, security | chance: 58
-- B>U | sign, and spend your share on the training you always wanted | v: achievement, self-direction | chance: 52
-- R>B | tell {colleague} straight out that you want to sell, and fight it out between you | v: self-direction, power | chance: 58
-- G>R | sell, and take {colleague} on the long trip you always talked about | v: benevolence, hedonism | chance: 62
+- U | work out a deal that values both shares fairly, and put it to the buyer | v: achievement, universalism | foot: means money+.06 | chance: 62
+- R | walk out of the meeting: some things are not for sale | v: benevolence, self-direction | foot: door turned down a chance | chance: 62
+- G | keep the firm as it is, with the people who built it | v: tradition, benevolence | foot: lesson the people are the firm | chance: 66
+- W>G | make the buyer keep every job in the firm, in writing, or there is no deal | v: universalism, benevolence | foot: means money-.03 | chance: 62
+- U>W | have the firm valued by someone independent, so whatever happens is fair | v: universalism, security | foot: lesson a fair price keeps trust | chance: 58
+- B>U | sign, and spend your share on the training you always wanted | v: achievement, self-direction | foot: mark learned a skill | chance: 52
+- R>B | tell {colleague} straight out that you want to sell, and fight it out between you | v: self-direction, power | foot: door made an enemy | chance: 58
+- G>R | sell, and take {colleague} on the long trip you always talked about | v: benevolence, hedonism | foot: means freedom+.10 | chance: 62
 works not R G: The deal closes, and {colleague} still rings {N} on birthdays.
 works not B B>U G>R: The firm stays in their hands, smaller and theirs.
 fails: {colleague} hears it from the buyer, and the two of them speak only through lawyers.
@@ -369,15 +369,15 @@ roles: friend, sibling
 earth: {N} has what {N} worked for, and the phone has gone quiet
 scene: The house is paid for, the title is on the door, and {Ns} birthday passes with three cards, two of them from the bank. {N} scrolls through the numbers in the phone and cannot think of one to ring.
 scene B: {N} got here alone, and never minded that. Lately the house is very quiet in the evenings.
-- B | throw yourself into the next deal: there is always a next deal | v: achievement, power | chance: 40
-- W | ring {sibling}, say sorry for the missed funeral, and ask to start again | v: benevolence, conformity | mark: owned up | chance: 66
-- U | work out honestly how you lost each friend, and write it down | v: self-direction | chance: 62
-- R | throw a party, invite everyone you ever liked, and see who comes | v: hedonism, stimulation | chance: 62
+- B | throw yourself into the next deal: there is always a next deal | v: achievement, power | foot: means money+.06 | chance: 40
+- W | ring {sibling}, say sorry for the missed funeral, and ask to start again | v: benevolence, conformity | mark: owned up | foot: means ties+.06 | chance: 66
+- U | work out honestly how you lost each friend, and write it down | v: self-direction | foot: lesson friendships fade without calls | chance: 62
+- R | throw a party, invite everyone you ever liked, and see who comes | v: hedonism, stimulation | foot: place gather.house | chance: 62
 - G | join something that meets every week and asks nothing of you but turning up | v: benevolence, tradition | mark: made a friend | chance: 66
-- W>U | volunteer to mentor young people starting out, one evening a week | v: benevolence, universalism | chance: 62
-- U>B | hire a coach to teach you how other people keep their friends | v: achievement, self-direction | chance: 58
-- B>R | buy the best tickets in town, and take {friend}, whom you have not seen in years | v: hedonism, power | chance: 52
-- R>G | turn up at {friend}'s door unannounced, with a cake and no excuse | v: benevolence, stimulation | chance: 58
+- W>U | volunteer to mentor young people starting out, one evening a week | v: benevolence, universalism | foot: place gather.hall | chance: 62
+- U>B | hire a coach to teach you how other people keep their friends | v: achievement, self-direction | foot: person mentor | chance: 58
+- B>R | buy the best tickets in town, and take {friend}, whom you have not seen in years | v: hedonism, power | foot: person friend | chance: 52
+- R>G | turn up at {friend}'s door unannounced, with a cake and no excuse | v: benevolence, stimulation | foot: means ties+.03 | chance: 58
 - G>W | go back to the town you grew up in for a weekend, and look people up | v: tradition, benevolence | mark: came home | chance: 62
 works: One call leads to another, and by winter there are people to ring.
 works: {friend} opens the door, laughs, and lets {N} in.
@@ -403,16 +403,16 @@ roles: child
 earth: {N} has been using the will to keep the family close
 scene: {N} has changed the will twice this year, and everyone knows it. {child} visits on Sundays, polite and careful, and leaves early. The house is full of things and very quiet.
 scene B: It is {Ns} money, earned by {N} alone. If it buys a little attention, that is what money is for.
-- B | change the will again, to whoever came most this year | v: power | chance: 40
-- W | divide everything equally, tell them so, and never mention it again | v: universalism, conformity | chance: 66
-- U | sit down with {child} and explain what you have and why you planned it so | v: universalism, self-direction | chance: 62
-- R | spend a good part of it now, on a trip with the whole family | v: hedonism, benevolence | chance: 62
-- G | give the house to the grandchildren now, while you can watch them live in it | v: benevolence, tradition | chance: 66
-- W>B | settle the will fairly, and keep enough in your own name to live as you please | v: universalism, self-direction | chance: 62
-- U>R | fund a grandchild's first big adventure, and ask to hear all about it | v: benevolence, stimulation | chance: 58
-- B>G | set up a family trust, and keep the running of it while you live | v: power, tradition | chance: 52
-- R>W | tell {child} you have been unfair, and say sorry before the lawyer does anything else | v: benevolence, universalism | mark: owned up | chance: 58
-- G>U | pay for a grandchild's studies, quietly, and ask only for a letter now and then | v: benevolence, self-direction | chance: 62
+- B | change the will again, to whoever came most this year | v: power | foot: means ties-.03 | chance: 40
+- W | divide everything equally, tell them so, and never mention it again | v: universalism, conformity | foot: door kept your word | chance: 66
+- U | sit down with {child} and explain what you have and why you planned it so | v: universalism, self-direction | foot: means ties+.03 | chance: 62
+- R | spend a good part of it now, on a trip with the whole family | v: hedonism, benevolence | foot: means money-.10 | chance: 62
+- G | give the house to the grandchildren now, while you can watch them live in it | v: benevolence, tradition | foot: means money-.10 | chance: 66
+- W>B | settle the will fairly, and keep enough in your own name to live as you please | v: universalism, self-direction | foot: means freedom+.03 | chance: 62
+- U>R | fund a grandchild's first big adventure, and ask to hear all about it | v: benevolence, stimulation | foot: lesson their adventures feel like yours | chance: 58
+- B>G | set up a family trust, and keep the running of it while you live | v: power, tradition | foot: means money-.03 | chance: 52
+- R>W | tell {child} you have been unfair, and say sorry before the lawyer does anything else | v: benevolence, universalism | mark: owned up | foot: means ties+.06 | chance: 58
+- G>U | pay for a grandchild's studies, quietly, and ask only for a letter now and then | v: benevolence, self-direction | foot: means money-.06 | chance: 62
 works: The visits grow longer, and nobody mentions the will.
 works: The family argues less about money and laughs more about {N}.
 fails: {child} stops coming, and the lawyer is the one regular visitor.
@@ -438,16 +438,16 @@ roles: friend, boss
 earth: it is the third big night this week, and work starts at eight
 scene: It is two in the morning, the third big night this week, and the party is just getting good. {N} has an early shift at eight and has already used up the last sick day.
 scene R: Life is short, and nights like this do not come back. {N} can sleep when {N} is old.
-- R | stay till dawn and go straight to work | v: hedonism, stimulation | self_control: - | chance: 40
-- W | go home now, as you promised yourself you would | v: conformity, security | self_control: + | chance: 66
-- U | set a rule: two nights a week, home by one, for a month | v: self-direction, security | self_control: + | chance: 66
-- B | swap the early shift with a colleague for a favour, and stay | v: hedonism, power | self_control: - | chance: 62
-- G | slip out to the garden with {friend}, talk until the sky gets light, then sleep | v: benevolence, hedonism | chance: 62
-- W>G | walk {friend} home safely, and call it a night for both of you | v: benevolence, conformity | chance: 62
-- U>W | add up what the nights cost in pay and sleep, and tell the group straight | v: self-direction, universalism | chance: 62
+- R | stay till dawn and go straight to work | v: hedonism, stimulation | self_control: - | foot: means health-.03 | chance: 40
+- W | go home now, as you promised yourself you would | v: conformity, security | self_control: + | foot: mark kept your word | chance: 66
+- U | set a rule: two nights a week, home by one, for a month | v: self-direction, security | self_control: + | foot: means health+.03 | chance: 66
+- B | swap the early shift with a colleague for a favour, and stay | v: hedonism, power | self_control: - | foot: person colleague | chance: 62
+- G | slip out to the garden with {friend}, talk until the sky gets light, then sleep | v: benevolence, hedonism | foot: means ties+.03 | chance: 62
+- W>G | walk {friend} home safely, and call it a night for both of you | v: benevolence, conformity | foot: lesson friends see each other home | chance: 62
+- U>W | add up what the nights cost in pay and sleep, and tell the group straight | v: self-direction, universalism | foot: means money+.03 | chance: 62
 - B>U | turn the parties into a side business, and learn to run them with a clear head | v: achievement, power | self_control: + | mark: learned a skill | chance: 58
 - R>B | quit the early shift tonight, by text, and find a job that starts at noon | v: self-direction, stimulation | mark: took a wild risk | chance: 52
-- G>R | go swimming at dawn with whoever is still standing, then go to bed | v: hedonism, stimulation | chance: 58
+- G>R | go swimming at dawn with whoever is still standing, then go to bed | v: hedonism, stimulation | foot: person friend | chance: 58
 works not R>B: {N} makes the shift, just, and decides that some nights are worth more than others.
 works: The nights get fewer and better, and the mornings come back.
 fails not R>B: {N} oversleeps, and {boss} gives the shifts to someone else.
@@ -473,15 +473,15 @@ earth: {boss} tore into {N} in front of everyone, and {N} wants to say exactly w
 scene: {boss} tore into {Ns} work in front of the whole team, and half of it was unfair. {N} is on {Ns} feet, face hot, with every word already in place.
 scene R: {N} has swallowed it for two years. Today {N} could say all of it, out loud, and walk out free.
 - R | say all of it, in front of everyone, and slam the door | v: self-direction, stimulation | mark: defied an authority | chance: 40
-- W | sit down, and raise it through the proper complaint in the morning | v: conformity, security | chance: 66
-- U | ask for a meeting, bring the facts, and show where the criticism was wrong | v: achievement, self-direction | chance: 66
-- B | smile, and start looking for a better job with a better title | v: achievement, power | chance: 62
-- G | let it pass today, and talk it out with {colleague} on the walk home | v: benevolence, security | chance: 62
-- W>U | ask the union rep to sit in on a meeting, and learn exactly where you stand | v: conformity, self-direction | chance: 62
-- U>B | write it all down, calmly, and keep it for when it counts | v: security, power | chance: 62
-- B>R | negotiate your way out with a good reference, and go and do what you love | v: power, self-direction | chance: 58
-- R>G | stand up for {colleague}, who got it worse, and walk out together | v: benevolence, stimulation | chance: 52
-- G>W | wait for the right moment, and say your piece once, quietly, where it counts | v: security, universalism | chance: 58
+- W | sit down, and raise it through the proper complaint in the morning | v: conformity, security | foot: door defied an authority | chance: 66
+- U | ask for a meeting, bring the facts, and show where the criticism was wrong | v: achievement, self-direction | foot: lesson facts make the case | chance: 66
+- B | smile, and start looking for a better job with a better title | v: achievement, power | foot: door kept it hidden | chance: 62
+- G | let it pass today, and talk it out with {colleague} on the walk home | v: benevolence, security | foot: person friend | chance: 62
+- W>U | ask the union rep to sit in on a meeting, and learn exactly where you stand | v: conformity, self-direction | foot: person go-between | chance: 62
+- U>B | write it all down, calmly, and keep it for when it counts | v: security, power | foot: door kept it hidden | chance: 62
+- B>R | negotiate your way out with a good reference, and go and do what you love | v: power, self-direction | foot: means freedom+.10 | chance: 58
+- R>G | stand up for {colleague}, who got it worse, and walk out together | v: benevolence, stimulation | foot: mark helped someone in need; means money-.06 | chance: 52
+- G>W | wait for the right moment, and say your piece once, quietly, where it counts | v: security, universalism | foot: lesson one quiet word can count | chance: 58
 works not R>G B>R: The air clears, and {boss} is careful with {N} from then on.
 works: {N} leaves on {Ns} own terms, with a reference and no regrets.
 fails: {N} is out of a job by Friday, and the story follows {N} to the next interview.
@@ -505,16 +505,16 @@ roles: friend, colleague
 earth: {N} has run on adrenaline for years, and the body is starting to refuse
 scene: The chest pains came again on the stairs at work. {N} has been doing three people's jobs on four hours' sleep, and loves most minutes of it. The doctor wants tests and a month off.
 scene R: Slowing down feels like a little death. {N} has always run hot, and running hot is when {N} feels most alive.
-- R | skip the tests, push through the month, and rest when the work is done | v: stimulation, achievement | self_control: - | chance: 40
-- W | take the month off as the doctor says, and hand the work over properly | v: conformity, security | chance: 66
-- U | book the tests, read up on it, and plan a slower year | v: security, self-direction | self_control: + | chance: 66
-- B | bargain for a part-time year, on the best terms you can get | v: power, security | chance: 62
-- G | go and stay by the sea, walk every day, and let the body set the pace | v: security, hedonism | self_control: + | chance: 62
-- W>B | keep to the doctor's rules to the letter, to come back strong on your own terms | v: conformity, self-direction | chance: 62
+- R | skip the tests, push through the month, and rest when the work is done | v: stimulation, achievement | self_control: - | foot: means health-.06 | chance: 40
+- W | take the month off as the doctor says, and hand the work over properly | v: conformity, security | foot: means health+.06 | chance: 66
+- U | book the tests, read up on it, and plan a slower year | v: security, self-direction | self_control: + | foot: place care.houses | chance: 66
+- B | bargain for a part-time year, on the best terms you can get | v: power, security | foot: means time+.06; means money-.06 | chance: 62
+- G | go and stay by the sea, walk every day, and let the body set the pace | v: security, hedonism | self_control: + | foot: means health+.03 | chance: 62
+- W>B | keep to the doctor's rules to the letter, to come back strong on your own terms | v: conformity, self-direction | foot: place care.houses | chance: 62
 - U>R | learn a sport that takes the same fire, and train for it properly | v: stimulation, self-direction | mark: learned a skill | chance: 62
-- B>G | sell your share of the work, and buy a quieter life near family | v: security, tradition | chance: 58
-- R>W | throw all that fire into getting well, for the people who count on it | v: benevolence, stimulation | self_control: + | chance: 52
-- G>U | take up something slow, a garden or a craft, and see what it teaches you | v: self-direction, tradition | self_control: + | chance: 58
+- B>G | sell your share of the work, and buy a quieter life near family | v: security, tradition | foot: mark came home | chance: 58
+- R>W | throw all that fire into getting well, for the people who count on it | v: benevolence, stimulation | self_control: + | foot: means health+.06 | chance: 52
+- G>U | take up something slow, a garden or a craft, and see what it teaches you | v: self-direction, tradition | self_control: + | foot: place arts.craft | chance: 58
 works not R: The tests come back clear, and the slower year turns out to be a good one.
 works: {N} comes back changed, still burning, but on a lower flame.
 fails: The pains come back worse, and a hospital bed makes the decision for {N}.
@@ -538,16 +538,16 @@ roles: sibling, friend
 earth: someone {N} fell out with long ago has written, and {N} has to decide whether to answer
 scene: A letter came from {sibling}, after nineteen years of silence. The fight was loud and public, and {N} said things that cannot be unsaid. The letter is short and asks for nothing.
 scene R: {N} has never once looked back at a burned bridge. But the hand that holds the letter is not quite steady.
-- R | tear it up: what was said was meant, and it still stands | v: self-direction | chance: 40
-- W | write back at once, and say you were wrong, for your part | v: benevolence, conformity | mark: owned up | chance: 66
-- U | read it many times, then write a careful letter asking what changed | v: self-direction, universalism | chance: 66
-- B | answer politely, and find out what {sibling} wants before giving anything | v: security, power | chance: 62
-- G | go and see {sibling} without writing first: family is family | v: tradition, benevolence | chance: 62
-- W>R | apologise properly, in person, then take {sibling} out for the meal you never had | v: benevolence, hedonism | chance: 62
-- U>G | ask around the family, slowly, about {sibling}'s life before replying | v: universalism, tradition | chance: 62
-- B>W | offer to settle the old money matter that started it, fairly this time | v: power, universalism | chance: 58
-- R>U | ring at once, and argue it out honestly until each of you understands the other | v: stimulation, self-direction | chance: 52
-- G>B | invite {sibling} for the holidays, and keep the past out of it, on your own terms | v: tradition, security | chance: 58
+- R | tear it up: what was said was meant, and it still stands | v: self-direction | foot: person sibling lost | chance: 40
+- W | write back at once, and say you were wrong, for your part | v: benevolence, conformity | mark: owned up | foot: means ties+.03 | chance: 66
+- U | read it many times, then write a careful letter asking what changed | v: self-direction, universalism | foot: lesson letters can open old doors | chance: 66
+- B | answer politely, and find out what {sibling} wants before giving anything | v: security, power | foot: lesson caution keeps things calm | chance: 62
+- G | go and see {sibling} without writing first: family is family | v: tradition, benevolence | foot: means ties+.06 | chance: 62
+- W>R | apologise properly, in person, then take {sibling} out for the meal you never had | v: benevolence, hedonism | foot: means ties+.10 | chance: 62
+- U>G | ask around the family, slowly, about {sibling}'s life before replying | v: universalism, tradition | foot: person go-between | chance: 62
+- B>W | offer to settle the old money matter that started it, fairly this time | v: power, universalism | foot: means money-.06 | chance: 58
+- R>U | ring at once, and argue it out honestly until each of you understands the other | v: stimulation, self-direction | foot: means ties+.03 | chance: 52
+- G>B | invite {sibling} for the holidays, and keep the past out of it, on your own terms | v: tradition, security | foot: place gather.house | chance: 58
 works not R: The first meeting is stiff, the second is easy, and {N} has a sibling again.
 works: Old words are said again, differently, and this time they heal.
 fails not R: The meeting turns into the old fight, word for word.
@@ -573,16 +573,16 @@ roles: friend, parent
 earth: a real chance has come up in the city, and {N} has always lived here
 scene: The job in the city is real: better pay, training, people {N} would never meet at home. {friend} is going too. {N} has never lived anywhere but here, and the street, the family and the river are all {N} knows.
 scene G: Everything {N} loves is within a mile of the house. Why go somewhere strange to find what is already here?
-- G | stay: this is home, and home is enough | v: tradition, security | mark: stayed home | chance: 40
-- W | stay to help the family, as the eldest should | v: benevolence, conformity | chance: 62
+- G | stay: this is home, and home is enough | v: tradition, security | mark: stayed home | foot: door turned down a chance | chance: 40
+- W | stay to help the family, as the eldest should | v: benevolence, conformity | foot: mark helped someone in need | chance: 62
 - U | go for a year to learn what you can, then decide where home is | v: self-direction, achievement | mark: moved away | chance: 66
-- B | take it, and build a life of your own somewhere new | v: achievement, self-direction | mark: left home | chance: 66
+- B | take it, and build a life of your own somewhere new | v: achievement, self-direction | mark: left home | foot: mark moved away | chance: 66
 - R | go on a whim with {friend}, and see what happens | v: stimulation, hedonism | mark: moved away | chance: 62
-- W>U | ask {parent}'s blessing, and go to study what the town will need | v: conformity, self-direction | chance: 58
-- U>B | work out exactly what the city pays and costs, and go if it adds up | v: achievement, security | chance: 62
-- B>R | take the job, and spend the first wages on seeing the world | v: hedonism, stimulation | chance: 62
-- R>G | go, and come home every month for Sunday dinner | v: stimulation, tradition | chance: 58
-- G>W | stay, and take on the job at the family firm that no one else wants | v: tradition, conformity | chance: 52
+- W>U | ask {parent}'s blessing, and go to study what the town will need | v: conformity, self-direction | foot: place learn.higher | chance: 58
+- U>B | work out exactly what the city pays and costs, and go if it adds up | v: achievement, security | foot: means money+.06 | chance: 62
+- B>R | take the job, and spend the first wages on seeing the world | v: hedonism, stimulation | foot: means freedom+.06 | chance: 62
+- R>G | go, and come home every month for Sunday dinner | v: stimulation, tradition | foot: mark moved away | chance: 58
+- G>W | stay, and take on the job at the family firm that no one else wants | v: tradition, conformity | foot: door stayed home | chance: 52
 works: Whatever {N} chose, {N} chose it with open eyes, and it holds.
 works: The city is hard at first, and then it is home too.
 fails: {N} stays, and watches {friend}'s new life on the phone with a pang.
@@ -607,16 +607,16 @@ roles: boss, colleague
 earth: the way {N} has always done the job is going out of use, and {N} has not changed with it
 scene: Half the customers now order on a screen, and the new system everyone at work has learned sits on {Ns} desk unopened. {boss} has asked twice. {N} still does it the old way, by hand, and does it well.
 scene G: There is a right way to do this work, learned from people who did it for forty years. A screen does not know the customers' names.
-- G | keep doing it the old way, and let the work speak for itself | v: tradition | chance: 40
-- W | do the training, because the firm has asked everyone to | v: conformity, security | chance: 62
+- G | keep doing it the old way, and let the work speak for itself | v: tradition | foot: door turned down a chance | chance: 40
+- W | do the training, because the firm has asked everyone to | v: conformity, security | foot: mark learned a skill | chance: 62
 - U | learn the new system properly, and find where it beats the old way | v: self-direction, achievement | mark: learned a skill | chance: 66
-- B | learn it fast, and ask for the job of running it | v: achievement, power | chance: 66
-- R | tell {boss} what you think of the new system, and do it your way anyway | v: self-direction, stimulation | chance: 62
-- W>B | agree to switch, as long as your best customers keep you as their contact | v: conformity, power | chance: 58
-- U>R | learn the new system, and use the time it saves on the work you enjoy | v: self-direction, hedonism | chance: 62
-- B>G | bargain to keep the old customers the old way, and hand the rest over | v: power, tradition | chance: 62
-- R>W | ask {colleague} to teach you, grumbling loudly, every lunchtime for a month | v: conformity, stimulation | chance: 58
-- G>U | ask the oldest customers what they miss, and teach the new system to do it | v: tradition, achievement | chance: 52
+- B | learn it fast, and ask for the job of running it | v: achievement, power | foot: means money+.06 | chance: 66
+- R | tell {boss} what you think of the new system, and do it your way anyway | v: self-direction, stimulation | foot: mark defied an authority | chance: 62
+- W>B | agree to switch, as long as your best customers keep you as their contact | v: conformity, power | foot: person regular | chance: 58
+- U>R | learn the new system, and use the time it saves on the work you enjoy | v: self-direction, hedonism | foot: means time+.06 | chance: 62
+- B>G | bargain to keep the old customers the old way, and hand the rest over | v: power, tradition | foot: lesson keep what matters most | chance: 62
+- R>W | ask {colleague} to teach you, grumbling loudly, every lunchtime for a month | v: conformity, stimulation | foot: person friend | chance: 58
+- G>U | ask the oldest customers what they miss, and teach the new system to do it | v: tradition, achievement | foot: lesson old ways can teach new tools | chance: 52
 works: Within a year {N} is the one others ask about the new system.
 works: The old customers stay, and the new way grows around them.
 fails: {N} is moved to a smaller job, and the old way goes out with the last of the old customers.
@@ -640,16 +640,16 @@ roles: sibling, friend
 earth: the old house needs real change, and {N} keeps patching it the way it was always done
 scene: The roof of the old family house leaks again. {N} has patched it every autumn for nine years, the way {Ns} father did. The builder says it needs replacing, the wiring too, and {sibling} says it is time to sell.
 scene G: This house has stood for a hundred years. It has always been patched, and it has always come through.
-- G | patch it again: it has always been done this way | v: tradition, security | chance: 40
-- W | do what the builder says is right, whatever it costs | v: security, conformity | chance: 62
-- U | get three surveys, learn what the house really needs, and do it properly | v: self-direction, security | chance: 66
-- B | sell the house at a good price while it still stands | v: achievement, power | chance: 66
-- R | strip the roof yourself with {friend} over one long summer | v: stimulation, self-direction | chance: 62
-- W>R | do the repairs properly, and throw a party for everyone who helped | v: security, hedonism | chance: 58
+- G | patch it again: it has always been done this way | v: tradition, security | foot: means money-.03 | chance: 40
+- W | do what the builder says is right, whatever it costs | v: security, conformity | foot: means money-.10 | chance: 62
+- U | get three surveys, learn what the house really needs, and do it properly | v: self-direction, security | foot: means money-.06 | chance: 66
+- B | sell the house at a good price while it still stands | v: achievement, power | foot: means money+.10 | chance: 66
+- R | strip the roof yourself with {friend} over one long summer | v: stimulation, self-direction | foot: mark learned a skill | chance: 62
+- W>R | do the repairs properly, and throw a party for everyone who helped | v: security, hedonism | foot: means ties+.06 | chance: 58
 - U>G | learn the old building methods, and repair it to last another hundred years | v: tradition, achievement | mark: learned a skill | chance: 62
-- B>W | sell to {sibling} at a fair price, and let them bring it up to date | v: power, universalism | chance: 62
-- R>U | throw yourself into a building course, and do the work as you learn | v: stimulation, self-direction | chance: 58
-- G>B | let the top floor, and fix the roof bit by bit with the rent | v: security, power | chance: 52
+- B>W | sell to {sibling} at a fair price, and let them bring it up to date | v: power, universalism | foot: means money+.06 | chance: 62
+- R>U | throw yourself into a building course, and do the work as you learn | v: stimulation, self-direction | foot: place learn.higher | chance: 58
+- G>B | let the top floor, and fix the roof bit by bit with the rent | v: security, power | foot: person neighbour | chance: 52
 works: The new roof is on by winter, and the house is good for another lifetime.
 works: The house passes on, and {N} finds it was the people, not the walls, that mattered.
 fails: A winter storm takes the patch, and the ceiling of the back bedroom with it.
@@ -673,16 +673,16 @@ roles: friend
 earth: people want to bring help into {Ns} home, and {N} will not have it
 scene: The rail by the bath, the alarm button, the woman from the council on Thursdays. {N} has sent all three away. {N} has always managed, and the house is arranged exactly as it was forty years ago.
 scene G: Things are as they have always been, and that is how {N} wants them to stay. Change at this age feels like the beginning of the end.
-- G | send them away again: you have always managed | v: tradition, security | chance: 40
-- W | accept the help as the doctor advises, and be gracious about it | v: conformity, security | chance: 62
-- U | try each thing for a week, and keep only what actually helps | v: self-direction, security | chance: 66
-- B | choose your own help, on your own terms, and pay for it yourself | v: self-direction, power | chance: 66
-- R | let them in, then make the woman from the council laugh every Thursday | v: hedonism, benevolence | chance: 62
-- W>G | let {friend} fit the rail, the way neighbours always helped each other | v: benevolence, tradition | chance: 58
-- U>W | learn how each thing works, then explain it to the other old people on the street | v: universalism, self-direction | chance: 62
-- B>U | strike a deal: one change a month, chosen by you | v: power, self-direction | chance: 62
-- R>B | rearrange the whole house in one wild weekend, your way | v: stimulation, self-direction | chance: 58
-- G>R | let the help in, and spend the hours it saves in the garden | v: hedonism, tradition | chance: 52
+- G | send them away again: you have always managed | v: tradition, security | foot: door turned down a chance | chance: 40
+- W | accept the help as the doctor advises, and be gracious about it | v: conformity, security | foot: means health+.06 | chance: 62
+- U | try each thing for a week, and keep only what actually helps | v: self-direction, security | foot: lesson some help truly helps | chance: 66
+- B | choose your own help, on your own terms, and pay for it yourself | v: self-direction, power | foot: means money-.06 | chance: 66
+- R | let them in, then make the woman from the council laugh every Thursday | v: hedonism, benevolence | foot: person friend | chance: 62
+- W>G | let {friend} fit the rail, the way neighbours always helped each other | v: benevolence, tradition | foot: means ties+.03 | chance: 58
+- U>W | learn how each thing works, then explain it to the other old people on the street | v: universalism, self-direction | foot: person neighbour | chance: 62
+- B>U | strike a deal: one change a month, chosen by you | v: power, self-direction | foot: means freedom+.03 | chance: 62
+- R>B | rearrange the whole house in one wild weekend, your way | v: stimulation, self-direction | foot: lesson the house can change your way | chance: 58
+- G>R | let the help in, and spend the hours it saves in the garden | v: hedonism, tradition | foot: means time+.06 | chance: 52
 works: The house changes a little, and {N} stays in it for years more.
 works: The Thursday visits become the best hour of the week.
 fails: A fall in the bathroom brings the help in anyway, by ambulance.

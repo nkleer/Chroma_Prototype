@@ -738,15 +738,15 @@ scene U: Time at last for every book, course and question {N} put off for forty 
 scene B: {N} spent a career being someone people needed. The phone has gone quiet, and {N} has no intention of becoming nobody.
 scene R: No boss, no commute, no meetings. {N} stands in the doorway in a dressing gown, grinning at the open week.
 scene G: The garden needs digging, the grandchildren need collecting from school, and the season has turned. {N} lets it.
-- W | draw up a weekly timetable: volunteering Mondays, the pool Wednesdays, family Sundays | habit | v: conformity, security | chance: 75
-- U | enrol at the university for the degree you never had time to finish | identity | door | v: self-direction, achievement | chance: 70
+- W | draw up a weekly timetable: volunteering Mondays, the pool Wednesdays, family Sundays | habit | v: conformity, security | foot: place gather.games | chance: 75
+- U | enrol at the university for the degree you never had time to finish | identity | door | v: self-direction, achievement | foot: place learn.higher | chance: 70
 - B | go back as a paid consultant, on your own terms and at twice the rate | v: power, achievement | tags: commit:career; win:money+.05 | chance: 68
-- R | buy an old camper van and just go | door | v: stimulation, self-direction | tech: car | chance: 76
-- G | spend the mornings in the garden and the afternoons with family and friends | habit | v: benevolence, tradition | chance: 79
+- R | buy an old camper van and just go | door | v: stimulation, self-direction | tech: car | foot: means freedom+.06 | chance: 76
+- G | spend the mornings in the garden and the afternoons with family and friends | habit | v: benevolence, tradition | foot: means ties+.06 | chance: 79
 - BG | take the lump sum, buy a smallholding and live off the land | binds | door | v: security, self-direction | grants: plot of land | chance: 48 | back: took a wild risk
 - UG | walk the woods and rivers every day and become the local expert on birds | v: universalism (nature), self-direction | mark: learned a skill | chance: 70
-- UR | turn the garage into a workshop and invent things all day long | habit | v: self-direction, stimulation | chance: 75
-- WB | take the chair of a charity board and run it like your old department | identity | v: power, benevolence | chance: 62
+- UR | turn the garage into a workshop and invent things all day long | habit | v: self-direction, stimulation | foot: place prod.craft | chance: 75
+- WB | take the chair of a charity board and run it like your old department | identity | v: power, benevolence | foot: place rule.counsel | chance: 62
 - WR | volunteer at the refugee centre every day and fight its corner at the council | identity | binds | door | v: universalism, benevolence | chance: 72 | back: helped someone in need
 works: By spring, {Ns} days are fuller than they ever were at work.
 works: {N} sleeps well, laughs more, and stops checking the old work emails.
@@ -779,15 +779,15 @@ scene B: Fifty years of sharing everything, and now the money, the house and eve
 scene R: The grief hits {N} like weather, all at once, and {N} howls into {partner}'s coat in the hall.
 scene G: The roses {partner} planted are in bud. They will flower without {partner}, and somehow, so will {N}.
 - W | arrange the funeral exactly as you both agreed, and keep every custom | v: tradition, conformity | mark: kept your word | chance: 68
-- U | read everything about grief and keep a journal of each day | habit | v: self-direction | chance: 68
-- B | take charge of the money and the house at once, and decide everything alone | identity | v: self-direction, security | chance: 76
-- R | let yourself fall apart, and cry wherever and whenever it comes | v: none clear (grief let out) | role: women | chance: 77
-- G | keep their chair, their garden and their routines, as if they were still here | habit | v: tradition | mark: stayed home | chance: 68
+- U | read everything about grief and keep a journal of each day | habit | v: self-direction | foot: lesson writing it down helps | chance: 68
+- B | take charge of the money and the house at once, and decide everything alone | identity | v: self-direction, security | foot: mark learned a skill | chance: 76
+- R | let yourself fall apart, and cry wherever and whenever it comes | v: none clear (grief let out) | role: women | foot: lesson grief comes in its own way | chance: 77
+- G | keep their chair, their garden and their routines, as if they were still here | habit | v: tradition | mark: stayed home | foot: means ties-.03 | chance: 68
 - BR | sell up within the month and go somewhere neither of you ever went | door | v: stimulation, self-direction | mark: moved away | chance: 48
-- RG | walk out to the hills you both loved and scatter the ashes yourself | body: heavy | v: tradition, benevolence | chance: 70
-- UB | go through every one of their papers, looking for what they kept hidden | v: security, self-direction | chance: 64
-- WG | let the family and old friends carry you through the first year | v: tradition, benevolence | act: let the family and old friends carry them through the first year | chance: 64
-- WU | join a bereavement group and follow its course week by week | v: security, conformity | chance: 72
+- RG | walk out to the hills you both loved and scatter the ashes yourself | body: heavy | v: tradition, benevolence | foot: place prod.wild | chance: 70
+- UB | go through every one of their papers, looking for what they kept hidden | v: security, self-direction | foot: door kept it hidden | chance: 64
+- WG | let the family and old friends carry you through the first year | v: tradition, benevolence | act: let the family and old friends carry them through the first year | foot: means ties+.06 | chance: 64
+- WU | join a bereavement group and follow its course week by week | v: security, conformity | foot: place gather.talk | chance: 72
 works: In time {N} can say {partner}'s name and smile.
 works: The first year passes, and {N} is still standing, and not alone.
 fails: {N} stops eating properly and barely leaves the house for months.
@@ -816,15 +816,15 @@ scene U: {N} has compared eleven places: their staff, their fees, their inspecti
 scene B: The house is worth a fortune now. {N} means to get every penny of it and choose the next place without asking anyone's leave.
 scene R: {N} cannot stand the thought of a beige room and a timetable, and the anger comes out at whoever is nearest.
 scene G: This house is where {N} raised a family. Now it will raise someone else's. That is what houses are for.
-- W | move on the date the family agreed, with every box labelled | v: conformity, security | chance: 70
-- U | visit every place on the list and choose by the inspection reports | v: security, self-direction | chance: 70
-- B | sell to the highest bidder and buy the best flat money can buy | v: power, security | chance: 78
+- W | move on the date the family agreed, with every box labelled | v: conformity, security | foot: mark kept your word | chance: 70
+- U | visit every place on the list and choose by the inspection reports | v: security, self-direction | foot: place care.houses | chance: 70
+- B | sell to the highest bidder and buy the best flat money can buy | v: power, security | foot: means money+.06 | chance: 78
 - R | refuse to go, and dig in your heels for as long as you can stand | v: self-direction | chance: 50 | back: stayed home
 - G | give the furniture to whoever will love it, and keep only the photographs | v: benevolence, tradition | mark: left home | chance: 70
-- WUR | hold a farewell evening: a story for each room, then a dance in the empty one | v: hedonism, tradition | chance: 90
-- WUG | choose a place in your own neighbourhood, with a garden, and move in slowly | v: tradition, security | chance: 70
-- WBR | march into the care home office and get the best room in writing | v: power, security | chance: 58
-- UBG | rent the house out, live on the income, and keep it in the family | binds | v: security, tradition | chance: 65
+- WUR | hold a farewell evening: a story for each room, then a dance in the empty one | v: hedonism, tradition | foot: means ties+.06 | chance: 90
+- WUG | choose a place in your own neighbourhood, with a garden, and move in slowly | v: tradition, security | foot: person neighbour | chance: 70
+- WBR | march into the care home office and get the best room in writing | v: power, security | foot: place care.houses | chance: 58
+- UBG | rent the house out, live on the income, and keep it in the family | binds | v: security, tradition | foot: means money+.06 | chance: 65
 - BRG | sell up and go back to the village you were born in, whatever anyone says | identity | v: self-direction, tradition | mark: moved away | chance: 65
 works: The new place is light and warm, and {N} is surprised to love it.
 works not R: The move goes smoothly, and the neighbours are friendly from the first day.
@@ -854,11 +854,11 @@ scene U: {N} has not been courted since before mobile phones. There must be a wa
 scene B: {prospect} is charming, comfortable and lonely. {N} is old enough to know exactly what is on offer, and what it is worth.
 scene R: {Ns} heart is pounding like a teenager's, and {N} feels ridiculous, and does not care in the least.
 scene G: {N} thought that part of life had closed, like a season. But here is spring, of all things, in the seventies.
-- W | invite them to Sunday lunch with the family, and court them properly | v: tradition, conformity | chance: 65
-- U | take it slowly, and get to know them over many long conversations | v: self-direction, benevolence | chance: 68
-- B | keep your money separate and your will unchanged before it gets serious | v: security, power | chance: 90
-- R | kiss them at the end of the evening and see what happens | v: stimulation, hedonism | chance: 78
-- G | trust your instinct about them, and let it unfold without plans | v: benevolence | chance: 68
+- W | invite them to Sunday lunch with the family, and court them properly | v: tradition, conformity | foot: person prospect | chance: 65
+- U | take it slowly, and get to know them over many long conversations | v: self-direction, benevolence | foot: person prospect | chance: 68
+- B | keep your money separate and your will unchanged before it gets serious | v: security, power | foot: lesson protect what you have built | chance: 90
+- R | kiss them at the end of the evening and see what happens | v: stimulation, hedonism | foot: person prospect | chance: 78
+- G | trust your instinct about them, and let it unfold without plans | v: benevolence | foot: person prospect | chance: 68
 - WUB | draw up a careful agreement on money and homes before moving in together | binds | v: security | tags: commit:partner | chance: 68
 - WRG | marry them with the whole family there, and the youngest as attendants | binds | identity | v: tradition, hedonism | tags: commit:partner | chance: 55
 - WBG | keep your own homes, share your Sundays, and keep the family's blessing | v: security, tradition | tags: commit:partner | chance: 78
@@ -890,16 +890,16 @@ scene U: The citation gets two dates wrong and misnames the first project. {N} r
 scene B: At last the people who overlooked {N} for years will have to stand up and applaud.
 scene R: {N} reads the letter and whoops out loud in the kitchen, then rings {friend} at once.
 scene G: {N} thinks of {mentor}, who taught {N} the work, and of all the hands it passed through before and since.
-- W | accept graciously, wear your best, and thank the committee in a proper speech | v: conformity, tradition | chance: 85
-- U | rewrite the speech for weeks, until every word is exact | v: achievement, self-direction | chance: 75
-- B | invite everyone who ever doubted you, and make sure they see it | identity | v: power, achievement | act: invite everyone who ever doubted them, and make sure those people see it | chance: 75
-- R | turn the dinner into a party, and dance with the mayor | body: light | v: hedonism, stimulation | chance: 75
-- G | say it belongs to everyone you worked beside, and share the stage with them | identity | v: benevolence, tradition (humility) | chance: 82
-- W>B | use your new standing on the town's committees to steer money to your own causes | identity | v: power | closed: approval: a conflict of interest; backfire: a scandal in the paper | chance: 45
-- U>R | write a frank, funny memoir of the work, mistakes and all | identity | v: self-direction, stimulation | chance: 45
-- B>G | use your new fame to raise the money to save the old woodland | v: universalism (nature), power | chance: 50
+- W | accept graciously, wear your best, and thank the committee in a proper speech | v: conformity, tradition | foot: means ties+.03 | chance: 85
+- U | rewrite the speech for weeks, until every word is exact | v: achievement, self-direction | foot: lesson the right words take time | chance: 75
+- B | invite everyone who ever doubted you, and make sure they see it | identity | v: power, achievement | act: invite everyone who ever doubted them, and make sure those people see it | foot: person rival | chance: 75
+- R | turn the dinner into a party, and dance with the mayor | body: light | v: hedonism, stimulation | foot: person friend | chance: 75
+- G | say it belongs to everyone you worked beside, and share the stage with them | identity | v: benevolence, tradition (humility) | foot: means ties+.06 | chance: 82
+- W>B | use your new standing on the town's committees to steer money to your own causes | identity | v: power | closed: approval: a conflict of interest; backfire: a scandal in the paper | foot: place rule.counsel | chance: 45
+- U>R | write a frank, funny memoir of the work, mistakes and all | identity | v: self-direction, stimulation | foot: place arts.page | chance: 45
+- B>G | use your new fame to raise the money to save the old woodland | v: universalism (nature), power | foot: place rule.voice | chance: 50
 - R>W | use the speech to blast the council for cutting the very work you did | identity | v: universalism | closed: approval: at an honours dinner; backfire: a cold room and no more invitations | chance: 65 | back: defied an authority
-- G>U | spend the next year teaching an apprentice everything your hands know | binds | v: benevolence, tradition | chance: 70
+- G>U | spend the next year teaching an apprentice everything your hands know | binds | v: benevolence, tradition | foot: person colleague | chance: 70
 works: The applause goes on longer than anyone expected.
 works: {Ns} photograph goes up in the town hall, and {child} keeps the cutting from the paper.
 fails: The evening is stiff and hollow, and {N} is glad when it is over.
@@ -927,14 +927,14 @@ scene U: {N} asks for the scans, the numbers and the honest odds, and wants to u
 scene B: {N} has beaten long odds before. There must be a trial, a specialist, a clinic abroad, some door nobody has tried.
 scene R: Months, then. {N} intends to live every one of them at full volume.
 scene G: The leaves are turning outside the hospital window. {N} watches them fall and feels, strangely, part of it.
-- W | call the family in one by one, and say what must be said | v: benevolence, tradition | mark: owned up | chance: 80
-- U | ask for every result, and read until you understand your illness | v: self-direction, security | chance: 62
-- B | demand the best specialists, and pay for every scan and trial there is | v: power, security | tech: modern medicine | chance: 45
-- R | leave the hospital, cash in the savings and do everything on the list | v: hedonism, stimulation | chance: 71
-- G | go home to die among your own things, with the window open | v: tradition (acceptance) | chance: 70
-- W>G | talk with the chaplain or a counsellor, and make your peace with what comes | v: tradition | chance: 70
-- U>W | write a clear plan for your care and your funeral, so nobody has to guess | v: security, benevolence | chance: 88
-- B>U | leave your body to the medical school, so even your death teaches something | v: universalism | chance: 92
+- W | call the family in one by one, and say what must be said | v: benevolence, tradition | mark: owned up | foot: means ties+.06 | chance: 80
+- U | ask for every result, and read until you understand your illness | v: self-direction, security | foot: lesson knowing is easier than fearing | chance: 62
+- B | demand the best specialists, and pay for every scan and trial there is | v: power, security | tech: modern medicine | foot: means money-.10 | chance: 45
+- R | leave the hospital, cash in the savings and do everything on the list | v: hedonism, stimulation | foot: means money-.10 | chance: 71
+- G | go home to die among your own things, with the window open | v: tradition (acceptance) | foot: mark came home | chance: 70
+- W>G | talk with the chaplain or a counsellor, and make your peace with what comes | v: tradition | foot: place faith.seeking | chance: 70
+- U>W | write a clear plan for your care and your funeral, so nobody has to guess | v: security, benevolence | foot: lesson nobody should have to guess | chance: 88
+- B>U | leave your body to the medical school, so even your death teaches something | v: universalism | foot: mark helped someone in need | chance: 92
 - R>B | say every hard truth you held back for years; there is nothing left to lose | v: self-direction | mark: made an enemy | chance: 62
 - G>R | go back to the water you swam in as a child, and swim once more | body: heavy | v: stimulation, tradition | mark: took a wild risk | closed: approval: the doctors; backfire: a collapse far from help | chance: 50
 works: The last months are full of visitors, laughter and things said at last.

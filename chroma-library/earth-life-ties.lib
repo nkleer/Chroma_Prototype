@@ -67,16 +67,16 @@ scene U: {N} has told the story of the rift so often it has worn smooth. Reading
 scene B: {sibling} has written after all this time, and surely wants something. {N} would like to know what, and what it is worth.
 scene R: {N} reads {sibling}'s message and is furious and close to tears at once, and has already half typed an answer.
 scene G: As {elder} always says, a family comes back together in the end, the way water finds its level. {N} looks at {sibling}'s message for a long time.
-- W | answer politely, and suggest one meeting on neutral ground | v: conformity, security | chance: 64
-- U | ask them in writing what has changed, before agreeing to anything | v: security, self-direction | chance: 60
-- B | make peace now, with one eye on the family money | v: power, security | chance: 60
-- R | ring them that night and pour out everything held in for years | v: none clear (feelings let out) | chance: 60
+- W | answer politely, and suggest one meeting on neutral ground | v: conformity, security | foot: means ties+.03 | chance: 64
+- U | ask them in writing what has changed, before agreeing to anything | v: security, self-direction | foot: lesson the story has two sides | chance: 60
+- B | make peace now, with one eye on the family money | v: power, security | foot: door kept it hidden | chance: 60
+- R | ring them that night and pour out everything held in for years | v: none clear (feelings let out) | foot: mark took a wild risk | chance: 60
 - G | forgive them in front of the whole family, and let the old quarrel go | identity | v: benevolence, tradition | chance: 62 | back: made a friend
-- WU | write a letter owning your part, and post it the same night | v: benevolence | mark: owned up | chance: 76
-- UG | ask an old aunt or a family friend to bring you together, and keep the peace | binds | v: tradition, security | act: ask an old aunt or a family friend to bring the two of them together, and keep the peace | chance: 65
-- WB | agree to family occasions only, with clear limits, and nothing more | v: security, tradition | chance: 55
-- BR | test them first with a small secret, and see whether it travels | v: security | chance: 38
-- RG | turn up on their doorstep unannounced, and settle it face to face | v: self-direction, stimulation | chance: 60
+- WU | write a letter owning your part, and post it the same night | v: benevolence | mark: owned up | foot: door owned up | chance: 76
+- UG | ask an old aunt or a family friend to bring you together, and keep the peace | binds | v: tradition, security | act: ask an old aunt or a family friend to bring the two of them together, and keep the peace | foot: person go-between | chance: 65
+- WB | agree to family occasions only, with clear limits, and nothing more | v: security, tradition | foot: place gather.house | chance: 55
+- BR | test them first with a small secret, and see whether it travels | v: security | foot: lesson trust is tested in small things | chance: 38
+- RG | turn up on their doorstep unannounced, and settle it face to face | v: self-direction, stimulation | foot: mark came home | chance: 60
 works: The first meeting is stiff, the second easier, and by the third they are laughing at the same old jokes.
 works: {N} and {sibling} sit up past midnight, and the years of silence begin to shrink.
 fails: Within ten minutes they are back in the same old argument, word for word.
@@ -107,16 +107,16 @@ scene U: {N} reads {parent}'s hospital letters twice over, the dates, the doses,
 scene B: With {parent} gone, someone has to hold this family together and decide about the house, the money and the funeral. {N} already knows who.
 scene R: The grief arrives like a wave and knocks {N} flat on the kitchen floor, sobbing for {parent} like a child.
 scene G: {N} stands in {parent}'s garden among the plants {parent} put in decades ago. They will come up again in spring, and this time {N} will be the one to see them.
-- W | keep every funeral custom, and stand beside the family the whole day | v: tradition, conformity | chance: 82
-- U | ask every question about how and why they died, until it makes sense | v: self-direction | chance: 75
-- B | decide nobody will ever see you cry, and look after yourself from now on | v: self-direction, security | act: decide nobody will ever see them cry, and look after themselves from now on | chance: 65
-- R | cry and rage at everyone, and slam every door in the house | v: none clear (grief let out) | chance: 60
-- G | plant something where they lie, and tend it every season | habit | v: tradition | chance: 72
-- RG | go alone to their favourite place, and let the grief out where nobody can see | body: light | v: none clear (grief let out) | act: go alone to the lost parent's favourite place, and let the grief out where nobody can see | chance: 75
-- UB | go through their things alone, looking for what they never told anyone | v: security, self-direction | chance: 70
-- UG | make a book of everything you remember about them, before it fades | habit | v: tradition, benevolence | act: make a book of everything they remember about the parent they lost, before it fades | chance: 85
+- W | keep every funeral custom, and stand beside the family the whole day | v: tradition, conformity | foot: means ties+.03 | chance: 82
+- U | ask every question about how and why they died, until it makes sense | v: self-direction | foot: means health+.03 | chance: 75
+- B | decide nobody will ever see you cry, and look after yourself from now on | v: self-direction, security | act: decide nobody will ever see them cry, and look after themselves from now on | foot: door kept it hidden | chance: 65
+- R | cry and rage at everyone, and slam every door in the house | v: none clear (grief let out) | foot: means ties-.03 | chance: 60
+- G | plant something where they lie, and tend it every season | habit | v: tradition | foot: means time-.03 | chance: 72
+- RG | go alone to their favourite place, and let the grief out where nobody can see | body: light | v: none clear (grief let out) | act: go alone to the lost parent's favourite place, and let the grief out where nobody can see | foot: lesson grief needs somewhere to go | chance: 75
+- UB | go through their things alone, looking for what they never told anyone | v: security, self-direction | foot: door hid a wrong | chance: 70
+- UG | make a book of everything you remember about them, before it fades | habit | v: tradition, benevolence | act: make a book of everything they remember about the parent they lost, before it fades | foot: lesson memories fade unless kept | chance: 85
 - WB | take on their part in the family, so it keeps running without them | v: security, benevolence | act: take on the lost parent's part in the family, so it keeps running without them | chance: 70 | back: helped someone in need
-- WR | stand up at the funeral, voice shaking, and read out what you wrote for them | identity | v: benevolence, tradition | act: stand up at the funeral, voice shaking, and read out what they wrote for the parent they lost | chance: 85
+- WR | stand up at the funeral, voice shaking, and read out what you wrote for them | identity | v: benevolence, tradition | act: stand up at the funeral, voice shaking, and read out what they wrote for the parent they lost | foot: means ties+.03 | chance: 85
 works: In time {N} can talk about {parent} and laugh at the old stories.
 works: The family pulls close in the weeks after the funeral, and {N} is not alone in it.
 fails: {N} goes very quiet for a long time, and nobody quite knows how to reach {N}.
@@ -146,16 +146,16 @@ scene U: {N} keeps asking where {parent} has gone, exactly, and why the doctors 
 scene B: Since {parent} died, everyone is busy and sad, and nobody is looking. {N} decides, quietly, to be someone who does not need anybody.
 scene R: {N} does not want cake or hugs or quiet voices. {N} wants {parent} back, and shouts it into the pillow.
 scene G: {parent} is gone, but the gardening gloves are still on the back step, in the shape of two hands. {N} sits beside them in the sun.
-- W | put on your good clothes, and sit still and straight through the funeral | v: tradition, conformity | chance: 72
-- U | ask the grown-ups where they have gone, again and again, until an answer fits | v: self-direction | act: ask the grown-ups where the lost parent has gone, again and again, until an answer fits | chance: 75
-- B | decide not to need anybody, and look after yourself from now on | v: self-direction, security | act: decide not to need anybody, and look after themselves from now on | chance: 50
-- R | scream into the pillow, and slam the door on anyone who tries to help | v: none clear (grief let out) | chance: 55
-- G | help plant flowers by their grave, and water them on every visit | habit | v: tradition | act: help plant flowers by the lost parent's grave, and water them on every visit | chance: 72
-- RG | run to the spot outdoors they loved best, and cry there as long as you need | body: light | v: none clear (grief let out) | act: run to the spot outdoors the lost parent loved best, and cry there as long as they need | chance: 68
-- UB | creep into their room when nobody is looking, and go through their things | v: security, self-direction | act: creep into the lost parent's room when nobody is looking, and go through their things | chance: 72
-- UG | make a memory box of their photos and treasures, with the family's help | habit | v: tradition, benevolence | act: make a memory box of the lost parent's photos and treasures, with the family's help | chance: 90
-- WB | do little jobs around the house, so the family can manage without them | v: security, benevolence | chance: 75
-- WR | say goodbye to them out loud at the funeral, in front of everyone | identity | v: benevolence, tradition | act: say goodbye to the lost parent out loud at the funeral, in front of everyone | chance: 72
+- W | put on your good clothes, and sit still and straight through the funeral | v: tradition, conformity | foot: means ties+.02 | chance: 72
+- U | ask the grown-ups where they have gone, again and again, until an answer fits | v: self-direction | act: ask the grown-ups where the lost parent has gone, again and again, until an answer fits | foot: lesson some answers never quite fit | chance: 75
+- B | decide not to need anybody, and look after yourself from now on | v: self-direction, security | act: decide not to need anybody, and look after themselves from now on | foot: means ties-.03 | chance: 50
+- R | scream into the pillow, and slam the door on anyone who tries to help | v: none clear (grief let out) | foot: means ties-.02 | chance: 55
+- G | help plant flowers by their grave, and water them on every visit | habit | v: tradition | act: help plant flowers by the lost parent's grave, and water them on every visit | foot: means time-.02 | chance: 72
+- RG | run to the spot outdoors they loved best, and cry there as long as you need | body: light | v: none clear (grief let out) | act: run to the spot outdoors the lost parent loved best, and cry there as long as they need | foot: lesson crying out loud helps | chance: 68
+- UB | creep into their room when nobody is looking, and go through their things | v: security, self-direction | act: creep into the lost parent's room when nobody is looking, and go through their things | foot: door kept it hidden | chance: 72
+- UG | make a memory box of their photos and treasures, with the family's help | habit | v: tradition, benevolence | act: make a memory box of the lost parent's photos and treasures, with the family's help | foot: means ties+.03 | chance: 90
+- WB | do little jobs around the house, so the family can manage without them | v: security, benevolence | foot: mark helped someone in need | chance: 75
+- WR | say goodbye to them out loud at the funeral, in front of everyone | identity | v: benevolence, tradition | act: say goodbye to the lost parent out loud at the funeral, in front of everyone | foot: means ties+.02 | chance: 72
 works: In time {N} can look at the photographs of {parent} and smile.
 works: {grandparent} and the family close in around {N}, and {N} is never left alone with it.
 fails: {N} has bad dreams for months, and will not sleep without the landing light on.
@@ -185,15 +185,15 @@ scene B: {sibling} has left a house, debts and a family with nobody in charge. {
 scene R: When the call about {sibling} comes, {N} walks out into the rain without a coat, unable to stay indoors one second longer.
 scene G: {N} and {sibling} grew up in the same small room, under the same roof, from the same roots. Half of {Ns} childhood has gone with {sibling}.
 - W | insist on the funeral the family has always held, whatever their partner wanted | v: tradition, conformity | mark: made an enemy | closed: approval: overruling the widow or widower; backfire: a row at the graveside, and the partner's side of the family lost for good | chance: 55
-- U | trace the family's health history, to learn what took them | v: security, self-direction | chance: 65
-- B | get straight back to work or school, and let nobody see how hard it hit | habit | v: achievement, self-direction | chance: 65
-- R | take up the plans they never got to, and live them out | binds | v: stimulation, benevolence | chance: 70
-- G | go back alone to where you grew up together, and walk the old paths | body: light | v: tradition | chance: 78
-- WUB | settle their affairs line by line, so nobody can cheat their family | binds | v: security, benevolence | chance: 75
-- WRG | ask that the next baby born in the family carry their name | v: tradition | chance: 45
+- U | trace the family's health history, to learn what took them | v: security, self-direction | foot: means health+.03 | chance: 65
+- B | get straight back to work or school, and let nobody see how hard it hit | habit | v: achievement, self-direction | foot: means health-.03 | chance: 65
+- R | take up the plans they never got to, and live them out | binds | v: stimulation, benevolence | foot: mark took a wild risk | chance: 70
+- G | go back alone to where you grew up together, and walk the old paths | body: light | v: tradition | foot: mark came home | chance: 78
+- WUB | settle their affairs line by line, so nobody can cheat their family | binds | v: security, benevolence | foot: means time-.06 | chance: 75
+- WRG | ask that the next baby born in the family carry their name | v: tradition | foot: lesson a name keeps them near | chance: 45
 - WBR | take their family under your wing, and see they lack nothing | binds | v: benevolence, power | mark: helped someone in need | chance: 78
-- URG | hold the wake your own way, in the woods they loved, with their music | identity | v: hedonism, tradition | chance: 65
-- UBG | keep their secrets, and burn the letters nobody else should read | v: benevolence, security | chance: 72
+- URG | hold the wake your own way, in the woods they loved, with their music | identity | v: hedonism, tradition | foot: lesson grief can be done your way | chance: 65
+- UBG | keep their secrets, and burn the letters nobody else should read | v: benevolence, security | foot: door kept it hidden | chance: 72
 works: The family gathers around {sibling}'s memory, and the old childhood jokes come out at the wake.
 works: A year on, {N} visits the grave and finds the grief has softened into something {N} can carry.
 fails: The funeral opens old wounds, and two branches of the family stop speaking.
@@ -266,13 +266,13 @@ scene R: {N} reads the message on {partner}'s phone, and the cup hits the wall b
 scene G: One message on {partner}'s phone, and the house, the years, the photographs on the stairs all look different. {N} feels the ground of a whole life shift underfoot.
 - W | tell both families exactly what they did, and let everyone judge | identity | v: conformity | mark: made an enemy | closed: approval: shaming a partner before the family; backfire: the families take sides, and the gossip runs both ways | chance: 42
 - U | say nothing for weeks, and read their messages to learn everything | v: security | mark: hid a wrong | closed: approval: spying on a partner; backfire: caught at it, and now both of them have something to answer for | tech: phone | chance: 62
-- B | sort out your own money, home and work first, then decide about them | v: self-direction, security | chance: 70
-- R | throw their things out of the window into the street | body: light | v: none clear (rage let out) | chance: 28
+- B | sort out your own money, home and work first, then decide about them | v: self-direction, security | foot: means money+.03 | chance: 70
+- R | throw their things out of the window into the street | body: light | v: none clear (rage let out) | foot: door made an enemy | chance: 28
 - G | turn the whole family against them, and shut them out for good | v: tradition, security | mark: made an enemy | closed: approval: shunning; backfire: the family splits, and some take the other side | chance: 42
-- BR | pack a bag that night, walk out, and let them do the chasing | v: self-direction | mark: left home | chance: 60
-- UG | ask what was missing between you, and try counselling together | binds | v: benevolence, security | chance: 60
-- UR | ask every question, there and then, until you understand what happened | v: self-direction | chance: 62
-- WB | see a lawyer before saying a word, and get everything in writing | v: security, power | chance: 78
+- BR | pack a bag that night, walk out, and let them do the chasing | v: self-direction | mark: left home | foot: person partner lost | chance: 60
+- UG | ask what was missing between you, and try counselling together | binds | v: benevolence, security | foot: place gather.talk | chance: 60
+- UR | ask every question, there and then, until you understand what happened | v: self-direction | foot: lesson the truth hurts less than guessing | chance: 62
+- WB | see a lawyer before saying a word, and get everything in writing | v: security, power | foot: means money-.03 | chance: 78
 - WG | stay, for the vows and the family, and never speak of it again | binds | v: tradition, conformity | chance: 35 | back: kept your word
 works: The whole truth comes out, and {N} decides about the future with clear eyes.
 works: It is the hardest year of {Ns} life, and {N} comes through it standing.
@@ -302,15 +302,15 @@ scene U: {N} sits up all night with the bank statements, tracing each transfer b
 scene B: {N} let {friend} hold the money because it was convenient. That was a mistake, and {N} does not make the same mistake twice.
 scene R: The money and the clients are gone, and {N} drives straight to {friend}'s house with the radio off, heart pounding, hands tight on the wheel.
 scene G: Now that {friend} has gone with the money, {N} remembers a feeling from years ago, deep down, and ignored. The feeling was right.
-- W | take it to the police and the courts, and see it through to the end | v: security, conformity | chance: 35
+- W | take it to the police and the courts, and see it through to the end | v: security, conformity | foot: means money-.06 | chance: 35
 - U | get into their email account, and find out where the money went | v: security | mark: hid a wrong | closed: law: breaking into an account; backfire: the evidence is thrown out, and a charge to answer as well | tech: internet | chance: 50
-- B | take what is left, the tools, the van, the last clients, before they do | v: achievement, security | chance: 65
+- B | take what is left, the tools, the van, the last clients, before they do | v: achievement, security | foot: means money+.06 | chance: 65
 - R | drive round there tonight and tell them exactly what they are | v: self-direction | mark: made an enemy | tech: car | chance: 22
-- G | cut them off without a word, and never speak their name again | v: security | chance: 55
-- WUG | forgive them once, and agree in writing how they will pay it back | v: benevolence, security | chance: 45
+- G | cut them off without a word, and never speak their name again | v: security | foot: person friend lost | chance: 55
+- WUG | forgive them once, and agree in writing how they will pay it back | v: benevolence, security | foot: door kept your word | chance: 45
 - WBR | put the whole story online, with the proof, for everyone to see | identity | v: power, universalism | mark: made an enemy | tech: internet | chance: 35
 - WBG | go to the old hands of the trade, and see that nobody deals with them again | v: security, power | closed: approval: a blacklist; backfire: a claim for defamation, and the trade takes sides | chance: 50 | back: made an enemy
-- URG | trust nobody with money again, and rebuild alone from nothing | identity | v: self-direction, security | chance: 50
+- URG | trust nobody with money again, and rebuild alone from nothing | identity | v: self-direction, security | foot: means ties-.06 | chance: 50
 - UBR | find their weak spot, and use it to force the money back | v: power | mark: made an enemy | closed: law: blackmail; backfire: charged, and the money still gone | chance: 50
 works: The money comes back, slowly, and so does some of {Ns} trust in people.
 works: {N} starts again, and within a year the new venture is doing better than the old one.
@@ -344,12 +344,12 @@ scene G: With {friend} there is no need to talk. They can sit on the same bench 
 - W | promise to be there for them, always, and keep the promise | binds | v: benevolence | mark: kept your word | chance: 72
 - U | ask them about everything, and remember all of it | v: self-direction | chance: 75 | back: made a friend
 - B | go into a venture together, and share the risk and the profit | binds | v: achievement, power | mark: took a wild risk | chance: 50
-- R | spend every free hour together, and let everything else wait | habit | v: hedonism, stimulation | chance: 65
+- R | spend every free hour together, and let everything else wait | habit | v: hedonism, stimulation | foot: means time-.06 | chance: 65
 - G | sit with them in easy silence, as if you had always known each other | v: benevolence | chance: 58 | back: made a friend
-- W>U | set a regular day each week to learn something new together | habit | v: self-direction, conformity | chance: 70
+- W>U | set a regular day each week to learn something new together | habit | v: self-direction, conformity | foot: mark learned a skill | chance: 70
 - U>B | learn their secrets, and use them quietly to keep the upper hand | v: power | mark: hid a wrong | closed: approval: using a friend's secrets; backfire: found out, and the friendship over in a day | chance: 38
-- B>R | make use of everything they have, for adventures you could never afford alone | door | v: hedonism, stimulation | act: make use of everything the friend has, for adventures they could never afford alone | chance: 65
-- R>G | bring them home and make them part of the family: meals, holidays, everything | v: benevolence, tradition | chance: 75
+- B>R | make use of everything they have, for adventures you could never afford alone | door | v: hedonism, stimulation | act: make use of everything the friend has, for adventures they could never afford alone | foot: mark took a wild risk | chance: 65
+- R>G | bring them home and make them part of the family: meals, holidays, everything | v: benevolence, tradition | foot: place gather.house | chance: 75
 - G>W | stand by them through their worst year, without being asked | v: benevolence | mark: helped someone in need | chance: 88
 works: Years later, {N} and {friend} still finish each other's sentences.
 works: {friend} becomes part of the family, and nobody can remember a birthday without them.
@@ -381,13 +381,13 @@ scene B: {friend} has the biggest garden on the street, a trampoline and a dog. 
 scene R: {N} and {friend} laughed so hard at lunch that juice came out of {Ns} nose, and now they cannot look at each other without starting again.
 scene G: {friend} lives three doors down, and the two of them walk to school the same way every morning, kicking the same stones.
 - W | swear to be best friends forever, and stick to it | binds | v: benevolence | mark: kept your word | chance: 62
-- U | ask them a hundred questions, and remember every answer | v: self-direction | chance: 72
+- U | ask them a hundred questions, and remember every answer | v: self-direction | foot: person friend | chance: 72
 - B | keep them all to yourself, and tell the others they cannot play | v: power, security | mark: made an enemy | chance: 50
-- R | play together every single day, and forget about everything else | habit | v: hedonism, stimulation | chance: 68
-- G | be happy just being together, even doing nothing much at all | v: benevolence | chance: 58
-- W>U | set a day each week to do homework together and test each other | habit | v: self-direction, conformity | chance: 60
+- R | play together every single day, and forget about everything else | habit | v: hedonism, stimulation | foot: person friend | chance: 68
+- G | be happy just being together, even doing nothing much at all | v: benevolence | foot: person friend | chance: 58
+- W>U | set a day each week to do homework together and test each other | habit | v: self-direction, conformity | foot: lesson two heads learn faster | chance: 60
 - U>B | find out their secrets, and use them to get your own way | v: power | mark: hid a wrong | closed: approval: using a friend's secrets; backfire: found out, and the friendship over in a day | chance: 35
-- B>R | make the most of everything they have: the trampoline, the games, the dog | door | v: hedonism, stimulation | chance: 65
+- B>R | make the most of everything they have: the trampoline, the games, the dog | door | v: hedonism, stimulation | foot: place gather.house | chance: 65
 - R>G | bring them home for tea so often they feel part of the family | v: benevolence, tradition | chance: 70 | back: made a friend
 - G>W | stick by them when the others leave them out | v: benevolence | mark: helped someone in need | chance: 78
 works: Years later, {N} and {friend} still laugh about the den and its secret password.
@@ -419,16 +419,16 @@ scene U: {N} reads the stranger's message twice and goes looking at once: old re
 scene B: A new half-sibling, out of nowhere. {N} wonders what they want, and what claim they might make on the family.
 scene R: A message on the bus from a stranger: a half-sibling, two hours away. {N} laughs out loud, and then, for no reason at all, starts to cry.
 scene G: The stranger in the photograph has the family's hands, broad and square, with the same crooked little finger. Blood, {N} thinks, finds its way home.
-- W | write back warmly, and arrange to meet properly, with the family there | v: conformity, tradition | chance: 65
+- W | write back warmly, and arrange to meet properly, with the family there | v: conformity, tradition | foot: person friend | chance: 65
 - U | test their DNA in secret, from a cup they drank from | v: security | mark: hid a wrong | closed: law: testing someone's DNA without consent; backfire: found out, and the door slams shut | chance: 48
-- B | find out what they want before you let them near the family | v: security, power | act: find out what they want before letting them near the family | chance: 60
-- R | go and meet them that very week, wherever they live | door | v: stimulation | chance: 72
-- G | tell them the old family stories, so they know where they belong | v: tradition, benevolence | chance: 75
-- W>B | welcome them properly, but only once a test has proved the claim | v: security, conformity | chance: 62
+- B | find out what they want before you let them near the family | v: security, power | act: find out what they want before letting them near the family | foot: lesson caution keeps the family safe | chance: 60
+- R | go and meet them that very week, wherever they live | door | v: stimulation | foot: person friend | chance: 72
+- G | tell them the old family stories, so they know where they belong | v: tradition, benevolence | foot: door took them in | chance: 75
+- W>B | welcome them properly, but only once a test has proved the claim | v: security, conformity | foot: person friend | chance: 62
 - U>R | turn it into a quest, and chase every record and lead wherever it goes | door | v: stimulation, self-direction | mark: learned a skill | chance: 60
 - B>G | pay for a big reunion of both branches of the family, and run it yourself | identity | v: tradition, power | mark: made a friend | chance: 55
 - R>W | invite them to the next family holiday, there and then | v: benevolence | mark: made a friend | chance: 60
-- G>U | visit the old village the family came from together, and learn its story | door | v: tradition, self-direction | chance: 65
+- G>U | visit the old village the family came from together, and learn its story | door | v: tradition, self-direction | foot: mark came home | chance: 65
 works: The first meeting runs four hours over, and they find they laugh at the same things.
 works: By the next holiday there is an extra chair at the table, and it already feels like theirs.
 fails: The meeting is awkward and polite, and afterwards neither of them writes again.
@@ -538,16 +538,16 @@ scene U: {N} replays the near miss in slow motion: the car's speed, the angle, t
 scene B: The car missed by inches. {N} stands on the kerb, shaking, and thinks of everything not yet done, not yet won, not yet had.
 scene R: The car is gone, and the fear turns into a wild, fizzing joy. {N} is alive, gloriously alive, and wants to shout it down the street.
 scene G: Life and death passed each other on a street corner this morning, and life won. {N} feels very small, and very lucky.
-- W | wait for the signal every time from now on, and look both ways even then | v: security, conformity | chance: 90
-- U | work out exactly how it happened, so it never happens again | v: security, self-direction | chance: 85
-- B | milk the fright for all the sympathy and favours it brings | v: hedonism, power | chance: 88
-- R | live boldly from now on, since you were spared | v: stimulation, hedonism | chance: 78
-- G | spend the day outdoors, glad of the sun on your face and the ground underfoot | v: universalism (nature), hedonism | chance: 85
+- W | wait for the signal every time from now on, and look both ways even then | v: security, conformity | foot: means health+.03 | chance: 90
+- U | work out exactly how it happened, so it never happens again | v: security, self-direction | foot: lesson half a second makes the difference | chance: 85
+- B | milk the fright for all the sympathy and favours it brings | v: hedonism, power | foot: means ties+.02 | chance: 88
+- R | live boldly from now on, since you were spared | v: stimulation, hedonism | foot: mark took a wild risk | chance: 78
+- G | spend the day outdoors, glad of the sun on your face and the ground underfoot | v: universalism (nature), hedonism | foot: lesson glad just to be alive | chance: 85
 - W>B | report the driver to the police, and see they lose their licence | v: power, security | chance: 65 | back: made an enemy
 - U>R | train as a volunteer first-aider, so next time you can act fast | binds | v: benevolence, security | mark: learned a skill | chance: 82
-- B>G | drop whatever wastes your time, and spend it on the people you love | v: benevolence, self-direction | chance: 88
-- R>W | start a loud campaign for a traffic camera at that corner | v: universalism | chance: 68
-- G>U | go somewhere quiet, and think long about what really matters now | v: self-direction | chance: 72
+- B>G | drop whatever wastes your time, and spend it on the people you love | v: benevolence, self-direction | foot: means ties+.06 | chance: 88
+- R>W | start a loud campaign for a traffic camera at that corner | v: universalism | foot: place rule.voice | chance: 68
+- G>U | go somewhere quiet, and think long about what really matters now | v: self-direction | foot: place faith.seeking | chance: 72
 works: By evening {N} is home and safe, holding everyone a little tighter.
 works: {N} tells the story for years, and it gets better every time.
 fails: {N} jumps at every engine for weeks, and sleep comes hard.
@@ -577,16 +577,16 @@ scene U: {N} cannot stop thinking about it: how fast the car was going, how far 
 scene B: After the car that nearly hit {N}, everyone is fussing, and the driver has bought {N} an ice cream. {N} feels, oddly, rather important.
 scene R: The car stopped just in time. {Ns} heart is pounding so hard it hurts, and then, out of nowhere, {N} starts to laugh.
 scene G: The car missed {N} by inches today. That night {N} lies awake listening to the house breathe, very glad of every ordinary sound in it.
-- W | say sorry for running out, and promise to stop, look and listen every time | v: conformity, security | mark: owned up | chance: 94
-- U | ask question after question about it, until you know exactly what happened | v: self-direction, security | chance: 85
-- B | make the most of the fuss: the cuddles, the treats, the ice cream | v: hedonism, power | chance: 93
-- R | laugh it off, and run straight back out to play | v: stimulation, hedonism | chance: 78
-- G | lie in bed listening to the house, glad of every ordinary sound | v: security | chance: 72
-- W>B | insist it was the driver's fault, because cars are meant to stop for children | v: security, power | chance: 70
+- W | say sorry for running out, and promise to stop, look and listen every time | v: conformity, security | mark: owned up | foot: door kept your word | chance: 94
+- U | ask question after question about it, until you know exactly what happened | v: self-direction, security | foot: lesson how close close really is | chance: 85
+- B | make the most of the fuss: the cuddles, the treats, the ice cream | v: hedonism, power | foot: lesson a fright brings treats | chance: 93
+- R | laugh it off, and run straight back out to play | v: stimulation, hedonism | foot: mark took a wild risk | chance: 78
+- G | lie in bed listening to the house, glad of every ordinary sound | v: security | foot: means ties+.02 | chance: 72
+- W>B | insist it was the driver's fault, because cars are meant to stop for children | v: security, power | foot: door hid a wrong | chance: 70
 - U>R | learn the road rules properly, so you are allowed out on your own again | v: self-direction, security | mark: learned a skill | chance: 82
-- B>G | use the fright to keep the family close around you all evening | v: security, benevolence | chance: 92
-- R>W | tell the whole class, loudly and at length, always to stop and look | v: benevolence | chance: 88
-- G>U | sit at the window a long while, watching the cars, until you understand them | v: self-direction | chance: 65
+- B>G | use the fright to keep the family close around you all evening | v: security, benevolence | foot: means ties+.03 | chance: 92
+- R>W | tell the whole class, loudly and at length, always to stop and look | v: benevolence | foot: mark helped someone in need | chance: 88
+- G>U | sit at the window a long while, watching the cars, until you understand them | v: self-direction | foot: mark learned a skill | chance: 65
 works: By bedtime {N} is safe at home, and {parent} keeps looking in at the door.
 works: {N} tells the story at school for weeks, and the car gets faster every time.
 fails: For weeks {N} will not cross a road without holding a hand, and jumps at the sound of brakes.
@@ -616,15 +616,15 @@ scene U: The two robbers: one tall, in a grey hood; one with a limp; both headin
 scene B: Someone took something from {N} tonight and got away with it. {N} will not be someone people take from.
 scene R: Two strangers shove {N}, grab the phone and run. The fear lasts a second; then comes the fury, hot and huge, and {Ns} legs want to run after them.
 scene G: After the robbery {N} walks home the long way, through the lit streets, and the town feels like a different and wilder place.
-- W | report it at once, give a full statement, and see it through to court | identity | v: security, conformity | chance: 45
-- U | study the streets and change your routes, so it cannot happen again | habit | v: security | chance: 68
-- B | make yourself a hard target: never alone, never lost, never soft | habit | v: power, security | chance: 75
+- W | report it at once, give a full statement, and see it through to court | identity | v: security, conformity | foot: means time-.03 | chance: 45
+- U | study the streets and change your routes, so it cannot happen again | habit | v: security | foot: lesson know the streets you walk | chance: 68
+- B | make yourself a hard target: never alone, never lost, never soft | habit | v: power, security | foot: means freedom-.03 | chance: 75
 - R | carry a knife from now on, and let anyone try it again | v: security, power | closed: law: carrying a weapon; backfire: arrested at a stop and search, and a record to follow | law: knives | chance: 38 | back: broke the law
-- G | stop going out after dark, and keep close to home and your own | v: security, tradition | mark: stayed home | chance: 25
+- G | stop going out after dark, and keep close to home and your own | v: security, tradition | mark: stayed home | foot: means freedom-.06 | chance: 25
 - W>U | photograph and report every stranger who hangs about near that bridge | v: security, conformity | mark: made an enemy | closed: approval: suspecting strangers on sight; backfire: an innocent neighbour reported, and the street turns cold | chance: 25
 - U>B | track the stolen phone yourself, and find out exactly where they live | v: power, security | tech: phone | chance: 35 | back: took a wild risk
 - B>R | find them later, with friends, and pay them back in kind | body: heavy | v: power | mark: made an enemy | closed: law: assault; backfire: arrested, and they come back with more friends | chance: 15
-- R>G | take up boxing, and get strong enough that nobody tries it again | habit | body: heavy | v: security, achievement | chance: 68
+- R>G | take up boxing, and get strong enough that nobody tries it again | habit | body: heavy | v: security, achievement | foot: place gather.games | chance: 68
 - G>W | let the family deal with them in their own way, and keep the police out | v: tradition, security | mark: defied an authority | closed: law: taking justice into the family's hands; backfire: a feud, and arrests on both sides | chance: 30
 works not G>W: The police find the phone, and one of the two is caught within the month.
 works: The fear fades slowly, and by spring {N} walks home the old way without thinking about it.
@@ -656,16 +656,16 @@ scene U: As the news about {child} sinks in, {N} remembers {child} at six, takin
 scene B: {child} has come top of the year. {N} wants every relative, neighbour and rival to know exactly whose child that is.
 scene R: {N} hears the news and lets out a whoop that sets the dog barking, then rings everyone at once.
 scene G: {N} watches {child} walk out into the world, as {N} once did, and {Ns} own parents before. The tree has put out a new branch.
-- W | make a proper speech at the family dinner, and give them a gift to keep | v: tradition, benevolence | chance: 82
-- U | ask what they want to do with it, and help them plan the next step | v: self-direction, benevolence | chance: 82
-- B | boast about it everywhere, as if it were your own success | v: power, achievement | chance: 68
-- R | throw a huge party and tell everyone you have ever met | v: hedonism | chance: 90
-- G | step back, and let them make their own way from here | v: benevolence | chance: 72
-- W>G | hang the photograph on the family wall, beside the grandparents' | v: tradition | chance: 94
-- U>W | go through the contract and the small print with them, line by line | v: security, benevolence | chance: 75
-- B>U | ring your contacts to open the next door for them | v: achievement, power | chance: 78
-- R>B | push them, while the fire is lit, to aim even higher | v: achievement, stimulation | chance: 55
-- G>R | take them off somewhere wild for a weekend, just the two of you | body: light | v: hedonism, benevolence | chance: 78
+- W | make a proper speech at the family dinner, and give them a gift to keep | v: tradition, benevolence | foot: means money-.03 | chance: 82
+- U | ask what they want to do with it, and help them plan the next step | v: self-direction, benevolence | foot: means time-.03 | chance: 82
+- B | boast about it everywhere, as if it were your own success | v: power, achievement | foot: person rival | chance: 68
+- R | throw a huge party and tell everyone you have ever met | v: hedonism | foot: means money-.06 | chance: 90
+- G | step back, and let them make their own way from here | v: benevolence | foot: lesson letting go is part of loving | chance: 72
+- W>G | hang the photograph on the family wall, beside the grandparents' | v: tradition | foot: lesson each generation adds a face | chance: 94
+- U>W | go through the contract and the small print with them, line by line | v: security, benevolence | foot: means time-.02 | chance: 75
+- B>U | ring your contacts to open the next door for them | v: achievement, power | foot: means ties-.03 | chance: 78
+- R>B | push them, while the fire is lit, to aim even higher | v: achievement, stimulation | foot: means ties-.02 | chance: 55
+- G>R | take them off somewhere wild for a weekend, just the two of you | body: light | v: hedonism, benevolence | foot: means ties+.03 | chance: 78
 works: The whole family gathers to celebrate, and {child} gives a speech that makes {N} cry.
 works: {child} rings on the first day of the new life, just to say thanks.
 fails: The celebration turns sour when an old family argument comes back at the table.
@@ -696,15 +696,15 @@ scene U: Since {friend} died, {N} keeps reaching for details that are already sl
 scene B: {friend} was the same age, near enough. {N} looks in the mirror and counts the years that might be left.
 scene R: {N} reads the message from {friend}'s family, throws the phone onto the sofa, and howls like a child.
 scene G: {friend} is gone, but the oak they planted together years ago, for a laugh, is taller than both of them now. {N} goes and sits under it.
-- W | go to every memorial and anniversary for them, and never miss one | habit | v: tradition, benevolence | chance: 75
+- W | go to every memorial and anniversary for them, and never miss one | habit | v: tradition, benevolence | foot: means time-.03 | chance: 75
 - U | promise their family a book of their life, and write it chapter by chapter | binds | v: tradition, benevolence | chance: 60 | back: kept your word
-- B | decide life is too short, and start taking what you want from it | identity | v: hedonism, power | chance: 65
-- R | speak at the funeral, and promise out loud to live the way they did | binds | identity | v: benevolence, stimulation | chance: 85
-- G | keep to the few friends you have left, and let nobody new in | v: security, tradition | mark: turned down a chance | chance: 35
+- B | decide life is too short, and start taking what you want from it | identity | v: hedonism, power | foot: means freedom+.06 | chance: 65
+- R | speak at the funeral, and promise out loud to live the way they did | binds | identity | v: benevolence, stimulation | foot: door kept your word | chance: 85
+- G | keep to the few friends you have left, and let nobody new in | v: security, tradition | mark: turned down a chance | foot: means ties-.06 | chance: 35
 - W>G | stand by their family for years: birthdays, repairs, the bad days | v: benevolence | mark: helped someone in need | chance: 72
-- U>W | plan the memorial yourself, every reading and song exactly as they would want | identity | v: tradition, benevolence | chance: 80
-- B>U | step into their place on the project, and finish it as well as they would have | v: achievement | chance: 70
-- R>B | hand in your notice that week, and chase the life they always told you to | v: self-direction, achievement | chance: 50
+- U>W | plan the memorial yourself, every reading and song exactly as they would want | identity | v: tradition, benevolence | foot: lesson a goodbye can be well made | chance: 80
+- B>U | step into their place on the project, and finish it as well as they would have | v: achievement | foot: person colleague | chance: 70
+- R>B | hand in your notice that week, and chase the life they always told you to | v: self-direction, achievement | foot: mark took a wild risk; means money-.06 | chance: 50
 - G>R | carry their ashes up the hill they loved, whatever their family says | identity | body: heavy | v: tradition, stimulation | closed: approval: going against the family's wishes; backfire: a bitter row, and the friend's family never speaks to the person again | chance: 72 | back: defied an authority
 works: At the memorial the room is full, and {N} tells a story about {friend} that has everyone laughing through their tears.
 works: {N} keeps {friend}'s memory close, and in time the grief makes room for gratitude.
@@ -736,15 +736,15 @@ scene B: {grandparent} leaves a house, a little money and a family already eyein
 scene R: {N} had meant to visit last month. The grief hits all at once, hot and sharp, on the bus home.
 scene G: The kitchen still smells of {grandparent}'s cooking. Outside, the plants {grandparent} put in are flowering as if nothing has happened.
 - W | be there for the funeral, and help the family with whatever needs doing | v: tradition, benevolence | chance: 88 | back: helped someone in need
-- U | sit with the old letters and photographs, and write down the family's story | habit | v: tradition, self-direction | chance: 85
-- B | help clear the house, and ask for the keepsake in return | v: power (resources) | chance: 75
-- R | drop everything and go at once, to see them before the coffin is closed | body: light | v: benevolence | chance: 75
-- G | take on the old recipes and the garden, and keep them going as they did | habit | binds | v: tradition | chance: 82
-- BG | argue hard against selling the old house, so it stays in the family | v: tradition, power (resources) | chance: 40
-- RG | walk their old walk alone, all day, until the grief settles | body: light | v: none clear (grief let out) | chance: 82
+- U | sit with the old letters and photographs, and write down the family's story | habit | v: tradition, self-direction | foot: lesson every family has a story | chance: 85
+- B | help clear the house, and ask for the keepsake in return | v: power (resources) | foot: means money+.02 | chance: 75
+- R | drop everything and go at once, to see them before the coffin is closed | body: light | v: benevolence | foot: mark came home | chance: 75
+- G | take on the old recipes and the garden, and keep them going as they did | habit | binds | v: tradition | foot: mark learned a skill | chance: 82
+- BG | argue hard against selling the old house, so it stays in the family | v: tradition, power (resources) | foot: door made an enemy | chance: 40
+- RG | walk their old walk alone, all day, until the grief settles | body: light | v: none clear (grief let out) | foot: lesson grief eases on the move | chance: 82
 - UR | track down their oldest friends and ask for every story, the wilder the better | v: self-direction, stimulation | chance: 70 | back: made a friend
-- WB | step up and organise what needs doing, since nobody else will | identity | v: power, conformity | chance: 75
-- WU | prepare a few careful words for the funeral, telling their life in order | identity | v: tradition, benevolence | chance: 88
+- WB | step up and organise what needs doing, since nobody else will | identity | v: power, conformity | foot: means time-.03 | chance: 75
+- WU | prepare a few careful words for the funeral, telling their life in order | identity | v: tradition, benevolence | foot: means ties+.03 | chance: 88
 works: The family gathers, tells the old stories, and goes home closer than it came.
 works: {N} carries something of {grandparent} forward, and it feels right.
 fails: The funeral is tense, and old quarrels in the family open up again.

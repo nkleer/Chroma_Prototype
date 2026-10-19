@@ -1,0 +1,447 @@
+# Chroma library, modern Earth: aims v1, group C (the B faces and B's pairs with R and G), 10-19: spark moments.
+# Syntax: header of build.py. Build: python3 build.py earth_aim_moments; check: python3 tests/check_aims.py . --part --reach
+# Switched off: nothing reads these until the Engine's aims switch is on.
+
+# ---------------------------------------------------------------- to answer to no one (B; cycle s3)
+
+== the first money earned with no one over you
+tier: life event
+aim: to answer to no one
+aim_role: spark
+stages: young_adult adult mature
+age: 16-60
+per_year: 0 0 .5 .4 .3 0
+tone: joy
+life: work, money
+horizon: months
+roles: friend, parent, neighbour, a customer
+earth: a first Saturday working a stall of your own, with no boss and no rota
+tribal: a first trip alone to the trading ground, with skins of your own to barter
+magic: a first day at a free stall on the crossroads, with no guild master watching
+scene: It is seven on a Saturday and {N} is setting out a folding table at the market: a cash tin, a hand-painted sign, and nobody to answer to.
+scene W: {N} has written out a price list and means to keep every price on it, whatever the stall opposite does.
+scene U: {N} counted the people passing this pitch for three Saturdays, and chose it for the morning sun.
+scene B: Every coin in that tin will be {Ns} own. Nobody takes a cut, and nobody signs off the hours.
+scene R: {N} walked out of the café on Thursday in the middle of a shift, and this table is the reason.
+scene G: The stall sells jam and chutney from {grandparent}'s old recipes, and the jars look like home.
+- W | keep to the posted prices and give honest change all day | v: conformity, universalism (fairness) | foot: door kept your word | chance: 85
+- U | note every sale in a little book and work out what really sells | v: achievement, self-direction | foot: lesson the numbers show what sells | chance: 80
+- B | haggle hard with every customer and keep every penny of the margin | v: power, achievement | dream: test | foot: means money+.04 | chance: 70
+- R | shout the stall's wares down the aisle, louder than the stall opposite | v: stimulation | foot: person rival | chance: 72
+- G | give the first jar free to the stallholder next door | v: benevolence | foot: person neighbour | chance: 88
+- W>R | promise the early customers a new flavour every week, and keep it up | v: stimulation, conformity | foot: person regular | chance: 60
+- U>G | find out which of the old recipes the town remembers, and make those | v: tradition | foot: lesson old ways still sell | chance: 70
+- B>W | sign for a permanent pitch and pay the whole year's fee up front | v: security, achievement | dream: seal | foot: place comm.market; means money-.06 | chance: 62
+- R>U | chat to every trader in the aisle about how each of them started | v: stimulation, self-direction | foot: person mentor | chance: 82
+- G>B | bring the whole family in to help, and keep the profits in the family | v: tradition, security | foot: means ties+.04 | chance: 78
+works: By four the tin is heavy and the table is nearly bare.
+works: A customer comes back an hour later, with a friend, for more.
+fails: Rain sets in by ten, and the aisle empties.
+fails: By closing time the takings barely cover the pitch fee.
+
+# ---------------------------------------------------------------- to be somebody in this town (B; cycle s1)
+
+== the evening the room turns to listen
+tier: life event
+aim: to be somebody in this town
+aim_role: spark
+stages: young_adult adult mature elder
+age: 18-80
+per_year: 0 0 .3 .4 .4 .3
+tone: mixed
+life: community
+horizon: week
+roles: neighbour, elder, parent, a councillor
+earth: a crowded residents' meeting in the hall, and a chance to stand up and speak
+tribal: a gathering at the clan fire, where the elders let a younger voice be heard
+magic: a guildhall meeting where any freeholder may rise and address the bench
+scene: The hall is full, the chairs are hard, and the meeting about the bus route has gone round in circles for an hour. {N} has a hand half raised.
+scene W: {N} has read the council's papers twice and is sure the rules are on the town's side.
+scene U: {N} has the numbers on a folded sheet: how many ride the bus, and when.
+scene B: Half the town is here, and the councillor too. A good speech tonight would be remembered.
+scene R: {N} is tired of polite murmurs, and the words are already on the tip of the tongue.
+scene G: {N} has lived on this street all their life, and so did {parent}, and everyone here knows it.
+- W | stand and remind the room what the council promised, word for word | v: conformity, universalism (fairness) | foot: place rule.voice | chance: 70
+- U | hand round the figures and let them speak for themselves | v: self-direction | foot: lesson figures carry a room | chance: 65
+- B | take the floor, name the problem, and offer to lead the fight yourself | v: power, achievement | dream: test | foot: place rule.counsel | chance: 55
+- R | tell the councillor to their face that the town deserves better | v: self-direction, stimulation | foot: person rival | chance: 60
+- G | speak up for the old neighbours who could not make it to the hall | v: benevolence, tradition | foot: person neighbour | chance: 75
+- W>U | volunteer to take the minutes and see the vote recorded properly | v: conformity, security | foot: place gather.hall | chance: 78
+- U>B | work out who in the room really decides, and sit beside them afterwards | v: power | dream: test | foot: person patron | chance: 68
+- B>R | lead a walkout loud enough to get into the local paper | v: power, stimulation | foot: door defied an authority | chance: 45
+- R>G | get the whole hall clapping along to the old street song | v: stimulation, tradition | foot: means ties+.05 | chance: 50
+- G>W | offer your own front room for the next meeting | v: benevolence, conformity | foot: place gather.house | chance: 80
+works: The room goes quiet, then nods, and someone at the back says {Ns} name.
+works: By the end of the night the councillor asks {N} for a word in private.
+fails: The chair moves on to any other business before {N} has finished.
+fails: A few people clap, and the rest are already reaching for their coats.
+
+# ---------------------------------------------------------------- to win at the highest level (B; cycle s2)
+
+== the first time winning is the only thing in the room
+tier: life event
+aim: to win at the highest level
+aim_role: spark
+stages: juvenile young_adult adult
+age: 12-35
+per_year: 0 .5 .5 .3 0 0
+tone: mixed
+life: sport
+horizon: moment
+roles: rival, friend, grandparent, a coach
+earth: the final of the regional championship, one lap left and one rival ahead
+tribal: the great race at the summer gathering, with the clans lining the course
+magic: the last bout of the realm's games, under the banners of every house
+scene: One lap left. The crowd is a blur, and all {N} can see is {rival}'s back, two strides ahead.
+scene W: {N} has trained to the plan for months, and the plan says to wait for the last bend.
+scene U: {N} has watched {rival} race a dozen times, and {rival} always tires on the hill.
+scene B: Second place is the first of the losers. {N} has never wanted anything more.
+scene R: {Ns} legs are burning and {N} is laughing, because this is what it is all for.
+scene G: The whole family is at the barrier, and {grandparent} is shouting louder than anyone.
+- W | hold to the race plan and go on the last bend, as the coach said | v: conformity, achievement | foot: person mentor | chance: 60
+- U | go wide on the hill, where the leader always tires | v: achievement | foot: mark learned a skill | chance: 58
+- B | go now, all of it, and do not look back until the line | v: achievement, power | dream: test | foot: means health-.03 | chance: 50
+- R | throw everything into a wild sprint from far out, for the joy of it | v: stimulation | foot: mark took a wild risk | chance: 40
+- G | run your own race and let the place come as it will | v: security | dream: drop | foot: lesson running for its own sake | chance: 80
+- W>B | box the leader in on the bend, strictly inside the rules | v: power, conformity | foot: door made an enemy | chance: 52
+- U>R | read the wind and the crowd, and save one burst for the line | v: achievement, stimulation | foot: lesson save something for last | chance: 62
+- B>G | race for the family's name, louder in your head than any coach | v: achievement, tradition | dream: test | foot: means ties+.04 | chance: 60
+- R>W | catch the leader and shake hands at the line, whoever wins | v: benevolence | foot: person friend | chance: 70
+- G>U | listen to your body on the hill, and ease off before it breaks | v: security | foot: means health+.03 | chance: 75
+works: {N} crosses the line first, arms up, and cannot hear anything for the noise.
+works: The clock shows a time nobody at the club has run before.
+fails: {N} finishes second by a stride, and stands alone at the barrier for a long time.
+fails: The legs go on the last straight, and three runners pass.
+
+# ---------------------------------------------------------------- to make money work for me (B; cycle s4)
+
+== the first money that grows on its own
+tier: life event
+aim: to make money work for me
+aim_role: spark
+stages: young_adult adult mature elder
+age: 18-80
+per_year: 0 0 .4 .4 .4 .3
+tone: joy
+life: money
+horizon: years
+roles: parent, friend, a bank adviser
+earth: a small windfall and the first real choice of where to put it
+tribal: a first calf of your own, and the choice of whose herd to run it with
+magic: a first purse of silver, and the guild bankers' offer to put it to work
+scene: There is a cheque on the kitchen table: a small windfall, more money than {N} has ever held in one piece.
+scene W: {N} wants it somewhere safe and sensible, where it can be counted on.
+scene U: {N} has three tabs open, comparing rates, fees and the small print.
+scene B: {N} does not want to spend it. {N} wants it to make more of itself.
+scene R: {N} could be on a plane tonight with this. The thought will not go away.
+scene G: {parent} always said money should go back into the home and the family.
+- W | put it in a fixed savings account and leave it alone | v: security | foot: means money+.03 | chance: 90
+- U | read up on it at the library for a month before deciding anything | v: self-direction | foot: place learn.keeping | chance: 85
+- B | buy a handful of shares and check them every morning | v: power, achievement | dream: test | foot: means money+.05 | chance: 55
+- R | spend half on a trip and put the rest away | v: hedonism | foot: means freedom+.04 | chance: 85
+- G | pay down the family's debts first | v: benevolence, security | foot: means ties+.04 | chance: 80
+- W>G | put a share into the savings circle with the neighbours | v: benevolence, conformity | foot: place comm.credit | chance: 82
+- U>W | draw up a plan with a set sum saved every month, and stick to it | v: security, conformity | foot: lesson a little each month adds up | chance: 70
+- B>U | find someone who invests for a living, and ask to learn from them | v: achievement | dream: test | foot: person mentor | chance: 60
+- R>B | put the lot on a hot tip from a friend, and hope | v: stimulation, power | foot: mark took a wild risk | chance: 30
+- G>R | lend it to a friend starting a business, on a handshake | v: benevolence, stimulation | foot: door helped someone in need | chance: 65
+works: A year on, the statement shows a little more than went in, and {N} reads it twice.
+works: The money grows slowly, and {N} finds that watching it is a pleasure of its own.
+fails: The market drops in the first month, and {N} watches a quarter of it vanish.
+fails: An emergency comes along, and the money is gone before it can grow.
+
+# ---------------------------------------------------------------- to live by my own rules (B R; cycle s1)
+
+== the first door walked out of for good
+tier: life event
+aim: to live by my own rules
+aim_role: spark
+stages: juvenile young_adult adult
+age: 16-40
+per_year: 0 .3 .5 .3 0 0
+tone: mixed
+life: home, work
+horizon: years
+roles: parent, friend, sibling
+earth: a steady job lined up by the family, and a one-way ticket in the other pocket
+tribal: the elders' choice of your place in the clan's work, and the open plain beyond the camp
+magic: an apprenticeship bought by the family, and the road out of the town gate
+scene: The letter offering the job {parent} arranged is in one pocket. A one-way ticket is in the other. The train leaves at six.
+scene W: {N} promised {parent} to think it over, and has thought of nothing else.
+scene U: {N} has worked out the money to the last coin: three months, if nothing goes wrong.
+scene B: Nobody else is going to decide how {Ns} life goes. Not any more.
+scene R: The train is at six, the sky is clear, and {Ns} heart is pounding.
+scene G: The family's house is warm and full, and leaving it feels like pulling up a root.
+- W | tell the family face to face before the train goes | v: conformity, benevolence | foot: door owned up | chance: 70
+- U | take the job for a year, and save every penny for leaving | v: security, self-direction | foot: means money+.05 | chance: 75
+- B | turn the job down in writing and take the train | v: self-direction, power | dream: test | foot: mark moved away | chance: 70
+- R | leave a note on the table and run for the six o'clock | v: stimulation, self-direction | dream: test | foot: door left home | chance: 75
+- G | stay, and plant a life of your own inside the family's | v: tradition, security | dream: drop | foot: door stayed home | chance: 80
+- W>U | ask the employer in writing to hold the job open for a year | v: security | foot: lesson doors can be held open | chance: 45
+- U>B | sell everything that will not fit in one bag | v: self-direction | foot: means freedom+.05 | chance: 85
+- B>R | quit, and spend the first week's savings on a night to remember | v: hedonism | foot: means money-.04 | chance: 80
+- R>G | ride out with a friend who has been waiting for the same chance | v: stimulation, benevolence | foot: person friend | chance: 75
+- G>W | go, but swear to be home for every birthday | v: tradition, benevolence | foot: door kept your word | chance: 78
+works: The train pulls out at six, and {N} watches the town shrink to nothing.
+works: On the first morning somewhere new, {N} wakes with no one to answer to and grins at the ceiling.
+fails: The money runs out in six weeks, and the ticket home costs more than the one out.
+fails: {N} gets as far as the platform, and stands there until the train has gone.
+
+# ---------------------------------------------------------------- to make it big, and fast (B R; cycle s3)
+
+== the deal that doubles overnight
+tier: life event
+aim: to make it big, and fast
+aim_role: spark
+stages: juvenile young_adult adult mature
+age: 16-55
+per_year: 0 .2 .5 .4 .2 0
+tone: mixed
+life: work, money
+horizon: week
+roles: friend, a buyer, an auctioneer
+earth: a job lot bought cheap at auction, and a buyer on the phone offering double
+tribal: flints traded for furs at the gathering, and a far clan offering twice as much for them
+magic: a cart of salvaged crystal bought for a song, and an alchemist offering double by morning
+scene: {N} put every coin into a job lot of furniture at the auction. Now a buyer is on the phone, offering twice as much if it can be delivered by morning.
+scene W: {N} signed the auction papers properly, and wants this done above board.
+scene U: {N} has checked: the same pieces sell for three times as much online, to anyone patient.
+scene B: Double by morning. Then double again. {N} can already see the next deal.
+scene R: {N} has not slept, does not need to, and is already ringing round for a van.
+scene G: {friend} lent the van and a strong pair of arms, and {N} wants them to share in it.
+- W | write a proper receipt and deliver on time, as agreed | v: conformity | foot: door kept your word | chance: 80
+- U | hold out and sell it piece by piece online for three times as much | v: achievement | foot: means time-.05 | chance: 55
+- B | take the money, and put it all straight into a bigger lot next week | v: power, achievement | dream: test | foot: means money+.06 | chance: 60
+- R | drive it over tonight and stay to celebrate with the buyer | v: stimulation, hedonism | foot: person patron | chance: 70
+- G | split the profit with the friend who lent the van | v: benevolence | foot: person friend | chance: 88
+- W>R | shake on a standing deal: first pick of every lot for this buyer | v: security, stimulation | foot: person regular | chance: 65
+- U>G | learn the trade from the old auctioneer, and buy smarter next time | v: tradition, achievement | foot: person mentor | chance: 70
+- B>W | register a company the next morning, to make it official and bigger | v: power, conformity | dream: seal | foot: means money-.04 | chance: 62
+- R>U | ring every dealer in the book tonight to see who pays most | v: stimulation, achievement | foot: means ties+.03 | chance: 66
+- G>B | keep half for the family and stake only the other half | v: security, tradition | foot: means money+.03 | chance: 85
+works: The money lands before breakfast, and {N} reads the figure three times.
+works: The buyer rings again a week later, asking what else {N} can find.
+fails: The buyer backs out at dawn, and the furniture fills the garage for a month.
+fails: A table leg snaps on the loading ramp, and the deal shrinks to half.
+
+# ---------------------------------------------------------------- to never be pushed around again (B R; cycle s2)
+
+== the day the bully backs down
+tier: life event
+aim: to never be pushed around again
+aim_role: spark
+stages: juvenile young_adult adult mature
+age: 12-55
+per_year: 0 .5 .4 .3 .2 0
+tone: trouble
+life: friends, work
+horizon: moment
+roles: rival, friend, a manager or a teacher
+earth: the one who has leaned on you for months tries it again, in front of everyone
+tribal: the hunter who always takes your share tries it again at the fire
+magic: the guild bully who skims your takings comes round again, with the whole street watching
+scene: {rival} has done it for months: the jibes, the shoulder in the corridor, the seat taken. Today {rival} does it again, in front of everyone.
+scene W: {N} has told someone in charge twice. Nothing happened either time.
+scene U: {N} has noticed that {rival} only ever does it when there is an audience.
+scene B: Not today. {N} decided that on the way in.
+scene R: {Ns} face is hot and {Ns} fists are tight, and something is about to give.
+scene G: {friend} is standing right there, and {N} knows {friend} has had it too.
+- W | report it in writing, with dates, and insist it is dealt with | v: conformity, security | foot: lesson put it on paper | chance: 60
+- U | turn the audience with a joke that has everyone laughing at the bully | v: self-direction | foot: means ties+.03 | chance: 55
+- B | stand up, look them in the eye, and say it ends now | v: power, self-direction | dream: test | foot: door made an enemy | chance: 55
+- R | square up, close enough that they are the one to step back | v: power, stimulation | dream: test | foot: mark took a wild risk | chance: 50
+- G | stand beside the friend they picked on last week, and leave together | v: benevolence | foot: person friend | chance: 75
+- W>B | get the toughest person in the place on side for next time | v: power, security | foot: person patron | chance: 62
+- U>R | sign up for a boxing class, and make sure word of it gets round | v: achievement | foot: place gather.games | chance: 80
+- B>G | gather everyone the bully has picked on, and face it together | v: benevolence, power | foot: place gather.circle | chance: 58
+- R>W | call it out loudly, for everyone else it has been done to | v: universalism (fairness), stimulation | foot: means freedom+.03 | chance: 55
+- G>U | walk away calmly, and think about why they need to do it at all | v: security | dream: drop | foot: lesson some fights are not worth it | chance: 70
+works: {rival} laughs, falters, and looks away first, and the whole room sees it.
+works: It never happens again, and {N} walks a little taller from that day.
+fails: {rival} only laughs louder, and {N} goes home shaking.
+fails: It ends with both of them in front of someone in charge, and {N} gets the blame.
+
+# ---------------------------------------------------------------- to chase the next thrill (B R; cycle s4)
+
+== the jump that nobody else will take
+tier: life event
+aim: to chase the next thrill
+aim_role: spark
+stages: juvenile young_adult adult
+age: 12-45
+per_year: 0 .5 .5 .3 0 0
+tone: joy
+life: friends, leisure
+horizon: moment
+roles: friend, rival, sibling
+earth: a high ledge over the quarry pool, and friends daring each other to jump
+tribal: the high rock over the river pool, where the young hunters prove their nerve
+magic: the old tower's ledge over the moat, where the apprentices dare each other at midsummer
+scene: The ledge is higher than it looked from the water. Below, the quarry pool is dark and still, and {friend} is shouting from the bank.
+scene W: There is a sign on the fence. {N} read it on the way in.
+scene U: {N} watched the older ones jump all afternoon, and knows exactly where the deep water is.
+scene B: Nobody has gone off the top ledge all summer. {N} wants to be the first.
+scene R: {Ns} heart is going like a drum, and that is the whole point.
+scene G: The water is cold and clean, swallows are skimming it, and the whole valley seems to hold its breath.
+- W | climb back down and jump from the lower rock, where it is allowed | v: conformity, security | dream: drop | foot: lesson knowing where the limit is | chance: 92
+- U | check the depth with a rope and a stone, then jump | v: security, achievement | foot: mark learned a skill | chance: 80
+- B | go off the top ledge, first of anyone this summer | v: achievement, stimulation | dream: test | foot: mark took a wild risk | chance: 60
+- R | run and leap with a yell before anyone can talk you out of it | v: stimulation | dream: test | foot: means health-.03 | chance: 65
+- G | sit on the ledge a long while, then slip in quietly from the side | v: universalism (nature) | foot: means health+.03 | chance: 85
+- W>G | get everyone to jump in pairs, so nobody is alone in the water | v: benevolence, conformity | foot: person friend | chance: 75
+- U>W | learn to dive properly at the pool first, and come back in a month | v: achievement | foot: place gather.games | chance: 78
+- B>U | film the jump from three angles and post it that night | v: achievement, power | foot: person rival | chance: 70
+- R>B | bet the others you can go off the higher ledge next | v: stimulation, power | foot: door took a wild risk | chance: 50
+- G>R | swim across to the far bank where nobody goes, and explore | v: stimulation, universalism (nature) | foot: place prod.wild | chance: 80
+works: {N} hits the water clean and comes up roaring, and the bank erupts.
+works: For the rest of the summer, the top ledge is {Ns} ledge.
+fails: {N} lands flat and hard, and comes up gasping, with a sting that lasts all evening.
+fails: Halfway up, {Ns} nerve goes, and the climb down is long and quiet.
+
+# ---------------------------------------------------------------- to outlast them all (B G; cycle s1)
+
+== the long walk the others give up on
+tier: life event
+aim: to outlast them all
+aim_role: spark
+stages: juvenile young_adult adult mature elder
+age: 14-80
+per_year: 0 .3 .4 .4 .4 .3
+tone: mixed
+life: health, friends
+horizon: moment
+roles: friend, elder, rival
+earth: a long hill walk in worsening weather, and the group turning back one by one
+tribal: the long trail after the herd, when the others turn back for camp
+magic: the pilgrim road over the high pass, when the other travellers stop at the inn
+scene: Twenty miles, the sign said. At twelve the rain comes in sideways, and the others start talking about the bus from the next village.
+scene W: {N} signed up to finish, and people sponsored every mile.
+scene U: {N} has checked the map: four more hours, and the weather clears by evening.
+scene B: {N} has never given up on anything in public and does not mean to start today.
+scene R: The wind is roaring over the ridge, and {N} wants to be up in it.
+scene G: These hills have been walked like this for centuries, and {N} feels oddly at home in the wet.
+- W | keep walking, because the sponsors paid for twenty miles | v: conformity | foot: door kept your word | chance: 65
+- U | change socks, eat, and set a steady pace for the last eight miles | v: security, achievement | foot: lesson pace beats speed | chance: 72
+- B | push on alone and be the only one at the finish | v: achievement, power | dream: test | foot: means health+.03 | chance: 55
+- R | race up the ridge into the wind, just to feel it | v: stimulation | foot: mark took a wild risk | chance: 55
+- G | walk on slowly beside the oldest walker, at their pace | v: benevolence | dream: test | foot: person elder | chance: 75
+- W>U | get the group to agree that nobody walks the last stretch alone | v: conformity, security | foot: person friend | chance: 70
+- U>B | time every mile, and beat the last training walk | v: achievement | foot: means time-.03 | chance: 60
+- B>R | bet the others you will be at the finish before dark | v: power, stimulation | foot: person rival | chance: 50
+- R>G | sing all the way down the valley to keep everyone going | v: benevolence, stimulation | foot: means ties+.04 | chance: 70
+- G>W | take the bus with the others, and walk it again next spring | v: tradition, security | dream: drop | foot: place gather.circle | chance: 85
+works: {N} walks the last mile alone in the dusk and touches the finish post with a numb hand.
+works: The rain stops at the last ridge, and {N} sees the whole valley lit gold.
+fails: A twisted ankle at mile fifteen ends it in the back of a farmer's truck.
+fails: {N} finishes hours after everyone else, to a locked hall and an empty car park.
+
+# ---------------------------------------------------------------- to keep the family land (B G; cycle s3)
+
+== the season the land is yours to keep
+tier: life event
+aim: to keep the family land
+aim_role: spark
+stages: young_adult adult mature elder
+age: 18-80
+per_year: 0 0 .3 .4 .4 .3
+tone: mixed
+life: family, home, work
+horizon: years
+roles: parent, neighbour, sibling, a developer
+earth: the family's field to take over, and a developer's offer on the table
+tribal: the clan's grazing grounds to hold, and a stronger clan offering trade for them
+magic: the family's charter lands to keep, and the baron's steward offering gold
+scene: {parent} can no longer walk the field, and has asked {N} to take it on. The same week a letter comes from a developer, with a number on it that makes {N} sit down.
+scene W: The field has been in the family's name for four generations, and the deeds are in the dresser drawer.
+scene U: {N} has worked out what the field earns in a year, and what the offer would earn in a bank.
+scene B: Land is the one thing nobody is making more of. {N} knows what it is worth, and what it could be.
+scene R: {N} grew up running wild across that field, and the thought of a car park on it is unbearable.
+scene G: Every hedge and gatepost has a story, and {N} knows most of them by heart.
+- W | promise the family the field stays theirs, and sign the deeds over | v: tradition, conformity | foot: door kept your word | chance: 80
+- U | get the land valued properly before deciding anything | v: security | foot: person go-between | chance: 85
+- B | turn the offer down and farm it for profit, your own way | v: power, achievement | dream: test | foot: place prod.land | chance: 60
+- R | tear up the developer's letter in front of the family | v: self-direction | foot: door turned down a chance | chance: 85
+- G | walk the hedges with the youngest of the family and teach them every name | v: tradition, benevolence | dream: seal | foot: means ties+.04 | chance: 80
+- W>R | hold a harvest party in the field for the whole village | v: tradition, hedonism | foot: person neighbour | chance: 70
+- U>G | learn the old ways from the neighbour who still works the next field | v: tradition | foot: person mentor | chance: 75
+- B>W | sell a strip by the road to pay for keeping the rest | v: security, power | foot: means money+.06 | chance: 65
+- R>U | turn the top field into something new: a campsite, an orchard, a maze | v: stimulation, self-direction | foot: mark took a wild risk | chance: 50
+- G>B | put the field in a family trust so it can never be split | v: tradition, security | dream: test | foot: door stayed home | chance: 70
+works: The first season's crop comes in, and {N} stands at the gate in the evening, content.
+works: The developer's second letter goes in the fire, and nobody mentions it again.
+fails: The first year's accounts come in at a loss, and the developer's letter is still in the drawer.
+fails: The family argues for months over who should have what, and the field goes untended.
+
+# ---------------------------------------------------------------- to know every root and mushroom (B G; cycle s2)
+
+== the first basket that sells
+tier: life event
+aim: to know every root and mushroom
+aim_role: spark
+stages: juvenile young_adult adult mature elder
+age: 12-80
+per_year: 0 .3 .4 .4 .4 .3
+tone: joy
+life: nature, money
+horizon: week
+roles: elder, friend, a chef
+earth: a basket of wild mushrooms, and a chef at the back door asking what they cost
+tribal: a bark basket of rare roots, and traders from the river clan asking what you want for them
+magic: a basket of moon-caps from the old forest, and the potion-maker's runner asking the price
+scene: {N} has a basket of wild mushrooms from the beech wood, the best haul yet. The chef from the restaurant on the square has come out to the back door to look.
+scene W: {N} picked only what the old forager's rules allow: never the last one, never the small ones.
+scene U: {N} has checked every one against two field guides and a spore print.
+scene B: The chef's eyes lit up. {N} saw it, and knows these are worth more than a handshake.
+scene R: {N} was up before dawn, soaked to the knees, and loved every minute of it.
+scene G: The wood gave these. {N} feels that somehow, and handles them gently.
+- W | sell them at a fair price and say exactly where they were picked | v: universalism (fairness), conformity | foot: person regular | chance: 80
+- U | name every one for the chef, and show how to tell the dangerous lookalikes | v: achievement, benevolence | foot: mark learned a skill | chance: 70
+- B | name a high price and let the chef decide how badly they are wanted | v: power, achievement | dream: test | foot: means money+.04 | chance: 60
+- R | trade the whole basket for dinner at the chef's table that night | v: hedonism | foot: person friend | chance: 75
+- G | keep the best for the family pot and sell the rest | v: tradition, benevolence | foot: means ties+.03 | chance: 85
+- W>B | ask for a permit to forage the council woods, and supply the chef every week | v: security, achievement | dream: test | foot: place prod.wild | chance: 60
+- U>R | keep a secret map of every patch, in a code nobody else can read | v: self-direction | foot: door kept it hidden | chance: 80
+- B>G | offer to show the chef the wood in return for a cut of every dish | v: power | foot: person colleague | chance: 55
+- R>W | go back at first light and fill another basket before anyone finds the patch | v: stimulation, achievement | foot: lesson early starts find the best | chance: 75
+- G>U | ask the old forager in the village to teach you the rest of the wood | v: tradition | foot: person mentor | chance: 75
+works: The chef pays without haggling and asks when {N} can bring more.
+works: That night the mushrooms are on the menu, and the chef sends word that they sold out.
+fails: The chef turns half of them over and says they are past their best.
+fails: The chef shrugs, says the wholesaler is cheaper, and the door closes.
+
+# ---------------------------------------------------------------- to run the family business (B G; cycle s4)
+
+== the day the shop is left in your hands
+tier: life event
+aim: to run the family business
+aim_role: spark
+stages: juvenile young_adult adult mature
+age: 14-60
+per_year: 0 .3 .5 .4 .3 0
+tone: joy
+life: family, work
+horizon: week
+roles: parent, grandparent, neighbour, the regulars
+earth: a week in sole charge of the family shop while the family is away
+tribal: the clan's trading post left in your keeping while the elders go to the gathering
+magic: the family's apothecary left in your hands while the master travels to the guild
+scene: {parent} has gone to a wedding for a week and left {N} the keys, the float and a list of things not to forget. The shop opens at eight.
+scene W: {N} has the list, and means to follow it to the letter.
+scene U: {N} has spotted three things in the way the shop is run that could be done better.
+scene B: For one week this is {Ns} shop, and {N} intends to show what that looks like.
+scene R: {N} turns the music up, flips the sign to open, and feels ten feet tall.
+scene G: The shelves were first stocked by {grandparent}. {N} runs a hand along the old counter.
+- W | follow the list exactly, and leave the till right to the penny | v: conformity, security | foot: door kept your word | chance: 85
+- U | rearrange the stock by what sells, and count the difference | v: achievement | foot: lesson small changes add up fast | chance: 70
+- B | run a week-long offer and beat last year's takings | v: achievement, power | dream: test | foot: means money+.04 | chance: 55
+- R | throw a late opening with music and cake for the whole street | v: stimulation, hedonism | foot: means ties+.04 | chance: 65
+- G | sit with the oldest customers and hear how the shop began | v: tradition, benevolence | foot: person regular | chance: 85
+- W>G | keep the regulars' tabs exactly as the family always has | v: tradition | foot: person neighbour | chance: 80
+- U>W | set up a proper ledger the family can use when they get back | v: security | foot: mark learned a skill | chance: 75
+- B>U | ring every supplier and get a better price on everything | v: power, achievement | dream: test | foot: person go-between | chance: 60
+- R>B | put a sign in the window offering things the shop has never stocked | v: stimulation, achievement | foot: mark took a wild risk | chance: 50
+- G>R | close early on a sunny day and take the young cousins to the sea | v: hedonism, benevolence | dream: drop | foot: means money-.03 | chance: 90
+works: When {parent} gets back the till is up, and the regulars cannot stop talking about {N}.
+works: {N} locks up on the last night tired, proud, and sure of what comes next.
+fails: The float comes up short on the third day, and nobody can say why.
+fails: A delivery goes wrong, the shelves run bare, and the phone rings with complaints.

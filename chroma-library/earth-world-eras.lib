@@ -32,14 +32,14 @@ scene U: {N} has the map up and the numbers open, seat by seat. Nobody predicted
 scene B: New people will run the ministries by the end of the week, and new people will hand out the contracts. {N} starts working out who knows whom.
 scene R: Car horns, shouting, a stranger crying on the corner. Whichever side {N} is on, {Ns} heart is going like a drum.
 scene G: {grandparent} has seen governments come and go like the weather, and says only that the bread will still need baking in the morning.
-- W | accept the result, whichever way you voted, and say so in public | v: conformity, universalism | lever: loyalty | pushes: state | chance: 88
+- W | accept the result, whichever way you voted, and say so in public | v: conformity, universalism | lever: loyalty | pushes: state | foot: lesson a fair count deserves respect | chance: 88
 - U | stay up with the numbers until dawn, working out why the country turned | v: self-direction | mark: learned a skill | chance: 85
-- B | go to the winning party's open meeting the next morning, for the doors it will open | door | v: power, achievement | aims: party member | lever: loyalty | pushes: institution party | chance: 85
-- R | skip the results, go out dancing, and hear who won in the morning | v: hedonism, stimulation | lever: neglect | pushes: state | chance: 85
-- G | sit up with the family elders, who have seen governments come and go | v: tradition, benevolence | chance: 75
-- WU | write to your new representative that night, setting out what the town needs | v: universalism, conformity | lever: voice | pushes: state | chance: 58
+- B | go to the winning party's open meeting the next morning, for the doors it will open | door | v: power, achievement | aims: party member | lever: loyalty | pushes: institution party | foot: place rule.voice | chance: 85
+- R | skip the results, go out dancing, and hear who won in the morning | v: hedonism, stimulation | lever: neglect | pushes: state | foot: lesson life goes on either way | chance: 85
+- G | sit up with the family elders, who have seen governments come and go | v: tradition, benevolence | foot: means ties+.03 | chance: 75
+- WU | write to your new representative that night, setting out what the town needs | v: universalism, conformity | lever: voice | pushes: state | foot: place rule.voice | chance: 58
 - WR | join the march against the new government the very next day | identity | v: universalism, self-direction | mark: defied an authority | lever: voice | pushes: state | chance: 52
-- UB | move your savings out of reach of the new taxes everyone expects | v: security, power | requires: savings | without: means | lever: exit | pushes: economy | chance: 80
+- UB | move your savings out of reach of the new taxes everyone expects | v: security, power | requires: savings | without: means | lever: exit | pushes: economy | foot: means money+.03 | chance: 80
 - RG | throw a street party with the neighbours, whoever they voted for | v: hedonism, benevolence | mark: made a friend | chance: 65
 - BG | keep your vote to yourself, and get close to whoever rises in town now | v: power, security | lever: subvert | pushes: place | chance: 70 | back: made a friend
 works: In the weeks after, the town settles into the new order of things, and {N} finds a footing in it.
@@ -74,14 +74,14 @@ scene R: The crowd is singing in the square, and {friend} is already there, on t
 scene G: {parent} lived through the last time things fell apart, and is filling every jar in the kitchen with water before anyone else thinks of it.
 - W | give the new council the names of the neighbours who served the old rulers | v: conformity, universalism | mark: made an enemy | closed: approval: informing on neighbours; backfire: the lists grow longer than anyone meant, and the street stops trusting | lever: loyalty | pushes: state | chance: 62
 - U | quietly wipe the files that tie your name to the old rulers | v: security | mark: hid a wrong | closed: law: destroying public records; backfire: the copies turn up, and the wiping looks worse than the files | lever: subvert | pushes: institution | chance: 50
-- B | find out who will hold power by noon, and offer them your services | binds | v: power | lever: loyalty | pushes: state | chance: 60
+- B | find out who will hold power by noon, and offer them your services | binds | v: power | lever: loyalty | pushes: state | foot: person patron | chance: 60
 - R | join the crowd at the palace gates and push until they give | body: heavy | v: stimulation, self-direction | mark: defied an authority | title: veteran of a revolution | lever: voice | pushes: state | chance: 60
-- G | shutter the house, keep everyone in, and open the door to nobody | v: security, tradition | mark: refused someone in need | closed: approval: barring the door to people running from the streets; backfire: the neighbours remember it when the town settles | lever: neglect | pushes: state | chance: 70
+- G | shutter the house, keep everyone in, and open the door to nobody | v: security, tradition | mark: refused someone in need | closed: approval: barring the door to people running from the streets; backfire: the neighbours remember it when the town settles | lever: neglect | pushes: state | foot: means ties-.06 | chance: 70
 - WB | stand with the last of the old guard at the ministry, to the end | body: heavy | v: security, power | mark: made an enemy | title: served the old regime | lever: loyalty | pushes: state | chance: 30
-- WR | join the neighbours guarding the street, hunting guns and all, until order returns | body: heavy | v: security, benevolence | law: guns | closed: law: carrying guns in the street; backfire: disarmed and held by the first patrol that comes | chance: 62
-- UR | slip across the border with one bag before the roads close | v: self-direction, security | mark: left home | moves: yes | lever: exit | pushes: abroad | chance: 55
-- UG | take the family out to the relatives in the countryside until the city settles | v: security, tradition | lever: exit | pushes: place | chance: 65
-- BG | buy the houses the fleeing officials sell off, for almost nothing | v: power, achievement | requires: savings | without: means | chance: 65
+- WR | join the neighbours guarding the street, hunting guns and all, until order returns | body: heavy | v: security, benevolence | law: guns | closed: law: carrying guns in the street; backfire: disarmed and held by the first patrol that comes | foot: place prot.watch | chance: 62
+- UR | slip across the border with one bag before the roads close | v: self-direction, security | mark: left home | moves: yes | lever: exit | pushes: abroad | foot: mark moved away | chance: 55
+- UG | take the family out to the relatives in the countryside until the city settles | v: security, tradition | lever: exit | pushes: place | foot: door left home | chance: 65
+- BG | buy the houses the fleeing officials sell off, for almost nothing | v: power, achievement | requires: savings | without: means | foot: means money+.06 | chance: 65
 works not UR: Within a year the new order has a shape, and {N} has a place in it, smaller or larger than before.
 works: The worst never reaches {Ns} street, and the people {N} loves come through it together.
 fails: In the chaos {N} loses work, savings and sleep, and the months that follow are lean ones.
@@ -113,15 +113,15 @@ scene B: A crowd this size wants food, beds, leaders and someone to count the mo
 scene R: The singing gets under {Ns} skin. {friend} is crying and laughing at once, and {N} wants to feel whatever {friend} is feeling.
 scene G: {grandparent} remembers the last time the town caught fire like this, how it burned out, and what grew afterwards in the ash.
 - W | go forward at the meeting and make a public vow to live by the faith | binds | v: tradition, conformity | tags: commit:faith | chance: 70
-- U | go to three meetings with a notebook, to understand what draws people in | door | v: self-direction, universalism | chance: 80
-- B | get close to the preacher, and make yourself useful to the leaders | v: power, achievement | lever: loyalty | pushes: belief | chance: 75
+- U | go to three meetings with a notebook, to understand what draws people in | door | v: self-direction, universalism | foot: place faith.seeking | chance: 80
+- B | get close to the preacher, and make yourself useful to the leaders | v: power, achievement | lever: loyalty | pushes: belief | foot: person patron | chance: 75
 - R | leave the old congregation and join the new movement, whatever your family says | identity | v: stimulation, self-direction | title: convert | norm: leaving a faith | closed: approval: leaving the family's faith for the new movement; backfire: the family goes cold for a year and more | lever: exit | pushes: belief | chance: 70
-- G | keep to the faith of your family, and let the wave roll past | v: tradition, security | lever: loyalty | pushes: belief | chance: 68
+- G | keep to the faith of your family, and let the wave roll past | v: tradition, security | lever: loyalty | pushes: belief | foot: place faith.congregation | chance: 68
 - WG | open your home to a prayer group on weeknights, and feed whoever comes | habit | v: benevolence, tradition | mark: made a friend | lever: loyalty | pushes: belief | chance: 70
 - WR | take a box to the corner of the square and preach to the passers-by | v: tradition, stimulation | title: street preacher | norm: faith in public | closed: approval: preaching in the street; backfire: mocked, filmed, and moved on by the police | lever: voice | pushes: belief | chance: 55
 - UB | quietly skim a little from the collection you are trusted to count | v: power | mark: hid a wrong | closed: law: theft from the collection; backfire: the accounts are checked, and the whole square hears of it | lever: subvert | pushes: belief | chance: 70
 - UR | stand up at a meeting and argue the preacher down in front of everyone | identity | v: self-direction, universalism | mark: made an enemy | closed: approval: heckling at the movement's own meeting; backfire: thrown out, and cold-shouldered in the street for months | lever: voice | pushes: belief | chance: 40
-- BG | buy the empty shops around the square while the crowds keep coming | v: power, achievement | requires: savings | without: means | chance: 60
+- BG | buy the empty shops around the square while the crowds keep coming | v: power, achievement | requires: savings | without: means | foot: place comm.shop | chance: 60
 works: Something in the town shifts and stays shifted: the bars are quieter, the meetings fuller, and {N} has a new place in it all.
 works not G: Months later the crowds have thinned, but what {N} took from those nights is still there.
 fails: The wave breaks as fast as it rose, and {N} is left with the quarrels it started.
@@ -151,16 +151,16 @@ scene U: {N} finds the trial results that night and reads them twice: how many w
 scene B: Supplies are short and the waiting lists long. Some people will get it in weeks and others in years, and {N} means to see {friend} among the first.
 scene R: {N} is shouting down the phone, then crying, then grabbing the car keys without knowing where to drive.
 scene G: {N} thinks of {dead}, for whom it came too late, and of how slowly the world learns what it needs to know.
-- W | help the one who is ill through every form, and wait their turn | v: conformity, benevolence | tech: modern medicine | lever: loyalty | pushes: institution hospital | chance: 68
+- W | help the one who is ill through every form, and wait their turn | v: conformity, benevolence | tech: modern medicine | lever: loyalty | pushes: institution hospital | foot: mark helped someone in need | chance: 68
 - U | read the trial results yourself, and ask the specialist every hard question | v: self-direction, security | mark: learned a skill | chance: 75
-- B | pay a private clinic to get it to them first, whatever it costs | v: power, security | tech: modern medicine | requires: savings | without: means | lever: exit | pushes: institution hospital | chance: 75
-- R | drop everything and drive through the night to be there for the first dose | v: benevolence, stimulation | tech: car | chance: 85
-- G | trust the old care that has kept them going, until the new one proves itself | v: security, tradition | chance: 55
-- BR | order it from abroad online, without a prescription, and get it to them now | v: benevolence, power | tech: internet | closed: law: medicine without a prescription; backfire: seized at the border, with a fine and a warning letter | lever: subvert | pushes: institution hospital | chance: 55
+- B | pay a private clinic to get it to them first, whatever it costs | v: power, security | tech: modern medicine | requires: savings | without: means | lever: exit | pushes: institution hospital | foot: means money-.10 | chance: 75
+- R | drop everything and drive through the night to be there for the first dose | v: benevolence, stimulation | tech: car | foot: lesson be there when it counts | chance: 85
+- G | trust the old care that has kept them going, until the new one proves itself | v: security, tradition | foot: door turned down a chance | chance: 55
+- BR | order it from abroad online, without a prescription, and get it to them now | v: benevolence, power | tech: internet | closed: law: medicine without a prescription; backfire: seized at the border, with a fine and a warning letter | lever: subvert | pushes: institution hospital | foot: door broke the law | chance: 55
 - UB | put your savings into the firm that makes it, before the price climbs | v: power, achievement | requires: savings | without: means | grants: shares | chance: 65
 - UG | learn how the treatment works with the body, and nurse them through the side effects | v: benevolence, self-direction | mark: helped someone in need | chance: 65
-- WG | take flowers to the grave of the one it came too late for | v: tradition, benevolence | chance: 85
-- WR | start a campaign to get the cure paid for, for everyone who needs it | v: universalism, benevolence | lever: voice | pushes: state | chance: 40
+- WG | take flowers to the grave of the one it came too late for | v: tradition, benevolence | foot: lesson some cures come too late | chance: 85
+- WR | start a campaign to get the cure paid for, for everyone who needs it | v: universalism, benevolence | lever: voice | pushes: state | foot: place rule.voice | chance: 40
 works: The treatment takes, and within months the one who was ill is making plans again.
 works: The old grief eases a little, now that the illness behind it has lost its power.
 fails: The treatment does not take, or not well enough, and the old fear comes back.
@@ -189,16 +189,16 @@ scene U: {N} wants to know how it works underneath: who sees what, why some voic
 scene B: Attention is the new money, and right now it is lying in the street for anyone quick enough to pick it up.
 scene R: Everyone is there, everything is happening, and {N} has not put the thing down since breakfast.
 scene G: The bench outside the shop is empty in the evenings now, where the old men used to sit and talk. {N} notices, and misses them.
-- W | wait until there are proper rules for it, then join and use it with care | v: security, conformity | tech: internet | chance: 75
+- W | wait until there are proper rules for it, then join and use it with care | v: security, conformity | tech: internet | foot: lesson be careful first then join | chance: 75
 - U | learn every setting before anyone else, and become the one who explains it | v: achievement, self-direction | mark: learned a skill | tech: internet | chance: 72
 - B | build a following on it fast, and turn the attention into money | identity | v: power, achievement | grants: following online | tech: internet | habit | chance: 25
-- R | post everything, day and night, for the thrill of being seen | habit | v: stimulation, hedonism | tech: phone | self_control: - | chance: 80
-- G | stay off it, and keep talking to people face to face | identity | v: tradition, security | mark: turned down a chance | lever: exit | pushes: tech | chance: 60
+- R | post everything, day and night, for the thrill of being seen | habit | v: stimulation, hedonism | tech: phone | self_control: - | foot: means time-.06 | chance: 80
+- G | stay off it, and keep talking to people face to face | identity | v: tradition, security | mark: turned down a chance | lever: exit | pushes: tech | foot: means time+.06 | chance: 60
 - BR | say the wildest things you can think of on it, for the crowds they bring | v: stimulation, power | mark: made an enemy | tech: internet | chance: 70
 - RG | find the people far away who love the same odd things you do | door | v: stimulation, benevolence | mark: made a friend | tech: internet | chance: 65
 - UB | run a few false accounts to talk up your own work | habit | v: power, achievement | mark: hid a wrong | closed: approval: false accounts; backfire: found out, and nobody trusts a word posted again | tech: internet | lever: subvert | pushes: culture | chance: 70
-- WG | help the oldest in the family onto it, so everyone can see each other | v: benevolence, tradition | tech: video calls | chance: 72
-- WU | speak up at the school meeting for sensible rules on it for children | v: universalism, security | lever: voice | pushes: institution school | chance: 50
+- WG | help the oldest in the family onto it, so everyone can see each other | v: benevolence, tradition | tech: video calls | foot: means ties+.06 | chance: 72
+- WU | speak up at the school meeting for sensible rules on it for children | v: universalism, security | lever: voice | pushes: institution school | foot: place rule.voice | chance: 50
 works: {N} finds a way of living with the new thing that fits, and it brings someone new into {Ns} life.
 works: A year on, the new medium is part of the furniture, and {N} has come out of the change ahead.
 fails not G: Something {N} posted travels much further than meant, and the wrong people see it.
@@ -231,15 +231,15 @@ scene B: Somebody will own these machines, somebody will run them, and somebody 
 scene R: All those years learning the trade, and a box the size of a fridge does it faster. {N} wants to put a fist through its screen.
 scene G: {mentor} saw the last change like this, and says a trade is like a river: it does not stop, it finds a new bed.
 - W | sign up for the retraining scheme the firm and the union agreed | door | v: security, conformity | mark: learned a skill | self_control: + | lever: loyalty | pushes: institution employer | chance: 65
-- U | work out which parts of the job no machine can do, and claim them | v: achievement, self-direction | chance: 60
+- U | work out which parts of the job no machine can do, and claim them | v: achievement, self-direction | foot: lesson find what only hands can do | chance: 60
 - B | take the redundancy money early, and set up on your own with it | v: power, self-direction | mark: took a wild risk | lever: exit | pushes: institution employer | chance: 65
 - R | walk out with the others and picket the gates until they talk | body: light | v: self-direction, benevolence | mark: defied an authority | lever: voice | pushes: institution employer | chance: 60
 - G | move to a smaller town where the old trade is still done by hand | v: tradition, security | mark: moved away | moves: yes | lever: exit | pushes: place | chance: 45
 - BR | jam the new machine one night, so the old way looks safer | v: power, security | mark: hid a wrong | closed: law: sabotage at work; backfire: caught on the cameras, sacked and charged | lever: subvert | pushes: institution employer | chance: 55
 - UG | go back to study, and grow into work the machines will need people for | door | v: self-direction, achievement | mark: learned a skill | self_control: + | chance: 55
-- UR | build a cheaper machine of your own, and sell it to the small firms | v: achievement, stimulation | tech: computer | chance: 25
+- UR | build a cheaper machine of your own, and sell it to the small firms | v: achievement, stimulation | tech: computer | foot: place comm.market | chance: 25
 - WB | stand for union rep, and bargain hard for the older hands' jobs | v: power, benevolence | title: union rep | lever: voice | pushes: institution union | chance: 55
-- WG | share your shifts with the older hands, so nobody has to go | binds | v: benevolence, universalism | lever: loyalty | pushes: institution employer | chance: 50
+- WG | share your shifts with the older hands, so nobody has to go | binds | v: benevolence, universalism | lever: loyalty | pushes: institution employer | foot: means money-.06 | chance: 50
 works: {N} comes through the change with work that still needs a person, and a skill the machines made worth more.
 works: The wave passes over, and {N} is still standing, in the trade or out of it, on firmer ground.
 fails: Within the year {Ns} post is gone, and most of the posts like it with it.
@@ -269,12 +269,12 @@ scene B: Fuel, water, batteries and a working generator are suddenly worth whate
 scene R: The street is dark and strangely alive: people out on their steps, children running with torches, someone grilling on the pavement. {N} feels wide awake.
 scene G: The fridge is silent, the night is very quiet, and for the first time in years {N} can see the stars from the window.
 - W | check on the old neighbours door by door, with a torch and a list | v: benevolence, conformity | mark: helped someone in need | chance: 80
-- U | dig out the battery radio and piece together what is really going on | v: self-direction, security | chance: 70
-- B | buy up fuel, water and batteries in the first hour, and sell the spare | v: power, achievement | closed: law: price gouging in an emergency; backfire: reported, fined, and remembered on the street for years | lever: subvert | pushes: economy | chance: 78
+- U | dig out the battery radio and piece together what is really going on | v: self-direction, security | foot: lesson facts are worth digging for | chance: 70
+- B | buy up fuel, water and batteries in the first hour, and sell the spare | v: power, achievement | closed: law: price gouging in an emergency; backfire: reported, fined, and remembered on the street for years | lever: subvert | pushes: economy | foot: means money+.06 | chance: 78
 - R | bring out the candles and the guitar, and turn the dark street into a party | v: hedonism, benevolence | mark: made a friend | chance: 78
 - G | make the larder last, a little each day, and wait calmly for the lights | v: security, tradition | mark: stayed home | self_control: + | chance: 72
-- BR | slip into the shut shop and take what the household needs | v: security, power | mark: broke the law | closed: law: looting; backfire: caught in a torch beam, and charged | lever: subvert | pushes: place | chance: 70
-- RG | pack the car and drive everyone out to family where the lights are on | v: security, benevolence | tech: car | lever: exit | pushes: place | chance: 65
+- BR | slip into the shut shop and take what the household needs | v: security, power | mark: broke the law | closed: law: looting; backfire: caught in a torch beam, and charged | lever: subvert | pushes: place | foot: door hid a wrong | chance: 70
+- RG | pack the car and drive everyone out to family where the lights are on | v: security, benevolence | tech: car | lever: exit | pushes: place | foot: means ties+.03 | chance: 65
 - UG | rig the car battery to keep a sick neighbour's medicine cold | v: benevolence, self-direction | tech: car | mark: helped someone in need | chance: 55
 - WB | take charge of the street's water and food, and decide who gets what | v: power, security | mark: made an enemy | chance: 65
 - WU | volunteer at the hospital to keep the generators and the records going | v: benevolence, universalism | lever: loyalty | pushes: institution hospital | chance: 65 | back: helped someone in need
@@ -308,16 +308,16 @@ scene U: {N} spreads the statements across the table and works out exactly how m
 scene B: Everyone is selling in a panic, which means everything is for sale cheap. {N} feels the fear, and under it a cold interest.
 scene R: {N} wants to shout at someone, anyone: the bank, the news, the smiling man on the screen who said it could never happen.
 scene G: {parent} lost the savings once before, in another crash, and planted potatoes the next spring. {N} remembers the potatoes.
-- W | keep paying in every month as planned, and trust the long run | v: security, conformity | self_control: + | lever: loyalty | pushes: economy | chance: 65
+- W | keep paying in every month as planned, and trust the long run | v: security, conformity | self_control: + | lever: loyalty | pushes: economy | foot: means money-.03 | chance: 65
 - U | work out what went wrong, and spread what is left over safer places | v: security, self-direction | mark: learned a skill | chance: 70
 - B | sell up on a tip from inside the bank, before the news breaks | v: security, power | mark: hid a wrong | closed: law: trading on a secret tip; backfire: investigated, fined, and named in the papers | lever: subvert | pushes: economy | chance: 70
 - R | march on the bank's head office with the other savers, and refuse to leave | body: light | v: self-direction, universalism | mark: defied an authority | lever: voice | pushes: institution bank | chance: 55
-- G | stop opening the statements, and live on less until it passes | v: security, tradition | lever: neglect | pushes: economy | chance: 65
-- BG | buy cheap while everyone else is selling, and wait as long as it takes | v: power, achievement | self_control: + | takes_if_fails: savings | chance: 55
-- RG | take what is left out of the bank in cash, and keep it at home | v: security | self_control: - | lever: exit | pushes: institution bank | chance: 85
+- G | stop opening the statements, and live on less until it passes | v: security, tradition | lever: neglect | pushes: economy | foot: means freedom-.06 | chance: 65
+- BG | buy cheap while everyone else is selling, and wait as long as it takes | v: power, achievement | self_control: + | takes_if_fails: savings | foot: means money-.06 | chance: 55
+- RG | take what is left out of the bank in cash, and keep it at home | v: security | self_control: - | lever: exit | pushes: institution bank | foot: lesson cash at hand feels safer | chance: 85
 - UR | borrow against everything you own, and stake it on the rebound | binds | v: stimulation, achievement | mark: took a wild risk | takes_if_fails: savings | chance: 35
-- WB | join the savers suing the bank for every last thing it owes | v: power, security | lever: voice | pushes: institution bank | chance: 40
-- WU | sit down with a free adviser and draw up a slow plan to rebuild | v: security, conformity | chance: 70
+- WB | join the savers suing the bank for every last thing it owes | v: power, security | lever: voice | pushes: institution bank | foot: place rule.voice | chance: 40
+- WU | sit down with a free adviser and draw up a slow plan to rebuild | v: security, conformity | foot: person mentor | chance: 70
 works: It takes years, but the markets climb back, and {N} comes out of it with most of what was lost and a harder head for money.
 works: {N} loses less than many, and learns exactly what money is for and what it is not.
 fails: Half the savings of years are gone, and the plans that rested on them quietly die.
