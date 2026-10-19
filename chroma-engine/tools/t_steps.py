@@ -1,4 +1,4 @@
-"""Engine check for the pause points (backend plan item 2, 2026-10-08) and each switch's own rows: 76 rows, about an hour
+"""Engine check for the pause points (backend plan item 2, 2026-10-08) and each switch's own rows: 77 rows, about an hour
 (50 to 65 min measured 10-17: the Engine with T_JOBS=4, Release on #288).
 
 engine.run_steps() is engine.run() pausing six times a week for the game. On a few short runs this checks that
