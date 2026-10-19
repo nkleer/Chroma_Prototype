@@ -225,7 +225,7 @@ function openSheet() {
         <div class="shsec"><h4>Now, wanted and held</h4>${shNowTable(L)}<h4>What each color stands for</h4><div class="shideas">${COLORS.map((c) => `<div>${pip(c)}<span><b>${CNAME[c]}</b> ${esc(CIDEA[c])}</span></div>`).join("")}</div></div>`)}
       ${panel("inner", `<div class="shsec"><h4>Inner life</h4><div class="mts">${inner}</div><h4>Needs met</h4><div class="mts">${needs || `<span class="empty">Not known yet</span>`}</div>${trustHTML(L)}</div>
         <div class="shsec"><h4>States</h4>${states}</div>
-        <div class="shsec"><h4>Dreams and plans</h4><div class="drms">${goals}</div></div>`)}
+        <div class="shsec"><h4>Dreams and plans</h4><div class="drms">${goals}</div></div>${aimsHTML(L, true)}`)}
       ${panel("around", `<div class="shsec">${around ? `<h4>Around them</h4>${around}` : `<h4>Around them</h4><span class="empty">Nothing read yet</span>`}</div>
         <div class="shsec"><h4>Means</h4><div class="mts">${means || `<span class="empty">Not known yet</span>`}</div><h4>Titles</h4>${titles}${roles ? `<h4>Statuses and perks</h4><div class="perks">${roles}</div>` : ""}</div>
         <div class="shsec">${who ? `<h4>Who they are</h4>${who}` : ""}<h4>People</h4><table class="ptab">${people || "<tr><td>Nobody met yet</td></tr>"}</table></div>`)}
@@ -236,6 +236,7 @@ function openSheet() {
   sheetEl.querySelectorAll("#shWheel .hit").forEach((h) => setTip(h, () => tipColor(L, +h.dataset.c)));
   bindSpKey(sheetEl);
   sheetEl.querySelectorAll("[data-def]").forEach((el) => { if (el.dataset.def) setTip(el, () => tipBox((el.querySelector("th, .ml") || el).textContent, "", [], esc(el.dataset.def))); });
+  if (L.aims) aimsBind(sheetEl, L);
   sheetEl.querySelectorAll(".drm[data-gj]").forEach((el) => { const g = (L.goals || []).find((x) => x.j === +el.dataset.gj); if (g) setTip(el, () => goalTip({ kind: g.kind, colors: g.colors, domain: g.domain, source: g.source, horizon: g.horizon }, g)); });
   sheetEl.querySelectorAll("[data-ci]").forEach((el) => setTip(el, () => tipColor(L, +el.dataset.ci)));
   sheetEl.querySelectorAll("[data-st]").forEach((el) => { const x = (L.states || [])[+el.dataset.st]; if (x && x.reads) setTip(el, () => stTip(x)); });

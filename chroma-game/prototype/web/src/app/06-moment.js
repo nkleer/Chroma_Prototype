@@ -155,6 +155,8 @@ const boldChips = (o) => !o.bold ? [] : [`<span class="mk2 bold">${ic("bolt")}bo
 // v24 hover arrows (the game's arrows switch): what a way would move if it works and if it fails, in three sizes (a
 // little, clearly, a lot), from the engine's forecast; never a number before the choice
 const ARW_ICON = (a) => a.kind === "need" ? NEED_ICON[a.name] || "dot" : a.kind === "means" ? RES_ICON[a.name] || "dot" : a.kind === "people" ? "people" : "star";
+// v24 aims: the aim steps an option leads into (the Engine's aim_ways), "next step (aim)", and when only a failure does
+const aimWays = (ws) => ws.map((w) => `${esc(w.step)} <span class="muted">(${esc(w.aim)}${w.height ? ", " + esc(w.height) : ""}${w.if_fails ? ", if it fails" : ""})</span>`).join("; ");
 const arrowsHTML = (xs) => [...(xs || [])].sort((a, b) => (a.kind === "need") - (b.kind === "need")).slice(0, 5).map((a) => `<span class="arw ${a.dir} s${a.size}" title="${esc(a.word)}">${ic(ARW_ICON(a))}${esc(a.kind === "need" ? NEED_LONG[a.name] || a.name : a.name)}<i aria-label="${esc(a.dir === "up" ? "up " : "down ")}${esc(a.word)}">${(a.dir === "up" ? "▲" : "▼").repeat(a.size)}</i></span>`).join("");
 function optRow(o, i, num) {
   const pass = !o.means.length, st = o.status, ends = [...new Set(o.ends)], f = o.follows || {};
@@ -217,6 +219,7 @@ function stripHTML(o, num) {
   if (!o.own && !pass && o.rel >= 0.02) facts.push(`<span${o.resent > o.rel + 0.005 ? ' class="down"' : ""}><b>If you push</b> ${o.resent < 0.05 ? "little resentment" : o.resent < 0.3 ? "some resentment" : o.resent < 0.6 ? "resentment: strain and pent-up wanting" : "strong resentment"}${Math.abs(o.trust || 0) >= 0.05 ? ` (${o.trust > 0 ? "they trust you" : "they distrust you"} in these colors)` : ""}; it counts against their own life unless it gives them something they lack</span>`);
   if (f.cost && f.cost.length) facts.push(`<span><b>Costs</b> ${f.cost.map((x) => `${ic(RES_ICON[x.slice(1)] || "dot")}${esc(x.slice(1))}`).join(" ")}</span>`);
   if (o.arrows) facts.push(`<span class="arws"><b>Moves if it works</b> ${arrowsHTML(o.arrows.win)}</span>`, `<span class="arws"><b>Moves if it fails</b> ${arrowsHTML(o.arrows.fail)}</span>`);
+  if (o.aims) facts.push(`<span class="up"><b>Toward an aim</b> ${aimWays(o.aims)}</span>`);
   if (!pass) facts.push(`<span><b>If it works</b> ${f.win && f.win.length ? `<span class="up">${f.win.map((x) => `${x[0] === "+" ? "+" : "−"}${esc(x.slice(1))}`).join(" ")}</span>, ` : ""}toward ${pips(o.ends)}</span>`);
   const sk = o.at_stake || {};                          // Stakes on the card
   if (sk.win) facts.push(`<span><b>For good</b> <span class="up">${esc(sk.win)}</span></span>`);
@@ -259,6 +262,7 @@ function tipOption(o, name, num) {
   if (f.win && f.win.length) rows.push(["If it works", `<span class="up">${f.win.map((x) => `${x[0] === "+" ? "+" : "−"}${esc(x.slice(1))}`).join(" ")}</span>, draws them toward ${colorsHTML(o.ends, o.ends)}`]);
   else if (o.means.length) rows.push(["If it works", `draws them toward ${colorsHTML(o.ends, o.ends)}`]);
   if (o.arrows) rows.push(["Moves if it works", `<span class="arws">${arrowsHTML(o.arrows.win)}</span>`], ["Moves if it fails", `<span class="arws">${arrowsHTML(o.arrows.fail)}</span>`]);
+  if (o.aims) rows.push(["Toward an aim", `<span class="up">${ic("target")} ${aimWays(o.aims)}</span>`]);
   const sk = o.at_stake || {};                          // Stakes on the card
   if (sk.win) rows.push(["For good", `<span class="up">${ic("star")} ${esc(sk.win)}</span>`]);
   if (sk.people) rows.push(["For good", `<span class="${STAKE_DOWN.has(o.mark) ? "down" : "up"}">${ic("people")} ${esc(sk.people)}</span>`]);

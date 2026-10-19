@@ -279,6 +279,10 @@ class CheckpointsMixin:
                 if d:
                     o["arrows"] = {w: [{x_: a_[x_] for x_ in ("kind", "name", "dir", "size", "word")} for a_ in d[w]]
                                    for w in ("win", "fail")}
+        aw = self.aim_ways_view(loc)                    # v24 aims: which options lead into an aim's next step
+        for o in opts:
+            if aw.get(o["idx"]):
+                o["aims"] = aw[o["idx"]]
         cp = dict(t=t, age=t / 52, title=title, extra=extra, stakes=float(L["STAKES"][s]), recon=recon, s=s, sit=L["names"][s],
                   scene=self.story.scene(m), thought=thought, moment=m,
                   options=sorted(opts, key=lambda o: o["idx"]), own=own, a=a.copy(), by_idx={o["idx"]: o for o in opts})

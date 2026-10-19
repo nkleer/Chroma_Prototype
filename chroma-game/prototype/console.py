@@ -36,6 +36,7 @@ HELP = """Keys while watching
   v       how much of daily life the story tells (quiet, normal, every week)
   l       ledger: show the numbers under the story (on or off)
   p       dreams, passions and plans; make a plan for them, or drop one
+  a       aims (when on): where they stand, the next step; take one up, or let one go
   n       start a new life
   h       this help
 Keys at a checkpoint
@@ -44,7 +45,7 @@ Keys at a checkpoint
           the more it costs them (effort, stress, pent-up wanting).
   i       heart and head on each option, and what may follow
   s       status
-  p f v l n h work here too
+  p a f v l n h work here too
 After each choice
   Enter   go on (what came of it stays in the story)"""
 
@@ -473,6 +474,9 @@ class Console:
         k = line.lower()
         if self.plan is not None or k == "p" or k.startswith("plan "):
             return self._on_plan(line)
+        if GAME["aims"] and (k == "a" or k.startswith("aim ") or (k[:1] == "a" and k[1:].isdigit())
+                             or (k[:2] == "ad" and k[2:].isdigit())):
+            return self._on_aim(line)
         if g.pending is not None:
             if k == "s":
                 return g.status(), False
@@ -513,6 +517,57 @@ class Console:
         if k in ("f", "v", "n", "l"):
             return self._keys(k)
         return "Unknown key. Type h for help.", False
+
+    def _on_aim(self, line):
+        """Key a: the aims track (v24, GAME aims). a1, a2..: take up the aim listed; ad1, ad2..: let a held aim go.
+        Browser: 'aim set <name>', 'aim drop <slot>'."""
+        g = self.g; k = line.strip()
+        held = g.aims_view() or []
+        if k.lower().startswith("aim set "):
+            return self._aim_take(k[8:].strip())
+        if k.lower().startswith("aim drop "):
+            q = k[9:].strip()
+            x = [a for a in held if q.isdigit() and a["slot"] == int(q)]
+            if not x or not g.aim_drop(int(q)):
+                return "No such aim.", False
+            self.note = f"{g.name} lets the aim go."
+            return f"{g.name} lets go of the aim: {x[0]['aim']}.", False
+        if k[:2].lower() == "ad" and k[2:].isdigit():
+            i = int(k[2:]) - 1
+            return self._on_aim(f"aim drop {held[i]['slot']}") if 0 <= i < len(held) else ("No such aim.", False)
+        if k[:1].lower() == "a" and k[1:].isdigit():
+            ch = g.aim_choices_view()
+            i = int(k[1:]) - 1
+            return self._aim_take(ch[i]["aim"]) if 0 <= i < len(ch) else ("No such aim.", False)
+        L = []
+        if held:
+            L.append(f"What {g.name} aims for now:")
+            for i, x in enumerate(held, 1):
+                tags = (["a calling"] if x["calling"] else []) + (["set by you"] if not x["own"] else [])
+                L.append(f"  ad{i}  {x['aim']} [{x['face']}]: step {x['reached']} of {len(x['steps'])}"
+                         + (f", next: {x['next']}" if x["next"] else ", every step reached")
+                         + (f" ({', '.join(tags)})" if tags else ""))
+                if x["helps"]:
+                    L.append(f"        what helps: {', '.join(x['helps'][:4])}")
+        else:
+            L.append(f"{g.name} holds no aims yet.")
+        ch = g.aim_choices_view()
+        if ch:
+            L.append("Aims they could take up" + (" (the ones they already feel first)" if any(c["felt"] for c in ch) else "") + ":")
+            for i, c in enumerate(ch, 1):
+                L.append(f"  a{i}   {c['aim']} [{c['face']}, {c['domain']}]" + (" (they feel this one)" if c["felt"] else ""))
+        L.append("a1, a2..: take one up (it stays set by you until a try that works makes it theirs)"
+                 + ("  · ad1, ad2..: let one go" if held else ""))
+        return "\n".join(L), False
+
+    def _aim_take(self, name):
+        g = self.g
+        q, err = g.aim_set(name)
+        if q < 0:
+            return f"No aim taken: {err}.", False
+        self.note = "Aim taken"
+        return (f"{g.name} now aims for: {name}. It is set by you until a try at it works and they make it their own; "
+                "until then it can fade."), False
 
     def _on_plan(self, line):
         """Key p: the character's dreams, passions and plans, and a plan the player sets (engine v7 foresee.py).

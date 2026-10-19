@@ -87,6 +87,10 @@ class ViewsMixin:
             tail = (f" ({x['horizon']}, due at {x['due']:.0f}; feels {x['felt'] * 100:.0f}%, plans like it come true {x['hint']}; "
                     f"{x['progress'] * 100:.0f}% of the way)" if x["kind"] == "plan" else f" [{x['colors']}]")
             L.append(f"{x['kind']:<12} {x['name']}{tail}, strength {x['strength'] * 100:.0f}%" + (" [your plan]" if x["by_player"] else ""))
+        L += self.aim_lines(loc)                        # v24 aims, only while aims is on
+        hv_ = self.heights_view(loc)
+        if hv_:
+            L.append("heights      " + ", ".join(f"{h['height']} at {h['age']:.0f}" for h in hv_))
         return "\n".join(L)
 
     def hud(self):
@@ -171,6 +175,10 @@ class ViewsMixin:
         d["goals"] = self.goals()
         if GAME["foot"]:                                # v24 footprints: the life so far as six stacks
             d["foot"] = self.foot_stacks()
+        if GAME["aims"]:                                # v24 aims: the track, the heights, and the aims they could take up
+            d["aims"] = self.aims_view() or []
+            d["heights"] = self.heights_view()
+            d["aim_choices"] = self.aim_choices_view()
         pv = self.places_view()
         if pv:
             d["places"] = pv
@@ -612,6 +620,8 @@ class ViewsMixin:
                 opts[-1]["bold"] = o["bold"]
             if o.get("arrows"):                         # v24 hover arrows, only while arrows is on
                 opts[-1]["arrows"] = o["arrows"]
+            if o.get("aims"):                           # v24 aims: the aim steps this option leads into, only while aims is on
+                opts[-1]["aims"] = o["aims"]
         sp = self.shadow_pull(self.loc, (cp.get("view") or {}).get("heart")) if self.loc is not None else None
         if sp is not None:                           # item 2: once seen, the heart's pick their shadow drives carries a mark
             for o in opts:

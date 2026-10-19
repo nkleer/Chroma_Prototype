@@ -317,6 +317,35 @@ function footTips(root, F) {
     if (x && (x.items || []).length) setTip(el, () => tipBox(`${ic(x.icon)} ${esc(x.name)}: ${x.n}`, x.line ? esc(x.line) : "", x.items.map((i) => [`at ${Math.floor(i.age)}`, `${esc(i.word)} <span class="muted">${esc(i.sit)}</span>`]), ""));
   });
 }
+// v24 aims (the game's aims switch): each aim's ladder, how far along, the next step and what helps; the heights
+// reached; the aims they could take up (the ones they already feel first). A click takes one up or lets one go
+const aimFace = (f) => pips((f || "").split(""));
+const aimTags = (x) => [x.calling ? `${ic("flame")} a calling` : "", x.own ? "" : "set by you"].filter(Boolean).join(" · ");
+function aimsHTML(L, ro) {
+  if (!L.aims) return "";
+  const can = !ro && hud && hud.mode === "play" && !L.young;
+  const hs = (L.heights || []).map((h) => `<span class="chip">${ic("crown")}${esc(h.height)} <span class="muted">at ${Math.floor(h.age)}</span></span>`).join("");
+  const rows = L.aims.map((x) => `<div class="aim" data-aq="${x.slot}">${ic(x.calling ? "flame" : "target")}<div><div class="an">${esc(x.aim)} ${aimFace(x.face)}</div>
+    <div class="ladder">${x.steps.map((s) => `<i class="${s.reached ? "on" : ""}${s.height ? " h" : ""}"></i>`).join("")}<span class="muted">${x.next ? "next: " + esc(x.next) : "every step reached"}</span></div>
+    ${aimTags(x) ? `<div class="muted at">${aimTags(x)}</div>` : ""}</div>${can ? `<button class="ghost xbtn" data-ad="${x.slot}" aria-label="Let this aim go">${ic("x")}</button>` : ""}</div>`).join("");
+  const ch = can ? (L.aim_choices || []).map((c) => `<button class="chip aimc${c.felt ? " felt" : ""}" data-aset="${esc(c.aim)}">${aimFace(c.face)} ${esc(c.aim)}</button>`).join("") : "";
+  return `<div class="${ro ? "shsec" : "hsec"}"><h4>Aims</h4><div class="aims">${rows || `<span class="empty">No aims yet</span>`}</div>${hs ? `<div class="chips">${hs}</div>` : ""}${ch ? `<div class="muted at">Take one up</div><div class="chips">${ch}</div>` : ""}</div>`;
+}
+function aimsBind(root, L) {
+  root.querySelectorAll("[data-aq]").forEach((el) => {
+    const x = (L.aims || []).find((y) => y.slot === +el.dataset.aq);
+    if (x) setTip(el, () => tipBox(`${ic(x.calling ? "flame" : "target")} ${esc(x.aim)} ${aimFace(x.face)}`, esc(aimTags(x) || cap(x.domain)),
+      x.steps.map((s, i) => [`${i + 1}${s.reached ? " ✓" : ""}`, `${esc(s.say)}${s.height ? ` <span class="muted">(${esc(s.height)})</span>` : ""}`])
+        .concat(x.helps.length ? [["What helps", esc(x.helps.slice(0, 4).join(", "))]] : []),
+      x.own ? "" : "Set by you: it stays yours until a try at it works and they make it their own. Until then it can fade."));
+  });
+  root.querySelectorAll("[data-ad]").forEach((b) => b.addEventListener("click", (e) => { e.stopPropagation(); send(`aim drop ${b.dataset.ad}`); }));
+  root.querySelectorAll("[data-aset]").forEach((b) => {
+    const c = (L.aim_choices || []).find((y) => y.aim === b.dataset.aset);
+    if (c) setTip(b, () => tipBox(`${ic("target")} ${esc(c.aim)} ${aimFace(c.face)}`, esc(cap(c.domain)), [], c.felt ? "They already feel this one." : "Close to who they are now."));
+    b.addEventListener("click", (e) => { e.stopPropagation(); send(`aim set ${b.dataset.aset}`); });
+  });
+}
 function placesHTML(L) {
   const P = L.places; if (!P) return "";
   const hs = (P.haunts || []).map((h, i) => `<span class="perk" data-pl="${i}" style="--pc:var(--c${h.lead})">${ic(SPH_ICON[h.sphere] || "home")}${esc(cap(h.name))}${h.setting ? ` ${ic("people")}` : ""}${oddMark(h)}</span>`).join("")
@@ -402,6 +431,7 @@ function renderHud(L) {
     <button class="ghost sheetbtn" id="openSheet">${ic("ci-diary")} The whole character</button>
     <div class="hmore">
     ${goalsHTML(L)}
+    ${aimsHTML(L)}
     <div class="hsec"><h4>Titles</h4><div class="trows">${titles}</div>${statuses ? `<div class="perks stats">${statuses}</div>` : ""}</div>
     ${perks ? `<div class="hsec"><h4>Perks${pk.length > PERK_SHOW + 2 ? ` <span class="cnt">${pk.length}</span>` : ""}</h4><div class="perks">${perks}</div></div>` : ""}
     ${circle ? `<div class="hsec"><h4>People</h4><div class="circle">${circle}</div></div>` : `<div class="hsec"><h4>People</h4><div class="people">${people || `<span class="empty">Nobody met yet</span>`}</div></div>`}
@@ -453,6 +483,7 @@ function renderHud(L) {
   hudEl.querySelectorAll("[data-tm]").forEach((el) => { const t = TEMPER.find((x) => x[0] === el.dataset.tm); setTip(el, () => tipBox(`${ic(t[2])} ${TEMPER_NAME[t[0]]}`, t[4], [["Now", temperWord(t[0], L.temper[t[0]])]], "")); });
   hudEl.querySelectorAll("[data-st]").forEach((el) => { const x = L.states[+el.dataset.st]; setTip(el, () => x.reads ? stTip(x) : tipBox(`${ic(x.icon)} ${esc(cap(x.word))}`, "", [[esc(x.name), stateValue(x)]], "")); });
   if (L.foot) footTips(hudEl, L.foot);
+  if (L.aims) aimsBind(hudEl, L);
   hudEl.querySelectorAll("[data-gj]").forEach((el) => { const g = (L.goals || []).find((x) => x.j === +el.dataset.gj); if (g) setTip(el, () => goalTip({ kind: g.kind, colors: g.colors, domain: g.domain, source: g.source, horizon: g.horizon }, g)); });
   const ap = $("addPlan"); if (ap) { ap.addEventListener("click", (e) => { e.stopPropagation(); send("p"); }); setTip(ap, () => tipBox(`${ic("quill")} Make a plan`, "", [], "Set them a plan: a year, five years or a lifetime, in a life domain or in some colors. You see how sure they feel, and how plans like it usually go. Key p.")); }
   hudEl.querySelectorAll("[data-perk]").forEach((el) => { const d = L.perks[+el.dataset.perk]; setTip(el, () => roleTip(d)); });
