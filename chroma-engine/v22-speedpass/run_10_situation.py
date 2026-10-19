@@ -220,6 +220,7 @@
                         continue
                     dq_[n, r_] = False
                     need[n, NIDX["belonging"]] -= KILL_HIT[r_, 0]; stress[n] += KILL_HIT[r_, 1]
+                    if NW_ON: nw_mark(NW_LOSS)
                     hz_mem[n] += P["hz_remind"] * HZ_ROLE[r_]; ago["death"][n] = t; ago["loss"][n] = t
                     if r_ == ROLES.index("partner") and held[n, PAR]:
                         widowed[n] = True; end([n], [PAR], "widowed", t)
@@ -283,6 +284,7 @@
             _pause_state(pz_st, ST_CELLS, ST_FR)
             s = yield Pause("situation", t, pz_st, s)
             pz_st._fr = None
+            if NW_ON: nw_mark(NW_PLAYER)
         if P["base_rates"]:
             s = np.where(had_ev, s_ev, s)
         if BAT and P["base_rates"] and len(ECH):   # a due echo comes back in a week without a life event

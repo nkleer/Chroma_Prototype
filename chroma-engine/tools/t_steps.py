@@ -1,4 +1,4 @@
-"""Engine check for the pause points (backend plan item 2, 2026-10-08) and each switch's own rows: 72 rows, about an hour
+"""Engine check for the pause points (backend plan item 2, 2026-10-08) and each switch's own rows: 73 rows, about an hour
 (50 to 65 min measured 10-17: the Engine with T_JOBS=4, Release on #288).
 
 engine.run_steps() is engine.run() pausing six times a week for the game. On a few short runs this checks that
@@ -47,6 +47,11 @@ engine.run_steps() is engine.run() pausing six times a week for the game. On a f
      take bold ways, at the odds bold_now told (between .1 and .9), each bold pick outside a link's week plants one seed
      of its kind and side, at most bold_cap due, and the links come back of their side, inside their delay (and a
      season), a shared link only with no own link open, and only as links; the bold way's win comes "through" it.
+ 18. because of you, and meanwhile (need_why, the game's played-life record): switched on, the lives of it off (world off
+     and on, run() and run_steps()); every week the record starts empty at the "week" pause and its sources sum to the
+     week's change in each need at the "end" pause; a setback carries its kind; what the caller sets at a pause is the
+     player's (at most what was set); off, no record. The hover arrows (foresee.arrows) read at every pick change no
+     life, and the picked option's need arrows come within one size of the record's act share.
 
     python3 -B chroma-engine/tools/t_steps.py [ENGINE_DIR]
 T_JOBS=N: the rows of 8 and 9 on N processes (default up to 4, by the cores there are; 1: one after another).
@@ -892,6 +897,87 @@ if "bold_play" in E.DEFAULT and "bold" in batch.load_batch.__code__.co_varnames:
           f"pick, run_steps lives as run(); asked, {len(bl_)} bold picks of {offered} asks ({took} the game's), at the odds "
           f"bold_now told, {len(sd_)} seeds (cap 3, none in a link's week), {len(got_)} links "
           f"({sum(x['change'] for x in got_)} shared) of their side and delay{'' if not fails else '; ' + '; '.join(fails[:4])} "
+          f"({time.process_time() - t0:.0f} s)")
+# 18. because of you, and meanwhile (need_why, the game's played-life record)
+if "need_why" in E.DEFAULT:
+    t0 = time.process_time(); fails = []; NS_ = E.NSOURCES; PL_ = NS_.index("player"); SB_ = NS_.index("setback")
+    seen_ = dict(weeks=0, edits=0.0, player=0.0, worst=0.0, imp=0, src=np.zeros(len(NS_)), ar=0, ar_ok=0)
+    try:
+        import foresee as AR_
+        AR_ = AR_ if hasattr(AR_, "arrows") else None
+    except ImportError:
+        AR_ = None
+    for world_, N_, Y_ in ((False, 4, 30), (True, 2, 12)):
+        kw = dict(N=N_, years=Y_, seed=11, lib=EARTH, log_lives=(0,))
+        Pd = dict(E.DEFAULT, world=world_)
+        o0_ = E.run(**kw, P=Pd); o1_ = E.run(**kw, P=dict(Pd, need_why=True))
+        if digest(o0_) != digest(o1_):
+            fails.append(f"world {'on' if world_ else 'off'}: switched on, the lives move")
+        for edit_ in (False, True):   # at each choose pause the "player" lifts the first life's autonomy, or never
+            g = E.run_steps(**kw, P=dict(Pd, need_why=True)); msg = next(g); n0_ = None; add_ = 0.0; pick_ = None
+            while True:
+                kind, t, S, val = msg
+                if S["nw"] is None or S["nw_imp"] is None:
+                    fails.append("on, nw or nw_imp not handed over"); break
+                if kind == "week":
+                    n0_ = S["need"].copy(); add_ = 0.0
+                    if np.abs(S["nw"]).max() > 0 or (S["nw_imp"] >= 0).any():
+                        fails.append(f"week {t}: the record does not start empty")
+                elif kind == "choose" and edit_ and t % 2 == 0:
+                    S["need"][0, E.NEEDS.index("autonomy")] += 0.03; add_ += 0.03
+                elif kind == "choose" and not edit_ and S["age"] >= 3 and AR_ is not None:   # the hover arrows (read-only)
+                    ar_ = AR_.arrows(S, 0); pick_ = next((o_ for o_ in ar_ if o_["k"] == int(val[0])), None)
+                    for o_ in ar_:
+                        for a_ in o_["win"] + o_["fail"]:
+                            if not (a_["kind"] in ("need", "means", "people", "title") and a_["dir"] in ("up", "down")
+                                    and 1 <= a_["size"] <= 3):
+                                fails.append(f"an arrow {a_}")
+                elif kind == "end":
+                    nw_ = S["nw"]; err_ = float(np.abs(nw_.sum(1) - (S["need"] - n0_)).max())
+                    seen_["worst"] = max(seen_["worst"], err_); seen_["weeks"] += 1
+                    seen_["src"] += np.abs(nw_).sum((0, 2)) > 0
+                    pl_ = float(nw_[0, PL_].sum()); seen_["edits"] += add_; seen_["player"] += pl_
+                    if pl_ < -1e-12 or pl_ > add_ + 1e-12 or (not edit_ and np.abs(nw_[:, PL_]).max() > 0):
+                        fails.append(f"week {t}: the player's share {pl_:.4f} for {add_:.2f} set")
+                    if (np.abs(nw_[:, SB_]).max(1) > 0).any() and ((np.abs(nw_[:, SB_]).max(1) > 0) & (S["nw_imp"] < 0)).any():
+                        fails.append(f"week {t}: a setback without its kind")
+                    seen_["imp"] += int((S["nw_imp"] >= 0).sum())
+                if kind == "end" and not edit_ and pick_ is not None:   # the picked option's need arrows against the record
+                    pv_ = np.zeros(len(E.NEEDS))
+                    for a_ in pick_["win" if S["succ"][0] else "fail"]:
+                        if a_["kind"] == "need":
+                            pv_[E.NEEDS.index(a_["name"])] = a_["v"]
+                    sz_ = lambda v_: (np.abs(v_)[:, None] >= np.array(AR_.SIZES["need"])).sum(1) * np.sign(v_)
+                    seen_["ar"] += len(pv_); seen_["ar_ok"] += int((np.abs(sz_(pv_) - sz_(S["nw"][0, NS_.index("act")])) <= 1).sum())
+                    pick_ = None
+                try:
+                    msg = g.send(val)
+                except StopIteration as done:
+                    o2_ = done.value
+                    break
+            if not edit_ and digest(o2_) != digest(o0_):
+                fails.append(f"world {'on' if world_ else 'off'}: run_steps with it on, not the lives of run()")
+    g = E.run_steps(N=1, years=4, seed=11, lib=EARTH, P=dict(E.DEFAULT), log_lives=(0,)); msg = next(g)
+    if msg[2].get("nw", 0) is not None:
+        fails.append("off, a record is kept")
+    g.close()
+    if seen_["worst"] > 1e-9:
+        fails.append(f"the sources miss the week's change by up to {seen_['worst']:.2g}")
+    if seen_["player"] < 0.5 * seen_["edits"]:
+        fails.append(f"the player's share {seen_['player']:.2f} of {seen_['edits']:.2f} set")
+    miss_ = [NS_[i] for i in range(len(NS_)) if NS_[i] in ("act", "fade", "setback", "means", "commitments", "care", "player")
+             and not seen_["src"][i]]
+    if AR_ is not None and (seen_["ar"] < 100 or seen_["ar_ok"] < 0.98 * seen_["ar"]):
+        fails.append(f"the picked option's need arrows within a size of the record: {seen_['ar_ok']} of {seen_['ar']}")
+    if miss_ or not seen_["imp"]:
+        fails.append(f"never moved: {miss_}; {seen_['imp']} setbacks")
+    fails = list(dict.fromkeys(fails))
+    bad += bool(fails)
+    print(f"{'PASS' if not fails else 'FAIL'}  because of you, and meanwhile (need_why), switched on: the lives of it off, "
+          f"world off and on; {seen_['weeks']} weeks whose sources sum to the week's change (worst {seen_['worst']:.1g}), "
+          f"{int((seen_['src'] > 0).sum())} of {len(NS_)} sources seen, {seen_['imp']} setbacks with their kind, the player's "
+          f"edits {seen_['player']:.2f} of {seen_['edits']:.2f} set (the rest clipped); the hover arrows read-only, the picked "
+          f"option's need arrows within a size of the record {seen_['ar_ok']} of {seen_['ar']}{'' if not fails else '; ' + '; '.join(fails[:4])} "
           f"({time.process_time() - t0:.0f} s)")
 # 11. nothing read at a pause outside the handed-over names (an engine without STATE_MISSED reads its whole frame)
 if hasattr(E, "STATE_MISSED"):

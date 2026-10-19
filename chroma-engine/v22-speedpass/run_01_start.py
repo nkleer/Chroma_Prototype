@@ -165,6 +165,26 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
     f_need = np.full(N, 0.8); cload = np.zeros(N); tension = np.zeros(N)
     asrc = np.zeros((N, len(ASOURCES), C)); A_src = []          # what moved the want, by source (cumulative)
     asrc_c = asrc[log_lives[0]] if len(log_lives) else None   # the played life's (a view: it moves with asrc)
+    NW_ON = bool(P["need_why"])   # need_why: why each need moved this week, by source (a record only, never a draw)
+    (NW_ACT, NW_FADE, NW_SET, NW_OUT, NW_READ, NW_LOSS, NW_MEANS, NW_COMMIT, NW_TITLE, NW_CARE, NW_GOAL, NW_PEOPLE, NW_AGE,
+     NW_PLAYER) = range(len(NSOURCES))
+    nw = np.zeros((N, len(NSOURCES), NJ)) if NW_ON else None   # this week's need moves so far, by source
+    nw_imp = np.full(N, -1) if NW_ON else None                 # this week's silent setback (IMPOSITIONS index), -1 none
+    nw_prev = need.copy() if NW_ON else None                   # needs at the last mark
+    def nw_mark(k_):
+        """need_why: the needs' moves since the last mark are source k_'s (every write to need is followed by a mark)."""
+        nw[:, k_] += need - nw_prev; nw_prev[:] = need
+    def nw_clip():
+        """need_why: what the clip to 0..1 took off (or added) goes back to the week's moves of that sign, pro rata (to
+        the fade where there are none, as when the caller set a need past 1 at a pause)."""
+        d_ = need - nw_prev
+        up_ = np.maximum(nw, 0); dn_ = np.minimum(nw, 0); tu_ = up_.sum(1); td_ = dn_.sum(1)
+        cut_ = np.minimum(d_, 0); lift_ = np.maximum(d_, 0)
+        fu_ = np.divide(cut_, tu_, out=np.zeros_like(cut_), where=tu_ > 0)
+        fd_ = np.divide(lift_, -td_, out=np.zeros_like(lift_), where=td_ < 0)
+        nw[:] += up_ * fu_[:, None] - dn_ * fd_[:, None]
+        nw[:, NW_FADE] += np.where(tu_ > 0, 0, cut_) + np.where(td_ < 0, 0, lift_)
+        nw_prev[:] = need
     W_hist = []; M_hist = []; S_hist = []; A_hist = []
     reb = np.zeros((N, 2))                                       # v6: tension rebounds over the life (fit together, split)
     trouble = np.zeros(N); fortune = np.zeros(N)                 # v6: recent big events that went badly / well (decay over years)

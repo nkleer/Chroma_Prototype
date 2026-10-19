@@ -153,6 +153,7 @@
             _pause_state(pz_st, ST_CELLS, ST_FR)
             a = yield Pause("choose", t, pz_st, a)
             pz_st._fr = None
+            if NW_ON: nw_mark(NW_PLAYER)
         if BO_ON:   # the slot taken: the game's (bold_take: a slot, with a its base way; -1 an ordinary way), else the
             bot_ = P["bold_take"]; P["bold_take"] = None   # character's own while its base way stands
             if bot_ is not None:
@@ -202,6 +203,7 @@
             _pause_state(pz_st, ST_CELLS, ST_FR)
             p_true = yield Pause("odds", t, pz_st, p_true)
             pz_st._fr = None
+            if NW_ON: nw_mark(NW_PLAYER)
         succ = rng.random(N) < p_true
         if BO_ON and (bold_pick >= 0).any():
             for n in np.nonzero(bold_pick >= 0)[0]:
@@ -242,6 +244,7 @@
             _pause_state(pz_st, ST_CELLS, ST_FR)
             delta = yield Pause("learn", t, pz_st, delta)
             pz_st._fr = None
+            if NW_ON: nw_mark(NW_PLAYER)
         appf_ = 1 + P["app_k"] * (2 * thr - 1)              # v10 appraisal: a loss weighs appf_, a gain 2 - appf_
         fdelta = delta * np.where(delta < 0, appf_, 2 - appf_) if P["app_k"] else delta   # as felt (mood, stress, wounds)
         if P["app_vigil"] and P["app_k"]:   # app_vigil: threat focus learns more from gains and losses alike (vigilance), so

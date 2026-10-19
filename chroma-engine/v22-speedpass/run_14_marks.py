@@ -127,6 +127,7 @@
                 if ROLES[r_] == "friend" and not WON:   # a new friend in two years (with the world on, the cast makes them)
                     friend_back[hit_] = t + int(2 * 52)
                 need[hit_, NIDX["belonging"]] -= KILL_HIT[r_, 0]; stress[hit_] += KILL_HIT[r_, 1]
+                if NW_ON: nw_mark(NW_LOSS)
                 ago["death"][hit_] = t; ago["loss"][hit_] = t
                 for n in hit_:
                     if n in events:
@@ -263,6 +264,7 @@
             bind_m = bind_m * np.exp(-1 / 520) + bd_
             bind_c = np.where(bd_[:, None], 0.8 * bind_c + 0.2 * ma, bind_c)
             need[:, NIDX["autonomy"]] -= P["bind_aut"] * np.minimum(bind_m, 3)
+            if NW_ON: nw_mark(NW_ACT)
             # v7 discipline: an act the Library flags self_control "+" builds it (half when it does not work out), "-" wears it
             sc_ = L["SC"][s, a] * (~idle & live_); stf_ = TST[stage] / TST[2]
             up_ = sc_ > 0; dn_ = sc_ < 0
@@ -275,6 +277,7 @@
                 res[law_, FRE] -= 0.15; res[law_, TIE] -= 0.1; res[law_, MON] -= 0.05; stress[law_] += 0.3
                 bk_ = np.minimum(clu_[ar, a], 1.0)[app_] if CLU_ON else 1.0   # N1b: a light frown backfires lightly
                 need[app_, NIDX["belonging"]] -= 0.1 * bk_; res[app_, TIE] -= 0.08 * bk_; stress[app_] += 0.15 * bk_
+                if NW_ON: nw_mark(NW_ACT)
                 res[mea_, MON] -= 0.1; stress[mea_] += 0.15
             res[:, HEA] -= P["body_hurt"] * L["BODY"][s, a] * (~succ & ~idle & live_)
             if SAC_ON_:   # S5: the acts that cost something real (money, ties or stress from the act itself, over
@@ -351,6 +354,8 @@
         if imp.any():
             which = rng.choice(nI, size=imp.sum(), p=pb)
             need[imp] += 0.5 * L["IMP"][which]
+            if NW_ON:
+                nw_mark(NW_SET); nw_imp[imp] = which
             stress[imp] += 0.15
             res[imp, FRE] = _uclip(res[imp, FRE] + 0.5 * IMP_FREE[which], 0, 1)
             ii = np.nonzero(imp)[0]

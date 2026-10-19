@@ -172,6 +172,7 @@
         """Giving up costs what was put in, less for those who have learned to let go (Wrosch et al. 2003)."""
         stress[n] += P["g_quit"] * gi[n, j] * (1 - letgo)
         need[n, NIDX["meaning"]] -= 0.05 * min(gi[n, j], 1.0)
+        if NW_ON: nw_mark(NW_GOAL)
         outlook[n] += 0.05 * gs[n, j] * (0 - outlook[n]) * TON
         end_goal(n, j, what)
     def end_goal(n, j, what, keep=None):
@@ -218,6 +219,7 @@
                     B[n] += 0.5 * I[n, kk]                      # leaving opens the person up for a while
                     steady[n] *= 1 - 0.3 * I[n, kk] * TON       # and shakes how firmly they hold who they are
                     if kk in (COM, FAI): need[n, NIDX["meaning"]] -= 0.3 * I[n, kk]
+                    if NW_ON: nw_mark(NW_COMMIT)
                 if kk in (PAR, COM): res[n, TIE] -= 0.15
                 if kk == CAR: res[n, MON] -= 0.15
             if why == "retired":

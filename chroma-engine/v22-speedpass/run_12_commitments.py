@@ -95,6 +95,7 @@
         wid = WID_ON & held[:, PAR] & (rng.random(N) < 0.005 * np.exp((age - 55) / 10) / 52)   # partner dies (yearly risk 0.5% at 55, 6% at 80)
         widowed |= wid; hz_mem[wid] += P["hz_remind"] * HZ_ROLE[-1]
         need[wid, NIDX["belonging"]] -= 0.4; stress[wid] += 0.5
+        if NW_ON: nw_mark(NW_LOSS)
         end(np.nonzero(wid)[0], [PAR] * int(wid.sum()), "widowed", t)
         # resources drift toward what a life's commitments and age provide
         mt = P["money_base"] + 0.45 * held[:, CAR] * (0.4 + 0.6 * I[:, CAR]) + P["pension_k"] * pension - P["kid_cost"] * kids
@@ -305,6 +306,7 @@
                 cc = float(_uclip(2 * (gm[n, j] * own_g[n]).sum() / own_g[n].max() - 1, -0.5, 1))
                 fit_ = 0.5 + 0.5 * max(cc, 0)    # reaching what fits who one is means more (Sheldon & Elliot 1999)
                 need[n, NIDX["meaning"]] += 0.15 * gs[n, j] * fit_; need[n, NIDX["competence"]] += 0.1 * gs[n, j]
+                if NW_ON: nw_mark(NW_GOAL)
                 mood[n] += 0.3 * gs[n, j] * fit_
                 outlook[n] += 0.1 * (1 - outlook[n]) * TON; steady[n] += 0.05 * fit_ * TON
                 if gpar[n, j] >= 0:
