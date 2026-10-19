@@ -65,7 +65,7 @@ document.addEventListener("keydown", (e) => {
   }
   if (!hud.cp && ["w", "m", "y", "d"].includes(e.key) && mode === "play") { send(e.key); return; }
   if (["i", "c", "b", "s", "o", "n", "a"].includes(e.key) || (e.key === "g" && (hud.world || (hud.life && hud.life.world_era)))) { pageKey(e.key); return; }
-  if (["f", "v", "l", "p"].includes(e.key)) send(e.key);
+  if (["f", "v", "l", "p", "k"].includes(e.key)) send(e.key);
   if (e.key === "x" && hud.plan) send("x");
 });
 

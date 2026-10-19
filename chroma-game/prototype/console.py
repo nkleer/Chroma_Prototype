@@ -8,7 +8,7 @@ import json
 import random
 import time
 import numpy as np
-from game import GAME, Game, PRESETS, WORLDS, FREQ, COLORS, CNAME, letters, label_name, rel_word, accept_word, STAGES, base_word, adj_defs, AROUND_WORDS, AROUND_DEFAULT, book_catalog
+from game import GAME, ASK_MATTER_ON, Game, PRESETS, WORLDS, FREQ, COLORS, CNAME, letters, label_name, rel_word, accept_word, STAGES, base_word, adj_defs, AROUND_WORDS, AROUND_DEFAULT, book_catalog
 from story import SETTINGS, WORLD, plain, NEED_SAY
 
 CHUNK = 104           # weeks simulated per call before handing back to the screen
@@ -33,6 +33,7 @@ HELP = """Keys while watching
   d       ten years
   s       status: colors, the four color vectors, meta variables, titles
   f       how often checkpoints come (rare, normal, often, every)
+  k       what matters to them weighs in on which moments come to you (on or off)
   v       how much of daily life the story tells (quiet, normal, every week)
   l       ledger: show the numbers under the story (on or off)
   p       dreams, passions and plans; make a plan for them, or drop one
@@ -492,7 +493,7 @@ class Console:
                 return g.status(), False
             if k == "h":
                 return HELP, False
-            if k in ("f", "v", "n", "l"):
+            if k in ("f", "v", "n", "l", "k"):
                 return self._keys(k)
             if k == "i":
                 return self._foresee(), False
@@ -529,7 +530,7 @@ class Console:
             return g.status(), False
         if k == "h":
             return HELP, False
-        if k in ("f", "v", "n", "l"):
+        if k in ("f", "v", "n", "l", "k"):
             return self._keys(k)
         return "Unknown key. Type h for help.", False
 
@@ -691,6 +692,11 @@ class Console:
             g.freq = order[(order.index(g.freq) + 1) % len(order)]
             self.note = f"Checkpoints: {g.freq}"
             return f"Checkpoints now come: {g.freq}.", False
+        if k == "k":
+            g.ask_matter = 0.0 if g.ask_matter else (GAME["ask_matter"] or ASK_MATTER_ON)
+            self.note = "What matters: " + ("on" if g.ask_matter else "off")
+            return ("Moments that touch what matters to them now (an aim's next step, a need they lack, the people in "
+                    "their life) now come to you more often." if g.ask_matter else "Moments come to you as before."), False
         if k == "l":
             g.ledger = not g.ledger
             self.note = "Ledger " + ("on" if g.ledger else "off")

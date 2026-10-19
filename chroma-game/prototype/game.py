@@ -99,6 +99,7 @@ class Game(CheckpointsMixin, WorldMixin, VoiceMixin, LifeMixin, ViewsMixin, Caus
         self.vrng = np.random.default_rng(self.seed + 7)   # picks among the Library's voice and lesson variants
         self.start_age = float(start_age)
         self.freq = freq
+        self.ask_matter = GAME["ask_matter"]   # v24 asks: what matters to them weighs in (key k turns it on or off)
         self.detail = detail            # 0 quiet, 1 normal, 2 every week
         self.log = []                   # lines not yet shown
         self.feed = []                  # the same lines with a type and details, for the browser's HUD

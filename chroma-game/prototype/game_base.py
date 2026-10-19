@@ -255,7 +255,8 @@ GAME = dict(
     aims=False,
     # v24 asks (plan section 7): which moments are put to the player weighs what matters to the character now (an aim's
     # next step, a need they lack, the people in their life; game_asks.py), this x 0 to 1 on the moment's importance, and
-    # the card says why it was asked. How often stays the player's setting (key f). 0: off, every moment weighs as before
+    # the card says why it was asked. How often stays the player's setting (key f). 0: off, every moment weighs as before.
+    # This is the default for a new life; the player turns it on or off for their life with key k (ASK_MATTER_ON)
     ask_matter=0.0,
     # v24 steering between asks (plan section 7, "more ways to step in"): while watching, the player can lean them toward
     # a color (key ~ and a letter) until the next ask (at most game_asks.STEER_YEARS); each moment not asked meanwhile has
@@ -316,9 +317,11 @@ PACK_OFF = {k: GAME[k] for k in PACK}
 GAME.update(PACK)                                   # v23: the pack's joint refit switched it on (chroma-release/records/v23/scope.md)
 # v24's joint refit (chroma-release/records/v24/scope.md; Release's order 10-19 20:32 UTC under Emren's 12:24 go-ahead):
 # the v24 game parts on, with the Engine's v24 defaults: the hover arrows, footprints, aims and heights, asks weighed by
-# what matters (ask_matter .5; how often stays the player's setting), steering between asks, talking it over, and the
-# world answers with the second phase for Known lives. V24_OFF keeps v23.2's values (CHROMA_GAME="v232")
-V24 = dict(arrows=True, foot=True, aims=True, ask_matter=0.5, steer_between=True, talk=True, world_answers=True, wa_phase2=True)
+# what matters (off by default: the player turns it on with key k, plan section 7 "play changes only if the player sets
+# it"; Release 10-19 21:08), steering between asks, talking it over, and the world answers with the second phase for
+# Known lives. V24_OFF keeps v23.2's values (CHROMA_GAME="v232")
+ASK_MATTER_ON = 0.5                                 # what key k sets ask_matter to (asks_check and talk_check measured .5)
+V24 = dict(arrows=True, foot=True, aims=True, steer_between=True, talk=True, world_answers=True, wa_phase2=True)
 V24_OFF = {k: GAME[k] for k in V24}
 GAME.update(V24)
 if os.environ.get("CHROMA_GAME"):                   # checks and calibration only: "off", "v224", "pack", "v232" or JSON
