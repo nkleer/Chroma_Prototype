@@ -238,8 +238,8 @@ GAME = dict(
     # Because of you, and meanwhile (chroma-ideas/next-table-2026-10-19/plan.md section 1; Emren "Clarity first" 10-19,
     # v23.2), with the Engine's played-life key need_why: the outcome splits the needs the pick's week moved into what the
     # pick did and what else happened, each with its cause, and a silent setback gets a short told line. Words only: no
-    # draws, so every step plays as before. Off until Release proves it
-    because=False,
+    # draws, so every step plays as before. On from v23.2 (Release's proof; GAME_OFF keeps it off)
+    because=True,
 )
 BOLD_IX = 1000          # Bold ways: a bold way's number on the card, BOLD_IX + 100 x its slot + its base way (bix: the base)
 
