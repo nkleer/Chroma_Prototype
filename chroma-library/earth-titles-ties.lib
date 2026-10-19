@@ -764,8 +764,8 @@ scene G: Bodies fail, as they do; {N} has always known it, the way one knows win
 - B | take on the care on clear terms: they decide what they can, you keep working | v: self-direction, security | title: caregiving partner | act: take on the care on clear terms: the partner decides all they still can, and the carer keeps working | chance: 72
 - R | take them away now on the trip you always meant to take | v: stimulation, hedonism | mark: took a wild risk | closed: approval: the doctors advise against travel; backfire: a crisis far from home | tags: pay:money-.08 | chance: 62
 - G | care for them at home, in your own rhythm, for as long as it takes | habit | binds | v: benevolence, tradition | title: caregiving partner | grants: home nursing | chance: 68 | back: helped someone in need
-- BG | accept the long road, and quietly set money aside for the hard years | v: security | self_control: + | chance: 85
-- UB | find the best specialist in the country, and pull every string to get them seen | v: power, security | chance: 50
+- BG | accept the long road, and quietly set money aside for the hard years | v: security | self_control: + | foot: means money+.06 | chance: 85
+- UB | find the best specialist in the country, and pull every string to get them seen | v: power, security | foot: means ties-.05 | chance: 50
 - UR | push for a second opinion at once, and chase every result yourself | v: self-direction, stimulation | chance: 75 | back: defied an authority
 - WG | weave the care into your shared life, with family and friends on a rota | v: benevolence, tradition | title: caregiving partner | chance: 60
 - WR | take up the care, and keep every birthday, outing and visit going, illness or not | habit | v: benevolence, tradition | self_control: + | title: caregiving partner | chance: 78
@@ -798,16 +798,16 @@ scene U: {N} counts the turns on the drive and reads every sign, trying to work 
 scene B: {N} learned a while ago not to count on anyone else. In a new house it is worth knowing where the food is kept and who is really in charge.
 scene R: {N} presses a face to the car window. A new house means a new garden, new rooms, maybe a dog. {N} is scared, and a little curious too.
 scene G: {N} holds the bag tight on the back seat. Inside is the one thing from home that matters, and whatever happens, it stays with {N}.
-- W | learn the house rules on the first night, and keep every one | v: security, conformity | chance: 80
-- U | ask the social worker exactly what happens next, and when you can go home | v: self-direction, security | chance: 78
-- B | keep a secret store of snacks under the bed, just in case | v: security | chance: 88
-- R | explore the whole new house and garden, and make friends with the dog by teatime | v: stimulation, hedonism | chance: 75
-- G | keep the thing from home with you every night, under the pillow | v: tradition, security | act: keep the thing from home close every night, under the pillow | chance: 75
-- WG | make a card for your mum or dad every week, ready for the next visit | habit | v: benevolence, tradition | chance: 80
-- UB | work out which grown-up really decides things, and ask them, not the others | v: power, security | act: work out which grown-up really decides things, and ask that one, not the others | chance: 60
+- W | learn the house rules on the first night, and keep every one | v: security, conformity | foot: lesson rules can keep you safe | chance: 80
+- U | ask the social worker exactly what happens next, and when you can go home | v: self-direction, security | foot: person go-between | chance: 78
+- B | keep a secret store of snacks under the bed, just in case | v: security | foot: door kept it hidden | chance: 88
+- R | explore the whole new house and garden, and make friends with the dog by teatime | v: stimulation, hedonism | foot: means freedom+.03 | chance: 75
+- G | keep the thing from home with you every night, under the pillow | v: tradition, security | act: keep the thing from home close every night, under the pillow | foot: means ties+.03 | chance: 75
+- WG | make a card for your mum or dad every week, ready for the next visit | habit | v: benevolence, tradition | foot: door came home | chance: 80
+- UB | work out which grown-up really decides things, and ask them, not the others | v: power, security | act: work out which grown-up really decides things, and ask that one, not the others | foot: lesson ask the one who decides | chance: 60
 - RG | make friends with the other foster child in the house before bedtime | v: benevolence, stimulation | mark: made a friend | chance: 70
-- WB | be so helpful around the house that the family will want to keep you | v: conformity, security | act: be so helpful around the house that the family will want to keep them | chance: 60
-- UR | keep a diary of everything that happens, to tell it right one day | habit | v: self-direction, stimulation | chance: 80
+- WB | be so helpful around the house that the family will want to keep you | v: conformity, security | act: be so helpful around the house that the family will want to keep them | foot: door took them in | chance: 60
+- UR | keep a diary of everything that happens, to tell it right one day | habit | v: self-direction, stimulation | foot: mark learned a skill | chance: 80
 works: The foster family keeps the porch light on every night, and slowly {N} stops listening for the car that will take {N} away.
 works: {N} goes home in the spring, with a box of drawings and a phone number to call if things get hard again.
 fails: Three houses in a year, and {N} learns not to unpack.

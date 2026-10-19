@@ -120,16 +120,16 @@ scene U: {N} has worked out what a year's wage comes to, and what the exams migh
 scene B: A wage of {Ns} own, now, while classmates still ask for pocket money. {N} can see the appeal.
 scene R: {N} is sick of the classroom, the bells and the bus, and the warehouse sounds like the start of real life.
 scene G: {grandparent} left school at fourteen to work, and so did {parent}. In this family, that is simply what people do.
-- W | take the job, and hand the wage to the family every Friday | v: benevolence, conformity | sphere: learn.W | chance: 65
-- U | ask the school about night classes, so you can sit the exams while working | act: ask the school about night classes, so they can sit the exams while working | v: self-direction, achievement | sphere: learn.U | chance: 65
-- B | take the job, and keep back enough of each wage to build something of your own | act: take the job, and keep back enough of each wage to build something of their own | v: power, achievement | lever: exit | sphere: learn.B | chance: 65
-- R | walk out of school on Friday, and turn up at the warehouse on Monday | v: stimulation, self-direction | lever: exit | sphere: learn.R | chance: 65
-- G | ask the grandparents what to do, and do whatever the family decides | v: tradition, conformity | sphere: learn.G | chance: 65
-- BG | take the job an uncle's friend offers, where the family can keep an eye on you | act: take the job an uncle's friend offers, where the family can keep an eye on them | v: security, tradition | sphere: learn.BG | chance: 55
-- UG | stay at school, and learn the family trade from a grandparent at weekends | v: tradition, achievement | sphere: learn.GU | chance: 55
-- UR | find a weekend job that pays nearly as much, and stay on at school | v: self-direction, achievement | sphere: learn.UR | chance: 55
-- WB | ask the warehouse to hold the place a year, and work every Saturday until then | v: achievement, security | sphere: learn.WB | chance: 55
-- WR | tell your parent straight out that you mean to finish school, and why | act: tell their parent straight out that they mean to finish school, and why | v: self-direction, benevolence | lever: voice | pushes: close parent | sphere: learn.RW | chance: 55
+- W | take the job, and hand the wage to the family every Friday | v: benevolence, conformity | sphere: learn.W | foot: mark helped someone in need | chance: 65
+- U | ask the school about night classes, so you can sit the exams while working | act: ask the school about night classes, so they can sit the exams while working | v: self-direction, achievement | sphere: learn.U | foot: place learn.higher | chance: 65
+- B | take the job, and keep back enough of each wage to build something of your own | act: take the job, and keep back enough of each wage to build something of their own | v: power, achievement | lever: exit | sphere: learn.B | foot: means money+.06 | chance: 65
+- R | walk out of school on Friday, and turn up at the warehouse on Monday | v: stimulation, self-direction | lever: exit | sphere: learn.R | foot: door turned down a chance | chance: 65
+- G | ask the grandparents what to do, and do whatever the family decides | v: tradition, conformity | sphere: learn.G | foot: lesson the family decides together | chance: 65
+- BG | take the job an uncle's friend offers, where the family can keep an eye on you | act: take the job an uncle's friend offers, where the family can keep an eye on them | v: security, tradition | sphere: learn.BG | foot: person boss | chance: 55
+- UG | stay at school, and learn the family trade from a grandparent at weekends | v: tradition, achievement | sphere: learn.GU | foot: mark learned a skill | chance: 55
+- UR | find a weekend job that pays nearly as much, and stay on at school | v: self-direction, achievement | sphere: learn.UR | foot: means money+.03 | chance: 55
+- WB | ask the warehouse to hold the place a year, and work every Saturday until then | v: achievement, security | sphere: learn.WB | foot: door kept your word | chance: 55
+- WR | tell your parent straight out that you mean to finish school, and why | act: tell their parent straight out that they mean to finish school, and why | v: self-direction, benevolence | lever: voice | pushes: close parent | sphere: learn.RW | foot: lesson say it plainly with reasons | chance: 55
 works: The plan holds: the family gets through the hard year, and {N} keeps a door to learning open for later.
 works: Years afterwards {N} can say that the choice at sixteen was {Ns} own, and stand by it.
 fails not UG UR WB WR: The job ends after six months, and the school will not take {N} back in time for the exams.
@@ -162,16 +162,16 @@ scene U: {N} watches every move {mentor} makes at the bench, and wants to know w
 scene B: {N} can see which apprentices {mentor} trusts. Those are the ones who will get the good jobs later.
 scene R: {Ns} hands itch. {N} is sure they could do the job, if anyone would only let them try.
 scene G: This is how {mentor} was taught, and how {Ns} master's own master taught before that: sweep first, watch, wait.
-- W | do every task to the letter, and ask when the next stage of training begins | v: conformity, achievement | sphere: learn.W | chance: 65
+- W | do every task to the letter, and ask when the next stage of training begins | v: conformity, achievement | sphere: learn.W | foot: lesson doing it right gets noticed | chance: 65
 - U | write down everything the master does at the bench, and study it at night | v: self-direction, achievement | mark: learned a skill | sphere: learn.U | chance: 65
-- B | make yourself useful to the best customers, so they ask for you by name | act: make themselves useful to the best customers, so they ask for them by name | v: achievement, power | sphere: learn.B | chance: 65
-- R | stay late and try the real work on the scrap pieces, without asking | v: stimulation, self-direction | sphere: learn.R | chance: 65
-- G | sweep and watch without complaint, the way the master was taught before you | act: sweep and watch without complaint, the way the master was taught before them | v: tradition, conformity | lever: loyalty | sphere: learn.G | chance: 65
-- RG | make something small at home with the old family tools, and bring it in to show | v: stimulation, tradition | sphere: learn.RG | chance: 55
-- UB | learn the one skill nobody else in the shop has bothered to master | v: achievement, self-direction | sphere: learn.UB | chance: 55
-- UR | go and watch how another workshop does the job, on your day off | act: go and watch how another workshop does the job, on their day off | v: stimulation, self-direction | sphere: learn.UR | chance: 55
-- WB | ask the master, politely, for a date to start on real work | v: achievement, conformity | lever: voice | sphere: learn.WB | chance: 55
-- WG | help the older apprentice with their jobs, and learn from them in turn | v: benevolence, tradition | sphere: learn.GW | chance: 55
+- B | make yourself useful to the best customers, so they ask for you by name | act: make themselves useful to the best customers, so they ask for them by name | v: achievement, power | sphere: learn.B | foot: person regular | chance: 65
+- R | stay late and try the real work on the scrap pieces, without asking | v: stimulation, self-direction | sphere: learn.R | foot: mark learned a skill | chance: 65
+- G | sweep and watch without complaint, the way the master was taught before you | act: sweep and watch without complaint, the way the master was taught before them | v: tradition, conformity | lever: loyalty | sphere: learn.G | foot: lesson patience comes before the real work | chance: 65
+- RG | make something small at home with the old family tools, and bring it in to show | v: stimulation, tradition | sphere: learn.RG | foot: place arts.craft | chance: 55
+- UB | learn the one skill nobody else in the shop has bothered to master | v: achievement, self-direction | sphere: learn.UB | foot: mark learned a skill | chance: 55
+- UR | go and watch how another workshop does the job, on your day off | act: go and watch how another workshop does the job, on their day off | v: stimulation, self-direction | sphere: learn.UR | foot: person colleague | chance: 55
+- WB | ask the master, politely, for a date to start on real work | v: achievement, conformity | lever: voice | sphere: learn.WB | foot: door kept your word | chance: 55
+- WG | help the older apprentice with their jobs, and learn from them in turn | v: benevolence, tradition | sphere: learn.GW | foot: person friend | chance: 55
 works: One Monday {mentor} hands {N} a real job without a word, checks it, and says nothing, which means it is good.
 works: By the end of the year {N} does one thing in the workshop better than anyone, and {mentor} sends customers to {N} for it.
 fails: {mentor} catches {N} cutting a corner, and the sweeping goes on for another six months.
@@ -203,16 +203,16 @@ scene U: {N} knows the piece has one flaw the judges may never notice, and canno
 scene B: Two of the judges are known to like a confident answer. {N} has rehearsed one in the mirror all week.
 scene R: {N} changed the piece last week on a hunch, against {Ns} mentor's advice, and still thinks it was right.
 scene G: The piece is made the way {mentor} taught it, and the way {Ns} mentor was taught in turn.
-- W | answer every question plainly, and show the judges each step of the work | v: conformity, achievement | sphere: learn.W | chance: 65
-- U | point out the flaw yourself, and explain how you would fix it | act: point out the flaw themselves, and explain how they would fix it | v: universalism, self-direction | mark: owned up | sphere: learn.U | chance: 65
-- B | lead with the piece's strongest part, and steer the judges past its weak one | v: achievement, power | sphere: learn.B | chance: 65
-- R | defend the risky change you made last week, with all the fire you have | act: defend the risky change they made last week, with all the fire they have | v: self-direction, stimulation | sphere: learn.R | chance: 65
-- G | tell the judges whose way of working you learned, and stand on it | act: tell the judges whose way of working they learned, and stand on it | v: tradition | sphere: learn.G | chance: 65
-- BR | turn the afternoon into a show the judges will talk about for years | v: stimulation, achievement | sphere: learn.BR | chance: 55
-- UG | lay out the old pattern books the work was drawn from, page by page | v: tradition, universalism | sphere: learn.GU | chance: 55
-- UR | ask the judges to try the piece for themselves, there and then | v: stimulation, self-direction | sphere: learn.UR | chance: 55
-- WB | bring letters from the master and from clients, and set them on the table | v: achievement, conformity | sphere: learn.WB | chance: 55
-- WG | thank your master before the judges, before a single word about the piece | act: thank their master before the judges, before a single word about the piece | v: tradition, benevolence | sphere: learn.GW | chance: 55
+- W | answer every question plainly, and show the judges each step of the work | v: conformity, achievement | sphere: learn.W | foot: lesson plain answers carry weight | chance: 65
+- U | point out the flaw yourself, and explain how you would fix it | act: point out the flaw themselves, and explain how they would fix it | v: universalism, self-direction | mark: owned up | sphere: learn.U | foot: lesson naming a flaw builds trust | chance: 65
+- B | lead with the piece's strongest part, and steer the judges past its weak one | v: achievement, power | sphere: learn.B | foot: door kept it hidden | chance: 65
+- R | defend the risky change you made last week, with all the fire you have | act: defend the risky change they made last week, with all the fire they have | v: self-direction, stimulation | sphere: learn.R | foot: mark took a wild risk | chance: 65
+- G | tell the judges whose way of working you learned, and stand on it | act: tell the judges whose way of working they learned, and stand on it | v: tradition | sphere: learn.G | foot: means ties+.03 | chance: 65
+- BR | turn the afternoon into a show the judges will talk about for years | v: stimulation, achievement | sphere: learn.BR | foot: means ties+.06 | chance: 55
+- UG | lay out the old pattern books the work was drawn from, page by page | v: tradition, universalism | sphere: learn.GU | foot: place learn.keeping | chance: 55
+- UR | ask the judges to try the piece for themselves, there and then | v: stimulation, self-direction | sphere: learn.UR | foot: mark took a wild risk | chance: 55
+- WB | bring letters from the master and from clients, and set them on the table | v: achievement, conformity | sphere: learn.WB | foot: person patron | chance: 55
+- WG | thank your master before the judges, before a single word about the piece | act: thank their master before the judges, before a single word about the piece | v: tradition, benevolence | sphere: learn.GW | foot: means ties+.03 | chance: 55
 works: The judges confer for five minutes and come out to shake {Ns} hand: the piece passes, and so does {N}.
 works: One judge asks for {Ns} number afterwards; there is a post that needs exactly what {N} has just shown.
 fails: The judges send the piece back for another year's work, and {N} walks past {mentor} unable to speak.
@@ -244,16 +244,16 @@ scene U: {N} has learned a way of thinking the family does not share, and has st
 scene B: The certificate opens doors no one in the family could ever knock on. {N} already has two interviews lined up.
 scene R: {N} wants to throw the cap in the air, run to the third row and swing {grandparent} round.
 scene G: {grandparent} left school at twelve. To {N} the certificate belongs to the whole family, not to one person.
-- W | thank your family by name when the graduates are asked to stand | act: thank their family by name when the graduates are asked to stand | v: benevolence, tradition | sphere: learn.W | chance: 65
-- U | spend the evening explaining to the family what you studied, and why it matters | act: spend the evening explaining to the family what they studied, and why it matters | v: universalism, benevolence | sphere: learn.U | chance: 65
-- B | leave the family lunch early to meet the people who can help your career | act: leave the family lunch early to meet the people who can help their career | v: achievement, power | sphere: learn.B | chance: 65
-- R | skip the smart lunch, and take the whole family for a loud meal you cannot afford | act: skip the smart lunch, and take the whole family for a loud meal they cannot afford | v: hedonism, benevolence | sphere: learn.R | chance: 65
-- G | hang the certificate in your parents' front room, where the whole street will see it | act: hang the certificate in their parents' front room, where the whole street will see it | v: tradition, security | sphere: learn.G | chance: 65
+- W | thank your family by name when the graduates are asked to stand | act: thank their family by name when the graduates are asked to stand | v: benevolence, tradition | sphere: learn.W | foot: means ties+.06 | chance: 65
+- U | spend the evening explaining to the family what you studied, and why it matters | act: spend the evening explaining to the family what they studied, and why it matters | v: universalism, benevolence | sphere: learn.U | foot: lesson share what you learned | chance: 65
+- B | leave the family lunch early to meet the people who can help your career | act: leave the family lunch early to meet the people who can help their career | v: achievement, power | sphere: learn.B | foot: person patron | chance: 65
+- R | skip the smart lunch, and take the whole family for a loud meal you cannot afford | act: skip the smart lunch, and take the whole family for a loud meal they cannot afford | v: hedonism, benevolence | sphere: learn.R | foot: means money-.03 | chance: 65
+- G | hang the certificate in your parents' front room, where the whole street will see it | act: hang the certificate in their parents' front room, where the whole street will see it | v: tradition, security | sphere: learn.G | foot: lesson the whole family earned it | chance: 65
 - BR | take the best-paid offer in the city that same week, and send money home | v: achievement, stimulation | mark: moved away | sphere: learn.BR | chance: 55
-- RG | throw a party on the home street, and invite every neighbour who ever helped | v: tradition, hedonism | sphere: learn.RG | chance: 55
-- UG | ask the grandparents for the story of why none of them could study | v: tradition, universalism | sphere: learn.GU | chance: 55
-- WB | set up a small fund so the next cousin can study without your debts | act: set up a small fund so the next cousin can study without their debts | v: benevolence, achievement | lever: fund | sphere: learn.WB | chance: 55
-- WU | go back to your old school, and tell the pupils there that it can be done | act: go back to their old school, and tell the pupils there that it can be done | v: universalism, benevolence | sphere: learn.WU | chance: 55
+- RG | throw a party on the home street, and invite every neighbour who ever helped | v: tradition, hedonism | sphere: learn.RG | foot: person neighbour | chance: 55
+- UG | ask the grandparents for the story of why none of them could study | v: tradition, universalism | sphere: learn.GU | foot: means ties+.03 | chance: 55
+- WB | set up a small fund so the next cousin can study without your debts | act: set up a small fund so the next cousin can study without their debts | v: benevolence, achievement | lever: fund | sphere: learn.WB | foot: means money-.06 | chance: 55
+- WU | go back to your old school, and tell the pupils there that it can be done | act: go back to their old school, and tell the pupils there that it can be done | v: universalism, benevolence | sphere: learn.WU | foot: person teacher | chance: 55
 works: The photo from that day goes up on {Ns} parents' wall, and stays there for the rest of their lives.
 works: Two years later a younger cousin applies to the same college, and names {N} as the reason.
 fails: The family feels out of place all day, and the drive home is quiet and stiff.
@@ -285,16 +285,16 @@ scene U: {N} wants to know why the engineers' maps missed it, and what else the 
 scene B: Whoever holds the key to that well this summer will be owed something by half the town.
 scene R: {N} has already been down with a bucket and a torch, and came up soaked to the knees and laughing.
 scene G: {Ns} grandfather said the spring never fails while it is kept clean. He said it every summer, and nobody listened.
-- W | tell the council at once, and ask for a fair rota at the well | v: universalism, conformity | lever: voice | pushes: place | sphere: learn.W | chance: 65
-- U | bring the engineers to see it, and find out why their maps missed it | v: universalism, self-direction | sphere: learn.U | chance: 65
-- B | keep the key yourself, and decide who draws water from the well | act: keep the key themselves, and decide who draws water from the well | v: power | sphere: learn.B | chance: 65
-- R | clear the well out yourself this weekend, with whoever turns up to help | act: clear the well out themselves this weekend, with whoever turns up to help | v: stimulation, benevolence | sphere: learn.R | chance: 65
-- G | clean the spring the old way, and say your grandfather's words over it | act: clean the spring the old way, and say their grandfather's words over it | v: tradition | sphere: learn.G | chance: 65
-- BG | have the council name the well after your family before you hand it over | act: have the council name the well after their family before they hand it over | v: tradition, power | sphere: learn.BG | chance: 55
-- BR | stand up at the town meeting, and tell the engineers to their faces they were wrong | v: power, stimulation | lever: voice | sphere: learn.BR | chance: 55
-- UR | test the water with a kit from the shop, and post the results for the town | v: universalism, stimulation | sphere: learn.UR | chance: 55
-- WG | teach the children at the school how to find and keep a spring | v: tradition, benevolence | sphere: learn.GW | chance: 55
-- WU | write down all the old ones said about water, and give it to the library | v: universalism, tradition | sphere: learn.WU | chance: 55
+- W | tell the council at once, and ask for a fair rota at the well | v: universalism, conformity | lever: voice | pushes: place | sphere: learn.W | foot: place rule.counsel | chance: 65
+- U | bring the engineers to see it, and find out why their maps missed it | v: universalism, self-direction | sphere: learn.U | foot: lesson maps can miss things | chance: 65
+- B | keep the key yourself, and decide who draws water from the well | act: keep the key themselves, and decide who draws water from the well | v: power | sphere: learn.B | foot: person rival | chance: 65
+- R | clear the well out yourself this weekend, with whoever turns up to help | act: clear the well out themselves this weekend, with whoever turns up to help | v: stimulation, benevolence | sphere: learn.R | foot: person neighbour | chance: 65
+- G | clean the spring the old way, and say your grandfather's words over it | act: clean the spring the old way, and say their grandfather's words over it | v: tradition | sphere: learn.G | foot: lesson a kept spring keeps giving | chance: 65
+- BG | have the council name the well after your family before you hand it over | act: have the council name the well after their family before they hand it over | v: tradition, power | sphere: learn.BG | foot: means ties+.03 | chance: 55
+- BR | stand up at the town meeting, and tell the engineers to their faces they were wrong | v: power, stimulation | lever: voice | sphere: learn.BR | foot: mark defied an authority | chance: 55
+- UR | test the water with a kit from the shop, and post the results for the town | v: universalism, stimulation | sphere: learn.UR | foot: mark learned a skill | chance: 55
+- WG | teach the children at the school how to find and keep a spring | v: tradition, benevolence | sphere: learn.GW | foot: means ties+.06 | chance: 55
+- WU | write down all the old ones said about water, and give it to the library | v: universalism, tradition | sphere: learn.WU | foot: place learn.keeping | chance: 55
 works: The well carries the street through to the autumn rains, and the council puts the old spring on its maps.
 works: For the rest of the summer people stop {N} in the market to ask what else the old ones knew.
 fails: The council fences the well off as unsafe, and the engineers take the credit when it opens again.

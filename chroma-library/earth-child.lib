@@ -98,16 +98,16 @@ scene U: {N} walks into a classroom full of books, maps and jars, and wants to k
 scene B: There are thirty children in the class and one teacher. {N} already sees who the others listen to.
 scene R: The school gate swings open, and the noise from the playground hits {N} like a wave.
 scene G: {sibling} went to this school, and {parent} before that. {N} walks in holding a hand.
-- W | line up, listen, and learn the rules quickly | habit | v: conformity | chance: 85
-- U | ask the teacher a hundred questions on the first day | door | v: self-direction | chance: 80
+- W | line up, listen, and learn the rules quickly | habit | v: conformity | foot: lesson rules make a big place smaller | chance: 85
+- U | ask the teacher a hundred questions on the first day | door | v: self-direction | foot: person teacher | chance: 80
 - B | make friends with the kid the others already listen to | v: power, security | mark: made a friend | tags: win:ties+.05 | chance: 75
 - R | run straight into the playground and join the first game you see | v: stimulation | tags: win:ties+.05 | chance: 90 | back: made a friend
-- G | stay close to your sibling and the kids from your street | v: security, tradition | chance: 75
-- WU | sit at the front and do exactly what is asked, and do it well | habit | v: achievement, conformity | chance: 82
+- G | stay close to your sibling and the kids from your street | v: security, tradition | foot: place gather.circle | chance: 75
+- WU | sit at the front and do exactly what is asked, and do it well | habit | v: achievement, conformity | foot: lesson doing it well gets noticed | chance: 82
 - BR | push to the front of every line and grab the best seat | v: power, hedonism | closed: approval: pushing; backfire: told off in front of everyone | chance: 75 | back: made an enemy
-- UG | spend every break watching the ants by the fence | v: universalism (nature), self-direction | chance: 60
-- WR | volunteer for every job, brave and eager to help | v: benevolence, stimulation | chance: 80
-- BG | keep to your own little gang and guard your corner of the yard | v: security, power | chance: 75
+- UG | spend every break watching the ants by the fence | v: universalism (nature), self-direction | foot: place prod.wild | chance: 60
+- WR | volunteer for every job, brave and eager to help | v: benevolence, stimulation | foot: means ties+.03 | chance: 80
+- BG | keep to your own little gang and guard your corner of the yard | v: security, power | foot: person rival | chance: 75
 works: By the end of the week {N} has a friend and a favourite peg for their coat.
 works: {N} comes home every day full of stories.
 fails: {N} cries every morning at the gate for weeks.
@@ -765,16 +765,16 @@ scene U: {N} has heard the arguments through the floor for a year and has a fair
 scene B: Two houses means two sets of rules, and two parents who both feel guilty. {N} notices how much room that leaves.
 scene R: {N} is too old to cry in front of them and too angry not to. The chair scrapes back hard across the floor.
 scene G: That evening {grandparent} rings. Some things change, {grandparent} says, but a family is still a family.
-- W | keep to the agreed week between the two homes, and keep up at school | v: security, conformity | chance: 78
-- U | ask each parent, on their own, for the real reasons, and compare the answers | v: self-direction | chance: 50
-- B | play your parents off against each other for money, freedom and a later curfew | habit | v: power, hedonism | chance: 65
-- R | tell them both, tears and all, how much this hurts and that you love them | v: none clear (feelings spoken straight out) | chance: 65
-- G | move in with your grandparents for a while, away from both houses | v: security, tradition | closed: approval: breaking the agreed week; backfire: a row between the grown-ups, and the week enforced | chance: 65
-- RG | refuse to change schools or leave your friends, whatever the grown-ups decide | identity | v: security, tradition | chance: 75
-- UB | listen in on their phone calls, to know what is coming before anyone says | habit | v: security | closed: approval: eavesdropping; backfire: overhearing far more than is bearable | chance: 75
-- UR | choose which parent to live with, and argue your case to both | identity | v: self-direction | chance: 70
-- WB | get both parents to agree one set of rules, and hold them to it | v: security, power | chance: 45
-- WG | keep the peace at both houses, and keep how you feel to yourself | v: benevolence, conformity | chance: 45
+- W | keep to the agreed week between the two homes, and keep up at school | v: security, conformity | foot: door kept your word | chance: 78
+- U | ask each parent, on their own, for the real reasons, and compare the answers | v: self-direction | foot: lesson every story has two sides | chance: 50
+- B | play your parents off against each other for money, freedom and a later curfew | habit | v: power, hedonism | foot: means freedom+.06 | chance: 65
+- R | tell them both, tears and all, how much this hurts and that you love them | v: none clear (feelings spoken straight out) | foot: means ties+.03 | chance: 65
+- G | move in with your grandparents for a while, away from both houses | v: security, tradition | closed: approval: breaking the agreed week; backfire: a row between the grown-ups, and the week enforced | foot: door left home | chance: 65
+- RG | refuse to change schools or leave your friends, whatever the grown-ups decide | identity | v: security, tradition | foot: door stayed home | chance: 75
+- UB | listen in on their phone calls, to know what is coming before anyone says | habit | v: security | closed: approval: eavesdropping; backfire: overhearing far more than is bearable | foot: door hid a wrong | chance: 75
+- UR | choose which parent to live with, and argue your case to both | identity | v: self-direction | foot: means freedom+.03 | chance: 70
+- WB | get both parents to agree one set of rules, and hold them to it | v: security, power | foot: lesson fair rules can be asked for | chance: 45
+- WG | keep the peace at both houses, and keep how you feel to yourself | v: benevolence, conformity | foot: door kept it hidden | chance: 45
 works not G: Slowly the two houses become two homes, and {N} has a toothbrush in each.
 works: {Ns} parents are kinder to each other apart than they were together, and {N} can feel the difference.
 fails: {N} goes quiet at school, and the teacher calls home.
@@ -804,16 +804,16 @@ scene U: {N} has heard the arguing through the floor for months, and has been tr
 scene B: Two houses means two bedrooms, two lots of birthday presents, and two parents who both feel bad. {N} notices that.
 scene R: {N} does not want two houses. {N} wants everything back the way it was, and says so, loudly, through tears.
 scene G: {N} looks at the family photo on the fridge. Some things change, {grandparent} says, but a family is still a family.
-- W | learn the new week by heart, which nights where, and keep to it | v: security, conformity | chance: 78
-- U | ask both parents, one at a time, to explain exactly why | v: self-direction | chance: 60
-- B | pack your own bag for each house, so nothing you need is ever left behind | habit | v: self-direction, security | chance: 70
-- R | shout that you hate them both, and slam your door | v: none clear (hurt let out) | chance: 55
+- W | learn the new week by heart, which nights where, and keep to it | v: security, conformity | foot: lesson a routine makes change bearable | chance: 78
+- U | ask both parents, one at a time, to explain exactly why | v: self-direction | foot: lesson grown-ups do not always know why | chance: 60
+- B | pack your own bag for each house, so nothing you need is ever left behind | habit | v: self-direction, security | foot: mark learned a skill | chance: 70
+- R | shout that you hate them both, and slam your door | v: none clear (hurt let out) | foot: means ties-.03 | chance: 55
 - G | refuse to go to the other house, and stay at your grandparents' instead | v: security, tradition | closed: approval: breaking the agreed week; backfire: a row between the grown-ups, and the week enforced | chance: 60 | back: defied an authority
-- RG | dig in your heels: you will not leave your school or your friends | identity | v: security, tradition | chance: 65
-- UB | listen at doors, to know what is coming before anyone tells you | habit | v: security | act: listen at doors, to know what is coming before anyone tells them | closed: approval: eavesdropping; backfire: overhearing far more than is bearable | chance: 75
-- UR | hatch a plan to get your parents back together, and put it into action | identity | v: benevolence, stimulation | chance: 20
-- WB | make both parents agree the same rules for you, and hold them to it | v: security, power | act: make both parents agree the same rules for them, and hold them to it | chance: 50
-- WG | try to be extra good at both houses, so nobody else gets upset | v: benevolence, conformity | chance: 45
+- RG | dig in your heels: you will not leave your school or your friends | identity | v: security, tradition | foot: door stayed home | chance: 65
+- UB | listen at doors, to know what is coming before anyone tells you | habit | v: security | act: listen at doors, to know what is coming before anyone tells them | closed: approval: eavesdropping; backfire: overhearing far more than is bearable | foot: door hid a wrong | chance: 75
+- UR | hatch a plan to get your parents back together, and put it into action | identity | v: benevolence, stimulation | foot: door took a wild risk | chance: 20
+- WB | make both parents agree the same rules for you, and hold them to it | v: security, power | act: make both parents agree the same rules for them, and hold them to it | foot: door kept your word | chance: 50
+- WG | try to be extra good at both houses, so nobody else gets upset | v: benevolence, conformity | foot: door kept it hidden | chance: 45
 works not G: Slowly the two houses become two homes, and {N} has a toothbrush in each.
 works: {Ns} parents are kinder to each other apart than they were together, and {N} can feel the difference.
 fails: {N} goes quiet at school, and the teacher calls home.
@@ -844,15 +844,15 @@ scene B: In the new town nobody knows who {N} was. {N} can be anyone at all.
 scene R: Nobody asked {N}. {N} is leaving friends, a team and a whole life behind, and is furious about it.
 scene G: {N} walks past the old school, the park and the corner shop one last time, trying to fix each one in memory.
 - W | promise every friend you will keep in touch, and message them every week | v: benevolence | tags: win:ties+.05 | tech: phone | chance: 55
-- U | look up everything about the new town: the schools, the clubs, the buses | v: self-direction | chance: 70
-- B | decide to reinvent yourself at the new school, as someone people look up to | identity | v: power, self-direction | chance: 55
-- R | throw a loud goodbye party for your friends on the last night | v: hedonism, benevolence | chance: 75
-- G | walk your old streets one last time, and promise yourself you will come back | binds | v: tradition | chance: 65
-- WUR | join a team or a club in the first week, to find your feet fast | door | v: self-direction, stimulation | chance: 78
-- WUG | set up your new room with all your old things, just as it was | v: security, tradition | chance: 70
-- WBG | stay close to your family and keep a low profile until you know who to trust | v: security | chance: 55
-- UBR | work out who runs things at the new school, and get on their side fast | v: power, security | chance: 65
-- BRG | square up to the first kid at the new school who tries to push you around | body: light | v: power | closed: approval: fighting; backfire: suspended in the first week, with a reputation | act: square up to the first kid at the new school who tries to push them around | role: men | chance: 60
+- U | look up everything about the new town: the schools, the clubs, the buses | v: self-direction | foot: means freedom+.03 | chance: 70
+- B | decide to reinvent yourself at the new school, as someone people look up to | identity | v: power, self-direction | foot: lesson a new start lets you choose | chance: 55
+- R | throw a loud goodbye party for your friends on the last night | v: hedonism, benevolence | foot: means ties+.03 | chance: 75
+- G | walk your old streets one last time, and promise yourself you will come back | binds | v: tradition | foot: door came home | chance: 65
+- WUR | join a team or a club in the first week, to find your feet fast | door | v: self-direction, stimulation | foot: place gather.games | chance: 78
+- WUG | set up your new room with all your old things, just as it was | v: security, tradition | foot: lesson old things make anywhere home | chance: 70
+- WBG | stay close to your family and keep a low profile until you know who to trust | v: security | foot: means ties-.03 | chance: 55
+- UBR | work out who runs things at the new school, and get on their side fast | v: power, security | foot: person friend | chance: 65
+- BRG | square up to the first kid at the new school who tries to push you around | body: light | v: power | closed: approval: fighting; backfire: suspended in the first week, with a reputation | act: square up to the first kid at the new school who tries to push them around | role: men | foot: person rival | chance: 60
 works: Within a month {N} has a new best friend and a favourite path to school.
 works: The new town has a river, a library and a kid next door who is just as new.
 fails: {N} spends lunchtimes alone for weeks, and the old friends slowly stop replying.
@@ -884,15 +884,15 @@ scene B: In the new town nobody knows who {N} was. {N} can be anyone at all.
 scene R: {N} does not want to go. {N} kicks the boxes, and then cries in the empty bedroom.
 scene G: {N} says goodbye to the tree in the back garden, the one with {Ns} initials carved in the bark.
 - W | write down every friend's address, and promise to write to each one | v: benevolence | tags: win:ties+.05 | chance: 50
-- U | find out everything about the new town before you get there | v: self-direction | act: find out everything about the new town before they get there | chance: 65
-- B | decide to be someone new at the new school, someone the others look up to | identity | v: power, self-direction | chance: 50
-- R | refuse to pack, and lock yourself in the bathroom | v: none clear (hurt let out) | chance: 45
-- G | bury a tin of treasures in the old garden, and promise to come back for it | binds | v: tradition | chance: 75
-- WUR | join every club at the new school in the first week, to learn the place fast | door | v: self-direction, stimulation | chance: 75
-- WUG | plan the new bedroom carefully, with all your old things around you | v: security, tradition | act: plan the new bedroom carefully, with all their old things around them | chance: 75
-- WBG | stick close to your family and keep your head down until you know who to trust | v: security | chance: 60
-- UBR | work out who runs the new playground, and get on their side fast | v: power, security | chance: 65
-- BRG | square up to the biggest kid on the first day, so nobody pushes you around | body: light | v: power | closed: approval: fighting; backfire: sent home on the first day, with a reputation | act: square up to the biggest kid on the first day, so nobody pushes them around | role: men | chance: 50
+- U | find out everything about the new town before you get there | v: self-direction | act: find out everything about the new town before they get there | foot: place learn.keeping | chance: 65
+- B | decide to be someone new at the new school, someone the others look up to | identity | v: power, self-direction | foot: lesson you can start over fresh | chance: 50
+- R | refuse to pack, and lock yourself in the bathroom | v: none clear (hurt let out) | foot: door defied an authority | chance: 45
+- G | bury a tin of treasures in the old garden, and promise to come back for it | binds | v: tradition | foot: door came home | chance: 75
+- WUR | join every club at the new school in the first week, to learn the place fast | door | v: self-direction, stimulation | foot: place gather.hall | chance: 75
+- WUG | plan the new bedroom carefully, with all your old things around you | v: security, tradition | act: plan the new bedroom carefully, with all their old things around them | foot: lesson old things make a new home | chance: 75
+- WBG | stick close to your family and keep your head down until you know who to trust | v: security | foot: means ties-.03 | chance: 60
+- UBR | work out who runs the new playground, and get on their side fast | v: power, security | foot: person friend | chance: 65
+- BRG | square up to the biggest kid on the first day, so nobody pushes you around | body: light | v: power | closed: approval: fighting; backfire: sent home on the first day, with a reputation | act: square up to the biggest kid on the first day, so nobody pushes them around | role: men | foot: person rival | chance: 50
 works: Within a month {N} has a new best friend and a favourite path to school.
 works: The new town has a river, a library and a kid next door who is just as new.
 fails: {N} spends lunchtimes alone for weeks, and writes long letters home that nobody answers.
@@ -921,16 +921,16 @@ scene U: {N} keeps asking where {grandparent} has gone, exactly, and nobody's an
 scene B: The grown-ups talk in low voices about {grandparent}'s house and things. {N} wonders what will happen to the stamp collection.
 scene R: {N} never got to say goodbye. The thought burns, and {N} cannot sit still with it.
 scene G: {grandparent} planted the roses by the gate the year {N} was born. They are flowering now, as if nothing has happened.
-- W | read a poem at the funeral, standing up straight in front of everyone | identity | v: tradition, conformity | chance: 75
-- U | ask every question you have about dying, until someone gives a real answer | v: self-direction | chance: 70
-- B | ask for your grandparent's watch, before anyone else thinks to | v: power | chance: 65
-- R | cry out loud at the funeral, and not care who hears | v: none clear (grief let out) | chance: 85
+- W | read a poem at the funeral, standing up straight in front of everyone | identity | v: tradition, conformity | foot: lesson grief can be spoken aloud | chance: 75
+- U | ask every question you have about dying, until someone gives a real answer | v: self-direction | foot: person elder | chance: 70
+- B | ask for your grandparent's watch, before anyone else thinks to | v: power | foot: means ties-.03 | chance: 65
+- R | cry out loud at the funeral, and not care who hears | v: none clear (grief let out) | foot: means ties+.03 | chance: 85
 - G | promise to look after the roses your grandparent planted, for as long as you live | binds | v: tradition | chance: 75 | back: kept your word
-- WUB | make a careful album of the old photos and letters, and keep it as your own | v: tradition, security | chance: 90
-- WRG | keep your grandparent's photo by your bed, and say goodnight to it every night | habit | v: tradition, benevolence | chance: 92
-- WBR | take over your grandparent's daily jobs, like walking the dog, and be proud of it | binds | v: benevolence, power | chance: 75
-- URG | go alone to the pond where you used to fish together, and sit with it | v: self-direction, tradition | closed: approval: going off alone without a word; backfire: a frightened search at dusk | chance: 75
-- UBG | decide that crying does not help, and keep your feelings to yourself | identity | v: security | chance: 40
+- WUB | make a careful album of the old photos and letters, and keep it as your own | v: tradition, security | foot: door came home | chance: 90
+- WRG | keep your grandparent's photo by your bed, and say goodnight to it every night | habit | v: tradition, benevolence | foot: lesson love goes on after goodbye | chance: 92
+- WBR | take over your grandparent's daily jobs, like walking the dog, and be proud of it | binds | v: benevolence, power | foot: means time-.03 | chance: 75
+- URG | go alone to the pond where you used to fish together, and sit with it | v: self-direction, tradition | closed: approval: going off alone without a word; backfire: a frightened search at dusk | foot: place prod.wild | chance: 75
+- UBG | decide that crying does not help, and keep your feelings to yourself | identity | v: security | foot: door kept it hidden | chance: 40
 works: {N} cries, and remembers, and slowly the memories turn warm.
 works: The family gathers close, and {N} hears stories about {grandparent} that nobody had told before.
 fails: {N} has bad dreams for weeks, and is frightened of hospitals.
@@ -961,13 +961,13 @@ scene R: The kitten pounces on {Ns} shoelace, and {N} is instantly and completel
 scene G: The kitten finds the warmest patch of sun on the floor and curls up in it. {N} lies down beside it.
 - W | feed it and clean up after it every day, exactly as you promised | v: benevolence, conformity | mark: kept your word | chance: 55
 - U | read every library book about cats, and learn what its tail is saying | v: self-direction | mark: learned a skill | chance: 90
-- B | keep it in your room, and let your sibling hold it only when you say | v: power | chance: 73
-- R | play with it for hours, chasing string all over the house | habit | v: hedonism, stimulation | chance: 92
-- G | let it sleep on your bed every night, curled against your feet | v: benevolence, universalism (nature) | closed: approval: no pets on the beds; backfire: fleas, and the bedding stripped | chance: 75
-- W>U | ask the vet how to look after it properly, and write it all down | door | v: self-direction, conformity | chance: 70
-- U>B | teach it tricks so it wins the pet show at the school fair | identity | v: achievement, power | chance: 20
+- B | keep it in your room, and let your sibling hold it only when you say | v: power | foot: means ties-.03 | chance: 73
+- R | play with it for hours, chasing string all over the house | habit | v: hedonism, stimulation | foot: lesson play is its own reward | chance: 92
+- G | let it sleep on your bed every night, curled against your feet | v: benevolence, universalism (nature) | closed: approval: no pets on the beds; backfire: fleas, and the bedding stripped | foot: lesson comfort can come on four paws | chance: 75
+- W>U | ask the vet how to look after it properly, and write it all down | door | v: self-direction, conformity | foot: mark learned a skill | chance: 70
+- U>B | teach it tricks so it wins the pet show at the school fair | identity | v: achievement, power | foot: means time-.03 | chance: 20
 - B>R | skip your chores to play with the kitten, and say you were feeding it | v: hedonism | mark: hid a wrong | closed: approval: lying; backfire: found out, and kitten time rationed | chance: 70
-- R>G | carry it out into the garden to show it the grass and the birds | v: universalism (nature), stimulation | chance: 80
+- R>G | carry it out into the garden to show it the grass and the birds | v: universalism (nature), stimulation | foot: place prod.wild | chance: 80
 - G>W | introduce it slowly to the neighbour's old dog, until the two can share the garden | v: benevolence, security | mark: made a friend | chance: 50
 works: The kitten grows into a big, lazy cat that sleeps on {Ns} bed every night.
 works: {N} turns out to be good at caring for something small, and everyone notices.
@@ -998,16 +998,16 @@ scene U: Only six children from the whole school were picked. {N} wants to know 
 scene B: {rival} was not picked. {N} was. {N} enjoys that rather more than is polite.
 scene R: {N} hears the name and leaps up in the middle of assembly with a whoop.
 scene G: {grandparent} sang in this same choir, sixty years ago. It seems to run in the family.
-- W | turn up early to every practice, in a clean uniform | v: conformity, achievement | chance: 85
+- W | turn up early to every practice, in a clean uniform | v: conformity, achievement | foot: place arts.song | chance: 85
 - U | sign up for extra lessons with the choir master, every week of the year | binds | v: achievement | self_control: + | chance: 75 | back: learned a skill
 - B | practise every evening until yours is the best voice in the choir | habit | v: achievement | mark: learned a skill | act: practise every evening until theirs is the best voice in the choir | self_control: + | chance: 55
-- R | say yes on the spot to every concert, before anyone can talk you out of it | binds | door | v: stimulation | act: say yes on the spot to every concert, before anyone can talk them out of it | chance: 80
+- R | say yes on the spot to every concert, before anyone can talk you out of it | binds | door | v: stimulation | act: say yes on the spot to every concert, before anyone can talk them out of it | foot: place arts.stage | chance: 80
 - G | stay modest, do your part, and enjoy being one voice among many | v: tradition (humility), benevolence | tags: win:ties+.05 | chance: 78
-- W>R | ask for the solo, promising to work twice as hard for it | v: achievement, stimulation | chance: 20
-- U>G | find out who sang in it long ago, and learn the old songs they loved | v: tradition, self-direction | chance: 75
+- W>R | ask for the solo, promising to work twice as hard for it | v: achievement, stimulation | foot: door kept your word | chance: 20
+- U>G | find out who sang in it long ago, and learn the old songs they loved | v: tradition, self-direction | foot: person elder | chance: 75
 - B>W | put in a word with the choir master, so your best friend gets a try-out too | v: benevolence | mark: helped someone in need | tags: win:ties+.05 | chance: 65
 - R>U | try every hard piece at once, mistakes and all, to learn faster | v: achievement, stimulation | mark: learned a skill | chance: 60
-- G>B | trust your natural gift, skip practice, and still expect the best part | v: power, achievement | closed: approval: skipping practice; backfire: dropped from the concert | chance: 15
+- G>B | trust your natural gift, skip practice, and still expect the best part | v: power, achievement | closed: approval: skipping practice; backfire: dropped from the concert | foot: door defied an authority | chance: 15
 works: The concert is a triumph, and {N} walks home a foot taller.
 works: {N} makes friends from all over the county, and there is a photo in the local paper.
 fails: The first rehearsal is far harder than {N} expected, and {N} wants to give up.

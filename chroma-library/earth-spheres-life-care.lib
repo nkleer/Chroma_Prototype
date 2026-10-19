@@ -48,15 +48,15 @@ scene U: {N} has no idea what is happening behind the door, and the not knowing 
 scene B: The ward is full and noisy, and {N} thinks the new family deserves better than a curtain and a shared bathroom.
 scene R: Everyone in the corridor is grey with worry, and {N} cannot bear another hour of this silence.
 scene G: {parent} sits very still, the way the old ones of the family always waited for babies. {N} sits down too.
-- W | keep the waiting room in order: a rota for the chairs, the calls and the coffee | v: benevolence, conformity | sphere: care.W | chance: 70
-- U | ask the midwife plainly what each stage means, and explain it to the others | v: universalism, security | sphere: care.U | chance: 70
-- B | arrange a private room for the new family, and pay for it yourself | act: arrange a private room for the new family, and pay for it themselves | v: power, benevolence | lever: fund | sphere: care.B | chance: 70
-- R | get the whole corridor laughing until the door finally opens | v: stimulation, benevolence | sphere: care.R | chance: 70
-- G | sit beside the anxious grandparent-to-be, and let the hours pass together | v: tradition, benevolence | pushes: close parent | sphere: care.G | chance: 70
-- BG | go home before dawn, and fill the new family's freezer for a month | v: benevolence, security | sphere: care.BG | chance: 60
-- UG | ring the oldest aunt to hear how every baby in the family arrived | v: tradition, universalism | sphere: care.GU | chance: 60
-- UR | talk the night nurse into explaining every beep and number on the screens | v: self-direction, stimulation | sphere: care.UR | chance: 60
-- WB | plan the family's visits for the first week, and put yourself first on the list | act: plan the family's visits for the first week, and put themselves first on the list | v: power, conformity | sphere: care.WB | chance: 60
+- W | keep the waiting room in order: a rota for the chairs, the calls and the coffee | v: benevolence, conformity | sphere: care.W | foot: lesson a rota calms a crowd | chance: 70
+- U | ask the midwife plainly what each stage means, and explain it to the others | v: universalism, security | sphere: care.U | foot: person keeper | chance: 70
+- B | arrange a private room for the new family, and pay for it yourself | act: arrange a private room for the new family, and pay for it themselves | v: power, benevolence | lever: fund | sphere: care.B | foot: means money-.06 | chance: 70
+- R | get the whole corridor laughing until the door finally opens | v: stimulation, benevolence | sphere: care.R | foot: means ties+.04 | chance: 70
+- G | sit beside the anxious grandparent-to-be, and let the hours pass together | v: tradition, benevolence | pushes: close parent | sphere: care.G | foot: lesson waiting is easier shared | chance: 70
+- BG | go home before dawn, and fill the new family's freezer for a month | v: benevolence, security | sphere: care.BG | foot: means time-.03 | chance: 60
+- UG | ring the oldest aunt to hear how every baby in the family arrived | v: tradition, universalism | sphere: care.GU | foot: person elder | chance: 60
+- UR | talk the night nurse into explaining every beep and number on the screens | v: self-direction, stimulation | sphere: care.UR | foot: mark learned a skill | chance: 60
+- WB | plan the family's visits for the first week, and put yourself first on the list | act: plan the family's visits for the first week, and put themselves first on the list | v: power, conformity | sphere: care.WB | foot: means ties-.02 | chance: 60
 - WR | drive across town at midnight for the bag the parents forgot | v: benevolence, stimulation | mark: helped someone in need | sphere: care.RW | chance: 60
 works: Just before dawn the door opens, and the midwife waves the family in: mother and baby are both well.
 works: The long night binds the family, and for years they tell the story of the waiting room.
@@ -166,16 +166,16 @@ scene U: The letter gives a number and nothing else. {N} wants to know how the l
 scene B: It is {Ns} body and {Ns} money. Fourteen months of bad nights is a price too, and {N} can count.
 scene R: Fourteen months. {N} reads the letter twice, then picks up the phone to the hospital.
 scene G: {N} thinks of the old folk who managed with a stick and a warm bath. Bodies have waited before.
-- W | wait your turn on the list like everyone else, and keep every appointment | v: conformity, universalism | lever: loyalty | sphere: care.W | chance: 70
-- U | compare every hospital's waiting figures, and move to the shortest list in reach | v: self-direction, security | lever: exit | sphere: care.U | chance: 70
-- B | pay the private clinic, and have the operation next month | v: self-direction, security | lever: exit | sphere: care.B | chance: 70
-- R | ring the hospital every week until they offer a cancelled slot | v: stimulation, self-direction | lever: voice | sphere: care.R | chance: 70
-- G | manage with a stick, warm baths and the neighbours' help until the day comes | v: tradition, security | sphere: care.G | chance: 70
+- W | wait your turn on the list like everyone else, and keep every appointment | v: conformity, universalism | lever: loyalty | sphere: care.W | foot: means health-.04 | chance: 70
+- U | compare every hospital's waiting figures, and move to the shortest list in reach | v: self-direction, security | lever: exit | sphere: care.U | foot: place care.houses | chance: 70
+- B | pay the private clinic, and have the operation next month | v: self-direction, security | lever: exit | sphere: care.B | foot: means money-.10 | chance: 70
+- R | ring the hospital every week until they offer a cancelled slot | v: stimulation, self-direction | lever: voice | sphere: care.R | foot: lesson ask often, and ask again | chance: 70
+- G | manage with a stick, warm baths and the neighbours' help until the day comes | v: tradition, security | sphere: care.G | foot: person neighbour | chance: 70
 - BR | book the operation abroad, and make a holiday of the recovery | v: hedonism, self-direction | lever: exit | pushes: abroad | sphere: care.BR | chance: 60 | back: took a wild risk
-- RG | keep walking every day through the stiffness, as far as the body allows | v: stimulation, tradition | sphere: care.RG | chance: 60
+- RG | keep walking every day through the stiffness, as far as the body allows | v: stimulation, tradition | sphere: care.RG | foot: means health+.03 | chance: 60
 - UG | do the physio's exercises every morning, to go into the operation strong | v: security, self-direction | mark: learned a skill | sphere: care.GU | chance: 60
-- WB | give to the hospital's friends' fund for the extra surgeon it is raising for | v: benevolence, power | lever: fund | pushes: institution hospital | sphere: care.WB | chance: 60
-- WU | join the patients' panel that checks how the list is run | v: universalism, conformity | lever: voice | pushes: institution hospital | sphere: care.WU | chance: 60
+- WB | give to the hospital's friends' fund for the extra surgeon it is raising for | v: benevolence, power | lever: fund | pushes: institution hospital | sphere: care.WB | foot: means money-.03 | chance: 60
+- WU | join the patients' panel that checks how the list is run | v: universalism, conformity | lever: voice | pushes: institution hospital | sphere: care.WU | foot: place rule.counsel | chance: 60
 works: The operation goes well, and by spring {N} takes the stairs without holding the rail.
 works not B BR: {N} goes in strong, and the surgeon says the waiting months were not wasted.
 fails not B BR: The months drag on, the pain spreads, and {N} slowly stops going out.
@@ -207,16 +207,16 @@ scene U: {N} has heard the doctor's words, but not the numbers. A choice like th
 scene B: {N} does not trust a tired ward doctor to set the course of {Ns} parent's last years.
 scene R: Every hour of talking is an hour lost. {N} feels the choice should have been made already.
 scene G: {parent} always said that bodies know their own time. {N} keeps hearing those words in the quiet room.
-- W | ask for a family meeting with the doctors, and choose together what is fairest to them | v: universalism, benevolence | sphere: care.W | chance: 70
-- U | ask for the plain odds of each path, and take one night to weigh them | v: self-direction, security | sphere: care.U | chance: 70
-- B | get a second opinion from the best specialist, and then decide alone | v: power, self-direction | lever: exit | sphere: care.B | chance: 70
-- R | choose the operation now, while it can still make a difference | v: stimulation, benevolence | sphere: care.R | chance: 70
-- G | let the body set the pace: keep them comfortable, and wait beside them | v: tradition, benevolence | sphere: care.G | chance: 70
-- BG | ask the palliative nurse for the plain truth, and choose comfort if that is it | v: security, benevolence | sphere: care.BG | chance: 60
-- BR | remind the doctors what the parent once said over dinner, and hold them to it | v: self-direction, benevolence | lever: voice | sphere: care.BR | chance: 60
-- UR | ask whether a trial of some new treatment could take them, and push for it | v: stimulation, self-direction | sphere: care.UR | chance: 60
-- WG | gather the whole family at the bedside, and decide in a circle | v: tradition, benevolence | pushes: close sibling | sphere: care.GW | chance: 60
-- WU | ask the hospital's ethics panel to set out each path and the rules for it | v: conformity, security | pushes: institution hospital | sphere: care.WU | chance: 60
+- W | ask for a family meeting with the doctors, and choose together what is fairest to them | v: universalism, benevolence | sphere: care.W | foot: means ties+.03 | chance: 70
+- U | ask for the plain odds of each path, and take one night to weigh them | v: self-direction, security | sphere: care.U | foot: lesson weigh it, then decide | chance: 70
+- B | get a second opinion from the best specialist, and then decide alone | v: power, self-direction | lever: exit | sphere: care.B | foot: means ties-.03 | chance: 70
+- R | choose the operation now, while it can still make a difference | v: stimulation, benevolence | sphere: care.R | foot: door took a wild risk | chance: 70
+- G | let the body set the pace: keep them comfortable, and wait beside them | v: tradition, benevolence | sphere: care.G | foot: means time-.04 | chance: 70
+- BG | ask the palliative nurse for the plain truth, and choose comfort if that is it | v: security, benevolence | sphere: care.BG | foot: person keeper | chance: 60
+- BR | remind the doctors what the parent once said over dinner, and hold them to it | v: self-direction, benevolence | lever: voice | sphere: care.BR | foot: door kept your word | chance: 60
+- UR | ask whether a trial of some new treatment could take them, and push for it | v: stimulation, self-direction | sphere: care.UR | foot: place care.houses | chance: 60
+- WG | gather the whole family at the bedside, and decide in a circle | v: tradition, benevolence | pushes: close sibling | sphere: care.GW | foot: means ties+.05 | chance: 60
+- WU | ask the hospital's ethics panel to set out each path and the rules for it | v: conformity, security | pushes: institution hospital | sphere: care.WU | foot: place rule.counsel | chance: 60
 works: The family decides together, and whatever comes, nobody blames anyone for it.
 works: {parent} rallies a little, and one afternoon presses {Ns} hand as if to say the choice was right.
 fails: The choice splits the family, and the quarrel outlasts the illness.
@@ -248,16 +248,16 @@ scene U: {N} suspects there is help that carers are owed and never hear about, i
 scene B: {N} cannot remember the last day that was entirely {Ns} own.
 scene R: {N} has kept going on nerve and jokes for three years, and is not ready to admit it is too much.
 scene G: In the old street the neighbours took turns with the old and the sick. {N} wonders where those neighbours went.
-- W | ask your brother or sister for a fair share of the weeks, written down and kept | act: ask their brother or sister for a fair share of the weeks, written down and kept | v: universalism, security | lever: voice | pushes: close sibling | sphere: care.W | chance: 70
-- U | find out every kind of help the council and the clinic offer carers, and claim it | v: security, self-direction | sphere: care.U | chance: 70
-- B | take the respite week, and spend it somewhere just for yourself | act: take the respite week, and spend it somewhere just for themselves | v: hedonism, self-direction | sphere: care.B | chance: 70
-- R | turn the day centre down, and carry on with nerve and good humour | v: benevolence, stimulation | lever: loyalty | sphere: care.R | chance: 70
-- G | ask the neighbours to sit with them one afternoon a week, as streets once did | v: tradition, benevolence | pushes: group neighbours | sphere: care.G | chance: 70
-- BG | tell the absent relatives plainly what the care costs, and what they owe | v: power, security | lever: voice | sphere: care.BG | chance: 60
-- RG | take them out to the park and the café on every good day, whatever the effort | v: benevolence, hedonism | sphere: care.RG | chance: 60
-- UR | try every new aid, the hoist, the alarm, the bed sensor, to win back nights | v: self-direction, security | sphere: care.UR | chance: 60
-- WB | pay a care worker for two mornings a week, and keep your own job going | act: pay a care worker for two mornings a week, and keep their own job going | v: security, achievement | lever: fund | sphere: care.WB | chance: 60
-- WU | write up the whole care plan, so anyone could step in tomorrow | v: security, benevolence | sphere: care.WU | chance: 60
+- W | ask your brother or sister for a fair share of the weeks, written down and kept | act: ask their brother or sister for a fair share of the weeks, written down and kept | v: universalism, security | lever: voice | pushes: close sibling | sphere: care.W | foot: means time+.04 | chance: 70
+- U | find out every kind of help the council and the clinic offer carers, and claim it | v: security, self-direction | sphere: care.U | foot: means money+.04 | chance: 70
+- B | take the respite week, and spend it somewhere just for yourself | act: take the respite week, and spend it somewhere just for themselves | v: hedonism, self-direction | sphere: care.B | foot: means health+.05 | chance: 70
+- R | turn the day centre down, and carry on with nerve and good humour | v: benevolence, stimulation | lever: loyalty | sphere: care.R | foot: means health-.05 | chance: 70
+- G | ask the neighbours to sit with them one afternoon a week, as streets once did | v: tradition, benevolence | pushes: group neighbours | sphere: care.G | foot: person neighbour | chance: 70
+- BG | tell the absent relatives plainly what the care costs, and what they owe | v: power, security | lever: voice | sphere: care.BG | foot: means ties-.03 | chance: 60
+- RG | take them out to the park and the café on every good day, whatever the effort | v: benevolence, hedonism | sphere: care.RG | foot: lesson good days are worth the effort | chance: 60
+- UR | try every new aid, the hoist, the alarm, the bed sensor, to win back nights | v: self-direction, security | sphere: care.UR | foot: means health+.03 | chance: 60
+- WB | pay a care worker for two mornings a week, and keep your own job going | act: pay a care worker for two mornings a week, and keep their own job going | v: security, achievement | lever: fund | sphere: care.WB | foot: means money-.06 | chance: 60
+- WU | write up the whole care plan, so anyone could step in tomorrow | v: security, benevolence | sphere: care.WU | foot: means freedom+.03 | chance: 60
 works not R G RG UR WB WU BG: After a week away {N} comes home lighter, and {parent} is glad to see a rested face.
 works: The help holds: one afternoon a week becomes {Ns} own, and the years ahead start to look possible.
 fails not U B WB: {N} turns every offer down, and by spring the smallest thing brings tears.
