@@ -740,7 +740,7 @@ scene U: The archive held the only recordings of half the old dances. Someone ne
 scene B: People are already offering money for the copies. {N} knows what is on that phone is worth something.
 scene R: They can ban the songs, but they cannot stop people singing. {N} wants to sing one in the street.
 scene G: The songs were how the family remembered its dead. Now they will be sung only in whispers at home.
-- W | hand the phone in, as the new rules say, and keep the peace | v: conformity, security | mark: gave in to pressure | sphere: arts.W | foot: lesson some losses are chosen | chance: 75
+- W | hand the phone in, as the new rules say, and keep the peace | v: conformity, security | mark: gave in to pressure | sphere: arts.W | chance: 75
 - U | make a quiet list of every song and dance the archive held | v: universalism, tradition | sphere: arts.U | foot: place learn.keeping | chance: 66
 - B | copy the recording, and pass it only to people who can repay the favour | v: power, security | mark: broke the law | lever: subvert | sphere: arts.B | foot: person patron | chance: 58
 - R | sing one of the old songs in the street on the day of the ban | v: self-direction, stimulation | mark: defied an authority | lever: voice | pushes: state | sphere: arts.R | chance: 56

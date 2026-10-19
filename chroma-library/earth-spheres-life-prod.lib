@@ -172,7 +172,7 @@ scene U: {N} can see exactly why the joint opened: the wood moved in the damp we
 scene B: {N} needs the pass for the better pay that comes with it, and the judges look at a lot of pieces in a day.
 scene R: {N} is half tempted to start again tonight with something bolder, gap and all forgotten.
 scene G: {N} thinks of {mentor}, who taught every cut, and does not want to shame the bench they learned at.
-- W | tell the judges about the gap before they find it | v: conformity, universalism | mark: owned up | sphere: prod.W | foot: lesson say it before they see it | chance: 55
+- W | tell the judges about the gap before they find it | v: conformity, universalism | mark: owned up | sphere: prod.W | chance: 55
 - U | work through the night to recut the joint, and note every step | v: achievement, self-direction | mark: learned a skill | sphere: prod.U | chance: 55
 - B | set the piece in the light so the eye goes to its best side | v: achievement, power | sphere: prod.B | foot: door kept it hidden | chance: 55
 - R | start a new drawer from scratch tonight, to a bolder design | v: stimulation, self-direction | mark: took a wild risk | sphere: prod.R | chance: 55
@@ -305,7 +305,7 @@ scene G: {N} cannot bear to think of the place going quiet, kin or no kin.
 - UB | keep the name and the recipes, and license them to a bigger firm | v: power, achievement | sphere: prod.UB | foot: means money+.06 | chance: 50
 - UR | turn the old barn into something new, a school for the trade or a maker space | v: self-direction, stimulation | lever: found | sphere: prod.UR | foot: place prod.craft | chance: 50
 - WG | offer the whole place to the hands and the neighbours as a cooperative | v: benevolence, universalism | lever: found | pushes: economy | sphere: prod.GW | foot: means money-.06 | chance: 50
-- WR | turn down the buyer who would close it, though they offer most, and say why | act: turn down the buyer who would close it, though they offer most, and say why | v: universalism, benevolence | mark: turned down a chance | sphere: prod.RW | foot: lesson some offers cost too much | chance: 50
+- WR | turn down the buyer who would close it, though they offer most, and say why | act: turn down the buyer who would close it, though they offer most, and say why | v: universalism, benevolence | mark: turned down a chance | sphere: prod.RW | chance: 50
 works not R: The place goes on, in new hands, and {N} still drops by most mornings to see how the work is going.
 works: {N} lets go, gladly, and the years after the work turn out better than {N} feared.
 fails: The sale drags on for years, and the place runs down while {N} waits for the right answer.

@@ -364,7 +364,7 @@ scene B: Half price to buy, full price to sell. {N} can see exactly how the sums
 scene R: Driving at night, cash in hand, no questions. {N} has to admit it sounds like an adventure.
 scene G: {parent} has smoked the same cigarettes for forty years and cannot afford the shop price any more.
 - W | report the van to the inspectors, with the days and times it parks | v: conformity, universalism | sphere: comm.W | foot: person rival | chance: 71
-- U | turn the driving down, since the sums show far more risk than pay | v: security | mark: turned down a chance | sphere: comm.U | foot: lesson some pay costs too much | chance: 70
+- U | turn the driving down, since the sums show far more risk than pay | v: security | mark: turned down a chance | sphere: comm.U | chance: 70
 - B | buy a few cartons and sell them on to colleagues at a margin | v: achievement, power | mark: broke the law | lever: subvert | sphere: comm.B | foot: means money+.03 | chance: 70
 - R | take the night driving, cash in hand, and see where the crates go | v: stimulation, hedonism | mark: took a wild risk | lever: subvert | sphere: comm.R | chance: 68
 - G | buy your parent's usual cartons from the van, as the whole street does | v: benevolence, tradition | sphere: comm.G | foot: means money+.03 | chance: 75
@@ -410,7 +410,7 @@ scene G: {parent} warned against the club and was laughed at. Now {N} has to fac
 - U | gather every member's statements and work out where the money went | v: universalism, self-direction | sphere: comm.U | foot: means time-.05 | chance: 67
 - B | hire a lawyer to claim the founder's house before the others do | v: power, security | sphere: comm.B | foot: means money-.06 | chance: 69
 - R | drive to the founder's house and wait outside until someone comes out | v: stimulation, self-direction | mark: took a wild risk | sphere: comm.R | chance: 52
-- G | tell your parent they were right all along, and ask for their help | v: tradition, benevolence | mark: owned up | sphere: comm.G | foot: lesson pride is worth less than help | chance: 52
+- G | tell your parent they were right all along, and ask for their help | v: tradition, benevolence | mark: owned up | sphere: comm.G | chance: 52
 - BG | sell the car to make good part of what your friend lost | v: benevolence, security | sphere: comm.BG | chance: 70 | back: helped someone in need
 - RG | bring the members together for a meal, so nobody faces it alone | v: benevolence, hedonism | sphere: comm.RG | foot: place gather.talk | chance: 78
 - UR | start a page that warns others about schemes that pay from newcomers' money | v: universalism, self-direction | lever: voice | pushes: culture | sphere: comm.UR | foot: place arts.page | chance: 70
