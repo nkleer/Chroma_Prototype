@@ -6,13 +6,22 @@
 Exit code 0 when nothing recorded changed or went missing (new files are listed but do not fail the check).
 
 Versions, with their folders named in paths.py:
-   v23.1  live since 2026-10-19 11:47 UTC (release/v23.1 = e69b3bf, artifact version 1792410461-e65a): game_live,
-          engine_live, game_tools; live-v23.1-manifest.txt, written from release/v23.1 after pin.py filled its
+   v23.2  live since 2026-10-19 14:53 UTC (release/v23.2 = 34721bb, artifact version 1792421638-e508): game_live,
+          engine_live, game_tools; live-v23.2-manifest.txt, written from release/v23.2 after pin.py filled its
+          engine_pin/. The after-panel, "Because of you" and "Meanwhile" (chroma-release/records/v23.2): the Engine's
+          weekly record of why each need moved, the game's panel and told setbacks, and v24 parts carried along switched
+          off: the Engine's realm_earth.py, footprints added to 42 .lib sources, 9 new .lib sources for aims and the
+          world's answers, and the packs' footprint and aims files (98 files changed, 19 new). The Library's new compiled
+          v24 files (earth_aims.py, earth_foot.py and the rest) and the packs' callings/ are not loaded, so they are not
+          recorded; the pictures and the rarity table are v23's
+   v23.1  the rollback, in the same folders, live 2026-10-19 11:47 UTC to 14:53 UTC (release/v23.1 = e69b3bf, artifact
+          version 1792410461-e65a): live-v23.1-manifest.txt, written from release/v23.1 after pin.py filled its
           engine_pin/. The backend by function and the cause lines switched on (chroma-release/records/v23.1): the
           engine in parts (run_, rules_, world_ and world_link_ files, joined by parts.py), the game's engine_pin/ no
           longer committed but filled by chroma-game/tools/pin.py (its PINNED*.txt are gone, so the shared folder's old
           copies show as new), the cause words in three Library files, 8 new .lib sources for Bold ways (off), and the
-          game's code, tests and page (42 files changed, 113 new); the packs, the pictures and the rarity table are v23's
+          game's code, tests and page (42 files changed, 113 new); the packs, the pictures and the rarity table are v23's.
+          v23.2 changed 98 of its files, so its check shows them as changed (release/v23.1 holds them)
    v23    the rollback, in the same folders, live 2026-10-18 18:13 UTC to 2026-10-19 11:47 UTC (release/v23 = 9e8db31,
           artifact version 1792347212-f059): live-v23-manifest.txt. Picks come back, the spheres pack, Stakes on the
           card and the Living HUD (chroma-release/records/v23): the refit engine, its re-pin and the rarity table, 52
@@ -70,7 +79,7 @@ from paths import ROOT, NAMES  # noqa: E402
 LIB_PY = ["earth.py", "earth_perks_titles.py", "earth_voice.py", "earth_science.py", "earth_politics.py",
           "earth_stage.py", "dreams.py"]                         # plus every .lib at the top of library_live
 OLD_HELPERS = ["build_helpers/sync21.py", "build_helpers/pubmap.py"]
-LIVE = "v23.1"
+LIVE = "v23.2"
 # game, engine: the version's folders now; trees: folders listed whole; files: single files ("name" or "name/file");
 # moved: recorded path prefix -> the paths.py name of the folder it is read from now
 LIB_V22_2 = LIB_PY + ["earth_play.py", "earth_story.py"]
@@ -78,7 +87,9 @@ LIB_V22_3 = LIB_V22_2 + ["earth_spheres.py"]
 LIB_V22_4 = LIB_V22_3 + ["earth_art.py"]
 LIB_V22_5 = LIB_V22_4 + ["earth_age_fit.py", "worlds.py"]
 VERSIONS = {
-    "v23.1": dict(game="game_live", engine="engine_live", manifest="live_manifest", trees=["game_tools"],
+    "v23.2": dict(game="game_live", engine="engine_live", manifest="live_manifest", trees=["game_tools"],
+                  files=[], lib=LIB_V22_5, packs=["core", "politics", "science", "stage", "art"]),
+    "v23.1": dict(game="game_live", engine="engine_live", manifest="live_manifest_v23_1", trees=["game_tools"],
                   files=[], lib=LIB_V22_5, packs=["core", "politics", "science", "stage", "art"]),
     "v23": dict(game="game_live", engine="engine_live", manifest="live_manifest_v23", trees=["game_tools"],
                 files=[], lib=LIB_V22_5, packs=["core", "politics", "science", "stage", "art"]),
