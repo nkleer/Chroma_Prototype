@@ -59,13 +59,14 @@ class FootMixin:
         return out
 
     def _marks_near(self):
-        """The titles and perks a held mark counts toward, nearest first (the Engine's view); [] when it has none."""
+        """The titles and perks a held mark counts toward and not yet reached, nearest first (the Engine's view); [] when
+        it has none."""
         f = getattr(F, "marks_toward", None)
         S = getattr(self, "loc", None)
         if f is None or S is None:
             return []
         try:
-            return f(S, 0) or []
+            return [m for m in f(S, 0) or [] if not m.get("done")]
         except (KeyError, TypeError):
             return []
 
