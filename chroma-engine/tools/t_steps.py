@@ -1066,19 +1066,19 @@ if "aims" in E.DEFAULT and "aims" in batch.load_batch.__code__.co_varnames:
                             fails.append(f"{A_['names'][a_]}: step {k_} reached with none of its names held")
                     if (S["aim_best"] < np.where(S["ak"][..., None] == np.arange(A_["A"]), S["astep"][..., None], 0).max(1)).any():
                         fails.append("an aim's best below its steps now")
-            if kind == "end" and S.get("AIM_ON") and t % 260 == 0:   # the track and the choices, now and then
-                for n_ in range(N_):
-                    tr_ = FS_.aims(S, n_); ch_ = FS_.aim_choices(S, n_)
-                    seen_["track"] += len(tr_)
-                    if any(x_["reached"] > len(x_["steps"]) or (x_["next"] is None) != (x_["reached"] == len(x_["steps"]))
-                           for x_ in tr_) or len(ch_) > 6:
-                        fails.append("the aims track or choices malformed")
-            try:
-                msg = g.send(val)
-            except StopIteration as done:
-                o2_ = done.value
-                break
-        if not edit_ and digest(o1_) != digest(o2_):
+                if kind == "end" and S.get("AIM_ON") and t % 260 == 0:   # the track and the choices, now and then
+                    for n_ in range(N_):
+                        tr_ = FS_.aims(S, n_); ch_ = FS_.aim_choices(S, n_)
+                        seen_["track"] += len(tr_)
+                        if any(x_["reached"] > len(x_["steps"]) or (x_["next"] is None) != (x_["reached"] == len(x_["steps"]))
+                               for x_ in tr_) or len(ch_) > 6:
+                            fails.append("the aims track or choices malformed")
+                try:
+                    msg = g.send(val)
+                except StopIteration as done:
+                    o2_ = done.value
+                    break
+            if not edit_ and digest(o1_) != digest(o2_):
                 fails.append(f"world {'on' if wl_ else 'off'}: run_steps not the lives of run()")
         lg_ = o1_["aims"]["log"]
         seen_["steps"] += sum(r_["what"] == "step" for r_ in lg_); seen_["own"] += sum(r_["what"] == "became their own" for r_ in lg_)
