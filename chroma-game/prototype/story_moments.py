@@ -5,7 +5,7 @@ reads module names through the imports below, the same objects story.py has, and
 import numpy as np
 import re
 from story_base import (BIG_LOSS, BIG_WIN, BIG_WIN_SOFT, CI, COLORS, DEATH_CHILD, DEATH_FAR, DEATH_LINE, GONE_OUT, HARDENED,
-    HEALED, KINDREF, LEFT_BEHIND, LIB_ECHO, LIB_GONE, LIB_GRIEF, LIB_OUTCOMES, LIB_OUT_NOT, LIB_READ, LIB_SCENES, MEMORY_YEARS,
+    HEALED, KINDREF, LEFT_BEHIND, LIB_ECHO, LIB_GONE, LIB_GRIEF, LIB_OUT_GONE, LIB_OUTCOMES, LIB_OUT_NOT, LIB_READ, LIB_SCENES, MEMORY_YEARS,
     NOW_SHARE, OUTCOMES, OUT_OF_REACH, PERSON_SLOTS, REACT, REACT_GRIEF, REASON, REBOUND_FIT, REBOUND_SPLIT, RELUCT,
     RELUCT_LOW, SCENES, SOMBER, STREAK_BAD, STREAK_GOOD, VALUE, _worlds, act, cap, chooses_mk, mk, phase, plain,
     weights_of)
@@ -151,6 +151,8 @@ class MomentsMixin:
 
     def _result(self, m, ev, own=None):
         sit = m["sit"]; succ = bool(ev["success"]); d = float(ev.get("delta", 0.0))
+        if own is None and m["ctx"].get("_gone") and sit in LIB_OUT_GONE:
+            own = LIB_OUT_GONE[sit]                     # Bold ways: a link whose person is gone, in the lines that remember them
         lines = (own or LIB_OUTCOMES.get(sit) or OUTCOMES.get(sit) or (["It works."], ["It goes badly."]))[0 if succ else 1]
         k = int(self.rng.integers(len(lines)))
         if own is None and sit in LIB_OUT_NOT and sit in LIB_OUTCOMES:   # F11b: a line that fits the act they took (the same draw from the stream)

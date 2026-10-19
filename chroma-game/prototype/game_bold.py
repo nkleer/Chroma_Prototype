@@ -179,15 +179,16 @@ class BoldMixin:
             j = int(b.get("slot", j_))
             base = int(b["base"])
             bo = bi.get(base)
-            if bo is None or bo["colors"] == "-":
-                continue                                # a bold way grows from a way on the card, never from waiting
+            if bo is None or bo["colors"] == "-" or b.get("p") is None:
+                continue                                # a bold way grows from a way on the card, never from waiting; only the
+                # slots the Engine offers (their own odds set: the step rule held and the ages fit what it wins)
             row = self._bold_row(L, b.get("row", -1))
             k = BOLD_IX + 100 * j + base
             col = row.get("colour") or row.get("color") or row.get("colors") or bo["colors"]
             col = "+".join(col) if isinstance(col, (list, tuple)) else str(col)
             label = self.story.fill_label(str(b.get("label") or row.get("label") or bo["label"]), cp["moment"])
             chance = float(b.get("chance", row.get("chance", bo["felt"])))
-            p = float(np.clip(b.get("p", chance), 0.1, 0.9))
+            p = float(np.clip(b["p"], 0.1, 0.9))
             rel = 0.0 if k == own else max(float(bo["rel"]) if base != own0 else 0.0, GAME["bold_rel"])
             pt = p
             if k != own:
@@ -211,7 +212,10 @@ class BoldMixin:
                 sk["cost"] = "; ".join(cost)
             if sk:
                 o["at_stake"] = sk
+            gone = bool(cp["moment"]["ctx"].get("_gone")) if cp.get("moment") else False
             works, fails = _as_list(row.get("works")), _as_list(row.get("fails"))
+            if gone and row.get("works_gone") and row.get("fails_gone"):   # a link's person is gone: the lines that remember them
+                works, fails = _as_list(row["works_gone"]), _as_list(row["fails_gone"])
             if works and fails:
                 o["bold_lines"] = (works, fails)
             new.append(o)

@@ -616,6 +616,10 @@ THREAD = {
                               badly="{N} broke the law {years} ago, and it went wrong. Now it comes back."),
         "took them in": dict(well="{N} took someone in {years} ago, and it was a good time under one roof. Now it comes back.",
                              badly="{N} took someone in {years} ago, and it was a strain on everyone. Now it comes back."),},
+    # Bold ways (10-18): the opener of a link, the follow-up of a bold way one to three years on; the game fills {Years}
+    # and {years} ("A year" / "two years"), {act} (the bold way's act), {moment}, {who} (the root's person) and {title}
+    "bold_link": dict(well="{Years} ago {N} chose to {act}, and it worked. Now what it won asks something back.",
+                      badly="{Years} ago {N} chose to {act}, and it went wrong. Now {N} lives with what it cost."),
 }
 THREAD_HOVER = {
     "mark": "Because {N} {did} at {age}.",
