@@ -340,6 +340,8 @@ function renderTable(h) {
         ${cp.thread ? `<p class="note thread" id="cpThread" tabindex="0">${ic("link")} ${rich(cp.thread.line)}</p>` : ""}
         ${cp.extra ? `<p class="note">${rich(cp.extra)}</p>` : ""}
         ${cp.thought ? `<p class="note">${rich(cp.thought)}</p>` : ""}
+        ${cp.why_ask ? `<p class="note whyask">${ic(cp.why_ask.kind === "aim" ? "target" : cp.why_ask.kind === "people" ? "people" : "heart")} This matters to them now: ${esc(cp.why_ask.say)}</p>` : ""}
+        ${cp.talk ? (cp.talk.said ? `<p class="note talk">${ic("voice")} ${esc(L.name)}: ${esc(cp.talk.said.line)}</p>` : `<p class="note talk">${ic("voice")} Talk it over first: ${cp.options.filter((o) => o.colors !== "-" && o.n != null).map((o) => `<button class="ghost tk" data-talk="${o.n}">${o.n}</button>`).join("")}</p>`) : ""}
         ${cp.voice ? `<div class="voicebox"><p class="insight">${rich(cp.voice.line)}</p><div class="vlines">${vlines}</div>${asides.map((x) => `<p class="aside">${rich(x)}</p>`).join("")}</div>` : ""}
       </div></div>
     <div class="evr" id="evOpts"><div class="ask">What will ${esc(L.name)} do? <small>${touchUI ? "tap to read · tap again to push" : "hover to read · click or press its number to push"}</small></div>${rows}
@@ -355,6 +357,10 @@ function renderTable(h) {
   if (cp.thread) setTip($("cpThread"), () => tipBox(`${ic("link")} ${cp.thread.key === "seed" ? "A pick comes back" : "A thread of this life"}`, esc(cp.thread.cause), [], "Only this life's own picks are used."));
   setTip(tableEl.querySelector(".stakes"), () => tipBox(`${ic("flame")} Stakes: ${cp.stake_word}`, "How much this moment can change them.", [], ""));
   $("evLet").addEventListener("click", () => send(""));
+  tableEl.querySelectorAll("[data-talk]").forEach((b) => {   // v24: talk one option over with them, once at a big moment
+    setTip(b, () => tipBox(`${ic("voice")} Talk it over`, "", [], `Argue for option ${b.dataset.talk} before they choose. ${esc(L.name)} answers; it costs them a little autonomy, and pushing them to it costs less if your words land. Once a big moment. Key t${b.dataset.talk}.`));
+    b.addEventListener("click", (e) => { e.stopPropagation(); send("t" + b.dataset.talk); });
+  });
   tableEl.querySelectorAll("[data-shd]").forEach((el) => setTip(el, () => tipBox(`${ic(el.dataset.shi)} Their shadow pulls here`, "",
     [], `The heart picks this partly from the pull of the ${esc(el.dataset.shd)} side in ${esc(L.name)}: without that pull, the heart would pick another. ${esc(L.name)} has seen this in themselves before.`)));   // item 2
   tableEl.querySelectorAll("[data-wc]").forEach((el) => setTip(el, () => tipBox(`${ic("globe")} ${esc(el.textContent)}`, esc(el.dataset.wc), [], "The world around them, not their own colors.")));   // WL3

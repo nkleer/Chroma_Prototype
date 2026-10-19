@@ -346,6 +346,20 @@ function aimsBind(root, L) {
     b.addEventListener("click", (e) => { e.stopPropagation(); send(`aim set ${b.dataset.aset}`); });
   });
 }
+// v24 steering between asks (the game's steer_between): lean them toward a color until the next ask; each choice meanwhile
+// leans that way and costs what it changed. Shown while watching only ("steer" is in the HUD only with the switch on)
+function steerHTML(L) {
+  if (!("steer" in L) || !hud || hud.mode !== "play" || hud.cp || L.young) return "";
+  const st = L.steer;
+  return `<div class="hsec"><h4>Between asks</h4><div class="chips steer">${COLORS.map((c) => `<button class="cbtn${st && st.color === c ? " on" : ""}" data-steer="${c}" aria-pressed="${st && st.color === c}">${pip(c)}</button>`).join("")}${st ? `<button class="ghost xbtn" data-steer="x">${ic("x")} let go</button>` : ""}</div>
+    <div class="muted at">${st ? `Leaning toward ${esc(CNAME[st.color])} until the next ask: ${st.moved} of ${st.moments} choices moved` : "Lean them toward a color until the next ask"}</div></div>`;
+}
+function steerBind(root) {
+  root.querySelectorAll("[data-steer]").forEach((b) => {
+    setTip(b, () => tipBox(`${ic("push")} A lean between asks`, "", [], "Each choice they make before the next ask is drawn again with this lean, as a light steer does, and what it changes costs them. Keys ~w, ~u, ~b, ~r, ~g; ~ lets go."));
+    b.addEventListener("click", (e) => { e.stopPropagation(); send(b.dataset.steer === "x" ? "~" : "~" + b.dataset.steer.toLowerCase()); });
+  });
+}
 function placesHTML(L) {
   const P = L.places; if (!P) return "";
   const hs = (P.haunts || []).map((h, i) => `<span class="perk" data-pl="${i}" style="--pc:var(--c${h.lead})">${ic(SPH_ICON[h.sphere] || "home")}${esc(cap(h.name))}${h.setting ? ` ${ic("people")}` : ""}${oddMark(h)}</span>`).join("")
@@ -432,6 +446,7 @@ function renderHud(L) {
     <div class="hmore">
     ${goalsHTML(L)}
     ${aimsHTML(L)}
+    ${steerHTML(L)}
     <div class="hsec"><h4>Titles</h4><div class="trows">${titles}</div>${statuses ? `<div class="perks stats">${statuses}</div>` : ""}</div>
     ${perks ? `<div class="hsec"><h4>Perks${pk.length > PERK_SHOW + 2 ? ` <span class="cnt">${pk.length}</span>` : ""}</h4><div class="perks">${perks}</div></div>` : ""}
     ${circle ? `<div class="hsec"><h4>People</h4><div class="circle">${circle}</div></div>` : `<div class="hsec"><h4>People</h4><div class="people">${people || `<span class="empty">Nobody met yet</span>`}</div></div>`}
@@ -484,6 +499,7 @@ function renderHud(L) {
   hudEl.querySelectorAll("[data-st]").forEach((el) => { const x = L.states[+el.dataset.st]; setTip(el, () => x.reads ? stTip(x) : tipBox(`${ic(x.icon)} ${esc(cap(x.word))}`, "", [[esc(x.name), stateValue(x)]], "")); });
   if (L.foot) footTips(hudEl, L.foot);
   if (L.aims) aimsBind(hudEl, L);
+  steerBind(hudEl);
   hudEl.querySelectorAll("[data-gj]").forEach((el) => { const g = (L.goals || []).find((x) => x.j === +el.dataset.gj); if (g) setTip(el, () => goalTip({ kind: g.kind, colors: g.colors, domain: g.domain, source: g.source, horizon: g.horizon }, g)); });
   const ap = $("addPlan"); if (ap) { ap.addEventListener("click", (e) => { e.stopPropagation(); send("p"); }); setTip(ap, () => tipBox(`${ic("quill")} Make a plan`, "", [], "Set them a plan: a year, five years or a lifetime, in a life domain or in some colors. You see how sure they feel, and how plans like it usually go. Key p.")); }
   hudEl.querySelectorAll("[data-perk]").forEach((el) => { const d = L.perks[+el.dataset.perk]; setTip(el, () => roleTip(d)); });

@@ -37,6 +37,7 @@ HELP = """Keys while watching
   l       ledger: show the numbers under the story (on or off)
   p       dreams, passions and plans; make a plan for them, or drop one
   a       aims (when on): where they stand, the next step; take one up, or let one go
+  ~w ~u.. lean them toward a color until the next ask (when on); ~ alone lets go
   n       start a new life
   h       this help
 Keys at a checkpoint
@@ -44,6 +45,7 @@ Keys at a checkpoint
   1, 2..  push them to that option. They always go through with it; the less they wanted it,
           the more it costs them (effort, stress, pent-up wanting).
   i       heart and head on each option, and what may follow
+  t1, t2.. at a big moment (when on): talk that option over with them first, once
   s       status
   p a f v l n h work here too
 After each choice
@@ -477,6 +479,13 @@ class Console:
         if GAME["aims"] and (k == "a" or k.startswith("aim ") or (k[:1] == "a" and k[1:].isdigit())
                              or (k[:2] == "ad" and k[2:].isdigit())):
             return self._on_aim(line)
+        if GAME["steer_between"] and g.pending is None and k[:1] == "~" and (k[1:] in ("", "x") or (len(k) == 2 and k[1].upper() in "WUBRG")):
+            c_ = k[1].upper() if len(k) == 2 and k[1] != "x" else None
+            g.steer_set(c_)
+            self.note = f"Leaning toward {CNAME[c_]}" if c_ else "No lean"
+            return ((f"Until the next moment you are asked about, you lean {g.name} toward {CNAME[c_]}. Each choice they make "
+                     "meanwhile leans that way, and what it changes costs them, as a light steer does.") if c_ else
+                    f"{g.name} goes their own way again."), False
         if g.pending is not None:
             if k == "s":
                 return g.status(), False
@@ -486,6 +495,11 @@ class Console:
                 return self._keys(k)
             if k == "i":
                 return self._foresee(), False
+            if GAME["talk"] and k[:1] == "t" and k[1:].isdigit() and int(k[1:]) in self.numbering:
+                r = g.talk(self.numbering[int(k[1:])])          # v24: talk one option over with them, once at a big moment
+                if r.get("error"):
+                    return r["error"][:1].upper() + r["error"][1:] + ".", False
+                return f"{g.name}: {r['line']}", False
             if k == "":
                 g.decide(None)
                 self.job = dict(kind="run", until_cp=True)

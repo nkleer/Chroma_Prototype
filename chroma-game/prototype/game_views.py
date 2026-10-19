@@ -179,6 +179,8 @@ class ViewsMixin:
             d["aims"] = self.aims_view() or []
             d["heights"] = self.heights_view()
             d["aim_choices"] = self.aim_choices_view()
+        if GAME["steer_between"]:                       # v24: the player's lean between asks, if one is held
+            d["steer"] = self.steer_view()
         pv = self.places_view()
         if pv:
             d["places"] = pv
@@ -646,6 +648,10 @@ class ViewsMixin:
                                                          tone=meta.get("tone", ""), variant_of=meta.get("variant_of", ""), recon=cp["recon"]))
         if GAME["stakes"]:                              # Stakes on the card: up to two lasting-change chips on each card
             d["stake_card"] = True
+        if cp.get("why_ask"):                           # v24 asks: why this moment was put to the player
+            d["why_ask"] = cp["why_ask"]
+        if cp.get("big"):                               # v24: a big moment can be talked over once, and its answer
+            d["talk"] = dict(open=cp.get("talked") is None, said=cp.get("talked"))
         return d
 
     def season(self, loc=None):

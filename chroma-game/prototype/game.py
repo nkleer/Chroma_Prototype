@@ -29,6 +29,7 @@ from game_bold import BoldMixin
 from game_because import BecauseMixin
 from game_foot import FootMixin
 from game_aims import AimsMixin
+from game_asks import AsksMixin
 
 PRESETS = {
     "1": dict(title="Newborn in an ordinary world",
@@ -54,7 +55,7 @@ PRESETS = {
 }
 
 
-class Game(CheckpointsMixin, WorldMixin, VoiceMixin, LifeMixin, ViewsMixin, CausesMixin, BoldMixin, BecauseMixin, FootMixin, AimsMixin):
+class Game(CheckpointsMixin, WorldMixin, VoiceMixin, LifeMixin, ViewsMixin, CausesMixin, BoldMixin, BecauseMixin, FootMixin, AimsMixin, AsksMixin):
     """One life. Drive it with advance() and decide(); read it with status() and the log."""
     _recall_t = -10 ** 6    # week a memory coming back was last told
     # how much each part of temperament must move before the log says so, and the words for up and down
@@ -219,6 +220,7 @@ class Game(CheckpointsMixin, WorldMixin, VoiceMixin, LifeMixin, ViewsMixin, Caus
         self._sh_told = {}              # item 2: each shadow state as the yearly chapter last told it (on or off)
         self.pending = None             # a checkpoint waiting for the player
         self._force = None              # this week's forced pick: dict(rel, closed, idx)
+        self._steer = None              # v24: the player's lean between asks, dict(color, until, n, moved) (game_asks.py)
         self._cp_week = None            # the checkpoint being resolved this week, for its outcome line
         self.over = False
         self.result = None
@@ -372,9 +374,12 @@ class Game(CheckpointsMixin, WorldMixin, VoiceMixin, LifeMixin, ViewsMixin, Caus
                     self._bold_choose(loc)
                 cp = self._checkpoint(t, loc, val) if until_checkpoint and t / 52 >= self.start_age else None
                 if cp is not None:
+                    self._steer = None                  # v24: a lean held between asks ends at the next ask
                     self.pending = cp
                     return "checkpoint"
                 reply = val
+                if self._steer is not None and t / 52 >= self.start_age:
+                    reply = self._steer_between(t, loc, val)   # v24: the player's lean between asks
             elif kind == "odds":
                 reply = self._on_odds(loc, val)
             elif kind == "learn":
