@@ -472,8 +472,8 @@ fails: {N} cannot make it past the door, and goes home alone.
 
 == bold: the hall you left after the feast / W
 base: go with them every week, and do what the faith asks
-likelier_if: has [known face at worship] +10; has [scripture] +5
-- W | take your old place in the hall again, and keep every service of the year | act: take their old place in the hall again, and keep every service of the year | v: tradition, conformity | chance: 40 | title: regular worshipper | title_if_fails: left the faith
+likelier_if: has [scripture] +10; has [old family name] +5
+- W | take your old place in the hall again, and keep every service of the year | act: take their old place in the hall again, and keep every service of the year | v: tradition, conformity | chance: 40 | grants: known face at worship | title_if_fails: left the faith
 works: {N} is there every week of the year, and by the next feast the hall treats {N} as one of its own again.
 works: The old place in the pew is {Ns} again, and {N} keeps it, week after week.
 fails: The cold looks never stop, and by the summer {N} turns away from the faith altogether.

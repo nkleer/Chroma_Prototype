@@ -11639,20 +11639,20 @@ BOLD = {
  'the hall you left after the feast': [
   {'colour': 'W',
  'base': 'go with them every week, and do what the faith asks',
- 'likelier_if': 'has [known face at worship] +10; has [scripture] +5',
+ 'likelier_if': 'has [scripture] +10; has [old family name] +5',
  'base_index': 0,
  'label': 'take your old place in the hall again, and keep every service of the year',
  'chance': 0.4,
  'act': 'take their old place in the hall again, and keep every service of the year',
  'v': 'tradition, conformity',
- 'title': 'regular worshipper',
  'title_if_fails': 'left the faith',
- 'change': {'well': 'faith won', 'badly': 'status marked'},
+ 'grants': 'known face at worship',
+ 'change': {'well': 'standing won', 'badly': 'status marked'},
  'works': ['{N} is there every week of the year, and by the next feast the hall treats {N} as one of its own again.',
            'The old place in the pew is {Ns} again, and {N} keeps it, week after week.'],
  'fails': ['The cold looks never stop, and by the summer {N} turns away from the faith altogether.',
            'The year in the hall only shows {N} how far away the faith has gone, and {N} leaves it for good.'],
-   'option': ('take your old place in the hall again, and keep every service of the year', 'W1', None, 0.45, '', {'act': 'take their old place in the hall again, and keep every service of the year', 'v': 'tradition, conformity', 'chance': 0.4, 'title': 'regular worshipper', 'title_if_fails': 'left the faith'})},
+   'option': ('take your old place in the hall again, and keep every service of the year', 'W1', None, 0.45, '', {'act': 'take their old place in the hall again, and keep every service of the year', 'v': 'tradition, conformity', 'chance': 0.4, 'grants': 'known face at worship', 'title_if_fails': 'left the faith'})},
  ],
  'who stays home with the baby': [
   {'colour': 'G',
@@ -14166,24 +14166,21 @@ BOLD = {
  'chance': 0.35,
  'act': 'walk into the feast and join the old songs as if they had never left',
  'v': 'stimulation, tradition',
- 'title': 'believer on the big days',
  'drops': 'left the faith',
  'takes_if_fails': 'family who will always take you in',
- 'change': {'well': 'faith won', 'badly': 'bond lost'},
+ 'change': {'well': 'status shed', 'badly': 'bond lost'},
  'works': ['The singing falters, then {grandparent} joins in, and from then on {N} keeps the big days with the '
            'family.',
-           'The family makes room at the table, and {N} comes back to the faith on its feast days, no longer counted '
-           'as one who left.'],
+           'The family makes room at the table, and from that day {N} is no longer counted as one who left.'],
  'fails': ['{parent} stands and shows {N} the door in front of everyone, and the family closes ranks for good.',
            "The songs stop dead, nobody speaks, and after that day the family's door is shut to {N}."],
  'works_gone': ['The singing falters, then the oldest cousin joins in, and from then on {N} keeps the big days with '
                 'the family.',
-                'The family makes room at the table, and {N} comes back to the faith on its feast days, no longer '
-                'counted as one who left.'],
+                'The family makes room at the table, and from that day {N} is no longer counted as one who left.'],
  'fails_gone': ['The head of the family stands and shows {N} the door in front of everyone, and the family closes '
                 'ranks for good.',
                 "The songs stop dead, nobody speaks, and after that day the family's door is shut to {N}."],
-   'option': ('walk into the feast and join the old songs as if you had never left', 'R1', None, 0.45, '', {'v': 'stimulation, tradition', 'act': 'walk into the feast and join the old songs as if they had never left', 'chance': 0.35, 'title': 'believer on the big days', 'drops': 'left the faith', 'takes_if_fails': 'family who will always take you in'})},
+   'option': ('walk into the feast and join the old songs as if you had never left', 'R1', None, 0.45, '', {'v': 'stimulation, tradition', 'act': 'walk into the feast and join the old songs as if they had never left', 'chance': 0.35, 'drops': 'left the faith', 'takes_if_fails': 'family who will always take you in'})},
  ],
  'a frightening diagnosis': [
   {'colour': 'B',

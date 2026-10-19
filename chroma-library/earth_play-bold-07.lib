@@ -1096,13 +1096,13 @@ fails gone: {N} quarrels at home about the family, and the evening is spoiled.
 == bold: the feast day / R
 base: turn up at the door on the feast day, uninvited, and ring the bell
 likelier_if: has [old family name] +5; has [singing] +10
-- R | walk into the feast and join the old songs as if you had never left | v: stimulation, tradition | act: walk into the feast and join the old songs as if they had never left | chance: 35 | title: believer on the big days | drops: left the faith | takes_if_fails: family who will always take you in
+- R | walk into the feast and join the old songs as if you had never left | v: stimulation, tradition | act: walk into the feast and join the old songs as if they had never left | chance: 35 | drops: left the faith | takes_if_fails: family who will always take you in
 works: The singing falters, then {grandparent} joins in, and from then on {N} keeps the big days with the family.
-works: The family makes room at the table, and {N} comes back to the faith on its feast days, no longer counted as one who left.
+works: The family makes room at the table, and from that day {N} is no longer counted as one who left.
 fails: {parent} stands and shows {N} the door in front of everyone, and the family closes ranks for good.
 fails: The songs stop dead, nobody speaks, and after that day the family's door is shut to {N}.
 works gone: The singing falters, then the oldest cousin joins in, and from then on {N} keeps the big days with the family.
-works gone: The family makes room at the table, and {N} comes back to the faith on its feast days, no longer counted as one who left.
+works gone: The family makes room at the table, and from that day {N} is no longer counted as one who left.
 fails gone: The head of the family stands and shows {N} the door in front of everyone, and the family closes ranks for good.
 fails gone: The songs stop dead, nobody speaks, and after that day the family's door is shut to {N}.
 
