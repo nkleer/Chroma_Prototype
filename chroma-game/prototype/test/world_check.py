@@ -2,7 +2,10 @@
 through the page's own bridge (console.Console), each moment alternately left to them and pushed to its second way. With
 it off the game plays as main (prove.py), so this checks the words and the panel only.
 
-    python3 -B test/world_check.py [--presets 1,2,3,4] [--seeds 1] [--jobs 4] [--phase2 1]
+    python3 -B test/world_check.py [--presets 1,2,3,4] [--seeds 1] [--jobs 4] [--phase2 1] [--aims 1]
+
+--phase2 1 switches on the second phase (decisions for others), which reads Known from the heights: give --aims 1 with
+it (GAME aims sets the Engine's aims and heights), as they ship.
 
     W1   every life plays to its end with world answers on (no crash)
     W2   every told world line, in the story, the panel and the end's read-back, is filled (no {slot} left) and the
@@ -70,8 +73,8 @@ def play(preset, seed, out):
                    sample=[x["text"] for x in told[:: max(1, len(told) // 4)]][:4]), open(out, "w"), default=str)
 
 
-def run(preset, seed, out, phase2):
-    env = dict(os.environ, CHROMA_GAME=json.dumps({"world_answers": True, "wa_phase2": bool(phase2)}))
+def run(preset, seed, out, phase2, aims):
+    env = dict(os.environ, CHROMA_GAME=json.dumps({"world_answers": True, "wa_phase2": bool(phase2), "aims": bool(aims)}))
     r = subprocess.run([sys.executable, "-B", os.path.abspath(__file__), "_play", preset, str(seed), out], env=env)
     return json.load(open(out)) if r.returncode == 0 else dict(preset=preset, seed=seed, crash=r.returncode)
 
@@ -85,7 +88,7 @@ def main():
     if sys.argv[1:2] == ["_play"]:
         _, _, preset, seed, out = sys.argv
         return play(preset, int(seed), out) or 0
-    a = {"presets": "1,2,3,4", "seeds": "1", "jobs": "4", "phase2": "0"}
+    a = {"presets": "1,2,3,4", "seeds": "1", "jobs": "4", "phase2": "0", "aims": "0"}
     args = sys.argv[1:]
     for i in range(0, len(args) - 1, 2):
         a[args[i].lstrip("-")] = args[i + 1]
@@ -93,7 +96,7 @@ def main():
     jobs = [(p, s) for p in a["presets"].split(",") for s in seeds_of(a["seeds"])]
     with ThreadPoolExecutor(int(a["jobs"])) as ex:
         res = list(ex.map(lambda j: run(j[0], j[1], os.path.join(tmp, f"world_{os.getpid()}_{j[0]}_{j[1]}.json"),
-                                        a["phase2"] == "1"), jobs))
+                                        a["phase2"] == "1", a["aims"] == "1"), jobs))
     if any(r.get("no_engine") for r in res):
         print("the pinned engine has no world answers")
         return 2

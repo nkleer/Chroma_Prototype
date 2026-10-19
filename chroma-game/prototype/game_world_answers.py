@@ -176,7 +176,10 @@ class WorldAnswersMixin:
             m_ = x["moment"]
             self.history.setdefault("wa_moments", []).append(dict(age=m_.get("age"), key=m_.get("key"), sphere=m_.get("sphere"),
                                                                   answer=m_.get("answer"), scope=m_.get("scope")))
-            if m_.get("key") == "decide" and m_.get("answer") == "decided" and "fair" in m_:
+            told = self.__dict__.setdefault("_wa_ring_t", {})
+            if m_.get("key") == "decide" and m_.get("answer") == "decided" and "fair" in m_ and \
+                    t - told.get("fair", -10 ** 6) >= TOLD_AGAIN:   # 4 to 8 decisions a year: how one landed, once a year
+                told["fair"] = t
                 self._say("Most people in town thought it fair." if m_["fair"] else "Not everyone in town thought it fair.",
                           1 + lvl0, "world_answer", ring="town_sphere", size="")
 
