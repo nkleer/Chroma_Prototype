@@ -820,6 +820,17 @@ DEFAULT = dict(
     # every life plays the same with it on or off. The game's causes switch turns it on
     role_why=False,
     echo_play_par=dict(p=0.6, w=0.3, delay=(1.0, 8.0), keep=10.0, gap=0.5, again=12.0),
+    # bold ways (chroma-ideas/gameplay-2026-10-17/bold-ways.md): set only by the game for a played life, with the batch's
+    # BOLD_MOMENTS. In a week the game asks (bold_ask, set at the situation pause and spent at the choice; "all": every
+    # week), a moment with the Library's bold ways (<world>_play.BOLD) has up to two bold slots beside their base ways:
+    # the base way's gates and pull, its odds moved by the written chances' logit gap, plus likelier_if: points, between
+    # .1 and .9 (bold_now at the choose pause). The character's own pick re-picks with the week's own draw over the ways
+    # and the slots (a slot weighs its base way's share x exp of the utility its odds change); the game may take a slot
+    # (bold_take, the slot, with a = its base way; -1: an ordinary way). A bold pick is its base way drawn at the bold
+    # odds, with the row's act fields and mark in place of the base way's. With echo_play on it plants a seed of kind
+    # bold:<moment>/<colour> due inside its links' delay: (ep_rng), at most bold_cap a life, none in a link's own week (one
+    # link deep); a seed with no link of its own open takes a shared link of its kind of change and side (of_change:)
+    bold_play=False, bold_ask=False, bold_take=None, bold_cap=6,
     closed_acc=0.6, closed_diff=0.05,   # an option closed by law, approval or means is open less often, and harder
     tag_habit=0.02,      # an act flagged habit pulls a little harder toward its ways next time
     tag_door=0.03,       # an act flagged door that works moves the niche toward its ways (new options open)
@@ -1583,6 +1594,8 @@ UPD_OFF = dict(dis_match=False,
                one_roll=False,
                # picks come back: the game's played-life hook
                echo_play=False,
+               # bold ways: the game's played-life hook
+               bold_play=False,
                # every change has a cause: the played life's role causes (read-only)
                role_why=False,
     # the v22.3 refit's satisfaction level (the new mechanics lift satisfaction; the set point moved .80 -> .86)
@@ -1816,6 +1829,8 @@ STATE_IF = dict.fromkeys(("r_has", "r_ever", "r_since", "r_prof", "p_acc", "p_le
 # and tools/t_steps.py's (this week's drift, at drift_k 0) and the game's picks come back (echo_play: the seeds, and the
 # seed whose return is this week's moment, -1 for none)
 STATE_MORE = ("fam", "gsr", "goal_rel_S", "around", "retired", "ck", "ok_", "frc_", "ONCE_HOLD_", "noise", "ep_seeds", "ep_now",
+              "bold_now", "bold_pick",   # bold ways: per life this week's bold slots (a list of dicts: row, slot, base, label,
+              # chance, p, seen; None when not asked) and the slot taken (-1 none), from the choose pause on
               "asrc", "asrc_c",   # every change has a cause: what moved the want so far, by source (asrc: N x ASOURCES x
               # colours; asrc_c: the first logged life's, ASOURCES x colours; the game takes the year's movers between two pauses)
               "btrust")   # body_trust (finishing pack part 3): each life's trust per sphere (N x 9, NaN before 15); None off

@@ -52,7 +52,7 @@ Owner: the Engine thread. The repository-wide rules are in the root `CLAUDE.md`.
     yearly update, pushes, what the engine reads), `world_spheres` (spheres phases 1c, 2 and 4, place_turnover),
     `world_events` (spheres phase 3, Replace, save and load).
 - `tools/` holds the checks Release runs (`tools/README.md`). The quick one: `python3 -B chroma-engine/tools/t_steps.py`
-  (71 rows, about an hour, 50 to 65 min measured 10-17: `run_steps()` gives `run()`'s lives, the pause order, every `STATE` name, each switch's own rows).
+  (72 rows, about an hour, 50 to 65 min measured 10-17: `run_steps()` gives `run()`'s lives, the pause order, every `STATE` name, each switch's own rows).
 - `prototype/calib_v8/rarity.json` is the rarity table of v22 and v22.1. The paused v23 engine lives in the shared
   folder's `chroma-engine/prototype/`, not here.
 
