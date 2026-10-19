@@ -62,16 +62,16 @@ scene U: The letter quotes a clause {N} has never read. Somewhere in the small p
 scene B: Other lenders are already circling the old bank's customers. Someone will offer better terms, at a price.
 scene R: Ninety days. {N} would rather sell everything and start from nothing than spend three months begging.
 scene G: {Ns} family lent half the street money in the hard years. {N} knows whom to ask, and who will ask back.
-- W | write to everyone you owe and set out an honest plan to pay each in turn | v: conformity, security | sphere: comm.W | chance: 77
-- U | read the loan papers clause by clause, and find what the new owners can really demand | v: self-direction, security | sphere: comm.U | chance: 66
-- B | move the loan to a rival lender before the deadline, at a higher rate | v: power, security | lever: exit | pushes: institution | sphere: comm.B | chance: 56
+- W | write to everyone you owe and set out an honest plan to pay each in turn | v: conformity, security | sphere: comm.W | foot: door kept your word | chance: 77
+- U | read the loan papers clause by clause, and find what the new owners can really demand | v: self-direction, security | sphere: comm.U | foot: lesson small print can buy time | chance: 66
+- B | move the loan to a rival lender before the deadline, at a higher rate | v: power, security | lever: exit | pushes: institution | sphere: comm.B | foot: means money-.06 | chance: 56
 - R | sell the van and the tools, clear the debt, and start again small | v: self-direction, stimulation | mark: took a wild risk | sphere: comm.R | chance: 80
-- G | ask your parents for a loan, as they once asked theirs | v: tradition, security | sphere: comm.G | chance: 48
-- BG | take the good watch to the pawn shop to see the month through | v: security | sphere: comm.BG | chance: 80
-- UG | sit the family down and draw up a household budget everyone keeps to | v: security, tradition | sphere: comm.GU | chance: 66
-- UR | start a small trade from the spare room, planned to cover the payments | v: self-direction, achievement | lever: found | sphere: comm.UR | chance: 44
-- WB | lend a neighbour the money to keep their shop open, on written terms | v: benevolence, power | lever: fund | sphere: comm.WB | chance: 50
-- WR | march with the other borrowers to the council to demand time to pay | v: universalism, self-direction | lever: voice | pushes: state | sphere: comm.RW | chance: 38
+- G | ask your parents for a loan, as they once asked theirs | v: tradition, security | sphere: comm.G | foot: means money+.06 | chance: 48
+- BG | take the good watch to the pawn shop to see the month through | v: security | sphere: comm.BG | foot: means money+.03 | chance: 80
+- UG | sit the family down and draw up a household budget everyone keeps to | v: security, tradition | sphere: comm.GU | foot: means money+.04 | chance: 66
+- UR | start a small trade from the spare room, planned to cover the payments | v: self-direction, achievement | lever: found | sphere: comm.UR | foot: place comm.shop | chance: 44
+- WB | lend a neighbour the money to keep their shop open, on written terms | v: benevolence, power | lever: fund | sphere: comm.WB | foot: door helped someone in need | chance: 50
+- WR | march with the other borrowers to the council to demand time to pay | v: universalism, self-direction | lever: voice | pushes: state | sphere: comm.RW | foot: place rule.voice | chance: 38
 works not B R: The new owners accept a plan, and the loan is paid off two years later than it should have been, but paid.
 works: {N} comes through the winter with less, and with a clear idea of who stood by them.
 fails: The ninety days run out, and the next letter is from the bailiffs.
@@ -104,16 +104,16 @@ scene U: Goods that took a week to reach the town now come overnight. {N} is wor
 scene B: Every driver who stops needs fuel, a meal and a bed. {N} has noticed the empty plot by the slip road.
 scene R: The trucks go everywhere {N} has never been, and the depot wants drivers for the long runs.
 scene G: {Ns} family has kept the shop on the old road for two generations. The trucks no longer pass its door.
-- W | apply for a depot job through the job centre, like everyone else | v: conformity, security | sphere: comm.W | chance: 60
-- U | work out what the town makes that could now sell far away, and tell the council | v: universalism, achievement | sphere: comm.U | chance: 73
-- B | rent the empty plot by the slip road and open a food van for drivers | v: achievement, power | lever: found | pushes: place | sphere: comm.B | chance: 60
+- W | apply for a depot job through the job centre, like everyone else | v: conformity, security | sphere: comm.W | foot: means money+.06 | chance: 60
+- U | work out what the town makes that could now sell far away, and tell the council | v: universalism, achievement | sphere: comm.U | foot: lesson the road runs both ways | chance: 73
+- B | rent the empty plot by the slip road and open a food van for drivers | v: achievement, power | lever: found | pushes: place | sphere: comm.B | foot: place comm.shop | chance: 60
 - R | train for a heavy goods licence and take the long-distance runs | v: stimulation, self-direction | mark: learned a skill | sphere: comm.R | chance: 72
-- G | keep the family shop on the old road open for the neighbours who still come | v: tradition, benevolence | lever: loyalty | pushes: place | sphere: comm.G | chance: 51
-- BG | open the family shop late for the night shift at the depot | v: achievement, tradition | sphere: comm.BG | chance: 70
-- BR | buy goods off the trucks in bulk and sell them at the weekend market | v: achievement, stimulation | sphere: comm.BR | chance: 54
-- UR | start a small delivery round linking the depot to the villages | v: self-direction, achievement | lever: found | sphere: comm.UR | chance: 46
+- G | keep the family shop on the old road open for the neighbours who still come | v: tradition, benevolence | lever: loyalty | pushes: place | sphere: comm.G | foot: door stayed home | chance: 51
+- BG | open the family shop late for the night shift at the depot | v: achievement, tradition | sphere: comm.BG | foot: person regular | chance: 70
+- BR | buy goods off the trucks in bulk and sell them at the weekend market | v: achievement, stimulation | sphere: comm.BR | foot: place comm.market | chance: 54
+- UR | start a small delivery round linking the depot to the villages | v: self-direction, achievement | lever: found | sphere: comm.UR | foot: means money+.04 | chance: 46
 - WG | help the strangers who came for depot work find rooms and a doctor | v: benevolence, universalism | mark: helped someone in need | sphere: comm.GW | chance: 72
-- WU | ask the council for safe crossings on the depot road before someone is hurt | v: universalism, security | lever: voice | pushes: place | sphere: comm.WU | chance: 52
+- WU | ask the council for safe crossings on the depot road before someone is hurt | v: universalism, security | lever: voice | pushes: place | sphere: comm.WU | foot: place rule.voice | chance: 52
 works: The depot brings steady wages, and {N} finds a place in the town's new shape.
 works: A year on, the trucks are part of the town's sound, and {N} is better off for them.
 fails: The jobs go to people from elsewhere, and the town gets the noise without the wages.
@@ -147,16 +147,16 @@ scene U: {N} walks every row before buying anything, and already knows whose egg
 scene B: A pitch costs little. {N} wonders what a stall of their own could earn in a year of Saturdays.
 scene R: The noise, the calling of prices, the haggling over an old lamp. {N} has not enjoyed a Saturday morning so much in years.
 scene G: Half the street is here, talking over the stalls. {grandparent} says it is like the market of their youth.
-- W | help the market warden check the scales and give the pitches out by turn | v: universalism, conformity | sphere: comm.W | chance: 78
-- U | walk every row before buying, and keep a list of the best prices | v: self-direction, security | sphere: comm.U | chance: 74
-- B | take a pitch of your own and sell what you make | v: achievement, self-direction | lever: found | pushes: place | sphere: comm.B | chance: 83
-- R | haggle for the oldest lamp on the second-hand stall, just for the fun of it | v: hedonism, stimulation | sphere: comm.R | chance: 69
-- G | buy from the same growers every week and learn their children's names | v: tradition, benevolence | lever: loyalty | sphere: comm.G | chance: 66
-- BR | buy at house clearances and sell at the market with a patter of your own | v: stimulation, achievement | sphere: comm.BR | chance: 56
-- RG | bring the whole family to spend Saturday morning at the market | v: hedonism, benevolence | sphere: comm.RG | chance: 82
-- UG | start a stall swapping seeds and cuttings from neighbours' gardens | v: tradition, universalism | sphere: comm.GU | chance: 62
+- W | help the market warden check the scales and give the pitches out by turn | v: universalism, conformity | sphere: comm.W | foot: person keeper | chance: 78
+- U | walk every row before buying, and keep a list of the best prices | v: self-direction, security | sphere: comm.U | foot: means money+.03 | chance: 74
+- B | take a pitch of your own and sell what you make | v: achievement, self-direction | lever: found | pushes: place | sphere: comm.B | foot: place comm.market | chance: 83
+- R | haggle for the oldest lamp on the second-hand stall, just for the fun of it | v: hedonism, stimulation | sphere: comm.R | foot: lesson haggling is half the fun | chance: 69
+- G | buy from the same growers every week and learn their children's names | v: tradition, benevolence | lever: loyalty | sphere: comm.G | foot: person regular | chance: 66
+- BR | buy at house clearances and sell at the market with a patter of your own | v: stimulation, achievement | sphere: comm.BR | foot: means money+.05 | chance: 56
+- RG | bring the whole family to spend Saturday morning at the market | v: hedonism, benevolence | sphere: comm.RG | foot: means ties+.03 | chance: 82
+- UG | start a stall swapping seeds and cuttings from neighbours' gardens | v: tradition, universalism | sphere: comm.GU | foot: person neighbour | chance: 62
 - WB | lend a young grower the money for a first pitch, repaid from the sales | v: benevolence, power | lever: fund | sphere: comm.WB | chance: 54 | back: helped someone in need
-- WU | help write the market's rules so that every pitch is given by turn | v: universalism, conformity | sphere: comm.WU | chance: 66
+- WU | help write the market's rules so that every pitch is given by turn | v: universalism, conformity | sphere: comm.WU | foot: place rule.counsel | chance: 66
 works: The market grows into the town's Saturday, and {N} has a place in it.
 works: By autumn {N} knows half the stallholders by name, and the car park is never empty.
 fails: The market is busy for one summer, then thins, and the council talks of selling the car park.
@@ -190,15 +190,15 @@ scene U: {N} has started writing down every price, every week. Something has to 
 scene B: The shelves empty a little more each week, and some shops are holding stock back. Whoever buys before the next rise comes out ahead.
 scene R: {N} is sick of counting coins at the till. There must be cheaper food somewhere, for someone quick enough.
 scene G: Nobody on the street admits to going short. {N} knows which neighbours have stopped buying meat.
-- W | share out what there is fairly, and cut your own plate first | v: benevolence, universalism | sphere: comm.W | chance: 84
-- U | plan a month of meals by price, and keep to the list | v: security, self-direction | sphere: comm.U | chance: 64
-- B | buy dried goods in bulk now, before the next rise | v: security, power | sphere: comm.B | chance: 61
-- R | haggle at the market at closing time for whatever the stalls have left | v: stimulation, security | sphere: comm.R | chance: 84
-- G | run a tab at the corner shop whose owner has known your family for years | v: tradition, security | sphere: comm.G | chance: 63
-- BG | sell the good bicycle to keep the cupboards full until spring | v: security | sphere: comm.BG | chance: 78
-- RG | cook one big pot each Sunday with the neighbours, everyone bringing what they can | v: benevolence, hedonism | sphere: comm.RG | chance: 72
-- UB | compare every shop's prices and buy each thing where it is cheapest | v: security, achievement | sphere: comm.UB | chance: 76
-- WR | join the neighbours demanding that the council cap the price of bread | v: universalism, self-direction | lever: voice | pushes: state | sphere: comm.RW | chance: 36
+- W | share out what there is fairly, and cut your own plate first | v: benevolence, universalism | sphere: comm.W | foot: means health-.04 | chance: 84
+- U | plan a month of meals by price, and keep to the list | v: security, self-direction | sphere: comm.U | foot: lesson a plan stretches every meal | chance: 64
+- B | buy dried goods in bulk now, before the next rise | v: security, power | sphere: comm.B | foot: means money+.04 | chance: 61
+- R | haggle at the market at closing time for whatever the stalls have left | v: stimulation, security | sphere: comm.R | foot: place comm.market | chance: 84
+- G | run a tab at the corner shop whose owner has known your family for years | v: tradition, security | sphere: comm.G | foot: person keeper | chance: 63
+- BG | sell the good bicycle to keep the cupboards full until spring | v: security | sphere: comm.BG | foot: means money+.03 | chance: 78
+- RG | cook one big pot each Sunday with the neighbours, everyone bringing what they can | v: benevolence, hedonism | sphere: comm.RG | foot: place gather.house | chance: 72
+- UB | compare every shop's prices and buy each thing where it is cheapest | v: security, achievement | sphere: comm.UB | foot: means money+.03 | chance: 76
+- WR | join the neighbours demanding that the council cap the price of bread | v: universalism, self-direction | lever: voice | pushes: state | sphere: comm.RW | foot: place rule.voice | chance: 36
 - WU | help the food bank set up a fair rota so everyone in the queue is served | v: benevolence, universalism | mark: helped someone in need | sphere: comm.WU | chance: 72
 works: The household eats plainer for a season, but nobody goes without, and prices ease by the next harvest.
 works: {N} gets through the dear months, and the neighbours who shared with them are closer for it.
@@ -233,16 +233,16 @@ scene U: {N} wonders what the owner paid for the water, and whether the stock wi
 scene B: Water sells at three times the price because people need it. {N} sees the sense in that, and the danger.
 scene R: The crowd is loud and getting louder. {N} feels the anger rising, and wants a placard.
 scene G: The owner gave {Ns} family credit through a hard winter years ago. Now the neighbours are calling him a thief.
-- W | report the price to the council and ask for a cap on water | v: universalism, conformity | lever: voice | pushes: state | sphere: comm.W | chance: 78
-- U | find out what the shop paid for the water, and post the figures for the street | v: universalism, self-direction | sphere: comm.U | chance: 68
-- B | fetch water by the pallet from the next town, and sell it at a fair margin | v: achievement, power | sphere: comm.B | chance: 68
-- R | join the picket at the door and lead the chanting | v: stimulation, universalism | lever: voice | pushes: place | sphere: comm.R | chance: 67
+- W | report the price to the council and ask for a cap on water | v: universalism, conformity | lever: voice | pushes: state | sphere: comm.W | foot: lesson a fair complaint gets heard | chance: 78
+- U | find out what the shop paid for the water, and post the figures for the street | v: universalism, self-direction | sphere: comm.U | foot: lesson the figures speak for themselves | chance: 68
+- B | fetch water by the pallet from the next town, and sell it at a fair margin | v: achievement, power | sphere: comm.B | foot: means money+.06 | chance: 68
+- R | join the picket at the door and lead the chanting | v: stimulation, universalism | lever: voice | pushes: place | sphere: comm.R | foot: person rival | chance: 67
 - G | share the water you stored with the neighbours on your stairs | v: benevolence | mark: helped someone in need | sphere: comm.G | chance: 74
-- BR | sell cheap water by the picket from the boot of your car | v: stimulation, achievement | sphere: comm.BR | chance: 62
-- UB | quietly ask the owner to drop the price before the council does it for him | v: security, power | sphere: comm.UB | chance: 52
-- UG | get the street collecting rainwater and sharing it house by house | v: benevolence, security | sphere: comm.GU | chance: 62
-- WG | stand between the owner and the crowd and ask both sides to calm down | v: security, benevolence | sphere: comm.GW | chance: 40
-- WR | lead a boycott of the shop until the price comes down | v: universalism, self-direction | lever: voice | pushes: place | sphere: comm.RW | chance: 54
+- BR | sell cheap water by the picket from the boot of your car | v: stimulation, achievement | sphere: comm.BR | foot: means money+.03 | chance: 62
+- UB | quietly ask the owner to drop the price before the council does it for him | v: security, power | sphere: comm.UB | foot: person friend | chance: 52
+- UG | get the street collecting rainwater and sharing it house by house | v: benevolence, security | sphere: comm.GU | foot: person neighbour | chance: 62
+- WG | stand between the owner and the crowd and ask both sides to calm down | v: security, benevolence | sphere: comm.GW | foot: mark took a wild risk | chance: 40
+- WR | lead a boycott of the shop until the price comes down | v: universalism, self-direction | lever: voice | pushes: place | sphere: comm.RW | foot: place rule.voice | chance: 54
 works: The council caps the price for a month, the water comes back, and the street remembers who stood with it.
 works: The owner backs down by evening, and within a week both sides are buying and selling as before.
 fails: The shop closes for good, and the street loses the only grocer within walking distance.
@@ -277,15 +277,15 @@ scene B: Clean books, and lenders who will lend again. {N} sees the chance to bo
 scene R: Six years of dreading the post, and it is over. {N} wants to shout it from the window.
 scene G: {sibling} is still paying a debt the law did not reach. {N} thinks of them first.
 - W | pay back the friend who lent you money in the bad years, though no law asks | v: benevolence, conformity | mark: kept your word | sphere: comm.W | chance: 72
-- U | put the freed money aside each month until there is a year's cushion | v: security | sphere: comm.U | chance: 73
-- B | borrow on the clean record to buy the van the business needs | v: achievement, power | sphere: comm.B | chance: 77
-- R | throw a party for everyone who helped you through the debt years | v: hedonism, benevolence | sphere: comm.R | chance: 67
+- U | put the freed money aside each month until there is a year's cushion | v: security | sphere: comm.U | foot: means money+.08 | chance: 73
+- B | borrow on the clean record to buy the van the business needs | v: achievement, power | sphere: comm.B | foot: means money-.05 | chance: 77
+- R | throw a party for everyone who helped you through the debt years | v: hedonism, benevolence | sphere: comm.R | foot: means ties+.05 | chance: 67
 - G | sit with your brother or sister over their own letters, to see if their debt qualifies | v: benevolence | mark: helped someone in need | sphere: comm.G | chance: 57
-- RG | take the family away on the first holiday in six years | v: hedonism, benevolence | sphere: comm.RG | chance: 76
-- UB | read the new law closely and find which of your other debts it caps | v: security, power | sphere: comm.UB | chance: 64
+- RG | take the family away on the first holiday in six years | v: hedonism, benevolence | sphere: comm.RG | foot: means money-.04 | chance: 76
+- UB | read the new law closely and find which of your other debts it caps | v: security, power | sphere: comm.UB | foot: means money+.04 | chance: 64
 - UR | spend the first free months learning the trade you put off in the debt years | v: self-direction, achievement | mark: learned a skill | sphere: comm.UR | chance: 54
-- WB | set up a small fund at work that lends colleagues money without interest | v: benevolence, power | lever: found | sphere: comm.WB | chance: 46
-- WG | volunteer at the advice centre, helping neighbours read their own letters | v: benevolence, universalism | sphere: comm.GW | chance: 74
+- WB | set up a small fund at work that lends colleagues money without interest | v: benevolence, power | lever: found | sphere: comm.WB | foot: place comm.credit | chance: 46
+- WG | volunteer at the advice centre, helping neighbours read their own letters | v: benevolence, universalism | sphere: comm.GW | foot: mark helped someone in need | chance: 74
 works: The first year without the debt is the best {N} has had in a long time, and the habits of the hard years stay.
 works: {N} uses the fresh start well, and the money that went to the lender now builds something.
 fails: Within two years a new debt has crept into the place the old one left.
@@ -320,16 +320,16 @@ scene U: The new rule runs to forty pages. {N} suspects there is a gap in it som
 scene B: {rival} holds three permits from the old days and rents them out by the month. {N} could pay, or find another way.
 scene R: Ten years! {N} has a stall to run this week, and the inspectors cannot be everywhere.
 scene G: {N} learned the trade at {parent}'s side, on this same corner. The regulars know the stall, permit or no permit.
-- W | put your name on the waiting list and sell only where no permit is needed | v: conformity, security | sphere: comm.W | chance: 74
-- U | read the new rule closely and find the pitches it does not cover | v: self-direction, security | sphere: comm.U | chance: 71
-- B | rent a spare permit from an old holder, at whatever price they ask | v: achievement, security | sphere: comm.B | chance: 56
-- R | keep selling on the corner, and pack up fast when the inspectors come | v: self-direction, stimulation | mark: broke the law | lever: subvert | sphere: comm.R | chance: 67
-- G | move the stall to the family's front yard, where the neighbours can find it | v: tradition, security | sphere: comm.G | chance: 62
-- BG | go into partnership with a cousin who holds a permit, and share the takings | v: security, tradition | sphere: comm.BG | chance: 62
-- BR | pay a shopkeeper for the use of their doorway, which the rule allows | v: achievement, self-direction | sphere: comm.BR | chance: 58
-- UG | gather the old vendors' records to prove the stalls were here long before the rule | v: tradition, universalism | lever: voice | pushes: state | sphere: comm.GU | chance: 46
-- WR | march with the vendors on the city hall to open the permit rolls | v: universalism, self-direction | lever: voice | pushes: state | sphere: comm.RW | chance: 40
-- WU | draft a scheme that gives permits out by turn, and take it to the council | v: universalism, conformity | sphere: comm.WU | chance: 44
+- W | put your name on the waiting list and sell only where no permit is needed | v: conformity, security | sphere: comm.W | foot: means money-.05 | chance: 74
+- U | read the new rule closely and find the pitches it does not cover | v: self-direction, security | sphere: comm.U | foot: lesson every rule has its edges | chance: 71
+- B | rent a spare permit from an old holder, at whatever price they ask | v: achievement, security | sphere: comm.B | foot: means money-.08 | chance: 56
+- R | keep selling on the corner, and pack up fast when the inspectors come | v: self-direction, stimulation | mark: broke the law | lever: subvert | sphere: comm.R | foot: mark took a wild risk | chance: 67
+- G | move the stall to the family's front yard, where the neighbours can find it | v: tradition, security | sphere: comm.G | foot: person neighbour | chance: 62
+- BG | go into partnership with a cousin who holds a permit, and share the takings | v: security, tradition | sphere: comm.BG | foot: person colleague | chance: 62
+- BR | pay a shopkeeper for the use of their doorway, which the rule allows | v: achievement, self-direction | sphere: comm.BR | foot: person keeper | chance: 58
+- UG | gather the old vendors' records to prove the stalls were here long before the rule | v: tradition, universalism | lever: voice | pushes: state | sphere: comm.GU | foot: place learn.keeping | chance: 46
+- WR | march with the vendors on the city hall to open the permit rolls | v: universalism, self-direction | lever: voice | pushes: state | sphere: comm.RW | foot: place rule.voice | chance: 40
+- WU | draft a scheme that gives permits out by turn, and take it to the council | v: universalism, conformity | sphere: comm.WU | foot: place rule.counsel | chance: 44
 works: The rolls open a little after the vendors' campaign, and {N} gets a permit years early.
 works: {N} finds a lawful way to keep selling, and the regulars follow the stall.
 fails: The fines pile up until the stall costs more than it earns.
@@ -363,16 +363,16 @@ scene U: {N} has worked out what the van must earn each week, and how much risk 
 scene B: Half price to buy, full price to sell. {N} can see exactly how the sums would work.
 scene R: Driving at night, cash in hand, no questions. {N} has to admit it sounds like an adventure.
 scene G: {parent} has smoked the same cigarettes for forty years and cannot afford the shop price any more.
-- W | report the van to the inspectors, with the days and times it parks | v: conformity, universalism | sphere: comm.W | chance: 71
-- U | turn the driving down, since the sums show far more risk than pay | v: security | mark: turned down a chance | sphere: comm.U | chance: 70
-- B | buy a few cartons and sell them on to colleagues at a margin | v: achievement, power | mark: broke the law | lever: subvert | sphere: comm.B | chance: 70
+- W | report the van to the inspectors, with the days and times it parks | v: conformity, universalism | sphere: comm.W | foot: person rival | chance: 71
+- U | turn the driving down, since the sums show far more risk than pay | v: security | mark: turned down a chance | sphere: comm.U | foot: lesson some pay costs too much | chance: 70
+- B | buy a few cartons and sell them on to colleagues at a margin | v: achievement, power | mark: broke the law | lever: subvert | sphere: comm.B | foot: means money+.03 | chance: 70
 - R | take the night driving, cash in hand, and see where the crates go | v: stimulation, hedonism | mark: took a wild risk | lever: subvert | sphere: comm.R | chance: 68
-- G | buy your parent's usual cartons from the van, as the whole street does | v: benevolence, tradition | sphere: comm.G | chance: 75
-- BR | strike a deal to sell the man's cartons from your own stall, for a share | v: achievement, stimulation | mark: broke the law | lever: subvert | sphere: comm.BR | chance: 54
-- UG | help your parent cut down slowly, now that the habit costs so much | v: benevolence, security | sphere: comm.GU | chance: 50
-- UR | write a sharp piece for the local news on why the van does such good trade | v: self-direction, universalism | lever: voice | pushes: state | sphere: comm.UR | chance: 62
-- WB | lend the corner shopkeeper the money to ride out the trade the van has taken | v: benevolence, power | lever: fund | sphere: comm.WB | chance: 58
-- WG | ask the street to buy from the corner shop, whose owner pays the tax | v: tradition, conformity | lever: loyalty | pushes: place | sphere: comm.GW | chance: 52
+- G | buy your parent's usual cartons from the van, as the whole street does | v: benevolence, tradition | sphere: comm.G | foot: means money+.03 | chance: 75
+- BR | strike a deal to sell the man's cartons from your own stall, for a share | v: achievement, stimulation | mark: broke the law | lever: subvert | sphere: comm.BR | foot: means money+.06 | chance: 54
+- UG | help your parent cut down slowly, now that the habit costs so much | v: benevolence, security | sphere: comm.GU | foot: mark helped someone in need | chance: 50
+- UR | write a sharp piece for the local news on why the van does such good trade | v: self-direction, universalism | lever: voice | pushes: state | sphere: comm.UR | foot: lesson the trade follows the price | chance: 62
+- WB | lend the corner shopkeeper the money to ride out the trade the van has taken | v: benevolence, power | lever: fund | sphere: comm.WB | foot: person keeper | chance: 58
+- WG | ask the street to buy from the corner shop, whose owner pays the tax | v: tradition, conformity | lever: loyalty | pushes: place | sphere: comm.GW | foot: place comm.shop | chance: 52
 works: {N} stays on the side of the line they chose, and the season passes without trouble.
 works: The van moves on by spring, and the corner shop is still there.
 fails not W U UG WG UR WB: The van is raided, and names come out, {Ns} among them.
@@ -406,16 +406,16 @@ scene U: The club's statements looked so tidy. {N} wants to see the real account
 scene B: The founder has a house, a car and a boat. Somebody will get paid first, and {N} means it to be them.
 scene R: {N} wants to drive to the founder's house and knock on the door until it opens.
 scene G: {parent} warned against the club and was laughed at. Now {N} has to face them at the family's Sunday dinner.
-- W | take your papers to the police and give a full statement | v: conformity, universalism | sphere: comm.W | chance: 80
-- U | gather every member's statements and work out where the money went | v: universalism, self-direction | sphere: comm.U | chance: 67
-- B | hire a lawyer to claim the founder's house before the others do | v: power, security | sphere: comm.B | chance: 69
+- W | take your papers to the police and give a full statement | v: conformity, universalism | sphere: comm.W | foot: lesson the papers are your proof | chance: 80
+- U | gather every member's statements and work out where the money went | v: universalism, self-direction | sphere: comm.U | foot: means time-.05 | chance: 67
+- B | hire a lawyer to claim the founder's house before the others do | v: power, security | sphere: comm.B | foot: means money-.06 | chance: 69
 - R | drive to the founder's house and wait outside until someone comes out | v: stimulation, self-direction | mark: took a wild risk | sphere: comm.R | chance: 52
-- G | tell your parent they were right all along, and ask for their help | v: tradition, benevolence | mark: owned up | sphere: comm.G | chance: 52
+- G | tell your parent they were right all along, and ask for their help | v: tradition, benevolence | mark: owned up | sphere: comm.G | foot: lesson pride is worth less than help | chance: 52
 - BG | sell the car to make good part of what your friend lost | v: benevolence, security | sphere: comm.BG | chance: 70 | back: helped someone in need
-- RG | bring the members together for a meal, so nobody faces it alone | v: benevolence, hedonism | sphere: comm.RG | chance: 78
-- UR | start a page that warns others about schemes that pay from newcomers' money | v: universalism, self-direction | lever: voice | pushes: culture | sphere: comm.UR | chance: 70
-- WB | lead the members' group that pursues the founder through the courts | v: power, universalism | lever: lead | sphere: comm.WB | chance: 44
-- WU | write to the regulator asking for rules on clubs that take people's savings | v: universalism, security | lever: voice | pushes: state | sphere: comm.WU | chance: 48
+- RG | bring the members together for a meal, so nobody faces it alone | v: benevolence, hedonism | sphere: comm.RG | foot: place gather.talk | chance: 78
+- UR | start a page that warns others about schemes that pay from newcomers' money | v: universalism, self-direction | lever: voice | pushes: culture | sphere: comm.UR | foot: place arts.page | chance: 70
+- WB | lead the members' group that pursues the founder through the courts | v: power, universalism | lever: lead | sphere: comm.WB | foot: person rival | chance: 44
+- WU | write to the regulator asking for rules on clubs that take people's savings | v: universalism, security | lever: voice | pushes: state | sphere: comm.WU | foot: place rule.voice | chance: 48
 works: The courts claw back a third of the money, and the members share it out fairly.
 works: {N} loses the savings but keeps the friendship, and learns a lesson that lasts.
 fails: The founder is never found, and the money is gone for good.
@@ -448,16 +448,16 @@ scene U: {N} has compared rents with prices for years. The numbers stopped makin
 scene B: Everyone who bought early is richer for doing nothing. {N} sees no reason to stay poor out of caution.
 scene R: {friend} makes it sound easy and exciting. {N} wants in before the door closes.
 scene G: {parent} still lives in the house they bought thirty years ago, and says a home is not a bet.
-- W | borrow only what one wage can repay, whatever the lender offers | v: security, conformity | sphere: comm.W | chance: 72
-- U | stay out, since the rents no longer cover the prices, and say so | v: security, self-direction | mark: turned down a chance | sphere: comm.U | chance: 55
-- B | buy a second flat with almost nothing down, and let it out | v: power, achievement | sphere: comm.B | chance: 61
+- W | borrow only what one wage can repay, whatever the lender offers | v: security, conformity | sphere: comm.W | foot: lesson borrow what you can repay | chance: 72
+- U | stay out, since the rents no longer cover the prices, and say so | v: security, self-direction | mark: turned down a chance | sphere: comm.U | foot: means money+.04 | chance: 55
+- B | buy a second flat with almost nothing down, and let it out | v: power, achievement | sphere: comm.B | foot: means money+.08 | chance: 61
 - R | buy now, before prices climb any higher, and worry later | v: stimulation, hedonism | mark: took a wild risk | sphere: comm.R | chance: 71
-- G | stay in the rented flat near the family, and call it home | v: tradition, security | sphere: comm.G | chance: 54
-- RG | go in with your friends on a flat by the sea for all to share | v: hedonism, benevolence | sphere: comm.RG | chance: 60
-- UB | sell your flat while the market is at its top, and rent for a while | v: achievement, security | sphere: comm.UB | chance: 58
-- UG | help your parents work out whether to sell the family house or keep it | v: benevolence, tradition | sphere: comm.GU | chance: 70
-- WB | lend your younger brother or sister the deposit, on written terms | v: benevolence, power | lever: fund | sphere: comm.WB | chance: 58
-- WR | join the campaign for homes a person on one wage can afford | v: universalism | lever: voice | pushes: state | sphere: comm.RW | chance: 36
+- G | stay in the rented flat near the family, and call it home | v: tradition, security | sphere: comm.G | foot: door stayed home | chance: 54
+- RG | go in with your friends on a flat by the sea for all to share | v: hedonism, benevolence | sphere: comm.RG | foot: place gather.house | chance: 60
+- UB | sell your flat while the market is at its top, and rent for a while | v: achievement, security | sphere: comm.UB | foot: means money+.06 | chance: 58
+- UG | help your parents work out whether to sell the family house or keep it | v: benevolence, tradition | sphere: comm.GU | foot: lesson a home is more than money | chance: 70
+- WB | lend your younger brother or sister the deposit, on written terms | v: benevolence, power | lever: fund | sphere: comm.WB | foot: means money-.06 | chance: 58
+- WR | join the campaign for homes a person on one wage can afford | v: universalism | lever: voice | pushes: state | sphere: comm.RW | foot: place rule.voice | chance: 36
 works: Prices level off rather than fall, and the choice {N} made looks wise in hindsight.
 works: When the market turns, {N} is on solid ground, and can help the friends who are not.
 fails not U G UB: Prices fall by a quarter in a year, and {N} owes more than the flat is worth.
@@ -491,16 +491,16 @@ scene U: {N} tracks the price of bread, fuel and rent each week. The rise is spe
 scene B: When money loses its worth, things keep theirs. {N} is thinking about what to buy, and what to hold.
 scene R: Money is worth more today than tomorrow. {N} wants to spend the wage the day it lands.
 scene G: On the street people are swapping eggs for repairs and lessons for firewood. {N} knows who has what.
-- W | press your boss, with the others at work, for wages that keep up with prices | v: universalism, security | lever: voice | pushes: institution | sphere: comm.W | chance: 70
-- U | move the savings, carefully, into goods that keep their worth | v: security | sphere: comm.U | chance: 72
-- B | buy the car now on a fixed loan, and let the rising prices shrink the debt | v: power, achievement | sphere: comm.B | chance: 65
-- R | spend each wage the day it comes, on what the month needs | v: hedonism, security | sphere: comm.R | chance: 81
-- G | swap work and goods with the neighbours instead of using money | v: tradition, benevolence | sphere: comm.G | chance: 54
-- BG | keep the family's savings in rings and tools rather than in money | v: security, tradition | sphere: comm.BG | chance: 70
-- UB | trade goods between shops that price them differently from week to week | v: achievement, power | sphere: comm.UB | chance: 56
+- W | press your boss, with the others at work, for wages that keep up with prices | v: universalism, security | lever: voice | pushes: institution | sphere: comm.W | foot: person colleague | chance: 70
+- U | move the savings, carefully, into goods that keep their worth | v: security | sphere: comm.U | foot: means money+.05 | chance: 72
+- B | buy the car now on a fixed loan, and let the rising prices shrink the debt | v: power, achievement | sphere: comm.B | foot: means freedom+.05 | chance: 65
+- R | spend each wage the day it comes, on what the month needs | v: hedonism, security | sphere: comm.R | foot: lesson spend it before it shrinks | chance: 81
+- G | swap work and goods with the neighbours instead of using money | v: tradition, benevolence | sphere: comm.G | foot: person neighbour | chance: 54
+- BG | keep the family's savings in rings and tools rather than in money | v: security, tradition | sphere: comm.BG | foot: means money+.03 | chance: 70
+- UB | trade goods between shops that price them differently from week to week | v: achievement, power | sphere: comm.UB | foot: place comm.market | chance: 56
 - UR | learn a trade the neighbours will pay for in food and fuel | v: self-direction, security | mark: learned a skill | sphere: comm.UR | chance: 56
 - WG | make sure your grandparent's pension is spent where it goes furthest | v: benevolence | mark: helped someone in need | sphere: comm.GW | chance: 78
-- WR | march with the pensioners demanding that their payments rise with prices | v: universalism, benevolence | lever: voice | pushes: state | sphere: comm.RW | chance: 38
+- WR | march with the pensioners demanding that their payments rise with prices | v: universalism, benevolence | lever: voice | pushes: state | sphere: comm.RW | foot: place rule.voice | chance: 38
 works: The rise slows within two years, and {N} comes out with the household whole.
 works: {N} keeps ahead of the prices, and helps the family do the same.
 fails: The savings of a decade buy a month's shopping by the end.
@@ -535,16 +535,16 @@ scene U: {N} has worked out the best use of the pot, and what it will earn back 
 scene B: A second freezer means twice the stock. {N} is already planning the stall's next year.
 scene R: {N} has wanted a proper awning for years. A pot like this does not come round often.
 scene G: {friend} paid in for three years without missing once. Now their partner is ill, and the circle is talking.
-- W | ask the circle to agree one rule for late payers, and keep it for everyone | v: conformity, universalism | sphere: comm.W | chance: 73
-- U | spend the pot on a freezer sized to last season's sales | v: achievement, security | sphere: comm.U | chance: 72
-- B | use the pot as the deposit on a second stall | v: achievement, power | lever: found | sphere: comm.B | chance: 75
-- R | buy the awning you have wanted for years, and the string of lights too | v: hedonism, stimulation | sphere: comm.R | chance: 66
+- W | ask the circle to agree one rule for late payers, and keep it for everyone | v: conformity, universalism | sphere: comm.W | foot: lesson the same rule for everyone | chance: 73
+- U | spend the pot on a freezer sized to last season's sales | v: achievement, security | sphere: comm.U | foot: means money+.03 | chance: 72
+- B | use the pot as the deposit on a second stall | v: achievement, power | lever: found | sphere: comm.B | foot: means money+.06 | chance: 75
+- R | buy the awning you have wanted for years, and the string of lights too | v: hedonism, stimulation | sphere: comm.R | foot: means money-.03 | chance: 66
 - G | cover your friend's missed payments quietly until their partner is well | v: benevolence | mark: helped someone in need | sphere: comm.G | chance: 70
-- BR | take the pot early in return for paying in a little more each month | v: achievement, stimulation | sphere: comm.BR | chance: 70
-- RG | throw a supper for the whole circle when the pot is paid out | v: hedonism, benevolence | sphere: comm.RG | chance: 82
-- UB | offer to keep the circle's book, and know who owes what | v: power, security | lever: lead | sphere: comm.UB | chance: 64
-- WG | ask the circle to give your friend time, and share the gap in turns | v: benevolence, universalism | sphere: comm.GW | chance: 62
-- WU | write the circle's rules down, so a new member knows them from the first day | v: conformity, security | sphere: comm.WU | chance: 76
+- BR | take the pot early in return for paying in a little more each month | v: achievement, stimulation | sphere: comm.BR | foot: means money-.04 | chance: 70
+- RG | throw a supper for the whole circle when the pot is paid out | v: hedonism, benevolence | sphere: comm.RG | foot: means ties+.04 | chance: 82
+- UB | offer to keep the circle's book, and know who owes what | v: power, security | lever: lead | sphere: comm.UB | foot: place comm.credit | chance: 64
+- WG | ask the circle to give your friend time, and share the gap in turns | v: benevolence, universalism | sphere: comm.GW | foot: mark helped someone in need | chance: 62
+- WU | write the circle's rules down, so a new member knows them from the first day | v: conformity, security | sphere: comm.WU | foot: lesson a rule on paper outlasts memory | chance: 76
 works: The pot goes where {N} meant it to, and the circle runs another year with every member paid.
 works: {friend} pays back every missed month by spring, and the circle is stronger for the wait.
 fails: {friend} drops out owing two months, and the circle argues about it for a year.
@@ -578,16 +578,16 @@ scene U: Three lenders now offer loans, each on different terms. {N} means to re
 scene B: With a loan, {N} could buy a machine that does the work of three hands.
 scene R: The bank is lending at a rate nobody here has seen before. {N} wants the money while it is offered.
 scene G: {grandparent} has never trusted a bank and has lent to neighbours all their life. A loan, they say, should come from people who know the borrower.
-- W | open a savings account and pay in the same sum every week | v: security, conformity | sphere: comm.W | chance: 71
-- U | compare the three lenders' terms line by line before signing anything | v: security, self-direction | sphere: comm.U | chance: 73
-- B | borrow for the machine that does the work of three hands | v: achievement, power | sphere: comm.B | chance: 80
-- R | take the loan while it is offered, and start the business you always talked about | v: stimulation, self-direction | lever: found | sphere: comm.R | chance: 64
-- G | keep saving with the neighbours' circle, as the family always has | v: tradition | lever: loyalty | sphere: comm.G | chance: 62
-- RG | borrow for a stall at the summer fairs, and take the family along | v: stimulation, benevolence | sphere: comm.RG | chance: 70
-- UB | apply for the clerk's post at the new branch | v: achievement, security | sphere: comm.UB | chance: 52
-- UR | borrow a little to try a new crop, planned to be paid off in two seasons | v: self-direction, achievement | sphere: comm.UR | chance: 66
-- WB | stand guarantor for a neighbour the bank would not lend to alone | v: benevolence, power | lever: fund | sphere: comm.WB | chance: 52
-- WG | help your grandparent open a first account, and show them how it works | v: benevolence | sphere: comm.GW | chance: 70
+- W | open a savings account and pay in the same sum every week | v: security, conformity | sphere: comm.W | foot: means money+.04 | chance: 71
+- U | compare the three lenders' terms line by line before signing anything | v: security, self-direction | sphere: comm.U | foot: lesson read the terms before signing | chance: 73
+- B | borrow for the machine that does the work of three hands | v: achievement, power | sphere: comm.B | foot: means time+.06 | chance: 80
+- R | take the loan while it is offered, and start the business you always talked about | v: stimulation, self-direction | lever: found | sphere: comm.R | foot: mark took a wild risk | chance: 64
+- G | keep saving with the neighbours' circle, as the family always has | v: tradition | lever: loyalty | sphere: comm.G | foot: means ties+.03 | chance: 62
+- RG | borrow for a stall at the summer fairs, and take the family along | v: stimulation, benevolence | sphere: comm.RG | foot: place comm.market | chance: 70
+- UB | apply for the clerk's post at the new branch | v: achievement, security | sphere: comm.UB | foot: place comm.credit | chance: 52
+- UR | borrow a little to try a new crop, planned to be paid off in two seasons | v: self-direction, achievement | sphere: comm.UR | foot: means money-.03 | chance: 66
+- WB | stand guarantor for a neighbour the bank would not lend to alone | v: benevolence, power | lever: fund | sphere: comm.WB | foot: door helped someone in need | chance: 52
+- WG | help your grandparent open a first account, and show them how it works | v: benevolence | sphere: comm.GW | foot: mark helped someone in need | chance: 70
 works not W G WG UB: The loan is repaid in two seasons, and the bank knows {Ns} name for the next one.
 works: {N} has money kept safe and a way to make it grow, the first in the family to have both.
 fails: The bank says no, and {N} remembers the clerk's face for years.
@@ -621,16 +621,16 @@ scene U: {N} has compared the two receipts. The superstore is cheaper, but not o
 scene B: Fifty jobs, and a supervisor's post within the year for whoever shines. {N} is filling in the form.
 scene R: Bright aisles, music, a hundred kinds of cereal. {N} enjoys the place more than they like to admit.
 scene G: The grocer knew {Ns} grandmother's order by heart. Nobody at the superstore will know {Ns} name.
-- W | take a job on the tills, with its written wage and fixed hours | v: security, conformity | sphere: comm.W | chance: 76
-- U | shop at both, buying each thing where it is cheaper | v: security | sphere: comm.U | chance: 81
-- B | apply for the supervisor's post and aim for the manager's office | v: achievement, power | sphere: comm.B | chance: 68
-- R | do the big weekly shop at the superstore and enjoy every aisle | v: hedonism | lever: exit | sphere: comm.R | chance: 81
-- G | keep buying from the grocer, even when it costs more | v: tradition, benevolence | lever: loyalty | pushes: place | sphere: comm.G | chance: 65
-- BG | take the superstore job, and still buy the Sunday meat from the butcher | v: security, tradition | sphere: comm.BG | chance: 74
-- BR | open a stall outside the superstore selling what it does not stock | v: achievement, stimulation | lever: found | sphere: comm.BR | chance: 52
-- UR | help the town's small shops set up one shared delivery round | v: self-direction, universalism | lever: found | sphere: comm.UR | chance: 48
-- WG | organise a market day for the town's small shops on the old square | v: tradition, universalism | sphere: comm.GW | chance: 58
-- WU | ask the council to hold the superstore to its promise of local jobs | v: universalism, conformity | lever: voice | pushes: institution | sphere: comm.WU | chance: 52
+- W | take a job on the tills, with its written wage and fixed hours | v: security, conformity | sphere: comm.W | foot: means money+.05 | chance: 76
+- U | shop at both, buying each thing where it is cheaper | v: security | sphere: comm.U | foot: means money+.03 | chance: 81
+- B | apply for the supervisor's post and aim for the manager's office | v: achievement, power | sphere: comm.B | foot: person rival | chance: 68
+- R | do the big weekly shop at the superstore and enjoy every aisle | v: hedonism | lever: exit | sphere: comm.R | foot: lesson plenty has its own pleasure | chance: 81
+- G | keep buying from the grocer, even when it costs more | v: tradition, benevolence | lever: loyalty | pushes: place | sphere: comm.G | foot: person keeper | chance: 65
+- BG | take the superstore job, and still buy the Sunday meat from the butcher | v: security, tradition | sphere: comm.BG | foot: person colleague | chance: 74
+- BR | open a stall outside the superstore selling what it does not stock | v: achievement, stimulation | lever: found | sphere: comm.BR | foot: means money+.04 | chance: 52
+- UR | help the town's small shops set up one shared delivery round | v: self-direction, universalism | lever: found | sphere: comm.UR | foot: place comm.shop | chance: 48
+- WG | organise a market day for the town's small shops on the old square | v: tradition, universalism | sphere: comm.GW | foot: place comm.market | chance: 58
+- WU | ask the council to hold the superstore to its promise of local jobs | v: universalism, conformity | lever: voice | pushes: institution | sphere: comm.WU | foot: place rule.voice | chance: 52
 works: The town finds a balance: the superstore for the weekly shop, the old street for everything else.
 works: {N} comes out of the change with a steady wage or a loyal trade, and no regrets.
 fails: The grocer closes within three years, and the high street goes quiet.
@@ -663,16 +663,16 @@ scene U: Somewhere a car like {Ns} is sitting in a scrapyard with the part still
 scene B: A dealer two towns over has the part, at three times the price. {N} wonders what the lateness is costing already.
 scene R: {N} is tired of waiting. The car can go, and something else can take its place by the weekend.
 scene G: {friend} drives past {Ns} door every morning. {N} has given lifts before, and could ask for one.
-- W | wait your turn on the garage's list, and take the bus meanwhile | v: conformity | sphere: comm.W | chance: 74
-- U | search the scrapyards for the same model with the part still in it | v: self-direction, achievement | sphere: comm.U | chance: 71
-- B | pay the dealer three times the price and be driving by Friday | v: achievement, power | sphere: comm.B | chance: 72
+- W | wait your turn on the garage's list, and take the bus meanwhile | v: conformity | sphere: comm.W | foot: means time-.06 | chance: 74
+- U | search the scrapyards for the same model with the part still in it | v: self-direction, achievement | sphere: comm.U | foot: lesson every scrapyard hides a spare | chance: 71
+- B | pay the dealer three times the price and be driving by Friday | v: achievement, power | sphere: comm.B | foot: means money-.06 | chance: 72
 - R | sell the broken car as it stands, and buy an old one the same day | v: stimulation, self-direction | mark: took a wild risk | sphere: comm.R | chance: 71
-- G | ask your friend for a lift each morning, and fill their tank on Fridays | v: benevolence, tradition | sphere: comm.G | chance: 62
-- BG | borrow your parent's old car, and keep it running for them in return | v: security, tradition | sphere: comm.BG | chance: 64
-- RG | cycle to work with a group from the street | v: hedonism, benevolence | sphere: comm.RG | chance: 72
-- UB | find out who is hoarding parts, and buy a share of their stock | v: power, achievement | sphere: comm.UB | chance: 52
-- WR | join the drivers who want the garage's list made public, so nobody jumps it | v: universalism, self-direction | lever: voice | pushes: place | sphere: comm.RW | chance: 46
-- WU | ask your boss in writing for hours that fit the bus timetable | v: conformity, security | sphere: comm.WU | chance: 66
+- G | ask your friend for a lift each morning, and fill their tank on Fridays | v: benevolence, tradition | sphere: comm.G | foot: means money-.03 | chance: 62
+- BG | borrow your parent's old car, and keep it running for them in return | v: security, tradition | sphere: comm.BG | foot: door kept your word | chance: 64
+- RG | cycle to work with a group from the street | v: hedonism, benevolence | sphere: comm.RG | foot: place gather.circle | chance: 72
+- UB | find out who is hoarding parts, and buy a share of their stock | v: power, achievement | sphere: comm.UB | foot: means money+.05 | chance: 52
+- WR | join the drivers who want the garage's list made public, so nobody jumps it | v: universalism, self-direction | lever: voice | pushes: place | sphere: comm.RW | foot: place rule.voice | chance: 46
+- WU | ask your boss in writing for hours that fit the bus timetable | v: conformity, security | sphere: comm.WU | foot: means time+.03 | chance: 66
 works: The part arrives sooner than promised, and {N} learns the bus routes and a few neighbours' names meanwhile.
 works: {N} finds a way round the shortage, and keeps the job through it.
 fails: The months drag on, and the lateness costs {N} the good shifts at work.
@@ -705,16 +705,16 @@ scene U: {N} remembers what this cousin's parents gave at {Ns} own family's last
 scene B: A generous envelope is talked about for years. {N} knows exactly who will hear of it.
 scene R: It is a wedding! {N} wants to give more than they can afford, because the day deserves it.
 scene G: The cousin's grandparents gave {Ns} parents a wedding gift forty years ago. The notebook remembers it.
-- W | give the sum the family agreed every guest would give | v: conformity, universalism | sphere: comm.W | chance: 87
-- U | look up what the cousin's family gave last time, and match it exactly | v: tradition, security | sphere: comm.U | chance: 65
-- B | give the largest envelope of the evening, and let it be noticed | v: power, achievement | sphere: comm.B | chance: 70
-- R | give a month's wages, because the day deserves it | v: hedonism, benevolence | sphere: comm.R | chance: 85
-- G | give what your parents' families gave each other forty years ago, and a little more | v: tradition, benevolence | sphere: comm.G | chance: 69
-- BR | hire the band as your gift, and make the dancing the talk of the night | v: stimulation, power | sphere: comm.BR | chance: 66
-- UB | give the couple a share in a savings fund instead of cash, a gift that grows | v: achievement, security | sphere: comm.UB | chance: 70
-- UG | help the aunt keep the gift book, and learn who owes whom | v: tradition | sphere: comm.GU | chance: 76
+- W | give the sum the family agreed every guest would give | v: conformity, universalism | sphere: comm.W | foot: means money-.03 | chance: 87
+- U | look up what the cousin's family gave last time, and match it exactly | v: tradition, security | sphere: comm.U | foot: lesson every gift is remembered | chance: 65
+- B | give the largest envelope of the evening, and let it be noticed | v: power, achievement | sphere: comm.B | foot: means money-.08 | chance: 70
+- R | give a month's wages, because the day deserves it | v: hedonism, benevolence | sphere: comm.R | foot: means money-.10 | chance: 85
+- G | give what your parents' families gave each other forty years ago, and a little more | v: tradition, benevolence | sphere: comm.G | foot: means ties+.03 | chance: 69
+- BR | hire the band as your gift, and make the dancing the talk of the night | v: stimulation, power | sphere: comm.BR | foot: means money-.05 | chance: 66
+- UB | give the couple a share in a savings fund instead of cash, a gift that grows | v: achievement, security | sphere: comm.UB | foot: means money-.04 | chance: 70
+- UG | help the aunt keep the gift book, and learn who owes whom | v: tradition | sphere: comm.GU | foot: person mentor | chance: 76
 - WG | give a poorer cousin's family a quiet loan, so their envelope is not the thinnest | v: benevolence | mark: helped someone in need | sphere: comm.GW | chance: 62
-- WR | suggest the family stop counting envelopes, and let each guest give what they can | v: universalism, self-direction | lever: voice | pushes: group | sphere: comm.RW | chance: 40
+- WR | suggest the family stop counting envelopes, and let each guest give what they can | v: universalism, self-direction | lever: voice | pushes: group | sphere: comm.RW | foot: mark defied an authority | chance: 40
 works: The envelope is noted, the couple are grateful, and the tie between the families holds for another generation.
 works: {N} gives well and is given well in turn, when the notebook's day comes round.
 fails: The envelope is thinner than the family expected, and the aunts remember it.
@@ -748,15 +748,15 @@ scene U: The new grocer stocks things nobody here sold before. {N} wonders where
 scene B: The new families work longer hours than anyone. {N} respects it, and sees the competition coming.
 scene R: There is a bakery selling bread {N} has never tasted. {N} wants to try everything on the counter.
 scene G: The old butcher closed last year, and his daughter moved away. {N} misses the old street, and is curious about the new one.
-- W | speak up for the new shops at the residents' meeting when others complain | v: universalism | lever: voice | pushes: place | sphere: comm.W | chance: 77
+- W | speak up for the new shops at the residents' meeting when others complain | v: universalism | lever: voice | pushes: place | sphere: comm.W | foot: place rule.voice | chance: 77
 - U | ask the grocer where his stock comes from, and how the trade works | v: self-direction | mark: made a friend | sphere: comm.U | chance: 71
-- B | rent your empty unit to one of the new families, on a fair lease | v: achievement, power | sphere: comm.B | chance: 79
-- R | try one of everything on the new bakery's counter | v: hedonism, stimulation | sphere: comm.R | chance: 71
-- G | keep buying from the old shops that are left, while they last | v: tradition | lever: loyalty | sphere: comm.G | chance: 72
-- BR | answer the card in the window and work behind the new grocer's counter | v: achievement, stimulation | sphere: comm.BR | chance: 68
+- B | rent your empty unit to one of the new families, on a fair lease | v: achievement, power | sphere: comm.B | foot: means money+.06 | chance: 79
+- R | try one of everything on the new bakery's counter | v: hedonism, stimulation | sphere: comm.R | foot: place comm.shop | chance: 71
+- G | keep buying from the old shops that are left, while they last | v: tradition | lever: loyalty | sphere: comm.G | foot: person keeper | chance: 72
+- BR | answer the card in the window and work behind the new grocer's counter | v: achievement, stimulation | sphere: comm.BR | foot: person boss | chance: 68
 - RG | invite the bakery family to the street's summer party | v: benevolence, hedonism | mark: made a friend | sphere: comm.RG | chance: 70
 - UG | learn a few words of the newcomers' language from their children | v: universalism, tradition | mark: learned a skill | sphere: comm.GU | chance: 66
-- WB | lend a new family the money for their shop fittings, on written terms | v: benevolence, power | lever: fund | sphere: comm.WB | chance: 54
+- WB | lend a new family the money for their shop fittings, on written terms | v: benevolence, power | lever: fund | sphere: comm.WB | foot: door helped someone in need | chance: 54
 - WU | help the new shopkeepers through the council's licence forms | v: benevolence, universalism | mark: helped someone in need | sphere: comm.WU | chance: 72
 works not G: The high street is busy again, and {N} is a regular at a shop that did not exist two years ago.
 works: The newcomers and the old families find their way to trust, and {N} helped.
@@ -792,16 +792,16 @@ scene U: {N} has read how the phone payments work, and what they cost the stallh
 scene B: The stallholders who switched first are selling faster. {N} sees which way the market is going.
 scene R: One tap and it is done. {N} likes the speed of it, and the little sound it makes.
 scene G: {grandparent} trusts only what can be held in the hand. {N} understands, more than they say.
-- W | insist that the bakery serve your grandparent for cash, as the market's rules say | v: conformity, benevolence | sphere: comm.W | chance: 78
-- U | learn the new way to pay properly, and teach it to your grandparent | v: self-direction, benevolence | tech: phone | sphere: comm.U | chance: 83
-- B | set your own stall up to take phone payments before the others do | v: achievement | tech: phone | sphere: comm.B | chance: 65
-- R | pay for everything by phone, and leave the purse at home | v: hedonism, stimulation | tech: phone | sphere: comm.R | chance: 89
-- G | go to the market with your grandparent, and pay for them in cash | v: benevolence, tradition | sphere: comm.G | chance: 65
-- BG | keep a jar of change for the old regulars, and take phones from everyone else | v: security, benevolence | sphere: comm.BG | chance: 78
-- UG | set up a phone account for your grandparent, and check it with them each week | v: benevolence, security | tech: phone | sphere: comm.GU | chance: 64
-- UR | make a simple card that lets the old regulars pay without a phone | v: self-direction, universalism | lever: found | sphere: comm.UR | chance: 42
-- WB | lend the old stallholder next door the money for a payment reader | v: benevolence, power | lever: fund | sphere: comm.WB | chance: 64
-- WR | start a petition to keep cash at the market, and gather names among the old regulars | v: universalism, tradition | lever: voice | pushes: place | sphere: comm.RW | chance: 52
+- W | insist that the bakery serve your grandparent for cash, as the market's rules say | v: conformity, benevolence | sphere: comm.W | foot: lesson the rules are on your side | chance: 78
+- U | learn the new way to pay properly, and teach it to your grandparent | v: self-direction, benevolence | tech: phone | sphere: comm.U | foot: mark learned a skill | chance: 83
+- B | set your own stall up to take phone payments before the others do | v: achievement | tech: phone | sphere: comm.B | foot: means money+.04 | chance: 65
+- R | pay for everything by phone, and leave the purse at home | v: hedonism, stimulation | tech: phone | sphere: comm.R | foot: lesson new ways can be easy | chance: 89
+- G | go to the market with your grandparent, and pay for them in cash | v: benevolence, tradition | sphere: comm.G | foot: means time-.04 | chance: 65
+- BG | keep a jar of change for the old regulars, and take phones from everyone else | v: security, benevolence | sphere: comm.BG | foot: person regular | chance: 78
+- UG | set up a phone account for your grandparent, and check it with them each week | v: benevolence, security | tech: phone | sphere: comm.GU | foot: mark helped someone in need | chance: 64
+- UR | make a simple card that lets the old regulars pay without a phone | v: self-direction, universalism | lever: found | sphere: comm.UR | foot: place comm.credit | chance: 42
+- WB | lend the old stallholder next door the money for a payment reader | v: benevolence, power | lever: fund | sphere: comm.WB | foot: door helped someone in need | chance: 64
+- WR | start a petition to keep cash at the market, and gather names among the old regulars | v: universalism, tradition | lever: voice | pushes: place | sphere: comm.RW | foot: place rule.voice | chance: 52
 works: The market keeps a place for cash and phone alike, and {grandparent} buys the bread again.
 works: {N} learns the new way and helps the old one survive beside it.
 fails: The last stalls stop taking cash, and {grandparent} stops going to market.
@@ -834,16 +834,16 @@ scene U: {N} has the figures: rents up, wages flat, and the landlord's own costs
 scene B: Every landlord in town is doing the same. {N} wonders who is buying up the street, and what they want.
 scene R: {N} is half tempted to pack up and go somewhere new altogether. Why stay and pay more?
 scene G: {Ns} parents live two streets away, and all of {child}'s friends are on this street.
-- W | pay the new rent, and cut the household budget to match it | v: conformity, security | sphere: comm.W | chance: 81
-- U | show the landlord what similar flats rent for, and offer a smaller rise | v: security, self-direction | sphere: comm.U | chance: 65
-- B | find a flat in a cheaper street with a longer lease, before the rise begins | v: security, achievement | lever: exit | sphere: comm.B | chance: 65
+- W | pay the new rent, and cut the household budget to match it | v: conformity, security | sphere: comm.W | foot: means money-.06 | chance: 81
+- U | show the landlord what similar flats rent for, and offer a smaller rise | v: security, self-direction | sphere: comm.U | foot: lesson a fair figure opens talks | chance: 65
+- B | find a flat in a cheaper street with a longer lease, before the rise begins | v: security, achievement | lever: exit | sphere: comm.B | foot: means money+.04 | chance: 65
 - R | give notice and move to a different town altogether | v: self-direction, stimulation | mark: moved away | lever: exit | sphere: comm.R | chance: 59
-- G | move in with your parents for a year to save | v: tradition, security | sphere: comm.G | chance: 73
-- BR | take a lodger in the spare room to cover the rise | v: achievement, security | sphere: comm.BR | chance: 72
-- UG | share a bigger house with your brother or sister's family, and split the rent | v: tradition, security | sphere: comm.GU | chance: 60
-- UR | rent a cheaper flat far out and work from home three days a week | v: self-direction | tech: remote work | sphere: comm.UR | chance: 56
-- WB | lead the street's tenants in bargaining with the landlord together | v: power, universalism | lever: lead | pushes: place | sphere: comm.WB | chance: 44
-- WG | join the tenants who refuse the rise, and stand with the neighbours | v: benevolence, universalism | lever: voice | pushes: place | sphere: comm.GW | chance: 40
+- G | move in with your parents for a year to save | v: tradition, security | sphere: comm.G | foot: mark came home | chance: 73
+- BR | take a lodger in the spare room to cover the rise | v: achievement, security | sphere: comm.BR | foot: means money+.05 | chance: 72
+- UG | share a bigger house with your brother or sister's family, and split the rent | v: tradition, security | sphere: comm.GU | foot: means ties+.05 | chance: 60
+- UR | rent a cheaper flat far out and work from home three days a week | v: self-direction | tech: remote work | sphere: comm.UR | foot: means freedom+.04 | chance: 56
+- WB | lead the street's tenants in bargaining with the landlord together | v: power, universalism | lever: lead | pushes: place | sphere: comm.WB | foot: place rule.voice | chance: 44
+- WG | join the tenants who refuse the rise, and stand with the neighbours | v: benevolence, universalism | lever: voice | pushes: place | sphere: comm.GW | foot: person neighbour | chance: 40
 works not B R G UR: The tenants hold together, and the rise is halved.
 works: {N} finds a home the household can afford, and the move is easier than feared.
 fails: The family moves an hour out, and {child} misses the old friends for a long time.
@@ -876,16 +876,16 @@ scene U: {N} wants the post that fits what they can do, not the first one going.
 scene B: {N} means to name their own rate. A good worker should not take the first price offered.
 scene R: {N} will take the first shift going and see where it leads. There is always another job.
 scene G: Work found through family has always lasted in {Ns} family. The cousin only has to say a word.
-- W | take a numbered place in the queue and apply for the posts in order | v: conformity | sphere: comm.W | chance: 67
+- W | take a numbered place in the queue and apply for the posts in order | v: conformity | sphere: comm.W | foot: lesson your turn does come | chance: 67
 - U | sign up for the forklift course before taking any post | v: achievement, self-direction | mark: learned a skill | sphere: comm.U | chance: 69
-- B | hold out for the post that pays what you are worth | v: power, achievement | sphere: comm.B | chance: 71
-- R | take the first day's shift going, and see where it leads | v: stimulation | sphere: comm.R | chance: 75
-- G | let your cousin vouch for you at his firm | act: let their cousin vouch for them at his firm | v: tradition, security | sphere: comm.G | chance: 66
-- BR | sign with the agency that places whole crews, at a rate you name | v: achievement, stimulation | sphere: comm.BR | chance: 58
-- RG | take a job on the same crew as your friends, wherever it is | v: hedonism, benevolence | sphere: comm.RG | chance: 64
-- UB | ask the adviser which firms are short of hands, and apply there first | v: achievement, power | sphere: comm.UB | chance: 72
+- B | hold out for the post that pays what you are worth | v: power, achievement | sphere: comm.B | foot: means money-.04 | chance: 71
+- R | take the first day's shift going, and see where it leads | v: stimulation | sphere: comm.R | foot: means money+.03 | chance: 75
+- G | let your cousin vouch for you at his firm | act: let their cousin vouch for them at his firm | v: tradition, security | sphere: comm.G | foot: person boss | chance: 66
+- BR | sign with the agency that places whole crews, at a rate you name | v: achievement, stimulation | sphere: comm.BR | foot: means money+.05 | chance: 58
+- RG | take a job on the same crew as your friends, wherever it is | v: hedonism, benevolence | sphere: comm.RG | foot: means ties+.04 | chance: 64
+- UB | ask the adviser which firms are short of hands, and apply there first | v: achievement, power | sphere: comm.UB | foot: person go-between | chance: 72
 - WG | help a neighbour who reads poorly fill in the forms | v: benevolence | mark: helped someone in need | sphere: comm.GW | chance: 76
-- WU | volunteer on Saturdays to help the adviser match people to posts | v: universalism, benevolence | sphere: comm.WU | chance: 62
+- WU | volunteer on Saturdays to help the adviser match people to posts | v: universalism, benevolence | sphere: comm.WU | foot: means time-.04 | chance: 62
 works: {N} leaves with two interviews and a place on a course, and the first job comes within the month.
 works: The post {N} chose turns out to suit them, and lasts longer than anyone expected.
 fails: The queue is long, the posts are few, and {N} goes home with nothing three weeks running.

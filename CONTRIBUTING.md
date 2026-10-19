@@ -57,10 +57,26 @@ fewer of them also means less test time.
    the change needs runs once, on the whole branch, when every part is in.
 7. Push the branch and open the pull request into `main` (or mark the draft ready). Its title says what changes in
    plain words. Its body says why, who decided it (Emren's words and time where there are any), each owner's part, and
-   which checks passed, with their output lines. Each owner posts its own check on the pull request.
+   which checks passed, with their output lines. For a new mechanic it also gives the design note's magic-realm
+   paragraph (see "New mechanics are realm-ready"). Each owner posts its own check on the pull request.
 8. Merge it once the checks pass and every owner whose folder it touches has posted its check; the thread leading a
    `feature/` branch merges it. Use a merge commit, never a force-push. If `main` moved since you branched, merge
    `origin/main` into your branch, rerun the checks it affects, then merge.
+
+## New mechanics are realm-ready
+
+A standing rule (Emren, 2026-10-19 11:38 UTC: "I like this realm-ready standing rules idea"; `chroma-env/DECISIONS.md`,
+"The next stage (six points, Oct 19)"). Chroma plays on Earth today, but its core is meant to carry other realms too, a
+magic one first. So every new mechanic:
+
+- is defined on the core, the things every realm has: colours, needs, means, people, places and powers;
+- keeps what is Earth's about it (names, numbers, laws, technology, the kinds of setback, life tables) as data in
+  Earth's files, not written into the mechanic's code, so another realm can give the same mechanic another face;
+- has a design note (in the owner's `notes/`) with one paragraph that answers "how does this read in a magic realm?".
+  The pull request gives that paragraph, and Release asks for it before the merge.
+
+A fix, a refit, a new check or a change of words is not a new mechanic. Existing Earth constants move into an Earth
+realm file in the Engine's own steps; until they do, a new mechanic may read them where they are.
 
 ## Changing a live part (engine, game, Library, packs, pictures)
 

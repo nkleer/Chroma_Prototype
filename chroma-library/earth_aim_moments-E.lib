@@ -1,0 +1,458 @@
+# Chroma library, modern Earth: aims v1, group E's spark moments (earth_aims.py). Syntax: header of build.py.
+# Build: python3 build.py earth_aim_moments. Nothing reads these until the Engine's aims switch is on.
+
+# ---------------------------------------------------------------- spark: to work the land (G; cycle s1)
+
+== a first crop from a borrowed field
+tier: life event
+aim: to work the land
+aim_role: spark
+stages: juvenile young_adult adult mature
+age: 12-70
+per_year: 0 .3 .5 .4 .3 0
+times: while the aim is set, a first season on a patch of borrowed ground comes once or twice (estimate)
+tone: mixed
+life: work, nature
+horizon: months
+roles: elder, neighbour, friend
+earth: a farmer down the lane lets you have the bottom corner of a field for one season
+tribal: an elder gives you a strip of the clan's ground to sow and keep through one season
+magic: the tower's gardener gives you one bed of the kitchen garden to keep through the summer
+scene: {elder} from down the lane has let {N} have the bottom corner of a field for the season. The potatoes are in, the weeds are coming, and the rain has not.
+scene W: {N} said the corner would be kept properly, and means it, every row of it.
+scene U: {N} has a notebook already: the dates of planting, the last frost, a sketch of the rows.
+scene B: {N} has worked out what a good crop would fetch at the farm shop, and wants it.
+scene R: {N} cannot sit through a school or work day without thinking about the field.
+scene G: {N} kneels at the edge of the rows at dawn, just to see what came up in the night.
+- W | weed the rows every evening at the same hour, whatever the weather | v: conformity, security | foot: means time-.06 | chance: 72
+- U | test the soil and log every planting and every frost | v: self-direction, achievement | foot: mark learned a skill | chance: 70
+- B | promise the whole crop to the farm shop before a single potato is up | v: achievement, power | foot: door kept your word | chance: 55
+- R | dig the whole corner in one wild weekend and plant everything at once | v: stimulation | foot: mark took a wild risk | chance: 50
+- G | learn the field by hand at dawn, one plant at a time | v: tradition, universalism | dream: test | foot: place prod.land | chance: 68
+- W>U | ask the old farmer how this ground has always been worked, and copy it exactly | v: tradition, self-direction | foot: person mentor | chance: 75
+- U>B | work out which crop would fetch the best price and grow only that | v: achievement | foot: means money+.03 | chance: 62
+- B>R | trade a share of the harvest for help, and make a party of the digging | v: hedonism, power | foot: person friend | chance: 70
+- R>G | sleep out by the rows the night a frost is forecast, with a fire going | v: stimulation, benevolence | foot: lesson frost waits for nobody | chance: 58
+- G>W | carry the first basket to every house down the lane | v: benevolence, tradition | dream: test | foot: person neighbour | chance: 74
+works: The first basket comes up out of the ground heavy and clean, and {N} holds it a long moment.
+works: {elder} walks the rows at the end of the season and says the corner has never looked better.
+fails: A late frost takes half the rows in one night, and the rest come up small.
+fails: The weeds win by late summer, and {N} digs up a crop hardly worth the carrying.
+
+# ---------------------------------------------------------------- spark: to keep the family's ways (G; cycle s1)
+
+== the old dish made with nobody watching
+tier: life event
+aim: to keep the family's ways
+aim_role: spark
+stages: juvenile young_adult adult mature elder
+age: 13-90
+per_year: 0 .3 .4 .4 .4 .3
+times: while the aim is set, a family gathering where the old dish falls to the character comes once or twice (estimate)
+tone: mixed
+life: family, home
+horizon: week
+roles: grandparent, parent, sibling, cousins
+earth: your grandparent is too frail this year to make the dish the family has at every gathering, and the kitchen is yours
+tribal: the old woman who always cooks the feast-day roots is too weak this season, and the fire is yours
+magic: the old aunt who brews the house's festival cordial is abed, and her copper and her spoon are yours
+scene: {grandparent} is too frail this year to make the dish the family has at every gathering. The old pan is on the stove, the card in the drawer is half worn away, and the cousins arrive at six.
+scene W: {N} wants it made exactly as it has always been made, because that is the point of it.
+scene U: {N} has eaten it a hundred times and still cannot say what goes in it, and that bothers {N}.
+scene B: The whole family will taste it and judge it, and {N} would like them impressed.
+scene R: {N} has always thought the dish could be better, and nobody is here to stop the experiment.
+scene G: The kitchen smells of {Ns} childhood before anything is even in the pan.
+- W | follow the worn card exactly, down to the last pinch of salt | v: tradition, conformity | foot: lesson the old card knows best | chance: 70
+- U | ring round the aunts and piece together how it was really made | v: self-direction, tradition | foot: person elder | chance: 72
+- B | make it bigger and richer than it has ever been, to be talked about | v: achievement | foot: means money-.03 | chance: 60
+- R | throw out the card and cook it the way it tastes in memory | v: stimulation, self-direction | foot: mark took a wild risk | chance: 50
+- G | cook it in the old pan the way the hands remember from childhood | v: tradition | dream: test | foot: place gather.house | chance: 66
+- W>U | write the whole method down at last, so nobody has to guess again | v: tradition, universalism | foot: mark learned a skill | chance: 78
+- U>B | sell jars of it at the market under the family name | v: achievement, tradition | foot: place comm.market | chance: 55
+- B>R | turn the gathering into a party and invite half the street | v: hedonism, power | foot: person neighbour | chance: 68
+- R>G | run a plate up to the old cook's bed while it is still hot | v: benevolence, hedonism | foot: lesson a hot plate says enough | chance: 85
+- G>W | sit the youngest cousins at the stove and teach them the family's way of it | v: tradition, benevolence | dream: seal | foot: means ties+.05 | chance: 64
+works: The first spoonful goes round the table, and the room goes quiet, the good kind of quiet.
+works: {grandparent} tastes it from the bed and nods once, and that is enough.
+fails: It comes out wrong, and everyone is kind about it, which is worse.
+fails: The pan catches, the kitchen fills with smoke, and supper is bought from the shop on the corner.
+
+# ---------------------------------------------------------------- spark: to grow old among many grandchildren (G; cycle s4)
+
+== the cousins all under one roof
+tier: life event
+aim: to grow old among many grandchildren
+aim_role: spark
+stages: young_adult adult mature elder
+age: 22-90
+per_year: 0 0 .3 .4 .5 .5
+times: while the aim is set, a weekend minding the whole family's children comes now and then (estimate)
+tone: joy
+life: family, home
+horizon: week
+roles: sibling, child, parent, the cousins' children
+earth: the family leaves all its children with you for a long weekend
+tribal: the clan's mothers and fathers go to the far meeting and leave every child at your fire
+magic: the house's grown children ride to the city for the fair and leave the little ones in your wing
+scene: {sibling} and the cousins have left all the children at {Ns} for the long weekend: seven of them, two dogs, one bathroom, and rain forecast for both days.
+scene W: {N} wants every child fed, washed and in bed on time, all seven, every night.
+scene U: {N} watches the seven of them sort themselves out, and starts to see who leads and who follows.
+scene B: {N} means to show the whole family that seven children are nothing to {N}.
+scene R: {N} has not had this much noise in the house in years and is enjoying every minute.
+scene G: The house fills up the way it used to, coats on every hook and shoes on every stair.
+- W | pin a rota of baths, jobs and bedtimes on the kitchen door | v: conformity, security | foot: lesson rotas save weekends | chance: 70
+- U | find out what each child loves best and give each one a day of it | v: benevolence, self-direction | foot: means time-.05 | chance: 64
+- B | put the eldest in charge, with a reward promised for keeping order | v: power, achievement | foot: door kept your word | chance: 66
+- R | turn the front room into a fort of sheets and cushions | v: hedonism, stimulation | foot: means health-.03 | chance: 85
+- G | cook one huge pot, sit them all at one table and let the noise come | v: tradition, benevolence | dream: test | foot: place gather.house | chance: 72
+- W>G | keep the family's old bedtime story and song going for all seven | v: tradition, conformity | foot: means ties+.04 | chance: 74
+- U>W | work out a fair turn for the one bathroom and hold everyone to it | v: universalism, conformity | foot: lesson fair turns end the shouting | chance: 62
+- B>U | strike a deal with the family next door to share the children between two houses | v: security, power | foot: person neighbour | chance: 60
+- R>B | take all seven to the fair and win a prize for every one | v: stimulation, achievement | foot: means money-.05 | chance: 45
+- G>R | take them all to the woods in the rain and let them run till dark | v: stimulation, universalism | dream: test | foot: place prod.wild | chance: 68
+works: On the last night all seven fall asleep in a heap in the front room, and {N} sits up watching them.
+works: When the parents come back, the children beg to stay another night.
+fails: By the second day two of them are crying, one is sick, and {N} is counting the hours.
+fails: A row between the two eldest spoils the weekend, and {sibling} hears about it from both.
+
+# ---------------------------------------------------------------- spark: to stay strong and well for life (G; cycle s2)
+
+== the hill that wins every morning
+tier: life event
+aim: to stay strong and well for life
+aim_role: spark
+stages: juvenile young_adult adult mature elder
+age: 14-88
+per_year: 0 .3 .4 .4 .4 .3
+times: while the aim is set, a month of trying to beat one steep climb comes once or twice (estimate)
+tone: mixed
+life: health, nature
+horizon: months
+roles: friend, neighbour
+earth: you have walked the steep hill behind the houses every morning for a month, and it still beats you
+tribal: every dawn you climb the ridge above the camp with the water skins, and every dawn it still beats you
+magic: every morning you climb the long stair of the old watchtower, and every morning it still beats you
+scene: For a month {N} has walked up the hill behind the houses before the day begins, and every morning the hill wins: the last stretch, the pounding heart, the bench halfway that {N} swore never to sit on.
+scene W: {N} has not missed a single morning yet, and is not going to start.
+scene U: {N} has started to wonder what the body is actually doing on the climb, and why.
+scene B: {N} has the time for every climb written down, and the times are not getting better fast enough.
+scene R: {N} wants to tear up the hill just once, flat out, and see what happens.
+scene G: At the top there is a view of the whole valley in the morning light, when {N} gets there.
+- W | climb at the same hour every single morning, rain or shine | v: conformity, security | foot: means time-.04 | chance: 80
+- U | read up on how bodies build strength, and make a plan of it | v: self-direction | foot: mark learned a skill | chance: 74
+- B | time every climb and beat the last one, every single day | v: achievement | foot: lesson numbers keep the climb honest | chance: 50
+- R | run the whole hill flat out one morning, just to see | v: stimulation | body: light | foot: lesson rushing costs more than it gives | chance: 45
+- G | walk slower, breathe with the steps and listen to the birds | v: universalism, security | dream: test | foot: means health+.05 | chance: 76
+- W>B | join the early walking group and keep up with the fastest | v: achievement, conformity | foot: place gather.circle | chance: 58
+- U>R | try a different sport each week until one sticks | v: stimulation, self-direction | foot: place gather.games | chance: 62
+- B>G | talk a friend into coming, so neither of them can skip a day | v: benevolence, achievement | foot: person friend | chance: 70
+- R>W | dare the neighbour with the dog to a daily race to the top | v: stimulation, benevolence | foot: person neighbour | chance: 66
+- G>U | carry the walk on into the woods beyond and learn each tree on the way | v: universalism, self-direction | dream: test | foot: place prod.wild | chance: 72
+works: One grey morning {N} reaches the top without stopping, and stands there laughing at nothing.
+works: By the end of the season the bench halfway is just a bench, and {N} walks past it.
+fails: A knee gives out on the steep part, and the doctor says to rest it for six weeks.
+fails: The mornings get darker and colder, and one by one the climbs stop.
+
+# ---------------------------------------------------------------- spark: to care for those who cannot manage alone (G W; cycle s4)
+
+== a week of looking in on someone
+tier: life event
+aim: to care for those who cannot manage alone
+aim_role: spark
+stages: juvenile young_adult adult mature elder
+age: 14-85
+per_year: 0 .3 .4 .4 .4 .3
+times: while the aim is set, a week of caring for a frail neighbour or relative comes once or twice (estimate)
+tone: mixed
+life: health, neighbours
+horizon: week
+roles: elder, a frail neighbour's family, a district nurse
+earth: the old person two doors down can no longer manage alone, the family is far away, and you said you would look in
+tribal: the old hunter by the far fire can no longer fetch his own water, and you said you would see to him
+magic: the old scribe in the next room can no longer manage the stair, and you said you would bring what she needs
+scene: {elder} from two doors down can no longer manage the stairs or the tablets, and the family is three hours away. For one week, {N} has said yes to looking in morning and night.
+scene W: {N} promised the family on the phone, and a promise like that is kept.
+scene U: {N} has no idea what the tablets are for, and that has to change by tonight.
+scene B: {N} can see the family has no plan at all, and someone has to make one.
+scene R: {N} finds {elder} sitting in the dark with the radio off, and cannot bear it.
+scene G: {N} knows this street, and on this street nobody is left on their own.
+- W | make a chart of the tablets and the meals, and tick off every visit | v: conformity, benevolence | foot: means time-.06 | chance: 78
+- U | ask the district nurse what to watch for, and write it all down | v: self-direction, benevolence | foot: mark learned a skill | chance: 74
+- B | ring the family and settle a fair price for the week's work | v: power, security | foot: means money+.04 | chance: 66
+- R | bring the radio back on and dance a slow turn round the kitchen together | v: hedonism, benevolence | foot: person friend | chance: 80
+- G | sit with them each evening, hold the cup, and let the hour be slow | v: benevolence | dream: test | foot: mark helped someone in need | chance: 76
+- W>G | promise the family to keep coming after the week is out | v: benevolence, conformity | dream: test | foot: door kept your word | chance: 70
+- U>W | find out what help the council owes, and fill in the forms for them | v: universalism | foot: lesson help is there if asked | chance: 55
+- B>U | get the agency to send a proper carer, and learn how it is done | v: security, achievement | foot: place care.houses | chance: 58
+- R>B | ring the family and tell them straight that one week is not enough | v: benevolence, power | foot: lesson saying it plainly moves people | chance: 60
+- G>R | wheel them out to the park they have not seen in years | v: benevolence, stimulation | foot: means ties+.04 | chance: 64
+works: By the end of the week {elder} is eating again, and asks if {N} will come on Sunday too.
+works: The family rings to thank {N}, and the district nurse says {N} has a gift for this.
+fails: {elder} has a fall on the fourth night while {N} is asleep at home, and it is a long week after that.
+fails: {N} does what can be done, but it is too much for one pair of hands, and both of them know it.
+
+# ---------------------------------------------------------------- spark: to feed the street from my garden (G W; cycle s1)
+
+== more beans than one house can eat
+tier: life event
+aim: to feed the street from my garden
+aim_role: spark
+stages: young_adult adult mature elder
+age: 18-90
+per_year: 0 0 .4 .5 .4 .3
+times: while the aim is set, a glut from the garden comes most summers (estimate)
+tone: joy
+life: home, neighbours, nature
+horizon: week
+roles: neighbour, friend, the café on the corner
+earth: the beans and the marrows have all come at once, far more than one house can eat
+tribal: the patch by the camp has given more roots and berries than one family can carry
+magic: the walled bed has given three times what the kitchen can use, and it will not keep
+scene: The beans and the marrows have come all at once, far more than one house could eat. The kitchen table is covered, the windowsill is covered, and there is more out there ripening by the hour.
+scene W: {N} hates waste, and hates even more that the family on the corner is going short.
+scene U: {N} wants to know why it all came at once, and how to spread next year's crop out.
+scene B: {N} can see good money going soft on the windowsill.
+scene R: {N} wants a feast, tonight, with everyone.
+scene G: This is what a garden is for, {N} thinks: more than enough, to give away.
+- W | set a box at the gate with a sign saying to take what is needed | v: universalism, benevolence | foot: lesson people take only what they need | chance: 82
+- U | weigh the glut and plan next year's beds so nothing goes to waste | v: self-direction, security | foot: mark learned a skill | chance: 70
+- B | sell the surplus from a table at the Saturday market | v: achievement | foot: place comm.market | chance: 64
+- R | throw a supper out on the pavement with everything that is ripe | v: hedonism, benevolence | foot: means ties+.06 | chance: 66
+- G | go door to door with a basket and leave something at every house | v: benevolence, tradition | dream: test | foot: person neighbour | chance: 78
+- W>U | start a sign-up sheet so the street can share the work and the crop | v: universalism | foot: place gather.circle | chance: 56
+- U>B | swap the surplus with the baker for bread right through the winter | v: security, achievement | foot: person keeper | chance: 60
+- B>R | take a stall at the summer fair and make a show of the biggest marrow | v: hedonism, achievement | foot: place gather.great | chance: 58
+- R>G | dig up the grass verge outside and plant it for anyone to pick | v: stimulation, universalism | foot: mark defied an authority | chance: 50
+- G>W | carry the best of it to the soup kitchen at the hall | v: benevolence | dream: test | foot: place gather.hall | chance: 76
+works: By the weekend there is nothing left on the table, and three neighbours have asked for seeds.
+works: The family on the corner sends back a jar of something wonderful made from the marrows.
+fails: Half of it goes soft before anyone takes it, and {N} carries it to the compost heap.
+fails: Someone complains about the mess at the gate, and the box has to come in.
+
+# ---------------------------------------------------------------- spark: to belong to a congregation for life (G W; cycle s4)
+
+== missed at worship for the first time
+tier: life event
+aim: to belong to a congregation for life
+aim_role: spark
+stages: juvenile young_adult adult mature elder
+age: 12-95
+per_year: 0 .3 .4 .4 .5 .5
+times: while the aim is set, a first sign of being one of the congregation comes once (estimate)
+tone: joy
+life: faith, friends
+horizon: week
+roles: elder, friend, the members at the door
+earth: after two weeks away ill, people at the house of worship come over to ask where you have been
+tribal: after a moon away from the circle, the old ones at the fire ask where you have been
+magic: after two weeks away from the shrine, the fellowship at the gate asks where you have been
+scene: {N} has been going to the same services for a season, sitting near the back. This week, after a fortnight away with a heavy cold, three people come over at the door to ask where {N} has been, and {elder} has kept {Ns} usual seat.
+scene W: {N} feels the pull of the rota board by the door, the readings and the flowers and the soup.
+scene U: {N} has been wondering for weeks what the oldest words of the service really mean.
+scene B: {N} notices who runs things here, and how a newcomer might get a say.
+scene R: {N} has been singing louder each week, and someone has noticed.
+scene G: For the first time, the place feels like somewhere {N} belongs, not somewhere {N} visits.
+- W | sign up for the rota of readings and flowers | v: conformity, tradition | foot: place faith.congregation | chance: 80
+- U | ask the oldest members how the place began and what it has come through | v: self-direction, tradition | foot: person elder | chance: 76
+- B | offer the treasurer a hand with the accounts, and a seat on the committee with it | v: power, achievement | foot: means time-.05 | chance: 58
+- R | sing out loud in the back row, whatever anyone thinks | v: hedonism, self-direction | foot: place arts.song | chance: 84
+- G | stay for the tea after the service and learn everyone's name | v: tradition, benevolence | dream: test | foot: person friend | chance: 78
+- W>G | promise to take soup to the ones on the sick list every week | v: benevolence, conformity | dream: test | foot: door kept your word | chance: 72
+- U>W | read up on the old words of the services until they make sense | v: tradition, self-direction | foot: lesson the old words have reasons | chance: 66
+- B>U | slip away before the greetings and keep a polite distance | v: security | dream: drop | foot: means ties-.03 | chance: 85
+- R>B | stand up at the members' meeting and push for a night for the young | v: stimulation, power | foot: person rival | chance: 52
+- G>R | bring the whole family next week, children and all | v: tradition, stimulation | foot: means ties+.04 | chance: 60
+works: By the end of the month {N} is on first-name terms with half the congregation, and has a seat that is {Ns}.
+works: {elder} says, at the door, that the place would not be the same without {N}, and means it.
+fails: The warmth at the door fades by the next week, and {N} goes back to sitting at the back alone.
+fails: An old quarrel between two families flares up over tea, and {N} is caught in the middle of it.
+
+# ---------------------------------------------------------------- spark: to make a home everyone is welcome in (G W; cycle s1)
+
+== dinner for nine and four chairs
+tier: life event
+aim: to make a home everyone is welcome in
+aim_role: spark
+stages: young_adult adult mature elder
+age: 18-90
+per_year: 0 0 .4 .4 .4 .3
+times: while the aim is set, an open supper that grows beyond the table comes now and then (estimate)
+tone: joy
+life: home, friends
+horizon: moment
+roles: friend, partner, neighbour, a stranger from the stairs
+earth: you told everyone they were welcome for dinner, and now nine people are coming to a flat with four chairs
+tribal: you told the families from the far camp to come to your fire, and now there are nine of them and one pot
+magic: you told the new apprentices your door was open, and now nine are on the stair and there is one small table
+scene: {N} said anyone was welcome for dinner on Friday, and now nine people are coming to a flat with four chairs, among them {Ns} friend's new partner, whom nobody has met.
+scene W: {N} wants every guest to feel looked after from the moment the door opens.
+scene U: {N} has a list of who eats what, and the list is getting long.
+scene B: {N} would like this to be the dinner everyone talks about.
+scene R: {N} does not care about chairs; {N} cares about the noise and the laughing.
+scene G: {N} has made the big pot, the one from home, and there is always more in it than it looks.
+- W | set the table properly and seat the guests so that strangers mix | v: conformity, benevolence | foot: means time-.04 | chance: 72
+- U | plan a meal that suits every diet in the room | v: benevolence, self-direction | foot: mark learned a skill | chance: 66
+- B | make an occasion of it with hired chairs and a good bottle | v: achievement, hedonism | foot: means money-.04 | chance: 70
+- R | push the furniture back and eat on cushions on the floor | v: hedonism, stimulation | foot: lesson a floor makes a fine table | chance: 86
+- G | cook the big pot from home and leave the door open till late | v: benevolence, tradition | dream: test | foot: place gather.house | chance: 74
+- W>U | ask each guest to bring one dish from their own family's table | v: universalism, tradition | foot: means ties+.05 | chance: 70
+- U>B | keep a list of who came, and who to ask next time | v: achievement | foot: lesson a list keeps a circle | chance: 80
+- B>R | invite someone who matters, and make the evening a show for them | v: power, hedonism | foot: person patron | chance: 48
+- R>G | ask the stranger from the stairwell up, on the spur of the moment | v: stimulation, benevolence | foot: person neighbour | chance: 62
+- G>W | sit the newcomer by the stove and treat them like one of the family | v: benevolence | dream: test | foot: person friend | chance: 72
+works: It is gone midnight when the last guests leave, and two of them ask when the next one is.
+works: The friend's new partner, quiet at first, ends up washing the dishes with {N} and laughing.
+fails: The food runs out by nine, and the evening thins out awkwardly after it.
+fails: Two of the guests take against each other, and the room never quite warms up again.
+
+# ---------------------------------------------------------------- spark: to grow the perfect garden (G U; cycle s3)
+
+== the bed that will not take
+tier: life event
+aim: to grow the perfect garden
+aim_role: spark
+stages: juvenile young_adult adult mature elder
+age: 12-92
+per_year: 0 .3 .4 .4 .5 .4
+times: while the aim is set, a stubborn bed that defeats every planting comes once or twice (estimate)
+tone: mixed
+life: home, nature
+horizon: months
+roles: neighbour, a head gardener, the allotment society
+earth: one bed in your garden refuses everything you plant, while the neighbour's is in full flower
+tribal: one patch by your shelter refuses every root you set, while the next family's patch thrives
+magic: one bed in your plot of the tower garden kills every cutting, while the bed beside it blooms
+scene: One bed in the garden refuses everything: the roses sulk, the seedlings rot, and over the fence the neighbour's bed, the same size and the same aspect, is in full flower.
+scene W: {N} has done everything the garden book says, in the right order, and it still fails.
+scene U: {N} is sure there is a reason, buried somewhere in that soil, and wants to find it.
+scene B: {N} is not going to be beaten by a flower bed, least of all in front of the neighbours.
+scene R: {N} is half tempted to rip the whole thing out and start again with something mad.
+scene G: {N} stands by the bed in the evening light and tries to feel what it lacks.
+- W | follow the garden book's method to the letter for a whole season | v: conformity | foot: lesson the book is only a start | chance: 55
+- U | keep a diary of light, water and frost on that bed, week by week | v: self-direction | foot: means time-.05 | chance: 72
+- B | pay for a load of the richest compost money can buy | v: achievement | foot: means money-.04 | chance: 60
+- R | rip everything out and plant what nobody would put there | v: stimulation | foot: mark took a wild risk | chance: 48
+- G | sit by the bed at different hours and watch what it wants | v: universalism, tradition | dream: test | foot: place prod.land | chance: 64
+- W>R | enter whatever comes up in the allotment society's show anyway | v: achievement, stimulation | foot: place gather.hall | chance: 58
+- U>G | have the soil tested and rebuild the bed on what the test says | v: self-direction, universalism | dream: test | foot: mark learned a skill | chance: 70
+- B>W | ask the head gardener at the big house for cuttings, in return for a favour | v: security, power | foot: person mentor | chance: 56
+- R>U | sow a dozen odd seeds side by side and see which ones win | v: stimulation, self-direction | foot: lesson trying beats guessing | chance: 66
+- G>B | swap plants with the neighbour whose bed is flowering | v: benevolence, security | foot: person neighbour | chance: 74
+works: In the second spring the bed comes up thick and bright, and {N} stands at the window looking at it.
+works: The neighbour leans over the fence and asks, a little put out, what {N} did to it.
+fails: Whatever {N} tries, the bed stays bare, and by autumn it is put down to gravel.
+fails: The new plants take for a month and then die back, all at once, in a hot week.
+
+# ---------------------------------------------------------------- spark: to work with animals (G U; cycle s2)
+
+== the dog nobody can handle
+tier: life event
+aim: to work with animals
+aim_role: spark
+stages: juvenile young_adult adult mature
+age: 12-70
+per_year: 0 .4 .4 .3 .3 0
+times: while the aim is set, a frightened animal that nobody else can reach comes once or twice (estimate)
+tone: mixed
+life: work, animals
+horizon: months
+roles: boss, colleague, mentor, the shelter staff
+earth: at the animal shelter where you help on Saturdays, a big frightened dog snaps at everyone who comes near
+tribal: a wild-caught dog tied by the camp snaps at every hand, and the hunters say to let it go
+magic: a beast brought to the guild's yard bites every keeper, and the masters say to send it back
+scene: At the shelter where {N} helps on Saturdays there is a big frightened dog that snaps at everyone who comes near the pen. The staff have started talking about giving up on it.
+scene W: The shelter has rules for dogs like this, and {N} has been told them twice.
+scene U: {N} has noticed that the dog only snaps from one side, and wonders why.
+scene B: {N} would like to be the one who turns this dog round, and to be seen doing it.
+scene R: {N} thinks the dog just needs to run, hard and far, away from the pens.
+scene G: {N} sits by the wire with a hand flat on the floor, and the dog watches.
+- W | keep to the shelter's rules and keep a safe distance from the pen | v: conformity, security | foot: lesson rules keep both sides safe | chance: 82
+- U | read everything on frightened dogs and try one method patiently | v: self-direction | foot: mark learned a skill | chance: 62
+- B | ask the manager for the dog as a project of one's own, and the credit | v: achievement, power | foot: person boss | chance: 55
+- R | take the dog for a long run on the beach, off the lead | v: stimulation | foot: mark took a wild risk | chance: 40
+- G | sit quietly in the pen each week until the dog comes over on its own | v: universalism, benevolence | dream: test | foot: means time-.05 | chance: 60
+- W>B | draw up a training plan for the staff and get it signed off | v: conformity, achievement | foot: person colleague | chance: 58
+- U>R | try something new each visit, a toy, a smell, a song, until one works | v: stimulation, self-direction | foot: lesson one small thing changes it | chance: 60
+- B>G | pay for the dog's food out of pocket, so it gets more time | v: benevolence | foot: means money-.03 | chance: 80
+- R>W | argue the manager out of giving up on the dog | v: benevolence | foot: mark defied an authority | chance: 54
+- G>U | learn the dog's moods from the old kennel hand, sign by sign | v: universalism, self-direction | dream: test | foot: person mentor | chance: 66
+works: One Saturday the dog walks across the pen and leans its whole weight against {Ns} legs.
+works: The staff start asking {N} what to do with the difficult ones, and the dog goes to a good home.
+fails: The dog snaps once more, at a child on an open day, and the decision is taken out of everyone's hands.
+fails: Months go by and nothing changes, and {N} starts to dread the Saturday visits.
+
+# ---------------------------------------------------------------- spark: to know where we come from (G U; cycle s3)
+
+== a box of photographs nobody can name
+tier: life event
+aim: to know where we come from
+aim_role: spark
+stages: juvenile young_adult adult mature elder
+age: 14-92
+per_year: 0 .3 .3 .4 .5 .5
+times: while the aim is set, a find from the family's past that nobody can explain comes once or twice (estimate)
+tone: mixed
+life: family, learning
+horizon: months
+roles: grandparent, elder, parent, a record keeper
+earth: after your grandparent's house is cleared you end up with a shoebox of old photographs with no names on the back
+tribal: after the old one's death you are given her bag of carved tokens, each one a person nobody now can name
+magic: after the old steward's death you are given his box of small painted likenesses, none of them named
+scene: After {Ns} grandparent's house is cleared, {N} ends up with a shoebox of old photographs: weddings, a harbour, a child in a hat too big for it, and not one name on the back.
+scene W: {N} wants them sorted, dated and kept properly before anything else is lost.
+scene U: {N} keeps coming back to the harbour, and the name of a boat just readable on its side.
+scene B: {N} suspects there is a story in the box that the family would rather not tell.
+scene R: {N} looks at the faces and feels, oddly, that they are looking back.
+scene G: These are {Ns} own people, and it seems wrong that nobody can say who they were.
+- W | sort them by decade and label every one that can be dated | v: conformity, tradition | foot: means time-.04 | chance: 74
+- U | take them to the town archive and look up the harbour and the dates | v: self-direction | foot: place learn.keeping | chance: 62
+- B | post them online and ask who recognises a face | v: achievement | foot: person go-between | chance: 55
+- R | put the box away; old faces are no business of the living | v: hedonism, self-direction | dream: drop | foot: means ties-.03 | chance: 90
+- G | take them round to the oldest relatives one by one, and listen | v: tradition, benevolence | dream: test | foot: person elder | chance: 70
+- W>R | frame the best ones and hang them in the hall for all to see | v: tradition, stimulation | foot: means money-.03 | chance: 80
+- U>G | piece the faces into a family tree and fill in the gaps | v: universalism, tradition | dream: test | foot: mark learned a skill | chance: 58
+- B>W | write to the harbour town's record office for the old registers | v: security, conformity | foot: person keeper | chance: 60
+- R>U | travel to the harbour in the photograph and stand where it was taken | v: stimulation, self-direction | foot: lesson places outlast the people in them | chance: 64
+- G>B | ask the family to chip in for a proper album, one copy each | v: tradition, security | foot: means ties+.04 | chance: 68
+works: An old cousin names the child in the hat at once, and then talks for two hours about the harbour.
+works: The boat's name turns up in a register, and with it a whole branch of the family nobody knew.
+fails: The oldest relative who might have known has lost the names, and the faces stay faces.
+fails: The trail goes cold at a fire in the records office, years ago, and the box goes back in the cupboard.
+
+# ---------------------------------------------------------------- spark: to live in balance (G U; cycle s2)
+
+== a week with nothing in the diary
+tier: life event
+aim: to live in balance
+aim_role: spark
+stages: young_adult adult mature elder
+age: 16-92
+per_year: 0 0 .3 .4 .4 .4
+times: while the aim is set, a week left empty by chance comes once or twice (estimate)
+tone: mixed
+life: inner, nature
+horizon: week
+roles: friend, partner, boss
+earth: a cancelled trip leaves you a whole week with nothing planned, and the phone keeps buzzing with work
+tribal: the hunt is called off for a moon, and you have days with nothing asked of you
+magic: the masters are away from the tower for a week, and you have days with no task set
+scene: A cancelled trip leaves {N} a whole week with nothing in the diary. The phone keeps buzzing with work, the house is quiet, and the garden is full of birds.
+scene W: {N} feels guilty already, and keeps reaching for the usual list.
+scene U: {N} has a book on stillness that has sat on the shelf, unread, for years.
+scene B: {N} could catch up on everything in a week like this, and get ahead.
+scene R: {N} wants to be somewhere else, anywhere, by tonight.
+scene G: {N} stands at the back door with a cup of tea and does not move for an hour.
+- W | keep to the usual timetable anyway, out of habit | v: conformity, security | foot: lesson habits carry the days | chance: 85
+- U | read the old book on stillness, a chapter a morning | v: self-direction | foot: place faith.seeking | chance: 72
+- B | catch up on every piece of work and get ahead for once | v: achievement | foot: means money+.03 | chance: 80
+- R | pack a bag and go wherever the first train goes | v: stimulation | foot: mark took a wild risk | chance: 70
+- G | turn the phone off and spend the days in the garden and the woods | v: universalism, security | dream: test | foot: place prod.wild | chance: 66
+- W>B | plan a better-balanced year and pin the plan to the wall | v: achievement, conformity | foot: door kept your word | chance: 60
+- U>R | try a new practice each morning: breathing, walking, sitting still | v: stimulation, self-direction | foot: means health+.03 | chance: 68
+- B>G | give the week to an old friend who has had a hard year | v: benevolence | foot: person friend | chance: 74
+- R>W | spend the week helping at the shelter down the road | v: benevolence, stimulation | foot: mark helped someone in need | chance: 72
+- G>U | sit at the same spot each dawn and notice what changes | v: universalism, self-direction | dream: test | foot: lesson small changes show slowly | chance: 62
+works: By the end of the week {N} sleeps through the night for the first time in months, and wakes up slow and glad.
+works: {N} goes back to work on Monday and finds the old rush has lost its grip, at least for now.
+fails: By Wednesday {N} has answered every message and the week has gone the way of every other.
+fails: The quiet is too much; {N} spends the week restless and more tired than before.

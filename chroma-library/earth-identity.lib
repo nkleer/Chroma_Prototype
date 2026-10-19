@@ -288,16 +288,16 @@ scene U: {N} has thought it all through: who to tell first, the questions that w
 scene B: {N} has chosen the moment with care: after the job offer, with a place of {Ns} own lined up. Whatever the family says, nobody can take away the roof.
 scene R: {N} is done with pretending at every birthday and every holiday. It is coming out today, whatever happens, and {Ns} hands are shaking.
 scene G: {N} wants the family to know the whole of {N}, the way they have always known each other's joys and troubles. Belonging to them by halves is no longer enough.
-- W | tell them all together at the family table, calmly and with respect | identity | v: tradition, benevolence | mark: came out | chance: 60
-- U | tell them with answers ready, and meet every question with patience | identity | v: universalism | mark: came out | chance: 64
-- B | wait until you no longer depend on them, then tell them on your own terms | identity | self_control: + | v: self-direction, security | mark: came out | chance: 62
-- R | say it at the big family party, out loud, and let the chips fall | v: stimulation, self-direction | mark: came out | chance: 60
-- G | tell your grandparent first, and let the news travel through the family gently | v: tradition, benevolence | mark: came out | chance: 60
-- BR | tell them, and walk out for good if they will not accept it | v: self-direction | mark: came out | chance: 60
-- RG | cry it out at the kitchen table, and ask for a hug | v: benevolence, security | mark: came out | chance: 75
-- UG | ask a cousin who already knows to sit in when you tell them | v: security, benevolence | mark: came out | chance: 65
-- WB | keep it from them for good, and keep the family as it is | v: security, conformity | mark: kept it hidden | chance: 75
-- WU | write them a long, careful letter, and give them a week to take it in | v: benevolence, self-direction | mark: came out | chance: 65
+- W | tell them all together at the family table, calmly and with respect | identity | v: tradition, benevolence | mark: came out | foot: means ties+.04 | chance: 60
+- U | tell them with answers ready, and meet every question with patience | identity | v: universalism | mark: came out | foot: lesson patience lets them catch up | chance: 64
+- B | wait until you no longer depend on them, then tell them on your own terms | identity | self_control: + | v: self-direction, security | mark: came out | foot: means freedom+.06 | chance: 62
+- R | say it at the big family party, out loud, and let the chips fall | v: stimulation, self-direction | mark: came out | foot: mark took a wild risk | chance: 60
+- G | tell your grandparent first, and let the news travel through the family gently | v: tradition, benevolence | mark: came out | foot: lesson a quiet word goes further | chance: 60
+- BR | tell them, and walk out for good if they will not accept it | v: self-direction | mark: came out | foot: door left home | chance: 60
+- RG | cry it out at the kitchen table, and ask for a hug | v: benevolence, security | mark: came out | foot: means health+.03 | chance: 75
+- UG | ask a cousin who already knows to sit in when you tell them | v: security, benevolence | mark: came out | foot: person go-between | chance: 65
+- WB | keep it from them for good, and keep the family as it is | v: security, conformity | mark: kept it hidden | foot: door kept it hidden | chance: 75
+- WU | write them a long, careful letter, and give them a week to take it in | v: benevolence, self-direction | mark: came out | foot: means freedom+.04 | chance: 65
 works: {parent} is quiet for a long moment, then reaches across the table and takes {Ns} hand.
 works not WB: It is not easy, and the questions go on for months, but the family holds, and {N} is part of it as {N} really is.
 fails not WB: {parent} leaves the room without a word, and the door stays closed for a long time.

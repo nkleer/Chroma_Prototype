@@ -39,16 +39,16 @@ scene U: {N} has a notebook open before the consultant has finished: words to lo
 scene B: {N} sees at once that the best care goes to the families who push for it, and {N} means to push harder than anyone.
 scene R: {N} wants to fight the illness with bare fists. Instead {N} sits on the edge of the hospital bed and holds {child}'s hand, and does not let go.
 scene G: Illness comes to every family in its time, the way storms come to every field. Now it has come to {child}, and {N} means to stand with them through every season of it.
-- W | keep every appointment and every dose, and run the family's week around them | habit | v: benevolence, security | self_control: + | chance: 80
+- W | keep every appointment and every dose, and run the family's week around them | habit | v: benevolence, security | self_control: + | foot: place care.houses | chance: 80
 - U | learn the illness inside out, and question the doctors about every choice | door | v: self-direction, security | mark: learned a skill | chance: 80
-- B | pull every string you have until the best specialist takes them on | v: power, security | chance: 50
-- R | move into the chair beside their bed, and refuse to leave | body: heavy | v: benevolence | chance: 70
-- G | lean on your faith, or long walks outdoors, and take each day as it comes | habit | v: tradition, security | chance: 72
-- RG | take the whole family to the sea between treatments, and live each good day | v: hedonism, benevolence | chance: 68
-- UB | find a trial of a new treatment, and raise the money for their place | binds | v: achievement, security | chance: 35
-- UR | read through the night, then take your questions straight to the ward round | v: self-direction, benevolence | chance: 66
-- WB | keep your job and the money steady, so the care never has to stop | v: security, achievement | self_control: + | chance: 72
-- WG | gather the family, and keep watch at the bedside in turns | v: benevolence, tradition | chance: 80
+- B | pull every string you have until the best specialist takes them on | v: power, security | foot: means ties-.04 | chance: 50
+- R | move into the chair beside their bed, and refuse to leave | body: heavy | v: benevolence | foot: means health-.06 | chance: 70
+- G | lean on your faith, or long walks outdoors, and take each day as it comes | habit | v: tradition, security | foot: means health+.03 | chance: 72
+- RG | take the whole family to the sea between treatments, and live each good day | v: hedonism, benevolence | foot: means money-.05 | chance: 68
+- UB | find a trial of a new treatment, and raise the money for their place | binds | v: achievement, security | foot: door took a wild risk | chance: 35
+- UR | read through the night, then take your questions straight to the ward round | v: self-direction, benevolence | foot: lesson doctors answer when asked | chance: 66
+- WB | keep your job and the money steady, so the care never has to stop | v: security, achievement | self_control: + | foot: means time-.06 | chance: 72
+- WG | gather the family, and keep watch at the bedside in turns | v: benevolence, tradition | foot: means ties+.05 | chance: 80
 works: Months later the treatment has done its work, and {child} is home again, tired and thinner but mending.
 works: The long months bring the family closer, and {child} comes through them with {N} beside them all the way.
 fails: The treatment drags on into a second winter, and {N} is worn to the bone.
@@ -84,15 +84,15 @@ scene U: {N} reads the doctors' report again and again, every line and every hou
 scene B: {N} feels the floor give way, and grips the one thing still in reach: the will to get the family through this.
 scene R: The grief knocks {N} to the floor of {child}'s room, holding a jumper that still smells of them.
 scene G: Children should outlive their parents; that is the order of things. The seasons have turned the wrong way, and {N} must learn to live in them.
-- W | give them the funeral the family has always held, and keep every anniversary | v: tradition, conformity | chance: 82
-- U | read every report, and learn exactly what happened and why | v: self-direction | chance: 72
-- B | go back to work within the week, and let nobody see how deep it goes | v: achievement, security | chance: 55
-- R | let the grief out, loud and raw, wherever and whenever it comes | v: none clear (grief let out) | chance: 72
-- G | plant a tree where they loved to be, and sit by it through the seasons | v: tradition | chance: 78
-- BG | close the door on the world for a while, and keep the family near | v: security, tradition | chance: 62
-- BR | pour the anger into something hard, a marathon or a house to rebuild | door | body: heavy | v: stimulation, achievement | chance: 50
-- UG | ask everyone who knew them for a story, and write each one down | v: tradition, benevolence | chance: 85
-- WR | stand up at the funeral and tell everyone, laughing and crying, who they were | identity | v: benevolence, tradition | chance: 80
+- W | give them the funeral the family has always held, and keep every anniversary | v: tradition, conformity | foot: door kept your word | chance: 82
+- U | read every report, and learn exactly what happened and why | v: self-direction | foot: lesson knowing does not undo it | chance: 72
+- B | go back to work within the week, and let nobody see how deep it goes | v: achievement, security | foot: door kept it hidden | chance: 55
+- R | let the grief out, loud and raw, wherever and whenever it comes | v: none clear (grief let out) | foot: lesson grief comes out its own way | chance: 72
+- G | plant a tree where they loved to be, and sit by it through the seasons | v: tradition | foot: means health+.03 | chance: 78
+- BG | close the door on the world for a while, and keep the family near | v: security, tradition | foot: means ties-.05 | chance: 62
+- BR | pour the anger into something hard, a marathon or a house to rebuild | door | body: heavy | v: stimulation, achievement | foot: means time-.06 | chance: 50
+- UG | ask everyone who knew them for a story, and write each one down | v: tradition, benevolence | foot: means ties+.05 | chance: 85
+- WR | stand up at the funeral and tell everyone, laughing and crying, who they were | identity | v: benevolence, tradition | foot: means ties+.04 | chance: 80
 - WU | set up a fund in their name to help other families through the same | binds | v: universalism, benevolence | mark: helped someone in need | chance: 55
 works: In time {N} can say {child}'s name aloud and smile at a memory.
 works: The family holds together through the first hard year, and nobody is left to grieve alone.

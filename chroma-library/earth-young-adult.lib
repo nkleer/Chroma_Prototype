@@ -730,16 +730,16 @@ scene U: {N} has drawn a floor plan, priced the furniture and worked out what li
 scene B: Two salaries, one rent. {N} sees the sums, and the space, and the bigger flat they can now afford.
 scene R: {N} carries {partner} over the threshold, laughing, and they collapse onto a mattress on the floor.
 scene G: {N} puts {grandparent}'s old plant on the windowsill, and the place starts to feel like a home.
-- W | sit down together and agree house rules, chores and money, in writing | v: conformity, security | chance: 72
-- U | plan the move like a project: lists, budgets and a timetable | v: security, achievement | chance: 70
-- B | keep a separate bank account of your own, just in case | v: security, power | chance: 82
-- R | throw a housewarming party on the first night, among the boxes | v: hedonism | chance: 88
-- G | fill the place with plants and family things until it feels like home | habit | v: security, tradition | chance: 82
-- BG | take a cheap place round the corner from your family, with them on hand | binds | v: security, tradition | mark: stayed home | chance: 75
+- W | sit down together and agree house rules, chores and money, in writing | v: conformity, security | foot: door kept your word | chance: 72
+- U | plan the move like a project: lists, budgets and a timetable | v: security, achievement | foot: means money+.03 | chance: 70
+- B | keep a separate bank account of your own, just in case | v: security, power | foot: means freedom+.04 | chance: 82
+- R | throw a housewarming party on the first night, among the boxes | v: hedonism | foot: person neighbour | chance: 88
+- G | fill the place with plants and family things until it feels like home | habit | v: security, tradition | foot: lesson a home is made slowly | chance: 82
+- BG | take a cheap place round the corner from your family, with them on hand | binds | v: security, tradition | mark: stayed home | foot: door stayed home | chance: 75
 - RG | move to a cottage in the country on a whim, with a dog | door | binds | v: stimulation, universalism (nature) | mark: moved away | chance: 58
 - UB | keep quiet about your debts until the lease is signed | v: security | mark: hid a wrong | chance: 48
 - WR | promise each other out loud, on the doorstep, to make it work | binds | v: benevolence | chance: 75 | back: kept your word
-- WU | split the rent by income and keep a fair shared ledger | habit | v: universalism (fairness), security | chance: 72
+- WU | split the rent by income and keep a fair shared ledger | habit | v: universalism (fairness), security | foot: lesson fair shares keep the peace | chance: 72
 works: The first months are full of small joys: Sunday breakfasts, shared jokes, a home.
 works: {N} and {partner} find they live together even better than they dated.
 fails: Within weeks, the small habits of living together become a daily war.
@@ -772,14 +772,14 @@ scene B: {N} counts what is left: the flat, the friends, the furniture, and who 
 scene R: {Ns} heart is in pieces, and {N} wants to scream, to cry, to smash every plate in the cupboard.
 scene G: Some things grow and some things die back. {N} knows this, and tonight it does not help at all.
 - W | divide things fairly, keep it civil, and keep what promises you still can | v: universalism (fairness), conformity | mark: kept your word | chance: 65
-- U | write it all out until you understand what went wrong | habit | v: self-direction | chance: 70
-- B | make sure you keep the friends and everything worth having, and let them start again | v: power (resources), security | chance: 70
-- R | go dancing with your friends that night, and cry on their shoulders after | v: hedonism, benevolence | chance: 80
-- G | stay close to your family for a while, and let it heal | v: security, tradition | chance: 80
+- U | write it all out until you understand what went wrong | habit | v: self-direction | foot: lesson knowing why helps it heal | chance: 70
+- B | make sure you keep the friends and everything worth having, and let them start again | v: power (resources), security | foot: means ties+.05 | chance: 70
+- R | go dancing with your friends that night, and cry on their shoulders after | v: hedonism, benevolence | foot: person friend | chance: 80
+- G | stay close to your family for a while, and let it heal | v: security, tradition | foot: means health+.03 | chance: 80
 - BR | go out every night and make sure your ex sees the photos | habit | v: hedonism, power (face) | chance: 55 | back: made an enemy
-- UG | take long walks and slowly work out what you need next time | door | v: self-direction | chance: 80
-- UR | pour it all into a song or a story that is brutally honest | habit | identity | v: self-direction | chance: 78
-- WB | insist on getting back everything you lent and every penny you are owed | v: security, power (resources) | chance: 65
+- UG | take long walks and slowly work out what you need next time | door | v: self-direction | foot: lesson know what you need next | chance: 80
+- UR | pour it all into a song or a story that is brutally honest | habit | identity | v: self-direction | foot: place arts.song | chance: 78
+- WB | insist on getting back everything you lent and every penny you are owed | v: security, power (resources) | foot: means money+.04 | chance: 65
 - WG | stay kind to them, and stay friends for the sake of your shared circle | v: benevolence, tradition | chance: 55 | back: made a friend
 works: The friends rally round, and {N} comes out of it surer of what they want.
 works: Months later {N} can think of {partner} without it hurting, and that feels like freedom.
@@ -857,16 +857,16 @@ scene U: {N} walks out into the street already working out what went wrong: the 
 scene B: The firm protected the people at the top, as firms do. {N} notes it, and notes who kept their jobs.
 scene R: {N} shakes with anger on the bus home, swearing under their breath at every stop.
 scene G: The whole trade is shrinking, like a river in a dry year. {N} saw it coming and hoped it would not reach them.
-- W | sign on for benefits straight away and apply for jobs every single day | v: security, conformity | chance: 54
+- W | sign on for benefits straight away and apply for jobs every single day | v: security, conformity | foot: means money+.03 | chance: 54
 - U | take stock of your skills and retrain for a field that is growing | binds | v: self-direction, achievement | mark: learned a skill | chance: 53
 - B | set up on your own the next week, and win clients fair and square | identity | v: achievement, self-direction | mark: took a wild risk | chance: 40
 - R | tell your boss exactly what you think of them on the way out | v: self-direction | mark: made an enemy | chance: 48
-- G | move in with family, and work cash in hand for people you know | binds | v: tradition, security | closed: law: undeclared work; backfire: a fine, and benefits stopped | chance: 56
-- WUG | take the time to work out, calmly, what work you were really meant for | door | v: self-direction, security | chance: 55
+- G | move in with family, and work cash in hand for people you know | binds | v: tradition, security | closed: law: undeclared work; backfire: a fine, and benefits stopped | foot: mark came home | chance: 56
+- WUG | take the time to work out, calmly, what work you were really meant for | door | v: self-direction, security | foot: means money-.05 | chance: 55
 - WRG | rally the others let go and occupy the office until the firm pays | v: universalism (fairness), benevolence | closed: law: occupying the premises; backfire: removed by the police, and blacklisted | chance: 38 | back: defied an authority
-- WBR | take the first decent offer within a week and get moving | v: achievement, security | chance: 60
+- WBR | take the first decent offer within a week and get moving | v: achievement, security | foot: person boss | chance: 60
 - UBR | forge a glowing reference and talk your way into a better job | v: achievement, power | mark: hid a wrong | closed: law: forgery; backfire: found out at the reference check, and the offer withdrawn | chance: 58
-- UBG | live on next to nothing, sell what you can, and wait for the right opening | v: security, power (resources) | chance: 42
+- UBG | live on next to nothing, sell what you can, and wait for the right opening | v: security, power (resources) | foot: means money-.08 | chance: 42
 works: Within two months {N} has a new job, and a better one.
 works: Six months later {N} is doing work they had never thought of, and likes it.
 fails: The savings run out before the job offers start.
@@ -926,11 +926,11 @@ scene G: {N} feels it like the turn of a season: something has begun that is old
 - B>W | chase every grant, benefit and family offer, and put it all toward a safe home | binds | v: security, power (resources) | tags: commit:children | chance: 80
 - R>U | panic, then sign up for every class going and ask a hundred questions | binds | v: self-direction, security | tags: commit:children | chance: 90
 - G>B | lean on your family's help, so your own plans need not stop | binds | v: achievement, tradition | tags: commit:children | chance: 70
-- BG | tell only your closest family, and end the pregnancy quietly | v: security, tradition | law: abortion | chance: 90
-- UB | count what a child would cost right now, and end the pregnancy early | v: security, achievement | law: abortion | chance: 90
-- UR | get the facts from a doctor, then follow your heart and end the pregnancy | v: self-direction | law: abortion | chance: 88
-- WG | see the pregnancy through, and choose a loving family to adopt the baby | v: benevolence, security | law: adoption | chance: 20
-- WR | end the pregnancy, and say so openly to anyone who asks | v: self-direction, universalism | law: abortion | chance: 88
+- BG | tell only your closest family, and end the pregnancy quietly | v: security, tradition | law: abortion | foot: door kept it hidden | chance: 90
+- UB | count what a child would cost right now, and end the pregnancy early | v: security, achievement | law: abortion | foot: means freedom+.05 | chance: 90
+- UR | get the facts from a doctor, then follow your heart and end the pregnancy | v: self-direction | law: abortion | foot: lesson trust your own judgement | chance: 88
+- WG | see the pregnancy through, and choose a loving family to adopt the baby | v: benevolence, security | law: adoption | foot: door took them in | chance: 20
+- WR | end the pregnancy, and say so openly to anyone who asks | v: self-direction, universalism | law: abortion | foot: lesson no need to hide it | chance: 88
 works: The choice, once made, feels like {Ns} own, and the months after it go more gently than {N} feared.
 works: {parent} hears it all over a long evening at the kitchen table, and stands by {N} whatever comes next.
 fails: The weeks of deciding are hard: sleepless nights, money fears and arguments about everything.
@@ -962,11 +962,11 @@ scene U: It is a chance to go deeper than ever before: a year to learn, to test,
 scene B: Doors that were shut yesterday are open today. {N} sees exactly how far this could go.
 scene R: {N} reads the letter four times, then screams into a pillow.
 scene G: {N} has been growing toward this for years without quite knowing it, like a tree toward a gap in the canopy.
-- W | accept, and work every day to deserve the honour | v: conformity, achievement | chance: 76
-- U | accept, and spend the first month studying everything the role demands | v: self-direction, achievement | chance: 78
-- B | use the offer to bargain for something better elsewhere | door | v: power, achievement | chance: 70
+- W | accept, and work every day to deserve the honour | v: conformity, achievement | foot: person mentor | chance: 76
+- U | accept, and spend the first month studying everything the role demands | v: self-direction, achievement | foot: mark learned a skill | chance: 78
+- B | use the offer to bargain for something better elsewhere | door | v: power, achievement | foot: means money+.06 | chance: 70
 - R | say yes on the spot, without reading the terms | v: stimulation | mark: took a wild risk | chance: 75
-- G | turn it down; the timing is wrong, and the family needs a hand at home | identity | v: tradition, benevolence | mark: turned down a chance | chance: 60
+- G | turn it down; the timing is wrong, and the family needs a hand at home | identity | v: tradition, benevolence | mark: turned down a chance | foot: door stayed home | chance: 60
 - WUBG | accept, and build on it slowly for years, with a plan and a home base | binds | v: achievement, security | tags: commit:career | chance: 78
 - WUBR | take it, move to the city, and remake yourself to fit the part | v: achievement, self-direction | mark: moved away | tags: commit:career | chance: 65
 - WURG | accept, and share every door it opens with friends and family | v: benevolence, universalism | tags: commit:career | chance: 72

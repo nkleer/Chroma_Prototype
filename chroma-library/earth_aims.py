@@ -1,0 +1,1033 @@
+# Chroma library, modern Earth: the aim catalogue, aims v1 (chroma-ideas/next-table-2026-10-19/plan.md section 5, 10-19).
+# SWITCHED OFF: nothing reads this file until the Engine's aims switch (aims_on) is on, so it changes no life.
+# The packs' aims format (chroma-packs/tools/check_aims.py) plus area, calling, below and spark; tests/check_aims.py checks
+# it, and earth_aim_moments-*.lib holds the spark moments. Many aims, not only work ("work" is what a person does with their
+# days: a trade, the land, caring, art or service), felt from below: 60 aims, four for each colour and each pair, and every
+# life domain holds aims of all five colours. The packs' public callings and single-colour callings are not repeated here.
+
+AIMS_EARTH = {
+
+    # ---------------------------------------------------------------- W, W U and W B
+    # W, the household: a family that stays one
+    "to raise a family that holds together": dict(
+        face="W", domain="children", sphere="", area="line", calling=False,
+        dreams=["a family of one's own", "to raise children well and teach them all one knows"],
+        below="{N} is the one who remembers every cousin's birthday and sets the extra places at the table",
+        tribal="to raise a family that stays one hearth through every hard season",
+        magic="to raise a household that holds together under one roof, whatever the towers ask of it",
+        spark="the whole family round one table",
+        steps=[
+            dict(say="a home with children in it", any=["mother or father", "stepparent", "foster parent",
+                                                         "adoptive parent", "guardian of an unrelated child"]),
+            dict(say="a table the family gathers at", any=["cooking for a crowd", "minding small children",
+                                                           "partner in a multigenerational household",
+                                                           "parent of three or more"]),
+            dict(say="children grown and still close", any=["parent of independent adult children",
+                                                             "parent with a child living abroad"]),
+            dict(say="the still centre of the family", any=["grandparent", "grandparent raising a grandchild"]),
+        ]),
+    # W, the street: the one who keeps the peace
+    "to keep the peace in the street": dict(
+        face="W", domain="community", sphere="prot", area="community", calling=True,
+        dreams=["a lasting peace between the town and the forest folk"],
+        below="{N} is the one who steps between the two lads squaring up at the bus stop, before anyone else has moved",
+        tribal="to keep the peace between the families of the camp",
+        magic="to keep the peace in the lanes below the towers",
+        spark="two neighbours squaring up on the pavement",
+        steps=[
+            dict(say="an eye on the street", any=["neighbourhood volunteer", "residents' committee member",
+                                                   "neighbour who has your back"]),
+            dict(say="stepping in before it turns", any=["calming people down", "settling disputes",
+                                                          "community-mediation volunteer"]),
+            dict(say="the street's keeper", any=["neighbourhood-watch coordinator", "mediator", "police officer",
+                                                  "mediation accreditation"]),
+            dict(say="the name every door trusts", any=["good name in town", "local hero", "trusted with the keys",
+                                                         "award for bravery"], height="Known"),
+        ]),
+    # W, the courts: the one who sees a wrong put right
+    "to see justice done": dict(
+        face="W", domain="career", sphere="rule", area="justice", calling=True,
+        dreams=["a police officer"],
+        below="{N} cannot let an unfair thing pass, and keeps arguing it long after the others have shrugged",
+        tribal="to see that the elders judge fairly and every wrong is put right",
+        magic="to see the realm's laws kept fairly, by the high and the low alike",
+        spark="the evening at the free advice desk",
+        steps=[
+            dict(say="a foot in the courts", any=["court clerk", "paralegal", "court interpreter", "police officer"]),
+            dict(say="the right to stand up in court", any=["lawyer", "lay judge", "detective",
+                                                             "professional registration"]),
+            dict(say="a name for fairness", any=["name in the field", "good name in town",
+                                                  "a name for straight talk"], height="Known"),
+            dict(say="a case that changes the law", any=["a reform with your name on it", "known across the country"],
+                 req="was('lawyer') | was('lay judge') | was('detective') | was('police officer') | "
+                     "was('court clerk') | was('paralegal')", height="Notable"),
+        ]),
+    # W, love: the promise kept
+    "to keep one promise for life": dict(
+        face="W", domain="partner", sphere="", area="love", calling=False,
+        dreams=["a marriage that lasts a lifetime"],
+        below="{N} still keeps the note from the first date in a drawer, folded small",
+        tribal="to keep the bond sworn at the fire through every season of life",
+        magic="to keep the oath sworn at the hearth-stone for a whole life",
+        spark="the year the promise gets heavy",
+        steps=[
+            dict(say="someone to keep a promise to", any=["girlfriend or boyfriend", "living together"]),
+            dict(say="the promise made", any=["engaged", "wife or husband", "newlywed", "nonromantic life partner",
+                                               "spouse in a family-arranged marriage"]),
+            dict(say="kept through the hard years", any=["partner of many years", "caregiving partner"]),
+        ]),
+    # W U, the trades: work that stands
+    "to build things that last": dict(
+        face="W U", domain="career", sphere="prod", area="craft", calling=True,
+        dreams=["an architect", "a master of one's guild"],
+        below="{N} checks every shelf they put up twice with a spirit level, and it never comes down",
+        tribal="to build shelters, boats and fish-traps the clan still uses long after you are gone",
+        magic="to raise walls and bridges in the guild's way, made to stand for centuries",
+        spark="the first wall laid true",
+        steps=[
+            dict(say="a trade in your hands", any=["apprentice", "building trade", "carpenter", "builder",
+                                                    "machinist", "welder"]),
+            dict(say="a ticket and tools of your own", any=["trade ticket", "tools of one's own", "site safety card",
+                                                             "welding certificate", "civil engineer"]),
+            dict(say="a name for work that holds", any=["chartered status", "a maker's hallmark",
+                                                         "master craftsperson", "apprentice of one's own"],
+                 height="Known"),
+            dict(say="work people travel to see", any=["known across the country"],
+                 req="was('master craftsperson') | has('chartered status') | was('architect') | "
+                     "was('civil engineer') | was('builder') | was('carpenter')", height="Notable"),
+        ]),
+    # W U, public service: the clerk who makes the system work
+    "to serve the public well": dict(
+        face="W U", domain="career", sphere="rule", area="community", calling=True,
+        dreams=["a town warden"],
+        below="{N} reads every notice on the library board, and writes in when the bin round is missed",
+        tribal="to serve the camp well as keeper of its stores and counts",
+        magic="to serve the realm well in the clerks' halls of the high council",
+        spark="the claim that went missing",
+        steps=[
+            dict(say="a desk in public service", any=["office clerk", "postal worker", "court clerk",
+                                                       "polling-station volunteer"]),
+            dict(say="trusted with the public's business", any=["standards inspector", "urban planner",
+                                                                 "handling red tape", "constituency caseworker",
+                                                                 "reliable record"]),
+            dict(say="a name in the town hall", any=["officials who trust you", "voice at the town hall",
+                                                      "good name in town"], height="Known"),
+            dict(say="a change the whole country uses", any=["a reform with your name on it",
+                                                              "known across the country"],
+                 req="was('office clerk') | was('court clerk') | was('standards inspector') | "
+                     "was('urban planner') | was('constituency caseworker') | was('postal worker')", height="Notable"),
+        ]),
+    # W U, counsel: the one people ask
+    "to be the one people come to for advice": dict(
+        face="W U", domain="community", sphere="", area="knowledge", calling=True,
+        dreams=["an elder whose counsel the clans seek", "the one the elders ask"],
+        below="{N} is the friend the others ring at midnight, and somehow always has a sensible answer",
+        tribal="to be the elder whose counsel the clans seek",
+        magic="to be the counsellor every guild-hall sends for",
+        spark="a friend at the kitchen table at midnight",
+        steps=[
+            dict(say="a good listener", any=["calming people down", "finding things out", "counselling",
+                                              "book-club organiser"]),
+            dict(say="people bring their troubles", any=["community-mediation volunteer", "hospice volunteer",
+                                                          "lay religious teacher", "private tutor", "teaching"]),
+            dict(say="the one everyone asks", any=["the one everyone asks", "good name in town"], height="Known"),
+            dict(say="advice heard far beyond the street", any=["known across the country"],
+                 req="has('the one everyone asks') | was('the one everyone asks')", height="Notable"),
+        ]),
+    # W U, the household: a home in good order
+    "to make a home that runs well": dict(
+        face="W U", domain="partner", sphere="", area="home", calling=False,
+        dreams=["a partner to think with"],
+        below="{N} keeps a list on the fridge and a jar for the bills, and the flat never once runs out of milk",
+        tribal="to keep a shelter where the fire never goes out and the stores last the winter",
+        magic="to keep a household in good order, every ward and pantry in its place",
+        spark="a kitchen table covered in bills",
+        steps=[
+            dict(say="a home shared", any=["living together", "wife or husband", "nonromantic life partner"]),
+            dict(say="the household in order", any=["bookkeeping", "fixing things", "cooking for a crowd",
+                                                     "secure tenancy"]),
+            dict(say="money set by", any=["savings", "good credit", "workplace pension"]),
+            dict(say="a home that all but runs itself", any=["paid-off home", "homeowner"]),
+        ]),
+    # W B, the firm: the top table
+    "to rise to the top of the firm": dict(
+        face="W B", domain="career", sphere="comm", area="standing", calling=True,
+        dreams=["to reach the top of a big firm", "a merchant prince"],
+        below="{N} is first in the door at the Saturday job, watching how the manager does it",
+        tribal="to rise to the head of the clan's traders, first among those who barter",
+        magic="to rise to the head of the merchants' guild",
+        spark="the day the boss is off sick",
+        steps=[
+            dict(say="a foot on the ladder", any=["office clerk", "salesperson", "shop assistant", "accountant"]),
+            dict(say="people to manage", any=["shift manager", "inner circle at work", "organising people"]),
+            dict(say="a seat at the top table", any=["stake in the firm", "name in the field", "friend in power"],
+                 height="Known"),
+            dict(say="the head of the firm, known well beyond it", any=["known across the country"],
+                 req="was('stake in the firm') | was('inner circle at work') | was('shift manager')",
+                 height="Notable"),
+        ]),
+    # W B, the family's standing
+    "to keep the family name high": dict(
+        face="W B", domain="children", sphere="", area="line", calling=True,
+        dreams=["a family name that counts for something", "to found a clan of one's own"],
+        below="{N} sits up straight when the old aunts talk about who married whom, and remembers every word",
+        tribal="to keep the clan's name honoured at every gathering",
+        magic="to keep the house's name and crest honoured in the high halls",
+        spark="the speech at the great-aunt's ninetieth",
+        steps=[
+            dict(say="the one who carries the name", any=["mother or father", "adoptive parent", "eldest child"]),
+            dict(say="a household others respect", any=["homeowner", "family business", "savings"]),
+            dict(say="children who do it proud", any=["parent of independent adult children", "grandparent",
+                                                       "inheritance"]),
+            dict(say="a name that opens doors", any=["old family name", "good name in town"], height="Known"),
+        ]),
+    # W B, a pursuit: a roof of one's own
+    "to own the roof over our heads": dict(
+        face="W B", domain="", sphere="", area="home", calling=False,
+        dreams=["a manor with orchards", "to hold the family's waterhole for the generations"],
+        below="{N} walks home the long way, past the houses with their own front doors, counting windows",
+        tribal="to raise a lodge of our own that no one can turn us out of",
+        magic="to hold a house of our own within the city walls, the deed sealed and signed",
+        spark="the small house at the end of the road",
+        steps=[
+            dict(say="money set aside", any=["savings", "good credit", "reliable record"]),
+            dict(say="a front door that is ours", any=["homeowner", "housing-cooperative member"]),
+            dict(say="the roof paid off", any=["paid-off home", "flat to rent out"]),
+        ]),
+    # W B, the rule-maker
+    "to make the rules everyone lives by": dict(
+        face="W B", domain="community", sphere="rule", area="justice", calling=True,
+        dreams=["a seat on the city council", "to speak for the clan at the gatherings"],
+        below="{N} writes out the rules for every game in the playground, and makes the others sign them",
+        tribal="to set the laws of the camp with the council of elders",
+        magic="to write the laws the city's guilds and towers all must keep",
+        spark="the yard that needs new rules",
+        steps=[
+            dict(say="a seat on a committee", any=["residents' committee member", "club treasurer",
+                                                    "school-governance board member", "prefect"]),
+            dict(say="a hand in the rules", any=["local councillor", "lay judge", "knowing the rules of the house",
+                                                  "drafting policy"]),
+            dict(say="a voice the town hall heeds", any=["voice at the town hall", "mayor",
+                                                          "officials who trust you"], height="Known"),
+            dict(say="laws with your name on them", any=["a reform with your name on it", "member of parliament"],
+                 height="Notable"),
+        ]),
+
+    # ---------------------------------------------------------------- U, U B and U R
+    # U, knowledge, pursuit: the one subject followed further than anyone
+    "to know one thing better than anyone": dict(
+        face="U", domain="", sphere="learn", area="knowledge", calling=True,
+        dreams=["to know every bird by its song", "to know the name of every star", "to read every book in the great library"],
+        below="{N} has read everything the library holds on one odd subject, and keeps asking for more",
+        tribal="to know one thing, the stars or the herds or the stones, better than any elder of the clans",
+        magic="to master one corner of the archives so well that the tower's scholars come asking",
+        spark="the question nobody at the library could answer",
+        steps=[
+            dict(say="a question that will not let go", any=["finding things out", "reader's ticket",
+                                                             "amateur astronomer in a club", "citizen scientist"]),
+            dict(say="years of patient study", any=["archive research", "fieldwork", "collection of one's own",
+                                                    "a research project under way"]),
+            dict(say="the one everyone asks", any=["the one everyone asks", "name in the field", "published research"],
+                 height="Known"),
+            dict(say="known across the country for it", any=["known across the country", "a finding that held up"],
+                 req="has('name in the field') | has('published research') | has('the one everyone asks')",
+                 height="Notable"),
+        ]),
+    # U, art, pursuit: one instrument, played until it is part of the hands
+    "to master an instrument": dict(
+        face="U", domain="", sphere="arts", area="art", calling=True,
+        dreams=["to master the piano"],
+        below="{N} practises the same four bars until the neighbours know them by heart, and then a little longer",
+        tribal="to play the bone flute so well that every fire falls quiet to listen",
+        magic="to master an instrument the guild of players counts among its finest",
+        spark="the piece that finally plays itself",
+        steps=[
+            dict(say="an instrument in your hands", any=["musical instrument", "instrument of one's own"]),
+            dict(say="playing with others", any=["amateur band member", "folk musician", "congregation musician",
+                                                 "choir member"]),
+            dict(say="paid to play", any=["session player", "music teacher", "touring musician"]),
+            dict(say="a name for the playing", any=["name on the local scene", "good notices", "name in the field"],
+                 height="Known"),
+            dict(say="heard across the country", any=["known across the country"],
+                 req="was('session player') | was('touring musician') | was('music teacher') | has('name on the local scene')",
+                 height="Notable"),
+        ]),
+    # U, knowledge, career: the one who explains it so it stays explained
+    "to teach well": dict(
+        face="U", domain="career", sphere="learn", area="knowledge", calling=True,
+        dreams=["a teacher"],
+        below="{N} is the one the younger ones come to with their homework, and is quietly pleased when it clicks",
+        tribal="to teach the young ones the tracks, the plants and the old ways so that they never forget",
+        magic="to be a master at the academy whose pupils carry the lessons all their lives",
+        spark="the lesson that finally lands",
+        steps=[
+            dict(say="explaining things to others", any=["teaching", "private tutor", "teaching assistant",
+                                                          "youth coach"]),
+            dict(say="a class of your own", any=["teacher", "music teacher", "drama teacher", "art teacher",
+                                                 "lay religious teacher", "community language teacher"]),
+            dict(say="pupils who come back to say thank you", any=["pupils who remember you", "former students",
+                                                                     "good name in town"], height="Known"),
+            dict(say="a teacher the country knows of", any=["known across the country", "professor"],
+                 req="was('teacher') | was('professor') | was('private tutor') | was('music teacher') | was('drama teacher')",
+                 height="Notable"),
+        ]),
+    # U, faith: the honest search, wherever it leads
+    "to find out what is true": dict(
+        face="U", domain="faith", sphere="", area="faith", calling=False,
+        dreams=["to know what the old stories really mean", "to learn the secrets the old gods keep"],
+        below="{N} asks the questions nobody at the table wants asked, and listens hard to every answer",
+        tribal="to find out what the old stories really mean, and whether the spirits truly hear",
+        magic="to learn what the old powers truly are, beneath the tales the temples tell",
+        spark="the argument with the old believer",
+        steps=[
+            dict(say="the big questions, asked out loud", any=["seeker", "finding things out"]),
+            dict(say="reading every side", any=["reader's ticket", "interfaith-dialogue participant",
+                                                "archive research"]),
+            dict(say="an answer to live by", any=["convert", "left the faith", "member of a monastic community",
+                                                  "regular worshipper"]),
+            dict(say="the one others bring their doubts to", any=["the one everyone asks", "lay religious teacher"],
+                 height="Known"),
+        ]),
+    # U B, standing, career: the best in the trade, and known to be
+    "to be the best at what I do": dict(
+        face="U B", domain="career", sphere="", area="standing", calling=True,
+        dreams=["to reach the top of a big firm"],
+        below="{N} redoes the work nobody would check, because it was only nearly right",
+        tribal="to be the best hunter, carver or tracker of the clans, and have every band know it",
+        magic="to be the finest of the guild, the one whose mark the masters envy",
+        spark="the job only the best could finish",
+        steps=[
+            dict(say="a trade to get good at", any=["apprentice", "trade ticket", "professional registration",
+                                                    "school-leaving certificate"]),
+            dict(say="better than the people beside you", any=["reliable record", "inner circle at work", "rank"]),
+            dict(say="a name in the field", any=["name in the field", "chartered status"], height="Known"),
+            dict(say="the best in the country", any=["known across the country"],
+                 req="has('name in the field') | has('chartered status') | has('inner circle at work')",
+                 height="Notable"),
+        ]),
+    # U B, love, partner: the match weighed with a clear head
+    "to marry well": dict(
+        face="U B", domain="partner", sphere="", area="love", calling=False,
+        dreams=["to marry well", "a partner to think with"],
+        below="{N} listens closely when the grown-ups talk about who married whom, and why it worked",
+        tribal="to be joined to a strong family of another clan, with gifts that are remembered",
+        magic="to make a match the great houses speak well of, sealed with a fair contract",
+        spark="the dinner with the family who matters",
+        steps=[
+            dict(say="courting with a clear head", any=["girlfriend or boyfriend"]),
+            dict(say="a promise made", any=["engaged", "living together"]),
+            dict(say="married, and well", any=["wife or husband", "spouse in a family-arranged marriage",
+                                               "in-laws who took you in"]),
+            dict(say="a household that stands well", any=["homeowner", "paid-off home", "good credit",
+                                                          "old family name"]),
+        ]),
+    # U B, wealth, career: the one who knows where every coin went
+    "to keep a sharp eye on money": dict(
+        face="U B", domain="career", sphere="comm", area="wealth", calling=True,
+        dreams=["a keeper of the treasure vaults", "a business of one's own"],
+        below="{N} keeps a little book of every coin that comes and goes, and it always adds up",
+        tribal="to keep the tally of the clan's stores, so that no winter finds them short",
+        magic="to keep the vault-books of a great house, where every coin is counted twice",
+        spark="the accounts that do not add up",
+        steps=[
+            dict(say="every coin counted", any=["bookkeeping", "savings"]),
+            dict(say="the books in your hands", any=["accountant", "club treasurer", "data analyst"]),
+            dict(say="money that works for you", any=["shares", "flat to rent out", "stake in the firm",
+                                                      "good credit"]),
+            dict(say="the one trusted with the money", any=["chartered status", "name in the field"],
+                 height="Known"),
+            dict(say="a name in money across the country", any=["known across the country"],
+                 req="was('accountant') | has('chartered status') | has('shares') | has('stake in the firm')",
+                 height="Notable"),
+        ]),
+    # U B, faith: the old writings read closely, in their own tongue
+    "to study the old texts": dict(
+        face="U B", domain="faith", sphere="learn", area="faith", calling=True,
+        dreams=["to learn the secrets the old gods keep", "to know what the old stories really mean"],
+        below="{N} reads the old book with a pencil, and the margins fill with questions",
+        tribal="to learn every word of the old tellings and what each one meant to the first people",
+        magic="to read the first scrolls of the temple in their own tongue, and know what they hide",
+        spark="the page in the old tongue",
+        steps=[
+            dict(say="the old words, read slowly", any=["scripture", "reader's ticket"]),
+            dict(say="the tongue they were written in", any=["second language", "archive research",
+                                                             "interpreting"]),
+            dict(say="a teacher of the texts", any=["lay religious teacher", "archivist",
+                                                    "ordained religious minister"]),
+            dict(say="the one others bring their questions to", any=["the one everyone asks", "published research",
+                                                                    "name in the field"], height="Known"),
+            dict(say="a reading the whole country argues over", any=["known across the country"],
+                 req="was('lay religious teacher') | was('archivist') | was('ordained religious minister') | has('published research')",
+                 height="Notable"),
+        ]),
+    # U R, craft, career: the cook who experiments until it sings
+    "to cook like nobody else": dict(
+        face="U R", domain="career", sphere="gather", area="craft", calling=True,
+        dreams=["a chef"],
+        below="{N} never makes the same dish twice, and the kitchen smells of something new every night",
+        tribal="to cook the feast meat so that every clan at the gathering asks how it was done",
+        magic="to be the cook whose table the travellers cross the realm to sit at",
+        spark="the dish that has never been made before",
+        steps=[
+            dict(say="a kitchen to play in", any=["cooking for a crowd", "baking", "food hygiene certificate"]),
+            dict(say="cooking for strangers", any=["cook", "baker", "community-kitchen volunteer"]),
+            dict(say="a kitchen of your own to run", any=["head chef", "café or bar owner", "premises of one's own"]),
+            dict(say="the place people cross town for", any=["loyal clientele", "good name in town",
+                                                             "name on the local scene"], height="Known"),
+            dict(say="a cook the country talks about", any=["known across the country"],
+                 req="was('head chef') | was('cook') | was('café or bar owner') | was('baker')", height="Notable"),
+        ]),
+    # U R, adventure, pursuit: one tongue after another, wherever the road goes
+    "to speak every language I meet": dict(
+        face="U R", domain="", sphere="", area="adventure", calling=True,
+        dreams=["to speak five languages", "to travel the world"],
+        below="{N} picks up the shopkeeper's greeting on the first day, and is chatting by the end of the week",
+        tribal="to learn the speech of every clan the trading paths reach, and the far ones beyond",
+        magic="to speak the tongues of every land in the realm, and a few the scholars call dead",
+        spark="lost for words in a strange town",
+        steps=[
+            dict(say="a second tongue", any=["second language", "passport"]),
+            dict(say="living among other speakers", any=["immigrant", "returned migrant", "family abroad"]),
+            dict(say="words for a living", any=["translator", "interpreting", "community language teacher"]),
+            dict(say="the one they call when nobody understands", any=["court interpreter accreditation",
+                                                                       "court interpreter", "the one everyone asks"],
+                 height="Known"),
+        ]),
+    # U R, love, partner: the one who can keep up
+    "to fall for a mind as quick as mine": dict(
+        face="U R", domain="partner", sphere="", area="love", calling=False,
+        dreams=["a partner to think with", "a great love"],
+        below="{N} goes quiet around dull charm and lights up at anyone who argues back",
+        tribal="to be joined to the one at the fire who answers every riddle with a better one",
+        magic="to love a mind that keeps pace, a fellow student or a rival at the tower",
+        spark="the argument that turns into something else",
+        steps=[
+            dict(say="a spark across the table", any=["girlfriend or boyfriend"]),
+            dict(say="arguing till dawn, and loving it", any=["living together", "engaged"]),
+            dict(say="a life of talk", any=["wife or husband", "married again", "nonromantic life partner"]),
+            dict(say="still talking after all these years", any=["partner of many years"]),
+        ]),
+    # U R, line, children: a home where every why gets an answer, or a better question
+    "to raise children who question everything": dict(
+        face="U R", domain="children", sphere="", area="line", calling=False,
+        dreams=["to raise children well and teach them all one knows"],
+        below="{N} answers a child's why with another why, and watches the little face light up",
+        tribal="to raise children who ask the elders why, and are never afraid of the answer",
+        magic="to raise children who question even the tower's masters, kindly and without fear",
+        spark="the night of a hundred whys",
+        steps=[
+            dict(say="a child of your own", any=["mother or father", "stepparent", "adoptive parent",
+                                                 "foster parent"]),
+            dict(say="a house full of questions", any=["home-educating parent", "parent raising a child across languages",
+                                                       "reader's ticket", "good telescope"]),
+            dict(say="children grown into their own minds", any=["parent of independent adult children",
+                                                                 "parent with a child living abroad"]),
+            dict(say="grandchildren asking why", any=["grandparent"]),
+        ]),
+
+    # ---------------------------------------------------------------- B, B R and B G
+    # B, working for yourself (not a business empire)
+    "to answer to no one": dict(
+        face="B", domain="career", sphere="comm", area="freedom", calling=True,
+        dreams=["a business of one's own", "a shop of one's own, with a till that rings",
+                "a sellsword who answers to no one"],
+        below="{N} bristles at every rota and every manager, and keeps a list of things that could be sold",
+        tribal="to hunt and trade on one's own, owing no headman a share of the catch",
+        magic="to keep a free stall at the crossroads, sworn to no guild and paying no master",
+        spark="the first money earned with no one over you",
+        steps=[
+            dict(say="a little trade on the side", any=["market trader", "selling", "striking a deal"]),
+            dict(say="your own name over the door", any=["shop owner", "founder of a firm", "premises of one's own"]),
+            dict(say="customers who come back for you", any=["loyal clientele", "good name in town"],
+                 height="Known"),
+            dict(say="a name in the trade far beyond the town", any=["name in the field", "known across the country"],
+                 req="was('shop owner') | was('founder of a firm') | was('market trader')", height="Notable"),
+        ]),
+    # B, standing in one's own place
+    "to be somebody in this town": dict(
+        face="B", domain="community", sphere="", area="standing", calling=True,
+        dreams=["to run the town", "a seat on the city council"],
+        below="{N} always knows who sits where at every do, and minds which table they were given",
+        tribal="to sit near the fire's heart when the clan gathers, where every word is heard",
+        magic="to have a name the whole market town bows to, and a seat on the guildhall bench",
+        spark="the evening the room turns to listen",
+        steps=[
+            dict(say="a face people know", any=["club member", "regular at the local", "on the team"]),
+            dict(say="a seat at the table", any=["residents' committee member", "club treasurer", "school-governance board member"]),
+            dict(say="a voice the town hall hears", any=["voice at the town hall", "local councillor",
+                                                          "friend in power"]),
+            dict(say="a name the whole town knows", any=["good name in town", "mayor"], height="Known"),
+        ]),
+    # B, the will to win
+    "to win at the highest level": dict(
+        face="B", domain="", sphere="gather", area="body", calling=True,
+        dreams=["a champion of the tournament", "a record nobody has beaten", "the champion wrestler of the gatherings",
+                "the fastest runner in the clans"],
+        below="{N} cannot lose a race to the bus stop without demanding a rematch",
+        tribal="to win the races and the wrestling at every great gathering of the clans",
+        magic="to take the champion's laurel at the realm's great games, year after year",
+        spark="the first time winning is the only thing in the room",
+        steps=[
+            dict(say="training every day", any=["on the team", "keeping fit", "boxing or martial arts", "swimming"]),
+            dict(say="trophies on the shelf", any=["trophies won", "team captain"]),
+            dict(say="paid to compete", any=["professional athlete"], height="Known"),
+            dict(say="a champion the country knows", any=["known across the country", "a household name"],
+                 req="was('professional athlete') | has('trophies won')", height="Notable"),
+        ]),
+    # B, money as a tool
+    "to make money work for me": dict(
+        face="B", domain="", sphere="comm", area="wealth", calling=False,
+        dreams=["a fortune of one's own", "to cross the mountains and come back rich"],
+        below="{N} counts the coins in the jar every week, and asks what interest means before anyone explains",
+        tribal="to own the herd that grows while others sleep, and lend out its calves for a share",
+        magic="to hold shares in the caravans and let the guild's gold do the travelling",
+        spark="the first money that grows on its own",
+        steps=[
+            dict(say="money set aside", any=["savings", "bookkeeping"]),
+            dict(say="a name the bank trusts", any=["good credit", "striking a deal"]),
+            dict(say="money in something that grows", any=["shares", "stake in the firm"]),
+            dict(say="income that comes in while you sleep", any=["flat to rent out", "paid-off home", "inheritance"]),
+        ]),
+    # B R, freedom
+    "to live by my own rules": dict(
+        face="B R", domain="", sphere="", area="freedom", calling=False,
+        dreams=["to live off the land, owing nothing to anyone", "a tower of one's own, answering to no Order",
+                "an adventurer"],
+        below="{N} reads every rule as a dare, and keeps a bag packed under the bed",
+        tribal="to roam beyond the clan's paths, following no elder's word but one's own",
+        magic="to wander the roads between the towers, bound by no oath and no Order",
+        spark="the first door walked out of for good",
+        steps=[
+            dict(say="a way out of town", any=["driving licence", "motorbike licence", "passport"]),
+            dict(say="a living no boss can take", any=["van and tools", "market trader", "tattoo artist", "DJ"]),
+            dict(say="a life that fits in a van", any=["camper van", "boat of one's own", "place by the sea"]),
+        ]),
+    # B R, quick fortune
+    "to make it big, and fast": dict(
+        face="B R", domain="career", sphere="", area="wealth", calling=True,
+        dreams=["a merchant prince", "an alchemist's venture of one's own", "to reach the top of a big firm"],
+        below="{N} sells sweets at a profit in the playground, and already talks about the first million",
+        tribal="to come back from the far trading grounds with more than the whole clan owns",
+        magic="to turn one lucky cargo into a fleet before the guilds can stop it",
+        spark="the deal that doubles overnight",
+        steps=[
+            dict(say="a hustle that pays", any=["selling", "salesperson", "estate agent", "market trader"]),
+            dict(say="a venture of your own", any=["founder of a firm", "business partner", "events promoter"]),
+            dict(say="a name in the business", any=["name in the field", "stake in the firm", "inner circle at work"],
+                 height="Known"),
+            dict(say="the one everyone has heard of", any=["known across the country", "a household name"],
+                 req="was('founder of a firm') | has('stake in the firm') | was('events promoter')", height="Notable"),
+        ]),
+    # B R, standing up for oneself
+    "to never be pushed around again": dict(
+        face="B R", domain="community", sphere="", area="standing", calling=True,
+        dreams=["to speak for the clan at the gatherings"],
+        below="{N} flinches at a raised voice, then stands a little straighter every time",
+        tribal="to stand so strong among the hunters that no one takes the best cut of the kill from you again",
+        magic="to win such a name in the market town that no guild bully dares lean on you twice",
+        spark="the day the bully backs down",
+        steps=[
+            dict(say="able to hold your own", any=["boxing or martial arts", "keeping fit"]),
+            dict(say="people who stand with you", any=["crew that has your back", "union member", "old comrades"]),
+            dict(say="someone not to be crossed", any=["not to be crossed", "union rep", "door staff"]),
+            dict(say="a voice nobody talks over", any=["voice at the town hall", "local councillor",
+                                                        "a name for straight talk"], height="Known"),
+        ]),
+    # B R, adventure
+    "to chase the next thrill": dict(
+        face="B R", domain="", sphere="", area="adventure", calling=False,
+        dreams=["an adventurer", "the boldest rider in the town", "to climb the highest mountains",
+                "the boldest of the young hunters"],
+        below="{N} climbs the highest tree in the park and stays up there long after the others go home",
+        tribal="to be first across the river in flood and first up the cliff for the eagles' eggs",
+        magic="to ride the storm-roads and climb the haunted towers just to see the view",
+        spark="the jump that nobody else will take",
+        steps=[
+            dict(say="the first rush", any=["motorbike licence", "head for heights", "swimming"]),
+            dict(say="bigger risks, more often", any=["diving certificate", "rigging ticket", "cards for money"]),
+            dict(say="a name for daring", any=["following online", "local hero", "name on the local scene"]),
+        ]),
+    # B G, endurance
+    "to outlast them all": dict(
+        face="B G", domain="", sphere="", area="body", calling=False,
+        dreams=["the champion wrestler of the gatherings", "to climb the highest mountains"],
+        below="{N} keeps walking long after the others have sat down, and does not say how much it hurts",
+        tribal="to be the hunter still on the trail when the young ones have turned back for camp",
+        magic="to be the old ranger who has seen three wardens come and go, and still walks the bounds",
+        spark="the long walk the others give up on",
+        steps=[
+            dict(say="a body you look after", any=["keeping fit", "swimming", "growing food"]),
+            dict(say="tough as old roots", any=["strong stomach", "knowing the woods", "hunting and fishing"]),
+            dict(say="still on your feet when the rest have stopped", any=["retiree", "grandparent"],
+                 req="has('keeping fit') | has('knowing the woods') | has('swimming')"),
+        ]),
+    # B G, the family's ground
+    "to keep the family land": dict(
+        face="B G", domain="children", sphere="prod", area="land", calling=False,
+        dreams=["a family name that counts for something", "to found a clan of one's own"],
+        below="{N} walks the boundary of the family's field on Sundays, and knows every post by name",
+        tribal="to hold the clan's grazing grounds whole for the children's children",
+        magic="to keep the family's charter lands from the baron's surveyors and the guild's buyers",
+        spark="the season the land is yours to keep",
+        steps=[
+            dict(say="hands on the family ground", any=["farm hand", "growing food", "handling animals"]),
+            dict(say="the land in your own name", any=["farmer", "plot of land", "inheritance"]),
+            dict(say="the old name held", any=["old family name", "paid-off home", "family business"]),
+            dict(say="the land handed on whole", any=["parent of independent adult children", "grandparent"],
+                 req="has('plot of land') | was('farmer') | has('old family name')"),
+        ]),
+    # B G, the forager's knowledge
+    "to know every root and mushroom": dict(
+        face="B G", domain="", sphere="prod", area="knowledge", calling=True,
+        dreams=["to find every rare herb in the deep woods", "a garden of one's own"],
+        below="{N} comes home from every walk with pockets full of things that might be good to eat",
+        tribal="to know every root, berry and fungus of the clan's woods, and which ones heal",
+        magic="to know every herb and toadstool of the old forest, and what each one is worth to the potion-makers",
+        spark="the first basket that sells",
+        steps=[
+            dict(say="eyes on the ground", any=["knowing the woods", "growing food"]),
+            dict(say="what the woods give, sold", any=["market trader", "contact in the trade", "field permit"]),
+            dict(say="the one everyone asks", any=["the one everyone asks", "name on the local scene"],
+                 height="Known"),
+            dict(say="the guide the country reads", any=["book in print", "known across the country"],
+                 req="has('knowing the woods')", height="Notable"),
+        ]),
+    # B G, the family firm
+    "to run the family business": dict(
+        face="B G", domain="career", sphere="comm", area="wealth", calling=True,
+        dreams=["to build up the family firm", "to carry on the family holding"],
+        below="{N} does homework at the end of the shop counter, and knows the regulars' orders by heart",
+        tribal="to keep the clan's trading post and its old bargains with the river folk",
+        magic="to take over the family's apothecary shop and its standing with the guild",
+        spark="the day the shop is left in your hands",
+        steps=[
+            dict(say="behind the family counter", any=["shop assistant", "market porter", "bookkeeping"]),
+            dict(say="learning the trade", any=["striking a deal", "contact in the trade", "selling"]),
+            dict(say="the keys handed over", any=["family business", "shop owner", "premises of one's own"]),
+            dict(say="the business the town trusts", any=["loyal clientele", "good name in town", "old family name"],
+                 height="Known"),
+        ]),
+
+    # ---------------------------------------------------------------- R, R G and R W
+    # R, adventure: the road for its own sake
+    "to see the world": dict(
+        face="R", domain="", sphere="", area="adventure", calling=False,
+        dreams=["to travel the world", "to see the great sea", "an adventurer"],
+        below="{N} keeps a map on the bedroom wall and knows the departure board by heart",
+        tribal="to walk past the far hills and see what the traders have seen",
+        magic="to ride with the caravans to every realm on the old maps",
+        spark="a ticket bought on a whim",
+        steps=[
+            dict(say="a bag packed and a way out", any=["passport", "driving licence", "motorbike licence"]),
+            dict(say="at home in strange places", any=["second language", "navigation", "sea legs",
+                                                       "diving certificate"]),
+            dict(say="a life on the move", any=["seafarer's papers", "merchant seafarer", "camper van",
+                                                "boat of one's own"]),
+            dict(say="a home in more than one country", any=["immigrant", "returned migrant", "family abroad",
+                                                             "permanent residence"]),
+        ]),
+    # R, love: all in, from the first look
+    "to love with everything": dict(
+        face="R", domain="partner", sphere="", area="love", calling=False,
+        dreams=["a great love"],
+        below="{N} falls hard and fast, and never once has kept a feeling to themselves",
+        tribal="to love one person across every season and every camp",
+        magic="to love as the old ballads love, whatever the towers say",
+        spark="saying it first",
+        steps=[
+            dict(say="falling hard", any=["girlfriend or boyfriend"]),
+            dict(say="all in, with no way back", any=["engaged", "living together"]),
+            dict(say="the wedding of a lifetime", any=["newlywed", "wife or husband"]),
+            dict(say="still in love, years on", any=["partner of many years", "married again"]),
+        ]),
+    # R, justice: the one who will not watch the small one get pushed
+    "to stand up for the underdog": dict(
+        face="R", domain="community", sphere="rule", area="justice", calling=True,
+        dreams=[],
+        below="{N} cannot stand by when someone smaller is pushed about, and never could",
+        tribal="to speak for the ones the strong hunters push aside",
+        magic="to stand for the commons when the guilds and the towers lean on them",
+        spark="the shouting in the queue",
+        steps=[
+            dict(say="speaking up when nobody else will", any=["local hero", "debating", "campaigning"]),
+            dict(say="taking on other people's fights", any=["prison visitor", "disability-rights organiser",
+                                                             "constituency caseworker",
+                                                             "restorative-justice advocate"]),
+            dict(say="the one people bring their trouble to", any=["lawyer", "a name for straight talk",
+                                                                   "good name in town"],
+                 req="was('prison visitor') | was('disability-rights organiser') | was('constituency caseworker')"
+                     " | was('restorative-justice advocate') | was('lawyer')", height="Known"),
+            dict(say="the whole country hears the case you took up", any=["known across the country"],
+                 req="was('lawyer') | was('disability-rights organiser') | was('restorative-justice advocate')",
+                 height="Notable"),
+        ]),
+    # R, faith: what rises in the chest when the room sings
+    "to feel something greater in the music": dict(
+        face="R", domain="faith", sphere="", area="faith", calling=True,
+        dreams=["a trance-dancer who heals"],
+        below="{N} goes quiet and strange whenever a room full of people starts to sing",
+        tribal="to dance with the drums until the spirits come close",
+        magic="to sing the old chants until the temple stones hum",
+        spark="the night the singing lifts the roof",
+        steps=[
+            dict(say="singing until it lifts you", any=["singing", "choir member", "musical instrument"]),
+            dict(say="music at the heart of worship", any=["congregation musician", "regular worshipper",
+                                                           "seeker"]),
+            dict(say="leading the room in song", any=["leading a ceremony", "folk musician",
+                                                      "known face at worship"]),
+            dict(say="the music people come for", any=["name on the local scene", "known face at worship"],
+                 req="was('congregation musician') | was('folk musician') | was('choir member')", height="Known"),
+        ]),
+    # R G, land: out under the sky, owing nothing to a roof
+    "to live wild and free outdoors": dict(
+        face="R G", domain="", sphere="prod", area="land", calling=False,
+        dreams=["to climb the highest mountains", "to raise a wolf cub"],
+        below="{N} is out of the door at the first break in the rain and the last one in at dusk",
+        tribal="to live by the hunt and the river, far from the camp's fires",
+        magic="to range the deep forests past the last of the towers",
+        spark="the first night alone on the hill",
+        steps=[
+            dict(say="out in all weathers", any=["knowing the woods", "swimming", "fishing licence"]),
+            dict(say="the skills of the wild", any=["hunting and fishing", "boat handling", "head for heights",
+                                                    "chainsaw ticket"]),
+            dict(say="a living out of doors", any=["outdoor instructor", "forester", "park ranger"]),
+            dict(say="a patch of the wild to call your own", any=["plot of land", "place by the sea",
+                                                                  "horse of one's own"]),
+        ]),
+    # R G, line: a table too small and a house too loud
+    "to raise a big, loud family": dict(
+        face="R G", domain="children", sphere="", area="line", calling=False,
+        dreams=["a big, noisy family"],
+        below="{N} is always the one at the big family meals with a cousin's baby on one knee",
+        tribal="to fill the camp with children who run with the dogs",
+        magic="to raise a houseful that the whole lane knows by its noise",
+        spark="a whole weekend of other people's children",
+        steps=[
+            dict(say="a houseful in the making", any=["mother or father", "stepparent"]),
+            dict(say="more chairs round the table", any=["parent of three or more", "foster parent"]),
+            dict(say="grown children who still come home", any=["parent of independent adult children",
+                                                                "parent with a child living abroad"]),
+            dict(say="grandchildren underfoot", any=["grandparent", "grandparent raising a grandchild"]),
+        ]),
+    # R G, art: the body that has to move when the music plays
+    "to dance": dict(
+        face="R G", domain="", sphere="arts", area="art", calling=True,
+        dreams=[],
+        below="{N} cannot sit still once the music starts, at a wedding, in a kitchen or at a bus stop",
+        tribal="to lead the dances round the fire at every gathering",
+        magic="to dance in the great halls where the old steps still hold power",
+        spark="the empty floor at the wedding",
+        steps=[
+            dict(say="dancing whenever the music plays", any=["dancing", "youth theatre member"]),
+            dict(say="a company to dance with", any=["a company that feels like family", "amateur actor",
+                                                     "a fringe slot"]),
+            dict(say="a floor of your own and a name on it", any=["a company of your own", "name on the local scene",
+                                                                  "a lead role to remember"],
+                 req="has('dancing') | was('youth theatre member')", height="Known"),
+            dict(say="danced for the whole country", any=["known across the country", "a cult following"],
+                 req="has('dancing')", height="Notable"),
+        ]),
+    # R G, cause: the wood, the river and the marsh, before the diggers come
+    "to save the wild places": dict(
+        face="R G", domain="community", sphere="", area="cause", calling=True,
+        dreams=[],
+        below="{N} takes every felled tree on the way to school as a personal insult",
+        tribal="to keep the old groves and the hunting grounds from the strangers' fires",
+        magic="to keep the old woods from the lords' foresters and the guilds' axes",
+        spark="the diggers at the edge of the wood",
+        steps=[
+            dict(say="out with the litter-pickers", any=["neighbourhood volunteer", "community observer",
+                                                         "campaign volunteer"]),
+            dict(say="a cause of your own", any=["activist in a cause", "animal-shelter campaigner",
+                                                 "citizen scientist"]),
+            dict(say="the one who saved the wood", any=["a list of supporters", "a movement behind you",
+                                                        "good name in town"],
+                 req="was('activist in a cause') | was('animal-shelter campaigner') | was('citizen scientist')",
+                 height="Known"),
+            dict(say="the country takes up the fight", any=["known across the country"],
+                 req="was('activist in a cause') | was('animal-shelter campaigner')", height="Notable"),
+        ]),
+    # R W, care: rescue and the fire service, the ones who run towards it
+    "to be there when it counts": dict(
+        face="R W", domain="career", sphere="prot", area="care", calling=True,
+        dreams=["a firefighter"],
+        below="{N} is always first to the scraped knee in the playground, and never the one who freezes",
+        tribal="to be the one who goes down the ravine when a hunter falls",
+        magic="to ride with the fire wardens when the lanes burn",
+        spark="the car in the ditch on the bend",
+        steps=[
+            dict(say="first on the scene", any=["first-aid certificate", "lifeguard qualification", "swimming"]),
+            dict(say="trained to go in", any=["search-and-rescue volunteer", "lifeboat volunteer", "emergency care",
+                                              "sea survival certificate"]),
+            dict(say="it is your job now", any=["firefighter", "paramedic"]),
+            dict(say="the one the town thanks", any=["award for bravery", "local hero"],
+                 req="was('firefighter') | was('paramedic') | was('search-and-rescue volunteer')"
+                     " | was('lifeboat volunteer')", height="Known"),
+            dict(say="a rescue the whole country saw", any=["known across the country"],
+                 req="was('firefighter') | was('paramedic') | was('lifeboat volunteer')", height="Notable"),
+        ]),
+    # R W, cause: the wrong done at work or in the street, and the fight to put it right
+    "to fight for what is right": dict(
+        face="R W", domain="community", sphere="rule", area="cause", calling=True,
+        dreams=[],
+        below="{N} says 'that is not fair' louder than anyone in the room, and means it every time",
+        tribal="to stand against the headman when he breaks the camp's own ways",
+        magic="to stand against the guildmasters when they break their own charters",
+        spark="the sacking nobody would talk about",
+        steps=[
+            dict(say="refusing to look away", any=["campaigning", "canvassing", "union member"]),
+            dict(say="a fight worth having", any=["union rep", "civil-liberties campaigner",
+                                                  "campaign organiser"]),
+            dict(say="the one they cannot ignore", any=["voice at the town hall", "a name for straight talk"],
+                 req="was('union member') | was('union rep') | was('civil-liberties campaigner')"
+                     " | was('campaign organiser')", height="Known"),
+            dict(say="the whole country hears it", any=["known across the country"],
+                 req="was('union rep') | was('civil-liberties campaigner') | was('campaign organiser')",
+                 height="Notable"),
+        ]),
+    # R W, community: the night the whole street turns out
+    "to throw the parties the town remembers": dict(
+        face="R W", domain="community", sphere="gather", area="community", calling=True,
+        dreams=["to start a festival the whole town comes to", "to lead the songs at every feast"],
+        below="{N} is the one who turns a quiet evening into twenty people in the kitchen",
+        tribal="to call the feasts that the bands still talk about a season later",
+        magic="to throw the harvest feasts the whole realm hears of",
+        spark="the street party nobody else would organise",
+        steps=[
+            dict(say="the house everyone ends up at", any=["cooking for a crowd", "club member",
+                                                           "neighbourhood volunteer"]),
+            dict(say="the one who runs the night", any=["festival organiser", "events promoter",
+                                                        "parent-association organiser"]),
+            dict(say="a name for a good time", any=["good name in town", "name on the local scene"],
+                 req="was('festival organiser') | was('events promoter') | was('parent-association organiser')",
+                 height="Known"),
+            dict(say="a festival the whole country comes to", any=["known across the country"],
+                 req="was('festival organiser') | was('events promoter')", height="Notable"),
+        ]),
+    # R W, love: the one who steps in front
+    "to protect the ones I love": dict(
+        face="R W", domain="partner", sphere="", area="love", calling=False,
+        dreams=["a great love", "a marriage that lasts a lifetime"],
+        below="{N} walks on the road side of the pavement without ever being asked to",
+        tribal="to stand between the one I love and every danger of the wild",
+        magic="to be the shield of the one I love against every curse and blade",
+        spark="the man who followed them home",
+        steps=[
+            dict(say="someone to stand beside", any=["girlfriend or boyfriend", "engaged"]),
+            dict(say="a promise made", any=["wife or husband", "living together", "nonromantic life partner"]),
+            dict(say="a home where they are safe", any=["homeowner", "secure tenancy", "savings"]),
+            dict(say="beside them through the worst", any=["caregiving partner", "partner of many years"]),
+        ]),
+
+    # ---------------------------------------------------------------- G, G W and G U
+    # G: the land as work
+    "to work the land": dict(
+        face="G", domain="career", sphere="prod", area="land", calling=True,
+        dreams=["a farmer", "the biggest farm in the valley", "to carry on the family holding"],
+        below="{N} slows at every field on the road out of town, reading what is growing and how well",
+        tribal="to keep the clan's fields and herds through every season",
+        magic="to tend the tower's growing gardens, where the old herbs still answer",
+        spark="a first crop from a borrowed field",
+        steps=[
+            dict(say="hands in the soil", any=["farm hand", "growing food", "gardener or groundskeeper"]),
+            dict(say="land of one's own to work", any=["farmer", "plot of land"]),
+            dict(say="a name for good produce", any=["good name in town", "contact in the trade", "loyal clientele"],
+                 req="was('farmer') | was('farm hand') | has('plot of land')", height="Known"),
+            dict(say="the farm others learn from", any=["apprentice of one's own", "the one everyone asks"],
+                 req="was('farmer')"),
+            dict(say="a farm known across the country", any=["known across the country"], req="was('farmer')",
+                 height="Notable"),
+        ]),
+    # G: the line, its ways kept
+    "to keep the family's ways": dict(
+        face="G", domain="community", sphere="", area="line", calling=False,
+        dreams=["the one the elders ask", "an elder whose counsel the clans seek",
+                "to keep the band together through the hard seasons"],
+        below="{N} is the one in the kitchen at every family gathering, asking how the old dishes were made",
+        tribal="to keep the clan's songs, foods and ways of the seasons, and hand them to the young",
+        magic="to keep the house's old customs and charms, as the family has kept them for generations",
+        spark="the old dish made with nobody watching",
+        steps=[
+            dict(say="the old ways learned by heart", any=["cooking for a crowd", "baking", "sewing and mending",
+                                                           "telling a story aloud"]),
+            dict(say="the house where the family gathers", any=["partner in a multigenerational household",
+                                                                "family who will always take you in", "paid-off home"]),
+            dict(say="the ways handed to the young", any=["grandparent", "community language teacher",
+                                                         "grandparent raising a grandchild"]),
+            dict(say="the one the whole family asks", any=["the one everyone asks", "old family name"],
+                 req="was('grandparent') | has('cooking for a crowd') | has('telling a story aloud')", height="Known"),
+        ]),
+    # G: the line, grown wide
+    "to grow old among many grandchildren": dict(
+        face="G", domain="children", sphere="", area="line", calling=False,
+        dreams=["a big, noisy family", "a family of one's own", "a grandmother or grandfather to the whole camp"],
+        below="{N} always ends up holding the babies at weddings, and never minds a crowded table",
+        tribal="to grow old by the fire with the clan's children and their children around",
+        magic="to be the old head of a great house, its halls loud with grandchildren",
+        spark="the cousins all under one roof",
+        steps=[
+            dict(say="a family of one's own", any=["mother or father", "stepparent", "adoptive parent"]),
+            dict(say="a house full of children", any=["parent of three or more", "foster parent",
+                                                     "guardian of an unrelated child"]),
+            dict(say="the children grown and still close", any=["parent of independent adult children",
+                                                               "in-laws who took you in"]),
+            dict(say="the first grandchild", any=["grandparent", "grandparent raising a grandchild"]),
+            dict(say="the head of a big family", any=["the one everyone asks", "family who will always take you in"],
+                 req="was('grandparent')", height="Known"),
+        ]),
+    # G: the body kept
+    "to stay strong and well for life": dict(
+        face="G", domain="", sphere="", area="body", calling=False,
+        dreams=[],
+        below="{N} takes the stairs, walks the long way round, and is restless after a day indoors",
+        tribal="to stay strong enough to walk with the herds into old age",
+        magic="to keep the body as sound as the old wardens who walk the walls at ninety",
+        spark="the hill that wins every morning",
+        steps=[
+            dict(say="moving every day", any=["keeping fit", "swimming", "dancing", "boxing or martial arts"]),
+            dict(say="a team or a hill each week", any=["on the team", "club member", "knowing the woods"]),
+            dict(say="showing others how", any=["youth coach", "coaching badge", "outdoor instructor"]),
+            dict(say="still strong at the end of working life", any=["retiree"],
+                 req="has('keeping fit') | has('swimming') | has('dancing') | has('knowing the woods')"),
+        ]),
+    # G W: care as work
+    "to care for those who cannot manage alone": dict(
+        face="G W", domain="career", sphere="care", area="care", calling=True,
+        dreams=[],
+        below="{N} is the one who notices the old man at the bus stop who cannot manage the step",
+        tribal="to tend the old, the hurt and the slow, so the clan leaves no one behind",
+        magic="to keep the house of rest where the old and the spent are looked after",
+        spark="a week of looking in on someone",
+        steps=[
+            dict(say="looking after someone at home", any=["carer for a parent", "home nursing", "hospice volunteer",
+                                                          "minding small children"]),
+            dict(say="care as one's work", any=["care worker", "alms visitor"]),
+            dict(say="the calm others lean on", any=["calming people down", "counselling", "carers' group"]),
+            dict(say="the one families ask for by name", any=["good name in town", "trusted with the keys"],
+                 req="was('care worker') | was('alms visitor') | was('carer for a parent')", height="Known"),
+            dict(say="a voice for carers across the country", any=["known across the country"],
+                 req="was('care worker') | was('carer for a parent')", height="Notable"),
+        ]),
+    # G W: the land shared out
+    "to feed the street from my garden": dict(
+        face="G W", domain="community", sphere="prod", area="land", calling=True,
+        dreams=["to make one's town a green and fair place to live"],
+        below="{N} leaves bags of beans on the neighbours' steps every summer and says nothing about it",
+        tribal="to fill the clan's baskets from one's own patch in the hungry months",
+        magic="to keep the guild garden whose fruit feeds the lane",
+        spark="more beans than one house can eat",
+        steps=[
+            dict(say="a few rows of one's own", any=["growing food", "plot of land"]),
+            dict(say="sharing over the fence", any=["neighbour who has your back", "neighbourhood volunteer",
+                                                   "community-kitchen volunteer"]),
+            dict(say="the street's own garden", any=["community-garden coordinator", "housing-cooperative member"]),
+            dict(say="the one the street thanks", any=["good name in town", "trusted with the keys"],
+                 req="was('community-garden coordinator') | has('growing food')", height="Known"),
+            dict(say="a street garden others copy across the country", any=["known across the country"],
+                 req="was('community-garden coordinator')", height="Notable"),
+        ]),
+    # G W: a place in a congregation, as a member
+    "to belong to a congregation for life": dict(
+        face="G W", domain="faith", sphere="faith", area="faith", calling=False,
+        dreams=["to keep the family's old faith and hand it on", "to keep the clan's rites"],
+        below="{N} drifts towards the singing whenever a door of a house of worship stands open",
+        tribal="to stand in the clan's circle at every rite, from first naming to last",
+        magic="to belong to the old shrine's fellowship, one voice among many",
+        spark="missed at worship for the first time",
+        steps=[
+            dict(say="a seat in the same place each week", any=["regular worshipper", "believer on the big days"]),
+            dict(say="a known face", any=["known face at worship", "choir member", "congregation musician"]),
+            dict(say="a hand in its work", any=["trusted with the keys", "community-kitchen volunteer",
+                                               "lay religious teacher"]),
+            dict(say="one of its elders", any=["deacon or elder", "the one everyone asks"],
+                 req="was('regular worshipper') | has('known face at worship')", height="Known"),
+        ]),
+    # G W: a home open to all
+    "to make a home everyone is welcome in": dict(
+        face="G W", domain="partner", sphere="", area="home", calling=False,
+        dreams=["a marriage that lasts a lifetime"],
+        below="{N} keeps an extra plate warm and a spare blanket on the sofa, just in case",
+        tribal="to keep a hearth where any of the clan can sit down and eat",
+        magic="to keep a house whose door the old wards open to any friend",
+        spark="dinner for nine and four chairs",
+        steps=[
+            dict(say="someone to make a home with", any=["living together", "wife or husband",
+                                                        "nonromantic life partner"]),
+            dict(say="a roof of one's own", any=["homeowner", "secure tenancy", "paid-off home"]),
+            dict(say="a table that always has room", any=["cooking for a crowd", "in-laws who took you in",
+                                                         "neighbour who has your back"]),
+            dict(say="a door that never shuts", any=["foster parent", "guardian of an unrelated child",
+                                                    "partner of many years"]),
+        ]),
+    # G U: the garden as a pursuit
+    "to grow the perfect garden": dict(
+        face="G U", domain="", sphere="", area="land", calling=True,
+        dreams=["a garden of one's own", "the finest garden in the street", "a manor with orchards",
+                "to find every rare herb in the deep woods"],
+        below="{N} reads seed packets like letters and knows every plant on the walk to the shops",
+        tribal="to tend the finest herb patch in the clan, where every plant is known",
+        magic="to grow the walled garden where every rare root of the old books will take",
+        spark="the bed that will not take",
+        steps=[
+            dict(say="seeds on the windowsill", any=["growing food", "beekeeping"]),
+            dict(say="a garden of one's own", any=["plot of land", "homeowner", "gardener or groundskeeper"]),
+            dict(say="every plant known by name", any=["knowing the woods", "hives of one's own", "community observer"]),
+            dict(say="the garden people come to see", any=["good name in town", "trophies won"],
+                 req="has('growing food')", height="Known"),
+            dict(say="a garden known across the country", any=["known across the country"],
+                 req="has('growing food')", height="Notable"),
+        ]),
+    # G U: animals as work
+    "to work with animals": dict(
+        face="G U", domain="career", sphere="prod", area="care", calling=True,
+        dreams=["a zookeeper", "a beast-tamer of the menagerie"],
+        below="{N} is always on the floor with the dog at other people's houses, and the dog always comes",
+        tribal="to keep and know the clan's beasts, the herds, the dogs and the birds",
+        magic="to keep the guild's beasts, from the plough horses to the old creatures of the towers",
+        spark="the dog nobody can handle",
+        steps=[
+            dict(say="a way with animals", any=["handling animals", "dog of one's own", "horse of one's own",
+                                               "cat of one's own"]),
+            dict(say="animals as one's work", any=["animal care worker", "farm hand", "park ranger"]),
+            dict(say="beasts of one's own to keep", any=["farmer", "hives of one's own", "professional beekeeper"]),
+            dict(say="the one people bring their animals to", any=["good name in town", "loyal clientele",
+                                                                  "the one everyone asks"],
+                 req="was('animal care worker') | was('farm hand') | has('handling animals')", height="Known"),
+            dict(say="known across the country for the work", any=["known across the country"],
+                 req="has('handling animals')", height="Notable"),
+        ]),
+    # G U: the line, known
+    "to know where we come from": dict(
+        face="G U", domain="", sphere="learn", area="line", calling=True,
+        dreams=["to walk the lands of the ancestors"],
+        below="{N} asks the old relatives about the faces in the photographs until they tire of it",
+        tribal="to know the names of the clan's dead back to the first fire, and where each one walked",
+        magic="to read the house's long rolls back to its founding, and know every name in them",
+        spark="a box of photographs nobody can name",
+        steps=[
+            dict(say="the questions begin", any=["finding things out", "second language", "reader's ticket"]),
+            dict(say="the family tree on the wall", any=["archive research"]),
+            dict(say="the town's past as well", any=["historical reenactment member", "archivist", "museum curator",
+                                                    "community language teacher"]),
+            dict(say="the one who knows the old stories", any=["book in print", "the one everyone asks",
+                                                              "name in the field"],
+                 req="has('archive research')", height="Known"),
+            dict(say="a history read across the country", any=["known across the country"],
+                 req="has('archive research')", height="Notable"),
+        ]),
+    # G U: faith as balance
+    "to live in balance": dict(
+        face="G U", domain="faith", sphere="", area="faith", calling=False,
+        dreams=["a keeper of the old grove", "to know what the old stories really mean"],
+        below="{N} goes quiet on long walks and comes back steadier, without being able to say why",
+        tribal="to walk in step with the seasons and the spirits of the land",
+        magic="to keep the old balance of the grove, where every power has its weight",
+        spark="a week with nothing in the diary",
+        steps=[
+            dict(say="time alone outdoors", any=["knowing the woods", "growing food", "hunting and fishing"]),
+            dict(say="a path of one's own", any=["seeker", "convert"]),
+            dict(say="a calm others lean on", any=["calming people down", "counselling"]),
+            dict(say="the one people come to when life tips over", any=["the one everyone asks"],
+                 req="was('seeker') | has('calming people down') | has('counselling')", height="Known"),
+        ]),
+}
