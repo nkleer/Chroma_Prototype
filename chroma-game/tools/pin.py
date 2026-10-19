@@ -19,7 +19,8 @@ engine_pin/ holds a PINNED.txt is a committed pin (a release branch, or main bef
 import argparse, filecmp, hashlib, os, re, shutil, sys
 
 TREE = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))   # the tree this script sits in
-ENG = ["engine.py", "library.py", "combos.py", "batch.py", "earth_rules.py", "foresee.py", "explain.py", "life.py", "schwartz.py"]
+ENG = ["engine.py", "library.py", "combos.py", "batch.py", "earth_rules.py", "foresee.py", "explain.py", "life.py", "schwartz.py",
+       "realm_earth.py"]
 LIB = ["earth.py", "earth_perks_titles.py", "earth_voice.py", "dreams.py", "earth_story.py", "earth_play.py", "earth_spheres.py",
        "worlds.py", "earth_age_fit.py"]   # plus earth_<pack>.py per pack
 PACK_FILES = ["catalogue.py", "roles.py", "helps.py"]                               # plus every core/*.py
