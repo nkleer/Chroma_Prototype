@@ -30,6 +30,7 @@ from game_because import BecauseMixin
 from game_foot import FootMixin
 from game_aims import AimsMixin
 from game_asks import AsksMixin
+from game_world_answers import WorldAnswersMixin
 
 PRESETS = {
     "1": dict(title="Newborn in an ordinary world",
@@ -55,7 +56,7 @@ PRESETS = {
 }
 
 
-class Game(CheckpointsMixin, WorldMixin, VoiceMixin, LifeMixin, ViewsMixin, CausesMixin, BoldMixin, BecauseMixin, FootMixin, AimsMixin, AsksMixin):
+class Game(CheckpointsMixin, WorldMixin, VoiceMixin, LifeMixin, ViewsMixin, CausesMixin, BoldMixin, BecauseMixin, FootMixin, AimsMixin, AsksMixin, WorldAnswersMixin):
     """One life. Drive it with advance() and decide(); read it with status() and the log."""
     _recall_t = -10 ** 6    # week a memory coming back was last told
     # how much each part of temperament must move before the log says so, and the words for up and down
@@ -145,6 +146,9 @@ class Game(CheckpointsMixin, WorldMixin, VoiceMixin, LifeMixin, ViewsMixin, Caus
         # engine to read world_cfg["legacy"].
         if WORLD_ON and "world" in E.DEFAULT and setting == "earth":
             P["world"] = True
+            if GAME["world_answers"] and "world_answers" in E.DEFAULT:
+                P["world_answers"] = True   # v24 world answers: the world answers the life (with the world only)
+                P["wa_phase2"] = bool(GAME["wa_phase2"])
             P["world_cfg"] = dict(setting="earth", pace=float(min(2.0, max(0.5, float(pace or 1.0)))),
                                   tech_level=tech if tech in ("behind", "modern", "ahead") else "modern",
                                   climate=climate if climate in ("low", "middle", "high") else "middle")

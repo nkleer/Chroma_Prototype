@@ -181,6 +181,8 @@ class ViewsMixin:
             d["aim_choices"] = self.aim_choices_view()
         if GAME["steer_between"]:                       # v24: the player's lean between asks, if one is held
             d["steer"] = self.steer_view()
+        if GAME["world_answers"]:                       # v24 world answers: the "Your world" panel
+            d["world_answers"] = self.wa_view()
         pv = self.places_view()
         if pv:
             d["places"] = pv
@@ -916,6 +918,10 @@ class ViewsMixin:
         cl = self._lines_closing()                           # S5: how their sacred lines stood at the end
         if cl:
             self.review["story"] += "\n\n" + cl
+        kept = self.wa_kept()                                # v24 world answers: what the world kept, ring by ring
+        if kept:
+            self.review["world_kept"] = kept
+            self.review["story"] += "\n\n" + " ".join(x["text"] for x in kept)
         self.review["voice"] = self.voice_review(h)          # item 3: the voice's last sentence and the Book's line
         vr = self.review["voice"] or {}
         if vr.get("end"):                                    # the voice's last sentence closes the song, before the last talk

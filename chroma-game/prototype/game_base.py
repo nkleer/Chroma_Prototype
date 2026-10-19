@@ -266,6 +266,12 @@ GAME = dict(
     # option's reluctance falls for this pick by talk_k x (.2 + .5 x heart or head's share + .2 for an aim's step - .2 if
     # it clashes with who they are), at most .8; it costs talk_cost of their autonomy need. Off: no key
     talk=False, talk_k=1.0, talk_cost=0.02,
+    # v24 world answers (chroma-world/spheres/world-answers-v1.md), with the Engine's world_answers and the batch's
+    # WORLD_ANSWERS: the world's answers to the life (groups and places lean their way, the world notices what they pursue
+    # and asks), told as "because of you" world lines by size, a "Your world" panel, and at the end what the world kept
+    # of the largest footprint in each ring (game_world_answers.py). wa_phase2: the second phase for Known lives
+    # (decisions for others). Changes play when on: off until the joint proof
+    world_answers=False, wa_phase2=False,
 )
 BOLD_IX = 1000          # Bold ways: a bold way's number on the card, BOLD_IX + 100 x its slot + its base way (bix: the base)
 
@@ -288,7 +294,7 @@ GAME_OFF = dict(piv=0.0, piv_own=0.0, piv_steady=0.0, learn_full=False, lean=0.0
                 era_cost=0.0, backfire=0.0, turn_max=0, fig_own=False, own_ix=False, trust_judge=False, lines_tied=False,
                 own_mark="", lean_self=0.0, own_teach=0.0, dream_own=False, dream_firm=0.0, dream_help=0.0, hind_thin=0.5, season_need=0.0, season_calm=0.0, fork_k=0.0, fork_told=False, rung_ask=False,
                 world_hold=False, world_seed=False, faith_home=0.0,
-                line_wait=0.0, news_touch=False, rare_ask=False, returns=False, stakes=False, causes=False, causes_fold=False, bold=False, because=False, arrows=False, foot=False, aims=False, ask_matter=0.0, steer_between=False, talk=False,
+                line_wait=0.0, news_touch=False, rare_ask=False, returns=False, stakes=False, causes=False, causes_fold=False, bold=False, because=False, arrows=False, foot=False, aims=False, ask_matter=0.0, steer_between=False, talk=False, world_answers=False, wa_phase2=False,
                 own_stress=0.5, own_free=0.3, dream_fit=0.5, rare_imp=0.5)
 # v22.5's joint refit (chroma-engine/notes/v22.5-refit-plan.md §2, with the engine's V225): every v22.5 game switch on
 # with its fitted value. F12 world_hold (with the engine's own_open and start_hold), F15 world_seed, F10 line_wait and news_touch (the
@@ -400,6 +406,8 @@ def library_for(setting):
                 batch.FOOT = True                       # v24 footprints: the Library's FOOT tables (earth_foot.py)
             if GAME["aims"] and hasattr(batch, "AIMS"):
                 batch.AIMS = True                       # v24 aims: the aim catalogue, its spark moments, the Historic marker
+            if GAME["world_answers"] and hasattr(batch, "WORLD_ANSWERS"):
+                batch.WORLD_ANSWERS = True              # v24 world answers: the Library's asked, decision and figure moments
             _LIBS[key] = (batch.load_batch("earth", packs=PACKS, setting="earth"), sys.modules.get("earth"))
         else:                                       # v22.5 F15 (world_seed): the clan and the towers on the Library's seed
             seed_ = getattr(WDS, "SEED", None) if GAME["world_seed"] and key in ("tribal", "magic") else None

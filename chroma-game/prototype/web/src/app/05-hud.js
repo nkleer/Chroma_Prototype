@@ -317,6 +317,19 @@ function footTips(root, F) {
     if (x && (x.items || []).length) setTip(el, () => tipBox(`${ic(x.icon)} ${esc(x.name)}: ${x.n}`, x.line ? esc(x.line) : "", x.items.map((i) => [`at ${Math.floor(i.age)}`, `${esc(i.word)} <span class="muted">${esc(i.sit)}</span>`]), ""));
   });
 }
+// v24 world answers (the game's world_answers switch): "Your world", what the life moved ring by ring (people, groups,
+// places, the town, the country), each a count and its newest line; the hover lists the newest lines of that ring
+const WA_ICON = { person: "ci-footprint-people", group: "people", place: "ci-footprint-places", town_sphere: "flag", nation: "globe" };
+function worldAnsHTML(W) {
+  const asks = [W.asked ? `asked ${W.asked} time${W.asked === 1 ? "" : "s"}` : "", W.decided ? `${W.decided} decision${W.decided === 1 ? "" : "s"} for others` : ""].filter(Boolean).join(", ");
+  return `<div class="hsec"><h4>Your world</h4><div class="fstacks">${W.rings.map((x) => `<div class="fst${x.n ? "" : " none"}" data-wr="${x.ring}">${ic(WA_ICON[x.ring] || "dot")}<span class="k">${esc(x.name)}</span><b>${x.n}</b><span class="l">${esc(x.line || (x.n ? "" : "nothing yet"))}</span></div>`).join("")}</div>${asks ? `<p class="note">${esc(cap(asks))}</p>` : ""}</div>`;
+}
+function worldAnsTips(root, W) {
+  root.querySelectorAll("[data-wr]").forEach((el) => {
+    const r = (W.rings || []).find((y) => y.ring === el.dataset.wr), xs = (W.lines || []).filter((y) => y.ring === el.dataset.wr).slice(0, 8);
+    if (r && xs.length) setTip(el, () => tipBox(`${ic(WA_ICON[r.ring] || "dot")} ${esc(r.name)}: ${r.n}`, "", xs.map((i) => [`at ${Math.floor(i.age)}`, esc(i.text)]), ""));
+  });
+}
 // v24 aims (the game's aims switch): each aim's ladder, how far along, the next step and what helps; the heights
 // reached; the aims they could take up (the ones they already feel first). A click takes one up or lets one go
 const aimFace = (f) => pips((f || "").split(""));
@@ -451,6 +464,7 @@ function renderHud(L) {
     ${perks ? `<div class="hsec"><h4>Perks${pk.length > PERK_SHOW + 2 ? ` <span class="cnt">${pk.length}</span>` : ""}</h4><div class="perks">${perks}</div></div>` : ""}
     ${circle ? `<div class="hsec"><h4>People</h4><div class="circle">${circle}</div></div>` : `<div class="hsec"><h4>People</h4><div class="people">${people || `<span class="empty">Nobody met yet</span>`}</div></div>`}
     ${L.foot ? `<div class="hsec"><h4>Footprints</h4>${footHTML(L.foot)}</div>` : ""}
+    ${L.world_answers ? worldAnsHTML(L.world_answers) : ""}
     ${placesHTML(L)}
     ${reach ? `<div class="hsec"><h4>Reach</h4><div class="mts">${reach}</div></div>` : ""}
     ${around ? `<div class="hsec"><h4>Around them</h4><div class="chips">${around}</div></div>` : ""}
@@ -498,6 +512,7 @@ function renderHud(L) {
   hudEl.querySelectorAll("[data-tm]").forEach((el) => { const t = TEMPER.find((x) => x[0] === el.dataset.tm); setTip(el, () => tipBox(`${ic(t[2])} ${TEMPER_NAME[t[0]]}`, t[4], [["Now", temperWord(t[0], L.temper[t[0]])]], "")); });
   hudEl.querySelectorAll("[data-st]").forEach((el) => { const x = L.states[+el.dataset.st]; setTip(el, () => x.reads ? stTip(x) : tipBox(`${ic(x.icon)} ${esc(cap(x.word))}`, "", [[esc(x.name), stateValue(x)]], "")); });
   if (L.foot) footTips(hudEl, L.foot);
+  if (L.world_answers) worldAnsTips(hudEl, L.world_answers);
   if (L.aims) aimsBind(hudEl, L);
   steerBind(hudEl);
   hudEl.querySelectorAll("[data-gj]").forEach((el) => { const g = (L.goals || []).find((x) => x.j === +el.dataset.gj); if (g) setTip(el, () => goalTip({ kind: g.kind, colors: g.colors, domain: g.domain, source: g.source, horizon: g.horizon }, g)); });

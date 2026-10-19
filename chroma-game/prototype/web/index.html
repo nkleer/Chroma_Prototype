@@ -3279,6 +3279,19 @@ function footTips(root, F) {
     if (x && (x.items || []).length) setTip(el, () => tipBox(`${ic(x.icon)} ${esc(x.name)}: ${x.n}`, x.line ? esc(x.line) : "", x.items.map((i) => [`at ${Math.floor(i.age)}`, `${esc(i.word)} <span class="muted">${esc(i.sit)}</span>`]), ""));
   });
 }
+// v24 world answers (the game's world_answers switch): "Your world", what the life moved ring by ring (people, groups,
+// places, the town, the country), each a count and its newest line; the hover lists the newest lines of that ring
+const WA_ICON = { person: "ci-footprint-people", group: "people", place: "ci-footprint-places", town_sphere: "flag", nation: "globe" };
+function worldAnsHTML(W) {
+  const asks = [W.asked ? `asked ${W.asked} time${W.asked === 1 ? "" : "s"}` : "", W.decided ? `${W.decided} decision${W.decided === 1 ? "" : "s"} for others` : ""].filter(Boolean).join(", ");
+  return `<div class="hsec"><h4>Your world</h4><div class="fstacks">${W.rings.map((x) => `<div class="fst${x.n ? "" : " none"}" data-wr="${x.ring}">${ic(WA_ICON[x.ring] || "dot")}<span class="k">${esc(x.name)}</span><b>${x.n}</b><span class="l">${esc(x.line || (x.n ? "" : "nothing yet"))}</span></div>`).join("")}</div>${asks ? `<p class="note">${esc(cap(asks))}</p>` : ""}</div>`;
+}
+function worldAnsTips(root, W) {
+  root.querySelectorAll("[data-wr]").forEach((el) => {
+    const r = (W.rings || []).find((y) => y.ring === el.dataset.wr), xs = (W.lines || []).filter((y) => y.ring === el.dataset.wr).slice(0, 8);
+    if (r && xs.length) setTip(el, () => tipBox(`${ic(WA_ICON[r.ring] || "dot")} ${esc(r.name)}: ${r.n}`, "", xs.map((i) => [`at ${Math.floor(i.age)}`, esc(i.text)]), ""));
+  });
+}
 // v24 aims (the game's aims switch): each aim's ladder, how far along, the next step and what helps; the heights
 // reached; the aims they could take up (the ones they already feel first). A click takes one up or lets one go
 const aimFace = (f) => pips((f || "").split(""));
@@ -3413,6 +3426,7 @@ function renderHud(L) {
     ${perks ? `<div class="hsec"><h4>Perks${pk.length > PERK_SHOW + 2 ? ` <span class="cnt">${pk.length}</span>` : ""}</h4><div class="perks">${perks}</div></div>` : ""}
     ${circle ? `<div class="hsec"><h4>People</h4><div class="circle">${circle}</div></div>` : `<div class="hsec"><h4>People</h4><div class="people">${people || `<span class="empty">Nobody met yet</span>`}</div></div>`}
     ${L.foot ? `<div class="hsec"><h4>Footprints</h4>${footHTML(L.foot)}</div>` : ""}
+    ${L.world_answers ? worldAnsHTML(L.world_answers) : ""}
     ${placesHTML(L)}
     ${reach ? `<div class="hsec"><h4>Reach</h4><div class="mts">${reach}</div></div>` : ""}
     ${around ? `<div class="hsec"><h4>Around them</h4><div class="chips">${around}</div></div>` : ""}
@@ -3460,6 +3474,7 @@ function renderHud(L) {
   hudEl.querySelectorAll("[data-tm]").forEach((el) => { const t = TEMPER.find((x) => x[0] === el.dataset.tm); setTip(el, () => tipBox(`${ic(t[2])} ${TEMPER_NAME[t[0]]}`, t[4], [["Now", temperWord(t[0], L.temper[t[0]])]], "")); });
   hudEl.querySelectorAll("[data-st]").forEach((el) => { const x = L.states[+el.dataset.st]; setTip(el, () => x.reads ? stTip(x) : tipBox(`${ic(x.icon)} ${esc(cap(x.word))}`, "", [[esc(x.name), stateValue(x)]], "")); });
   if (L.foot) footTips(hudEl, L.foot);
+  if (L.world_answers) worldAnsTips(hudEl, L.world_answers);
   if (L.aims) aimsBind(hudEl, L);
   steerBind(hudEl);
   hudEl.querySelectorAll("[data-gj]").forEach((el) => { const g = (L.goals || []).find((x) => x.j === +el.dataset.gj); if (g) setTip(el, () => goalTip({ kind: g.kind, colors: g.colors, domain: g.domain, source: g.source, horizon: g.horizon }, g)); });
@@ -3529,12 +3544,14 @@ const MISREAD_WORD = { hopeful: "they think it likelier than it is", doubtful: "
 
 // Because of you, and meanwhile (GAME because, v23.2): the needs the pick's week moved, split into what the pick did and
 // what else happened, each line with its cause; the week's silent setback as a short line
-function becauseHTML(b, ft) {
+function becauseHTML(b, ft, wl) {
   const row = (x) => `<div class="r">${ic(NEED_ICON[x.need] || "dot")}<span>${esc(cap(NEED_LONG[x.need] || x.need))}</span><span class="${x.delta > 0 ? "up" : "down"}">${sgn(x.delta * 100)}</span><small>${esc(x.why)}</small></div>`;
   const grp = (k, cls, xs, more) => xs.length || more ? `<div class="g ${cls}"><span class="k">${k}</span>${xs.slice(0, 4).map(row).join("")}${more || ""}</div>` : "";
   // v24 footprints (the game's foot switch): what the pick left, one line per kind it touched, inside "Because of you"
   const feet = (ft || []).map((x) => `<div class="r ft">${ic(x.icon)}<span>${esc(x.line)}</span></div>`).join("");
-  return `<div class="ndmove split" id="ndmove">${grp("Because of you", "you", b.you || [], feet)}${grp("Meanwhile", "mw", b.meanwhile || [])}` +
+  // v24 world answers (the game's world_answers switch): what the pick moved in the world this week, the largest first
+  const world = (wl || []).map((x) => `<div class="r ft">${ic("globe")}<span>${esc(x)}</span></div>`).join("");
+  return `<div class="ndmove split" id="ndmove">${grp("Because of you", "you", b.you || [], feet + world)}${grp("Meanwhile", "mw", b.meanwhile || [])}` +
     `${b.setback ? `<p class="note setback">${rich(b.setback.line)}</p>` : ""}</div>`;
 }
 function shortName(label) {
@@ -3982,7 +3999,7 @@ function renderResolution(h, reveal) {
       ${r.rename ? `<div class="rename" id="rename"><span class="k">${ic("quill")} A new name?</span><span>${esc(L.name)} names who they are. They may take a new name, or keep their own.</span>
         <div class="inrow"><input class="field" id="rnTxt" type="text" maxlength="24" autocomplete="off" spellcheck="false" value="${esc(r.rename.suggest)}" aria-label="New name"><button class="primary" id="rnTake">${ic("quill")} Take it</button><button class="ghost" id="rnKeep">Keep ${esc(r.rename.old)}</button></div></div>` : ""}
       ${chips ? `<div class="became">${chips}</div>` : ""}
-      ${r.because || r.foot ? becauseHTML(r.because || {}, r.foot) : (r.needs || []).length ? `<div class="ndmove" id="ndmove">${r.needs.slice(0, 4).map((x) => `<div class="r">${ic(NEED_ICON[x.need] || "dot")}<span>${esc(cap(NEED_LONG[x.need] || x.need))}</span><span class="${x.delta > 0 ? "up" : "down"}">${pct(x.before)} → ${pct(x.after)}</span>${x.lacking && x.delta > 0 ? `<small class="muted">was lacking</small>` : ""}</div>`).join("")}</div>` : ""}
+      ${r.because || r.foot || r.world ? becauseHTML(r.because || {}, r.foot, r.world) : (r.needs || []).length ? `<div class="ndmove" id="ndmove">${r.needs.slice(0, 4).map((x) => `<div class="r">${ic(NEED_ICON[x.need] || "dot")}<span>${esc(cap(NEED_LONG[x.need] || x.need))}</span><span class="${x.delta > 0 ? "up" : "down"}">${pct(x.before)} → ${pct(x.after)}</span>${x.lacking && x.delta > 0 ? `<small class="muted">was lacking</small>` : ""}</div>`).join("")}</div>` : ""}
       ${r.hindsight && r.hindsight.line ? `<p class="hind ${r.hindsight.kind === "accepted" ? "up" : "down"}" id="hind">${rich(r.hindsight.line)}</p>` : ""}
       <div class="row2 shiftbox">${cmove}${toward}</div>
       ${(r.states || []).length ? `<div class="states">${r.states.map((x) => `<span class="st g${x.what === "gained" ? x.good : 0}${x.what === "gained" ? "" : " gone"}">${ic(x.icon)}${x.what === "gained" ? "Now " : "No longer "}${esc(x.word)}</span>`).join("")}</div>` : ""}
