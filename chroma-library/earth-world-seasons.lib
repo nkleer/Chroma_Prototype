@@ -37,16 +37,16 @@ scene U: {N} has found the sensor readings online, street by street, and the wor
 scene B: The shop on the corner sold out of masks by noon and is charging double for the last box. {N} notices who is doing well out of the haze.
 scene R: {N} is sick of being told to stay in. Everyone is short-tempered, and {friend} wants to go out anyway.
 scene G: {grandparent} wheezes on the stairs, and {N} thinks of the hills outside town, where the air is still clean.
-- W | keep the household to the council's advice, windows shut and outings short | v: conformity, security | lever: loyalty | pushes: institution council | chance: 80
-- U | check the readings each morning and plan every outing around the cleanest hours | habit | v: self-direction, security | chance: 85
-- B | buy a good air filter early, before the price climbs, and sell on the spare | v: achievement, power | chance: 85
-- R | go out anyway and run your usual route, haze or no haze | habit | body: light | v: stimulation, self-direction | chance: 70
+- W | keep the household to the council's advice, windows shut and outings short | v: conformity, security | lever: loyalty | pushes: institution council | foot: means freedom-.03 | chance: 80
+- U | check the readings each morning and plan every outing around the cleanest hours | habit | v: self-direction, security | foot: lesson plan around the clean hours | chance: 85
+- B | buy a good air filter early, before the price climbs, and sell on the spare | v: achievement, power | foot: means money+.03 | chance: 85
+- R | go out anyway and run your usual route, haze or no haze | habit | body: light | v: stimulation, self-direction | foot: means health-.06 | chance: 70
 - G | take the family to the relatives in the hills until the haze lifts | v: security, benevolence | lever: exit | pushes: place | chance: 60 | back: helped someone in need
-- WU | gather the street's readings and take them to the council meeting | v: universalism | lever: voice | pushes: institution council | chance: 55
+- WU | gather the street's readings and take them to the council meeting | v: universalism | lever: voice | pushes: institution council | foot: place rule.voice | chance: 55
 - WR | join the march to the plant gates demanding they cut the smoke | v: universalism, stimulation | mark: defied an authority | lever: voice | pushes: institution employer | chance: 45
-- UG | plant a thick hedge by the road and fill the house with air-cleaning plants | v: universalism, security | chance: 65
-- BR | take the cleaning-crew work nobody else wants this summer, at triple pay | body: light | v: achievement, stimulation | chance: 75
-- BG | wait it out indoors and use the weeks to put your own affairs in order | v: security, achievement | lever: neglect | pushes: place | chance: 80
+- UG | plant a thick hedge by the road and fill the house with air-cleaning plants | v: universalism, security | foot: means health+.03 | chance: 65
+- BR | take the cleaning-crew work nobody else wants this summer, at triple pay | body: light | v: achievement, stimulation | foot: means money+.06 | chance: 75
+- BG | wait it out indoors and use the weeks to put your own affairs in order | v: security, achievement | lever: neglect | pushes: place | foot: lesson quiet weeks set things straight | chance: 80
 works: The haze lifts with the first autumn rain, and the household comes through it with nothing worse than a cough.
 works: The fuss over the air does some good: the council moves the lorries off the school road.
 fails: {N} spends three weeks with a chest that will not clear, in and out of the doctor's waiting room.
@@ -77,16 +77,16 @@ scene U: {N} has seen the stain in the water below the outfall, and wants a prop
 scene B: The works employs half the town, {boss} included. Whoever wins the fight over the blame will have a say over {place} for years.
 scene R: {N} grew up swimming in that river. Somebody poisoned it, and {N} is furious.
 scene G: The herons have gone from the bend below the bridge. {N} wonders how many years the river will need to heal.
-- W | file a formal complaint and ask the council to enforce the works' permit | v: conformity, universalism | lever: voice | pushes: institution council | chance: 70
+- W | file a formal complaint and ask the council to enforce the works' permit | v: conformity, universalism | lever: voice | pushes: institution council | foot: place rule.voice | chance: 70
 - U | take water samples at the outfall and send them away for testing | v: self-direction, universalism | mark: learned a skill | chance: 75
 - B | speak for the works at the council hearing, and keep your place on its good side | v: power, security | mark: made an enemy | lever: loyalty | pushes: institution employer | chance: 75
 - R | stand up at the council meeting and name the firm to its face | v: stimulation, universalism | mark: made an enemy | lever: voice | pushes: institution council | chance: 60
-- G | buy water in bottles, keep everyone away from the river, and wait for it to clear | v: security, benevolence | lever: neglect | pushes: place | chance: 80
-- WU | help draft the council's report on what went wrong and who must pay | v: conformity, universalism | lever: voice | pushes: institution council | chance: 50
+- G | buy water in bottles, keep everyone away from the river, and wait for it to clear | v: security, benevolence | lever: neglect | pushes: place | foot: means money-.03 | chance: 80
+- WU | help draft the council's report on what went wrong and who must pay | v: conformity, universalism | lever: voice | pushes: institution council | foot: place rule.counsel | chance: 50
 - WG | get the neighbours together to clear the dead fish and fence off the worst stretch | v: benevolence, universalism | mark: helped someone in need | chance: 70
-- UR | post the test results online, with the firm's name, before anyone can bury them | v: self-direction, universalism | lever: voice | pushes: institution employer | chance: 55
-- BR | sign up to the group claim against the firm and push hard for a payout | v: power, achievement | lever: voice | pushes: institution employer | chance: 60
-- BG | sell your plot by the river quietly, before the prices fall | v: security, power | lever: exit | pushes: place | chance: 55
+- UR | post the test results online, with the firm's name, before anyone can bury them | v: self-direction, universalism | lever: voice | pushes: institution employer | foot: door made an enemy | chance: 55
+- BR | sign up to the group claim against the firm and push hard for a payout | v: power, achievement | lever: voice | pushes: institution employer | foot: means money+.06 | chance: 60
+- BG | sell your plot by the river quietly, before the prices fall | v: security, power | lever: exit | pushes: place | foot: door kept it hidden | chance: 55
 works: The firm pays for the clean-up, and by the next summer children are swimming at the bend again.
 works not G BG: The fight over the blame ends in new rules at the works, and {N} had a hand in them.
 fails: The firm blames a contractor, the contractor blames the rain, and nobody pays.
@@ -119,13 +119,13 @@ scene G: {grandparent} remembers the last dry year, and says the land always com
 - W | keep to the water rota, and report the neighbour who fills a pool at night | v: conformity, security | mark: made an enemy | chance: 80
 - U | rig drip lines and mulch so the garden needs half the water | v: self-direction, achievement | mark: learned a skill | chance: 75
 - B | buy hay cheap from a farmer who has to sell, and sell it on in winter | v: power, achievement | requires: savings | without: means | chance: 75 | back: made an enemy
-- R | pack a bag and go to the city for work until the rain comes back | v: self-direction, stimulation | mark: left home | lever: exit | pushes: place | chance: 65
+- R | pack a bag and go to the city for work until the rain comes back | v: self-direction, stimulation | mark: left home | lever: exit | pushes: place | foot: means money+.06 | chance: 65
 - G | help the family grow only what the dry land will carry this year | v: tradition, universalism | chance: 70 | back: helped someone in need
-- WU | help the council share out the reservoir fairly between farms and homes | v: universalism, conformity | lever: voice | pushes: institution council | chance: 50
-- WR | take a night shift on the fire watch in the dry hills | body: light | v: benevolence, security | chance: 70
-- UB | work out which crops will still pay, and plant them before anyone else does | v: achievement | chance: 55
-- RG | haul water up to the farm by hand every morning to keep the animals alive | body: heavy | v: benevolence, tradition | chance: 60
-- BG | tighten the household belt, spend nothing, and sit the year out | v: security | chance: 80
+- WU | help the council share out the reservoir fairly between farms and homes | v: universalism, conformity | lever: voice | pushes: institution council | foot: place rule.counsel | chance: 50
+- WR | take a night shift on the fire watch in the dry hills | body: light | v: benevolence, security | foot: place prot.rescue | chance: 70
+- UB | work out which crops will still pay, and plant them before anyone else does | v: achievement | foot: means money+.06 | chance: 55
+- RG | haul water up to the farm by hand every morning to keep the animals alive | body: heavy | v: benevolence, tradition | foot: means time-.06 | chance: 60
+- BG | tighten the household belt, spend nothing, and sit the year out | v: security | foot: means money+.03 | chance: 80
 works: The rain comes back in the autumn, and {N} has kept enough going to start again.
 works: The dry year teaches {N} things about water and land that will matter for years.
 fails: Prices stay high all winter, and the household runs down what it had saved.
@@ -156,15 +156,15 @@ scene B: The cafes are full, the market is busy, and everyone is in the mood to 
 scene R: The sun is out and {N} cannot sit still. {friend} has already sent a message about the lake.
 scene G: {N} wakes to birdsong and lets the morning come slowly, as the season seems to ask.
 - W | organise the street clean-up and the shared meal at the end of it | v: benevolence, conformity | mark: made a friend | chance: 75
-- U | start a notebook of what flowers when, on long walks before work | v: self-direction | chance: 85
-- B | set up a stall at the weekend market while people are in the mood to spend | habit | v: achievement, power | chance: 80
-- R | skip work on the first warm day and take everyone to the lake | v: hedonism, stimulation | chance: 85
-- G | dig and plant the garden, and spend the long evenings sitting in it | v: tradition, hedonism | chance: 80
+- U | start a notebook of what flowers when, on long walks before work | v: self-direction | foot: place prod.wild | chance: 85
+- B | set up a stall at the weekend market while people are in the mood to spend | habit | v: achievement, power | foot: place comm.market | chance: 80
+- R | skip work on the first warm day and take everyone to the lake | v: hedonism, stimulation | foot: lesson a day off pays back | chance: 85
+- G | dig and plant the garden, and spend the long evenings sitting in it | v: tradition, hedonism | foot: means health+.03 | chance: 80
 - RG | sleep out under the stars with friends on the warmest night | v: stimulation, hedonism | chance: 80 | back: made a friend
-- UB | use the light evenings to finish the course you put off all winter | v: achievement, self-direction | chance: 65
-- UR | take the bike out alone and ride somewhere you have never been | v: stimulation, self-direction | chance: 80
-- WB | get the street to back a community garden, and offer to run it | v: power, benevolence | chance: 55
-- WG | plant trees along the school road with the children and the old folk of the street | v: benevolence, universalism | chance: 75
+- UB | use the light evenings to finish the course you put off all winter | v: achievement, self-direction | foot: place learn.higher | chance: 65
+- UR | take the bike out alone and ride somewhere you have never been | v: stimulation, self-direction | foot: means freedom+.03 | chance: 80
+- WB | get the street to back a community garden, and offer to run it | v: power, benevolence | foot: place prod.land | chance: 55
+- WG | plant trees along the school road with the children and the old folk of the street | v: benevolence, universalism | foot: means ties+.06 | chance: 75
 works: For a few weeks life feels lighter, and {N} remembers that spring for years.
 works: Something started in the good weather keeps going long after it.
 fails: A late frost and a week of rain end it early, and the plans go back in the drawer.
@@ -193,16 +193,16 @@ scene U: {N} has read the plan closely and can see where the money will run shor
 scene B: Rebuilding money is flowing in and contracts are being handed out. {N} can see who is getting them, and wants to be one of them.
 scene R: {N} is tired of waiting on permits and committees. The playground is still a fenced heap of rubble.
 scene G: The trees that came down are sprouting from their stumps. {N} thinks the town will heal the same way, slowly, from what is left.
-- W | sit on the residents' committee that checks the rebuilding against the plan | v: conformity, universalism | lever: voice | pushes: institution council | chance: 75
+- W | sit on the residents' committee that checks the rebuilding against the plan | v: conformity, universalism | lever: voice | pushes: institution council | foot: place rule.counsel | chance: 75
 - U | learn a building trade on the council's rebuilding course | v: achievement, self-direction | mark: learned a skill | chance: 70
-- B | bid for a small rebuilding contract while the money is flowing | v: power, achievement | chance: 70
+- B | bid for a small rebuilding contract while the money is flowing | v: power, achievement | foot: means money+.06 | chance: 70
 - R | round up friends and clear the playground rubble yourselves one weekend | body: heavy | v: benevolence, stimulation | chance: 75 | back: defied an authority
-- G | keep to your old shops and your old bench, so the town has its life back | v: tradition, security | mark: stayed home | lever: loyalty | pushes: place | chance: 80
+- G | keep to your old shops and your old bench, so the town has its life back | v: tradition, security | mark: stayed home | lever: loyalty | pushes: place | foot: means ties+.03 | chance: 80
 - RG | throw a street party among the ruins to mark a year since the disaster | v: hedonism, benevolence | mark: made a friend | chance: 75
-- UB | find the gaps in the rebuilding grants and get your own repairs paid first | v: achievement, security | chance: 70
-- UG | help plant the banks and hillsides so the land holds better next time | body: light | v: universalism | chance: 55
+- UB | find the gaps in the rebuilding grants and get your own repairs paid first | v: achievement, security | foot: means money+.03 | chance: 70
+- UG | help plant the banks and hillsides so the land holds better next time | body: light | v: universalism | foot: place prod.wild | chance: 55
 - WB | stand for the rebuilding board and make sure your side of town comes first | v: power, security | mark: made an enemy | lever: voice | pushes: institution council | chance: 55
-- WR | press the council at every meeting until the clinic has its own building again | v: universalism, benevolence | lever: voice | pushes: institution council | chance: 50
+- WR | press the council at every meeting until the clinic has its own building again | v: universalism, benevolence | lever: voice | pushes: institution council | foot: place rule.voice | chance: 50
 works: Two years on, the school is back in its own building and the bus runs on time again.
 works: {N} finds a part in the rebuilding, and {place} feels more like home than it did before.
 fails: The money runs short, and the clinic stays in the library for another winter.
@@ -231,15 +231,15 @@ scene U: {N} reads the business news and wonders how long it can last. Booms end
 scene B: Money is moving fast, and the people who move with it are getting rich. {N} wants a share before it stops.
 scene R: A firm at the other end of the country wants {N} next month, with the move paid. Why not just go?
 scene G: {N} has seen good years before, and the lean ones after them. {parent} says to fill the cupboard while the sun shines.
-- W | stay with your employer and take the raise offered for staying | v: security, conformity | lever: loyalty | pushes: institution employer | chance: 80
+- W | stay with your employer and take the raise offered for staying | v: security, conformity | lever: loyalty | pushes: institution employer | foot: means money+.03 | chance: 80
 - U | take the offer that teaches you the most, even at lower pay | v: self-direction, achievement | mark: learned a skill | chance: 75
-- B | play two offers against each other until one pays far more | v: power, achievement | chance: 75
+- B | play two offers against each other until one pays far more | v: power, achievement | foot: means money+.06 | chance: 75
 - R | take the job at the other end of the country and move within the month | v: stimulation, self-direction | mark: moved away | lever: exit | pushes: place | chance: 70
-- G | put the extra pay aside for the lean years that always follow | v: security, tradition | chance: 75
+- G | put the extra pay aside for the lean years that always follow | v: security, tradition | foot: means money+.06 | chance: 75
 - BR | quit and start your own firm while customers are easy to find | v: achievement, self-direction | mark: took a wild risk | chance: 55
 - UG | use the good year to retrain for work that will last when the boom ends | v: security, self-direction | chance: 60 | back: learned a skill
-- UR | spend the extra on the long trip you always put off | v: hedonism, stimulation | requires: savings | without: means | chance: 80
-- WB | push for promotion now, while the firm needs every good person | v: achievement, power | chance: 60
+- UR | spend the extra on the long trip you always put off | v: hedonism, stimulation | requires: savings | without: means | foot: means money-.10 | chance: 80
+- WB | push for promotion now, while the firm needs every good person | v: achievement, power | foot: lesson ask while they need you | chance: 60
 - WG | help a friend out of work get taken on at your place | v: benevolence | mark: helped someone in need | chance: 65
 works: The good year leaves {N} better off, with savings or skills that last past the boom.
 works: The change turns out well, and {N} wonders why it took a boom to try it.
@@ -269,16 +269,16 @@ scene U: {N} has read the new owners' plans and can see which skills they will n
 scene B: Shops on the high street have been cheap for years. They will not be cheap for long.
 scene R: For once something is happening in {place}, and {N} wants to be in the middle of it.
 scene G: The town is coming back to life the way a field comes back after a hard winter. {N} wants the old families to share in it.
-- W | sign on at the reopened works and be there on time every shift | habit | v: security, conformity | chance: 80
+- W | sign on at the reopened works and be there on time every shift | habit | v: security, conformity | foot: place prod.craft | chance: 80
 - U | train for the skilled work the new owners will need in two years | v: achievement, self-direction | mark: learned a skill | chance: 70
 - B | take on a cheap empty shop on the high street before the rents go up | v: power, achievement | mark: took a wild risk | requires: savings | without: means | chance: 75
-- R | open a pop-up bar in the old station and see if it takes off | v: stimulation, hedonism | chance: 65
+- R | open a pop-up bar in the old station and see if it takes off | v: stimulation, hedonism | foot: door took a wild risk | chance: 65
 - G | ask the new owners to hire from the old families who stayed through the lean years | v: benevolence, tradition | lever: voice | pushes: institution employer | chance: 55 | back: helped someone in need
-- BG | put in a word for your cousins, so the family gets the good shifts | v: power, benevolence | chance: 70
-- RG | call the ones who left and tell them to come home, there is work again | v: benevolence, stimulation | chance: 70
-- UR | pitch a new idea to the owners at their open day | v: self-direction, achievement | chance: 45
-- WB | get a seat on the works' liaison board as the town's voice | v: power, conformity | lever: voice | pushes: institution employer | chance: 55
-- WU | help the council set up a jobs board so everyone hears of the openings | v: universalism | chance: 70
+- BG | put in a word for your cousins, so the family gets the good shifts | v: power, benevolence | foot: person colleague | chance: 70
+- RG | call the ones who left and tell them to come home, there is work again | v: benevolence, stimulation | foot: means ties+.06 | chance: 70
+- UR | pitch a new idea to the owners at their open day | v: self-direction, achievement | foot: person patron | chance: 45
+- WB | get a seat on the works' liaison board as the town's voice | v: power, conformity | lever: voice | pushes: institution employer | foot: place rule.counsel | chance: 55
+- WU | help the council set up a jobs board so everyone hears of the openings | v: universalism | foot: door helped someone in need | chance: 70
 works: Within the year {place} feels alive again, and {N} has a footing in the new work.
 works: People who left start coming back, and the street {N} grew up on fills up again.
 fails: The new owners hire mostly from outside, and the old hands are left watching.
@@ -309,16 +309,16 @@ scene U: {N} notices that grain prices have fallen so far the farms may barely b
 scene B: Grain is cheap now, and it will not be in spring. {N} starts thinking about storage.
 scene R: The fields are gold, the cider is new, and the whole valley wants to celebrate.
 scene G: {grandparent} is already setting out jars on the kitchen table. Good years are for putting by.
-- W | help run the harvest supper and see that every household gets a share | v: tradition, benevolence | chance: 80
-- U | work out what a glut does to prices and plan next year's planting around it | v: self-direction, achievement | chance: 70
-- B | buy grain cheap now and store it to sell in the spring | v: power, achievement | requires: savings | without: means | chance: 80
-- R | dance at the harvest fair until the band packs up | v: hedonism, stimulation | chance: 90
-- G | spend the week bottling, drying and putting by for the winter | habit | v: tradition, security | chance: 75
-- BR | drive a van of cheap produce to the city market and sell it fast | v: achievement, stimulation | chance: 70
-- UB | sign a contract now that fixes next year's price in your favour | v: security, power | chance: 70
-- UG | save seed from the best plants, with notes on which did well | v: tradition, self-direction | chance: 70
+- W | help run the harvest supper and see that every household gets a share | v: tradition, benevolence | foot: place gather.hall | chance: 80
+- U | work out what a glut does to prices and plan next year's planting around it | v: self-direction, achievement | foot: lesson a glut lowers every price | chance: 70
+- B | buy grain cheap now and store it to sell in the spring | v: power, achievement | requires: savings | without: means | foot: door took a wild risk | chance: 80
+- R | dance at the harvest fair until the band packs up | v: hedonism, stimulation | foot: person friend | chance: 90
+- G | spend the week bottling, drying and putting by for the winter | habit | v: tradition, security | foot: means money+.03 | chance: 75
+- BR | drive a van of cheap produce to the city market and sell it fast | v: achievement, stimulation | foot: means money+.06 | chance: 70
+- UB | sign a contract now that fixes next year's price in your favour | v: security, power | foot: door kept your word | chance: 70
+- UG | save seed from the best plants, with notes on which did well | v: tradition, self-direction | foot: mark learned a skill | chance: 70
 - WG | give the surplus to the food bank before it spoils | v: benevolence, universalism | mark: helped someone in need | chance: 80
-- WR | lead the harvest parade through the town, banners and all | v: tradition, stimulation | chance: 80
+- WR | lead the harvest parade through the town, banners and all | v: tradition, stimulation | foot: place gather.great | chance: 80
 works: The household eats well all winter, and the cellar is still not empty by spring.
 works: {N} remembers that autumn as a time when there was enough for everyone.
 fails: The glut drives prices so low that the farms barely cover their costs.
@@ -347,16 +347,16 @@ scene U: {N} reads the new law itself, every page, to see what it truly allows a
 scene B: A new freedom means a new market. Somebody will do well out of it, and {N} wonders who.
 scene R: {N} has waited years for this. At last the choice is {Ns} own.
 scene G: {grandparent} has seen the laws swing back and forth before. Customs, {grandparent} says, change more slowly.
-- W | accept the new law, though you argued against it, and say so plainly | v: conformity, universalism | lever: loyalty | pushes: state | chance: 80
-- U | read the new law in full and explain it to friends who are confused | v: universalism, self-direction | chance: 85
+- W | accept the new law, though you argued against it, and say so plainly | v: conformity, universalism | lever: loyalty | pushes: state | foot: lesson a fair loss still counts | chance: 80
+- U | read the new law in full and explain it to friends who are confused | v: universalism, self-direction | foot: means ties+.03 | chance: 85
 - B | set up a small business serving what is newly allowed | v: achievement, power | mark: took a wild risk | requires: savings | without: means | chance: 70
-- R | take the new freedom in the very first week, whatever anyone says | v: self-direction, stimulation | chance: 85
-- G | keep to the old ways in your own house, and leave others to theirs | v: tradition | lever: neglect | pushes: state | chance: 70
-- BG | wait to see who gains from it before taking any side | v: security, power | chance: 70
-- UG | hear out the elders and the young on it before making up your mind | v: universalism, tradition | chance: 75
-- UR | write openly online about what the change means for people like yourself | act: write openly online about what the change means for people like them | v: self-direction, universalism | lever: voice | pushes: culture | chance: 60
-- WB | join the campaign to hedge the new law about with rules and licences | v: security, power | lever: voice | pushes: state | chance: 45
-- WR | march in the celebration that weekend with everyone it frees | v: universalism, stimulation | lever: voice | pushes: culture | chance: 80
+- R | take the new freedom in the very first week, whatever anyone says | v: self-direction, stimulation | foot: means freedom+.06 | chance: 85
+- G | keep to the old ways in your own house, and leave others to theirs | v: tradition | lever: neglect | pushes: state | foot: door stayed home | chance: 70
+- BG | wait to see who gains from it before taking any side | v: security, power | foot: door turned down a chance | chance: 70
+- UG | hear out the elders and the young on it before making up your mind | v: universalism, tradition | foot: person elder | chance: 75
+- UR | write openly online about what the change means for people like yourself | act: write openly online about what the change means for people like them | v: self-direction, universalism | lever: voice | pushes: culture | foot: place arts.page | chance: 60
+- WB | join the campaign to hedge the new law about with rules and licences | v: security, power | lever: voice | pushes: state | foot: place rule.voice | chance: 45
+- WR | march in the celebration that weekend with everyone it frees | v: universalism, stimulation | lever: voice | pushes: culture | foot: place gather.great | chance: 80
 works: The change settles in faster than anyone feared, and {N} finds a way to live with it.
 works: A year on, the quarrels over it have quietened, and {N} is glad of where they stand.
 fails: The family argues over it at every meal for months.
@@ -387,16 +387,16 @@ scene U: {N} has been reading about where the feast's customs came from, and the
 scene B: Everyone who matters in {place} is at the feast. {N} knows that where a person sits tonight says a great deal.
 scene R: Music, food, and the whole street out late. {N} means to enjoy every hour of it.
 scene G: {grandparent} sits at the head of the table, as always, with the young ones all around. {N} looks around and feels at home.
-- W | keep the whole fast and every rite before the feast, as the faith teaches | v: tradition, conformity | lever: loyalty | pushes: belief | chance: 80
-- U | find out what each custom of the feast means, and tell the young ones | v: tradition, self-direction | chance: 80
+- W | keep the whole fast and every rite before the feast, as the faith teaches | v: tradition, conformity | lever: loyalty | pushes: belief | foot: place faith.congregation | chance: 80
+- U | find out what each custom of the feast means, and tell the young ones | v: tradition, self-direction | foot: means ties+.03 | chance: 80
 - B | sit with the people who matter, and make the most of the evening | v: power, achievement | mark: made a friend | chance: 80
-- R | dance in the street until dawn with everyone else | v: hedonism, stimulation | chance: 90
+- R | dance in the street until dawn with everyone else | v: hedonism, stimulation | foot: person friend | chance: 90
 - G | cook the dishes your grandmother cooked and set a place for whoever comes | v: tradition, benevolence | mark: helped someone in need | chance: 75
-- BR | play host to the biggest table in the street, and enjoy every bit of the attention | v: hedonism, power | chance: 75
+- BR | play host to the biggest table in the street, and enjoy every bit of the attention | v: hedonism, power | foot: means money-.06 | chance: 75
 - RG | make it up with the cousin you fell out with years ago, there at the table | v: benevolence | mark: made a friend | chance: 55
-- UB | help keep the feast's accounts, and earn a say in how the money is spent | v: power, achievement | lever: loyalty | pushes: institution faith body | chance: 80
+- UB | help keep the feast's accounts, and earn a say in how the money is spent | v: power, achievement | lever: loyalty | pushes: institution faith body | foot: place rule.counsel | chance: 80
 - WG | bring the lonely old neighbours to the feast and make room at your table | v: benevolence, tradition | mark: helped someone in need | chance: 80
-- WU | help the elders write down the feast's old customs before they are forgotten | v: tradition, universalism | chance: 80
+- WU | help the elders write down the feast's old customs before they are forgotten | v: tradition, universalism | foot: place learn.keeping | chance: 80
 works: The feast leaves {N} warm for weeks, closer to family and faith than before.
 works: Something mended at the table stays mended, and the year ahead feels steadier.
 fails: An old quarrel flares up across the table and spoils the evening.

@@ -421,15 +421,15 @@ scene B: Two people who want {N} at the same time. {N} feels the pleasant weight
 scene R: The wine, the candles, the two of them grinning across the table: {Ns} heart is pounding, and every part of {N} says yes.
 scene G: There is so much warmth in the room, between the three of them, and {N} lets the feeling be what it is before thinking at all.
 - W | say no, and warn the friends you share what the two of them are like | v: conformity, security | mark: made an enemy | closed: approval: spreading their private life; backfire: the friends side with the couple, and the gossip turns round | chance: 60
-- U | ask for a week to think, and talk it over with them both first | v: self-direction | chance: 65
-- B | say yes, on the condition that you can leave whenever you like | v: power, hedonism | chance: 80
+- U | ask for a week to think, and talk it over with them both first | v: self-direction | foot: lesson time to think helps | chance: 65
+- B | say yes, on the condition that you can leave whenever you like | v: power, hedonism | foot: mark took a wild risk | chance: 80
 - R | say yes to the three of you, there and then | door | v: hedonism, stimulation | mark: took a wild risk | chance: 78
 - G | stay, and let the warmth of the evening decide | v: hedonism, benevolence | mark: took a wild risk | chance: 68
-- BG | stay, and keep the night a secret from every friend you share | v: security, hedonism | chance: 75
+- BG | stay, and keep the night a secret from every friend you share | v: security, hedonism | foot: door kept it hidden | chance: 75
 - BR | say yes, and set out to win one of them away from the other | v: power, hedonism | mark: made an enemy | chance: 45
-- UG | say not tonight, and let it grow slowly, if it is going to | v: self-direction, security | chance: 70
-- WR | say yes, with one rule agreed at the table: anyone can stop at any time | v: hedonism, benevolence | chance: 80
-- WU | thank them warmly, say no, and talk it through so the friendship holds | v: benevolence, conformity | mark: turned down a chance | chance: 80
+- UG | say not tonight, and let it grow slowly, if it is going to | v: self-direction, security | foot: lesson some things grow slowly | chance: 70
+- WR | say yes, with one rule agreed at the table: anyone can stop at any time | v: hedonism, benevolence | foot: mark took a wild risk | chance: 80
+- WU | thank them warmly, say no, and talk it through so the friendship holds | v: benevolence, conformity | mark: turned down a chance | foot: means ties+.03 | chance: 80
 works not W U UG WU: The night is warm and kind, and the three of them laugh about it over breakfast.
 works: Whatever {N} answers, the friendship with {friend} and {prospect} is still easy a month later.
 fails not W U UG WU: The morning after is awkward, and the couple stop calling.
@@ -460,16 +460,16 @@ scene U: {prospect} speaks another language, eats strange breakfasts and knows e
 scene B: {N} has a week of freedom, nobody watching and nothing to lose, and means to make the most of it.
 scene R: The sun, the salt, the late nights, and {prospect} laughing on the harbour wall: {N} is in love by Tuesday.
 scene G: {N} has fallen into the rhythm of the place: long lunches, a swim at dusk, and {prospect} close by as if it had always been so.
-- W | enjoy every day of it, and say a proper goodbye at the bus on Saturday | v: hedonism, conformity | chance: 85
+- W | enjoy every day of it, and say a proper goodbye at the bus on Saturday | v: hedonism, conformity | foot: lesson a good goodbye matters | chance: 85
 - U | learn their language and their town, and keep writing once you are home | door | v: self-direction | mark: learned a skill | chance: 65
 - B | enjoy the week, and give them a false number on the last morning | v: hedonism, power | chance: 80 | back: broke your word
 - R | ride on the back of their scooter along the cliff road, no helmet | body: light | v: stimulation | mark: took a wild risk | closed: law: riding without a helmet; backfire: a fine, or a fall | death_if_fails: 0.002 | chance: 68
 - G | swim out with them to the rocks at night, the way the locals do | door | body: heavy | v: stimulation, universalism (nature) | mark: took a wild risk | closed: approval: night swimming where the signs forbid it; backfire: a rescue boat, and a fine | death_if_fails: 0.002 | chance: 75
 - RG | change your ticket, and stay on with them for another month | v: hedonism, self-direction | chance: 70 | back: took a wild risk
-- UB | find out what their life at home is really like before going any deeper | v: security | chance: 75
-- UR | write them a long letter on the last night, saying everything | v: benevolence, stimulation | chance: 80
-- WB | invite them to visit your home town, and pay for the ticket and the visa | v: benevolence, security | closed: law: a visa that may be refused; backfire: turned back at the border, and the money gone | chance: 50
-- WG | introduce them to your family on a video call on the last night | v: tradition, benevolence | tech: video calls | chance: 65
+- UB | find out what their life at home is really like before going any deeper | v: security | foot: lesson find out before falling | chance: 75
+- UR | write them a long letter on the last night, saying everything | v: benevolence, stimulation | foot: person prospect | chance: 80
+- WB | invite them to visit your home town, and pay for the ticket and the visa | v: benevolence, security | closed: law: a visa that may be refused; backfire: turned back at the border, and the money gone | foot: person prospect; means money-.06 | chance: 50
+- WG | introduce them to your family on a video call on the last night | v: tradition, benevolence | tech: video calls | foot: person prospect | chance: 65
 works: The week is golden from end to end, and {N} goes home brown and happy, with a story for life.
 works not B: {N} and {prospect} keep writing long after the holiday, and the summer lives on.
 fails: On the last night {prospect} mentions someone waiting at home, and the week turns sour.

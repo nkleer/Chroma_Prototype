@@ -211,15 +211,15 @@ scene B: {Ns} older cousin made it to the end last year, and everyone still talk
 scene R: {N} is starving, bored and cross, and the smell from the school kitchen is unbearable.
 scene G: {grandparent} wakes {N} before dawn for the small meal in the dark kitchen, the way it was done when {grandparent} was small.
 - W | keep every day of it, and tell your friends plainly why you are not eating | v: tradition, conformity | mark: kept your word | self_control: + | sphere: faith.W | chance: 65
-- U | ask the teacher of the rite what the fast is really for, and write it down | v: self-direction, universalism | sphere: faith.U | chance: 65
-- B | keep it to the end, and make sure the whole family knows you did | v: achievement | sphere: faith.B | chance: 65
-- R | eat a secret biscuit behind the bike sheds, then carry on with the fast | v: hedonism | self_control: - | sphere: faith.R | chance: 65
-- G | rise before dawn every day for the small meal with your grandparent | act: rise before dawn every day for the small meal with their grandparent | v: tradition, benevolence | sphere: faith.G | chance: 65
-- RG | race your cousins to the evening table, and make every breaking of the fast a party | v: hedonism, tradition | sphere: faith.RG | chance: 55
-- UB | work out which hours are hardest, and plan each day around them | v: achievement, self-direction | sphere: faith.UB | chance: 55
-- UR | keep a diary of every hungry day, and what it makes you feel | act: keep a diary of every hungry day, and what it makes them feel | v: self-direction, stimulation | sphere: faith.UR | chance: 55
-- WB | help serve the evening meal for the poor, and eat only after they have | v: benevolence, achievement | sphere: faith.WB | chance: 55
-- WG | fast alongside your grandparent, and keep each other going to the last evening | act: fast alongside their grandparent, and keep each other going to the last evening | v: tradition, benevolence | sphere: faith.GW | chance: 55
+- U | ask the teacher of the rite what the fast is really for, and write it down | v: self-direction, universalism | sphere: faith.U | foot: person teacher | chance: 65
+- B | keep it to the end, and make sure the whole family knows you did | v: achievement | sphere: faith.B | foot: means ties+.03 | chance: 65
+- R | eat a secret biscuit behind the bike sheds, then carry on with the fast | v: hedonism | self_control: - | sphere: faith.R | foot: door kept it hidden | chance: 65
+- G | rise before dawn every day for the small meal with your grandparent | act: rise before dawn every day for the small meal with their grandparent | v: tradition, benevolence | sphere: faith.G | foot: lesson dawn is the quietest hour | chance: 65
+- RG | race your cousins to the evening table, and make every breaking of the fast a party | v: hedonism, tradition | sphere: faith.RG | foot: means ties+.03 | chance: 55
+- UB | work out which hours are hardest, and plan each day around them | v: achievement, self-direction | sphere: faith.UB | foot: lesson plan around the hard hours | chance: 55
+- UR | keep a diary of every hungry day, and what it makes you feel | act: keep a diary of every hungry day, and what it makes them feel | v: self-direction, stimulation | sphere: faith.UR | foot: place arts.page | chance: 55
+- WB | help serve the evening meal for the poor, and eat only after they have | v: benevolence, achievement | sphere: faith.WB | foot: mark helped someone in need | chance: 55
+- WG | fast alongside your grandparent, and keep each other going to the last evening | act: fast alongside their grandparent, and keep each other going to the last evening | v: tradition, benevolence | sphere: faith.GW | foot: door kept your word | chance: 55
 works: On the last evening {N} sits with the grown-ups, and {grandparent} gives {N} the first bite of the feast, as the eldest once gave it to them.
 works: {N} gets through it, and something about the hunger and the shared table stays with {N} for years.
 fails: {N} gives in on the tenth day, and is quietly ashamed, though nobody scolds.
@@ -251,16 +251,16 @@ scene U: {N} has been reading what the old family names mean, and some of them m
 scene B: Naming the baby after {Ns} grandfather would settle a great deal: an old quarrel, and {Ns} parent's help with the house.
 scene R: {N} has loved one name since before the baby was born, and it is on nobody else's list.
 scene G: In {Ns} family the first child takes a grandparent's name, and has for as long as anyone can remember.
-- W | hold the full rite at the house of worship, and learn every line for the day | v: tradition, conformity | sphere: faith.W | chance: 65
-- U | choose a name for what it means, and explain your reasons to both families | v: self-direction, universalism | sphere: faith.U | chance: 65
-- B | give the baby the family name first, and the name you wanted second | act: give the baby the family name first, and the name they wanted second | v: security, achievement | sphere: faith.B | chance: 65
-- R | announce the name you love at the rite, before anyone can talk you out of it | act: announce the name they love at the rite, before anyone can talk them out of it | v: self-direction, stimulation | sphere: faith.R | chance: 65
-- G | give the baby a grandparent's name, as the first child always has | v: tradition | sphere: faith.G | chance: 65
-- BG | hold the naming in the family's old house, and invite everyone who might help later | v: tradition, power | sphere: faith.BG | chance: 55
-- BR | throw a naming party so big that the quarrel over the rite is forgotten | v: hedonism, power | lever: fund | sphere: faith.BR | chance: 55
-- UR | write a short rite of your own with your partner, and say it at home | v: self-direction | sphere: faith.UR | chance: 55
-- WG | keep the old rite, and add one new blessing in your partner's words | act: keep the old rite, and add one new blessing in their partner's words | v: tradition, benevolence | sphere: faith.GW | chance: 55
-- WU | sit both families down with the leader of the rite, and agree the order together | v: conformity, universalism | sphere: faith.WU | chance: 55
+- W | hold the full rite at the house of worship, and learn every line for the day | v: tradition, conformity | sphere: faith.W | foot: place faith.congregation | chance: 65
+- U | choose a name for what it means, and explain your reasons to both families | v: self-direction, universalism | sphere: faith.U | foot: lesson a name carries a story | chance: 65
+- B | give the baby the family name first, and the name you wanted second | act: give the baby the family name first, and the name they wanted second | v: security, achievement | sphere: faith.B | foot: door gave in to pressure | chance: 65
+- R | announce the name you love at the rite, before anyone can talk you out of it | act: announce the name they love at the rite, before anyone can talk them out of it | v: self-direction, stimulation | sphere: faith.R | foot: means ties-.03 | chance: 65
+- G | give the baby a grandparent's name, as the first child always has | v: tradition | sphere: faith.G | foot: lesson the old names come round again | chance: 65
+- BG | hold the naming in the family's old house, and invite everyone who might help later | v: tradition, power | sphere: faith.BG | foot: means ties+.06 | chance: 55
+- BR | throw a naming party so big that the quarrel over the rite is forgotten | v: hedonism, power | lever: fund | sphere: faith.BR | foot: means money-.06 | chance: 55
+- UR | write a short rite of your own with your partner, and say it at home | v: self-direction | sphere: faith.UR | foot: door defied an authority | chance: 55
+- WG | keep the old rite, and add one new blessing in your partner's words | act: keep the old rite, and add one new blessing in their partner's words | v: tradition, benevolence | sphere: faith.GW | foot: means ties+.03 | chance: 55
+- WU | sit both families down with the leader of the rite, and agree the order together | v: conformity, universalism | sphere: faith.WU | foot: person elder | chance: 55
 works: On the day the name is said aloud in a full room, and even {parent} repeats it.
 works: The name sticks, and years later the child asks why, and {N} has a good story to tell.
 fails: {parent} calls the baby by another name for a year, and nobody quite forgets the quarrel.
@@ -291,16 +291,16 @@ scene U: {N} has thought hard about it. A rite said without belief is a promise 
 scene B: {N} knows that the family's help with the deposit comes with the rite attached, said aloud or not.
 scene R: It is {Ns} wedding. {N} is tired of being told how to love by people who will not be in the marriage.
 scene G: {grandparent} married under the old rite, and so did every couple in the photographs on the stairs.
-- W | marry at the town hall, then ask the elders for a blessing afterwards | v: conformity, benevolence | sphere: faith.W | chance: 60
-- U | write down why the rite would be a lie, and give it to your parents | act: write down why the rite would be a lie, and give it to their parents | v: self-direction, universalism | lever: voice | sphere: faith.U | chance: 60
-- B | agree to the rite in return for the family's help with the house | v: security, achievement | sphere: faith.B | chance: 60
-- R | marry at the town hall next month, and send the family a photograph | v: self-direction | lever: exit | sphere: faith.R | chance: 60
-- G | keep one old custom on the day, so the ancestors are not left out | v: tradition | sphere: faith.G | chance: 60
-- BR | throw the best party the family has ever seen, rite or no rite | v: hedonism, power | lever: fund | sphere: faith.BR | chance: 50
-- UG | ask the oldest relative which customs are older than the faith, and keep those | v: tradition, universalism | sphere: faith.GU | chance: 50
-- UR | make up a ceremony of your own on a hilltop, in words you both wrote | v: self-direction, stimulation | sphere: faith.UR | chance: 50
-- WB | strike a deal with your parents: the town hall now, the rite at the first child | act: strike a deal with their parents: the town hall now, the rite at the first child | v: security, conformity | sphere: faith.WB | chance: 50
-- WG | visit your parents every week until the wedding, and listen more than you talk | act: visit their parents every week until the wedding, and listen more than they talk | v: benevolence, tradition | sphere: faith.GW | chance: 50
+- W | marry at the town hall, then ask the elders for a blessing afterwards | v: conformity, benevolence | sphere: faith.W | foot: place faith.congregation | chance: 60
+- U | write down why the rite would be a lie, and give it to your parents | act: write down why the rite would be a lie, and give it to their parents | v: self-direction, universalism | lever: voice | sphere: faith.U | foot: lesson saying it plainly on paper | chance: 60
+- B | agree to the rite in return for the family's help with the house | v: security, achievement | sphere: faith.B | foot: means money+.06 | chance: 60
+- R | marry at the town hall next month, and send the family a photograph | v: self-direction | lever: exit | sphere: faith.R | foot: means ties-.06 | chance: 60
+- G | keep one old custom on the day, so the ancestors are not left out | v: tradition | sphere: faith.G | foot: lesson old customs fit new days | chance: 60
+- BR | throw the best party the family has ever seen, rite or no rite | v: hedonism, power | lever: fund | sphere: faith.BR | foot: means money-.06 | chance: 50
+- UG | ask the oldest relative which customs are older than the faith, and keep those | v: tradition, universalism | sphere: faith.GU | foot: person elder | chance: 50
+- UR | make up a ceremony of your own on a hilltop, in words you both wrote | v: self-direction, stimulation | sphere: faith.UR | foot: door defied an authority | chance: 50
+- WB | strike a deal with your parents: the town hall now, the rite at the first child | act: strike a deal with their parents: the town hall now, the rite at the first child | v: security, conformity | sphere: faith.WB | foot: door kept your word | chance: 50
+- WG | visit your parents every week until the wedding, and listen more than you talk | act: visit their parents every week until the wedding, and listen more than they talk | v: benevolence, tradition | sphere: faith.GW | foot: means ties+.06 | chance: 50
 works not R: On the day {parent} comes after all, and cries at the town hall like everyone else.
 works: The wedding is small and true, and within a year the family has stopped talking about the rite.
 fails not R: {parent} stays away, and the family's side of the room is half empty through every toast.
@@ -332,16 +332,16 @@ scene U: {N} has worked out exactly why, step by step, and half hopes {parent} w
 scene B: {N} has a life of {Ns} own now, a job and a flat. The family cannot hold anything over {N} any more.
 scene R: {N} has rehearsed it in the car all the way there, and {Ns} heart is going like a drum.
 scene G: {N} still loves the songs, the food and the old faces. Leaving the faith does not feel like leaving the family, and {N} hopes it need not.
-- W | tell your parents together, gently and honestly, and answer every question | act: tell their parents together, gently and honestly, and answer every question | v: benevolence, self-direction | norm: leaving a faith | lever: exit | sphere: faith.W | chance: 60
-- U | write it all in a letter, so they can read your reasons in their own time | act: write it all in a letter, so the parents can read the reasons in their own time | v: self-direction, universalism | norm: leaving a faith | sphere: faith.U | chance: 60
-- B | say nothing yet, and let them find out slowly, when you are ready | act: say nothing yet, and let the family find out slowly, when they are ready | v: security | lever: neglect | sphere: faith.B | chance: 60
-- R | say it at the table before the meal is served, and let it land | v: self-direction, stimulation | norm: leaving a faith | lever: exit | sphere: faith.R | chance: 60
-- G | tell them you have left, and promise to come home for every feast | act: tell the family they have left, and promise to come home for every feast | v: tradition, benevolence | norm: leaving a faith | sphere: faith.G | chance: 60
-- BG | tell your grandparent first, and let them soften the ground with your parents | act: tell their grandparent first, and let them soften the ground with the parents | v: security, tradition | sphere: faith.BG | chance: 50
-- RG | tell them on a walk in the garden, and cry together if it comes to that | v: benevolence, stimulation | sphere: faith.RG | chance: 50
-- UR | answer their hardest questions honestly, even the ones that hurt you both | act: answer the family's hardest questions honestly, even the ones that hurt | v: self-direction | sphere: faith.UR | chance: 50
-- WB | agree with your sibling exactly what each of you will say, and stick to it | act: agree with their sibling exactly what each of them will say, and stick to it | v: security, conformity | sphere: faith.WB | chance: 50
-- WU | ask the elder your parents trust most to sit in when you tell them | act: ask the elder their parents trust most to sit in when they tell them | v: universalism, conformity | sphere: faith.WU | chance: 50
+- W | tell your parents together, gently and honestly, and answer every question | act: tell their parents together, gently and honestly, and answer every question | v: benevolence, self-direction | norm: leaving a faith | lever: exit | sphere: faith.W | foot: door owned up | chance: 60
+- U | write it all in a letter, so they can read your reasons in their own time | act: write it all in a letter, so the parents can read the reasons in their own time | v: self-direction, universalism | norm: leaving a faith | sphere: faith.U | foot: lesson some things read better than said | chance: 60
+- B | say nothing yet, and let them find out slowly, when you are ready | act: say nothing yet, and let the family find out slowly, when they are ready | v: security | lever: neglect | sphere: faith.B | foot: door kept it hidden | chance: 60
+- R | say it at the table before the meal is served, and let it land | v: self-direction, stimulation | norm: leaving a faith | lever: exit | sphere: faith.R | foot: means ties-.06 | chance: 60
+- G | tell them you have left, and promise to come home for every feast | act: tell the family they have left, and promise to come home for every feast | v: tradition, benevolence | norm: leaving a faith | sphere: faith.G | foot: door came home | chance: 60
+- BG | tell your grandparent first, and let them soften the ground with your parents | act: tell their grandparent first, and let them soften the ground with the parents | v: security, tradition | sphere: faith.BG | foot: means ties+.03 | chance: 50
+- RG | tell them on a walk in the garden, and cry together if it comes to that | v: benevolence, stimulation | sphere: faith.RG | foot: lesson tears can say it too | chance: 50
+- UR | answer their hardest questions honestly, even the ones that hurt you both | act: answer the family's hardest questions honestly, even the ones that hurt | v: self-direction | sphere: faith.UR | foot: means ties-.03 | chance: 50
+- WB | agree with your sibling exactly what each of you will say, and stick to it | act: agree with their sibling exactly what each of them will say, and stick to it | v: security, conformity | sphere: faith.WB | foot: door kept your word | chance: 50
+- WU | ask the elder your parents trust most to sit in when you tell them | act: ask the elder their parents trust most to sit in when they tell them | v: universalism, conformity | sphere: faith.WU | foot: person elder | chance: 50
 works: There are tears and a long silence, and then {parent} says {N} is still their child and is expected at the feast.
 works: It takes a year, but the family finds a way to sit at one table, and {N} no longer has to pretend.
 fails: {parent} walks out of the room, and for months only {sibling} will speak to {N}.
@@ -376,15 +376,15 @@ scene B: Keeping it would make {N} someone the elders trust with real responsibi
 scene R: The birthday is going to be wild, and {N} can already taste the first glass.
 scene G: {grandparent} made the same vow at {Ns} age, and kept it for forty years.
 - W | go to the birthday, drink water, and tell anyone who asks about the vow | v: conformity, tradition | mark: kept your word | self_control: + | lever: loyalty | sphere: faith.W | chance: 60
-- U | ask the elders whether a vow can be changed honestly, rather than broken | v: self-direction, universalism | lever: voice | sphere: faith.U | chance: 60
+- U | ask the elders whether a vow can be changed honestly, rather than broken | v: self-direction, universalism | lever: voice | sphere: faith.U | foot: person elder | chance: 60
 - B | keep the vow in public, and stop counting what happens in private | v: security, hedonism | mark: hid a wrong | sphere: faith.B | chance: 60
 - R | drink to your friend's health at midnight, and face the gathering after | act: drink to their friend's health at midnight, and face the gathering after | v: hedonism, stimulation | mark: broke your word | self_control: - | sphere: faith.R | chance: 60
-- G | spend Saturday with your grandparent instead, and hear how they kept theirs | act: spend Saturday with their grandparent instead, and hear how they kept theirs | v: tradition, benevolence | sphere: faith.G | chance: 60
-- BR | throw the birthday party yourself, at your place, with no drink in the house | act: throw the birthday party themselves, at their place, with no drink in the house | v: hedonism, power | sphere: faith.BR | chance: 50
-- RG | take your friend up the hills for the birthday, with a fire and tea | act: take their friend up the hills for the birthday, with a fire and tea | v: stimulation, tradition | sphere: faith.RG | chance: 50
-- UG | read what the old teachers wrote about vows, and keep yours in their spirit | act: read what the old teachers wrote about vows, and keep theirs in that spirit | v: tradition, universalism | sphere: faith.GU | chance: 50
-- WB | ask an elder to stand by you, and ring them whenever it gets hard | act: ask an elder to stand by them, and ring the elder whenever it gets hard | v: security, conformity | sphere: faith.WB | chance: 50
-- WU | keep a written count of every day kept, and read it out at the year's end | v: conformity, achievement | sphere: faith.WU | chance: 50
+- G | spend Saturday with your grandparent instead, and hear how they kept theirs | act: spend Saturday with their grandparent instead, and hear how they kept theirs | v: tradition, benevolence | sphere: faith.G | foot: lesson an old vow kept quietly | chance: 60
+- BR | throw the birthday party yourself, at your place, with no drink in the house | act: throw the birthday party themselves, at their place, with no drink in the house | v: hedonism, power | sphere: faith.BR | foot: place gather.house | chance: 50
+- RG | take your friend up the hills for the birthday, with a fire and tea | act: take their friend up the hills for the birthday, with a fire and tea | v: stimulation, tradition | sphere: faith.RG | foot: means ties+.03 | chance: 50
+- UG | read what the old teachers wrote about vows, and keep yours in their spirit | act: read what the old teachers wrote about vows, and keep theirs in that spirit | v: tradition, universalism | sphere: faith.GU | foot: lesson a vow lives in its spirit | chance: 50
+- WB | ask an elder to stand by you, and ring them whenever it gets hard | act: ask an elder to stand by them, and ring the elder whenever it gets hard | v: security, conformity | sphere: faith.WB | foot: person mentor | chance: 50
+- WU | keep a written count of every day kept, and read it out at the year's end | v: conformity, achievement | sphere: faith.WU | foot: door kept your word | chance: 50
 works: {N} keeps the vow to the last day, and the gathering stands when {N} says so.
 works: The year changes {N} more than the vow did, and the new habits last well beyond it.
 fails: {N} breaks the vow in month five, and the shame is worse than the drinking ever was.
@@ -418,14 +418,14 @@ scene B: {N} has noticed which pilgrims know the road, the good hostels and the 
 scene R: The blisters are agony and the arguing is worse, and {N} wants to stride off ahead alone.
 scene G: At every waymark there are stones left by pilgrims long ago, and each morning {N} adds one.
 - W | walk every step to the shrine, as you promised, blisters and all | act: walk every step to the shrine, as they promised, blisters and all | v: tradition, conformity | mark: kept your word | sphere: faith.W | chance: 60
-- U | walk the next days in silence, and listen to what comes | v: self-direction | sphere: faith.U | chance: 60
-- B | bargain a bed at the full hostel, and get your friend one too | act: bargain a bed at the full hostel, and get their friend one too | v: achievement, benevolence | sphere: faith.B | chance: 60
-- R | stride off alone at first light, and meet the group at the shrine | v: stimulation, self-direction | sphere: faith.R | chance: 60
-- G | sleep under the stars by the old waymark, as the first pilgrims did | v: tradition, stimulation | sphere: faith.G | chance: 60
-- BG | fall in with the old hands who know the road, and learn its short cuts | v: security, tradition | sphere: faith.BG | chance: 50
-- UG | ask a farmer about the road's oldest stretch, and walk what the guidebooks skip | v: tradition, universalism | sphere: faith.GU | chance: 50
+- U | walk the next days in silence, and listen to what comes | v: self-direction | sphere: faith.U | foot: lesson quiet walking clears the head | chance: 60
+- B | bargain a bed at the full hostel, and get your friend one too | act: bargain a bed at the full hostel, and get their friend one too | v: achievement, benevolence | sphere: faith.B | foot: means money-.03 | chance: 60
+- R | stride off alone at first light, and meet the group at the shrine | v: stimulation, self-direction | sphere: faith.R | foot: means ties-.03 | chance: 60
+- G | sleep under the stars by the old waymark, as the first pilgrims did | v: tradition, stimulation | sphere: faith.G | foot: place faith.shrines | chance: 60
+- BG | fall in with the old hands who know the road, and learn its short cuts | v: security, tradition | sphere: faith.BG | foot: person mentor | chance: 50
+- UG | ask a farmer about the road's oldest stretch, and walk what the guidebooks skip | v: tradition, universalism | sphere: faith.GU | foot: lesson the oldest road goes unmapped | chance: 50
 - UR | let a stranger on the road talk you into walking through the night | act: let a stranger on the road talk them into walking through the night | v: stimulation, self-direction | mark: took a wild risk | sphere: faith.UR | chance: 50
-- WB | take charge of the group's pace and money, so nobody is left behind | v: power, benevolence | lever: lead | sphere: faith.WB | chance: 50
+- WB | take charge of the group's pace and money, so nobody is left behind | v: power, benevolence | lever: lead | sphere: faith.WB | foot: means ties+.06 | chance: 50
 - WR | carry your friend's pack for the last stretch, so they can keep walking | act: carry their friend's pack for the last stretch, so the friend can keep walking | v: benevolence | mark: helped someone in need | sphere: faith.RW | chance: 50
 works: {N} limps into the shrine square at dusk, and the whole road seems to make sense at once.
 works: {N} comes home with a promise kept and friends in four towns, each with a bed to offer on the road.

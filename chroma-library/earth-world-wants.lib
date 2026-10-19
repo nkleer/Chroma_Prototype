@@ -285,16 +285,16 @@ scene U: {N} has listened to both sides for a year, and has noticed that neither
 scene B: The building, the funds and the board will go to one half. Whoever ends up with them will run things for a generation.
 scene R: The leader's voice still moves {N} the way it did the first time. The old elders have never once made {N} feel anything.
 scene G: {grandparent} was married in the old building, and so was {parent}. The families who sat in those rows are being torn apart.
-- W | stay in the old building with the elders, and keep the old order | v: tradition, conformity | lever: loyalty | pushes: group congregation | chance: 80
-- U | go to both for a month, and see which keeps faith with its own teaching | v: self-direction, universalism | chance: 70
-- B | side with whichever half keeps the building, the funds and the board | v: power, security | lever: loyalty | pushes: group congregation | chance: 75
+- W | stay in the old building with the elders, and keep the old order | v: tradition, conformity | lever: loyalty | pushes: group congregation | foot: place faith.congregation | chance: 80
+- U | go to both for a month, and see which keeps faith with its own teaching | v: self-direction, universalism | foot: lesson watch what each side does | chance: 70
+- B | side with whichever half keeps the building, the funds and the board | v: power, security | lever: loyalty | pushes: group congregation | foot: place faith.congregation | chance: 75
 - R | follow the leader to the new hall, whatever the elders say | v: stimulation, self-direction | lever: exit | pushes: group congregation | chance: 70 | back: defied an authority
-- G | stay with the families you grew up beside, wherever they go | v: tradition, benevolence | lever: loyalty | pushes: group congregation | chance: 70
-- WU | call a meeting of both halves, and ask for a fair vote on the building | v: universalism, conformity | lever: voice | pushes: group congregation | chance: 45
+- G | stay with the families you grew up beside, wherever they go | v: tradition, benevolence | lever: loyalty | pushes: group congregation | foot: means ties+.04 | chance: 70
+- WU | call a meeting of both halves, and ask for a fair vote on the building | v: universalism, conformity | lever: voice | pushes: group congregation | foot: place rule.counsel | chance: 45
 - WR | stand up at the last shared service and say the split shames them all | v: tradition, universalism | mark: made an enemy | lever: voice | pushes: group congregation | chance: 55
-- UG | stop going to either, and keep your faith at home for now | v: self-direction, tradition | lever: neglect | pushes: group congregation | chance: 75
-- BR | take charge of the new hall's money and rota before anyone else does | v: power, achievement | pushes: group congregation | chance: 65
-- BG | broker a quiet deal to share the old building on alternate weeks | v: security, benevolence | lever: voice | pushes: group congregation | chance: 45
+- UG | stop going to either, and keep your faith at home for now | v: self-direction, tradition | lever: neglect | pushes: group congregation | foot: means ties-.04 | chance: 75
+- BR | take charge of the new hall's money and rota before anyone else does | v: power, achievement | pushes: group congregation | foot: person rival | chance: 65
+- BG | broker a quiet deal to share the old building on alternate weeks | v: security, benevolence | lever: voice | pushes: group congregation | foot: door kept your word | chance: 45
 works: A year on, {N} has a place where {N} belongs, and the worst of the bitterness has passed.
 works: Some of the families find their way back to each other, and {N} helped make it happen.
 fails: Old friends cross the road rather than speak, and {N} is caught in the middle of it.
@@ -324,16 +324,16 @@ scene U: {N} weighs the bag in one hand. Too heavy for clothes. Whatever is in i
 scene B: Everyone who rose in this crew passed a test like this. {N} can see the next step up from here, and what it pays.
 scene R: The thrill and the fear arrive together. {N} could say yes, or walk out the door, and both feel like jumping off something high.
 scene G: {N} grew up on these streets with these people. {parent} is at home right now, cooking, with no idea any of this exists.
-- W | keep the bag and your silence for the week, exactly as told | v: conformity, security | mark: broke the law | closed: law: hiding goods for a gang; backfire: the police search the house, and the bag is found | lever: loyalty | pushes: group gang | chance: 50
-- U | open the bag in secret first, to know exactly what you are risking | v: self-direction, security | chance: 70
-- B | keep the bag, and ask for a cut of whatever it is worth | v: power | mark: broke the law | closed: law: hiding goods for a gang; backfire: the police search the house, and the bag is found | lever: loyalty | pushes: group gang | chance: 70
+- W | keep the bag and your silence for the week, exactly as told | v: conformity, security | mark: broke the law | closed: law: hiding goods for a gang; backfire: the police search the house, and the bag is found | lever: loyalty | pushes: group gang | foot: door kept it hidden | chance: 50
+- U | open the bag in secret first, to know exactly what you are risking | v: self-direction, security | foot: lesson know what you carry | chance: 70
+- B | keep the bag, and ask for a cut of whatever it is worth | v: power | mark: broke the law | closed: law: hiding goods for a gang; backfire: the police search the house, and the bag is found | lever: loyalty | pushes: group gang | foot: means money+.06 | chance: 70
 - R | refuse to their faces, and walk out of the gang for good | v: self-direction | mark: made an enemy | lever: exit | pushes: group gang | chance: 55
-- G | tell your family everything, and let them help you get out | v: security, tradition | act: tell their family everything, and let them help get them out | lever: exit | pushes: group gang | chance: 45
-- RG | hand the bag back with a joke, and keep the friends but not the gang | v: hedonism, benevolence | lever: exit | pushes: group gang | chance: 60
+- G | tell your family everything, and let them help you get out | v: security, tradition | act: tell their family everything, and let them help get them out | lever: exit | pushes: group gang | foot: door owned up | chance: 45
+- RG | hand the bag back with a joke, and keep the friends but not the gang | v: hedonism, benevolence | lever: exit | pushes: group gang | foot: means freedom+.04 | chance: 60
 - UB | tip off the police about the bag, and keep your place as their source inside | v: power, security | mark: hid a wrong | closed: approval: informing on the gang; backfire: found out, and shut out by everyone on the street | lever: subvert | pushes: group gang | chance: 30
 - UR | leave town for a cousin's place before anyone can hand you anything again | v: self-direction, security | mark: moved away | moves: yes | lever: exit | pushes: group gang | act: leave town for a cousin's place before anyone can hand them anything again | chance: 50
-- WB | keep the bag, and ask in return for a real place in the gang | v: power, conformity | mark: broke the law | closed: law: hiding goods for a gang; backfire: the police search the house, and the bag is found | lever: loyalty | pushes: group gang | chance: 50
-- WG | keep the bag this once for your friend's sake, and never again | v: benevolence, conformity | mark: broke the law | closed: law: hiding goods for a gang; backfire: the police search the house, and the bag is found | lever: loyalty | pushes: group gang | chance: 70
+- WB | keep the bag, and ask in return for a real place in the gang | v: power, conformity | mark: broke the law | closed: law: hiding goods for a gang; backfire: the police search the house, and the bag is found | lever: loyalty | pushes: group gang | foot: person mentor | chance: 50
+- WG | keep the bag this once for your friend's sake, and never again | v: benevolence, conformity | mark: broke the law | closed: law: hiding goods for a gang; backfire: the police search the house, and the bag is found | lever: loyalty | pushes: group gang | foot: door gave in to pressure | chance: 70
 works: The week passes, and {N} comes out of it with the standing {N} wanted, inside the gang or out of it.
 works: The choice holds, and the older members leave {N} alone after that.
 fails: Word gets round that {N} cannot be trusted, and the streets near home feel dangerous for months.
@@ -364,16 +364,16 @@ scene U: {N} has watched the other side play twice and has noticed things about 
 scene B: There will be a crowd, the local paper and the people who run the town. A big day is also a chance to be seen.
 scene R: {N} has not slept properly all week. Saturday cannot come soon enough.
 scene G: The old members still talk about the last final, twenty years ago, as if it were yesterday. Their photographs line the clubhouse wall.
-- W | turn up early, kit ready, and do exactly the job you are given | v: conformity, achievement | lever: loyalty | pushes: group club | chance: 65
-- U | study the other side's last five games, and share what you find with the coach | v: achievement, self-direction | chance: 70
-- B | make sure you are next to the chairman in the photograph with the cup | v: achievement, power | chance: 90
-- R | lead the singing from the first whistle to the last, louder than anyone | v: stimulation, hedonism | chance: 85
+- W | turn up early, kit ready, and do exactly the job you are given | v: conformity, achievement | lever: loyalty | pushes: group club | foot: lesson small jobs win big days | chance: 65
+- U | study the other side's last five games, and share what you find with the coach | v: achievement, self-direction | foot: person mentor | chance: 70
+- B | make sure you are next to the chairman in the photograph with the cup | v: achievement, power | foot: person patron | chance: 90
+- R | lead the singing from the first whistle to the last, louder than anyone | v: stimulation, hedonism | foot: place gather.great | chance: 85
 - G | bring the oldest members along, and sit with the ones who built the club | v: tradition, benevolence | lever: loyalty | pushes: group club | chance: 75 | back: made a friend
-- WU | help run the day: tickets, the minibus, the kit and the list of who is where | v: conformity, security | lever: loyalty | pushes: group club | chance: 80
-- WG | bake for the clubhouse tea after the match, win or lose | v: benevolence, tradition | lever: loyalty | pushes: group club | chance: 80
+- WU | help run the day: tickets, the minibus, the kit and the list of who is where | v: conformity, security | lever: loyalty | pushes: group club | foot: means time-.04 | chance: 80
+- WG | bake for the clubhouse tea after the match, win or lose | v: benevolence, tradition | lever: loyalty | pushes: group club | foot: means ties+.03 | chance: 80
 - UR | film the whole day, and cut it into a film for the club's dinner | v: self-direction, stimulation | mark: learned a skill | chance: 70
 - BR | push to the front at the final whistle, and lift the cup first | v: achievement, stimulation | chance: 50 | back: made an enemy
-- BG | find a sponsor for the new kit while the crowd is in a good mood | v: achievement, tradition | chance: 60
+- BG | find a sponsor for the new kit while the crowd is in a good mood | v: achievement, tradition | foot: person patron | chance: 60
 works: The club wins, and the singing in the clubhouse goes on until they turn the lights off.
 works: Win or lose, it is the day everyone talks about for years, and {N} was part of it.
 fails: The club loses in the last minutes, and the minibus home is very quiet.
