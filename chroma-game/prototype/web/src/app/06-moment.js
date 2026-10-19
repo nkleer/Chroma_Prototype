@@ -3,6 +3,15 @@ const STRAIN = { no: 0, low: 1, medium: 2, high: 3 };
 const ARROW = { "much worse": ["down", "▼▼"], worse: ["down", "▼"], "about right": ["eq", "●"], better: ["up", "▲"], "much better": ["up", "▲▲"] };
 const MISREAD = { hopeful: ["down", "▼"], doubtful: ["up", "▲"], fair: ["eq", "●"] };
 const MISREAD_WORD = { hopeful: "they think it likelier than it is", doubtful: "they think it less likely than it is", fair: "they read it about right" };
+
+// Because of you, and meanwhile (GAME because, v23.2): the needs the pick's week moved, split into what the pick did and
+// what else happened, each line with its cause; the week's silent setback as a short line
+function becauseHTML(b) {
+  const row = (x) => `<div class="r">${ic(NEED_ICON[x.need] || "dot")}<span>${esc(cap(NEED_LONG[x.need] || x.need))}</span><span class="${x.delta > 0 ? "up" : "down"}">${sgn(x.delta * 100)}</span><small>${esc(x.why)}</small></div>`;
+  const grp = (k, cls, xs) => xs.length ? `<div class="g ${cls}"><span class="k">${k}</span>${xs.slice(0, 4).map(row).join("")}</div>` : "";
+  return `<div class="ndmove split" id="ndmove">${grp("Because of you", "you", b.you || [])}${grp("Meanwhile", "mw", b.meanwhile || [])}` +
+    `${b.setback ? `<p class="note setback">${rich(b.setback.line)}</p>` : ""}</div>`;
+}
 function shortName(label) {
   let s = cap(String(label).trim());
   const m = s.match(/^(.{10,}?)(,|;| — | - |:| and | until | so that | to see | while )/);
@@ -141,6 +150,10 @@ const stakeFails = (sk) => [sk.cost, sk.fails, sk.risk].filter(Boolean).join(", 
 // Bold ways (the game's bold switch): a bold way's chip, and "likelier" or "harder for them" when their own odds sit ten
 // points or more from the written chance it feels; what it wins for good is a chip ahead of the rest
 const boldChips = (o) => !o.bold ? [] : [`<span class="mk2 bold">${ic("bolt")}bold</span>`].concat(o.bold.fit_say ? [`<span class="mk2 boldfit ${o.bold.fit === "likelier" ? "up" : "down"}">${esc(o.bold.fit_say)}</span>`] : []);
+// v24 hover arrows (the game's arrows switch): what a way would move if it works and if it fails, in three sizes (a
+// little, clearly, a lot), from the engine's forecast; never a number before the choice
+const ARW_ICON = (a) => a.kind === "need" ? NEED_ICON[a.name] || "dot" : a.kind === "means" ? RES_ICON[a.name] || "dot" : a.kind === "people" ? "people" : "star";
+const arrowsHTML = (xs) => [...(xs || [])].sort((a, b) => (a.kind === "need") - (b.kind === "need")).slice(0, 5).map((a) => `<span class="arw ${a.dir} s${a.size}" title="${esc(a.word)}">${ic(ARW_ICON(a))}${esc(a.kind === "need" ? NEED_LONG[a.name] || a.name : a.name)}<i aria-label="${esc(a.dir === "up" ? "up " : "down ")}${esc(a.word)}">${(a.dir === "up" ? "▲" : "▼").repeat(a.size)}</i></span>`).join("");
 function optRow(o, i, num) {
   const pass = !o.means.length, st = o.status, ends = [...new Set(o.ends)], f = o.follows || {};
   const acc = o.own ? "their own pick" : o.accept || "okay with it";
@@ -201,6 +214,7 @@ function stripHTML(o, num) {
   if ((f.lift || []).length) facts.push(`<span class="up"><b>Lacking</b> ${f.lift.map((x) => `${esc(NEED_LONG[x.need] || x.need)} at ${pct(x.level)}: ${esc(x.lift)} to satisfaction if it works`).join("; ")}</span>`);
   if (!o.own && !pass && o.rel >= 0.02) facts.push(`<span${o.resent > o.rel + 0.005 ? ' class="down"' : ""}><b>If you push</b> ${o.resent < 0.05 ? "little resentment" : o.resent < 0.3 ? "some resentment" : o.resent < 0.6 ? "resentment: strain and pent-up wanting" : "strong resentment"}${Math.abs(o.trust || 0) >= 0.05 ? ` (${o.trust > 0 ? "they trust you" : "they distrust you"} in these colors)` : ""}; it counts against their own life unless it gives them something they lack</span>`);
   if (f.cost && f.cost.length) facts.push(`<span><b>Costs</b> ${f.cost.map((x) => `${ic(RES_ICON[x.slice(1)] || "dot")}${esc(x.slice(1))}`).join(" ")}</span>`);
+  if (o.arrows) facts.push(`<span class="arws"><b>Moves if it works</b> ${arrowsHTML(o.arrows.win)}</span>`, `<span class="arws"><b>Moves if it fails</b> ${arrowsHTML(o.arrows.fail)}</span>`);
   if (!pass) facts.push(`<span><b>If it works</b> ${f.win && f.win.length ? `<span class="up">${f.win.map((x) => `${x[0] === "+" ? "+" : "−"}${esc(x.slice(1))}`).join(" ")}</span>, ` : ""}toward ${pips(o.ends)}</span>`);
   const sk = o.at_stake || {};                          // Stakes on the card
   if (sk.win) facts.push(`<span><b>For good</b> <span class="up">${esc(sk.win)}</span></span>`);
@@ -242,6 +256,7 @@ function tipOption(o, name, num) {
   if (f.cost && f.cost.length) rows.push(["Costs", f.cost.map((x) => `${ic(RES_ICON[x.slice(1)] || "dot")} ${esc(x.slice(1))}`).join(" ")]);
   if (f.win && f.win.length) rows.push(["If it works", `<span class="up">${f.win.map((x) => `${x[0] === "+" ? "+" : "−"}${esc(x.slice(1))}`).join(" ")}</span>, draws them toward ${colorsHTML(o.ends, o.ends)}`]);
   else if (o.means.length) rows.push(["If it works", `draws them toward ${colorsHTML(o.ends, o.ends)}`]);
+  if (o.arrows) rows.push(["Moves if it works", `<span class="arws">${arrowsHTML(o.arrows.win)}</span>`], ["Moves if it fails", `<span class="arws">${arrowsHTML(o.arrows.fail)}</span>`]);
   const sk = o.at_stake || {};                          // Stakes on the card
   if (sk.win) rows.push(["For good", `<span class="up">${ic("star")} ${esc(sk.win)}</span>`]);
   if (sk.people) rows.push(["For good", `<span class="${STAKE_DOWN.has(o.mark) ? "down" : "up"}">${ic("people")} ${esc(sk.people)}</span>`]);
@@ -432,7 +447,7 @@ function renderResolution(h, reveal) {
       ${r.rename ? `<div class="rename" id="rename"><span class="k">${ic("quill")} A new name?</span><span>${esc(L.name)} names who they are. They may take a new name, or keep their own.</span>
         <div class="inrow"><input class="field" id="rnTxt" type="text" maxlength="24" autocomplete="off" spellcheck="false" value="${esc(r.rename.suggest)}" aria-label="New name"><button class="primary" id="rnTake">${ic("quill")} Take it</button><button class="ghost" id="rnKeep">Keep ${esc(r.rename.old)}</button></div></div>` : ""}
       ${chips ? `<div class="became">${chips}</div>` : ""}
-      ${(r.needs || []).length ? `<div class="ndmove" id="ndmove">${r.needs.slice(0, 4).map((x) => `<div class="r">${ic(NEED_ICON[x.need] || "dot")}<span>${esc(cap(NEED_LONG[x.need] || x.need))}</span><span class="${x.delta > 0 ? "up" : "down"}">${pct(x.before)} → ${pct(x.after)}</span>${x.lacking && x.delta > 0 ? `<small class="muted">was lacking</small>` : ""}</div>`).join("")}</div>` : ""}
+      ${r.because ? becauseHTML(r.because) : (r.needs || []).length ? `<div class="ndmove" id="ndmove">${r.needs.slice(0, 4).map((x) => `<div class="r">${ic(NEED_ICON[x.need] || "dot")}<span>${esc(cap(NEED_LONG[x.need] || x.need))}</span><span class="${x.delta > 0 ? "up" : "down"}">${pct(x.before)} → ${pct(x.after)}</span>${x.lacking && x.delta > 0 ? `<small class="muted">was lacking</small>` : ""}</div>`).join("")}</div>` : ""}
       ${r.hindsight && r.hindsight.line ? `<p class="hind ${r.hindsight.kind === "accepted" ? "up" : "down"}" id="hind">${rich(r.hindsight.line)}</p>` : ""}
       <div class="row2 shiftbox">${cmove}${toward}</div>
       ${(r.states || []).length ? `<div class="states">${r.states.map((x) => `<span class="st g${x.what === "gained" ? x.good : 0}${x.what === "gained" ? "" : " gone"}">${ic(x.icon)}${x.what === "gained" ? "Now " : "No longer "}${esc(x.word)}</span>`).join("")}</div>` : ""}
