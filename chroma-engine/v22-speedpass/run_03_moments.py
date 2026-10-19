@@ -212,3 +212,83 @@
                         j_ = CRS_J[TK_[i_]]
                         k_ *= min(float(np.exp(CRS_MU[j_] + crs_own[n, j_] + (5 * w[n] - 1) @ CRS_T[j_])), 1.0)
             return k_
+    # ---- footprints (foot_on; chroma-ideas/next-table-2026-10-19/plan.md section 3): what a picked option visibly
+    # leaves (the Library's FOOT tables, batch L["FOOT"]), given real state. A person: with the world on, the closest of
+    # that role in the cast grows closer or someone new comes in that role (lost: the closest drifts); off-world, ties
+    # move by foot_par ties. A place: that haunt kind joins the life's haunts (the world on, its haunts built). A means:
+    # the resource moves by the amount. A mark or a door: the mark is left as an option's mark: is (a door opens through
+    # the echoes and back: links that read it). A lesson: told only (the act's own colour lesson is already learned).
+    # Means, marks, doors, lessons and a person lost come on any try; a person met and a place joined only when it works
+    # (as a haunt choice). An option's own mark counts as a mark footprint when a rule reads it (L["FOOT_OWN"]), in the
+    # moments footprints are for (L["FOOT_S"]: the life events and those with FOOT tables, not the everyday). Only what
+    # lands is kept. foot_log: one record per pick with footprints (life, age, moment, label, worked, feet). For the game,
+    # per life: foot[n], what the life's last act left, as (kind, value, who: the cast id for a person, else -1); foot_open[n],
+    # the doors still waiting, as (kind, since t), each shut when a moment reading it is met (L["FOOT_READS"])
+    FOOT_ON = bool(P["foot_on"]) and bool(L.get("FOOT"))
+    foot_log = []
+    foot = [[] for _ in range(N)] if FOOT_ON else None
+    foot_open = [[] for _ in range(N)] if FOOT_ON else None
+    FT_HAS = FT_OWN = None
+    if FOOT_ON:
+        FT_HAS = np.zeros((L["S"], L["K"]), bool)
+        for (s_, k_) in L["FOOT"]:
+            FT_HAS[s_, k_] = True
+        FT_OWN = np.isin(np.array(L["MARKS"], object), L["FOOT_OWN"])
+        # a door only a return reads (none in the batch, or a return of its kind) shuts after foot_par door_yrs, or with
+        # picks coming back (echo_play) after the seed's keep (Library 10-19)
+        FT_DOOR = 52 * (P["echo_play_par"]["keep"] if EP_ON else P["foot_par"]["door_yrs"])
+    def foot_apply(live_, hm_, mk_):
+        """This week's acts leave their footprints (FOOT_ON); hm_: the lives whose act left its own mark, mk_ (the mark)."""
+        for n in np.nonzero(live_)[0]:   # a door shuts when a moment reading its mark is met
+            if foot_open[n]:
+                foot_open[n] = [d_ for d_ in foot_open[n] if d_[0] not in MIDX or not (L["FOOT_READS"][s[n], MIDX[d_[0]]]
+                                or (L["FOOT_RET"][MIDX[d_[0]]] and t - d_[1] >= FT_DOOR))]
+        fto_ = set(int(n) for n in hm_ if FT_OWN[mk_[n]] and L["FOOT_S"][s[n]])
+        for n in np.nonzero(live_ & ~idle)[0]:
+            ok_ = bool(succ[n]); feet_ = []; foot[n] = []
+            for kd_, x_, y_, val_ in (L["FOOT"][(int(s[n]), int(a[n]))] if FT_HAS[s[n], min(a[n], L["K"] - 1)] else ()):
+                rec_ = dict(kind=L["FOOT_KINDS"][kd_], value=val_); who_ = -1
+                if kd_ == 0:   # a person
+                    if not (ok_ or y_):
+                        continue
+                    if WON:
+                        r_ = WL.PP.foot_person(int(n), val_.partition(" ")[0], lost=bool(y_), colour=ma[n])
+                        if r_ is None:
+                            continue
+                        rec_.update(cid=r_["cid"], new=r_["new"]); who_ = int(r_["cid"])
+                    else:
+                        res[n, TIE] = min(1.0, max(0.0, res[n, TIE] + (-1 if y_ else 1) * P["foot_par"]["ties"]))
+                elif kd_ == 1:   # a place
+                    if not ok_:
+                        continue
+                    if WON:
+                        p_ = WL.PP.pick_haunt(int(n), val_.split(".")[0], int(np.argmax(ma[n])), kind=x_)
+                        if p_ < 0:
+                            continue
+                        rec_["place"] = int(p_)
+                elif kd_ == 2:   # a means (moved: what it moved, clipped at 0 and 1)
+                    r0_ = res[n, x_]; res[n, x_] = min(1.0, max(0.0, r0_ + y_)); rec_["moved"] = round(float(res[n, x_] - r0_), 4)
+                elif kd_ in (3, 4):   # a mark or a door (once a week)
+                    if x_ < 0:
+                        continue
+                    if mark_last[n, x_] != t:
+                        if mark_n[n, x_] == 0:
+                            mark_first[n, x_] = t
+                        mark_last[n, x_] = t; mark_ok[n, x_] = ok_; mark_n[n, x_] += 1
+                        mark_log.append((int(n), t, int(x_), ok_))
+                        if n in events:
+                            events[n].append(dict(mark=dict(age=round(age, 2), mark=L["MARKS"][x_], worked=ok_)))
+                    if kd_ == 4 and all(d_[0] != val_ for d_ in foot_open[n]):
+                        foot_open[n].append((val_, t))
+                    if mk_[n] == x_:   # the act's own mark, named here already
+                        fto_.discard(int(n))
+                feet_.append(rec_); foot[n].append((rec_["kind"], val_, who_))
+            if int(n) in fto_:   # the act's own mark, when a rule reads it
+                rec_ = dict(kind="mark", value=L["MARKS"][mk_[n]], own=True)
+                feet_.append(rec_); foot[n].append(("mark", rec_["value"], -1))
+            if feet_:
+                fr_ = dict(life=int(n), age=round(t / 52, 2), moment=L["names"][s[n]], label=L["labels"][s[n]][a[n]],
+                           worked=ok_, feet=feet_)
+                foot_log.append(fr_)
+                if n in events:
+                    events[n].append(dict(foot=fr_))

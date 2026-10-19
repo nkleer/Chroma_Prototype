@@ -122,6 +122,8 @@
         if kind == 2:
             init_plan(n, j, hz)
         glog(n, j, "begins", **({"aims": GR["names"][target]} if target >= 0 else {}))
+        if AIM_ON:   # aims v1: the aim it reads as, from below
+            aim_from_goal(n, j)
         return j
     def plan_odds(n, mix, dom, hz, s):
         """A person's first sense of a plan's chances (changes nothing; the game previews a plan with it): how often their
@@ -160,6 +162,10 @@
                 end_goal(n, jw, "pushed aside")
             gk[n, j] = 1; gs[n, j] = max(gs[n, j], 0.6); gpk[n, j] = max(gpk[n, j], gs[n, j]); glast[n, j] = t
             glog(n, j, "became a passion", sealed_by=how)
+            if AIM_ON:
+                aim_from_goal(n, j)
+        if AIM_ON:   # aims v1: a rite makes an aim set by the player theirs, once a try at it worked
+            aim_rite(n, how)
     def to_plan(n, j):
         """Coming of age: a dream still strong becomes a five-year plan (a plan is not yet a commitment)."""
         glog(n, j, "became a plan")
@@ -168,6 +174,8 @@
         gk[n, j] = 2; gsrc[n, j] = GSRC["dream"]; gpar[n, j] = -1
         gsr[n, j] = goal_rel_S(gm[n, j], gd[n, j]); init_plan(n, j, 2)
         glog(n, j, "begins")
+        if AIM_ON:
+            aim_from_goal(n, j)
     def quit_(n, j, what, letgo):
         """Giving up costs what was put in, less for those who have learned to let go (Wrosch et al. 2003)."""
         stress[n] += P["g_quit"] * gi[n, j] * (1 - letgo)
@@ -192,6 +200,8 @@
         for j2 in np.nonzero(gpar[n] == j)[0]:
             gpar[n, j2] = -1
         gk[n, j] = -1; gs[n, j] = 0.0; gpar[n, j] = -1; gby[n, j] = 0; gtt[n, j] = -1; gname[n, j] = -1
+        if AIM_ON:
+            gal[n, j] = -1
         ago["goal_end"][n] = t
     ar = np.arange(N)
     decay_B = 0.5 ** (1 / P["crisis_half"])
