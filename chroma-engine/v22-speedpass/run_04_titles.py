@@ -445,7 +445,7 @@
             aown[n, q_] = True; alog(n, q_, "became their own", how=how)
     def aim_month(ns_):
         """Each month: an aim's strength follows the goals that read as it, else fades by its half-life; the steps reached
-        (held or once held, the step's req then, or for the Known step a rung of pillar or leader in the aim's sphere),
+        (held or once held, the step's req then, or for the Known step leading in the aim's sphere: rung 4),
         each new one meeting meaning by its height; a calling (an aim of their own toward a height, held as a passion for
         call_yrs)."""
         for q_ in range(AQ_):
@@ -466,7 +466,7 @@
                 if st_["req"] is not None and ok_.any():
                     ok_ &= ev_cond(st_["req"], ns_)[rows_]
                 if st_["h"] == 1 and AIM["sph"][a_] >= 0 and WON:
-                    ok_ |= np.floor(np.asarray(WL.PP.rung)[rows_, AIM["sph"][a_]]) >= 3
+                    ok_ |= np.floor(np.asarray(WL.PP.rung)[rows_, AIM["sph"][a_]]) >= 4
                 best_ = np.where(ok_, k_ + 1, best_)
             for n, q_, b_ in zip(rows_, qs_, best_):
                 o_ = int(astep[n, q_])
@@ -488,14 +488,15 @@
             if ps_.any() and (t - gb[n, ps_]).max() >= 52 * AP_["call_yrs"]:
                 acall[n, q_] = True; alog(n, q_, "became a calling")
     def ht_month():
-        """The heights reached (read-only): Known, a sphere rung of pillar or leader or a Known name; Notable, a Notable
-        name or a summit title; Historic, a Historic name or leading a movement."""
+        """The heights reached (read-only): Known, leading a sphere (rung 4) or a Known name (Emren 10-19); Notable, a Notable
+        name or a summit title; Historic, a Historic name or leading a movement; each height counts the ones above it."""
         hs_ = [r_ever[:, HT_I[h_]].any(1) if len(HT_I[h_]) else np.zeros(N, bool) for h_ in range(3)]
         if WON:
-            hs_[0] = hs_[0] | (np.floor(np.asarray(WL.PP.rung)) >= 3).any(1)
+            hs_[0] = hs_[0] | (np.floor(np.asarray(WL.PP.rung)) >= 4).any(1)
             from world_people_base import G as WG_   # the kinds of the world's settings (a movement's)
             if "movement" in WG_ and hasattr(WL.PP, "slead"):
                 hs_[2] = hs_[2] | ((np.asarray(WL.PP.slead) == -2) & (np.asarray(WL.PP.skind) == WG_["movement"])).any(1)
+        hs_[1] = hs_[1] | hs_[2]; hs_[0] = hs_[0] | hs_[1]   # at least: a Historic life is Notable, a Notable one Known
         for h_ in range(3):
             nw_ = hs_[h_] & (ht_t[:, h_] < 0)
             ht_t[nw_, h_] = t

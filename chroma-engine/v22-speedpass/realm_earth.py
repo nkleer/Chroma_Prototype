@@ -103,7 +103,7 @@ IMP_AGE = (10, 12, 5, 4, 0, 1, 14, 16, 7, 0)
 
 
 # ---- The heights of a life (aims v1, plan.md section 5, behind aims and heights): Earth's names for each height. The
-# core reads a sphere rung of pillar or leader as Known and a summit title (TIER 2) as Notable in every realm; what a
+# core reads leading a sphere (rung 4; Emren 10-19, not pillar) as Known and a summit title (TIER 2) as Notable in every realm; what a
 # realm names here is its own. Read as Release reads them (chroma-release/out/heights/heights_judge.py, 10-19): Known,
 # a good name in town or a master's mark (no master's perk exists; the craft's top title and hallmark stand in);
 # Notable, reach across the country; Historic, head of a state (head of government stands in), of a movement, or a
