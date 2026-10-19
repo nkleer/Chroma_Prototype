@@ -224,8 +224,9 @@ GAME = dict(
     # the pick and its person, the title or perk, money) and one that slipped away or ran its time says how long (G1), the
     # cause is a hoverable trail (G3), and a year whose colours moved cause_turn or more names its biggest mover instead of
     # the mood line (G2); causes_fold, small skills, bonds and standings that come and go are told in one year line (G4).
-    # Words only: no draws, so every step plays as before. Off until Release proves them
-    causes=False, causes_fold=False, cause_turn=0.10, cause_share=0.15,
+    # Words only: no draws, so every step plays as before. On from the next version (Emren "Backend + causes" 10-19
+    # 09:10 UTC); off in GAME_OFF
+    causes=True, causes_fold=True, cause_turn=0.10, cause_share=0.15,
     # Bold ways (chroma-ideas/gameplay-2026-10-17/bold-ways.md; Emren "Build" 10-18 23:29 UTC), with the Engine's played-life
     # key bold_play: a life-event card the game will put to the player asks the Engine for its bold ways (up to two, the
     # Library's BOLD rows: lower odds, a lasting change either way), shown with their written chance, "likelier" or "harder
@@ -256,7 +257,7 @@ GAME_OFF = dict(piv=0.0, piv_own=0.0, piv_steady=0.0, learn_full=False, lean=0.0
                 era_cost=0.0, backfire=0.0, turn_max=0, fig_own=False, own_ix=False, trust_judge=False, lines_tied=False,
                 own_mark="", lean_self=0.0, own_teach=0.0, dream_own=False, dream_firm=0.0, dream_help=0.0, hind_thin=0.5, season_need=0.0, season_calm=0.0, fork_k=0.0, fork_told=False, rung_ask=False,
                 world_hold=False, world_seed=False, faith_home=0.0,
-                line_wait=0.0, news_touch=False, rare_ask=False, returns=False, stakes=False, bold=False,
+                line_wait=0.0, news_touch=False, rare_ask=False, returns=False, stakes=False, causes=False, causes_fold=False, bold=False,
                 own_stress=0.5, own_free=0.3, dream_fit=0.5, rare_imp=0.5)
 # v22.5's joint refit (chroma-engine/notes/v22.5-refit-plan.md §2, with the engine's V225): every v22.5 game switch on
 # with its fitted value. F12 world_hold (with the engine's own_open and start_hold), F15 world_seed, F10 line_wait and news_touch (the
