@@ -820,7 +820,7 @@ scene G: This house is where {N} raised a family. Now it will raise someone else
 - U | visit every place on the list and choose by the inspection reports | v: security, self-direction | foot: place care.houses | chance: 70
 - B | sell to the highest bidder and buy the best flat money can buy | v: power, security | foot: means money+.06 | chance: 78
 - R | refuse to go, and dig in your heels for as long as you can stand | v: self-direction | chance: 50 | back: stayed home
-- G | give the furniture to whoever will love it, and keep only the photographs | v: benevolence, tradition | mark: left home | foot: lesson memories matter more than things | chance: 70
+- G | give the furniture to whoever will love it, and keep only the photographs | v: benevolence, tradition | mark: left home | chance: 70
 - WUR | hold a farewell evening: a story for each room, then a dance in the empty one | v: hedonism, tradition | foot: means ties+.06 | chance: 90
 - WUG | choose a place in your own neighbourhood, with a garden, and move in slowly | v: tradition, security | foot: person neighbour | chance: 70
 - WBR | march into the care home office and get the best room in writing | v: power, security | foot: place care.houses | chance: 58

@@ -66,7 +66,7 @@ def catalogue():
 
 def granted_somewhere():
     """Names some moment or rule can hand out today: title:/grants: of the Earth library, Bold ways and the packs'
-    moments, and names quoted in the engine's rules. A report, not proof: a name a rule builds from parts is missed."""
+    moments, and names quoted in the engine's rules or the packs' core rules (ROLES_AIMS). A report, not proof: a name a rule builds from parts is missed."""
     seen = set()
     import earth
     for s in earth.SITUATIONS:
@@ -79,6 +79,7 @@ def granted_somewhere():
             seen |= set(names(m.group(1).split(" for_years")[0]))
     txt = "".join(open(f, encoding="utf-8").read() for f in glob.glob(f"{RULES}/*.py"))
     txt += "".join(open(f, encoding="utf-8").read() for f in glob.glob(f"{LIB}/spheres/*.py"))
+    txt += "".join(open(f, encoding="utf-8").read() for f in glob.glob(f"{PACKS}/core/*.py"))   # ROLES_AIMS: the legacy
     return seen, txt
 
 
@@ -145,6 +146,7 @@ def main():
         packs_aims.update({a: pk for a in getattr(load(f, f"aims_{pk}"), f"AIMS_{pk.upper()}", {})})
     A = load(os.path.join(LIB, "earth_aims.py"), "earth_aims").AIMS_EARTH
     faces, by_dom, by_area = collections.Counter(), collections.defaultdict(set), collections.Counter()
+    heights = collections.defaultdict(set)
     for aim, d in A.items():
         w = f"{aim!r}"
         if aim in packs_aims:
@@ -208,8 +210,23 @@ def main():
                     prob.append(f"{ws}: heights out of order")
                 else:
                     last = HEIGHTS.index(s["height"])
+        for i, s in enumerate(st):
+            if (s.get("height") == "Historic") != ("a work that outlives you" in s.get("any", [])):
+                prob.append(f"{w} step {i + 1}: a Historic step is reached by [a work that outlives you], and only it")
+        heights[face] |= {s.get("height") for s in st} - {None}
         if d.get("calling") and st and not st[-1].get("height"):
             prob.append(f"{w}: a calling's last step has a height")
+    leg = getattr(load(os.path.join(LIB, "earth_aims.py"), "earth_aims_l"), "LEGACY_EARTH", "")
+    if any(s.get("height") == "Historic" for d in A.values() for s in d.get("steps", [])):
+        if not leg:
+            prob.append("Historic steps need LEGACY_EARTH (who can earn [a work that outlives you])")
+        for _, _, nm in COND.findall(leg):
+            if nm not in kind:
+                prob.append(f"LEGACY_EARTH names {nm!r}, not a catalogue name")
+        try:
+            compile(leg.replace("&", " and ").replace("|", " or ").replace("~", " not "), "LEGACY_EARTH", "eval")
+        except SyntaxError as e:
+            prob.append(f"LEGACY_EARTH does not parse ({e.msg})")
     # 2. balance (not with --part: a writer's own share of the aims)
     part = "--part" in sys.argv
     n = set(faces[f] for f in FACES if not part or faces[f])
@@ -239,6 +256,7 @@ def main():
         txt = "".join(open(os.path.join(RULES, f), encoding="utf-8").read() for f in ("rules_titles.py", "rules_perks.py"))
         import build
         read_marks = {m for m in build.MARKS if f"'{m}'" in txt}
+        read_marks |= set(__import__("footprint_names").MARKS_WIRED)   # Library 10-19
         for s in M.SITUATIONS:
             w = s["name"]
             aim, role = s.get("aim"), s.get("aim_role", "")
@@ -286,7 +304,8 @@ def main():
                 todo.append(f"{aim!r} step {i + 1} ({', '.join(s.get('any', []))})")
     print(f"aims: {len(A)}; faces {dict((f, faces[f]) for f in FACES)}; areas {dict(by_area.most_common())}; "
           f"domains {dict(collections.Counter(d.get('domain') or 'pursuit' for d in A.values()))}; "
-          f"callings {sum(1 for d in A.values() if d.get('calling'))}; spark moments {sum(sparks.values())}, "
+          f"callings {sum(1 for d in A.values() if d.get('calling'))}; Historic on "
+          f"{sum(1 for f in FACES if 'Historic' in heights[f])} of 15 faces; spark moments {sum(sparks.values())}, "
           f"step moments {len(steps_done)}; steps nothing grants yet: {len(todo)}")
     if "--reach" in sys.argv:
         for t in todo:

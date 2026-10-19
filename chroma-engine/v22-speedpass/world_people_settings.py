@@ -557,17 +557,18 @@ class SettingsMixin:
             h_ = h_[:2] + [p_] if not first else h_[:3]
         self.hnt[n] = (h_ + [-1, -1, -1])[:3]
 
-    def pick_haunt(self, n, sphere, colour, t=None):
+    def pick_haunt(self, n, sphere, colour, t=None, kind=None):
         """The player's (or the life's own) haunt choice (N1; the haunt choice moments): the town's place in that sphere
         whose ways lean most to that face becomes their first haunt, and they go: a setting meets there (a congregation
-        for a faith's place, a scene or a club for the rest). colour: W U B R G (the face's letter); returns the place."""
+        for a faith's place, a scene or a club for the rest). colour: W U B R G (the face's letter); returns the place.
+        kind: only places of that haunt kind (HAUNT_KINDS index; a footprint's place, foot_on), else any of the sphere's."""
         t = self.t if t is None else t; n = int(n)
         if not self.sph_h:
             return -1
         H = len(HAUNT_KINDS); P_ = self.W.hp_s.shape[2]; a = self._age(t)
         j = SPHERES.index(sphere) if isinstance(sphere, str) else int(sphere)
         c = int(self.iperm[COLORS.index(colour) if isinstance(colour, str) else int(colour)])
-        ks = [k_ for k_ in range(H) if HAUNT_SPH[k_] == j and HAUNT_AGE[k_] <= a]
+        ks = [k_ for k_ in range(H) if HAUNT_SPH[k_] == j and HAUNT_AGE[k_] <= a and (kind is None or k_ == kind)]
         if not ks:
             return -1
         hp = self.W.hp_s[self.loc[n]][ks]                                         # kinds x P x 5

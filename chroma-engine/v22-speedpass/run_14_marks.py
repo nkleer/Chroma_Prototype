@@ -172,6 +172,8 @@
                         rw_mk[(int(n), int(j_))] = (t, int(s[n]), int(a[n]))
                     if n in events:
                         events[n].append(dict(mark=dict(age=round(age, 2), mark=L["MARKS"][j_], worked=bool(succ[n]))))
+            if FOOT_ON:   # footprints: what the picks leave (foot_on)
+                foot_apply(live_, hm_, mk_)
             if EP_ON and P["echo_asked"]:   # picks come back: an asked pick's mark (as left) and back: plant seeds
                 P["echo_asked"] = False
                 left_ = set(hm_.tolist())

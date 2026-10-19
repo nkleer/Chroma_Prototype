@@ -1,0 +1,474 @@
+# Chroma content pack, The Five Callings: THE HEALING ROAD (moments 1 to 9 of callings/MOMENTS-BRIEF.md, "The healing
+# road"), Green's single-colour calling and a tendency, never a wall: a [nurse] or [midwife], then [senior nurse or
+# midwife] (the Known rung), then [renowned healer] (the summit, a facet on the healing career held). Pathways and packs
+# thread, 2026-10-19, for v24; switched off until `callings` is in batch.PACKS. Syntax: header of chroma-library/build.py.
+# Rules: chroma-library/SPEC.md, notes/library-spec.md and callings/MOMENTS-BRIEF.md (pack rules, calibration lessons,
+# balance layout). Names in title:, grants:, takes_if_fails:, holds:, requires: and aims: come from callings/catalogue.py,
+# core/*.py and the base catalogue (chroma-library/earth_perks_titles.py: nurse, midwife, care worker, paramedic,
+# physician, complementary therapist, emergency care, used to night shifts, organising people, calming people down,
+# professional registration, apprentice of one's own); each title and perk takes its tribal and magic form from
+# callings/worlds.py (the band's birth-keeper and first healer, the healer every band sends for; a healer of the temple
+# house, a herb-healer known across the realm).
+#
+# The road leans on life, body, birth and growth (the Vision thread, 10-19), so it never reads as White's duty and
+# service: a baby caught on a farmhouse floor, a ward kept through a short night, a long life ending quietly among its
+# own, the town's birth centre, a dressing from the garden, a fever nursed through a winter camp. Each colour's honest
+# road runs through every moment: White's protocol, Blue's diagnosis and method, Black's leverage and name, Red's night
+# nobody else will work, Green's body, birth, garden and patience. Real and unglamorous where it is: night shifts, short
+# staff, paperwork, managers' reviews; a step up is a good year, not a finish line.
+#
+# Nine moments. Two holder pairs (everyday, holds:, rate .5, gap 1-3, no share: line: the holds: gate does the drawing),
+# whose halves share stages, ages, holds:, rate and gap, split the colours 2 and 3 and use the cycle on the pair's header
+# line; they take no new title (calibration lesson 1): the next rung is an aims:, and grants: gives only a perk plainly
+# earned. Then four life events and the tribal world's own event, each even on its own (alpha even, stakes 1.0, the five
+# one-colour options and the combination half named in its header comment, every colour's mean the same inside the
+# moment): the two steps at their real chances (the ward 40, the summit 6, the same for every colour, with the
+# earned-odds lifts of helps.py on top in the engine; no perk on failure), the fall, the long shot (3, with
+# grants_if_fails: a long shot that missed) and the winter camp. Every option of a life event leaves one or two
+# footprints (chroma-library/drafts/footprints-brief.md): the fields it already has, or a foot: just before chance:.
+#
+# Content limits, never broken: no baby or child dies or is harmed in any text, and the one birth ends with mother and
+# baby well in every outcome; no option helps anyone die or hastens a death, and the one death (an old patient at the end
+# of a long illness) is natural, peaceful and plain; illness and injury stay plain and offstage; suicide is never pickable
+# and never a scene; no sexual violence. Children appear only in a family, with a parent present. No real person,
+# hospital, medicine, brand, place, country or year is named: "the big unit in the city", "a strong painkiller", "the
+# national nursing college". Modern Earth has no magic, and the magic world's healers here work with herbs, hands and
+# the temple house. In the tribal world the one supernatural act is a spirit's cure asked through the shaman (moment 9):
+# one choice among ordinary ones, priced on a closed: approval: line with a backfire, never the person's own gift.
+# Wrongs and closed acts are pickable with plain labels, each marked, with a real backfire, spread over the colours:
+# checks signed that were not done (W), a managers' review leaked to the paper (B), a post refused on conditions (UR), a
+# dose mistake hidden (UBG), a dressing used on the ward without leave (URG), the spirit's price promised (WRG).
+# Every moment carries earth:, tribal: and magic: lines (moment 9 the tribal one alone) and an untagged scene for each
+# other world; an option whose act reads differently there carries its own tribal: or magic: wording; works and fails
+# lines are written to read in every world.
+
+# ================================================================ holder pairs
+
+# ---------------------------------------------------------------- nurse, midwife, care worker or paramedic: calls RG / calls WUB (cycle s2)
+
+== the birth that will not wait
+tier: everyday
+rate: 0.5
+gap: 1-3
+times: per nurse, midwife, care worker or paramedic a year: about 1 in 30 is there when a baby comes too fast to reach the hospital or the midwife, paramedics and midwives most often (estimate); about 1 birth in 200 comes before the mother reaches help (estimate); about 3 lives in 100 are nurses, 8 in 100 care workers, 4 in 1,000 paramedics and 1 in 1,000 midwives (catalogue shares)
+stages: young_adult adult mature elder
+age: 20-75
+calls: RG
+holds: nurse | midwife | care worker | paramedic
+tone: joy
+life: work, family
+horizon: moment
+roles: colleague, mentor
+earth: a farmhouse at the top of a lane the snowplough has not reached, and a baby coming two weeks early, an hour before any ambulance can
+tribal: the band moving camp through the first snow, and a young mother's pains coming fast, a day's walk from the birth shelter
+magic: a coaching inn cut off by snow on the high road, and the innkeeper's daughter's baby coming early, a day's ride from the temple house
+scene: {N} is on the last home visit of the day, at a farm at the top of a lane the snowplough has not reached, when the old farmer's granddaughter, staying for the winter, goes into labour two weeks early. The pains are already close together. The ambulance says an hour at best, and the only thing in the kitchen that is ready is the kettle.
+scene W: The emergency line has a script for this, and {N} has done the course. Clean towels, gloves, the time written down: there is an order to things, even on a kitchen floor.
+scene U: {N} counts the minutes between the pains and watches the young woman's face. The numbers say this baby will not wait for any ambulance.
+scene B: Somebody has to run this kitchen for the next hour. The farmer is shaking, the young woman's partner is on the phone to his mother, and {N} is the only one in the room who has seen a birth.
+scene R: {Ns} heart is going like a drum, and that is fine. The baby is coming, {N} is here, and nothing else matters now.
+scene G: Babies have been born in farm kitchens for as long as there have been farms. The stove is warm, the snow is quiet, and her body knows what it is doing.
+scene tribal: The band is moving camp along the river in the first snow when a young mother sits down hard on the path, her pains coming fast. The birth shelter is a day's walk behind them, and {N}, who has helped at many births, kneels beside her while the others pile up wood for a fire.
+scene magic: Snow has closed the high road, and the coaching inn is full of stranded travellers when the innkeeper's daughter's waters break, a fortnight early. The temple house is a day's ride away, and {N}, a nurse of its wards on the way home, is the only healer under the roof.
+- W | ring the emergency line, and do each thing the call handler says, in order | v: conformity, security | tribal: send a runner back for the old birth-keeper, and do each thing as she taught, in order | magic: send the stable boy riding for the temple house, and do each thing as the old midwives teach | chance: 80
+- U | time the pains, and feel how the baby lies, before deciding anything | v: achievement, security | chance: 75
+- B | take charge of the kitchen, and give everyone in the house a job | v: power, security | aims: senior nurse or midwife | tribal: take charge of the path, and give everyone in the band a job | magic: take charge of the inn's kitchen, and give every stranded traveller a job | chance: 75
+- R | kneel on the kitchen floor, and catch the baby there and then | v: stimulation, benevolence | body: light | grants: emergency care | tribal: kneel in the snow by the new fire, and catch the baby there and then | magic: kneel on the inn's hearth, and catch the baby there and then | chance: 70
+- G | keep her warm by the stove, and let the birth come at its own pace | v: benevolence, tradition | self_control: + | grants: families who send for you | tribal: keep her warm by the fire under the furs, and let the birth come in its own time | magic: keep her warm by the inn's hearth, and let the birth come at its own pace | chance: 75
+- W>B | write the birth up for the hospital that night, with your name and every time | v: achievement, conformity | aims: senior nurse or midwife | tribal: tell the birth at the fire that night, step by step, so the elders know whose hands did it | magic: write the birth up for the temple house that night, with your name and every hour | chance: 60
+- U>R | judge from the pains that there is still time, and drive her down the lane | v: stimulation, self-direction | tribal: judge from the pains that there is still time, and walk her on to the birth shelter | magic: judge from the pains that there is still time, and drive her down to the village in the sleigh | chance: 65
+- B>G | phone the farmer down the valley, and talk him into clearing the lane with his tractor | v: benevolence, power | mark: made a friend | tribal: send word to the next band's hunters, and talk them into breaking a trail through the snow | magic: talk the stranded carters into digging the road out to the village | chance: 65
+- R>W | send everyone out of the kitchen, loudly, and stand guard at the door | v: security, benevolence | tribal: send the band on ahead, loudly, and keep a quiet ring round the mother | magic: send the gawping travellers out of the kitchen, loudly, and stand guard at the door | chance: 70
+- G>U | let her body lead, and note every sign for the midwives who come after | v: universalism, achievement | tribal: let her body lead, and remember every sign to tell the old birth-keeper | magic: let her body lead, and note every sign for the temple's midwives | chance: 65
+works: The baby comes crying and strong, and mother and baby are warm and well long before help arrives.
+works: Within the week everyone around has heard the story, and the new mother asks for {N} by name.
+fails: It is a frightening hour and a messy one, but mother and baby are both well when help comes.
+fails: Others take over at the last minute and {Ns} part is lost in the rush, though mother and baby are both well.
+
+== the ward is two nurses short
+tier: everyday
+rate: 0.5
+gap: 1-3
+times: per nurse, midwife, care worker or paramedic a year: about 1 in 2 work a night short of staff at least once, and many work one every month (staff surveys; estimate); about 3 lives in 100 are nurses and 8 in 100 care workers (catalogue shares)
+stages: young_adult adult mature elder
+age: 20-75
+calls: WUB
+holds: nurse | midwife | care worker | paramedic
+tone: trouble
+life: work, health
+horizon: week
+roles: colleague, boss
+earth: the night shift on a ward of twenty-eight beds, two nurses short again, and the agency has nobody to send
+tribal: the sickness shelter in the deep of winter, the sick laid close by the fire, and only two pairs of hands to tend them through the night
+magic: the long ward of the temple house at night, two sisters down with the cough, and every bed full
+scene: Eight o'clock at night, and all twenty-eight beds on the ward are full. The rota says four nurses; there are two, and {colleague} qualified a month ago. The agency has nobody to send, the manager's phone goes to voicemail, and the drug round starts in half an hour.
+scene W: Every patient has checks due every four hours, and a box for each on the chart. Tonight there are not enough hands to fill them all, and {N} knows what an empty box can mean.
+scene U: Twenty-eight patients, two nurses, twelve hours. {N} is already working out which ones need watching every hour and which can safely sleep.
+scene B: This is the third short night this month, and every one of them was signed off upstairs as fine. Someone up there is counting on nobody making a fuss.
+scene R: {Ns} legs are tired already, and the night has not started. There is nothing for it but to go, and keep going.
+scene G: The old man in bed six cannot settle unless someone sits with him a while, and the woman in bed nine is frightened of the dark. No chart on the ward says so.
+scene tribal: Deep in the winter the sick of the band lie close by the fire in the sickness shelter: an old woman with a cough, a hunter with a hurt leg, a mother with a fever. Two of the band's healers are down with it themselves, and {N} and {colleague} are the only hands left to tend them through the long night.
+scene magic: Every bed in the temple house's long ward is full, and two of the sisters are down with the cough. The night matron has gone to the city on the temple's business, and {N} and {colleague} have the whole ward between them until dawn.
+- W | sign the night's checks as done, so every chart is complete by morning | v: conformity, security | mark: hid a wrong | self_control: - | closed: approval: checks signed that were not done; backfire: the audit finds the gaps, and the ward manager asks who signed them | tribal: tell the elders at dawn that every one of the sick was tended through the night | magic: sign the night book as if every round was made | chance: 80
+- U | rank the patients by need, and plan the whole night hour by hour | v: achievement, security | grants: organising people | tribal: rank the sick by need, and plan the whole night by the stars | chance: 75
+- B | refuse to take more admissions until the ward has the staff it needs | v: power, security | mark: defied an authority | tribal: tell the elders no more of the sick may come to the shelter until there are more hands | magic: refuse the steward any more patients until the ward has the sisters it needs | chance: 70
+- R | work straight through the night with no break, and cover both bays | v: benevolence, stimulation | body: light | self_control: + | grants: used to night shifts | tribal: tend the sick straight through the night with no rest, both sides of the fire | magic: work straight through the night with no rest, and cover both ends of the ward | chance: 75
+- G | sit with the frightened ones first, and let the paperwork wait | v: benevolence, universalism | self_control: - | tribal: sit with the frightened ones first, and let the rest wait their turn | magic: sit with the frightened ones first, and let the ward book wait | chance: 70
+- W>B | fill in the staffing report in full, and send it to the director | v: conformity, power | aims: senior nurse or midwife | tribal: tell the elders plainly at the fire how few hands there were, and ask for more | magic: write the night's shortfall in the matron's book, and send it to the temple's steward | chance: 60
+- U>R | agree a signal with the other nurse, so either can run to the other's bay | v: self-direction, stimulation | tribal: agree a call with the other healer, so either can run to the other's side of the fire | magic: agree a signal with the other sister, so either can run to the other's end of the ward | chance: 65
+- B>G | call in a favour from the next ward, and borrow a nurse for the drug round | v: benevolence, power | tribal: call in a favour from the next hearth, and borrow a pair of hands for the night | magic: call in a favour from the sisters' wing, and borrow a nurse for the medicine round | chance: 70
+- R>W | tell the bed manager to their face that the ward is not safe tonight | v: security, universalism | mark: defied an authority | tribal: tell the eldest to their face that the sick are not safe with so few hands | magic: tell the steward to their face that the ward is not safe tonight | chance: 65
+- G>U | show the families staying late how to help with drinks and meals | v: benevolence, universalism | door | tribal: show the kin sitting by the fire how to help with water and broth | chance: 70
+works: Dawn comes, every patient is safe, and the day staff find the night's work done.
+works: The night is hard but it holds, and the next week someone finally finds more hands for the nights.
+fails: The night holds, just, and {N} goes home grey with tiredness, knowing it will happen again before the month is out.
+fails: Something small is missed in the rush, nobody is harmed, and the morning brings a hard conversation.
+
+# ---------------------------------------------------------------- senior nurse or midwife: calls WU / calls BRG (cycle s4)
+
+== a family asks you to stay to the end
+tier: everyday
+rate: 0.5
+gap: 1-3
+times: per senior nurse or midwife a year: about 1 in 4 are asked by a family to be with them at the end (estimate); about half of all deaths in rich countries come after a long illness, in a hospital, a hospice or a care home (estimate); about 4 lives in 1,000 are senior nurses or midwives (catalogue share)
+stages: adult mature elder
+age: 26-75
+calls: WU
+holds: senior nurse or midwife
+tone: mixed
+life: work, meaning
+horizon: week
+roles: colleague, mentor
+earth: an old patient near the end of a long illness, and a daughter who asks the senior nurse to be there when it comes
+tribal: an old hunter of the band near the end of a long sickness, and his kin asking the birth-keeper to sit with them through his last nights
+magic: an old woman in the quiet room of the temple house, near the end of a long illness, and her son asking the healer to stay
+scene: The old woman in the side room has been on the ward five weeks, and the end of her long illness is close now: a day, perhaps two. She sleeps most of the time and is in no pain. Her daughter finds {N} at the nurses' station, holding a cup of tea she has forgotten to drink, and asks whether {N} will be there when it comes.
+scene W: There is a plan for the last days, and {N} wrote most of it: comfort, mouth care, the family's wishes, the words of their faith if they want them. A plan like that deserves to be kept well.
+scene U: {N} has seen many deaths and knows the signs: the breathing that changes, the hands that cool. The family does not, and not knowing frightens them more than anything.
+scene B: The bed managers want the side room for a new admission and have asked twice today. {N} has the seniority to say no, and means to use it.
+scene R: {N} liked her from the first day: the jokes about the food, the stories about dancing when she was young. The ward will be quieter without her.
+scene G: Eighty-nine years, and now her life is coming to its end the way lives do. {N} wants the end to be quiet, and warm, and among her own.
+scene tribal: The old hunter has lain in his shelter since the first frosts, growing lighter every day, and now he sleeps more than he wakes, without pain. His sons and daughters sit round the fire outside, and the eldest daughter comes to {N}, the band's birth-keeper and first healer, and asks {N} to sit with them through the last nights.
+scene magic: In the quiet room at the end of the temple house's long ward, an old woman of the town has come to the last days of a long illness, peaceful and without pain. Her family keep watch by the window, and her son asks {N}, a healer of the temple house, whether {N} will stay with them when the time comes.
+- W | keep to her care plan hour by hour, and hold the night staff to it | v: conformity, benevolence | habit | tribal: tend him by the old ways hour by hour, and hold the other healers to them | magic: keep to the temple's rule for the dying hour by hour, and hold the night sisters to it | chance: 75
+- U | explain to the family plainly what each change means, and what comes next | v: benevolence, universalism | grants: calming people down | tribal: tell his kin plainly what each change means, and what comes next | chance: 75
+- B | use your seniority to keep the side room, whatever the bed managers say | v: power, benevolence | tribal: use your standing to keep the shelter quiet and unmoved, whatever the hunters say about breaking camp | magic: use your standing to keep the quiet room, whatever the steward says about beds | chance: 80
+- R | stay on through the night in your own time, holding her hand | v: benevolence | grants: families who send for you | aims: renowned healer | tribal: stay through the night at his side, holding his hand | chance: 90
+- G | dim the lights, open the window, and let the family sit close in their own way | v: tradition, benevolence | tribal: open the shelter to the night air, and let his kin sit close in their own way | magic: dim the lamps, open the window, and let the family sit close in their own way | chance: 75
+- W>G | ask the family's own minister or elder in, as the family wishes | v: tradition, conformity | door | tribal: ask the keeper of the rites to come and sing the old songs over him, as his kin wish | magic: send for the family's own priest, as they wish | chance: 65
+- U>W | write a plan for her last nights that the night staff can follow exactly | v: security, conformity | aims: renowned healer | tribal: teach the other healers each thing to do in his last nights, so it is done right | magic: write a plan for her last nights that the night sisters can follow exactly | chance: 65
+- B>U | call in a favour, and bring the hospice's specialist nurse to the bedside tonight | v: security, achievement | door | tribal: send for the old healer of the next band, who knows best how to ease the last nights | magic: call in a favour, and bring the temple's most learned herb-healer to the bedside tonight | chance: 60
+- R>B | tell her story at the managers' meeting, and win the ward a proper quiet room | v: achievement, benevolence | tribal: tell his story at the elders' fire, and win the sick a shelter of their own, away from the noise | magic: tell her story to the temple council, and win the ward a quiet room of its own | chance: 50
+- G>R | help the family bring in her old dog and the songs she loved | v: hedonism, benevolence | mark: helped someone in need | tribal: help his kin bring in his old hunting dog and sing the songs he loved | magic: help the family bring in her old cat and the songs she loved | chance: 65
+works: The end comes quietly in the early hours, with the family close, and nobody is alone.
+works: Some weeks later the family sends word of thanks, and it names {N}.
+fails: The end comes peacefully on a night {N} is not there, and the family is sorry, and grateful all the same.
+fails: The last days are calm, but the family quarrels in the corridor, and {N} cannot mend it.
+
+== the managers want the birth centre closed
+tier: everyday
+rate: 0.5
+gap: 1-3
+times: per senior nurse or midwife a year: about 1 in 15 see their own unit, a small birth centre or a ward, put up for closing or merging (estimate); small midwife-led birth centres open and close with each round of budgets (estimate); about 4 lives in 1,000 are senior nurses or midwives (catalogue share)
+stages: adult mature elder
+age: 26-75
+calls: BRG
+holds: senior nurse or midwife
+tone: trouble
+life: work, community
+horizon: months
+roles: boss, colleague
+earth: the hospital's managers plan to close the small birth centre in town and send every birth to the big unit in the city, forty minutes away
+tribal: the elders talk of giving up the birth shelter by the spring, and sending the band's mothers to the big camp's healers downriver
+magic: the temple council means to shut the birthing house in the lower town, and send every mother up the hill to the great temple
+scene: The letter comes on a Monday: after a review, the managers propose to close the town's small birth centre and send every birth to the big unit in the city, forty minutes away by road. {boss} calls it a consultation. Seven hundred babies were born in the centre last year, and half the town's families know {N} by name.
+scene W: There is a proper process for this: a consultation, a safety review, a vote of the board. {N} means to answer every page of it.
+scene U: {N} has read the review's figures, and they leave things out: the forty-minute drive in winter, the mothers whose babies come fast.
+scene B: The managers want a saving they can show the board. {N} knows the councillors, the editor of the local paper and two of the board by name.
+scene R: {N} reads the letter twice, and then has to go and stand outside in the car park for a while.
+scene G: Three generations of the town were born in that building. Families who never set foot in the city bring their babies back to show the midwives.
+scene tribal: The elders talk at the fire of giving up the birth shelter in the willows by the spring, where the band's mothers have had their babies for longer than anyone remembers, and sending the mothers to the big camp's healers downriver instead. {boss}, the eldest, says it would be one shelter fewer to keep.
+scene magic: The temple council writes that the old birthing house in the lower town costs too much in silver and lamp oil, and that from midsummer every mother of the town must climb the hill to the great temple to give birth. {boss}, the council's steward, calls it a kindness.
+- W | answer the consultation point by point, through every proper channel | v: conformity, security | tribal: speak at the elders' fire in your turn, as the custom is, for keeping the shelter | magic: answer the council's letter point by point, through every proper channel | chance: 70
+- U | work out what the long drive would mean in winter, and publish the figures | v: universalism, achievement | identity | tribal: count the days' walk to the big camp in deep snow, and lay it out for the elders | magic: reckon the climb up the hill in winter for every mother, and set it before the council | chance: 75
+- B | leak the managers' review to the local paper before the consultation opens | v: power | mark: defied an authority | closed: approval: a confidential review leaked; backfire: the managers trace the leak, and a written warning goes on the senior nurse's record | tribal: tell the other bands' elders what this band's elders plan, before they can decide it | magic: pass the council's letter to the broadsheet printers before the council can meet | chance: 75
+- R | stand up at the public meeting, and say unscripted what the centre means | v: self-direction, universalism | identity | tribal: stand up at the band's fire, and say from the heart what the shelter means | magic: stand up at the town's open meeting, and say from the heart what the birthing house means | chance: 80
+- G | ask the families born there to come and tell the managers their own stories | v: tradition, benevolence | grants: organising people | tribal: ask the families born in the shelter to come to the fire and tell their own stories | magic: ask the families born there to come before the council and tell their own stories | chance: 75
+- W>G | draw up a plan for a smaller centre run by the midwives, within every rule | v: security, tradition | tribal: ask the elders for a smaller shelter by the spring, kept by the old women in the proper way | magic: draw up a plan for a smaller birthing house run by the midwives, within the temple's rules | chance: 70
+- U>W | redesign the centre's rota so it costs less and meets every standard | v: security, achievement | tribal: work out how the shelter can be kept with fewer hands and every custom still kept | magic: redesign the birthing house's watches so they cost less and keep every rule | chance: 65
+- B>U | strike a deal with the university to run the centre as a teaching unit | v: achievement, power | binds | tribal: strike a bargain with the big camp's healers to send their young ones to learn at the shelter | magic: strike a bargain with the apothecaries' college to train its students at the birthing house | chance: 65
+- R>B | open a birth centre of your own, with the midwives who would lose theirs | v: self-direction, achievement | requires: savings | without: means | lacking: .5 | grants: a clinic of your own | binds | aims: renowned healer | tribal: build a healer's lodge of your own by the spring, with the old women who would lose the shelter | magic: open a house of healing of your own in the lower town, with the midwives who would lose theirs | chance: 60
+- G>R | start a home-birth service for the town, run from your own car | v: self-direction, tradition | tribal: go out to the mothers in their own shelters, wherever the band makes camp | magic: go out to the mothers in their own houses, with your bag and your lamp | chance: 65
+works: The managers put the closing off for a year, and the centre's lights stay on.
+works: Whatever {N} chose, the mothers of the town still have somewhere near home to give birth.
+fails: The centre closes by the summer, and the mothers of the town must go further to give birth.
+fails: The fight drags on for months and wears everyone thin, and nothing is settled.
+
+# ================================================================ steps
+
+# ---------------------------------------------------------------- 5. the ward needs someone in charge (pairs D5a)
+# The Known rung: the ward's manager retires and the post is open, for a nurse or midwife of four years or more (tenure,
+# and LIFE_CALLINGS in engine-conditions.py). Every colour's way of taking it on is a try at the brief's real chance for
+# the ward or birth centre to run (40): `title: senior nurse or midwife`. White's formal application and Blue's course
+# rest on [professional registration]; someone without it is taken on only by the managers' leave (`requires:
+# professional registration | without: approval | lacking: .3`). The pairs at 82 are the honest other ways: act up for
+# six months first, a specialist's post with better hours, the post refused until the ward is staffed (a closed:
+# approval act), a colleague's name put forward, and the team asked who they want. Every colour's mean is 61.
+
+== the ward needs someone in charge
+tier: life event
+stages: adult mature
+age: 26-67
+holds: nurse | midwife
+tenure: 4-100
+per_year: 0 0 0 .06 .04 0
+drivers: prosper+.1 community+.2
+times: per nurse or midwife of four years or more a year: about 1 in 20 see the post of ward manager, charge nurse or lead midwife open where they work, and weigh going for it (estimate); about 1 registered nurse or midwife in 8 reaches that grade (workforce statistics), about 4 lives in 1,000 (catalogue share)
+likelier: a manager retiring, a new ward or birth centre opening, good years with money for posts, a team that wants one of its own
+rarer: a freeze on posts, a manager who stays for twenty years, a hospital closing beds
+gap: 2-5
+domain: career.5
+tone: mixed
+life: work
+horizon: months
+roles: mentor, colleague, rival, boss
+earth: the ward manager retires, and the post of the one in charge of the ward is advertised
+tribal: the old birth-keeper of the band can no longer walk to the births, and the women ask who will keep the births and the sick after her
+magic: the old matron of the temple house's long ward goes to her rest, and the council asks who will keep the ward after her
+scene: {mentor}, who has run the ward for nineteen years, retires at the end of the year, and the post is on the noticeboard: ward manager, interviews in a month. {rival} from the next ward has already asked for the forms. Half the team have told {N} to go for it, and the other half are waiting to see who does.
+scene W: The post has a description, a list of standards and a panel. {N} reads every line, and knows the standards by heart.
+scene U: {N} has had ideas about the ward for years: the handover that takes too long, the drug round that could be safer. In charge, they could be tried.
+scene B: Ward manager is the first rung that counts. {N} wants it before {rival} gets it, and knows exactly who sits on the panel.
+scene R: {N} has never wanted a desk. But the ward needs someone who will fight for it, and {N} can feel that it should be {N}.
+scene G: {N} knows every family that comes back to the ward, and every creak of the old building. Nobody else has been here so long, through so many winters of it.
+scene tribal: The old birth-keeper of the band has grown too stiff to walk to the births, and the women have begun to ask who will keep the births and tend the sick after her. {mentor}, the old birth-keeper herself, has looked at {N} more than once, and {rival} from the other hearth has been gathering plants and saying so.
+scene magic: The old matron of the temple house's long ward has gone to her rest after thirty years, and the temple council will name someone to keep the ward at the new moon. {rival}, from the sisters' wing, has already been to see the steward.
+- W | apply through the proper process, with a statement against every standard | v: conformity, achievement | title: senior nurse or midwife | requires: professional registration | without: approval | lacking: .3 | tribal: ask the elders and the old birth-keeper by the custom, and keep every old rule of the births | magic: put your name to the council in the proper form, with a word on every rule of the ward | chance: 40
+- U | take the leadership course, and bring a plan for a safer ward to the interview | v: achievement, conformity | door | title: senior nurse or midwife | requires: professional registration | without: approval | lacking: .3 | mark: learned a skill | self_control: + | tribal: learn every plant and every birth the old keeper knows, and show the women how you would keep them | magic: study the temple's books of healing, and bring the council a plan for a safer ward | chance: 40
+- B | go for it openly against the other candidate, and win the panel over first | v: power, achievement | mark: made an enemy | title: senior nurse or midwife | tribal: put yourself forward openly against the other hearth's healer, and win the elders over first | magic: put your name forward against the sisters' candidate, and win the steward over first | chance: 40
+- R | tell the panel bluntly what the ward lacks, and how you would fight for it | v: self-direction, benevolence | title: senior nurse or midwife | tribal: tell the women bluntly at the fire what the band's births lack, and how you would mend it | magic: tell the council bluntly what the ward lacks, and how you would fight for it | chance: 40
+- G | go for it as the one who has known the ward and its families longest | v: tradition, benevolence | mark: stayed home | identity | title: senior nurse or midwife | tribal: put yourself forward as the one who has known every hearth's births longest | magic: put your name forward as the one who has known the ward and its families longest | chance: 40
+- BG | ask to act up in the post for six months, and prove it first | v: achievement, security | self_control: + | tribal: ask to keep the births beside the old birth-keeper for a season first, and prove it | magic: ask to keep the ward as acting matron for six months, and prove it first | foot: means time-.05 | chance: 82
+- UB | go for a specialist's post instead, with better hours and better pay | v: achievement, self-direction | self_control: - | tribal: become the band's keeper of the strong plants instead, and leave the births to another | magic: seek a place at the apothecaries' bench instead, with its better hours and better pay | foot: means money+.05 | chance: 82
+- UR | turn the post down in writing until the ward gets the two nurses it lacks | v: universalism, self-direction | mark: defied an authority | closed: approval: a post refused on conditions; backfire: the managers give the post to someone else, and remember the letter | tribal: refuse to keep the births until the elders give the sick a second healer | magic: refuse the post in writing until the council gives the ward the two sisters it lacks | chance: 82
+- WG | put your colleague's name forward, and offer to stand beside them | v: benevolence, tradition | binds | mark: made a friend | tribal: speak at the fire for the healer of your own hearth, and offer to stand beside them | magic: speak to the council for the sister at your side, and offer to stand beside her | chance: 82
+- WR | ask the whole team at handover who they would want in charge | v: conformity, benevolence | tribal: ask the women of the band at the fire who they would want to keep the births | magic: ask the sisters of the ward at the change of watch who they would want as matron | foot: means ties+.04 | chance: 82
+works: Within the month it is settled, and the ward turns to {N} first.
+works: Whatever {N} chose, the ward is in good hands, and {N} sleeps well that month.
+fails: The post goes to {rival}, and {N} has to smile all through the leaving party for {mentor}.
+fails: It goes badly at the one moment that mattered, and the post goes to someone from outside.
+
+# ---------------------------------------------------------------- 6. patients come from far away (pairs D5b)
+# The summit, a facet on the healing career held (senior nurse or midwife, nurse, midwife, physician or complementary
+# therapist of eight years or more; LIFE_CALLINGS adds the exact years): families travel from far away to be in {N}'s
+# care. Every colour's way of taking the name on is a try at the brief's real chance of a healer known across the land
+# (6): `title: renowned healer` with `grants: families who send for you`. A step at real odds, not a long shot, so no perk
+# on failure, and no mark on the singles (the title and the bond are their two footprints). The pairs at 80 are the
+# honest other ways: part-time on the ward and a rented room for the far families, a weekend a month on the road, two
+# young nurses taught, a clinic day asked of the managers, and a careful letter to each family about care near home.
+# Every colour's mean is 43.
+
+== patients come from far away
+tier: life event
+stages: adult mature elder
+age: 30-100
+holds: senior nurse or midwife | midwife | nurse | physician | complementary therapist
+tenure: 8-100
+per_year: 0 0 0 .01 .03 .02
+drivers: community+.3 fortune+.2
+times: per senior nurse or midwife, nurse, midwife, physician or complementary therapist of eight years or more a year: about 1 in 60 find patients travelling from other towns, by word of mouth, to be in their care (estimate); about 5 lives in 100,000 become healers known across the country (catalogue share; estimate)
+likelier: years with the same district's families, a way of caring of one's own, a story in the papers, a mentor who sends patients on
+rarer: a busy city practice where nobody knows anyone's name, a move away, a hard year on the ward
+gap: 5-15
+domain: career.5
+tone: joy
+life: work, meaning
+horizon: years
+roles: boss, colleague, mentor, friend
+earth: families from other towns begin to ask for the healer by name, and the waiting list grows longer than the district's own
+tribal: families from far bands send runners for the healer by name, and some walk for days to camp beside the healer's fire
+magic: families from distant towns of the realm write and travel to be in the healer's hands, and the temple house's door is never quiet
+scene: It began with one family, then another, then a woman who drove four hours with her father because a neighbour had said {Ns} name. Now letters come every week, the waiting list runs to the spring, and a reporter from a big paper has asked to spend a day on the rounds. {boss} wants to know what {N} means to do about it.
+scene W: People come because the care is good, and the care is good because it is done right, every time. {N} would like to keep it that way, however many come.
+scene U: {N} has wondered for years why some ways of caring work better than others. Now there are enough patients to find out.
+scene B: A name like this opens doors: a post of one's own making, a book, a seat at the tables where the money is decided. {N} knows it will not last forever.
+scene R: The families who come so far are frightened and hopeful at once. {N} feels every one of them, and wants to say yes to them all.
+scene G: {N} never set out to be known. The work grew the way a garden does, one season on another, and now people come from far away to sit in it.
+scene tribal: Runners have come from bands three valleys away, asking for {N} by name, and two families have walked for days to camp beside the healer's fire with their sick. The traders carry the story from camp to camp, and {boss}, the eldest of the band, asks what {N} means to do about it.
+scene magic: Letters come under the seals of distant towns, and families travel for days to sit in the temple house's long hall and wait for {N}. A broadsheet writer from the capital has asked to follow the rounds, and {boss}, the temple's steward, wants to know what {N} means to do.
+- W | open a fair list for the far patients, first come first seen, and keep to it | v: universalism, conformity | title: renowned healer | grants: families who send for you | tribal: take the far sick in the order they came, by the old rule, and keep to it | magic: open a fair roll for the far patients, first come first seen, and keep to it | chance: 6
+- U | study what works in your care, and publish it so others can do the same | v: achievement, universalism | title: renowned healer | grants: families who send for you | habit | tribal: watch what works in your care season on season, and teach it to every band's healers | magic: study what works in your care, and set it down in a book for other healers | chance: 6
+- B | let the reporter follow the rounds, and put your name to your way of caring | v: power, achievement | title: renowned healer | grants: families who send for you | identity | tribal: let the traders carry your name from camp to camp, and name your way of healing for yourself | magic: let the broadsheet writer follow the rounds, and put your name to your way of caring | chance: 6
+- R | say yes to every family that comes, and work the evenings to see them all | v: benevolence, stimulation | title: renowned healer | grants: families who send for you | self_control: - | tribal: say yes to every family that comes, and tend them by firelight after the day's work | magic: say yes to every family that comes, and work the evenings to see them all | chance: 6
+- G | keep the district's own families first, and let the far ones wait their turn | v: tradition, benevolence | title: renowned healer | grants: families who send for you | tribal: keep your own band's families first, and let the far ones wait their turn | magic: keep the lower town's own families first, and let the far ones wait their turn | chance: 6
+- BR | go part-time on the ward, and see the far families in a rented room | v: self-direction, achievement | habit | tribal: leave the band's daily tending to others, and see the far families in a shelter of your own | magic: give up half your watches, and see the far families in a hired room in the town | foot: means money+.05 | chance: 80
+- RG | go out to the far families yourself, one weekend a month | v: benevolence, stimulation | body: light | tribal: walk out to the far bands yourself, one moon in every three | magic: ride out to the far families yourself, one week in every month | foot: means time-.06 | chance: 80
+- UG | take two young nurses under your wing, and teach them all you know | v: benevolence, achievement | grants: apprentice of one's own | binds | tribal: take two young healers of the band beside you, and teach them all you know | magic: take two young sisters under your wing, and teach them all you know | chance: 80
+- WB | ask the managers for a clinic day of your own for the far patients | v: achievement, security | tribal: ask the elders for a shelter by the camp where the far sick may wait | magic: ask the council for a day in the week of your own for the far patients | foot: place care.houses | chance: 80
+- WU | write each far family a careful letter on what can be done near home | v: universalism, benevolence | mark: helped someone in need | tribal: send each far family's runner home with a careful word on what their own healers can do | magic: write each far family a careful letter on what their own healers can do | chance: 80
+works: By the end of the year {Ns} name is known far beyond the district, and the families keep coming.
+works: Whatever {N} chose, the far families are helped, and the district's own still come first.
+fails: The fuss dies down after a season, and the waiting list shrinks back to the district's own.
+fails: The far families find another healer to talk about, and {N} goes back to the ordinary weeks, a little relieved.
+
+# ================================================================ fall and wrong
+
+# ---------------------------------------------------------------- 7. the wrong dose on the night shift (triads D3a)
+# A dose mistake caught in time: the patient is fine by morning, and nobody else knows yet. Tell or hide. The wrong sits
+# on the UBG triad (Blue's quiet correction of the chart, Black's career kept clean, Green's belief that the body has
+# mended and the matter can rest): the chart corrected and nothing said (hid a wrong; closed: approval: a mistake
+# hidden; when it fails, the record shows it and `takes_if_fails: licence to prescribe`, the brief's backfire). The
+# others: the doctor told and the form filled in, the error traced, the union rep rung first, the patient's daughter
+# told face to face, a night at the bedside, the whole of it told to the patient and the ward (owned up), a report that
+# changes the drug round, the blame taken alone for a worn-out colleague, fewer night shifts asked. Chances are set by
+# act and the singles solved around the triads until every colour's mean is 70.
+
+== the wrong dose on the night shift
+tier: life event
+stages: young_adult adult mature elder
+age: 21-75
+holds: senior nurse or midwife | nurse | midwife | physician
+per_year: 0 0 .02 .02 .015 .005
+drivers: stress+.2 trouble+.1
+times: per nurse, midwife, senior nurse or physician a year: about 1 in 50 make a dose mistake that is caught before it does harm (estimate); mistakes with medicines are among the incidents hospitals report most, and most of them harm nobody (patient-safety reporting; estimate); about 3 lives in 100 are nurses (catalogue share)
+likelier: long shifts and short staff, two strengths of one medicine kept side by side, a new ward, nights
+rarer: a second check on every strong dose, a rested team, a ward with time to stop and look
+gap: 5-15
+domain: career.5
+tone: trouble
+life: work, health
+horizon: week
+roles: colleague, boss, mentor
+earth: at four in the morning a dose mistake comes to light: a patient given twice the dose, now watched and safe, and fine by morning
+tribal: before dawn in the sickness shelter the healer finds that a sick man was given twice the measure of the strong root, and that he will wake well
+magic: before dawn the healer finds in the ward book that an old carter was given a double draught of the sleeping medicine, and that he will wake well
+scene: At four in the morning, checking the charts, {N} sees it: the old man in bed twelve was given twice his dose of a strong painkiller at midnight. {colleague}, at the end of a fourteen-hour day, drew it up, and {N} checked it and signed. He is breathing easily and his colour is good; the doctor will say he needs watching and nothing more, and by morning he will be fine. Nobody else has noticed yet.
+scene W: There is a form for this, and a reason for the form. {N} knows the rule: report it at once, whatever it costs.
+scene U: Two strengths of the same medicine, kept side by side in boxes that look almost alike. {N} can already see how it happened, and how it will happen again.
+scene B: A mistake on the record stays on the record. {N} thinks of the promotion list, the registration board, and the managers who will want a name to blame.
+scene R: {Ns} stomach turns over. The man in bed twelve tells jokes about his grandchildren, and {N} could have hurt him.
+scene G: He is asleep, and his breathing is slow and even. The body has its own ways of mending, and {N} can sit beside it and watch it mend.
+scene tribal: In the sickness shelter before dawn, {N} counts the roots left in the healer's bag and sees it: the old hunter with the cough was given twice the measure of the strong root at nightfall, from {colleague}'s mixing and {Ns} own hand. He sleeps deeply and breathes well, and by morning he will wake, but nobody else knows yet.
+scene magic: Checking the ward book before dawn, {N} sees that the old carter in the end bed was given a double draught of the sleeping medicine at midnight, mixed by {colleague} at the end of a long watch and given by {N}. He breathes easily and will wake well, but nobody else has noticed.
+- W | tell the night doctor at once, and fill in the incident form before handover | v: conformity, security | identity | mark: owned up | tribal: wake the old healer at once, and tell the elders at first light, as the custom is | magic: wake the night physician at once, and write it in the ward book before the change of watch | chance: 69
+- U | work out exactly how the two doses were mixed up, step by step | v: achievement, universalism | mark: learned a skill | tribal: work out exactly how the two measures of root were mixed up, step by step | magic: work out exactly how the two draughts were mixed up, step by step | chance: 71
+- B | ring the union rep before saying a word to anyone | v: security, power | self_control: + | tribal: go first to the old healer who has the elders' ear, before saying a word to anyone | magic: go first to the sisters' advocate in the temple, before saying a word to anyone | foot: person go-between | chance: 70
+- R | tell the patient's daughter yourself, face to face, first thing in the morning | v: benevolence, self-direction | mark: owned up | tribal: tell the old hunter's daughter yourself, face to face, at first light | magic: tell the carter's daughter yourself, face to face, first thing in the morning | chance: 67
+- G | sit by the patient until morning, watching every breath until it passes | v: benevolence | body: light | tribal: sit by the old hunter until morning, watching every breath until it passes | magic: sit by the old carter until morning, watching every breath until it passes | foot: lesson stay close when it matters | chance: 72
+- WUR | tell the patient and the ward the whole of it, and write it all down | v: conformity, benevolence | self_control: + | mark: owned up | identity | tribal: tell the old hunter and the whole band the whole of it at the fire | magic: tell the carter and the whole ward the whole of it, and write it all in the book | chance: 75
+- WUB | report it to the safety team with a plan for a second check on strong doses | v: universalism, security | tribal: ask the elders that every measure of the strong root be checked by a second healer | magic: ask the council that every strong draught be checked by a second sister | foot: lesson tired hands need a second check | chance: 72
+- WRG | put your name alone on the report, to shield the worn-out colleague | v: benevolence | tribal: tell the elders it was your hand alone, to shield the worn-out healer who mixed it | magic: write your name alone in the book, to shield the worn-out sister who mixed it | foot: door kept it hidden | chance: 66
+- UBG | correct the chart quietly, say nothing, and watch the patient yourself till morning | v: security, power | mark: hid a wrong | self_control: - | takes_if_fails: licence to prescribe | closed: approval: a mistake hidden; backfire: the pharmacy count and the record show it, and the leave to give strong medicines is taken away | tribal: say nothing, put back a root from your own store, and watch the old hunter yourself till morning | magic: mend the ward book quietly, say nothing, and watch the carter yourself till morning | chance: 60
+- BRG | ask the manager for fewer night shifts, before tiredness does it again | v: security, self-direction | tribal: ask the elders to let you rest from the night tending, before tiredness does it again | magic: ask the steward for fewer night watches, before tiredness does it again | foot: means health+.04 | chance: 78
+works: The patient wakes well and hungry, and the matter is settled the way {N} chose.
+works: A month later the ward does things a little differently, and {N} can look the patient's family in the eye.
+fails: The patient is fine by morning, but the matter goes badly: questions, meetings and a cold silence among the others.
+fails: Word gets out the wrong way, and for a season {N} is the name the others whisper about.
+
+# ================================================================ long shot
+
+# ---------------------------------------------------------------- 8. the remedy that worked (triads D5b)
+# A way of caring the families talk about: a dressing of honey and garden marigold, made the way {grandparent} made it,
+# heals the old wounds that would not close. It comes to a nurse, midwife or complementary therapist of three years or
+# more, or a senior nurse or midwife, from thirty, the title's first age (`tenure: 3-99`; LIFE_CALLINGS_LONGSHOTS has
+# the exact years). The long shot is the summit at 3 in every colour, `title: renowned healer`, the facet on the career each
+# holder has, with `grants_if_fails: a long shot that missed` (core/longshot.py), so every single fits everyone who meets
+# the moment. The triads at 84, the brief's ways to weigh it: teach it, write it up, a day a week for the wounds nobody
+# else can heal, keep using it on the ward without leave (a closed: approval act), or keep it for the families. Every
+# colour's mean is 43.5.
+
+== the remedy that worked
+tier: life event
+stages: adult mature elder
+age: 30-95
+holds: nurse | midwife | complementary therapist | senior nurse or midwife
+tenure: 3-99
+per_year: 0 0 0 .01 .01 .01
+drivers: community+.2 fortune+.3
+times: per nurse, midwife, complementary therapist or senior nurse of three years or more a year: about 1 in 100 find a way of caring of their own that the families start to talk about (estimate); honey and plant dressings for slow wounds are old remedies that ward studies have looked at again (estimate); about 5 lives in 100,000 become healers known across the country (catalogue share)
+likelier: years with the same families, a garden or an old family way, a mentor who listens, a year when the papers want a good story
+rarer: a ward that changes its dressings by the book alone, no time to watch a wound for weeks, a move away
+gap: 6-15
+domain: career.5
+tone: joy
+life: work, meaning, nature
+horizon: months
+roles: grandparent, colleague, mentor, boss
+earth: a dressing of honey and garden marigold heals the old wounds that would not close, and the families start to talk about it
+tribal: a poultice of wild honey and the yellow meadow flower closes the old wounds that would not heal, and the bands start to talk about it
+magic: a salve of honey and marigold from the healer's own garden closes the wounds the temple's physicians gave up on, and the town talks of nothing else
+scene: The old farmer from the next village had a wound on his leg that had not closed in a year. {N} tried a dressing of honey and marigold from {Ns} own garden, the way {grandparent} used to make it, and in six weeks it had healed. Then a second wound healed, and a third. Now the families ask for {N} by name, the local paper has rung, and {mentor} says it ought to be written up properly.
+scene W: If it works, it should be done properly: measured, written down, checked, and taught the same way every time. {N} has the notes of every dressing in a folder.
+scene U: Why does it work? {N} has read everything there is on honey and wounds, and there is a question in it nobody seems to have asked.
+scene B: Something like this could make a name. {N} thinks of the conferences, the books, and the people who would want to put their own name to it first.
+scene R: {N} cannot stop thinking about all the people out there with wounds that will not close, waiting and hoping. Every one of them should have this.
+scene G: The marigolds came from {grandparent}'s seed, saved year after year. The garden gives, and the body heals, if both are given time.
+scene tribal: The old hunter of the next band had a wound on his leg that had not closed since the summer. {N} laid on a poultice of wild honey and the yellow meadow flower, the way {grandparent} did it, and before the moon was out it had healed. Now runners come from far camps asking for the healer who knows the yellow flower, and the traders carry the story from fire to fire.
+scene magic: The temple's physicians had given up on the old carter's leg, and {N} dressed it with a salve of honey and marigold from {Ns} own garden, the way {grandparent} made it. In six weeks it had healed. Now families queue at the temple house door, a printer wants to sell the recipe, and the masters of the apothecaries' college have written to ask what is in it.
+- W | write it up as a careful protocol, and send it to the national nursing college | v: conformity, universalism | title: renowned healer | grants_if_fails: a long shot that missed | self_control: + | tribal: set it down as the band's own way, step by step, and teach it at the great gathering | magic: write it up as a careful rule of practice, and send it to the apothecaries' college | chance: 3
+- U | run a proper trial with a doctor on twenty patients, and publish the results | v: achievement, universalism | title: renowned healer | grants_if_fails: a long shot that missed | tribal: try it on every slow wound in three bands, season by season, and mark which ones close | magic: try it with a temple physician on twenty patients, and set the results in a book | chance: 3
+- B | give the dressing your own name, and take it to every conference that will listen | v: power, achievement | title: renowned healer | grants_if_fails: a long shot that missed | tribal: give the poultice your own name, and carry it to every band's gathering | magic: give the salve your own name, and show it before every guild that will listen | chance: 3
+- R | say yes to every family who writes, and go to them, however far | v: benevolence, stimulation | door | title: renowned healer | grants_if_fails: a long shot that missed | body: light | tribal: say yes to every runner who comes, and walk to the far bands, however far | magic: say yes to every family who writes, and ride out to them, however far | chance: 3
+- G | grow the marigolds in your own garden, and teach the families to make it | v: tradition, benevolence | title: renowned healer | grants_if_fails: a long shot that missed | habit | tribal: gather the yellow flower in the meadows each summer, and teach every hearth to make it | magic: grow the marigolds in your own garden, and teach the town's families to make it | foot: place prod.land | chance: 3
+- WUG | teach it to the young nurses on the ward, one patient at a time | v: benevolence, tradition | grants: apprentice of one's own | tribal: teach it to the young healers of the band, one wound at a time | magic: teach it to the young sisters of the ward, one patient at a time | chance: 84
+- WUB | write it up for the hospital's own bulletin, with the dates and the weeks | v: achievement, conformity | tribal: tell it at the elders' fire, wound by wound and moon by moon, so it is remembered | magic: write it up for the temple house's own book, with the dates and the weeks | foot: lesson write down what works | chance: 84
+- WBR | ask the managers for one day a week for the wounds that will not heal | v: achievement, benevolence | habit | tribal: ask the elders to free you from the hunt one day in four, for the wounds that will not heal | magic: ask the council for one day a week for the wounds that will not heal | foot: means time-.05 | chance: 84
+- URG | keep using it on the ward's old wounds, without waiting for the managers' leave | v: self-direction, benevolence | mark: defied an authority | closed: approval: a dressing used on the ward without leave; backfire: the medicines committee hears of it, and the senior nurse is told to stop and write it up | tribal: keep laying it on every slow wound, without waiting for the elders' word | magic: keep using it on the ward's old wounds, without waiting for the physicians' leave | chance: 84
+- BRG | keep it for the district's families, and turn the reporter from the paper away | v: security, tradition | tribal: keep it for your own band's families, and send the far runners away | magic: keep it for the lower town's families, and turn the printer away | foot: door turned down a chance | chance: 84
+works: Within the year {Ns} dressing is talked about far beyond the district, and the wounds go on closing.
+works: Whatever {N} chose, the families keep coming, and the wounds that would not heal begin to close.
+fails: The fuss fades after a season, the talk moves on, and {N} goes back to the ordinary dressings and the ordinary weeks.
+fails: The next three wounds heal no faster than any others, and people stop asking, though {N} keeps making it.
+
+# ================================================================ world-only (tribal)
+
+# ---------------------------------------------------------------- 9. the sickness in the winter camp (only: tribal; triads D6b)
+# The tribal world's crossing to the summit (callings/worlds.py, WORLD_ONLY_CALLINGS): a fever runs through the winter
+# camp, and the healer who brings the camp through becomes the healer every band sends for. Each one-colour way of
+# nursing it is a try at the brief's real chance, 6: `title: renowned healer` (the facet on the healing career held) with
+# `grants: families who send for you`. The gate (LIFE_CALLINGS) lets in the band's birth-keeper ([senior nurse or
+# midwife]) and its nurses and midwives of two winters, from thirty, the title's first age (a [care worker] has no
+# career the facet sits on). The
+# triads at 70, the honest other ways: every hearth taught to boil its water, the camp moved upriver, the shaman asked
+# to call on the river spirit (the one supernatural act: the magic is the spirit's, never the healer's own; closed:
+# approval: the spirit's price, with a backfire), the next band's healer bought with furs, and the worst of the sick
+# nursed apart. Nobody dies in the text: the fever passes and the camp recovers. Every colour's mean is 38.
+
+== the sickness in the winter camp
+tier: life event
+only: tribal
+stages: adult mature elder
+age: 30-90
+holds: senior nurse or midwife | nurse | midwife
+tenure: 2-99
+per_year: 0 0 0 .02 .02 .02
+drivers: harsh+.2 community+.1
+times: per healer of the band in the tribal world (the birth-keeper, or a nurse or midwife of two winters) a year: about 1 in 50, in a winter when a fever runs through the camp (estimate); small bands living close in winter shelters met fevers most winters, and most passed (estimate)
+likelier: a hard winter in one camp, a slow pool for drinking water, a band crowded with visitors from the gathering
+rarer: a mild winter on the move, clean running water, a band kept apart from the others
+gap: 5-10
+tone: mixed
+life: work, community, health
+horizon: months
+roles: elder, colleague, rival
+tribal: a fever runs through the winter camp by the frozen river, and the band looks to its healer
+scene tribal: In the deep of the winter a fever runs through the camp by the frozen river. A dozen of the band lie hot and shivering in their shelters, old hunters and grown men and women alike, and {colleague}, the band's other healer, is down with it too. The elders look to {N}, and the runners from the next band say their healer cannot come before the moon turns.
+scene tribal W: The old rule is clear: the sick sleep apart from the well, and the healer goes to each in turn. {N} has seen what happens when nobody keeps it.
+scene tribal U: The fever started in the shelters nearest the slow pool below the camp, and nowhere else. {N} keeps thinking about the water.
+scene tribal B: Whoever brings the camp through this winter will be spoken of at every fire in the valley. {N} knows it, and so does {rival}.
+scene tribal R: {N} has not slept for two nights and does not mean to. There is always another shelter, another hot forehead, another cup of water to hold.
+scene tribal G: Fevers come with the deep cold, as they always have, and most of them pass. The willows by the river still hold what the old ones used, under the snow.
+- W | keep the sick apart from the well by the old rule, and tend each in turn | v: conformity, security | title: renowned healer | grants: families who send for you | chance: 6
+- U | find the water the fever came with, and move the drinking to the clean spring | v: achievement, universalism | title: renowned healer | grants: families who send for you | chance: 6
+- B | send runners to every band for their healers' plants, and lead them all | v: power, achievement | title: renowned healer | grants: families who send for you | chance: 6
+- R | go from shelter to shelter day and night, until the last fever breaks | v: benevolence, stimulation | title: renowned healer | grants: families who send for you | body: light | chance: 6
+- G | brew the willow bark the old ones used for fevers, and carry it to every shelter | v: tradition, benevolence | title: renowned healer | grants: families who send for you | chance: 6
+- WUG | teach every hearth to boil its water and keep its sick warm | v: universalism, benevolence | mark: helped someone in need | chance: 70
+- WUB | ask the elders to move the camp upriver to clean water, and plan the move | v: security, achievement | binds | foot: lesson clean water keeps sickness away | chance: 70
+- WRG | ask the shaman to call on the river spirit for a cure, and promise its price | v: tradition, benevolence | mark: took a wild risk | closed: approval: the spirit's price; backfire: the fever passes, but the spirit's price comes due: the band must leave its best winter ground for three winters, and the elders blame the healer | chance: 70
+- UBR | trade the band's best furs to the next band for their healer's help | v: benevolence, power | foot: means money-.06 | chance: 70
+- BRG | stay in the sick shelter with the worst of them, and keep the others away | v: benevolence, security | body: light | foot: means health-.05 | chance: 70
+works: The fever breaks in the shelters one by one, and by the thaw the whole camp is on its feet.
+works: Whatever {N} chose, the sickness passes, and the bands along the river hear whose hands tended it.
+fails: The fever runs through the camp for a whole moon before it passes, and everyone is thin and tired by the thaw.
+fails: The sickness passes in its own time and everyone recovers, but the band gives another healer the credit.

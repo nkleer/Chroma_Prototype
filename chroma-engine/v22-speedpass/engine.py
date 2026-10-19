@@ -850,7 +850,7 @@ DEFAULT = dict(
     aims_par=dict(slots=3, fit=0.3, seek=1.0, reluctant=0.5, spark_seek=2.0, meet=(0.03, 0.06, 0.09, 0.12), half=4.0,
                   half_set=2.0, drop=0.05, call_yrs=3.0, set_s=0.5, spark_up=0.15),
     # the heights of a life (plan.md section 5), read-only: the week each height (Known, Notable, Historic) was first
-    # reached (realm_earth.HEIGHT_NAMES, a sphere rung of pillar or more, a summit title, leading a movement); on with aims
+    # reached (realm_earth.HEIGHT_NAMES, leading a sphere (rung 4), a summit title, leading a movement); on with aims
     heights=False,
     # the world answers v1 (the next stage's workstream 6; chroma-world/spheres/world-answers-v1.md, values in
     # sphere_data.WORLD_ANSWERS), off until the joint refit; with the world. The forest and the tree: no life moves
@@ -863,6 +863,11 @@ DEFAULT = dict(
     # (aims v1's heights: Known reached, its standing still held) decides for others in the sphere it stands in, 4 to 8
     # times a year (8 to 12 at national standing), with rivals, allies and a successor, at a price in hours and stress
     world_answers=False, wa_groups=True, wa_places=True, wa_ledger=True, wa_notice=True, wa_phase2=False,
+    # footprints (the next stage's workstream 3; plan.md section 3), off until the joint refit; needs the batch's FOOT
+    # (batch.FOOT or load_batch(foot=True)). Each picked option's footprints get real state (run_03_moments.py, the
+    # footprints): a person in the cast (off-world, ties by foot_par ties), a haunt, a means, a mark or door (one only a
+    # return reads shuts after foot_par door_yrs), a lesson told
+    foot_on=False, foot_par=dict(ties=0.05, door_yrs=5.0),
     echo_play_par=dict(p=0.6, w=0.3, delay=(1.0, 8.0), keep=10.0, gap=0.5, again=12.0),
     # bold ways (chroma-ideas/gameplay-2026-10-17/bold-ways.md): set only by the game for a played life, with the batch's
     # BOLD_MOMENTS. In a week the game asks (bold_ask, set at the situation pause and spent at the choice; "all": every
@@ -1536,6 +1541,8 @@ UPD_OFF = dict(dis_match=False,
                aims=False, heights=False,
                # the world answers v1 (workstream 6) and its second phase
                world_answers=False, wa_phase2=False,
+               # footprints (workstream 3)
+               foot_on=False,
     # the v22.3 refit's satisfaction level (the new mechanics lift satisfaction; the set point moved .80 -> .86)
     sat_mid=0.8)
 # everything since the go-live off, for the identity check (C-E14): lives then equal engine_v9_golive.py
@@ -1788,6 +1795,9 @@ STATE_MORE = ("fam", "gsr", "goal_rel_S", "around", "retired", "ck", "ok_", "frc
               # and the heights reached (ht_t, weeks, -1 never); None off
               "WA_ON", "WA2_ON", "wa_book", "wa_lines", "wa_known",   # the world answers: on, its second phase on, each
               # life's ledger of rings 1 and out ((unit, key) -> record), its told lines, who is Known (the phase); None off
+              "mark_last",   # foresee.marks_toward: the week each mark was last left (NEVER never)
+              "FOOT_ON", "foot_log",   # footprints: on, and every pick's footprints so far (foot_log, a list of dicts)
+              "foot", "foot_open",     # per life (None off): the last act's footprints (kind, value, who); doors (kind, since)
               "btrust")   # body_trust (finishing pack part 3): each life's trust per sphere (N x 9, NaN before 15); None off
 STATE_MISSED = set()   # names read at a pause that are not handed over (STATE, STATE_IF, STATE_MORE): t_steps wants none
 
