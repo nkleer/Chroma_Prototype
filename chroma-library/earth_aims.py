@@ -1,9 +1,10 @@
-# Chroma library, modern Earth: the aim catalogue, aims v1 (chroma-ideas/next-table-2026-10-19/plan.md section 5, 10-19).
-# SWITCHED OFF: nothing reads this file until the Engine's aims switch (aims_on) is on, so it changes no life.
-# The packs' aims format (chroma-packs/tools/check_aims.py) plus area, calling, below and spark; tests/check_aims.py checks
-# it, and earth_aim_moments-*.lib holds the spark moments. Many aims, not only work ("work" is what a person does with their
-# days: a trade, the land, caring, art or service), felt from below: 60 aims, four for each colour and each pair, and every
-# life domain holds aims of all five colours. The packs' public callings and single-colour callings are not repeated here.
+# Chroma library, modern Earth: the aim catalogue, aims v1 (chroma-ideas/next-table-2026-10-19/plan.md section 5,
+# 10-19). SWITCHED OFF: nothing reads this file until the Engine's aims switch (aims_on) is on, so it changes no life.
+# The packs' aims format (chroma-packs/tools/check_aims.py) plus area, calling, below and spark; tests/check_aims.py
+# checks it, and earth_aim_moments-*.lib holds the spark moments. Many aims, not only work ("work" is what a person
+# does with their days: a trade, the land, caring, art or service), felt from below: 60 aims, four for each colour and
+# each pair, and every life domain holds aims of all five colours. The packs' public callings and single-colour
+# callings are not repeated here. LEGACY_EARTH at the end says who can reach the Historic height.
 
 AIMS_EARTH = {
 
@@ -54,13 +55,15 @@ AIMS_EARTH = {
         spark="the evening at the free advice desk",
         steps=[
             dict(say="a foot in the courts", any=["court clerk", "paralegal", "court interpreter", "police officer"]),
-            dict(say="the right to stand up in court", any=["lawyer", "lay judge", "detective",
-                                                             "professional registration"]),
-            dict(say="a name for fairness", any=["name in the field", "good name in town",
-                                                  "a name for straight talk"], height="Known"),
+            dict(say="the right to stand up in court",
+                 any=["lawyer", "lay judge", "detective", "professional registration"]),
+            dict(say="a name for fairness",
+                 any=["name in the field", "good name in town", "a name for straight talk"],
+                 height="Known"),
             dict(say="a case that changes the law", any=["a reform with your name on it", "known across the country"],
-                 req="was('lawyer') | was('lay judge') | was('detective') | was('police officer') | "
-                     "was('court clerk') | was('paralegal')", height="Notable"),
+                 req="was('lawyer') | was('lay judge') | was('detective') | was('police officer') | was('court clerk') | was('paralegal')", height="Notable"),
+            dict(say="a ruling still cited", any=["a work that outlives you"],
+                 req="was('lawyer') | was('lay judge') | was('detective') | was('police officer') | was('court clerk') | was('paralegal')", height="Historic"),
         ]),
     # W, love: the promise kept
     "to keep one promise for life": dict(
@@ -85,16 +88,17 @@ AIMS_EARTH = {
         magic="to raise walls and bridges in the guild's way, made to stand for centuries",
         spark="the first wall laid true",
         steps=[
-            dict(say="a trade in your hands", any=["apprentice", "building trade", "carpenter", "builder",
-                                                    "machinist", "welder"]),
-            dict(say="a ticket and tools of your own", any=["trade ticket", "tools of one's own", "site safety card",
-                                                             "welding certificate", "civil engineer"]),
-            dict(say="a name for work that holds", any=["chartered status", "a maker's hallmark",
-                                                         "master craftsperson", "apprentice of one's own"],
+            dict(say="a trade in your hands",
+                 any=["apprentice", "building trade", "carpenter", "builder", "machinist", "welder"]),
+            dict(say="a ticket and tools of your own",
+                 any=["trade ticket", "tools of one's own", "site safety card", "welding certificate", "civil engineer"]),
+            dict(say="a name for work that holds",
+                 any=["chartered status", "a maker's hallmark", "master craftsperson", "apprentice of one's own"],
                  height="Known"),
             dict(say="work people travel to see", any=["known across the country"],
-                 req="was('master craftsperson') | has('chartered status') | was('architect') | "
-                     "was('civil engineer') | was('builder') | was('carpenter')", height="Notable"),
+                 req="was('master craftsperson') | has('chartered status') | was('architect') | was('civil engineer') | was('builder') | was('carpenter')", height="Notable"),
+            dict(say="a building that stands for generations", any=["a work that outlives you"],
+                 req="was('master craftsperson') | has('chartered status') | was('architect') | was('civil engineer') | was('builder') | was('carpenter')", height="Historic"),
         ]),
     # W U, public service: the clerk who makes the system work
     "to serve the public well": dict(
@@ -203,14 +207,17 @@ AIMS_EARTH = {
         magic="to write the laws the city's guilds and towers all must keep",
         spark="the yard that needs new rules",
         steps=[
-            dict(say="a seat on a committee", any=["residents' committee member", "club treasurer",
-                                                    "school-governance board member", "prefect"]),
-            dict(say="a hand in the rules", any=["local councillor", "lay judge", "knowing the rules of the house",
-                                                  "drafting policy"]),
-            dict(say="a voice the town hall heeds", any=["voice at the town hall", "mayor",
-                                                          "officials who trust you"], height="Known"),
+            dict(say="a seat on a committee",
+                 any=["residents' committee member", "club treasurer", "school-governance board member", "prefect"]),
+            dict(say="a hand in the rules",
+                 any=["local councillor", "lay judge", "knowing the rules of the house", "drafting policy"]),
+            dict(say="a voice the town hall heeds",
+                 any=["voice at the town hall", "mayor", "officials who trust you"],
+                 height="Known"),
             dict(say="laws with your name on them", any=["a reform with your name on it", "member of parliament"],
                  height="Notable"),
+            dict(say="a charter still in force", any=["a work that outlives you"],
+                 req="has('a reform with your name on it') | was('member of parliament')", height="Historic"),
         ]),
 
     # ---------------------------------------------------------------- U, U B and U R
@@ -223,15 +230,17 @@ AIMS_EARTH = {
         magic="to master one corner of the archives so well that the tower's scholars come asking",
         spark="the question nobody at the library could answer",
         steps=[
-            dict(say="a question that will not let go", any=["finding things out", "reader's ticket",
-                                                             "amateur astronomer in a club", "citizen scientist"]),
-            dict(say="years of patient study", any=["archive research", "fieldwork", "collection of one's own",
-                                                    "a research project under way"]),
-            dict(say="the one everyone asks", any=["the one everyone asks", "name in the field", "published research"],
+            dict(say="a question that will not let go",
+                 any=["finding things out", "reader's ticket", "amateur astronomer in a club", "citizen scientist"]),
+            dict(say="years of patient study",
+                 any=["archive research", "fieldwork", "collection of one's own", "a research project under way"]),
+            dict(say="the one everyone asks",
+                 any=["the one everyone asks", "name in the field", "published research"],
                  height="Known"),
             dict(say="known across the country for it", any=["known across the country", "a finding that held up"],
-                 req="has('name in the field') | has('published research') | has('the one everyone asks')",
-                 height="Notable"),
+                 req="has('name in the field') | has('published research') | has('the one everyone asks')", height="Notable"),
+            dict(say="the book on the subject", any=["a work that outlives you"],
+                 req="has('name in the field') | has('published research') | has('the one everyone asks')", height="Historic"),
         ]),
     # U, art, pursuit: one instrument, played until it is part of the hands
     "to master an instrument": dict(
@@ -349,16 +358,17 @@ AIMS_EARTH = {
         magic="to read the first scrolls of the temple in their own tongue, and know what they hide",
         spark="the page in the old tongue",
         steps=[
-            dict(say="the old words, read slowly", any=["scripture", "reader's ticket"]),
-            dict(say="the tongue they were written in", any=["second language", "archive research",
-                                                             "interpreting"]),
-            dict(say="a teacher of the texts", any=["lay religious teacher", "archivist",
-                                                    "ordained religious minister"]),
-            dict(say="the one others bring their questions to", any=["the one everyone asks", "published research",
-                                                                    "name in the field"], height="Known"),
+            dict(say="the tongue they were written in",
+                 any=["scripture", "reader's ticket", "second language", "archive research", "interpreting"]),
+            dict(say="a teacher of the texts",
+                 any=["lay religious teacher", "archivist", "ordained religious minister"]),
+            dict(say="the one others bring their questions to",
+                 any=["the one everyone asks", "published research", "name in the field"],
+                 height="Known"),
             dict(say="a reading the whole country argues over", any=["known across the country"],
-                 req="was('lay religious teacher') | was('archivist') | was('ordained religious minister') | has('published research')",
-                 height="Notable"),
+                 req="was('lay religious teacher') | was('archivist') | was('ordained religious minister') | has('published research')", height="Notable"),
+            dict(say="a translation still read", any=["a work that outlives you"],
+                 req="was('lay religious teacher') | was('archivist') | was('ordained religious minister') | has('published research')", height="Historic"),
         ]),
     # U R, craft, career: the cook who experiments until it sings
     "to cook like nobody else": dict(
@@ -369,13 +379,16 @@ AIMS_EARTH = {
         magic="to be the cook whose table the travellers cross the realm to sit at",
         spark="the dish that has never been made before",
         steps=[
-            dict(say="a kitchen to play in", any=["cooking for a crowd", "baking", "food hygiene certificate"]),
-            dict(say="cooking for strangers", any=["cook", "baker", "community-kitchen volunteer"]),
+            dict(say="cooking for strangers",
+                 any=["cooking for a crowd", "baking", "food hygiene certificate", "cook", "baker", "community-kitchen volunteer"]),
             dict(say="a kitchen of your own to run", any=["head chef", "café or bar owner", "premises of one's own"]),
-            dict(say="the place people cross town for", any=["loyal clientele", "good name in town",
-                                                             "name on the local scene"], height="Known"),
+            dict(say="the place people cross town for",
+                 any=["loyal clientele", "good name in town", "name on the local scene"],
+                 height="Known"),
             dict(say="a cook the country talks about", any=["known across the country"],
                  req="was('head chef') | was('cook') | was('café or bar owner') | was('baker')", height="Notable"),
+            dict(say="a dish the country still cooks", any=["a work that outlives you"],
+                 req="was('head chef') | was('cook') | was('café or bar owner') | was('baker')", height="Historic"),
         ]),
     # U R, adventure, pursuit: one tongue after another, wherever the road goes
     "to speak every language I meet": dict(
@@ -473,6 +486,8 @@ AIMS_EARTH = {
             dict(say="paid to compete", any=["professional athlete"], height="Known"),
             dict(say="a champion the country knows", any=["known across the country", "a household name"],
                  req="was('professional athlete') | has('trophies won')", height="Notable"),
+            dict(say="a record that stands", any=["a work that outlives you"],
+                 req="was('professional athlete') | has('trophies won')", height="Historic"),
         ]),
     # B, money as a tool
     "to make money work for me": dict(
@@ -517,6 +532,8 @@ AIMS_EARTH = {
                  height="Known"),
             dict(say="the one everyone has heard of", any=["known across the country", "a household name"],
                  req="was('founder of a firm') | has('stake in the firm') | was('events promoter')", height="Notable"),
+            dict(say="a firm that outlasts its founder", any=["a work that outlives you"],
+                 req="was('founder of a firm') | has('stake in the firm') | was('events promoter')", height="Historic"),
         ]),
     # B R, standing up for oneself
     "to never be pushed around again": dict(
@@ -591,6 +608,8 @@ AIMS_EARTH = {
                  height="Known"),
             dict(say="the guide the country reads", any=["book in print", "known across the country"],
                  req="has('knowing the woods')", height="Notable"),
+            dict(say="a field guide still in every pocket", any=["a work that outlives you"],
+                 req="has('knowing the woods')", height="Historic"),
         ]),
     # B G, the family firm
     "to run the family business": dict(
@@ -650,16 +669,15 @@ AIMS_EARTH = {
         spark="the shouting in the queue",
         steps=[
             dict(say="speaking up when nobody else will", any=["local hero", "debating", "campaigning"]),
-            dict(say="taking on other people's fights", any=["prison visitor", "disability-rights organiser",
-                                                             "constituency caseworker",
-                                                             "restorative-justice advocate"]),
-            dict(say="the one people bring their trouble to", any=["lawyer", "a name for straight talk",
-                                                                   "good name in town"],
-                 req="was('prison visitor') | was('disability-rights organiser') | was('constituency caseworker')"
-                     " | was('restorative-justice advocate') | was('lawyer')", height="Known"),
+            dict(say="taking on other people's fights",
+                 any=["prison visitor", "disability-rights organiser", "constituency caseworker", "restorative-justice advocate"]),
+            dict(say="the one people bring their trouble to",
+                 any=["lawyer", "a name for straight talk", "good name in town"],
+                 req="was('prison visitor') | was('disability-rights organiser') | was('constituency caseworker') | was('restorative-justice advocate') | was('lawyer')", height="Known"),
             dict(say="the whole country hears the case you took up", any=["known across the country"],
-                 req="was('lawyer') | was('disability-rights organiser') | was('restorative-justice advocate')",
-                 height="Notable"),
+                 req="was('lawyer') | was('disability-rights organiser') | was('restorative-justice advocate')", height="Notable"),
+            dict(say="a case still cited for others", any=["a work that outlives you"],
+                 req="was('lawyer') | was('disability-rights organiser') | was('restorative-justice advocate')", height="Historic"),
         ]),
     # R, faith: what rises in the chest when the room sings
     "to feel something greater in the music": dict(
@@ -719,13 +737,15 @@ AIMS_EARTH = {
         spark="the empty floor at the wedding",
         steps=[
             dict(say="dancing whenever the music plays", any=["dancing", "youth theatre member"]),
-            dict(say="a company to dance with", any=["a company that feels like family", "amateur actor",
-                                                     "a fringe slot"]),
-            dict(say="a floor of your own and a name on it", any=["a company of your own", "name on the local scene",
-                                                                  "a lead role to remember"],
+            dict(say="a company to dance with",
+                 any=["a company that feels like family", "amateur actor", "a fringe slot"]),
+            dict(say="a floor of your own and a name on it",
+                 any=["a company of your own", "name on the local scene", "a lead role to remember"],
                  req="has('dancing') | was('youth theatre member')", height="Known"),
             dict(say="danced for the whole country", any=["known across the country", "a cult following"],
                  req="has('dancing')", height="Notable"),
+            dict(say="a dance still taught", any=["a work that outlives you"],
+                 req="has('dancing')", height="Historic"),
         ]),
     # R G, cause: the wood, the river and the marsh, before the diggers come
     "to save the wild places": dict(
@@ -776,14 +796,13 @@ AIMS_EARTH = {
         spark="the sacking nobody would talk about",
         steps=[
             dict(say="refusing to look away", any=["campaigning", "canvassing", "union member"]),
-            dict(say="a fight worth having", any=["union rep", "civil-liberties campaigner",
-                                                  "campaign organiser"]),
+            dict(say="a fight worth having", any=["union rep", "civil-liberties campaigner", "campaign organiser"]),
             dict(say="the one they cannot ignore", any=["voice at the town hall", "a name for straight talk"],
-                 req="was('union member') | was('union rep') | was('civil-liberties campaigner')"
-                     " | was('campaign organiser')", height="Known"),
+                 req="was('union member') | was('union rep') | was('civil-liberties campaigner') | was('campaign organiser')", height="Known"),
             dict(say="the whole country hears it", any=["known across the country"],
-                 req="was('union rep') | was('civil-liberties campaigner') | was('campaign organiser')",
-                 height="Notable"),
+                 req="was('union rep') | was('civil-liberties campaigner') | was('campaign organiser')", height="Notable"),
+            dict(say="a right the country still keeps", any=["a work that outlives you"],
+                 req="was('union rep') | was('civil-liberties campaigner') | was('campaign organiser')", height="Historic"),
         ]),
     # R W, community: the night the whole street turns out
     "to throw the parties the town remembers": dict(
@@ -829,14 +848,16 @@ AIMS_EARTH = {
         magic="to tend the tower's growing gardens, where the old herbs still answer",
         spark="a first crop from a borrowed field",
         steps=[
-            dict(say="hands in the soil", any=["farm hand", "growing food", "gardener or groundskeeper"]),
-            dict(say="land of one's own to work", any=["farmer", "plot of land"]),
+            dict(say="land of one's own to work",
+                 any=["farm hand", "growing food", "gardener or groundskeeper", "farmer", "plot of land"]),
             dict(say="a name for good produce", any=["good name in town", "contact in the trade", "loyal clientele"],
                  req="was('farmer') | was('farm hand') | has('plot of land')", height="Known"),
             dict(say="the farm others learn from", any=["apprentice of one's own", "the one everyone asks"],
                  req="was('farmer')"),
-            dict(say="a farm known across the country", any=["known across the country"], req="was('farmer')",
-                 height="Notable"),
+            dict(say="a farm known across the country", any=["known across the country"],
+                 req="was('farmer')", height="Notable"),
+            dict(say="a farm and a seed others still grow", any=["a work that outlives you"],
+                 req="was('farmer')", height="Historic"),
         ]),
     # G: the line, its ways kept
     "to keep the family's ways": dict(
@@ -899,14 +920,15 @@ AIMS_EARTH = {
         magic="to keep the house of rest where the old and the spent are looked after",
         spark="a week of looking in on someone",
         steps=[
-            dict(say="looking after someone at home", any=["carer for a parent", "home nursing", "hospice volunteer",
-                                                          "minding small children"]),
-            dict(say="care as one's work", any=["care worker", "alms visitor"]),
+            dict(say="care as one's work",
+                 any=["carer for a parent", "home nursing", "hospice volunteer", "minding small children", "care worker", "alms visitor"]),
             dict(say="the calm others lean on", any=["calming people down", "counselling", "carers' group"]),
             dict(say="the one families ask for by name", any=["good name in town", "trusted with the keys"],
                  req="was('care worker') | was('alms visitor') | was('carer for a parent')", height="Known"),
             dict(say="a voice for carers across the country", any=["known across the country"],
                  req="was('care worker') | was('carer for a parent')", height="Notable"),
+            dict(say="a way of caring others still follow", any=["a work that outlives you"],
+                 req="was('care worker') | was('carer for a parent')", height="Historic"),
         ]),
     # G W: the land shared out
     "to feed the street from my garden": dict(
@@ -1005,15 +1027,17 @@ AIMS_EARTH = {
         magic="to read the house's long rolls back to its founding, and know every name in them",
         spark="a box of photographs nobody can name",
         steps=[
-            dict(say="the questions begin", any=["finding things out", "second language", "reader's ticket"]),
-            dict(say="the family tree on the wall", any=["archive research"]),
-            dict(say="the town's past as well", any=["historical reenactment member", "archivist", "museum curator",
-                                                    "community language teacher"]),
-            dict(say="the one who knows the old stories", any=["book in print", "the one everyone asks",
-                                                              "name in the field"],
+            dict(say="the family tree on the wall",
+                 any=["finding things out", "second language", "reader's ticket", "archive research"]),
+            dict(say="the town's past as well",
+                 any=["historical reenactment member", "archivist", "museum curator", "community language teacher"]),
+            dict(say="the one who knows the old stories",
+                 any=["book in print", "the one everyone asks", "name in the field"],
                  req="has('archive research')", height="Known"),
             dict(say="a history read across the country", any=["known across the country"],
                  req="has('archive research')", height="Notable"),
+            dict(say="the town's history, still read", any=["a work that outlives you"],
+                 req="has('archive research')", height="Historic"),
         ]),
     # G U: faith as balance
     "to live in balance": dict(
@@ -1031,3 +1055,24 @@ AIMS_EARTH = {
                  req="was('seeker') | has('calming people down') | has('counselling')", height="Known"),
         ]),
 }
+
+# LEGACY_EARTH: who among the Earth aims can earn [a work that outlives you] (chroma-packs/core/legacy.py), the Historic
+# marker; the Engine joins it with the packs' LEGACY_<PACK> into ROLES_AIMS's req. One Historic calling for each of the
+# fifteen faces (each colour three in all): six years known across the country, on that aim's own road (its Notable
+# step's req), from age 40, as the packs' rules do.
+LEGACY_EARTH = ("(age >= 40) & (yrs_has('known across the country') >= 6) & ("
+                "(was('lawyer') | was('lay judge') | was('detective') | was('police officer') | was('court clerk') | was('paralegal')) | "
+                "(was('master craftsperson') | has('chartered status') | was('architect') | was('civil engineer') | was('builder') | was('carpenter')) | "
+                "(has('a reform with your name on it') | was('member of parliament')) | "
+                "(was('union rep') | was('civil-liberties campaigner') | was('campaign organiser')) | "
+                "(was('care worker') | was('carer for a parent')) | "
+                "(has('name in the field') | has('published research') | has('the one everyone asks')) | "
+                "(was('lay religious teacher') | was('archivist') | was('ordained religious minister') | has('published research')) | "
+                "(was('head chef') | was('cook') | was('café or bar owner') | was('baker')) | "
+                "(has('archive research')) | "
+                "(was('professional athlete') | has('trophies won')) | "
+                "(was('founder of a firm') | has('stake in the firm') | was('events promoter')) | "
+                "(has('knowing the woods')) | "
+                "(was('lawyer') | was('disability-rights organiser') | was('restorative-justice advocate')) | "
+                "(has('dancing')) | "
+                "(was('farmer')))")

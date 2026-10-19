@@ -1,0 +1,516 @@
+# Chroma content pack, The Five Callings: THE BUSINESS ROAD (Black, the magnate), moments 1 to 9 of
+# callings/MOMENTS-BRIEF.md ("The business road"). Pathways and packs thread, 2026-10-19, for v24 (switched off until
+# `callings` is in batch.PACKS). In the shape of ../art/art-rungs.lib (holder pairs), ../art/art-steps.lib (steps),
+# ../art/art-events.lib (the fall and wrong), ../art/art-longshots.lib (the long shot) and ../art/art-worlds.lib (the
+# world-only event). Syntax: header of chroma-library/build.py. Rules: chroma-library/SPEC.md, notes/library-spec.md and
+# callings/MOMENTS-BRIEF.md (pack rules, calibration lessons, balance layout, content limits, worlds). Names in title:,
+# drops:, grants:, takes:, requires:, holds: and aims: come from callings/catalogue.py, core/longshot.py and the base
+# catalogue (chroma-library/earth_perks_titles.py); world lines follow the forms of callings/worlds.py.
+#
+# The road climbs from the base [shop owner], [founder of a firm], [café or bar owner] and [shift manager] (and, for the
+# long shot, [shop assistant]) to the Known rung [chief executive] and the summit [magnate], a facet on [chief
+# executive] or [founder of a firm] (`title: magnate`). Moments:
+#   1-2  the everyday pair B-A, holds the four base titles (calls UB / calls WRG, cycle s2): a rival across the street,
+#        the bank calling in the loan;
+#   3-4  the everyday pair B-B, holds [chief executive] (calls BG / calls WUR, cycle s3): the board's cuts, a takeover
+#        bid;
+#   5    step: the board needs a chief executive (pairs D3a), [chief executive] at 25 on all five singles;
+#   6    step: a rival firm is for sale (pairs D3b), [magnate] with [a business empire] at 6 on all five singles;
+#   7    fall and wrong: the numbers that would look better moved (triads D2a);
+#   8    long shot: the market stall that became a chain (triads D4b);
+#   9    world-only, magic: a seat among the merchant princes (pairs D1a).
+# Holder pairs never give a new title: the next rung is an aims:, grants: gives only a perk plainly earned, and drops:
+# stays on the one act that truly ends the business held (selling up to clear the bank). No share: line on them (the
+# holds: gate does the drawing), rate .5 and gap 1-3 on both halves. The steps carry their real chances (the brief's
+# pack rules), the same for every colour that tries for the same thing; they are not long shots, so no perk on failure.
+# The long shot's singles are at 3 with `grants_if_fails: a long shot that missed` (core/longshot.py); its triads at 84.
+#
+# Chances are set so every colour's mean is the same inside each moment (a one-colour or cross option counts whole to
+# its means colour, a pair half, a triad a third), so the file is even in every stage. The everyday moments sit at 65
+# to 70 for every colour, the fall at 70; the steps, the long shot and the world-only event sit lower, because their
+# singles carry the real odds of a board's choice (25), an empire begun (6) and a long shot (3), and their combinations
+# are solved around them.
+#
+# Wrongs are pickable with plain labels, each marked and closed with a real backfire, spread over the colours: a rumour
+# about the rival's kitchen and books (G, made an enemy), the van and the stock moved into the family's name before the
+# bank's men come (B>G, hid a wrong), the pension promises cut in the small print (U, hid a wrong), a friend tipped off
+# before the bid is public (R, hid a wrong), the numbers moved before the audit (UBR, hid a wrong; a failed try takes [a
+# seat on boards]), and the bargain struck with something old under the counting-house for the merchant princes' votes
+# (W, the founder's oath; hid a wrong). Integrity and vanity belong to every colour.
+#
+# Footprints (chroma-library/drafts/footprints-brief.md): every option of the five life events (moments 5 to 9) leaves
+# one or two, through the fields it already has (a title or perk of a kind the engine reads, a mark the rules read) or a
+# `foot:` just before `chance:`; at most one lesson in a moment. The everyday pairs carry none.
+#
+# Content: the business road is kept real and unglamorous: debts, a bank letter, a board's knives, short figures, a
+# queue that may not last. Nothing graphic; no child is harmed; no real person, firm, bank, brand, product, place,
+# country, currency or year is named ("the bank", "the big firm", "the shopping centres", "the regulator"). Every
+# moment carries earth:, tribal: and magic: lines and an untagged tribal and magic scene (moment 9 only its own world);
+# an option whose act reads differently in a world carries its own tribal: or magic: wording; the works and fails lines
+# read in every world. In the tribal world the road is trade between the bands at the gatherings (no magic there); in
+# the magic world the one supernatural way (moment 9) is optional, priced, and comes from something old, never the
+# person's own gift.
+
+# ================================================================ everyday pair B-A: the business of one's own
+
+# ---------------------------------------------------------------- 1. a rival opens across the street (calls UB, cycle s2)
+# Every colour's own answer to a newcomer who undercuts: White keeps faith with the regulars, Blue reworks the costs
+# with the suppliers ([striking a deal]), Black brings in a backer and opens first ([investors who back you], aims
+# chief executive), Red fights a price war, Green's wrong shuts the stranger out with a rumour about the kitchen and the
+# books (made an enemy; closed: approval; the rumour is traced back). Each colour's single and cross sum to 140.
+
+== a rival opens across the street
+tier: everyday
+rate: 0.5
+gap: 1-3
+times: per shop owner, founder, café or bar owner or shift manager a year: about 1 in 6 see a rival open close enough to take their custom (estimate); small shops, cafés and firms open and close by the thousand every year, and about 2 lives in 10 own, found or manage a business at some time (catalogue shares: shop owner .04, founder of a firm .03, café or bar owner .004, shift manager .15)
+stages: young_adult adult mature elder
+age: 18-90
+calls: UB
+holds: shop owner | founder of a firm | café or bar owner | shift manager
+tone: trouble
+life: work, money
+horizon: months
+roles: rival, friend, colleague
+earth: a new place opens across the street, doing the same trade for a third less
+tribal: a far band's trader lays out the same goods across the path at the gathering, for less
+magic: a new shop opens across the lane, with a painted sign and prices a third lower
+scene: On Monday the paper comes off the windows across the street: a new place, bright and cheap, doing what {Ns} place does at two-thirds of the price, with a queue round the corner on the first morning. {rival}, who runs it, waves over the road.
+scene W: Years on this street have taught {N} that customers remember who was fair to them. Prices like the newcomer's cannot last, and {N} means to still be here when they stop.
+scene U: {N} counts the queue across the road from behind the counter: how many, how long they wait, what they carry out. The prices do not add up, and {N} wants to know why.
+scene B: Somebody is going to own this street. {N} would rather it was not the newcomer, and starts working out who could be brought in to make sure of it.
+scene R: {N} watches the queue over the road and feels the blood rise. If it is a fight the newcomer wants, it is a fight the newcomer will get.
+scene G: The regulars have come for years: the man with the old dog, the two nurses after the night shift. {N} wonders whether the street has room for two, and what it would lose if it had not.
+scene tribal: At the summer gathering a trader from a far band lays out goods across the path from {Ns} place: the same flint, the same hides and dried fish, for less. The young ones are already crowding round.
+scene magic: A new shop opens across the lane with a painted sign, a bell over the door and prices a third below {Ns}. By noon there is a crowd at its counter, and {rival}, behind it, raises a hand across the cobbles.
+- W | keep the prices, the hours and the promises to the regulars exactly as they were | habit | v: tradition, conformity | tribal: keep the same fair trades and the same place at the gathering, as you always have | chance: 85
+- U | go through the rival's prices line by line, and bargain again with every supplier | grants: striking a deal | v: achievement, security | tribal: weigh every trade the newcomer makes, and go back to the flint-knappers for better terms | magic: go through the newcomer's prices line by line, and haggle anew with every supplier | chance: 75
+- B | find a backer, and open a second place across town before the rival can | grants: investors who back you | aims: chief executive | v: power, achievement | tribal: find a trader with goods to share, and set out a second place at the next gathering first | magic: find a backer among the merchant houses, and open a second shop across the city first | chance: 55
+- R | cut prices to the bone tomorrow, and fight them for every customer | self_control: - | v: stimulation, power | tribal: give twice the goods for the same trade tomorrow, and fight for every trader who passes | magic: cut prices to the bone tomorrow, and fight the newcomer for every customer | chance: 60
+- G | tell the old regulars the newcomer cuts corners, in the kitchen and in the books | mark: made an enemy | closed: approval: a rumour spread about a rival's kitchen and books; backfire: the rumour is traced back, the rival's lawyer writes, and the old regulars feel used | self_control: - | v: tradition, security | tribal: tell the old trading friends the newcomer's dried meat is spoiled and the counts are crooked | magic: tell the old customers the newcomer's kitchen breeds rats and the ledgers lie | chance: 55
+- W>B | join the traders' association, and push for rules every newcomer must meet | door | v: power, conformity | tribal: ask the elders of the gathering for rules every newcomer must keep | magic: join the street's merchants' guild, and press for rules every newcomer must meet | chance: 55
+- U>R | rework the whole range in a weekend into something nobody else in town sells | door | identity | v: self-direction, stimulation | tribal: make a new kind of goods over a few nights, something no other band trades | magic: rework the whole range in a week into something no other shop in the city sells | chance: 65
+- B>G | sponsor the street's summer fair, with the shop's name on every stall | habit | v: power, tradition | tribal: give a feast at the gathering, so every band remembers whose place it is | magic: pay for the lane's midsummer fair, with the shop's name on every awning | chance: 85
+- R>W | go over with two coffees, and tell the rival plainly where the line is | v: universalism, self-direction | tribal: cross the path with food to share, and tell the newcomer plainly what is fair | magic: cross the lane with two mugs of cider, and tell the newcomer plainly where the line is | chance: 80
+- G>U | ask the oldest regulars what they would miss, and learn from every answer | door | v: benevolence, achievement | tribal: ask the oldest trading friends what they would miss, and learn from every answer | chance: 85
+works: After a month the crowd across the way thins, and {Ns} trade picks up again.
+works: By the end of the season there is room for both, and the regulars still come.
+fails: The newcomer's low prices run for months, and {Ns} trade falls by a third.
+fails: Nothing {N} tries seems to work, and the winter goes by watching the queue across the way.
+
+# ---------------------------------------------------------------- 2. the bank calls in the loan (calls WRG, cycle s2)
+# A loan called in without a missed payment. White takes the books to the bank and asks for it in writing ([good
+# credit]), Blue moves the loan, Black brings in a partner with money ([investors who back you], aims chief executive),
+# Red sits in at the branch, Green sells up and starts again owing no one (`drops:` the shop or the café, the one act
+# that truly ends it; a founder or a shift manager holds neither, so nothing is dropped). The wrong is Black's means for
+# Green's end: the van and the stock moved into the family's name before the bank's men come (hid a wrong; closed: law).
+# Each colour's single and cross sum to 130.
+
+== the bank calls in the loan
+tier: everyday
+rate: 0.5
+gap: 1-3
+times: per shop owner, founder, café or bar owner or shift manager a year: about 1 in 15 see a lender call in, cut or refuse to renew the loan the business runs on (estimate); small firms' loans are called in by the thousand in a lean year, and about 2 lives in 10 own, found or manage a business at some time (catalogue shares)
+stages: young_adult adult mature elder
+age: 18-90
+calls: WRG
+holds: shop owner | founder of a firm | café or bar owner | shift manager
+tone: trouble
+life: work, money
+horizon: months
+roles: boss, mentor, partner, grandparent
+earth: the bank calls in the loan on the business, all of it, in thirty days
+tribal: the trader who lent the winter's goods wants them all back before the next moon
+magic: the moneylenders' house calls in the loan on the business, the whole sum, by the quarter day
+scene: The letter comes on a Tuesday: the bank is calling in the loan on the business, all of it, in thirty days. There is a new manager at the branch and a new policy, and {N} has not missed a payment in years.
+scene W: {N} has kept every payment and every promise, and the bank has not kept its side. There must be a proper way to put that right, and {N} means to find it.
+scene U: Thirty days. {N} spreads the statements across the kitchen table and starts on the arithmetic: what is owed, what could be sold, who else might lend.
+scene B: The bank thinks it holds all the cards. {N} wonders what the business is worth to someone else, and who would like to be asked.
+scene R: {N} reads the letter twice, then throws it at the wall. Years of work, and a stranger at a desk wants to end it in thirty days.
+scene G: Everything in the place has a story: the old scales from {grandparent}'s time, the regulars' names on the board by the door. {N} wonders whether it is time to let it all go, and start again lighter.
+scene tribal: The trader from the river band who lent {N} the winter's goods, hides and flint and dried meat to trade, has come back early. He wants all of it returned before the next moon, and he will not say why.
+scene magic: A clerk from the moneylenders' house brings the letter under its seal: the loan on {Ns} business is called in, the whole sum, by the quarter day. A new master sits in the counting-room, and the old terms are gone.
+- W | take every book and statement to the bank, and ask for the decision in writing | grants: good credit | v: security, conformity | tribal: lay every trade you have made before the lender, and ask for his reasons before the elders | magic: take every ledger to the moneylenders' house, and ask for the decision under seal | chance: 60
+- U | find another lender on better terms, and move the loan before the deadline | binds | v: achievement, security | tribal: find another trader with goods to lend, and settle the debt before the moon | magic: find another moneylender on better terms, and move the loan before the quarter day | chance: 60
+- B | bring in a partner with money, for a share of the business | grants: investors who back you | aims: chief executive | binds | v: power, security | tribal: bring in a trader with goods to spare, for a share of every trade you make | magic: bring in a partner from a merchant house, for a share of the business | chance: 55
+- R | go to the branch in person, and refuse to leave until a manager listens | self_control: + | v: self-direction, stimulation | tribal: go to the lender's fire, and refuse to leave until he hears you out | magic: go to the counting-room in person, and refuse to leave until the master listens | chance: 50
+- G | sell up, clear the debt, and start again owing no one | drops: shop owner; café or bar owner | self_control: + | v: security, tradition | tribal: trade away the place and its goods, clear the debt, and start again owing no one | chance: 85
+- W>B | offer the bank the stock and the van as security, signed and witnessed | v: security, power | tribal: offer the lender your best hides and the canoe as a pledge, before the elders | magic: offer the moneylenders the stock and the cart as security, signed and sealed | chance: 70
+- U>R | cut the business back to the one line that pays, and run it lean | self_control: + | v: self-direction, achievement | tribal: trade only in the one thing that always sells, and travel light | chance: 70
+- B>G | put the van and the stock in the family's name before the bank's men come | mark: hid a wrong | closed: law: goods moved out of a creditor's reach; backfire: the court sets the transfer aside, and the family is dragged into the case | self_control: - | v: security, benevolence | tribal: hide the best hides and the canoe at a cousin's fire before the lender comes | magic: put the cart and the stock in a cousin's name before the moneylenders' bailiffs come | chance: 75
+- R>W | stand up at the traders' meeting, and tell everyone what the bank is doing | v: universalism, stimulation | tribal: stand up at the gathering's fire, and tell every band what the lender is doing | magic: stand up at the guild's meeting, and tell every merchant what the moneylenders are doing | chance: 80
+- G>U | ask the old accountant who kept the books for years to find a way through | v: benevolence, security | tribal: ask the old trader who taught you to count to find a way through | magic: ask the old clerk who kept the ledgers for years to find a way through | chance: 45
+works: The lender gives way, or the money is found, and the doors stay open at the turn of the month.
+works: A month later the debt is settled one way or another, and {N} sleeps through the night again.
+fails: The time runs out, and the lender's people come for what is owed.
+fails: Every door {N} knocks on stays shut, and the debt follows {N} into the new year.
+
+# ================================================================ everyday pair B-B: the chief executive
+
+# ---------------------------------------------------------------- 3. the board wants cuts by Friday (calls BG, cycle s3)
+# Cut jobs, cut pay, or find another way. White cuts evenly by the rules, the top included; Black sells the weakest
+# division (aims magnate); Red refuses to the board's face (defied an authority); Green asks the workers where the
+# waste is. The wrong is Blue's: the workers' pension promises cut in the small print, where only an expert would look
+# (hid a wrong; closed: law; the regulator and the papers find out). Black's means for White's end wins the board's trust
+# and [a seat on boards]; Green's means for Black's end (profit shares for shorter hours) aims at magnate, the family
+# firm's way. Each colour's single and cross sum to 135.
+
+== the board wants cuts by Friday
+tier: everyday
+rate: 0.5
+gap: 1-3
+times: per chief executive a year: about 1 in 4 are told by a board or the backers to cut costs fast after a short year (estimate); about 2 lives in 1,000 are ever a chief executive (catalogue share; US Bureau of Labor Statistics)
+stages: adult mature elder
+age: 28-90
+calls: BG
+holds: chief executive
+tone: trouble
+life: work, money
+horizon: week
+roles: boss, colleague, friend
+earth: the board wants a plan on the table by Friday that cuts a tenth of the costs
+tribal: the elders say the stores are short, and the band's trade must carry fewer hands before the next gathering
+magic: the guild council wants a tenth of the house's costs cut before its next sitting
+scene: The chair of the board rings on Monday night. The year's figures are short, the backers are restless, and the board wants a plan on the table by Friday that cuts a tenth of the costs. Everyone in the building knows that most of the costs are people.
+scene W: {N} has always said the rules apply to everyone, from the loading bay to the top floor. This week the firm finds out whether that was true.
+scene U: {N} has the costs open on three screens: energy, rent, suppliers, wages. Somewhere in the columns there is a tenth that need not be people.
+scene B: The board is testing whether {N} can make the hard call. {N} means to pass the test, and to come out of it stronger than before.
+scene R: {N} thinks of the faces on the shop floor, the ones who stayed late through the bad winter. Every line on the list has a name.
+scene G: The firm grew slowly over thirty years, like a hedge, and {N} does not believe a hedge is mended by cutting it to the root.
+scene tribal: The elders say the winter stores are short, and the band's trade must carry fewer hands before the next gathering. {N}, who runs the trade, must say who goes back to the hunt and who stays.
+scene magic: The guild council has sent word under its seal: the house's costs must fall by a tenth before the next sitting, and the council will hear the guild master's plan on the first day.
+- W | cut evenly and by the rules: the same share from every department, the top included | v: universalism, conformity | tribal: cut evenly by the old rule: the same share from every hearth, the trader's own included | magic: cut evenly by the house's rules: the same share from every hall, the top table included | chance: 70
+- U | change the pension scheme's small print, where only an expert would ever look | mark: hid a wrong | closed: law: the workers' pension promises cut without telling them; backfire: the regulator and the papers find out, and the board asks for a resignation | self_control: - | v: achievement, power | tribal: quietly take back the shares of the stores promised to the old ones, where nobody counts | magic: change the small print of the house's pension roll, where only a guild clerk would ever look | chance: 75
+- B | sell the weakest division, and show the board a leaner, stronger firm | aims: magnate | v: power, achievement | tribal: give the weakest trade route to another band, and show the elders a stronger trade | magic: sell the weakest hall of the house, and show the council a leaner, stronger house | chance: 65
+- R | refuse to cut a single job, and tell the board so to its face | identity | v: self-direction, benevolence | tribal: refuse to send a single hand back to the hunt, and tell the elders so at the fire | magic: refuse to dismiss a single hand, and tell the council so at the sitting | chance: 45
+- G | ask the workers themselves where the waste is, and cut that first | v: benevolence, universalism | tribal: ask the ones who carry the trade where the waste is, and cut that first | chance: 65
+- W>R | halve your own pay first, and ask every director to do the same | self_control: + | v: benevolence, universalism | tribal: take half your own share of the stores first, and ask every elder to do the same | magic: halve your own wage first, and ask every master of the house to do the same | chance: 65
+- U>G | find the tenth in rents, energy and suppliers, and keep every job | v: benevolence, achievement | tribal: find the tenth in wasted stores and long journeys, and keep every hand | magic: find the tenth in rents, lamp oil and suppliers, and keep every hand | chance: 60
+- B>W | use the cuts to win the board's trust, and a seat on the backers' other boards | grants: a seat on boards | door | v: power, security | tribal: use the hard season to win the elders' trust, and a voice at every trading circle | magic: use the cuts to win the council's trust, and a seat on its other councils | chance: 70
+- R>U | spend the week on the shop floor, and learn what the board has never seen | door | v: stimulation, self-direction | tribal: spend the days carrying loads with the others, and learn what the elders never see | magic: spend the week in the warehouses, and learn what the council has never seen | chance: 90
+- G>B | offer the staff shorter hours now, and a share of the profits when the year turns | aims: magnate | binds | v: benevolence, security | tribal: offer the hands a lighter season now, and a share of the trade when the stores are full | magic: offer the hands shorter hours now, and a share of the profits when the year turns | chance: 70
+works: {Ns} plan is taken as it stands, and the business comes through the hard year with most of its people.
+works: By the spring the figures are back where the backers want them, and the talk among the staff has moved on.
+fails: The plan is thrown out and another written over {Ns} head, and the cuts fall where {N} hoped they would not.
+fails: The figures do not move, the backers grow louder, and the calls from the top stop being returned.
+
+# ---------------------------------------------------------------- 4. a takeover bid at dawn (calls WUR, cycle s3)
+# A bigger firm bids for the whole company before the markets open. White runs the bid by the rules, Blue works out
+# what the firm is worth, Black finds a friendly backer to make the bid too dear ([investors who back you], aims
+# magnate), Green asks the founders and the oldest staff. The wrong is Red's: a close friend told to buy shares before
+# the bid is public (hid a wrong; closed: law; the regulator traces the trades). Black's means for White's end holds
+# out for the price in the bigger firm's [shares]. Each colour's single and cross sum to 130.
+
+== a takeover bid at dawn
+tier: everyday
+rate: 0.5
+gap: 1-3
+times: per chief executive a year: about 1 in 20 see an offer made for the whole firm, friendly or not (estimate); thousands of firms change hands each year, and about 2 lives in 1,000 are ever a chief executive (catalogue share)
+stages: adult mature elder
+age: 28-90
+calls: WUR
+holds: chief executive
+tone: mixed
+life: work, money
+horizon: week
+roles: boss, colleague, friend, rival
+earth: a bigger firm makes an offer for the whole company before the markets open
+tribal: the trader of a great band offers to take the whole of the band's trade into his own
+magic: a greater merchant house offers to buy the guild master's house outright, before the noon bell
+scene: At six in the morning the phone goes. A bigger firm has made an offer for the whole company, a third above what it is worth on paper, and the news will be out when the markets open at eight. The board wants {N} on a call in twenty minutes.
+scene W: There are rules for a bid: the board, the owners, the regulator, the notice to the staff. {N} gets out of bed and starts on them in order.
+scene U: A third over the price is either generous or a sign the bidder knows something. {N} wants to find out which before saying a word to anyone.
+scene B: The firm is in play. Whoever moves first sets the price, and {N} intends to move first.
+scene R: {N} built half of this firm, and somebody wants to buy it before breakfast. The answer forming is not a polite one.
+scene G: Thousands of people go to work for the firm, in four towns. {N} thinks of the old site by the river, where it all began.
+scene tribal: At first light a runner comes from the great band downriver: their trader offers to take the whole of {Ns} band's trade into his own, with goods for every hearth now and a share of his trade forever after. The elders want an answer by the evening fire.
+scene magic: At dawn a clerk brings a letter under a great house's seal: it offers to buy {Ns} merchant house outright, ships, halls and debts, at a third above what the guild's ledgers say it is worth. The offer stands until the noon bell.
+- W | call the board together, and follow the rules for a bid to the letter | v: conformity, security | tribal: call the elders together, and follow the old way for such an offer, step by step | magic: call the house's council together, and follow the guild's rules for an offer to the letter | chance: 60
+- U | work through the night on what the firm is really worth, and show the board | habit | v: achievement, self-direction | tribal: count every hide, tool and trading friend the band has, and show the elders what it is worth | magic: work through the night on what the house is truly worth, and show its council | chance: 65
+- B | find a friendly backer to buy a stake, and make the bid too dear | grants: investors who back you | aims: magnate | v: power | tribal: find a friendly band to take a share of the trade, so the great band cannot have it all | magic: find a friendly merchant house to buy a stake, and make the offer too dear | chance: 50
+- R | tell a close friend to buy shares before the bid is made public | mark: hid a wrong | closed: law: trading on what only the board knows; backfire: the regulator traces the trades to the friend, and both are charged | v: benevolence, hedonism | tribal: tell your closest friend to trade for a share of the band's goods before the news is out | magic: tell a close friend to buy into the house before the offer is cried in the square | chance: 70
+- G | ask the founders and the oldest staff what they want, and stand by it | mark: kept your word | v: tradition, benevolence | tribal: ask the oldest of the band what they want, and stand by it | magic: ask the founding family and the oldest hands what they want, and stand by it | chance: 75
+- W>R | tell the staff the truth at the morning meeting, before the news does | identity | v: universalism, benevolence | tribal: tell every hearth the truth before the runner's news goes round | magic: tell the hands the truth at the morning bell, before the criers do | chance: 70
+- U>G | find out what the bidder did to the last firm it bought, town by town | v: universalism, security | tribal: find out what the great band did to the last band whose trade it took | magic: find out what the great house did to the last house it bought, hall by hall | chance: 65
+- B>W | hold out for a better price, paid in the bigger firm's shares | grants: shares | self_control: + | v: power, security | tribal: hold out for more goods, and a share of the great band's trade forever after | magic: hold out for a better price, paid in shares of the great house's ventures | chance: 80
+- R>U | ring the bidder's chief executive at seven, and ask straight what they want | v: stimulation, self-direction | tribal: walk to the great band's camp before the fire is lit, and ask their trader straight what he wants | magic: ride to the great house before the noon bell, and ask its master straight what it wants | chance: 60
+- G>B | rally the staff and the town to buy shares together, and keep the firm local | identity | v: tradition, power | tribal: ask every hearth to give something, so the band's trade stays the band's own | magic: rally the hands and the quarter to buy shares together, and keep the house the city's own | chance: 55
+works: By nightfall the offer is settled the way {N} wanted, and the business wakes the next day still knowing itself.
+works: Weeks later the deal is done or dead, and {N} is still at the head of the table.
+fails: The bidder goes round {N} to the owners, and by the end of the week the business has a new master.
+fails: The day goes wrong from the first call, and the rest of the story is told without {N}.
+
+# ================================================================ steps
+
+# ---------------------------------------------------------------- 5. the board needs a chief executive (pairs D3a)
+# The Known rung, taken by the act: every colour's own way of winning the board's choice is a try for [chief executive]
+# at its real chance, 25 (the board's choice, the brief's pack rules). White sends a first-year plan, Blue shows what
+# the accounts say (requires [bookkeeping]; without it only by the board's leave, lacking .5), Black has the vote won
+# before the interview, Red tells the board straight what is wrong (took a wild risk), Green promises the family firm
+# back. The gate (LIFE_CALLINGS) asks for years on a business of one's own or in management (tenure 3). The pairs at
+# 75 are the honest other ways: a stake in the firm instead, a year given to one's own place, a year as deputy first, a
+# colleague backed, a course taken first. Every colour's mean is 50.
+
+== the board needs a chief executive
+tier: life event
+stages: adult mature elder
+age: 28-80
+holds: founder of a firm | shop owner | café or bar owner | shift manager
+tenure: 3-100
+per_year: 0 0 0 .03 .03 .01
+drivers: prosper+.3 money+.2
+times: per founder, shop owner, café or bar owner or shift manager of three years or more a year: about 1 in 30 are asked, or apply, to run a firm larger than their own (estimate); about 2 lives in 1,000 are ever a chief executive, most after years of running a business or managing one (catalogue share; US Bureau of Labor Statistics)
+likelier: good years when firms grow and boards hire, a business of one's own that has done well, a mentor who sits on a board, money or backers behind the name
+rarer: a lean year when boards cut rather than hire, a business far from any larger firm, a name nobody on a board has heard
+gap: 3-8
+domain: career.5
+tone: joy
+life: work, money
+horizon: months
+roles: mentor, rival, colleague, partner, boss
+earth: the board of a larger firm needs a chief executive, and wants someone who knows the trade from the till up
+tribal: the band's trader at the gatherings has died, and the elders look for one who has traded well alone
+magic: the city's grocers' guild needs a new guild master, and the masters look among the shopkeepers and merchants
+scene: The chain that bought half the high street has lost its chief executive, and the board wants someone who has run a business from the till up. {mentor} has put {Ns} name forward. There is a plan to send in by Friday and an interview in a fortnight, and {rival}, who has run a bigger place for longer, is on the list too.
+scene W: The board will want a plan for the first year: the figures sourced, the risks named, the promises costed. {N} starts writing it that evening, in order.
+scene U: {N} reads the chain's last ten years of accounts on the train, and by the last stop has found three things the board seems never to have noticed.
+scene B: Running a chain is a different game from running a single place, and {N} has waited years to play it. The vote is what counts, and {N} starts counting who holds one.
+scene R: {N} could do this job, and could do it better than the last one. {N} is not going to pretend otherwise in the interview.
+scene G: The chain was a family firm once, before the backers came. {N} remembers when every branch knew its customers by name, and wonders whether it could again.
+scene tribal: The band's trader at the gatherings, who carried its trade for many winters, has died, and the elders look for someone who has traded well alone to carry it now. They have spoken {Ns} name at the fire, and the name of {rival}.
+scene magic: The grocers' guild of the city has lost its guild master, and the masters look among the shopkeepers and merchants for the next. {mentor} has spoken {Ns} name at the guildhall, and {rival} is spoken of too.
+- W | send the board a plan for the first year, every figure checked and sourced | title: chief executive | v: conformity, achievement | tribal: lay out before the elders how the trade will be carried, season by season | magic: send the guild a plan for the first year, every figure checked against the ledgers | chance: 25
+- U | show the board what the accounts say that nobody has noticed | title: chief executive | requires: bookkeeping | without: approval | lacking: .5 | v: achievement, self-direction | tribal: show the elders what the counted trades say that nobody has noticed | magic: show the guild what its own ledgers say that nobody has noticed | chance: 25
+- B | ring every board member you know, and have the vote won before the interview | title: chief executive | aims: chief executive | v: power, achievement | tribal: visit every elder's fire before the choosing, and have the choice made before it is spoken | magic: call on every guild master you know, and have the vote won before the sitting | chance: 25
+- R | walk into the interview, and tell them straight what is wrong with the firm | title: chief executive | v: stimulation, self-direction | tribal: stand before the elders, and tell them straight what is wrong with the trade | magic: walk into the guildhall, and tell the masters straight what is wrong with the guild | chance: 25
+- G | promise to run it like the family firm it once was, every branch known by name | title: chief executive | v: tradition, benevolence | tribal: promise to carry the trade the old way, every band's trading friends known by name | magic: promise to run the guild as the old masters did, every shop known by name | chance: 25
+- BG | put money into the chain instead, and take a stake in the firm | grants: stake in the firm | v: power, security | tribal: give goods to the band's trade instead, for a share of what it brings back | magic: put silver into the guild's venture instead, for a share of its trade | chance: 75
+- RG | say no, and pour the year into your own place and its regulars | habit | self_control: + | v: self-direction, tradition | tribal: say no, and give the season to your own trading place and its old friends | magic: say no, and give the year to your own shop and its regulars | foot: place comm.shop | chance: 75
+- UB | ask for a year as deputy first, to learn the firm from the inside | grants: inner circle at work | v: achievement, power | tribal: ask to walk beside the new trader for a season, to learn the trade from the inside | magic: ask to serve a year as the new master's deputy, to learn the guild from the inside | chance: 75
+- WR | tell the board honestly that a colleague would do it better, and back them | v: benevolence, universalism | tribal: tell the elders honestly that another would carry it better, and stand behind them | magic: tell the guild honestly that another shopkeeper would do it better, and back them | foot: person colleague | chance: 75
+- WU | take a year's course in running a large firm before putting a name forward | mark: learned a skill | v: achievement, conformity | tribal: sit a winter with the old trader of the next band, and learn how a great trade is carried | magic: take a year's lessons from an old guild master before putting a name forward | chance: 75
+works: The choice falls on {N}, and on the first morning a great many people are waiting to hear what {N} will say.
+works: Whatever {N} chose, the year that follows is a good one, and the name is known further than before.
+fails: The board thanks {N} warmly, and chooses {rival}.
+fails: The interview goes wrong in the first ten minutes, and the rest of the hour is very long.
+
+# ---------------------------------------------------------------- 6. a rival firm is for sale (pairs D3b)
+# The summit, a facet on [chief executive] or [founder of a firm] (`title: magnate`, with [a business empire]): a rival
+# firm bought and an empire begun, at its real chance, 6, in every colour (a step at real odds, not a long shot: no perk
+# on failure). Blue's bid is paid in the firm's own shares and Black's on savings and credit (`requires: shares` and
+# `requires: savings`, each `without: means | lacking: .5`, a loan). The gate (LIFE_CALLINGS) asks for four years as
+# chief executive or eight as founder. The pairs at 76: the best site bought alone, a merger of equals ([business
+# partner]), the rival's one strength learned from scratch, the rival's best managers hired, the chance passed with no
+# new debt. Every colour's mean is 41.
+
+== a rival firm is for sale
+tier: life event
+stages: adult mature elder
+age: 30-90
+holds: chief executive | founder of a firm
+tenure: 4-100
+per_year: 0 0 0 .02 .03 .02
+drivers: prosper+.2 money+.3
+times: per chief executive of four years or founder of eight a year: about 1 in 40 see a rival they could buy come up for sale (estimate); thousands of firms are bought each year, but few buyers become the owner of a country's great business group: about 5 lives in 100,000 are ever a magnate (catalogue share; estimate)
+likelier: good years and cheap loans, backers or shares to pay with, a rival's founder retiring with no heir in the trade, a seat on boards that hears early
+rarer: a lean year, dear money, a regulator watching the trade, a firm already stretched
+gap: 4-10
+domain: career.5
+tone: mixed
+life: work, money
+horizon: months
+roles: rival, partner, colleague, boss, friend
+earth: the rival firm everyone in the trade knows is for sale, and the family wants it settled by the summer
+tribal: the old trader of the far band can travel no more, and his trade along the rivers goes to whoever can carry it
+magic: a rival merchant house is for sale, its ships, halls and trading rights, and the heirs want it settled by midsummer
+scene: The rival firm {N} has fought for years, across every town and every contract, is for sale. The founder is old, the children want out, and the papers say the family will settle by the summer. With it would come the second name in the trade, and a business that would reach across the land.
+scene W: The rival's workers are good at what they do, and many have been there thirty years. If the firm changes hands, {N} thinks, it should be into hands that keep faith with them.
+scene U: Joined well, the two firms would be more than the sum of them: the rival's buyers and {Ns} systems. Joined badly, they would be a mess for ten years. {N} wants to see the numbers.
+scene B: This is the deal that turns a firm into an empire. {N} has wanted it for years, and so, {N} knows, have three other buyers.
+scene R: For years the rival was the enemy across the market. Now the old founder wants out, and {N} wants to go and see the old fighter face to face.
+scene G: The rival began as a family shop in a market town, as {Ns} own did. {N} wonders what the town would become if a stranger bought it and moved it away.
+scene tribal: The old trader of the far band, whose trade has run along the rivers longer than anyone remembers, can travel no more. His trading friends in every camp will need someone to trade with, and the bands ask who will carry it.
+scene magic: The house of an old rival, ships, halls and trading rights along the coast, is for sale: the old merchant is dying and the heirs want silver. Whoever buys it will be named among the great houses of the realm.
+- W | offer a fair price, and promise in writing to keep every site and pension | title: magnate | grants: a business empire | v: conformity, benevolence | tribal: offer the old trader a fair price, and promise before the elders to keep every trading friend | magic: offer a fair price, and promise under seal to keep every hall and hand | chance: 6
+- U | pay in the firm's own shares, with a plan that joins the best of both | title: magnate | grants: a business empire | requires: shares | without: means | lacking: .5 | v: achievement, power | tribal: pay with a share of your own band's trade, and a plan that joins the best routes of both | magic: pay in shares of your own house, with a plan that joins the best of both | chance: 6
+- B | put your savings and the firm's credit behind a bid nobody else can match | title: magnate | grants: a business empire | requires: savings | without: means | lacking: .5 | aims: magnate | identity | v: power | tribal: put every good you own behind an offer no other trader can match | magic: put your savings and the house's credit behind a bid no other house can match | chance: 6
+- R | go to see the old founder tonight, and shake on it over dinner | title: magnate | grants: a business empire | binds | v: stimulation, self-direction | tribal: walk to the old trader's camp tonight, and settle it at his fire | magic: ride to the old merchant's house tonight, and settle it over supper | chance: 6
+- G | buy it to keep the old firm in its town, and its people in work | title: magnate | grants: a business empire | v: tradition, benevolence | tribal: take it on to keep the old trader's friends in every camp, as they always were | magic: buy it to keep the old house in its port, and its hands in work | chance: 6
+- BR | buy only the rival's best site, fast, before the sale goes to auction | grants: premises of one's own | v: power, stimulation | tribal: take only the old trader's best camp on the river, before anyone else can | magic: buy only the old house's best wharf, fast, before the sale is cried | chance: 76
+- UG | merge as equals, with both names over the door side by side | grants: business partner | v: universalism, achievement | tribal: join the two trades as equals, both names spoken at every fire | magic: join the two houses as equals, both names over the door | chance: 76
+- UR | let it go, and build from nothing the one thing they did better | v: self-direction, achievement | tribal: let it go, and learn to make the one thing they traded better | foot: mark learned a skill | chance: 76
+- WB | hire the rival's best managers when the sale falls through | v: power, security | tribal: take in the old trader's best carriers when nobody else takes the trade | magic: hire the old house's best clerks and captains when the sale falls through | foot: person colleague | chance: 76
+- WG | pass, and keep the firm the size it is, with no new debt | v: security, tradition | tribal: let it pass, and keep the band's trade the size it is, owing no one | magic: pass, and keep the house the size it is, with no new debt | foot: door turned down a chance | chance: 76
+works: The papers are signed at last, and overnight {N} answers for twice as many people as before.
+works: Whatever {N} chose, the business comes through the year stronger, and the trade talks about how it was done.
+fails: Another buyer outbids everyone in the last week, and the rival goes to a stranger.
+fails: The deal falls apart over the last details, and {N} is left with the lawyers' bills and a long summer.
+
+# ================================================================ fall and wrong
+
+# ---------------------------------------------------------------- 7. the numbers that would look better moved (triads D2a)
+# The year's figures are short, the backers are watching, and the one who runs the finances says a few costs could sit
+# in next year instead. The wrong sits on the UBR triad (Blue's cleverness with the columns, Black's need to look strong,
+# Red's nerve): move the numbers and sign (hid a wrong; closed: law: the accounts falsified; a failed try takes [a seat
+# on boards], since the auditors find it and the boards want the name off their papers). The other acts, as the brief
+# gives them: the backers told the truth (White, as promised: kept your word), a plan to close the gap, a part of the
+# firm sold to a backer, every backer rung tonight, the old suppliers asked to wait, the costs cut openly with the staff,
+# the old accountant asked to audit early, the loss taken on one's own savings (requires [savings]; without them only by
+# borrowing, lacking .5), the biggest customer asked for an early payment. Chances differ by act and are solved around
+# the triads until every colour's mean is 70.
+
+== the numbers that would look better moved
+tier: life event
+stages: young_adult adult mature elder
+age: 22-100
+holds: chief executive | magnate | founder of a firm | shop owner
+per_year: 0 0 .01 .015 .015 .01
+drivers: prosper-.3 money-.2
+times: per chief executive, magnate, founder or shop owner a year: about 1 in 80 face a year's figures short enough that someone suggests moving them before the audit (estimate); the four titles are about 7 lives in 100 (catalogue shares), so about 1 life in 200 meets it; fraud surveys find that a real share of firms' false accounts begin as one short year covered over
+likelier: a lean year, backers who sell at the first bad figure, a loan whose terms turn on the year's profit, a finance head who wants to help
+rarer: a firm with no outside backers, a good year, an auditor who knows the business well
+gap: 5-15
+domain: career.5
+tone: trouble
+life: work, money
+horizon: months
+roles: colleague, mentor, boss, friend
+earth: the year's figures are short, the backers are watching, and the accounts go to the auditors next week
+tribal: the band's count of goods is short before the gathering, and the traders who share their goods will ask
+magic: the house's ledgers are short before the guild's reckoning, and its backers among the merchant houses are watching
+scene: It is the last week before the year's accounts go to the auditors, and the figures are short: a contract lost in the spring, a customer who went under owing money. The backers are watching. {colleague}, who runs the finances, closes the door and says that a few costs could sit in next year instead, and nobody would ever know.
+scene W: The accounts are a promise to everyone who reads them: the backers, the bank, the staff, the tax office. {N} has signed every year's set without a second thought, until now.
+scene U: {N} can see exactly how it would be done: which costs, which month, which line. It is clever, and that is the trouble with it.
+scene B: Backers do not forgive a bad year; they sell. One clean set of figures now, and next year will put it right. {N} knows how that sentence usually ends.
+scene R: {N} hates the feeling in the room: the closed door, the low voice. It would be simpler to ring the backers and say the truth out loud.
+scene G: The business has come through bad years before, the way a farm comes through a dry summer. {N} thinks of the people on the payroll, and what a run on the backers would mean for them.
+scene tribal: Before the gathering the band counts its goods, and the count is short: a canoe lost on the river, a trade gone bad. The traders who share their goods with {N} will ask. {colleague}, who keeps the count, says quietly that a few bundles could be counted twice.
+scene magic: The guild's reckoning is a week away and the house's ledgers are short: a ship lost in the spring storms, a debtor fled. {colleague}, the house's clerk, closes the counting-room door and says a few debts could be written into next year's book, and no auditor would ever see.
+- W | tell the backers the truth before the figures go out, as promised | mark: kept your word | self_control: + | v: conformity, universalism | tribal: tell the traders who share their goods the true count before the gathering | magic: tell the backers the truth before the ledgers go to the guild, as promised | chance: 62
+- U | find the real cause of the gap, and show the backers a plan to close it | v: achievement, security | tribal: find what went wrong with the count, and show the traders how it will be made good | foot: lesson every gap has a cause | chance: 67
+- B | sell a part of the firm to a backer, and cover the gap with real money | grants: investors who back you | v: power, security | tribal: give a trader of another band a share of the trade, for goods to cover the gap | magic: sell a share of the house to a merchant house, and cover the gap with true silver | chance: 68
+- R | ring every backer tonight, tell them straight, and ask them to hold their nerve | v: self-direction, benevolence | tribal: go to every trader's fire tonight, tell them the count straight, and ask them to stay | magic: call on every backer tonight, tell them straight, and ask them to hold their nerve | foot: person patron | chance: 72
+- G | ask the old suppliers to wait a season for their money, as in the bad years | v: tradition, security | tribal: ask the old trading friends to wait a season for their goods, as in the hard winters | magic: ask the old suppliers to wait a season for their silver, as in the bad years | foot: door kept your word | chance: 67
+- WUR | show the staff the true figures, and cut the costs together, openly | v: universalism, benevolence | tribal: show every hearth the true count, and share the shortfall openly | magic: show the hands the true ledgers, and cut the costs together, openly | foot: means ties+.05 | chance: 75
+- WUG | ask the old accountant who taught you the trade to audit every line early | v: security, tradition | tribal: ask the old trader who taught you to count to go through every bundle | magic: ask the old clerk who taught you the trade to go through every line early | foot: person mentor | chance: 75
+- WBG | take the loss on your own savings, quietly, so nobody is laid off | takes: savings | requires: savings | without: means | lacking: .5 | v: benevolence, security | tribal: cover the gap from your own stores, quietly, so no hearth goes short | magic: cover the gap from your own purse, quietly, so no hand is let go | chance: 85
+- UBR | move a few costs into next year, and sign off accounts that look healthy | mark: hid a wrong | closed: law: the accounts falsified; backfire: the auditors find it, the backers pull out, and the boards want the name off their papers | takes_if_fails: a seat on boards | self_control: - | v: power, security | tribal: count a few bundles twice, and give the traders a count that looks healthy | magic: write a few debts into next year's book, and send the guild a ledger that looks healthy | chance: 70
+- BRG | ask the biggest customer for an early payment, and a longer contract | v: security, power | tribal: ask the band that trades most with yours for goods now, and a longer friendship | magic: ask the house's biggest customer for silver now, and a longer contract | foot: person regular | chance: 60
+works: The year closes the way {N} meant it to, and the backers are still there in the spring.
+works: A few months on, the gap is closed one way or another, and {N} can look the auditors in the eye.
+fails: The backers hear the worst before {N} can tell it well, and two of them sell by the end of the month.
+fails: It goes wrong from the first week, the gap grows, and the trade starts to talk about {Ns} business in a low voice.
+
+# ================================================================ long shot
+
+# ---------------------------------------------------------------- 8. the market stall that became a chain (triads D4b)
+# Something sold on the side draws queues far beyond its street, and three shopping centres and an investor want more.
+# It comes to a [shop owner] or a [café or bar owner] of two years, or a [shop assistant] of four (`tenure: 2-99`; the
+# LIFE gate, LIFE_CALLINGS_LONGSHOTS, says the exact years and that they are not a chief executive yet). The long shot
+# is the next rung, at 3 in every colour, with `grants_if_fails: a long shot that missed`: [founder of a firm] for the
+# shop assistant who starts the chain (W the business registered by the book, U the system written down, R the day job
+# quit), [chief executive] for the shop owner whose shop becomes a chain (B, the investor's money) and for the café
+# owner whose café does (G, grown slowly with its own people). Each single carries `requires: <the rung it is for> |
+# without: impossible` (the engine reads one name in requires:), so nobody is offered a rung that is not theirs: a
+# chief executive's chair is two rungs above a shop assistant (roles.py rungs=), and founding a firm is no step up for
+# someone who already owns a business. The shop assistants, far the most of those who meet it, see three singles; the
+# owners see one each. The triads at 84 are the honest other ways: one more stall run well for a year, one stall kept
+# for the joy of it, the recipe sold to a big chain, an evening course while the stall keeps going, a smaller sum and a
+# mentor from the investor's firm. Every colour's mean is 43.5.
+
+== the market stall that became a chain
+tier: life event
+stages: young_adult adult mature elder
+age: 18-90
+holds: shop owner | café or bar owner | shop assistant
+tenure: 2-99
+per_year: 0 0 .01 .01 .01 .005
+drivers: prosper+.3 fortune+.2
+times: per shop owner or café or bar owner of two years, or shop assistant of four, a year: about 1 in 100 find something they make or sell on the side drawing queues far beyond their own street (estimate); most market stalls and small shops stay one place for life, and only a handful a year grow into a chain; about 2 lives in 1,000 are ever a chief executive and about 3 in 100 found a firm (catalogue shares)
+likelier: something people queue for, good years when shopping centres want new names, a backer who notices, a friend who knows the trade
+rarer: a lean year, a town with little to spend, no time beside the day job, no savings at all
+gap: 6-15
+domain: career.5
+tone: joy
+life: work, money
+horizon: months
+roles: friend, mentor, partner, rival, grandparent
+earth: the Saturday stall has a queue every week, and three shopping centres and an investor want more of it
+tribal: the honey cakes from one fire are traded at every camp along the river, and far bands send for more
+magic: the pie stall on the market square draws a crowd every market day, and merchants of three cities write for more
+scene: Two years ago {N} started a stall at the Saturday market with a recipe for spiced pies, to make a little on the side. Now there is a queue round the square by nine, the pies are gone by noon, three shopping centres have asked for a stall in their halls, and an investor in a good coat has left a card.
+scene W: {N} has kept the stall's accounts in an exercise book from the start, every pie and every sale, and wants to know what doing this properly would look like before saying yes to anyone.
+scene U: {N} has been timing the queue: three minutes a customer at the start, forty seconds now. Somewhere in that is a system, and a system can be copied.
+scene B: A queue like that is money standing in line. {N} turns the investor's card over and over, and starts counting shopping centres.
+scene R: {N} wants to say yes to all of it at once: the halls, the investor, the second stall and the third. Life is too short to bake for one square.
+scene G: The recipe is {grandparent}'s, from a kitchen in a town with no shopping centres at all. {N} wonders how big a thing can grow before it stops being itself.
+scene tribal: The honey cakes {N} bakes at the fire, a way of {grandparent}'s, are traded at every camp along the river now. Runners come from far bands asking for more, and a trader from the great band downriver offers goods for every cake {N} can make.
+scene magic: {Ns} pie stall on the market square draws a crowd every market day. Merchants of three cities have written asking for stalls of their own, and a backer from a merchant house has left a sealed card.
+- W | register the business properly, and open the second stall by the book | title: founder of a firm | requires: shop assistant | without: impossible | grants_if_fails: a long shot that missed | v: conformity, security | tribal: ask the elders' leave, and set a second fire for the cakes at the next gathering, as is proper | magic: register the business with the guild, and open the second stall by its rules | chance: 3
+- U | write down the recipe and the system, so any stall can run like the first | title: founder of a firm | requires: shop assistant | without: impossible | grants_if_fails: a long shot that missed | v: achievement, self-direction | tribal: teach the way of the cakes step by step, so any fire can bake them like the first | magic: write down the recipe and the system, so any stall in any city can run like the first | chance: 3
+- B | take the investor's money, and open in every shopping centre that asked | title: chief executive | requires: shop owner | without: impossible | grants_if_fails: a long shot that missed | mark: took a wild risk | v: power, achievement | tribal: take the great band's goods, and send cakes to every camp that asked | magic: take the merchant house's silver, and open in every city that wrote | chance: 3
+- R | quit the day job on Monday, and open three stalls at once | title: founder of a firm | requires: shop assistant | without: impossible | grants_if_fails: a long shot that missed | mark: took a wild risk | v: stimulation, self-direction | tribal: leave the hunt to the others, and set three fires baking at once | magic: leave the shop counter on Monday, and open three stalls at once | chance: 3
+- G | grow it slowly with the café's own people, one new place a year | title: chief executive | requires: café or bar owner | without: impossible | grants_if_fails: a long shot that missed | v: tradition, benevolence | tribal: let it grow slowly with your own kin, one new fire each summer | magic: grow it slowly with the tavern's own people, one new house a year | chance: 3
+- WUG | open one more stall, and run both well for a year before deciding | v: security, achievement | tribal: set one more fire, and keep both well for a year before deciding | foot: place comm.market | chance: 84
+- WRG | keep it one stall, and keep the Saturdays for the joy of it | habit | v: hedonism, tradition | tribal: keep it one fire, and bake for the joy of it | magic: keep it one stall, and keep the market days for the joy of it | foot: means freedom+.05 | chance: 84
+- WBR | sell the recipe to a big chain for a fair price and a share | grants: savings | v: power, security | tribal: trade the way of the cakes to the great band, for goods now and a share later | magic: sell the recipe to a great house for a fair price and a share | chance: 84
+- UBR | take an evening course in running a business while the stall keeps going | grants: bookkeeping | self_control: + | v: achievement, self-direction | tribal: sit with an old trader through the winter, and learn how a trade is carried | magic: take lessons from a guild clerk in the evenings while the stall keeps going | foot: place learn.higher | chance: 84
+- UBG | ask the investor for a smaller sum, and a mentor from their firm | grants: mentor | v: achievement, benevolence | tribal: ask the great band's trader for a little, and to teach you the trade | magic: ask the backer for a smaller sum, and a mentor from the merchant house | chance: 84
+works: Within a year the thing {N} started is sold in three places at once, and the first stall still has its queue.
+works: Whatever {N} chose, the baking goes on, and {N} is glad of the road taken.
+fails: The money comes with terms nobody could meet, and by the winter it is one stall again.
+fails: The second place never takes, the crowds do not follow, and {N} goes back to the first stall with a little less pride and the same good recipe.
+
+# ================================================================ world-only
+
+# ---------------------------------------------------------------- 9. a seat among the merchant princes (only: magic; pairs D1a)
+# The magic crossing to the summit: a seat on the council of merchant princes falls free, and whoever wins the vote is
+# named a merchant prince ([magnate], the facet on the guild master's or the merchant's career). Four singles try for
+# it plainly at its real chance, 6. White's way is the old bargain: the founder's oath sworn in the vault under the
+# counting-house to the old thing that keeps the guild's ledgers, which turns votes for a price named later (someone
+# else's power, never the person's own gift; anyone may swear it), at 16, with the Order's disapproval on a closed:
+# approval line and its backfire (it comes to collect). It is White's because it is an oath and a rite, the guild's
+# oldest, kept to the letter. The pairs are the season's honest other roads: an old friend backed for the seat ([friend
+# in power]), the dead prince's ships bought at the auction ([shares]), a year spent learning the council, a speech
+# against seats bought and sold, the council's clerkship. They form a ring (each colour in two), so their chances are
+# solved around the singles (WR, WU and BG at 65; UG and BR at 85) until every colour's mean is 40.5. The gate
+# (LIFE_CALLINGS) asks for three years as guild master or six as merchant.
+
+== a seat among the merchant princes
+tier: life event
+only: magic
+stages: adult mature elder
+age: 30-100
+holds: chief executive | founder of a firm
+tenure: 3-99
+per_year: 0 0 0 .02 .02 .01
+drivers: prosper+.2 fortune+.2
+times: per guild master or merchant with a house of their own, of three years or more, in the magic world a year: about 1 in 60 see a seat on the council of merchant princes fall free while they could stand for it (estimate); the council's seats are few and held for life, and the merchant princes are about 5 lives in 100,000 (catalogue share for the magnate; estimate)
+likelier: a house that has traded well for years, backers among the great houses, a prince who owes the house a favour
+rarer: a lean year at sea, a house far from the capital's port, an old feud with a prince's family
+gap: 8-15
+tone: joy
+life: work, money, publiclife
+horizon: months
+roles: rival, mentor, friend, boss
+magic: a seat on the council of merchant princes falls free, and the princes vote at the new moon
+scene magic: The oldest of the merchant princes, who held the spice wharves for fifty years, has died, and his seat on the council falls free. The princes will vote at the new moon, and {rival} is already sending gifts. In the cellars under the old counting-house, the merchants whisper, something older than the city keeps a ledger of every debt, and will turn a vote for a price it names later.
+scene magic W: The council's charter is four hundred years old, and every word of it still binds. Its oldest page, {N} knows, speaks of an oath the founders swore in the vault below.
+scene magic U: The princes' votes each have a reason. {N} has started a chart of who owes whom, who fears whom and who hates whom.
+scene magic B: A seat among the princes is a share of the realm's trade for life, and a name the king's treasurer knows. {N} has wanted it since the first ship came home.
+scene magic R: {N} would rather win the seat at the council table, face to face, than by a hundred whispers in a hundred corridors.
+scene magic G: {Ns} house has traded on the old coast road for four generations. {N} thinks of the families along it, and what a seat on the council would mean for them.
+- W | go down to the old vault, and swear the founder's oath to what keeps the ledgers | title: magnate | mark: hid a wrong | closed: approval: a bargain sworn with the old thing under the counting-house, without the Order's leave; backfire: it comes to collect, and takes the house's luck and the seat with it | binds | self_control: - | v: tradition, power | chance: 16
+- U | chart who owes whom, and win each prince with what that prince wants | title: magnate | v: achievement, power | chance: 6
+- B | call in every debt the princes owe the house, one by one, before the vote | title: magnate | aims: magnate | v: power | chance: 6
+- R | stand up at the council table, and ask for the seat face to face | title: magnate | v: stimulation, self-direction | chance: 6
+- G | bring the families of the coast road to the guildhall to speak for the house | title: magnate | v: tradition, benevolence | chance: 6
+- BG | back an old friend for the seat, and ask a share of the trade in return | grants: friend in power | v: power, tradition | chance: 65
+- BR | buy the dead prince's ships at the auction, while the others argue | grants: shares | v: power, stimulation | chance: 85
+- UG | wait a year, learn how the council votes, and stand next time | mark: learned a skill | self_control: + | v: achievement, security | chance: 85
+- WR | speak at the guildhall against seats bought and sold, whoever wins | v: universalism, conformity | foot: place rule.voice | chance: 65
+- WU | ask for the council's clerkship instead, and learn its votes from the inside | grants: inner circle at work | v: achievement, security | chance: 65
+works: At the new moon the princes vote, and {N} takes the empty chair at the council table.
+works: Whatever {N} chose, the season of the vote is remembered well, and the house's name is spoken in the great halls.
+fails: The princes choose another house, and {N} is thanked by the council's clerk and shown down the long stair.
+fails: The vote is put off a year, the seat goes to a prince's nephew, and the house is no nearer the table.

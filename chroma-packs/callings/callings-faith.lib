@@ -1,0 +1,480 @@
+# Chroma content pack, The Five Callings: THE FAITH ROAD (White, the faith leader; moments 1 to 9 of the faith road in
+# callings/MOMENTS-BRIEF.md; Pathways and packs thread, 2026-10-19, for v24, switched off until `callings` is in
+# batch.PACKS). In the shape of ../art/art-rungs.lib (holder pairs), ../art/art-steps.lib (steps), ../art/art-events.lib
+# (falls and wrongs), ../art/art-longshots.lib (long shots) and ../art/art-worlds.lib (world-only events). Syntax: header
+# of chroma-library/build.py. Rules: chroma-library/SPEC.md, notes/library-spec.md and callings/MOMENTS-BRIEF.md (pack
+# rules, calibration lessons, balance layout). Names in title:, grants:, takes:, requires:, holds: and aims: come from
+# callings/catalogue.py, core/*.py and the base catalogue (chroma-library/earth_perks_titles.py); world lines follow the
+# forms table in the brief (callings/worlds.py).
+#
+# The road: base [ordained religious minister] or [member of a monastic community], the Known rung [senior cleric], the
+# summit [head of a faith order] (it refines [senior cleric] and [member of a monastic community]). Two holder pairs
+# (W-A on the base titles, calls WG / UBR, cycle s1; W-B on [senior cleric], calls WB / URG, cycle s2): rate .5, gap 1-3,
+# no share: line (the holds: gate does the drawing, as art-rungs.lib); no option there takes a new title, the next rung
+# is an aims:, and grants: gives only a perk plainly earned. Two steps at real odds (the senior post at 30, the order's
+# headship at 6; the five singles at the same chance, the pairs solved around them, no perk on failure), one fall and
+# wrong (triads D1a), one long shot (triads D3b; titles at 3 with grants_if_fails: a long shot that missed) and one
+# magic-only crossing (pairs D6a). Each life event is even on its own: alpha even, stakes 1.0, the five one-colour
+# options plus the combination half named in its header comment; a pair counts half to each of its colours and a triad
+# a third, and chances are set so every colour's mean is the same inside each moment, so the file is even in every
+# stage. per_year is the brief's, the yearly rate per eligible person (whoever holds a title in holds:, inside the gates
+# of engine-conditions.py LIFE_CALLINGS and LIFE_CALLINGS_LONGSHOTS); drivers are the brief's, and on the fall this
+# file's own reading. Every option of a life event leaves one or two footprints (the footprints brief): a title or perk
+# it gives or takes, a mark the rules read, or a foot: just before chance:; lessons on at most 1 in 5 options of a
+# moment, never twice the same words.
+#
+# Wrongs are pickable with plain labels, one closed act to each means colour, each marked and closed with a real
+# backfire: a gift taken for a vote in a congregation quarrel (G, the old families' side), the old silver sold quietly
+# for the roof (U), the old rite held without the elders' leave (R, defied an authority), a colleague's theft from the
+# poor fund buried as the faith's leaders ask (W), the oracle's price paid in the magic world (B). The faith road's
+# wrongs are about money, power and lies only: no wrong and no text here touches a child or a vulnerable person; the
+# theft is of money, and no person is harmed. Every faith is treated with respect and no belief is mocked: no real
+# faith, church, order, scripture, person, place, country, brand or year is named ("the faith", "the house of worship",
+# "the order", "the faith's council", "the old words", "the rest day"). Nothing graphic; a death in these moments is an
+# old head of an order's, plain and natural. The tribal world has no magic: the keepers of the rites and the spirits'
+# fire are how the band tells its own faith. In the magic world the supernatural way is one choice among ordinary ones,
+# never forced, always priced, and never the person's own gift: the oracle's word, on a closed: approval: line with its
+# backfire. Modern Earth has no magic.
+#
+# Realm-ready (CONTRIBUTING.md): the road rests on the core, a commitment of faith with its rungs, years on each, and
+# the act that takes the next one; only its Earth face is data. In a magic realm the same road stands as it is: the
+# priest of a god's temple becomes a priest of a great temple, then high priest of the god's order, and an oracle may
+# name them at a price; the realm's own orders come as titles on the same rungs.
+
+# ================================================================ everyday pairs
+
+# ---------------------------------------------------------------- W-A, the minister or the member of an order: calls WG / calls UBR (cycle s1)
+# Both halves hold [ordained religious minister] or [member of a monastic community]: stages young_adult adult mature
+# elder, age 23-95, rate .5, gap 1-3. Every colour's mean is 70 in each half (single plus its cross option, 140).
+
+== the parish no one else will take
+tier: everyday
+rate: 0.5
+gap: 1-3
+times: per minister of religion or member of an order a year: about 1 in 6 are asked to take a hard post, a poor, far or shrinking congregation or a small house of the order in a hard place (estimate); about 4 lives in 1,000 are ministers of religion and 1 in 1,000 lives in a religious community (catalogue shares)
+stages: young_adult adult mature elder
+age: 23-95
+calls: WG
+holds: ordained religious minister | member of a monastic community
+tone: mixed
+life: faith, work, community
+horizon: years
+roles: boss, elder, colleague
+earth: the faith's leaders need someone for a poor, far congregation in a town that has lost its work, or for the order's last small house there
+tribal: the keepers of the rites need someone to go to a small, far band whose rite-keeper has died and whose hunting has failed
+magic: the temple needs a priest, or a monk or nun of the order, for the cold shrine of a mining town whose mine has closed
+scene: {boss} rings from the faith's offices on a Monday. The congregation at the end of the valley line has had nobody for two years: a cold stone building, a boiler that leaks, fourteen faithful with an average age of seventy-eight, and a town whose factory closed ten years ago. The order's little house there is down to two. "Nobody else will take it," {boss} says, and waits.
+scene W: Someone has to go, and the vows {N} took did not say only where it is warm. A post is a duty, not a prize.
+scene U: {N} wants the facts before an answer: how many come, what the building costs to heat, what the town still has, and whether anything there can grow.
+scene B: A hard post done well gets noticed. {N} also knows that two years in the valley could be two years nobody in the faith's offices remembers.
+scene R: Fourteen people have kept a cold building going for two years with nobody to lead them. Something tightens in {N} at the thought of them, and {N} wants to be on the train.
+scene G: {N} has seen towns like that one: the boarded pub, the closed shops, the old women who still polish the brass on a weekday. Places come back, slowly, if someone stays long enough.
+scene tribal: Word comes up the river from the keepers of the rites: the small band in the far hills has lost its rite-keeper, the deer have gone from their valley, and nobody will go to them. The old keeper who brings the word looks at {N} and says nothing more.
+scene magic: A letter comes under the temple's seal: the shrine in the mining town has stood cold since the mine closed and its old priest died. The roof leaks, the bell is cracked, and a handful of miners' widows still sweep the steps each morning. Nobody in the temple wants it.
+- W | say yes, since the faith's leaders asked and someone has to go | v: conformity, benevolence | tribal: say yes, since the keepers of the rites asked and someone has to go | magic: say yes, since the temple asked and someone has to go | chance: 65
+- U | spend a week in the town first, and go with a plan for the building | door | aims: senior cleric | v: achievement, security | tribal: spend a moon with the far band first, and go with a plan for the hard winters | magic: spend a week in the mining town first, and go with a plan for the shrine | chance: 75
+- B | take it, on the leaders' word that it counts toward the next senior post | aims: senior cleric | v: power, achievement | tribal: go, on the keepers' word that it will count when the many bands choose their next keeper | magic: take it, on the temple's word that it counts toward a great temple later | chance: 55
+- R | go at once, and keep the doors open every night of the first winter | habit | self_control: + | body: light | v: stimulation, benevolence | tribal: go at once, and keep the far band's fire lit for the rites every night of the first winter | magic: go at once, and keep the shrine open and lit every night of the first winter | chance: 75
+- G | take it, and stay for good: learn every one of the fourteen by name | habit | grants: a flock that follows you | v: benevolence, tradition | tribal: go, and stay for good: learn every hearth of the far band by name | magic: take it, and stay for good: learn every widow on the steps by name | chance: 70
+- W>U | take it for one year, as the rule allows, and report what the place truly needs | v: conformity, achievement | tribal: go for one winter, as the keepers allow, and bring back word of what the band truly needs | magic: take it for one year, as the temple's rule allows, and report what the shrine truly needs | chance: 75
+- U>B | ask for a second minister as well, with a costed case the leaders cannot refuse | v: achievement, power | tribal: ask for a second keeper to go too, with reasons the elders cannot turn down | magic: ask the temple for a second priest, with a reckoning it cannot refuse | chance: 65
+- B>R | say no, and stay where the work is already growing | mark: turned down a chance | v: self-direction, security | tribal: say no, and stay with the band where the rites already draw every hearth | magic: say no, and stay at the shrine where the work is already growing | chance: 85
+- R>G | preach in the market square on the first day, so the whole town knows | grants: preaching | v: stimulation, universalism | tribal: speak for the spirits at the far band's fire on the first night, so every hearth hears | magic: preach on the market steps on the first day, so the whole town knows | chance: 65
+- G>W | ask the old faithful what they need, and keep the services they have always had | self_control: + | v: tradition, conformity | tribal: ask the old ones of the far band what they need, and keep the rites they have always kept | magic: ask the widows what they need, and keep the old offices they have always had | chance: 70
+works: A year on there are more faces at the rites than there were, and the place has begun to feel alive again.
+works: Whatever {N} chose, the faith's leaders find a way forward for the far congregation, and {N} sleeps well that night.
+fails: The first winter is long and cold, and by spring there are fewer faces at the rites, not more.
+fails: The faith's leaders are not pleased with how it went, and for a while {N} hears less from the offices.
+
+== a quarrel splits the congregation
+tier: everyday
+rate: 0.5
+gap: 1-3
+times: per minister of religion or member of an order a year: about 1 in 8 lead a congregation or a house through a quarrel that splits it into sides, over the music, the words of the service or the sale of a building (estimate); surveys of congregations find that most go through a serious conflict every few years (estimate); about 4 lives in 1,000 are ministers of religion (catalogue share)
+stages: young_adult adult mature elder
+age: 23-95
+calls: UBR
+holds: ordained religious minister | member of a monastic community
+tone: trouble
+life: faith, community
+horizon: months
+roles: elder, colleague, boss
+earth: two sides of the congregation quarrel over a change: the new music, the old words of the service, or selling the hall
+tribal: two sides of the band quarrel over the rites: the new songs the young bring, or moving the sacred fire to the new camp
+magic: two sides of the temple's faithful quarrel: the new hymns, the old tongue of the offices, or selling the temple's old hall to a guild
+scene: The members' meeting runs two hours over. One side wants the hall at the back sold, and the money spent on a new roof and music the young will come for; the other side's grandparents built that hall with their own hands. {elder} speaks for the old families and {colleague} for the newcomers, and when they sit down both of them look at {N}.
+scene W: There is a written constitution for exactly this: notice of a vote, a quorum, a fair count. {N} is tired of people who want to win more than they want it done right.
+scene U: Both sides are arguing about the hall, but {N} suspects the quarrel is about something else: who belongs here now, and who decides.
+scene B: Whichever side wins will run this congregation for twenty years. {N} can see who is going to win, and so, perhaps, can the faith's leaders.
+scene R: {N} can feel the hurt in the room: the old man who laid the floor of that hall, the young mother who only wants somewhere for the toddlers' group. {N} wants to tell all of them to stop.
+scene G: The hall has stood for sixty years, through quarrels like this one before. Halls are sold and built again; families stay, if they are not torn apart first.
+scene tribal: At the fire the band splits. The young want to move the sacred fire to the new camp by the river, where the fish are, and sing the new songs there; the old ones say the fire has burned under the cliff since their grandmothers' grandmothers. {elder} speaks for the old and {colleague} for the young, and both look at {N}.
+scene magic: The temple's chapter meeting runs late. A guild has offered good silver for the temple's old hall, and the young faithful want new hymns in the common tongue; the old families still sing the offices in the old tongue their forebears brought. {elder} and {colleague} both turn to {N}.
+- W | call a members' meeting, and let the congregation vote by its own rules | v: conformity, universalism | tribal: call the whole band to the fire, and let every hearth speak in the old order | magic: call the chapter, and let the faithful vote by the temple's rule | chance: 65
+- U | meet each side alone, and draft a middle way they can both live with | grants: settling disputes | v: universalism, achievement | tribal: sit with each side alone, and find a middle way both can live with | magic: hear each side alone, and draft a middle way both can live with | chance: 60
+- B | back the side that will win, and make sure they remember who helped | aims: senior cleric | v: power | tribal: stand with the side that will win, and make sure they remember it | magic: back the side that will win, and make sure the chapter remembers it | chance: 70
+- R | preach on it from the heart, and tell both sides they are wrong | self_control: - | v: stimulation, universalism | tribal: speak for the spirits at the fire, and tell both sides they shame the dead | chance: 65
+- G | take the old families' large gift for the roof, and speak for their side | mark: hid a wrong | closed: approval: a gift for a vote; backfire: the other side finds out, and half the congregation leaves with them | self_control: - | v: tradition, security | tribal: take the old hearths' gift of furs, and speak for their side at the fire | magic: take the old families' purse for the roof, and speak for them in chapter | chance: 75
+- W>U | set up a working group from both sides, with a remit and a date to report | v: conformity, achievement | tribal: choose two from each side to sit apart and bring an answer before the moon is full | magic: name a committee from both sides, with a charge and a date to answer by | chance: 75
+- U>B | find out what the hall is really worth, and who stands to gain from a sale | v: achievement, power | tribal: find out what the new camp would truly give, and who would gain most from the move | magic: find out what the hall is really worth, and who in the chapter gains by the sale | chance: 80
+- B>R | give the newcomers the evening service to run however they like | v: self-direction, power | tribal: give the young the night songs to sing however they like | magic: give the young faithful the evening office to sing however they like | chance: 70
+- R>G | bring both sides to one long shared meal, and let them talk till late | door | grants: a flock that follows you | v: benevolence, stimulation | tribal: bring both sides to one great shared meal at the fire, and let them talk till dawn | magic: bring both sides to one long table in the hall, and let them talk till late | chance: 75
+- G>W | keep the old service and the new one side by side, a week each | v: tradition, conformity | tribal: keep the old songs and the new ones side by side, a night each | magic: keep the old office and the new hymns side by side, a week each | chance: 65
+works: By the next feast the two sides are sitting side by side again, and the question that split them is settled one way or the other.
+works: Whatever {N} chose, the quarrel cools, and a year later the newcomers and the old families are running the summer fair together.
+fails: The vote goes through with a margin of three, and a dozen families stop coming.
+fails: The quarrel drags on for a season, and {N} is blamed by both sides for not ending it sooner.
+
+# ---------------------------------------------------------------- W-B, the senior cleric: calls WB / calls URG (cycle s2)
+# Both halves hold [senior cleric]: stages adult mature elder, age 35-95, rate .5, gap 1-3. The next rung is an aims:
+# ([head of a faith order]). Every colour's mean is 70 in each half.
+
+== the old house of worship needs a roof
+tier: everyday
+rate: 0.5
+gap: 1-3
+times: per senior cleric a year: about 1 in 5 face a great repair on an old building the congregation cannot afford (estimate); old houses of worship need a major repair every few decades, and many close for want of the money (estimate); about 5 lives in 10,000 are senior clerics (catalogue share)
+stages: adult mature elder
+age: 35-95
+calls: WB
+holds: senior cleric
+tone: trouble
+life: faith, money, community
+horizon: years
+roles: boss, elder, colleague
+earth: the great old house of worship is falling in, and the money to save it would feed the town's poor for years
+tribal: the great lodge of the gathering place is falling in, and the hides and meat to raise it again would feed the hungry hearths all winter
+magic: the roof of the great temple is failing, and the silver to mend it would feed the city's poor for years
+scene: The surveyor's report runs to forty pages, and its last page is one long number: the roof of the old house of worship, four hundred years old, is failing, and a beam came down in the side aisle in the night. The same money would run the food bank in the basement for fifteen years. {boss} at the faith's council has written to ask what {N} proposes.
+scene W: The building was given into the faith's keeping by people dead for centuries, and the poor are the faith's charge too. {N} believes there is a right order to do these things in, if only it can be found.
+scene U: {N} reads the report twice and starts a spreadsheet: phases, grants, cheaper materials, what can wait and what cannot.
+scene B: A great building saved is the kind of work the faith remembers, and the council too, when the order next chooses its head. {N} also knows which families in town have money and would like their name on something.
+scene R: People are sleeping in doorways two streets away, and the council wants a fund for slates. {N} is angry before the meeting has even started.
+scene G: The stones were cut from the hill above the town, and the yew in the yard is older than the roof. Buildings, like people, have their time, and {N} wonders whether this one's has come.
+scene tribal: The great lodge at the gathering place, where every band has met for the rites since the oldest tellings, is sagging: its poles have rotted, and a beam fell at the last full moon. To raise it again would take the hides and meat of a whole season's hunting, and three hearths went hungry last winter.
+scene magic: The great temple's roof is failing: a beam fell in the side aisle at the last feast, and the masons' guild names a sum in silver that would feed the city's poor for years. The temple's council has written to ask what {N} proposes.
+- W | apply to the faith's council for a grant by its rules, and wait the turn | self_control: + | v: conformity, security | tribal: ask the keepers of all the bands for their share by the old way, and wait | magic: petition the temple's council for the repair by its rule, and wait the turn | chance: 70
+- U | have the old silver valued, and sell it quietly to pay for the roof | mark: hid a wrong | closed: approval: the house's old silver sold without the council's leave; backfire: it is missed at the feast, and the faith's council asks where it went | self_control: - | v: achievement, security | tribal: trade the old sacred shells away quietly, for the hides the lodge needs | magic: have the temple's old silver weighed, and sell it quietly to pay the masons | chance: 75
+- B | ask the richest family in town to pay, and carve their name over the door | aims: head of a faith order | v: power, achievement | tribal: ask the richest hearth for the hides, and cut their sign over the lodge door | magic: ask the richest merchant house to pay, and carve its arms over the door | chance: 65
+- R | spend the money on the poor this winter, and let the roof wait | v: benevolence, self-direction | tribal: give the hides and meat to the hungry hearths this winter, and let the lodge wait | magic: spend the silver on the poor this winter, and let the roof wait | chance: 85
+- G | close the great hall, and worship in the small side room that is still dry | v: tradition, universalism | tribal: let the great lodge fall, and hold the rites in the small lodge beside it | magic: close the great nave, and keep the offices in the side chapel that is still dry | chance: 70
+- W>B | run a ten-year appeal with a committee, every gift accounted in public | grants: organising people | v: conformity, achievement | tribal: set every band a share to bring to each gathering for ten summers, and count it before all | magic: run a ten-year appeal with a council of givers, every coin accounted in public | chance: 70
+- U>R | train a volunteer crew under one paid roofer, and let them do the rest | v: self-direction, achievement | tribal: have one old lodge-builder teach the young hunters, and raise the poles together | magic: hire one master mason to train the faithful, and let them do the rest | chance: 65
+- B>G | rent the hall to the town on weekdays, and put the rent into the roof | self_control: + | v: achievement, security | tribal: lend the lodge to the traders between the rites, and take hides for the raising | magic: let the guilds hire the hall on weekdays, and put the rents into the roof | chance: 75
+- R>W | climb up with the congregation every rest day, and mend what can be mended | self_control: + | body: heavy | grants: a flock that follows you | v: stimulation, tradition | tribal: climb up with the band each rest day, and lash new poles where the old ones failed | magic: climb up with the faithful each rest day, and mend what the masons cannot reach | chance: 55
+- G>U | ask the oldest members what the building means to them, and put it in the appeal | aims: head of a faith order | v: tradition, universalism | tribal: ask the oldest of every band what the lodge has meant to them, and tell it at the gathering | magic: gather the oldest faithful's memories of the temple, and write them into the appeal | chance: 70
+works: Two years on the roof is sound and the poor have not gone short, and nobody can quite say how both were managed.
+works: Whatever {N} chose, the house of worship finds a way through, and the town is glad of it.
+fails: The money runs out halfway, the scaffolding stands all winter, and the council's next letter is shorter.
+fails: The quarrel over roof or bread divides the congregation, and {N} is left holding both halves of it.
+
+== the young want the old rite back
+tier: everyday
+rate: 0.5
+gap: 1-3
+times: per senior cleric a year: about 1 in 6 find the young asking for an older form of the rite than the one their elders fought for (estimate); a turn back to old forms of worship among the young is reported across many faiths (estimate); about 5 lives in 10,000 are senior clerics (catalogue share)
+stages: adult mature elder
+age: 35-95
+calls: URG
+holds: senior cleric
+tone: mixed
+life: faith, community
+horizon: months
+roles: elder, colleague, mentor
+earth: the young members want the ancient rite and its old words back, and the elders who fought for the modern service are hurt
+tribal: the young of the bands want the oldest rite back, the long night of the masks, and the old ones who set it aside are hurt
+magic: the young faithful want the old rite in the ancient tongue, and the elders who brought in the common tongue are hurt
+scene: Eleven of the young members come to {Ns} study after the service with a printed booklet: the old rite in its ancient words, as it was before the elders changed it forty years ago. They want it once a month, at dawn, with the old chant. {elder}, who led the campaign for the modern service when young, hears of it the same evening and does not come the next week.
+scene W: The old rite is part of the faith's own law, never done away with, only set aside. {N} would like the council's ruling before anything else.
+scene U: {N} read the old words at the seminary and has half forgotten them. There is a great deal in them, and {N} wants to understand why the young have found them now.
+scene B: Young members are rare, and these eleven are the congregation's future. Whoever gives them what they want will be remembered for it, in the faith's offices too.
+scene R: {N} saw their faces when they chanted a line of it: lit up, the way faces look when they find something true. It is hard not to want that for them.
+scene G: Rites change and come back like seasons, and {N} has seen it before. What matters is that {elder} and the young are still under the same roof in ten years.
+scene tribal: The young of the bands come to {N} at the gathering: they want the long night of the masks back, the oldest rite, which the old ones set aside when they were young. {elder}, who ended it, walks away from the fire without a word.
+scene magic: A dozen of the young faithful bring {N} a copy of the old rite in the ancient tongue, as it was sung before the temple's elders changed it forty years ago. {elder}, who led that change, stops coming to the evening office.
+- W | ask the faith's council for a ruling, and keep to whatever it says | mark: kept your word | v: conformity, tradition | tribal: ask the keepers of all the bands to decide, and keep to it | magic: ask the temple's council for a ruling, and keep to whatever it says | chance: 80
+- U | study the old words with the young ones, line by line, before deciding | habit | grants: scripture | v: self-direction, tradition | tribal: learn what each old mask means with the young ones, one by one, before deciding | magic: read the ancient tongue with the young faithful, line by line, before deciding | chance: 75
+- B | give the young ones the rite, and be known as the cleric who brought them back | identity | aims: head of a faith order | v: power, achievement | tribal: give the young the long night, and be known as the keeper who brought them back | magic: give the young the old rite, and be known as the priest who brought them back | chance: 65
+- R | hold the old rite with them at dawn, without the elders' leave | mark: defied an authority | closed: approval: the old rite held against the elders' wishes; backfire: the elders write to the faith's council, and the cleric is called in to explain | v: stimulation, tradition | tribal: hold the long night of the masks with them, without the old ones' leave | magic: sing the old rite with them at dawn, without the elders' leave | chance: 70
+- G | visit the elders who fought for the modern service, one by one, and listen | v: benevolence, tradition | tribal: sit with each of the old ones who ended the long night, and listen | magic: visit each elder who brought in the common tongue, and listen | chance: 70
+- W>B | lead the old rite exactly by the book, and invite the faith's leaders to see it | aims: head of a faith order | v: conformity, power | tribal: lead the long night exactly as the oldest tellings say, and ask the keepers of all the bands to come | magic: sing the old rite exactly by the rubric, and invite the temple's council to see it | chance: 60
+- U>R | write a plain translation, so the young feel what the old words mean | v: self-direction, stimulation | tribal: tell the young plainly what each old mask means, so they feel it | magic: write a plain translation beside the ancient tongue, so the young feel what it says | chance: 65
+- B>G | offer the elders the places of honour at the old rite, so the families hold together | v: security, tradition | tribal: give the old ones the first places at the long night, so the hearths hold together | magic: give the elders the seats of honour at the old rite, so the families hold together | chance: 75
+- R>W | preach that both rites belong to the faith, and both sides to each other | grants: a flock that follows you | v: universalism, stimulation | tribal: speak for the spirits at the fire: both rites are the band's, and so are both sides | magic: preach that both rites belong to the faith, and both sides to the temple | chance: 70
+- G>U | let the old rite come back slowly, at the great feasts, and see what it does | grants: leading a ceremony | v: tradition, self-direction | tribal: let the long night come back slowly, at the great gathering only, and see what it does | magic: let the old rite come back slowly, at the great feasts only, and see what it does | chance: 70
+works: The old chant is heard again on the first morning of the month, and {elder} is there, at the back, by the second time.
+works: Whatever {N} chose, the young stay and the elders stay, and the congregation is fuller than it was.
+fails: The young drift off to a congregation across the city that gives them the old rite every week.
+fails: {elder} writes a hurt letter to the faith's council, and the quarrel outlives the season.
+
+# ================================================================ steps
+
+# ---------------------------------------------------------------- 5. the congregation needs a senior minister (pairs D1a)
+# The door to the Known rung: every colour takes the senior post its own way at the real chance for it (30), and the
+# post makes a [senior cleric]. White's way goes by the book, degree and all (`requires: a degree in theology`; without
+# it only by the panel's leave, lacking .3). The pairs, all at 80, are the honest ways to weigh it: a smaller post
+# nearby, a fellow minister's name put forward, the flock kept and the degree studied for, the congregation asked
+# first, a year as the stand-in while the panel searches; none of them gives the title. Singles at 30 and pairs at 80,
+# so every colour's mean is 55. per_year and drivers are the brief's; LIFE_CALLINGS gates it (six years on the base
+# title, eight in an order, not a senior cleric yet).
+
+== the congregation needs a senior minister
+tier: life event
+stages: adult mature elder
+age: 35-85
+holds: ordained religious minister | member of a monastic community
+tenure: 6-100
+per_year: 0 0 0 .04 .05 .02
+drivers: community+.3
+times: per minister of religion or member of an order with six years or more behind them, a year: about 1 in 25 sees a great congregation or a large house of the order look for a senior minister and is asked to stand (estimate); about 1 minister in 8 comes to lead a great congregation or to oversee others (catalogue note); about 5 lives in 10,000 are senior clerics (catalogue share)
+likelier: a congregation that has grown under them, a degree in theology, a mentor in the faith's offices, a town that wants someone it knows
+rarer: a minister new to the faith's ways, a far posting nobody sees, a faith with few great congregations
+gap: 3-8
+domain: faith.5
+tone: mixed
+life: faith, work
+horizon: months
+roles: boss, mentor, colleague, rival, partner
+earth: the great congregation in the town needs a senior minister, and the faith's panel will meet the candidates in the spring
+tribal: the keepers of the rites for many bands need one among them to keep the rites at the great gathering, and they will hear each one at the spring fire
+magic: a great temple of the city needs a priest to lead it, and the temple's council will hear the candidates at the spring feast
+scene: The letter is on the faith's headed paper: the great congregation in the town, eight hundred members and a staff of six, needs a senior minister, and {Ns} name has been put forward. There will be an application, references, a trial sermon and a panel in the spring. {mentor} rings the same evening to say {N} should go for it; {rival}, it turns out, already has.
+scene W: The faith's rules set the process down, and {N} means to keep every step of it: the degree, the references, the sermon, the panel.
+scene U: Eight hundred members, six staff, an old building and a roll that falls a little every year. {N} starts thinking about what the place will need over ten years before thinking about the panel at all.
+scene B: It is the post that leads to the faith's council, sooner or later. {N} runs through the names on the panel, and who knows whom.
+scene R: {N} would rather preach than fill in forms. If the panel wants to know what kind of minister {N} is, let them come and hear one.
+scene G: The congregation {N} serves now has known the family for years: the weddings, the funerals, the long winters. Leaving would be a loss on both sides, and the people there might want to say so.
+scene tribal: At the spring fire the keepers of the rites for many bands will hear who should keep the rites at the great gathering. {mentor}, the old keeper, says {N} should speak; {rival} from the river band already means to.
+scene magic: A letter comes under the seal of a great temple of the city: it needs a priest to lead it, and the temple's council will hear the candidates at the spring feast. {mentor} says {N} must go; {rival} has already sent a name.
+- W | apply by the book: the degree, the references, the trial sermon, the panel | title: senior cleric | requires: a degree in theology | without: approval | lacking: .3 | self_control: + | v: conformity, tradition | tribal: ask by the old way: the old shaman's years of teaching, the keepers' word, the telling at the fire | magic: apply by the temple's rule: the temple school's seal, the letters, the sermon, the council | chance: 30
+- U | send the panel a ten-year plan for the congregation, and the figures behind it | title: senior cleric | v: achievement, self-direction | tribal: show the keepers how the great gathering's rites could be kept for ten summers to come | magic: send the temple's council a plan for its next ten years, with the reckoning behind it | chance: 30
+- B | ask the faith's leaders who know your work to put your name first | title: senior cleric | v: power, achievement | tribal: ask the keepers who owe your hearth a gift to speak your name first | magic: ask the council's priests who owe a favour to put your name first | chance: 30
+- R | preach the trial sermon without notes, as on any ordinary rest day | title: senior cleric | v: stimulation, self-direction | tribal: speak at the spring fire without the old words learned by heart, as the spirits move | magic: preach before the council without notes, as on any ordinary rest day | chance: 30
+- G | let the families you have served write to the panel on your behalf | title: senior cleric | v: tradition, benevolence | tribal: let the hearths of your own band speak at the fire on your behalf | magic: let the families you have served write to the council on your behalf | chance: 30
+- BG | take the smaller post in the next town, and keep the family where it is rooted | binds | v: security, tradition | tribal: take the rites of the band next to your own, and keep your hearth where it is | magic: take the smaller shrine in the next town, and keep the family where it is rooted | foot: place faith.congregation | chance: 80
+- BR | put a fellow minister's name forward instead, and keep the favour owed | grants: friend in power | v: benevolence, power | tribal: speak a friend's name at the fire instead, and keep the gift owed | magic: put a fellow priest's name forward instead, and keep the favour owed | chance: 80
+- UG | stay with the flock you have, and study for the degree in the evenings | binds | grants: a degree in theology | self_control: + | v: achievement, tradition | tribal: stay with your own band, and spend the winters learning from the old shaman | magic: stay at your own shrine, and study for the temple school's seal by lamplight | foot: place learn.higher | chance: 80
+- WR | ask the congregation you serve first, and stand only with their blessing | v: benevolence, conformity | tribal: ask your own band at the fire first, and speak only with their blessing | magic: ask your own faithful first, and stand only with their blessing | foot: means ties+.04 | chance: 80
+- WU | offer to stand in for one set year while the panel keeps searching | v: conformity, achievement | tribal: offer to keep the great rites for one summer while the keepers go on choosing | magic: offer to lead the temple for one set year while the council keeps searching | foot: means time-.06 | chance: 80
+works: In the spring the letter comes, and by the autumn {N} has a new study, a great congregation and a diary with no empty evenings in it.
+works: Whatever {N} chose, the decision still feels right a year later, and the people {N} serves say so.
+fails: The panel thanks {N} warmly and chooses {rival}, and {N} goes home the long way, rehearsing what might have been said.
+fails: The year does not go as planned, and {N} is left with less time, less certainty and the same cold building.
+
+# ---------------------------------------------------------------- 6. the order chooses its head (pairs D1b)
+# The summit, a step at real odds: every colour's way of being chosen is a try for [head of a faith order] at 6, for a
+# [senior cleric] or a [member of a monastic community] of six years or more (the summit refines both, so the title
+# fits everyone who meets the moment). Not a long shot, so no perk on failure. The pairs, all at 85, are the honest
+# other ways through an election: a season at the order's poorest house, the strongest candidate backed early, an open
+# letter to the order, a term asked for the head, and a turn given to an older colleague. Every colour's mean is 45.5.
+
+== the order chooses its head
+tier: life event
+stages: adult mature elder
+age: 45-100
+holds: senior cleric | member of a monastic community
+tenure: 6-100
+per_year: 0 0 0 .01 .03 .03
+drivers: community+.2 fortune+.2
+times: per senior cleric, or member of an order of six years or more, a year: about 1 in 40 is among those the faith or the order weighs when it chooses a new head (estimate); heads of faith bodies and of orders are few, most serve for life, and a council or a chapter chooses them (estimate); about 2 lives in 100,000 lead a faith order (catalogue share)
+likelier: a flock that follows, a name known across the country, a degree in theology, long years in the order, the old head's death or retirement
+rarer: a junior post, a faith that chooses its heads from elsewhere, a council already split
+gap: 8-20
+domain: faith.5
+tone: mixed
+life: faith, publiclife
+horizon: months
+roles: boss, rival, mentor, colleague
+earth: the head of the faith order has died after thirty years, and the council meets to choose who comes next
+tribal: the great shaman whom every band heeds has died, full of years, and the keepers of the rites gather to choose who comes next
+magic: the high priest of the god's order has died, and the order's council gathers in the great temple to choose the next
+scene: The old head of the order died in the spring, full of years, after thirty years in office, and the council will meet at midsummer to choose who comes next. Three names are spoken of in the corridors, and {Ns} is one of them. {rival} has been travelling to every house of the order since the funeral; {mentor}, who has seen two of these elections, says the council always surprises itself.
+scene W: The order chooses its head by a rule nearly a thousand years old: a vigil, a vote, and a second vote if the first is split. {N} has always kept the rule and will keep this one.
+scene U: {N} has been thinking for years about where the order must go: the empty houses, the young who come and do not stay, the money. Nobody else seems to have a plan at all.
+scene B: Fourteen votes on the council, and eight make a head. {N} can count six already.
+scene R: {N} is tired of the careful talk in the corridors. The order is shrinking, and somebody should say so out loud.
+scene G: {N} goes on with the day: prayer at dawn, the garden, the sick at the house in the town. If the order wants {N}, it knows where to look.
+scene tribal: The great shaman whom every band heeded has died, full of years, and at midsummer the keepers of the rites will gather at the sacred place to choose who comes next. {Ns} name is spoken at the fires; {rival} has walked to every band since the burial.
+scene magic: The high priest of the god's order has died, and at midsummer the order's council will gather in the great temple to choose the next. Three names are whispered in the cloisters, and {Ns} is one; {rival} has visited every house of the order since the funeral rites.
+- W | keep the vigil and the rule of election, and let the vote fall where it will | habit | title: head of a faith order | v: tradition, conformity | tribal: keep the vigil at the sacred place by the old way, and let the keepers choose | magic: keep the vigil by the order's rule, and let the vote fall where it will | chance: 6
+- U | set out for the council how the order must change over twenty years | title: head of a faith order | v: achievement, self-direction | tribal: tell the keepers how the bands' rites must change in the winters to come | magic: set before the council how the order must change over twenty years | chance: 6
+- B | win the votes over one supper at a time, until the count is sure | habit | self_control: + | title: head of a faith order | v: power | tribal: win the keepers over one by one, with gifts and talk at every fire | magic: win the council's votes one supper at a time, until the count is sure | chance: 6
+- R | stand up in the council and say out loud that the order is dying | identity | title: head of a faith order | v: stimulation, universalism | tribal: stand at the fire and say aloud that the rites are dying in the bands | magic: stand up in the council and say aloud that the order is dying | chance: 6
+- G | go on with the daily prayer and the sick, and let the order come or not | title: head of a faith order | mark: helped someone in need | v: tradition, benevolence | tribal: go on with your own band's rites, and let the keepers come if they will | magic: go on with the daily offices and the sick, and let the order come if it will | chance: 6
+- RG | spend the season of the election working at the order's poorest house | v: benevolence, stimulation | tribal: spend the season of the choosing with the poorest band, keeping their rites | magic: spend the election season at the order's poorest house, among the sick | foot: place faith.orders | chance: 85
+- UB | back the strongest candidate early, and become their right hand | binds | grants: friend in power | v: power, achievement | tribal: stand early with the strongest keeper, and be at their side at every fire | magic: back the strongest candidate early, and be their right hand in the council | chance: 85
+- UR | write an open letter to the whole order on what the next head must do | mark: took a wild risk | v: self-direction, universalism | tribal: go from band to band, telling what the next great shaman must do | magic: write an open letter to every house of the order on what the next high priest must do | chance: 85
+- WB | ask the council to bind whoever is chosen to a term of ten years | v: security, power | tribal: ask the keepers to choose the next great shaman for ten winters, not for life | magic: ask the council to bind whoever is chosen to a term of ten years | foot: lesson power should have an end | chance: 85
+- WG | step aside for an older colleague whose turn it is, and serve under them | door | v: tradition, conformity | tribal: step aside for an older keeper whose time it is, and stand behind them | magic: step aside for an older priest whose turn it is, and serve under them | foot: person boss | chance: 85
+works: At midsummer the bell rings for the council's choice, and by evening the whole order knows what kind of years are coming.
+works: Whatever {N} chose, the order comes through the choosing whole, and {N} is glad of the part played in it.
+fails: The council chooses {rival} on the second vote, and {N} bows with the rest to the new head.
+fails: The choosing drags on for a season, old friends take sides, and {N} comes out of it more tired than before.
+
+# ================================================================ fall and wrong
+
+# ---------------------------------------------------------------- 7. a colleague's theft the faith would rather bury (triads D1a)
+# A fellow cleric has been taking money given for the poor, and the faith's leaders want it handled quietly. Money
+# only: no person is harmed, and nothing here touches a child or a vulnerable person. The wrong is White's single,
+# White's own flaw: the leaders obeyed and the faith's good name kept, at the cost of the truth (hid a wrong; closed:
+# approval, a theft buried; when the try fails the papers find it, and the flock's trust goes: takes_if_fails: a flock
+# that follows you, as art-events.lib's forgery takes its name on failure). The others: the figures to the faith's
+# council, the colleague told to repay and resign, the colleague faced that evening, the congregation told the truth,
+# the police, a finance committee with two signatures, the question asked on the record, the fund made good from one's
+# own savings, and the colleague helped to own up. Chances are set by act, and the singles solved around the triads
+# until every colour's mean is 68. drivers are this file's own reading (hard times make a theft likelier).
+
+== a colleague's theft the faith would rather bury
+tier: life event
+stages: adult mature elder
+age: 25-100
+holds: senior cleric | ordained religious minister | head of a faith order | deacon or elder
+per_year: 0 0 0 .01 .015 .01
+drivers: harsh+.2 prosper-.1
+times: per minister, senior cleric, head of an order or elder of a congregation a year: about 1 in 80 learns that a fellow cleric has been taking money given for the poor (estimate); audits of faith charities find money misused in a small share of them each year, and most cases come to light through someone inside (estimate); about 3 lives in 100 are elders of a congregation and about 4 in 1,000 ministers (catalogue shares)
+likelier: loose books, one person counting the collection alone, a colleague in debt, a faith that prizes its good name above all
+rarer: two signatures on every gift, an outside auditor, a small congregation where everyone counts the money together
+gap: 8-20
+domain: faith.5
+tone: trouble
+life: faith, work, money
+horizon: months
+roles: colleague, boss, friend
+earth: a fellow cleric has been taking money given for the poor, and the faith's leaders want it handled quietly
+tribal: a fellow keeper of the rites has been taking the furs and meat given at the rites for the hungry hearths, and the old keepers want it kept within the fire
+magic: a fellow priest has been taking the alms given at the temple for the poor, and the temple's council wants it handled quietly
+scene: The poor fund's book does not add up, and it has not added up for three years. {N} sits late in the office with the bank statements and the collection slips, and the gap has one name on it: {colleague}, who has counted the money alone every week since the old treasurer died. When {N} rings {boss} at the faith's offices, the answer comes after a long pause: deal with it quietly, for the sake of the faith's good name.
+scene W: The faith's leaders have asked, and {N} has always done what they ask. But the money was given for the poor, and the faith's own law is plain about that.
+scene U: {N} goes through it twice: every slip, every withdrawal, the dates against {Ns} own diary. The figures do not lie, and there is no innocent way to read them.
+scene B: {colleague} has a great deal to lose, and {N} now knows exactly how much. That is a kind of power, and {N} turns it over carefully.
+scene R: {N} has known {colleague} for twenty years, and the anger and the hurt come up together. There is no sleeping on this.
+scene G: The money came from the old women in the front seats, a little every week for forty years. They are the ones {N} keeps thinking of.
+scene tribal: The hungry hearths had less than was given for them all winter. {N} has watched where the furs and meat went after the rites, and the trail leads to the shelter of {colleague}. The old keepers, when {N} tells them, say it should be kept within the fire.
+scene magic: The temple's alms chest does not match the almoner's book, and has not for three years. {N} follows the gap to {colleague}, who has counted the alms alone since the old almoner died, and the temple's council answers {Ns} letter with one line: deal with it quietly.
+- W | do as the faith's leaders ask, and let it be dealt with quietly | mark: hid a wrong | closed: approval: a theft from the poor fund buried; backfire: the papers find it, and the trust is gone | takes_if_fails: a flock that follows you | self_control: - | v: conformity, security | tribal: do as the old keepers ask, and keep it within the fire | magic: do as the temple's council asks, and let it be dealt with quietly | chance: 71
+- U | send every slip and figure to the faith's council, and ask for an outside audit | identity | v: universalism, conformity | tribal: lay every tally before the keepers of all the bands, and ask them to count it again | magic: send every slip and figure to the order's council, and ask for an outside audit | foot: person colleague lost | chance: 59
+- B | tell the colleague to repay every coin and resign, or the police hear of it | mark: made an enemy | v: power, universalism | tribal: tell the keeper to give back every fur and leave the rites, or the whole gathering hears of it | magic: tell the priest to repay every coin and resign, or the city watch hears of it | chance: 69
+- R | go round to the colleague's house that evening, and have it out face to face | v: stimulation, universalism | tribal: go to the keeper's shelter that night, and have it out face to face | magic: go to the priest's lodging that evening, and have it out face to face | foot: person friend lost | chance: 79
+- G | stand up on the rest day, and tell the congregation the truth | identity | grants: a flock that follows you | v: benevolence, universalism | tribal: stand up at the rites, and tell the band the truth | magic: stand up at the rest-day office, and tell the faithful the truth | chance: 60
+- WUR | take the accounts to the police yourself, whatever the leaders say | mark: defied an authority | v: universalism, conformity | tribal: take the tallies to the elders of the gathering yourself, whatever the old keepers say | magic: take the accounts to the city watch yourself, whatever the council says | chance: 60
+- WUG | set up a finance committee: two signatures and an open ledger for every gift | v: security, universalism | tribal: set two keepers to count every gift together, before the whole band | magic: set up a chapter of almoners: two seals and an open ledger for every gift | foot: place rule.counsel | chance: 81
+- WBR | stand up at the faith's council and ask, on the record, where the money went | v: universalism, power | tribal: stand at the keepers' fire and ask, before them all, where the gifts went | magic: stand up in the order's council and ask, on the record, where the alms went | foot: person rival | chance: 54
+- UBG | make the fund good from your own savings, so the poor go short of nothing | self_control: + | v: benevolence, security | tribal: give furs and meat from your own hearth, so the hungry go short of nothing | magic: make the alms good from your own purse, so the poor go short of nothing | foot: means money-.06 | chance: 90
+- BRG | sit with the colleague, hear why, and help them own up to the congregation | v: benevolence, stimulation | tribal: sit with the keeper, hear why, and help them own it before the band | magic: sit with the priest, hear why, and help them own it before the faithful | foot: lesson a wrong owned can be mended | chance: 57
+works: By the summer the poor fund is whole again and the books are open, and the congregation knows as much as it needs to.
+works: Whatever {N} chose, the thing is settled, and {N} can face the old women in the front seats on the rest day.
+fails: It comes out in the worst way, in the local paper, and for a season the faith's good name and {Ns} with it are in every mouth.
+fails: The leaders close ranks, {colleague} is moved quietly to another post, and {N} is the one people stop speaking to.
+
+# ================================================================ long shot
+
+# ---------------------------------------------------------------- 8. a sermon that goes round the country (triads D3b)
+# Someone records a sermon and it spreads, for a minister, a lay teacher of the faith or a street preacher with three
+# years or more behind them (`tenure: 3-99`; LIFE_CALLINGS_LONGSHOTS gate: not a senior cleric yet). Luck opens the
+# next rung, at 3 in every colour, each single with `grants_if_fails: a long shot that missed` (core/longshot.py):
+# [senior cleric] for the minister (U the sermon made a series, B the fortnight of fame used, G the city brought to
+# the flooded town; `requires: ordained religious minister | without: impossible`), and ordination, the faith's leaders
+# asking them to train, for the lay teacher (W, the full training; `requires: lay religious teacher`) and the street
+# preacher (R, yes to the call and the street kept; `requires: street preacher`), each `without: impossible`, as
+# art-longshots.lib does, so that nobody is offered a try at a title already held. A requires: names one rung, so each
+# of the two non-ministers sees one single, and the minister three; the five triads, all at 84, are what everyone
+# meets: the sermon written out for the congregation, the faith's own office to put it out properly, talks only
+# nearby, the gifts it brings given to the flooded families, a week of answers and then back to the work. Every
+# colour's mean is 43.5.
+
+== a sermon that goes round the country
+tier: life event
+stages: adult mature elder
+age: 25-95
+holds: ordained religious minister | lay religious teacher | street preacher
+tenure: 3-99
+per_year: 0 0 0 .01 .01 .005
+drivers: era+.2 fortune+.3
+times: per minister, lay teacher or street preacher with three years or more behind them, a year: about 1 in 100 has a sermon or a talk recorded and shared far beyond their own congregation (estimate); sermons and talks are shared online by the thousand every week, and only a handful a year lead to a great congregation's call or to ordination (estimate); about 4 lives in 1,000 are ministers, 3 in 100 lay teachers of the faith and 5 in 1,000 street preachers (catalogue shares)
+likelier: a sermon on something everyone is feeling that week, someone in the seats who films it well, years of preaching behind it, a time when people are looking for words
+rarer: a quiet week, a sermon only the congregation would understand, a preacher nobody records
+gap: 6-15
+domain: faith.5
+tone: joy
+life: faith, publiclife
+horizon: week
+roles: friend, boss, mentor, colleague, rival
+earth: someone films a sermon on a phone, by the end of the week it has gone round the whole country, and the faith's leaders are writing
+tribal: a telling at the fire is carried by traders from band to band down the whole river, and the keepers of far bands send for the one who spoke it
+magic: a sermon preached in a small chapel is copied by the printers and read aloud in every city of the realm, and letters come from the great temples
+scene: On an ordinary rest day {N} spoke about the flood that had taken half the town's houses that month: twelve minutes, no notes, on what people owe each other when the water comes. {friend} filmed it on a phone and posted it that night. By Friday it has been watched two million times, a newspaper has rung, and two letters lie on the table: one from a great congregation in the city, one from the faith's leaders, who would like to talk about {Ns} future.
+scene W: {N} reads the faith's letter twice. It asks for a meeting, properly, and talks about training and a future in the faith. {N} would like to answer it properly too.
+scene U: {N} watches the sermon for the first time and tries to see what two million people heard in it: the plainness, perhaps, or the timing. It is worth understanding before saying anything else.
+scene B: Attention like this lasts a fortnight, and letters like these do not come twice. {N} knows which one leads further.
+scene R: {N} still means every word of it, and the hundreds of messages from strangers make {N} want to preach it again tomorrow, louder.
+scene G: The people in the sermon are the town's own: the baker who opened her shop to the flooded, the farmer with the tractor. {N} thinks the sermon belongs to them more than to anyone.
+scene tribal: {N} spoke at the fire of the flood that took the low camp, and of what each hearth owes the others when the water comes. Traders carried the telling down the river, and now runners come from far bands: their keepers of the rites want to hear the one who spoke it.
+scene magic: {N} preached in a small chapel on the flood that took the lower town, and a clerk copied it down. The printers have sold it in every city of the realm, and two letters lie on the table: one from a great temple of the capital, one from the order's council.
+- W | answer the faith's letter, and begin the full training for ordination | title: ordained religious minister | requires: lay religious teacher | without: impossible | grants_if_fails: a long shot that missed | binds | v: conformity, tradition | tribal: answer the keepers' runner, and begin the old shaman's long years of teaching | magic: answer the order's letter, and enter the temple school for the full training | chance: 3
+- U | turn the sermon into a careful series, and answer the city congregation with it | title: senior cleric | requires: ordained religious minister | without: impossible | grants_if_fails: a long shot that missed | v: achievement, self-direction | tribal: make the telling into a cycle for the long nights, and answer the far keepers with it | magic: turn the sermon into a careful cycle, and answer the great temple with it | chance: 3
+- B | use the fortnight of fame to win the city congregation's senior post | title: senior cleric | requires: ordained religious minister | without: impossible | grants_if_fails: a long shot that missed | v: power, achievement | tribal: use the moon when every fire knows the name to win the far keepers' great rites | magic: use the season of fame to win the great temple's call | chance: 3
+- R | say yes to the faith's call to train, and keep preaching in the street meanwhile | binds | title: ordained religious minister | requires: street preacher | without: impossible | grants_if_fails: a long shot that missed | v: stimulation, self-direction | tribal: say yes to the keepers' call, and go on speaking at every fire on the way | magic: say yes to the order's call to train, and keep preaching in the market meanwhile | chance: 3
+- G | ask the city congregation to come and worship with the flooded town first | title: senior cleric | requires: ordained religious minister | without: impossible | grants_if_fails: a long shot that missed | v: benevolence, tradition | tribal: ask the far keepers to come to the low camp's fire first, among the flooded hearths | magic: ask the great temple's priests to come and pray with the flooded town first | chance: 3
+- WUG | write the sermon out plainly as a booklet for the congregation, and leave it there | grants: good name in town | v: tradition, universalism | tribal: teach the telling to the band's own old ones, so it stays at the home fire | magic: write the sermon out plainly for the chapel's faithful, and leave it there | chance: 84
+- WBR | let the faith's own office put it out properly, with talks booked across the country | grants: following online | v: achievement, conformity | tribal: let the keepers send the telling on properly, from fire to fire, with a night set for each band | magic: let the order's printers put it out properly, with sermons booked in three cities | chance: 84
+- WBG | give the talks it brings, but only in towns within a day's journey | v: security, achievement | tribal: speak at the fires it brings, but only of the bands within a day's walk | magic: preach where it brings the call, but only in towns within a day's ride | foot: means time-.05 | chance: 84
+- URG | give everything the sermon brings in to the flooded families, and say so | mark: helped someone in need | v: benevolence, universalism | tribal: give every gift the telling brings to the flooded hearths, and say so at the fire | magic: give every coin the sermon brings to the flooded families, and say so from the pulpit | chance: 84
+- UBR | answer the messages for one week, then switch the phone off and go back to work | v: self-direction, security | tribal: sit with the runners for one moon, then send them home and go back to the band's rites | magic: answer the letters for one week, then shut the door and go back to the chapel | foot: lesson attention passes, the work stays | chance: 84
+works: Within a month the letter that matters has a date in it, and {N} stands in a much larger room, with the same twelve minutes still going round.
+works: Whatever {N} chose, the sermon goes on doing good where it landed, and {N} is glad to have preached it.
+fails: The talk dies down after ten days, something else takes everyone's attention, and the meeting with the faith's leaders is warm and comes to nothing.
+fails: The panel listens politely and says {N} is a wonderful preacher, which is not the same as a yes.
+
+# ================================================================ world-only (magic)
+
+# ---------------------------------------------------------------- 9. the god speaks in the temple (only: magic; pairs D6a)
+# The magic crossing to the summit: the temple's oracle says the god has chosen a new high priest. For a priest of a
+# great temple ([senior cleric]), each one-colour way is a try for [head of a faith order] (high priest of a god's
+# order) at its real chance, 6 (`requires: senior cleric | without: impossible`, so a priest without a great temple
+# meets the five pairs alone, as art-worlds.lib does). Black's way pays the oracle to speak the name (someone else's
+# power, never the priest's own gift), at 15, with the price on a closed: approval: line and its backfire: the god's
+# favour is a debt. The pairs are the honest ways: the council asked to keep the law of choosing, the oracle's past
+# buyers named in open council, an older and better priest put forward, an open refusal of a choice bought from an
+# oracle, a month of prayer in the temple garden. They form a ring (each colour in two), so their chances are solved
+# around the singles (66 and 84) until every colour's mean is 40.5. per_year is the brief's; LIFE_CALLINGS gates it
+# (three years a priest of a great temple, or ten a priest).
+
+== the god speaks in the temple
+tier: life event
+only: magic
+stages: adult mature elder
+age: 45-100
+holds: senior cleric | ordained religious minister
+tenure: 3-99
+per_year: 0 0 0 .02 .02 .01
+drivers: fortune+.2 community+.1
+times: per priest of a great temple, or priest of ten years, in the magic world a year: about 1 in 60 is at the temple when the oracle says the god has chosen a new high priest (estimate); in many old faiths an oracle or a sign was asked before a high priest was chosen, and the council did not always follow it (estimate); about 5 lives in 10,000 are priests of a great temple (catalogue share)
+likelier: an old high priest failing, a priest known for devotion, a feast year, a council already divided
+rarer: a young high priest in good health, a temple far from the god's seat, a priest the oracle has spoken against
+gap: 8-20
+domain: faith.5
+tone: mixed
+life: faith, publiclife
+horizon: months
+roles: boss, rival, mentor, colleague
+magic: the temple's oracle says the god has chosen a new high priest, and will speak the chosen name to the council for a price
+scene magic: On the feast of the god the oracle in the inner court goes into her trance before the whole temple and speaks: the god has chosen a new high priest from among those present, and will make the choice known. That night a temple servant brings {N} word that the oracle will speak {Ns} name to the council, for a price she will name herself. {rival}, it is whispered, has already been to her. The order's council meets at the new moon.
+scene magic W: The order chooses its high priest by its council and its law, and the god has always spoken through that law. {N} is uneasy at any word that comes round the side of it.
+scene magic U: Oracles have spoken before, and the council's archive records how often their words came true. {N} goes down to the archive that night to read them.
+scene magic B: The price will be high, and so is the seat. {N} weighs what the oracle could ask, and what a high priest could pay back.
+scene magic R: {N} felt something in the court when the oracle spoke, a stillness like the moment before a storm. Whatever it was, {N} wants to meet it head on.
+scene magic G: The god chose the grandmother of {Ns} grandmother to serve, the family says, and the god chooses in its own seasons. {N} would rather wait for the god than buy its word.
+- W | wait for the council's vote, and stand by the order's law of choosing | identity | title: head of a faith order | requires: senior cleric | without: impossible | v: conformity, tradition | chance: 6
+- U | read the archive's record of every oracle, and lay the truth of it before the council | self_control: + | title: head of a faith order | requires: senior cleric | without: impossible | mark: learned a skill | v: achievement, self-direction | chance: 6
+- B | pay the oracle's price, and let her speak your name to the council | title: head of a faith order | requires: senior cleric | without: impossible | mark: hid a wrong | closed: approval: the oracle's price, paid behind the council's back; backfire: the god's favour is a debt, and in the first year the oracle comes to collect it | self_control: - | v: power, achievement | chance: 15
+- R | stand before the oracle in the inner court, and ask the god to its face | title: head of a faith order | requires: senior cleric | without: impossible | v: stimulation, self-direction | chance: 6
+- G | go on with the daily offices, and leave the choice to the god's own season | title: head of a faith order | requires: senior cleric | without: impossible | v: tradition, benevolence | chance: 6
+- BG | put forward an older and better priest, and stand at their right hand | door | grants: friend in power | v: benevolence, security | chance: 66
+- UG | spend the month before the council praying and listening in the temple garden | habit | v: tradition, self-direction | foot: place faith.seeking | chance: 84
+- UR | find out who has paid the oracle before, and say so in open council | mark: made an enemy | v: universalism, stimulation | chance: 66
+- WB | ask the council to rule that no oracle's word may decide the choosing | v: conformity, power | foot: lesson the law outlasts any oracle | chance: 66
+- WR | refuse openly to serve any high priest whose seat was bought from an oracle | mark: defied an authority | v: universalism, conformity | chance: 84
+works: At the new moon the council chooses, the bells ring across the city, and the temple settles into the new high priest's years.
+works: Whatever {N} chose, the season of the oracle passes, and the order's council does its work in peace.
+fails: The council chooses {rival}, and nobody speaks of the oracle's word again.
+fails: The oracle's season splits the council, the choosing drags on for a year, and {N} is left out of the end of it.

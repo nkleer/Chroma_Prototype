@@ -31,7 +31,7 @@ scene G: It came the way good things grow, slowly and then all at once, like a s
 - U | quietly leave out the one result that does not fit, so the find looks clean | v: achievement | mark: hid a wrong | closed: approval: doctored results; backfire: someone repeats the work, and the whole find falls apart | chance: 45
 - B | keep it secret until you have worked out how to profit from it | v: power, achievement | foot: means money+.06 | chance: 55
 - R | tell everyone you know tonight, without checking a thing | v: stimulation | foot: mark took a wild risk | chance: 58
-- G | take it as a gift, and fold it quietly into the everyday work | v: tradition (humility), security | mark: turned down a chance | foot: lesson the work itself is enough | chance: 66
+- G | take it as a gift, and fold it quietly into the everyday work | v: tradition (humility), security | mark: turned down a chance | chance: 66
 - WU | check it three times, write it up, and send it to the judges of such work | door | v: achievement, conformity | foot: mark learned a skill | chance: 58
 - UB | make sure it is on record under your own name before anyone can copy it | v: power, achievement | foot: means money+.05 | chance: 80
 - WR | share the credit loudly with everyone who helped, and throw them a party | v: benevolence, hedonism | mark: made a friend | chance: 78
@@ -468,7 +468,7 @@ scene G: {N} looks at the house, the garden, the old trees along the street. Peo
 - WUBR | put your trade to work for the war: the factory, the radio room, the field hospital | v: security, achievement | foot: place prot.host | chance: 68
 - WURG | open your home to the wounded and the families fleeing, and share what you have | v: benevolence, universalism | mark: helped someone in need | chance: 68
 - WBRG | take up arms with the neighbours, and hold the street yourselves | body: heavy | v: benevolence (in-group), power | role: men | foot: place prot.watch; mark took a wild risk | chance: 42
-- UBRG | slip across the border before the call-up, and start over wherever you land | v: self-direction, security | mark: left home | closed: law: evading the call-up; backfire: turned back at the border, and charged | law: -conscription | foot: mark moved away; door broke the law | chance: 55
+- UBRG | slip across the border before the call-up, and start over wherever you land | v: self-direction, security | mark: left home | closed: law: evading the call-up; backfire: turned back at the border, and charged | law: -conscription | foot: mark moved away | chance: 55
 works: When the guns finally stop, {N} is still standing, and so are the people {N} loves most.
 works: {N} comes through the war with a few friends for life, made in the worst of it.
 fails: The war takes years from {N}, and the house with it.

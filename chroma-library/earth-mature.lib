@@ -947,7 +947,7 @@ scene G: Halfway up the hill of a life, {N} stops to look back down the path, an
 - WUBR | take the money, write a proper business plan, and build the invention you sketched years ago | v: achievement, self-direction | mark: took a wild risk | chance: 40
 - WURG | take the money, and give two years to rebuilding schools where the need is greatest | door | v: universalism, benevolence | mark: moved away | chance: 75
 - WBRG | buy a run-down farm with the money, and fight to make the land pay | binds | v: achievement, tradition | body: heavy | grants: plot of land | chance: 40
-- UBRG | sell up, cut every tie, and sail a small boat around the world | v: self-direction, stimulation | mark: left home | foot: means ties-.10; mark took a wild risk | chance: 50
+- UBRG | sell up, cut every tie, and sail a small boat around the world | v: self-direction, stimulation | mark: left home | foot: means ties-.10 | chance: 50
 works: Two years on, {N} is sure it was the right choice.
 works: The path {N} chose turns out harder than expected, and better.
 fails not W: The money runs out before {Ns} plans find their feet.

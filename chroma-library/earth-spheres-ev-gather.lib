@@ -186,7 +186,7 @@ scene R: Ten o'clock. The night has barely started, and {N} is not going to be s
 scene G: The family's Saturday at the bar has become Saturday at home. {N} thinks it might not be the worst thing.
 - W | keep the closing hour, and see the older regulars safely home by ten | v: conformity, benevolence | sphere: gather.W | foot: person regular | chance: 77
 - U | ask the council in writing what the closing hour is for, and share the answer | v: self-direction, universalism | lever: voice | pushes: state | sphere: gather.U | foot: lesson asking in writing gets answers | chance: 56
-- B | rent a basement and run the after-hours door yourself | v: power, achievement | mark: broke the law | lever: subvert | sphere: gather.B | foot: means money+.06; door broke the law | chance: 56
+- B | rent a basement and run the after-hours door yourself | v: power, achievement | mark: broke the law | lever: subvert | sphere: gather.B | foot: means money+.06 | chance: 56
 - R | go to the basement parties and walk home long after the curfew | v: hedonism, stimulation | mark: defied an authority | lever: subvert | sphere: gather.R | chance: 70
 - G | move the Saturday gathering to your kitchen, and invite the whole street | v: benevolence, tradition | sphere: gather.G | foot: place gather.house | chance: 63
 - BR | throw your own party in a flat, music loud, door open to friends of friends | v: hedonism, self-direction | lever: subvert | sphere: gather.BR | foot: person friend | chance: 68
@@ -231,7 +231,7 @@ scene G: Every family toast at every wedding is now against the law. {N} cannot 
 - B | sell the bottles in your cellar to the back-room clubs, at a good price | v: power, achievement | mark: broke the law | lever: subvert | sphere: gather.B | foot: means money+.06 | chance: 68
 - R | learn the knock, and keep your Friday nights at the teacup club | v: hedonism, stimulation | mark: broke the law | lever: subvert | sphere: gather.R | foot: place gather.night | chance: 65
 - G | brew a little at home for the family feasts, as the old ones did | v: tradition, security | mark: broke the law | sphere: gather.G | foot: door kept it hidden | chance: 54
-- BR | open a teacup club of your own at the back of a café | v: power, hedonism | mark: broke the law | lever: found | sphere: gather.BR | foot: place gather.night; door broke the law | chance: 46
+- BR | open a teacup club of your own at the back of a café | v: power, hedonism | mark: broke the law | lever: found | sphere: gather.BR | foot: place gather.night | chance: 46
 - RG | keep the dances going in the hall, with fruit punch and the same band | v: hedonism, tradition | lever: loyalty | pushes: place | sphere: gather.RG | foot: place gather.hall | chance: 64
 - UG | learn the old soft drinks your grandmother made, and share the recipes | v: tradition, self-direction | mark: learned a skill | sphere: gather.GU | chance: 68
 - WB | pay the old bar's rent through the ban, so it can open again one day | v: benevolence, tradition | lever: fund | pushes: place | sphere: gather.WB | foot: means money-.10 | chance: 58
