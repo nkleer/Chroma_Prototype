@@ -37,6 +37,7 @@ HELP = """Keys while watching
   l       ledger: show the numbers under the story (on or off)
   p       dreams, passions and plans; make a plan for them, or drop one
   a       aims (when on): where they stand, the next step; take one up, or let one go
+  ~w ~u.. lean them toward a color until the next ask (when on); ~ alone lets go
   n       start a new life
   h       this help
 Keys at a checkpoint
@@ -477,6 +478,13 @@ class Console:
         if GAME["aims"] and (k == "a" or k.startswith("aim ") or (k[:1] == "a" and k[1:].isdigit())
                              or (k[:2] == "ad" and k[2:].isdigit())):
             return self._on_aim(line)
+        if GAME["steer_between"] and g.pending is None and k[:1] == "~" and (k[1:] in ("", "x") or (len(k) == 2 and k[1].upper() in "WUBRG")):
+            c_ = k[1].upper() if len(k) == 2 and k[1] != "x" else None
+            g.steer_set(c_)
+            self.note = f"Leaning toward {CNAME[c_]}" if c_ else "No lean"
+            return ((f"Until the next moment you are asked about, you lean {g.name} toward {CNAME[c_]}. Each choice they make "
+                     "meanwhile leans that way, and what it changes costs them, as a light steer does.") if c_ else
+                    f"{g.name} goes their own way again."), False
         if g.pending is not None:
             if k == "s":
                 return g.status(), False

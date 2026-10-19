@@ -179,6 +179,8 @@ class ViewsMixin:
             d["aims"] = self.aims_view() or []
             d["heights"] = self.heights_view()
             d["aim_choices"] = self.aim_choices_view()
+        if GAME["steer_between"]:                       # v24: the player's lean between asks, if one is held
+            d["steer"] = self.steer_view()
         pv = self.places_view()
         if pv:
             d["places"] = pv
