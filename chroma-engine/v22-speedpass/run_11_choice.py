@@ -110,7 +110,39 @@
             P["steer"] = None
         if SAC_ON_ and WL.sac_pend:   # S5: at an offer on a held line the character's own pick holds it at .9 (and more
             pr = WL.sacred_tilt(s, pr.copy(), mask)   # for a bigger offer, .7 with a gesture); at a tragic one, a, b or torn
-        a = (pr.cumsum(1) > rng.random((N, 1))).argmax(1)
+        bou_ = rng.random((N, 1))
+        a = (pr.cumsum(1) > bou_).argmax(1)
+        if BO_ON:   # bold ways, in a week the game asks: each bold way open to them is a slot beside its base way, and the
+            bold_pick[:] = -1; bo_row[:] = -1; bo_base[:] = -1; bo_seed[:] = -1; bo_kp[:] = 1.0; bold_now = None   # character's own pick
+            if P["bold_ask"]:   # re-picks with the same draw over the ways and the slots seen
+                bold_now = [[] for _ in range(N)]
+                for n in np.nonzero(~dead & ~recon)[0]:
+                    bow_ = np.zeros(2)
+                    for boj_, bori_ in enumerate(BO_S.get(int(s[n]), ())):
+                        bor_ = BO_ROWS[bori_]; bok_ = bor_["base"]
+                        if not mask[n, bok_] or bor_["req"] and not (RON and r_has[n, bor_["req"]].any()) \
+                                or P["title_ages"] and not bor_["ages"][0] <= t / 52 <= bor_["ages"][1] or not bo_live(n, bor_):
+                            continue   # its base way open, its own requires: held, what it gives inside its ages, and its
+                            # win and cost both able to happen (bo_live)
+                        boma_ = m[n, bok_]   # the base way's true odds, as the odds draw below has them
+                        boz_ = P["gain"] * ((boma_ * (sig[n] + f_tot[n])).sum() + P["fit"] * (boma_ * (alpha[n] - alpha[n].mean())).sum()
+                                          - diff[n, bok_]) + (pbump[n, bok_] if RON else 0.0) - (P["sh_fail"] * (boma_ * shA[n]).sum() if SHON else 0.0)
+                        bopt_ = 1 / (1 + np.exp(-earned(boz_, earn[n, bok_] if np.ndim(earn) else 0.0))) * (lackf[n, bok_] if np.ndim(lackf) else 1.0)
+                        boph0_ = min(max(float(p_hat[n, bok_]), 1e-6), 1 - 1e-6); bophb_ = bo_odds(n, bor_, boph0_)   # and as felt
+                        bo_row[n, boj_] = bori_; bo_base[n, boj_] = bok_; bo_ph[n, boj_] = bophb_; bo_kp[n, boj_] = bo_keep(n, bor_)
+                        bopa_ = bo_odds(n, bor_, bopt_)   # the card's p: the act's odds x the chance its win is kept (F16)
+                        bold_now[n].append(dict(row=int(bori_), slot=boj_, base=int(bok_), label=bor_["label"], chance=bor_["chance"],
+                                                p=round(bopa_ * bo_kp[n, boj_], 4), p_act=round(bopa_, 4), seen=bool(seen[n, bok_])))
+                        if seen[n, bok_]:   # its utility is the base way's, with the felt odds' stake and relief moved
+                            bodu_ = ctrl[n] * P["beta_P"] * (bophb_ - boph0_) * stakes[n] + P["beta_N"] * relief[n, bok_] * (bophb_ / boph0_ - 1)
+                            bow_[boj_] = pr[n, bok_] * np.exp(min(bodu_ / tau[n], 50.0))
+                    if bow_.sum() > 0:
+                        box_ = np.concatenate([pr[n], bow_]); boi_ = int((box_.cumsum() / box_.sum() > bou_[n, 0]).argmax())
+                        bokk_ = pr.shape[1]
+                        a[n] = bo_base[n, boi_ - bokk_] if boi_ >= bokk_ else boi_
+                        bold_pick[n] = boi_ - bokk_ if boi_ >= bokk_ else -1
+                if P["bold_ask"] != "all":
+                    P["bold_ask"] = False
         if SHON:   # U indecisive: while they weigh it, the chance passes (the act becomes doing nothing, where there is one)
             lap_ = (rng.random(N) < P["sh_lapse"] * shA[:, 1]) & ~do_nothing[ar, a] & do_nothing.any(1)
             if lap_.any():
@@ -121,6 +153,13 @@
             _pause_state(pz_st, ST_CELLS, ST_FR)
             a = yield Pause("choose", t, pz_st, a)
             pz_st._fr = None
+        if BO_ON:   # the slot taken: the game's (bold_take: a slot, with a its base way; -1 an ordinary way), else the
+            bot_ = P["bold_take"]; P["bold_take"] = None   # character's own while its base way stands
+            if bot_ is not None:
+                bot_ = np.broadcast_to(np.asarray(bot_, int), (N,)); bosl_ = np.clip(bot_, 0, 1)
+                bold_pick[:] = np.where((bot_ >= 0) & (bot_ <= 1) & (bo_row[ar, bosl_] >= 0) & (a == bo_base[ar, bosl_]), bot_, -1)
+            else:
+                bold_pick[:] = np.where((bold_pick >= 0) & (a == bo_base[ar, np.maximum(bold_pick, 0)]), bold_pick, -1)
         # bookkeeping: where does the option the person most wants get lost?
         UR_ = np.where(mask & ~do_nothing, U_R, -np.inf)
         best = UR_.argmax(1); has = np.isfinite(UR_.max(1))
@@ -130,6 +169,8 @@
         conflict = has & seen[ar, best] & (pull_best != best)
         big_gap = 0.5 * np.abs(softmax(y) - w).sum(1) > 0.1; hi_s = stress > 1
         ma = m[ar, a]; ea = e[ar, a]; ea0 = e0[ar, a]; da = diff[ar, a]; ph = p_hat[ar, a]
+        if BO_ON and (bold_pick >= 0).any():   # a bold pick: its felt odds are the bold way's
+            ph = np.where(bold_pick >= 0, bo_ph[ar, np.maximum(bold_pick, 0)], ph)
         idle = do_nothing[ar, a] | dead                 # a life that has ended does nothing
         if BAT and IDC_ON:   # N1b: how far this week's act crossed the role expected of them (role_fit, the game's frown)
             act_cw = cw_[ar, a] * ~idle
@@ -154,11 +195,23 @@
                 tk_ = GR["A_EARN"][s] >= 0
                 np.add.at(earn_sum, s, (earn * tk_).sum(1) / np.maximum(tk_.sum(1), 1)); np.add.at(earn_cnt, s, tk_.any(1).astype(float))
             np.add.at(pk_sum, s, np.where(mask, pk_, 0.0)); np.add.at(pk_cnt, s, mask.astype(float))   # open to them
+        if BO_ON and (bold_pick >= 0).any():   # a bold pick: its base way drawn at the bold way's own odds
+            for n in np.nonzero(bold_pick >= 0)[0]:
+                p_true[n] = bo_odds(n, BO_ROWS[bo_row[n, bold_pick[n]]], p_true[n])
         if pausing:
             _pause_state(pz_st, ST_CELLS, ST_FR)
             p_true = yield Pause("odds", t, pz_st, p_true)
             pz_st._fr = None
         succ = rng.random(N) < p_true
+        if BO_ON and (bold_pick >= 0).any():
+            for n in np.nonzero(bold_pick >= 0)[0]:
+                bor_ = BO_ROWS[bo_row[n, bold_pick[n]]]
+                bold_log.append((int(n), t, int(bor_["i"]), int(bold_pick[n]), round(float(p_true[n]), 4), bool(succ[n])))
+                if n in events:
+                    events[n].append(dict(bold=dict(age=round(age, 2), row=int(bor_["i"]), slot=int(bold_pick[n]), label=bor_["label"],
+                                                    moment=bor_["moment"], colour=COLORS[bor_["colour"]],
+                                                    p=round(float(p_true[n]), 4), p_win=round(float(p_true[n] * bo_kp[n, bold_pick[n]]), 4),
+                                                    ok=bool(succ[n]))))
         if BT_ON:   # body_trust: an own run-in with a body this week, gone well (good) or against them (bad)
             ri_ = ~idle & ~recon & ~dead & (BT_RUN[s] >= 0)
             for j_ in np.unique(BT_RUN[s][ri_]).tolist():

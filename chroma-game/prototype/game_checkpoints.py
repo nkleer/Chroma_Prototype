@@ -4,8 +4,8 @@ Part of class Game (game.py), which inherits CheckpointsMixin; moved out of game
 module names through the imports below, the same objects game.py has, and self for everything on the Game."""
 import numpy as np
 import re
-from game_base import (ADJ, ADJ_LOOK, C, CNAME, COLORS, DRIVER_WORD, E, EP, FREQ, GAME, KNAMES, NEED_WORD, STAGES, X,
-    act, chooses, ident_name, letters, lever_info, mk, need_level_word, push_words, res_names, role_info, world_says)
+from game_base import (ADJ, ADJ_LOOK, BOLD_IX, C, CNAME, COLORS, DRIVER_WORD, E, EP, FREQ, GAME, KNAMES, NEED_WORD, STAGES, X,
+    act, bix, chooses, ident_name, letters, lever_info, mk, need_level_word, push_words, res_names, role_info, world_says)
 from game_words import (ACC_FROM_ENGINE, PRESSURE, RARE_SHARE, STAKE_KIND, STAKE_MARK, STAKE_NEAR, STAKE_SOON,
     THREAD_COMMIT, THREAD_GOAL, accept_word, clash_with, clean, hint, long_shot_words, reluctance, stake_risk)
 from story_base import LIB_ECHO, LIB_GONE, PERSON_SLOTS
@@ -90,6 +90,8 @@ class CheckpointsMixin:
             pass                                        # v22.5 proposal: the next rung of a pack career or a summit is asked
         elif ret is not None:
             pass                                        # Picks come back: a return is always put to the player
+        elif GAME["bold"] and self._bold_forced(t, s):
+            pass                                        # Bold ways: the situation pause promised this card (bold_ask)
         else:
             # v6: life events are rare and come at real rates, so they are the big moments to offer the player; everyday
             # situations fill most weeks, and each one waits longer every time it has been a checkpoint (variety)
@@ -116,6 +118,9 @@ class CheckpointsMixin:
             if GAME["returns"] and s in self._cp_n and self.__dict__.get("_ret_owed", 0) > 0:
                 self._ret_owed -= 1
                 return None                     # Picks come back: a return took this repeat's place: told, not asked
+            if GAME["bold"] and not life and not rare and self._link_owed > 0:
+                self._link_owed -= 1
+                return None                     # Bold ways: a link took this everyday ask's place: told, not asked
         self._last_seen[s] = t
         self._cp_n[s] = self._cp_n.get(s, 0) + 1
         return self._build_checkpoint(t, loc, a)
@@ -237,6 +242,8 @@ class CheckpointsMixin:
         if self.story.one_roll and loc.get("WL") is not None:
             self._one_roll(loc)                         # F7: the world's dead, before the scene names anyone
         ret = getattr(self, "_ret_cand", None) if GAME["returns"] else None
+        if ret is not None and ret.get("link") and ret.get("title"):
+            self.story.title_now = ret["title"]         # Bold ways: a shared link's {title} is the title the bold try was about
         m = self.story.moment(t, L["names"][s], int(loc["stage"][0]), t / 52, kind, self._kills(L, s),
                               ret["who"] if ret else None)
         self._far_moment(m, loc, s)                     # far_ties: the far moment's tie, town and event (Library slots)
@@ -281,10 +288,16 @@ class CheckpointsMixin:
                 cp["thread"] = self._thread_line(cause, t / 52); cause["told"] = int(t)   # each thread told once in a while
         if ret is not None:                             # Picks come back: the return opens on the pick it answers
             cp["ret"] = ret; cp["thread"] = self._ret_line(ret, t / 52); cp["seed"] = self._seed_view(ret, m, opts)
-            self._ret_owed = self.__dict__.get("_ret_owed", 0) + 1   # it takes the place of the next repeat that would be asked
+            if ret.get("link"):                         # Bold ways: a link opens on the bold try and takes an everyday ask's place
+                cp["thread"]["line"] = self._bold_link_line(ret, t / 52); cp["seed"]["link"] = ret.get("side")
+                self._link_owed += 1
+            else:
+                self._ret_owed = self.__dict__.get("_ret_owed", 0) + 1   # it takes the place of the next repeat that would be asked
         b = X.say(X.before(loc, 0, rng=self.vrng), self.name)
         cp["snap"] = X.snapshot(loc, 0, b)
         cp["view"] = self._view(loc, b, cp)
+        if GAME["bold"] and self._bold_now and not recon:
+            self._bold_options(loc, cp)                 # Bold ways: up to two more ways, after the moment's own
         return cp
 
     # ------------------------------------------------------------------ v7: the character's view, and what came of it
@@ -468,7 +481,8 @@ class CheckpointsMixin:
         """Item 4: the pick at a moment put to the player is a turning point (GAME piv...). It moves the colors, and part of
         the deep core, toward the picked ways (or toward what they wanted, on a backfire) and starts the season lean (F2).
         Changes the engine's state in place at the week's end, as the forced-pick costs do."""
-        k, own = int(cpw["choice"]), int(cpw["own"])
+        pushed = int(cpw["choice"]) != int(cpw["own"])
+        k, own = bix(cpw["choice"]), bix(cpw["own"])     # Bold ways: a bold way teaches its base way's ways
         m = np.maximum(np.asarray(loc["m"][0], float), 0)
         if m[k].sum() <= 0:                                  # doing nothing teaches nothing about their ways
             return None
@@ -476,8 +490,8 @@ class CheckpointsMixin:
         w = E.softmax(loc["z"][0]); dist = float(0.5 * np.abs(T - w).sum())
         stakes = float(loc["L"]["STAKES"][int(loc["s"][0])])
         judged = (hind or {}).get("kind")
-        kind, share, lean = ("own", GAME["piv_own"], GAME["piv_own"]) if k == own else ("toward", 1.0, 1.0)
-        if k != own and (not worked or judged == "resented"):
+        kind, share, lean = ("own", GAME["piv_own"], GAME["piv_own"]) if not pushed else ("toward", 1.0, 1.0)
+        if pushed and (not worked or judged == "resented"):
             kind, share, lean = "half", GAME["piv_fail"], 0.5
             if not worked and (judged == "resented" or self._prng.random() < min(0.8, GAME["backfire"] * dist * stakes)):
                 if m[own].sum() > 0:                         # it backfires: they learn toward what they wanted instead
@@ -575,7 +589,8 @@ class CheckpointsMixin:
             pick = self._picks.get(int(sd["t"]))
             if pick is None:                            # a pick the game did not keep: told as an ordinary moment
                 return None
-            return dict(pick, kind=sd["kind"], ok=bool(sd["ok"]), k=k)
+            ret = dict(pick, kind=sd["kind"], ok=bool(sd["ok"]), k=k)
+            return self._bold_ret(ret, sd) if GAME["bold"] else ret
         mark = LIB_ECHO.get(self.L["names"][s])
         if not mark:
             return None

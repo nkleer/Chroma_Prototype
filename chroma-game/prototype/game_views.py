@@ -606,6 +606,8 @@ class ViewsMixin:
                 opts[-1]["at_stake"] = o["at_stake"]
             if o.get("commit_say"):                     # v22.5, F12 (world_hold): the world's word for a career
                 opts[-1]["commit_say"] = o["commit_say"]
+            if o.get("bold"):                           # Bold ways: the chip, the fit hint, what it wins and costs
+                opts[-1]["bold"] = o["bold"]
         sp = self.shadow_pull(self.loc, (cp.get("view") or {}).get("heart")) if self.loc is not None else None
         if sp is not None:                           # item 2: once seen, the heart's pick their shadow drives carries a mark
             for o in opts:
@@ -854,6 +856,8 @@ class ViewsMixin:
                           if self.over else "")
         if self.history.get("returns"):              # Picks come back: each pick that came back, with the pick it came from
             d["returns"] = [dict(a=x["seed"]["age"], m=x["seed"]["moment"], b=x["age"], n=x["moment"]) for x in self.history["returns"]]
+        if self.history.get("bold"):                 # Bold ways: each try (taken, won or lost), with its link
+            d["bold"] = self._bold_book()
         return d
 
     def _life_review(self):

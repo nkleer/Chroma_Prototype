@@ -25,6 +25,7 @@ from game_voice import VoiceMixin
 from game_life import LifeMixin
 from game_views import ViewsMixin
 from game_causes import CausesMixin
+from game_bold import BoldMixin
 
 PRESETS = {
     "1": dict(title="Newborn in an ordinary world",
@@ -50,7 +51,7 @@ PRESETS = {
 }
 
 
-class Game(CheckpointsMixin, WorldMixin, VoiceMixin, LifeMixin, ViewsMixin, CausesMixin):
+class Game(CheckpointsMixin, WorldMixin, VoiceMixin, LifeMixin, ViewsMixin, CausesMixin, BoldMixin):
     """One life. Drive it with advance() and decide(); read it with status() and the log."""
     _recall_t = -10 ** 6    # week a memory coming back was last told
     # how much each part of temperament must move before the log says so, and the words for up and down
@@ -123,6 +124,8 @@ class Game(CheckpointsMixin, WorldMixin, VoiceMixin, LifeMixin, ViewsMixin, Caus
             P["echo_play"] = True       # Picks come back: the Engine's hook, read once as the life starts, set only by the game
         if GAME["causes"] and "role_why" in E.DEFAULT:
             P["role_why"] = True        # Every change has a cause: the Engine records why each title or perk came or went
+        if GAME["bold"] and "bold_play" in E.DEFAULT:
+            P["bold_play"] = True       # Bold ways: the Engine offers a card's bold ways when the game asks (bold_ask)
         # the outer world (chroma-world/, approved 10-06 10:51; in the final version by Emren's 22:24 word): on wherever the
         # pinned engine has it, for Earth lives (presets 5 and 6 stay as they are, ruling R1); its seed is the life's
         # The setup's world inputs (release row W41; world-build.md): the history dial (pace 0.5 calm to 2 turbulent, only the
@@ -259,6 +262,9 @@ class Game(CheckpointsMixin, WorldMixin, VoiceMixin, LifeMixin, ViewsMixin, Caus
         self._last_pick = None
         self._picks, self._seeds, self._ret_owed = {}, [], 0   # Picks come back: each asked pick by its week; the seeds the
         # marked ones planted; returns asked that have not yet taken a repeat's place
+        self._bold_t, self._bold_now, self._bold_pick, self._link_owed, self._bold_watch = None, [], -1, 0, None   # Bold ways: the week and moment
+        # promised to the player at the situation pause, the bold ways offered and the character's own slot at choose, and
+        # links asked that have not yet taken an everyday ask's place
         try:                            # how many lives meet each moment (the Book's rarity), Modern Earth only
             from rarity import RARITY
             self._sit_share = (RARITY.get("sit") or {}) if self.setting == "earth" else {}
@@ -345,11 +351,15 @@ class Game(CheckpointsMixin, WorldMixin, VoiceMixin, LifeMixin, ViewsMixin, Caus
                                        + [round(float(x), 4) for x in E.softmax(loc["y"][0])] + [bd, lb])   # read it
             elif kind == "situation":
                 self._title_now(loc)
+                if GAME["bold"]:
+                    self._bold_situation(t, loc, int(np.asarray(val).ravel()[0]), until_checkpoint)
                 reply = val                             # the engine times life events itself since v6
             elif kind == "choose":
                 self._title_now(loc)
                 if t == 6 * 52:
                     self._family_faith(loc)
+                if GAME["bold"]:
+                    self._bold_choose(loc)
                 cp = self._checkpoint(t, loc, val) if until_checkpoint and t / 52 >= self.start_age else None
                 if cp is not None:
                     self.pending = cp
@@ -396,7 +406,7 @@ class Game(CheckpointsMixin, WorldMixin, VoiceMixin, LifeMixin, ViewsMixin, Caus
                 self.over = True; self.result = e.value
                 self._life_review()
             return
-        own = int(a[0])
+        own = int(cp["own"]) if cp.get("bold") else int(a[0])   # Bold ways: their own pick may be a bold way
         lt = None
         if light and pick is None and self.loc is not None:
             pick, lt = self._light_steer(self.loc, cp, light)
@@ -410,7 +420,7 @@ class Game(CheckpointsMixin, WorldMixin, VoiceMixin, LifeMixin, ViewsMixin, Caus
             rel = o["rel"] * (lt["share"] if lt else 1.0) * o.get("era_k", 1.0)   # P3: a light steer costs what it changed; the era
             self._force = dict(rel=rel, closed=o["status"] == "out of reach", idx=pick, acc=o.get("acc") or accept_word(o["rel"]),
                                trust=o.get("trust", 0.0), light=lt)
-            a = a.copy(); a[0] = pick
+            a = a.copy(); a[0] = bix(pick)             # a bold way plays as its base way
             choice = pick
             self.history["forced"] += 1; self.history["rel"].append(rel)
             if GAME["own_ix"]:
@@ -424,6 +434,8 @@ class Game(CheckpointsMixin, WorldMixin, VoiceMixin, LifeMixin, ViewsMixin, Caus
         if g_ is not None:
             self.history["gift"].append(g_)
         self._cp_week = dict(cp=cp, choice=choice, own=own)
+        if cp.get("bold"):
+            self._bold_take(cp, choice)                 # Bold ways: the slot taken, or -1, always told to the Engine
         if GAME["returns"] and self.loc is not None and "P" in self.loc:
             self.loc["P"]["echo_asked"] = True          # Picks come back: the engine plants this asked pick's seeds
         if GAME["own_ix"] and lt and choice == own:     # S2: the light steer kept their own pick

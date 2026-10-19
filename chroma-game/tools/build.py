@@ -213,7 +213,7 @@ def main():
 
     rows = "\n".join(f"| engine_pin/{d} | {os.path.relpath(s_, root) if s_.startswith(root) else s_} | {md5(s_)[:12]} |" for s_, d in pins)
     key = ["game.py", "game_base.py", "game_words.py", "game_checkpoints.py", "game_world.py", "game_voice.py", "game_life.py",
-           "game_views.py", "game_causes.py", "console.py", "link.py", "story.py", "story_text.py", "story_base.py", "story_cast.py", "story_moments.py",
+           "game_views.py", "game_causes.py", "game_bold.py", "console.py", "link.py", "story.py", "story_text.py", "story_base.py", "story_cast.py", "story_moments.py",
            "story_lines.py", "story_goals.py", "worldview.py", "routine.py", "routine_text.py", "rarity.py", "web/worker.js",
            "web/src/head.html", "web/src/body.html", "web/index.html"]
     app_dir = os.path.join(G, "web", "src", "app")      # the app's parts (one app.js in a game from before 10-17)

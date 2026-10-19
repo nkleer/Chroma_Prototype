@@ -203,22 +203,31 @@
             n = sd_["n"]
             if sd_["done"] is not None or sd_["due"] is None or t < sd_["due"] or ep_now[n] >= 0:
                 continue
-            if t > sd_["due"] + EPP["keep"] * 52:   # too long past: it stays a seed that never came back
+            if t > sd_["due"] + EPP["keep"] * 52 or t > sd_.get("until", t):   # too long past (a bold seed: its links'
+                # delay and a season): it stays a seed that never came back
                 sd_["done"] = -1
                 continue
             if had_ev[n] or dead[n] or s[n] != s_ep[n] or t - ep_last[n] < EPP["gap"] * 52 or ep_rng.random() >= EPP["w"]:
                 continue
             ys_ = (t - sd_["t"]) / 52; sa0_ = ns.get("sa"); ns["sa"] = np.full(N, ys_)
-            c_ = [(s_, e_) for s_, e_, cd_ in EP_C.get((sd_["kind"], sd_["ok"]), ())
-                  if avail0[n, s_] and not once_done[n, ROOT[s_]] and ys_ >= cd_["delay"][0] and ev_cond(cd_["req"], ns)[n]]
+            for k_ in (sd_["kind"], sd_.get("alt")):   # bold ways: a bold seed with no link of its own open takes a shared
+                if k_ is None:                         # link of its kind of change (of_change:) and side
+                    continue
+                c_ = [(s_, e_) for s_, e_, cd_ in EP_C.get((k_, sd_["ok"]), ())
+                      if avail0[n, s_] and not once_done[n, ROOT[s_]] and ys_ >= cd_["delay"][0] and ev_cond(cd_["req"], ns)[n]]
+                new_ = [x for x in c_ if sit_n[n, x[0]] == 0] or [x for x in c_ if t - sit_last[n, x[0]] >= EPP["again"] * 52]
+                if new_:
+                    break
             ns["sa"] = sa0_
-            if not c_:
-                continue
-            new_ = [x for x in c_ if sit_n[n, x[0]] == 0] or [x for x in c_ if t - sit_last[n, x[0]] >= EPP["again"] * 52]
             if not new_:
                 continue
             s_, e_ = new_[int(ep_rng.integers(len(new_)))]
             s[n] = s_; sd_["done"] = t; sd_["got"] = int(s_); ep_now[n] = i_; ep_last[n] = t
+            if "bold" in sd_:   # a bold seed's link: shared or its own; gone when someone of its moment has died since
+                sd_["link"] = True; sd_["change"] = k_ != sd_["kind"]
+                if WON and sd_["who"]:
+                    sd_["gone"] = any(((WL.PP.uid[n] == u_) & WL.PP.used[n] & ~WL.PP.lv[n]).any()
+                                      for sl_, u_ in sd_["who"].items() if sl_ != "dead")
             if e_ >= 0:   # a mark echo: its own clock is spent
                 echo_anchor[n, e_] = NEVER; echo_ready[n, e_] = False
     def factor(c_, ns, memo=None):

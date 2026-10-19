@@ -11,12 +11,21 @@
             on_ = ONCE[s] & live_
             once_done[ar[on_], ROOT[s[on_]]] = True       # a child version and its original are one event (variant_of)
             if RON:   # the act's titles and perks: becoming a nurse, a licence taken (on success; the _if_fails fields on failure)
-                for n in np.nonzero(GR["A_HASFX"][s, a] & ~idle & live_)[0]:
+                for n in np.nonzero(GR["A_HASFX"][s, a] & ~idle & live_ & (bold_pick < 0))[0]:
                     for op_, j0_, yrs_ in GR["A_FX"][(int(s[n]), int(a[n]))]["ok" if succ[n] else "fail"]:
                         if j0_ == LONG_ and not succ[n]:
                             continue                           # [a long shot that missed]: only after a real long shot, below
                         for j_ in fx_targets(n, int(s[n]), j0_):
                             r_act(n, op_, j_, yrs_, "through " + L["labels"][s[n]][a[n]], ma[n])
+                if BO_ON:   # a bold pick: the bold way's act fields in place of its base way's (the first one named is the
+                    for n in np.nonzero((bold_pick >= 0) & ~idle & live_)[0]:   # title its links tell of)
+                        bor_ = BO_ROWS[bo_row[n, bold_pick[n]]]; bo_title[n] = None
+                        for op_, j0_, yrs_ in bor_["fx"]["ok" if succ[n] else "fail"]:
+                            if j0_ == LONG_ and not succ[n]:
+                                continue
+                            for j_ in fx_targets(n, int(s[n]), j0_):
+                                bo_title[n] = GR["names"][j_] if bo_title[n] is None else bo_title[n]
+                                r_act(n, op_, j_, yrs_, "through " + bor_["label"], ma[n])
                 if C5F_ >= 0 and WL is not None:   # C5: "a following of your own" taken and working founds the movement in
                     # their town: its colours become the founder's own, its growth scales with their reach (ties .8 is 1)
                     for n in np.nonzero((GR["A_TITLE"][s, a] == C5F_) & succ & ~idle & live_)[0]:
@@ -130,7 +139,12 @@
                 kk = int(ENDS[s[n]])
                 end([n], [kk], "widowed" if KILLS[s[n]] == ROLES.index("partner") else "lost job" if kk == CAR else "broke up", t)
             # marks: what the act leaves in the person's history (echoes read them years later)
-            mk_ = L["MARK"][s, a]; hm_ = np.nonzero((mk_ >= 0) & ~idle & live_)[0]
+            mk_ = L["MARK"][s, a]
+            if BO_ON and (bold_pick >= 0).any():   # a bold pick leaves the bold way's mark: when it names one
+                mk_ = mk_.copy()
+                for n in np.nonzero(bold_pick >= 0)[0]:
+                    mk_[n] = BO_ROWS[bo_row[n, bold_pick[n]]]["mark"] if BO_ROWS[bo_row[n, bold_pick[n]]]["mark"] >= 0 else mk_[n]
+            hm_ = np.nonzero((mk_ >= 0) & ~idle & live_)[0]
             if DR_ON and len(hm_):   # F17: most acts of a rare deed pass; a share by their stakes leaves the mark
                 rr_ = DR_M[mk_[hm_]]
                 if rr_.any():
@@ -169,6 +183,21 @@
                         due_ = t + int(round(ep_rng.uniform(*EPP["delay"]) * 52)) if ep_rng.random() < EPP["p"] else None
                         ep_seeds.append(dict(n=int(n), t=t, kind=k_, src=src_, s=int(s[n]), a=int(a[n]), ok=bool(succ[n]),
                                              due=due_, done=None, got=None))
+            if EP_ON and BO_ON:   # a bold pick plants its link's seed: kind bold:<moment>/<colour>, side by how it went, due
+                for n in np.nonzero((bold_pick >= 0) & ~idle & live_)[0]:   # inside its links' delay:; none in a link's week
+                    if ep_now[n] >= 0 and "bold" in ep_seeds[ep_now[n]]:
+                        continue
+                    bor_ = BO_ROWS[bo_row[n, bold_pick[n]]]; bok_b_ = bool(succ[n])
+                    boch_ = bor_["change"]["well" if bok_b_ else "badly"]
+                    bodl_ = [cd_["delay"] for _, _, cd_ in EP_C.get((bor_["kind"], bok_b_), ()) or EP_C.get(("change:" + boch_, bok_b_), ())]
+                    bocap_ = bo_n[n] >= P["bold_cap"]   # past the cap the seed is done at once (it never comes back)
+                    bolo_, bohi_ = (min(d_[0] for d_ in bodl_), max(d_[1] for d_ in bodl_)) if bodl_ else EPP["delay"]
+                    bodue_ = None if bocap_ else t + int(round(ep_rng.uniform(bolo_, bohi_) * 52))
+                    ep_seeds.append(dict(n=int(n), t=t, kind=bor_["kind"], src="bold", s=int(s[n]), a=int(a[n]), ok=bok_b_,
+                                         due=bodue_, done=-1 if bocap_ else None, got=None, bold=int(bor_["i"]),
+                                         alt="change:" + boch_ if boch_ else None, link=False, change=False, who=None, gone=False,
+                                         title=bo_title[n], until=t + int(round((bohi_ + 0.25) * 52))))   # its window: delay + a season
+                    bo_seed[n] = len(ep_seeds) - 1; bo_n[n] += not bocap_
             # moves: the family moves, or the person moves away or leaves home (and it works)
             mvk = (L["MOVES"][s] & live_) | (((mk_ == MIDX["moved away"]) | (mk_ == MIDX["left home"]) | (mk_ == MIDX.get("came home", -2))) & succ & ~idle & live_)
             mv_own_ = (((mk_ == MIDX["moved away"]) | A_MOVE[s, a]) & succ & ~idle & live_)   # their own move
