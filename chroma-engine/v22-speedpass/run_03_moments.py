@@ -166,3 +166,22 @@
                 for ok_k in ((True,) if c_.get("side") == "well" else (False,) if c_.get("side") == "badly" else (True, False)):
                     EP_C.setdefault((c_["of"], ok_k), []).append((c_["s"], -1, c_))
 
+    BO_ON = bool(P["bold_play"]) and BAT and bool(L.get("BOLD"))   # bold ways (see DEFAULT's bold_play)
+    bold_now = None; bold_pick = np.full(N, -1)   # this week's bold slots (asked weeks) and the slot taken (-1: none)
+    if BO_ON:
+        BO_ROWS, BO_S = L["BOLD"], L["BOLD_S"]
+        bo_row = np.full((N, 2), -1); bo_base = np.full((N, 2), -1); bo_ph = np.zeros((N, 2))   # each slot's row, base way, felt odds
+        bo_n = np.zeros(N, int); bo_seed = np.full(N, -1); bo_title = [None] * N   # seeds planted; this week's; its title
+        bold_log = []   # (life, week, row, slot, odds, worked)
+        def bo_odds(n, rw_, p0_):
+            """A bold way's odds for life n from its base way's (p0_): the written chances' logit gap, then likelier_if:
+            points, between .1 and .9."""
+            p0_ = min(max(float(p0_), 1e-6), 1 - 1e-6)
+            p_ = 1 / (1 + np.exp(-(np.log(p0_ / (1 - p0_)) + rw_["shift"])))
+            for op_, j_, y_, pts_ in rw_["lik"]:
+                if op_ == "mark":
+                    h_ = mark_n[n, j_] > 0
+                else:
+                    h_ = RON and r_has[n, j_] and (op_ == "has" or t - r_since[n, j_] >= y_ * 52)
+                p_ += pts_ / 100 * bool(h_)
+            return min(max(p_, 0.1), 0.9)

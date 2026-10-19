@@ -499,11 +499,13 @@ def _packs(world, packs, pack_moments, R):
     return out
 
 
-def load_batch(world="earth", symmetric=False, roles=None, packs=None, pack_moments=None, setting="earth", more=None):
+def load_batch(world="earth", symmetric=False, roles=None, packs=None, pack_moments=None, setting="earth", more=None,
+               bold=None, links=None):
     """packs: the content packs on top of the base (default PACKS, the approved ones); pack_moments: {pack: path of a
     compiled moments file} for a pack the Library has not built into chroma-library/ yet (tests). setting: the world the
     life is played in (earth, tribal, magic: the game's presets); a moment with only: <another world> is left out.
-    more: moments added after the packs' (tests: tools/t_steps.py's return moment)."""
+    more: moments added after the packs' (tests: tools/t_steps.py's return moment). bold, links: the bold ways and their
+    links in place of <world>_play.BOLD and LINKS (tests: tools/t_steps.py's); given, they load without BOLD_MOMENTS."""
     sys.path.insert(0, os.path.abspath(LIB_DIR))
     sys.modules.pop(world, None)                          # always read the batch from LIB_DIR as it is now
     try:
@@ -534,6 +536,13 @@ def load_batch(world="earth", symmetric=False, roles=None, packs=None, pack_mome
         sits = [x for x in sits if not str(x.get("cast_want") or "").strip().startswith("far_")]
     if not RETURN_MOMENTS:   # picks come back (echo_play): the return moments load only for a played life with it on
         sits = [x for x in sits if x.get("tier") != "return"]
+    BOLD_ = {}
+    if BOLD_MOMENTS or bold is not None or links is not None:   # bold ways: the Library's BOLD rows and their links (return
+        pp_ = os.path.join(LIB_DIR, f"{world}_play.py")          # moments of:, side: and delay:, kept in <world>_play.py)
+        PL_ = _module(pp_, f"chroma_{world}_play") if BOLD_MOMENTS and os.path.exists(pp_) else None
+        BOLD_ = dict(getattr(PL_, "BOLD", {}) if bold is None else bold)
+        sits += [_bold_link(x) for x in (getattr(PL_, "LINKS", []) if links is None else links)
+                 if not x.get("only") or setting in [w_.strip() for w_ in str(x["only"]).replace(",", " ").split()]]
     for on_, cw_ in ((EYES_MOMENTS, ("caught", "odd")), (SACRED_MOMENTS, ("sacred", "tragic", "amends")),
                      (LEAD_MOMENTS, ("lead_",)),   # v22.4's social moments (S3/S4, S5, S7) wait for its own refit
                      (TURNOVER_MOMENTS, ("place_closed", "place_opened"))):   # the finishing pack's, for the pack's refit
@@ -669,6 +678,8 @@ def load_batch(world="earth", symmetric=False, roles=None, packs=None, pack_mome
     L["PACKS"] = PK["names"]
     _adjectives(L)
     _chance(L, R)
+    if BOLD_ or any(c_.get("of", "").startswith("bold:") for c_ in L["COND"]):
+        _bold(L, BOLD_)
     _world_fields(L)
     return L
 
@@ -887,6 +898,8 @@ TRUST_MOMENTS = True    # the spheres' finishing pack, part 3: moments gated on 
                         # low|high, body_trust) join the batch at the pack's refit
 SHADOW_MOMENTS = True   # the spheres finishing pack, part 5: moments with shadow: (the Library's Crime pack, A13) join the
                         # batch at its refit; until then the batch is as before
+BOLD_MOMENTS = False    # bold ways (chroma-ideas/gameplay-2026-10-17/bold-ways.md): the Library's <world>_play.BOLD rows and
+                        # LINKS load only for a played life with bold_play on (the game sets it); off, every life is as before
 RETURN_MOMENTS = False  # picks come back: moments with tier: return join the batch only for a played life with echo_play
                         # on (the game sets it); off, the library and every life are as before
 SPH_MOMENTS = True   # item 15: moments with haunt: or ladder: join the batch once the spheres' haunts and rungs are built
@@ -1054,6 +1067,140 @@ def _earned(L, PK):
             G["A_TITLE"][si, ki] = tt_[0]
         if tt_ or gp_:
             G["A_EARN"][si, ki] = (tt_ or gp_)[0]
+
+
+def _bold_link(x):
+    """A bold way's link (<world>_play.LINKS): a return moment answering a bold seed, of_bold: <moment> / <colour> (that
+    bold way's own link, of kind bold:<moment>/<colour>), else of_change: <kind> (a shared link of that kind of change);
+    side: well or badly; delay: lo-hi years (delay_years)."""
+    x = dict(copy.deepcopy(x), tier="return")
+    if x.get("of_bold"):
+        m_, _, c_ = str(x["of_bold"]).rpartition("/")
+        if not m_.strip() or c_.strip().upper() not in list(E.COLORS):
+            raise ValueError(f"{x['name']}: of_bold: {x['of_bold']!r} is not <moment> / <colour>")
+        x["of"] = f"bold:{m_.strip()}/{c_.strip().upper()}"
+    elif x.get("of_change"):
+        x["of"] = "change:" + str(x["of_change"]).strip()
+    else:
+        raise ValueError(f"{x['name']}: a link needs of_bold: or of_change:")
+    if str(x.get("side") or "").strip() not in ("well", "badly"):
+        raise ValueError(f"{x['name']}: side: must be well or badly")
+    if "delay_years" not in x:
+        dv_ = x.get("delay", (1.0, 3.0))
+        dv_ = [float(y_) for y_ in str(dv_).replace(" ", "").split("-") if y_] if isinstance(dv_, str) else \
+            [float(dv_)] * 2 if isinstance(dv_, (int, float)) else [float(y_) for y_ in dv_]
+        x["delay_years"] = (dv_[0], dv_[-1])
+    return x
+
+
+LIKELIER_RE = [("has", re.compile(r"^has\s*\[(.+?)\]\s*([+-]\d+(?:\.\d+)?)$")),
+               ("years", re.compile(r"^years\s*\[(.+?)\]\s*(\d+(?:\.\d+)?)\s*([+-]\d+(?:\.\d+)?)$")),
+               ("mark", re.compile(r"^mark\s*['\"](.+?)['\"]\s*([+-]\d+(?:\.\d+)?)$"))]
+
+
+def _bold(L, table):
+    """Bold ways (bold_play; chroma-ideas/gameplay-2026-10-17/bold-ways.md): <world>_play.BOLD, {moment: [row, row?]},
+    at most two rows a moment in different colours. A row is one more way beside its base way (base: the label of one of
+    the moment's ways; the row's colour is that way's strongest), with its own chance (the written odds of an ordinary
+    person, against the base way's), act fields (title, drops, grants, takes, suspends, each also _if_fails, for_years)
+    in place of the base way's, an optional mark:, likelier_if: ("has [title] +10; years [title] 3 +5; mark 'x' +5", at
+    most 15 points a clause and 30 together; or a list of (kind, name, years or None, points)), requires: (the bold
+    way's own gate: a title or perk held, any of several), change: dict(well=kind, badly=kind) for the shared links; its
+    colour: and base_index:, when given, must be the base way's. L["BOLD"]: the rows compiled;
+    L["BOLD_S"]: {moment index: [row index, ...]}; a row's src is the Library's (its works: and fails: are the game's).
+    Each link's of_bold: must name a row."""
+    G = L.get("ROLES"); names = L["names"]; MI_ = {m_: i_ for i_, m_ in enumerate(L["MARKS"])}
+    rows = []; by_s = {}
+    lg_ = lambda p_: np.log(p_ / (1 - p_))
+    for nm, rs in table.items():
+        if nm not in names:
+            raise ValueError(f"BOLD: {nm!r} is not a moment")
+        si = names.index(nm); rs = [rs] if isinstance(rs, dict) else list(rs)
+        if not 1 <= len(rs) <= 2:
+            raise ValueError(f"BOLD {nm!r}: one or two bold ways, not {len(rs)}")
+        for r in rs:
+            lb_ = list(L["labels"][si])
+            if r.get("base") not in lb_:
+                raise ValueError(f"BOLD {nm!r}: base: {r.get('base')!r} is not one of its ways {lb_}")
+            ki = lb_.index(r["base"])
+            if not L["MASK"][si, ki] or L["M"][si, ki].std() < 1e-9:
+                raise ValueError(f"BOLD {nm!r}: base: {r['base']!r} must be a way of acting (not doing nothing)")
+            col = int(np.argmax(L["M"][si, ki]))
+            if r.get("base_index") is not None and int(r["base_index"]) != ki:
+                raise ValueError(f"BOLD {nm!r}: base_index {r['base_index']} is not {r['base']!r}'s ({ki})")
+            if r.get("colour") and str(r["colour"]).strip().upper() != E.COLORS[col]:
+                raise ValueError(f"BOLD {nm!r}: colour {r['colour']!r}, but its base way's is {E.COLORS[col]}")
+            if any(x_["colour"] == col for x_ in rows if x_["s"] == si):
+                raise ValueError(f"BOLD {nm!r}: two bold ways in {E.COLORS[col]}")
+            c = float(r["chance"]); c = c / 100.0 if c > 1.0 else c
+            if not 0.01 <= c <= 0.99:
+                raise ValueError(f"BOLD {nm!r}: chance {r['chance']!r} out of 1 to 99%")
+            cb = L["CHANCE"][si, ki]; cb = 0.5 if np.isnan(cb) else float(cb)   # a base way with no chance: even odds
+            fx = dict(ok=[], fail=[])
+            for op in ACT_OPS:
+                for key, when in ((op, "ok"), (op + "_if_fails", "fail")):
+                    for x_ in _names(r.get(key)):
+                        if G is None:
+                            raise ValueError(f"BOLD {nm!r}: {key}: with no titles and perks loaded")
+                        if x_ == "{title}":
+                            if not G["S_HASHOLD"][si]:
+                                raise ValueError(f"BOLD {nm!r}: {key}: {{title}} needs holds: on the moment")
+                            j = TITLE_HELD
+                        elif x_.startswith("kind:"):
+                            if x_[5:].strip() not in TITLE_KINDS or op in ("title", "grants"):
+                                raise ValueError(f"BOLD {nm!r}: {key}: {x_} - a kind of title can be dropped, not given")
+                            j = KIND_ACT - TITLE_KINDS.index(x_[5:].strip())
+                        elif x_ in G["ID"]:
+                            j = G["ID"][x_]
+                        else:
+                            raise ValueError(f"BOLD {nm!r}: {key}: {x_!r} is not a title or perk")
+                        fx[when].append((op, j, float(r.get("for_years", 1.0))))
+            mk = -1
+            if r.get("mark"):
+                if r["mark"] not in MI_:
+                    raise ValueError(f"BOLD {nm!r}: mark: {r['mark']!r} is not a mark")
+                mk = MI_[r["mark"]]
+            lik = []; lf_ = r.get("likelier_if") or ""
+            if isinstance(lf_, str):   # "has [x] +n; years [x] y +n; mark 'x' +n", or (kind, name, years or None, points)s
+                cls_ = []
+                for cl_ in [y_.strip() for y_ in lf_.split(";") if y_.strip()]:
+                    hit_ = [(op_, rx_.match(cl_)) for op_, rx_ in LIKELIER_RE if rx_.match(cl_)]
+                    if not hit_:
+                        raise ValueError(f"BOLD {nm!r}: likelier_if: {cl_!r} is not has [x] +n, years [x] y +n or mark 'x' +n")
+                    op_, m_ = hit_[0]
+                    cls_.append((op_, m_.group(1).strip(), m_.group(2) if op_ == "years" else None, m_.groups()[-1]))
+            else:
+                cls_ = [tuple(c_) for c_ in lf_]
+            for op_, it_, yr_, pts_ in cls_:
+                pts_ = float(pts_); cl_ = f"{op_} {it_} {pts_:+g}"
+                if op_ not in ("has", "years", "mark"):
+                    raise ValueError(f"BOLD {nm!r}: likelier_if: {op_!r} is not has, years or mark")
+                if abs(pts_) > 15:
+                    raise ValueError(f"BOLD {nm!r}: likelier_if: {cl_!r} - at most 15 points a clause")
+                if op_ == "mark":
+                    if it_ not in MI_:
+                        raise ValueError(f"BOLD {nm!r}: likelier_if: {it_!r} is not a mark")
+                    lik.append((op_, MI_[it_], 0.0, pts_))
+                else:
+                    if G is None or it_ not in G["ID"]:
+                        raise ValueError(f"BOLD {nm!r}: likelier_if: {it_!r} is not a title or perk")
+                    lik.append((op_, G["ID"][it_], float(yr_) if op_ == "years" else 0.0, pts_))
+            if sum(abs(x_[3]) for x_ in lik) > 30:
+                raise ValueError(f"BOLD {nm!r}: likelier_if: at most 30 points together")
+            rq_ = _names(str(r.get("requires") or "").replace("|", ";"))   # the bold way's own gate: a title or perk held
+            if rq_ and (G is None or any(x_ not in G["ID"] for x_ in rq_)):   # (any of several)
+                raise ValueError(f"BOLD {nm!r}: requires: {r['requires']!r} names no title or perk")
+            ch_ = r.get("change") or {}
+            rows.append(dict(i=len(rows), moment=nm, s=si, base=ki, colour=col, kind=f"bold:{nm}/{E.COLORS[col]}",
+                             label=str(r.get("label") or r["base"]), chance=c, c_base=cb, shift=float(lg_(c) - lg_(cb)),
+                             fx=fx, mark=mk, lik=lik, req=[G["ID"][x_] for x_ in rq_], change=dict(well=str(ch_.get("well") or "").strip(),
+                                                                  badly=str(ch_.get("badly") or "").strip()), src=dict(r)))
+            by_s.setdefault(si, []).append(len(rows) - 1)
+    kinds_ = {x_["kind"] for x_ in rows}
+    bad_ = sorted({c_["name"] for c_ in L["COND"] if c_.get("of", "").startswith("bold:") and c_["of"] not in kinds_})
+    if bad_:
+        raise ValueError(f"links whose of_bold: names no bold way: {bad_}")
+    L["BOLD"] = rows; L["BOLD_S"] = by_s
 
 
 def _chance(L, R):

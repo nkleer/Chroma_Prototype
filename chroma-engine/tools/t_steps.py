@@ -1,4 +1,4 @@
-"""Engine check for the pause points (backend plan item 2, 2026-10-08) and each switch's own rows: 71 rows, about an hour
+"""Engine check for the pause points (backend plan item 2, 2026-10-08) and each switch's own rows: 72 rows, about an hour
 (50 to 65 min measured 10-17: the Engine with T_JOBS=4, Release on #288).
 
 engine.run_steps() is engine.run() pausing six times a week for the game. On a few short runs this checks that
@@ -42,6 +42,11 @@ engine.run_steps() is engine.run() pausing six times a week for the game. On a f
      events of it off (but the causes); every title or perk a logged life gains in time, or loses as time passed or
      slipped away, carries its cause, and every history item named is before the change and inside the rule's window;
      asrc (what moved the want, by source) and the played life's asrc_c are handed over at the pauses.
+ 17. bold ways (bold_play, the game's played-life hook), on a made-up BOLD table and links: switched on and never asked,
+     the lives of it off; asked at every pick, run_steps() lives as run(); asked by the game, the character and the game
+     take bold ways, at the odds bold_now told (between .1 and .9), each bold pick outside a link's week plants one seed
+     of its kind and side, at most bold_cap due, and the links come back of their side, after their delay, a shared link
+     only with no own link open, and only as links; the bold way's win comes "through" it.
 
     python3 -B chroma-engine/tools/t_steps.py [ENGINE_DIR]
 T_JOBS=N: the rows of 8 and 9 on N processes (default up to 4, by the cores there are; 1: one after another).
@@ -798,6 +803,96 @@ if "role_why" in E.DEFAULT:
           f"{R_['gain']} gains in time and {R_['loss']} losses as time passed or slipped away, each with its cause "
           f"({R_['items']} items, {R_['none']} with none to name), each before the change and inside the rule's window; "
           f"asrc handed over at the pauses{'' if not fails else '; ' + '; '.join(fails[:4])} ({time.process_time() - t0:.0f} s)")
+# 17. bold ways (bold_play, the game's played-life hook), on a made-up BOLD table and links
+if "bold_play" in E.DEFAULT and "bold" in batch.load_batch.__code__.co_varnames:
+    import copy
+    t0 = time.process_time(); fails = []
+    BW_ = {"a deadline at college or work": [
+        dict(base="leave it to the last night and write it in one wild burst", label="t_steps: an all-nighter, bolder",
+             chance=0.35, grants="friend for life", mark="took a wild risk", likelier_if="mark 'learned a skill' +10",
+             change=dict(well="t_steps: it paid off", badly="t_steps: a falling-out")),
+        dict(base="cancel everything else and hand it in on time, as you promised", label="t_steps: twice the work, on time",
+             chance=0.4, likelier_if="has [friend for life] +10", change=dict(well="t_steps: it paid off", badly="t_steps: a falling-out"))],
+        "awake at night worrying about the future": dict(base="decide that from tomorrow you look after number one, whatever it takes",
+                                                          label="t_steps: quit the safe plan", chance=0.3)}
+    src_ = next(x for x in EARTH["src"] if x["name"] == "the same chance comes round again")
+    def _lk(nm_, **kw_):
+        x_ = dict(copy.deepcopy(src_), name="t_steps: " + nm_, **kw_); x_.pop("variant_of", None); x_.pop("tier", None)
+        return x_
+    LK_ = [_lk("the all-nighter, on", of_bold="a deadline at college or work / R", side="well", delay="1-2"),
+           _lk("the promise, on", of_bold="a deadline at college or work / W", side="badly", delay="1-3"),
+           _lk("after a falling-out", of_change="t_steps: a falling-out", side="badly", delay="1-3"),
+           _lk("after it paid off", of_change="t_steps: it paid off", side="well", delay="1-3")]
+    L_ = batch.load_batch("earth", packs=list(batch.PACKS), bold=BW_, links=LK_)
+    kw = dict(N=2, years=20, seed=6, lib=L_)
+    d_off = digest(E.run(**kw, P=dict(E.DEFAULT)))
+    d_on = digest(E.run(**kw, P=dict(E.DEFAULT, bold_play=True)))
+    if [x for x in set(d_off) | set(d_on) if d_off.get(x) != d_on.get(x) and x != "bold"]:
+        fails.append("on and never asked, the lives move")
+    P_ = dict(E.DEFAULT, bold_play=True, bold_ask="all")
+    o1 = E.run(**kw, P=dict(P_)); g = E.run_steps(**kw, P=dict(P_)); msg = next(g)
+    while True:
+        try:
+            msg = g.send(msg[3])
+        except StopIteration as done:
+            o2 = done.value
+            break
+    if digest(o1) != digest(o2) or digest(o1) == d_off or not o1["bold"]:
+        fails.append("asked at every pick, run_steps does not live as run(), or nothing moved")
+    P_ = dict(E.DEFAULT, bold_play=True, bold_cap=3, echo_play=True,
+              echo_play_par=dict(E.DEFAULT["echo_play_par"], w=1.0, gap=0.0, again=0.0))
+    g = E.run_steps(N=1, years=40, seed=6, lib=L_, P=P_, log_lives=(0,)); msg = next(g)
+    offered = took = 0; now_ = None; link_wk = set(); odds_ok = True; slot_ = -1
+    while True:
+        kind, t, S, val = msg
+        if kind == "situation" and S["age"] >= 8:
+            S["P"]["bold_ask"] = True
+        if kind == "choose":
+            now_ = S["bold_now"][0] if S["bold_now"] is not None else None
+            if S["ep_now"][0] >= 0 and "bold" in S["ep_seeds"][S["ep_now"][0]]:
+                link_wk.add(t)
+            if now_:
+                offered += 1
+                if S["bold_pick"][0] < 0 and offered % 3 == 0:   # the game takes the first slot (a = its base way)
+                    S["P"]["bold_take"] = now_[0]["slot"]; val = np.array(val); val[0] = now_[0]["base"]; took += 1
+        if kind == "odds" and S["bold_pick"][0] >= 0:
+            pw_ = [x for x in now_ if x["slot"] == S["bold_pick"][0]][0]["p"]
+            odds_ok &= abs(float(val[0]) - pw_) < 1e-3 and 0.1 <= float(val[0]) <= 0.9
+        try:
+            msg = g.send(val)
+        except StopIteration as done:
+            o_ = done.value
+            break
+    bl_ = o_["bold"]; sd_ = [x for x in o_["returns"] if "bold" in x]; got_ = [x for x in sd_ if x["got"] is not None]
+    if offered < 10 or len(bl_) < 5 or not took or not {0, 1} <= {x[3] for x in bl_}:
+        fails.append(f"{offered} asks with bold ways, {len(bl_)} bold picks, {took} taken by the game")
+    if not odds_ok:
+        fails.append("the odds at the odds pause are not bold_now's, or outside .1 to .9")
+    if [(x["t"], L_["BOLD"][x["bold"]]["i"], x["ok"]) for x in sd_] != [(b_[1], b_[2], b_[5]) for b_ in bl_ if b_[1] not in link_wk]:
+        fails.append("the seeds are not the bold picks outside the links' weeks")
+    if sum(x["due"] is not None for x in sd_) > 3 or any(x["due"] is None and x["done"] != -1 for x in sd_):
+        fails.append("more seeds due than bold_cap, or one past the cap not done at once")
+    if any(x["kind"] != L_["BOLD"][x["bold"]]["kind"] for x in sd_):
+        fails.append("a seed of another kind than its bold way")
+    for x in got_:
+        c_ = [c_ for c_ in L_["COND"] if c_["s"] == x["got"]][0]
+        if c_["side"] != ("well" if x["ok"] else "badly") or c_["of"] != (x["alt"] if x["change"] else x["kind"]) \
+                or not x["link"] or x["done"] - x["t"] < c_["delay"][0] * 52:
+            fails.append(f"a link of the wrong kind, side or time: {L_['names'][x['got']]}")
+    if not got_ or not any(x["change"] for x in got_):
+        fails.append(f"{len(got_)} links, {sum(x['change'] for x in got_)} shared")
+    if int(o_["sit_n"][0, [L_["names"].index(x_["name"]) for x_ in LK_]].sum()) != len(got_):
+        fails.append("a link moment came other than as a link")
+    if any(b_[2] == 0 and b_[5] for b_ in bl_) and not any(x.get("role", {}).get("how") == "through t_steps: an all-nighter, bolder"
+                                                          for x in o_["events"][0]):
+        fails.append("the bold way's win did not come through it")
+    fails = list(dict.fromkeys(fails))
+    bad += bool(fails)
+    print(f"{'PASS' if not fails else 'FAIL'}  bold ways (bold_play): on and never asked, the lives of it off; asked at every "
+          f"pick, run_steps lives as run(); asked, {len(bl_)} bold picks of {offered} asks ({took} the game's), at the odds "
+          f"bold_now told, {len(sd_)} seeds (cap 3, none in a link's week), {len(got_)} links "
+          f"({sum(x['change'] for x in got_)} shared) of their side and delay{'' if not fails else '; ' + '; '.join(fails[:4])} "
+          f"({time.process_time() - t0:.0f} s)")
 # 11. nothing read at a pause outside the handed-over names (an engine without STATE_MISSED reads its whole frame)
 if hasattr(E, "STATE_MISSED"):
     bad += bool(E.STATE_MISSED)

@@ -155,6 +155,8 @@
                     more_["misread"] = round(float(mis_[i, a[i]]), 2)   # logit the felt odds were bent by (+ hopeful, - fearful)
                 if WON and W_WHO_[s[i]]:   # who is in the moment: the cast member with the want first, else by role
                     more_["who"] = WL.who(i, int(s[i]))
+                    if BO_ON and bo_seed[i] >= 0:   # bold ways: the seed keeps who was in its moment (a link may find them gone)
+                        ep_seeds[bo_seed[i]]["who"] = more_["who"]
                 if WON and EYES_ON_ and EYEW_[s[i]]:   # S3, S4: the places of a caught-between or odd-one-out moment
                     ei_ = WL.eyes_info(i, int(s[i]))
                     if ei_:
@@ -312,7 +314,7 @@
                                                 invested=gi, born=gb, due=gh, horizon=ghz, source=gsrc, trigger=gtrig, felt=gfelt,
                                                 chance=gch, p_step=gph, by_player=gby, id=gid, aims=gtt,
                                                 lost=dict(mix=lost_m, domain=lost_d, strength=lost_s, age=lost_t, on=lost_on, id=lost_id)),
-                regret=regret, marks=dict(names=L["MARKS"], n=mark_n, last=mark_last, ok=mark_ok, log=mark_log), alive=alive, **(dict(returns=ep_seeds) if EP_ON else {}),
+                regret=regret, marks=dict(names=L["MARKS"], n=mark_n, last=mark_last, ok=mark_ok, log=mark_log), alive=alive, **(dict(returns=ep_seeds) if EP_ON else {}), **(dict(bold=bold_log) if BO_ON else {}),
                 read_log=read_log, read_names=[e_["name"] for e_ in EVR], widowed=widowed, seasons=sea_log,
                 identity=dict(female=female, attr=attr, unease=unease, gender_self=gender_self, intersex=intersex, ace=ace,
                               **(dict(named=named_g, came_out=came_o, partner_same=partner_same, role_fit=1 - rfit_avg,
