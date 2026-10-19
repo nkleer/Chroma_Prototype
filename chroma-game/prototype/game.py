@@ -262,7 +262,7 @@ class Game(CheckpointsMixin, WorldMixin, VoiceMixin, LifeMixin, ViewsMixin, Caus
         self._last_pick = None
         self._picks, self._seeds, self._ret_owed = {}, [], 0   # Picks come back: each asked pick by its week; the seeds the
         # marked ones planted; returns asked that have not yet taken a repeat's place
-        self._bold_t, self._bold_now, self._bold_pick, self._link_owed = None, [], -1, 0   # Bold ways: the week and moment
+        self._bold_t, self._bold_now, self._bold_pick, self._link_owed, self._bold_watch = None, [], -1, 0, None   # Bold ways: the week and moment
         # promised to the player at the situation pause, the bold ways offered and the character's own slot at choose, and
         # links asked that have not yet taken an everyday ask's place
         try:                            # how many lives meet each moment (the Book's rarity), Modern Earth only
