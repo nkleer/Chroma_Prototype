@@ -1,7 +1,7 @@
 4a5b36da879fc5d1447779a7b741cace  batch.py
 757721ec4414965232f272d129713c58  combos.py
 249f655cc2aeb32b9a86500a9cd5554e  earth_rules.py
-fa41fe980b7fdc4f02b72793d3ea1777  engine.py
+867b00563fcec7203491f337c1a96618  engine.py
 c2e2b80a0d47ac3f78b29e6ddc1b0e1a  explain.py
 b57543223f7f52165b270ca8111689c3  foresee.py
 14b874af736c7c3971f97312eea3adb3  library.py
@@ -34,7 +34,7 @@ ecc7e5efc381381b70aadb40f4f16ab7  world_people_views.py
 dab5123368ab03c8e884b644f9669b96  run_01_start.py
 826a9bde94e0400b000b9d82baaa595a  run_02_goals.py
 3f760cfe89c4b9ab8f88d4870b8271b6  run_03_moments.py
-ca4c1a5533555cc0f387c651b98a6479  run_04_titles.py
+51900659bec5731b6feb201095d9010a  run_04_titles.py
 e732029783927ddbaf98c862eb50f305  run_05_conditions.py
 3b44e181eecaeddf28bc5054c2c0e5b5  run_06_world.py
 f67d8d7e8e0d3972e9791608451ee961  run_07_body.py
@@ -63,4 +63,4 @@ fede3c5d1ffd369591b7c161c2ef62fa  world_link_base.py
 61e18d3ad9889cf4d4f55b54cd503959  world_link_week.py
 1fd57f43baa0a4f477630ddc91424545  world_link_rates.py
 0688a2e3cc9d8b9237720897b3203b56  world_link_life.py
-2da80c9a9e33d3c0c32447954c686146  realm_earth.py
+3d58ca25f27c582eabb7e882ed3fa2ad  realm_earth.py

@@ -850,7 +850,7 @@ DEFAULT = dict(
     aims_par=dict(slots=3, fit=0.3, seek=1.0, reluctant=0.5, spark_seek=2.0, meet=(0.03, 0.06, 0.09, 0.12), half=4.0,
                   half_set=2.0, drop=0.05, call_yrs=3.0, set_s=0.5, spark_up=0.15),
     # the heights of a life (plan.md section 5), read-only: the week each height (Known, Notable, Historic) was first
-    # reached (realm_earth.HEIGHT_NAMES, a sphere rung of pillar or more, a summit title, leading a movement); on with aims
+    # reached (realm_earth.HEIGHT_NAMES, leading a sphere (rung 4), a summit title, leading a movement); on with aims
     heights=False,
     echo_play_par=dict(p=0.6, w=0.3, delay=(1.0, 8.0), keep=10.0, gap=0.5, again=12.0),
     # bold ways (chroma-ideas/gameplay-2026-10-17/bold-ways.md): set only by the game for a played life, with the batch's
