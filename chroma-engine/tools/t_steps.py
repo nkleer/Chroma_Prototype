@@ -56,8 +56,9 @@ engine.run_steps() is engine.run() pausing six times a week for the game. On a f
      lives move; no setback comes before its age (realm_earth.IMP_AGE); with the v7 tables a partnership gives meaning.
  20. aims v1 and the heights (aims, heights), with the batch's aims, world off and on: run_steps() lives as run(); every
      step reached has a name of it held (or is a Known step, by a sphere rung); a height's week never moves once reached;
-     an aim the player sets (foresee.set_aim) is held as theirs, not the character's own; the track and the choices
-     (foresee.aims, aim_choices) are well formed; the batch without aims carries none.
+     an aim the player sets (foresee.set_aim) is held as theirs, not the character's own; the track, the choices and the
+     hover's aim ways (foresee.aims, aim_choices, aim_ways, read at every pick) are well formed and change no life; the
+     batch without aims carries none.
  21. footprints (foot_on), with the batch's FOOT tables, world off and on: run_steps() lives as run() and the lives move;
      every pick's footprints are its option's; a means moves by its value (or to 0 or 1), a mark or door is left that
      week, the act's own mark counts only when a rule reads it, a person met is in the cast and a place joined is a
@@ -1035,7 +1036,7 @@ if "aims" in E.DEFAULT and "aims" in batch.load_batch.__code__.co_varnames:
     LA_ = batch.load_batch("earth", packs=list(batch.PACKS), aims=True)
     if "AIMS" in (EARTH or {}):
         fails.append("the batch without aims carries them")
-    seen_ = dict(steps=0, own=0, set=0, calls=0, track=0, heights=0)
+    seen_ = dict(steps=0, own=0, set=0, calls=0, track=0, heights=0, ways=0)
     for wl_, N_, Y_, sd_ in ((False, 4, 50, 9), (True, 2, 30, 4)):
         P_ = dict(E.DEFAULT, aims=True, world=wl_)
         kw = dict(N=N_, years=Y_, seed=sd_, lib=LA_, log_lives=(0,))
@@ -1056,6 +1057,12 @@ if "aims" in E.DEFAULT and "aims" in batch.load_batch.__code__.co_varnames:
                         if q_ < 0 or S["ak"][0, q_] != a_ or S["aown"][0, q_] or not S["aby"][0, q_]:
                             fails.append(f"set_aim: not held as set by the player ({why_})")
                         set_ = (q_, a_); seen_["set"] += 1
+                if kind == "choose" and S.get("AIM_ON") and not edit_:   # the hover's aim ways, read-only
+                    for n_ in range(N_):
+                        for k_, ws_ in FS_.aim_ways(S, n_).items():
+                            seen_["ways"] += len(ws_)
+                            if not S["mask"][n_, k_] or any(S["ak"][n_, w_["slot"]] < 0 for w_ in ws_):
+                                fails.append("aim_ways names a closed option or an empty slot")
                 if kind == "end" and S.get("AIM_ON"):
                     A_ = S["AIM"]
                     for n_, q_ in zip(*np.nonzero(S["ak"] >= 0)):
@@ -1066,19 +1073,19 @@ if "aims" in E.DEFAULT and "aims" in batch.load_batch.__code__.co_varnames:
                             fails.append(f"{A_['names'][a_]}: step {k_} reached with none of its names held")
                     if (S["aim_best"] < np.where(S["ak"][..., None] == np.arange(A_["A"]), S["astep"][..., None], 0).max(1)).any():
                         fails.append("an aim's best below its steps now")
-            if kind == "end" and S.get("AIM_ON") and t % 260 == 0:   # the track and the choices, now and then
-                for n_ in range(N_):
-                    tr_ = FS_.aims(S, n_); ch_ = FS_.aim_choices(S, n_)
-                    seen_["track"] += len(tr_)
-                    if any(x_["reached"] > len(x_["steps"]) or (x_["next"] is None) != (x_["reached"] == len(x_["steps"]))
-                           for x_ in tr_) or len(ch_) > 6:
-                        fails.append("the aims track or choices malformed")
-            try:
-                msg = g.send(val)
-            except StopIteration as done:
-                o2_ = done.value
-                break
-        if not edit_ and digest(o1_) != digest(o2_):
+                if kind == "end" and S.get("AIM_ON") and t % 260 == 0:   # the track and the choices, now and then
+                    for n_ in range(N_):
+                        tr_ = FS_.aims(S, n_); ch_ = FS_.aim_choices(S, n_)
+                        seen_["track"] += len(tr_)
+                        if any(x_["reached"] > len(x_["steps"]) or (x_["next"] is None) != (x_["reached"] == len(x_["steps"]))
+                               for x_ in tr_) or len(ch_) > 6:
+                            fails.append("the aims track or choices malformed")
+                try:
+                    msg = g.send(val)
+                except StopIteration as done:
+                    o2_ = done.value
+                    break
+            if not edit_ and digest(o1_) != digest(o2_):
                 fails.append(f"world {'on' if wl_ else 'off'}: run_steps not the lives of run()")
         lg_ = o1_["aims"]["log"]
         seen_["steps"] += sum(r_["what"] == "step" for r_ in lg_); seen_["own"] += sum(r_["what"] == "became their own" for r_ in lg_)
@@ -1090,7 +1097,7 @@ if "aims" in E.DEFAULT and "aims" in batch.load_batch.__code__.co_varnames:
     print(f"{'PASS' if not fails else 'FAIL'}  aims v1 and the heights, switched on (world off and on): run_steps lives as "
           f"run(); {seen_['steps']} steps reached, each with a name of it held; {seen_['own']} sparked, {seen_['calls']} "
           f"callings, {seen_['heights']} heights reached (never moved once reached); set_aim held as the player's "
-          f"({seen_['set']}); the track well formed ({seen_['track']} read){'' if not fails else '; ' + '; '.join(sorted(set(fails))[:4])} "
+          f"({seen_['set']}); the track well formed ({seen_['track']} read), {seen_['ways']} aim ways at the picks{'' if not fails else '; ' + '; '.join(sorted(set(fails))[:4])} "
           f"({time.process_time() - t0:.0f} s)")
 # 21. footprints (foot_on; workstream 3), Earth and packs with the batch's FOOT tables
 if "foot_on" in E.DEFAULT and "foot" in batch.load_batch.__code__.co_varnames:
