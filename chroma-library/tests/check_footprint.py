@@ -7,7 +7,8 @@ A footprint is one of: person, place, means, mark, door, lesson. Existing fields
             children title; commit:partner, commit:children
     place   commit:community / career / faith; a community, career, faith or standing title or perk
     means   tags win: / lose: / pay:; an asset perk
-    mark    mark: a mark some title or perk rule reads (chroma-engine/v22-speedpass/rules_titles.py, rules_perks.py)
+    mark    mark: a mark some title or perk rule reads (chroma-engine/v22-speedpass/rules_titles.py, rules_perks.py),
+            or one of footprint_names.MARKS_WIRED (read by the engine's people and world code)
     door    back: <seed kind>
 and foot: adds the rest (compiled to earth_foot.py's FOOT; read only with the engine's foot_on switch). Rules:
     one or two footprints an option; a lesson only when nothing else fits, on 1 option in 5 or fewer a moment, each
@@ -31,6 +32,8 @@ READ_MARKS = {m for m in earth.MARKS if f"'{m}'" in txt} if isinstance(earth.MAR
 if not READ_MARKS:
     import build   # the mark list lives in build.py when earth.MARKS is empty
     READ_MARKS = {m for m in build.MARKS if f"'{m}'" in txt}
+from footprint_names import MARKS_WIRED   # Library 10-19: marks the engine's people and world code answers
+READ_MARKS |= set(MARKS_WIRED)
 KIND = {t["name"]: t["kind"] for t in ept.TITLES}
 KIND.update({p["name"]: p["kind"] for p in ept.PERKS})
 BY_KIND = {"partner": "person", "children": "person", "bond": "person", "community": "place", "career": "place",
@@ -92,7 +95,7 @@ def check(names_, src):
                 problems.append(f"{where}: a lesson only when nothing else fits: {allf}")
             for k, v in ft:
                 if k == "mark" and v not in READ_MARKS:
-                    problems.append(f"{where}: foot: mark '{v}' is a mark no title or perk rule reads")
+                    problems.append(f"{where}: foot: mark '{v}' is a mark nothing in the life answers")
                 if k == "mark" and v in PERSON_MARKS:
                     problems.append(f"{where}: foot: mark '{v}' is a person; write foot: person friend (or rival)")
                 if (k, v) in ex or (k == "mark" and (o[5] or {}).get("mark") == v) or \

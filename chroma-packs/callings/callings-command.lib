@@ -1,0 +1,475 @@
+# Chroma content pack, The Five Callings: THE COMMAND ROAD (Red, the commander), moments 1 to 9 of "The command road" in
+# callings/MOMENTS-BRIEF.md: the soldier's everyday holder pair (calls WR / calls UBG, cycle s4) and the army officer's
+# (calls BR / calls WUG, cycle s1); two steps, 'officer selection' (pairs D4a) and 'the army needs a new general' (pairs
+# D4b); a fall and wrong, 'the report on the night that went wrong' (triads D2b); a long shot, 'the field commission'
+# (triads D5a); and a crossing of the tribal world alone, 'the war leader is chosen at the gathering' (triads D6a).
+# Syntax: header of chroma-library/build.py. Rules: chroma-library/SPEC.md, notes/library-spec.md and the brief's pack
+# rules. Names in title:, grants:, takes_if_fails:, grants_if_fails:, requires:, holds: and aims: come from
+# callings/catalogue.py, core/longshot.py and the base catalogue (chroma-library/earth_perks_titles.py); world lines
+# follow the forms table of the brief (callings/worlds.py): the soldier is a hunter of the guard or a soldier of the
+# realm, the army officer a leader of the hunters and the guard or a captain of the realm's army, the general the war
+# leader of the clans or a warlord, general of the realm. Every moment shared by the worlds carries earth:, tribal: and
+# magic: lines and an untagged scene for each of the two other worlds; an option whose act reads differently there
+# carries its own wording; the works and fails lines read in every world.
+# Holder pairs (moments 1 to 4): the two halves share stages, ages, holds:, rate (.5, a career) and gap (1-3); no share:
+# line (the holds: gate does the drawing, as art-rungs.lib); no option takes a new title: the next rung is an aims:, and
+# grants: gives only a perk plainly earned ([leading soldiers], [mentioned in dispatches], [old comrades]). Inside every
+# moment each colour's mean chance is the same (a single and its cross option; a single and half of each of its two
+# pairs; a single and a third of each of its three triads), so the file is even in every stage.
+# Steps and the long shot carry their real chances (the brief: officer selection passed 35, a general's post 6, long
+# shots 2 to 5), the same for every colour that tries for the same rung; the earned-odds lifts (helps.py, half on the
+# summit) come on top in the engine. The long shot's singles carry grants_if_fails: a long shot that missed; the steps,
+# at real odds, carry no perk on failure. Every option of a life event leaves one or two footprints (the footprints
+# brief): a title, a counted perk or a read mark where it has one, else a foot: just before chance:.
+# Content: a road of soldiers in peacetime, of training, floods, long years of command and one hard loss. Nobody is
+# killed by the character and no option kills; no fighting, massacre, harm to civilians, torture or prisoner appears or
+# can be picked; injuries and losses are plain and offstage (a leg broken on a night exercise, a truck that left a
+# mountain road far away, a vehicle overturned on exercise); no recruit or soldier in any text is a child, and no child
+# is ever in danger. The new sergeant's harm is words and punishments only. No real army, regiment, war, battle,
+# country, rank title of a real country, person, place or year is named: "the army", "the academy", "the general
+# staff". In the tribal world the spirits speak only through the shaman, on one optional and priced option (a closed:
+# approval: line with its backfire), never by the person's own gift; modern Earth has no magic.
+
+# ---------------------------------------------------------------- soldier: calls WR / calls UBG (cycle s4)
+# 1. The corporal falls on a night exercise and someone has to take charge. Each colour's single and cross option sum to
+# 140 (a mean of 70): the bold carry and the lone run are the hard acts, the patient wait and the drill the steady ones.
+
+== the corporal is hurt on exercise
+tier: everyday
+rate: 0.5
+gap: 1-3
+times: per soldier a year: about 1 in 8 sees a comrade hurt badly enough on exercise or in training to be carried off, with no officer near (estimate); training injuries are the commonest injuries in peacetime armies, most of them to the legs and feet (armed forces injury surveys); about 5 lives in 100 serve as soldiers (catalogue share)
+stages: young_adult adult mature
+age: 17-55
+calls: WR
+holds: soldier
+tone: trouble
+life: work, friends
+horizon: moment
+roles: colleague, boss, friend
+earth: a night exercise in the hills: the section's corporal falls on the scree and breaks a leg, and someone has to take charge and get everyone down
+tribal: a night watch in the hills: the leader of the hunters' party falls among the rocks and breaks a leg, and someone has to bring everyone down to the camp
+magic: a night march over the fells: the corporal of the file falls on the scree and breaks a leg, and someone has to bring everyone down to the fort
+scene: Two in the morning on the exercise, high on the hill and in rain. The corporal, {colleague}, slips on the scree, goes down hard and cannot stand: the leg is broken. Seven soldiers, one radio, a map in a wet pocket and the meeting point far below, and everyone looks at everyone else, and then at {N}.
+scene W: There is a drill for this, and {N} learned it in the first week: the casualty first, then the radio, then the count, then the route. Somebody has to say it out loud.
+scene U: {N} pulls out the map under a torch, works out where they are to a hundred metres, and starts thinking about the gentlest way off the hill rather than the shortest.
+scene B: Someone will take charge in the next minute, and whoever does will be the one the officers hear about tomorrow. {N} knows it, and so does everyone else in the section.
+scene R: {N} is moving before anyone speaks: down beside the corporal, a hand on the shoulder, a joke to stop the shaking. The rain is coming sideways, and there is no time to wait for orders.
+scene G: The section has eaten, slept and marched together for a year. {N} looks round at the cold faces and knows who is frightened, who is fine, and who will carry their end of a stretcher all night without a word.
+scene tribal: High in the hills on the night watch, in rain, the leader of the hunters' party slips among the rocks and cannot stand: the leg is broken. Six hunters of the guard, one torch and the camp far below in the dark, and they all look at {N}.
+scene magic: On the night march over the fells the corporal of the file slips on the scree and cannot stand: the leg is broken. Seven soldiers of the realm, one lantern and the fort far below, and they all look at {N}.
+- W | take charge by the drill: the casualty, the radio, the count, then the route | grants: leading soldiers | aims: army officer | v: conformity, security | tribal: take charge as the old hunters taught: the hurt one, the signal fire, the count, the path | magic: take charge by the drill: the casualty, the signal horn, the count, the road | chance: 70
+- U | find the gentlest way down on the map, and splint the leg before anyone moves | mark: learned a skill | v: achievement, security | tribal: find the gentlest path down by the stars, and bind the leg to a spear shaft before anyone moves | chance: 70
+- B | get on the radio first, and make sure the officers know who took charge | aims: army officer | v: power, achievement | tribal: run to the ridge and light the signal fire, so the camp knows who took charge | magic: sound the horn for the fort, and make sure the captain knows who took charge | chance: 65
+- R | carry the corporal down on your back, and let the others follow | grants: mentioned in dispatches | body: heavy | v: benevolence, stimulation | tribal: carry the hurt leader down the hill on your back, and let the others follow | magic: carry the corporal down on your back, and let the file follow | chance: 60
+- G | keep everyone close and calm under the rocks, and wait warm for the rescue | self_control: + | v: benevolence, security | tribal: keep everyone close and calm under the overhang, and wait warm for the camp to come | magic: keep the file close and calm under the rocks, and wait warm for the fort's riders | chance: 75
+- W>G | set a rota so everyone takes a turn keeping the corporal warm and talking | v: benevolence, conformity | tribal: set a turn for each hunter to keep the hurt leader warm and talking | magic: set a rota so each soldier takes a turn keeping the corporal warm and talking | chance: 70
+- U>W | log the time, the grid reference and every step taken, for the report | habit | v: conformity, security | tribal: mark the place with stones, and keep every step taken in mind for the elders | magic: note the hour, the place and every step taken, for the captain's report | chance: 70
+- B>U | listen to how the officers run the rescue, and learn it for your own turn | door | self_control: + | v: achievement, power | tribal: watch how the old hunters bring the party in, and learn it for your own turn | magic: watch how the sergeants run the rescue, and learn it for your own turn | chance: 75
+- R>B | run the whole way down alone for help, faster than anyone thinks possible | body: heavy | mark: took a wild risk | v: stimulation, achievement | tribal: run down alone through the dark to the camp, faster than anyone thinks possible | magic: run down alone through the dark to the fort, faster than anyone thinks possible | chance: 80
+- G>R | sing the section's old songs all the way down, so nobody's spirit breaks | grants: old comrades | v: benevolence, tradition | tribal: sing the band's old songs all the way down, so nobody's heart fails | magic: sing the company's old marching songs all the way down, so nobody's heart fails | chance: 65
+works: By dawn everyone is off the hill, the broken leg is in good hands, and nobody else is hurt.
+works: The story of the night goes round the next day, and {Ns} name is in it.
+fails: The way down takes the whole night, two more turn their ankles, and the questions start the next morning.
+fails: Help comes late, and they arrive cold, shaken and arguing over who should have done what.
+
+# 2. A new sergeant picks on the platoon's slowest recruit, words and punishments only. The wrong is Green's means for
+# Red's end (going along with the group, for the easy laugh): marked gave in to pressure and closed by approval, with
+# the brief's backfire. White's complaint through the channel is closed by approval too (the platoon calls it
+# informing). Singles and cross options sum to 140 for every colour.
+
+== the platoon gets a new sergeant
+tier: everyday
+rate: 0.5
+gap: 1-3
+times: per soldier a year: about 1 in 6 serves under a sergeant or a corporal who singles one soldier out (estimate); service attitude surveys in several armies find about 1 serving soldier in 8 to 10 reporting bullying, harassment or discrimination in a year; about 5 lives in 100 serve as soldiers (catalogue share)
+stages: young_adult adult mature
+age: 17-55
+calls: UBG
+holds: soldier
+tone: trouble
+life: work, friends
+horizon: months
+roles: colleague, boss, mentor
+earth: a new sergeant comes to the platoon and picks on its slowest recruit: extra drills at dawn, a nickname, the whole platoon punished for one soldier's mistakes
+tribal: a new leader of the watch picks on the slowest hunter of the guard: the worst watches, the heaviest loads, mockery at the fire
+magic: a new sergeant comes to the company and rides its slowest recruit: extra drill, the latrines, names shouted across the parade ground
+scene: The new sergeant has been with the platoon a fortnight and has already found a target: {colleague}, the slowest runner and the clumsiest on the range. Extra drills at dawn, a nickname that has stuck, and the whole platoon doing press-ups in the mud for every mistake {colleague} makes. Some of the others have started to join in.
+scene W: The army has rules about how a sergeant may treat a soldier, and {N} has read them. Hard training is one thing; this is something else, and the rules say so.
+scene U: {N} watches the sergeant for a week and sees the pattern: always {colleague}, always in front of everyone, never when an officer is near. A pattern can be written down.
+scene B: The sergeant writes the reports that go up the chain, and nobody gets on by crossing them. {N} wonders what it would cost to be on the wrong side, and what it might be worth to be on the right one.
+scene R: Every time the sergeant starts on {colleague}, {Ns} jaw tightens. It would feel very good to say something, loudly, right there on the parade ground.
+scene G: The platoon was a family before the sergeant came: rude, awkward and close. Now it is splitting, and {colleague} eats alone. {N} feels it like weather turning.
+scene tribal: The new leader of the watch has been with the guard a moon and has found a target: {colleague}, the slowest hunter, given the worst watches and the heaviest loads and mocked at the fire every night. Some of the others have started to laugh along.
+scene magic: The new sergeant has been with the company a fortnight and has found a target: {colleague}, the slowest recruit, given extra drill, the latrines and a nickname shouted across the parade ground. Some of the others have started to join in.
+- W | report the sergeant through the proper channel, in writing and signed | mark: helped someone in need | closed: approval: a complaint against a sergeant from the ranks; backfire: the platoon calls it informing, and the sergeant learns who wrote it | v: conformity, universalism | tribal: tell the elders at the fire, plainly, what the leader of the watch is doing | magic: report the sergeant to the captain through the proper channel, in writing and signed | chance: 60
+- U | keep a dated note of every incident, until the pattern cannot be denied | self_control: + | v: security, universalism | tribal: cut a notch in a stick for every time it happens, until the pattern cannot be denied | chance: 70
+- B | make yourself the sergeant's right hand, and use it to steer them off the recruit | aims: army officer | v: power, security | tribal: make yourself the watch leader's right hand, and use it to steer them off the slow hunter | chance: 65
+- R | stand between the sergeant and the recruit next time, and say it out loud | mark: defied an authority | identity | v: universalism, stimulation | tribal: step between the watch leader and the slow hunter next time, and say it out loud | magic: step between the sergeant and the recruit on parade next time, and say it out loud | chance: 65
+- G | sit with the recruit at meals, and bring the others back to the table | grants: old comrades | identity | v: benevolence, tradition | tribal: sit with the slow hunter at the fire, and bring the others back to the circle | magic: sit with the recruit at mess, and bring the others back to the table | chance: 70
+- W>G | set up evening runs for the whole section, so the recruit is never last alone | grants: leading soldiers | habit | v: benevolence, conformity | tribal: set up runs at dusk for the whole guard, so the slow hunter is never last alone | magic: set up evening runs for the whole file, so the recruit is never last alone | chance: 80
+- U>W | look up the regulations, and show the platoon commander which ones are broken | identity | v: conformity, universalism | tribal: remind the elders of the old rule that the guard shames nobody at the fire | magic: look up the articles of the realm's army, and show the captain which are broken | chance: 70
+- B>U | buy the old quartermaster a drink, and learn what moves the new sergeant | v: achievement, power | tribal: bring the oldest hunter a share of meat, and learn what moves the new watch leader | magic: buy the old quartermaster a cup, and learn what moves the new sergeant | chance: 75
+- R>B | get the platoon to stand together next time, so the sergeant faces all of them | binds | v: stimulation, power | tribal: get the whole guard to stand together next time, so the watch leader faces all of them | magic: get the company to stand together next time, so the sergeant faces all of them | chance: 75
+- G>R | look away, and laugh along with the others, so you stay one of the platoon | mark: gave in to pressure | closed: approval: laughing along while a recruit is picked on; backfire: the recruit leaves the army, and the inquiry asks who saw it and said nothing | self_control: - | v: hedonism, conformity | tribal: look away, and laugh along at the fire, so you stay one of the guard | magic: look away, and laugh along on parade, so you stay one of the company | chance: 70
+works: Within a month things change the way {N} meant them to, and nobody eats alone any more.
+works: The pressure eases, and at the next test the slowest of them finishes with the others cheering.
+fails: Nothing changes, and before long {colleague} asks to be sent somewhere else.
+fails: Word of it gets back, and the next month is a long one for {N}.
+
+# ---------------------------------------------------------------- army officer: calls BR / calls WUG (cycle s1)
+# 3. An order from above would put the officer's own soldiers at needless risk to meet a timetable (a pass in fog and
+# ice, a river in spate). The brief's five answers: obey (White), refuse (Red, marked defied an authority and closed by
+# approval), a smarter plan (Blue), the order asked for in writing (Black), over the commander's head (Black's means for
+# Red's end). No option touches anyone outside the unit. Singles and cross options sum to 140 for every colour.
+
+== an order you think is wrong
+tier: everyday
+rate: 0.5
+gap: 1-3
+times: per army officer a year: about 1 in 5 is given an order they believe puts their soldiers at needless risk, most often to keep to a timetable (estimate); about 6 lives in 1,000 are army officers (catalogue share)
+stages: young_adult adult mature
+age: 20-62
+calls: BR
+holds: army officer
+tone: trouble
+life: work
+horizon: moment
+roles: boss, colleague, mentor
+earth: an order from the commanding officer: drive the company's trucks over the mountain pass tonight, in fog and ice, so the exercise can start on time at dawn
+tribal: the elder of the guard orders the hunters across the swollen river tonight, in the dark, so they reach the far hills before the herd moves
+magic: an order from the commander of the fort: take the company's wagons over the high pass tonight, in fog and ice, so the review can begin at dawn
+scene: The order comes down at six in the evening from {boss}, the commanding officer: the company's trucks are to cross the pass tonight, so the exercise can start on time at dawn. The forecast says fog and black ice, the drivers have been awake since five, and the old road has no barrier on the drop side. {N} reads it twice.
+scene W: An order is an order, and an army runs because people carry them out. But the rules also say an officer answers for the soldiers' safety, and tonight the two pull different ways.
+scene U: There must be a better plan than this one: a later start, a lower road, a convoy at first light with the gritter in front. {N} pulls out the map and the timetable.
+scene B: {boss} writes {Ns} reports. Obeying costs nothing tonight, and refusing could cost a career; but if a truck goes over the edge, the name on the movement order will be {Ns}.
+scene R: {N} thinks of the drivers, red-eyed in the canteen, and feels the anger rise. Nobody who has driven that road at night in ice would give this order.
+scene G: {N} knows every driver by name, and the families of half of them. The exercise will happen with or without tonight; each of the drivers has one life.
+scene tribal: At dusk the elder of the guard sends word: the hunters are to cross the swollen river tonight, in the dark, to reach the far hills before the herd moves. The water is high and brown, the hunters have walked since dawn, and {N} leads them.
+scene magic: At dusk a rider brings the order from {boss}, the commander of the fort: the company's wagons are to cross the high pass tonight, in fog and ice, so the review can begin at dawn. The drivers are spent, the road has no wall on the drop side, and {N} leads them.
+- W | carry out the order to the letter, with every safety check done twice | v: conformity, security | tribal: take the hunters over as the elder ordered, every rope and handhold checked twice | magic: carry out the order to the letter, every wagon and wheel checked twice | chance: 60
+- U | work out a later, safer plan that still meets the start, and send it up | aims: general | v: achievement, security | tribal: find a safer crossing upstream that still reaches the far hills in time, and send word | magic: work out a later, safer road that still meets the dawn, and send it to the fort | chance: 70
+- B | ask for the order in writing and signed, so the risk sits with whoever gave it | v: power, security | tribal: ask the elder to give the order again before all the hunters, so the risk sits with whoever gave it | magic: ask for the order under the commander's seal, so the risk sits with whoever gave it | chance: 80
+- R | refuse to send the drivers tonight, and tell the commander why, face to face | mark: defied an authority | closed: approval: an order refused; backfire: a formal warning on the record, and the commanding officer does not forget it | v: benevolence, self-direction | tribal: refuse to take the hunters into the river tonight, and tell the elder why, face to face | magic: refuse to send the wagons tonight, and tell the commander why, face to face | chance: 65
+- G | let the drivers sleep six hours, cross at first light, and take what comes | identity | v: benevolence, security | tribal: let the hunters sleep, cross at first light when the water drops, and take what comes | magic: let the drivers sleep six hours, cross at first light, and take what comes | chance: 65
+- W>U | ring the weather office and the road police, and get the facts on paper first | v: conformity, security | tribal: send the best tracker to read the river and the sky, and bring back the facts first | magic: send riders to the pass and the weather-wise, and get the facts set down first | chance: 80
+- U>B | show the commander a plan that makes the delay look like their own idea | v: power, achievement | tribal: show the elder a way that makes waiting look like the elder's own idea | magic: show the commander a plan that makes the delay look like the commander's own idea | chance: 70
+- B>R | go above the commander's head to the general staff, and get the order stopped | mark: made an enemy | v: power, benevolence | tribal: go over the elder's head to the leader of all the guard, and get the order stopped | magic: send a rider over the commander's head to the general's tent, and get the order stopped | chance: 60
+- R>G | drive the pass alone first in the light truck, to see the road for the others | body: light | mark: took a wild risk | v: benevolence, stimulation | tribal: wade the river alone first on a rope, to find the footing for the others | magic: ride the pass alone first, to see the road for the others | chance: 75
+- G>W | gather the drivers, and agree a rule together: nobody drives who has not slept | grants: leading soldiers | v: benevolence, conformity | tribal: gather the hunters, and agree together that nobody crosses who has not slept | magic: gather the drivers, and agree together that nobody drives who has not slept | chance: 75
+works: The night passes without harm, and in the morning nobody has to explain anything they cannot.
+works: The commanders above hear how it was handled, and remember the name.
+fails: It goes wrong from the first hour, and {N} spends the week answering for it.
+fails: The order stands, the night is long and frightening, and {boss} is cool with {N} for months.
+
+# 4. A soldier of the unit did not come home from a deployment far away: a truck that left a mountain road at night,
+# told plainly and offstage, with nobody to blame in the text. The brief's four answers (visit the family, speak at the
+# memorial, push the inquiry, keep the unit together) are White's, Red's, Blue's and Green's singles; Black's briefs the
+# general staff first. Singles and cross options sum to 140 for every colour.
+
+== the unit comes home one short
+tier: everyday
+rate: 0.5
+gap: 1-3
+times: per army officer a year: about 1 in 25 loses a soldier of their own unit to an accident, an illness or an operation abroad (estimate); in peacetime, road and training accidents are among the commonest causes of death in armies (armed forces mortality reports); about 6 lives in 1,000 are army officers (catalogue share)
+stages: young_adult adult mature
+age: 20-62
+calls: WUG
+holds: army officer
+tone: trouble
+life: work, friends, meaning
+horizon: months
+roles: boss, colleague, mentor, friend
+earth: the unit is home from a deployment far away, one soldier short: a truck left a mountain road in the last week, and a family is waiting for answers
+tribal: the guard is back from the long journey to the far hills, one hunter short: the river took one of them at a crossing, and a hearth is waiting for someone to come and speak
+magic: the company is back from the long garrison in the north, one soldier short: a supply wagon went off a mountain road, and a family in the town is waiting for word
+scene: The unit came home on Tuesday to the families on the parade ground, one short. In the last week of the deployment a truck left a mountain road at night, and one of the drivers did not come home; the funeral was last week. Now the unit is on leave, the inquiry has begun, and the driver's family has asked to see the officer who led them.
+scene W: {N} signed the movement orders for that convoy. There is a duty to the family, a duty to the inquiry and a duty to the unit, and {N} means to keep all three.
+scene U: The report says the truck left the road in darkness. {N} wants to know why: the road, the truck, the hours the driver had worked, and the order that put them out there at night.
+scene B: Inquiries look for someone to blame, and {N} knows how these things go: the name on the order is usually the one that stays. {N} also knows who in the chain could make it go another way.
+scene R: {N} keeps seeing the driver's grin at the last roll call, and cannot sit still with it. The grief comes out as anger: at the road, at the army, at {N}.
+scene G: The unit is scattered on leave, each of them carrying it home alone. {N} thinks of the driver's mother, of the soldiers who shared that truck, and of how a unit either holds together after a loss or comes apart.
+scene tribal: The guard came back from the far hills one short: at a river crossing the water took one of the hunters, and the others could not reach him. The band has mourned, and now the hunter's mother has asked to see the one who led them.
+scene magic: The company came back from the long garrison in the north one short: a supply wagon went off a mountain road at night, and its driver did not come home. The town has buried the driver, and the family has asked to see the captain who led them.
+- W | visit the family, answer every question honestly, and keep in touch | mark: kept your word | v: benevolence, conformity | tribal: go to the hunter's hearth, answer every question honestly, and come back every moon | magic: ride to the family's house, answer every question honestly, and keep writing | chance: 75
+- U | push the inquiry for the true cause: the road, the truck, the hours worked | v: universalism, achievement | tribal: walk the crossing again, and find out truly why the water took the hunter | magic: press the inquiry for the true cause: the road, the wagon, the hours driven | chance: 60
+- B | brief the general staff before the inquiry does, and shape what they hear first | aims: general | v: power, security | tribal: speak to the leader of all the guard before the elders meet, and shape what they hear first | magic: ride to the general's staff before the inquiry sits, and shape what they hear first | chance: 70
+- R | speak at the memorial from the heart, without notes | v: benevolence, stimulation | tribal: speak at the mourning fire from the heart | magic: speak at the burying from the heart, without notes | chance: 70
+- G | ring every soldier on leave, and bring the unit back together at one table | grants: old comrades | v: benevolence, tradition | tribal: go to every hunter's hearth, and bring the guard back together at one fire | magic: visit every soldier on leave, and bring the company back together at one table | chance: 65
+- W>U | give the inquiry every order, log and timing, including your own mistakes | mark: owned up | identity | v: universalism, conformity | tribal: tell the elders every word and step of the crossing, your own mistakes too | magic: give the inquiry every order, log and hour, your own mistakes too | chance: 65
+- U>B | work out what the inquiry will ask, and have every answer ready | v: security, achievement | tribal: work out what the elders will ask, and have every answer ready | chance: 80
+- B>R | call in favours to fund a race every year in the driver's name | v: benevolence, power | tribal: call in what the bands owe, for a feast every year in the hunter's name | magic: call in favours for a tournament every year in the driver's name | chance: 70
+- R>G | take the soldiers who shared the truck away to the hills, and let them talk | v: benevolence, stimulation | tribal: take the hunters who were at the crossing up into the hills, and let them talk | magic: take the soldiers who rode with the wagon away to the hills, and let them talk | chance: 70
+- G>W | keep the old custom: an empty place at the unit's table, every year | habit | v: tradition, benevolence | tribal: keep the old custom: an empty place at the guard's fire, every year | magic: keep the old custom: an empty place at the company's table, every year | chance: 75
+works: They hold together, and the family knows the one they lost is not forgotten.
+works: A year on, the answers are clear, and the loss has changed something for the better.
+fails: They scatter, and nobody quite talks about it again.
+fails: The family's grief turns to anger, and much of it falls on {N}.
+
+# ================================================================ steps
+
+# ---------------------------------------------------------------- 5. officer selection (pairs D4a)
+# The academy's selection board: every colour's way through it passes at the real chance, 35, and makes an [army
+# officer] with [an officer's commission] (the rule in roles.py grants it too). It comes to a soldier of two years, a
+# graduate or one who has done national service (LIFE_CALLINGS), so every act is written to fit all three. The pairs at
+# 75 are the honest other ways: the slow road through the ranks, the practice papers first, the mountain leader course
+# first, an old officer of the town to sponsor it, or turning it down for now. Every colour's mean is 55.
+
+== officer selection
+tier: life event
+stages: young_adult adult
+age: 20-40
+holds: soldier | graduate | national service done
+per_year: 0 0 .08 .04 0 0
+drivers: era+.1
+times: per soldier of two years, graduate or one who has done national service, aged 20 to 40, a year: about 1 in 12 in the twenties and fewer later goes before an officer selection board (estimate); about 1 member in 6 of an active army is an officer (US Department of Defense figures in the catalogue), and selection boards pass about 1 candidate in 3 (estimate); about 6 lives in 1,000 become army officers (catalogue share)
+likelier: a sergeant who pushes, a degree and a fit body, years when the army is growing and short of young officers
+rarer: a record with the police, poor health, a family that wants a safer life, a year of cuts to the army
+gap: 1-3
+domain: career.5
+rite: young_adult
+tone: mixed
+life: work, school
+horizon: months
+roles: mentor, boss, parent, colleague, rival
+earth: the officer selection board: three days of tests, interviews and a muddy field, and a place at the academy for about one candidate in three
+tribal: the elders of the guard test who may lead the hunters: three days of tracking, carrying, a river crossing and speaking at the fire
+magic: the realm's captains hold their selection at the old fort: three days of trials, questions and a muddy field, for a place at the officers' school
+scene: The letter says three days at the selection board: written tests, an interview before a panel of senior officers, a talk to give, and a field of mud with a plank, two oil drums and a team of strangers who must all be got across. About one candidate in three is offered a place at the academy. {mentor} has said for years that {N} should go.
+scene W: {N} has read the board's handbook until the pages are soft: the qualities it looks for, the dress for each day, the order of the tests. To lead soldiers is a duty before it is a rank.
+scene U: The command tasks are puzzles with planks and drums and a clock running. {N} has been practising them on the kitchen table with matchsticks and a ruler.
+scene B: The board is the first gate on a long road, and {N} has looked up where the officers of other years ended up: some of them sit on the general staff now.
+scene R: {N} just wants to get into the mud and lead. The written tests feel like a fence to climb on the way to the real thing.
+scene G: Nobody in {Ns} family has been an officer. {parent} says the old soldiers of the town will be proud, and {N} wonders what it means to rise above the people {N} came up with.
+scene tribal: The elders of the guard will choose new leaders of the hunters this season. For three days the young hunters track, carry, take a party across the river and speak at the fire, and the elders watch every one of them.
+scene magic: The realm's captains hold their selection at the old fort every spring: three days of trials, questions before a panel of captains, and a field of mud where a team of strangers must be got over a ditch with two barrels and a plank. A captain's commission waits for perhaps one in three.
+- W | prepare by the board's own handbook, and answer every question as an officer should | title: army officer | grants: an officer's commission | v: conformity, achievement | tribal: learn the old rules of the guard by heart, and answer the elders as a leader should | magic: learn the captains' articles by heart, and answer the panel as an officer should | chance: 35
+- U | practise the command tasks for months, and solve the planks and drums cleanly | title: army officer | grants: an officer's commission | mark: learned a skill | habit | v: achievement, self-direction | tribal: practise the elders' trials for a season, and take the party over the river cleanly | magic: practise the trials for months, and solve the barrels and the plank cleanly | chance: 35
+- B | tell the panel plainly that you mean to be a general one day | title: army officer | grants: an officer's commission | aims: general | identity | v: power, achievement | tribal: tell the elders plainly that you mean to be war leader of the clans one day | magic: tell the panel plainly that you mean to be a general of the realm one day | chance: 35
+- R | throw yourself into the mud tasks, and lead from the front every time | title: army officer | grants: an officer's commission | body: heavy | v: stimulation, achievement | tribal: throw yourself into every trial, and lead from the front every time | chance: 35
+- G | speak at interview of the people you came up with, and what they taught | title: army officer | grants: an officer's commission | v: benevolence, tradition | tribal: speak at the fire of the hunters you grew up beside, and what they taught | magic: speak before the panel of the people you came up with, and what they taught | chance: 35
+- BG | take the slower road through the ranks, and earn the stripes one by one | grants: rank | self_control: + | v: achievement, tradition | tribal: stay a hunter of the guard, and earn the elders' trust one winter at a time | magic: take the slower road through the ranks, and earn the stripes one by one | chance: 75
+- RG | turn it down for now, and stay close to the friends you have | mark: turned down a chance | self_control: - | v: benevolence, hedonism | tribal: turn it down for now, and stay close to the hunters you run with | foot: means ties+.04 | chance: 75
+- UR | go on the mountain leader course first, and apply again next year | grants: navigation | door | v: achievement, stimulation | tribal: go into the high hills alone for a season first, and come back to the trials after | magic: walk the high passes with the mountain guides first, and come back to the trials next spring | foot: mark learned a skill | chance: 75
+- WB | ask an old officer of the town to put a name to the application | door | v: conformity, power | tribal: ask the oldest leader of the guard to speak for the asking at the elders' fire | magic: ask an old captain of the town to set a seal on the application | foot: person patron | chance: 75
+- WU | sit the practice papers until every score is safe, and go next year | self_control: + | v: achievement, conformity | tribal: practise the elders' trials with the old hunters until they are sure, and go next season | magic: sit the practice papers until every score is safe, and go next spring | foot: means time-.05 | chance: 75
+works: Word comes that {N} has been chosen, and a season later {N} stands in front of others as the one who leads them.
+works: Whatever {N} chose, the road ahead is clearer for it, and a year later {N} is glad of the choice.
+fails: The answer is short and polite: not this time, perhaps in a year or two.
+fails: The last day goes badly, a task falls apart in front of the panel, and the journey home is very long.
+
+# ---------------------------------------------------------------- 6. the army needs a new general (pairs D4b)
+# The summit, a facet on the officer of twelve years: every colour's bid for the post at its real chance, 6 (the brief:
+# a general's post; helps.py lifts it by half the earned odds). Black's lobbying over the army's head is closed by
+# approval with its backfire. The pairs at 74 are the honest other ways: the officers' academy to command instead, a
+# rival backed for the post one really wants, a young officer taken on to teach, a better officer served, the far posting
+# nobody wants. Every colour's mean is 40.
+
+== the army needs a new general
+tier: life event
+stages: adult mature
+age: 40-62
+holds: army officer
+tenure: 12-100
+per_year: 0 0 0 .02 .04 0
+drivers: era+.2 fortune+.2
+times: per army officer of twelve years or more a year: about 1 in 30 is in the running when a general's post falls free (estimate); armies have under 1 general for every 1,000 soldiers on active duty (US Department of Defense figures in the catalogue), and most officers leave the army long before; about 3 lives in 100,000 become generals (catalogue share)
+likelier: a command that went well, a mention in dispatches or an award, years when the army is changing and needs new leaders, a patron on the general staff
+rarer: a quarrel with the government, an inquiry on the record, a shrinking army with fewer posts, a career spent far from the capital
+gap: 3-8
+domain: career.5
+tone: mixed
+life: work, publiclife
+horizon: months
+roles: boss, rival, mentor, colleague, partner
+earth: a general retires, and the selection panel of the general staff will choose a successor from a short list of senior officers
+tribal: the old war leader of the clans can no longer walk the hills, and asks the leaders of the guard which of them will carry the spear after
+magic: a general of the realm has retired to the country, and the council of war will name a new one from among the realm's captains
+scene: A general is retiring in the spring, and the selection panel of the general staff will choose a successor from a short list. {Ns} name is on it after twenty years of postings, and so is {rival}'s, an officer with a famous family and friends in the government. One post, perhaps six names, and a panel that meets behind closed doors.
+scene W: {N} has served twenty years by the rules: every report clean, every order carried out or lawfully questioned. If that is not enough for the panel, then the rules mean less than {N} thought.
+scene U: For years {N} has been writing, privately, about what the army will need in twenty years' time. The panel will ask, and for once the answer is ready.
+scene B: Six names and one post. {N} knows which members of the panel owe {rival} favours, which ones dine with ministers, and which ones have not yet made up their minds.
+scene R: {N} has led from the front for twenty years, and the soldiers know it. The panel can read the record; {N} would rather stand in front of them and say what the army needs.
+scene G: {N} has watched two generations of soldiers come up through the ranks, and some of them lead units of their own now. If the post comes, it comes; the army will need its old hands whoever is chosen.
+scene tribal: The old war leader of the clans can no longer walk the hills, and at the autumn gathering will hand the spear to one of the leaders of the guard. {N} has led the hunters for many winters, and so has {rival}, whose father carried the spear before.
+scene magic: A general of the realm has retired to the country, and the council of war will name a new one before the spring muster. {Ns} name is among the captains spoken of, and so is {rival}'s, a captain of a great house with friends at court.
+- W | put the name forward by the book, with twenty years of clean reports behind it | title: general | v: conformity, achievement | tribal: ask the old war leader for the spear by the old custom, with many winters of the guard behind the asking | magic: put the name before the council of war by the articles, with twenty years of clean reports | chance: 6
+- U | send the panel a paper on what the army will need in twenty years | title: general | identity | v: achievement, self-direction | tribal: tell the old war leader how the clans should keep the passes in the winters to come | magic: send the council of war a treatise on what the realm's army will need | chance: 6
+- B | lobby the minister's office and the old generals, one dinner at a time | title: general | aims: general | closed: approval: lobbying the government over the army's head; backfire: the panel hears of it, and some of its members never forgive it | habit | v: power, achievement | tribal: win over the chiefs of the great clans, one feast at a time | magic: win over the lords of the council, one supper at a time | chance: 6
+- R | tell the panel plainly what is wrong with the army, and how to fix it | title: general | identity | v: self-direction, stimulation | tribal: tell the old war leader plainly what is wrong with the guard, and how to fix it | magic: tell the council of war plainly what is wrong with the realm's army, and how to fix it | chance: 6
+- G | let the soldiers of twenty years speak up, and wait to be asked | title: general | v: tradition, benevolence | tribal: let the hunters of many winters speak up at the gathering, and wait to be asked | chance: 6
+- BR | take command of the officers' academy instead, and remake it your own way | v: power, stimulation | tribal: take the training of the young hunters instead, and make it your own | magic: take the captaincy of the officers' school instead, and remake it your own way | foot: place learn.higher | chance: 74
+- UB | back a rival's bid, in return for the command you really want | binds | self_control: + | v: power, achievement | tribal: back another leader for the spear, in return for the guard of the far camps | magic: back a rival captain's bid, in return for the command you really want | foot: person patron | chance: 74
+- UG | take on a young officer to teach, and stay with the unit you know | grants: apprentice of one's own | v: benevolence, achievement | tribal: take a young hunter of the guard to teach, and stay with your own band | magic: take on a young captain to teach, and stay with the company you know | chance: 74
+- WG | step aside for a better officer, and serve them as well as the last | v: benevolence, conformity | tribal: step aside for a better leader, and serve the new war leader as well as the old | foot: person boss | chance: 74
+- WR | take the far posting nobody wants, and serve where the army needs it most | binds | self_control: + | v: benevolence, conformity | tribal: take the guard of the far camps nobody wants, where the clans need it most | magic: take the frontier fort nobody wants, where the realm needs it most | foot: mark moved away | chance: 74
+works: The choice falls on {N}, and by the next winter the whole army knows the name.
+works: Whatever {N} chose, the years ahead have a shape, and {N} is at peace with it.
+fails: The post goes to {rival}, and {N} hears it the same day as everyone else.
+fails: The panel takes a year to choose, and by then {Ns} name has quietly fallen off the list.
+
+# ================================================================ fall and wrong
+
+# ---------------------------------------------------------------- 7. the report on the night that went wrong (triads D2b)
+# A friend, tired and driving too fast on exercise, turned a truck over, and a soldier was hurt (a broken arm, mending
+# now). The wrong is Blue's single, deception by wit for a friend's sake: the cause written as a fault in the old truck,
+# marked hid a wrong, closed by law with the brief's backfire, and a failed try takes [rank] (takes_if_fails, as the
+# Art pack's forgery). The others: the report written true (White), true and showing who got the hurt soldier out
+# (Black), the friend urged to own up first (Red), the hurt soldier visited every week (Green), and the triads: the
+# drill rewritten, a share of the blame taken, retraining asked for, the friend taken to the doctor, the hurt soldier
+# asked first. Chances are set by act and solved so every colour's mean is 71.
+
+== the report on the night that went wrong
+tier: life event
+stages: young_adult adult mature
+age: 18-65
+holds: army officer | soldier | general
+per_year: 0 0 .01 .015 .01 0
+drivers: harsh+.2
+times: per soldier, officer or general a year: about 1 in 80 has to write or sign a report on an accident in which a friend's mistake hurt someone (estimate); armies look into thousands of training and vehicle accidents a year, and incomplete or shaded accident reports are a common finding of the inquiries that follow (estimate); about 5 lives in 100 serve as soldiers (catalogue share)
+likelier: a tired unit at the end of a long exercise, old vehicles, a friend at the wheel, a unit where mistakes are punished hard
+rarer: a unit with good drills and rested drivers, a name known for writing it straight
+gap: 5-15
+domain: career.5
+tone: trouble
+life: work, friends
+horizon: months
+roles: friend, colleague, boss, mentor
+earth: on an exercise a friend's mistake turned a truck over, a soldier was hurt, and the report is due on Friday with a signature on it
+tribal: on the long hunt a friend's hurry overturned the raft at a crossing, a hunter of the guard was hurt, and the elders want to hear how it happened
+magic: on manoeuvres a friend's mistake turned a supply wagon over, a soldier was hurt, and the captain wants the report by the end of the week
+scene: On the last night of the exercise {friend}, tired and driving too fast on a forest track, turned a truck onto its side. A soldier in the back was hurt: a broken arm and a night in hospital, mending now. Nobody else saw the speed but {N}, and the report is due on Friday with {Ns} signature on it. {friend} has asked, quietly, for the road to be blamed.
+scene W: A report is a promise that what it says is true. {N} has signed hundreds, and never one with a word in it that was not so.
+scene U: {N} has been over it a dozen times: the speed, the bend, the hours {friend} had been driving, the drill that let a tired driver take the wheel. The truth is more interesting than the blame.
+scene B: An inquiry will read the report, and an inquiry wants a name. {N} weighs whose name it will be, what each version costs, and who will owe what afterwards.
+scene R: {friend} has been {Ns} friend since the first week of training. Putting that name in a report feels like a betrayal, and so does lying for it.
+scene G: The hurt soldier is mending, {friend} is sick with guilt, and the unit is holding its breath. {N} thinks about what the unit needs to come through this whole.
+scene tribal: On the long hunt {friend}, tired and in a hurry, overturned the raft at the crossing, and a hunter of the guard was hurt: a broken arm, mending now. Nobody else saw how it happened but {N}, and the elders want to hear it at the fire. {friend} has asked, quietly, for the river to be blamed.
+scene magic: On the last night of manoeuvres {friend}, tired and driving the team too hard on a forest road, turned a supply wagon over. A soldier riding on it was hurt: a broken arm, mending now. Nobody else saw but {N}, and the captain wants the report by the end of the week. {friend} has asked, quietly, for the road to be blamed.
+- W | write the report true, every fact as it happened, and sign it | self_control: + | v: conformity, universalism | tribal: tell the elders the truth at the fire, every step as it happened | magic: write the report true, every fact as it happened, and set your seal on it | foot: person friend lost | chance: 71
+- U | write the cause as a fault in the old truck, and leave the speed out | mark: hid a wrong | closed: law: a report falsified; backfire: the inquiry tests the truck, finds nothing wrong with it, and takes the rank of whoever signed | takes_if_fails: rank | self_control: - | v: benevolence, security | tribal: tell the elders the raft's lashings failed, and leave the hurry out | magic: write the cause as a cracked axle, and leave the speed out | chance: 63
+- B | write it straight, and make sure it shows who got the hurt soldier out | grants: mentioned in dispatches | v: achievement, power | tribal: tell it straight at the fire, and make sure the elders hear who carried the hurt hunter out | magic: write it straight, and make sure it shows who pulled the hurt soldier clear | chance: 67
+- R | tell the friend to own up first, and stand beside them when they do | mark: helped someone in need | v: benevolence, universalism | chance: 70
+- G | visit the hurt soldier every week until they are back on their feet | v: benevolence | tribal: sit with the hurt hunter every day until the arm is mended | magic: visit the hurt soldier at the healers' house every week until the arm mends | foot: person friend | chance: 64
+- WUB | rewrite the drill so no driver that tired ever takes the wheel again | v: security, conformity | tribal: set a new rule for the guard, so nobody that tired ever takes the raft across again | magic: rewrite the standing orders, so no driver that tired ever takes the reins again | foot: lesson good drills keep people whole | chance: 75
+- WRG | take a share of the blame, for not stopping a tired friend from driving | mark: owned up | v: benevolence, conformity | tribal: take a share of the blame, for not stopping a tired friend at the crossing | chance: 72
+- WBR | write it true, and argue in it for the friend to be retrained, not punished | v: benevolence, power | tribal: tell it true at the fire, and ask the elders to teach the friend again, not cast them out | magic: write it true, and argue for the friend to be retrained, not broken | foot: door helped someone in need | chance: 66
+- URG | go with the friend to the doctor about the sleepless nights first | v: benevolence, self-direction | tribal: take the friend to the healer about the sleepless nights first | magic: go with the friend to the healers' house about the sleepless nights first | foot: place care.houses | chance: 78
+- UBG | ask the hurt soldier quietly what they want said, before writing a word | v: benevolence, security | tribal: ask the hurt hunter quietly what they want told, before the fire | foot: person colleague | chance: 84
+works: The matter is closed, the arm mends, and {N} can look everyone in the unit in the eye.
+works: A year on, the night is a story told to the newcomers, and things are done better because of it.
+fails: The questions drag on for months, and the unit splits over who said what.
+fails: It ends badly for {friend} anyway, and the friendship with it.
+
+# ================================================================ long shot
+
+# ---------------------------------------------------------------- 8. the field commission (triads D5a)
+# A flood the army is sent to, not a fight: the soldier of three years who held a crossing all night is seen by a
+# general. The long shot is a commission from the ranks without the board, at 3 in every colour, each with
+# grants_if_fails: a long shot that missed (core/longshot.py); a soldier is the only holder, so every single fits
+# everyone who meets it. The triads at 84 are the honest other ways: the board next spring with the general's letter,
+# the credit given to the section, a sergeant's stripes, a name in the general's report, the flood rescue team. Nobody
+# is lost in the flood, and no child appears in it. Every colour's mean is 43.5.
+
+== the field commission
+tier: life event
+stages: young_adult adult mature
+age: 20-45
+holds: soldier
+tenure: 3-99
+per_year: 0 0 .01 .01 .005 0
+drivers: fortune+.3
+times: per soldier of three years or more a year: about 1 in 100 is sent with the army to a flood, a fire or a storm and does something there that a general sees (estimate); armies are called out to help after floods and fires in most years, and a commission from the ranks for one night's work is rare, a handful in a generation (estimate); about 6 lives in 1,000 become army officers (catalogue share)
+likelier: a wet winter or a dry summer, a unit sent to help, a general who visits the line, years of good reports behind it
+rarer: a quiet year, a posting far from any town, a general who never leaves headquarters
+gap: 6-15
+domain: career.5
+tone: joy
+life: work, community
+horizon: week
+roles: boss, friend, colleague, mentor
+earth: the river floods a town, the army is sent in, and a general saw who held the footbridge all night; now the general asks to meet that soldier
+tribal: the river floods the lower camp, the guard is sent down, and the war leader of the clans saw who held the crossing all night
+magic: the river bursts its banks in a market town of the realm, the soldiers are sent in, and a general riding through saw who held the bridge all night
+scene: The river came up through the lower town in the night, and the army was sent in. {N} spent eleven hours at the old footbridge with a rope and a torch, bringing people over one at a time: the old man from the chemist's, the woman with the dog, everyone from the terrace by the mill. Nobody was lost. A general who had come to see the flood stopped and watched, and now a staff car has come to the hall where the section is sleeping, asking for {N} by name.
+scene W: {N} only did what the drill and the orders said: hold the crossing, count everyone over, leave nobody behind. It is strange to be thanked for doing one's duty.
+scene U: All night {N} kept working out the river: where it was rising, where the rope would hold, how long before the footbridge went. It held because the sums were right.
+scene B: A general does not send a car for an ordinary soldier every day. {N} knows a door like this opens once, and thinks fast about what to ask for.
+scene R: {N} has not slept, is still wet to the waist, and has never felt so alive. The night was the best and hardest thing {N} has ever done.
+scene G: The people from the terrace keep coming to the hall with tea and dry socks. The town will remember the night for fifty years, and {N} would rather stay and help it dry out than go anywhere.
+scene tribal: The river rose into the lower camp in the night, and the guard was sent down. {N} held the crossing all night with a rope and a torch, bringing the old people of the camp over one by one, and nobody was lost. In the morning the war leader of the clans, who had come down to see the flood, asked who held the crossing, and has sent for {N}.
+scene magic: The river burst its banks in the market town, and the soldiers were sent in. {N} held the old bridge all night with a rope and a lantern, bringing the townsfolk over one by one, and nobody was lost. A general of the realm riding through saw it, and in the morning a messenger comes asking for {N} by name.
+- W | ask the general, through the proper channel, to be considered for a commission | title: army officer | grants_if_fails: a long shot that missed | v: conformity, achievement | tribal: ask the war leader, by the old custom, for leave to lead the guard | magic: ask the general, through the proper channel, to be considered for a captain's commission | chance: 3
+- U | give the general your plan for holding the crossing, and ask to train as an officer | title: army officer | grants_if_fails: a long shot that missed | mark: learned a skill | v: achievement, self-direction | tribal: show the war leader how the crossing was held, and ask to learn to lead | magic: set out for the general how the bridge was held, and ask to train as an officer | chance: 3
+- B | ask the general straight out for a commission, while the papers are still running the story | title: army officer | grants_if_fails: a long shot that missed | aims: army officer | identity | v: power, achievement | tribal: ask the war leader straight out for the leading of the guard, while the camps still talk of it | magic: ask the general straight out for a commission, while the town still sings of it | chance: 3
+- R | volunteer for the next flood and the next, until the army cannot ignore it | title: army officer | grants_if_fails: a long shot that missed | mark: took a wild risk | body: heavy | self_control: + | v: stimulation, benevolence | tribal: go down to every flood and fire after, until the clans cannot ignore it | magic: ride to every flood and fire after, until the realm cannot ignore it | chance: 3
+- G | stay on to help the town dry out, and let the general hear of it | title: army officer | grants_if_fails: a long shot that missed | mark: helped someone in need | door | v: benevolence, tradition | tribal: stay on to help the lower camp rebuild, and let the war leader hear of it | chance: 3
+- WUR | go before the selection board next spring, the usual way, with the general's letter | aims: army officer | door | v: achievement, conformity | tribal: go to the elders' trials next season, as the custom is, with the war leader's word | magic: go before the captains' selection next spring, the usual way, with the general's letter | foot: person patron | chance: 84
+- WRG | give the credit to the whole section, and ask for nothing more | grants: old comrades | mark: turned down a chance | v: benevolence, universalism | tribal: give the honour to all the hunters who held the rope, and ask for nothing more | magic: give the credit to the whole file, and ask for nothing more | chance: 84
+- WBG | take the sergeant's stripes the general offers, and stay with the section | grants: rank | binds | v: security, tradition | tribal: take the place of first hunter of the guard the war leader offers, and stay with the band | magic: take the sergeant's stripes the general offers, and stay with the company | chance: 84
+- UBR | make sure the general's report carries your name, and use it for the next step | grants: mentioned in dispatches | door | v: achievement, power | tribal: make sure the war leader speaks your name at the fire, and use it for the next step | chance: 84
+- UBG | join the army's flood rescue team, and write the drill it still uses | binds | v: achievement, security | tribal: become the one the camps send for at every flood, and teach the young hunters how | magic: join the river wardens, and write the drill they still use | foot: place prot.rescue | chance: 84
+works: Within a season the answer comes, and from then on {N} leads where {N} once followed.
+works: Whatever {N} chose, the night by the river turns out to be the start of something, not the whole of it.
+fails: The general goes home, and nothing more is heard.
+fails: The thanks fade with the floodwater, and {N} is back on guard duty the next week with a story nobody quite believes.
+
+# ================================================================ world-only
+
+# ---------------------------------------------------------------- 9. the war leader is chosen at the gathering (only: tribal; triads D6a)
+# The tribal crossing: the clans gather to choose who will lead them if raiders come. No fighting is in the moment. It
+# comes to a leader of the hunters and the guard of six winters or a hunter of the guard of twelve (LIFE_CALLINGS), and
+# the brief gives each a different rung: the war leader of the clans ([general]) at 6 for the leader, a leader of the
+# hunters and the guard ([army officer]) at 35 for the hunter. A career holds one title at a time, so the two never meet
+# in one person, and each rung's tries carry `requires: <the rung below> | without: impossible`, so nobody is offered a
+# rung that does not fit: the five singles are the leader's bids for the spear, and a full cross cycle (s2) holds the
+# hunter's bids for the guard. The five triads are open to both: another band's leader put forward, a seat at the
+# council fire, the choice left to the spirits (the shaman's price, a closed: approval line with its backfire: the
+# spirits speak through someone else, never through the person's gift), no war leader while no raiders come, the stores
+# and signal fires kept. So each holder meets ten options, even on their own (singles or cycle, and the triads), and the
+# moment is even in every colour: 6, 35 and 70 give every colour 37. A life event with a cross cycle beside its
+# combinations is rare (the Library's 'a baby on the way, planned or not'); build.py accepts the layout.
+
+== the war leader is chosen at the gathering
+tier: life event
+only: tribal
+stages: adult mature elder
+age: 25-80
+holds: army officer | soldier
+tenure: 3-99
+per_year: 0 0 0 .02 .02 .01
+times: per leader of the hunters and the guard of six winters, or hunter of the guard of twelve, in the tribal world, a year: about 1 in 50 is at a gathering where the clans choose a war leader against raiders (estimate); bands of hunters and gatherers chose a war leader only when a threat was near, for a season, and most of the time had none (ethnographies of band societies; estimate)
+likelier: word of raiders in the far valleys, a hard winter that brings strangers near, an old war leader gone
+rarer: long years of peace between the clans, a gathering that breaks up in a quarrel
+gap: 5-12
+domain: career.5
+tone: mixed
+life: work, community
+horizon: months
+roles: elder, rival, mentor, friend
+tribal: the clans gather at the autumn camp to choose who will lead them if raiders come, and the elders of every band will speak
+scene tribal: The clans have gathered at the autumn camp by the great river, and word has come of strangers raiding in the far valleys. Before the bands go to their winter places the elders will choose who leads them all if the raiders come this way: a war leader for the winter, and leaders for the guard of each band. {N} has walked with the guard for many winters, and the elders' eyes keep coming back to {N}.
+scene tribal W: There is an old law for the choosing: the elders speak in turn, the oath is sworn at the fire, and the one chosen answers to all the clans. {N} means to keep it.
+scene tribal U: {N} has walked every pass into the valley and knows where the clans could watch for strangers and where the signal fires would carry. A war leader should know such things before anything else.
+scene tribal B: The biggest clans will decide it, whatever the elders say. {N} knows which chiefs listen to whom, and what each of them wants from the winter.
+scene tribal R: The whole camp is restless with the news, and {N} feels it too: the wish to stand up and be the one who leads, now, before the moment goes.
+scene tribal G: The clans have met at this bend of the river since before anyone's grandmother's grandmother. Raiders have come and gone, and the river and the clans are still here. Whoever leads, {N} thinks, should remember that.
+- W | stand before the clans by the old law, and swear the war leader's oath | title: general | requires: army officer | without: impossible | identity | v: conformity, tradition | chance: 6
+- U | show the gathering how the clans would hold the passes if raiders came | title: general | requires: army officer | without: impossible | v: achievement, security | chance: 6
+- B | win the chiefs of the biggest clans to your side before the gathering opens | title: general | requires: army officer | without: impossible | aims: general | v: power, achievement | chance: 6
+- R | stand up at the fire, and say plainly that you will lead them, and why | title: general | requires: army officer | without: impossible | mark: took a wild risk | v: stimulation, self-direction | chance: 6
+- G | let the hunters of your guard speak your name at the fire, and wait | title: general | requires: army officer | without: impossible | v: tradition, benevolence | chance: 6
+- W>B | ask the elders by the old custom for a party of the guard to lead | title: army officer | requires: soldier | without: impossible | aims: army officer | v: conformity, power | chance: 35
+- U>R | work out a scouting run over the far passes, and ask to lead it | title: army officer | requires: soldier | without: impossible | mark: learned a skill | v: self-direction, stimulation | chance: 35
+- B>G | win the young hunters of your band over, and ask to lead them as its guard | title: army officer | requires: soldier | without: impossible | v: power, benevolence | chance: 35
+- R>W | offer to keep the hardest watch, at the edge of the camps, for the whole gathering | title: army officer | requires: soldier | without: impossible | body: heavy | habit | v: benevolence, stimulation | chance: 35
+- G>U | sit with the oldest hunters to learn the hills, and offer to lead the young | title: army officer | requires: soldier | without: impossible | habit | v: tradition, achievement | chance: 35
+- WUR | name the best leader among the other bands, and stand behind them | v: universalism, benevolence | foot: person boss | chance: 70
+- WBR | ask for a seat at the clans' council fire instead, to speak for your band | v: power, conformity | foot: place rule.counsel | chance: 70
+- WBG | give the shaman furs to ask the spirits who should lead, and abide by it | closed: approval: the spirits' price, asked through the shaman; backfire: the shaman calls in the spirits' debt at every quarrel after, and the clans whisper that the choice was bought | binds | v: tradition, security | foot: means money-.06 | chance: 70
+- URG | say the clans need no war leader while no raiders come, and go home to hunt | v: self-direction, universalism | foot: mark came home | chance: 70
+- UBG | ask instead to keep the stores and the signal fires for all the clans | v: security, achievement | foot: place prot.watch | chance: 70
+works: The clans choose, the winter passes without raiders, and {N} walks the camp with a new place in it.
+works: Whatever {N} chose, the gathering ends at peace, and the bands go to their winter places trusting the choice.
+fails: The elders choose {rival}, and {N} carries {rival}'s word to the far camps all winter.
+fails: The gathering breaks up in a quarrel, and every band goes home with its own plan.

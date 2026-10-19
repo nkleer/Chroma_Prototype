@@ -204,7 +204,7 @@ scene B: Two of the judges are known to like a confident answer. {N} has rehears
 scene R: {N} changed the piece last week on a hunch, against {Ns} mentor's advice, and still thinks it was right.
 scene G: The piece is made the way {mentor} taught it, and the way {Ns} mentor was taught in turn.
 - W | answer every question plainly, and show the judges each step of the work | v: conformity, achievement | sphere: learn.W | foot: lesson plain answers carry weight | chance: 65
-- U | point out the flaw yourself, and explain how you would fix it | act: point out the flaw themselves, and explain how they would fix it | v: universalism, self-direction | mark: owned up | sphere: learn.U | foot: lesson naming a flaw builds trust | chance: 65
+- U | point out the flaw yourself, and explain how you would fix it | act: point out the flaw themselves, and explain how they would fix it | v: universalism, self-direction | mark: owned up | sphere: learn.U | chance: 65
 - B | lead with the piece's strongest part, and steer the judges past its weak one | v: achievement, power | sphere: learn.B | foot: door kept it hidden | chance: 65
 - R | defend the risky change you made last week, with all the fire you have | act: defend the risky change they made last week, with all the fire they have | v: self-direction, stimulation | sphere: learn.R | foot: mark took a wild risk | chance: 65
 - G | tell the judges whose way of working you learned, and stand on it | act: tell the judges whose way of working they learned, and stand on it | v: tradition | sphere: learn.G | foot: means ties+.03 | chance: 65

@@ -52,6 +52,7 @@ def main():
     rtxt = "".join(open(os.path.join(os.path.dirname(LIB), "chroma-engine", "v22-speedpass", f), encoding="utf-8").read()
                    for f in ("rules_titles.py", "rules_perks.py"))
     read_marks = {m for m in build.MARKS if f"'{m}'" in rtxt}
+    read_marks |= set(__import__("footprint_names").MARKS_WIRED)   # Library 10-19
     lab_earth = {o[0] for s in earth.SITUATIONS for o in s["options"]}
     mf = os.path.join(LIB, "earth_world_answers.py")
     asks, decs, f3, lead = collections.Counter(), collections.Counter(), collections.Counter(), collections.Counter()

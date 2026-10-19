@@ -272,7 +272,7 @@ scene G: The fridge is silent, the night is very quiet, and for the first time i
 - U | dig out the battery radio and piece together what is really going on | v: self-direction, security | foot: lesson facts are worth digging for | chance: 70
 - B | buy up fuel, water and batteries in the first hour, and sell the spare | v: power, achievement | closed: law: price gouging in an emergency; backfire: reported, fined, and remembered on the street for years | lever: subvert | pushes: economy | foot: means money+.06 | chance: 78
 - R | bring out the candles and the guitar, and turn the dark street into a party | v: hedonism, benevolence | mark: made a friend | chance: 78
-- G | make the larder last, a little each day, and wait calmly for the lights | v: security, tradition | mark: stayed home | self_control: + | foot: lesson a little each day lasts | chance: 72
+- G | make the larder last, a little each day, and wait calmly for the lights | v: security, tradition | mark: stayed home | self_control: + | chance: 72
 - BR | slip into the shut shop and take what the household needs | v: security, power | mark: broke the law | closed: law: looting; backfire: caught in a torch beam, and charged | lever: subvert | pushes: place | foot: door hid a wrong | chance: 70
 - RG | pack the car and drive everyone out to family where the lights are on | v: security, benevolence | tech: car | lever: exit | pushes: place | foot: means ties+.03 | chance: 65
 - UG | rig the car battery to keep a sick neighbour's medicine cold | v: benevolence, self-direction | tech: car | mark: helped someone in need | chance: 55
