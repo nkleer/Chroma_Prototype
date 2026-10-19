@@ -113,7 +113,7 @@
         bou_ = rng.random((N, 1))
         a = (pr.cumsum(1) > bou_).argmax(1)
         if BO_ON:   # bold ways, in a week the game asks: each bold way open to them is a slot beside its base way, and the
-            bold_pick[:] = -1; bo_row[:] = -1; bo_base[:] = -1; bo_seed[:] = -1; bold_now = None   # character's own pick
+            bold_pick[:] = -1; bo_row[:] = -1; bo_base[:] = -1; bo_seed[:] = -1; bo_kp[:] = 1.0; bold_now = None   # character's own pick
             if P["bold_ask"]:   # re-picks with the same draw over the ways and the slots seen
                 bold_now = [[] for _ in range(N)]
                 for n in np.nonzero(~dead & ~recon)[0]:
@@ -129,9 +129,10 @@
                                           - diff[n, bok_]) + (pbump[n, bok_] if RON else 0.0) - (P["sh_fail"] * (boma_ * shA[n]).sum() if SHON else 0.0)
                         bopt_ = 1 / (1 + np.exp(-earned(boz_, earn[n, bok_] if np.ndim(earn) else 0.0))) * (lackf[n, bok_] if np.ndim(lackf) else 1.0)
                         boph0_ = min(max(float(p_hat[n, bok_]), 1e-6), 1 - 1e-6); bophb_ = bo_odds(n, bor_, boph0_)   # and as felt
-                        bo_row[n, boj_] = bori_; bo_base[n, boj_] = bok_; bo_ph[n, boj_] = bophb_
+                        bo_row[n, boj_] = bori_; bo_base[n, boj_] = bok_; bo_ph[n, boj_] = bophb_; bo_kp[n, boj_] = bo_keep(n, bor_)
+                        bopa_ = bo_odds(n, bor_, bopt_)   # the card's p: the act's odds x the chance its win is kept (F16)
                         bold_now[n].append(dict(row=int(bori_), slot=boj_, base=int(bok_), label=bor_["label"], chance=bor_["chance"],
-                                                p=round(bo_odds(n, bor_, bopt_), 4), seen=bool(seen[n, bok_])))
+                                                p=round(bopa_ * bo_kp[n, boj_], 4), p_act=round(bopa_, 4), seen=bool(seen[n, bok_])))
                         if seen[n, bok_]:   # its utility is the base way's, with the felt odds' stake and relief moved
                             bodu_ = ctrl[n] * P["beta_P"] * (bophb_ - boph0_) * stakes[n] + P["beta_N"] * relief[n, bok_] * (bophb_ / boph0_ - 1)
                             bow_[boj_] = pr[n, bok_] * np.exp(min(bodu_ / tau[n], 50.0))
@@ -209,7 +210,8 @@
                 if n in events:
                     events[n].append(dict(bold=dict(age=round(age, 2), row=int(bor_["i"]), slot=int(bold_pick[n]), label=bor_["label"],
                                                     moment=bor_["moment"], colour=COLORS[bor_["colour"]],
-                                                    p=round(float(p_true[n]), 4), ok=bool(succ[n]))))
+                                                    p=round(float(p_true[n]), 4), p_win=round(float(p_true[n] * bo_kp[n, bold_pick[n]]), 4),
+                                                    ok=bool(succ[n]))))
         if BT_ON:   # body_trust: an own run-in with a body this week, gone well (good) or against them (bad)
             ri_ = ~idle & ~recon & ~dead & (BT_RUN[s] >= 0)
             for j_ in np.unique(BT_RUN[s][ri_]).tolist():

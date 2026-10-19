@@ -856,8 +856,8 @@ if "bold_play" in E.DEFAULT and "bold" in batch.load_batch.__code__.co_varnames:
                 if S["bold_pick"][0] < 0 and offered % 3 == 0:   # the game takes the first slot (a = its base way)
                     S["P"]["bold_take"] = now_[0]["slot"]; val = np.array(val); val[0] = now_[0]["base"]; took += 1
         if kind == "odds" and S["bold_pick"][0] >= 0:
-            pw_ = [x for x in now_ if x["slot"] == S["bold_pick"][0]][0]["p"]
-            odds_ok &= abs(float(val[0]) - pw_) < 1e-3 and 0.1 <= float(val[0]) <= 0.9
+            pw_ = [x for x in now_ if x["slot"] == S["bold_pick"][0]][0]
+            odds_ok &= abs(float(val[0]) - pw_["p_act"]) < 1e-3 and 0.1 <= float(val[0]) <= 0.9 and pw_["p"] <= pw_["p_act"] + 1e-4
         try:
             msg = g.send(val)
         except StopIteration as done:
@@ -867,7 +867,7 @@ if "bold_play" in E.DEFAULT and "bold" in batch.load_batch.__code__.co_varnames:
     if offered < 10 or len(bl_) < 5 or not took or not {0, 1} <= {x[3] for x in bl_}:
         fails.append(f"{offered} asks with bold ways, {len(bl_)} bold picks, {took} taken by the game")
     if not odds_ok:
-        fails.append("the odds at the odds pause are not bold_now's, or outside .1 to .9")
+        fails.append("the odds at the odds pause are not bold_now's p_act, outside .1 to .9, or its card p above them")
     if [(x["t"], L_["BOLD"][x["bold"]]["i"], x["ok"]) for x in sd_] != [(b_[1], b_[2], b_[5]) for b_ in bl_ if b_[1] not in link_wk]:
         fails.append("the seeds are not the bold picks outside the links' weeks")
     if sum(x["due"] is not None for x in sd_) > 3 or any(x["due"] is None and x["done"] != -1 for x in sd_):

@@ -171,6 +171,7 @@
     if BO_ON:
         BO_ROWS, BO_S = L["BOLD"], L["BOLD_S"]
         bo_row = np.full((N, 2), -1); bo_base = np.full((N, 2), -1); bo_ph = np.zeros((N, 2))   # each slot's row, base way, felt odds
+        bo_kp = np.ones((N, 2))   # and the chance its win is kept (F16), as the card counts it
         bo_n = np.zeros(N, int); bo_seed = np.full(N, -1); bo_title = [None] * N   # seeds planted; this week's; its title
         bold_log = []   # (life, week, row, slot, odds, worked)
         def bo_odds(n, rw_, p0_):
@@ -196,3 +197,18 @@
                     if not js_ or (any(r_has[n, j_] for j_ in js_) if op_ in ("title", "grants") else not any(r_has[n, j_] for j_ in js_)):
                         return False
             return True
+        def bo_keep(n, rw_):
+            """The chance a bold way's win is kept for life n: each title it gives that would start a partnership, children
+            or a faith not held leans as F16 has it (r_gain refuses it otherwise); 1 for any other win. The card's odds
+            count it; the act's own odds do not."""
+            if not (CRS_ON and RON):
+                return 1.0
+            k_ = 1.0
+            for op_, j0_, _ in rw_["fx"]["ok"]:
+                if op_ not in ("title", "grants"):
+                    continue
+                for i_ in fx_targets(n, rw_["s"], j0_):
+                    if i_ < NT_ and TK_[i_] < NK and CRS_J[TK_[i_]] >= 0 and not held[n, TK_[i_]]:
+                        j_ = CRS_J[TK_[i_]]
+                        k_ *= min(float(np.exp(CRS_MU[j_] + crs_own[n, j_] + (5 * w[n] - 1) @ CRS_T[j_])), 1.0)
+            return k_
