@@ -181,7 +181,8 @@ def arrows(S, n):
     NIDX = {nm: j for j, nm in enumerate(E.NEEDS)}
     need = np.asarray(S["need"][n], float)
     room = (1 - need) if P["satiate"] else np.ones(len(need))
-    T = np.asarray(S["NMP"][n], float) if S.get("NM_ON") else E.NMAP
+    NMAP_ = E.NMAP_V7 if P.get("need_tab") == "v7" else E.NMAP
+    T = np.asarray(S["NMP"][n], float) if S.get("NM_ON") else NMAP_
     st = max(float(S["stakes"][n]), P["need_floor"])
     og = 0.5 * (np.asarray(S["w"][n], float) + E.softmax(S["y"][n]))
     GR = L.get("ROLES") if S.get("RON") else None
@@ -207,7 +208,7 @@ def arrows(S, n):
             fail[NIDX["meaning"]] += P["cu_learn"] * ln_; fail[NIDX["autonomy"]] += 0.5 * P["cu_learn"] * ln_
         rm_ = room[NIDX["meaning"]] if P["satiate"] else 1
         duty_ = np.minimum(1, (np.asarray(S["held"][n], float) * np.asarray(S["I"][n], float)) @ E.DUTY)
-        win[NIDX["meaning"]] += P["duty_mean"] * float(((np.maximum(e, 0) @ E.NMAP.T) * duty_).sum()) * rm_   # serving those
+        win[NIDX["meaning"]] += P["duty_mean"] * float(((np.maximum(e, 0) @ NMAP_.T) * duty_).sum()) * rm_   # serving those
         # one answers for; holding colours the world reads as opposed, when it works
         if P["ten_good"] and S.get("FRpos") is not None and S.get("J") is not None:
             FRp = np.asarray(S["FRpos"], float); wn_ = np.asarray(S["w"][n], float)

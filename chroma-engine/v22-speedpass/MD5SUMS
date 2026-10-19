@@ -1,9 +1,9 @@
 fa9c9a0b71b63bddb48293311a40b900  batch.py
 757721ec4414965232f272d129713c58  combos.py
 249f655cc2aeb32b9a86500a9cd5554e  earth_rules.py
-0b9af1489c4dc0fa54bf5ba02461e38c  engine.py
+8a0c5d7920dcf4f268bf266f877e797d  engine.py
 c2e2b80a0d47ac3f78b29e6ddc1b0e1a  explain.py
-41610a4c80165c5b238c8f5f0591fca5  foresee.py
+46b16f6cccbabf31e6c8e4dbe415ae2f  foresee.py
 14b874af736c7c3971f97312eea3adb3  library.py
 e943e67e779f03070a7ba8f522cf95d6  life.py
 213d24ddc17ff3039f77e070f77f7f5c  rarity.json
@@ -31,7 +31,7 @@ d865fc1f5677aea56397dec4dfa14c6c  world_people_lives.py
 ecc7e5efc381381b70aadb40f4f16ab7  world_people_views.py
 1f5fd6b3e78a19633af121f8d26e637e  sphere_ev_base.py
 5b79f1b02f83cb4328e289212ce528f7  parts.py
-dff1995483e757716494249c122db628  run_01_start.py
+dab5123368ab03c8e884b644f9669b96  run_01_start.py
 79a12800ae06bf35663d851b447827f9  run_02_goals.py
 3f760cfe89c4b9ab8f88d4870b8271b6  run_03_moments.py
 36320841f77db49aa95cbd9f85cebd9e  run_04_titles.py
@@ -43,8 +43,8 @@ f67d8d7e8e0d3972e9791608451ee961  run_07_body.py
 4d3ae2b3b89800134fe37da7f0e58520  run_10_situation.py
 122311fe548690d3bebad3e9d916f49e  run_11_choice.py
 66fa59607a92977650664442ba140525  run_12_commitments.py
-acf6f442e808c4ba822729ed2ce7f299  run_13_learning.py
-60d6d09cbb104f85291095681d29c823  run_14_marks.py
+01720ff1695150c870cf71f115857ef5  run_13_learning.py
+b907683dc1fb80e7b50a6588d12f43ae  run_14_marks.py
 e35bf8299974503b2b64274c78adf3f7  run_15_titles.py
 d2ebcdd782681d20a1c8c47c6e73946a  run_16_world.py
 9bf08251aab6f08949a330112c164f05  run_17_inner.py
@@ -63,4 +63,4 @@ fede3c5d1ffd369591b7c161c2ef62fa  world_link_base.py
 61e18d3ad9889cf4d4f55b54cd503959  world_link_week.py
 1fd57f43baa0a4f477630ddc91424545  world_link_rates.py
 0688a2e3cc9d8b9237720897b3203b56  world_link_life.py
-bb43b73be36b0bb52b5d4988ae62de28  realm_earth.py
+8498119602cf3684d8f5fcc606151957  realm_earth.py

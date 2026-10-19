@@ -45,6 +45,8 @@ NIDX = {n: i for i, n in enumerate(NEEDS)}
 NMAP_V5 = np.array(NEED_MAP, float)       # needs x colors
 NMAP_V6 = np.array(NEED_MAP_V6, float)    # v6: autonomy is met by acting as oneself, not by a color
 NMAP = NMAP_V6
+from realm_earth import NEED_MAP_V7, COMMIT_MEETS_V7, IMP_AGE   # needs that fit life (need_tab "v7", imp_age): Earth's
+NMAP_V7 = np.array(NEED_MAP_V7, float)
 STAGE_NAMES = [s[0] for s in STAGES]
 STAGE_LO = np.array([s[1][0] for s in STAGES], float)
 STAGE_HI = np.array([s[1][1] for s in STAGES], float)
@@ -826,6 +828,13 @@ DEFAULT = dict(
     # none). Read-only (no draw): every life plays the same with it on or off. Changes the caller makes at the "end"
     # pause fall in no week's record
     need_why=False,
+    # needs that fit life (the next stage's workstream 4; chroma-ideas/next-table-2026-10-19/needs-research.md), each off
+    # until the joint refit: need_tab "v7" reads the colour-to-needs table and what commitments meet from realm_earth
+    # (NEED_MAP_V7, COMMIT_MEETS_V7: a partner gives meaning, each colour a meaning of its own); shared_hist, the most of
+    # an act's belonging gain that also feeds meaning (shared history: shared_hist_par's share with no close bond,
+    # rising to shared_hist as the longest held partnership, children or community lasts, halfway in its years); imp_age,
+    # setbacks only from the age each can happen at (realm_earth.IMP_AGE)
+    need_tab=None, shared_hist=0.0, shared_hist_par=(0.10, 5.0), imp_age=False,
     echo_play_par=dict(p=0.6, w=0.3, delay=(1.0, 8.0), keep=10.0, gap=0.5, again=12.0),
     # bold ways (chroma-ideas/gameplay-2026-10-17/bold-ways.md): set only by the game for a played life, with the batch's
     # BOLD_MOMENTS. In a week the game asks (bold_ask, set at the situation pause and spent at the choice; "all": every
@@ -1493,6 +1502,8 @@ UPD_OFF = dict(dis_match=False,
                role_why=False,
                # because of you, and meanwhile: why each need moved (read-only)
                need_why=False,
+               # needs that fit life (workstream 4)
+               need_tab=None, shared_hist=0.0, imp_age=False,
     # the v22.3 refit's satisfaction level (the new mechanics lift satisfaction; the set point moved .80 -> .86)
     sat_mid=0.8)
 # everything since the go-live off, for the identity check (C-E14): lives then equal engine_v9_golive.py
