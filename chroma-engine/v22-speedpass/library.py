@@ -239,22 +239,7 @@ SITUATIONS = [
   ]),
 ]
 
-# Unchosen impositions: things that happen TO the person. They hit human needs
-# directly (needs are shared across colors), and raise stress. sampled with
-# probability impose_p per week.
-IMPOSITIONS = [
-  ("a rule is imposed on you", "autonomy-.6"),
-  ("an institution betrays its promise", "safety-.4 meaning-.3"),
-  ("you are lied to and misled", "competence-.3 safety-.3"),
-  ("someone takes what you earned", "autonomy-.3 competence-.3"),
-  ("your community or habitat is damaged", "belonging-.4 safety-.3"),
-  ("you are forbidden to see someone you love", "belonging-.6"),
-  ("evidence you trusted is overturned", "competence-.4 meaning-.2"),
-  ("you are made dependent on others", "autonomy-.5"),
-  ("your traditions are mocked or banned", "meaning-.4 belonging-.3"),
-  ("lawlessness spreads around you", "safety-.6"),
-]
-
+from realm_earth import IMPOSITIONS   # Earth's (realm_earth.py)
 # Life stages. `rite` on a situation lists the stages it can open.
 # A person enters the next stage through a rite of passage: an
 # impactful event inside the stage's entry window (earliest, latest age). The
@@ -272,48 +257,10 @@ STAGES = [
 
 # Human needs and which colors' ends can meet them (rows sum to 1, columns sum to 1).
 NEEDS = ["safety", "belonging", "autonomy", "competence", "meaning"]
-NEED_MAP = [
-  #  W     U     B     R     G
-  [0.35, 0.15, 0.20, 0.00, 0.30],   # safety: order, foresight, self-protection, rootedness
-  [0.25, 0.00, 0.00, 0.35, 0.40],   # belonging: duty, love and passion, community
-  [0.00, 0.25, 0.45, 0.30, 0.00],   # autonomy: mastery of self, power, freedom
-  [0.15, 0.45, 0.25, 0.10, 0.05],   # competence: skill, knowledge, results
-  [0.25, 0.15, 0.10, 0.25, 0.25],   # meaning: duty, understanding, passion, place in the whole
-]
-# v6: autonomy and competence are met by HOW one acts, in any color (self-determination theory, Ryan & Deci 2000):
-# autonomy by acting as oneself (self-concordance, Sheldon & Elliot 1999) plus free time and freedom; competence by
-# succeeding at what is hard for you (effectance). The engine supplies both. Colors' ends meet the three needs that
-# depend on WHAT one serves: safety, belonging and meaning, and every color meets the same total (columns sum to 0.6).
-# In v5 Black and Blue met most of autonomy and competence, so the scarcest needs made Black-, Blue- and White-leaners
-# the most satisfied and Red-leaners the least, while surveys find values barely predict life satisfaction.
-NEED_MAP_V6 = [
-  #  W     U     B     R     G
-  [0.25, 0.20, 0.20, 0.15, 0.20],   # safety: order, foresight, self-protection and means, standing up for one's own, home and roots
-  [0.15, 0.10, 0.15, 0.30, 0.30],   # belonging: duty, kinship of minds, alliances, love and passion, community
-  [0.00, 0.00, 0.00, 0.00, 0.00],   # autonomy: acting as oneself (engine), free time and freedom
-  [0.00, 0.00, 0.00, 0.00, 0.00],   # competence: succeeding at what is hard for you (engine), in any color
-  [0.20, 0.30, 0.25, 0.15, 0.10],   # meaning: duty and faith, understanding, ambition and legacy, passion, place in the whole
-]
-
+from realm_earth import NEED_MAP, NEED_MAP_V6   # Earth's (realm_earth.py)
 # v4: resources (0..1). Time is free time left after commitments; freedom is permission to act.
 RESOURCES = ["money", "time", "health", "ties", "freedom"]
-# v4: commitments: (name, weekly time load, needs it meets while held, scaled by its strength)
-COMMITMENTS = [
-  ("career",    0.40, "competence.6 meaning.3 safety.1"),
-  ("partner",   0.15, "belonging.7 safety.3"),
-  ("children",  0.30, "meaning.6 belonging.4"),
-  ("community", 0.10, "belonging.5 meaning.5"),
-  ("faith",     0.05, "meaning.6 belonging.3 safety.1"),   # a religion, ideology or cause; often inherited in childhood
-]
-# v6: duties. A held commitment makes the needs of the people it serves felt as one's own (a parent feels the child's
-# need for safety; a job asks for competence and provision). This is why roles move values (social investment).
-DUTIES = {
-  "career":    "competence.5 safety.5",
-  "partner":   "belonging.6 safety.4",
-  "children":  "safety.6 belonging.4",
-  "community": "belonging.5 safety.5",
-  "faith":     "meaning.6 belonging.4",
-}
+from realm_earth import COMMITMENTS, DUTIES   # Earth's (realm_earth.py)
 
 
 # ---------- the outside world (v4, Emren 2026-10-04): perturbations from outside the person.
