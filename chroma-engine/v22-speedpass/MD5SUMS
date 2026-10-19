@@ -8,7 +8,7 @@ d1f61fb618021623c59f0355d47153a0  foresee.py
 e943e67e779f03070a7ba8f522cf95d6  life.py
 213d24ddc17ff3039f77e070f77f7f5c  rarity.json
 c562a0142558b5c29386a5991c7ef8f8  schwartz.py
-fb5d3ef915e52bb55ea6f373f2a078e7  sphere_data.py
+1ef60299db3e6838e74f3022c8f90f5d  sphere_data.py
 a656dacb60132ecfad35d939e26d3148  world.py
 2a07054c3878cfdb02d8b6dafdc60dab  world_base.py
 5fcd4f4832574fe18fa17057bfc42562  world_hooks.py
@@ -34,7 +34,7 @@ ecc7e5efc381381b70aadb40f4f16ab7  world_people_views.py
 dab5123368ab03c8e884b644f9669b96  run_01_start.py
 826a9bde94e0400b000b9d82baaa595a  run_02_goals.py
 463edb9b01d61d1e7e70cbab83e31aeb  run_03_moments.py
-51900659bec5731b6feb201095d9010a  run_04_titles.py
+8c506583e66d73df57744e9d377b1d0b  run_04_titles.py
 f3d59f87346ef744dcbfd4dad4759f6f  run_05_conditions.py
 b44dfda22ac82f1af9515d44b140c5d8  run_06_world.py
 f67d8d7e8e0d3972e9791608451ee961  run_07_body.py
@@ -64,4 +64,4 @@ c0873deab13010ca9e53b7fe46c45232  world_link_week.py
 1fd57f43baa0a4f477630ddc91424545  world_link_rates.py
 fccb7cc4b9419ae0908ed6a9234d1afe  world_link_life.py
 3d58ca25f27c582eabb7e882ed3fa2ad  realm_earth.py
-322e9f4a3c49e96bd3c82b5d54804861  world_people_answers.py
+3a675425cbb82bb45db679e10e21f6dd  world_people_answers.py
