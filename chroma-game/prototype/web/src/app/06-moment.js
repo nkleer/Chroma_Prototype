@@ -340,6 +340,7 @@ function renderTable(h) {
         ${cp.thread ? `<p class="note thread" id="cpThread" tabindex="0">${ic("link")} ${rich(cp.thread.line)}</p>` : ""}
         ${cp.extra ? `<p class="note">${rich(cp.extra)}</p>` : ""}
         ${cp.thought ? `<p class="note">${rich(cp.thought)}</p>` : ""}
+        ${cp.why_ask ? `<p class="note whyask">${ic(cp.why_ask.kind === "aim" ? "target" : cp.why_ask.kind === "people" ? "people" : "heart")} This matters to them now: ${esc(cp.why_ask.say)}</p>` : ""}
         ${cp.voice ? `<div class="voicebox"><p class="insight">${rich(cp.voice.line)}</p><div class="vlines">${vlines}</div>${asides.map((x) => `<p class="aside">${rich(x)}</p>`).join("")}</div>` : ""}
       </div></div>
     <div class="evr" id="evOpts"><div class="ask">What will ${esc(L.name)} do? <small>${touchUI ? "tap to read · tap again to push" : "hover to read · click or press its number to push"}</small></div>${rows}

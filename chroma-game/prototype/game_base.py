@@ -253,6 +253,10 @@ GAME = dict(
     # sheet and in the HUD (where they stand, the next step, what helps), choosing among the aims they already feel or
     # setting one (key a), and at a choice which aim an option leads into. Changes play when on: off until the joint proof
     aims=False,
+    # v24 asks (plan section 7): which moments are put to the player weighs what matters to the character now (an aim's
+    # next step, a need they lack, the people in their life; game_asks.py), this x 0 to 1 on the moment's importance, and
+    # the card says why it was asked. How often stays the player's setting (key f). 0: off, every moment weighs as before
+    ask_matter=0.0,
 )
 BOLD_IX = 1000          # Bold ways: a bold way's number on the card, BOLD_IX + 100 x its slot + its base way (bix: the base)
 
@@ -275,7 +279,7 @@ GAME_OFF = dict(piv=0.0, piv_own=0.0, piv_steady=0.0, learn_full=False, lean=0.0
                 era_cost=0.0, backfire=0.0, turn_max=0, fig_own=False, own_ix=False, trust_judge=False, lines_tied=False,
                 own_mark="", lean_self=0.0, own_teach=0.0, dream_own=False, dream_firm=0.0, dream_help=0.0, hind_thin=0.5, season_need=0.0, season_calm=0.0, fork_k=0.0, fork_told=False, rung_ask=False,
                 world_hold=False, world_seed=False, faith_home=0.0,
-                line_wait=0.0, news_touch=False, rare_ask=False, returns=False, stakes=False, causes=False, causes_fold=False, bold=False, because=False, arrows=False, foot=False, aims=False,
+                line_wait=0.0, news_touch=False, rare_ask=False, returns=False, stakes=False, causes=False, causes_fold=False, bold=False, because=False, arrows=False, foot=False, aims=False, ask_matter=0.0,
                 own_stress=0.5, own_free=0.3, dream_fit=0.5, rare_imp=0.5)
 # v22.5's joint refit (chroma-engine/notes/v22.5-refit-plan.md §2, with the engine's V225): every v22.5 game switch on
 # with its fitted value. F12 world_hold (with the engine's own_open and start_hold), F15 world_seed, F10 line_wait and news_touch (the

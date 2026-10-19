@@ -646,6 +646,8 @@ class ViewsMixin:
                                                          tone=meta.get("tone", ""), variant_of=meta.get("variant_of", ""), recon=cp["recon"]))
         if GAME["stakes"]:                              # Stakes on the card: up to two lasting-change chips on each card
             d["stake_card"] = True
+        if cp.get("why_ask"):                           # v24 asks: why this moment was put to the player
+            d["why_ask"] = cp["why_ask"]
         return d
 
     def season(self, loc=None):
