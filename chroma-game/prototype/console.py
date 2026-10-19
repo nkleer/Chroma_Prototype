@@ -141,9 +141,10 @@ def letters_to_spec(txt):
 # saves (the setup and the player's lines, replayed): version 3 from v22.3, stages 2 and 3; version 4 from v22.4 (S1-S7);
 # version 5 from the v22.4 S4 fix (odd_lmu/odd_lvar save keys); version 6 from the v22.4 refit (S1-S7, green jobs and the
 # art pack on, gap_move .3); version 8 from v23 (the joint refit with the spheres pack and own_ix on; Picks come back);
-# version 9 with Bold ways on (GAME bold: a card's numbers can name a bold way).
+# version 9 with Bold ways on (GAME bold: a card's numbers can name a bold way); version 10 from v24 (the joint refit:
+# footprints, aims and the world answers give a life new state, and asks, steering and talk add the player's lines).
 # An older save replays under the new rules and is told so (Emren's card 2026-10-09: "Replay with a note").
-SAVE_VERSION = 9 if GAME["bold"] else 8
+SAVE_VERSION = 10 if GAME["foot"] or GAME["aims"] or GAME["world_answers"] else 9 if GAME["bold"] else 8
 OLD_SAVE = ". This life was saved in an earlier version; it may turn out differently from here"
 
 def pushes_said(r):

@@ -314,9 +314,16 @@ GAME.update(V225)
 PACK = dict(own_ix=True)
 PACK_OFF = {k: GAME[k] for k in PACK}
 GAME.update(PACK)                                   # v23: the pack's joint refit switched it on (chroma-release/records/v23/scope.md)
-if os.environ.get("CHROMA_GAME"):                   # checks and calibration only: "off", "v224", "pack" or settings as JSON
+# v24's joint refit (chroma-release/records/v24/scope.md; Release's order 10-19 20:32 UTC under Emren's 12:24 go-ahead):
+# the v24 game parts on, with the Engine's v24 defaults: the hover arrows, footprints, aims and heights, asks weighed by
+# what matters (ask_matter .5; how often stays the player's setting), steering between asks, talking it over, and the
+# world answers with the second phase for Known lives. V24_OFF keeps v23.2's values (CHROMA_GAME="v232")
+V24 = dict(arrows=True, foot=True, aims=True, ask_matter=0.5, steer_between=True, talk=True, world_answers=True, wa_phase2=True)
+V24_OFF = {k: GAME[k] for k in V24}
+GAME.update(V24)
+if os.environ.get("CHROMA_GAME"):                   # checks and calibration only: "off", "v224", "pack", "v232" or JSON
     import json as _json
-    GAME.update({"off": GAME_OFF, "v224": {**V225_OFF, **PACK_OFF, "stakes": False, "returns": False}, "pack": PACK}.get(os.environ["CHROMA_GAME"])
+    GAME.update({"off": GAME_OFF, "v224": {**V225_OFF, **PACK_OFF, "stakes": False, "returns": False}, "pack": PACK, "v232": V24_OFF}.get(os.environ["CHROMA_GAME"])
                 or _json.loads(os.environ["CHROMA_GAME"]))
 # checks only: settings for the engine's own P as JSON (for example CHROMA_ENGINE='{"shadows": true}' to see light and
 # shadow on screen), laid over the life's P when it is set up. Read only when set: without it every life is the page's own
