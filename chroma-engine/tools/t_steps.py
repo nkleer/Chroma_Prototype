@@ -62,8 +62,9 @@ engine.run_steps() is engine.run() pausing six times a week for the game. On a f
      every pick's footprints are its option's; a means moves by its value (or to 0 or 1), a mark or door is left that
      week, the act's own mark counts only when a rule reads it, a person met is in the cast and a place joined is a
      haunt (world on); at the pauses foot (the last act's footprints) and foot_open (the doors waiting, each once) per
-     life; with FOOT in the batch and the switch off, the lives of the batch without it; the batch without FOOT carries
-     none.
+     life, a door only a return reads shut within foot_par door_yrs; foresee.marks_toward (what a mark nears) well
+     formed, nearest first; with FOOT in the batch and the switch off, the lives of the batch without it; the batch
+     without FOOT carries none.
 
     python3 -B chroma-engine/tools/t_steps.py [ENGINE_DIR]
 T_JOBS=N: the rows of 8 and 9 on N processes (default up to 4, by the cores there are; 1: one after another).
@@ -1094,6 +1095,7 @@ if "aims" in E.DEFAULT and "aims" in batch.load_batch.__code__.co_varnames:
 # 21. footprints (foot_on; workstream 3), Earth and packs with the batch's FOOT tables
 if "foot_on" in E.DEFAULT and "foot" in batch.load_batch.__code__.co_varnames:
     t0 = time.process_time(); fails = []
+    import foresee
     LF_ = batch.load_batch("earth", packs=list(batch.PACKS), foot=True)
     if "FOOT" in (EARTH or {}):
         fails.append("the batch without FOOT carries it")
@@ -1154,6 +1156,20 @@ if "foot_on" in E.DEFAULT and "foot" in batch.load_batch.__code__.co_varnames:
                             else:
                                 seen_["haunt joined"] += 1
                 done_ = len(S["foot_log"])
+                for n_ in range(N_):   # a door only a return reads shuts after door_yrs (Library 10-19)
+                    if not S["dead"][n_] and any(LF_["FOOT_RET"][MI_[d_[0]]] and t - d_[1] > 52 * P_["foot_par"]["door_yrs"] + 4
+                           for d_ in S["foot_open"][n_] if d_[0] in MI_):
+                        fails.append("a door only a return reads open past door_yrs")
+                if t % 260 == 0 and hasattr(foresee, "marks_toward"):   # the marks stack: what a mark nears, read-only
+                    for n_ in range(N_):
+                        mt_ = foresee.marks_toward(S, n_); seen_["marks toward"] += len(mt_)
+                        G_ = LF_["ROLES"]
+                        if any(not (1 <= d_["have"] <= d_["need"]) or d_["done"] != (d_["have"] >= d_["need"])
+                               or S["r_has"][n_, G_["ID"][d_["title"]]] or d_["kind"] != ("title" if G_["ID"][d_["title"]] < G_["NT"] else "perk")
+                               or S["mark_n"][n_, MI_[d_["mark"]]] < 1 for d_ in mt_):
+                            fails.append("marks_toward: a reading out of shape")
+                        if [(d_["done"], d_["need"] - d_["have"]) for d_ in mt_] != sorted((d_["done"], d_["need"] - d_["have"]) for d_ in mt_):
+                            fails.append("marks_toward: not nearest first")
             try:
                 msg = g.send(val)
             except StopIteration as done:
@@ -1163,15 +1179,15 @@ if "foot_on" in E.DEFAULT and "foot" in batch.load_batch.__code__.co_varnames:
             fails.append(f"world {'on' if wl_ else 'off'}: run_steps not the lives of run()")
         if digest(o1_) == digest(E.run(**kw, P=dict(E.DEFAULT, world=wl_))):
             fails.append(f"world {'on' if wl_ else 'off'}: nothing moved")
-    for k_ in ("means", "mark", "door", "lesson", "person named", "own marks"):
+    for k_ in ("means", "mark", "door", "lesson", "person named", "own marks", "marks toward"):
         if not seen_[k_]:
             fails.append(f"no {k_} seen")
     bad += bool(fails)
     print(f"{'PASS' if not fails else 'FAIL'}  footprints, switched on (world off and on): run_steps lives as run(), the lives "
           f"move; {seen_['means']} means ({seen_['means moved']} by their value, the rest clipped), {seen_['mark']} marks "
           f"({seen_['own marks']} the act's own) and {seen_['door']} doors left ({seen_['doors shut']} shut since), "
-          f"{seen_['person named']} people in the cast, {seen_['haunt joined']} haunts joined, {seen_['lesson']} lessons told; "
-          f"foot and foot_open per life at the pauses; the FOOT tables with the switch off change nothing; the batch without FOOT "
+          f"{seen_['person named']} people in the cast, {seen_['haunt joined']} haunts joined, {seen_['lesson']} lessons told, "
+          f"{seen_['marks toward']} marks toward a title or perk read; foot and foot_open per life at the pauses; the FOOT tables with the switch off change nothing; the batch without FOOT "
           f"carries none{'' if not fails else '; ' + '; '.join(sorted(set(fails))[:4])} ({time.process_time() - t0:.0f} s)")
 # 11. nothing read at a pause outside the handed-over names (an engine without STATE_MISSED reads its whole frame)
 if hasattr(E, "STATE_MISSED"):

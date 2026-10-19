@@ -1,9 +1,9 @@
-1501c72ce70ab8a0c823224770eecaa7  batch.py
+11ed5ad364eefd91b050199a62c41de8  batch.py
 757721ec4414965232f272d129713c58  combos.py
 249f655cc2aeb32b9a86500a9cd5554e  earth_rules.py
-0492fd2785fffadd6566b2060ff5bbfb  engine.py
+44156148d81ccdf97bc9a12bc2cd176e  engine.py
 c2e2b80a0d47ac3f78b29e6ddc1b0e1a  explain.py
-38169e452e5365df56666d2283b49516  foresee.py
+19f6fcc6d19a7805a42d54f5f3d17d08  foresee.py
 14b874af736c7c3971f97312eea3adb3  library.py
 e943e67e779f03070a7ba8f522cf95d6  life.py
 213d24ddc17ff3039f77e070f77f7f5c  rarity.json
@@ -33,12 +33,12 @@ ecc7e5efc381381b70aadb40f4f16ab7  world_people_views.py
 5b79f1b02f83cb4328e289212ce528f7  parts.py
 dab5123368ab03c8e884b644f9669b96  run_01_start.py
 826a9bde94e0400b000b9d82baaa595a  run_02_goals.py
-f9db5f30832c5b001892ad340f5c398f  run_03_moments.py
+f7a6c7d18929be7cd0e263e3ba2f97cf  run_03_moments.py
 ca4c1a5533555cc0f387c651b98a6479  run_04_titles.py
 e732029783927ddbaf98c862eb50f305  run_05_conditions.py
 3b44e181eecaeddf28bc5054c2c0e5b5  run_06_world.py
 f67d8d7e8e0d3972e9791608451ee961  run_07_body.py
-a9dc8cb4b2be0d72ac5d128cfe5ffc15  run_08_fixes.py
+f1b3af126316e69f723134ff97639bfe  run_08_fixes.py
 209ee6c15edc4dbaad222934b154489b  run_09_week.py
 f5398f266d1eeeaae36f4823f7679e40  run_10_situation.py
 122311fe548690d3bebad3e9d916f49e  run_11_choice.py

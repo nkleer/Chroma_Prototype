@@ -854,8 +854,9 @@ DEFAULT = dict(
     heights=False,
     # footprints (the next stage's workstream 3; plan.md section 3), off until the joint refit; needs the batch's FOOT
     # (batch.FOOT or load_batch(foot=True)). Each picked option's footprints get real state (run_03_moments.py, the
-    # footprints): a person in the cast (off-world, ties by foot_par ties), a haunt, a means, a mark or door, a lesson told
-    foot_on=False, foot_par=dict(ties=0.05),
+    # footprints): a person in the cast (off-world, ties by foot_par ties), a haunt, a means, a mark or door (one only a
+    # return reads shuts after foot_par door_yrs), a lesson told
+    foot_on=False, foot_par=dict(ties=0.05, door_yrs=5.0),
     echo_play_par=dict(p=0.6, w=0.3, delay=(1.0, 8.0), keep=10.0, gap=0.5, again=12.0),
     # bold ways (chroma-ideas/gameplay-2026-10-17/bold-ways.md): set only by the game for a played life, with the batch's
     # BOLD_MOMENTS. In a week the game asks (bold_ask, set at the situation pause and spent at the choice; "all": every
@@ -1779,6 +1780,7 @@ STATE_MORE = ("fam", "gsr", "goal_rel_S", "around", "retired", "ck", "ok_", "frc
               "AIM_ON", "HT_ON", "AIM", "ak", "astr", "astep", "aown", "aby", "atest", "acall", "abirth", "aim_best", "gal",
               "ht_t", "aim_take", "aim_end", "aim_fit", "aim_of_goal",   # aims v1 (foresee's aims track, set_aim, drop_aim)
               # and the heights reached (ht_t, weeks, -1 never); None off
+              "mark_last",   # foresee.marks_toward: the week each mark was last left (NEVER never)
               "FOOT_ON", "foot_log",   # footprints: on, and every pick's footprints so far (foot_log, a list of dicts)
               "foot", "foot_open",     # per life (None off): the last act's footprints (kind, value, who); doors (kind, since)
               "btrust")   # body_trust (finishing pack part 3): each life's trust per sphere (N x 9, NaN before 15); None off
