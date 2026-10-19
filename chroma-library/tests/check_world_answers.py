@@ -4,8 +4,9 @@ earth_world_answers.py is built from earth_world_answers-*.lib ("python3 build.p
     E4  the sphere asks: cast_want asked_help (rung 2), asked_lead (rung 3), asked_speak (rung 4), with sphere: <code>;
         at least one moment for each sphere and each ask; at least two ways a yes (lever: loyalty or lead)
     F2  decisions for others: tier: decision, cast_want: decide, sphere: <code>; 2 to 4 options, each a colour mix and
-        a scope (place, town_sphere, nation); at least four for each sphere; over all of them every colour leads about
-        as often (within 1.2 times, as WA8)
+        a scope (place, town_sphere, nation) and a lever (voice, loyalty, lead, found, fund, exit, neglect, subvert);
+        at least four for each sphere; over all of them every colour leads about as often (within 1.2 times, as WA8);
+        about one decision in four (a fifth to a third) offers a subvert way, never about a child, never violent
     F3  rivals, allies and the successor: cast_want rival_push, ally_won, ally_lost, successor_seen, successor_hand;
         at least two of each
     every option outside the decisions leaves one or two footprints (as check_footprint.py); labels not in earth.py.
@@ -27,6 +28,8 @@ PART = "--part" in sys.argv
 COLORS = "WUBRG"
 SPHERES = ["rule", "gather", "arts", "faith", "care", "learn", "prod", "comm", "prot"]
 ASKS = ["asked_help", "asked_lead", "asked_speak"]
+LEVERS = {"voice", "loyalty", "lead", "found", "fund", "exit", "neglect", "subvert"}
+NOT_SUBVERT = r"\b(child|children|kid|kids|pupil|pupils|boy|girl|baby|school|youth|hit|hurt|beat|threat|threaten|weapon|fight)\b"
 F3 = ["rival_push", "ally_won", "ally_lost", "successor_seen", "successor_hand"]
 UNITS = ["person_colours", "person_closer", "person_further", "person_trust_up", "person_trust_down", "group_norm",
          "group_members", "place_mix", "place_founded", "place_kept_open", "town_sphere"]
@@ -56,6 +59,7 @@ def main():
     lab_earth = {o[0] for s in earth.SITUATIONS for o in s["options"]}
     mf = os.path.join(LIB, "earth_world_answers.py")
     asks, decs, f3, lead = collections.Counter(), collections.Counter(), collections.Counter(), collections.Counter()
+    subv = 0
     if os.path.exists(mf):
         FT = foot_table("earth_world_answers")
         for s in load(mf, "earth_world_answers").SITUATIONS:
@@ -66,7 +70,13 @@ def main():
                 if cw != "decide":
                     prob.append(f"{w}: a decision needs cast_want: decide")
                 decs[sph] += 1
+                subv += any(isinstance(o[5], dict) and o[5].get("lever") == "subvert" for o in s["options"])
                 for o in s["options"]:
+                    lv = o[5].get("lever") if isinstance(o[5], dict) else None
+                    if lv not in LEVERS:
+                        prob.append(f"{w} / {o[1]}: a decision option needs a lever ({', '.join(sorted(LEVERS))}), found {lv!r}")
+                    if lv == "subvert" and re.search(NOT_SUBVERT, o[0], re.I):
+                        prob.append(f"{w} / {o[1]}: a subvert way never touches a child or violence: '{o[0][:50]}'")
                     code = re.sub(r"[^WUBRG]", "", str(o[1]))
                     for c in set(code):
                         lead[c] += 1 / len(set(code))
@@ -100,6 +110,9 @@ def main():
         for k in F3:
             if f3[k] < 2:
                 prob.append(f"{k}: {f3[k]} moments (at least two)")
+        nd = sum(decs.values())
+        if nd and not .2 <= subv / nd <= 1 / 3:
+            prob.append(f"subvert ways in {subv} of {nd} decisions (about one in four)")
         if lead and max(lead[c] for c in COLORS) > 1.2 * min(lead[c] for c in COLORS):
             prob.append("decision colours not even within 1.2 times: " + ", ".join(f"{c} {lead[c]:.1f}" for c in COLORS))
     # the lines
@@ -134,7 +147,7 @@ def main():
     elif not PART:
         prob.append("no earth_world_lines.py")
     print(f"world answers: asks {sum(asks.values())} ({len({k[0] for k in asks})} spheres), decisions "
-          f"{sum(decs.values())} {dict(decs)}, colours leading {dict((c, round(lead[c], 1)) for c in COLORS)}, "
+          f"{sum(decs.values())} {dict(decs)} ({subv} with a subvert way), colours leading {dict((c, round(lead[c], 1)) for c in COLORS)}, "
           f"rivals/allies/successor {dict(f3)}")
     for p in prob:
         print("  " + p)
