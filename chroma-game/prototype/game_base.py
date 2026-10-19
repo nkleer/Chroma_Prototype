@@ -362,6 +362,8 @@ def library_for(setting):
                     setattr(batch, k_, v_)
             if GAME["returns"] and hasattr(batch, "RETURN_MOMENTS"):
                 batch.RETURN_MOMENTS = True             # Picks come back: the Library's return moments (earth.RETURNS)
+            if GAME["bold"] and hasattr(batch, "BOLD_MOMENTS"):
+                batch.BOLD_MOMENTS = True               # Bold ways: the Library's BOLD rows and LINKS (earth_play)
             _LIBS[key] = (batch.load_batch("earth", packs=PACKS, setting="earth"), sys.modules.get("earth"))
         else:                                       # v22.5 F15 (world_seed): the clan and the towers on the Library's seed
             seed_ = getattr(WDS, "SEED", None) if GAME["world_seed"] and key in ("tribal", "magic") else None

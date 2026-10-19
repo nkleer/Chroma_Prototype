@@ -1,17 +1,20 @@
 """Game's methods for Bold ways (chroma-ideas/gameplay-2026-10-17/bold-ways.md; Emren "Build" 10-18 23:29 UTC), behind GAME
 bold, with the Engine's played-life key bold_play. With either off nothing here runs, so every step plays as before.
 
-Part of class Game (game.py), which inherits BoldMixin. The hand-over with the Engine, at the pauses of life 0:
+Part of class Game (game.py), which inherits BoldMixin. The hand-over with the Engine (its note of 10-19 00:01 UTC),
+for life 0 (game_base sets batch.BOLD_MOMENTS, which loads the Library's BOLD rows and LINKS):
+- L["BOLD_S"]: {s: [row, ...]} (at most 2); L["BOLD"][row]: the compiled row (moment, s, base, colour, kind
+  "bold:<moment>/<colour>", label, chance, req, change; src: the Library's own dict, works, fails and the act fields).
 - situation: the game sets P["bold_ask"] when it will put this week's life event to the player (by pacing alone: the
-  card is then always asked at choose); the Engine clears it after the week.
-- choose: loc["bold_now"], up to two dicts (row: the Library's BOLD row, base: the way it plays as, label, chance: the
-  written chance, p: their own odds, 10 to 90%), and loc["bold_pick"], the slot the character took (-1: an ordinary
-  way). The game answers with a = the base way and P["bold_take"] = the slot taken, or -1, always set.
-- odds: the true odds are already the bold way's own (a push's effort still comes off them, as for any way).
-- end: the week's record (the event with "situation") carries bold=dict(row, slot, ok); what it won or cost comes
-  through the act ("through <bold label>"), so the cause lines name it.
-- returns: a bold pick plants a seed of kind "bold:<moment>/<colour>"; its follow-up link plays as a return whose seed
-  has link=True, side, change (a shared link written by kind of change), title and who (fill the link's slots), gone.
+  card is then always asked at choose); the Engine spends it at the choice.
+- choose: loc["bold_now"][0], up to two dicts (row, slot, base: the way it plays as, label, chance: the written
+  chance, p: their own odds, 10 to 90%, seen), None in a week not asked; loc["bold_pick"][0], the slot the character
+  took (-1: none). The game answers with a = the base way and P["bold_take"] = the slot taken, or -1, always set.
+- odds: the true odds are already the bold way's own p (a push's effort still comes off them, as for any way).
+- end: the week's events carry dict(bold=dict(age, row, slot, label, moment, colour, p, ok)); what it won or cost
+  comes as role events with how "through <bold label>", so the cause lines name it.
+- returns: a bold pick plants a seed of kind "bold:<moment>/<colour>" (ok, bold=row, title, who); its link plays as a
+  return whose seed has link=True, change=True for a shared link, gone=True if its person has died since.
 On the card a bold way's number is BOLD_IX + 100 x slot + base (game_base bix gives the base back), so every array the
 engine keeps per way reads the base way, and a pick of a bold way is never the same number as the ordinary one."""
 import numpy as np
@@ -81,12 +84,10 @@ class BoldMixin:
 
     @staticmethod
     def _bold_here(loc, s):
-        """Whether the Library has a bold way for moment s (the Engine's L["BOLD_OF"], by moment number or name; with
-        neither, any life event may have one: the Engine answers with none)."""
+        """Whether the Library has a bold way for moment s (the Engine's L["BOLD_S"]: {s: [row, ...]}; without it, any
+        life event may have one: the Engine answers with none)."""
         L = loc["L"]
-        of = L.get("BOLD_OF")
-        if of is None and isinstance(L.get("BOLD"), dict):
-            of = L["BOLD"]                              # the Library's table, by moment name
+        of = L.get("BOLD_S")
         if of is None:
             return True
         if isinstance(of, dict):
@@ -99,11 +100,12 @@ class BoldMixin:
         self._bold_now, self._bold_pick = [], -1
         if not self._bold_on(loc):
             return
-        bn = loc.get("bold_now")
-        self._bold_now = [dict(b) for b in (bn or ())][:2]
+        bn = loc.get("bold_now")                        # per life: life 0's list, or None in a week not asked
+        bn = bn[0] if bn is not None and len(bn) and (bn[0] is None or isinstance(bn[0], (list, tuple))) else bn
+        self._bold_now = sorted((dict(b) for b in (bn or ())), key=lambda b: int(b.get("slot", 0)))[:2]
         bp = loc.get("bold_pick")
         self._bold_pick = int(np.asarray(bp).ravel()[0]) if bp is not None and np.size(bp) else -1
-        if self._bold_pick >= len(self._bold_now):
+        if self._bold_pick not in {int(b.get("slot", i)) for i, b in enumerate(self._bold_now)}:
             self._bold_pick = -1
         if self._bold_now:
             loc["P"]["bold_take"] = self._bold_pick
@@ -118,15 +120,18 @@ class BoldMixin:
             self.loc["P"]["bold_take"] = (int(choice) - BOLD_IX) // 100 if int(choice) >= BOLD_IX else -1
 
     # ------------------------------------------------------------------ the card
-    def _bold_row(self, L, r, name=None, j=0):
-        """The Library's BOLD row as the game reads it (one place, so a renamed field changes here only): row r of the
-        Engine's L["BOLD_ROWS"], else slot j of the Library's L["BOLD"][moment name]."""
-        rows = L.get("BOLD_ROWS")
-        row = rows[r] if rows is not None and 0 <= int(r) < len(rows) else None
-        if row is None and isinstance(L.get("BOLD"), dict) and name in L["BOLD"]:
-            rs = L["BOLD"][name]
-            row = rs[j] if 0 <= j < len(rs) else None
-        return row if isinstance(row, dict) else {}
+    def _bold_row(self, L, r):
+        """The Library's BOLD row as the game reads it (one place, so a renamed field changes here only): the Engine's
+        compiled row L["BOLD"][r] (moment, s, base, colour as an index, kind "bold:<moment>/<colour>", label, chance, req,
+        change) over the Library's own dict in its src (works, fails, mark, the act fields), the colour as a letter."""
+        rows = L.get("BOLD")
+        row = rows[r] if isinstance(rows, (list, tuple)) and 0 <= int(r) < len(rows) else None
+        if not isinstance(row, dict):
+            return {}
+        out = dict(row.get("src") or {}, **{k: v for k, v in row.items() if k != "src"})
+        c = str(row.get("kind", "")).rpartition("/")[2].strip()
+        out["colour"] = c if c in "WUBRG" and c else (row.get("src") or {}).get("colour", "")
+        return out
 
     def _bold_stake(self, L, row, m):
         """What a bold way wins and costs for good, from its row's fields in the Library's own vocabulary: on success
@@ -166,14 +171,17 @@ class BoldMixin:
         L = loc["L"]; s = cp["s"]; bi = cp["by_idx"]
         own0 = int(cp["own"])
         bp = self._bold_pick
-        own = BOLD_IX + 100 * bp + int(self._bold_now[bp]["base"]) if bp >= 0 else own0
+        mine = next((b for i, b in enumerate(self._bold_now) if int(b.get("slot", i)) == bp), None) if bp >= 0 else None
+        own = BOLD_IX + 100 * bp + int(mine["base"]) if mine is not None else own0
+        bp = bp if mine is not None else -1
         new = []
-        for j, b in enumerate(self._bold_now):
+        for j_, b in enumerate(self._bold_now):
+            j = int(b.get("slot", j_))
             base = int(b["base"])
             bo = bi.get(base)
             if bo is None or bo["colors"] == "-":
                 continue                                # a bold way grows from a way on the card, never from waiting
-            row = self._bold_row(L, b.get("row", -1), L["names"][s], j)
+            row = self._bold_row(L, b.get("row", -1))
             k = BOLD_IX + 100 * j + base
             col = row.get("colour") or row.get("color") or row.get("colors") or bo["colors"]
             col = "+".join(col) if isinstance(col, (list, tuple)) else str(col)
@@ -236,7 +244,7 @@ class BoldMixin:
             return None
         o = cp["by_idx"][k]; b = o["bold"]
         ok = bool(ev["success"])
-        eb = ev.get("bold") if isinstance(ev.get("bold"), dict) else None
+        eb = next((e_["bold"] for e_ in new if isinstance(e_.get("bold"), dict)), None)   # the Engine's record of the try
         changed = []                                    # what came through the bold act (the Engine's "through <label>")
         via = "through " + b["raw"]
         for e_ in new:
@@ -276,7 +284,8 @@ class BoldMixin:
         """Picks come back: a seed that is a bold way's link carries its side, its shared change, title and person."""
         if not sd.get("link"):
             return ret
-        ret = dict(ret, link=True, side=sd.get("side"), change=sd.get("change"), gone=bool(sd.get("gone")))
+        ret = dict(ret, link=True, side=sd.get("side") or ("well" if sd.get("ok") else "badly"), change=bool(sd.get("change")),
+                   gone=bool(sd.get("gone")))
         if sd.get("title"):
             ret["title"] = sd["title"]
         return ret
