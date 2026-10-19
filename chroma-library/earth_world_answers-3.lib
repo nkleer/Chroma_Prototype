@@ -339,9 +339,9 @@ horizon: years
 roles: elder, regular, neighbour
 earth: the congregation must decide whether its rites stay in the old tongue or move to the tongue people speak at home, and {N}'s word now carries
 scene: For as long as anyone remembers, the rites at {place} have been said in the old tongue. The young ones follow the sounds and not the meaning, and the newcomers follow neither. The elders have argued it for a year, and now they look to {N}.
-- G | keep the rites in the old tongue, as they have always been said | v: tradition | scope: place | chance: 75
-- W | keep the old tongue on holy days, and the home tongue on all the others | v: conformity, universalism | scope: place | chance: 70
-- U>R | put the rites into the home tongue, so each can follow and judge for themselves | v: self-direction, universalism | scope: town_sphere | chance: 60
+- G | keep the rites in the old tongue, as they have always been said | v: tradition | scope: place | lever: loyalty | chance: 75
+- W | keep the old tongue on holy days, and the home tongue on all the others | v: conformity, universalism | scope: place | lever: lead | chance: 70
+- U>R | put the rites into the home tongue, so each can follow and judge for themselves | v: self-direction, universalism | scope: town_sphere | lever: voice | chance: 60
 works: Within a year the new way at {place} feels like the old one, and other congregations in town come to see how it is done.
 works: The elders who argued longest are the first to say it was decided well.
 fails: A handful of families leave for a congregation across town, and the rows at {place} are thinner for it.
@@ -359,9 +359,10 @@ horizon: years
 roles: elder, neighbour, colleague
 earth: the congregation's old hall stands empty most of the week, and {N} must help decide what it becomes
 scene: The hall behind {place} was built for a congregation twice the size. Now it stands empty six days in seven, the roof leaks, and the heating costs more each winter. Three plans are on the table, and the elders want {Ns} word before they vote.
-- R | hand the hall to the young people for music, dances and their own nights | v: stimulation, hedonism | scope: place | chance: 65
-- U | turn it into a reading room and study hall, open to anyone in town | v: universalism, self-direction | scope: place | chance: 70
-- B>G | rent it out to local businesses, and let the money keep the old building standing | v: security, tradition | scope: place | chance: 75
+- R | hand the hall to the young people for music, dances and their own nights | v: stimulation, hedonism | scope: place | lever: found | chance: 65
+- U | turn it into a reading room and study hall, open to anyone in town | v: universalism, self-direction | scope: place | lever: lead | chance: 70
+- B>G | rent it out to local businesses, and let the money keep the old building standing | v: security, tradition | scope: place | lever: fund | chance: 75
+- W | open the hall to the night shelter at once, and sort out the council's permits afterwards | v: benevolence, universalism | scope: place | lever: subvert | chance: 60
 works: Within a season the hall is full on most evenings, and people who never came to {place} now know where it is.
 works: The roof is mended before the winter, and the plan that was chosen turns out to suit the street.
 fails: The plan costs more than anyone counted, and the elders have to come back to it within a year.
@@ -379,9 +380,9 @@ horizon: years
 roles: elder, regular, neighbour
 earth: couples from two faiths have asked to be married at the house of worship, and {N}'s word decides the congregation's answer
 scene: Three couples this year have asked to be married at {place}, each of them with one partner from another faith. The elders are split. Some say the house must stay what it is; some say a congregation that turns away love will empty. They have asked {N} to settle it.
-- R>W | welcome every couple who asks, with a rite written for the two of them | v: benevolence, universalism | scope: town_sphere | chance: 60
-- G>U | marry them in the old rite, once the couple has learned what it means | v: tradition, achievement | scope: place | chance: 70
-- B | welcome them, and let the new families and their gifts grow the congregation | v: achievement, power | scope: place | chance: 70
+- R>W | welcome every couple who asks, with a rite written for the two of them | v: benevolence, universalism | scope: town_sphere | lever: voice | chance: 60
+- G>U | marry them in the old rite, once the couple has learned what it means | v: tradition, achievement | scope: place | lever: loyalty | chance: 70
+- B | welcome them, and let the new families and their gifts grow the congregation | v: achievement, power | scope: place | lever: lead | chance: 70
 works: The first of the weddings fills {place}, and both families stay on for the meal.
 works: Other congregations in town hear how {place} decided, and some of them follow.
 fails: Two elders step back from their duties in protest, and the house is quieter for a season.
@@ -399,9 +400,9 @@ horizon: years
 roles: elder, colleague, rival
 earth: the congregations of the whole country meet to vote on whether those who left the faith may still be buried beside their families, and {N} is sent to speak
 scene: For generations, one who left the faith could not be laid in its ground beside their family. Now the congregations of the whole country are gathering to vote on a reform, and {place} sends {N}, whose name is known beyond the town. The hall is full of elders who have argued this for decades.
-- W | write one rule for every congregation: all families may bury their dead together | v: universalism, benevolence | scope: nation | chance: 45
-- G | leave it to each congregation's elders, as it has always been | v: tradition, security | scope: town_sphere | chance: 70
-- B>W | back the reform in return for a seat on the council that writes the rules | v: power, universalism | scope: town_sphere | chance: 55
+- W | write one rule for every congregation: all families may bury their dead together | v: universalism, benevolence | scope: nation | lever: voice | chance: 45
+- G | leave it to each congregation's elders, as it has always been | v: tradition, security | scope: town_sphere | lever: loyalty | chance: 70
+- B>W | back the reform in return for a seat on the council that writes the rules | v: power, universalism | scope: town_sphere | lever: lead | chance: 55
 works: The vote goes the way {N} spoke, and within a few years the families who were kept apart lie together.
 works: The gathering ends with an agreement most can live with, and the town's own congregations take it up.
 fails: The vote is put off for another five years, and the old rule stands.
@@ -421,9 +422,10 @@ horizon: months
 roles: colleague, rival, regular
 earth: the theatre's board must choose next season's programme, and {N}'s word now carries
 scene: The board of {place} meets to choose next season. The money is tight, the audience is getting older, and three proposals are on the table. Everyone at the long table turns to {N} before the vote.
-- G | the old favourites the town loves, done well | v: tradition, security | scope: place | chance: 80
-- U | a hard new play about the town's closed mill, written here | v: self-direction, universalism | scope: place | chance: 55
-- B>R | one big touring show that sells out, to pay for wilder work after | v: achievement, stimulation | scope: place | chance: 65
+- G | the old favourites the town loves, done well | v: tradition, security | scope: place | lever: loyalty | chance: 80
+- U | a hard new play about the town's closed mill, written here | v: self-direction, universalism | scope: place | lever: found | chance: 55
+- B>R | one big touring show that sells out, to pay for wilder work after | v: achievement, stimulation | scope: place | lever: fund | chance: 65
+- R | stage the wild new work, billed as the old favourite so the grant still comes | v: stimulation, self-direction | scope: place | lever: subvert | chance: 55
 works: The season sells better than the last, and people talk about one of its nights for years.
 works: The board agrees it chose well, and the theatre goes into the winter with money in the bank.
 fails: The season loses money, and the board has to cut a show in the spring.
@@ -441,9 +443,9 @@ horizon: years
 roles: neighbour, colleague, rival
 earth: the town has the money for one great mural on the market wall, and {N} has been asked to decide how it is chosen
 scene: The long blank wall over the market has been grey for decades, and now there is money for a mural. The council has asked {N}, the best-known artist at {place}, to decide how it will be chosen and who will paint it.
-- W | let the whole town vote among three designs | v: universalism, conformity | scope: town_sphere | chance: 70
-- R | hand the wall to the young painters, with no conditions | v: self-direction, stimulation | scope: town_sphere | chance: 60
-- G>W | paint the town's own history, from the old families' stories, for everyone | v: tradition, universalism | scope: town_sphere | chance: 70
+- W | let the whole town vote among three designs | v: universalism, conformity | scope: town_sphere | lever: voice | chance: 70
+- R | hand the wall to the young painters, with no conditions | v: self-direction, stimulation | scope: town_sphere | lever: found | chance: 60
+- G>W | paint the town's own history, from the old families' stories, for everyone | v: tradition, universalism | scope: town_sphere | lever: loyalty | chance: 70
 works: The mural goes up by midsummer, and people stop in the market to point out the parts they know.
 works: Other towns ask how it was done, and the wall becomes something the town shows visitors.
 fails: The mural starts a quarrel in the local paper that runs for months.
@@ -461,9 +463,9 @@ horizon: years
 roles: colleague, elder, rival
 earth: {N}'s new book about the town will be read across the country, and what it says is {Ns} to decide
 scene: {N} has spent three years on a book about the town, and the publisher says it will be read across the country. The last chapters are still open. The old families have told {N} their stories; the archive holds others they did not tell.
-- U | tell the town's history as it was, the hard parts included | v: universalism, self-direction | scope: nation | chance: 50
-- B | shape it into a story the whole country will want to buy | v: achievement, power | scope: town_sphere | chance: 60
-- R>G | write the town's old ways as a love song, so they are not forgotten | v: benevolence, tradition | scope: town_sphere | chance: 65
+- U | tell the town's history as it was, the hard parts included | v: universalism, self-direction | scope: nation | lever: voice | chance: 50
+- B | shape it into a story the whole country will want to buy | v: achievement, power | scope: town_sphere | lever: lead | chance: 60
+- R>G | write the town's old ways as a love song, so they are not forgotten | v: benevolence, tradition | scope: town_sphere | lever: loyalty | chance: 65
 works: The book is read far beyond the town, and people write to {N} to say it changed how they see their own towns.
 works: The town recognises itself in the book, and the library cannot keep copies on the shelf.
 fails: The book is quietly reviewed and quickly forgotten, outside the town at least.
@@ -481,9 +483,9 @@ horizon: years
 roles: colleague, rival, regular
 earth: {N} chairs the town's arts fund this year, and the money must be shared among more groups than it can carry
 scene: The town's arts fund has twelve applications and money for four. {N} chairs the panel this year, and every company, choir and workshop in {sphere_name} is waiting to hear.
-- W | share it equally among every group that applies | v: universalism, conformity | scope: town_sphere | chance: 75
-- B | give most of it to the one company good enough to make the town's name | v: achievement, power | scope: town_sphere | chance: 60
-- U>G | fund the old craft teachers, so their skills are written down and taught | v: tradition, achievement | scope: town_sphere | chance: 65
+- W | share it equally among every group that applies | v: universalism, conformity | scope: town_sphere | lever: fund | chance: 75
+- B | give most of it to the one company good enough to make the town's name | v: achievement, power | scope: town_sphere | lever: lead | chance: 60
+- U>G | fund the old craft teachers, so their skills are written down and taught | v: tradition, achievement | scope: town_sphere | lever: loyalty | chance: 65
 works: The groups that were funded do good work with it, and even those left out admit the panel was fair.
 works: By the end of the year the town's arts are livelier than they have been in a while.
 fails: The groups left out say the panel had its favourites, and the argument reaches the council.
@@ -503,9 +505,10 @@ horizon: years
 roles: neighbour, colleague, rival
 earth: the tenants' movement {N} leads must choose its one demand
 scene: Rents in town have risen every year for five, and the tenants' movement that meets at {place} has grown from a dozen to a thousand. Now it must choose one demand to fight for, and the meeting waits on {N}.
-- R | march for a freeze on every rent in town, starting now | v: stimulation, benevolence | scope: town_sphere | chance: 50
-- W>U | press for a rent board across the country, with open, published rules | v: universalism, security | scope: nation | chance: 40
-- G>B | settle street by street with the landlords who know their tenants | v: security, tradition | scope: place | chance: 70
+- R | march for a freeze on every rent in town, starting now | v: stimulation, benevolence | scope: town_sphere | lever: voice | chance: 50
+- W>U | press for a rent board across the country, with open, published rules | v: universalism, security | scope: nation | lever: lead | chance: 40
+- G>B | settle street by street with the landlords who know their tenants | v: security, tradition | scope: place | lever: loyalty | chance: 70
+- U | pass the council's own empty-homes figures to the movement, quietly, before they are published | v: self-direction, universalism | scope: town_sphere | lever: subvert | chance: 60
 works: The demand is heard, and within a year some rents in town have stopped climbing.
 works: The movement holds together through the fight, and more people come to {place} than ever.
 fails: The landlords hold firm, and the movement loses half its members over the winter.
@@ -523,9 +526,9 @@ horizon: years
 roles: neighbour, regular, elder
 earth: newcomers to the street want to join the residents' club, and {N} must decide who may
 scene: The residents' club at {place} was founded by the street's own families sixty years ago. New people have moved in, and a dozen of them want to join. The committee has asked {N}, its best-known member, to settle what the club will be.
-- W>R | open the doors to anyone in town, newcomers welcome at every meeting | v: universalism, stimulation | scope: place | chance: 70
-- G | keep it for the families of the street, as it was founded | v: tradition, security | scope: place | chance: 75
-- B | charge a membership fee, and use it to make the club stronger | v: power, achievement | scope: place | chance: 70
+- W>R | open the doors to anyone in town, newcomers welcome at every meeting | v: universalism, stimulation | scope: place | lever: voice | chance: 70
+- G | keep it for the families of the street, as it was founded | v: tradition, security | scope: place | lever: loyalty | chance: 75
+- B | charge a membership fee, and use it to make the club stronger | v: power, achievement | scope: place | lever: fund | chance: 70
 works: The club finds its new shape within a year, and the summer fair is busier than before.
 works: The old members and the new settle into the same room, more or less, and the club holds.
 fails: A few of the old members stop coming, and the club feels like two clubs for a while.
@@ -543,9 +546,9 @@ horizon: months
 roles: neighbour, colleague, regular
 earth: the town's summer festival needs a new shape, and {N}'s word now decides it
 scene: The summer festival in the square has run for thirty years, but it lost money last year and the committee has run out of ideas. They ask {N}, the person in {sphere_name} people listen to, what the festival should become.
-- R | a free festival, music late into the night, open to everyone | v: hedonism, stimulation | scope: town_sphere | chance: 65
-- U>B | a festival planned on the numbers, with sponsors paying the bill | v: achievement, power | scope: town_sphere | chance: 70
-- W>B | fixed, fair fees for every stall, so the traders can make their living | v: conformity, achievement | scope: town_sphere | chance: 70
+- R | a free festival, music late into the night, open to everyone | v: hedonism, stimulation | scope: town_sphere | lever: found | chance: 65
+- U>B | a festival planned on the numbers, with sponsors paying the bill | v: achievement, power | scope: town_sphere | lever: fund | chance: 70
+- W>B | fixed, fair fees for every stall, so the traders can make their living | v: conformity, achievement | scope: town_sphere | lever: lead | chance: 70
 works: The square is full on the festival weekend, and the committee ends the year with money in hand.
 works: The new festival becomes a fixture, and people from other towns start coming to it.
 fails: The weekend rains out, and the new plan is blamed for what the weather did.
@@ -563,8 +566,8 @@ horizon: months
 roles: neighbour, colleague, rival
 earth: a third of the high street stands empty, and the movement {N} leads must decide what to ask of the council
 scene: A third of the shops on the high street have stood empty for years. The movement that meets at {place} wants them back in use, and {N}'s word will set how it goes about it.
-- U | ask for a full study of the empty buildings before any demand | v: universalism, achievement | scope: town_sphere | chance: 75
-- R>U | hold a week of open meetings in one empty shop, to show what could be | v: stimulation, self-direction | scope: place | chance: 60
+- U | ask for a full study of the empty buildings before any demand | v: universalism, achievement | scope: town_sphere | lever: voice | chance: 75
+- R>U | hold a week of open meetings in one empty shop, to show what could be | v: stimulation, self-direction | scope: place | lever: found | chance: 60
 works: Within a year two of the empty shops have new life in them, and the movement takes some of the credit.
 works: The council takes the question up, and the movement is asked to sit at the table.
 fails: The council thanks the movement and files the matter away.
