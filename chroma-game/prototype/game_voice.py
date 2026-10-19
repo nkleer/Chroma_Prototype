@@ -4,7 +4,7 @@ Part of class Game (game.py), which inherits VoiceMixin; moved out of game.py ve
 module names through the imports below, the same objects game.py has, and self for everything on the Game."""
 import numpy as np
 from game_base import (ADJ, ADJ_LOOK, C, CNAME, COLORS, E, ES, GAME, KNAMES, LINE_WAIT_TAGS, NEED_WORD, NOUN,
-    OWN_STEPS, RNAMES, SH_FRAC, SH_HOLD, SH_SHOW, SH_SRC_SHOW, act, chooses, ident_name, need_level_word, neg_of,
+    OWN_STEPS, RNAMES, SH_FRAC, SH_HOLD, SH_SHOW, SH_SRC_SHOW, act, bix, chooses, ident_name, need_level_word, neg_of,
     plain, role_info)
 from game_words import (LONG_SHOT, LONG_SHOT_KINDS, NEED_HINT, THREAD_AGAIN, THREAD_YEARS, TITLE_KINDS, VOICE_AX,
     VOICE_FADE, VOICE_MIN, VOICE_RECALL, VOICE_SIDES, art, voice_share)
@@ -79,7 +79,7 @@ class VoiceMixin:
         if not pushed or ES is None:
             return None
         m = np.maximum(np.asarray(loc["m"][0], float), 0)
-        cv = lambda k: m[k] / m[k].sum() if m[k].sum() > 0 else np.full(C, 0.2)
+        cv = lambda k: m[bix(k)] / m[bix(k)].sum() if m[bix(k)].sum() > 0 else np.full(C, 0.2)   # a bold way: its base's
         k, own = int(cpw["choice"]), int(cpw["own"])
         diff = cv(k) - cv(own)
         v["steer"] += 1; v["rel"] = round(v["rel"] + rel, 3)
@@ -361,13 +361,13 @@ class VoiceMixin:
     @staticmethod
     def _ways(loc, k):
         """An act's ways as shares of one (even when it has none)."""
-        m = np.maximum(np.asarray(loc["m"][0, k], float), 0)
+        m = np.maximum(np.asarray(loc["m"][0, bix(k)], float), 0)
         return m / m.sum() if m.sum() > 0 else np.full(C, 1 / C)
 
     # ------------------------------------------------------------------ S2: making it their own (GAME own_...)
     def _own_k(self, loc, k):
         """S2: what is left of a push's reluctance in act k's ways, 1 - own_rel x how far they have become theirs."""
-        if not GAME["own_ix"] or not self.ix.any() or np.maximum(np.asarray(loc["m"][0, k], float), 0).sum() <= 0:
+        if not GAME["own_ix"] or not self.ix.any() or np.maximum(np.asarray(loc["m"][0, bix(k)], float), 0).sum() <= 0:
             return 1.0
         return 1.0 - GAME["own_rel"] * float(self._ways(loc, k) @ self.ix)
 
@@ -452,6 +452,7 @@ class VoiceMixin:
 
     def _profile(self, loc, k):
         """An act's colors for trust: its ways and its ends, half and half, as shares of one."""
+        k = bix(k)
         p = 0.5 * np.maximum(loc["m"][0, k], 0) + 0.5 * np.maximum(loc["e0"][0, k] if "e0" in loc else loc["e"][0, k], 0)
         return p / p.sum() if p.sum() > 0 else np.full(C, 1 / C)
 
@@ -497,6 +498,7 @@ class VoiceMixin:
         and that fit, or (-1, 0) when it serves none by at least dream_fit."""
         if loc is None or "rel" not in loc or "gk" not in loc or np.ndim(loc["rel"]) != 3:
             return -1, 0.0
+        k = bix(k)
         r_ = np.asarray(loc["rel"][0][:, k], float) * (np.asarray(loc["gk"][0]) >= 0)
         sc = r_ * np.asarray(loc["gs"][0], float)
         if not len(sc):

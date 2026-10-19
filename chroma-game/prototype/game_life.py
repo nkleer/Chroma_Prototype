@@ -6,7 +6,7 @@ import numpy as np
 from game_base import (ADJ_LOOK, ADJ_READS, ADJ_SCALE, C, CNAME, COLORS, E, EPITHETS, ES, EngineWorld, GAME, KNAMES,
     PERK_ORDER, READ_GAP, READ_TOLD, RNAMES, ROLE_AGAIN, ROLE_QUIET, ROLE_QUIET_LOST, RUSTY, SPAN_TOLD, STAGES,
     STATES, STATE_NAME, STREAK_TOLD, SUS_T, TAKEN_IN, TOLD_GAP, WOUND_TOLD, X, act, an, batch_mod, from_engine,
-    ident_name, label_name, letters, mk, neg_of, role_info, who_word, world_says)
+    bix, ident_name, label_name, letters, mk, neg_of, role_info, who_word, world_says)
 from game_words import (BECOMING, BECOMING_YEARS, FADE_WORDS, GROW_WORDS, NAME_WEEKS, RECALL_GAP, RECALL_LINES,
     RECALL_MIN, TEMPER_AGAIN, TIED_COMMIT, TIED_COMMIT_ANY, WORLD_AGAIN, accept_word, cap_first)
 
@@ -341,8 +341,10 @@ class LifeMixin:
                     o = cpw["cp"]["by_idx"][cpw["choice"]]
                     pushed = cpw["choice"] != cpw["own"]
                     f = self._force or {}
-                    line = self.story.outcome(m, ev, L["labels"][s][cpw["choice"]], pushed, f.get("rel", 0.0) if pushed else 0.0,
-                                              bool(f.get("closed")) if pushed else False, o["colors"])
+                    bo = o.get("bold")                  # Bold ways: its own label and its own works and fails lines
+                    line = self.story.outcome(m, ev, o["label"] if bo else L["labels"][s][cpw["choice"]], pushed,
+                                              f.get("rel", 0.0) if pushed else 0.0, bool(f.get("closed")) if pushed else False,
+                                              o["colors"], lines=o.get("bold_lines"))
                     line = self._recall_in(t, line, 0)              # item 6: the memory it brought back, inside it
                     self._told_act(ev, 0)
                     self._tied_ev("“" + cpw["cp"]["title"] + "”", 0)
@@ -363,6 +365,14 @@ class LifeMixin:
                     rs["pivot"] = self._pivot(loc, cpw, bool(ev["success"]), rs.get("hindsight"))
                     if GAME["returns"] and cpw["cp"].get("ret"):     # Picks come back: the card names the pick it came from
                         rs["back"] = self._ret_came(cpw, ev, age)
+                        if GAME["bold"]:
+                            self._bold_link_came(cpw["cp"]["ret"], cpw, ev, age)
+                    if GAME["bold"] and cpw["cp"].get("bold"):       # Bold ways: what the bold way changed for good
+                        bd = self._bold_came(cpw, ev, new, age)
+                        if bd:
+                            rs["bold"] = bd
+                            if bd.get("line"):
+                                line += "\n" + bd["line"]
                     vo = self._voice_pick(loc, cpw, bool(ev["success"]), pushed, f.get("rel", 0.0) if pushed else 0.0, moved, rs)
                     if pushed and GAME["own_ix"]:       # S2: how far the pushed ways have become theirs
                         rs["own"] = self._own_push(loc, cpw, rs.get("hindsight"))

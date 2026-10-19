@@ -8,7 +8,7 @@ import json
 import random
 import time
 import numpy as np
-from game import Game, PRESETS, WORLDS, FREQ, COLORS, CNAME, letters, label_name, rel_word, accept_word, STAGES, base_word, adj_defs, AROUND_WORDS, AROUND_DEFAULT, book_catalog
+from game import GAME, Game, PRESETS, WORLDS, FREQ, COLORS, CNAME, letters, label_name, rel_word, accept_word, STAGES, base_word, adj_defs, AROUND_WORDS, AROUND_DEFAULT, book_catalog
 from story import SETTINGS, WORLD, plain, NEED_SAY
 
 CHUNK = 104           # weeks simulated per call before handing back to the screen
@@ -137,9 +137,10 @@ def letters_to_spec(txt):
 
 # saves (the setup and the player's lines, replayed): version 3 from v22.3, stages 2 and 3; version 4 from v22.4 (S1-S7);
 # version 5 from the v22.4 S4 fix (odd_lmu/odd_lvar save keys); version 6 from the v22.4 refit (S1-S7, green jobs and the
-# art pack on, gap_move .3); version 8 from v23 (the joint refit with the spheres pack and own_ix on; Picks come back).
+# art pack on, gap_move .3); version 8 from v23 (the joint refit with the spheres pack and own_ix on; Picks come back);
+# version 9 with Bold ways on (GAME bold: a card's numbers can name a bold way).
 # An older save replays under the new rules and is told so (Emren's card 2026-10-09: "Replay with a note").
-SAVE_VERSION = 8
+SAVE_VERSION = 9 if GAME["bold"] else 8
 OLD_SAVE = ". This life was saved in an earlier version; it may turn out differently from here"
 
 def pushes_said(r):
@@ -694,6 +695,7 @@ class Console:
             self.numbering[n] = o["idx"]
             star = "*" if o["idx"] == own else " "
             ways = f"  [{o['colors']}]" if o["colors"] != "-" else ""
+            ways += "  (bold)" if o.get("bold") else ""   # Bold ways: the chip
             sides = (" ♥ heart" if v and o["idx"] == v["heart"] else "") + (" ◆ head" if v and o["idx"] == v["head"] else "")
             L.append(f" {n}{star} {o['label']}{ways}{sides}")
             bits = []
@@ -701,6 +703,8 @@ class Console:
                 r_ = o["reality"]
                 bits.append(f"feels {_fp(o['felt'])}; reality: {r_['band']}"
                             + (f" ({r_['misread']}" + (f": {r_['why']})" if r_["why"] else ")") if r_["misread"] != "fair" else ""))
+            elif o.get("bold"):                 # Bold ways: the written chance, and their own odds when they differ
+                bits.append(f"feels {_fp(o['felt'])}" + (f", {o['bold']['fit_say']}" if o["bold"].get("fit_say") else ""))
             elif o["colors"] != "-":
                 bits.append(f"feels {_fp(o['felt'])}, reality looks {o['hint']}")
             if o["idx"] == own:
@@ -721,8 +725,10 @@ class Console:
                 bits.append(("trusts you" if o["trust"] > 0 else "distrusts you") + " in these colors")
             L.append("     " + "; ".join(bits))
             sk = o.get("at_stake") or {}        # Stakes on the card: what it changes for good, and what failing costs
-            if sk.get("people"):
-                L.append("     for good: " + sk["people"])
+            if sk.get("win") or sk.get("people"):
+                L.append("     for good: " + "; ".join(x for x in (sk.get("win"), sk.get("people")) if x))
+            if sk.get("cost"):                  # Bold ways: what failing costs for good
+                L.append("     if it fails: " + sk["cost"])
             if sk.get("fails") or sk.get("risk"):
                 L.append("     if it fails: " + "; ".join(x for x in (sk.get("fails"), sk.get("risk")) if x))
             for fx in o.get("roles_fx", []):

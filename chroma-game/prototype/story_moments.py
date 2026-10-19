@@ -149,11 +149,11 @@ class MomentsMixin:
         return (f"{n} feels sure of it." if felt > 0.7 else f"{n} thinks it could work." if felt > 0.45 else
                 f"{n} is not sure it will work." if felt > 0.25 else f"{n} doubts it will work at all.")
 
-    def _result(self, m, ev):
+    def _result(self, m, ev, own=None):
         sit = m["sit"]; succ = bool(ev["success"]); d = float(ev.get("delta", 0.0))
-        lines = (LIB_OUTCOMES.get(sit) or OUTCOMES.get(sit) or (["It works."], ["It goes badly."]))[0 if succ else 1]
+        lines = (own or LIB_OUTCOMES.get(sit) or OUTCOMES.get(sit) or (["It works."], ["It goes badly."]))[0 if succ else 1]
         k = int(self.rng.integers(len(lines)))
-        if sit in LIB_OUT_NOT and sit in LIB_OUTCOMES:   # F11b: a line that fits the act they took (the same draw from the stream)
+        if own is None and sit in LIB_OUT_NOT and sit in LIB_OUTCOMES:   # F11b: a line that fits the act they took (the same draw from the stream)
             ix, nots = LIB_OUT_NOT[sit]
             j = ix.get(ev.get("choice"))
             no = nots[0 if succ else 1]
@@ -176,8 +176,9 @@ class MomentsMixin:
         pool = [(c, x) for c in src for x in src[c][0 if succ else 1]]
         return self.thought(self.pick(pool), "react")
 
-    def outcome(self, m, ev, chosen_label, pushed, rel, closed, colors=""):
-        """A checkpoint resolved: what they did, how it went, and how they read it."""
+    def outcome(self, m, ev, chosen_label, pushed, rel, closed, colors="", lines=None):
+        """A checkpoint resolved: what they did, how it went, and how they read it. lines: the act's own (works, fails)
+        lines instead of the moment's (a bold way's)."""
         if m and "{" in chosen_label:                  # the option's role slots, as the player saw them
             chosen_label = self.fill_label(chosen_label, m)
         a = self.act_in(m, chosen_label)
@@ -192,7 +193,7 @@ class MomentsMixin:
             else:
                 inner = self.pick([(c, x) for c in RELUCT for x in RELUCT[c]])
             first = self.fill("You push, and {N} goes along: they {a}. ", ctx=dict(a=mk("a", colors, a))) + self.thought(inner, "reluct")
-        L = [first, self._result(m, ev) + " " + self.react(ev["success"], m["sit"])]
+        L = [first, self._result(m, ev, lines) + " " + self.react(ev["success"], m["sit"])]
         if pushed and rel >= 0.3:
             L.append(self.fill("It costs {N}: strain, and a wanting they swallow for now."))
         if pushed and closed and not ev["success"]:
