@@ -13,5 +13,5 @@ Library's delay_years. Expressions are numpy expressions over one row per person
 # The tables live in the files of RULES_PARTS, one stretch each, unchanged; parts.join puts them back in order and
 # they run here, in this module's own namespace, so every name, dict and key order is what it was.
 RULES_PARTS = ('rules_moments', 'rules_drivers', 'rules_titles', 'rules_perks', 'rules_norms',
-               'rules_chance', 'rules_more', 'rules_packs', 'rules_art', 'rules_world')
+               'rules_chance', 'rules_more', 'rules_packs', 'rules_art', 'rules_callings', 'rules_world')
 exec(compile(*__import__("parts").join(RULES_PARTS, __file__), "exec"), globals())   # no module-level name: see parts.py

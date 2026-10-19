@@ -23,6 +23,8 @@
         GR = L["ROLES"]; NT_, NP_, NI_ = GR["NT"], GR["NP"], GR["NI"]
         if P.get("green_jobs") and GR.get("rule_when"):   # v22.4: the green entry jobs' rules and roads (ROLES_WHEN)
             GR = dict(GR, rule=[GR["rule_when"].get(i_, r_) for i_, r_ in enumerate(GR["rule"])])
+        if P.get("cause_fit") and GR.get("rule_fit"):   # E2: the cause audit's tightened conditions (ROLES_FIT)
+            GR = dict(GR, rule=[GR["rule_fit"].get(i_, r_) for i_, r_ in enumerate(GR["rule"])])
         if P.get("sph_titles") and GR.get("rule_sph"):   # item 15: the sphere titles follow their own rules
             sr_ = {**GR["rule_sph"], **(GR.get("rule_sph_when") or {})} if P.get("green_jobs") else GR["rule_sph"]
             GR = dict(GR, rule=[sr_.get(i_, r_) for i_, r_ in enumerate(GR["rule"])])   # (earth_rules.SPH_TITLE_ROLES)

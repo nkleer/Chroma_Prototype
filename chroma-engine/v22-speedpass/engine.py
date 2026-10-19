@@ -494,6 +494,8 @@ DEFAULT = dict(
                          # less, more so after many wanted things failed or closed (flexible goal adjustment rises over adult
                          # life: Brandtstaedter & Renner 1990); flex_exp = (failures before it starts, failures to reach full)
     sat_need=5.0, sat_mid=0.86, sat_adapt=4.0, sat_mood=1.0, sat_gap=6.0, adapt_weeks=104, meta_weeks=26,
+    cause_fit=True,     # E2 (every-change-has-a-cause.md): the Library's cause audit's tightened title and perk rules
+                         # (earth_rules.ROLES_FIT) in place of the loose ones, so a gain's cause reads true
     green_jobs=True,    # v22.4: the green entry jobs' rules and the roads that name them (earth_rules.ROLES_WHEN), read
                          # once the catalogue has the titles (Library #152); off, they hold no rule of their own (as v22.3)
     acc_redraw=True,    # v22.4 (chroma-packs/notes/v22.4-engine-fallback-jobs.md): a first job or job move whose title its
@@ -836,7 +838,7 @@ DEFAULT = dict(
     # an act's belonging gain that also feeds meaning (shared history: shared_hist_par's share with no close bond,
     # rising to shared_hist as the longest held partnership, children or community lasts, halfway in its years); imp_age,
     # setbacks only from the age each can happen at (realm_earth.IMP_AGE)
-    need_tab=None, shared_hist=0.0, shared_hist_par=(0.10, 5.0), imp_age=False,
+    need_tab="v7", shared_hist=0.2, shared_hist_par=(0.10, 5.0), imp_age=True,   # on at the v24 refit
     # aims v1 (the next stage's workstream 5; plan.md section 5), off until the joint refit; needs the batch's aims
     # (batch.AIMS or load_batch(aims=True)). An aim is a ladder of steps (titles or perks held or once held) toward what a
     # person wants to become, in up to aims_par slots: one grows from below out of a dream, passion or plan whose
@@ -846,12 +848,12 @@ DEFAULT = dict(
     # step (seek, by its strength) and each step reached meets meaning (meet, by the step's height: none, Known,
     # Notable, Historic). With no goal behind it an aim fades (half, in years; half_set for one not yet their own) and
     # goes below drop. A calling: an aim of their own that leads to a height, held as a passion for call_yrs
-    aims=False,
+    aims=True,   # on at the v24 refit
     aims_par=dict(slots=3, fit=0.3, seek=1.0, reluctant=0.5, spark_seek=2.0, meet=(0.03, 0.06, 0.09, 0.12), half=4.0,
                   half_set=2.0, drop=0.05, call_yrs=3.0, set_s=0.5, spark_up=0.15),
     # the heights of a life (plan.md section 5), read-only: the week each height (Known, Notable, Historic) was first
     # reached (realm_earth.HEIGHT_NAMES, leading a sphere (rung 4), a summit title, leading a movement); on with aims
-    heights=False,
+    heights=True,
     # the world answers v1 (the next stage's workstream 6; chroma-world/spheres/world-answers-v1.md, values in
     # sphere_data.WORLD_ANSWERS), off until the joint refit; with the world. The forest and the tree: no life moves
     # nothing. Its parts each have a sub-switch, read only with world_answers on: wa_groups (A: a member's presence leans
@@ -862,12 +864,12 @@ DEFAULT = dict(
     # answers moments, its events and offers; no moment odds of its own). wa_phase2 (F, off on its own): a Known life
     # (aims v1's heights: Known reached, its standing still held) decides for others in the sphere it stands in, 4 to 8
     # times a year (8 to 12 at national standing), with rivals, allies and a successor, at a price in hours and stress
-    world_answers=False, wa_groups=True, wa_places=True, wa_ledger=True, wa_notice=True, wa_phase2=False,
+    world_answers=True, wa_groups=True, wa_places=True, wa_ledger=True, wa_notice=True, wa_phase2=True,   # on at v24
     # footprints (the next stage's workstream 3; plan.md section 3), off until the joint refit; needs the batch's FOOT
     # (batch.FOOT or load_batch(foot=True)). Each picked option's footprints get real state (run_03_moments.py, the
     # footprints): a person in the cast (off-world, ties by foot_par ties), a haunt, a means, a mark or door (one only a
     # return reads shuts after foot_par door_yrs), a lesson told
-    foot_on=False, foot_par=dict(ties=0.05, door_yrs=5.0),
+    foot_on=True, foot_par=dict(ties=0.05, door_yrs=5.0),   # on at the v24 refit
     echo_play_par=dict(p=0.6, w=0.3, delay=(1.0, 8.0), keep=10.0, gap=0.5, again=12.0),
     # bold ways (chroma-ideas/gameplay-2026-10-17/bold-ways.md): set only by the game for a played life, with the batch's
     # BOLD_MOMENTS. In a week the game asks (bold_ask, set at the situation pause and spent at the choice; "all": every
@@ -1501,7 +1503,7 @@ UPD_OFF = dict(dis_match=False,
                # what one holds is practice too
                role_practice=False, read_skill=0.0, lens_want=0.0, app_vigil=False, sh_will=0.0, cur_will=0.0, gap_move=0.0,
                # v22.4: a refused first job or job move re-draws to the next-best fit
-               acc_redraw=False, green_jobs=False,
+               acc_redraw=False, green_jobs=False, cause_fit=False,
                # item 10, the C hooks (chroma-world/model/stage3-rules.md section 5)
                c3_inst=False, c4_nature=False, c5_faith=False, c2_groups=False,
                # the K limits' rule fixes (b-package.md K2 newcomer, K6 season steps)
@@ -1545,6 +1547,10 @@ UPD_OFF = dict(dis_match=False,
                foot_on=False,
     # the v22.3 refit's satisfaction level (the new mechanics lift satisfaction; the set point moved .80 -> .86)
     sat_mid=0.8)
+# the v24 refit's switches off (Release's K4 PNEW, with batch CHROMA_BATCH_OFF=FOOT,AIMS,WORLD_ANSWERS and v23.2's packs in
+# CHROMA_PACKS): the lives of v23.2
+V24_OFF = dict(need_tab=None, shared_hist=0.0, imp_age=False, aims=False, heights=False, world_answers=False,
+               wa_phase2=False, foot_on=False, cause_fit=False)
 # everything since the go-live off, for the identity check (C-E14): lives then equal engine_v9_golive.py
 GOLIVE = {**V10_OFF, **ID_OFF, **FIX_OFF, **UPD_OFF, "world": False}
 from realm_earth import ROLE_BY_SETTING, ACCEPT_BY_SETTING   # Earth's (realm_earth.py)

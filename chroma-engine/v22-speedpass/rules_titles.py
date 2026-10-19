@@ -1,4 +1,4 @@
-# rules_titles.py: part 3 of 10 of earth_rules.py, the engine's reading of the Library's words.
+# rules_titles.py: part 3 of 11 of earth_rules.py, the engine's reading of the Library's words.
 # ROLES and ROLES_V2: titles and perks, how they come and go.
 # Lines here are earth_rules.py's own, unchanged: earth_rules.py joins the parts in order (RULES_PARTS) and runs
 # them in its own namespace, so a name used here may be set in an earlier part. Never import or run it alone.

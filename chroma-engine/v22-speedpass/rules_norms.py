@@ -1,4 +1,4 @@
-# rules_norms.py: part 5 of 10 of earth_rules.py, the engine's reading of the Library's words.
+# rules_norms.py: part 5 of 11 of earth_rules.py, the engine's reading of the Library's words.
 # ROLE_NORM, ROLE_ACC_FIRST, ROLE_ACC_MOVE: measured title multipliers.
 # Lines here are earth_rules.py's own, unchanged: earth_rules.py joins the parts in order (RULES_PARTS) and runs
 # them in its own namespace, so a name used here may be set in an earlier part. Never import or run it alone.

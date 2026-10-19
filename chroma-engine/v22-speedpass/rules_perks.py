@@ -1,4 +1,4 @@
-# rules_perks.py: part 4 of 10 of earth_rules.py, the engine's reading of the Library's words.
+# rules_perks.py: part 4 of 11 of earth_rules.py, the engine's reading of the Library's words.
 # ROLES_P2, TITLE_LINKS, budgets, tier lifts, ROLES_WHEN, the sphere titles.
 # Lines here are earth_rules.py's own, unchanged: earth_rules.py joins the parts in order (RULES_PARTS) and runs
 # them in its own namespace, so a name used here may be set in an earlier part. Never import or run it alone.
@@ -455,6 +455,56 @@ ROLES_WHEN = {
                          req="(age >= 20) & (age <= 60) & (health > .5) & (was('scout or guide') | "
                              "was('search-and-rescue volunteer') | has('knowing the woods') | was('forester') | "
                              "(yrs_has('gardener or groundskeeper') >= 3))", entry=True)),
+}
+# E2 (cause_fit; "Every change has a cause", chroma-ideas/gameplay-2026-10-17/every-change-has-a-cause.md): the
+# Library's cause audit (chroma-library/notes/cause-audit.md, tier A) tightens the rules whose cause line would read
+# false, in place of the rule's req (its rate, after and lose kept), read only with cause_fit on. Kept as they are: the
+# readings the engine does not have yet (the audit's NEW: stepparent, a family-arranged marriage, a first-generation
+# student, residential care); the cat (with no dog from 'a pet of your own', the pet is the cat). The first two are the
+# audit's precedence bugs
+ROLES_FIT = {
+    "boxing or martial arts": dict(req="(mkn('learned a skill') >= 2) & (age <= 40) & "
+                                       "had(['a fight after school', 'someone starts mocking you online'], 3)"),
+    "home nursing": dict(req="has('carer for a parent') | ((mkn('helped someone in need') >= 2) & "
+                             "had(['flu, alone in a rented room', 'your child falls seriously ill', "
+                             "'your partner falls seriously ill'], 3))"),
+    "parent of three or more": dict(req="has('mother or father') & (alive_child >= 3) & had(['a child is born'], 1)"),
+    "foster parent": dict(req="(age >= 25) & (money > .4) & (mk('took them in', 2) | "
+                              "had(['you take in a child who needs a home'], 1))"),
+    "adoptive parent": dict(req="(age >= 25) & ~held_children & (mk('took them in', 2) | "
+                                "had(['you take in a child who needs a home'], 1))"),
+    "grandparent": dict(req="has('mother or father') & had(['your first grandchild'], 1)"),
+    "convert": dict(req="held_faith & (was('seeker') | had(['welcomed into a community', 'a friend takes another faith', "
+                        "'a new faith comes to town'], 2))"),
+    "graduate": dict(req="has('school-leaving certificate') & (age >= 20) & "
+                         "(had(['you win a scholarship or a place'], 12) | was('first-generation university student'))"),
+    "has killed in war": dict(req="has('soldier') & had(['war comes'], 3)"),
+    "immigrant": dict(req="had(['the first months in a new country', 'work and a room abroad, if you go this month'], 1)"),
+    "someone with a record": dict(req="mk('broke the law', 2)"),
+    "ex-prisoner": dict(req="has('someone with a record') & (yrs_out < 1)"),
+    "cancer survivor": dict(req="had(['a frightening diagnosis'], 3) & (health > .4)"),
+    "citizenship": dict(req="(has('immigrant') & (yrs_has('immigrant') >= 5)) | had(['the oath of citizenship'], 1)"),
+    "drinks licence": dict(req="~has('someone with a record') & (age >= 18) & (has('shop owner') | has('waiter or bartender'))"),
+    "local hero": dict(req="had(['a stranger saves you, or you save one'], 1) & mk('helped someone in need', 1)"),
+    "friend for life": dict(req="had(['a friend for life', 'a best friend of your own'], 2)"),
+    "dog of one's own": dict(req="had(['a stray dog follows you home'], 1)"),
+    "inheritance": dict(req="had(['a parent dies', 'a grandparent dies', 'losing a grandparent', 'an unexpected legacy'], 1)"),
+    "scholarship": dict(req="had(['you win a scholarship or a place'], 1)"),
+    "parent of an only child": dict(req="has('mother or father') & (yrs_children >= 4) & (kid_young >= yrs_children) & "
+                                        "~was('parent of an only child')"),
+    "guardian of an unrelated child": dict(req="(age >= 21) & had(['you take in a child who needs a home'], 1) & "
+                                               "mk('took them in')"),
+    "former foster child": dict(req="had(['going into foster care'], 110)"),
+    "asylum applicant": dict(req="(ago_move < 1) & had(['war comes'], 3) & ~was('asylum applicant')"),
+    "displaced by a disaster": dict(req="had(['losing the home'], 1) & had(['war comes', 'the flood wall gives way'], 1)"),
+    "award for bravery": dict(req="(has('firefighter') | has('lifeboat volunteer') | has('search-and-rescue volunteer') | "
+                                  "has('paramedic') | has('police officer') | has('soldier') | has('local hero')) & "
+                                  "had(['a stranger saves you, or you save one'], 1)"),
+    "business partner": dict(req="(age >= 18) & (has('founder of a firm') | has('shop owner') | "
+                                 "had(['a friend wants to start a project with you', 'a chance to start a business of your "
+                                 "own'], 2)) & mk('made a friend', 5)"),
+    "godchild": dict(req="had(['asked to stand for a child at the naming'], 1) | ((age >= 16) & (has('friend for life') | "
+                         "(alive_sibling > 0)) & (mkn('made a friend') >= 2) & chance(.1))"),
 }
 SPH_TITLE_ROLES = {
     # rule

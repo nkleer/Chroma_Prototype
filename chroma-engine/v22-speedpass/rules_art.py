@@ -1,4 +1,4 @@
-# rules_art.py: part 9 of 10 of earth_rules.py, the engine's reading of the Library's words.
+# rules_art.py: part 9 of 11 of earth_rules.py, the engine's reading of the Library's words.
 # PACK_RULES: the Art and Writing pack.
 # Lines here are earth_rules.py's own, unchanged: earth_rules.py joins the parts in order (RULES_PARTS) and runs
 # them in its own namespace, so a name used here may be set in an earlier part. Never import or run it alone.
