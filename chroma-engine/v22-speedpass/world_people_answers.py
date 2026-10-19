@@ -58,6 +58,10 @@ class AnswersMixin:
                                                                  ("wa_groups", "wa_places", "wa_ledger", "wa_notice", "wa_phase2"))
         self.wa_T = T; self.wa_steps = dict(T["ledger"]["steps"])
         self.wa_rec = float(T.get("recover", {}).get("y", 0.0))   # what a life caused fades back by this a year
+        LG_ = T["ledger"]
+        self.wa_age0 = float(LG_.get("from_age", 0))              # no footprint counted before this age
+        self.wa_gap = 52.0 / LG_["per_unit_year"] if LG_.get("per_unit_year") else 0.0   # weeks between a unit's steps
+        self.wa_tt = {}                                            # (unit's key) -> the week its last step was told
         self.wa_hcaus = None                                       # B: the caused part of each place's lasting lean
         self._wa_rng = np.random.default_rng([self.seed, 107, self.run_seed])
         self._wa_act = {}            # this week's act of each life that acted: (moment, option), set by WorldLink
@@ -110,6 +114,13 @@ class AnswersMixin:
         ln = dict(unit=unit, size=size, who=who, age=round(float(self._age(t)), 2), cause=cause)
         self.wa_told[n].append(ln); self.wa_new.append((int(n), ln))
 
+    def _wa_due(self, key, t):
+        """A unit may tell a step now (per_unit_year: one a year); if so, it is marked told this week."""
+        if self.wa_gap and t - self.wa_tt.get(key, -10 ** 9) < self.wa_gap:
+            return False
+        self.wa_tt[key] = int(t)
+        return True
+
     def _wa_cause(self, acts, last, t):
         """The acts that made most of a unit's change (at most two) and the age of the last one."""
         top = sorted(acts.items(), key=lambda x_: -x_[1])[:2]
@@ -127,7 +138,7 @@ class AnswersMixin:
     def _wa_unit(self, n, unit, key, amt, who, t, base=None, d=None, size=None, what=None):
         """A unit of rings 1 and out (a place, a town sphere, the nation) moved by amt (TV, or a push's size): told when
         its total passes a step (wa_steps), or at size when one is given."""
-        if not self.wa_l:
+        if not self.wa_l or self._age(t) < self.wa_age0:
             return
         if WA_RING_OF[unit] in ("place", "town_sphere"):
             self.wa_byr[n, self._wa_rg()[n]] += float(amt)
@@ -148,16 +159,14 @@ class AnswersMixin:
         st = self.wa_steps.get(unit)
         if not isinstance(st, (list, tuple)):
             return
-        lv0 = rec["lev"]
-        while rec["lev"] < len(st) and rec["tot"] >= st[rec["lev"]] - 1e-12:
-            rec["lev"] += 1
-        if rec["lev"] > lv0:
+        if rec["lev"] < len(st) and rec["tot"] >= st[rec["lev"]] - 1e-12 and self._wa_due(("u", n, unit, key), t):
+            rec["lev"] += 1   # one step at a time, at most one a year (per_unit_year)
             self._wa_tell(n, unit, WA_SIZES[rec["lev"] - 1], who, self._wa_cause(rec["acts"], rec["last"], t), t)
 
     def _wa_pmove(self, nn, kk, t, col=None, dc=None, dtr=None, what=None):
         """People in the close circle moved by the life (nn, kk: life and cast slot, each pair once): col, the colour
         change (rows of C), dc and dtr, closeness and trust (signed). Told when a person's total passes a step."""
-        if not self.wa_l or not len(nn):
+        if not self.wa_l or not len(nn) or self._age(t) < self.wa_age0:
             return
         nn = np.asarray(nn, np.int64); kk = np.asarray(kk, np.int64)
         new = self.uid[nn, kk] != self.wa_puid[nn, kk]
@@ -200,6 +209,9 @@ class AnswersMixin:
         if up.any():
             for r_, u_ in zip(*np.nonzero(up)):
                 n_, k_ = int(nn[r_]), int(kk[r_])
+                if not self._wa_due(("p", n_, int(self.uid[n_, k_]), int(u_)), t):
+                    continue
+                lv_[r_, u_] = self.wa_plev[n_, k_, u_] + 1   # one step at a time
                 self.wa_plev[n_, k_, u_] = lv_[r_, u_]
                 la_ = self.wa_pact[n_, k_, 1 if u_ in (2, 4) else 0]
                 last_ = ((int(la_[0]), int(la_[1])), int(la_[2])) if la_[0] >= 0 else ((what or "the years together"), int(t))
@@ -219,7 +231,7 @@ class AnswersMixin:
     def _wa_gmove(self, n, j, t, dnorm=None, members=None, what=None):
         """A setting moved by the life: dnorm, its ways' change (C); members, the members it gained as a share of its
         size when the character joined it. Told when the setting's total passes a step."""
-        if not self.wa_l:
+        if not self.wa_l or self._age(t) < self.wa_age0:
             return
         n, j = int(n), int(j)
         self._wa_greset(n, j)
@@ -235,8 +247,9 @@ class AnswersMixin:
             self.wa_gwhat[n][j] = (what, int(t))
         for u_, unit in ((0, "group_norm"), (1, "group_members")):
             st = self.wa_steps[unit]; lv0 = int(self.wa_glev[n, j, u_]); lv = lv0
-            while lv < len(st) and self.wa_gtot[n, j, u_] >= st[lv] - 1e-12:
-                lv += 1
+            if lv < len(st) and self.wa_gtot[n, j, u_] >= st[lv] - 1e-12 \
+                    and self._wa_due(("g", n, int(self.sjoin[n, j]), j, u_), t):
+                lv += 1   # one step at a time, at most one a year
             if lv > lv0:
                 self.wa_glev[n, j, u_] = lv
                 la_ = self.wa_gact[n, j]
@@ -246,11 +259,16 @@ class AnswersMixin:
 
     def _wa_gvec(self, m, d, t, what):
         """_wa_gmove for every setting in mask m at once (a norm change d, N x M x C), telling where a step is passed."""
+        if self._age(t) < self.wa_age0:
+            return
         self.wa_gtot[..., 0] += m * _tv(d, 0); self.wa_gdir += m[..., None] * d
         self.wa_byr[np.arange(self.N), self._wa_rg()] += (m * _tv(d, 0)).sum(1)
         st = self.wa_steps["group_norm"]
         lv = sum((self.wa_gtot[..., 0] >= s_ - 1e-12).astype(np.int8) for s_ in st)
         for n_, j_ in zip(*np.nonzero(m & (lv > self.wa_glev[..., 0]))):
+            if not self._wa_due(("g", int(n_), int(self.sjoin[n_, j_]), int(j_), 0), t):
+                continue
+            lv[n_, j_] = self.wa_glev[n_, j_, 0] + 1   # one step at a time
             self.wa_glev[n_, j_, 0] = lv[n_, j_]; self.wa_gwhat[n_][int(j_)] = (what, int(t))
             la_ = self.wa_gact[n_, j_]
             last_ = ((int(la_[0]), int(la_[1])), int(la_[2])) if la_[0] >= 0 else (what, int(t))

@@ -309,7 +309,8 @@
     # whether it is the character's own (grown from below, or sparked) or still set by the player; a calling. The heights
     # (Known, Notable, Historic) are read with it, or alone (heights, read-only)
     AIM_ON = bool(P["aims"]) and GON and RON and bool(L.get("AIMS"))
-    HT_ON = (bool(P["heights"]) or AIM_ON) and RON
+    HT_ON = (bool(P["heights"]) or AIM_ON or (P.get("world_answers") and P.get("wa_phase2") and P.get("world"))) and RON   # read-only
+    # (the world answers' second phase reads Known from it)
     AP_ = P["aims_par"]
     AIM = ak = astr = astep = aown = aby = atest = acall = abirth = aim_best = gal = ht_t = None; aim_log = []
     if AIM_ON:
