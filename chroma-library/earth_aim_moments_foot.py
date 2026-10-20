@@ -437,6 +437,7 @@ FOOT = {('the whole family round one table', 'set a place for everyone, and ring
                                                                                                                   'someone '
                                                                                                                   'in '
                                                                                                                   'need')],
+ ('the lesson that finally lands', 'offer to tutor the pupil after school, for a fair fee'): [('means', 'money+.02')],
  ('the lesson that finally lands', 'make up a silly song that holds the rule, and sing it till it sticks'): [('lesson',
                                                                                                               'a '
                                                                                                               'joke '
@@ -544,8 +545,8 @@ FOOT = {('the whole family round one table', 'set a place for everyone, and ring
                                                                                                  'than meaning')],
  ('the page in the old tongue', 'join the study group that meets in the old chapel on Thursdays'): [('place',
                                                                                                      'gather.talk')],
- ('the page in the old tongue', "get a reader's ticket for the old collection at the university"): [('place',
-                                                                                                     'learn.keeping')],
+ ('the page in the old tongue', 'spend the evenings in the old collection at the university library'): [('place',
+                                                                                                         'learn.keeping')],
  ('the page in the old tongue', 'argue the new reading at the study night, and see who has an answer'): [('person',
                                                                                                           'rival')],
  ('the page in the old tongue', 'post the new reading online, and let the arguments come'): [('mark',

@@ -112,7 +112,7 @@ scene magic: A first-year at the academy cannot hold the simplest figure in mind
 - G | admit how long it took you, and sit with the pupil till it comes | v: benevolence | foot: means time-.04 | chance: 80
 - W>R | start a lively study group for the whole class, every Friday | v: conformity, stimulation | foot: place gather.circle | chance: 70
 - U>G | take the lesson outside and show it with sticks and stones on the ground | v: self-direction, universalism | dream: test | foot: mark helped someone in need | chance: 62
-- B>W | sign up with the tutoring agency in town, and be paid for it | v: achievement, security | title: private tutor | chance: 60
+- B>W | offer to tutor the pupil after school, for a fair fee | v: achievement, security | foot: means money+.02 | chance: 60
 - R>U | make up a silly song that holds the rule, and sing it till it sticks | v: stimulation, self-direction | foot: lesson a joke can carry a rule | chance: 66
 - G>B | ask the old teacher who taught you how they would do it | v: tradition, achievement | foot: person mentor | chance: 75
 works: Halfway through the fourth try the pupil's face changes, and {N} sees the moment it lands.
@@ -307,7 +307,7 @@ scene magic: The temple's first scroll is in a tongue only three scholars in the
 - R | read the page aloud over and over until it means something | v: stimulation, self-direction | foot: lesson words carry more than meaning | chance: 60
 - G | ask {grandparent} how the old words sounded at home | v: tradition, benevolence | bond: grandparent +.1 | chance: 85
 - W>G | join the study group that meets in the old chapel on Thursdays | v: conformity, benevolence | foot: place gather.talk | chance: 78
-- U>W | get a reader's ticket for the old collection at the university | v: self-direction, conformity | grants: reader's ticket | foot: place learn.keeping | chance: 75
+- U>W | spend the evenings in the old collection at the university library | v: self-direction, conformity | foot: place learn.keeping | chance: 75
 - B>U | argue the new reading at the study night, and see who has an answer | v: power, self-direction | foot: person rival | chance: 50
 - R>B | post the new reading online, and let the arguments come | v: stimulation, power | foot: mark defied an authority | chance: 55
 - G>R | close the book, and leave the old words in peace | v: tradition, security | dream: drop | foot: lesson not every door needs opening | chance: 90
