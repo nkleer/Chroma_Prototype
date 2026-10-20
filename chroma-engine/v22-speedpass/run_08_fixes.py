@@ -243,7 +243,7 @@
                 ev_log, goal_log, brk_log, conv_log, rite_log, commit_log, clash_log, role_log, adj_log,
                 mark_log, read_log, r_has, r_ever, r_since, r_prof, p_acc, p_lev, p_sus, fam, gsr, goal_rel_S,
                 around, retired, ck, ok_, frc_, ONCE_HOLD_, noise, btrust, ep_seeds, ep_now, asrc, asrc_c,
-                bold_now, bold_pick, nw, nw_imp, J, FRpos, clu_, CLU_ON, AIM_ON, HT_ON, AIM, ak, astr, astep, aown,
+                bold_now, bold_pick, nw, nw_imp, nw_imp_cause, J, FRpos, clu_, CLU_ON, AIM_ON, HT_ON, AIM, ak, astr, astep, aown,
                 aby, atest, acall, abirth, aim_best, gal, ht_t, aim_take, aim_end, aim_fit, aim_of_goal, WA_ON, WA2_ON,
                 wa_book, wa_lines, wa_known, FOOT_ON, foot_log,
                 foot, foot_open, mark_last)

@@ -31,7 +31,8 @@ MISSED_TITLE = -3   # {missed}: the title of the person's last failed long shot 
 KIND_ACT = -10
 # content packs (Emren's point 8; card 21:03: approved packs are always on, with no switch at setup). A pack joins this list
 # once the Library has built it and Emren has said go; its moments are then the Library's chroma-library/<world>_<pack>.py
-PACKS = ["science", "politics", "stage", "art"]   # the ONE GO-LIVE (Emren 10-06 01:32); art joins at v22.4 (Packs #154)
+PACKS = ["science", "politics", "stage", "art", "callings"]   # the ONE GO-LIVE (Emren 10-06 01:32); art joins at v22.4
+# (Packs #154); the Five Callings at the v24 refit (chroma-packs/callings, the single colours' public callings)
 if os.environ.get("CHROMA_PACKS") is not None:   # a check's own set (v22.4's G4 runs v22.3's three packs), comma list
     PACKS = [p_.strip() for p_ in os.environ["CHROMA_PACKS"].split(",") if p_.strip()]
 
@@ -323,6 +324,11 @@ def _roles(cat, R, L, extra=None, extend=None, packs_=None):
         r_["say"] = r_["say"] or items[i_].get("cause")
     G["rule_sph_when"] = {ID[nm]: _rule1(nm, dict(r_), ID, norm, acc_mv, acc_fs, opt, None)
                           for nm, r_ in when_.items() if nm in sph_}
+    # E2 (<world>_rules.ROLES_FIT; switch cause_fit): the cause audit's tightened conditions, each over its title's rule
+    G["rule_fit"] = {ID[nm]: _rule1(nm, {**dict(rules.get(nm, {})), **r_}, ID, norm, acc_mv, acc_fs, opt, extend, packs_)
+                     for nm, r_ in getattr(R, "ROLES_FIT", {}).items() if nm in ID}
+    for i_, r_ in G["rule_fit"].items():
+        r_["say"] = r_["say"] or items[i_].get("cause")
     # act fields
     S, K = L["S"], L["K"]
     G["A_REQ"] = np.full((S, K), -1); G["A_WITHOUT"] = np.full((S, K), -1); G["S_REQ"] = np.full(S, -1)
@@ -926,13 +932,13 @@ SHADOW_MOMENTS = True   # the spheres finishing pack, part 5: moments with shado
                         # batch at its refit; until then the batch is as before
 BOLD_MOMENTS = False    # bold ways (chroma-ideas/gameplay-2026-10-17/bold-ways.md): the Library's <world>_play.BOLD rows and
                         # LINKS load only for a played life with bold_play on (the game sets it); off, every life is as before
-FOOT = False   # footprints (chroma-ideas/next-table-2026-10-19/plan.md section 3): the Library's FOOT tables (<world>_foot.py
+FOOT = True    # footprints (chroma-ideas/next-table-2026-10-19/plan.md section 3): the Library's FOOT tables (<world>_foot.py
                # and its packs', aim moments' and world answers' *_foot.py) load only with the engine's foot_on switch on (the
                # game sets both); off, the library and every life are as before
-AIMS = False   # aims v1 (chroma-ideas/next-table-2026-10-19/plan.md section 5): the aim catalogue (the Library's
+AIMS = True    # aims v1 (chroma-ideas/next-table-2026-10-19/plan.md section 5): the aim catalogue (the Library's
                # <world>_aims.py and each pack's aims.py), its spark moments and the Historic marker (the packs' core/legacy.py)
                # load only with the engine's aims switch on (the game sets both); off, the library and every life are as before
-WORLD_ANSWERS = False   # the world answers v1 (chroma-world/spheres/world-answers-v1.md): the Library's asked, decision and
+WORLD_ANSWERS = True    # the world answers v1 (chroma-world/spheres/world-answers-v1.md): the Library's asked, decision and
                         # figure moments (<world>_world_answers.py: cast_want asked_*, decide, rival_push, ally_*,
                         # successor_*) load only with the engine's world_answers switch on (the game sets both); off, the
                         # library and every life are as before. Loaded, they come only when the world brings them
@@ -943,6 +949,12 @@ TURNOVER_MOMENTS = True    # spheres finishing pack, part 2: moments with cast_w
                            # batch at the pack's refit (until then the Library's new moments change no life); in the
                            # batch, they come only with a closing or an opening of the life's place (place_turnover on)
 FLOORS = True      # item 16: the floors for rare titles and perks (earth_rules.BUDGET_FLOORS); off until the v22.3 refit
+# the v24 refit (feature/v24-refit) loads FOOT, AIMS and WORLD_ANSWERS; their moments are in the batch even with the
+# engine's switches off, and a loaded moment moves the draws. So a check of every v24 switch off against v23.2 (Release's
+# K4) names the flags to hold off, comma list: CHROMA_BATCH_OFF=FOOT,AIMS,WORLD_ANSWERS (with CHROMA_PACKS for v23.2's packs)
+for f_ in os.environ.get("CHROMA_BATCH_OFF", "").split(","):
+    if f_.strip() in ("FOOT", "AIMS", "WORLD_ANSWERS", "BOLD_MOMENTS", "RETURN_MOMENTS"):
+        globals()[f_.strip()] = False
 TARGET_CAP = 0.25   # a multiplied target never asks for more than about 1 life in 4 (common community and entry titles)
 
 

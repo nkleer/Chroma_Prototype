@@ -23,6 +23,8 @@
         GR = L["ROLES"]; NT_, NP_, NI_ = GR["NT"], GR["NP"], GR["NI"]
         if P.get("green_jobs") and GR.get("rule_when"):   # v22.4: the green entry jobs' rules and roads (ROLES_WHEN)
             GR = dict(GR, rule=[GR["rule_when"].get(i_, r_) for i_, r_ in enumerate(GR["rule"])])
+        if P.get("cause_fit") and GR.get("rule_fit"):   # E2: the cause audit's tightened conditions (ROLES_FIT)
+            GR = dict(GR, rule=[GR["rule_fit"].get(i_, r_) for i_, r_ in enumerate(GR["rule"])])
         if P.get("sph_titles") and GR.get("rule_sph"):   # item 15: the sphere titles follow their own rules
             sr_ = {**GR["rule_sph"], **(GR.get("rule_sph_when") or {})} if P.get("green_jobs") else GR["rule_sph"]
             GR = dict(GR, rule=[sr_.get(i_, r_) for i_, r_ in enumerate(GR["rule"])])   # (earth_rules.SPH_TITLE_ROLES)
@@ -412,6 +414,21 @@
             if sp_.any():
                 pu_[on_[sp_], AIM["spark"][a_[sp_]]] += AP_["spark_seek"] * astr[on_[sp_], q_]
         return pu_
+    def spark_gate(ap_):
+        """A spark moment comes at spark_base of its rate (aims_par) to a life none of whose aims or goals is its aim: a
+        door that opens for those already turned toward it, an aim the player set among them (left alone, every spark
+        came to everyone about yearly)."""
+        sb_ = AP_.get("spark_base", 1.0)
+        if sb_ == 1.0:
+            return ap_
+        cols_ = np.nonzero(SPK_A >= 0)[0]
+        g_ = np.full((N, len(cols_)), sb_, np.float32); cix_ = np.full(NAIM_, -1); cix_[SPK_A[cols_]] = np.arange(len(cols_))
+        for a2_ in (ak, gal):
+            r_, q_ = np.nonzero(a2_ >= 0)
+            c_ = cix_[a2_[r_, q_]]; ok_ = c_ >= 0
+            g_[r_[ok_], c_[ok_]] = 1.0
+        ap_[:, cols_] *= g_
+        return ap_
     def aim_spark():
         """A spark moment's pick (its options' dream: test, seal or drop). A try that works opens the aim (their own) or
         brings it on, and readies one set by the player to become theirs at the next rite; a seal that works makes it
@@ -466,7 +483,7 @@
                 ok_ = r_ever[rows_][:, st_["any"]].any(1) if len(st_["any"]) else np.zeros(len(rows_), bool)
                 if st_["req"] is not None and ok_.any():
                     ok_ &= ev_cond(st_["req"], ns_)[rows_]
-                if st_["h"] == 1 and AIM["sph"][a_] >= 0 and WON:
+                if st_["h"] == 1 and AIM["sph"][a_] >= 0 and WON and hasattr(WL.PP, "rung"):   # rungs: the spheres' hours
                     ok_ |= np.floor(np.asarray(WL.PP.rung)[rows_, AIM["sph"][a_]]) >= 4
                 best_ = np.where(ok_, k_ + 1, best_)
             for n, q_, b_ in zip(rows_, qs_, best_):
@@ -493,7 +510,8 @@
         name or a summit title; Historic, a Historic name or leading a movement; each height counts the ones above it."""
         hs_ = [r_ever[:, HT_I[h_]].any(1) if len(HT_I[h_]) else np.zeros(N, bool) for h_ in range(3)]
         if WON:
-            hs_[0] = hs_[0] | (np.floor(np.asarray(WL.PP.rung)) >= 4).any(1)
+            if hasattr(WL.PP, "rung"):   # the spheres' rungs (a world without them reads the titles alone)
+                hs_[0] = hs_[0] | (np.floor(np.asarray(WL.PP.rung)) >= 4).any(1)
             from world_people_base import G as WG_   # the kinds of the world's settings (a movement's)
             if "movement" in WG_ and hasattr(WL.PP, "slead"):
                 hs_[2] = hs_[2] | ((np.asarray(WL.PP.slead) == -2) & (np.asarray(WL.PP.skind) == WG_["movement"])).any(1)

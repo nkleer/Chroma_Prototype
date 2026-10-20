@@ -399,7 +399,11 @@ class LinkWeekMixin:
 
     def _wa_week(self):
         """The moments the world answers bring this week (an ask, a decision, a figure's), one a life without one."""
-        PP = self.PP; self.wa_pend = {}
+        PP = self.PP
+        for x_ in self.wa_pend.values():   # a decision whose moment the week did not play (another moment came first) waits on
+            if x_["key"] == "decide" and x_["until"] >= PP.t:
+                PP.wa_q.append(x_)
+        self.wa_pend = {}
         for x_ in PP.wa_take(PP.t, self.pending):
             ss_ = self.wa_keys.get(x_["key"]) or []
             ss2_ = [si for si in ss_ if self.msph[si] == x_["sphere"]]
@@ -412,7 +416,7 @@ class LinkWeekMixin:
             self.pending[n_] = (int(x_["cid"]), x_["key"], si_); self.fire_now[n_, si_] = True; self.wa_pend[n_] = x_
 
     def _wa_resolve(self, n, s_n, a_n, succ_n, idle_n):
-        x_ = self.wa_pend.get(int(n))
+        x_ = self.wa_pend.pop(int(n), None)
         if x_ is None:
             return None
         sc_ = int(self.wa_scope[s_n, a_n]) if a_n < self.wa_scope.shape[1] else -1

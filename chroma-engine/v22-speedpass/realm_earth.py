@@ -74,16 +74,19 @@ DUTIES = {
 # each colour's ends: White's order and duty also make belonging (McMillan & Chavis 1986); Blue's foresight is safety
 # (Aspinwall & Taylor 1997) and its meaning is curiosity's (Kashdan & Steger 2007); Black's means are safety (Kasser
 # et al. 1995) and cost belonging (Dittmar et al. 2014); Red finds meaning in passion and the people loved (King et al.
-# 2006); Green in kin, land and its place in the whole (Howell et al. 2013). Columns still sum to .6; meaning's row
-# rises from 1.0 to 1.1, safety and belonging fall to .95 each
+# 2006); Green in kin, land and its place in the whole (Howell et al. 2013). Columns still sum to .6; the note's rows
+# (meaning 1.1, safety and belonging .95) became meaning .95 and safety 1.1 at the v24 refit (below)
 NEED_MAP_V7 = [
   #  W     U     B     R     G
-  [0.20, 0.25, 0.25, 0.10, 0.15],   # safety
+  [0.23, 0.28, 0.28, 0.13, 0.18],   # safety
   [0.20, 0.10, 0.10, 0.30, 0.25],   # belonging
   [0.00, 0.00, 0.00, 0.00, 0.00],   # autonomy (the engine: acting as oneself)
   [0.00, 0.00, 0.00, 0.00, 0.00],   # competence (the engine: succeeding at what is hard for you)
-  [0.20, 0.25, 0.25, 0.20, 0.20],   # meaning
+  [0.17, 0.22, 0.22, 0.17, 0.17],   # meaning
 ]
+# (the v24 refit moved .03 of each colour's meaning to its safety, each column still .6: with the note's .20 to .25,
+# meaning at 60 to 79 sat at .955, over the realism ceiling of .95, and safety .02 to .035 under v23.2's; now meaning
+# .944 and safety at or above v23.2's, seeds 41 and 42, 100 lives)
 # what each commitment meets while held (each row still 1.0): a partner gives meaning (Gold et al. 2024), work gives
 # contact and less meaning than a calling (Paul & Batinic 2010, Wrzesniewski et al. 1997), a community gives safety
 # (Sampson et al. 1997), a faith's belonging is its congregation (Lim & Putnam 2010)
@@ -100,6 +103,13 @@ COMMIT_MEETS_V7 = {
 # 1 (Ainsworth et al. 1978), trusted evidence overturned from 14 (Kuhn et al. 2000), made dependent from 16 (Baltes
 # 1996), traditions mocked from 7 (Brown & Bigler 2005), lawlessness at any age (Fowler et al. 2009)
 IMP_AGE = (10, 12, 5, 4, 0, 1, 14, 16, 7, 0)
+# what each setback's cause is called (need_why's nw_imp_cause indexes this list; the core picks the cause from the life's
+# age, its work, partner and health and, with the world on, its place's crime, disasters and war and the state's law and
+# rights; needs-research.md section 5, "each setback should name its cause from these world facts"). In order: family,
+# school, work, a partner, friends, crime where they live, a disaster, war, the state, the law failing, health, old
+# age, word going round, a stranger. A realm names its own (a lord's decree, a curse, a raid from the hills)
+IMP_CAUSES = ("family", "school", "work", "a partner", "friends", "crime nearby", "a disaster", "war", "the authorities",
+              "the law failing", "failing health", "old age", "word going round", "a stranger")
 
 
 # ---- The heights of a life (aims v1, plan.md section 5, behind aims and heights): Earth's names for each height. The

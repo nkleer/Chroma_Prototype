@@ -352,14 +352,15 @@ def aim_ways(S, n):
 _MK_RULES = {}
 
 
-def _mark_clauses(GR, gj):
+def _mark_clauses(GR, gj, cf=False):
     import ast
-    key_ = (id(GR), gj)
+    key_ = (id(GR), gj, cf)
     if key_ in _MK_RULES:
         return _MK_RULES[key_]
     out = []
     for i, r_ in enumerate(GR["rule"]):
         r_ = GR["rule_when"].get(i, r_) if gj else r_   # green_jobs: the newer rule in its place
+        r_ = (GR.get("rule_fit") or {}).get(i, r_) if cf else r_   # cause_fit: the audit's tightened rule
         src_ = r_.get("req_s") or ""
         if "mk" not in src_:
             continue
@@ -397,7 +398,7 @@ def marks_toward(S, n):
     MIDX_ = {m_: j_ for j_, m_ in enumerate(L["MARKS"])}
     mn_, ml_, t = S["mark_n"][n], S.get("mark_last"), S["t"]
     out = []
-    for i, cl_ in _mark_clauses(GR, bool(S["P"].get("green_jobs"))):
+    for i, cl_ in _mark_clauses(GR, bool(S["P"].get("green_jobs")), bool(S["P"].get("cause_fit"))):
         if S["r_has"][n, i]:
             continue
         have_ = need_ = 0; last_ = (-1, None)
