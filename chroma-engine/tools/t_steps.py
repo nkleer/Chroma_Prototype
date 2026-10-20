@@ -471,7 +471,8 @@ P2_ = [("the spheres' haunts, hours and marks (sph_haunts, sph_hours, sph_marks)
        ("v22.5 G19w, practice is shared among the skills in the same ways (skill_room)", dict(skill_room=1.0), {}, 40, 8),
        ("v22.5 round 2, a pension's spread, the help after a long hard spell, deaths at work (pen_pay, low_net, work_die)",
         dict(pen_pay=0.5, low_net=(3.0, 0.1, 1.0), work_die=0.00007), {}, 70, 6),
-       ("v22.5 round 3, a home bought again only years later (ev_gapfit)", dict(ev_gapfit={"buying a home": (3, 8)}), {}, 70, 10),
+       # 14 lives: with v24's rates, 10 lives bought no second home inside the gap (the switch had nothing to move)
+       ("v22.5 round 3, a home bought again only years later (ev_gapfit)", dict(ev_gapfit={"buying a home": (3, 8)}), {}, 70, 14),
        ("v22.5 round 3d, a lasting illness at its own rates by age (age_pts)",
         dict(age_pts={"living with a chronic illness": ((0, 0.0045), (40, 0.01), (80, 0.05))}), {}, 70, 10)]
 # a switch's own readouts, which are not the lives (the finishing pack's)
@@ -1229,7 +1230,7 @@ if "world_answers" in E.DEFAULT and "wa" in batch.load_batch.__code__.co_varname
     b_ = E.run(**kw, P=dict(B24_, world=False, world_answers=True, wa_phase2=True))
     if digest(a_) != digest(b_) or met_(b_):
         fails.append("world off: the switch moved a life, or a world answers moment came")
-    kw = dict(N=2, years=46, seed=10, lib=LWA_, log_lives=(0,))   # seed 10 (v24 refit): a Known life and a pillar
+    kw = dict(N=2, years=46, seed=17, lib=LWA_, log_lives=(0,))   # seed 17 (v24 refit's rates): a Known life who also leads
     PW_ = dict(B24_, world=True, heights=True)
     o0_ = E.run(**kw, P=dict(PW_))
     if met_(o0_) or "wa_ledger" in o0_:
