@@ -74,16 +74,19 @@ DUTIES = {
 # each colour's ends: White's order and duty also make belonging (McMillan & Chavis 1986); Blue's foresight is safety
 # (Aspinwall & Taylor 1997) and its meaning is curiosity's (Kashdan & Steger 2007); Black's means are safety (Kasser
 # et al. 1995) and cost belonging (Dittmar et al. 2014); Red finds meaning in passion and the people loved (King et al.
-# 2006); Green in kin, land and its place in the whole (Howell et al. 2013). Columns still sum to .6; meaning's row
-# rises from 1.0 to 1.1, safety and belonging fall to .95 each
+# 2006); Green in kin, land and its place in the whole (Howell et al. 2013). Columns still sum to .6; the note's rows
+# (meaning 1.1, safety and belonging .95) became meaning .95 and safety 1.1 at the v24 refit (below)
 NEED_MAP_V7 = [
   #  W     U     B     R     G
-  [0.20, 0.25, 0.25, 0.10, 0.15],   # safety
+  [0.23, 0.28, 0.28, 0.13, 0.18],   # safety
   [0.20, 0.10, 0.10, 0.30, 0.25],   # belonging
   [0.00, 0.00, 0.00, 0.00, 0.00],   # autonomy (the engine: acting as oneself)
   [0.00, 0.00, 0.00, 0.00, 0.00],   # competence (the engine: succeeding at what is hard for you)
-  [0.20, 0.25, 0.25, 0.20, 0.20],   # meaning
+  [0.17, 0.22, 0.22, 0.17, 0.17],   # meaning
 ]
+# (the v24 refit moved .03 of each colour's meaning to its safety, each column still .6: with the note's .20 to .25,
+# meaning at 60 to 79 sat at .955, over the realism ceiling of .95, and safety .02 to .035 under v23.2's; now meaning
+# .944 and safety at or above v23.2's, seeds 41 and 42, 100 lives)
 # what each commitment meets while held (each row still 1.0): a partner gives meaning (Gold et al. 2024), work gives
 # contact and less meaning than a calling (Paul & Batinic 2010, Wrzesniewski et al. 1997), a community gives safety
 # (Sampson et al. 1997), a faith's belonging is its congregation (Lim & Putnam 2010)
