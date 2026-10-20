@@ -177,6 +177,37 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
      NW_PLAYER) = range(len(NSOURCES))
     nw = np.zeros((N, len(NSOURCES), NJ)) if NW_ON else None   # this week's need moves so far, by source
     nw_imp = np.full(N, -1) if NW_ON else None                 # this week's silent setback (IMPOSITIONS index), -1 none
+    nw_imp_cause = np.full(N, -1) if NW_ON else None           # its cause (IMP_CAUSES index), -1 none
+    (CZ_FAM, CZ_SCH, CZ_WRK, CZ_PTN, CZ_FRI, CZ_CRIME, CZ_DIS, CZ_WAR, CZ_AUTH, CZ_LAW, CZ_HEA, CZ_OLD, CZ_WORD,
+     CZ_STR) = range(len(IMP_CAUSES))
+    def imp_cause(ii_, k_):
+        """The cause of each setback (kinds k_, lives ii_; IMP_CAUSES index), read from the life and, with the world on,
+        from its place and its state (needs-research.md section 5; no draw): a child's rules and lies come from the
+        family, a worker's betrayals from work; the world names crime, disasters, war, a weak law or a harsh state where
+        they are what the life lives in."""
+        kid_ = age < 18; job_ = held[ii_, CAR]; ptn_ = held[ii_, PAR]; sick_ = res[ii_, HEA] < 0.5
+        if WON:
+            W_ = WL.W; l_ = np.asarray(WL.PP.loc)[ii_]
+            war_ = np.full(len(ii_), int(W_.war) > 0)
+            dis_ = (np.asarray(W_.loc_disaster)[l_] > 0) | (np.asarray(W_.disaster_now)[l_] > 0)
+            crime_ = np.asarray(W_.loc_crime)[l_] * float(W_.loc_pop0.sum()) / max(W_.crime_ref, 1e-9) >= 1   # above the country's average
+            harsh_ = 1 - float(np.mean(W_.rights)) >= 0.5; weak_ = 1 - float(W_.law_rule) >= 0.5
+        else:
+            war_ = dis_ = np.zeros(len(ii_), bool); crime_ = np.ones(len(ii_), bool); harsh_ = weak_ = False
+        adult_ = CZ_AUTH if harsh_ else -1
+        c_ = np.select([k_ == 0, k_ == 1, k_ == 2, k_ == 3, k_ == 4, k_ == 5, k_ == 6, k_ == 7, k_ == 8, k_ == 9], [
+            CZ_FAM if kid_ else np.where(job_ & ~harsh_, CZ_WRK, CZ_AUTH),                           # a rule imposed
+            CZ_SCH if kid_ else np.where(job_, CZ_WRK, CZ_AUTH),                                     # an institution betrays
+            (CZ_FAM if age < 12 else CZ_FRI) if kid_ else np.where(ptn_, CZ_PTN, np.where(job_, CZ_WRK, CZ_FRI)),   # lied to
+            (CZ_FAM if age < 12 else CZ_FRI) if kid_ else np.where(job_, CZ_WRK, CZ_STR),            # what you earned taken
+            np.where(war_, CZ_WAR, np.where(dis_ | ~crime_, CZ_DIS, CZ_CRIME)),                      # the community damaged
+            CZ_FAM if kid_ or adult_ < 0 else adult_,                                                # kept from someone loved
+            CZ_SCH if age < 22 else np.where(job_, CZ_WRK, CZ_WORD),                                 # evidence overturned
+            np.where(sick_, CZ_HEA, CZ_OLD if age >= 70 else np.where(job_, CZ_WRK, CZ_FAM)),        # made dependent
+            CZ_AUTH if harsh_ else (CZ_SCH if kid_ else CZ_WORD),                                    # traditions mocked
+            np.where(war_, CZ_WAR, np.where(crime_ | (not weak_), CZ_CRIME, CZ_LAW)),                # lawlessness
+        ], -1)
+        return c_
     nw_prev = need.copy() if NW_ON else None                   # needs at the last mark
     def shared_history(b0_, room_):
         """Shared history (needs that fit life): what an act just gave belonging (since b0_) also feeds meaning, by a

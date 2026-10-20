@@ -45,7 +45,7 @@ NIDX = {n: i for i, n in enumerate(NEEDS)}
 NMAP_V5 = np.array(NEED_MAP, float)       # needs x colors
 NMAP_V6 = np.array(NEED_MAP_V6, float)    # v6: autonomy is met by acting as oneself, not by a color
 NMAP = NMAP_V6
-from realm_earth import NEED_MAP_V7, COMMIT_MEETS_V7, IMP_AGE   # needs that fit life (need_tab "v7", imp_age): Earth's
+from realm_earth import NEED_MAP_V7, COMMIT_MEETS_V7, IMP_AGE, IMP_CAUSES   # needs that fit life (need_tab "v7", imp_age): Earth's
 NMAP_V7 = np.array(NEED_MAP_V7, float)
 from realm_earth import HEIGHT_NAMES   # aims v1: Earth's names of the three heights
 AIM_HEIGHTS = ["Known", "Notable", "Historic"]   # a step's height: 0 none, 1 Known, 2 Notable, 3 Historic
@@ -828,9 +828,10 @@ DEFAULT = dict(
     # need_why (WS1, "because of you, and meanwhile"; chroma-ideas/next-table-2026-10-19/plan.md section 1): a record of
     # why each need moved this week, by source (NSOURCES): nw, N x NSOURCES x needs, from the start of the week (before
     # the "week" pause) to the "end" pause, summing exactly to the week's change (what the clip to 0..1 takes off goes
-    # back to the week's moves of its sign, pro rata), and nw_imp, the week's silent setback (IMPOSITIONS index, -1
-    # none). Read-only (no draw): every life plays the same with it on or off. Changes the caller makes at the "end"
-    # pause fall in no week's record
+    # back to the week's moves of its sign, pro rata), nw_imp, the week's silent setback (IMPOSITIONS index, -1
+    # none), and nw_imp_cause, its cause (realm_earth.IMP_CAUSES index, -1 none: every setback has one). Read-only (no
+    # draw): every life plays the same with it on or off. Changes the caller makes at the "end" pause fall in no week's
+    # record
     need_why=False,
     # needs that fit life (the next stage's workstream 4; chroma-ideas/next-table-2026-10-19/needs-research.md), each on
     # since v24 (V24_OFF): need_tab "v7" reads the colour-to-needs table and what commitments meet from realm_earth
@@ -1797,8 +1798,8 @@ STATE_MORE = ("fam", "gsr", "goal_rel_S", "around", "retired", "ck", "ok_", "frc
               # colours; asrc_c: the first logged life's, ASOURCES x colours; the game takes the year's movers between two pauses)
               "J", "FRpos", "clu_", "CLU_ON",   # foresee.arrows: how far each pair of colours is held together, the
               # world's opposed pairs and this week's closures in units (with CLU_ON)
-              "nw", "nw_imp",   # need_why: this week's need moves by source (N x NSOURCES x needs) and silent setback
-              # (IMPOSITIONS index, -1 none), from the start of the week; None off. The game takes the pick's from the choose pause on
+              "nw", "nw_imp", "nw_imp_cause",   # need_why: this week's need moves by source (N x NSOURCES x needs), silent
+              # setback (IMPOSITIONS index, -1 none) and its cause (IMP_CAUSES index, -1 none), from the start of the week; None off. The game takes the pick's from the choose pause on
               "AIM_ON", "HT_ON", "AIM", "ak", "astr", "astep", "aown", "aby", "atest", "acall", "abirth", "aim_best", "gal",
               "ht_t", "aim_take", "aim_end", "aim_fit", "aim_of_goal",   # aims v1 (foresee's aims track, set_aim, drop_aim)
               # and the heights reached (ht_t, weeks, -1 never); None off

@@ -100,6 +100,13 @@ COMMIT_MEETS_V7 = {
 # 1 (Ainsworth et al. 1978), trusted evidence overturned from 14 (Kuhn et al. 2000), made dependent from 16 (Baltes
 # 1996), traditions mocked from 7 (Brown & Bigler 2005), lawlessness at any age (Fowler et al. 2009)
 IMP_AGE = (10, 12, 5, 4, 0, 1, 14, 16, 7, 0)
+# what each setback's cause is called (need_why's nw_imp_cause indexes this list; the core picks the cause from the life's
+# age, its work, partner and health and, with the world on, its place's crime, disasters and war and the state's law and
+# rights; needs-research.md section 5, "each setback should name its cause from these world facts"). In order: family,
+# school, work, a partner, friends, crime where they live, a disaster, war, the state, the law failing, health, old
+# age, word going round, a stranger. A realm names its own (a lord's decree, a curse, a raid from the hills)
+IMP_CAUSES = ("family", "school", "work", "a partner", "friends", "crime nearby", "a disaster", "war", "the authorities",
+              "the law failing", "failing health", "old age", "word going round", "a stranger")
 
 
 # ---- The heights of a life (aims v1, plan.md section 5, behind aims and heights): Earth's names for each height. The

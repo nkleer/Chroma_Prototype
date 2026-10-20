@@ -367,7 +367,7 @@
             which = rng.choice(nI, size=imp.sum(), p=pa_ / pa_.sum()) if IA_ON else rng.choice(nI, size=imp.sum(), p=pb)
             need[imp] += 0.5 * L["IMP"][which]
             if NW_ON:
-                nw_mark(NW_SET); nw_imp[imp] = which
+                nw_mark(NW_SET); nw_imp[imp] = which; nw_imp_cause[imp] = imp_cause(np.nonzero(imp)[0], which)
             stress[imp] += 0.15
             res[imp, FRE] = _uclip(res[imp, FRE] + 0.5 * IMP_FREE[which], 0, 1)
             ii = np.nonzero(imp)[0]

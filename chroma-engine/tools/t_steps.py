@@ -964,6 +964,8 @@ if "need_why" in E.DEFAULT:
                         fails.append(f"week {t}: the player's share {pl_:.4f} for {add_:.2f} set")
                     if (np.abs(nw_[:, SB_]).max(1) > 0).any() and ((np.abs(nw_[:, SB_]).max(1) > 0) & (S["nw_imp"] < 0)).any():
                         fails.append(f"week {t}: a setback without its kind")
+                    if ((S["nw_imp"] >= 0) != (S["nw_imp_cause"] >= 0)).any():
+                        fails.append(f"week {t}: a setback without its cause, or a cause without a setback")
                     seen_["imp"] += int((S["nw_imp"] >= 0).sum())
                 if kind == "end" and not edit_ and pick_ is not None:   # the picked option's need arrows against the record
                     pv_ = np.zeros(len(E.NEEDS))
