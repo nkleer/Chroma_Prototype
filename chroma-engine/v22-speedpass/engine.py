@@ -847,10 +847,13 @@ DEFAULT = dict(
     # works and a rite or the moment's own seal makes it theirs). It raises the odds of moments with a way into its next
     # step (seek, by its strength) and each step reached meets meaning (meet, by the step's height: none, Known,
     # Notable, Historic). With no goal behind it an aim fades (half, in years; half_set for one not yet their own) and
-    # goes below drop. A calling: an aim of their own that leads to a height, held as a passion for call_yrs
+    # goes below drop. A calling: an aim of their own that leads to a height, held as a passion for call_yrs. An aim's
+    # spark moment comes at spark_base of its rate to a life none of whose aims or goals is that aim (the v24 refit: at
+    # 1, every spark came to everyone about yearly, 11 life events a year, and lives left alone fell from .80 to .73
+    # in satisfaction; at 0 a spark is a door for those already turned toward its aim)
     aims=True,   # on at the v24 refit
     aims_par=dict(slots=3, fit=0.3, seek=1.0, reluctant=0.5, spark_seek=2.0, meet=(0.03, 0.06, 0.09, 0.12), half=4.0,
-                  half_set=2.0, drop=0.05, call_yrs=3.0, set_s=0.5, spark_up=0.15),
+                  half_set=2.0, drop=0.05, call_yrs=3.0, set_s=0.5, spark_up=0.15, spark_base=0.0),
     # the heights of a life (plan.md section 5), read-only: the week each height (Known, Notable, Historic) was first
     # reached (realm_earth.HEIGHT_NAMES, leading a sphere (rung 4), a summit title, leading a movement); on with aims
     heights=True,

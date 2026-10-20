@@ -196,8 +196,9 @@ class EyesMixin:
             n_ = int(idx[e_])
             if not self.watch[n_] or not ok[e_].any():
                 continue
+            sp_ = self.setting_places(n_) if ok[e_, 3:].any() else []   # once per life, not once per setting slot
             self.events.append(dict(n=n_, t=int(t), kind="eyes_read", about=kind, act=ac[e_], worked=float(q[e_]),
-                                    reads=[dict(place=self._eyes_desc(n_, int(x_)), face=COLORS[self._eyes_lead(n_, int(x_))],
+                                    reads=[dict(place=self._eyes_desc(n_, int(x_), sp_), face=COLORS[self._eyes_lead(n_, int(x_))],
                                                 side=side(r[e_, x_]), reading=round(float(r[e_, x_]), 3),
                                                 rep=round(float(new[e_, x_]), 3)) for x_ in np.nonzero(ok[e_])[0]]))
         for e_ in np.nonzero(hg.any(1) & (ok.sum(1) >= 2))[0]:   # the story line: the strongest go-between's word
@@ -368,13 +369,14 @@ class EyesMixin:
         else:
             self._leave(int(n), int(q - 3), t, "left")
 
-    def _eyes_desc(self, n, q):
-        """Life n's place slot q for the game: a haunt as World.place_info gives it, a setting as setting_places does."""
+    def _eyes_desc(self, n, q, sp=None):
+        """Life n's place slot q for the game: a haunt as World.place_info gives it, a setting as setting_places does (sp:
+        setting_places(n) when the caller has it already)."""
         if self.eyes_key[n, q] < 0:
             return None
         if q < 3:
             return dict(self.W.place_info(int(self.eyes_key[n, q])), slot=int(q))
-        for d_ in self.setting_places(n):
+        for d_ in (self.setting_places(n) if sp is None else sp):
             if d_["slot"] == q - 3:
                 return dict(d_, slot=int(q), setting=int(q - 3))
         return None

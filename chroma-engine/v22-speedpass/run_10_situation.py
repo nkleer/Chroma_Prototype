@@ -89,7 +89,7 @@
             aff = aff * (1 + P["g_seek"] * np.einsum("ng,ngs->ns", gs * np.where(gk == 2, 1.0, np.where(gk == 1, 0.5, 0.0)), gsr))
             seekE = seekE * (1 + P["g_seek_ev"] * np.einsum("ng,ngs->ns", gs * ((gk == 2) & (gd >= 0)), gsr))
         if AIM_ON:   # aims v1: the moments with a way into each aim's next step, and a player's aim's spark moment
-            ap_ = 1 + AP_["seek"] * aim_pull()
+            ap_ = spark_gate(1 + AP_["seek"] * aim_pull())
             aff = aff * ap_; seekE = seekE * ap_
         if P["base_rates"]:
             # v6: life events come at their real yearly rates; every other week is ordinary life (an everyday situation)
