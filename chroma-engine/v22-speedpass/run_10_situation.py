@@ -179,7 +179,12 @@
                         if si_ >= 0:
                             frc_[n, si_] = True; fdd_[n, si_] = True
                         dfr_.append((int(n), r_, si_))
-                frc_ &= avail; fdd_ &= avail
+                fok_ = avail
+                if getattr(WL, "wa_pend", None):   # a decision the world brings a Known life comes at any stage, retired or
+                    fok_ = avail.copy()            # not: their standing is its gate (a late rite or a pension closed it)
+                    for n_ in WL.wa_pend:
+                        fok_[n_, WL.pending[n_][2]] = True
+                frc_ &= fok_; fdd_ &= avail
                 if CRS_ON and frc_[:, cev_].any():   # F16: a match or a birth the world brings, at the same lean (as a chance)
                     frc_[:, cev_] &= crs_rng.random(frc_[:, cev_].shape) < cm_
                 if WO_ON:   # F10: a world moment is not brought again inside its own gap: (once means once)
