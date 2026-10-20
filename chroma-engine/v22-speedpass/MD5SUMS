@@ -1,7 +1,7 @@
 001f2f9aac7b7f50971e2bba87ac11f2  batch.py
 757721ec4414965232f272d129713c58  combos.py
 7a4a30e346385bd4aee9d69fc0d09be3  earth_rules.py
-6be20fdb996a4caf0f34c7acee83cf7b  engine.py
+b871af9f94478f9c15e42ed6e5d73af1  engine.py
 c2e2b80a0d47ac3f78b29e6ddc1b0e1a  explain.py
 4fc4db79fd183bf8a039419ccb8fd729  foresee.py
 14b874af736c7c3971f97312eea3adb3  library.py
@@ -34,7 +34,7 @@ ecc7e5efc381381b70aadb40f4f16ab7  world_people_views.py
 1f3889ccc1ff1b1347bae3c68026cf57  run_01_start.py
 826a9bde94e0400b000b9d82baaa595a  run_02_goals.py
 463edb9b01d61d1e7e70cbab83e31aeb  run_03_moments.py
-c4cf96e26f52f8d2b988af398c74bb4d  run_04_titles.py
+fc0aaddff3b6a3ce4c996de7c8adf995  run_04_titles.py
 f3d59f87346ef744dcbfd4dad4759f6f  run_05_conditions.py
 b44dfda22ac82f1af9515d44b140c5d8  run_06_world.py
 f67d8d7e8e0d3972e9791608451ee961  run_07_body.py

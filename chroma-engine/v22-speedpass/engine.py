@@ -849,10 +849,10 @@ DEFAULT = dict(
     # step (seek, by its strength) and each step reached meets meaning (meet, by the step's height: none, Known,
     # Notable, Historic). With no goal behind it an aim fades (half, in years; half_set for one not yet their own) and
     # goes below drop. A calling: an aim of their own that leads to a height, held as a passion for call_yrs. An aim's
-    # spark moment comes at spark_base of its rate, alike for every life, but at its full rate for an aim the player set
-    # that is not yet theirs (the v24 refit: at 1, every spark came to everyone about yearly, 11 life events a year, and
-    # lives left alone fell from .80 to .73 in satisfaction; a gate by the life's own aims and goals leaned by colour;
-    # at .1 lives left alone took 11 aims, not 7, and reached Known more often than v23.1's band allows)
+    # spark moment comes at spark_base of its rate to a life none of whose aims or goals is that aim (the v24 refit: at
+    # 1, every spark came to everyone about yearly, 11 life events a year, and lives left alone fell from .80 to .73
+    # in satisfaction; at 0 a spark is a door for those already turned toward its aim. At .1 for every life, lives left
+    # alone took 11 aims, not 7, and reached Known out of v23.1's band; with only a player's aims, skilled play fell)
     aims=True,   # on at the v24 refit
     aims_par=dict(slots=3, fit=0.3, seek=1.0, reluctant=0.5, spark_seek=2.0, meet=(0.03, 0.06, 0.09, 0.12), half=4.0,
                   half_set=2.0, drop=0.05, call_yrs=3.0, set_s=0.5, spark_up=0.15, spark_base=0.0),

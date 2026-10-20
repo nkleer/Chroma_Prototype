@@ -415,18 +415,18 @@
                 pu_[on_[sp_], AIM["spark"][a_[sp_]]] += AP_["spark_seek"] * astr[on_[sp_], q_]
         return pu_
     def spark_gate(ap_):
-        """A spark moment comes at spark_base of its rate (aims_par), alike for every life, but at its full rate for an aim
-        the player set that is not yet the character's own (its spark is how it becomes theirs). Left alone, every spark
-        came to everyone about yearly; a gate by the life's own aims and goals instead leaned by colour (White's goals
-        point to more ladders)."""
+        """A spark moment comes at spark_base of its rate (aims_par) to a life none of whose aims or goals is its aim: a
+        door that opens for those already turned toward it, an aim the player set among them (left alone, every spark
+        came to everyone about yearly)."""
         sb_ = AP_.get("spark_base", 1.0)
         if sb_ == 1.0:
             return ap_
         cols_ = np.nonzero(SPK_A >= 0)[0]
         g_ = np.full((N, len(cols_)), sb_, np.float32); cix_ = np.full(NAIM_, -1); cix_[SPK_A[cols_]] = np.arange(len(cols_))
-        r_, q_ = np.nonzero((ak >= 0) & aby & ~aown)
-        c_ = cix_[ak[r_, q_]]; ok_ = c_ >= 0
-        g_[r_[ok_], c_[ok_]] = 1.0
+        for a2_ in (ak, gal):
+            r_, q_ = np.nonzero(a2_ >= 0)
+            c_ = cix_[a2_[r_, q_]]; ok_ = c_ >= 0
+            g_[r_[ok_], c_[ok_]] = 1.0
         ap_[:, cols_] *= g_
         return ap_
     def aim_spark():
