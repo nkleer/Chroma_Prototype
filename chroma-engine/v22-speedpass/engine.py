@@ -851,10 +851,11 @@ DEFAULT = dict(
     # goes below drop. A calling: an aim of their own that leads to a height, held as a passion for call_yrs. An aim's
     # spark moment comes at spark_base of its rate, alike for every life, but at its full rate for an aim the player set
     # that is not yet theirs (the v24 refit: at 1, every spark came to everyone about yearly, 11 life events a year, and
-    # lives left alone fell from .80 to .73 in satisfaction; a gate by the life's own aims and goals leaned by colour)
+    # lives left alone fell from .80 to .73 in satisfaction; a gate by the life's own aims and goals leaned by colour;
+    # at .1 lives left alone took 11 aims, not 7, and reached Known more often than v23.1's band allows)
     aims=True,   # on at the v24 refit
     aims_par=dict(slots=3, fit=0.3, seek=1.0, reluctant=0.5, spark_seek=2.0, meet=(0.03, 0.06, 0.09, 0.12), half=4.0,
-                  half_set=2.0, drop=0.05, call_yrs=3.0, set_s=0.5, spark_up=0.15, spark_base=0.1),
+                  half_set=2.0, drop=0.05, call_yrs=3.0, set_s=0.5, spark_up=0.15, spark_base=0.0),
     # the heights of a life (plan.md section 5), read-only: the week each height (Known, Notable, Historic) was first
     # reached (realm_earth.HEIGHT_NAMES, leading a sphere (rung 4), a summit title, leading a movement); on with aims
     heights=True,

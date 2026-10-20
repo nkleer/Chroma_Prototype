@@ -439,7 +439,7 @@ P2_ = [("the spheres' haunts, hours and marks (sph_haunts, sph_hours, sph_marks)
         dict(sh_will=0.5, sh_world=True), dict(sh_world=True), 30),
        ("the will tempers the current (cur_will; with the current, cur_on)", dict(cur_will=1.0, cur_on=True), dict(cur_on=True), 30),
        ("a gap one acts to close weighs less (gap_move)", dict(gap_move=0.5), {}, 30),
-       ("a refused first job or job move re-draws to the next-best fit (acc_redraw)", dict(acc_redraw=True), {}, 40),
+       ("a refused first job or job move re-draws to the next-best fit (acc_redraw)", dict(acc_redraw=True), {}, 40, 4),
        ("a body and a mind (body, mind)", dict(body=True, mind=True), {}, 30),
        ("death from the life (death_life; with the body, the mind and the character's own death)",
         dict(death_life=True, body=True, mind=True, self_death=True), dict(body=True, mind=True, self_death=True), 70, 6),
@@ -869,7 +869,7 @@ if "bold_play" in E.DEFAULT and "bold" in batch.load_batch.__code__.co_varnames:
         fails.append("asked at every pick, run_steps does not live as run(), or nothing moved")
     P_ = dict(E.DEFAULT, bold_play=True, bold_cap=3, echo_play=True,
               echo_play_par=dict(E.DEFAULT["echo_play_par"], w=1.0, gap=0.0, again=0.0))
-    g = E.run_steps(N=1, years=40, seed=6, lib=L_, P=P_, log_lives=(0,)); msg = next(g)
+    g = E.run_steps(N=1, years=40, seed=9, lib=L_, P=P_, log_lives=(0,)); msg = next(g)   # seed 9: v24 rates (6 met one link, none shared)
     offered = took = 0; now_ = None; link_wk = set(); odds_ok = True; slot_ = -1
     while True:
         kind, t, S, val = msg
