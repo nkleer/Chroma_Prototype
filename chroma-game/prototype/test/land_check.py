@@ -8,7 +8,8 @@ at a pause. Exit 0 when every row holds; once the Engine pins sphere_data.LAND, 
          thresholds, the last hazard and how long ago, and the harvest; no number
     LD2  held ways never exceed three, each with its land.json name and three steps
     LD3  each held way's next step is the one after its step, with its usual years in words
-    LD4  a bridge shows held only when both its ways are held, and as a door naming the other way when one is
+    LD4  a bridge shows held only when both its ways are held (or the Engine holds it), and as a door naming the other
+         way when one is
     LD5  the company at a land moment in words"""
 import json, os, re, sys
 os.environ["CHROMA_GAME"] = json.dumps({"land_row": True})
@@ -38,7 +39,7 @@ g = c.g; loc = g.loc; ok = []
 age = g.age()
 place = dict(kind="market_town", land=[dict(stretch="field", health=0.8, wild=0.2), dict(stretch="wood", health=0.4, wild=0.7),
                                        dict(stretch="water", health=0.55, wild=0.35)],
-             land_hazard=dict(kind="flood", age=age - 2.2), harvest="poor")
+             land_hazard=dict(kind="flood", age=2.2), harvest="poor")
 line = g.land_line(place)
 ok.append(("LD1", line == "The farms are thriving and tamed; the common wood is worn and wild; the river meadows are fair and half-wild; "
                   "the flood came two years ago; the harvest was poor." and not re.search(r"\d", line)))
@@ -52,8 +53,12 @@ w0 = V["ways"][0]
 ok.append(("LD3", w0["next"] == cat[br["a"]]["ladder"][1].split(" (")[0] and w0["steps"][1]["clock"].startswith("usually")
            and V["ways"][2]["key"] == "allotment" and V["ways"][2]["next"] == ""))
 held = [b for b in V["bridges"] if b["held"]]
+loc["ways"] = [[dict(key=br["a"], step=1, step_since_age=age - 1)]]       # the Engine's form: bridges as dict(a, b, opens)
+loc["bridges_open"] = [[dict(br)]]; loc["bridges_held"] = [[dict(br)]]
+V2 = g.land_ways()
 ok.append(("LD4", held and held[0]["opens"] == br["opens"]
-           and all(b["need"] for b in V["bridges"] if not b["held"])))
+           and all(b["need"] for b in V["bridges"] if not b["held"])
+           and any(b["held"] and b["opens"] == br["opens"] for b in V2["bridges"])))
 loc["company"] = [dict(kind="friend", cid=4)]
 ok.append(("LD5", g.company_say(loc) == "with a friend"))
 for k, v in ok:
