@@ -475,7 +475,7 @@ def agenda(S, n):
                        titles=list(F["tnames"][f][k][:2])) for k in range(min(r, nr))]
         earned += [dict(name=a["name"], source="integrated", opens=a.get("opens", "")) for a in AG.assets[n] if j in a["slots"]]
         pot = [] if r >= nr else [dict(name=x, step=F["say"][f][r]) for x in F["tnames"][f][r][:3]] or [dict(name=F["say"][f][r], step=F["say"][f][r])]
-        why = pf[0]["why"] if pf else ({"time": "the week is full", "money": "money is short", "a window": "its window has closed",
+        why = pf[0].get("say", pf[0]["why"]) if pf else ({"time": "the week is full", "money": "money is short", "a window": "its window has closed",
                                        "a door": "it waits for a way in"}.get(bn, ""))
         items.append(dict(slot=j, aim=F["names"][f], field=(F["items"][f]["words"].get("thing") or F["names"][f]),
                           face="".join("WUBRG"[c] for c in np.nonzero(F["face"][f] > 0)[0]), calling=bool(F["calling"][f]),
@@ -499,7 +499,7 @@ def _fork_card(AG, n, fk):
     urg = 1.0 if fk["urgent"] else (0.6 if fk["kind"] in ("window", "pay", "take") else 0.3)
     f = int(AG.f[n, j]); r = int(min(AG.rung[n, j], AG.F["nr"][f] - 1))
     blocks = "evenings" if AG.F["hours"][f, r] > 0 else ("money" if AG.F["money"][f, r] > 0 else "")
-    return dict(id=fk["id"], slot=int(j), slots=list(fk["aims"]), kind=fk["kind"], why=fk["why"],
+    return dict(id=fk["id"], slot=int(j), slots=list(fk["aims"]), kind=fk["kind"], why=fk["why"], say=fk.get("say", fk["why"]),
                 made_at_age=round(fk["week"] / 52, 2), deadline_age=dl, urgency=urg, group=fk["group"] if fk["grouped"] else None,
                 blocks=blocks, put=fk["put"] == AG.t)
 
@@ -572,9 +572,9 @@ def review(S, n, group):
         return None
     key = fks[0]["group"]
     why = ("they want the same hours of the week" if key == "time" else
-           "their windows close at about the same time" if key and key.startswith("window") else fks[0]["why"])
+           "their windows close at about the same time" if key and key.startswith("window") else fks[0].get("say", fks[0]["why"]))
     cap = AG.account_view(n); cap.pop("over"); cap.pop("strained")
-    forks = [dict(id=fk["id"], slot=int(fk["aims"][0]), slots=list(fk["aims"]), kind=fk["kind"], why=fk["why"],
+    forks = [dict(id=fk["id"], slot=int(fk["aims"][0]), slots=list(fk["aims"]), kind=fk["kind"], why=fk["why"], say=fk.get("say", fk["why"]),
                   deadline_age=_fork_card(AG, n, fk)["deadline_age"], preview=AG.preview(n, int(fk["aims"][0])),
                   options=[dict(key=o, say=OPT_SAY.get(o, o)) for o in fk["options"]]) for fk in fks]
     combos = []

@@ -1526,9 +1526,9 @@ if "aims_v2" in E.DEFAULT:
                     if kind == "end":
                         F_ = AG_.F; f_ = AG_.f
                         for fk_ in AG_.forks[0]:   # the player's forks: kept until answered, blocking only their aims
-                            made_[fk_["id"]] = fk_["aims"]
-                            for j_ in fk_["aims"]:
-                                if fk_["kind"] != "over" and AG_.eff[0, j_] > AG_.need[0, j_] + 1e-9:
+                            e0_ = made_.setdefault(fk_["id"], {j_: float(AG_.eff[0, j_]) for j_ in fk_["aims"]})
+                            for j_ in fk_["aims"]:   # effort waits at the need (or where it stood when the fork came)
+                                if fk_["kind"] != "over" and AG_.eff[0, j_] > max(AG_.need[0, j_], e0_.get(j_, 0.0)) + 1e-9:
                                     fails.append("effort past the need while the player's fork waits")
                         open_ = {x_["id"] for x_ in AG_.forks[0]}
                         for id_ in list(made_):

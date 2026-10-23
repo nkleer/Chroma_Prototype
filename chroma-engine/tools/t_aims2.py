@@ -19,6 +19,9 @@ known risks (section 5) or a mechanism it asks for:
   A8  integrated assets: a pair the realm names, both reached and one active, an integrate outcome awards it once per
       life; dropping and taking an aim up again never awards it twice; no table, no asset
   A9  views draw nothing: the agenda, the review and the preview leave the agenda's random stream where it was
+  A10 the money rule (Vision 10-23): a step's effort share is the least of its shares of the resources it needs; an
+      incidental ask (aims2_par money_min, .02) never caps it; a step that needs money and has none waits, the agenda
+      naming money; an entry that cannot be paid is owed, never debited, and paid once it can be
 
     python3 -B chroma-engine/tools/t_aims2.py [ENGINE_DIR]
 """
@@ -213,7 +216,7 @@ notes.append(f"A5 learning kept {l0:.2f}")
 
 # ---- A6: the account: priority, an overfull week, shared preparation, the review
 c1, c2 = [i for i in range(F0["F"]) if A2.SHAPES[F0["shape"][i]] == "competition"][:2]
-ag, st = make(player=(0,)); st["res"][0, 1] = 0.25   # 9 free hours
+ag, st = make(player=(0,), par=dict(time_floor=0.2)); st["res"][0, 1] = 0.0   # every hour held: about 7 free
 ja, jb = ag.add(0, c1, T0), ag.add(0, c2, T0)
 for j in (ja, jb):
     ag.st[0, j] = A2.ACTIVE; ag.inten[0, j] = 1.5
@@ -305,6 +308,31 @@ if ag.forks[0]:
 if ag.rng.bit_generator.state != s0:
     fails.append("A9 a view drew from the agenda's stream")
 notes.append("A9 views draw nothing")
+
+# ---- A10: the money rule (Vision 10-23): a step's share is the least over the resources it needs; an incidental ask
+# (money_min or less) never caps it; a step that needs money and has none waits, money named; an entry owed is not debited
+f = field("craft")
+F = copy.deepcopy(F0); F["money"][f, 0] = 0.01; F["entry"][f, 0] = 0.0; F["energy"][f, 0] = 0.0
+ag, st = make(player=(0,), F=F); st["res"][0, 0] = 0.05   # no free money
+j = ag.add(0, f, T0); ag.forks[0].clear(); ag.fork[0, j] = -1; ag.set_pace(0, j, "active", 1.0, T0)
+ag.account(st["res"], st["held"], np.zeros(2))
+if ag.funded[0, j] < 0.999:
+    fails.append(f"A10 an incidental money ask capped the step ({ag.funded[0, j]:.2f})")
+F["money"][f, 0] = 0.2; ag.account(st["res"], st["held"], np.zeros(2))
+S = dict(AIM2_ON=True, AG=ag, t=T0)
+it = next(x for x in FS.agenda(S, 0)["items"] if x["slot"] == j)
+if ag.funded[0, j] != 0 or not it["bottleneck"] or it["bottleneck"]["res"] != "money":
+    fails.append(f"A10 a step needing money with none: funded {ag.funded[0, j]:.2f}, bottleneck {it['bottleneck']}")
+F["money"][f, 0] = 0.0; F["entry"][f, 0] = 0.3; ag.paid[0, j, 0] = False
+m0 = st["res"][0, 0]; ag.activate(0, j, 1.0, T0, pay=True); tick(ag, st, T0 + 1)
+if not ag.owed[0, j] or ag.entry_log[0] or st["res"][0, 0] != m0 or ag.funded[0, j] != 0:
+    fails.append("A10 an entry that cannot be paid was charged, or the step went on without it")
+st["res"][0, 0] = 0.9
+for t in range(T0 + 4, T0 + 9):
+    tick(ag, st, t)
+if ag.owed[0, j] or len(ag.entry_log[0]) != 1:
+    fails.append("A10 an owed entry not paid once it could be")
+notes.append("A10 money rule")
 
 print(("PASS" if not fails else "FAIL") + "  aims v2 scenarios: " + "; ".join(notes))
 for x in fails:

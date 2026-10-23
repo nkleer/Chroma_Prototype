@@ -3,7 +3,7 @@
 7a4a30e346385bd4aee9d69fc0d09be3  earth_rules.py
 694bc01bbf99e444fbd95dbccd85cb92  engine.py
 c2e2b80a0d47ac3f78b29e6ddc1b0e1a  explain.py
-8ccbeb64d062ffb7c11d8b8f72c8e813  foresee.py
+d04db4713134a752af85c5a53b2bd138  foresee.py
 14b874af736c7c3971f97312eea3adb3  library.py
 e943e67e779f03070a7ba8f522cf95d6  life.py
 213d24ddc17ff3039f77e070f77f7f5c  rarity.json
@@ -68,4 +68,4 @@ c04e78c1a7ca37952498237ba063ad99  realm_earth.py
 3a675425cbb82bb45db679e10e21f6dd  world_people_answers.py
 ba9e8e24fe11da6600c3ee1bb4abc222  world_fit.py
 6296b4db28a3b501630cd92d1a81e8e6  realm_neutral.py
-39e6e93d2667a96ade2e1c9a28c0c0eb  aims2.py
+27d8f6d5dc5d9262eba666b7755106bd  aims2.py

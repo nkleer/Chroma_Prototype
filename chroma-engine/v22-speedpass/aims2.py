@@ -85,6 +85,14 @@ PAR = dict(
     restore=0.002,      # a week's restoration of the needs a pursuit meets, per 10 funded hours, x the gap
     money_k=0.1,        # an entry cost (share of a year's free money) as a debit of the money level (once)
     money_floor=0.1,    # the money level the essentials take first
+    # a step's effort share is the least of its shares of the resources it needs (decision file, #9: "active pursuit
+    # competes for relevant time, attention, energy, money, access and support"); a resource it asks less than these of
+    # is incidental: it never caps the step (Vision 10-23). money_min .02 a year leaves out the adapter's and the
+    # Library's incidental asks (.01); the heavier steps ask .04 to .3
+    hours_min=0.5, money_min=0.02, energy_min=0.05,
+    time_floor=0.3,     # world off: the share of free_open hours left with every commitment held (time-use surveys put
+                        # even full-time working parents' leisure at about 2 h a day)
+    crowd=0.5,          # the character's own pick: each aim already pursued lowers the odds of taking up another
     refuse_need=1.3,    # going on without paying a fee: the need x this
     round_need=1.25,    # a way round a closed window: the need x this
     late=0.3,           # the need x (1 + this a decade) for a start after the field's late_from
@@ -97,6 +105,8 @@ PAR = dict(
     field_patch=None,   # tests: {field name: {rung index: {key: value}}} over the compiled fields
 )
 NEVER = -10 ** 9
+# a fork's why: the Library's WHY_NOW keys (earth_aim_lines.py) by fork kind; a fork whose facts changed is "changed"
+WHY_KEY = dict(go_on="commit", pay="cost", take="chance", window="window", over="over", round="changed")
 CACHE = {}   # the compiled fields of the last batch (and field_patch) a run used
 
 
@@ -246,7 +256,7 @@ class Agenda:
                 need=(1.0, float), by=(False, bool), born=(0, int), talent=(1.0, float), funded=(0.0, float),
                 fh=(0.0, float), dem=(0.0, float), rstart=(0, int), wclose=(-1, int), wclosed=(False, bool),
                 wtold=(False, bool), wwarn=(False, bool), wround=(False, bool), declined=(False, bool),
-                refused=(False, bool), fork=(-1, int), last_use=(0, int), act_wk=(0, int), fitf=(1.0, float),
+                refused=(False, bool), owed=(False, bool), fork=(-1, int), last_use=(0, int), act_wk=(0, int), fitf=(1.0, float),
                 syn=(False, bool), prof=(1.0, float), noaccess=(False, bool))
     RUNG = dict(learned=(0.0, float), worked=(-1, np.int8), paid=(False, bool), faded=(False, bool))
 
@@ -345,7 +355,7 @@ class Agenda:
         set, and the commitment to it a fork (none for a rung that comes with time)."""
         f = int(s.f[n, j]); r = int(s.rung[n, j]); F = s.F
         s.rstart[n, j] = t; s.wclose[n, j] = -1; s.wclosed[n, j] = s.wtold[n, j] = s.wwarn[n, j] = s.wround[n, j] = False
-        s.declined[n, j] = s.refused[n, j] = False; s.eff[n, j] = 0.0
+        s.declined[n, j] = s.refused[n, j] = s.owed[n, j] = False; s.eff[n, j] = 0.0
         if r >= F["nr"][f]:
             s.dirty = True
             return
@@ -611,10 +621,17 @@ class Agenda:
         s.t = t
         fid = s.next_id; s.next_id += 1
         opts = s.options(n, js[0], kind)
+        say = why; why = WHY_KEY.get(kind, why)   # the Library's WHY_NOW key (earth_aim_lines), the engine's words beside
         if n not in s.player:
             s.apply(n, dict(id=fid, aims=list(js), kind=kind, options=opts), s.policy(n, js, kind, opts), t, by="character")
             return fid
-        fk = dict(id=fid, aims=[int(j) for j in js], kind=kind, why=why, options=opts + ["later"], week=int(t), put=-1,
+        old = next((x for x in s.forks[n] if x["kind"] != "over" and kind != "over" and len(js) == 1 and x["aims"] == [int(js[0])]), None)
+        if old is not None:   # the aim already waits on a fork: it is rebuilt with the new facts (one decision, kept)
+            old.update(kind=kind, why="changed", say=say, options=opts + ["later"], changed=True, preview=s.preview(n, int(js[0])))
+            old["facts"] = s._facts(n, old); s.fork[n, js[0]] = old["id"]
+            s._log(n, js[0], "fork rebuilt", kind=kind, id=old["id"], why=why)
+            return old["id"]
+        fk = dict(id=fid, aims=[int(j) for j in js], kind=kind, why=why, say=say, options=opts + ["later"], week=int(t), put=-1,
                   changed=False, urgent=False, grouped=False, group=None)
         fk["preview"] = s.preview(n, int(js[0]))
         fk["facts"] = s._facts(n, fk)
@@ -632,8 +649,9 @@ class Agenda:
         dem = s.F["hours"][f, min(int(s.rung[n, j]), s.F["nr"][f] - 1)]
         roomy = 1.0 if room >= dem else 0.4
         nact = int(((s.st[n] == ACTIVE) & (s.f[n] >= 0)).sum())
-        wt = dict(go_on=ff * (0.5 + st) * roomy, light=0.3 * ff * (0.5 + st) * (1.4 - roomy), hard=0.15 * ff * st * roomy,
-                  pause=0.3 + 0.25 * nact, drop=0.12 * max(1.5 - ff, 0.1), pay=ff * (0.5 + st) * roomy,
+        cr = 1.0 / (1.0 + s.par["crowd"] * nact)   # the more already pursued, the less likely another is taken up
+        wt = dict(go_on=ff * (0.5 + st) * roomy * cr, light=0.3 * ff * (0.5 + st) * (1.4 - roomy), hard=0.15 * ff * st * roomy,
+                  pause=0.3 + 0.25 * nact, drop=0.12 * max(1.5 - ff, 0.1), pay=ff * (0.5 + st) * roomy * cr,
                   refuse=0.4 * (1.4 - roomy) + 0.2, take=ff * (0.6 + st), decline=0.25, round=0.6 * ff * (0.5 + st),
                   keep=0.3, light_last=0.5, pause_last=0.4)
         p = np.array([wt.get(o, 0.1) for o in opts], float); p = p / p.sum()
@@ -665,7 +683,8 @@ class Agenda:
             s.forks[n].remove(fk)
         for j in js:
             if s.fork[n, j] == fk["id"]:
-                s.fork[n, j] = -1
+                nx = next((x["id"] for x in s.forks[n] if j in x["aims"] and x["kind"] != "over"), -1)
+                s.fork[n, j] = nx
         s.decisions += 1
         if by == "player":
             s.burden.append(dict(what="answer", life=int(n), week=int(t), id=fk["id"], aims=len(js), choices=1 + len(sets or {}),
@@ -686,7 +705,7 @@ class Agenda:
             s.activate(n, j, 0.5, t, pay=True)
         elif opt == "refuse":
             if r < nr and not s.refused[n, j]:
-                s.refused[n, j] = True; s.need[n, j] *= s.par["refuse_need"]
+                s.refused[n, j] = True; s.owed[n, j] = False; s.need[n, j] *= s.par["refuse_need"]
             s.activate(n, j, 1.0, t, pay=False)
         elif opt == "pause":
             if s.st[n, j] == ACTIVE:
@@ -716,9 +735,12 @@ class Agenda:
         s.st[n, j] = ACTIVE; s.inten[n, j] = float(inten)
         if r < s.F["nr"][f] and pay and not s.paid[n, j, r] and not s.refused[n, j] and s.F["entry"][f, r] > 0:
             e = float(s.F["entry"][f, r]) * (1 - s.par["family_pays"] * (t / 52 < 18))
-            s.paid[n, j, r] = True; s.debit[n] += e * s.par["money_k"]
-            s.entry_log[n].append(dict(field=s.F["names"][f], rung=r, week=int(t), amount=round(e, 3)))
-            s._log(n, j, "entry paid", amount=round(e, 3))
+            if s.can_pay(n, j):
+                s.paid[n, j, r] = True; s.owed[n, j] = False; s.debit[n] += e * s.par["money_k"]
+                s.entry_log[n].append(dict(field=s.F["names"][f], rung=r, week=int(t), amount=round(e, 3)))
+                s._log(n, j, "entry paid", amount=round(e, 3))
+            elif not s.owed[n, j]:   # not payable now: owed, never debited; the step waits until it can be paid
+                s.owed[n, j] = True; s._log(n, j, "entry owed", amount=round(e, 3))
         s.dirty = True
 
     def set_pace(s, n, j, state, intensity=None, t=None):
@@ -885,6 +907,9 @@ class Agenda:
                     ok |= np.floor(np.asarray(WL.PP.rung)[ns, F["sph"][fi]]) >= 4   # a work rung: leading the sphere
                 for n, j in zip(ns[ok], js[ok]):
                     s.arrive(int(n), int(j), t, "its title held")
+        for n, j in zip(*np.nonzero(occ & s.owed & (s.st == ACTIVE))):   # an entry owed: paid once it can be
+            if s.can_pay(int(n), int(j)):
+                s.activate(int(n), int(j), float(s.inten[n, j]), t, pay=True)
         if F["upkeep_any"]:
             s.upkeep(t, held)
         # the overfull agenda: a review (or the character's own pick) once it has lasted over_fork_wk
@@ -924,7 +949,7 @@ class Agenda:
             work = h[:, [0, 1, 5, 6, 7]].sum(1); care = h[:, 4]; ties = h[:, 3] + AW["partner"] * part
             have = np.maximum(0.0, AW["wake"] - AW["essentials"] - AW["household"] - work - care - ties)
         else:
-            have = AW["free_open"] * res[:, TIM]
+            have = AW["free_open"] * (par["time_floor"] + (1 - par["time_floor"]) * res[:, TIM])   # world off: res time
             rest = np.maximum(0.0, AW["wake"] - AW["essentials"] - AW["household"] - have)
             ld = held * cx["LOAD"]; tot = np.maximum(ld.sum(1), 1e-9)
             work = rest * np.where(ld.sum(1) > 0, ld[:, cx["CAR"]] / tot, 1.0)
@@ -941,7 +966,8 @@ class Agenda:
         dm = np.where(open_, F["money"][f, r] * s.inten * (1 - par["family_pays"] * child), 0.0)
         de = np.where(open_, F["energy"][f, r] * s.inten, 0.0)
         order = np.argsort(np.where(open_, s.pri, np.inf), 1, kind="stable")
-        cum_h = np.zeros(N); cum_m = np.zeros(N); seen = np.zeros(N, np.int64)
+        cum_h = np.zeros(N); cum_m = np.zeros(N); cum_e = np.zeros(N); seen = np.zeros(N, np.int64)
+        de = np.where(de > par["energy_min"], de, 0.0)   # only the tiring steps need energy
         sup = np.where(part, par["support_share"], 0.0)   # a partner covers part of the first aim's hours
         s.syn[:] = False; fh = np.zeros_like(dh); fs = np.zeros_like(dh); used_sup = np.zeros(N)
         ar = np.arange(N); first = np.ones(N, bool)
@@ -956,14 +982,18 @@ class Agenda:
             s.syn[ar[shared], j[shared]] = True
             sp = np.where(on & first, d * sup, 0.0); used_sup += sp; d = d - sp
             gh = np.clip(have - cum_h, 0, d); cum_h += np.where(on, d, 0.0)
-            m = dm[ar, j]; gm = np.clip(money - cum_m, 0, m); cum_m += np.where(on, m, 0.0)
-            sh = np.where(d > 0, gh / np.maximum(d, 1e-9), 1.0); sm = np.where(m > 0, gm / np.maximum(m, 1e-9), 1.0)
-            fs[ar[on], j[on]] = np.minimum(sh, sm)[on]; fh[ar[on], j[on]] = (gh + sp)[on]
+            m = dm[ar, j]; m = np.where(m > par["money_min"], m, 0.0)   # an incidental ask is no money need
+            gm = np.clip(money - cum_m, 0, m); cum_m += np.where(on, m, 0.0)
+            sh = np.where(d > par["hours_min"], gh / np.maximum(d, 1e-9), 1.0); sm = np.where(m > 0, gm / np.maximum(m, 1e-9), 1.0)
+            e = de[ar, j]; ge = np.clip(s.cap["energy"] - cum_e, 0, e); cum_e += np.where(on, e, 0.0)
+            se = np.where(e > 0, ge / np.maximum(e, 1e-9), 1.0)
+            fsj = np.where(s.owed[ar, j], 0.0, np.minimum(np.minimum(sh, sm), se))   # an entry owed, not yet payable: waits
+            fs[ar[on], j[on]] = fsj[on]; fh[ar[on], j[on]] = (gh + sp)[on]
             dh[ar[on], j[on]] = (d + sp)[on]
             seen = np.where(on, seen | pm, seen); first = first & ~on
-        en = de.sum(1); att = (s.inten * open_).sum(1)
-        q_ = np.minimum(1.0, s.cap["energy"] / np.maximum(en, 1e-9)) * np.minimum(1.0, par["attention"] / np.maximum(att, 1e-9))
-        s.funded = np.where(open_, fs * q_[:, None], 0.0); s.fh = np.where(open_, fh, 0.0); s.dem = dh
+        en = cum_e; att = (s.inten * open_).sum(1)
+        qa_ = np.minimum(1.0, par["attention"] / np.maximum(att, 1e-9))[:, None]
+        s.funded = np.where(open_, fs * qa_, 0.0); s.fh = np.where(open_, fh, 0.0); s.dem = dh
         s.committed["time"] = cum_h; s.committed["money"] = cum_m; s.committed["energy"] = en
         s.committed["attention"] = att; s.committed["support"] = used_sup
         s.committed["access"] = ((s.f >= 0) & (s.wclosed & ~s.wround | s.noaccess)).sum(1).astype(float)
@@ -1049,7 +1079,7 @@ class Agenda:
             fk["aims"] = [j for j in fk["aims"] if s.f[n, j] >= 0]
             fa = s._facts(n, fk)
             if fa != fk["facts"]:
-                fk["facts"] = fa; fk["changed"] = True
+                fk["facts"] = fa; fk["changed"] = True; fk["why"] = "changed"
                 fk["preview"] = s.preview(n, fk["aims"][0]); fk["options"] = s.options(n, fk["aims"][0], fk["kind"]) + ["later"]
             j = fk["aims"][0]
             fk["urgent"] = bool(s.wclose[n, j] >= 0 and not s.wclosed[n, j] and s.wclose[n, j] - s.t <= s.par["window_warn"])
@@ -1099,18 +1129,22 @@ class Agenda:
             on, it = sets.get(j, (s.st[n, j] == ACTIVE, float(s.inten[n, j])))
             if not on or r >= F["nr"][f] or F["time"][f, r]:
                 continue
-            rows.append((float(s.pri[n, j]), j, F["hours"][f, r] * it, F["money"][f, r] * it * (1 - par["family_pays"] * child), int(F["prep"][f])))
+            m_ = F["money"][f, r] * it * (1 - par["family_pays"] * child)
+            e_ = F["energy"][f, r] * it
+            rows.append((float(s.pri[n, j]), j, F["hours"][f, r] * it, m_ if m_ > par["money_min"] else 0.0, int(F["prep"][f]),
+                         bool(s.owed[n, j]), e_ if e_ > par["energy_min"] else 0.0))
         rows.sort()
-        ch = cm = 0.0; seen = 0; fund = {}; first = True
+        ch = cm = ce = 0.0; seen = 0; fund = {}; first = True; eh = float(s.cap["energy"][n])
         sup = par["support_share"] if s.ctx["PARTNER"](n) else 0.0
-        for _, j, d, m, pm in rows:
+        for _, j, d, m, pm, ow, e in rows:
             if pm & seen:
                 d *= 1 - par["prep_share"]
             if first:
                 d -= d * sup; first = False
             gh = min(max(have - ch, 0.0), d); gm = min(max(money - cm, 0.0), m)
-            fund[j] = min(gh / d if d > 0 else 1.0, gm / m if m > 0 else 1.0)
-            ch += d; cm += m; seen |= pm
+            ge = min(max(eh - ce, 0.0), e)
+            fund[j] = 0.0 if ow else min(gh / d if d > par["hours_min"] else 1.0, gm / m if m > 0 else 1.0, ge / e if e > 0 else 1.0)
+            ch += d; cm += m; ce += e; seen |= pm
         return ch, cm, fund
 
     # ---- views (the Game's; draw nothing, cost no time)
@@ -1166,7 +1200,11 @@ class Agenda:
         ex = ("they can pause and keep what they learned; " + ("an entry paid is not charged again" if ent else "nothing is owed") +
               ("; the deadline runs on while paused" if wd and wd.get("closes") is not None and not wd.get("pause_stops") else "") +
               "; letting it go keeps the learning and the people met, " + ("the fee is not returned" if ent else "and costs nothing more"))
-        return dict(field=F["names"][f], step=F["say"][f][r], rung=r, needs=needs,
+        door = ", ".join(F["tnames"][f][r][:2]) or F["say"][f][r]   # what the opening could lead to (a chance's)
+        nxt = {}
+        if j is not None and r != int(min(s.rung[n, j], F["nr"][f] - 1)):   # a step other than the aim's next rung
+            nxt = dict(next=F["say"][f][int(min(s.rung[n, j], F["nr"][f] - 1))])
+        return dict(field=F["names"][f], step=F["say"][f][r], rung=r, needs=needs, door=door, **nxt,
                     cost=dict(entry=round(ent, 3), paid=paid, viable=bool(s.cap["money"][n] >= 0.5 * ent) if ent else True,
                               money=(round(mon * 0.5, 3), round(mon * 1.5, 3))),
                     hours=(round(hrs * 0.5, 1), round(hrs * 1.5, 1)), hours_now=round(hrs * inten, 1), room=round(room, 1),
@@ -1191,8 +1229,10 @@ class Agenda:
                 bn = "a window"
             elif s.noaccess[n, j]:
                 bn = "a door"
+            elif s.st[n, j] == ACTIVE and s.owed[n, j]:
+                bn = "money"
             elif s.st[n, j] == ACTIVE and fd < 0.999:
-                c = F["money"][f, rr] > 0 and s.committed["money"][n] > s.cap["money"][n]
+                c = F["money"][f, rr] > s.par["money_min"] and s.committed["money"][n] > s.cap["money"][n]
                 bn = "money" if c else "time"
             elif s.st[n, j] == ACTIVE and s.eff[n, j] >= s.need[n, j]:
                 bn = "a door" if F["outy"][f, rr] <= 0 else ""
@@ -1225,7 +1265,10 @@ class Agenda:
                            items=[dict(nm(j), hours=round(float(s.dem[n, j]), 1), funded=round(float(s.fh[n, j]), 1),
                                        shared_prep=bool(s.syn[n, j])) for j in act] +
                                  [dict(name=k, hours=round(float(v), 1)) for k, v in zip(CAPACITY_BEFORE, s.before[n]) if v > 0])
+        out["time"]["shortfall"] = round(max(0.0, float(s.committed["time"][n] - s.cap["time"][n])), 1)
         out["money"] = dict(have=round(float(s.cap["money"][n]), 3), committed=round(float(s.committed["money"][n]), 3),
+                            shortfall=round(max(0.0, float(s.committed["money"][n] - s.cap["money"][n])), 3),
+                            owed=[nm(int(j)) for j in np.nonzero((s.f[n] >= 0) & s.owed[n])[0]],
                             items=[dict(nm(j), year=round(float(F["money"][int(s.f[n, j]), min(int(s.rung[n, j]), F["nr"][int(s.f[n, j])] - 1)] * s.inten[n, j]), 3)) for j in act],
                             entries=list(s.entry_log[n]))
         out["energy"] = dict(have=round(float(s.cap["energy"][n]), 2), committed=round(float(s.committed["energy"][n]), 2), items=[nm(j) for j in act])
