@@ -1,7 +1,8 @@
 """v25 line tables (decisions 2, 4 and 9): earth_react_lines.py (reactions, compliance, purpose and method, why
 clauses, states) and earth_aim_lines.py (why now, previews, agenda states, bottlenecks, funding, upkeep, expiry,
-review, linked forks, integrated assets). Plain data that the Game fills; nothing reads them until the Engine's
-react, seek and aims_v2 switches are on.
+review, linked forks, integrated assets) and earth_aim_assets.py (the integrated assets' names, AIM_ASSETS_EARTH).
+Plain data that the Game and the Engine fill; nothing reads them until the Engine's react, seek and aims_v2 switches
+are on.
 python3 -B tests/check_lines.py [chroma-library dir]    ends "no problems" or lists them
 Rules checked on every string: no colour words, Magic terms or unsafe words (check_aims.py's lists); no "you" or
 "your" (lines speak of {N}); the slots used are listed, so the Game knows what to fill.
@@ -14,7 +15,7 @@ LIB = os.path.abspath(sys.argv[1] if len(sys.argv) > 1 and not sys.argv[1].start
 sys.path.insert(0, os.path.join(LIB, "tests"))
 import check_aims as CA   # its word checks and loader
 
-FILES = ("earth_react_lines", "earth_aim_lines")
+FILES = ("earth_react_lines", "earth_aim_lines", "earth_aim_assets")
 YOU = re.compile(r"\byou(r|rs|rself)?\b", re.I)
 SLOT = re.compile(r"\{(\w+(?:\.\w+)?)\}")
 
