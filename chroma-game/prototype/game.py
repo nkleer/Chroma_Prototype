@@ -160,6 +160,8 @@ class Game(CheckpointsMixin, WorldMixin, VoiceMixin, LifeMixin, ViewsMixin, Caus
                 P["wa_phase2"] = bool(GAME["wa_phase2"])
             if GAME["land_row"] and "wa_land" in E.DEFAULT:
                 P["wa_land"] = True         # v25 land: the towns' land, the ways and the nature moments (lane D)
+            if GAME["clash_card"] and "clash" in E.DEFAULT:
+                P["react"] = P["clash"] = True   # v25 lane C: demands and responses, and the clash moments (clash needs react)
             if GAME["prizes"] and "tilt_world" in E.DEFAULT:
                 P["tilt_world"] = True      # v25: what this world prizes, by town, and how it moves (lane A)
             P["world_cfg"] = dict(setting="earth", pace=float(min(2.0, max(0.5, float(pace or 1.0)))),
