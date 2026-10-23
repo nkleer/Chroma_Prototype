@@ -91,7 +91,7 @@ class CheckpointsMixin:
             self._last_recon[kk] = t
         elif GAME["rung_ask"] and self._rung_here(loc, s) and t - self._last_seen.get(s, -10 ** 6) >= again // 2:
             pass                                        # v22.5 proposal: the next rung of a pack career or a summit is asked
-        elif GAME["aim_forks"] and self.fork_fresh(loc, self.fork_now(loc, s)):
+        elif GAME["aim_forks"] and self.fork_fresh(loc, self.fork_now(loc, s), s):
             pass                                        # v25: a new or urgent fork on a held aim is always put to the player
         elif ret is not None:
             pass                                        # Picks come back: a return is always put to the player
