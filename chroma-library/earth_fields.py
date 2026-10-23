@@ -2572,7 +2572,7 @@ _FIELDS_D = {
                  years=(2, 0.5, 5), share=0.9, start=(6, 14, 35), contests_y=2, forks=["pay"],
                  demand=dict(hours=6, money=0.2, entry=0.3, energy=0.5), window=None, upkeep=None),
             dict(say="a first foal that wins", any=["horse breeder"],
-                 req="has('horse of one's own') | was('stable groom') | has('plot of land')",
+                 req="has(\"horse of one's own\") | was('stable groom') | has('plot of land')",
                  years=(8, 4, 15), share=0.3, contests_y=4, forks=["go_on", "take"],
                  demand=dict(hours=12, money=0.3, entry=0.3, energy=0.6),
                  window=dict(every=1, open_weeks=20, deadline_age=None, deadline_years=None, pause_stops=False),
@@ -3787,7 +3787,7 @@ FIELDS_EARTH_LAND = {
             dict(say="sells the catch", demand=dict(hours=25, money=.2, entry=.4, energy=.8),
                  upkeep=dict(of="credential", years=1, kept_by=["fishing to sell"]),  # the selling licence is yearly
                  any=["fish seller"],
-                 req="has('fishing licence') | was('commercial fisher') | has('boat of one\\'s own')",
+                 req="has('fishing licence') | was('commercial fisher') | has(\"boat of one's own\")",
                  years=(1.5, 1, 2), share=0.85, start=(16, 30, 45), contests_y=4, forks=["go_on"]),
             dict(say="a boat or ponds of their own", demand=dict(hours=35, money=.3, entry=1.0, energy=.85),
                  any=["boat owner"],

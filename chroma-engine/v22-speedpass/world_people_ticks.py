@@ -253,6 +253,9 @@ class TicksMixin:
         # breaks: a fight or a betrayal (rarer among the alike; kin rarely)
         rm = self.rmask
         bp = f32(P["break_p"] * 0.25) * (f32(1.5) - lk) * np.where((rm & KINMASK) == 0, f32(1.0), f32(0.33))
+        qx_ = getattr(self, "quarrel_x", None)
+        if qx_ is not None:   # v25 lane D, the land's heat (wa_land): quarrels x 1.1 for a spell after a heat strike in town
+            bp = bp * qx_[:, None]
         brk = live & (c2 >= P["layer_c"][2]) & ((rm & BIT["partner"]) == 0) & (U[2] < bp)
         for n_, k_ in zip(*_nz2(brk)):
             self._break(n_, k_, t)

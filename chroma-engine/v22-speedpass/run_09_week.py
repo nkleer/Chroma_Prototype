@@ -42,8 +42,9 @@
                     sw_ = st_w if RON else np.zeros(N)
                     hold_ = (rg_ >= 3) | (sw_ >= 1) | ((r_has[:, HT_I[0]].any(1) if len(HT_I[0]) else False) if HT_ON else False)
                     kn_ = (ht_t[:, 0] >= 0) if HT_ON else ((rg_ >= 4) | (sw_ >= 1))
-                    nl_ = WL.nat.national() if NAT_ON else False   # wa_nat_climb: a seat or a national voice is Known too
-                    WL.PP.wa_set_known(((kn_ & hold_) | nl_) & ~dead, np.asarray(WL.gov_office, bool) | nl_, t)
+                    # wa_nat_climb: a seat held or a national name (recognition) is Known too; a voice alone is not
+                    nk_ = WL.nat.known() if NAT_ON else False; nl_ = WL.nat.national() if NAT_ON else False
+                    WL.PP.wa_set_known(((kn_ & hold_) | nk_) & ~dead, np.asarray(WL.gov_office, bool) | nl_, t)
                     hp_, sp_ = WL.PP.wa_price()   # F6: the phase's hours, and its stress in a busy season (monthly)
                     res[:, TIM] = _uclip(res[:, TIM] - hp_, 0.05, 1)
                     if t % 4 == 0:
@@ -91,6 +92,12 @@
                 world_cast(WL.drain())
             else:
                 WL.drain()
+        if RX_ON:   # v25 lane C: a new week's demands and responses; a clash waiting for its moment is brought (after the
+            RX.week_reset()   # world's week, which set this week's forced moments)
+            if CL_ON:
+                RX.clash_week(t, WL)
+            if SK_ON:
+                RX.seek_week(t, WL, age)
         if t % record_every == 0:
             if GG_ON:
                 grey_y.append(WL.W.sph_grey()[np.asarray(WL.PP.loc)].astype(np.float32))
@@ -141,6 +148,10 @@
             _ = yield Pause("week", t, pz_st, None)
             pz_st._fr = None
             if NW_ON: nw_mark(NW_PLAYER)
+            if SCN_ON and scn_cast:   # the scenario harness's cast (P["scn"]): set before the week's reactions
+                for n_, mx_ in RX.apply_cast(list(scn_cast)):
+                    z[n_] = centre(np.log(np.maximum(mx_, 1e-4))); k[n_] = z[n_].copy(); w[n_] = softmax(z[n_])
+                scn_cast.clear()
             if SCN_ON and scn_hazard:   # v25 lane D, the scenario hook: the caller's hazards and harvests, this week
                 WL.scn(list(scn_hazard)); del scn_hazard[:]
                 if LAND_ON:

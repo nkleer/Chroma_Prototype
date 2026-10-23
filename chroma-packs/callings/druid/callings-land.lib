@@ -1,15 +1,16 @@
 # Chroma content pack, The Five Callings: THE LAND ROAD (the sixth road, Green's second calling; druid/BRIEF.md, v25
-# prep, Packs, draft 10-23), a tendency, never a wall: a [farmer], [forester], [park ranger] or [professional
-# beekeeper] (with [gardener or groundskeeper] and [farm hand] on the everyday moments), then [steward of the land] (the
-# Known rung, of the community kind: the chair of the town's land trust), then [keeper of the land] (the summit, a facet
-# on the steward). Switched off until `callings` is in batch.PACKS; the Packs thread pours it into callings/ as
-# callings-land.lib. Syntax: header of chroma-library/build.py. Rules: callings/MOMENTS-BRIEF.md (pack rules, balance
-# layout) and the Library's footprints brief (chroma-ideas/v25-prep/library/briefs/FOOTPRINTS.md). Names in title:,
-# grants:, takes_if_fails:, holds:, requires: and aims: come from catalogue-land.py, core/*.py and the base catalogue
-# (chroma-library/earth_perks_titles.py: farmer, forester, park ranger, professional beekeeper, gardener or
-# groundskeeper, farm hand, knowing the woods, the one everyone asks, friend in power, good name in town, apprentice of
-# one's own, known across the country); each title takes its tribal and magic form from worlds-land.py (the band's
-# keeper of the grove, the great druid of the clans; a druid of the grove, archdruid of the circle).
+# prep, Packs, draft 10-23), a tendency, never a wall: a [farmer], [forester], [park ranger] or [professional beekeeper]
+# (with [gardener or groundskeeper] and [farm hand] on the everyday moments), then [steward of the land] (the Known
+# rung, of the community kind: the chair of the town's land trust), then [keeper of the land] (the summit, a facet on
+# the steward). Held in callings/druid/, which no build or check reads, until the Engine joins the road into callings/
+# as callings-land.lib (behind aims_v2; callings/PACK.md, "The sixth road"). Syntax: header of chroma-library/build.py.
+# Rules: callings/MOMENTS-BRIEF.md (pack rules, balance layout) and the Library's footprints brief
+# (chroma-ideas/v25-prep/library/briefs/FOOTPRINTS.md). Names in title:, grants:, takes_if_fails:, holds:, requires: and
+# aims: come from catalogue-land.py, core/*.py and the base catalogue (chroma-library/earth_perks_titles.py: farmer,
+# forester, park ranger, professional beekeeper, gardener or groundskeeper, farm hand, knowing the woods, the one
+# everyone asks, friend in power, good name in town, apprentice of one's own, known across the country); each title
+# takes its tribal and magic form from worlds-land.py (the band's keeper of the grove, the great druid of the clans; a
+# druid of the grove, archdruid of the circle).
 #
 # The land is never a judge (the v25 decision file, section 2): a flood, a drought, a stream running brown or a meadow
 # the birds have left is physical, and people read it. No line says the land wants, approves, forgives or punishes, and
@@ -22,7 +23,12 @@
 # Nine moments. Two holder pairs (everyday, holds:, rate .5, gap 1-3, no share: line), whose halves share stages, ages,
 # holds:, rate and gap, split the colours 2 and 3 and use the cycle on the pair's header line (s3 and s4: with the
 # other roads' pairs, each cycle is used three times in the pack); they take no new title: the next rung is an aims:,
-# and grants: gives only a perk plainly earned. Then four life events and the magic world's own event, each even on its
+# and grants: gives only a perk plainly earned. With only two pairs, green is called up in both two-colour halves, so
+# a neutral life drifted to G (check.py: whole life W .80 U .93 B 1.05 R 1.00 G 1.82, spread 1.02; adult on 0.96; young
+# adult 2.24). Each half's pull is graded instead (alpha: under calls:, the called colours still the highest): the
+# two-colour halves leave .15 for the rest, the stream gives B .15, the wood calls at .35. The spread is then .14 over
+# the life, .20 from adult on and .76 as a young adult, where one pair stands alone (the other packs: .06 to .18 over
+# the life, more in their sparse stages; 10-23). Then four life events and the magic world's own event, each even on its
 # own (the five one-colour options and the combination half named in its header comment, every colour's mean the same
 # inside the moment): the two steps at their real chances (the chair 30, as the brief's senior post in a congregation;
 # the summit 6, the same for every colour, with the earned-odds lifts of helps-land.py on top in the engine; no perk on
@@ -57,6 +63,7 @@ times: per farmer, forester, park ranger, beekeeper, groundskeeper or farm hand 
 stages: young_adult adult mature elder
 age: 18-85
 calls: BG
+alpha: W.15 U.15 B.4 R.15 G.4
 holds: farmer | forester | park ranger | professional beekeeper | gardener or groundskeeper | farm hand
 tone: mixed
 life: work, nature
@@ -96,6 +103,7 @@ times: per farmer, forester, park ranger, beekeeper, groundskeeper or farm hand 
 stages: young_adult adult mature elder
 age: 18-85
 calls: WUR
+alpha: W.4 U.4 B.15 R.4 G.1
 holds: farmer | forester | park ranger | professional beekeeper | gardener or groundskeeper | farm hand
 tone: trouble
 life: work, nature
@@ -137,6 +145,7 @@ times: per steward of the land a year: about 1 in 8 see a bird or a flower the t
 stages: adult mature elder
 age: 28-95
 calls: UG
+alpha: W.15 U.4 B.15 R.15 G.4
 holds: steward of the land
 tone: trouble
 life: community, nature
@@ -176,6 +185,7 @@ times: per steward of the land a year: about 1 in 15 are offered land or a wood 
 stages: adult mature elder
 age: 28-95
 calls: WBR
+alpha: W.35 U.1 B.35 R.35 G.1
 holds: steward of the land
 tone: mixed
 life: community, money

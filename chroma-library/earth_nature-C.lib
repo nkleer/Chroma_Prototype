@@ -88,7 +88,7 @@ tier: life event
 land: hay_fever
 stages: juvenile young_adult adult mature elder
 age: 12-90
-per_year: 0 .25 .25 .25 .25 .25
+per_year: 0 .25 .9 .9 .9 .9
 tone: trouble
 life: nature, health
 horizon: months
@@ -126,7 +126,7 @@ tier: life event
 land: winter_dark
 stages: juvenile young_adult adult mature elder
 age: 12-90
-per_year: 0 .25 .25 .25 .25 .25
+per_year: 0 .25 .9 .9 .9 .9
 tone: trouble
 life: nature, health
 horizon: months
@@ -164,7 +164,7 @@ tier: life event
 land: harvest_fails
 stages: juvenile young_adult adult mature elder
 age: 12-90
-per_year: 0 .2 .2 .2 .2 .2
+per_year: 0 .2 .72 .72 .72 .72
 tone: trouble
 life: nature, work
 horizon: months

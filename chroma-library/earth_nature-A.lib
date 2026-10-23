@@ -11,7 +11,7 @@ tier: life event
 land: walk_clears
 stages: juvenile young_adult adult mature elder
 age: 12-90
-per_year: 0 .25 .25 .25 .25 .25
+per_year: 0 .25 .18 .18 .18 .18
 tone: joy
 life: nature, health
 horizon: moment
@@ -49,7 +49,7 @@ tier: life event
 land: garden_comes_in
 stages: juvenile young_adult adult mature elder
 age: 12-90
-per_year: 0 .25 .25 .25 .25 .25
+per_year: 0 .25 .18 .18 .18 .18
 tone: joy
 life: nature, home
 horizon: moment
@@ -87,7 +87,7 @@ tier: life event
 land: first_snow
 stages: child juvenile young_adult adult mature elder
 age: 5-90
-per_year: .33 .33 .33 .33 .33 .33
+per_year: .33 .33 .24 .24 .24 .24
 tone: joy
 life: nature, leisure
 horizon: moment
@@ -125,7 +125,7 @@ tier: life event
 land: cold_swim
 stages: juvenile young_adult adult mature elder
 age: 12-90
-per_year: 0 .25 .25 .25 .25 .25
+per_year: 0 .25 .18 .18 .18 .18
 tone: joy
 life: nature, health
 horizon: moment
@@ -201,7 +201,7 @@ tier: life event
 land: good_harvest
 stages: juvenile young_adult adult mature elder
 age: 12-90
-per_year: 0 .2 .2 .2 .2 .2
+per_year: 0 .2 .14 .14 .14 .14
 tone: joy
 life: nature, work
 horizon: moment
@@ -239,7 +239,7 @@ tier: life event
 land: spring_return
 stages: juvenile young_adult adult mature elder
 age: 12-90
-per_year: 0 .25 .25 .25 .25 .25
+per_year: 0 .25 .18 .18 .18 .18
 tone: joy
 life: nature, leisure
 horizon: moment
@@ -277,7 +277,7 @@ tier: life event
 land: wild_animal
 stages: child juvenile young_adult adult mature elder
 age: 5-90
-per_year: .25 .25 .25 .25 .25 .25
+per_year: .25 .25 .18 .18 .18 .18
 tone: joy
 life: nature, leisure
 horizon: moment
@@ -315,7 +315,7 @@ tier: life event
 land: night_sky
 stages: juvenile young_adult adult mature elder
 age: 12-90
-per_year: 0 .25 .25 .25 .25 .25
+per_year: 0 .25 .18 .18 .18 .18
 tone: joy
 life: nature, friends
 horizon: moment
@@ -353,7 +353,7 @@ tier: life event
 land: foraging
 stages: juvenile young_adult adult mature elder
 age: 12-90
-per_year: 0 .25 .25 .25 .25 .25
+per_year: 0 .25 .18 .18 .18 .18
 tone: joy
 life: nature, friends
 horizon: moment

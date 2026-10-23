@@ -66,6 +66,8 @@ class WorldLink(LinkWeekMixin, LinkRatesMixin, LinkLifeMixin):
                         break
                     PP = PM.People(W, N, run_seed=int(seed) + 7919 * k_, female=np.asarray(female, bool))
                     PP.birth(self.t0)
+        for a_ in ("land", "nat", "nat_on", "quarrel_x"):   # v25 lane D: a People from a run with them on keeps none here
+            PP.__dict__.pop(a_, None)                        # (land_setup and nat_setup set them again when on)
         self.PP = PP
         tr_ = tuple(P.get("trace_off") or ())   # test only (tools/white_trace.py): parts of the world read colour-blind
         if tr_:

@@ -179,7 +179,7 @@ tier: life event
 land: sunset
 stages: child juvenile young_adult adult mature elder
 age: 5-90
-per_year: .5 .5 .5 .5 .5 .5
+per_year: .5 .5 .36 .36 .36 .36
 tone: joy
 life: nature, leisure
 horizon: moment
@@ -224,7 +224,7 @@ tier: life event
 land: campfire_night
 stages: juvenile young_adult adult mature elder
 age: 12-90
-per_year: 0 .25 .25 .25 .25 .25
+per_year: 0 .25 .18 .18 .18 .18
 tone: joy
 life: nature, friends
 horizon: moment
@@ -266,7 +266,7 @@ tier: life event
 land: fishing_with_elder
 stages: child juvenile young_adult adult mature elder
 age: 8-90
-per_year: .25 .25 .25 .25 .25 .25
+per_year: .25 .25 .18 .18 .18 .18
 tone: joy
 life: nature, family
 horizon: moment

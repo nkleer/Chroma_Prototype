@@ -9,15 +9,18 @@ Three units, each whole behind its switch (decision #7's cut order):
   protected (wa_land itself): each town's three stretches (field, wood, water; health and wildness) with their recovery,
       the hazards' hits on them and their feedback on the hazard odds (World.land_hx: a drained marsh floods the town
       more, a wild untended wood burns hotter), the households a strike hits and the shape of their years after
-      (after_disaster), the rest of the town's lesser blow, heat on the old and frail, the town's trust after a hit,
+      (after_disaster), the rest of the town's lesser blow, heat on the old and frail and its quarrels (x 1.1 for a
+      spell: People's ties tick reads quarrel_x), the town's trust after a hit,
       "a loved stretch lost" for N3 (imp_world's land fact), and the scenario hook (scn: a hazard or a harvest the
       caller brings to a life's town)
   wa_land_dev (2nd in the cut order): what reaches lives left alone - the home health's drift with the town's uses and
       the times, time in nature (the dose), the harvests, sick land (solastalgia) and climate worry
   wa_land_play (6th): the nature moments (the batch's, load_batch(land=True)) at about one a year, who is there with
       the character (S["company"]), the options' faces, the ways they open (three held at most, each a ladder of three
-      steps on its own clock), the bridges two ways open together, and a Known life's land decisions (world answers'
-      phase 2) on a stretch
+      steps on its own clock), the bridges two ways open together, a Known life's land decisions (world answers'
+      phase 2) on a stretch; the company's lasting parts (kin: a shared memory, recalled when they die; a group: its norm
+      a little toward the chosen face), and notice (people 2.0: the tenders, or the builders and farmers, ask a life
+      that leans their way in to one of their ways; those a choice costs push back through their rival moment)
 
 Its own dice streams (the world seed's for the start, so a world keeps its land; _rng for the lives), so it moves no
 other stream; the moments it brings and the ties it changes do change the lives, as they should, with the switch on."""
@@ -27,7 +30,7 @@ import numpy as np
 
 from world_base import HAZARDS, LOC_KINDS
 from world_keys import HAUNT_KINDS, SECTORS
-from world_people_base import BIT, NEVER, R
+from world_people_base import BIT, G, NEVER, R
 
 STRETCHES = ("field", "wood", "water")
 F_, WO_, WA_ = 0, 1, 2
@@ -112,16 +115,26 @@ class Land:
         self.company = [None] * N; self.comp_s = np.full(N, -1, np.int64)
         self.news = []                              # (life, dict) for the story, drained by the engine
         self.mlog = []                              # (life, week, moment) of every land moment that came
-        self.al0 = np.asarray(PP.alive, float).copy(); self.kin_t = np.full(N, NEVER, np.int64)
+        self.kin_t = np.full(N, NEVER, np.int64)
         self.par0 = np.zeros(N, bool); self.par_t = np.full(N, NEVER, np.int64)
+        self.heat_t = np.full(nl, NEVER, np.int64)   # the town's last heat strike (heat_quarrel)
+        self.qx = np.ones(N, np.float32); PP.quarrel_x = self.qx   # read by People's ties tick (a close tie's fight)
+        self.dt0 = np.asarray(PP.died_t).copy()     # the cast's deaths as _watch last saw them
+        self.mem = [[] for _ in range(N)]           # company kin: the shared memories (KEPT's people ring), recalled later
+        self.lean = np.zeros((N, 2)); self.lean_j = np.full(N, -1, np.int64)   # notice: the land lean (tend, work)
+        self.push = {}                              # notice: life -> [moment key, week due] (the pushback to come)
         self.fx_need = np.zeros((N, 5)); self.fx_mood = np.zeros(N); self.fx_stress = np.zeros(N); self.fx_res = np.zeros((N, 5))
         self.tg_money = np.zeros(N); self.tg_health = np.zeros(N)
         self.st = dict(hits=0, hit_shapes=[0] * 4, strikes=0, harvests=[0] * 3, moments=0, tone=dict(good=0, bad=0, mixed=0),
-                       faces=[0] * 5, company={}, opened=0, bridges=0, decisions=0, lost=0)
+                       faces=[0] * 5, company={}, opened=0, bridges=0, decisions=0, lost=0, asks=0, ask_opened=0,
+                       pushes=0, memories=0, recalls=0, norm_moves=0, heat_weeks=0)
         self.flood_back = []                        # LN6: (shape, low at one year, low at two years) of flood-hit lives
         self.FS = self.T["uses"]["faces"]
         self.WAYS = list(self.T["uses"]["ways"]["list"]); self.WK = {w_["key"]: i_ for i_, w_ in enumerate(self.WAYS)}
         self.BR = list(self.T["uses"]["ways"]["bridges"])
+        # notice's asks: the tenders' ways (first led by W or G) and the builders' and farmers' (B or U), by stretch
+        self.ask_ways = {(k_, j_): [i_ for i_, w_ in enumerate(self.WAYS) if w_["stretch"] == s_ and w_["lead"][0] in cs_]
+                         for k_, cs_ in ((0, "WG"), (1, "BU")) for j_, s_ in enumerate(STRETCHES)}
         self._moments(L)
         self.WL = None
 
@@ -184,6 +197,8 @@ class Land:
         for l in np.nonzero(dn > 0)[0]:
             self._strike(int(l), int(np.asarray(W.disaster_kind)[l]), float(dn[l]), t, a, S_)
         self._watch(t, S_)
+        if self.push:
+            self._pushback(t)
         if t % 4 == 0:
             self._month(t, a)
         if int(W.week_of_year) == 38 and self.dev:
@@ -234,6 +249,7 @@ class Land:
                 if nm == "fire":
                     self._fire(n, "smoke_days", t, p=E["force"].get("smoke_days", 0.0))
         if nm == "heat":   # heat_summer: many lose a little vitality; the old, the frail and outdoor work lose health
+            self.heat_t[l] = t   # and quarrels a little more likely for a spell (heat_quarrel, in _course)
             hea = np.asarray(PP.res, float)[:, R_HEA] if np.ndim(PP.res) == 2 else np.full(self.N, 0.6)
             weak = here & ((a >= E["heat_old"]) | (hea < E["heat_frail"]) | (np.asarray(PP.psector) == SECTORS.index("farm")))
             self.fx_mood[here] -= 0.5 * 0.1 * sd["mood"]; self.fx_res[here, R_HEA] -= 0.5 * 0.1 * sd["health"]
@@ -276,6 +292,9 @@ class Land:
             self.fx_need[:, N_SAF] -= 0.006 * E["course_safety"] * lev
             self.fx_stress += E["course_stress"] * lev
         self.low = lev
+        hq_, hw_ = E["heat_quarrel"]   # heat_summer: quarrels x 1.1 while the heat's spell lasts in the town
+        hot = (t - self.heat_t[np.asarray(self.PP.loc)]) < hw_
+        self.qx[:] = np.where(hot & ~dead, np.float32(hq_), np.float32(1.0)); self.st["heat_weeks"] += int(hot.sum())
         for x_ in self.flood_back:   # LN6: still low at one year, at two years
             if len(x_) == 3 and t - x_[2] >= 52:
                 x_.append(bool(lev[x_[0]] > 0.1))
@@ -397,6 +416,7 @@ class Land:
                     self._fire(n, "climate_worry", t, p=E["force"].get("climate_worry", 0.0))
         if self.play:
             self._ways_year(t, a)
+            self._asks(t, a)
         # the moments the year's state brings: the river back, the tree grown, the river sick, the wood cleared
         for n in np.nonzero(~dead)[0]:
             l = int(loc[n])
@@ -428,14 +448,24 @@ class Land:
 
     def _watch(self, t, S_):
         """The cast's turns the land's together moments wait for: a new partner (a first date outdoors), a kin who
-        died (a remembrance tree)."""
+        died (a remembrance tree; a kin the life shares a memory of on the land is recalled: company.kinds kin)."""
         if not self.play:
             return
-        PP = self.PP; al = np.asarray(PP.alive, float)
-        if al.shape == self.al0.shape:
-            died = (al < self.al0).any(1)
-            self.kin_t[died] = t
-        self.al0 = al.copy()
+        PP = self.PP; E = self.E
+        dt = np.asarray(PP.died_t)   # kin who died since the last look (at any point of the week)
+        dk = (dt != self.dt0) & (dt > NEVER // 2) & ((PP.rmask & KIN_BITS) != 0)
+        self.dt0 = dt.copy()
+        for n in np.nonzero(dk.any(1) & ~np.asarray(PP.dead, bool))[0]:
+            self.kin_t[n] = t
+            gone = set(PP.uid[n, dk[n]].tolist())
+            mm = [m_ for m_ in self.mem[n] if m_["cid"] in gone and not m_.get("recalled")]
+            if mm:
+                for m_ in mm:
+                    m_["recalled"] = t
+                self.st["recalls"] += 1; self._dim(n, "meaning", 0.1)
+                self.news.append((int(n), dict(kind="memory_recalled", cid=int(mm[0]["cid"]), moment=mm[0]["moment"],
+                                               age=mm[0]["age"])))
+                self._fire(n, "remembrance_tree", t, p=E["memory_recall"])
         held = S_.get("held") if isinstance(S_, dict) else None
         if held is not None:
             par = np.asarray(held, bool)[:, self.par_i]
@@ -583,9 +613,10 @@ class Land:
                     self._dim(n, d_, v_ * sz, j, l)
                 for d_, v_ in f_["costs"].items():
                     self._dim(n, d_, -v_ * sz, j, l)
+                self._notice(n, fc, j, t)
             cm = self.company[n] if self.comp_s[n] == si else self.company_draw(n, si, age)
             if cm is not None:
-                self._company_fx(n, cm, fc, t)
+                self._company_fx(n, cm, fc, t, si, age)
             op = nt.get("opens")
             if op in self.WK:
                 self.open_way(n, op, age, t)
@@ -604,10 +635,11 @@ class Land:
                 self.company[n] = None; self.comp_s[n] = -1
         return self.company
 
-    def _company_fx(self, n, cm, face, t):
+    def _company_fx(self, n, cm, face, t, si=-1, age=0.0):
         """company.kinds: alone restores (wellbeing, meaning); a friend a little closer and belonging; a partner clearly
-        closer; kin belonging clearly; a group belonging; a stranger 1 in 4 a new acquaintance; a witness meaning; a
-        rival's tie moves by the chosen face (a truce draws closer, a stand pushes further)."""
+        closer; kin belonging clearly, and the shared memory kept (KEPT's people ring, recalled when they die); a group
+        belonging and town trust, its norm a little toward the chosen face; a stranger 1 in 4 a new acquaintance; a
+        witness meaning; a rival's tie moves by the chosen face (a truce draws closer, a stand pushes further)."""
         PP = self.PP; E = self.E; k_ = cm["kind"]
         slot = PP._slot(n, cm["cid"]) if cm["cid"] >= 0 else -1
         def closer(x):
@@ -621,8 +653,14 @@ class Land:
             closer(E["tie_clear"])
         elif k_ == "kin":
             self._dim(n, "belonging", 0.25); closer(E["tie_small"])
+            if cm["cid"] >= 0:
+                self.mem[n].append(dict(cid=int(cm["cid"]), moment=self.mrow[si] if 0 <= si < self.S else None,
+                                        age=round(float(age), 2), t=int(t)))
+                self.st["memories"] += 1
         elif k_ == "group":
-            self._dim(n, "belonging", 0.1); closer(E["tie_small"])
+            self._dim(n, "belonging", 0.1); self._dim(n, "town trust", 0.1); closer(E["tie_small"])
+            if face in self.FS:
+                self._group_norm(n, face, t)
         elif k_ == "witness":
             self._dim(n, "meaning", 0.1)
         elif k_ == "stranger" and self._rng.random() < E["stranger_tie"]:
@@ -631,11 +669,86 @@ class Land:
         elif k_ == "rival":
             closer(E["tie_small"] if face in ("W", "G") else -E["tie_small"] if face in ("B", "R") else 0.0)
 
+    def _group_norm(self, n, face, t):
+        """company group: the group's norm (People.snorm, the life's setting) a little toward the chosen face's colour,
+        as an act's voice moves it (x (1 - cohesion / 2)), in the ledger's group_norm with world answers' ledger on. The
+        setting: a club, the neighbours, a congregation or a movement the life is in, else its first other setting."""
+        PP = self.PP; sk = np.asarray(PP.skind[n])
+        js = [j_ for g_ in ("club", "neighbours", "congregation", "movement") for j_ in np.nonzero(sk == G[g_])[0]]
+        if not js:
+            js = list(np.nonzero((sk >= 0) & (sk != G["household"]) & (sk != G["work"]))[0])
+        if not js:
+            return
+        j = int(js[0]); C_ = PP.snorm.shape[-1]
+        tg = np.zeros(C_, np.float32); tg["WUBRG".index(face)] = 1.0
+        s0 = PP.snorm[n, j].astype(float)
+        k = np.float32(self.E["group_norm"] * (1.0 - float(PP.scoh[n, j]) / 2.0))
+        nw = PP.snorm[n, j] + k * (tg - PP.snorm[n, j]); PP.snorm[n, j] = nw / nw.sum()
+        self.st["norm_moves"] += 1
+        if getattr(PP, "wa_l", False):
+            PP._wa_gmove(n, j, t, dnorm=PP.snorm[n, j] - s0, what="the land")
+
+    # ------------------------------------------------------------------ notice (people 2.0, as world_answers)
+    def _notice(self, n, face, j, t):
+        """A land choice noticed: the life's lean (tend: W, G; work: B, U) grows, and those it costs push back at
+        push_p (the tenders when the face costs the land's health or wildness, the farmers and builders when it costs
+        yield or money): their moment comes push_weeks later, its options the lean in or the backlash."""
+        NT = self.E["notice"]; r = self._rng
+        if face in "WG":
+            self.lean[n, 0] += 1.0
+        elif face in "BU":
+            self.lean[n, 1] += 1.0
+        self.lean_j[n] = j
+        cs = self.FS[face]["costs"]
+        who = [x_ for x_, ks_ in (("tend", ("land_health", "land_wild")), ("work", ("yield", "money")))
+               if any(k_ in cs for k_ in ks_)]
+        if not who or n in self.push or r.random() >= NT["push_p"]:
+            return
+        w_ = who[int(r.integers(len(who)))]
+        key = NT["push_tend"][STRETCHES[j]] if w_ == "tend" else NT["push_work"]
+        self.push[n] = [key, int(t) + int(r.integers(NT["push_weeks"][0], NT["push_weeks"][1] + 1)), w_]
+
+    def _pushback(self, t):
+        for n in list(self.push):
+            key, due, w_ = self.push[n]
+            if t < due:
+                continue
+            if bool(self.PP.dead[n]) or t - due > 26 or self._fire(n, key, t):
+                if t - due <= 26 and not bool(self.PP.dead[n]):
+                    self.st["pushes"] += 1
+                    self.news.append((int(n), dict(kind="land_pushback", by="tenders" if w_ == "tend" else "farmers and builders",
+                                                   moment=key)))
+                del self.push[n]
+
+    def _asks(self, t, a):
+        """Yearly: the stretch's tenders (a tend lean) or its builders and farmers (a work lean) ask the life in, at ask_y x
+        (1 + people x the lean's strength): one of their ways on the stretch the life last chose on, taken up when it
+        holds room. The lean then fades by lean_decay."""
+        NT = self.E["notice"]; r = self._rng; pe = float(self.T["notice"]["people"]); dead = np.asarray(self.PP.dead, bool)
+        if a >= NT["ask_age"]:
+            for n in np.nonzero(~dead & (self.lean.max(1) >= 1.0))[0]:
+                s_ = min(1.0, float(self.lean[n].max()) / NT["lean_full"])
+                if r.random() >= NT["ask_y"] * (1.0 + pe * s_):
+                    continue
+                k_ = int(self.lean[n].argmax()) if self.lean[n, 0] != self.lean[n, 1] else int(r.integers(2))
+                j = int(self.lean_j[n]) if self.lean_j[n] >= 0 else int(r.integers(3))
+                held = {w_["i"] for w_ in self.ways[n]}
+                cand = [i_ for i_ in self.ask_ways[(k_, j)] if i_ not in held]
+                if not cand:
+                    continue
+                i_ = cand[int(r.integers(len(cand)))]
+                ok = self.open_way(n, self.WAYS[i_]["key"], a, t)
+                self.st["asks"] += 1; self.st["ask_opened"] += int(ok)
+                self.news.append((int(n), dict(kind="land_ask", by="tenders" if k_ == 0 else "farmers and builders",
+                                               way=self.WAYS[i_]["key"], taken=bool(ok))))
+        self.lean *= NT["lean_decay"]
+
     # ------------------------------------------------------------------ the ways and the bridges
     def open_way(self, n, key, age, t):
-        """A way opened (an option's opens:): taken up when the life holds fewer than three and not this one."""
+        """A way opened (an option's opens:): taken up from way_age[0] (a helper beside an adult), when the life holds
+        fewer than three and not this one."""
         i = self.WK[key]
-        if age < 12 or len(self.ways[n]) >= self.E["max_ways"] or any(w_["i"] == i for w_ in self.ways[n]):
+        if age < self.E["way_age"][0] or len(self.ways[n]) >= self.E["max_ways"] or any(w_["i"] == i for w_ in self.ways[n]):
             return False
         l = int(self.PP.loc[n]); j = STRETCHES.index(self.WAYS[i]["stretch"])
         self.ways[n].append(dict(i=i, key=key, step=0, since=float(age), worked=0.0, need=self._step_years(i, 1),
@@ -668,7 +781,7 @@ class Land:
             for w_ in self.ways[n]:
                 wy = self.WAYS[w_["i"]]; j = STRETCHES.index(wy["stretch"])
                 w_["worked"] += 1.0; w_["in_step"] = w_.get("in_step", 0.0) + 1.0
-                if w_["step"] < 2 and w_["in_step"] >= w_["need"]:
+                if w_["step"] < 2 and w_["in_step"] >= w_["need"] and a >= E["way_age"][1]:   # steps 1, 2: an adult's
                     w_["step"] += 1; w_["since"] = float(a); w_["in_step"] = 0.0
                     w_["need"] = self._step_years(w_["i"], w_["step"] + 1) if w_["step"] < 2 else 0.0
                     self.news.append((int(n), dict(kind="way_step", way=wy["key"], step=int(w_["step"]),

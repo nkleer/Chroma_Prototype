@@ -11,7 +11,7 @@ tier: life event
 land: teach_a_young_one
 stages: young_adult adult mature elder
 age: 20-90
-per_year: 0 0 .25 .25 .25 .25
+per_year: 0 0 .18 .18 .18 .18
 tone: joy
 life: nature, family
 horizon: moment
@@ -361,7 +361,7 @@ tier: life event
 land: late_frost
 stages: juvenile young_adult adult mature elder
 age: 12-90
-per_year: 0 .25 .25 .25 .25 .25
+per_year: 0 .25 .9 .9 .9 .9
 tone: trouble
 life: nature, home
 horizon: week

@@ -344,6 +344,7 @@ LAND_ENGINE = dict(
     alone=(0.3, 0.1),                   # company: alone about .3 of the time for adults, .1 for the young
     stranger_tie=0.25,                  # a stranger becomes an acquaintance 1 in 4
     tie_small=0.02, tie_clear=0.05,     # a tie closer a little, clearly
+    way_age=(14, 18),   # ways: a way opens (step 0) from 14, as a helper beside an adult; steps 1 and 2 from 18
     max_ways=3, way_time=1 / 112.0,     # ways: at most three held; each hour a week is this share of the week's waking
                                         # hours (as world_answers' price)
     way_k=0.1,                          # a held way's yearly effect, in sd units per unit of its effect (keenness 1)
@@ -354,6 +355,24 @@ LAND_ENGINE = dict(
                dry_well=0.2, sick_river=0.3, wood_cleared=0.3, protest_at_the_wood=0.2, river_clean_again=1.0,
                planted_tree_grown=1.0, remembrance_tree=0.3, first_date_outdoors=0.3, climate_worry=0.3,
                outdoor_injury=0.05),
+    # heat_summer: quarrels (a close tie's break in a fight) x heat_quarrel[0] for heat_quarrel[1] weeks after a heat
+    # strike in the town (the weeks an estimate: a summer's spell, as long as the ties' quarterly tick)
+    heat_quarrel=(1.1, 13),
+    # company.kinds group: the group's norm moves toward the chosen face by this (a third of a voice act's .03; estimate)
+    group_norm=0.01,
+    # company.kinds kin: the shared memory (KEPT's people ring) is recalled when that kin dies: their remembrance moment
+    # comes at this chance (in place of force's), and the recall adds meaning + small
+    memory_recall=1.0,
+    # notice (people 2.0, as world_answers): a life's land lean, the faces it chose (tend: W, G; work: B, U), each a count
+    # decaying by lean_decay a year, full at lean_full. Asks: the stretch's tenders, or its builders and farmers, ask it in
+    # at ask_y a year x (1 + people x the lean's strength), from ask_age, opening one of their ways on the stretch (a way
+    # led by W or G, or by B or U) when it holds room. Pushback: a choice that costs others (a face's land costs: the
+    # tenders lose; its yield or money costs: the farmers and builders lose) brings their moment at push_p, push_weeks
+    # later (the rival moments: the tenders' by stretch, the farmers' and builders' one); its options are the lean in or the
+    # backlash (company rival). All estimates
+    notice=dict(ask_y=0.1, ask_age=16, lean_decay=0.8, lean_full=3.0, push_p=0.1, push_weeks=(4, 26),
+                push_tend=dict(field="boundary_quarrel", wood="protest_at_the_wood", water="boundary_quarrel"),
+                push_work="verge_meadow"),
 )
 # which stretch a Known land decision moves (its moment's land: key; the decisions open no way to read it from)
 LAND_DECIDE = dict(save_the_wood="wood", drain_the_marsh="water", open_a_quarry="field", plant_trees="wood",
@@ -369,6 +388,7 @@ LAND_DECIDE = dict(save_the_wood="wood", drain_the_marsh="water", open_a_quarry=
 # recognition_fade_years without new work; influence holds while its asset (rung 4, the movement, the money) holds
 NATIONAL_CLIMB = dict(rung_years=5, base=0.02, aim_x=1.5, movement_share=0.01, money=0.99, work_rank=0.85,
                       hold_after_years=2, recognition_fade_years=10, country_people=1_000_000, influence_y=(4, 8),
+                      # base may be a dict by kind (recognition, influence, authority) for a test;
                       # a seat's term in years (drawn when taken), its fall or scandal a year, the age it ends by, and a
                       # movement's members or a firm's people past its town (estimates)
                       seat_years=(4, 10), seat_fall=0.05, seat_age=75, past_town=dict(movement=1000, work=200))
@@ -535,6 +555,24 @@ NORM_KEYS_ALL = NORM_KEYS + LAW_V23         # what an option's norm: may name
 # ---- Technology: the keys an option's tech: may name (from world_keys.py)
 TECH_KEYS = ["phone", "computer", "internet", "video calls", "online dating", "remote work", "ai helper", "modern medicine",
              "car", "plane"]
+
+
+# ---- v25 lane C (react, clash, seek): how modern Earth reads a way of asking, and its ages (world_react.py)
+# A demand's method, as this world reads the way it is asked (chroma-engine/notes/v25/contracts.md section 2): each
+# channel's colours W U B R G (None: the source's own ways, as they show them). Illustrative [I]: rules and enforcement
+# read as order (W) and power (B); incentives as gain (B); routines as order and method (W U); access as knowledge and
+# leverage (U B); pressure as force (B R); belonging and provision as community (W G); activities and encounters as
+# action and discovery (R, U R). Earth's nature acts through process only: it asks nothing in colours.
+REACT_CHANNEL_READ = {"attach": None, "example": None, "pressure": (0.0, 0.0, 0.5, 0.5, 0.0),
+                      "routine": (0.5, 0.5, 0.0, 0.0, 0.0), "incentive": (0.0, 0.2, 0.8, 0.0, 0.0),
+                      "access": (0.0, 0.5, 0.5, 0.0, 0.0), "rule": (0.7, 0.3, 0.0, 0.0, 0.0),
+                      "provision": (0.5, 0.0, 0.0, 0.0, 0.5), "enforce": (0.5, 0.0, 0.5, 0.0, 0.0),
+                      "activity": (0.0, 0.0, 0.0, 0.7, 0.3), "encounter": (0.0, 0.4, 0.0, 0.6, 0.0),
+                      "belonging": (0.5, 0.0, 0.0, 0.0, 0.5), "process": (0.0, 0.0, 0.0, 0.0, 0.0)}
+REACT_ADULT_AGE = 17.0      # the age around which Earth's law and custom grant a person their own standing (a soft ramp,
+                            # 1.5 years wide, one part of independence among home, income and freedom; never a switch)
+
+
 # v25 aims v2 (lane B, aims_v2; aims-shape.md section 5): Earth's week for the one resource account, hours a week.
 # Waking hours after sleep (about 8.8 h a day), the essentials (eating, personal care, about 2 h a day) and household
 # work (about 2 h a day), a partner's own time, and the free hours of a life with nothing held (world off: res time 1).

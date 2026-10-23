@@ -12,7 +12,7 @@ tier: life event
 land: stranger_on_the_hill
 stages: young_adult adult mature elder
 age: 16-90
-per_year: 0 0 .25 .25 .25 .25
+per_year: 0 0 .18 .18 .18 .18
 tone: joy
 life: nature, community
 horizon: moment
@@ -52,7 +52,7 @@ tier: life event
 land: birds_with_old_neighbour
 stages: juvenile young_adult adult mature elder
 age: 12-90
-per_year: 0 .25 .25 .25 .25 .25
+per_year: 0 .25 .18 .18 .18 .18
 tone: joy
 life: nature, friends
 horizon: months
@@ -174,7 +174,7 @@ tier: life event
 land: shore_day_family
 stages: child juvenile young_adult adult mature elder
 age: 5-90
-per_year: .25 .25 .25 .25 .25 .25
+per_year: .25 .25 .18 .18 .18 .18
 tone: joy
 life: nature, family
 horizon: moment
@@ -256,7 +256,7 @@ tier: life event
 land: sledging
 stages: child juvenile young_adult adult mature elder
 age: 5-90
-per_year: .25 .25 .25 .25 .25 .25
+per_year: .25 .25 .18 .18 .18 .18
 tone: joy
 life: nature, leisure
 horizon: moment

@@ -546,7 +546,8 @@ def _druid(PK, land):
 
 
 def load_batch(world="earth", symmetric=False, roles=None, packs=None, pack_moments=None, setting="earth", more=None,
-                bold=None, links=None, aims=None, foot=None, wa=None, land=None, national=None, fields=None):
+               bold=None, links=None, aims=None, foot=None, wa=None, land=None, national=None, fields=None, clash=None,
+               seek=None):
     """packs: the content packs on top of the base (default PACKS, the approved ones); pack_moments: {pack: path of a
     compiled moments file} for a pack the Library has not built into chroma-library/ yet (tests). setting: the world the
     life is played in (earth, tribal, magic: the game's presets); a moment with only: <another world> is left out.
@@ -564,7 +565,10 @@ def load_batch(world="earth", symmetric=False, roles=None, packs=None, pack_mome
     fields: aims v2 (the engine's aims_v2 switch) in place of FIELDS: the Library's shape moments (<world>_shape_moments.py,
     last in the batch, after the land's and the national ones, with their footprints) compiled to L["AIM_SHAPE"],
     L["AIM_KIND"], L["AIM_FORK"], L["AIM_RUNGS"], L["AIM_TAG"], L["AIM_COST"] and L["AIM_NAMES"], and the new titles the
-    fields name (<world>_fields.py TITLES_V25)."""
+    fields name (<world>_fields.py TITLES_V25).
+    clash, seek: v25 lane C (the engine's clash and seek switches) in place of CLASH_MOMENTS and SEEK_MOMENTS: the Library's
+    clash moments (<world>_clash.py) and seeking and repair moments (<world>_seek.py), last in the batch."""
+    v25_on_ = (CLASH_MOMENTS if clash is None else clash, SEEK_MOMENTS if seek is None else seek)   # (the name clash is reused below)
     sys.path.insert(0, os.path.abspath(LIB_DIR))
     sys.modules.pop(world, None)                          # always read the batch from LIB_DIR as it is now
     try:
@@ -605,11 +609,16 @@ def load_batch(world="earth", symmetric=False, roles=None, packs=None, pack_mome
                     if len(o_) > 5 and isinstance(o_[5], dict) and not o_[5].get("lever"):
                         o_[5]["lever"] = "voice"
         sits += WA_
+    XR_ = []   # v25 lane D: the nature and national files' outside events read through the colours (EVENTS_READ)
     for on_, f_ in ((LAND if land is None else land, "nature"), (NATIONAL if national is None else national, "national")):
         xp_ = os.path.join(LIB_DIR, f"{world}_{f_}.py")   # v25 lane D: the nature moments, then the national ones, last
         if not (on_ and os.path.exists(xp_)):
             continue
-        X_ = [copy.deepcopy(x) for x in getattr(_module(xp_, f"chroma_{world}_{f_}"), "SITUATIONS", [])]
+        # its moments and echoes (as a pack's: SITUATIONS + ECHOES) and its read events; its MARKS dict, empty in every
+        # Library file, needs nothing: the engine takes the marks from the options' mark: notes (engine.py, marks)
+        XM_ = _module(xp_, f"chroma_{world}_{f_}")
+        X_ = [copy.deepcopy(x) for x in list(getattr(XM_, "SITUATIONS", [])) + list(getattr(XM_, "ECHOES", []))]
+        XR_ += list(getattr(XM_, "EVENTS_READ", []))
         clash = sorted({x["name"] for x in X_} & {x["name"] for x in sits})
         if clash:
             raise ValueError(f"{f_} moments with the name of another moment: {clash}")
@@ -627,6 +636,14 @@ def load_batch(world="earth", symmetric=False, roles=None, packs=None, pack_mome
         if clash:
             raise ValueError(f"shape moments with the name of another moment: {clash}")
         sits += SM_
+    for on_, nm_ in zip(v25_on_, ("clash", "seek")):
+        cp_ = os.path.join(LIB_DIR, f"{world}_{nm_}.py")
+        if on_ and os.path.exists(cp_):   # v25 lane C: forced moments only (per_year 0), after every other, so every index stays
+            X_ = [copy.deepcopy(x) for x in getattr(_module(cp_, f"chroma_{world}_{nm_}"), "SITUATIONS", [])]
+            dup_ = sorted({x["name"] for x in X_} & {x["name"] for x in sits})
+            if dup_:
+                raise ValueError(f"{nm_} moments with the name of another moment: {dup_}")
+            sits += X_
     sits = [x for x in sits if not x.get("only") or setting in [w_.strip() for w_ in str(x["only"]).replace(",", " ").split()]]
     if not SHADOW_MOMENTS:   # the spheres finishing pack, part 5: moments in a town gone grey (shadow:) wait for its refit
         sits = [x for x in sits if not x.get("shadow")]
@@ -727,7 +744,7 @@ def load_batch(world="earth", symmetric=False, roles=None, packs=None, pack_mome
     L["INNER"] = np.array([s.get("tier") == "inner" for s in L["src"]])
     # outside events read through the person's colors
     evr = []
-    for ev in list(getattr(B, "EVENTS_READ", [])) + PK["reads"]:
+    for ev in list(getattr(B, "EVENTS_READ", [])) + PK["reads"] + XR_:
         if ev.get("only") and setting not in str(ev["only"]).replace(",", " ").split():
             continue
         c = READ_.get(ev["name"], {})
@@ -1008,6 +1025,27 @@ def _world_fields(L):
              W_LAW=law, W_NORM=norm, W_LAW_NEG=law_neg, W_NORM_NEG=norm_neg, W_TECH=tech, W_LEVER=lever, W_PUSH=push, W_PUSH_SUB=push_sub, ROLE_OPT=role,
              W_CAUGHT=caught, W_ODD=odd)
     L.update(W_LEAD_WAY=lway, W_LEAD=olead, W_FALL=ofall, W_HAND=ohand)   # lead_ways (S7)
+    # v25 lane C (world_react.py): a clash moment's setting and band (clash:, band:), a seeking moment's state (state:), an
+    # option's clash:, seek: and repair: (index into world_keys' lists, -1 none), and RESP_TAG, the response each clash
+    # family reads as (world_keys.RESPONSES; REACT_TAG the same array). Only in a batch that has them
+    wcl = np.full(S, -1); wbd = np.full(S, -1); wst = np.full(S, -1)
+    ocl = np.full((S, K), -1); osk = np.full((S, K), -1); orp = np.full((S, K), -1)
+    for si, src in enumerate(L["src"][:S]):
+        nm = f"moment {src.get('name', si)!r}"
+        if src.get("clash"):
+            wcl[si] = one(src["clash"], WK.CLASH_SETTINGS, nm)[0]
+            wbd[si] = one(src.get("band") or "adult", WK.CLASH_BANDS, nm)[0]
+        if src.get("state") and str(src["state"]).strip() in WK.STATES:
+            wst[si] = WK.STATES.index(str(src["state"]).strip())
+        for ki, nt in enumerate(L["notes"][si]):
+            if nt and ki < K:
+                for key_, arr_, voc_ in (("clash", ocl, WK.CLASH_KINDS), ("seek", osk, WK.SEEK_TAGS), ("repair", orp, WK.REPAIR_TAGS)):
+                    if nt.get(key_):
+                        arr_[si, ki] = one(nt[key_], voc_, f"{nm}, option {ki + 1}")[0]
+    if (wcl >= 0).any() or (wst >= 0).any() or (orp >= 0).any():
+        rmap_ = np.array([WK.RESPONSES.index(r_) for r_ in ("disagree", "accept", "withdraw", "backlash", "negotiate")])
+        resp_ = np.where(ocl >= 0, rmap_[np.maximum(ocl, 0)], -1)
+        L.update(W_CLASH=wcl, W_BAND=wbd, W_STATE=wst, CLASH_TAG=ocl, SEEK_TAG=osk, REPAIR_TAG=orp, RESP_TAG=resp_, REACT_TAG=resp_)
 
 
 FAR_MOMENTS = True   # item 18: moments with cast_want: far_hard, far_good or far_mixed join the batch at v22.3's refit
@@ -1025,6 +1063,8 @@ TRUST_MOMENTS = True    # the spheres' finishing pack, part 3: moments gated on 
                         # low|high, body_trust) join the batch at the pack's refit
 SHADOW_MOMENTS = True   # the spheres finishing pack, part 5: moments with shadow: (the Library's Crime pack, A13) join the
                         # batch at its refit; until then the batch is as before
+CLASH_MOMENTS = False   # v25 lane C: the Library's clash moments (<world>_clash.py) load only with load_batch(clash=True),
+SEEK_MOMENTS = False    # its seeking and repair moments (<world>_seek.py) with seek=True (the engine's clash and seek switches)
 BOLD_MOMENTS = False    # bold ways (chroma-ideas/gameplay-2026-10-17/bold-ways.md): the Library's <world>_play.BOLD rows and
                         # LINKS load only for a played life with bold_play on (the game sets it); off, every life is as before
 FOOT = True    # footprints (chroma-ideas/next-table-2026-10-19/plan.md section 3): the Library's FOOT tables (<world>_foot.py
