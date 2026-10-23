@@ -42,11 +42,14 @@
                     sw_ = st_w if RON else np.zeros(N)
                     hold_ = (rg_ >= 3) | (sw_ >= 1) | ((r_has[:, HT_I[0]].any(1) if len(HT_I[0]) else False) if HT_ON else False)
                     kn_ = (ht_t[:, 0] >= 0) if HT_ON else ((rg_ >= 4) | (sw_ >= 1))
-                    WL.PP.wa_set_known(kn_ & hold_ & ~dead, np.asarray(WL.gov_office, bool), t)
+                    nl_ = WL.nat.national() if NAT_ON else False   # wa_nat_climb: a seat or a national voice is Known too
+                    WL.PP.wa_set_known(((kn_ & hold_) | nl_) & ~dead, np.asarray(WL.gov_office, bool) | nl_, t)
                     hp_, sp_ = WL.PP.wa_price()   # F6: the phase's hours, and its stress in a busy season (monthly)
                     res[:, TIM] = _uclip(res[:, TIM] - hp_, 0.05, 1)
                     if t % 4 == 0:
                         stress = stress + sp_
+            if LAND_ON and WL.land.play:   # v25 lane D: the land ways' hours a week (as the phase's price)
+                res[:, TIM] = _uclip(res[:, TIM] - WL.land.hours * WL.land.E["way_time"], 0.05, 1)
             WL.week(t, dict(w=w, held=held, res=res, stress=stress, outlook=outlook, attr=attr, dead=dead, lens=softmax(k),
                             partner_same=partner_same if ID2 else None, sector=sec_w if RON else None,
                             title_standing=st_w if RON else None, children=alive[:, 5].copy(),   # the cast keeps every child
@@ -54,6 +57,12 @@
                             gov_office=r_has[:, W_GOV_].any(1) if RON and W_GOV_ else None,
                             head_gov=r_has[:, W_HOG_] if RON and W_HOG_ >= 0 else None,
                             lead_has=(np.where(LW_T_ >= 0, r_has[:, np.maximum(LW_T_, 0)], False) if LW_ON else None)))
+            if LAND_ON:   # v25 lane D: the land's week on the lives (strikes, the years after, the dose, sick land, worry)
+                lf_ = WL.land.take(); need += lf_[0]; mood = mood + lf_[1]; stress = stress + lf_[2]
+                res[:] = _uclip(res + lf_[3], 0, 1)
+                for n_, x_ in WL.land.drain():
+                    if n_ in events:
+                        events[n_].append(dict(land=x_))
             if TW_ON and getattr(WL.PP, "tilt_ver", 0) != tw_ver:   # v25 #10: r as the year's rungs computed it (the game's)
                 tw_ver = WL.PP.tilt_ver; prizes = WF.prizes(WL.PP); prizes_moves = WL.PP.tilt_moves
             if LW_ON and WL.PP.lw_lost:   # S7: an office the post's end took (a fall, a term, a hand-over, a move)
@@ -132,6 +141,14 @@
             _ = yield Pause("week", t, pz_st, None)
             pz_st._fr = None
             if NW_ON: nw_mark(NW_PLAYER)
+            if SCN_ON and scn_hazard:   # v25 lane D, the scenario hook: the caller's hazards and harvests, this week
+                WL.scn(list(scn_hazard)); del scn_hazard[:]
+                if LAND_ON:
+                    lf_ = WL.land.take(); need += lf_[0]; mood = mood + lf_[1]; stress = stress + lf_[2]
+                    res[:] = _uclip(res + lf_[3], 0, 1)
+                    for n_, x_ in WL.land.drain():
+                        if n_ in events:
+                            events[n_].append(dict(land=x_))
             if WFX_ON:
                 wfx = [[] for _ in range(N)]
         e_i, e_p = era_i[t], era_p[t]

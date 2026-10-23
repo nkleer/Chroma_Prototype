@@ -506,7 +506,7 @@ def _packs(world, packs, pack_moments, R):
 
 
 def load_batch(world="earth", symmetric=False, roles=None, packs=None, pack_moments=None, setting="earth", more=None,
-               bold=None, links=None, aims=None, foot=None, wa=None, fields=None):
+                bold=None, links=None, aims=None, foot=None, wa=None, land=None, national=None, fields=None):
     """packs: the content packs on top of the base (default PACKS, the approved ones); pack_moments: {pack: path of a
     compiled moments file} for a pack the Library has not built into chroma-library/ yet (tests). setting: the world the
     life is played in (earth, tribal, magic: the game's presets); a moment with only: <another world> is left out.
@@ -516,9 +516,15 @@ def load_batch(world="earth", symmetric=False, roles=None, packs=None, pack_mome
     wa: the world answers (the engine's world_answers switch) in place of WORLD_ANSWERS: the Library's asked, decision
     and figure moments (<world>_world_answers.py), last in the batch.
     foot: footprints (the engine's foot_on switch) in place of FOOT: the Library's FOOT tables, compiled to L["FOOT"].
+    land: the land (the engine's wa_land switch) in place of LAND: the Library's nature moments (<world>_nature.py), after
+    the world answers'. national: national standing (the engine's wa_nat_climb switch) in place of NATIONAL: the
+    Library's national moments (<world>_national.py: the routes' and styles' encounters, the decisions with scope:
+    nation) and their footprints, last, and the national dreams (dreams.py DREAMS_NATIONAL, DREAM_KIND_NATIONAL,
+    TRIGGER_NATIONAL).
     fields: aims v2 (the engine's aims_v2 switch) in place of FIELDS: the Library's shape moments (<world>_shape_moments.py,
-    last in the batch, with their footprints) compiled to L["AIM_SHAPE"], L["AIM_KIND"], L["AIM_FORK"], L["AIM_RUNGS"],
-    L["AIM_TAG"], L["AIM_COST"] and L["AIM_NAMES"], and the new titles the fields name (<world>_fields.py TITLES_V25)."""
+    last in the batch, after the land's and the national ones, with their footprints) compiled to L["AIM_SHAPE"],
+    L["AIM_KIND"], L["AIM_FORK"], L["AIM_RUNGS"], L["AIM_TAG"], L["AIM_COST"] and L["AIM_NAMES"], and the new titles the
+    fields name (<world>_fields.py TITLES_V25)."""
     sys.path.insert(0, os.path.abspath(LIB_DIR))
     sys.modules.pop(world, None)                          # always read the batch from LIB_DIR as it is now
     try:
@@ -556,6 +562,21 @@ def load_batch(world="earth", symmetric=False, roles=None, packs=None, pack_mome
                     if len(o_) > 5 and isinstance(o_[5], dict) and not o_[5].get("lever"):
                         o_[5]["lever"] = "voice"
         sits += WA_
+    for on_, f_ in ((LAND if land is None else land, "nature"), (NATIONAL if national is None else national, "national")):
+        xp_ = os.path.join(LIB_DIR, f"{world}_{f_}.py")   # v25 lane D: the nature moments, then the national ones, last
+        if not (on_ and os.path.exists(xp_)):
+            continue
+        X_ = [copy.deepcopy(x) for x in getattr(_module(xp_, f"chroma_{world}_{f_}"), "SITUATIONS", [])]
+        clash = sorted({x["name"] for x in X_} & {x["name"] for x in sits})
+        if clash:
+            raise ValueError(f"{f_} moments with the name of another moment: {clash}")
+        for x_ in X_:   # a decision's option without a lever is voice (as the world answers')
+            if str(x_.get("cast_want") or "").strip() == "decide":
+                for o_ in x_.get("options", []):
+                    if len(o_) > 5 and isinstance(o_[5], dict) and not o_[5].get("lever"):
+                        o_[5]["lever"] = "voice"
+        sits += X_
+    NAT_ON_ = bool(NATIONAL if national is None else national)
     FD_ = FIELDS if fields is None else fields
     sm_ = os.path.join(LIB_DIR, f"{world}_shape_moments.py")
     if FD_ and os.path.exists(sm_):   # aims v2: the shape moments, after the world answers' (every index before stays)
@@ -693,6 +714,12 @@ def load_batch(world="earth", symmetric=False, roles=None, packs=None, pack_mome
             L["DREAM_TRIGGERS"] = list(D_.DREAM_TRIGGERS[setting])
         L["DREAMS"] = [d_ for d_ in D_.DREAMS if setting in d_["worlds"].split()]
         dream_grow_data(L, D_, setting)
+        if NAT_ON_:   # v25 lane D: the national routes' dreams, only with national standing loaded
+            L["DREAMS"] += [d_ for d_ in getattr(D_, "DREAMS_NATIONAL", []) if setting in d_["worlds"].split()]
+            L["DREAM_KIND"].update(getattr(D_, "DREAM_KIND_NATIONAL", {}))
+            for k_, v_ in getattr(D_, "TRIGGER_NATIONAL", {}).get(setting, {}).items():
+                if k_ in L["TRIGGER_DREAMS"]:
+                    L["TRIGGER_DREAMS"][k_] = list(L["TRIGGER_DREAMS"][k_]) + [x_ for x_ in v_ if x_ not in L["TRIGGER_DREAMS"][k_]]
     L["SETTING"] = setting
     L["VOICE"] = getattr(B, "VOICE", {})      # v7: the character's inner voice and the world's lessons (explain.py keys)
     L["LESSONS"] = getattr(B, "LESSONS", {})
@@ -726,7 +753,7 @@ def load_batch(world="earth", symmetric=False, roles=None, packs=None, pack_mome
     if FD_ and os.path.exists(sm_):
         _aim_shapes(L)
     if FOOT if foot is None else foot:
-        _foot(L, world, PK["names"])
+        _foot(L, world, PK["names"], more=[f"{world}_national_foot.py"] if NAT_ON_ else [])
     _adjectives(L)
     _chance(L, R)
     if BOLD_ or any(c_.get("of", "").startswith("bold:") for c_ in L["COND"]):
@@ -961,6 +988,11 @@ WORLD_ANSWERS = True    # the world answers v1 (chroma-world/spheres/world-answe
                         # figure moments (<world>_world_answers.py: cast_want asked_*, decide, rival_push, ally_*,
                         # successor_*) load only with the engine's world_answers switch on (the game sets both); off, the
                         # library and every life are as before. Loaded, they come only when the world brings them
+LAND = False       # v25 lane D: the Library's nature moments (<world>_nature.py: land:, with:, the options' land: faces and
+                   # opens:) load only with the engine's wa_land switch on (the game sets both); off, the library and every
+                   # life are as before. Loaded, they come only as the land brings them (world_land.py)
+NATIONAL = False   # v25 lane D: the Library's national moments (<world>_national.py) and the national dreams load only with
+                   # the engine's wa_nat_climb switch on (the game sets both); off, the library and every life are as before
 RETURN_MOMENTS = False  # picks come back: moments with tier: return join the batch only for a played life with echo_play
                         # on (the game sets it); off, the library and every life are as before
 SPH_MOMENTS = True   # item 15: moments with haunt: or ladder: join the batch once the spheres' haunts and rungs are built
@@ -1257,7 +1289,7 @@ def _aim_shapes(L):
 FOOT_KINDS = ["person", "place", "means", "mark", "door", "lesson"]
 
 
-def _foot(L, world, packs):
+def _foot(L, world, packs, more=()):
     """Footprints (plan.md section 3; the format in chroma-library/footprint_names.py and tests/check_footprint.py): the
     Library's FOOT[(moment, option label)] = [(kind, value), ...] of the base (<world>_foot.py), each loaded pack
     (<world>_<pack>_foot.py), the aim moments and the world answers, compiled per moment and option: L["FOOT"][(s, k)] =
@@ -1268,7 +1300,7 @@ def _foot(L, world, packs):
     from world_keys import HAUNT_KINDS as HK_, WHO_SLOTS as WS_
     tab = {}
     for f_ in [f"{world}_foot.py"] + [f"{world}_{pk}_foot.py" for pk in packs] + [f"{world}_aim_moments_foot.py",
-                                                                                 f"{world}_world_answers_foot.py"] + \
+                                                                                 f"{world}_world_answers_foot.py"] + list(more) + \
             ([f"{world}_shape_moments_foot.py"] if "AIM_SHAPE" in L else []):
         p_ = os.path.join(LIB_DIR, f_)
         if os.path.exists(p_):

@@ -81,7 +81,16 @@ engine.run_steps() is engine.run() pausing six times a week for the game. On a f
      lives move; each year's r has a mean of 1 per sphere and every cell within the realm's clip (Earth .67 to 1.5);
      prizes and prizes_moves well formed; the neutral world starts every sphere at .2 a colour, its places even,
      inst_even on, and its r is 1 everywhere, every year.
- 26. aims v2 (aims_v2, v25 lane B), Earth and packs with the Library's fields (or v1's adapter), a player's life (forks
+ 26. the land (wa_land, v25 lane D), Earth and packs with the Library's nature moments, world on: loaded with the
+     switch off no nature moment comes; on, run_steps() lives as run() and the lives move; nature moments never closer
+     than the gap, the company of a kind the moment takes, the stretches in 0..1 and the hazards' feedback the land's
+     own state, at most three ways; a flood brought by scn hits every household with its course, and a Known drain of
+     the marsh moves its wildness by size x k_land x reach and the flood odds with it.
+ 27. national standing (wa_nat_climb, v25 lane D), Earth and packs with the Library's national moments, world on:
+     loaded with the switch off no national moment comes; on, run_steps() lives as run() and the lives move;
+     recognition, influence and authority kept apart, a seat held by one life and never an engine office, none before
+     18, phase 2's national only with a seat, a voice or an office, and decisions at nation scope only by them.
+ 28. aims v2 (aims_v2, v25 lane B), Earth and packs with the Library's fields (or v1's adapter), a player's life (forks
      left open but one answered), world off (every field's first two rungs given a deadline) and on: run_steps() lives as
      run() with the agenda, previews and reviews read; the agenda's handed-over names there; every rung reached through
      an outcome (a title of it held or once held, a test or chance won; never effort alone); every window's closing told
@@ -1465,7 +1474,146 @@ if "tilt_world" in E.DEFAULT:
           f"run_steps lives as run() and the lives move; {seen_['years']} years of r, each sphere's mean 1 (worst "
           f"{seen_['worst']:.1g}) and every cell within the realm's clip; prizes and {seen_['moves']} moves well formed; the "
           f"neutral world's r 1 at its start and every year{'' if not fails else '; ' + '; '.join(fails[:4])} ({time.process_time() - t0:.0f} s)")
-# 26. aims v2 (aims_v2; v25 lane B, Emren's decision #9), Earth and packs with the Library's fields (or v1's adapter)
+# 26. the land (wa_land, v25 lane D; world_land.py), Earth and packs with the Library's nature moments, world on
+if "wa_land" in E.DEFAULT and os.path.exists(os.path.join(batch.LIB_DIR, "earth_nature.py")):
+    from world_base import HAZARDS as HZ_
+    t0 = time.process_time(); fails = []; seen_ = dict(years=0, company=0, ways=0, hit=0)
+    LAND_ = batch.load_batch("earth", packs=list(batch.PACKS), land=True)
+    LM_ = np.array([bool(x_.get("land")) for x_ in LAND_["src"][:LAND_["S"]]])
+    kw = dict(N=3, years=22, seed=5, lib=LAND_, log_lives=(0,))
+    P0_ = dict(E.DEFAULT, world=True)
+    o0_ = E.run(**kw, P=P0_)   # loaded with the switch off: no nature moment comes, and the run has no land
+    if "land" in o0_ or any(LM_[s_] for _, _, s_ in o0_["life_events"]):
+        fails.append("off: a nature moment came, or the run has a land")
+    P1_ = dict(P0_, wa_land=True, scn=True, imp_world=True, wa_land_par=dict(hit_share=(1.0, 0.0)))
+    o1_ = E.run(**kw, P=P1_)
+    if digest(o1_) == digest(o0_):
+        fails.append("on: nothing moved")
+    for scn_ in (False, True):   # run_steps as run(); then with a flood and a poor harvest brought at 20 (scn)
+        g = E.run_steps(**kw, P=P1_); msg = next(g); hit_w_ = None
+        while True:
+            kind, t, S, val = msg
+            ld_ = S["WL"].land if S.get("WL") is not None else None
+            if kind == "week" and scn_ and abs(S["age"] - 20.0) < 1e-9:
+                S["scn_hazard"].append(dict(kind="flood", severity=0.9)); S["scn_hazard"].append(dict(harvest="poor"))
+                hit_w_ = int(S["WL"].PP.t); h0_ = ld_.h.copy()
+            if kind == "situation" and S.get("LAND_ON"):   # the company: a kind the moment takes; alone has no one
+                se_ = np.where(S["had_ev"], S["s_ev"], val)
+                for n_, c_ in enumerate(S["company"]):
+                    if c_ is None:
+                        continue
+                    seen_["company"] += 1
+                    if c_["kind"] not in ld_.mwith[int(se_[n_])] or (c_["kind"] in ("alone", "stranger", "witness") and c_["cid"] != -1):
+                        fails.append(f"week {t}: company {c_} in {LAND_['names'][int(se_[n_])]!r}")
+            if kind == "end" and S.get("LAND_ON") and abs(S["age"] - round(S["age"])) < 1e-9 and len(fails) < 6:
+                seen_["years"] += 1; W_ = S["WL"].W
+                if not (0 <= ld_.h.min() and ld_.h.max() <= 1 and 0 <= ld_.wd.min() and ld_.wd.max() <= 1):
+                    fails.append(f"age {S['age']}: a stretch out of 0..1")
+                fl_, fi_ = HZ_.index("flood"), HZ_.index("fire")   # the feedback reads the land's physical state only
+                if np.abs(W_.land_hx[:, fl_] - (1 + np.maximum(0, ld_.wd0[:, 2] - ld_.wd[:, 2]))).max() > 1e-12 or \
+                        np.abs(W_.land_hx[:, fi_] - np.where(ld_.tend[:, 1] > 0, 1, 1 + 0.5 * np.maximum(0, ld_.wd[:, 1] - 0.6))).max() > 1e-12:
+                    fails.append(f"age {S['age']}: the hazard feedback is not the land's state")
+                for n_ in range(3):
+                    p_ = ld_.person(n_); seen_["ways"] = max(seen_["ways"], len(p_["ways"]))
+                    if len(p_["ways"]) > 3 or any(not 0 <= w_["step"] <= 2 for w_ in p_["ways"]):
+                        fails.append(f"life {n_}: ways {p_['ways']}")
+                pv_ = S["WL"].PP.place_view(0)
+                if not {"land", "land_hazard", "harvest", "ways", "bridges_open", "bridges_held"} <= set(pv_) or len(pv_["land"]) != 3:
+                    fails.append("the place view has no land row")
+            if hit_w_ is not None and kind == "situation" and int(S["WL"].PP.t) == hit_w_:   # the flood just brought
+                lv_ = ~S["dead"]; loc_ = np.asarray(S["WL"].PP.loc)
+                seen_["hit"] = int((ld_.hit_t == hit_w_).sum())
+                if not (ld_.hit_t[lv_] == hit_w_).all() or not (ld_.shape[lv_] >= 0).all():
+                    fails.append("scn: a flood at 20 did not hit every household (hit_share 1)")
+                if (ld_.harvest[loc_] != 2).any() or (ld_.h[loc_, 2] >= h0_[loc_, 2]).any():
+                    fails.append("scn: the poor harvest or the flood's hit on the water is not there")
+                si_ = ld_.key_s["drain_the_marsh"][0]; a_ = [nt_.get("land") for nt_ in ld_.notes[si_]].index("U")
+                l_ = int(loc_[0]); w0_ = ld_.wd[l_, 2]; x_ = ld_.decide(0, si_, a_, True, False, 3.0, 1.0, 1.0, hit_w_)
+                exp_ = ld_.T["reach"]["known"]["clear"] * ld_.T["reach"]["k_land"] * 3.0 * 0.8   # the drain: wildness down
+                if x_ is None or abs((w0_ - ld_.wd[l_, 2]) - min(exp_, w0_)) > 1e-9 or \
+                        abs(S["WL"].W.land_hx[l_, HZ_.index("flood")] - (1 + max(0, ld_.wd0[l_, 2] - ld_.wd[l_, 2]))) > 1e-12:
+                    fails.append(f"a Known drain of the marsh: wildness {w0_:.4f} -> {ld_.wd[l_, 2]:.4f}, flood x not the land's")
+                hit_w_ = -1
+            try:
+                msg = g.send(val)
+            except StopIteration as done:
+                o2_ = done.value
+                break
+        if not scn_ and digest(o1_) != digest(o2_):
+            fails.append("on: run_steps not the lives of run()")
+        if scn_ and hit_w_ != -1:
+            fails.append("scn: the flood's week never came")
+    ld1_ = o1_.get("land") or {}
+    ev_ = sorted((n_, t_) for n_, t_, s_ in o1_["life_events"] if LM_[s_])
+    gap_ = min([b_[1] - a_[1] for a_, b_ in zip(ev_, ev_[1:]) if a_[0] == b_[0]] or [99])
+    if not ev_ or gap_ < 13:
+        fails.append(f"the budget: {len(ev_)} nature moments, the least gap {gap_} weeks")
+    bad += bool(fails)
+    print(f"{'PASS' if not fails else 'FAIL'}  the land (wa_land), world on: loaded with it off no nature moment comes; on, "
+          f"run_steps lives as run() and the lives move; {len(ev_)} nature moments, never two in a quarter; {seen_['company']} "
+          f"companies of the moment's kinds; the stretches in 0..1 and the hazards' feedback the land's own state "
+          f"({seen_['years']} years); ways at most 3 (most {seen_['ways']}); a flood brought at 20 hit {seen_['hit']} "
+          f"households, each with its course; a Known drain of the marsh moves its wildness by size x k_land x reach and the "
+          f"flood odds with it{'' if not fails else '; ' + '; '.join(fails[:4])} ({time.process_time() - t0:.0f} s)")
+# 27. national standing (wa_nat_climb, v25 lane D; world_national.py), Earth and packs with the Library's national moments
+if "wa_nat_climb" in E.DEFAULT and os.path.exists(os.path.join(batch.LIB_DIR, "earth_national.py")):
+    import world_national as WN_
+    t0 = time.process_time(); fails = []; seen_ = dict(kinds={k_: 0 for k_ in WN_.KINDS}, seats=0, natdec=0)
+    NAT_ = batch.load_batch("earth", packs=list(batch.PACKS), national=True)
+    NM_ = np.array([bool(x_.get("route") or x_.get("style") or x_.get("scope")) for x_ in NAT_["src"][:NAT_["S"]]])
+    kw = dict(N=3, years=24, seed=5, lib=NAT_, log_lives=(0,))
+    P0_ = dict(E.DEFAULT, world=True)
+    o0_ = E.run(**kw, P=P0_)   # loaded with the switch off: no national moment comes, and the run has no national
+    if "national" in o0_ or any(NM_[s_] for _, _, s_ in o0_["life_events"]):
+        fails.append("off: a national moment came, or the run has national standing")
+    P1_ = dict(P0_, wa_nat_climb=True, wa_nat_par=dict(base=1.0, rung_years=0))   # every adult at a wider step, each
+    o1_ = E.run(**kw, P=P1_)                                                      # kind a year: the rules, not the odds
+    if digest(o1_) == digest(o0_):
+        fails.append("on: nothing moved")
+    g = E.run_steps(**kw, P=P1_); msg = next(g)
+    while True:
+        kind, t, S, val = msg
+        if kind == "end" and S.get("NAT_ON") and abs(S["age"] % 1 - 0.5) < 1e-9 and len(fails) < 6:   # mid-year
+            nt_ = S["WL"].nat; PP_ = S["WL"].PP
+            seats_ = [x_["authority"]["seat"] for x_ in nt_.kind if x_.get("authority", {}).get("held")]
+            if len(seats_) != len(set(seats_)) or any(nt_.seats[s_]["exists"] for s_ in seats_):
+                fails.append(f"age {S['age']}: seats {seats_} held twice or one of the engine's own offices")
+            for n_, x_ in enumerate(nt_.kind):
+                for k_ in x_:
+                    seen_["kinds"][k_] += 1
+                if x_ and S["age"] < 18:
+                    fails.append(f"age {S['age']}: national standing before 18")
+            nat_ = nt_.national()
+            if (PP_.wa_nat & ~nat_ & ~np.asarray(S["WL"].gov_office, bool)).any():
+                fails.append(f"age {S['age']}: at national standing in phase 2 without a seat, a voice or an office")
+            if (nt_.dom[nat_].max(1) < 3).any() if nat_.any() else False:
+                fails.append(f"age {S['age']}: a national voice or seat without level 3 in its domain")
+            pv_ = PP_.place_view(0)
+            if set(pv_.get("national", {})) != set(WN_.KINDS) | {"years_at_rung4"}:
+                fails.append("the place view has no national standing")
+        try:
+            msg = g.send(val)
+        except StopIteration as done:
+            o2_ = done.value
+            break
+    if digest(o1_) != digest(o2_):
+        fails.append("on: run_steps not the lives of run()")
+    for d_ in (o1_.get("wa_ledger") or {}).get("decisions", []):
+        if d_.get("scope") == "nation":
+            seen_["natdec"] += 1
+            if not d_.get("national"):
+                fails.append("a decision at nation scope by a life not at national standing")
+    if not seen_["natdec"]:
+        fails.append("no decision at nation scope")
+    if not all(seen_["kinds"].values()):
+        fails.append(f"a kind never reached: {seen_['kinds']}")
+    bad += bool(fails)
+    print(f"{'PASS' if not fails else 'FAIL'}  national standing (wa_nat_climb), world on: loaded with it off no national "
+          f"moment comes; on, run_steps lives as run() and the lives move; recognition, influence and authority apart "
+          f"({seen_['kinds']} life-years), a seat held once and never an engine office, phase 2's national only with a "
+          f"seat, a voice or an office, {seen_['natdec']} decisions at nation scope all by national lives"
+          f"{'' if not fails else '; ' + '; '.join(fails[:4])} ({time.process_time() - t0:.0f} s)")
+# 28. aims v2 (aims_v2; v25 lane B, Emren's decision #9), Earth and packs with the Library's fields (or v1's adapter)
 if "aims_v2" in E.DEFAULT:
     import foresee as FS_
     t0 = time.process_time(); fails = []

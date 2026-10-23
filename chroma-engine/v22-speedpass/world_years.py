@@ -500,7 +500,10 @@ class YearsMixin:
         if kind == "old_death":
             return float((1.12, 0.99, 0.92, 0.97)[s] * (1, 1.2, 1.6, 1.15)[self.pandemic] * (1 - 0.5 * (self.medical - self.medical0)))
         if kind == "disaster":                             # pace, and the recovery years after a strike (loc_disaster);
-            hz = (self.loc_hazards * np.array(self.p["dis_base"]) * self.extremes).sum(1) / self.haz_ref   # the strike
+            hzx = self.loc_hazards * np.array(self.p["dis_base"]) * self.extremes
+            if getattr(self, "land_hx", None) is not None:   # v25 wa_land: the hazards answer the land's state
+                hzx = hzx * self.land_hx
+            hz = hzx.sum(1) / self.haz_ref   # the strike
             return self.pace * hz * (1 + self.p["dis_active"] * np.minimum(self.loc_disaster, 1))          # itself: disaster_now
         if kind == "crime":
             return self.loc_crime / self.crime_ref
