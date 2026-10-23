@@ -301,6 +301,8 @@ def set_aim(S, n, aim):
     """The player sets an aim (its name): held as "set by you" until a try at its spark moment works (and a rite, or
     the moment's own seal, makes it theirs); until then it pulls at aims_par reluctant and fades sooner. Returns the
     slot, or -1 with the reason."""
+    if S.get("AIM2_ON"):   # aims v2: by field name; the new agenda, or an error in words
+        return _set_aim2(S, n, aim)
     if not S.get("AIM_ON"):
         return -1, "aims are off"
     A = S["AIM"]
@@ -421,3 +423,237 @@ def marks_toward(S, n):
                             kind="title" if i < GR["NT"] else "perk", have=have_, need=need_, done=have_ >= need_))
     out.sort(key=lambda d_: (d_["done"], d_["need"] - d_["have"], -d_["have"], d_["title"]))
     return out
+
+
+
+# ---- aims v2 (aims_v2; v25 lane B, Emren's decision #9; contracts.md section 6 with Gamification's 10-23 shapes): the
+# agenda, pace and priority, the agenda review and its application, the preview before a commitment. Views draw nothing
+# and cost no time; set_pace, set_priority, apply_review and set_aim are the player's decisions (replayed from the
+# inputs on load). Fork ids are ints; a fork answered "later" stays open, and only its aims wait.
+GAME_PACE = ("holding", "pursuing", "reduced", "keeping_up", "paused", "set_aside")
+OPT_SAY = dict(go_on="Go on", light="Go on, lightly", hard="Go on, hard", pause="Not now: pause it", drop="Let it go",
+               pay="Pay and go on", refuse="Go on without paying", take="Take the chance", decline="Let the chance pass",
+               round="Find a way round", keep="Keep everything as it is (slower)", light_last="Ease off the last in line",
+               pause_last="Pause the last in line", later="Later")
+BN_RES = {"time": "time", "money": "money", "a window": "window", "a fork": "fork", "a door": "access"}
+
+
+def _game_state(AG, n, j):
+    import aims2 as A2
+    st = int(AG.st[n, j]); f = int(AG.f[n, j])
+    if st == A2.ACTIVE:
+        if AG.rung[n, j] >= AG.F["nr"][f]:
+            return "keeping_up"
+        return "reduced" if AG.inten[n, j] < 0.75 else "pursuing"
+    return {A2.HELD: "holding", A2.PAUSED: "paused", A2.DROPPED: "set_aside"}[st]
+
+
+def agenda(S, n):
+    """The agenda (Gamification's shape): dict(items, capacity, forks, over, strained). Each item: slot, aim (the
+    field's name), field, face, calling, by_player, importance, why_now, state (GAME_PACE), priority (1..n), step
+    (i, of, say, next_say), progress (frac, effort_years, years), frac, lean (the character's own inclination, -1 to 1),
+    pending (fork ids), bottleneck (dict(res, shared_with) or None), earned, potential, upkeep, and the engine's own
+    item (S["aim2"]) under "engine". A view: draws nothing, costs no time."""
+    if not S.get("AIM2_ON"):
+        return dict(items=[], capacity={}, forks=[], over=False, strained=False, on=False)
+    AG = S["AG"]; F = AG.F; n = int(n)
+    occ = [int(j) for j in np.argsort(AG.pri[n], kind="stable") if AG.f[n, j] >= 0]
+    rank = {j: i + 1 for i, j in enumerate(occ)}
+    pend = {}
+    for fk in AG.forks[n]:
+        for j in fk["aims"]:
+            pend.setdefault(j, []).append(fk)
+    items = []
+    for j in occ:
+        it = AG.item(n, j); f = int(AG.f[n, j]); r = it["rung"]; nr = it["of"]; rr = min(r, nr - 1)
+        fit = AG.fit(n, f)
+        imp = max(0.05, round(AG.strength(n, f) * float(AG.fitf[n, j]), 2))
+        pf = pend.get(j, [])
+        bn = it["bottleneck"]
+        others = [int(k) for k in occ if k != j and AG.st[n, k] == AG.st[n, j] == 1] if bn in ("time", "money") else []
+        earned = [dict(name=F["say"][f][k], source="worked for" if it["worked"][k] == 1 else "came anyway",
+                       titles=list(F["tnames"][f][k][:2])) for k in range(min(r, nr))]
+        earned += [dict(name=a["name"], source="integrated", opens=a.get("opens", "")) for a in AG.assets[n] if j in a["slots"]]
+        pot = [] if r >= nr else [dict(name=x, step=F["say"][f][r]) for x in F["tnames"][f][r][:3]] or [dict(name=F["say"][f][r], step=F["say"][f][r])]
+        why = pf[0]["why"] if pf else ({"time": "the week is full", "money": "money is short", "a window": "its window has closed",
+                                       "a door": "it waits for a way in"}.get(bn, ""))
+        items.append(dict(slot=j, aim=F["names"][f], field=(F["items"][f]["words"].get("thing") or F["names"][f]),
+                          face="".join("WUBRG"[c] for c in np.nonzero(F["face"][f] > 0)[0]), calling=bool(F["calling"][f]),
+                          by_player=it["by_player"], importance=imp, why_now=why, state=_game_state(AG, n, j),
+                          priority=rank[j], step=dict(i=r, of=nr, say=F["say"][f][rr] if r < nr else F["say"][f][nr - 1],
+                                                      next_say=F["say"][f][r + 1] if r + 1 < nr else None),
+                          progress=dict(frac=it["frac"], effort_years=it["effort"],
+                                        years=(float(F["ymed"][f, rr]), float(F["ylo"][f, rr]), float(F["yhi"][f, rr]))),
+                          frac=it["frac"], lean=round(fit, 2), pending=[x["id"] for x in pf],
+                          bottleneck=dict(res=BN_RES.get(bn, bn), shared_with=others) if bn else None,
+                          earned=earned, potential=pot, upkeep=it["upkeep"], intensity=it["intensity"],
+                          funded=it["funded"], years_left=it["years_left"], window=it["window"], engine=it))
+    cap = AG.account_view(n); over, strained = cap.pop("over"), cap.pop("strained")
+    return dict(items=items, capacity=cap, forks=[_fork_card(AG, n, fk) for fk in AG.forks[n]], over=over, strained=strained,
+                on=True, put=int(AG.put_arr[n]))
+
+
+def _fork_card(AG, n, fk):
+    j = fk["aims"][0]
+    dl = round(int(AG.wclose[n, j]) / 52, 2) if AG.wclose[n, j] >= 0 and not AG.wclosed[n, j] else None
+    urg = 1.0 if fk["urgent"] else (0.6 if fk["kind"] in ("window", "pay", "take") else 0.3)
+    f = int(AG.f[n, j]); r = int(min(AG.rung[n, j], AG.F["nr"][f] - 1))
+    blocks = "evenings" if AG.F["hours"][f, r] > 0 else ("money" if AG.F["money"][f, r] > 0 else "")
+    return dict(id=fk["id"], slot=int(j), slots=list(fk["aims"]), kind=fk["kind"], why=fk["why"],
+                made_at_age=round(fk["week"] / 52, 2), deadline_age=dl, urgency=urg, group=fk["group"] if fk["grouped"] else None,
+                blocks=blocks, put=fk["put"] == AG.t)
+
+
+def _pace(AG, n, j, pace, t):
+    """A pace for aim j: a pending commitment fork on it is answered by it (one decision, one path)."""
+    import aims2 as A2
+    opt = dict(pursuing="go_on", reduced="light", paused="pause", set_aside="drop", hard="hard").get(pace)
+    if pace == "keeping_up" and AG.rung[n, j] < AG.F["nr"][AG.f[n, j]]:
+        return "keeping up is for a step already reached at the top of its ladder"
+    for fk in list(AG.forks[n]):
+        if j in fk["aims"] and fk["kind"] in ("go_on", "pay", "window", "round") and opt is not None:
+            o = opt
+            if fk["kind"] == "pay" and o == "go_on":
+                o = "pay" if "pay" in fk["options"] else "refuse"
+            if fk["kind"] == "round" and o in ("go_on", "light", "hard"):
+                o = "round"
+            if o in fk["options"]:
+                return AG.apply(n, fk, o, t)
+    st = dict(holding="held", pursuing="active", reduced="active", keeping_up="active", paused="paused",
+              set_aside="dropped", hard="active")[pace]
+    it = dict(pursuing=max(1.0, float(AG.inten[n, j])) if AG.st[n, j] == A2.ACTIVE else 1.0, reduced=0.5,
+              keeping_up=0.5, hard=1.5).get(pace)
+    return AG.set_pace(n, j, st, it, t)
+
+
+def set_pace(S, n, slot, state):
+    """The player's pace for an aim (GAME_PACE, or "hard"): the new agenda, or an error in words."""
+    if not S.get("AIM2_ON"):
+        return "aims v2 are off"
+    AG = S["AG"]; n = int(n); slot = int(slot)
+    if not (0 <= slot < AG.MA) or AG.f[n, slot] < 0:
+        return f"no aim in slot {slot}"
+    if state not in GAME_PACE + ("hard",):
+        return f"no such pace: {state}"
+    err = _pace(AG, n, slot, state, int(S["t"]))
+    return err if err else agenda(S, n)
+
+
+def set_priority(S, n, slot, rank):
+    """The player's order: aim slot to rank (1 first); the new agenda, or an error in words."""
+    if not S.get("AIM2_ON"):
+        return "aims v2 are off"
+    AG = S["AG"]; n = int(n); slot = int(slot)
+    if not (0 <= slot < AG.MA) or AG.f[n, slot] < 0:
+        return f"no aim in slot {slot}"
+    AG.set_priority(n, slot, int(rank) - 1)
+    return agenda(S, n)
+
+
+def _group(AG, n, group):
+    fks = AG.forks[n]
+    if isinstance(group, (int, np.integer)):
+        fk = next((x for x in fks if x["id"] == int(group)), None)
+        if fk is None:
+            return []
+        return [x for x in fks if fk["grouped"] and x["group"] == fk["group"]] or [fk]
+    return [x for x in fks if x["group"] == group]
+
+
+def review(S, n, group):
+    """The agenda review of a group (a fork id, or a group key): the linked forks, why they are linked, each one's
+    preview and options, the account now, and the account after each combination of answers (with the aims it would
+    leave slower). Draws nothing, costs no time."""
+    if not S.get("AIM2_ON"):
+        return None
+    import itertools
+    AG = S["AG"]; n = int(n); fks = _group(AG, n, group)
+    if not fks:
+        return None
+    key = fks[0]["group"]
+    why = ("they want the same hours of the week" if key == "time" else
+           "their windows close at about the same time" if key and key.startswith("window") else fks[0]["why"])
+    cap = AG.account_view(n); cap.pop("over"); cap.pop("strained")
+    forks = [dict(id=fk["id"], slot=int(fk["aims"][0]), slots=list(fk["aims"]), kind=fk["kind"], why=fk["why"],
+                  deadline_age=_fork_card(AG, n, fk)["deadline_age"], preview=AG.preview(n, int(fk["aims"][0])),
+                  options=[dict(key=o, say=OPT_SAY.get(o, o)) for o in fk["options"]]) for fk in fks]
+    combos = []
+    opts = [[o for o in fk["options"] if o != "later"] for fk in fks]
+    for ch in itertools.islice(itertools.product(*opts), 64):
+        sets = {}
+        for fk, o in zip(fks, ch):
+            for j in fk["aims"]:
+                if o in ("go_on", "pay", "refuse", "take", "round"):
+                    sets[j] = (True, max(1.0, float(AG.inten[n, j])) if AG.st[n, j] == 1 else 1.0)
+                elif o == "light":
+                    sets[j] = (True, 0.5)
+                elif o == "hard":
+                    sets[j] = (True, 1.5)
+                elif o in ("pause", "drop", "decline"):
+                    sets[j] = (False, 0.0) if o != "decline" else sets.get(j, (AG.st[n, j] == 1, float(AG.inten[n, j])))
+            if o in ("light_last", "pause_last"):
+                act = [int(j) for j in np.nonzero((AG.st[n] == 1) & (AG.f[n] >= 0))[0]]
+                if act:
+                    jl = max(act, key=lambda j: AG.pri[n, j])
+                    sets[jl] = (True, 0.5) if o == "light_last" else (False, 0.0)
+        ch_h, ch_m, fund = AG.what_if(n, sets)
+        combos.append(dict(choices={fk["id"]: o for fk, o in zip(fks, ch)},
+                           capacity=dict(time=dict(have=round(float(AG.cap["time"][n]), 1), committed=round(ch_h, 1)),
+                                         money=dict(have=round(float(AG.cap["money"][n]), 3), committed=round(ch_m, 3))),
+                           slower=sorted(j for j, v in fund.items() if v < 0.999)))
+    return dict(group=key if key is not None else fks[0]["id"], why=why, capacity=cap, forks=forks, combos=combos)
+
+
+def apply_review(S, n, a):
+    """Apply a review's answers once: dict(choices={fork id: option key}, set={slot: pace}); a fork left out stays
+    open. The new agenda (with "errors", in words, for any answer that could not apply)."""
+    if not S.get("AIM2_ON"):
+        return "aims v2 are off"
+    AG = S["AG"]; n = int(n); t = int(S["t"]); errs = []
+    for fid, key in (a.get("choices") or {}).items():
+        try:
+            fid = int(fid)
+        except (TypeError, ValueError):
+            errs.append(f"no fork {fid}"); continue
+        e = AG.apply(n, fid, key, t)
+        if e:
+            errs.append(e)
+    for slot, pace in (a.get("set") or {}).items():
+        e = set_pace(S, n, int(slot), pace)
+        if isinstance(e, str):
+            errs.append(e)
+    out = agenda(S, n); out["errors"] = errs
+    return out
+
+
+def preview(S, n, name_or_slot, step=None):
+    """What is known before a commitment (Gamification's shape): needs, cost (entry, money (lo, hi) a year), hours (lo,
+    hi) a week, overlaps (slots, and work, care or ties), window (opens, closes) in ages, unknown, exit (say). From the
+    life's own state, never a simulated future; draws nothing."""
+    if not S.get("AIM2_ON"):
+        return None
+    AG = S["AG"]; n = int(n)
+    if isinstance(name_or_slot, (int, np.integer)):
+        j = int(name_or_slot)
+        if not (0 <= j < AG.MA) or AG.f[n, j] < 0:
+            return None
+        return AG.preview(n, j=j, r=step)
+    if name_or_slot not in AG.F["names"]:
+        return None
+    f = AG.F["names"].index(name_or_slot)
+    js = np.nonzero(AG.f[n] == f)[0]
+    return AG.preview(n, j=int(js[0]), r=step) if len(js) else AG.preview(n, f=f, r=step or 0)
+
+
+def _set_aim2(S, n, name):
+    AG = S["AG"]; n = int(n)
+    if name not in AG.F["names"]:
+        return f"no aim {name!r}"
+    f = AG.F["names"].index(name); v1 = int(AG.F["v1"][f])
+    if v1 >= 0 and S.get("aim_take") is not None:   # v1 holds it too (its seeking, its spark), as set by the player
+        S["aim_take"](n, v1, S["P"]["aims_par"]["set_s"], own=False, by=True, src="player")
+    if not (AG.f[n] == f).any() or AG.st[n, np.nonzero(AG.f[n] == f)[0][0]] == 3:
+        AG.add(n, f, int(S["t"]), by=True, src="player")
+    else:
+        AG.by[n, np.nonzero(AG.f[n] == f)[0][0]] = True
+    return agenda(S, n)

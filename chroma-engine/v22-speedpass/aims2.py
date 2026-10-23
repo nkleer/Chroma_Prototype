@@ -806,7 +806,7 @@ class Agenda:
                     else:
                         for i in F["ids"][f][r]:
                             cx["r_lose"](n, int(i), "lapsed")
-                    s._log(n, j, "upkeep lapsed", of=("proficiency", "access", "credential")[of], rung_of=r)
+                    s._log(n, j, "upkeep lapsed", part=("proficiency", "access", "credential")[of], rung_of=r)
                 elif s.faded[n, j, r] and s.act_wk[n, j] >= s.par["refresh_wk"]:
                     s.faded[n, j, r] = False; of = int(F["up_of"][f, r])
                     if of == 0:
@@ -815,7 +815,7 @@ class Agenda:
                         s.noaccess[n, j] = False
                     elif len(F["ids"][f][r]):
                         cx["r_gain"](n, int(F["ids"][f][r][0]), "renewed")
-                    s._log(n, j, "upkeep refreshed", of=("proficiency", "access", "credential")[of], rung_of=r)
+                    s._log(n, j, "upkeep refreshed", part=("proficiency", "access", "credential")[of], rung_of=r)
 
     def integrate(s, t):
         """An integrate outcome: a life holding rungs in two fields the realm pairs (AIM_ASSETS), one of them active,
@@ -902,6 +902,30 @@ class Agenda:
             s.put_arr[n] = fk["id"]
             s.burden.append(dict(what="put", life=int(n), week=int(t), id=fk["id"], forks=len(grp),
                                  aims=len({j for x in grp for j in x["aims"]}), options=sum(len(x["options"]) for x in grp)))
+
+    def what_if(s, n, sets):
+        """The account for life n if aims took the settings sets {slot: (active, intensity)} (others as they are), by the
+        same rules as account(): (hours committed, money committed, {slot: funded share}). Draws nothing."""
+        F = s.F; par = s.par; have = float(s.cap["time"][n]); money = float(s.cap["money"][n]); child = s.t / 52 < 18
+        rows = []
+        for j in np.nonzero(s.f[n] >= 0)[0]:
+            j = int(j); f = int(s.f[n, j]); r = int(s.rung[n, j])
+            on, it = sets.get(j, (s.st[n, j] == ACTIVE, float(s.inten[n, j])))
+            if not on or r >= F["nr"][f] or F["time"][f, r]:
+                continue
+            rows.append((float(s.pri[n, j]), j, F["hours"][f, r] * it, F["money"][f, r] * it * (1 - par["family_pays"] * child), int(F["prep"][f])))
+        rows.sort()
+        ch = cm = 0.0; seen = 0; fund = {}; first = True
+        sup = par["support_share"] if s.ctx["PARTNER"](n) else 0.0
+        for _, j, d, m, pm in rows:
+            if pm & seen:
+                d *= 1 - par["prep_share"]
+            if first:
+                d -= d * sup; first = False
+            gh = min(max(have - ch, 0.0), d); gm = min(max(money - cm, 0.0), m)
+            fund[j] = min(gh / d if d > 0 else 1.0, gm / m if m > 0 else 1.0)
+            ch += d; cm += m; seen |= pm
+        return ch, cm, fund
 
     # ---- views (the Game's; draw nothing, cost no time)
     def preview(s, n, j=None, f=None, r=None):

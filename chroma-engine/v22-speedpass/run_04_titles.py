@@ -355,7 +355,8 @@
         AG = A2_.Agenda(N, A2_.CACHE["F"], A2P_, seed, dict(
             events=events, r_gain=lambda n_, i_, how_: r_gain(n_, i_, how_), r_lose=lambda n_, i_, why_: r_lose(n_, i_, why_),
             r_ever=r_ever, ev_cond=lambda c_, ns_: ev_cond(c_, ns_), need=lambda: need, WL=lambda: WL, WON=lambda: WON, ak=ak,
-            astr=astr, NIDX=NIDX, MON=MON, TIM=TIM, PAR=PAR, CAR=CAR, KID=KID, LOAD=LOAD, RID=RID))
+            astr=astr, NIDX=NIDX, MON=MON, TIM=TIM, PAR=PAR, CAR=CAR, KID=KID, LOAD=LOAD, RID=RID,
+            PARTNER=lambda n_: bool(held[n_, PAR])))
         A2F_ = AG.F["of_v1"]
         aim2 = A2_.View(AG, "items"); capacity = A2_.View(AG, "account_view"); aim_forks = AG.forks; aim_fork = AG.put_arr
     def aim_fit(mix):
