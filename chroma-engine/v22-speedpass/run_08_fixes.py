@@ -246,7 +246,7 @@
                 bold_now, bold_pick, nw, nw_imp, nw_imp_cause, J, FRpos, clu_, CLU_ON, AIM_ON, HT_ON, AIM, ak, astr, astep, aown,
                 aby, atest, acall, abirth, aim_best, gal, ht_t, aim_take, aim_end, aim_fit, aim_of_goal, WA_ON, WA2_ON,
                 wa_book, wa_lines, wa_known, FOOT_ON, foot_log,
-                foot, foot_open, mark_last)
+                foot, foot_open, mark_last, IW_ON, iw_fact, iw_why, TW_ON, prizes, prizes_moves)
     if pausing:
         ST_CELLS = tuple(zip(_handed.__code__.co_freevars, _handed.__closure__)); ST_FR = sys._getframe()
         pz_st = PauseState()

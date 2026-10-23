@@ -46,6 +46,13 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
     SHH_ON = P["shared_hist"] > 0   # shared history: an act's belonging gain also feeds meaning, more as close bonds last
     IA_ON = bool(P["imp_age"])      # setbacks only from the age each can happen at
     IMP_AGE_ = np.asarray(IMP_AGE, float)
+    RLM = WF.realm(P["realm"])      # v25: the realm's world-fit constants (realm_earth, or realm_neutral for tests)
+    IW_ON = bool(P["imp_world"]) and bool(P["world"])   # N3: setbacks that fit the world (world_fit.imp_g)
+    IW_E = None; iw_g = iw_X = iw_key = None             # the elasticities, this year's g and the lives' log facts
+    iw_fact = np.full(N, -1) if IW_ON else None; iw_why = [None] * N if IW_ON else None   # this week's setback's fact, words
+    iw_dk = None                                          # each town's last disaster kind (HAZARDS index, -1 none)
+    TW_ON = bool(P["tilt_world"]) and bool(P["world"])   # #10: what a world rewards (world_fit.tilt_r, at the rungs)
+    prizes = prizes_moves = None
     FREE_STAGE = np.asarray(P["freedom_stage"], float)
     IMP_FREE = np.minimum(L["IMP"][:, NIDX["autonomy"]], 0)    # impositions on autonomy also take freedom
     BEREAVE = np.array([nm == "bereavement" for nm in L["names"]])

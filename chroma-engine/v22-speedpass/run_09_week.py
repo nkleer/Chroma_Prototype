@@ -121,6 +121,8 @@
                 y = y + dy_; asrc[:, 1] += dy_
         if EP_ON:
             ep_now[:] = -1   # no return yet this week (set after the situation pause, read from the choose pause on)
+        if IW_ON:   # N3: no setback yet this week
+            iw_fact[:] = -1; iw_why[:] = [None] * N
         if NW_ON:   # need_why: a new week's record (what the caller changes at the "week" pause is the player's)
             nw[:] = 0; nw_imp[:] = -1; nw_imp_cause[:] = -1; nw_prev[:] = need
         if pausing:

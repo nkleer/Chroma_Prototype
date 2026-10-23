@@ -111,6 +111,39 @@ IMP_AGE = (10, 12, 5, 4, 0, 1, 14, 16, 7, 0)
 IMP_CAUSES = ("family", "school", "work", "a partner", "friends", "crime nearby", "a disaster", "war", "the authorities",
               "the law failing", "failing health", "old age", "word going round", "a stranger")
 
+# ---- v25 N3, setbacks that fit the world (switch imp_world; Outer world's chroma-world/spheres/world-fit-v1.md section 1
+# and data/world_fit.json "setbacks", which wins). For each setback (IMPOSITIONS order) the world facts it follows, as
+# {fact: elasticity e}: its weight g = prod (fact / ref) ** e, clipped to IMP_WORLD_CLIP. Facts about the life (crime
+# where it lives, harm, the land, frailty, age) are normalised over the living people each year, so the kind's count
+# holds and only who gets it moves; facts about the world (weak law, repression) are read against IMP_WORLD_REF, Earth's
+# modern start, so a harsher world has more. Evidence: lawlessness follows the area's crime (Sampson et al. 1997);
+# institutional trust and corruption track each other (Rothstein and Uslaner 2005); the rest are estimates
+IMP_WORLD = (
+    {"repress": 1.0},                    # a rule is imposed on you
+    {"weak": 1.0, "crime": 0.3},         # an institution betrays its promise
+    {},                                  # you are lied to and misled
+    {},                                  # someone takes what you earned
+    {"harm": 1.0, "land": 1.0},          # your community or habitat is damaged (harm: 1 + IMP_HARM_K x harm; land: x IMP_LAND_X)
+    {},                                  # you are forbidden to see someone you love
+    {},                                  # evidence you trusted is overturned
+    {"frail": 1.5, "age": 1.0},          # you are made dependent on others (age by IMP_AGE_X)
+    {"repress": 1.0},                    # your traditions are mocked or banned
+    {"crime": 1.0, "weak": 0.5},         # lawlessness spreads around you
+)
+# refs: crime the population-weighted mean of the localities' crime (.05 to .30); weak = 1 - law_rule at Earth's modern
+# start (law_rule about .73); repress = 1 - the mean of the rights at the modern start (.85 .85 .9 .2 .45); frail = 1 -
+# health (an estimate; Release's split was at .22)
+IMP_WORLD_REF = dict(crime=0.206, weak=0.27, repress=0.35, frail=0.25)
+IMP_WORLD_CLIP = (0.2, 4.0)
+IMP_HARM_K = 5.0                      # harm (struck by a disaster or recovering from one, or at war): 1 + 5 x harm
+IMP_LAND_X = 2.0                      # the land: x2 while a stretch the life loves is lost (only with wa_land)
+IMP_AGE_X = ((70, 1.5), (80, 2.5))    # age: x1.5 from 70, x2.5 from 80 (estimates)
+IMP_CAUSE = {   # what the panel names, by the fact that weighed most ({disaster_kind}, {stretch}: filled by the engine)
+    "crime": "the crime around you", "weak": "the law growing weak", "repress": "the state tightening its grip",
+    "harm": "the {disaster_kind} or the war", "land": "{stretch} lost", "frail": "your failing health", "age": "your age",
+}
+IMP_CAUSE_BETRAY_WEAK = "corruption in the institutions"   # the betrayal's own word for weak law
+
 
 # ---- The heights of a life (aims v1, plan.md section 5, behind aims and heights): Earth's names for each height. The
 # core reads leading a sphere (rung 4; Emren 10-19, not pillar) as Known and a summit title (TIER 2) as Notable in every realm; what a
