@@ -53,6 +53,8 @@
                 gate_sea = gate.copy()                         # for the season's own moments, before they are kept out
                 gate[:, TH_ANY] = False                       # a season's moments come only in its season
             avail = L["STG"][:, stage].T & gate
+        if CL_ON or SK_ON:   # v25: which moments each life could be brought this week (a clash or seeking moment waits for its own)
+            RX.avail = avail
         aff = np.exp(2.0 * ((RX.seek_draw_mix(nic) if SK_ON else nic) @ L["ALPHA"].T)) * avail * RATE[None] * (1 + P["dom_freq"] * (held * I) @ L["DOM"].T)   # seek: (1 - k) surroundings + k attraction
         if SACS_ON_:   # S5: a sacred line's moments come only with an offer (or a wound) of the life's own
             aff[:, SACS_] = 0.0
@@ -214,6 +216,8 @@
             if DTH_ON and (dl_at > NEVER // 2).any():   # F2: in a last decline nothing new begins
                 ev_p = ev_p * np.where((dl_at > NEVER // 2)[:, None], 1 - SH_NEW[None], 1.0)
             fire = rng.random(ev_p.shape) < ev_p
+            if CL_ON or SK_ON:   # v25: a clash, seeking or repair moment takes the place of an optional ask this week
+                RX.v25_fire(fire, frc_, WL)
             if WON:
                 fire |= frc_
             if dead.any():

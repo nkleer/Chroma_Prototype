@@ -1,4 +1,4 @@
-c5a3f06c3532419c4b6e4c72b49dc23e  batch.py
+0c3085b20e24dd71fac890af7910c48e  batch.py
 757721ec4414965232f272d129713c58  combos.py
 7a4a30e346385bd4aee9d69fc0d09be3  earth_rules.py
 6f4405a561d932a3a934efd39e6d6df3  engine.py
@@ -36,11 +36,11 @@ ecc7e5efc381381b70aadb40f4f16ab7  world_people_views.py
 463edb9b01d61d1e7e70cbab83e31aeb  run_03_moments.py
 fc0aaddff3b6a3ce4c996de7c8adf995  run_04_titles.py
 71c1f2a8ee5327b7b685028ea1e70fdb  run_05_conditions.py
-f20626dc811b34e56e297b8e6bbe1a33  run_06_world.py
+9790329f7680d6724722d94e89c4ae1d  run_06_world.py
 f67d8d7e8e0d3972e9791608451ee961  run_07_body.py
 a1ae0a2720c55bcd09feb5a2b83548e6  run_08_fixes.py
 fb944b0477d91580644495cdc56cae1a  run_09_week.py
-f0f7abd86a03456c52c2a68133a917fd  run_10_situation.py
+b48237a23a05d3890d5ce90a3dcf44b3  run_10_situation.py
 9f897ecf1dac76548c56e503fbb10bed  run_11_choice.py
 d61b7b29b958f4a33c5972e45e8efeed  run_12_commitments.py
 01720ff1695150c870cf71f115857ef5  run_13_learning.py
@@ -66,4 +66,4 @@ fede3c5d1ffd369591b7c161c2ef62fa  world_link_base.py
 fccb7cc4b9419ae0908ed6a9234d1afe  world_link_life.py
 e2d158f6efb4858c5cdb71ba49d03bb3  realm_earth.py
 3a675425cbb82bb45db679e10e21f6dd  world_people_answers.py
-3b8df93df93f2e266d416a69a7c7fc5a  world_react.py
+3546a096685ebff4e7b407cfb8ad7329  world_react.py

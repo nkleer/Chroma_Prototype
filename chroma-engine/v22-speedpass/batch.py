@@ -518,6 +518,7 @@ def load_batch(world="earth", symmetric=False, roles=None, packs=None, pack_mome
     foot: footprints (the engine's foot_on switch) in place of FOOT: the Library's FOOT tables, compiled to L["FOOT"].
     clash, seek: v25 lane C (the engine's clash and seek switches) in place of CLASH_MOMENTS and SEEK_MOMENTS: the Library's
     clash moments (<world>_clash.py) and seeking and repair moments (<world>_seek.py), last in the batch."""
+    v25_on_ = (CLASH_MOMENTS if clash is None else clash, SEEK_MOMENTS if seek is None else seek)   # (the name clash is reused below)
     sys.path.insert(0, os.path.abspath(LIB_DIR))
     sys.modules.pop(world, None)                          # always read the batch from LIB_DIR as it is now
     try:
@@ -555,7 +556,7 @@ def load_batch(world="earth", symmetric=False, roles=None, packs=None, pack_mome
                     if len(o_) > 5 and isinstance(o_[5], dict) and not o_[5].get("lever"):
                         o_[5]["lever"] = "voice"
         sits += WA_
-    for on_, nm_ in ((CLASH_MOMENTS if clash is None else clash, "clash"), (SEEK_MOMENTS if seek is None else seek, "seek")):
+    for on_, nm_ in zip(v25_on_, ("clash", "seek")):
         cp_ = os.path.join(LIB_DIR, f"{world}_{nm_}.py")
         if on_ and os.path.exists(cp_):   # v25 lane C: forced moments only (per_year 0), after every other, so every index stays
             X_ = [copy.deepcopy(x) for x in getattr(_module(cp_, f"chroma_{world}_{nm_}"), "SITUATIONS", [])]

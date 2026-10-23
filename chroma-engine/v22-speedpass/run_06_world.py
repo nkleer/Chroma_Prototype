@@ -413,9 +413,6 @@
         states = RX.states_view()
         if CL_ON:
             clash, disputes, clash_now = RX.clash, RX.disputes, RX.clash_now
-            if getattr(WL.PP, "eyes_on", False):   # the question budget: a clash put takes the place of the next caught-
-                _eyes_due0 = WL.PP.eyes_due        # between or odd-one-out ask that life is due
-                WL.PP.eyes_due = lambda t_=None, _f=_eyes_due0: RX.drop_owed(_f(t_))
         if SK_ON:
             seek = RX.seek_view()
         if SCN_ON:

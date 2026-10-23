@@ -83,7 +83,8 @@ CLASH_DEFAULT = dict(
     age=10.0, sphere_yrs=2.0, decade_n=3,   # ceilings, provisional [C]: from age 10; one per sphere in 2 years; 3 in 10
     a_major=0.08,          # a clash's colour step, at full stakes (a major demand: 0.05 to 0.15 once)
     merge_cos=0.8,         # two demands one dispute: the same stake and purposes this alike
-    wait=8,                # weeks a carried clash waits for its moment before it is answered in the background
+    wait=26,               # weeks a carried clash (or a seeking moment) waits for an ask to replace, before the clash is
+                           # answered in the background (the seeking moment is dropped)
 )
 SEEK_DEFAULT = dict(
     k_max=1.0 / 3,         # attraction's share of the encounter mix at full independence (Emren's starting suggestion)
@@ -159,15 +160,15 @@ class React:
         # clashes (clash, decision #3)
         self.clash = [None] * N; self.clash_now = [[] for _ in range(N)]; self.disputes = [[] for _ in range(N)]
         self.cl_last = np.full((N, len(SPHERES)), -10 ** 9, np.int64); self.cl_hist = [[] for _ in range(N)]
-        self.owed = np.zeros(N, np.int64); self.carry = {}   # life -> dispute id of a clash waiting for its moment
+        self.carry = {}   # life -> dispute id of a clash waiting for its moment
         self.cl_stats = dict(put=0, carried=0, background=0, merged=0, repeat_held=0, ceiling=0, by_colour_only=0,
                              replaced=0, dropped_natural=0, family={k_: 0 for k_ in CLASH_KINDS},
                              give_in={k_: 0 for k_ in ("willing", "strategic", "constrained")}, by_sphere=np.zeros(len(SPHERES), np.int64))
         self.d_id = 0
         # seeking (seek, decision #4)
         self.attr = np.full((N, C), 1.0 / C); self.k_ind = np.zeros(N); self.enc = np.full((N, C), 1.0 / C)
-        self.expect = np.zeros((N, C)); self.tried = [[] for _ in range(N)]; self.seek_view = [None] * N
-        self.sk_stats = dict(tries=0, admitted=0, refused=0, good=0, bad=0)
+        self.expect = np.zeros((N, C)); self.tried = [[] for _ in range(N)]
+        self.sk_stats = dict(tries=0, admitted=0, refused=0, no_access=0, good=0, bad=0)
         self._pend_try = []
 
     # ------------------------------------------------------------------ the sources
@@ -987,12 +988,13 @@ class React:
                        carried=False)
             sub = self._dd_sub(dd, i)
             band = 0 if age < 20 else 1
-            ss = [s_ for s_ in getattr(self, "CL_S", {}).get((setting, band), []) if self.AGE[s_, 0] <= age <= self.AGE[s_, 1]]
+            av_ = getattr(self, "avail", None)   # (the moments open to them this week: stage, age, conditions, once)
+            ss = [s_ for s_ in getattr(self, "CL_S", {}).get((setting, band), []) if self.AGE[s_, 0] <= age <= self.AGE[s_, 1]
+                  and (av_ is None or av_[n, s_])]
             if ss and n not in self.carry:   # the Library's clash moment for it: it waits for its week, as a want's moment does
                 s_ = ss[int(self.rng.integers(len(ss)))]
                 self.carry[n] = dict(dispute=dsp, sub=sub, s=s_, t=int(t), rec=rec, feas=feas, gia=gia, group=[dd["kn"][g_] for g_ in group])
                 rec["carried"] = True; rec["moment"] = int(s_); self.cl_stats["carried"] += 1
-                self.owed[n] += 1
             else:   # no moment for it: answered in the background, by the same odds
                 self.cl_stats["background"] += 1
                 r = int((dd["pr"][i].cumsum() > self.rng.random()).argmax())
@@ -1079,16 +1081,18 @@ class React:
         return rs
 
     def clash_week(self, t, WL):
-        """After the world's week: each clash waiting for its moment is brought (forced, as a want's moment), or, past
-        clash_par wait weeks, answered in the background."""
+        """After the world's week: each clash waiting for its moment past clash_par wait weeks is answered in the
+        background (v25_fire brings the moment in a week with an ask it can take the place of)."""
         for n, c_ in list(self.carry.items()):
             if t - c_["t"] > self.cp["wait"]:
                 del self.carry[n]
                 sub = c_["sub"]; r = int((sub["pr"][0].cumsum() > self.rng.random()).argmax())
                 self._clash_apply(t, t / 52.0, n, c_["dispute"], sub, r, False, self._last_ctx, c_["rec"], c_["gia"])
                 c_["rec"]["carried"] = False; self.cl_stats["background"] += 1
-                continue
-            WL.fire_now[n, c_["s"]] = True
+
+    def _open(self, n, s_):
+        av_ = getattr(self, "avail", None)
+        return av_ is None or bool(av_[n, s_])
 
     def clash_on_week(self, s):
         """This week's carried clash moments: {life: carry} for the lives whose moment s is theirs."""
@@ -1128,24 +1132,41 @@ class React:
         """After the act: a carried clash moment answered (its option's family; the player's pick for a played life)."""
         for n, c_ in self.clash_on_week(s).items():
             del self.carry[n]
+            self.cl_stats["replaced"] += 1
             tg = self.CLASH_TAG[c_["s"]]; k_ = int(a[n])
             fam = CLASH_KINDS[tg[k_]] if 0 <= k_ < len(tg) and tg[k_] >= 0 and not idle[n] else "give_in"
             self._clash_apply(t, t / 52.0, n, c_["dispute"], c_["sub"], fam, n in players, self._last_ctx, c_["rec"],
                               c_["gia"], succ=bool(succ[n]))
             self.clash[n] = c_["rec"]
 
-    def drop_owed(self, items):
-        """The question budget: a clash put replaces an eligible optional ask, the next caught-between or odd-one-out
-        moment waiting for that life (its due list filtered; S3 and S4 keep their own state)."""
-        out = []
-        for it in items:
-            n = it[0]
-            if self.owed[n] > 0:
-                self.owed[n] -= 1; self.cl_stats["dropped_natural"] += 1
-                self.PP.eyes_q.pop(n, None)
+    def v25_fire(self, fire, frc, WL):
+        """The question budget: a clash, seeking or repair moment waiting is put only in a week that already holds an
+        optional ask for that life, and takes its place: a life event drawn by its rate (the moment is preferred, as the
+        world's are), or a caught-between or odd-one-out moment the world brought (dropped; S3 and S4 keep their state).
+        Never in place of anything else the world brings (a death, a birth, a want's or a decision's moment). frc is
+        changed in place."""
+        PP = self.PP
+        waiting = [(n, c_["s"], "clash") for n, c_ in self.carry.items()] + \
+                  [(n, c_["s"], "seek") for n, c_ in getattr(self, "sk_carry", {}).items() if n not in self.carry]
+        for n, s_, k_ in waiting:
+            if not self._open(n, s_) or PP.dead[n]:
                 continue
-            out.append(it)
-        return out
+            pend = WL.pending.get(n)
+            eyes = pend is not None and pend[1] in ("caught", "odd")
+            other = frc[n].copy()
+            if eyes:
+                other[pend[2]] = False
+            if other.any():
+                continue   # the world brings something else this week: it waits
+            if eyes:
+                frc[n, pend[2]] = False; fire[n, pend[2]] = False; WL.pending.pop(n, None)
+                PP.eyes_q.pop(n, None); PP.eyes_off.pop(n, None)
+                self.cl_stats["dropped_natural"] += 1
+            elif not fire[n].any():
+                continue   # no ask this week to take the place of
+            else:
+                self.cl_stats["replaced_event"] = self.cl_stats.get("replaced_event", 0) + 1
+            frc[n, s_] = True
 
     # ------------------------------------------------------------------ seeking (seek, decision #4)
     def seek_month(self, t, age, ctx):
@@ -1200,19 +1221,18 @@ class React:
         rec = dict(t=int(t), age=round(t / 52.0, 2), motive=motive, colour="WUBRG"[col], sphere=sph, access=False, admitted=False,
                    place=-1, experience=None)
         if not getattr(PP, "sph_h", False):
+            self.sk_stats["no_access"] += 1
             self.tried[n].append(rec); return rec
         ind = float(self._last_ctx["ind"][n]) if getattr(self, "_last_ctx", None) else 0.5
         mon = float(self._last_ctx["res_mon"][n]) if getattr(self, "_last_ctx", None) else 0.5
         rec["access"] = True
         p_admit = float(np.clip(0.25 + 0.35 * ind + 0.3 * mon, 0.05, 0.95))
         if self.rng.random() < p_admit:
-            p_ = PP.pick_haunt(n, sph, col, t)
+            p_ = PP.pick_haunt(n, sph, col)
             if p_ < 0 and sph != "gather":
-                p_ = PP.pick_haunt(n, "gather", col, t)
-            rec["admitted"] = p_ >= 0; rec["place"] = int(p_)
-        else:
-            rec["access"] = True
-        self.sk_stats["admitted" if rec["admitted"] else "refused"] += 1
+                p_ = PP.pick_haunt(n, "gather", col)
+            rec["admitted"] = p_ >= 0; rec["place"] = int(p_); rec["access"] = p_ >= 0   # no such place open to them: no access
+        self.sk_stats["admitted" if rec["admitted"] else "refused" if rec["access"] else "no_access"] += 1
         self.tried[n].append(rec)
         if len(self.tried[n]) > 20:
             del self.tried[n][0]
@@ -1279,8 +1299,6 @@ class React:
         for n, c_ in list(self.sk_carry.items()):
             if t - c_["t"] > self.cp["wait"]:
                 del self.sk_carry[n]
-            else:
-                WL.fire_now[n, c_["s"]] = True
         if t % 4:
             return
         live = ~self.PP.dead
@@ -1293,11 +1311,12 @@ class React:
                                                                r_["response"] in ("backlash", "disagree") and t - r_["t"] < 13
                                                                for r_ in self.log[n][-5:]))
             if sour and t - self.rp_last[n] >= 104 and self.RP_S:
-                ss = [s_ for s_ in self.RP_S if self.AGE[s_, 0] <= age <= self.AGE[s_, 1]]; kind = "repair"
+                ss = [s_ for s_ in self.RP_S if self.AGE[s_, 0] <= age <= self.AGE[s_, 1] and self._open(n, s_)]; kind = "repair"
             if not ss:
                 for st_ in np.argsort(-self.st_lv[n]):
-                    if self.st_lv[n, st_] >= 0.5 and self.st_wk[n, st_] >= 8 and t - self.sk_last[n, st_] >= 52 and st_ in self.SK_S:
-                        ss = [s_ for s_ in self.SK_S[st_] if self.AGE[s_, 0] <= age <= self.AGE[s_, 1]]
+                    if (self.st_lv[n, st_] >= 0.5 and self.st_wk[n, st_] >= 8 and t - self.sk_last[n].max() >= 52   # one a year
+                            and st_ in self.SK_S):
+                        ss = [s_ for s_ in self.SK_S[st_] if self.AGE[s_, 0] <= age <= self.AGE[s_, 1] and self._open(n, s_)]
                         if ss:
                             kind = STATES[st_]; break
             if ss:
@@ -1307,8 +1326,6 @@ class React:
                     self.rp_last[n] = t
                 else:
                     self.sk_last[n, STATES.index(kind)] = t
-                self.owed[n] += 1
-                WL.fire_now[n, s_] = True
 
     def _sk_on(self, s):
         return {n: c_ for n, c_ in getattr(self, "sk_carry", {}).items() if int(s[n]) == c_["s"]}
