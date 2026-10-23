@@ -361,6 +361,11 @@
             astr=astr, NIDX=NIDX, MON=MON, TIM=TIM, PAR=PAR, CAR=CAR, KID=KID, LOAD=LOAD, RID=RID,
             PARTNER=lambda n_: bool(held[n_, PAR])))
         A2F_ = AG.F["of_v1"]; AG.shapes_init(L)
+        ix_ = {d_["name"]: i_ for i_, d_ in enumerate(DRM_)}
+        for it_, v_ in zip(AG.F["items"], AG.F["v1"]):   # a field's dreams (the packs' and the Library's) grow into its aim
+            for d_ in it_.get("dreams") or ():
+                if v_ >= 0 and d_ in ix_ and int(v_) not in DRM_AIM[ix_[d_]]:
+                    DRM_AIM[ix_[d_]].append(int(v_))
         aim2 = A2_.View(AG, "items"); capacity = A2_.View(AG, "account_view"); aim_forks = AG.forks; aim_fork = AG.put_arr
     def aim_fit(mix):
         """How each aim's face fits a mix of colours: the cosine of their leans (1 the same lean)."""

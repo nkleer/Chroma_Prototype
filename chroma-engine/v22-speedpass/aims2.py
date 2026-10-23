@@ -133,6 +133,24 @@ def _fields_lib(world, lib_dir):
     return out
 
 
+def _fields_packs(L, pack_dir):
+    """The loaded packs' fields (chroma-packs/<pack>/fields.py FIELDS_<PACK>), then the druid's (callings' FIELDS_LAND,
+    as L["DRUID"] when the batch joined it), each with its pack; read only here, with aims_v2 on."""
+    import importlib.util
+    out = {}
+    for pk in L.get("PACKS") or []:
+        p_ = os.path.join(pack_dir, pk, "fields.py")
+        if not os.path.exists(p_):
+            continue
+        sp_ = importlib.util.spec_from_file_location(f"chroma_pack_{pk}_fields_v25", p_)
+        m_ = importlib.util.module_from_spec(sp_); sp_.loader.exec_module(m_)
+        for nm, x in (getattr(m_, f"FIELDS_{pk.upper()}", {}) or {}).items():
+            out.setdefault(nm, (pk, x))
+    for nm, x in (L.get("DRUID") or {}).items():
+        out.setdefault(nm, ("callings", x))
+    return out
+
+
 def _req(BA, src, bad):
     """A field rung's req compiled; a name with an apostrophe inside single quotes (has('one's own')) mended first."""
     import re
@@ -155,8 +173,10 @@ def compile_fields(L, par, C, NIDX, heights):
     GR = L["ROLES"]; RID = {nm: i for i, nm in enumerate(GR["names"])}
     AIM = L["AIMS"]; V1 = {nm: i for i, nm in enumerate(AIM["names"])}
     lib = _fields_lib(L.get("world") or "earth", BA.LIB_DIR)
+    pkf = {nm: v for nm, v in _fields_packs(L, BA.PACK_DIR).items() if nm not in lib}
+    srcs = {**{nm: "library" for nm in lib}, **{nm: "pack:" + v[0] for nm, v in pkf.items()}}
     items = []; bad = []
-    for nm, x in lib.items():
+    for nm, x in list(lib.items()) + [(nm, v[1]) for nm, v in pkf.items()]:
         if x.get("shape") not in AIM_SHAPES:
             continue
         rungs = []
@@ -180,7 +200,7 @@ def compile_fields(L, par, C, NIDX, heights):
                           start=tuple(x.get("rungs")[0].get("start") or SHAPE_DEF[x["shape"]]["start"]),
                           words=dict(thing=x.get("thing", ""), doing=x.get("doing", ""), contest=x.get("contest", ""),
                                      round=list(x.get("round") or []), people=dict(x.get("people") or {})),
-                          src="library", dom=a1["dom"] if a1 else -1))
+                          dreams=list(x.get("dreams") or []), src=srcs[nm], dom=a1["dom"] if a1 else -1))
     have = {it["name"] for it in items}
     for nm, x in _fields_v1(AIM).items():
         if nm in have:
@@ -188,7 +208,8 @@ def compile_fields(L, par, C, NIDX, heights):
         a1 = x["v1"]; d = SHAPE_DEF[x["shape"]]
         items.append(dict(name=nm, shape=x["shape"], face=a1["face"], sph=a1["sph"], calling=a1["calling"], v1=V1[nm],
                           rungs=x["rungs"], prep=list(d["prep"]), meets=list(d["meets"]), start=tuple(d["start"]),
-                          words=dict(thing="", doing="", contest="", round=[], people={}), src="v1", dom=a1["dom"]))
+                          words=dict(thing="", doing="", contest="", round=[], people={}), dreams=list(a1["dreams"]),
+                          src="v1", dom=a1["dom"]))
     Fn = len(items); K = max(len(it["rungs"]) for it in items)
     z = lambda v=0.0, dt=float: np.full((Fn, K), v, dt)
     F = dict(names=[it["name"] for it in items], items=items, F=Fn, K=K, shape=np.array([SHAPES.index(it["shape"]) for it in items]),
@@ -245,7 +266,7 @@ def compile_fields(L, par, C, NIDX, heights):
     F["lean"] = lean / np.maximum(np.linalg.norm(lean, axis=1, keepdims=True), 1e-9)
     F["of_v1"] = {int(v): i for i, v in enumerate(F["v1"]) if v >= 0}
     F["upkeep_any"] = bool((F["up_yrs"] > 0).any())
-    F["src"] = "library+v1" if lib else "v1 adapter"
+    F["src"] = "+".join((["library"] if lib else []) + (["packs"] if pkf else []) + ["v1"]) if (lib or pkf) else "v1 adapter"
     F["bad_req"] = bad   # Library conditions that would not compile even with their quotes mended (left out: no req)
     return F
 

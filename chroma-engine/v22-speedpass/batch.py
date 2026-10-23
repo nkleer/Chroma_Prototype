@@ -505,6 +505,46 @@ def _packs(world, packs, pack_moments, R):
     return out
 
 
+def _druid(PK, land):
+    """Aims v2 (batch FIELDS, with callings loaded): the callings' sixth road, the steward of the land
+    (chroma-packs/callings/druid.py), joined table by table as its header says: TITLES_LAND to the titles, ROLES_LAND
+    and TARGET_LAND to the rules and targets (callings' own), EXTEND_LAND or-ed onto the names it extends, HELPS_LAND,
+    WINDOWS_LAND and LIFT_LAND to the earned odds, LIFE_LAND and LIFE_LAND_LONGSHOTS to the life conditions (they wait
+    for the road's moments, druid/callings-land.lib, which the Library compiles), ECHO_LAND_LONGSHOTS and-ed onto the
+    callings' echoes, AIMS_LAND and LEGACY_LAND to aims v1 (_aims_load) and FIELDS_LAND to the fields (aims2.py, which
+    reads PK["druid"] as L["DRUID"]). With the land loaded (batch LAND) also LAND_WAYS_LAND or-ed onto the steward's
+    rule and LIFE_LAND_WAYS onto the chair's condition. WORLDS_LAND and WORLD_ONLY_LAND are the game's (worlds.py);
+    LONGSHOTS_LAND is the Library's. Off (FIELDS off), nothing here is read."""
+    p_ = os.path.join(PACK_DIR, "callings", "druid.py")
+    if not os.path.exists(p_):
+        return
+    D_ = _module(p_, "chroma_pack_callings_druid")
+    PK["titles"] += [copy.deepcopy(x) for x in getattr(D_, "TITLES_LAND", [])]
+    rules_ = {nm: dict(r) for nm, r in getattr(D_, "ROLES_LAND", {}).items()}
+    if land:
+        for nm, w_ in getattr(D_, "LAND_WAYS_LAND", {}).items():
+            if nm in rules_ and rules_[nm].get("req"):
+                rules_[nm]["req"] = f"({rules_[nm]['req']}) | ({w_})"
+    PK["rules"].update(rules_); PK["packs_"]["rule"].update(dict.fromkeys(rules_, "callings"))
+    PK["target"].update(getattr(D_, "TARGET_LAND", {}))
+    for nm, x in getattr(D_, "EXTEND_LAND", {}).items():
+        PK["extend"].setdefault(nm, []).append(x); PK["packs_"]["ext"].setdefault(nm, []).append("callings")
+    PK["helps"].update(getattr(D_, "HELPS_LAND", {})); PK["windows"].update(getattr(D_, "WINDOWS_LAND", {}))
+    PK["lift"].update(getattr(D_, "LIFT_LAND", {}))
+    life_ = {nm: dict(c) for nm, c in {**getattr(D_, "LIFE_LAND", {}), **getattr(D_, "LIFE_LAND_LONGSHOTS", {})}.items()}
+    if land:
+        for nm, w_ in getattr(D_, "LIFE_LAND_WAYS", {}).items():
+            if nm in life_ and life_[nm].get("req"):
+                life_[nm]["req"] = f"({life_[nm]['req']}) | ({w_})"
+    PK["cond"]["LIFE"].update(life_)
+    for nm, x in getattr(D_, "ECHO_LAND_LONGSHOTS", {}).items():   # a new dict: the rules module's own stays as it is
+        c_ = PK["cond"]["ECHO"].get(nm)
+        if c_ is not None and x.get("req_and"):
+            PK["cond"]["ECHO"][nm] = dict(c_, req=f"({c_['req']}) & ({x['req_and']})" if c_.get("req") else x["req_and"])
+    PK.setdefault("aims_more", []).append(("callings", dict(getattr(D_, "AIMS_LAND", {})), getattr(D_, "LEGACY_LAND", None)))
+    PK["druid"] = dict(getattr(D_, "FIELDS_LAND", {}))
+
+
 def load_batch(world="earth", symmetric=False, roles=None, packs=None, pack_moments=None, setting="earth", more=None,
                 bold=None, links=None, aims=None, foot=None, wa=None, land=None, national=None, fields=None):
     """packs: the content packs on top of the base (default PACKS, the approved ones); pack_moments: {pack: path of a
@@ -533,6 +573,9 @@ def load_batch(world="earth", symmetric=False, roles=None, packs=None, pack_mome
         sys.path.pop(0)
     R = importlib.import_module(f"{world}_rules")
     PK = _packs(world, list(PACKS if packs is None else packs), pack_moments, R)
+    FD_ = FIELDS if fields is None else fields
+    if FD_ and "callings" in PK["names"]:   # aims v2: the callings' sixth road (the druid), joined only with the fields
+        _druid(PK, LAND if land is None else land)
     INNER_ = {**R.INNER, **PK["cond"]["INNER"]}; ECHO_ = {**R.ECHO, **PK["cond"]["ECHO"]}
     LIFE_ = {**R.LIFE, **PK["cond"]["LIFE"]}; READ_ = {**R.READ, **PK["cond"]["READ"]}
     RETURN_ = getattr(R, "RETURN", {})
@@ -577,7 +620,6 @@ def load_batch(world="earth", symmetric=False, roles=None, packs=None, pack_mome
                         o_[5]["lever"] = "voice"
         sits += X_
     NAT_ON_ = bool(NATIONAL if national is None else national)
-    FD_ = FIELDS if fields is None else fields
     sm_ = os.path.join(LIB_DIR, f"{world}_shape_moments.py")
     if FD_ and os.path.exists(sm_):   # aims v2: the shape moments, after the world answers' (every index before stays)
         SM_ = [copy.deepcopy(x) for x in getattr(_module(sm_, f"chroma_{world}_shape_moments"), "SITUATIONS", [])]
@@ -720,6 +762,11 @@ def load_batch(world="earth", symmetric=False, roles=None, packs=None, pack_mome
             for k_, v_ in getattr(D_, "TRIGGER_NATIONAL", {}).get(setting, {}).items():
                 if k_ in L["TRIGGER_DREAMS"]:
                     L["TRIGGER_DREAMS"][k_] = list(L["TRIGGER_DREAMS"][k_]) + [x_ for x_ in v_ if x_ not in L["TRIGGER_DREAMS"][k_]]
+        if FD_:   # aims v2: the packs' dreams (dreams.py DREAMS_PACKS, DREAM_KIND_PACKS, TRIGGER_PACKS), kept apart: the
+            # engine joins them only with aims_v2 on (run_02), never from chroma-packs/core/dreams.py, their source
+            L["DREAMS_PACKS"] = [d_ for d_ in getattr(D_, "DREAMS_PACKS", []) if setting in d_["worlds"].split()]
+            L["DREAM_KIND_PACKS"] = dict(getattr(D_, "DREAM_KIND_PACKS", {}))
+            L["TRIGGER_PACKS"] = {k_: list(v_) for k_, v_ in getattr(D_, "TRIGGER_PACKS", {}).get(setting, {}).items()}
     L["SETTING"] = setting
     L["VOICE"] = getattr(B, "VOICE", {})      # v7: the character's inner voice and the world's lessons (explain.py keys)
     L["LESSONS"] = getattr(B, "LESSONS", {})
@@ -748,6 +795,8 @@ def load_batch(world="earth", symmetric=False, roles=None, packs=None, pack_mome
         _earned(L, PK)
         _targets(L, PK, R)
     L["PACKS"] = PK["names"]
+    if PK.get("druid") is not None:
+        L["DRUID"] = PK["druid"]   # aims v2: the druid's fields (FIELDS_LAND), read by aims2.py with aims_v2 on
     if AT_ and "ROLES" in L:
         _aims(L, AT_)
     if FD_ and os.path.exists(sm_):
@@ -1200,6 +1249,13 @@ def _aims_load(world, PK):
             table[nm] = dict(x, src=pk)
         if getattr(m_, f"LEGACY_{pk.upper()}", None):
             legacy.append(str(getattr(m_, f"LEGACY_{pk.upper()}")))
+    for pk, am_, lg_ in PK.get("aims_more", []):   # a pack's road joined behind a switch (the druid: _druid)
+        for nm, x in am_.items():
+            if nm in table:
+                raise ValueError(f"aim {nm!r} in two catalogues ({table[nm]['src']}, {pk})")
+            table[nm] = dict(x, src=pk)
+        if lg_:
+            legacy.append(str(lg_))
     lf_ = os.path.join(PACK_DIR, "core", "legacy.py")
     if PK["names"] and os.path.exists(lf_):
         lm_ = _module(lf_, "chroma_pack_core_legacy")

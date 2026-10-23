@@ -90,7 +90,7 @@ engine.run_steps() is engine.run() pausing six times a week for the game. On a f
      loaded with the switch off no national moment comes; on, run_steps() lives as run() and the lives move;
      recognition, influence and authority kept apart, a seat held by one life and never an engine office, none before
      18, phase 2's national only with a seat, a voice or an office, and decisions at nation scope only by them.
- 28. aims v2 (aims_v2, v25 lane B), Earth and packs with the Library's fields (or v1's adapter), a player's life (forks
+ 28. aims v2 (aims_v2, v25 lane B), Earth and packs with the Library's and the packs' fields (the druid joined), a player's life (forks
      left open but one answered), world off (every field's first two rungs given a deadline) and on: run_steps() lives as
      run() with the agenda, previews and reviews read; the agenda's handed-over names there; every rung reached through
      an outcome (a title of it held or once held, a test or chance won; never effort alone); every window's closing told

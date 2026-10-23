@@ -1,5 +1,5 @@
-27d8f6d5dc5d9262eba666b7755106bd  aims2.py
-545c00463a095b9c849bd465644f7858  batch.py
+c55a2a08d175706ce0e1ba5a7e5ff09c  aims2.py
+94eca788ecd21025fb8e9f1bfb7105bd  batch.py
 757721ec4414965232f272d129713c58  combos.py
 7a4a30e346385bd4aee9d69fc0d09be3  earth_rules.py
 cb3ea1d4a522ba1a19503678f4dd3231  engine.py
@@ -23,9 +23,9 @@ a302f4a475ccb02a57181f30144bf7f9  rules_perks.py
 de2fb10388ea825710f13263ff961c15  rules_titles.py
 703c99edc963ecc11c52e6f94863f1f6  rules_world.py
 02d731aa9ad5708dc221eb8b8d84de7a  run_01_start.py
-826a9bde94e0400b000b9d82baaa595a  run_02_goals.py
+8fc87a428a9bf5ca22a779cb366eefc3  run_02_goals.py
 888f1f717f7d53bcac8bf5395f935602  run_03_moments.py
-f69fbbc892bedaceedc30a307512b586  run_04_titles.py
+5ddb9be9b06cc9a1d87e32933962e44e  run_04_titles.py
 ee362cd558f26de076a7405ef8cb2658  run_05_conditions.py
 5024d901cd901081bafc7ae25887872c  run_06_world.py
 f67d8d7e8e0d3972e9791608451ee961  run_07_body.py
