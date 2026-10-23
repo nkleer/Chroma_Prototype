@@ -954,3 +954,65 @@ TRIGGER_AGES = {
     "the trials at the academy": (6, 16),
   },
 }
+
+
+# ---- v25 national standing (decision #11): the ten new routes' dreams, from Packs' chroma-packs/national/dreams.py
+# (10-23). READ ONLY WITH THE ENGINE'S wa_nat_climb ON (Engine 10-23): nothing reads these three tables until then, so
+# no life changes. Each dream's means is a pair at .5, and the ten give every colour 2.0, so the set is colour-even
+# only whole. DREAM_KIND_NATIONAL is their kind (as DREAM_KIND); TRIGGER_NATIONAL adds them to existing sparks.
+DREAMS_NATIONAL = [
+  dict(name="to bring the feuding sides together", means="W.5 G.5", domain="faith", stages="young_adult adult mature",
+       worlds="earth", passion="making peace", plan="learn to listen to both sides, and be trusted by each",
+       life="a quarrel of generations settled, with both sides at the table"),
+  dict(name="to make a discovery known by name", means="U.5 W.5", domain="career", stages="juvenile young_adult adult",
+       worlds="earth", passion="finding things out", plan="study, test every result twice, and publish what holds",
+       life="a finding the whole country relies on"),
+  dict(name="to build a system the whole country uses", means="U.5 B.5", domain="career",
+       stages="juvenile young_adult adult", worlds="earth", passion="making things work",
+       plan="learn a technical trade, then build something bigger than one machine",
+       life="a working system in every town"),
+  dict(name="to run a great newspaper", means="U.5 R.5", domain="career", stages="juvenile young_adult adult",
+       worlds="earth", passion="the news", plan="report the town's wrongs, and check every word",
+       life="a paper the whole country trusts"),
+  dict(name="to speak for a whole industry", means="B.5 R.5", domain="career", stages="young_adult adult mature",
+       worlds="earth", passion="business and bargaining", plan="build a firm, then bring the rivals to one table",
+       life="a whole trade that moves together"),
+  dict(name="to back the people nobody else will", means="B.5 W.5", domain="career",
+       stages="young_adult adult mature", worlds="earth", passion="money and people",
+       plan="learn to read a venture and its people, then stake them", life="names everyone knows, backed early"),
+  dict(name="to perform before the whole country", means="R.5 B.5", domain="career", stages="child juvenile young_adult",
+       worlds="earth", passion="performing", plan="train every day and take every stage or field there is",
+       life="a performance the whole country remembers"),
+  dict(name="to keep the wild places for everyone", means="G.5 U.5", domain="career",
+       stages="child juvenile young_adult adult", worlds="earth", passion="the wild",
+       plan="learn the land, work as a ranger, and win its keepers over",
+       life="a valley or a coast kept alive for good"),
+  dict(name="to keep the old songs and crafts alive", means="G.5 R.5", domain="community",
+       stages="juvenile young_adult adult mature", worlds="earth", passion="the old ways",
+       plan="learn them from the last who know, and teach them on", life="a tradition the young still keep"),
+  dict(name="to link the helpers of every town", means="G.5 W.5", domain="community",
+       stages="young_adult adult mature", worlds="earth", passion="helping",
+       plan="run one group well, then join it to the others", life="groups in every town that help each other"),
+]
+
+DREAM_KIND_NATIONAL = {
+  "to bring the feuding sides together": "own", "to make a discovery known by name": "own",
+  "to build a system the whole country uses": "own", "to run a great newspaper": "status",
+  "to speak for a whole industry": "status", "to back the people nobody else will": "status",
+  "to perform before the whole country": "play", "to keep the wild places for everyone": "play",
+  "to keep the old songs and crafts alive": "own", "to link the helpers of every town": "own",
+}
+
+# Suggested sparks (TRIGGER_DREAMS["earth"][spark] gains these names); only sparks dreams.py already has.
+TRIGGER_NATIONAL = {
+  "earth": {
+    "a street protest": ("to run a great newspaper", "to bring the feuding sides together",
+                         "to link the helpers of every town"),
+    "a rags-to-riches story": ("to speak for a whole industry", "to back the people nobody else will"),
+    "a nature documentary": ("to keep the wild places for everyone",),
+    "a parade or a festival": ("to keep the old songs and crafts alive",),
+    "a match or a contest": ("to perform before the whole country",),
+    "a teacher or coach": ("to make a discovery known by name",),
+    "a neighbour's workshop in the shed": ("to build a system the whole country uses",),
+  },
+}
