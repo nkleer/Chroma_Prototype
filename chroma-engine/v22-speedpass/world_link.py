@@ -64,6 +64,11 @@ class WorldLink(LinkWeekMixin, LinkRatesMixin, LinkLifeMixin):
                     PP = PM.People(W, N, run_seed=int(seed) + 7919 * k_, female=np.asarray(female, bool))
                     PP.birth(self.t0)
         self.PP = PP
+        tr_ = tuple(P.get("trace_off") or ())   # test only (tools/white_trace.py): parts of the world read colour-blind
+        if tr_:
+            PP.trace_off = tr_
+            if "rank" in tr_:
+                PP.P = dict(PP.P, rank_k=0.0)
         PP.tilt_on = bool(P.get("tilt_world", False))   # v25 #10: what a world rewards, at the rung climb (world_fit.tilt_year)
         if PP.tilt_on:
             PP.tilt_R = WF.realm(P.get("realm", "earth"))

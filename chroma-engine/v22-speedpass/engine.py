@@ -912,6 +912,9 @@ DEFAULT = dict(
     imp_world=False,     # N3, setbacks that fit the world (with the world on): who gets each setback, and how many in a harsher
                          # world, follow the life's and the world's facts (realm IMP_WORLD); off, everyone's the same (v24)
     imp_world_par=None,  # {norm: "country" (default) or "town"}: what a life's facts are normalised over each year
+    trace_off=(),        # test only (tools/white_trace.py): parts read colour-blind, by name: "climb" (a year present
+                         # counts 1, not S3's good-name speed), "title_odds" (a title's weight by practice or colours 1),
+                         # "rank" (rank in a group no longer moves with an act's fit); () every part as it is
     tilt_world=False,    # #10, what a world rewards: the years that make a regular and a known face in a sphere grow by
                          # the life's fit to r, the town's sphere mix and the realm's incentives (with the world's rungs)
     # stage 3 of the v22 update, the world's rules (chroma-world/model/stage3-rules.md §8): a culture that moves (LW1) and
@@ -1561,7 +1564,7 @@ UPD_OFF = dict(dis_match=False,
                # footprints (workstream 3)
                foot_on=False,
                # v25 lane A: setbacks that fit the world, what a world rewards
-               imp_world=False, tilt_world=False,
+               imp_world=False, tilt_world=False, trace_off=(),
     # the v22.3 refit's satisfaction level (the new mechanics lift satisfaction; the set point moved .80 -> .86)
     sat_mid=0.8)
 # the v24 refit's switches off (Release's K4 PNEW, with batch CHROMA_BATCH_OFF=FOOT,AIMS,WORLD_ANSWERS and v23.2's packs in

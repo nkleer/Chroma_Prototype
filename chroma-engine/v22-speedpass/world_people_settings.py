@@ -702,7 +702,8 @@ class SettingsMixin:
             tw_ = WF.tilt_year(self, here, a) if getattr(self, "tilt_on", False) else None
             if getattr(self, "eyes_on", False):   # S3: a good name at their places speeds the climb, a bad one slows it; S4: x1.5 both ways
                 mu_up, mu_dn = self._eyes_rung_mult()
-                self.ryrs = np.where(here, self.ryrs + (mu_up if tw_ is None else mu_up * tw_), self.ryrs * 0.8)
+                up_y = 1.0 if "climb" in getattr(self, "trace_off", ()) else mu_up   # test only (white_trace)
+                self.ryrs = np.where(here, self.ryrs + (up_y if tw_ is None else up_y * tw_), self.ryrs * 0.8)
             else:
                 self.ryrs = np.where(here, self.ryrs + (1 if tw_ is None else tw_), self.ryrs * 0.8)
             tg = np.where(self.ryrs >= 5, 2, np.where(self.ryrs >= 1, 1, 0)).astype(float)   # years make a regular, then a known face
