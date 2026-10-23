@@ -109,7 +109,7 @@ the Library's drafts and are set empty if the land is cut, which leaves the road
 |---|---|
 | `check_pack.py callings` | all checks pass: 12 titles, 15 perks, 56 moments in 7 files; titles W U B R 7.00, G 8.00 (spread .028) |
 | `check_fields.py callings` | no problems with the land's step titles left out; "to keep the land" (land shape, 5 rungs) is Known after 13.5 years' median effort (9% of those who keep at it), Notable after 23.5 (0.45%), Historic after 31.5 (0.14%) |
-| `check_aims.py callings` | two expected flags: the land's 29 new step titles are not yet catalogue names (the Library pours them with the land), and the faces lean to G (W U B R 1, G 2), the lean Emren's card accepts |
+| `check_aims.py callings` | two expected flags: the land's 30 step titles are not yet catalogue names (the Library pours them with the land), and the faces lean to G (W U B R 1, G 2), the lean Emren's card accepts |
 | the Library's `build.py` on the moments | 9 situations, 90 options (17 with a footprint), no layout problems |
 | the engine's `load_batch` with callings | loads; the steward compiles as a career rung and the keeper as a summit |
 
