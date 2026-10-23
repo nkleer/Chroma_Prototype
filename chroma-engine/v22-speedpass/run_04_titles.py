@@ -341,6 +341,23 @@
         HT_I = [np.array([RID[x_] for x_ in HEIGHT_NAMES[h_] if x_ in RID], int) for h_ in ("Known", "Notable", "Historic")]
         HT_I[1] = np.union1d(HT_I[1], np.nonzero(TIER_ == 2)[0]).astype(int)
         ht_t = np.full((N, 3), -1)             # the week each height was first reached, -1 never
+    # ---- aims v2 (aims_v2; v25 lane B, Emren's decision #9; aims2.py): every held aim on one agenda, its rungs' clocks,
+    # the one resource account, forks for every held aim, gains. v1 above still says where aims come from (from below, a
+    # spark, the player); each aim it takes is held here too, with no slot limit
+    AIM2_ON = AIM_ON and bool(P.get("aims_v2"))
+    AG = aim2 = capacity = aim_forks = aim_fork = A2F_ = None
+    if AIM2_ON:
+        import aims2 as A2_
+        A2P_ = {**A2_.PAR, **(P.get("aims2_par") or {})}
+        A2K_ = (id(L), repr(A2P_.get("field_patch")))
+        if A2_.CACHE.get("key") != A2K_:
+            A2_.CACHE.update(key=A2K_, F=A2_.compile_fields(L, A2P_, C, NIDX, AIM_HEIGHTS))
+        AG = A2_.Agenda(N, A2_.CACHE["F"], A2P_, seed, dict(
+            events=events, r_gain=lambda n_, i_, how_: r_gain(n_, i_, how_), r_lose=lambda n_, i_, why_: r_lose(n_, i_, why_),
+            r_ever=r_ever, ev_cond=lambda c_, ns_: ev_cond(c_, ns_), need=lambda: need, WL=lambda: WL, WON=lambda: WON, ak=ak,
+            astr=astr, NIDX=NIDX, MON=MON, TIM=TIM, PAR=PAR, CAR=CAR, KID=KID, LOAD=LOAD, RID=RID))
+        A2F_ = AG.F["of_v1"]
+        aim2 = A2_.View(AG, "items"); capacity = A2_.View(AG, "account_view"); aim_forks = AG.forks; aim_fork = AG.put_arr
     def aim_fit(mix):
         """How each aim's face fits a mix of colours: the cosine of their leans (1 the same lean)."""
         lm_ = mix / mix.sum() - 1 / C; nr_ = float(np.linalg.norm(lm_))
@@ -366,7 +383,9 @@
         """Life n takes aim a_ (one already held is strengthened to s0). When the slots are full the weakest gives way if
         it is weaker, has no step reached, is no calling and is not the player's (the player's own choice gives way to
         nothing but the player). Returns the slot, -1 for no room. Its steps already reached are read at the next month,
-        without meaning."""
+        without meaning. With aims v2 the aim is held on the agenda too, room or not."""
+        if AIM2_ON and a_ in A2F_:
+            AG.add(n, A2F_[a_], t, by=by, src=src)
         q_ = np.nonzero(ak[n] == a_)[0]
         if len(q_):
             q_ = int(q_[0]); astr[n, q_] = max(astr[n, q_], s0)
@@ -389,6 +408,8 @@
         return q_
     def aim_end(n, q_, what):
         alog(n, q_, what)
+        if AIM2_ON and what in ("let go", "faded") and int(ak[n, q_]) in A2F_:   # aims v2: let go, or faded unpursued
+            AG.v1_end(n, A2F_[int(ak[n, q_])], what)
         gal[n, gal[n] == ak[n, q_]] = -1
         ak[n, q_] = -1; astr[n, q_] = 0.0; astep[n, q_] = 0
         aown[n, q_] = aby[n, q_] = atest[n, q_] = acall[n, q_] = False
@@ -413,6 +434,8 @@
             sp_ = ~aown[on_, q_] & (AIM["spark"][a_] >= 0)
             if sp_.any():
                 pu_[on_[sp_], AIM["spark"][a_[sp_]]] += AP_["spark_seek"] * astr[on_[sp_], q_]
+        if AIM2_ON:   # aims v2: an aim pursued outside v1's slots seeks the ways into its next rung too
+            AG.pull(pu_, AIM["door"], ak)
         return pu_
     def spark_gate(ap_):
         """A spark moment comes at spark_base of its rate (aims_par) to a life none of whose aims or goals is its aim: a

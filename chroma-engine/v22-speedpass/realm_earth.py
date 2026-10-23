@@ -272,3 +272,14 @@ NORM_KEYS_ALL = NORM_KEYS + LAW_V23         # what an option's norm: may name
 # ---- Technology: the keys an option's tech: may name (from world_keys.py)
 TECH_KEYS = ["phone", "computer", "internet", "video calls", "online dating", "remote work", "ai helper", "modern medicine",
              "car", "plane"]
+# v25 aims v2 (lane B, aims_v2; aims-shape.md section 5): Earth's week for the one resource account, hours a week.
+# Waking hours after sleep (about 8.8 h a day), the essentials (eating, personal care, about 2 h a day) and household
+# work (about 2 h a day), a partner's own time, and the free hours of a life with nothing held (world off: res time 1).
+# Rounded from the American Time Use Survey 2019 averages (sleep 8.8 h, eating and personal care 1.9 h, household 1.9 h,
+# leisure and sport 5.2 h a day); provisional, as every aims_v2 number.
+AIM_WEEK = dict(wake=116.0, essentials=14.0, household=13.0, partner=7.0, free_open=36.0)
+# integrated assets (aims-shape.md section 5, "Gains"): a rare asset a life earns once when an integrate outcome shows two
+# of its fields used together. Key: (field, field) by name (either order), or (shape, shape); value dict(name (the
+# asset's words), title ("" or a catalogue title or perk it grants), opens (words: what it opens), rungs (the least rung
+# reached in each, default (1, 1))). The Library writes Earth's; empty, nobody earns one (the mechanism stays).
+AIM_ASSETS = {}

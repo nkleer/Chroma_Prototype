@@ -294,6 +294,8 @@
         # pick is situation 0 as before (the NaN row's argmax); every other row divides as before, bit for bit
         aff /= np.maximum(aff.sum(1, keepdims=True), 1e-300)
         s = (aff.cumsum(1) > rng.random((N, 1))).argmax(1)
+        if AIM2_ON:   # aims v2: the one fork (or agenda review) put this week to a player's life (aim_fork)
+            AG.put(t)
         if pausing:
             _pause_state(pz_st, ST_CELLS, ST_FR)
             s = yield Pause("situation", t, pz_st, s)
