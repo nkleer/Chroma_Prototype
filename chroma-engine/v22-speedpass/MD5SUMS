@@ -60,7 +60,7 @@ ec5143a19d07823924456ec47db5af06  rules_packs.py
 a302f4a475ccb02a57181f30144bf7f9  rules_perks.py
 de2fb10388ea825710f13263ff961c15  rules_titles.py
 703c99edc963ecc11c52e6f94863f1f6  rules_world.py
-fede3c5d1ffd369591b7c161c2ef62fa  world_link_base.py
+a477bf6814143aacc26c4ae844356bd5  world_link_base.py
 9b0ef36d447ba1a30573a69db14f6cd4  world_link_week.py
 1fd57f43baa0a4f477630ddc91424545  world_link_rates.py
 fccb7cc4b9419ae0908ed6a9234d1afe  world_link_life.py
