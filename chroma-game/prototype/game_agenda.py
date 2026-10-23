@@ -263,6 +263,31 @@ class AgendaMixin:
             return s[:1].upper() + s[1:]
         return ""
 
+    @staticmethod
+    def _aim_rec(loc, f):
+        """The fork's first aim's record in S["aim2"] (field, say = the next rung's words), or {}."""
+        a2 = loc.get("aim2") or []
+        a2 = a2[0] if a2 and isinstance(a2[0], (list, tuple)) else a2
+        try:
+            r = a2[int(f.get("aims", [])[0])]
+        except (IndexError, TypeError, ValueError):
+            return {}
+        return r if isinstance(r, dict) else {}
+
+    def _why_now(self, why, raw, pv, aims, rec=None):
+        """Why a fork is put now: when the Engine gives one of the Library's WHY_NOW keys (commit, cost, chance, window,
+        over, changed), its line with the preview's facts and the aim's next rung (S["aim2"] say); else the Engine's
+        words as they are."""
+        rec = rec or {}
+        if AL is None or not isinstance(why, str) or why not in getattr(AL, "WHY_NOW", {}):
+            return why
+        win = (raw.get("window") or {}).get("closes") if isinstance(raw.get("window"), dict) else None
+        others = [w for w in (pv or {}).get("overlaps") or [] if w not in aims]
+        return self._lib_line(AL.WHY_NOW[why], "why:" + why, thing=raw.get("thing") or rec.get("field"),
+                              next=raw.get("next") or rec.get("say"), door=raw.get("door"), hours_words=(pv or {}).get("hours"),
+                              money_words=(pv or {}).get("money"), other=others[0] if others else None,
+                              closes=win is not None and f"when {self.name} is about {int(win)}")
+
     def _lib_preview(self, pv, raw, thing):
         """The preview as the Library's sentences (earth_aim_lines PREVIEW, in PREVIEW_ORDER), for the parts whose facts
         the Engine gave; "" without the Library's table."""
@@ -374,8 +399,10 @@ class AgendaMixin:
             return None
         names = self._names(loc)
         self.history.setdefault("forks_asked", []).append((round(self.age(), 1), str(fid), len(f.get("options", []))))
-        return clean(dict(id=str(fid), aims=[names.get(int(a), "an aim") for a in f.get("aims", [])], kind=f.get("kind", ""),
-                          why=f.get("why", ""), preview=self._preview_words(f.get("preview"), loc, names),
+        aims = [names.get(int(a), "an aim") for a in f.get("aims", [])]
+        pv = self._preview_words(f.get("preview"), loc, names)
+        return clean(dict(id=str(fid), aims=aims, kind=f.get("kind", ""),
+                          why=self._why_now(f.get("why", ""), f.get("preview") or {}, pv, aims, self._aim_rec(loc, f)), preview=pv,
                           urgent=bool(f.get("urgent")), grouped=bool(f.get("grouped")),
                           group=None if f.get("group") is None else str(f["group"]),
                           later=None if s is None else self.fork_later(s)))
