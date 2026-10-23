@@ -224,9 +224,12 @@
     def black_k():
         """black_edge: 1 + black_edge x how Black-led each person is now (Black share .2 -> 0, .5 or more -> 1)."""
         return 1.0 + P["black_edge"] * _uclip((w[:, 2] - 0.2) / 0.3, 0.0, 1.0)
+    TRACE_TO_ = "title_odds" in (P["trace_off"] or ())
     def r_weight(i_):
         """Who is likelier to gain it: practice in its ways (skills), colors that fit its ways, money, or ties."""
         wk_ = GR["rule"][i_]["weight"]
+        if TRACE_TO_ and wk_ in (None, "practice", "colors"):   # test only (trace_off "title_odds"): no colour or practice weight
+            return 1.0
         if wk_ is None and i_ >= NT_ and GR["pkind"][i_ - NT_] == 0:
             wk_ = "practice"
         ind_ = GR["ind"][i_]

@@ -7,6 +7,8 @@ Part of class Game (game.py), which inherits BecauseMixin. What it reads, from t
   pause, summing exactly to the week's change. Copied at the choose pause (cp["nw0"]) and diffed at the end pause, it
   splits what moved after the pick by source.
 - loc["nw_imp"][0]: this week's silent setback, an index into the Library's IMPOSITIONS (-1 none).
+- loc["nw_imp_cause"][0], when the Engine has it (v24, N3): where the setback came from, an index into E.IMP_CAUSES
+  (-1 none); the told line names it.
 "Because of you" is the act itself and what the game did at the pause (a push's cost); "meanwhile" is every other
 source, each line with its biggest cause. Every need change of a point or more lands in at least one group."""
 import numpy as np
@@ -31,6 +33,14 @@ SETBACK_SAY = {                             # the silent setbacks (the Library's
     "your traditions are mocked or banned": "The ways {N} grew up with are mocked.",
     "lawlessness spreads around you": "Things grow lawless around {N}.",
 }
+CAUSE_SAY = {                               # v24 N3: where a setback came from (E.IMP_CAUSES), after the told line's comma
+    "family": "at home", "school": "at school", "work": "at work", "a partner": "through a partner",
+    "friends": "among friends", "crime nearby": "with crime nearby", "a disaster": "after a disaster", "war": "in the war",
+    "the authorities": "by order of the authorities", "the law failing": "as the law fails",
+    "failing health": "as their health fails", "old age": "with old age", "word going round": "as word goes round",
+    "a stranger": "through a stranger",
+}
+CAUSE_NONE = "and they cannot tell why"   # a setback whose cause the Engine did not give
 SPLIT_MIN = 0.005                           # half a point: a part this small is not a line of its own
 SETBACK_AGE = 12.0                          # silent setbacks are told from this age (a small child's are not theirs to read)
 
@@ -43,7 +53,8 @@ class BecauseMixin:
         return np.asarray(loc["nw"][0], float).copy() if self._because_on(loc) else None
 
     def _setback(self, loc):
-        """This week's silent setback as (name, told line), or None."""
+        """This week's silent setback as (name, told line, cause), or None. The cause (v24) is E.IMP_CAUSES' name, or
+        None when the Engine gives none; with no cause key at all the line is as before."""
         if not self._because_on(loc) or "nw_imp" not in loc:
             return None
         i = int(np.asarray(loc["nw_imp"][0]).ravel()[0])
@@ -51,7 +62,14 @@ class BecauseMixin:
         if i < 0 or imp is None or i >= len(imp):
             return None
         nm = imp[i][0]
-        return nm, self.story.fill(SETBACK_SAY.get(nm, "Something goes against {N}."))
+        line = SETBACK_SAY.get(nm, "Something goes against {N}.")
+        if "nw_imp_cause" not in loc or loc["nw_imp_cause"][0] is None:
+            return nm, self.story.fill(line), None
+        c = int(np.asarray(loc["nw_imp_cause"][0]).ravel()[0])
+        cs = getattr(E, "IMP_CAUSES", None) or ()
+        cause = cs[c] if 0 <= c < len(cs) else None
+        say = CAUSE_SAY.get(cause, f"through {cause}") if cause else CAUSE_NONE
+        return nm, self.story.fill(line[:-1] + ", " + say + "."), cause
 
     def _because(self, loc, cpw, needs):
         """The needs the pick's week moved, split into what the pick did and what else happened (each with its cause),
@@ -82,6 +100,8 @@ class BecauseMixin:
         out = dict(you=you, meanwhile=mw)
         if sb:
             out["setback"] = dict(name=sb[0], line=sb[1])
+            if sb[2]:
+                out["setback"]["cause"] = sb[2]
         return out
 
     def because_line(self, sp):

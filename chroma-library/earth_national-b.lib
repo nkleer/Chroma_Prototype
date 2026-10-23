@@ -1,0 +1,1062 @@
+# Chroma library, modern Earth: NATIONAL ROUTE ENCOUNTERS, part b (v25 decision #11, cut item 3; draft 10-23).
+# Pours into chroma-library/earth_national-*.lib (built as earth_national.py; briefs/NATIONAL.md). Drafts only.
+# The last seven routes of world_fit.json national.routes: opportunity_patron, rallying_voice, national_virtuoso,
+# commander, living_land_steward, living_heritage_keeper, community_weaver. Four moments each, all with route: <key>:
+# the route's dilemma at the local step (rungs 0 1), the wider step (2 3) and the national step (4), and one crisis
+# (kind setback, rungs any). Each route mixes practice, a contest or chance, a fork kind and the setback.
+# The national step reaches one of the three, never all: influence (patron, voice, commander), recognition (virtuoso,
+# heritage keeper), authority (land steward, community weaver).
+# Layout: every moment is a life event in the balance layout: W U B R G once each, then one full cross cycle,
+#   s1 = W>U U>B B>R R>G G>W (odd moments)      s2 = W>B U>R B>G R>W G>U (even moments)
+# The commander route is rescue, readiness, discipline and answering to civilian rule: no fighting and no war.
+# The land acts through weather, water, soil, growth and animals; it never judges.
+
+# ================================================================ OPPORTUNITY PATRON (one breakthrough versus a portfolio)
+
+# ---------------------------------------------------------------- local: practice (s1)
+
+== the monthly round of the small ventures backed
+tier: life event
+route: opportunity_patron
+shape: any
+kind: practice
+rungs: 0 1
+fork:
+stages: young_adult adult mature elder
+age: 20-80
+per_year: 0 0 0 0 0 0
+tone: mixed
+life: money, community
+horizon: months
+roles: neighbour, friend, mentor
+earth: the monthly round of the small ventures {N} has backed in town, and one of them wants everything left
+tribal: the round of the families {N} has lent seed and tools to, and one of them asks for all that is left
+magic: the round of the workshops {N} has staked with coin, and one of them asks for the whole purse
+scene: Once a month {N} goes round the small ventures backed with spare savings: {neighbour}'s bakery, a bicycle repair shop, a young singer's first recordings. This month the bakery asks for everything left in the pot for a second oven, sure it is the one that will take off. The others would get nothing until spring.
+scene tribal: Each moon {N} visits the families lent seed and tools from {Ns} own store. This time one household asks for all that is left, to clear a new field they swear will feed half the camp; the others would go without until the thaw.
+scene magic: Each month {N} calls on the workshops staked with a little coin: a glassblower, a scribe, a young lute player. This month the glassblower asks for the whole purse to build a second furnace, certain it will make a name; the others would wait a year.
+- W | keep the shares as agreed at the start, the same for each venture | v: conformity, security | aim: work | foot: mark kept your word | chance: 80
+- U | go through each venture's books properly before moving any money | v: self-direction, achievement | aim: work | foot: mark learned a skill | chance: 70
+- B | put the whole pot behind the bakery, the one most likely to pay | v: power, achievement | aim: work | foot: means money-.06 | chance: 55
+- R | back the singer instead, the long shot nobody else would touch | v: stimulation, self-direction | aim: work | foot: mark took a wild risk | chance: 50
+- G | skip the round this month and let each venture find its own feet | v: security, benevolence | aim: ease | foot: means time+.04 | chance: 85
+- W>U | write down a rule for who gets what, and test it on this month | v: conformity, self-direction | aim: work | foot: lesson a rule beats a hunch | chance: 75
+- U>B | give the bakery half, on condition of a written plan for the oven | v: self-direction, achievement | aim: work | foot: person neighbour | chance: 70
+- B>R | have all three make their case over supper, and back the best pitch | v: power, stimulation | aim: work | foot: person rival | chance: 60
+- R>G | spend the evening helping at the repair shop instead of counting | v: stimulation, benevolence | aim: ease | foot: means ties+.03 | chance: 85
+- G>W | ask the other two whether they would wait, and abide by their answer | v: benevolence, conformity | aim: work | foot: means ties+.04 | chance: 75
+works: By spring the choice has settled, and {N} has a clearer sense of which kind of backer to be.
+works: Nobody gets everything they asked for, and nobody walks away, which in a small town counts.
+fails: The big hope stays a plan, and the money sits where it helps nobody.
+fails: One of the three takes the decision personally, and the next visit there is stiff.
+
+# ---------------------------------------------------------------- wider: cost, fork pay (s2)
+
+== the one big backing that would cost the eight small ones
+tier: life event
+route: opportunity_patron
+shape: any
+kind: cost
+rungs: 2 3
+fork: pay
+stages: young_adult adult mature elder
+age: 24-82
+per_year: 0 0 0 0 0 0
+tone: trouble
+life: money, work
+horizon: months
+roles: ally, colleague, partner
+earth: the fund now backs people across the region, and its one big hope needs most of what it holds
+tribal: the shared store now feeds families across the valley, and one great venture would need most of it
+magic: the patrons' purse now reaches towns across the province, and one bold workshop would drain it
+scene: The small fund {N} set up with {ally} and two others now backs people in towns across the region. A young engineer's water pump, backed early, needs a far larger sum to reach the factories; to pay for it the other funders want to pull out of eight small backings. They decide at the quarterly meeting, two weeks off.
+scene tribal: The store {N} keeps with {ally} and two other families now lends to camps across the valley. A young builder's fish weir, backed early, would need most of the store to build at full size, and eight small loans would have to be called back. The families meet at the full moon.
+scene magic: The purse {N} keeps with {ally} and two merchant houses now stakes workshops across the province. A young artificer's water engine, staked early, needs a sum that would mean closing eight small stakes. The patrons meet in a fortnight.
+- W | pay the share the fund's own rules allow, and not a coin more | v: conformity, security | aim: pay | cost: money .3, time .2, family .1 | foot: mark kept your word | chance: 75
+- U | pay, after an outside engineer checks the design really works at scale | v: self-direction, achievement | aim: pay | cost: money .3, time .3, family .1 | foot: mark learned a skill | chance: 70
+- B | put in personal savings on top, and take a bigger stake in the big hope | v: power, achievement | aim: pay | cost: money .6, time .3, family .3 | foot: means money-.10 | chance: 55
+- R | refuse the big bet, and keep backing the eight odd small ones | v: stimulation, self-direction | aim: refuse | foot: lesson many small seeds | chance: 70
+- G | step back from the fund, and keep only the backings close to home | v: security, benevolence | aim: stop | foot: lesson a small circle holds | chance: 85
+- W>B | pay, and ask the board for a seat to watch where the money goes | v: conformity, power | aim: pay | cost: money .3, time .4, family .2 | foot: means time-.06 | chance: 65
+- U>R | bring in a second fund to share the big backing, and keep the small ones alive | v: self-direction, stimulation | aim: refuse | foot: person colleague | chance: 60
+- B>G | pay, but promise each of the eight a way back in within two years | v: achievement, benevolence | aim: pay | cost: money .4, time .3, family .2 | foot: door kept your word | chance: 60
+- R>W | hold off a season, and put the question to everyone the fund backs | v: stimulation, conformity | aim: ease | foot: means ties+.04 | chance: 75
+- G>U | hand the fund to the others, and keep what it taught for the next one | v: tradition, self-direction | aim: stop | foot: mark learned a skill | chance: 85
+works not G G>U: The meeting ends late with a decision {N} can defend, and the cost is out in the open.
+works: Whatever was chosen, the people backed hear it straight, and most of them respect that.
+fails not G G>U: The money is tighter than the sums said, and two of the small ones feel dropped.
+fails: For weeks afterwards {N} wonders whether the one or the eight was the better bet.
+
+# ---------------------------------------------------------------- national: chance, fork take (s1); influence
+
+== the chair of the country's grants panel
+tier: life event
+route: opportunity_patron
+shape: any
+kind: chance
+rungs: 4
+fork: take
+stages: adult mature elder
+age: 30-85
+per_year: 0 0 0 0 0 0
+tone: mixed
+life: work, publiclife
+horizon: years
+roles: rival, colleague, partner
+earth: a national foundation asks {N} to chair the panel that decides what it funds across the country
+tribal: the moot of the clans asks {N} to say which ventures the shared stores of every clan will feed
+magic: the crown's treasury asks {N} to sit at the head of the table that decides which works the realm stakes
+scene: A national foundation asks {N} to chair its grants panel, which decides which work across the country gets money. The panel's custom is one large prize a year for a single breakthrough; {N} has always spread money thin and wide. The answer is due at the month's end, and it would mean long reading weeks, travel, and letting the local fund go to others.
+scene tribal: The moot of all the clans asks {N} to say which ventures the shared stores of every clan will feed. The custom is to feed one great work each year; {N} has always fed many small ones. They want an answer before the geese go.
+scene magic: The crown's treasury asks {N} to head the table that decides which works the realm will stake. Its custom is one grand stake a year; {N} has always staked many small workshops. The answer is wanted by the month's end.
+- W | accept, once the panel's rules on conflicts of interest are written down | v: conformity, universalism | aim: take | foot: mark kept your word | chance: 75
+- U | ask to sit one round as an ordinary member first, and decide after | v: self-direction, achievement | aim: try | foot: lesson see the table first | chance: 70
+- B | accept, and steer the panel toward one bold prize a year | v: power, achievement | aim: take | foot: means time-.06 | chance: 60
+- R | accept on the spot, and turn the first round upside down | v: stimulation, self-direction | aim: take | foot: mark took a wild risk | chance: 55
+- G | turn it down, and keep backing people close enough to visit | v: benevolence, security | aim: decline | foot: mark stayed home | chance: 85
+- W>U | accept, if the panel publishes why each grant was made | v: conformity, self-direction | aim: take | foot: lesson open reasons build trust | chance: 70
+- U>B | ask for a year's delay to hand the local fund over properly | v: self-direction, achievement | aim: ease | foot: door turned down a chance | chance: 75
+- B>R | stand for the chair against the board's own candidate, and win it outright | v: power, stimulation | aim: try | foot: person rival | chance: 50
+- R>G | accept, and split the one big prize into forty small grants | v: stimulation, benevolence | aim: take | foot: means ties+.04 | chance: 55
+- G>W | let the national road go, and train a younger backer for the local fund | v: benevolence, conformity | aim: stop | foot: person colleague | chance: 85
+works not G G>W U>B: The first round of grants goes out, and some of it lands where nobody had looked before.
+works: Whatever {N} chose, it was chosen with a clear head, and the local fund is in good hands.
+fails not G G>W U>B: The board pushes back on every change, and the first year is mostly arguing over rules.
+fails: Doubt follows the choice for a while, as it does after any large one.
+
+# ---------------------------------------------------------------- crisis: setback (s2)
+
+== the backed venture that went under in public
+tier: life event
+route: opportunity_patron
+shape: any
+kind: setback
+rungs: any
+fork:
+stages: young_adult adult mature elder
+age: 20-85
+per_year: 0 0 0 0 0 0
+tone: trouble
+life: money, friends
+horizon: months
+roles: friend, ally, colleague
+earth: the venture {N} backed hardest fails in public, and the other backers want {Ns} name off it
+tribal: the venture {N} fed most from the store fails before the whole valley, and the families want someone to blame
+magic: the workshop {N} staked most fails before the whole town, and the other patrons want {Ns} name off the stake
+scene: The venture {N} backed hardest, {friend}'s workshop, has failed in public: the money is gone, the local paper makes a meal of it, and the other backers want {Ns} name off everything. {friend} asks for a little more, to wind down properly and pay the staff what they are owed.
+scene tribal: The venture {N} fed most from the shared store, {friend}'s new fishing ground, has failed before the whole valley. The other families want the store's loss named, and {friend} asks for a little more seed to see the helpers through the winter.
+scene magic: The workshop {N} staked most, {friend}'s, has failed before the whole town, and the other patrons want {Ns} name struck from the stake. {friend} asks for a last purse, to pay the journeymen what they are owed.
+- W | honour every promise made to the workshop's staff, out of the fund's reserve | v: conformity, benevolence | aim: work | foot: mark kept your word | chance: 75
+- U | go through what went wrong with {friend}, line by line, and write it up | v: self-direction, achievement | aim: work | foot: mark learned a skill | chance: 70
+- B | buy what can be saved of the workshop cheaply, and start again with it | v: power, achievement | aim: work | foot: means money-.06 | chance: 55
+- R | back {friend}'s next idea at once, before the talk dies down | v: stimulation, self-direction | aim: work | foot: mark took a wild risk | chance: 50
+- G | stop backing ventures, and stay a friend to {friend} through the worst | v: benevolence, security | aim: stop | foot: person friend | chance: 85
+- W>B | stand beside {friend} at the creditors' meeting, and answer every question | v: conformity, power | aim: work | foot: mark owned up | chance: 65
+- U>R | tell the story of the failure openly at the next backers' evening | v: self-direction, stimulation | aim: work | foot: lesson failures teach the room | chance: 65
+- B>G | cover the staff's last wages personally, then rebuild the fund slowly | v: achievement, benevolence | aim: work | foot: means money-.08 | chance: 60
+- R>W | ride out the gossip, and keep every other backing exactly on schedule | v: stimulation, conformity | aim: work | foot: means time-.04 | chance: 70
+- G>U | let the fund go, and keep the eye for people it trained | v: tradition, self-direction | aim: stop | foot: lesson the eye stays sharp | chance: 85
+works: Slowly the talk moves on, and the people {N} backs know now what kind of backer {N} is.
+works: A season later the worst is past, and {friend} still answers when {N} calls.
+fails: The talk lasts longer than it should, and two promising people take their ideas elsewhere.
+fails: It is a slow, sour season, and every new proposal looks like the last one.
+
+# ================================================================ RALLYING VOICE (disruptive pressure versus negotiation)
+
+# ---------------------------------------------------------------- local: practice (s1)
+
+== the weekly meeting about the cut late bus
+tier: life event
+route: rallying_voice
+shape: any
+kind: practice
+rungs: 0 1
+fork:
+stages: young_adult adult mature elder
+age: 18-80
+per_year: 0 0 0 0 0 0
+tone: mixed
+life: community, publiclife
+horizon: months
+roles: elder, colleague, rival
+earth: the weekly residents' meeting about the late bus the town means to cut, and {N} keeps speaking at it
+tribal: the nightly fire where the camp argues over the elders' plan to close the river crossing after dark
+magic: the weekly gathering in the guildhall over the lord's plan to close the night gate
+scene: Every Tuesday the residents meet in the library annex about the late bus the town plans to cut, the one night-shift workers take home. {N} has spoken at the last three meetings, and people now wait to hear what {N} will say. The council has offered talks in a month; some want to block the depot now.
+scene tribal: Every night the camp argues at the fire over the elders' plan to close the river crossing the herders use after dark. People have begun to wait for {N} to speak. The elders will hear one voice at the next moon; some want to sit on the crossing now.
+scene magic: Every week the craftsfolk crowd the guildhall over the lord's plan to close the night gate the late workers use, and they have begun to wait for {N} to speak. The steward offers an audience next month; some want to hold the gate open by standing in it.
+- W | prepare a short, fair statement of the case, and read it at every meeting | v: conformity, universalism | aim: work | foot: mark kept your word | chance: 80
+- U | gather the night workers' hours and numbers, and bring them to the meeting | v: self-direction, achievement | aim: work | foot: mark learned a skill | chance: 70
+- B | ask the council for a seat at the talks, as the residents' spokesperson | v: power, achievement | aim: work | foot: person rival | chance: 55
+- R | call for everyone to fill the depot yard on Friday night | v: stimulation, self-direction | aim: work | foot: mark defied an authority | chance: 55
+- G | sit this week out, and let others take the floor | v: security, benevolence | aim: ease | foot: means time+.04 | chance: 85
+- W>U | take the talks offered, with the night workers' figures in hand | v: conformity, self-direction | aim: work | foot: lesson numbers open doors | chance: 75
+- U>B | find out who on the council could save the bus, and work on that one | v: self-direction, power | aim: work | foot: person colleague | chance: 60
+- B>R | announce a march for next week, and use the threat to bring the talks sooner | v: power, stimulation | aim: work | foot: mark took a wild risk | chance: 55
+- R>G | spend the evening on the last bus, talking with the people who ride it | v: stimulation, benevolence | aim: ease | foot: means ties+.04 | chance: 85
+- G>W | ask the oldest residents what worked last time, and follow their way | v: tradition, conformity | aim: work | foot: person elder | chance: 75
+works: People leave the meeting with something to do, and more of them come next week.
+works: Nothing is saved yet, but those in charge now know the names of the people it would hurt.
+fails: The meeting goes round in circles, and two people walk out before the end.
+fails: Nothing moves this week, and the closing date stays where it was.
+
+# ---------------------------------------------------------------- wider: round, fork round (s2)
+
+== the hall that will not take the movement's booking
+tier: life event
+route: rallying_voice
+shape: any
+kind: round
+rungs: 2 3
+fork: round
+stages: young_adult adult mature elder
+age: 22-82
+per_year: 0 0 0 0 0 0
+tone: mixed
+life: community, publiclife
+horizon: months
+roles: colleague, friend, rival
+earth: the regional hall cancels the movement's bookings after the last rally, and the talks stall; but there is {aim.round}
+tribal: the elders of the next valley refuse the movement a place at their fire; but there is {aim.round}
+magic: the provincial court bars the movement from its hall after the last gathering; but there is {aim.round}
+scene: The movement has grown past the town: buses come from four others now. After the last rally ran late and loud, the regional hall cancels every booking, and the council says it will only talk with people who come through proper channels. {N} has heard of {aim.round}, and the next rally date is a month off.
+scene tribal: The movement now draws people from four valleys. After the last gathering ran loud into the night, the elders of the next valley refuse it a place at their fire and will only hear a proper envoy. {N} has heard of {aim.round}, and the next gathering is a moon off.
+scene magic: The movement now draws craftsfolk from four towns. After the last gathering filled the square past curfew, the provincial court bars it from the hall and will only hear petitions sent in proper form. {N} has heard of {aim.round}, and the next gathering is a month away.
+- W | register the movement properly, and use {aim.round} meanwhile | v: conformity, security | aim: round | foot: mark kept your word | chance: 70
+- U | check who runs {aim.round} and what they would ask of the movement | v: self-direction, security | aim: round | foot: lesson ask what a host wants | chance: 70
+- B | go straight to {aim.round}, and let the council see the crowd it turned away | v: power, achievement | aim: round | foot: mark defied an authority | chance: 55
+- R | hold the rally in the street outside the closed hall, the same night | v: stimulation, self-direction | aim: round | foot: mark took a wild risk | chance: 50
+- G | let the rallies rest for a season, and keep the town groups meeting | v: security, benevolence | aim: ease | foot: means ties+.04 | chance: 85
+- W>B | take the council's offer of talks, with the crowd's demands in writing | v: conformity, power | aim: round | foot: person colleague | chance: 65
+- U>R | move the next rally to {aim.round}, and make it a different kind of day | v: self-direction, stimulation | aim: round | foot: lesson a new room, new rules | chance: 60
+- B>G | apologise for the noise, and ask the hall for a smaller booking later on | v: achievement, benevolence | aim: ease | foot: mark owned up | chance: 70
+- R>W | hand the lead to someone steadier, and step back from the movement | v: stimulation, conformity | aim: stop | foot: lesson a voice can pass on | chance: 85
+- G>U | let the marching go, and keep the friends it made | v: tradition, self-direction | aim: stop | foot: person friend | chance: 85
+works not G B>G R>W G>U: The new way in draws a different crowd, and the council's tone changes a little.
+works: The block matters less than it did, and the movement keeps its shape.
+fails not G B>G R>W G>U: The new way is harder than it sounded, and fewer come from the far towns.
+fails: Some in the movement call the choice weak, others call it reckless, and {N} hears both.
+
+# ---------------------------------------------------------------- national: contest (s1); influence
+
+== the week the night workers' demand goes national
+tier: life event
+route: rallying_voice
+shape: any
+kind: contest
+rungs: 4
+fork:
+stages: young_adult adult mature elder
+age: 26-85
+per_year: 0 0 0 0 0 0
+tone: mixed
+life: publiclife, community
+horizon: week
+roles: colleague, rival, ally
+earth: the movement's demand reaches the country's ministers, and one week will show which way it is won
+tribal: the demand is carried to the great moot of all the clans, and one gathering will settle it
+magic: the demand reaches the crown's council, and one week of audiences will settle it
+scene: The demand has spread across the country, and the ministry invites a delegation to talks next week. In the same week the movement's wider wing plans a stoppage of the night routes in every city. Both sides want {N} at the front, and whatever {N} does will be seen nationally.
+scene tribal: The demand has spread to every clan, and the great moot will hear it at the full moon. In the same days the young of the clans mean to block the trading paths until they are heard. Both want {N} at the front.
+scene magic: The demand has spread through the realm, and the crown's council grants an audience next week. In the same week the guilds of the cities mean to shut the night gates everywhere. Both want {N} at the front.
+- W | lead the delegation, and keep to the agreed list of demands | v: conformity, security | aim: try | foot: mark kept your word | chance: 60
+- U | go to the talks with a costed plan the ministers cannot easily wave away | v: self-direction, achievement | aim: try | foot: mark learned a skill | chance: 55
+- B | go into the talks with the stoppage held back as a threat | v: power, achievement | aim: try | foot: person rival | chance: 50
+- R | lead the stoppage, and let the talks wait until the country feels it | v: stimulation, self-direction | aim: try | foot: mark defied an authority | chance: 45
+- G | stay out of both, and let the movement choose its own voice this time | v: benevolence, security | aim: skip | foot: lesson a movement outgrows its voice | chance: 85
+- W>U | ask the ministry to publish the terms of the talks before agreeing to come | v: conformity, self-direction | aim: try | foot: lesson open terms, fewer tricks | chance: 55
+- U>B | split the week: talks by day, and a quiet count of who would stop by night | v: self-direction, power | aim: try | foot: person colleague | chance: 50
+- B>R | announce the stoppage on air, then walk into the talks | v: power, stimulation | aim: try | foot: mark took a wild risk | chance: 45
+- R>G | march with the night workers, and carry their own words into the ministry | v: stimulation, benevolence | aim: try | foot: means ties+.04 | chance: 55
+- G>W | let the delegation go without {N}, and keep the local groups steady | v: benevolence, conformity | aim: skip | foot: means time+.04 | chance: 85
+works not G G>W: Whatever the week settles, the demand is spoken of nationally now, and {N} is one of the voices saying it.
+works: The choice is one {N} can stand behind when the papers ask, and they do ask.
+fails not G G>W: The ministers give little, and the movement argues over whose fault it is.
+fails: Some in the movement feel let down by the choice, and say so loudly.
+
+# ---------------------------------------------------------------- crisis: setback (s2)
+
+== the night the rally broke the shop windows
+tier: life event
+route: rallying_voice
+shape: any
+kind: setback
+rungs: any
+fork:
+stages: young_adult adult mature elder
+age: 18-85
+per_year: 0 0 0 0 0 0
+tone: trouble
+life: publiclife, conflict
+horizon: months
+roles: colleague, friend, neighbour
+earth: a rally {N} called ends with broken shop windows on the high street, and the town wants someone to answer
+tribal: a gathering {N} called ends with a neighbouring family's stores trampled, and the camp wants an answer
+magic: a gathering {N} called ends with the market stalls overturned, and the square wants an answer
+scene: The rally {N} called ended badly: a few people at the back broke the windows of three shops and the council's front door. Nobody was badly hurt, but the shopkeepers want names, the papers want a statement by morning, and the movement is split on whether to say sorry.
+scene tribal: The gathering {N} called ran on into the night, and some at its edge trampled the winter stores of a neighbouring family. Nobody was hurt, but the family wants names, the elders want an answer by morning, and the movement is split.
+scene magic: The gathering {N} called spilled into the market, and some at its edge overturned the stalls. Nobody was badly hurt, but the stallholders want names, the watch wants an answer by morning, and the movement is split.
+- W | apologise publicly, and help the shopkeepers claim what they are owed | v: conformity, universalism | aim: work | foot: mark owned up | chance: 75
+- U | find out exactly who did it, and where the stewarding failed | v: self-direction, achievement | aim: work | foot: lesson steward the back rows | chance: 65
+- B | deny the movement had any part in it, and carry on | v: power, achievement | aim: work | foot: mark hid a wrong | chance: 50
+- R | call another rally at once, to show the movement is more than this | v: stimulation, self-direction | aim: work | foot: mark took a wild risk | chance: 45
+- G | step down from speaking, and help sweep the street the next morning | v: benevolence, security | aim: stop | foot: means ties+.04 | chance: 85
+- W>B | meet the police and the shopkeepers, and set firm rules for every rally | v: conformity, power | aim: work | foot: person colleague | chance: 65
+- U>R | raise the money for the damage at a street concert that weekend | v: self-direction, stimulation | aim: work | foot: means ties+.03 | chance: 65
+- B>G | pay for one shop's window personally, and ask the movement to cover the rest | v: achievement, benevolence | aim: work | foot: means money-.06 | chance: 60
+- R>W | tell the next meeting plainly what the movement will not do | v: stimulation, conformity | aim: work | foot: lesson a crowd needs limits | chance: 70
+- G>U | let the movement go on without {N}, and keep what it taught about crowds | v: tradition, self-direction | aim: stop | foot: lesson crowds need care | chance: 85
+works: The street is mended within the month, and the movement comes out of it with stricter stewards.
+works: Some trust is lost and some is earned back, and {N} knows now what a crowd can do.
+fails: The story follows the movement for months, and every rally is asked about that night.
+fails: The split over the apology hardens, and a few old friends stop coming.
+
+# ================================================================ NATIONAL VIRTUOSO (an unconventional signature versus a dependable opportunity)
+
+# ---------------------------------------------------------------- local: practice (s1)
+
+== the odd signature and the steady friday slot
+tier: life event
+route: national_virtuoso
+shape: any
+kind: practice
+rungs: 0 1
+fork:
+stages: young_adult adult mature elder
+age: 16-80
+per_year: 0 0 0 0 0 0
+tone: joy
+life: interests, work
+horizon: week
+roles: mentor, friend, rival
+earth: weekly work at {aim.place} on something odd and {Ns} own, while the regular slot wants the usual
+tribal: nights at the fire working on a strange new way of {aim.doing}, while the clan wants the old favourites
+magic: evenings in the guild's practice room on a strange new manner of {aim.doing}, while the patrons ask for the usual
+scene: Every week {N} works at {aim.doing} at {aim.place}, and something odd has started to come out of it: a way of doing it nobody else does. The regular Friday slot pays, and the people who run it want the usual, well done. The next Friday is four days away.
+scene tribal: Night after night {N} works at {aim.doing} by the fire, and something strange has started to come of it, a way nobody in the clan has seen. The clan wants the old favourites at the next feast, and the feast is in four days.
+scene magic: Each evening {N} works at {aim.doing} in the guild's practice room, and a strange new manner has started to come of it. The patrons who pay for the weekly evening want the usual, well done, and the next evening is four days off.
+- W | do the slot exactly as booked, and work on the odd idea after hours | v: conformity, security | aim: work | foot: mark kept your word | chance: 80
+- U | take the odd idea apart in rehearsal until it is clear why it works | v: self-direction, achievement | aim: work | foot: mark learned a skill | chance: 70
+- B | ask for a better slot, and promise something nobody has seen | v: power, achievement | aim: work | foot: means time-.05 | chance: 55
+- R | put the odd idea into Friday without telling anyone first | v: stimulation, self-direction | aim: work | foot: mark took a wild risk | chance: 50
+- G | rest this week, and let the odd idea settle on its own | v: security, tradition | aim: ease | foot: means health+.03 | chance: 85
+- W>U | ask the organisers for five minutes at the end to try the new thing | v: conformity, self-direction | aim: work | foot: lesson ask, then surprise | chance: 75
+- U>B | record the new thing and send it quietly to bigger places | v: self-direction, achievement | aim: work | foot: door learned a skill | chance: 60
+- B>R | challenge the slot's favourite to a night where both go head to head | v: power, stimulation | aim: work | foot: person rival | chance: 55
+- R>G | try the new thing on friends at home first, just for the fun of it | v: hedonism, benevolence | aim: ease | foot: person friend | chance: 85
+- G>W | ask {mentor} whether the new thing honours what came before | v: tradition, conformity | aim: work | foot: person mentor | chance: 75
+works: Something in the odd idea takes, and a few people come back the next week asking for it.
+works: The week goes well enough, and {N} knows a little more about what is {Ns} own.
+fails: The odd idea falls flat, and the room goes politely quiet.
+fails: The week is a muddle of rehearsals that do not add up, and Friday is only fine.
+
+# ---------------------------------------------------------------- wider: contest (s2)
+
+== the festival that wants the safe version
+tier: life event
+route: national_virtuoso
+shape: any
+kind: contest
+rungs: 2 3
+fork:
+stages: young_adult adult mature elder
+age: 18-82
+per_year: 0 0 0 0 0 0
+tone: mixed
+life: interests, work
+horizon: week
+roles: friend, patron, rival
+earth: a big date beyond the town, {aim.contest}, wants {N}, and wants the safe version
+tribal: the gathering of the valleys asks {N} to perform, and the elders want what everyone already knows
+magic: the provincial festival invites {N}, and the patrons ask for the manner the court already likes
+scene: {aim.contest} has asked for {N}, the first time people from far beyond the town will see it. The organisers want the version that made {Ns} name locally; {N} wants to show the strange new thing, which might win the day or empty the seats. The programme is printed on Friday.
+scene tribal: The gathering of the valleys has asked for {N}, the first time the far clans will see it. The elders want what made {Ns} name at home; {N} wants to show the strange new way, which might win the gathering or leave it cold. The gathering is in six days.
+scene magic: The provincial festival has invited {N}, the first time the province will see it. The patrons want the manner that made {Ns} name in town; {N} wants to show the strange new one, which might win the day or empty the benches. The programme goes to the printer on Friday.
+- W | perform exactly the version that was agreed, and perform it well | v: conformity, security | aim: try | foot: mark kept your word | chance: 65
+- U | open with the safe version, and close with the new thing, timed to the minute | v: self-direction, achievement | aim: try | foot: mark learned a skill | chance: 55
+- B | insist on the new thing, or no appearance at all | v: power, achievement | aim: try | foot: mark defied an authority | chance: 45
+- R | agree to the safe version, then change it on the night | v: stimulation, self-direction | aim: try | foot: mark took a wild risk | chance: 45
+- G | turn the invitation down this year, and keep growing at home | v: security, tradition | aim: skip | foot: mark stayed home | chance: 85
+- W>B | do the safe version, and use the attention to book a show of {Ns} own | v: conformity, power | aim: try | foot: person patron | chance: 55
+- U>R | rework the new thing so the organisers can see it working first | v: self-direction, stimulation | aim: try | foot: lesson show it before asking | chance: 55
+- B>G | bring the troupe or team from home, and share the day with them | v: achievement, benevolence | aim: try | foot: means ties+.04 | chance: 55
+- R>W | perform the new thing, and promise the safe one for the close | v: stimulation, conformity | aim: try | foot: person friend | chance: 50
+- G>U | skip it, and spend the season finishing the new thing properly | v: tradition, self-direction | aim: skip | foot: door learned a skill | chance: 80
+works not G G>U: People talk about it afterwards, the delighted and the puzzled, and {Ns} name travels with the talk.
+works: The choice holds, and {N} comes away knowing which audience to play for next.
+fails not G G>U: The day goes flat, and the write-up uses the word promising in the tired way.
+fails: For a while {N} wonders what would have happened the other way.
+
+# ---------------------------------------------------------------- national: chance, fork take (s1); recognition
+
+== the three-year contract to do the famous thing nightly
+tier: life event
+route: national_virtuoso
+shape: any
+kind: chance
+rungs: 4
+fork: take
+stages: young_adult adult mature elder
+age: 20-85
+per_year: 0 0 0 0 0 0
+tone: mixed
+life: work, money
+horizon: years
+roles: rival, partner, friend
+earth: a national company offers {N} three years of the famous thing, every night, for good money
+tribal: the great moot offers {N} a place at every gathering of the clans, if {N} gives them what they all know
+magic: the court offers {N} a household post, if {N} performs the one manner the crown loves at every feast
+scene: The country knows {Ns} name now. A national company offers a three-year contract: steady money, a national audience every night, and the one thing people already love, done the same way each time. It would leave little room for the strange new work, and the offer stands until the end of the month.
+scene tribal: Every clan knows {Ns} name now. The great moot offers {N} a place at every gathering for three winters, fed and honoured, if {N} gives them the thing they already love, the same each time. The offer stands until the geese go.
+scene magic: The whole realm knows {Ns} name now. The court offers a household post for three years, with a stipend, if {N} performs the one manner the crown loves at every feast. The offer stands until the month's end.
+- W | sign, once the contract leaves one night a month for new work | v: security, conformity | aim: take | foot: mark kept your word | chance: 70
+- U | ask for a trial season first, and decide on what it shows | v: self-direction, achievement | aim: try | foot: lesson a season before a promise | chance: 65
+- B | sign, and negotiate a share of every ticket sold | v: power, achievement | aim: take | foot: means money+.10 | chance: 65
+- R | turn it down, and tour the strange new work wherever it will play | v: stimulation, self-direction | aim: decline | foot: mark turned down a chance | chance: 60
+- G | sign for one year only, and keep the family's rhythm | v: security, benevolence | aim: take | foot: means ties+.03 | chance: 70
+- W>U | sign, if the company also stages one new work of {Ns} own each year | v: conformity, self-direction | aim: take | foot: door kept your word | chance: 60
+- U>B | ask to start next year, and spend this one making the new work ready | v: self-direction, achievement | aim: ease | foot: door turned down a chance | chance: 75
+- B>R | make the company bid against a rival offer, and take the bolder one | v: power, stimulation | aim: try | foot: person rival | chance: 50
+- R>G | decline, and take the new work back to the small rooms where it began | v: hedonism, benevolence | aim: decline | foot: place arts.stage | chance: 80
+- G>W | let the national stage go with thanks, and teach the young ones at home | v: benevolence, conformity | aim: stop | foot: lesson a name can rest | chance: 85
+works not R R>G G>W U>B: The nights settle into a rhythm, and the country keeps saying {Ns} name.
+works: Whatever {N} chose, it was chosen with open eyes, and the work stays honest.
+fails not R R>G G>W U>B: The same thing every night wears thin sooner than anyone expected.
+fails: Second thoughts come at night for a while, the way they do after any big choice.
+
+# ---------------------------------------------------------------- crisis: setback (s2)
+
+== the signature work the critics tore apart
+tier: life event
+route: national_virtuoso
+shape: any
+kind: setback
+rungs: any
+fork:
+stages: young_adult adult mature elder
+age: 18-85
+per_year: 0 0 0 0 0 0
+tone: trouble
+life: work, inner
+horizon: months
+roles: patron, friend, mentor
+earth: the big staging of {Ns} own strange work is panned, and half the seats are empty by the second week
+tribal: the new way {N} brought to the great gathering is met with silence, and the clans talk of it all season
+magic: the new work {N} brought before the court is met with cold faces, and the patrons send word of their displeasure
+scene: The big staging of {Ns} own strange work opens to cruel reviews, and by the second week half the seats are empty. The backers want the old crowd-pleaser back in by the weekend; the people who loved the new work write to say do not give in.
+scene tribal: The new way {N} brought to the great gathering was met with silence, and the clans have talked of it all season. The elders want the old favourites back at the next feast; a few of the young come to say they loved it.
+scene magic: The new work {N} brought before the court was met with cold faces, and the patrons send word that the old manner had better return by the next feast. A handful of apprentices write to say it was the best thing they ever saw.
+- W | finish the run as promised, every night, to whoever comes | v: conformity, security | aim: work | foot: mark kept your word | chance: 75
+- U | read every review, find the real fault, and fix it mid-run | v: self-direction, achievement | aim: work | foot: mark learned a skill | chance: 60
+- B | put the crowd-pleaser back in and win the backers round | v: power, achievement | aim: work | foot: means money+.06 | chance: 65
+- R | double down and make the strangest part stranger still | v: stimulation, self-direction | aim: work | foot: mark took a wild risk | chance: 45
+- G | close the run, step off the big stage for good, and rest | v: security, benevolence | aim: stop | foot: means health+.04 | chance: 85
+- W>B | meet the backers, keep the new work, and cut the run to weekends | v: conformity, power | aim: work | foot: person patron | chance: 60
+- U>R | open the rehearsals to the audience and rebuild the work in front of them | v: self-direction, stimulation | aim: work | foot: lesson rebuild in the open | chance: 55
+- B>G | answer every letter, and give one free night for those who stayed | v: achievement, benevolence | aim: work | foot: means ties+.04 | chance: 70
+- R>W | laugh about it in public, then go back to the dull daily work | v: stimulation, conformity | aim: work | foot: lesson laugh, then work | chance: 70
+- G>U | let the national stage go, and keep the craft for small rooms and pupils | v: tradition, self-direction | aim: stop | foot: door learned a skill | chance: 85
+works: The worst nights pass, and a smaller audience stays that understands the work.
+works: A season on, {N} knows more about what the work asks and what it can bear.
+fails: The reviews follow {N} into the next year, and offers come slower.
+fails: It is a grey season, and the work feels heavier each time it is picked up.
+
+# ================================================================ COMMANDER (action under uncertainty versus waiting; rescue and readiness, never war)
+
+# ---------------------------------------------------------------- local: practice (s1)
+
+== the rescue team's training night under a storm warning
+tier: life event
+route: commander
+shape: any
+kind: practice
+rungs: 0 1
+fork:
+stages: young_adult adult mature elder
+age: 18-75
+per_year: 0 0 0 0 0 0
+tone: mixed
+life: work, community
+horizon: week
+roles: colleague, mentor, elder
+earth: the weekly training night at the volunteer rescue station, under a storm warning that may come to nothing
+tribal: the evening practice of the river watch, with clouds on the hills that may bring a flood or nothing
+magic: the wardens' weekly drill at the watchtower, with a storm on the horizon that may or may not break
+scene: It is training night at the volunteer rescue station, and {N} now leads the watch. A storm warning has gone out, half certain. {N} could run the planned rope drill indoors as usual, or take the team out to the river now, in the rain, to practise for the real thing; some of them start work at dawn.
+scene tribal: It is the river watch's evening of practice, and {N} leads it now. Clouds sit heavy on the hills: they may bring a flood by morning or nothing at all. {N} could drill by the fire as usual, or take the watch down to the water now, in the rain.
+scene magic: It is the wardens' weekly drill at the watchtower, and {N} commands the watch now. A storm stands on the horizon and may or may not break. {N} could drill in the yard as the book says, or take the wardens down to the swollen ford now.
+- W | run the planned drill exactly by the training book | v: conformity, security | aim: work | foot: mark kept your word | chance: 80
+- U | read the river gauges with the team, and drill for what they show | v: self-direction, achievement | aim: work | foot: mark learned a skill | chance: 70
+- B | push the team through a hard night drill to see who holds up | v: power, achievement | aim: work | foot: person rival | chance: 55
+- R | take the team to the river now, in the rain, and practise for real | v: stimulation, self-direction | aim: work | foot: mark took a wild risk | chance: 50
+- G | send everyone home early to rest, in case they are needed tonight | v: security, benevolence | aim: ease | foot: means health+.03 | chance: 85
+- W>U | drill indoors, then talk through what each one would do if the river rose | v: conformity, self-direction | aim: work | foot: lesson talk it through first | chance: 75
+- U>B | pair each new volunteer with an old hand, and test the pairs | v: self-direction, achievement | aim: work | foot: person mentor | chance: 65
+- B>R | call a surprise full turnout at midnight, and time how fast they come | v: power, stimulation | aim: work | foot: means time-.05 | chance: 55
+- R>G | keep it short and warm: tea, the kit checked, stories from old rescues | v: hedonism, benevolence | aim: ease | foot: means ties+.04 | chance: 85
+- G>W | check on the old people by the river first, as the station always has | v: tradition, conformity | aim: work | foot: mark helped someone in need | chance: 75
+works: The team goes home tired and a little sharper, and they trust the call {N} made.
+works: Whatever the storm does, the station is ready for it, and the newer ones know their places.
+fails: The night is wet and wasted, and two volunteers grumble about it for a week.
+fails: The drill shows gaps nobody had seen, and the team ends the night unsettled.
+
+# ---------------------------------------------------------------- wider: contest (s2)
+
+== the joint search in the fog for the lost walkers
+tier: life event
+route: commander
+shape: any
+kind: contest
+rungs: 2 3
+fork:
+stages: young_adult adult mature elder
+age: 22-75
+per_year: 0 0 0 0 0 0
+tone: trouble
+life: work, community
+horizon: week
+roles: colleague, elder, friend
+earth: three walkers are missing in the hills, and {N} is asked to lead the joint search, in fog that may lift or thicken
+tribal: three herders have not come down from the high pasture, and {N} is asked to lead the search in the mist
+magic: three travellers are lost on the mountain road, and the wardens ask {N} to lead the search through the fog
+scene: Three walkers are missing in the hills, and four rescue teams from across the region are put under {Ns} lead, answerable to the civil incident chief. The fog may lift by morning or thicken. Going now could find them sooner or lose a searcher; waiting is safer for the teams and longer for the walkers.
+scene tribal: Three herders have not come down from the high pasture, and the watches of four camps are put under {Ns} lead, answerable to the elders' council. The mist may lift at dawn or thicken. Going now could find them sooner; waiting is safer for the searchers.
+scene magic: Three travellers are lost on the mountain road, and four wardens' posts are put under {Ns} lead, answerable to the town's magistrate. The fog may lift by morning or thicken. Going now could find them sooner; waiting is safer for the wardens.
+- W | follow the incident chief's plan to the letter, and report every hour | v: conformity, security | aim: try | foot: mark kept your word | chance: 65
+- U | map where walkers usually go wrong, and search those places first | v: self-direction, achievement | aim: try | foot: mark learned a skill | chance: 60
+- B | take full command of all four teams, and run it as one operation | v: power, achievement | aim: try | foot: person rival | chance: 50
+- R | lead the fastest team up now, into the fog, and send for the rest | v: stimulation, self-direction | aim: try | foot: mark took a wild risk | chance: 45
+- G | hand the lead to the local team who know the hills, and support them | v: benevolence, tradition | aim: skip | foot: person colleague | chance: 80
+- W>B | send the teams up in pairs on fixed lines, with firm control at base | v: conformity, power | aim: try | foot: means time-.05 | chance: 55
+- U>R | search the low paths now, and the high ground the moment the fog lifts | v: self-direction, stimulation | aim: try | foot: lesson act on what is known | chance: 55
+- B>G | go at first light with every team at once, and keep the families told | v: achievement, benevolence | aim: try | foot: means ties+.04 | chance: 60
+- R>W | go now, but only with volunteers, and with a firm turn-back time | v: stimulation, conformity | aim: try | foot: person friend | chance: 55
+- G>U | ask the shepherds who know the hill paths where people shelter | v: tradition, self-direction | aim: try | foot: person elder | chance: 60
+works not G: The walkers are found cold and frightened but whole, and the four teams go home as one.
+works: The choice can be explained to the incident chief and to the families, and it is.
+fails not G: The search runs on into the next day, and the teams are worn out before the walkers are found.
+fails: The night leaves {N} going over every decision, as anyone would.
+
+# ---------------------------------------------------------------- national: plateau, fork go_on (s1); influence
+
+== the readiness advice the ministers keep postponing
+tier: life event
+route: commander
+shape: any
+kind: plateau
+rungs: 4
+fork: go_on
+stages: adult mature elder
+age: 32-80
+per_year: 0 0 0 0 0 0
+tone: mixed
+life: work, publiclife
+horizon: years
+roles: colleague, rival, mentor
+earth: two years on the country's readiness board, and the advice {N} gives on floods keeps being put off
+tribal: two winters speaking at the great moot for readiness against floods, and the clans keep putting it off
+magic: two years on the crown's council of wardens, and the advice on the floods keeps being set aside
+scene: For two years {N} has sat on the country's readiness board, which advises the ministers, and the advice to prepare the river towns for floods keeps going to another review. The ministers decide; the board only advises. The next review is in the spring, and {N} has to say whether to stay on.
+scene tribal: For two winters {N} has spoken at the great moot for readying the river camps against floods, and each time the clans put it off to the next moot. The clan heads decide; {N} only advises. The next moot is in the spring.
+scene magic: For two years {N} has sat on the crown's council of wardens, and the advice to ready the river towns against floods is set aside at every sitting. The crown's ministers decide; the wardens only advise. The next sitting is in spring.
+- W | stay on, and put the case again through the board's proper channels | v: conformity, security | aim: work | foot: mark kept your word | chance: 70
+- U | gather better evidence from the river towns, and bring it to the spring review | v: self-direction, achievement | aim: work | foot: mark learned a skill | chance: 60
+- B | build support among the ministers one by one, outside the meetings | v: power, achievement | aim: work | foot: person colleague | chance: 55
+- R | resign from the board, and say plainly why | v: stimulation, self-direction | aim: stop | foot: mark defied an authority | chance: 75
+- G | stay on at a slower pace, and spend more time in the river towns | v: security, benevolence | aim: ease | foot: means ties+.04 | chance: 85
+- W>U | accept the ministers' decision, and ask for a written reason for the delay | v: conformity, self-direction | aim: work | foot: lesson ask for the reason | chance: 70
+- U>B | help one river town prepare on its own, as a working example | v: self-direction, achievement | aim: work | foot: place prot.rescue | chance: 60
+- B>R | brief the papers on the risk, within what the board's rules allow | v: power, stimulation | aim: work | foot: mark took a wild risk | chance: 50
+- R>G | step back to the local station, where acting waits on nobody | v: stimulation, benevolence | aim: stop | foot: lesson near work, quick work | chance: 85
+- G>W | hand the seat to a younger officer, and keep advising when asked | v: benevolence, conformity | aim: stop | foot: lesson advice outlasts the seat | chance: 85
+works: The spring review moves a little, late, and {N} can see the choice was the right one.
+works: A month on, the choice sits right, and the river towns know someone is listening.
+fails: The review is put off again, and the waiting is its own hard work.
+fails: The doubt does not go away with the decision, and {N} keeps turning it over.
+
+# ---------------------------------------------------------------- crisis: setback (s2)
+
+== the order that left a volunteer hurt in the floodwater
+tier: life event
+route: commander
+shape: any
+kind: setback
+rungs: any
+fork:
+stages: young_adult adult mature elder
+age: 18-80
+per_year: 0 0 0 0 0 0
+tone: trouble
+life: work, conflict
+horizon: months
+roles: colleague, mentor, friend
+earth: on a flood rescue a volunteer crossing on {Ns} order breaks a leg, and there will be an inquiry
+tribal: on a river rescue one of the watch, sent across on {Ns} word, is caught by the current and breaks a leg
+magic: on a flood rescue a warden sent across on {Ns} order loses footing in the current and breaks a leg
+scene: On a flood rescue last week {N} sent {colleague} across a flooded yard to reach a stranded family; the current took {colleague} off balance, and {colleague} broke a leg. The family was reached and {colleague} will mend. There is an inquiry next month, and the team is waiting to hear what {N} says.
+scene tribal: At the last flood {N} sent {colleague} across the river meadow to reach a family on a roof; the current took {colleague} off balance, and a leg broke. The family was reached and the leg will mend. The elders will hear the matter at the new moon, and the watch waits to hear {N}.
+scene magic: At the last flood {N} ordered {colleague} across the drowned yard to reach a stranded household; the current took {colleague} off balance, and a leg broke. The household was reached and the leg will mend. The magistrate will hear the matter next month.
+- W | answer the inquiry fully, and take responsibility for the order | v: conformity, universalism | aim: work | foot: mark owned up | chance: 75
+- U | rebuild the crossing step by step, and find where the plan failed | v: self-direction, achievement | aim: work | foot: mark learned a skill | chance: 65
+- B | defend the order: it reached a family, and the risk was known | v: power, achievement | aim: work | foot: person rival | chance: 50
+- R | get the team back out on the water this week, before fear sets in | v: stimulation, self-direction | aim: work | foot: mark took a wild risk | chance: 50
+- G | step down from leading, and visit {colleague} through the mending | v: benevolence, security | aim: stop | foot: person colleague | chance: 85
+- W>B | change the station's rules on crossings, and enforce them firmly | v: conformity, power | aim: work | foot: lesson write the hard lesson down | chance: 65
+- U>R | train the team on moving water with an outside expert, starting now | v: self-direction, stimulation | aim: work | foot: person mentor | chance: 60
+- B>G | keep leading, and make sure {colleague}'s household wants for nothing | v: achievement, benevolence | aim: work | foot: means money-.05 | chance: 65
+- R>W | talk it through with the whole team, openly, before the inquiry does | v: stimulation, conformity | aim: work | foot: means ties+.04 | chance: 70
+- G>U | hand over the unit, and teach water rescue to new volunteers instead | v: tradition, self-direction | aim: stop | foot: lesson teach what it cost | chance: 85
+works: The inquiry is hard and fair, and the team comes out of it trusting {N} more, not less.
+works: {colleague} walks again by spring, and nobody on the team forgets how {N} answered for it.
+fails: The inquiry drags, and some of the team stop answering the night calls.
+fails: The weeks are heavy, and {N} goes over the order more often than is useful.
+
+# ================================================================ LIVING-LAND STEWARD (immediate protection versus agreement with land users)
+
+# ---------------------------------------------------------------- local: practice (s1)
+
+== the saturday work day on the trampled brook bank
+tier: life event
+route: living_land_steward
+shape: any
+kind: practice
+rungs: 0 1
+fork:
+stages: young_adult adult mature elder
+age: 16-85
+per_year: 0 0 0 0 0 0
+tone: mixed
+life: nature, community
+horizon: week
+roles: neighbour, elder, friend
+earth: the Saturday work day on the brook {N} looks after, where a neighbour's cattle have trampled the new planting
+tribal: the work of keeping the spring by the camp, where a herding family's goats have eaten the young shoots
+magic: the week's work on the brook below the town, where a farmer's herd has broken through the new hedge
+scene: Every Saturday {N} and a few others work on the stretch of brook below the town: willow stakes, clearing rubbish, counting the fish. This week the new planting is trampled flat where {neighbour}'s cattle come down to drink. The rain has softened the bank, and the stakes need to go back in before the next high water.
+scene tribal: Every few days {N} and some others tend the spring below the camp: stones set, reeds planted, the water kept clear. This time the young shoots are eaten to the ground where {neighbour}'s goats come to drink, and the rains have softened the bank.
+scene magic: Every week {N} and a few others tend the brook below the town: hazel set, the channel cleared, the trout counted. This week {neighbour}'s herd has broken through the new hedge to drink, and the rain has softened the bank before the spring floods.
+- W | replant by the book, and report the damage to the water board | v: conformity, security | aim: work | foot: mark kept your word | chance: 75
+- U | measure how far the bank has slipped, and plan the planting from that | v: self-direction, achievement | aim: work | foot: mark learned a skill | chance: 70
+- B | put up a fence across the drinking place this very afternoon | v: power, security | aim: work | foot: person rival | chance: 60
+- R | replant the whole bank in one long day, rain or not | v: stimulation, self-direction | aim: work | foot: means health-.03 | chance: 60
+- G | leave the bank to rest this week and see what grows back by itself | v: tradition, security | aim: ease | foot: lesson the bank mends slowly | chance: 85
+- W>U | ask {neighbour} to share a drinking trough set back from the bank | v: universalism, self-direction | aim: work | foot: person neighbour | chance: 65
+- U>B | offer {neighbour} willow cuttings for a hedge, in return for a fenced gap | v: self-direction, achievement | aim: work | foot: means ties+.03 | chance: 65
+- B>R | rope in the youth club and turn the replanting into a race | v: power, stimulation | aim: work | foot: person friend | chance: 65
+- R>G | spend the morning walking the brook with {neighbour}, just talking | v: stimulation, benevolence | aim: ease | foot: means ties+.04 | chance: 85
+- G>W | do it the way the old keepers did: stakes, brush and patience | v: tradition, conformity | aim: work | foot: person elder | chance: 75
+works: The stakes are in before the next rain, and by summer the bank is holding.
+works: The brook runs a little clearer, and {neighbour} nods across the field now.
+fails: The next heavy rain takes half the stakes, and the work starts over.
+fails: The talk about the herd goes badly, and the bank stays bare another season.
+
+# ---------------------------------------------------------------- wider: round, fork round (s2)
+
+== the three farms the river corridor must cross
+tier: life event
+route: living_land_steward
+shape: any
+kind: round
+rungs: 2 3
+fork: round
+stages: young_adult adult mature elder
+age: 22-85
+per_year: 0 0 0 0 0 0
+tone: mixed
+life: nature, work
+horizon: months
+roles: neighbour, colleague, rival
+earth: the restored river corridor reaches three farms whose owners say no; but there is {aim.round}
+tribal: the restored stream reaches the grazing of three families who will not give way; but there is {aim.round}
+magic: the restored river reaches three estates whose lords refuse it; but there is {aim.round}
+scene: The restoration has worked: otters are back on the river, and other towns ask {N} to come and advise. But the corridor downstream crosses three farms, and their owners say no: they lost land to the last scheme. The grant for the next stretch runs out at the year's end, and {N} has heard of {aim.round}.
+scene tribal: The restored stream runs clear again, the fish are back, and other camps ask {N} to show them how. But below the camp it crosses the grazing of three families, who say no: they lost pasture the last time. The season for the work ends with the first frost, and {N} has heard of {aim.round}.
+scene magic: The restored river runs clear, the otters are back, and other towns send for {N}. But downstream it crosses three estates whose lords refuse it, remembering land lost to the last scheme. The guild's purse for the work closes at the year's end, and {N} has heard of {aim.round}.
+- W | apply for {aim.round} through the proper process, with the farmers informed | v: conformity, security | aim: round | foot: mark kept your word | chance: 70
+- U | look into {aim.round}: what it costs the farms and what it gives the river | v: self-direction, achievement | aim: round | foot: lesson count both sides first | chance: 70
+- B | ask the regional board to require the corridor, whatever the farmers say | v: power, achievement | aim: round | foot: person rival | chance: 55
+- R | take {aim.round} at once, and let the farmers see the results for themselves | v: stimulation, self-direction | aim: round | foot: mark took a wild risk | chance: 55
+- G | let the downstream stretch wait, and look after what is already restored | v: security, tradition | aim: ease | foot: means time+.04 | chance: 85
+- W>B | draw up a written agreement with each farm: what is paid, what is kept | v: conformity, power | aim: round | foot: means money-.05 | chance: 60
+- U>R | design a narrower corridor that spares the farms' best fields, and try it on one | v: self-direction, stimulation | aim: round | foot: mark learned a skill | chance: 60
+- B>G | spend the winter at the farmers' kitchen tables before asking anything | v: achievement, benevolence | aim: ease | foot: person neighbour | chance: 75
+- R>W | hand the corridor to the regional trust, and step back from it | v: stimulation, conformity | aim: stop | foot: lesson others can carry it | chance: 85
+- G>U | let the wider work go, and keep tending the home stretch for good | v: tradition, self-direction | aim: stop | foot: place prod.wild | chance: 85
+works not G B>G R>W G>U: One farm signs, then a second, and the river starts to come back below them.
+works: The choice holds, and the restored stretch keeps doing well whatever the farms decide.
+fails not G B>G R>W G>U: The new way is slower than it looked, and the money runs down while the talks go on.
+fails: The farmers remember the choice, and it takes a long while for the coldness to lift.
+
+# ---------------------------------------------------------------- national: chance, fork take (s1); authority
+
+== the offer to head the national parks
+tier: life event
+route: living_land_steward
+shape: any
+kind: chance
+rungs: 4
+fork: take
+stages: adult mature elder
+age: 30-80
+per_year: 0 0 0 0 0 0
+tone: mixed
+life: nature, publiclife
+horizon: years
+roles: rival, colleague, partner
+earth: the post at the head of the country's national parks is free, and the selection panel offers it to {N}
+tribal: the great moot asks {N} to keep all the wild lands of the clans, not only the home valley
+magic: the crown offers {N} the wardenship of all the realm's wild lands
+scene: The reserve {N} founded is known across the country now, and the post at the head of the national parks is free. The panel offers it to {N}. The first job waiting is hard: a wetland in one park is drying in a third dry summer, and the farming bodies want the parks' water for their crops. It would mean leaving the home reserve, and the answer is due in a month.
+scene tribal: The valley {N} keeps is spoken of at every clan's fire, and the great moot asks {N} to keep all the wild lands of the clans. The first task is hard: a marsh on the far plain is drying in a third dry summer, and the herding clans want its water for their beasts. The moot wants an answer by the new moon.
+scene magic: The reserve {N} founded is known through the realm, and the crown offers {N} the wardenship of all its wild lands. The first task is hard: a fen in the north is drying in a third dry summer, and the great farms want its water. The answer is due within the month.
+- W | accept, and work by the parks' charter from the first day | v: conformity, security | aim: take | foot: mark kept your word | chance: 70
+- U | ask for the water figures of every park before saying yes | v: self-direction, achievement | aim: try | foot: mark learned a skill | chance: 65
+- B | accept, on condition the parks control their own water | v: power, achievement | aim: take | foot: person rival | chance: 55
+- R | accept, and go straight to the drying wetland in the first week | v: stimulation, self-direction | aim: take | foot: mark took a wild risk | chance: 60
+- G | decline, and stay with the reserve and the people who keep it | v: benevolence, tradition | aim: decline | foot: mark stayed home | chance: 85
+- W>U | accept, and set up a standing table with the farmers before summer | v: conformity, self-direction | aim: take | foot: lesson a table before a fight | chance: 65
+- U>B | ask to start in the autumn, once the home reserve has a new keeper | v: self-direction, achievement | aim: ease | foot: door turned down a chance | chance: 75
+- B>R | accept, and open the parks' edges to the farmers' herds on strict terms | v: power, stimulation | aim: take | foot: means ties+.04 | chance: 55
+- R>G | decline the post, and help at the drying wetland as a volunteer | v: stimulation, benevolence | aim: decline | foot: place prod.wild | chance: 80
+- G>W | let the national road go, and train the next keeper of the home stretch | v: benevolence, conformity | aim: stop | foot: person colleague | chance: 85
+works not G R>G G>W U>B: The first summer is hard, and by its end the parks and the farmers are still talking.
+works: Whatever {N} chose, the home reserve is in good hands, and the choice was made with open eyes.
+fails not G R>G G>W U>B: The dry summer sets everyone against everyone, and the first year is all arguments.
+fails: Second thoughts come at night for a while, as they do after any choice this size.
+
+# ---------------------------------------------------------------- crisis: setback (s2)
+
+== the flood that broke the new banks onto the farm
+tier: life event
+route: living_land_steward
+shape: any
+kind: setback
+rungs: any
+fork:
+stages: young_adult adult mature elder
+age: 18-85
+per_year: 0 0 0 0 0 0
+tone: trouble
+life: nature, conflict
+horizon: months
+roles: neighbour, colleague, friend
+earth: a winter flood breaks the restored banks and spreads silt over {neighbour}'s best field
+tribal: the spring melt breaks the new banks of the stream and spreads mud over a family's grazing
+magic: a storm flood breaks the new banks and buries a farmer's field under silt
+scene: A winter flood, the worst in years, broke through the banks {N} restored and spread silt over {neighbour}'s best field. The reserve itself came through well; the farm did not. {neighbour} says the scheme caused it, the papers are asking, and the trust meets on Monday to decide what to do.
+scene tribal: The spring melt came fast and broke through the banks {N} built up, and spread mud over {neighbour}'s best grazing. The stream's own ground came through; the grazing did not. {neighbour} says the new banks caused it, and the camp will talk of it at the fire tonight.
+scene magic: A storm flood broke through the banks {N} restored and buried {neighbour}'s best field under silt. The reserve came through well; the farm did not. {neighbour} blames the scheme before the whole market, and the guild meets in three days.
+- W | own the reserve's part, and follow the trust's rules on putting it right | v: conformity, universalism | aim: work | foot: mark owned up | chance: 70
+- U | get the flood studied properly, to show what the banks did and did not do | v: self-direction, achievement | aim: work | foot: mark learned a skill | chance: 65
+- B | argue the flood would have come anyway, and keep the scheme as it is | v: power, achievement | aim: work | foot: person rival | chance: 50
+- R | be on the farm the next morning with a digger and volunteers | v: stimulation, benevolence | aim: work | foot: mark helped someone in need | chance: 65
+- G | step back from the reserve, and help {neighbour} through the season | v: benevolence, security | aim: stop | foot: person neighbour | chance: 85
+- W>B | agree compensation in writing, and redesign the banks with the farm's say | v: conformity, power | aim: work | foot: means money-.06 | chance: 60
+- U>R | rebuild the banks lower, so the next high water spreads on the reserve side | v: self-direction, stimulation | aim: work | foot: lesson give the water room | chance: 60
+- B>G | raise money from the trust's backers to restore the field fully | v: achievement, benevolence | aim: work | foot: means ties+.04 | chance: 60
+- R>W | call a meeting in the village hall, and take every question standing | v: stimulation, conformity | aim: work | foot: mark kept your word | chance: 65
+- G>U | hand the reserve to the trust, and keep what the flood taught about water | v: tradition, self-direction | aim: stop | foot: lesson floods redraw the map | chance: 85
+works: By summer the field is clearing, the banks are rebuilt, and {neighbour} is talking again.
+works: The season is hard, and {N} comes out of it knowing the river better.
+fails: The argument goes on through the spring, and other farmers start to doubt the scheme.
+fails: The silt takes longer to clear than anyone said, and patience wears thin on both sides.
+
+# ================================================================ LIVING-HERITAGE KEEPER (preservation versus adaptation)
+
+# ---------------------------------------------------------------- local: practice (s1)
+
+== the old songs evening and the newcomers' new tunes
+tier: life event
+route: living_heritage_keeper
+shape: any
+kind: practice
+rungs: 0 1
+fork:
+stages: young_adult adult mature elder
+age: 16-85
+per_year: 0 0 0 0 0 0
+tone: joy
+life: community, interests
+horizon: week
+roles: elder, friend, mentor
+earth: the weekly evening in the back room where the town's old songs are still sung, and newcomers want to change them
+tribal: the nights when the old songs of the clan are sung, and the young ones want to change the tunes
+magic: the weekly gathering where the old lays of the valley are sung, and apprentices want to set them anew
+scene: Every Thursday a dozen people meet in the back room of the community hall to sing the town's old songs, and {N} has become the one who keeps them going. Three newcomers want to set some of them to new tunes, with guitars. The oldest singer, {elder}, says they would not be the songs any more. The harvest night, where they sing for the town, is next month.
+scene tribal: On the nights of the old songs the clan gathers at the fire, and {N} has become the one who keeps them going. Some of the young want to sing them faster, to new drums. {elder}, the oldest singer, says they would not be the songs any more. The harvest feast is a moon away.
+scene magic: Every week a dozen folk meet in the inn's back room to sing the valley's old lays, and {N} has become the one who keeps them going. Three apprentices of the music guild want to set some anew, in the court's manner. {elder} says they would not be the lays any more. The harvest feast is next month.
+- W | keep to the old way for harvest night, and practise it properly | v: tradition, conformity | aim: work | foot: mark kept your word | chance: 75
+- U | dig out the oldest recordings, to learn how the songs were really sung | v: self-direction, achievement | aim: work | foot: mark learned a skill | chance: 70
+- B | let the newcomers try, but keep the say over which songs change | v: power, achievement | aim: work | foot: person rival | chance: 60
+- R | let the newcomers loose on one song and see what the room does | v: stimulation, self-direction | aim: work | foot: mark took a wild risk | chance: 60
+- G | skip a week, and visit {elder} at home with a cake instead | v: benevolence, tradition | aim: ease | foot: person elder | chance: 85
+- W>U | write down every song as it is sung now, then let the new tunes follow | v: conformity, self-direction | aim: work | foot: lesson write it down first | chance: 75
+- U>B | sing each song both ways, and let the harvest crowd decide | v: self-direction, achievement | aim: work | foot: person friend | chance: 65
+- B>R | turn harvest night into a contest between the old and new versions | v: power, stimulation | aim: work | foot: means ties+.03 | chance: 55
+- R>G | have a loose night of singing and food, with no practice at all | v: hedonism, benevolence | aim: ease | foot: means ties+.04 | chance: 85
+- G>W | ask {elder} to teach the newcomers one song the old way first | v: tradition, conformity | aim: work | foot: person mentor | chance: 75
+works: The back room is fuller than last week, and the old songs carry a little further.
+works: Nobody gets everything, and the songs are still sung, which is the point.
+fails: Two of the newcomers stop coming, and the room is quieter for it.
+fails: Somebody goes home upset, and the next week feels careful.
+
+# ---------------------------------------------------------------- wider: cost, fork pay (s2)
+
+== the last rush-weaver's tools and the price of reviving the craft
+tier: life event
+route: living_heritage_keeper
+shape: any
+kind: cost
+rungs: 2 3
+fork: pay
+stages: young_adult adult mature elder
+age: 22-85
+per_year: 0 0 0 0 0 0
+tone: mixed
+life: money, interests
+horizon: years
+roles: colleague, rival, partner
+earth: the shed and tools of the last rush-weaver are for sale, and reviving the craft would cost real money and years
+tribal: the last canoe-maker of the clan has died, and taking up the whole craft would cost seasons the family counts on
+magic: the last loom of the old figured weaving is for sale, and learning it would cost coin and years
+scene: The last rush-weaver in the district has died, and the family is selling the shed, the tools and the drying racks. People from towns across the region now write to {N} about lost crafts, and this is one. Buying it all and learning from the notebooks would take savings and two years of evenings; a souvenir maker has also made an offer, to make the baskets by machine. The family wants an answer by the month's end.
+scene tribal: The last canoe-maker of the clan has died, and the family will give the tools and the half-made hull to whoever will carry on. Camps from across the valley now ask {N} about lost crafts. Learning it would take hunting seasons the household counts on, and a trader from the coast offers to buy the tools.
+scene magic: The last weaver of the old figured cloth has died, and the heirs are selling the loom and the pattern books. Towns across the province now write to {N} about lost crafts. Buying it all would take savings and years of evenings, and a merchant house offers to buy the loom for its mill.
+- W | buy the shed and tools at the family's price, and learn it exactly as recorded | v: tradition, conformity | aim: pay | cost: money .4, time .4, family .2 | foot: mark kept your word | chance: 70
+- U | buy only the tools and notebooks, and learn the craft in a borrowed space | v: self-direction, achievement | aim: pay | cost: money .2, time .4, family .1 | foot: mark learned a skill | chance: 70
+- B | buy it all, and turn the shed into a workshop that sells and pays | v: power, achievement | aim: pay | cost: money .6, time .4, family .3 | foot: means money-.10 | chance: 55
+- R | let the shed go, and learn the craft from the notebooks' pictures alone | v: stimulation, self-direction | aim: refuse | foot: lesson the hands remember | chance: 60
+- G | let the craft go to the museum, and keep the local songs going instead | v: tradition, benevolence | aim: stop | foot: lesson not every craft can stay | chance: 85
+- W>B | form a heritage society to buy it, with {Ns} name on the deed | v: conformity, power | aim: pay | cost: money .3, time .3, family .1 | foot: person colleague | chance: 60
+- U>R | team up with the souvenir maker: machines for the trade, hands for the old pieces | v: self-direction, stimulation | aim: refuse | foot: person rival | chance: 55
+- B>G | pay, and ask the family's grandchildren to come and learn as well | v: achievement, benevolence | aim: pay | cost: money .4, time .3, family .2 | foot: means ties+.04 | chance: 60
+- R>W | ask the family to hold it a year while a proper group is formed | v: stimulation, conformity | aim: ease | foot: means time+.04 | chance: 70
+- G>U | let it go, and record everything the shed holds before it is sold | v: tradition, self-direction | aim: stop | foot: lesson record before it goes | chance: 85
+works not G G>U: The first piece made the old way is lopsided and right, and others start asking to learn.
+works: Whatever {N} chose, the craft is better known than it was, and someone has it written down.
+fails not G G>U: The money runs short before the hands learn, and the tools sit idle a long while.
+fails: The family's grief and the sale get tangled, and the choice leaves some hurt.
+
+# ---------------------------------------------------------------- national: contest (s1); recognition
+
+== the national festival and the old midwinter play cut short
+tier: life event
+route: living_heritage_keeper
+shape: any
+kind: contest
+rungs: 4
+fork:
+stages: young_adult adult mature elder
+age: 26-85
+per_year: 0 0 0 0 0 0
+tone: mixed
+life: community, publiclife
+horizon: months
+roles: elder, rival, friend
+earth: the country's heritage festival invites the town's old midwinter play, if it can be cut to twenty minutes
+tribal: the great moot asks the clan to show its oldest dance before all the clans, if it can be made short
+magic: the court asks for the valley's midwinter masque at the royal feast, if it can be cut to fit the evening
+scene: The old midwinter play {N} has kept going is to be shown at the country's heritage festival, broadcast nationally. The producers want it cut from two hours to twenty minutes, with the rough parts smoothed out. The players are split, and the festival needs the final version in three weeks.
+scene tribal: The oldest dance of the clan, which {N} has kept alive, is asked for at the great moot before all the clans. It lasts from dusk to midnight, and the moot's keepers want it short and tidy. The dancers are split, and the moot is three weeks off.
+scene magic: The valley's midwinter masque, which {N} has kept going, is asked for at the royal feast. It runs two hours, and the master of revels wants a quarter of an hour, with the rough parts smoothed. The players are split, and the feast is three weeks away.
+- W | perform it whole in the festival's smaller tent, as it has always been | v: tradition, conformity | aim: try | foot: mark kept your word | chance: 60
+- U | find the twenty minutes that carry the heart of it, and cut with care | v: self-direction, achievement | aim: try | foot: mark learned a skill | chance: 55
+- B | hold out for the main stage and the whole play, or no play at all | v: power, achievement | aim: try | foot: person rival | chance: 45
+- R | let the young players rework it boldly for the cameras | v: stimulation, self-direction | aim: try | foot: mark took a wild risk | chance: 50
+- G | turn the festival down, and keep the play at home where it lives | v: tradition, security | aim: skip | foot: mark stayed home | chance: 85
+- W>U | give the short version on air, and the full play that night for whoever comes | v: conformity, self-direction | aim: try | foot: lesson two versions, one heart | chance: 55
+- U>B | agree the cut, and get the producers to film the whole play for the archive | v: self-direction, achievement | aim: try | foot: door learned a skill | chance: 55
+- B>R | perform the cut version, and announce the full one live from the stage | v: power, stimulation | aim: try | foot: means time-.04 | chance: 50
+- R>G | bring the whole town along on the bus, and let them be the audience | v: stimulation, benevolence | aim: try | foot: means ties+.04 | chance: 55
+- G>W | ask the oldest players to choose, and abide by whatever they say | v: tradition, conformity | aim: try | foot: person elder | chance: 60
+works not G: The country sees the play, and letters come from towns that had forgotten their own.
+works: The players come home sure the choice was right, and the play is still theirs.
+fails not G: The broadcast version pleases nobody at home, and some players say it was not the play.
+fails: The argument over the choice goes on into spring.
+
+# ---------------------------------------------------------------- crisis: setback (s2)
+
+== the old singer gone with half the songs unrecorded
+tier: life event
+route: living_heritage_keeper
+shape: any
+kind: setback
+rungs: any
+fork:
+stages: young_adult adult mature elder
+age: 18-85
+per_year: 0 0 0 0 0 0
+tone: trouble
+life: loss, community
+horizon: months
+roles: elder, friend, colleague
+earth: {elder}, the oldest of the singers, dies with half the old songs never recorded, and the family wants the rest kept private
+tribal: {elder}, the oldest teller of the clan, dies with half the old tales untold, and the family wants the rest kept close
+magic: {elder}, the last who knew the old lays, dies with half of them unwritten, and the heirs want the books sealed
+scene: {elder} has died, and with {elder} went half the old songs, never sung to anyone else. {Ns} notebooks hold some of them; {elder}'s family holds the rest on old tapes and wants them kept in the family. The heritage society meets next week, and everyone looks to {N}.
+scene tribal: {elder} has died, and half the old tales went too, never told to anyone else. {N} remembers some; {elder}'s family knows the rest and wants them kept within the family. The keepers meet at the next fire, and they look to {N}.
+scene magic: {elder} has died, and half the old lays went too, never written down. {Ns} own books hold some; {elder}'s heirs hold the rest in sealed books and want them kept so. The society of keepers meets next week, and all eyes are on {N}.
+- W | respect the family's wish, and keep only what was freely given | v: tradition, conformity | aim: work | foot: mark kept your word | chance: 75
+- U | piece the lost songs together from notebooks and other singers' memories | v: self-direction, achievement | aim: work | foot: mark learned a skill | chance: 60
+- B | press the family to give the tapes to the society, for the town's sake | v: power, achievement | aim: work | foot: person rival | chance: 45
+- R | hold a night of singing for {elder}, and sing whatever people remember | v: stimulation, benevolence | aim: work | foot: means ties+.04 | chance: 70
+- G | let the songs that went with {elder} go, and step back to grieve | v: tradition, benevolence | aim: stop | foot: lesson some things go with people | chance: 85
+- W>B | agree with the family a written promise on how the tapes may be used | v: conformity, power | aim: work | foot: lesson agree it in writing | chance: 60
+- U>R | start recording every living singer this month, before it happens again | v: self-direction, stimulation | aim: work | foot: door learned a skill | chance: 65
+- B>G | ask to borrow the tapes only to teach the family's own young ones | v: achievement, benevolence | aim: work | foot: means ties+.03 | chance: 60
+- R>W | write new verses in {elder}'s manner, and say openly that they are new | v: stimulation, conformity | aim: work | foot: lesson new verse, honest name | chance: 60
+- G>U | hand the society to younger keepers, and teach what is left | v: tradition, self-direction | aim: stop | foot: person friend | chance: 85
+works: Some of the songs come back, from notebooks and from people who half remembered, and are sung again.
+works: The loss is real, and it makes the keeping of what remains more careful.
+fails: The family closes the door, and the rest stays shut away.
+fails: The society argues for months over what should have been done, and few come to sing.
+
+# ================================================================ COMMUNITY WEAVER (coordination versus local independence)
+
+# ---------------------------------------------------------------- local: round, fork round (s1)
+
+== the neighbourhood group that lost its hall
+tier: life event
+route: community_weaver
+shape: any
+kind: round
+rungs: 0 1
+fork: round
+stages: young_adult adult mature elder
+age: 18-85
+per_year: 0 0 0 0 0 0
+tone: mixed
+life: community, neighbours
+horizon: months
+roles: neighbour, friend, colleague
+earth: the neighbourhood group loses its hall, and the council will lend rooms only to groups in its own scheme; but there is {aim.round}
+tribal: the camp's helping circle loses its place by the store-hut, and the elders want it under their own say; but there is {aim.round}
+magic: the street's mutual circle loses its room above the inn, and the guild lends rooms only to circles under its charter; but there is {aim.round}
+scene: The neighbourhood group {N} runs, which cooks for housebound neighbours and swaps tools, has lost the hall it met in. The council will lend rooms only to groups that join its own scheme, with its forms and its coordinator, and the group would rather stay its own. {N} has heard of {aim.round}, and the meals stop next week without somewhere to cook.
+scene tribal: The helping circle {N} keeps, which feeds the old ones who cannot hunt and lends tools, has lost its place by the store-hut. The elders will give it another only if it comes under their own say. {N} has heard of {aim.round}, and the old ones go hungry without it.
+scene magic: The mutual circle {N} runs, which feeds the housebound of the street and lends tools, has lost its room above the inn. The guild will lend rooms only to circles that take its charter and its overseer. {N} has heard of {aim.round}, and the meals stop next week without a kitchen.
+- W | join the council scheme for now, and keep the group's own rules inside it | v: conformity, security | aim: round | foot: mark kept your word | chance: 70
+- U | find out what {aim.round} would ask of the group before moving | v: self-direction, security | aim: round | foot: lesson ask before moving in | chance: 70
+- B | move the group to {aim.round}, and tell the council exactly why | v: power, achievement | aim: round | foot: mark defied an authority | chance: 60
+- R | cook in {Ns} own kitchen this week, and sort the rest out later | v: stimulation, benevolence | aim: round | foot: means time-.05 | chance: 65
+- G | pause the meals for a month, and keep the tool swap going in a garden | v: security, tradition | aim: ease | foot: means time+.03 | chance: 80
+- W>U | ask the council for a trial term: a room, without the full scheme | v: conformity, self-direction | aim: round | foot: person colleague | chance: 60
+- U>B | link up with the group across town, and share their kitchen on set days | v: self-direction, achievement | aim: round | foot: person friend | chance: 65
+- B>R | serve the next meal on the council's doorstep, and invite the press | v: power, stimulation | aim: round | foot: mark took a wild risk | chance: 50
+- R>G | let the group dissolve, and keep cooking for the two nearest neighbours | v: stimulation, benevolence | aim: stop | foot: mark helped someone in need | chance: 85
+- G>W | hand the group to the council scheme, and step back with thanks | v: benevolence, conformity | aim: stop | foot: lesson a group can pass on | chance: 85
+works not G R>G G>W: The meals start again within a fortnight, and the group is still its own.
+works: The neighbours who rely on the group are fed one way or another, and that settles a lot.
+fails not G R>G G>W: The new arrangement is clumsy, and two volunteers drift away.
+fails: The choice leaves some in the group sore, and the next meeting is short.
+
+# ---------------------------------------------------------------- wider: practice (s2)
+
+== the monthly meeting of the six towns' groups
+tier: life event
+route: community_weaver
+shape: any
+kind: practice
+rungs: 2 3
+fork:
+stages: young_adult adult mature elder
+age: 22-85
+per_year: 0 0 0 0 0 0
+tone: mixed
+life: community, work
+horizon: months
+roles: colleague, friend, rival
+earth: the monthly meeting of the groups from six towns, where one wants shared rules and two want their own ways
+tribal: the gathering of the helping circles of six camps, where the largest wants one custom for all
+magic: the monthly moot of the mutual circles of six towns, where the largest wants one charter for all
+scene: Once a month the groups {N} has linked across six towns meet in a different kitchen. They share vans, food and volunteers now, and it works. This month the largest group wants a single rota and common rules for everyone; two of the smallest say that would swallow them. The winter rota has to be set tonight.
+scene tribal: Each moon the helping circles {N} has linked across six camps meet at a different fire. They share stores, sledges and hands now, and it works. This time the largest camp wants one custom for all; two of the smallest say it would swallow them. The winter sharing must be settled tonight.
+scene magic: Each month the mutual circles {N} has linked across six towns meet in a different hall. They share carts, grain and hands now, and it works. This month the largest circle wants one charter for all; two small ones say it would swallow them. The winter rota must be set tonight.
+- W | draft common rules for the shared work only, and leave the rest to each group | v: conformity, universalism | aim: work | foot: mark kept your word | chance: 70
+- U | map who gives and takes what, so the rota rests on facts | v: self-direction, achievement | aim: work | foot: mark learned a skill | chance: 65
+- B | back the largest group's plan, because one rota is simply stronger | v: power, achievement | aim: work | foot: person rival | chance: 55
+- R | throw out the agenda and let each group say what it actually needs | v: stimulation, self-direction | aim: work | foot: means ties+.03 | chance: 60
+- G | leave the rota as it is for the winter, and change nothing yet | v: security, tradition | aim: ease | foot: means time+.04 | chance: 85
+- W>B | set the rota, with a firm vote for every group however small | v: conformity, power | aim: work | foot: lesson a vote each | chance: 65
+- U>R | try the single rota on one route for a month, and see what breaks | v: self-direction, stimulation | aim: work | foot: lesson pilot before rule | chance: 60
+- B>G | let the big group run the vans, and the small ones keep their own kitchens | v: achievement, benevolence | aim: work | foot: person colleague | chance: 65
+- R>W | turn the meeting into a shared meal first, then settle the rota | v: stimulation, conformity | aim: ease | foot: means ties+.04 | chance: 80
+- G>U | visit the two small groups at home before anything is decided | v: tradition, self-direction | aim: work | foot: person friend | chance: 70
+works: The winter rota is set by midnight, and every group leaves feeling it was heard.
+works: The web holds for another month, a little tighter where it needed to be.
+fails: The meeting runs late and bad-tempered, and one small group threatens to leave.
+fails: The rota is set, but nobody is quite happy with it, and it shows by midwinter.
+
+# ---------------------------------------------------------------- national: chance, fork take (s1); authority
+
+== the national charity that would fold the federation in
+tier: life event
+route: community_weaver
+shape: any
+kind: chance
+rungs: 4
+fork: take
+stages: adult mature elder
+age: 30-85
+per_year: 0 0 0 0 0 0
+tone: mixed
+life: community, publiclife
+horizon: years
+roles: rival, colleague, partner
+earth: a national charity offers {N} its top post, if the federation of groups joins it under one name
+tribal: the great moot offers {N} the keeping of every clan's helping circle, if the circles take one custom
+magic: the crown's almonry offers {N} its mastership, if the circles of the province come under its seal
+scene: The federation {N} founded is copied in towns across the country, and the post at the head of a national charity is free. The board offers it to {N}, with one condition: the federation joins the charity under one name, with national rules. The groups would gain money and lose some of their say. The board wants an answer by the end of the month.
+scene tribal: The way of {Ns} helping circles is copied by clans across the plain, and the great moot offers {N} the keeping of every clan's circle. The condition is one custom for all, set at the moot. The circles would gain stores and lose some of their own say. The moot wants an answer by the new moon.
+scene magic: The federation of circles {N} founded is copied in towns across the realm, and the crown's almonry offers {N} its mastership. The condition is that the circles come under the almonry's seal and rules. They would gain coin and lose some of their own say. The answer is wanted by the month's end.
+- W | accept, once the groups' own rights are written into the charity's rules | v: conformity, security | aim: take | foot: mark kept your word | chance: 65
+- U | put the offer to every group, and decide by what the count says | v: self-direction, universalism | aim: try | foot: lesson ask the whole web | chance: 65
+- B | accept, and use the post to bring the charity round to the federation's way | v: power, achievement | aim: take | foot: person rival | chance: 55
+- R | accept the post, refuse the merger outright, and dare the board to object | v: stimulation, self-direction | aim: try | foot: mark defied an authority | chance: 45
+- G | decline, and keep the federation small, local and its own | v: tradition, benevolence | aim: decline | foot: mark turned down a chance | chance: 85
+- W>U | accept, and let groups join the charity one at a time, by choice | v: conformity, self-direction | aim: take | foot: lesson joining by choice holds | chance: 60
+- U>B | ask for a year to prepare the groups, then decide | v: self-direction, achievement | aim: ease | foot: means time+.04 | chance: 75
+- B>R | bargain for the charity's money with no merger at all, and see if it bites | v: power, stimulation | aim: try | foot: means money+.06 | chance: 50
+- R>G | decline, and go back to the kitchens where it all started | v: stimulation, benevolence | aim: decline | foot: place care.houses | chance: 80
+- G>W | let the national post go, and hand the federation to an elected council | v: benevolence, conformity | aim: stop | foot: lesson a web outlives its weaver | chance: 85
+works not G R>G G>W U>B: The first year at the top is hard, and the groups are still their own at the end of it.
+works: Whatever {N} chose, the groups heard the reasons first, and most of them stand by it.
+fails not G R>G G>W U>B: The board and the groups pull opposite ways, and {N} spends the year in the middle.
+fails: Some of the groups feel the choice was made over their heads, and say so.
+
+# ---------------------------------------------------------------- crisis: setback (s2)
+
+== the winter fund money missing from one town's group
+tier: life event
+route: community_weaver
+shape: any
+kind: setback
+rungs: any
+fork:
+stages: young_adult adult mature elder
+age: 18-85
+per_year: 0 0 0 0 0 0
+tone: trouble
+life: community, money
+horizon: months
+roles: friend, colleague, rival
+earth: money from the shared winter fund goes missing in one town's group, and the others want that group out
+tribal: stores from the shared winter cache vanish from one camp's keeping, and the other camps want it cut off
+magic: coin from the circles' winter chest goes missing in one town, and the other circles want that town struck off
+scene: Money from the federation's shared winter fund has gone missing in one town's group, where {friend} keeps the books. Nobody knows yet whether it was theft or muddle. The other groups want that town expelled before the winter rota starts, and the town's group says it is being judged by outsiders.
+scene tribal: Stores from the shared winter cache have gone from one camp's keeping, where {friend} counts them. Nobody knows yet whether they were taken or miscounted. The other camps want that camp cut off before the snows, and its people say they are being judged by strangers.
+scene magic: Coin from the circles' winter chest has gone missing in one town, where {friend} keeps the ledger. Nobody knows yet whether it was theft or muddle. The other circles want that town struck off before the winter rota, and its circle says it is judged by outsiders.
+- W | call in an independent audit, and follow the federation's rules on what it finds | v: conformity, universalism | aim: work | foot: mark kept your word | chance: 70
+- U | go through the books with {friend} line by line before anyone is blamed | v: self-direction, achievement | aim: work | foot: mark learned a skill | chance: 65
+- B | suspend the town's group from the fund until the money is back | v: power, security | aim: work | foot: person rival | chance: 55
+- R | cover that town's winter rota personally while it is sorted out | v: stimulation, benevolence | aim: work | foot: means time-.06 | chance: 60
+- G | step down as coordinator, and let the groups settle it among themselves | v: benevolence, security | aim: stop | foot: lesson the groups can stand alone | chance: 85
+- W>B | set new rules for the fund: two signatures, books shown monthly | v: conformity, power | aim: work | foot: lesson two keys on the chest | chance: 65
+- U>R | let the town's group run its own inquiry, with one outsider watching | v: self-direction, stimulation | aim: work | foot: person colleague | chance: 60
+- B>G | make up the missing sum from a backer, so the winter meals go on | v: achievement, benevolence | aim: work | foot: means ties+.04 | chance: 60
+- R>W | go to the town's group and face their anger at their own meeting | v: stimulation, conformity | aim: work | foot: person friend | chance: 65
+- G>U | let the federation go, and keep what it taught about trust | v: tradition, self-direction | aim: stop | foot: lesson trust needs checking | chance: 85
+works: The money is traced, most of it to muddle, and the town's group stays in with new rules.
+works: The winter meals go out on time, and the federation is a little wiser about money.
+fails: The matter drags into winter, and the town's group stops coming to meetings.
+fails: Whatever the books show, some trust is gone, and it comes back slowly.

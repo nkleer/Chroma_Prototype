@@ -464,4 +464,33 @@ FOOT = {('the same day, every day', 'keep the work to its proper standard, and p
                                                                                                                     'colleague '
                                                                                                                     'lost')],
  ('the shared work carried by one', 'offer to teach {colleague} the hard part, in return for help with the people side'): [('means',
-                                                                                                                            'time-.04')]}
+                                                                                                                            'time-.04')],
+ ('the lesson that asks nothing', 'ask a teacher for the extension work kept for the class above'): [('mark',
+                                                                                                      'learned a '
+                                                                                                      'skill')],
+ ('the lesson that asks nothing', 'finish the easy exercises early, then solve each one a second way'): [('lesson',
+                                                                                                          'easy work '
+                                                                                                          'hides '
+                                                                                                          'harder '
+                                                                                                          'questions')],
+ ('the lesson that asks nothing', 'ask to move up a set in the subject that drags the most'): [('person', 'rival')],
+ ('the lesson that asks nothing', 'put a name down for the after-school drama club, just to see'): [('place',
+                                                                                                     'arts.stage')],
+ ('the lesson that asks nothing', 'ask {grandparent} to show how the vegetable beds are kept, on Saturday mornings'): [('place',
+                                                                                                                        'prod.land')],
+ ('the lesson that asks nothing', 'do every piece of homework to the top mark, and go for the end-of-term prize'): [('means',
+                                                                                                                     'time-.03')],
+ ('the lesson that asks nothing', 'rethink the subjects picked for next term, and look at the ones nobody suggested'): [('means',
+                                                                                                                         'freedom+.03')],
+ ('the lesson that asks nothing', 'stop fighting the dull lessons, and put the energy into a Saturday job at the stables'): [('means',
+                                                                                                                              'money+.03')],
+ ('the lesson that asks nothing', 'keep the place in the school band, every rehearsal, even in the flat weeks'): [('mark',
+                                                                                                                   'kept '
+                                                                                                                   'your '
+                                                                                                                   'word')],
+ ('the lesson that asks nothing', 'start a lunchtime log of the school field: birds, weather, what grows where'): [('lesson',
+                                                                                                                    'small '
+                                                                                                                    'things '
+                                                                                                                    'reward '
+                                                                                                                    'a '
+                                                                                                                    'look')]}

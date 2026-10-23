@@ -1,0 +1,1535 @@
+# Chroma library, modern Earth: NATIONAL STYLE MOMENTS (v25 decision #11, cut item 3; draft 10-23).
+# Brief: chroma-ideas/v25-prep/library/briefs/NATIONAL.md. Pours into chroma-library/earth_national-styles.lib (built as
+# earth_national.py with the route moments). Source: world_fit.json national.styles and styles_rule.
+# Twenty styles (ten pairs, ten triads), two moments each, forty in all. Each moment carries style: (the life's top two or
+# three colours) and route: (that style's routes), and turns on the style's tension: the first where the motives pull
+# against each other on the route, the second where they combine into something neither gives alone. A style changes
+# which dilemma comes up and how the options read; it adds no power or capacity, and every option is open to every colour.
+# Shape moments: shape: any, rungs 1 to 4 of the route's five (local, local+, wider, wider+, national).
+# Layout: W U B R G once each, then one full cross cycle, alternating by moment:
+#   cycle A: W>U U>B B>R R>G G>W       cycle B: W>B U>R B>G R>W G>U
+# Fork moments (plateau, cost, chance, round) offer going on, a change of approach, ease (postpone or slow) and stop.
+
+# ================================================================ PAIRS
+
+# ---------------------------------------------------------------- W U, Public Systems Reformer: proven procedure versus a better system (pull, cycle A)
+
+== the checklist that never lost a file
+tier: life event
+shape: any
+kind: reaction
+rungs: 2 3
+fork:
+style: W U
+route: public_service_architect, systems_inventor
+stages: young_adult adult mature elder
+age: 22-80
+per_year: 0 0 0 0 0 0
+tone: mixed
+life: work, community
+horizon: months
+roles: colleague, boss, mentor
+earth: the longest-serving staff want the old checklist kept, though {Ns} new system halved the waiting in trial
+tribal: the oldest keepers of the stores want the old count kept, though {Ns} new tally fed more households last winter
+magic: the guild's senior clerks want the old ledgers kept, though {Ns} new reckoning halved the granary queues
+scene: In trial at two sites, the system {N} designed cut the waiting by half. The region wants an answer by the end of the month on whether every site switches over, and the longest-serving staff have said it plainly: the old checklist has never lost a file in twenty years, and nobody has yet shown the new one will not.
+scene tribal: Last winter {Ns} new tally of the stores fed more households than the old count ever did. Before the moot, the oldest keepers say the old count has never left a family out, and one good winter proves nothing.
+scene magic: {Ns} new reckoning halved the queues at the crown's granary in its trial season. The guild's senior clerks want the old ledgers kept, which have not lost a sack in living memory, and the steward wants a decision by the quarter day.
+- W | run old and new side by side for a year, then switch on the numbers | v: conformity, security | aim: hold | foot: mark kept your word | chance: 80
+- U | publish the trial's figures in full, failures included, and invite the staff to check them | v: self-direction, universalism | aim: hold | foot: lesson open numbers settle arguments | chance: 73
+- B | take the figures to the region's head and have the switch ordered from above | v: power, achievement | aim: hold | foot: person boss | chance: 65
+- R | switch the next site over next week, and fix what breaks as it breaks | v: stimulation, self-direction | aim: hold | foot: mark took a wild risk | chance: 60
+- G | give the old checklist its due, and let the staff keep it at their own sites | v: tradition, benevolence | aim: bend | foot: lesson trust takes longer than proof | chance: 80
+- W>U | write each safeguard of the old checklist into the new system, line by line | v: conformity, self-direction | aim: hold | foot: mark learned a skill | chance: 72
+- U>B | find the one site whose staff want it most, and let its results do the persuading | v: self-direction, achievement | aim: hold | foot: person colleague | chance: 73
+- B>R | name a switch date in front of everyone, and dare the doubters to beat the numbers | v: power, stimulation | aim: hold | foot: door made an enemy | chance: 55
+- R>G | work a week of shifts beside the oldest hands, and learn what the checklist really guards | v: stimulation, benevolence | aim: bend | foot: means ties+.04 | chance: 90
+- G>W | shelve the switch a year, and keep the goodwill of those who run it daily | v: security, conformity | aim: bend | foot: lesson a service runs on goodwill | chance: 80
+works: By the month's end the argument has moved from whether to how, and {N} can feel the difference.
+works: {N} and the staff still disagree on some things, but they are arguing over the same figures now.
+fails: The doubts harden on both sides, and the month ends with nothing settled.
+fails: Whatever was chosen, a few of the staff go quiet when {N} walks into the room, for a while.
+
+# ---------------------------------------------------------------- W U: evidence first, then the standard (combine, cycle B)
+
+== a measured pilot becomes the standard
+tier: life event
+shape: any
+kind: practice
+rungs: 3 4
+fork:
+style: W U
+route: public_service_architect, systems_inventor
+stages: young_adult adult mature elder
+age: 24-80
+per_year: 0 0 0 0 0 0
+tone: joy
+life: work, learning
+horizon: months
+roles: colleague, boss, mentor
+earth: the measured pilot of {Ns} redesign is done, and the work now is writing it into the standard every site keeps
+tribal: the new way of keeping the stores has held a winter, and the work now is teaching it so every camp keeps it
+magic: the granary trial is done, and the work now is setting it down in the guild's book of standing practice
+scene: The pilot is done and measured: fewer missed appointments, shorter waits, the same staff. {N} has six weeks before the board meets to make it the standard every site works to, and a standard that is wrong will be wrong everywhere at once.
+scene tribal: The new way of keeping the stores has held a winter at one camp. Before the next moot {N} must teach it so plainly that every camp can keep it, and a mistake taught to all is a mistake in every camp.
+scene magic: The trial season at the granary is over, and the guild's masters will set the method in the book of standing practice at the quarter day. Whatever goes into the book is copied in every granary of the realm.
+- W | write it in plain steps, and test each at a site that never saw the pilot | v: conformity, security | aim: work | foot: lesson plain steps travel furthest | chance: 75
+- U | comb the pilot's data for anything that only worked because of who ran it | v: self-direction, universalism | aim: work | foot: mark learned a skill | chance: 68
+- B | see each board member alone before the meeting, and know every vote in advance | v: power, achievement | aim: work | foot: person boss | chance: 70
+- R | take the draft round the sites in person, and rewrite it on the spot | v: stimulation, self-direction | aim: work | foot: means time-.06 | chance: 75
+- G | keep the standard short, and leave each site room for its own ways | v: tradition, benevolence | aim: ease | foot: lesson leave room for local ways | chance: 77
+- W>B | build in a monthly check that shows the board the standard is working | v: conformity, achievement | aim: work | foot: door kept your word | chance: 70
+- U>R | add one untried improvement, clearly marked as a trial inside the standard | v: self-direction, stimulation | aim: work | foot: mark took a wild risk | chance: 58
+- B>G | credit the pilot's staff by name, and have them present it to the board | v: achievement, benevolence | aim: work | foot: person colleague | chance: 80
+- R>W | hold open sessions where any site may pick the draft apart, point by point | v: stimulation, conformity | aim: work | foot: means ties+.04 | chance: 77
+- G>U | let the draft rest a fortnight, then read it again with fresh eyes | v: security, self-direction | aim: ease | foot: means health+.03 | chance: 77
+works: The standard goes to the board clear and tested, and the sites that read it recognise their own work in it.
+works: Six weeks of plain, careful work, and {N} understands the thing better than before.
+fails: The draft keeps growing, and by the meeting it is longer and less clear than the pilot ever was.
+fails: A site that was never in the pilot finds a flaw nobody saw, and the weeks go on mending it.
+
+# ---------------------------------------------------------------- W B, Civic Power Builder: duty to all versus loyalty to backers (pull, cycle A)
+
+== the depot the backers want on their side
+tier: life event
+shape: any
+kind: cost
+rungs: 2 3 4
+fork: pay
+style: W B
+route: mandate_builder, coalition_builder
+stages: young_adult adult mature elder
+age: 22-80
+per_year: 0 0 0 0 0 0
+tone: trouble
+life: work, community
+horizon: weeks
+roles: patron, colleague, partner, go-between
+earth: the groups that carried {N} this far want the new depot on their side of the river, and the vote is in three weeks
+tribal: the families who stood with {N} at the moot want the new well dug on their side of the valley, and the moot is close
+magic: the guilds who backed {N} want the new granary built in their quarter, and the council sits within the month
+scene: The groups that carried {N} this far want the new bus depot built on their side of the river. The fairer site, by every count of who would use it, is on the other side. The vote is in three weeks, and holding the alliance through it will take every evening {N} has, and some of the household's money for halls and leaflets.
+scene tribal: The families who stood with {N} at the last moot want the new well dug at their end of the valley. The households who need it most live at the other end. The moot sits at the next full moon.
+scene magic: The guilds who backed {N} on the city council want the new granary in their own quarter. The poor quarter across the river needs it more. The council sits within the month, and the guilds have long memories.
+- W | put the fair site to the vote, and spend every evening winning it without the backers | v: conformity, universalism | aim: pay | cost: money .2, time .5, family .3 | foot: mark kept your word | chance: 60
+- U | count who would use each site, and carry the backers with the figures | v: self-direction, universalism | aim: pay | cost: money .1, time .4, family .2 | foot: lesson figures can move friends | chance: 68
+- B | give the backers their site, and bank the loyalty for a bigger fight | v: power, achievement | aim: pay | cost: money .1, time .2, family .1 | foot: door broke your word | chance: 75
+- R | turn the bargain down out loud, and let the backers walk if they will | v: stimulation, self-direction | aim: refuse | foot: mark defied an authority | chance: 60
+- G | step back from the alliance's front, and go back to the neighbourhood work | v: benevolence, security | aim: stop | foot: lesson the street work still counts | chance: 80
+- W>U | propose a fair rota for where each future project goes, and win the vote on that | v: conformity, self-direction | aim: pay | cost: money .1, time .4, family .2 | foot: door kept your word | chance: 62
+- U>B | find a second project the backers want more, and trade that instead | v: self-direction, power | aim: pay | cost: money .2, time .3, family .1 | foot: person go-between | chance: 65
+- B>R | vote for the fair site, and dare the backers to break the alliance over it | v: power, stimulation | aim: pay | cost: money .1, time .3, family .2 | foot: door made an enemy | chance: 55
+- R>G | spend the three weeks on doorsteps on both banks, hearing people out | v: stimulation, benevolence | aim: pay | cost: money .1, time .5, family .3 | foot: means ties+.04 | chance: 70
+- G>W | ask to put the vote off a season, so the whole town can talk it over | v: benevolence, conformity | aim: ease | foot: means time+.04 | chance: 72
+works: The vote comes and goes, and the alliance is still standing, a little bruised.
+works: People who never backed {N} hear how the choice was made, and some of them remember it.
+fails: One of the backing groups quietly stops coming to meetings, and the alliance feels thinner.
+fails: The weeks cost more at home than anyone expected, and the house is short-tempered for a while.
+
+# ---------------------------------------------------------------- W B: the institution and the alliance that holds it (combine, cycle B)
+
+== a standing council the alliance could hold
+tier: life event
+shape: any
+kind: chance
+rungs: 3 4
+fork: take
+style: W B
+route: mandate_builder, coalition_builder
+stages: young_adult adult mature elder
+age: 25-80
+per_year: 0 0 0 0 0 0
+tone: mixed
+life: work, community
+horizon: years
+roles: patron, colleague, mentor, partner
+earth: the towns of the valley agree to found a standing council for the region, and {Ns} alliance is asked to write its charter
+tribal: the clans of the river agree to a standing moot with its own keepers, and {Ns} kin are asked to set its customs
+magic: the free towns of the march agree to found a standing council, and the crown asks {Ns} league to draw its charter
+scene: After two bad winters the towns of the valley have agreed to found a standing council for the region, with its own staff and its own budget. They have asked {Ns} alliance to write the charter by spring. A charter written for the alliance would hold until the alliance fell apart; one written for everyone needs the alliance to hold it up for years.
+scene tribal: After two hard winters the clans of the river have agreed to a standing moot with keepers of its own. {Ns} kin are asked to set its customs before the thaw, and customs set for one kin last only as long as that kin is strong.
+scene magic: The free towns of the march have agreed to a standing council, and the crown has asked {Ns} league to draw its charter by the spring quarter. A charter drawn for the league dies with the league.
+- W | take it on, and write a charter that binds the alliance as tightly as anyone else | v: conformity, universalism | aim: take | foot: mark kept your word | chance: 70
+- U | ask for a year to study how other regions' councils failed, then write | v: self-direction, security | aim: ease | foot: mark learned a skill | chance: 83
+- B | take it, and make sure the alliance's people fill the first council's seats | v: power, achievement | aim: take | foot: person patron | chance: 70
+- R | draft the whole charter in a week, and put it out before doubts set in | v: stimulation, achievement | aim: take | foot: mark took a wild risk | chance: 60
+- G | hand the drafting to the towns' oldest hands, and step out of it with thanks | v: tradition, benevolence | aim: stop | foot: lesson others can carry it | chance: 80
+- W>B | write the seats to rotate among the towns, and give the alliance the first turn | v: conformity, power | aim: take | foot: door kept your word | chance: 65
+- U>R | write a short trial charter for two years, with a fixed date to rewrite it | v: self-direction, stimulation | aim: try | foot: lesson a trial before a promise | chance: 68
+- B>G | bring the groups outside the alliance into the drafting, and share the credit | v: achievement, benevolence | aim: take | foot: person colleague | chance: 67
+- R>W | call one open meeting in every town, and write down what each one demands | v: stimulation, conformity | aim: take | foot: means time-.06 | chance: 67
+- G>U | decline the charter, and offer the alliance's records to whoever writes it | v: benevolence, universalism | aim: decline | foot: person mentor | chance: 77
+works: The council takes shape slowly, and some of what {N} argued for is still in it when it opens.
+works: Whatever {N} chose, the alliance comes out of the spring knowing what it is for.
+fails: The towns argue over every clause, and the spring deadline slides into summer.
+fails: A group left out of the talks makes its anger known, and it takes the season to mend.
+
+# ---------------------------------------------------------------- W R, People's Champion: the law's way versus the crowd's urgency (pull, cycle A)
+
+== the crowd at the council doors
+tier: life event
+shape: any
+kind: reaction
+rungs: 2 3 4
+fork:
+style: W R
+route: mandate_builder, rallying_voice
+stages: young_adult adult mature elder
+age: 20-80
+per_year: 0 0 0 0 0 0
+tone: trouble
+life: community, work
+horizon: week
+roles: patron, friend, colleague, boss
+earth: hundreds wait outside the council doors over the closing clinic, and the agenda says the matter is next month
+tribal: the young of three camps crowd the moot's edge over the fouled spring, and the elders say it is not yet their turn to speak
+magic: the commons fill the square below the council over the closing almshouse, and the clerk says the matter waits for the next sitting
+scene: The clinic on the east side closes at the end of the month, and hundreds of people are outside the council doors tonight. Inside, the agenda says the matter will be heard properly next month, after the clinic has gone. The people outside want {N} to stand up now, break the order of business and force a vote tonight.
+scene tribal: The spring above three camps has gone foul, and their young crowd the edge of the moot with their water jars. The elders say the matter comes in its turn, after the grazing; the young want {N} to stand and speak before it.
+scene magic: The almshouse closes at the month's end, and the commons fill the square below the council chamber. The clerk says the matter waits for the next sitting. The crowd want {N} to break the order of the day.
+- W | keep the order of business, and hold the council to a date before the closure | v: conformity, security | aim: bend | foot: mark kept your word | chance: 75
+- U | read the council's rules again for any lawful way to bring the matter forward tonight | v: self-direction, achievement | aim: hold | foot: mark learned a skill | chance: 65
+- B | trade the crowd's patience for a private promise from the chair | v: power, security | aim: bend | foot: person boss | chance: 67
+- R | stand up, break the order of business, and demand the vote tonight | v: stimulation, universalism | aim: hold | foot: mark defied an authority | chance: 55
+- G | go outside, stand with the crowd, and let the meeting run without {N} | v: benevolence, universalism | aim: hold | foot: means ties+.04 | chance: 67
+- W>U | move a formal motion to hear the clinic first, and argue it within the rules | v: conformity, self-direction | aim: hold | foot: lesson rules have doors in them | chance: 62
+- U>B | count the votes inside before moving, and only move if they are there | v: self-direction, power | aim: hold | foot: person colleague | chance: 63
+- B>R | tell the chair the crowd will stay all night unless the clinic is heard | v: power, stimulation | aim: hold | foot: door made an enemy | chance: 55
+- R>G | bring three of the clinic's patients inside to speak in the public seats | v: stimulation, benevolence | aim: hold | foot: mark helped someone in need | chance: 65
+- G>W | ask the crowd to go home tonight, and promise to bring them back for the hearing | v: benevolence, conformity | aim: bend | foot: door kept your word | chance: 72
+works: Something moves: a date, a vote or a promise, and the crowd goes home with more than it came with.
+works: Inside and outside, people see where {N} stood tonight, and nobody is left guessing.
+fails: The night ends with nothing settled, and some of the crowd are angry with {N} on the way out.
+fails: The council grumbles for weeks about how the evening went, and {N} has to mend it.
+
+# ---------------------------------------------------------------- W R: the street's demand taken into the hall (combine, cycle B)
+
+== the march's demands as a motion
+tier: life event
+shape: any
+kind: practice
+rungs: 2 3 4
+fork:
+style: W R
+route: mandate_builder, rallying_voice
+stages: young_adult adult mature elder
+age: 20-80
+per_year: 0 0 0 0 0 0
+tone: joy
+life: community, work
+horizon: months
+roles: friend, colleague, mentor, patron
+earth: the march filled the streets, and now its six demands have to become a motion the council can actually vote on
+tribal: the young carried their jars to the moot, and now their anger has to become a proposal the elders can accept
+magic: the commons filled the square, and now their cry has to become a petition the council is bound to answer
+scene: The march filled the streets last month, and the council has agreed to hear its case at the next sitting, in eight weeks. The six demands on the banners were written for a crowd. A motion has to be costed, worded and carried, and the people who marched will judge {N} on whether it still sounds like them.
+scene tribal: The young of three camps carried their water jars to the moot, and the elders have agreed to hear them at the next moon. Their anger was loud and true; a proposal the elders can accept has to say who digs and who pays.
+scene magic: The commons filled the square, and the council is bound by old custom to answer a petition put to it properly. Their cry was written on walls; a petition must be argued clause by clause.
+- W | turn each demand into a clause the council can vote on, one at a time | v: conformity, universalism | aim: work | foot: mark learned a skill | chance: 72
+- U | cost each demand properly, and drop the one that cannot be paid for | v: self-direction, universalism | aim: work | foot: lesson a costed demand gets heard | chance: 68
+- B | find the two council members who could carry it, and draft it with them | v: power, achievement | aim: work | foot: person colleague | chance: 67
+- R | write it in the marchers' own words, and dare the council to vote it down | v: stimulation, universalism | aim: work | foot: mark defied an authority | chance: 60
+- G | keep the march's people meeting every week, and let the motion wait for them | v: benevolence, tradition | aim: ease | foot: means ties+.04 | chance: 77
+- W>B | draft it by the council's own rules, and sign up allies on every side | v: conformity, power | aim: work | foot: door kept your word | chance: 65
+- U>R | test the draft on a hall full of marchers, and rewrite what they boo | v: self-direction, stimulation | aim: work | foot: means time-.05 | chance: 65
+- B>G | let the people most hurt by the problem present the motion themselves | v: achievement, benevolence | aim: work | foot: mark helped someone in need | chance: 70
+- R>W | keep the pressure on outside while the motion is argued inside | v: stimulation, conformity | aim: work | foot: person friend | chance: 65
+- G>U | slow the drafting down, and ask the oldest organisers what failed last time | v: tradition, self-direction | aim: ease | foot: person mentor | chance: 74
+works: The motion goes in sounding like the people who marched, and the council has to take it seriously.
+works: Weeks of drafting at kitchen tables, and {N} comes out of it knowing how a demand becomes a decision.
+fails: The motion comes out careful and grey, and some of the marchers say it is not theirs any more.
+fails: The drafting drags, the energy of the march drains away, and the hall is half empty at the hearing.
+
+# ---------------------------------------------------------------- W G, Commons Steward: fair rules versus what the place needs (pull, cycle A)
+
+== equal days on a tired river
+tier: life event
+shape: any
+kind: plateau
+rungs: 2 3
+fork: go_on
+style: W G
+route: common_ground_maker, living_land_steward
+stages: young_adult adult mature elder
+age: 22-82
+per_year: 0 0 0 0 0 0
+tone: mixed
+life: nature, community
+horizon: years
+roles: neighbour, elder, colleague, rival
+earth: the settlement {N} brokered gives every user equal days on the river, and after four years the fish have not come back
+tribal: the custom {N} set gives every camp equal days at the fishing pools, and four summers on the pools are still poor
+magic: the charter {N} drew gives every guild equal days on the river, and four years on the fish are still thin
+scene: Four years ago {N} brokered the settlement that ended the quarrel over the river: every user, from the anglers to the farm that draws water, gets equal days. It has held, and nobody quarrels now. But the fish counts have not moved in four years, the water is low again this summer, and the users meet next month to renew the settlement as it stands.
+scene tribal: Four summers ago {N} set the custom that ended the feud over the fishing pools: every camp has its equal days. The feud has not come back, and neither have the fish. The camps meet at midsummer to renew the custom.
+scene magic: Four years ago {N} drew the charter that gave every guild equal days on the river, and the guilds have kept it to the letter. The fish are still thin, the water is low, and the charter comes up for renewal at the summer quarter.
+- W | renew the settlement exactly as it stands, because it is what keeps the peace | v: conformity, security | aim: work | foot: mark kept your word | chance: 80
+- U | put four years of fish and water counts before every user ahead of the meeting | v: self-direction, universalism | aim: work | foot: mark learned a skill | chance: 71
+- B | press the biggest users to give up days first, and make it a condition of renewal | v: power, universalism | aim: work | foot: door made an enemy | chance: 60
+- R | propose closing the river entirely for one summer, and argue it at the meeting | v: stimulation, universalism | aim: work | foot: mark took a wild risk | chance: 55
+- G | hand the settlement to the users' own keepers, and step away from the table | v: benevolence, tradition | aim: stop | foot: lesson the peace was worth making | chance: 80
+- W>U | keep equal days, but let the counts decide each year how many days there are | v: conformity, self-direction | aim: work | foot: lesson a fair rule can learn | chance: 70
+- U>B | ask the farm to fund a weir that keeps the water up, for its days | v: self-direction, power | aim: work | foot: person neighbour | chance: 61
+- B>R | let the users quarrel openly again for a season, if that is what it takes | v: power, stimulation | aim: ease | foot: means ties-.04 | chance: 65
+- R>G | walk the whole river with the oldest anglers, and hear what they remember | v: stimulation, tradition | aim: work | foot: person elder | chance: 80
+- G>W | renew it for one more year as it is, and ask for time to think | v: security, conformity | aim: ease | foot: means time+.04 | chance: 77
+works: The meeting is long and slow, but it ends with the users talking about the river and not only about their days.
+works: Whatever was decided, {N} comes away knowing more about what the settlement does and does not do.
+fails: The users renew it out of habit, and nobody says aloud what everyone can see in the water.
+fails: Old quarrels stir again at the meeting, and it takes the summer to settle them.
+
+# ---------------------------------------------------------------- W G: the rules a shared place lives by (combine, cycle B)
+
+== a users' forum the council will not see
+tier: life event
+shape: any
+kind: round
+rungs: 1 2
+fork: round
+style: W G
+route: common_ground_maker, living_land_steward
+stages: young_adult adult mature elder
+age: 20-82
+per_year: 0 0 0 0 0 0
+tone: mixed
+life: nature, community
+horizon: months
+roles: neighbour, elder, boss, colleague
+earth: the common's users have agreed their own rules for grazing and paths, but the council will not recognise a users' forum; there is {aim.round}
+tribal: the camps have agreed their own customs for the shared grazing, but the elders will not hear a gathering of herders; there is {aim.round}
+magic: the commoners have agreed their own rules for the heath, but the steward will not hear an unchartered assembly; there is {aim.round}
+scene: The grazers, walkers and the wood's keepers have spent a winter agreeing rules for the common: when the sheep go up, which paths rest each spring, who mends the walls. The council says it cannot recognise a forum it did not set up, and the sheep go up in a month. {N} has heard about {aim.round}.
+scene tribal: The herders of four camps have agreed their own customs for the shared grazing, season by season. The elders say a gathering of herders has no standing at the moot. The flocks go up in a moon, and {N} has heard about {aim.round}.
+scene magic: The commoners of the heath have agreed rules for grazing, cutting and burning. The steward says an assembly without a charter cannot be heard. The flocks go out at the spring quarter, and {N} has heard about {aim.round}.
+- W | apply through {aim.round} properly, with the rules written out in full | v: conformity, security | aim: round | foot: means time-.04 | chance: 75
+- U | find out exactly how {aim.round} works, and what it would ask of the forum | v: self-direction, security | aim: round | foot: lesson ask before joining | chance: 78
+- B | take the rules straight to {aim.round}, round the council's back | v: power, achievement | aim: round | foot: mark defied an authority | chance: 65
+- R | start keeping the rules on the ground this spring, recognised or not | v: stimulation, self-direction | aim: round | foot: mark took a wild risk | chance: 60
+- G | let it go for now, and keep the users meeting as neighbours | v: benevolence, tradition | aim: stop | foot: person neighbour | chance: 80
+- W>B | go through {aim.round}, and bring the council in as a member once it works | v: conformity, power | aim: round | foot: door kept your word | chance: 62
+- U>R | try {aim.round} for one season, and keep notes on every path and wall | v: self-direction, stimulation | aim: round | foot: mark learned a skill | chance: 68
+- B>G | wait a year, and spend it bringing the wood's owner onto the users' side | v: power, benevolence | aim: ease | foot: person colleague | chance: 83
+- R>W | ask the council for its reasons in writing, and answer each one by next spring | v: stimulation, conformity | aim: ease | foot: door learned a skill | chance: 80
+- G>U | let the forum go, and keep the winter's notes for whoever tries next | v: tradition, universalism | aim: stop | foot: lesson the notes will keep | chance: 80
+works: The rules start to be kept on the hill, and people begin to call them the common's rules.
+works: The block matters less than it did, and the users go on talking to each other.
+fails: The new way in is slower than it sounded, and the sheep go up before anything is settled.
+fails: A few of the users lose patience with the delay and go back to doing as they please.
+
+# ---------------------------------------------------------------- U B, Strategic Innovator: openness versus advantage (pull, cycle A)
+
+== an exclusive licence for the method
+tier: life event
+shape: any
+kind: chance
+rungs: 2 3
+fork: take
+style: U B
+route: systems_inventor, enterprise_builder
+stages: young_adult adult mature elder
+age: 22-78
+per_year: 0 0 0 0 0 0
+tone: mixed
+life: work, money
+horizon: years
+roles: patron, colleague, rival, partner
+earth: a large firm offers to license {Ns} method exclusively, and pay well, if {N} stops sharing the plans
+tribal: the richest camp of the plain offers a herd for {Ns} new way of drying meat, if it is kept from the other camps
+magic: a great merchant house offers a fortune for {Ns} new engine, if the guild's open copy is withdrawn
+scene: The method {N} worked out is spreading: small makers copy the published plans, improve them and send back their changes. Now a large firm offers to license it exclusively, with enough money to build a proper works around it and a team to keep it safe as it spreads. The offer stands for six weeks, and it would mean taking the plans down.
+scene tribal: The way {N} found to dry meat for the long winter is spreading from camp to camp. The richest camp of the plain offers a herd for it, if the way is kept from the others from now on. They want an answer before the first frost.
+scene magic: {Ns} new engine is copied in a dozen workshops from the plans in the guild's open library. A great merchant house offers a fortune for it, and a workshop of its own, if the open copy is withdrawn by midwinter.
+- W | turn the licence down, and keep the plans open as promised to the makers | v: universalism, conformity | aim: decline | foot: mark kept your word | chance: 85
+- U | ask for a trial year that leaves the plans open, and decide on what it shows | v: self-direction, universalism | aim: try | foot: lesson a trial before a promise | chance: 65
+- B | take the licence, build the works, and let the copies fall behind | v: power, achievement | aim: take | foot: means money+.08 | chance: 73
+- R | take the money, then publish the next version openly anyway | v: stimulation, self-direction | aim: take | foot: door broke your word | chance: 55
+- G | step back from the method, and leave it with the makers who use it | v: benevolence, universalism | aim: stop | foot: person colleague | chance: 80
+- W>U | license the safety-critical parts only, and keep the rest open | v: conformity, self-direction | aim: take | foot: mark learned a skill | chance: 62
+- U>B | hold off a season, and see whether a better offer comes once it spreads | v: self-direction, power | aim: ease | foot: door turned down a chance | chance: 78
+- B>R | play the firm against its biggest rival, and take whichever pays most | v: power, stimulation | aim: take | foot: person rival | chance: 57
+- R>G | refuse, and start a makers' cooperative to build it openly together | v: stimulation, benevolence | aim: try | foot: person friend | chance: 60
+- G>W | take a fair fee for advice only, and leave the plans where they are | v: benevolence, conformity | aim: take | foot: lesson a fair price for help | chance: 62
+works: The choice holds, and a year on {N} can say plainly what it bought and what it cost.
+works: Whichever way it went, the method keeps working where people rely on it.
+fails: Some of the makers who sent back changes feel let down, and say so.
+fails: The decision leaves {N} restless for months, wondering about the road not taken.
+
+# ---------------------------------------------------------------- U B: an invention turned into an enterprise (combine, cycle B)
+
+== the founder who kept the core open
+tier: life event
+shape: any
+kind: mentor
+rungs: 1 2 3
+fork:
+style: U B
+route: systems_inventor, enterprise_builder
+stages: young_adult adult mature elder
+age: 20-75
+per_year: 0 0 0 0 0 0
+tone: joy
+life: work, mentor
+horizon: months
+roles: mentor, colleague, partner, patron
+earth: an old founder who built a firm on an open invention offers {N} a season of evenings on how it was done
+tribal: an old trader who grew rich on a skill every camp knew offers to show {N} how it was done
+magic: a retired guild master who built a trading house on an open craft offers {N} a season of lessons
+scene: {mentor} built a firm forty years ago on an invention anyone could copy, and it is still standing. The trick, {mentor} says, was to give away the plans and sell what nobody else could: the fitting, the repairs, the trust. {mentor} offers {N} one evening a week this season, starting next month.
+scene tribal: {mentor} grew rich trading a skill every camp already knew, and still trades. The secret, {mentor} says, was never the skill but the keeping of promises around it. {mentor} offers to show {N} through the winter.
+scene magic: {mentor} built a trading house on a craft the guild teaches to any apprentice. What sold, {mentor} says, was never the craft but the house's word on it. {mentor} offers {N} lessons through the dark quarter.
+- W | agree the evenings and keep every one, and write down each rule of thumb | v: conformity, achievement | aim: work | foot: person mentor | chance: 80
+- U | test each of {Ns} plans against {mentor}'s firm, line by line | v: self-direction, achievement | aim: work | foot: mark learned a skill | chance: 73
+- B | ask {mentor} straight out to name the first customers worth chasing | v: power, achievement | aim: try | foot: person patron | chance: 65
+- R | say yes tonight, and turn up next week with a plan already half built | v: stimulation, self-direction | aim: try | foot: mark took a wild risk | chance: 67
+- G | thank {mentor}, and keep growing it slowly among the people who use it now | v: tradition, security | aim: ease | foot: lesson slow growth has roots | chance: 80
+- W>B | take the lessons, and draw up a business plan by the season's end | v: conformity, power | aim: work | foot: door learned a skill | chance: 72
+- U>R | argue with {mentor} over every point, and keep the arguments that survive | v: self-direction, stimulation | aim: work | foot: lesson good advice survives argument | chance: 68
+- B>G | ask {mentor} to bring in two of the people already using the method | v: achievement, benevolence | aim: work | foot: person colleague | chance: 75
+- R>W | turn each lesson into one change at the workshop by the next week | v: stimulation, conformity | aim: work | foot: means time-.05 | chance: 73
+- G>U | go for the company as much as the lessons, and listen more than ask | v: benevolence, self-direction | aim: ease | foot: person friend | chance: 77
+works: By the season's end {N} can see how the thing could earn its keep without being locked away.
+works: {mentor} stays a friend long after the evenings end, and the phone still rings now and then.
+fails: The advice fits {mentor}'s time better than {Ns}, and some of it has to be unlearned.
+fails: The evenings are good, but {N} comes away with more doubts than plans for a while.
+
+# ---------------------------------------------------------------- U R, Experimental Pioneer: rigour versus the leap (pull, cycle A)
+
+== the public night with one part unproven
+tier: life event
+shape: any
+kind: chance
+rungs: 2 3 4
+fork: take
+style: U R
+route: discoverer, national_virtuoso
+stages: young_adult adult mature elder
+age: 20-78
+per_year: 0 0 0 0 0 0
+tone: mixed
+life: work, interests
+horizon: weeks
+roles: colleague, mentor, rival, friend
+earth: {N} is offered the big public night in three weeks, the largest audience yet, and one part of the new work still fails one time in five
+tribal: {N} is asked to show the new thing at the gathering of the clans, and it still goes wrong one time in five
+magic: {N} is offered the great hall of the high college for a showing, and one part of the new work still fails one time in five
+scene: The invitation is for the big public night at {aim.place} in three weeks: the largest audience {N} has ever had, and people who could carry the work far beyond the town. The new work is nearly ready. One part of it, the part that makes it new, still fails about one time in five, and nobody yet knows why.
+scene tribal: {N} is asked to show the new thing before all the clans at the summer gathering, in half a moon. It is the boldest thing {N} has made, and it still goes wrong one time in five.
+scene magic: The high college offers {N} its great hall for a showing at the turn of the season. The new work is the boldest yet, and its heart still fails one time in five, for reasons nobody can name.
+- W | accept for next season instead, once the part is fixed and checked | v: conformity, security | aim: ease | foot: door kept your word | chance: 82
+- U | take it, and spend every day until then finding out why the part fails | v: self-direction, achievement | aim: take | foot: mark learned a skill | chance: 63
+- B | take the slot, and show the safe version that cannot fail on the night | v: achievement, security | aim: take | foot: lesson the safe version still counts | chance: 80
+- R | take it, show the whole bold thing, and let the night decide | v: stimulation, self-direction | aim: take | foot: mark took a wild risk | chance: 50
+- G | turn the night down, and keep working where the people know the work | v: tradition, security | aim: decline | foot: lesson a smaller room teaches too | chance: 80
+- W>U | ask for a private run in the same hall first, and decide after it | v: conformity, self-direction | aim: try | foot: lesson a trial before a promise | chance: 70
+- U>B | take it, and tell the audience plainly what is proven and what is not | v: self-direction, universalism | aim: take | foot: mark owned up | chance: 61
+- B>R | take it, and keep the bold part as a surprise only if the run-through holds | v: achievement, stimulation | aim: take | foot: means time-.05 | chance: 60
+- R>G | give the night to {friend}, who is ready, and come to cheer | v: benevolence, stimulation | aim: decline | foot: person friend | chance: 90
+- G>W | put this work down for good, and keep what the part has taught | v: security, conformity | aim: stop | foot: mark learned a skill | chance: 77
+works: The night goes the way it was planned to go, and some of the right people are watching.
+works: Whatever {N} chose, it was chosen knowing the risk, and nobody can say otherwise.
+fails: The part fails on the night or the doubt does, and {N} goes home with a long list.
+fails: The choice keeps {N} awake for a week, turning over what might have happened.
+
+# ---------------------------------------------------------------- U R: the bold experiment done in public (combine, cycle B)
+
+== an open night with the workings shown
+tier: life event
+shape: any
+kind: practice
+rungs: 1 2 3
+fork:
+style: U R
+route: discoverer, national_virtuoso
+stages: young_adult adult mature elder
+age: 18-80
+per_year: 0 0 0 0 0 0
+tone: joy
+life: work, interests
+horizon: months
+roles: colleague, friend, mentor, rival
+earth: {N} starts a monthly open night where the audience watches the new work being tried, failures and all
+tribal: {N} starts trying new things at the fire on open nights, where anyone may watch them go wrong and right
+magic: {N} opens the workshop at each new moon, so anyone may watch the new work tried, failures and all
+scene: Instead of hiding the new work until it is perfect, {N} has started an open night at {aim.place} once a month: the audience watches it tried, sees what fails, and hears why. The second night is in a fortnight. Word is spreading, and so is the question of whether a failure in front of people is a show or a mistake.
+scene tribal: Instead of hiding the new thing until it works, {N} tries it at the fire on open nights, where anyone may watch. The second night is at the next moon, and the camp is divided about whether failing in front of people is brave or foolish.
+scene magic: {N} has opened the workshop doors at the new moon, so anyone may watch the new work tried, failures and all. The second night is a fortnight off, and the masters are divided about whether this is learning or showmanship.
+- W | keep a strict running order, and note every result in a book the audience can read | v: conformity, universalism | aim: work | foot: lesson a record makes failure useful | chance: 75
+- U | change one thing a night, and show the audience exactly what changed | v: self-direction, achievement | aim: work | foot: mark learned a skill | chance: 71
+- B | invite the critics who matter, and make sure they see the best of it | v: power, achievement | aim: work | foot: person rival | chance: 63
+- R | try the most daring version first, and let the room react however it reacts | v: stimulation, hedonism | aim: work | foot: mark took a wild risk | chance: 60
+- G | keep the nights small, for the regulars, and never let them become a spectacle | v: tradition, benevolence | aim: ease | foot: person regular | chance: 77
+- W>B | publish the nights' results each month, and let them build a reputation | v: conformity, achievement | aim: work | foot: door kept your word | chance: 65
+- U>R | let the audience choose which untried idea gets tested next | v: self-direction, stimulation | aim: work | foot: lesson fresh eyes catch what is missed | chance: 65
+- B>G | bring in a newcomer each month to try their own work beside {Ns} | v: achievement, benevolence | aim: work | foot: person colleague | chance: 73
+- R>W | turn the best failure of each night into a short talk on what it taught | v: stimulation, conformity | aim: work | foot: means time-.04 | chance: 75
+- G>U | skip a month, and use it to think about what the nights are really for | v: security, self-direction | aim: ease | foot: means health+.03 | chance: 77
+works: The room fills a little more each month, and people start to come for the failures as much as the successes.
+works: {N} learns more in a season of open nights than in a year of working alone.
+fails: One night goes badly in front of the wrong people, and the story travels faster than the work.
+fails: The nights become a chore, and {N} begins to dread the next one.
+
+# ---------------------------------------------------------------- U G, Living Systems Designer: design versus letting it grow (pull, cycle A)
+
+== channels drawn for a marsh that moves
+tier: life event
+shape: any
+kind: reaction
+rungs: 2 3
+fork:
+style: U G
+route: systems_inventor, living_land_steward
+stages: young_adult adult mature elder
+age: 22-80
+per_year: 0 0 0 0 0 0
+tone: mixed
+life: nature, work
+horizon: months
+roles: neighbour, keeper, colleague, elder
+earth: {N} has designed channels to manage the restored marsh, and the keepers say the water should be left to find its own course
+tribal: {N} has planned ditches for the wet meadow, and the herders say the water knows its way better than any plan
+magic: {N} has drawn sluices for the fen, and the old fen keepers say the water must be let to choose its own road
+scene: The restored marsh is coming back faster than anyone hoped, and {N} has designed a set of channels and sluices to control the water levels, with the digging booked for the dry month. The marsh's keepers, who have walked it every day for years, say the water is already finding its own course and the channels would fix in place something that is still moving.
+scene tribal: The wet meadow below the camps is coming back, and {N} has planned ditches to hold the water where the reeds are best. The herders who walk it every day say the water is still choosing its road, and a ditch would choose for it.
+scene magic: The fen is waking after years of drainage, and {N} has drawn sluices to hold its levels. The old fen keepers say the water is still finding its road, and the sluices would set in stone what is still moving.
+- W | keep to the agreed plan, and dig on the booked dates | v: conformity, security | aim: hold | foot: mark kept your word | chance: 72
+- U | redesign the channels so each can be moved once the water settles | v: self-direction, achievement | aim: hold | foot: mark learned a skill | chance: 65
+- B | press on, because the funding goes if the digging slips a season | v: achievement, security | aim: hold | foot: means money+.04 | chance: 70
+- R | dig one channel now as a test, and see what the water does with it | v: stimulation, self-direction | aim: hold | foot: mark took a wild risk | chance: 60
+- G | cancel the digging, and let the marsh find its own way this year | v: benevolence, universalism | aim: bend | foot: lesson the water has its own plan | chance: 80
+- W>U | set out level posts across the marsh, and log them weekly before deciding | v: conformity, self-direction | aim: bend | foot: lesson measure before shaping | chance: 80
+- U>B | rebuild the plan around the keepers' maps, and present it as theirs as much as {Ns} | v: self-direction, power | aim: hold | foot: person keeper | chance: 68
+- B>R | argue it out with the keepers in front of the funders, and let them judge | v: power, stimulation | aim: hold | foot: door made an enemy | chance: 55
+- R>G | spend the dry month walking the marsh with the keepers every morning | v: stimulation, benevolence | aim: bend | foot: person keeper | chance: 87
+- G>W | put the channels off a year, as the keepers ask, and rebook for next season | v: tradition, conformity | aim: bend | foot: door kept your word | chance: 77
+works: The water and the plan come a little closer together, and the keepers start talking to {N} differently.
+works: Whatever was decided, the marsh keeps coming back, and {N} watches it with new eyes.
+fails: The argument with the keepers sours, and the dry month passes with nobody pleased.
+fails: The water does something neither the plan nor the keepers expected, and everyone has to start again.
+
+# ---------------------------------------------------------------- U G: systems that work with the land (combine, cycle B)
+
+== the keeper who reads the water
+tier: life event
+shape: any
+kind: mentor
+rungs: 1 2 3
+fork:
+style: U G
+route: systems_inventor, living_land_steward
+stages: young_adult adult mature elder
+age: 18-78
+per_year: 0 0 0 0 0 0
+tone: joy
+life: nature, mentor
+horizon: months
+roles: mentor, keeper, elder, colleague
+earth: an old water keeper offers to show {N} how the valley's water really moves before {N} designs anything for it
+tribal: the oldest herder of the camps offers to show {N} where the water goes in each season
+magic: an old fen keeper offers to show {N} how the waters of the march move through the year
+scene: {mentor} has kept the valley's ditches and ponds for fifty years without a single drawing. {mentor} offers to walk the valley with {N} once a week through the wet season, starting next month, on one condition: nothing gets designed until the walks are done.
+scene tribal: {mentor} is the oldest herder of the camps and knows every place the water stands in every season. {mentor} offers to walk the valley with {N} through the rains, if {N} plans nothing until they are done.
+scene magic: {mentor} has kept the fen's waters for fifty years and has never drawn a plan. {mentor} offers {N} a season of walks through the wet quarter, if nothing is drawn before they are done.
+- W | accept the condition, and keep every walk on the day agreed | v: conformity, tradition | aim: work | foot: person mentor | chance: 80
+- U | map every walk, and set what {mentor} says beside what the instruments show | v: self-direction, universalism | aim: work | foot: mark learned a skill | chance: 73
+- B | ask {mentor} to name the places where a design would do the most good | v: achievement, power | aim: try | foot: lesson ask where it matters most | chance: 67
+- R | say yes, and go out the first wet night without waiting for the season | v: stimulation, self-direction | aim: try | foot: mark took a wild risk | chance: 67
+- G | walk with {mentor} for the company, and let the design wait as long as it needs | v: benevolence, tradition | aim: ease | foot: person friend | chance: 80
+- W>B | agree the walks, and plan to present the design jointly at the season's end | v: conformity, achievement | aim: work | foot: door kept your word | chance: 70
+- U>R | try one small change each month where {mentor} says the water allows it | v: self-direction, stimulation | aim: work | foot: lesson small changes show the way | chance: 68
+- B>G | ask {mentor} to bring the other keepers too, so the design is shared | v: achievement, benevolence | aim: work | foot: person keeper | chance: 75
+- R>W | turn up in every weather, and keep a careful journal of each walk | v: stimulation, conformity | aim: work | foot: means health+.03 | chance: 80
+- G>U | take only the first few walks this season, and come back to it next year | v: security, self-direction | aim: ease | foot: means time+.04 | chance: 77
+works: By the season's end {N} sees the valley as a living thing, and the first drawings look nothing like the old ones.
+works: {mentor} and {N} keep walking long after the season is done.
+fails: The walks are slow and the wet season long, and {N} grows impatient to start.
+fails: Some of what {mentor} knows will not go into a drawing, and {N} struggles with that for a while.
+
+# ---------------------------------------------------------------- B R, Independent Impresario: the deal versus the art (pull, cycle A)
+
+== a sponsor who wants the strange piece dropped
+tier: life event
+shape: any
+kind: cost
+rungs: 2 3 4
+fork: pay
+style: B R
+route: enterprise_builder, national_virtuoso
+stages: young_adult adult mature elder
+age: 22-78
+per_year: 0 0 0 0 0 0
+tone: trouble
+life: work, money
+horizon: months
+roles: patron, colleague, partner, friend
+earth: a sponsor will fund {Ns} whole next season, if the strange new piece that half the audience walked out of is dropped
+tribal: a rich family will feed the troupe through the winter, if the strange new dance is never shown again
+magic: a merchant house will fund the company's season, if the strange new work that emptied half the hall is dropped
+scene: A sponsor has offered to fund {Ns} whole next season, enough to pay everyone properly for the first time. There is one condition: the strange new piece, the one half the audience walked out of and the other half cannot stop talking about, comes off the programme. The contract has to be signed by the end of the month, and turning it down means paying for the season some other way.
+scene tribal: A rich family offers to feed {Ns} troupe through the whole winter, if the strange new dance that set the camp arguing is never shown again. They want an answer before the first snow.
+scene magic: A merchant house offers to fund the company's season, if the strange new work that emptied half the hall is dropped. Its steward wants the seal on the contract by the month's end.
+- W | sign, honour the terms, and keep the strange piece for a season of its own later | v: conformity, security | aim: pay | cost: money .1, time .1, family .1 | foot: door kept your word | chance: 80
+- U | find out what the sponsor actually objects to, and offer a different programme order | v: self-direction, achievement | aim: pay | cost: money .1, time .3, family .1 | foot: lesson ask what the real objection is | chance: 65
+- B | sign, drop the piece, and use the season's money to build the company | v: power, achievement | aim: pay | cost: money .1, time .2, family .1 | foot: means money+.06 | chance: 77
+- R | turn the money down, and fund the season by playing more nights | v: stimulation, self-direction | aim: pay | cost: money .4, time .5, family .3 | foot: mark took a wild risk | chance: 60
+- G | let the bigger season go, and keep the company small and its own | v: tradition, security | aim: stop | foot: lesson small and free still counts | chance: 80
+- W>U | sign for one season only, with a clause to review the programme together | v: conformity, self-direction | aim: pay | cost: money .1, time .2, family .1 | foot: person patron | chance: 65
+- U>B | find a second, smaller sponsor who wants exactly the strange piece | v: self-direction, power | aim: pay | cost: money .2, time .3, family .2 | foot: person patron | chance: 58
+- B>R | refuse, then announce the strange piece as the season's headline | v: power, stimulation | aim: refuse | foot: door made an enemy | chance: 55
+- R>G | ask the regular audience to fund the season between them, a little each | v: stimulation, benevolence | aim: pay | cost: money .3, time .4, family .2 | foot: person regular | chance: 60
+- G>W | put the decision off a season, and run a short season on what there is | v: security, conformity | aim: ease | foot: means time+.04 | chance: 72
+works: The season gets paid for one way or another, and {N} knows exactly what was traded.
+works: Whatever was chosen, the company stays together and keeps playing.
+fails: The money turns out tighter than it looked, and the season is lean and tired.
+fails: Some of the company disagree with the choice, and the rehearsal room is cool for a while.
+
+# ---------------------------------------------------------------- B R: a stage built and filled (combine, cycle B)
+
+== the empty hall going cheap
+tier: life event
+shape: any
+kind: chance
+rungs: 1 2
+fork: take
+style: B R
+route: enterprise_builder, national_virtuoso
+stages: young_adult adult mature elder
+age: 20-75
+per_year: 0 0 0 0 0 0
+tone: joy
+life: work, money
+horizon: years
+roles: partner, friend, patron, colleague
+earth: the old hall at the end of the high street is going cheap, and {N} has six weeks to raise the lease and a programme to fill it
+tribal: the old meeting ground by the ford stands empty, and {N} could claim it for the troupe before the camps move
+magic: the shuttered playhouse by the river is offered for a year's rent, and {N} has until the quarter day to take it
+scene: The old hall at the end of the high street has stood empty for three years, and the owner will let it cheap to anyone who opens it by spring. {N} has six weeks to raise the first year's lease and a programme good enough to fill it every week. It would be {Ns} own stage, with {Ns} own risks.
+scene tribal: The old meeting ground by the ford has stood empty since the last flood, and whoever brings people back to it may keep it. {N} has until the camps move to claim it and fill it.
+scene magic: The shuttered playhouse by the river is offered for a year's rent to whoever opens it by spring. {N} has until the quarter day to find the rent and a season worth playing.
+- W | take it, with a careful budget and a full year's programme agreed in advance | v: conformity, security | aim: take | foot: mark kept your word | chance: 70
+- U | ask to open it for a trial month before signing the year | v: self-direction, security | aim: try | foot: lesson a trial before a promise | chance: 73
+- B | take the lease, and sell every night to the best acts that will come | v: power, achievement | aim: take | foot: means money-.06 | chance: 70
+- R | sign tonight, and open with the wildest programme the town has seen | v: stimulation, hedonism | aim: take | foot: mark took a wild risk | chance: 60
+- G | let the hall go to someone else, and keep playing where the audience already is | v: tradition, security | aim: decline | foot: lesson the old room still works | chance: 80
+- W>B | take it with two partners, each with a fixed share and a fixed job | v: conformity, power | aim: take | foot: person partner | chance: 65
+- U>R | wait a year, save, and learn how other small halls survived | v: self-direction, stimulation | aim: ease | foot: mark learned a skill | chance: 83
+- B>G | take it, and give the town's own groups one free night a week | v: achievement, benevolence | aim: take | foot: means ties+.04 | chance: 70
+- R>W | open it with friends as a pop-up for a month, then sign if the crowds come | v: stimulation, conformity | aim: try | foot: person friend | chance: 67
+- G>U | step back from running anything, and keep the time for the work itself | v: security, self-direction | aim: stop | foot: lesson the work comes first | chance: 77
+works: Whatever {N} chose, the choice was made with the sums done and the risks named.
+works: By spring there is a stage {N} can call home, or a clear reason why not.
+fails: The money comes in slower than hoped, and the first months are anxious ones.
+fails: The town's response is mixed, and {N} spends weeks second-guessing the programme.
+
+# ---------------------------------------------------------------- B G, Regenerative Enterprise Builder: profit versus renewal (pull, cycle A)
+
+== a season's income for the resting fields
+tier: life event
+shape: any
+kind: cost
+rungs: 2 3
+fork: pay
+style: B G
+route: enterprise_builder, living_land_steward
+stages: young_adult adult mature elder
+age: 22-80
+per_year: 0 0 0 0 0 0
+tone: trouble
+life: money, nature
+horizon: years
+roles: partner, colleague, neighbour, keeper
+earth: the soil tests say a third of the firm's fields need a full season's rest, and the bank wants this year's figures first
+tribal: the grazing is wearing thin, and resting a third of it means a lean winter for the camp
+magic: the steward's books say the estate must sell this year's harvest whole, and the soil says a third of it must lie fallow
+scene: The firm {N} built grows and sells from its own land, and it has done well. This spring's soil tests are plain: a third of the fields need a full season resting under cover crops, or the yields will start to fall within three years. Resting them now means a season with a third less to sell, in the year the bank reviews the firm's loan.
+scene tribal: The camp's herds have done well on the grazing {N} manages, and now the grass is wearing thin on a third of it. Resting that third through the summer means fewer beasts to trade at the autumn gathering, in a year the camp owes another clan.
+scene magic: The estate {N} runs has paid well for five years, and the soil is tiring on a third of its fields. Resting them means a lean year in the ledger, just as the merchant house that lent the money comes to inspect the books.
+- W | rest the fields as the tests advise, and explain the lean year to the bank | v: conformity, universalism | aim: pay | cost: money .4, time .2, family .2 | foot: mark kept your word | chance: 70
+- U | rest a different tenth each year, and track what it does to the yields | v: self-direction, universalism | aim: pay | cost: money .2, time .3, family .1 | foot: mark learned a skill | chance: 68
+- B | keep every field producing this year, and rest them after the loan review | v: achievement, power | aim: refuse | foot: means money+.06 | chance: 70
+- R | rest them all at once, and find a new product to sell from the cover crops | v: stimulation, self-direction | aim: pay | cost: money .4, time .4, family .2 | foot: mark took a wild risk | chance: 55
+- G | step back from growing the firm, and run it small enough for the land to carry | v: tradition, universalism | aim: stop | foot: lesson the land sets the pace | chance: 77
+- W>U | ask the bank for a renewal clause, and rest the fields on its terms | v: conformity, self-direction | aim: pay | cost: money .3, time .3, family .1 | foot: person colleague | chance: 60
+- U>B | sell the resting as a promise to the customers, and charge for it | v: self-direction, achievement | aim: pay | cost: money .2, time .3, family .1 | foot: lesson renewal can be sold honestly | chance: 61
+- B>R | borrow more to cover the lean year, and rest the fields at once | v: power, stimulation | aim: pay | cost: money .5, time .2, family .3 | foot: means money-.08 | chance: 55
+- R>G | ask the neighbouring farms to rest their worn fields too, and share the cover seed | v: stimulation, benevolence | aim: pay | cost: money .3, time .4, family .1 | foot: person neighbour | chance: 65
+- G>W | wait one season, and use it to plan the resting with the whole household | v: benevolence, conformity | aim: ease | foot: means ties+.04 | chance: 74
+works: The lean season is lean, and the firm comes through it with the fields in better heart than before.
+works: Whatever was chosen, {N} can explain it to the bank and to the land without flinching.
+fails: The bank's review is tense, and the household feels the squeeze for months.
+fails: The yields wobble either way, and it will be years before anyone knows if the choice was right.
+
+# ---------------------------------------------------------------- B G: a living that leaves the land better (combine, cycle B)
+
+== the soil tests beside the accounts
+tier: life event
+shape: any
+kind: practice
+rungs: 1 2 3
+fork:
+style: B G
+route: enterprise_builder, living_land_steward
+stages: young_adult adult mature elder
+age: 20-80
+per_year: 0 0 0 0 0 0
+tone: joy
+life: work, nature
+horizon: months
+roles: partner, colleague, keeper, neighbour
+earth: {N} starts putting the soil and water readings on the same table as the accounts, every month
+tribal: {N} starts counting the grass and the springs beside the herd, every moon, as if they were wealth too
+magic: {N} has the estate's soil and water written into the steward's ledger, beside the coin, every month
+scene: Every month {N} sits down with two sets of numbers: the accounts and the land's own readings, soil, water, hedges, birds. For the first time this spring they are on the same table, and the question is plain. Which parts of the business pay their way because they spend the land, and which pay because they mend it? The next month's figures are due on Friday.
+scene tribal: Every moon {N} counts the grass and the springs beside the herd, as if they were wealth too. This spring the two counts sit side by side for the first time, and they do not always agree.
+scene magic: {N} has had the soil and water of the estate written into the steward's ledger beside the coin. This month, for the first time, the two columns sit side by side, and the steward has questions.
+- W | keep both sets of books to the same strict standard, every month without fail | v: conformity, security | aim: work | foot: lesson two ledgers, one standard | chance: 78
+- U | find the one line in the business where profit and renewal pull hardest apart | v: self-direction, universalism | aim: work | foot: mark learned a skill | chance: 68
+- B | price the land's improvement in, and show buyers what they are paying for | v: achievement, power | aim: work | foot: means money+.04 | chance: 67
+- R | drop the product that spends the land most, this month, and see what happens | v: stimulation, universalism | aim: work | foot: mark took a wild risk | chance: 57
+- G | keep the books simple, and spend more time out on the land itself | v: tradition, benevolence | aim: ease | foot: place prod.land | chance: 77
+- W>B | show both sets of numbers to the bank, and argue the firm is worth more | v: conformity, power | aim: work | foot: person colleague | chance: 60
+- U>R | try three small changes on three fields, and compare them by the autumn | v: self-direction, stimulation | aim: work | foot: lesson small trials, clear answers | chance: 68
+- B>G | share the readings with the neighbouring farms, and buy from those who mend their land | v: achievement, benevolence | aim: work | foot: person neighbour | chance: 70
+- R>W | walk the land with the whole staff each month, numbers in hand | v: stimulation, conformity | aim: work | foot: means ties+.04 | chance: 77
+- G>U | skip the figures one month, and just watch the land through a season | v: security, self-direction | aim: ease | foot: means health+.03 | chance: 77
+works: The two sets of numbers start telling one story, and {N} can see where the business is headed.
+works: Month by month it becomes a habit, and the land and the accounts both get a little better.
+fails: The numbers disagree in ways nobody can explain, and the month ends in more questions.
+fails: The extra work piles up, and for a while the readings fall behind.
+
+# ---------------------------------------------------------------- R G, Field Pathfinder: the bold route versus the careful one (pull, cycle A)
+
+== the ridge tonight or the valley track at dawn
+tier: life event
+shape: any
+kind: rival
+rungs: 2 3 4
+fork:
+style: R G
+route: commander, living_land_steward
+stages: young_adult adult mature elder
+age: 22-75
+per_year: 0 0 0 0 0 0
+tone: trouble
+life: work, nature
+horizon: moment
+roles: rival, colleague, friend, mentor
+earth: walkers are stranded past the flooded ford, and {rival}, who leads the other rescue team, wants to go over the ridge tonight
+tribal: herders are cut off past the flooded ford, and {rival} of the next camp wants to cross the ridge in the dark
+magic: travellers are cut off beyond the swollen ford, and {rival}, captain of the other company, wants the ridge path tonight
+scene: Six walkers are stranded past the flooded ford, cold but sheltered. {rival}, who leads the other rescue team and has beaten {N} to every call this year, wants to take both teams over the ridge tonight: three hours, in wind and dark, on loose ground. The valley track is safe but cannot be walked until first light, eight hours away. The call has to be made within the hour.
+scene tribal: Herders and their beasts are cut off past the flooded ford. {rival} of the next camp, who never lets {N} forget the last rescue, wants to cross the ridge in the dark. The valley path opens at dawn.
+scene magic: Travellers are cut off beyond the swollen ford. {rival}, captain of the other company and {Ns} old rival, wants to take the ridge path tonight. The low road is safe, but only by daylight.
+- W | follow the agreed rescue plan: valley track at first light, and radio the walkers to wait | v: conformity, security | aim: work | foot: mark kept your word | chance: 80
+- U | get the forecast and the walkers' state by radio, and decide on what they show | v: self-direction, security | aim: work | foot: mark learned a skill | chance: 75
+- B | take command of both teams, and make the call {rival} cannot overrule | v: power, achievement | aim: try | foot: person rival | chance: 60
+- R | go over the ridge tonight, ahead of {rival}, with the strongest two | v: stimulation, achievement | aim: try | foot: mark took a wild risk | chance: 50
+- G | let {rival} lead tonight, and keep {Ns} team ready at the valley track | v: benevolence, security | aim: ease | foot: lesson one leader is enough | chance: 77
+- W>U | agree a turnaround point with {rival}, and go over only that far | v: conformity, self-direction | aim: work | foot: door kept your word | chance: 65
+- U>B | find the third route across the high meadow that neither had thought of | v: self-direction, achievement | aim: try | foot: lesson the map has more routes | chance: 58
+- B>R | race {rival} there: ridge for one team, valley for the other | v: power, stimulation | aim: try | foot: door made an enemy | chance: 50
+- R>G | go up to the ridge's foot tonight, then wait for light with the valley in sight | v: stimulation, security | aim: work | foot: means health-.04 | chance: 70
+- G>W | ask {rival} to wait for dawn with {N}, and go in together | v: benevolence, conformity | aim: work | foot: person rival | chance: 62
+works: The walkers come home cold and shaken and whole, and both teams with them.
+works: In the debrief, the call that was made stands up, and {rival} says so grudgingly.
+fails: The night is long and frightening for everyone, and the debrief is sharp.
+fails: The walkers come home, but the argument with {rival} goes on for weeks.
+
+# ---------------------------------------------------------------- R G: leading people into wild places and back (combine, cycle B)
+
+== an old guide's way of reading the hill
+tier: life event
+shape: any
+kind: mentor
+rungs: 1 2
+fork:
+style: R G
+route: commander, living_land_steward
+stages: young_adult adult mature elder
+age: 18-75
+per_year: 0 0 0 0 0 0
+tone: joy
+life: nature, mentor
+horizon: months
+roles: mentor, colleague, friend, elder
+earth: an old mountain guide offers to take {N} out with the new volunteers all winter, to show how to lead people into wild places and back
+tribal: the camp's oldest tracker offers to take {N} and the young hunters into the high country all winter
+magic: an old ranger of the crown's forests offers to take {N} and the new recruits into the wild march all winter
+scene: {mentor} has led groups into the hills for forty years and brought every one of them back. {mentor} offers to take {N} out with the new volunteers every second weekend this winter, starting next month: not to teach the hill, {mentor} says, but how to read it fast enough to be bold and careful in the same minute.
+scene tribal: {mentor} has tracked the high country for forty winters and lost nobody. {mentor} offers to take {N} and the young hunters out this winter, to teach the moment when a bold step is safe and when it is not.
+scene magic: {mentor} has ranged the crown's wild forests for forty years and brought every patrol home. {mentor} offers to take {N} and the new recruits out all winter, to read the wild fast enough to be bold and careful at once.
+- W | go every second weekend, and learn each of {mentor}'s drills by heart | v: conformity, security | aim: work | foot: person mentor | chance: 82
+- U | keep a notebook of every call {mentor} makes on the hill, and why | v: self-direction, achievement | aim: work | foot: mark learned a skill | chance: 73
+- B | ask to lead a group under {mentor}'s eye by midwinter | v: achievement, power | aim: try | foot: lesson lead early, under watch | chance: 63
+- R | go every weekend, and ask for the hardest days going | v: stimulation, achievement | aim: try | foot: mark took a wild risk | chance: 60
+- G | go when the weather is kind, for the hills as much as the lessons | v: benevolence, hedonism | aim: ease | foot: place prod.wild | chance: 80
+- W>B | train to {mentor}'s standard, then sit the rescue team's leader assessment | v: conformity, achievement | aim: work | foot: door learned a skill | chance: 65
+- U>R | test {mentor}'s rules on short solo trips, and bring back what breaks | v: self-direction, stimulation | aim: work | foot: lesson rules bend on the hill | chance: 58
+- B>G | ask {mentor} to bring the farmers and wardens who know the hill best | v: achievement, benevolence | aim: work | foot: person neighbour | chance: 75
+- R>W | lead the volunteers' warm-ups, and keep them laughing and on time | v: stimulation, conformity | aim: work | foot: person friend | chance: 80
+- G>U | take only a few days with {mentor}, and spend the rest learning the maps | v: security, self-direction | aim: ease | foot: means time+.04 | chance: 77
+works: By spring {N} can feel the moment on the hill when bold is right and when careful is, and act on it.
+works: {mentor} and {N} keep going out together long after the volunteers have learned their way.
+fails: The winter is wet and the outings few, and {N} has less to show for it than hoped.
+fails: Some of {mentor}'s ways are hard to learn, and {N} comes home from more than one day frustrated.
+
+# ================================================================ TRIADS
+
+# ---------------------------------------------------------------- W U B, Institutional Strategist: the long plan versus today's deal (pull, cycle A)
+
+== the training college traded for a quick win
+tier: life event
+shape: any
+kind: cost
+rungs: 2 3 4
+fork: pay
+style: W U B
+route: public_service_architect, coalition_builder
+stages: young_adult adult mature elder
+age: 24-80
+per_year: 0 0 0 0 0 0
+tone: trouble
+life: work, community
+horizon: years
+roles: colleague, boss, go-between, partner
+earth: the allies will carry this month's budget only if the ten-year plan's training college gives way to a new ward that opens next year
+tribal: the clans will back the winter stores only if the long plan for a school of trackers gives way to a new storehouse now
+magic: the guilds will pass the season's budget only if the long plan for a college of healers gives way to a new almshouse now
+scene: The ten-year plan {N} wrote rests on one thing: a training college that would staff the region's clinics long after {N} has gone. The allies who carry the budget vote this month want the college money moved into a new ward that would open next year, with ribbons and photographs. Without them the budget falls; with them the plan loses its spine.
+scene tribal: {Ns} long plan rests on a school of trackers who would keep the camps fed for a generation. The clans who carry the winter vote want the stores built now instead, where everyone can see them. The moot meets at the next moon.
+scene magic: {Ns} long plan rests on a college of healers to serve the realm for fifty years. The guilds who carry the season's vote want an almshouse built now, with their names over the door. The council sits within the month.
+- W | keep the college in the plan, and spend the month winning the vote without the trade | v: conformity, universalism | aim: pay | cost: money .1, time .5, family .3 | foot: mark kept your word | chance: 55
+- U | show the allies what the region looks like in ten years with and without the college | v: self-direction, universalism | aim: pay | cost: money .1, time .4, family .2 | foot: lesson ten years fits on a page | chance: 63
+- B | take the trade, open the ward, and bring the college back in two years | v: power, achievement | aim: pay | cost: money .1, time .2, family .1 | foot: door broke your word | chance: 73
+- R | refuse the trade in public, and let the allies explain why they want ribbons | v: stimulation, universalism | aim: refuse | foot: door made an enemy | chance: 55
+- G | hand the plan on to the board's oldest member, and step back from the fight | v: tradition, benevolence | aim: stop | foot: lesson the plan outlives its author | chance: 77
+- W>U | ask for an independent review of both, and agree in advance to abide by it | v: conformity, self-direction | aim: ease | foot: door kept your word | chance: 75
+- U>B | split it: a smaller ward now, and the college's first year funded beside it | v: self-direction, power | aim: pay | cost: money .2, time .4, family .2 | foot: person go-between | chance: 63
+- B>R | trade the ward for the allies' votes on two later budgets that fund the college | v: power, stimulation | aim: pay | cost: money .1, time .3, family .2 | foot: person colleague | chance: 57
+- R>G | bring the nurses who would train there to speak to the allies themselves | v: stimulation, benevolence | aim: pay | cost: money .1, time .3, family .1 | foot: mark helped someone in need | chance: 67
+- G>W | let the budget go by this year, and rebuild the plan's support slowly | v: security, conformity | aim: ease | foot: means ties+.03 | chance: 72
+works: The vote passes with the plan still standing in some shape, and {N} knows what it cost.
+works: Whatever happened, the people who rely on the clinics are still at the centre of the argument.
+fails: The deal leaves a bad taste, and {N} lies awake over it more than once.
+fails: The allies are cooler afterwards, and the next vote will be harder.
+
+# ---------------------------------------------------------------- W U B: institutions that outlast their founder (combine, cycle B)
+
+== a body that must outlive its founder
+tier: life event
+shape: any
+kind: round
+rungs: 2 3 4
+fork: round
+style: W U B
+route: public_service_architect, coalition_builder
+stages: adult mature elder
+age: 30-82
+per_year: 0 0 0 0 0 0
+tone: mixed
+life: work, community
+horizon: years
+roles: colleague, patron, boss, mentor
+earth: the region's funders will not renew a body that rests on one person's name, and {N} is that person; there is {aim.round}
+tribal: the moot will not keep a council that rests on one elder's word, and {N} is that elder; there is {aim.round}
+magic: the crown will not charter a body that rests on one founder's seal, and {N} is that founder; there is {aim.round}
+scene: The service {N} founded works, and everyone knows whose it is. That is the problem: the region's funders say they will not renew a body that would fall apart without its founder, and the renewal is due in six months. Nobody else has ever run it. {N} has heard about {aim.round}.
+scene tribal: The council of keepers {N} began runs well, but the moot says it rests on one elder's word and will not keep it past the next winter as it is. {N} has heard about {aim.round}.
+scene magic: The house of service {N} founded is known by {Ns} name across the march. The crown will not renew its charter while it would fall with its founder, and the charter ends at midsummer. There is {aim.round}.
+- W | go through {aim.round}, and write the body's rules so any capable person could run it | v: conformity, security | aim: round | foot: lesson rules outlast names | chance: 72
+- U | study how {aim.round} has carried other founders' work, and copy what held | v: self-direction, security | aim: round | foot: mark learned a skill | chance: 73
+- B | use {aim.round} to bring in a strong board, and keep the chair for now | v: power, achievement | aim: round | foot: person colleague | chance: 67
+- R | announce {Ns} own departure date, and dare the body to be ready by then | v: stimulation, universalism | aim: round | foot: mark took a wild risk | chance: 55
+- G | ask the funders for one more year, and keep the body as it is meanwhile | v: tradition, security | aim: ease | foot: means time+.03 | chance: 74
+- W>B | train a successor through {aim.round}, and hand over one duty a month | v: conformity, power | aim: round | foot: person colleague | chance: 65
+- U>R | try running a whole month without {N}, and fix what fails | v: self-direction, stimulation | aim: round | foot: lesson absence shows the gaps | chance: 61
+- B>G | give the staff a real stake in running it, through {aim.round} | v: achievement, benevolence | aim: round | foot: means ties+.04 | chance: 67
+- R>W | give the body to the region to run as it sees fit, and step away | v: stimulation, conformity | aim: stop | foot: lesson letting go is building too | chance: 90
+- G>U | let it close gently, and write down everything it learned for whoever comes next | v: benevolence, universalism | aim: stop | foot: lesson the knowing is kept | chance: 77
+works: Slowly the body stops being {Ns} and becomes the region's, and the funders notice.
+works: Whatever {N} chose, the people it serves are not left without help.
+fails: The handover is slower and messier than planned, and the renewal is touch and go.
+fails: {N} finds letting go harder than expected, and the staff feel the pull both ways.
+
+# ---------------------------------------------------------------- W U R, Civic Experimenter: pilot first versus act now (pull, cycle A)
+
+== the following that cannot wait for the pilot
+tier: life event
+shape: any
+kind: reaction
+rungs: 2 3
+fork:
+style: W U R
+route: public_service_architect, rallying_voice
+stages: young_adult adult mature elder
+age: 20-80
+per_year: 0 0 0 0 0 0
+tone: mixed
+life: community, work
+horizon: months
+roles: friend, colleague, patron, boss
+earth: {Ns} following wants the night-bus reform in every town now, and the pilot in one town has six months left to run
+tribal: the young of every camp want {Ns} new way of sharing the hunt now, and its trial in one camp has a season to go
+magic: the commons want {Ns} free night watch in every ward now, and its trial in one ward has half a year to run
+scene: The night-bus reform {N} argued for is in its pilot in one town, and the first months look good: fewer people stranded, fewer accidents. {Ns} following, which turned out in hundreds to win the pilot, now wants it in every town at once, and plans a rally in a fortnight to demand it. The pilot has six months left, and its hardest season, winter, has not yet been tested.
+scene tribal: The new way of sharing the hunt has been tried in one camp for a season, and the first moons look good. The young of every camp want it now, and will say so loudly at the next moot. The hard winter months are still to come.
+scene magic: The free night watch has run in one ward for half a year, and the first months look good. The commons want it in every ward now and are gathering in the square. The dark quarter, the true test, is still to come.
+- W | hold to the pilot's agreed length, and say so plainly at the rally | v: conformity, security | aim: bend | foot: mark kept your word | chance: 72
+- U | publish the first months' figures in full, and what they cannot yet show | v: self-direction, universalism | aim: hold | foot: lesson half a result is honest | chance: 71
+- B | ride the rally to win a promise for a second town, nothing more | v: power, achievement | aim: hold | foot: person boss | chance: 67
+- R | lead the rally, and demand it everywhere now, winter or not | v: stimulation, universalism | aim: hold | foot: mark took a wild risk | chance: 55
+- G | let the rally go ahead without {N}, and stay with the pilot town's people | v: benevolence, tradition | aim: bend | foot: means ties+.04 | chance: 77
+- W>U | ask the rally to back a clear date: winter tested, then every town | v: conformity, self-direction | aim: hold | foot: door kept your word | chance: 65
+- U>B | propose two more pilot towns of different sizes, so winter tests three at once | v: self-direction, power | aim: hold | foot: mark learned a skill | chance: 63
+- B>R | let the rally run hot, and use the pressure to win money for every town | v: power, stimulation | aim: hold | foot: door made an enemy | chance: 57
+- R>G | bring the people who ride the night bus to speak at the rally themselves | v: stimulation, benevolence | aim: hold | foot: mark helped someone in need | chance: 67
+- G>W | ask the following to wait out the winter, and promise to lead them after | v: benevolence, conformity | aim: bend | foot: door kept your word | chance: 72
+works: The rally comes and goes, and the following and the pilot are still pulling in the same direction.
+works: People see that {N} told them the truth about the figures, and most of them respect it.
+fails: Some of the following call {N} timid, and a few drift away.
+fails: The pressure makes the pilot's staff nervous, and the winter months are harder than they needed to be.
+
+# ---------------------------------------------------------------- W U R: tested in one town, then rallied to the rest (combine, cycle B)
+
+== results from one town, the rest to rally
+tier: life event
+shape: any
+kind: chance
+rungs: 2 3 4
+fork: take
+style: W U R
+route: public_service_architect, rallying_voice
+stages: young_adult adult mature elder
+age: 22-80
+per_year: 0 0 0 0 0 0
+tone: joy
+life: community, travel
+horizon: months
+roles: friend, colleague, patron, mentor
+earth: the pilot in one town has held through a whole year, and {N} is invited to take the results on a tour of the region's towns
+tribal: the trial in one camp has held through a whole year, and {N} is asked to carry it to every camp before the moot
+magic: the trial in one ward has held a full year, and the free towns of the march invite {N} to carry it to their halls
+scene: The pilot has held through a whole year, winter included, and the figures are good. Now the towns that watched it want to hear for themselves: {N} is invited to tour the region's halls this spring, one town a week, and make the case where people can ask questions. It would mean three months on the road, starting next month.
+scene tribal: The trial in one camp has held through a whole year, through the hard winter too. The other camps want to hear of it from {N} before the moot, one camp each week. It means a season of walking.
+scene magic: The trial in one ward has held a full year, the dark quarter included. The free towns of the march want {N} to bring it to their halls, one a week, before the summer council.
+- W | take the tour, and present the same tested figures in every town | v: conformity, universalism | aim: take | foot: lesson the same truth everywhere | chance: 72
+- U | take the tour, and bring back each town's questions to improve the reform | v: self-direction, universalism | aim: take | foot: mark learned a skill | chance: 71
+- B | take it, and sign up each town's council before leaving it | v: power, achievement | aim: take | foot: person colleague | chance: 65
+- R | turn each visit into a rally, and leave every town fired up | v: stimulation, universalism | aim: take | foot: means time-.06 | chance: 63
+- G | decline the tour, and stay to keep the pilot town's service running well | v: tradition, benevolence | aim: decline | foot: lesson one town done well | chance: 80
+- W>B | take it, with a written offer each town can sign up to on the night | v: conformity, power | aim: take | foot: door kept your word | chance: 62
+- U>R | try three towns first, and decide on the rest from how they go | v: self-direction, stimulation | aim: try | foot: lesson a trial before a promise | chance: 71
+- B>G | send people from the pilot town to speak instead, and go with them | v: achievement, benevolence | aim: take | foot: person friend | chance: 70
+- R>W | put the tour off a season, and plan it properly with each town first | v: stimulation, conformity | aim: ease | foot: means time+.04 | chance: 85
+- G>U | let it go, and write up the pilot so any town can copy it | v: benevolence, universalism | aim: stop | foot: lesson the write-up travels alone | chance: 77
+works: Town by town the questions get sharper and the answers better, and the reform starts to travel.
+works: Whatever {N} chose, the pilot's results are out in the world where people can use them.
+fails: Some towns listen politely and do nothing, and the road is long.
+fails: The months away cost more at home than {N} expected.
+
+# ---------------------------------------------------------------- W U G, Adaptive Steward: settled rules versus a changing place (pull, cycle A)
+
+== the settlement line the shore has crossed
+tier: life event
+shape: any
+kind: rival
+rungs: 2 3
+fork:
+style: W U G
+route: common_ground_maker, living_land_steward
+stages: young_adult adult mature elder
+age: 24-82
+per_year: 0 0 0 0 0 0
+tone: mixed
+life: nature, community
+horizon: months
+roles: rival, neighbour, elder, keeper
+earth: the old settlement fixes where the salt marsh grazing ends, the shore has moved inland since, and {rival} will hold to the old line
+tribal: the old custom marks where the shore pasture ends, the sea has come in since, and {rival} will not hear of moving the stones
+magic: the old charter sets where the shore grazing ends, the sea has crept inland since, and {rival} will hold to the letter of it
+scene: The settlement on the salt marsh was signed thirty years ago, and it fixes where grazing ends with stones along a line. The shore has moved inland since, and the line now runs through the young marsh the birds need. The users meet next month to renew it. {rival}, who also keeps the marsh and is widely respected, says a settlement that moves with the weather is no settlement at all.
+scene tribal: The old custom marks the shore pasture's end with stones, set long before {N} was born. The sea has come in since, and the stones stand in the new marsh. {rival}, who keeps the pasture too, says stones that move are no stones at all. The camps meet at midsummer.
+scene magic: The charter of the shore pasture sets its end at a line of stones. The sea has crept inland, and the line runs through the new marsh. {rival}, a respected keeper, says a charter that moves with the tide is no charter at all. It comes up at the summer quarter.
+- W | propose the old line holds, with a fixed review every ten years | v: conformity, security | aim: work | foot: mark kept your word | chance: 70
+- U | survey the shore with {rival}, and put the new line and the old on one map | v: self-direction, universalism | aim: work | foot: mark learned a skill | chance: 68
+- B | gather the users who want the line moved, and outvote {rival} | v: power, achievement | aim: try | foot: door made an enemy | chance: 60
+- R | move a few of the stones this spring, and let the meeting argue it out | v: stimulation, self-direction | aim: try | foot: mark took a wild risk | chance: 50
+- G | let {rival} carry this renewal, and keep watching the marsh | v: benevolence, tradition | aim: ease | foot: lesson the marsh will show it | chance: 77
+- W>U | keep the settlement, but tie the line to the shore, not to the stones | v: conformity, self-direction | aim: work | foot: lesson rules can follow the place | chance: 65
+- U>B | find the one piece of shore where {rival} already agrees the line is wrong | v: self-direction, achievement | aim: work | foot: person rival | chance: 65
+- B>R | challenge {rival} to a public walk of the line, and let the users see it | v: power, stimulation | aim: try | foot: person neighbour | chance: 60
+- R>G | spend the month on the marsh with the oldest graziers, and ask what they remember | v: stimulation, tradition | aim: work | foot: person elder | chance: 80
+- G>W | ask {rival} to write the new terms together, and share the credit | v: benevolence, conformity | aim: work | foot: means ties+.04 | chance: 60
+works: The meeting ends with the settlement intact and a little wiser, and {rival} still speaks to {N}.
+works: Whatever was agreed, the users have seen the shore with their own eyes, and that will last.
+fails: {rival} and {N} end the month further apart, and the users split behind them.
+fails: The renewal is put off for a year, and nobody is quite satisfied.
+
+# ---------------------------------------------------------------- W U G: rules kept alive as the land changes (combine, cycle B)
+
+== the yearly walk that rewrites the terms
+tier: life event
+shape: any
+kind: practice
+rungs: 1 2 3 4
+fork:
+style: W U G
+route: common_ground_maker, living_land_steward
+stages: young_adult adult mature elder
+age: 20-82
+per_year: 0 0 0 0 0 0
+tone: joy
+life: nature, community
+horizon: months
+roles: neighbour, keeper, elder, colleague
+earth: {N} has started a yearly walk of the shared land with every user, so the settlement's terms can change as the place does
+tribal: {N} walks the shared grazing with every camp each spring, so the custom can change as the land does
+magic: {N} leads every guild that uses the commons on a yearly walk, so the charter can change as the land does
+scene: Each spring {N} walks the whole shared stretch with everyone who uses it: graziers, anglers, walkers, the water company's keeper. They stop at every place the settlement names, look at what has changed, and agree on the spot what the terms should say this year. This year's walk is next week, and there are more users than ever.
+scene tribal: Each spring {N} walks the shared grazing with the elders of every camp. They stop at every marker the custom names, see what has changed, and agree what the custom says this year. The walk is at the new moon.
+scene magic: Each spring {N} leads the guilds that use the commons on a walk of its bounds. At every stone the charter names, they see what has changed and agree its terms anew. This year's walk is next week.
+- W | keep the walk to its old order, every stop and every signature, as agreed | v: conformity, tradition | aim: work | foot: mark kept your word | chance: 80
+- U | add simple measurements at each stop, so next year's walk can compare | v: self-direction, universalism | aim: work | foot: mark learned a skill | chance: 73
+- B | bring the council's land officer along, so the terms carry more weight | v: power, security | aim: work | foot: person boss | chance: 67
+- R | let the walk wander off the old route to where the land has changed most | v: stimulation, self-direction | aim: work | foot: place prod.wild | chance: 67
+- G | keep it short this year, as much a gathering as a review | v: benevolence, tradition | aim: ease | foot: means ties+.04 | chance: 80
+- W>B | write each year's terms into a record that any user can check | v: conformity, power | aim: work | foot: door kept your word | chance: 70
+- U>R | try one new rule for a year at a single stop, and judge it next spring | v: self-direction, stimulation | aim: work | foot: lesson one stop, one trial | chance: 65
+- B>G | invite the newest users to lead one stretch of the walk themselves | v: achievement, benevolence | aim: work | foot: person neighbour | chance: 75
+- R>W | turn the walk into a day the whole valley comes to, with food at the end | v: stimulation, conformity | aim: work | foot: means ties+.05 | chance: 77
+- G>U | skip a year, and let the land change undisturbed before the next walk | v: tradition, self-direction | aim: ease | foot: lesson a year off shows more | chance: 77
+works: The walk ends with new terms everyone signed, and they fit the place as it is now.
+works: Year by year the settlement changes a little, and it holds because everyone saw why.
+fails: A dispute at one stop sours the day, and the terms there stay as they were.
+fails: The weather is foul and the walk is half done, and the review limps into summer.
+
+# ---------------------------------------------------------------- W B R, Movement-to-Power Builder: the movement's purity versus office (pull, cycle A)
+
+== a seat on the executive for one demand
+tier: life event
+shape: any
+kind: chance
+rungs: 3 4
+fork: take
+style: W B R
+route: rallying_voice, mandate_builder
+stages: young_adult adult mature elder
+age: 24-80
+per_year: 0 0 0 0 0 0
+tone: trouble
+life: community, work
+horizon: years
+roles: friend, colleague, patron, boss
+earth: the council's leaders offer {N} a seat on its executive, if the movement drops the one demand that started it
+tribal: the elders offer {N} a place at the inner fire, if the young drop the demand that brought them to the moot
+magic: the council offers {N} a seat on its inner bench, if the commons drop the cry that first filled the square
+scene: The movement {N} leads has grown too big to ignore, and the council's leaders have made an offer: a seat on the executive, with a real say over the next three budgets. The price is the one demand that started it all, the one on the first banner, which the movement would have to drop. The offer is open until the next full council, in five weeks.
+scene tribal: The movement of the young has grown too big for the elders to ignore. They offer {N} a place at the inner fire, with a voice over the hunts and the stores, if the demand that brought the young to the moot is dropped. The offer stands until the next moon.
+scene magic: The commons' movement has grown too loud for the council to ignore. It offers {N} a seat on the inner bench, if the cry that first filled the square is dropped. The offer stands until the next sitting.
+- W | take the seat, and keep the demand as the movement's goal, said aloud | v: conformity, universalism | aim: take | foot: mark kept your word | chance: 58
+- U | ask the movement to vote on it, with the offer laid out in full | v: self-direction, universalism | aim: try | foot: lesson let them decide | chance: 75
+- B | take the seat, drop the demand for now, and use the budgets to win it back | v: power, achievement | aim: take | foot: door broke your word | chance: 67
+- R | refuse at the council, out loud, and take the movement back to the streets | v: stimulation, universalism | aim: decline | foot: mark defied an authority | chance: 75
+- G | step back from leading, and let the movement choose its own next voice | v: benevolence, tradition | aim: stop | foot: lesson the movement is not one voice | chance: 77
+- W>U | ask for the offer in writing, and for time to put it to every branch | v: conformity, self-direction | aim: ease | foot: door kept your word | chance: 78
+- U>B | take the seat for one year only, and report back on what it bought | v: self-direction, power | aim: take | foot: person colleague | chance: 61
+- B>R | counter with a seat for two of the movement, and the demand kept | v: power, stimulation | aim: try | foot: door made an enemy | chance: 50
+- R>G | turn it down, and build the movement in towns it has not yet reached | v: stimulation, benevolence | aim: decline | foot: means ties+.04 | chance: 85
+- G>W | suggest a respected elder from the movement takes the seat instead | v: tradition, conformity | aim: decline | foot: person friend | chance: 67
+works: The choice holds through the next full council, and the movement still knows what it stands for.
+works: Whatever {N} chose, it was argued in the open, and nobody can say it was done in a back room.
+fails: Some of the movement's founders call it a sell-out or a missed chance, and say so loudly.
+fails: The council's leaders are colder after it, and the next door will be harder to open.
+
+# ---------------------------------------------------------------- W B R: a movement made a governing force (combine, cycle B)
+
+== an organiser who has governed
+tier: life event
+shape: any
+kind: mentor
+rungs: 2 3
+fork:
+style: W B R
+route: rallying_voice, mandate_builder
+stages: young_adult adult mature elder
+age: 22-80
+per_year: 0 0 0 0 0 0
+tone: joy
+life: community, mentor
+horizon: months
+roles: mentor, colleague, friend, patron
+earth: an organiser who once turned a protest into a council majority offers {N} a season of hard advice
+tribal: an old voice of the moot who once turned the young's anger into the elders' rule offers {N} a winter of counsel
+magic: an old tribune who once turned a crowd into a council offers {N} a season of hard counsel
+scene: {mentor} led a protest thirty years ago that ended up running the town for a decade. {mentor} offers {N} one evening a fortnight through the season, from next month, on the hardest part: how a movement keeps its soul while it learns to govern, and what to do on the first day the movement is angry with its own leaders.
+scene tribal: {mentor} once led the young to the moot and ended up sitting at the inner fire for twenty winters. {mentor} offers {N} counsel through the winter on how anger becomes rule without losing its heart.
+scene magic: {mentor} once led the commons from the square to the council bench and sat there for a decade. {mentor} offers {N} counsel through the season on how a crowd becomes a government and stays true.
+- W | take every evening, and write down each hard rule {mentor} gives | v: conformity, achievement | aim: work | foot: person mentor | chance: 80
+- U | ask {mentor} what went wrong in the decade, and why | v: self-direction, universalism | aim: work | foot: mark learned a skill | chance: 73
+- B | ask {mentor} to introduce {N} to the people who mattered then and still do | v: power, achievement | aim: try | foot: person patron | chance: 63
+- R | argue with {mentor} hard, and test every answer against the movement's anger | v: stimulation, self-direction | aim: try | foot: lesson good advice survives anger | chance: 65
+- G | listen for the stories more than the rules, and take it slowly | v: tradition, benevolence | aim: ease | foot: person friend | chance: 80
+- W>B | build a plan for the movement's first year in office from the evenings | v: conformity, power | aim: work | foot: door learned a skill | chance: 65
+- U>R | try {mentor}'s advice at the next movement meeting, and report back | v: self-direction, stimulation | aim: work | foot: means time-.04 | chance: 68
+- B>G | bring two of the movement's young organisers to the evenings as well | v: achievement, benevolence | aim: work | foot: person colleague | chance: 75
+- R>W | turn each evening's lesson into one change in how the movement runs | v: stimulation, conformity | aim: work | foot: lesson one change at a time | chance: 73
+- G>U | take a few evenings, then step back and think it all through alone | v: security, self-direction | aim: ease | foot: means health+.03 | chance: 77
+works: By the season's end {N} can see the shape of a movement that could govern without forgetting why.
+works: {mentor} becomes someone {N} calls on the worst nights, and that is worth a great deal.
+fails: Some of the advice belongs to another time, and {N} has to sort it from the rest.
+fails: The evenings raise more questions than answers, and {N} is unsettled for a while.
+
+# ---------------------------------------------------------------- W B G, Legacy Institution Builder: what lasts versus what pays (pull, cycle A)
+
+== a buyer for the old guildhall
+tier: life event
+shape: any
+kind: cost
+rungs: 2 3
+fork: pay
+style: W B G
+route: living_heritage_keeper, coalition_builder
+stages: young_adult adult mature elder
+age: 24-82
+per_year: 0 0 0 0 0 0
+tone: trouble
+life: community, money
+horizon: years
+roles: colleague, patron, elder, go-between
+earth: a developer offers a fortune for the old guildhall where the heritage society keeps its looms, and the alliance needs money for the year
+tribal: a rich camp offers many beasts for the old meeting tree's ground, where the songs are kept, and the alliance of camps is short
+magic: a merchant house offers a fortune for the old guildhall where the craft's looms are kept, and the league's coffers are thin
+scene: The heritage society {N} built keeps its looms, its pattern books and its weekly classes in the old guildhall. A developer has offered enough for the building to fund the whole alliance of groups {N} holds together for five years. Keeping the hall means finding its repairs and heating some other way, and the offer closes in a month.
+scene tribal: The songs and crafts of the camps are kept at the old meeting tree, on ground the society {N} built has always used. A rich camp offers many beasts for the ground, enough to feed the alliance through hard years. The offer stands until the next moon.
+scene magic: The craft's old looms and pattern books are kept in the guildhall {N} restored. A merchant house offers a fortune for it, enough to keep the league {N} leads in coin for years. The steward wants an answer by the quarter day.
+- W | keep the hall, and raise its upkeep through a fair yearly subscription | v: tradition, conformity | aim: pay | cost: money .3, time .4, family .2 | foot: mark kept your word | chance: 62
+- U | work out exactly what the hall costs a year, and what its classes bring in | v: self-direction, security | aim: pay | cost: money .1, time .3, family .1 | foot: lesson know the true cost | chance: 73
+- B | sell, fund the alliance for five years, and move the looms somewhere cheaper | v: power, achievement | aim: refuse | foot: means money+.08 | chance: 75
+- R | throw an open week in the hall, and dare the town to let it go | v: stimulation, tradition | aim: pay | cost: money .2, time .4, family .2 | foot: mark took a wild risk | chance: 60
+- G | let the society's keepers decide the hall's future, and step back from it | v: benevolence, tradition | aim: stop | foot: lesson the keepers carry it | chance: 77
+- W>U | sell part of the building, and keep the loom hall under a covenant | v: conformity, self-direction | aim: pay | cost: money .2, time .3, family .1 | foot: door kept your word | chance: 60
+- U>B | offer the developer a long lease on the back rooms instead of a sale | v: self-direction, power | aim: pay | cost: money .1, time .3, family .1 | foot: person go-between | chance: 61
+- B>R | play the developer against a second bidder who would keep the looms | v: power, stimulation | aim: pay | cost: money .1, time .3, family .2 | foot: person patron | chance: 55
+- R>G | ask the old families whose patterns are in the books to help keep the hall | v: stimulation, tradition | aim: pay | cost: money .2, time .4, family .2 | foot: person elder | chance: 65
+- G>W | ask for a year's grace, and keep the hall open meanwhile on what there is | v: security, conformity | aim: ease | foot: means time+.03 | chance: 70
+works: Whatever was decided, the looms are still running at the year's end, somewhere.
+works: The choice is argued in the open, and the society and the alliance both come out of it standing.
+fails: The money is tight either way, and {N} spends the winter counting.
+fails: Some members feel the choice went the wrong way, and the weekly classes are thinner for a while.
+
+# ---------------------------------------------------------------- W B G: endowing what a place will keep (combine, cycle B)
+
+== a gift that needs a trust to hold it
+tier: life event
+shape: any
+kind: round
+rungs: 2 3 4
+fork: round
+style: W B G
+route: living_heritage_keeper, coalition_builder
+stages: adult mature elder
+age: 28-85
+per_year: 0 0 0 0 0 0
+tone: joy
+life: community, money
+horizon: years
+roles: patron, elder, colleague, mentor
+earth: an old family will leave its land and savings to the town's heritage groups, but only to a body that will last; there is {aim.round}
+tribal: an old family will give its herd and grounds to keep the camps' songs, but only to keepers who will last; there is {aim.round}
+magic: an old house will endow the craft's halls, but only to a body with a charter that will outlast its founders; there is {aim.round}
+scene: An old family has offered to leave its farm and its savings to keep the town's traditions alive: the dances, the looms, the harvest fair. But the family's adviser says the gift can only go to a body built to last a century, and the groups {N} has drawn together are an alliance of volunteers. The family wants it settled before the winter. {N} has heard about {aim.round}.
+scene tribal: An old family offers its herd and its grounds to keep the songs of the camps, but only to keepers who will outlast them all. The camps' keepers are many and loose. The family wants it settled before winter, and {N} has heard about {aim.round}.
+scene magic: An old house offers to endow the craft's halls, but only to a chartered body that will outlast its founders. The guilds {N} has gathered are a loose league. The house wants it settled by midwinter, and there is {aim.round}.
+- W | go through {aim.round}, and set up the trust with every rule written down | v: conformity, security | aim: round | foot: lesson rules make it last | chance: 72
+- U | study how {aim.round} has held other gifts, and copy what lasted | v: self-direction, security | aim: round | foot: mark learned a skill | chance: 73
+- B | use {aim.round}, and seat the alliance's strongest people on the trust's board | v: power, achievement | aim: round | foot: person colleague | chance: 67
+- R | ask the family to give it now, while they can see it work | v: stimulation, benevolence | aim: round | foot: mark took a wild risk | chance: 55
+- G | let the gift go to the old society that already keeps the dances | v: tradition, benevolence | aim: stop | foot: lesson the gift still lands | chance: 77
+- W>B | build the trust through {aim.round}, and give each group in the alliance a seat | v: conformity, power | aim: round | foot: door kept your word | chance: 65
+- U>R | try {aim.round} for the land first, and settle the savings after | v: self-direction, stimulation | aim: round | foot: lesson one gift at a time | chance: 65
+- B>G | bring the family's grandchildren onto the trust, so it stays theirs too | v: achievement, benevolence | aim: round | foot: person patron | chance: 70
+- R>W | ask the family for one more year to build something worthy of it | v: stimulation, conformity | aim: ease | foot: means time+.04 | chance: 83
+- G>U | step aside, and help the family find a body that already lasts | v: benevolence, universalism | aim: stop | foot: person elder | chance: 77
+works: The gift finds a home that will hold it, and the traditions have a roof for a long time to come.
+works: Whatever {N} chose, the family is content, and says so.
+fails: The paperwork drags, and the winter comes before anything is signed.
+fails: Some in the alliance feel left out of the trust, and say so loudly.
+
+# ---------------------------------------------------------------- W R G, Community Revitaliser: order versus energy (pull, cycle A)
+
+== the street market the residents want licensed
+tier: life event
+shape: any
+kind: reaction
+rungs: 1 2
+fork:
+style: W R G
+route: community_weaver, rallying_voice
+stages: young_adult adult mature elder
+age: 18-80
+per_year: 0 0 0 0 0 0
+tone: mixed
+life: community, neighbours
+horizon: months
+roles: neighbour, friend, colleague, boss
+earth: the weekend street market {Ns} groups started draws crowds, and the residents' association wants permits, hours and a clean-up rota by next month
+tribal: the moon gatherings {N} started draw every camp, and the elders want them ordered: fixed places, fixed hours, fixed duties
+magic: the night fair {N} started in the old square draws the whole city, and the ward's aldermen want it licensed, timed and swept
+scene: The weekend market {Ns} groups started on the empty high street has become the busiest thing in town: stalls, music, families, people who had not been into town in years. Now the residents' association wants it run properly, with permits, fixed hours, a clean-up rota and no music after six. The market's people say rules would kill it. The association meets in a month.
+scene tribal: The moon gatherings {N} began draw every camp, and the old meeting ground is alive again. The elders want them ordered, with fixed places and duties. The young say that would end them. The moot is at the next moon.
+scene magic: The night fair {N} started in the old square draws half the city, and the square lives again after years of shutters. The aldermen want it licensed, timed and swept, and the fair's people say a licence will smother it.
+- W | draw up the rota and the hours with the association, and keep to them | v: conformity, security | aim: bend | foot: mark kept your word | chance: 80
+- U | count what the market brings in and costs the street, and show both sides | v: self-direction, universalism | aim: hold | foot: lesson numbers calm a street | chance: 71
+- B | win over the association's chair privately before the meeting | v: power, achievement | aim: hold | foot: person neighbour | chance: 65
+- R | keep the market as it is, music and all, and let the meeting argue | v: stimulation, hedonism | aim: hold | foot: mark defied an authority | chance: 57
+- G | ask the stallholders and the residents to sort it out between them | v: benevolence, tradition | aim: bend | foot: means ties+.04 | chance: 72
+- W>U | agree a trial season of rules, and review them with everyone in autumn | v: conformity, self-direction | aim: hold | foot: door kept your word | chance: 70
+- U>B | ask the residents who complain most to run the clean-up, and pay them | v: self-direction, power | aim: hold | foot: person neighbour | chance: 61
+- B>R | move the music to the far end, and dare the association to object to the rest | v: power, stimulation | aim: hold | foot: door made an enemy | chance: 57
+- R>G | invite the whole association to run a stall for a weekend | v: stimulation, benevolence | aim: hold | foot: person friend | chance: 70
+- G>W | give way on the hours, and keep the market small and quiet for a season | v: tradition, conformity | aim: bend | foot: mark gave in to pressure | chance: 77
+works: The meeting ends with the market still going and the street a little quieter at weekends.
+works: The residents and the stallholders know each other's names now, and that changes the arguments.
+fails: The meeting is bitter, and some of the stallholders talk of leaving.
+fails: Whatever was agreed, the complaints start again within the month.
+
+# ---------------------------------------------------------------- W R G: a declining place brought back to life (combine, cycle B)
+
+== a spring of work days on the high street
+tier: life event
+shape: any
+kind: practice
+rungs: 1 2 3
+fork:
+style: W R G
+route: community_weaver, rallying_voice
+stages: young_adult adult mature elder
+age: 18-80
+per_year: 0 0 0 0 0 0
+tone: joy
+life: community, neighbours
+horizon: months
+roles: neighbour, friend, colleague, elder
+earth: {N} has called a work day every Saturday this spring on the half-empty high street, and the third one is this weekend
+tribal: {N} has called the camps to mend the old meeting ground every quarter moon, and the third day is near
+magic: {N} has called the ward to mend the old square each market day, and the third day is this week
+scene: Half the shops on the high street have been empty for years. {N} has called a work day every Saturday this spring: paint, planters, a borrowed shop for the youth club, a list on the wall of who does what. The third one is this weekend, and twice as many people have said they are coming as last time.
+scene tribal: The old meeting ground has been half-abandoned for years. {N} has called the camps to mend it every quarter moon, and the third day is near. Twice as many have promised to come.
+scene magic: The old square has been half-shuttered for years. {N} has called the ward to mend it each market day this spring, and the third day is this week, with twice the hands promised.
+- W | draw up a clear list of jobs, and give every volunteer a named task | v: conformity, security | aim: work | foot: mark kept your word | chance: 80
+- U | find out which three changes brought the most people back last time | v: self-direction, achievement | aim: work | foot: mark learned a skill | chance: 71
+- B | ask the two biggest landlords to lend an empty shop each for a year | v: power, achievement | aim: work | foot: person patron | chance: 63
+- R | bring music, food and a megaphone, and make the day a celebration for the street | v: stimulation, hedonism | aim: work | foot: means ties+.05 | chance: 75
+- G | keep the day small, and spend it with the oldest shopkeepers who stayed | v: tradition, benevolence | aim: ease | foot: person elder | chance: 77
+- W>B | set a target for the spring, and show the council the street hitting it | v: conformity, achievement | aim: work | foot: door kept your word | chance: 65
+- U>R | let each group try its own idea on its own shopfront, and see what draws | v: self-direction, stimulation | aim: work | foot: lesson let a hundred things try | chance: 68
+- B>G | ask each new shop that opens to give the volunteers one free morning | v: achievement, benevolence | aim: work | foot: person neighbour | chance: 70
+- R>W | march from one end of the street to the other, then work it shop by shop | v: stimulation, conformity | aim: work | foot: person friend | chance: 75
+- G>U | skip a weekend, and walk the street alone to see what has really changed | v: security, self-direction | aim: ease | foot: means health+.03 | chance: 77
+works: By evening the street looks a little more alive, and two more people have asked about the empty shops.
+works: Week by week the work days become a habit, and the street starts to feel like a place again.
+fails: The rain comes, half the volunteers stay home, and the day is a slog.
+fails: Some of the work is undone by the next weekend, and the volunteers grumble.
+
+# ---------------------------------------------------------------- U B R, Independent Innovator: control versus speed (pull, cycle A)
+
+== fast money with a seat at the table
+tier: life event
+shape: any
+kind: chance
+rungs: 2 3
+fork: take
+style: U B R
+route: systems_inventor, opportunity_patron
+stages: young_adult adult mature elder
+age: 22-75
+per_year: 0 0 0 0 0 0
+tone: mixed
+life: work, money
+horizon: years
+roles: patron, colleague, partner, rival
+earth: a backer offers enough to launch {Ns} system in three months instead of two years, with a seat on the board and the last word on design
+tribal: a rich herder offers beasts enough to spread {Ns} new way this summer, if the herder decides where it goes
+magic: a great merchant offers gold to build {Ns} engine this year, if the merchant's house has the last word on its design
+scene: {N} has been building the system slowly, on savings and small backers, and keeping the last word on every part of it. A backer now offers enough to launch in three months instead of two years, ahead of anyone else working on the same problem. The terms: a seat on the board and the final say on design. The offer is open for a month.
+scene tribal: {N} has spread the new way slowly, camp by camp, deciding where it goes. A rich herder offers beasts enough to spread it across the plain this summer, if the herder chooses where. The offer stands until the moon is full.
+scene magic: {N} has been building the engine slowly, coin by coin, with the last word on every part. A great merchant offers gold to finish it this year, if the merchant's house has the last word on its design. The offer stands until midwinter.
+- W | take the money, with the backer's powers set down in writing and limited | v: conformity, security | aim: take | foot: door kept your word | chance: 65
+- U | ask for a trial quarter with the money and without the seat, and decide then | v: self-direction, achievement | aim: try | foot: lesson a trial before a promise | chance: 61
+- B | take it, and run hard to be first before anyone else launches | v: power, achievement | aim: take | foot: means money+.06 | chance: 67
+- R | take it, launch in three months, and deal with the board later | v: stimulation, self-direction | aim: take | foot: mark took a wild risk | chance: 60
+- G | turn it down, and keep building at the old pace with the old backers | v: security, tradition | aim: decline | foot: lesson slow and own still works | chance: 80
+- W>U | take half the money for half the seat, and keep the design under {Ns} control | v: conformity, self-direction | aim: take | foot: person patron | chance: 55
+- U>B | hold off a season, and see whether a second backer will offer better terms | v: self-direction, power | aim: ease | foot: door turned down a chance | chance: 78
+- B>R | play the backer against a rival backer, and take the faster of the two | v: power, stimulation | aim: take | foot: person rival | chance: 53
+- R>G | turn the offer down, and raise the money from the people who will use it | v: stimulation, benevolence | aim: try | foot: means ties+.04 | chance: 57
+- G>W | step back from launching at all, and sell the design to whoever builds it best | v: security, conformity | aim: stop | foot: lesson the design can travel alone | chance: 74
+works: Whichever way it went, {N} knows what was traded and why, and can live with it.
+works: The work goes on, faster or slower, and it is still recognisably {Ns}.
+fails: The terms chafe within months, or the slower road frets, and {N} wonders about the other choice.
+fails: The race with the others is closer than hoped, and the next season is anxious.
+
+# ---------------------------------------------------------------- U B R: invented, funded and launched on its own terms (combine, cycle B)
+
+== a copy launched first across town
+tier: life event
+shape: any
+kind: rival
+rungs: 2 3 4
+fork:
+style: U B R
+route: systems_inventor, opportunity_patron
+stages: young_adult adult mature elder
+age: 22-75
+per_year: 0 0 0 0 0 0
+tone: mixed
+life: work, money
+horizon: months
+roles: rival, colleague, patron, partner
+earth: {rival} has launched a rough copy of {Ns} system across town, two months before {Ns} own, and the customers are trying it
+tribal: {rival} of the next camp is already spreading a rough copy of {Ns} new way, a season ahead
+magic: {rival} has opened a workshop across the city with a rough copy of {Ns} engine, two months before {Ns} own is ready
+scene: {rival} has launched a rough copy of {Ns} system across town, two months before {Ns} own is ready, with money from the same backers {N} turned down. The copy works badly but it works, and the first customers are trying it. {N} has the better design, own money and nobody's permission to ask; the launch date is still two months off.
+scene tribal: {rival} of the next camp is already spreading a rough copy of {Ns} new way across the plain, a season early. It is clumsy, but it is out there. {N} still has the better way, and nobody to ask.
+scene magic: {rival} has opened a workshop across the city with a rough copy of {Ns} engine, two months before {Ns} own is ready. It runs badly but it runs, and the first buyers are trying it.
+- W | keep to the launch date, and make sure the real thing works on the first day | v: conformity, security | aim: work | foot: mark kept your word | chance: 75
+- U | buy {rival}'s copy, take it apart, and fix what it gets wrong | v: self-direction, achievement | aim: work | foot: mark learned a skill | chance: 68
+- B | fund a quick early launch from {Ns} own money, and beat the copy on price | v: power, achievement | aim: try | foot: means money-.08 | chance: 60
+- R | launch a stripped-down version next week, and improve it in public | v: stimulation, self-direction | aim: try | foot: mark took a wild risk | chance: 53
+- G | let {rival} have the early customers, and build for the ones who stay | v: security, tradition | aim: ease | foot: lesson the patient customers last | chance: 77
+- W>B | publish {Ns} design standard, and invite everyone, {rival} included, to build to it | v: conformity, power | aim: work | foot: person rival | chance: 58
+- U>R | try three bold features the copy cannot match, and test them on real customers | v: self-direction, stimulation | aim: try | foot: lesson the leader sets the pace | chance: 58
+- B>G | back two small makers to build on {Ns} design, and share the launch with them | v: achievement, benevolence | aim: work | foot: person colleague | chance: 67
+- R>W | challenge {rival} to a public side-by-side test, on fair terms | v: stimulation, conformity | aim: try | foot: door made an enemy | chance: 55
+- G>U | slow the launch down, and use the two months to get the details right | v: security, self-direction | aim: ease | foot: means time+.04 | chance: 77
+works: When {Ns} own launches, the difference is plain to see, and the customers start to come across.
+works: The race sharpens everything, and {N} comes out of it with a better thing than planned.
+fails: {rival} keeps the early lead for longer than expected, and the first months are hard.
+fails: The pressure tells on everyone, and the workshop is tense for weeks.
+
+# ---------------------------------------------------------------- U B G, Living-System Entrepreneur: scale versus balance (pull, cycle A)
+
+== a second site the springs cannot carry
+tier: life event
+shape: any
+kind: plateau
+rungs: 2 3
+fork: go_on
+style: U B G
+route: enterprise_builder, living_land_steward
+stages: young_adult adult mature elder
+age: 24-80
+per_year: 0 0 0 0 0 0
+tone: mixed
+life: work, nature
+horizon: years
+roles: partner, colleague, keeper, neighbour
+earth: {Ns} firm has stopped growing for two years at the limit its springs and woodland can carry, and a second site is for sale
+tribal: the camp's herd has stopped growing at what the grazing can carry, and a second valley lies open to the west
+magic: the estate's trade has stood still for two years at what its springs can bear, and a second estate is offered for sale
+scene: The firm {N} built on how the valley's springs and woodland renew themselves has stood still for two years: it sells everything it makes, and it makes as much as the land can carry. A second site upstream is for sale until autumn. Buying it would double the firm. The springs there feed the same river, and nobody yet knows how much more the river can give.
+scene tribal: The camp's herd has stopped growing for two summers, at what the grazing can carry. A second valley lies open to the west, but its water feeds the same river as the camp's own. The clans meet in autumn.
+scene magic: The estate's trade has stood still for two years at what its springs can bear. A second estate upstream is offered until the autumn quarter, and its springs feed the same river.
+- W | keep the firm at its present size, and run it as well as possible | v: conformity, security | aim: work | foot: mark kept your word | chance: 80
+- U | spend a year measuring the river before deciding anything about the second site | v: self-direction, universalism | aim: ease | foot: mark learned a skill | chance: 78
+- B | buy the second site, and work out the water as the firm grows into it | v: achievement, power | aim: work | foot: means money-.10 | chance: 60
+- R | buy it, and try a completely new way of growing there that takes less water | v: stimulation, self-direction | aim: work | foot: mark took a wild risk | chance: 53
+- G | let growth go, and keep the firm a living the valley can carry | v: universalism, tradition | aim: stop | foot: lesson enough is a real size | chance: 77
+- W>U | buy only if the river keepers agree a limit on what both sites draw | v: conformity, self-direction | aim: work | foot: person keeper | chance: 60
+- U>B | license the method to the second site's buyer instead, and grow by teaching | v: self-direction, power | aim: work | foot: lesson growth can be shared | chance: 65
+- B>R | buy it with a partner, and let the partner carry the risk on the water | v: power, stimulation | aim: work | foot: person partner | chance: 57
+- R>G | invite the river's other users to plan the second site together | v: stimulation, benevolence | aim: work | foot: person neighbour | chance: 67
+- G>W | let the second site go this year, and look again when the river is known | v: security, conformity | aim: ease | foot: means time+.04 | chance: 77
+works: Whichever way it went, the river is still running at the year's end, and {N} knows why.
+works: The firm finds a shape it can hold, and {N} sleeps better for having chosen it.
+fails: The numbers and the river disagree, and the year is spent arguing with both.
+fails: The choice leaves {N} unsettled, wondering whether it was nerve or wisdom.
+
+# ---------------------------------------------------------------- U B G: a firm built around how living systems work (combine, cycle B)
+
+== the forester who sold only the growth
+tier: life event
+shape: any
+kind: mentor
+rungs: 1 2 3
+fork:
+style: U B G
+route: enterprise_builder, living_land_steward
+stages: young_adult adult mature elder
+age: 20-78
+per_year: 0 0 0 0 0 0
+tone: joy
+life: work, mentor
+horizon: months
+roles: mentor, keeper, colleague, partner
+earth: an old forester who ran a timber firm for fifty years on the wood's growth alone offers {N} a season of lessons
+tribal: the old herd master who never let the herd outgrow the grass offers to teach {N} through the summer
+magic: an old forester of the crown's woods who sold only what the wood grew each year offers {N} a season of lessons
+scene: {mentor} ran a timber firm for fifty years and never cut more in a year than the wood grew in it. The firm did well, and the wood is bigger now than when {mentor} started. {mentor} offers to walk the woods and the books with {N} every month this season, from next month: how to read a living thing's own accounts.
+scene tribal: {mentor} kept the camp's herd for fifty summers and never let it outgrow the grass. The herd did well, and the grazing is richer now than before. {mentor} offers to teach {N} through the summer.
+scene magic: {mentor} served as forester of the crown's woods for fifty years and sold only what the wood grew each year. The woods are greater for it. {mentor} offers {N} a season of lessons.
+- W | keep every monthly walk, and learn {mentor}'s rules exactly | v: conformity, tradition | aim: work | foot: person mentor | chance: 80
+- U | set {mentor}'s yearly growth figures beside {Ns} own, and find the gaps | v: self-direction, achievement | aim: work | foot: mark learned a skill | chance: 73
+- B | ask {mentor} how the firm sold its timber dearer than the rest | v: achievement, power | aim: try | foot: lesson price the renewal | chance: 65
+- R | go every week instead of every month, in all weathers | v: stimulation, achievement | aim: try | foot: means health+.03 | chance: 70
+- G | walk the woods with {mentor} for the walking, and let the lessons come | v: benevolence, tradition | aim: ease | foot: place prod.wild | chance: 80
+- W>B | turn {mentor}'s rules into a written plan for {Ns} own firm | v: conformity, power | aim: work | foot: door learned a skill | chance: 70
+- U>R | try one of {mentor}'s methods on a single field this season | v: self-direction, stimulation | aim: work | foot: lesson one field first | chance: 68
+- B>G | ask {mentor} to meet {Ns} staff and suppliers too | v: achievement, benevolence | aim: work | foot: person colleague | chance: 75
+- R>W | argue every rule with {mentor}, and keep a journal of what survives | v: stimulation, conformity | aim: work | foot: lesson good rules survive argument | chance: 70
+- G>U | take only the first few walks, and come back to it after the busy season | v: security, self-direction | aim: ease | foot: means time+.04 | chance: 77
+works: By the season's end {N} can read the land's own accounts beside the firm's, and they start to agree.
+works: {mentor} and {N} keep walking the woods together long after the season is done.
+fails: Some of {mentor}'s ways belong to a slower world, and {N} has to sort them from the rest.
+fails: The busy season crowds the walks out, and {N} learns less than hoped.
+
+# ---------------------------------------------------------------- U R G, Experiential Pioneer: knowing versus doing (pull, cycle A)
+
+== three seasons in the gorge and no answer
+tier: life event
+shape: any
+kind: plateau
+rungs: 2 3
+fork: go_on
+style: U R G
+route: discoverer, commander
+stages: young_adult adult mature elder
+age: 22-75
+per_year: 0 0 0 0 0 0
+tone: mixed
+life: work, travel
+horizon: years
+roles: colleague, mentor, friend, rival
+earth: three seasons of fieldwork in the unmapped gorge have produced boxes of notes and no answer, and the team wants to push further in
+tribal: three summers of searching the far gorge have brought stories and no answer, and the young want to go deeper
+magic: three seasons in the far gorge have filled the college's shelves with notes and no answer, and the company wants to go on
+scene: For three seasons {N} has led a small team into the unmapped gorge, and the boxes of notes have piled up without the answer they went for. The team wants to push further in next season, past the last camp. The notes say the answer, if there is one, is in the boxes already, and nobody has had time to read them properly. The plan for next season is due in a month.
+scene tribal: For three summers {N} has led the young into the far gorge, and they have brought back stories and no answer. They want to go deeper next summer. The old ones say the answer may be in the stories already.
+scene magic: For three seasons {N} has led a company into the far gorge, and the college's shelves are heavy with notes. The company wants to go deeper. The masters say the answer may already be on the shelves.
+- W | finish the season as promised, then write up the three seasons properly | v: conformity, achievement | aim: work | foot: mark kept your word | chance: 78
+- U | spend next season in the boxes, not the gorge, and read every note | v: self-direction, universalism | aim: work | foot: mark learned a skill | chance: 68
+- B | take the strongest of the team past the last camp, and come back with something | v: achievement, power | aim: work | foot: means health-.04 | chance: 55
+- R | go further in next season, and trust the gorge to give up its answer | v: stimulation, self-direction | aim: work | foot: mark took a wild risk | chance: 50
+- G | let the question go, and keep the team and the gorge as a yearly walk | v: benevolence, tradition | aim: stop | foot: person friend | chance: 80
+- W>U | split the year: one month in the field, the rest in the boxes | v: conformity, self-direction | aim: work | foot: lesson balance field and desk | chance: 70
+- U>B | find a partner team to read the boxes while {N} goes in | v: self-direction, achievement | aim: work | foot: person colleague | chance: 65
+- B>R | announce what the three seasons have found so far, and push on from there | v: power, stimulation | aim: work | foot: door owned up | chance: 60
+- R>G | take a season off from the gorge, and let the questions settle | v: stimulation, security | aim: ease | foot: means time+.05 | chance: 90
+- G>W | hand the boxes to a younger researcher, and stop leading the trips | v: benevolence, conformity | aim: stop | foot: lesson the boxes will keep | chance: 77
+works: Something shifts: a pattern in the notes or a step in the gorge, and the next season has a point.
+works: Whatever was chosen, the team is still a team, and the work is still there to be done.
+fails: The plan is agreed but the doubt is not, and {N} carries it through the winter.
+fails: The team argues over it for weeks, and one of them leaves.
+
+# ---------------------------------------------------------------- U R G: going where nobody has looked, and reporting back (combine, cycle B)
+
+== a survey of the far valley written each night
+tier: life event
+shape: any
+kind: practice
+rungs: 1 2 3
+fork:
+style: U R G
+route: discoverer, commander
+stages: young_adult adult mature elder
+age: 18-75
+per_year: 0 0 0 0 0 0
+tone: joy
+life: travel, nature
+horizon: months
+roles: colleague, friend, mentor, keeper
+earth: {N} is leading the first survey of the far valley, and every night the day's findings have to be written up before sleep
+tribal: {N} leads the first walk into the far valley, and every night the day's finds must be told at the fire
+magic: {N} leads the college's first survey of the far valley, and every night the day's findings must be set down
+scene: Nobody has mapped the far valley properly, and {N} is leading the first survey: six weeks, a small team, a pack each. The rule {N} has set is simple and hard: every night, however tired, the day's findings are written up and sent back before anyone sleeps. Two weeks in, the team is tired, and the valley keeps showing them things nobody has seen.
+scene tribal: Nobody has walked the far valley in living memory, and {N} leads the first walk in. Every night the day's finds are told at the fire and remembered word for word. Two weeks in, everyone is tired, and the valley keeps showing them new things.
+scene magic: The far valley has never been surveyed, and {N} leads the college's first company in. Every night the day's findings are set down and sent back by bird. Two weeks in, the company is weary and the valley keeps surprising them.
+- W | keep the rule: every night, every finding, written and sent | v: conformity, achievement | aim: work | foot: mark kept your word | chance: 75
+- U | add a careful method to each night's notes, so others can check them | v: self-direction, universalism | aim: work | foot: mark learned a skill | chance: 71
+- B | send back the most striking finding first each night, so it gets noticed | v: achievement, power | aim: work | foot: lesson lead with the best | chance: 67
+- R | push one day further than planned each week, and write it up after | v: stimulation, self-direction | aim: work | foot: mark took a wild risk | chance: 60
+- G | slow the pace, and let the team rest a day each week in the valley | v: benevolence, security | aim: ease | foot: means health+.04 | chance: 77
+- W>B | keep the rule, and send a short summary to the funders every week as well | v: conformity, power | aim: work | foot: door kept your word | chance: 70
+- U>R | try a new way of recording each day: sketches, sounds, samples | v: self-direction, stimulation | aim: work | foot: lesson new eyes, new records | chance: 65
+- B>G | share the credit for each finding with whoever made it, by name | v: achievement, benevolence | aim: work | foot: person colleague | chance: 77
+- R>W | lead the hardest climbs, and still be the last one writing at night | v: stimulation, conformity | aim: work | foot: means health-.04 | chance: 65
+- G>U | ease the rule to every second night, and use the spare nights to think | v: security, self-direction | aim: ease | foot: means time+.03 | chance: 77
+works: The reports reach home night after night, and people start waiting for them.
+works: By the end of the six weeks the valley is on the map, and the team is still speaking to each other.
+fails: A storm keeps the team pinned down for days, and the reports dry up.
+fails: The nightly rule wears everyone thin, and the last week is grim.
+
+# ---------------------------------------------------------------- B R G, Rooted Entrepreneur: growth versus roots (pull, cycle A)
+
+== a bigger site by the city ring road
+tier: life event
+shape: any
+kind: chance
+rungs: 2 3
+fork: take
+style: B R G
+route: enterprise_builder, community_weaver
+stages: young_adult adult mature elder
+age: 24-78
+per_year: 0 0 0 0 0 0
+tone: mixed
+life: work, community
+horizon: years
+roles: partner, colleague, neighbour, friend
+earth: the city offers {Ns} firm a bigger site by the ring road, with grants, and the firm is half the jobs in a small town
+tribal: the strongest camp offers {Ns} workshop a place at its great fire, and the workshop is half the work of a small camp
+magic: the capital offers {Ns} workshop a great hall by the river gate, and the workshop is half the trade of a small town
+scene: {Ns} firm employs forty people in a small town, half the jobs the town has left. The city has offered a site three times the size by the ring road, with a grant to move and a road to every customer. The firm could triple there. Staying means turning down the grant and growing slowly, if at all. The offer closes at the end of the season.
+scene tribal: {Ns} workshop feeds half the families of a small camp. The strongest camp of the plain offers it a place at its great fire, with all the trade that comes there. The offer stands until the camps move in autumn.
+scene magic: {Ns} workshop is half the trade of a small town. The capital offers a great hall by the river gate, with the crown's grant to move. The offer stands until the autumn quarter.
+- W | stay, honour what the firm owes the town, and grow as the town can bear | v: conformity, benevolence | aim: decline | foot: mark kept your word | chance: 85
+- U | work out what moving would cost the town, and put the figures to the staff | v: self-direction, universalism | aim: try | foot: lesson count what moving costs | chance: 68
+- B | take the site, triple the firm, and offer every worker a place there | v: power, achievement | aim: take | foot: mark moved away | chance: 67
+- R | take the site, and keep the old works open as the firm's workshop | v: stimulation, achievement | aim: take | foot: mark took a wild risk | chance: 55
+- G | step back from growing, and hand the firm to the staff to run | v: benevolence, tradition | aim: stop | foot: lesson roots are an asset | chance: 77
+- W>U | ask the city for a year's delay, and plan the choice with the town | v: conformity, self-direction | aim: ease | foot: door kept your word | chance: 75
+- U>B | take a small site in the city for sales, and keep making in the town | v: self-direction, achievement | aim: take | foot: person colleague | chance: 63
+- B>R | use the city's offer to win a better deal from the town for staying | v: power, stimulation | aim: try | foot: person neighbour | chance: 57
+- R>G | turn it down, and ask the town to help the firm grow where it is | v: stimulation, benevolence | aim: decline | foot: means ties+.05 | chance: 75
+- G>W | take the move only if the staff vote for it, and abide by their vote | v: benevolence, conformity | aim: take | foot: person friend | chance: 52
+works: The choice is made in the open, and the town knows where it stands.
+works: Whichever way it went, the firm and its people come through the year together.
+fails: Some of the staff feel the choice went against them, and say so at the gate.
+fails: The road not taken keeps coming up at the kitchen table for months.
+
+# ---------------------------------------------------------------- B R G: a business that keeps a town alive (combine, cycle B)
+
+== apprentices from the town's own groups
+tier: life event
+shape: any
+kind: practice
+rungs: 1 2 3
+fork:
+style: B R G
+route: enterprise_builder, community_weaver
+stages: young_adult adult mature elder
+age: 22-80
+per_year: 0 0 0 0 0 0
+tone: joy
+life: work, community
+horizon: months
+roles: colleague, neighbour, friend, mentor
+earth: {N} has opened the firm's workshop to the town's youth club and mutual-aid groups, and the first apprentices start next month
+tribal: {N} has opened the workshop to the young of every family in the camp, and the first start at the new moon
+magic: {N} has opened the workshop to the ward's guild of the poor and the young, and the first apprentices start at the quarter
+scene: {Ns} firm is growing, slowly, and so is the list of jobs it cannot fill. Instead of hiring from the city, {N} has opened the workshop to the town's youth club and its mutual-aid groups: a paid apprenticeship, Fridays at first, then full time for those who stay. The first six start next month, and the firm will be slower while they learn.
+scene tribal: {Ns} workshop is growing, and there are tasks it cannot fill. {N} has opened it to the young of every family in the camp, a few days each moon at first. The first six start at the new moon, and the work will be slower while they learn.
+scene magic: {Ns} workshop is growing and short of hands. Rather than send to the capital, {N} has opened it to the ward's guild of the poor and its young. Six start at the quarter, and the work will be slower while they learn.
+- W | set clear hours, clear pay and a clear path from apprentice to staff | v: conformity, security | aim: work | foot: mark kept your word | chance: 80
+- U | work out which jobs each apprentice can learn fastest, and start there | v: self-direction, achievement | aim: work | foot: mark learned a skill | chance: 71
+- B | ask the town's other businesses to take the apprentices the firm cannot | v: power, achievement | aim: work | foot: person neighbour | chance: 65
+- R | put the apprentices on a real order in their first week, with help | v: stimulation, self-direction | aim: work | foot: mark took a wild risk | chance: 60
+- G | let the groups choose who comes, and take whoever they send | v: benevolence, tradition | aim: ease | foot: means ties+.05 | chance: 74
+- W>B | sign each apprentice to a written agreement, and keep the firm's side to the letter | v: conformity, power | aim: work | foot: door kept your word | chance: 70
+- U>R | let the apprentices try their own ideas on one product line | v: self-direction, stimulation | aim: work | foot: lesson new hands, new ideas | chance: 61
+- B>G | pair each apprentice with an older worker from the town | v: achievement, benevolence | aim: work | foot: person colleague | chance: 77
+- R>W | turn the workshop's Friday into an open day for the town, apprentices showing | v: stimulation, conformity | aim: work | foot: person friend | chance: 73
+- G>U | start with two apprentices instead of six, and learn from them first | v: security, self-direction | aim: ease | foot: lesson start small, learn first | chance: 77
+works: By the season's end the apprentices are part of the firm, and the town notices.
+works: The work is slower for a while, and then it is not, and {N} is glad of every month of it.
+fails: Two of the apprentices drop out in the first month, and the groups are disappointed.
+fails: The orders fall behind while the apprentices learn, and the customers grumble.

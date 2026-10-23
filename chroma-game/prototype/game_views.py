@@ -88,6 +88,7 @@ class ViewsMixin:
                     f"{x['progress'] * 100:.0f}% of the way)" if x["kind"] == "plan" else f" [{x['colors']}]")
             L.append(f"{x['kind']:<12} {x['name']}{tail}, strength {x['strength'] * 100:.0f}%" + (" [your plan]" if x["by_player"] else ""))
         L += self.aim_lines(loc)                        # v24 aims, only while aims is on
+        L += self.prizes_lines(self.prizes_view(loc)) if GAME["prizes"] else []   # v25: what this world prizes
         hv_ = self.heights_view(loc)
         if hv_:
             L.append("heights      " + ", ".join(f"{h['height']} at {h['age']:.0f}" for h in hv_))
@@ -97,7 +98,7 @@ class ViewsMixin:
         """Everything the browser's HUD shows, as plain numbers and words (status() is the same for the terminal)."""
         loc = self.loc
         d = dict(name=self.name, age=round(self.age(), 1), setting=self.setting, place=self.story.place,
-                 freq=self.freq, detail=self.detail, ledger=self.ledger, over=self.over)
+                 freq=self.freq, detail=self.detail, ledger=self.ledger, over=self.over, asks=self.ask_matter > 0)
         if loc is None:
             return d
         w = E.softmax(loc["z"][0]); a = E.softmax(loc["y"][0])
@@ -177,8 +178,13 @@ class ViewsMixin:
             d["foot"] = self.foot_stacks()
         if GAME["aims"]:                                # v24 aims: the track, the heights, and the aims they could take up
             d["aims"] = self.aims_view() or []
+            if GAME["agenda"]:                          # v25: the persistent agenda
+                d["agenda"] = self.agenda_view()
             d["heights"] = self.heights_view()
             d["aim_choices"] = self.aim_choices_view()
+            if GAME["agenda"]:                          # v25: what taking one up would ask, before it is taken
+                for c in d["aim_choices"]:
+                    c["preview"] = self.preview_view(c["aim"])
         if GAME["steer_between"]:                       # v24: the player's lean between asks, if one is held
             d["steer"] = self.steer_view()
         if GAME["world_answers"]:                       # v24 world answers: the "Your world" panel
@@ -518,7 +524,14 @@ class ViewsMixin:
                                 lead_name=nm(ESP.FACE, v["leads"])) for s_, v in sp.items()), key=lambda x: -x["hours"])
         except Exception:
             town = []
+        if GAME["prizes"]:                              # v25: their climb in each of the town's spheres, easier or steeper
+            pz = {x["sphere"]: x for x in (self.prizes_view() or {}).get("rows", [])}
+            for x in town:
+                if x["sphere"] in pz:
+                    x["prize"] = pz[x["sphere"]]["for_me"]
         P = dict(haunts=haunts, rungs=rungs, town=town)
+        if GAME["land_row"]:                            # v25: the land ways they hold, and the bridges
+            P["land"] = self.land_ways()
         try:
             self._social_places(WL, hi, P)              # v22.4 (S1, S3, S4, S7): only while their switches are on
         except Exception:
@@ -626,6 +639,8 @@ class ViewsMixin:
                 opts[-1]["arrows"] = o["arrows"]
             if o.get("aims"):                           # v24 aims: the aim steps this option leads into, only while aims is on
                 opts[-1]["aims"] = o["aims"]
+            if o.get("clash_kind"):                     # v25: the kind of answer to a clash this option is
+                opts[-1]["clash_kind"] = o["clash_kind"]
         sp = self.shadow_pull(self.loc, (cp.get("view") or {}).get("heart")) if self.loc is not None else None
         if sp is not None:                           # item 2: once seen, the heart's pick their shadow drives carries a mark
             for o in opts:
@@ -652,6 +667,12 @@ class ViewsMixin:
             d["stake_card"] = True
         if cp.get("why_ask"):                           # v24 asks: why this moment was put to the player
             d["why_ask"] = cp["why_ask"]
+        if cp.get("company"):                           # v25: who is with them at a land moment
+            d["company"] = cp["company"]
+        if cp.get("clash_card"):                        # v25: a clash moment: its sphere and what is at stake
+            d["clash_card"] = cp["clash_card"]
+        if cp.get("fork"):                              # v25: a fork on a held aim, with its preview
+            d["fork"] = cp["fork"]
         if cp.get("big"):                               # v24: a big moment can be talked over once, and its answer
             d["talk"] = dict(open=cp.get("talked") is None, said=cp.get("talked"))
         return d

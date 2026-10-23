@@ -74,7 +74,14 @@ engine.run_steps() is engine.run() pausing six times a week for the game. On a f
      without them carries none.
  23. cause_fit (E2, the Library's cause audit's tightened rules): switched on, run_steps() lives as run() and the lives
      move; a dog of one's own only within a year of a stray dog, a record only within two years of a law broken.
- 24. aims v2 (aims_v2, v25 lane B), Earth and packs with the Library's fields (or v1's adapter), a player's life (forks
+ 24. setbacks that fit the world (imp_world, v25 N3), world on: with every elasticity at 0 the lives of it off (the same
+     draws); on, run_steps() lives as run() and the lives move; a setback's named fact is one its kind follows, with its
+     words and its cause index; each kind's life weight averages 1 over the living each year (the counts hold).
+ 25. what a world rewards (tilt_world, v25 #10), Earth and the neutral world, world on: run_steps() lives as run() and the
+     lives move; each year's r has a mean of 1 per sphere and every cell within the realm's clip (Earth .67 to 1.5);
+     prizes and prizes_moves well formed; the neutral world starts every sphere at .2 a colour, its places even,
+     inst_even on, and its r is 1 everywhere, every year.
+ 26. aims v2 (aims_v2, v25 lane B), Earth and packs with the Library's fields (or v1's adapter), a player's life (forks
      left open but one answered), world off (every field's first two rungs given a deadline) and on: run_steps() lives as
      run() with the agenda, previews and reviews read; the agenda's handed-over names there; every rung reached through
      an outcome (a title of it held or once held, a test or chance won; never effort alone); every window's closing told
@@ -1351,7 +1358,114 @@ if "cause_fit" in E.DEFAULT:
     print(f"{'PASS' if not fails else 'FAIL'}  cause_fit (the cause audit's {len(GC_.get('rule_fit') or {})} rules), switched "
           f"on: run_steps lives as run(), the lives move; a dog only after a stray dog ({gains_[0]}), a record only after a law "
           f"broken ({gains_[1]}){'' if not fails else '; ' + '; '.join(fails[:4])} ({time.process_time() - t0:.0f} s)")
-# 24. aims v2 (aims_v2; v25 lane B, Emren's decision #9), Earth and packs with the Library's fields (or v1's adapter)
+# 24. setbacks that fit the world (imp_world, v25 N3; world_fit.imp_g), Earth and packs, world on
+if "imp_world" in E.DEFAULT:
+    import world_fit as WF_, realm_earth as RE_
+    t0 = time.process_time(); fails = []
+    kw = dict(N=6, years=10, seed=5, lib=EARTH, log_lives=(0,))
+    P0_ = dict(E.DEFAULT, world=True, need_why=True)
+    o0_ = E.run(**kw, P=dict(P0_))
+    IW0_ = RE_.IMP_WORLD   # every e at 0 (the facts still read): the draws, and so the lives, are v24's
+    RE_.IMP_WORLD = tuple({f_: 0.0 for f_ in d_} for d_ in IW0_)
+    try:
+        if digest(E.run(**kw, P=dict(P0_, imp_world=True))) != digest(o0_):
+            fails.append("every e at 0: the lives moved")
+    finally:
+        RE_.IMP_WORLD = IW0_
+    P1_ = dict(P0_, imp_world=True)
+    o1_ = E.run(**kw, P=P1_)
+    if digest(o1_) == digest(o0_):
+        fails.append("on: nothing moved")
+    E_ = WF_.imp_elasticities(RE_, len(IW0_)); fk_ = (E_ != 0).any(1)
+    g = E.run_steps(**kw, P=P1_); msg = next(g); n_imp_, n_fact_, worst_ = 0, 0, 0.0; yrs_ = set()
+    while True:
+        kind, t, S, val = msg
+        if kind == "end" and S["age"] >= 1:
+            if not all(nm_ in S for nm_ in ("iw_fact", "iw_why", "IW_ON")) or not S["IW_ON"]:
+                fails.append("iw_fact, iw_why or IW_ON not handed over"); break
+            for n_ in np.nonzero(S["nw_imp"] >= 0)[0]:   # a setback's fact is one its kind follows, with its words
+                n_imp_ += 1; k_, f_ = int(S["nw_imp"][n_]), int(S["iw_fact"][n_])
+                if f_ >= 0:
+                    n_fact_ += 1
+                    if E_[k_, f_] == 0 or not isinstance(S["iw_why"][n_], str) \
+                            or S["nw_imp_cause"][n_] < len(E.IMP_CAUSES):
+                        fails.append(f"life {n_} week {t}: kind {k_} named fact {f_} ({S['iw_why'][n_]!r})")
+            if int(S["age"]) not in yrs_ and len(fails) < 4:   # once a year: the life part's mean over the living is 1
+                yrs_.add(int(S["age"])); WL_ = S["WL"]; out_ = {}
+                WF_.imp_g(RE_, E_, WL_.W, WL_.PP, S["res"][:, E.RIDX["health"]], S["age"], S["dead"], out=out_)
+                worst_ = max(worst_, float(np.abs(out_["pop"][:, fk_].mean(0) - 1).max()))
+        try:
+            msg = g.send(val)
+        except StopIteration as done:
+            o2_ = done.value
+            break
+    if digest(o1_) != digest(o2_):
+        fails.append("on: run_steps not the lives of run()")
+    if worst_ > 0.03:   # the clip at .2 and 4 after normalising moves the mean a little; each kind's count holds
+        fails.append(f"a kind's mean weight over the living {1 + worst_:.3f}, not 1")
+    bad += bool(fails)
+    print(f"{'PASS' if not fails else 'FAIL'}  setbacks that fit the world (imp_world), world on: every e at 0 the lives "
+          f"of it off; on, run_steps lives as run() and the lives move; {n_fact_} of {n_imp_} setbacks named a world fact "
+          f"their kind follows; each kind's weight over the living averages 1 (worst {worst_:.3f}, {len(yrs_)} years)"
+          f"{'' if not fails else '; ' + '; '.join(fails[:4])} ({time.process_time() - t0:.0f} s)")
+# 25. what a world rewards (tilt_world, v25 #10; world_fit.tilt_year) and the neutral world (realm "neutral"), world on
+if "tilt_world" in E.DEFAULT:
+    import world_fit as WF_, realm_neutral as RN_
+    t0 = time.process_time(); fails = []
+    kw = dict(N=3, years=8, seed=5, lib=EARTH, log_lives=(0,))
+    o0_ = E.run(**kw, P=dict(E.DEFAULT, world=True))
+    seen_ = dict(years=0, moves=0, worst=0.0)
+    for rl_ in ("earth", "neutral"):
+        P1_ = dict(E.DEFAULT, world=True, tilt_world=True, realm=rl_)
+        o1_ = E.run(**kw, P=P1_)
+        if rl_ == "earth" and digest(o1_) == digest(o0_):
+            fails.append("on: nothing moved")
+        g = E.run_steps(**kw, P=P1_); msg = next(g); ver_ = 0
+        while True:
+            kind, t, S, val = msg
+            if kind == "end" and S["age"] >= 1 and S.get("TW_ON"):
+                PP_ = S["WL"].PP
+                if getattr(PP_, "tilt_ver", 0) != ver_:   # a new year's r: each sphere's mean 1, every cell within .5..2
+                    ver_ = PP_.tilt_ver; seen_["years"] += 1
+                    lo_, hi_ = PP_._tilt_T["clip"]
+                    for r_ in (PP_.tilt_r, PP_.tilt_town):
+                        seen_["worst"] = max(seen_["worst"], float(np.abs(r_.mean(-1) - 1).max()))
+                        if r_.min() < lo_ - 1e-9 or r_.max() > hi_ + 1e-9:
+                            fails.append(f"{rl_}: a cell of r at {r_.min():.3f} or {r_.max():.3f}")
+                        if rl_ == "neutral" and np.abs(r_ - 1).max() > 1e-12:   # the neutral world: r 1, always
+                            fails.append(f"neutral: r off 1 by {np.abs(r_ - 1).max():.2g} at age {S['age']}")
+                    pz_ = S["prizes"]
+                    if pz_ is None or len(pz_) != 3 or any(len(d_) != 9 or any(len(v_) != 5 for v_ in d_.values()) for d_ in pz_):
+                        fails.append(f"{rl_}: prizes malformed")
+                    if not np.isfinite(PP_.tilt_gain).all() or (PP_.tilt_gain <= 0).any():
+                        fails.append(f"{rl_}: a gain not finite and positive")
+                if S["prizes_moves"] is not None:
+                    seen_["moves"] = max(seen_["moves"], sum(len(m_) for m_ in S["prizes_moves"]))
+                    if any(not {"sphere", "colour", "age", "by", "cause"} <= set(x_) or abs(x_["by"]) < 0.0195
+                           for m_ in S["prizes_moves"] for x_ in m_):
+                        fails.append(f"{rl_}: a move malformed or under .02")
+            try:
+                msg = g.send(val)
+            except StopIteration as done:
+                o2_ = done.value
+                break
+        if digest(o1_) != digest(o2_):
+            fails.append(f"{rl_}: run_steps not the lives of run()")
+        if rl_ == "neutral":   # the neutral world at its start: every sphere .2 a colour, places even, r 1 everywhere
+            W_ = S["WL"].W; T_ = WF_.tilt_tables(RN_, W_.perm); M0_ = W_._sph_tables()["M0"]
+            r0_, _ = WF_.tilt_town(W_, T_, {}, sph=np.tile(M0_, (W_.n_loc, 1, 1)))
+            ho_ = np.abs(getattr(W_, "hp_off", np.zeros((1, 5)))).max(-1)   # a place's lasting lean: only a life's act
+            if np.abs(M0_ - 0.2).max() > 0 or (ho_ > 0).mean() > 0.1 or not W_.p.get("inst_even") \
+                    or np.abs(r0_ - 1).max() > 1e-12:            # (a founder's, a push) gives one in the neutral world
+                fails.append(f"neutral: not even at the start (places with a lean of their own {(ho_ > 0).mean():.2f})")
+    if seen_["worst"] > 1e-9:
+        fails.append(f"a sphere's mean r off 1 by {seen_['worst']:.2g}")
+    bad += bool(fails)
+    print(f"{'PASS' if not fails else 'FAIL'}  what a world rewards (tilt_world), Earth and the neutral world, world on: "
+          f"run_steps lives as run() and the lives move; {seen_['years']} years of r, each sphere's mean 1 (worst "
+          f"{seen_['worst']:.1g}) and every cell within the realm's clip; prizes and {seen_['moves']} moves well formed; the "
+          f"neutral world's r 1 at its start and every year{'' if not fails else '; ' + '; '.join(fails[:4])} ({time.process_time() - t0:.0f} s)")
+# 26. aims v2 (aims_v2; v25 lane B, Emren's decision #9), Earth and packs with the Library's fields (or v1's adapter)
 if "aims_v2" in E.DEFAULT:
     import foresee as FS_
     t0 = time.process_time(); fails = []
