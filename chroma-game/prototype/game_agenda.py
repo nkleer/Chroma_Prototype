@@ -388,10 +388,16 @@ class AgendaMixin:
         return fid if fid >= 0 else None
 
     def fork_fresh(self, loc, fid, s=None):
-        """Whether the fork put this week stops the life for its card: only when the Engine carries it on its own moment
-        (a due fork, Engine 10-23). Any other fork waits on the agenda and comes as a card on the next moment asked anyway
-        (fork_waiting, the urgent first), so fork cards keep a life's asks a year near v24's (Release's AM4)."""
+        """Whether the fork put this week is carried on its own moment (a due fork, Engine 10-23), so it may stop the life
+        for its card (paced by _fork_stops). Any other fork waits on the agenda and comes as a card on the next moment asked
+        anyway (fork_waiting, the urgent first), so fork cards keep a life's asks a year near v24's (Release's AM4)."""
         return fid is not None and self._fork_on_moment(s)
+
+    def fork_urgent(self, loc, fid):
+        """Whether the Engine marks fork fid urgent (a window about to close)."""
+        fs = (loc or {}).get("aim_forks") or []
+        fs = fs[0] if fs and isinstance(fs[0], (list, tuple)) else fs
+        return any(isinstance(f, dict) and str(f.get("id")) == str(fid) and f.get("urgent") for f in fs or [])
 
     def fork_waiting(self, loc):
         """A player's fork waiting that has not been put to them as a card yet (the urgent, then the oldest), or None."""
