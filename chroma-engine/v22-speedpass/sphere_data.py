@@ -10643,11 +10643,13 @@ WORLD_FIT = {'what': "v25 (Outer world design; v1 10-21, v2 10-23 on Emren's dec
                                   'ref': 0.206,
                                   'note': 'population-weighted mean of LOC_TABLE crime (.05 to .30)'},
                         'weak': {'read': '1 - W.law_rule',
-                                 'ref': 0.27,
-                                 'note': "Earth's modern start (law_rule about .73); a world fact"},
+                                 'ref': 0.144,
+                                 'note': "Earth's burned-in modern world (law_rule .856 after the 80-year burn-in, "
+                                         'Engine 10-23; was .27 from the unburned start); a world fact'},
                         'repress': {'read': '1 - mean(W.rights)',
-                                    'ref': 0.35,
-                                    'note': "Earth's modern start (rights .85 .85 .9 .2 .45); a world fact"},
+                                    'ref': 0.165,
+                                    'note': "Earth's burned-in modern world (mean rights .835 after burn-in, Engine "
+                                            '10-23; was .35); a world fact'},
                         'harm': {'read': '1 while the locality is struck or recovering (W.disaster_now, '
                                          'W.loc_disaster) or at war (W.war), else 0',
                                  'ref': None,
@@ -10908,31 +10910,33 @@ WORLD_FIT = {'what': "v25 (Outer world design; v1 10-21, v2 10-23 on Emren's dec
                      'note': 'other epochs and eras: a realm-data deviation per dimension (the modern epoch is the '
                              'reference)'},
           'k': 1.5,
-          'formula': 'r[c] = normalise_to_mean_1(clip(mix[c] / .2 x (1 + k x sum_d dev[d] x map[d][c]), .5, 2)), dev '
-                     '= place + institution instance + period',
+          'formula': 'r[c] = normalise_to_mean_1(clip((1 + mix_k x (mix[c] / .2 - 1)) x (1 + k x sum_d dev[d] x '
+                     'map[d][c]), .67, 1.5)), dev = place + institution instance + period',
+          'mix_k': 0.5,
+          'clip': [0.67, 1.5],
           'mix': "the town's current sphere mix (W.sph_s): the sphere's own ways, moving with the world and Known "
                  "lives' pushes (modern start: epochs M0)",
           'where_read': "one site only: the rung climb (the years to rise a rung, the Engine's ryrs); rank, lead "
                         "take and titles inherit it through the rung; the good name stays the place's own reading; "
                         'the national climb carries no r. Not access (doors), not influence: an advantage is counted '
                         'once (decision #10; Engine 10-23)',
-          'earth_average': {'rule': {'W': 1.155, 'U': 0.985, 'B': 0.95, 'R': 0.956, 'G': 0.954},
-                            'gather': {'W': 0.904, 'U': 0.835, 'B': 0.95, 'R': 1.106, 'G': 1.204},
-                            'arts': {'W': 0.805, 'U': 0.935, 'B': 1.2, 'R': 1.156, 'G': 0.905},
-                            'faith': {'W': 1.004, 'U': 0.935, 'B': 0.85, 'R': 0.956, 'G': 1.254},
-                            'care': {'W': 1.009, 'U': 1.18, 'B': 0.8, 'R': 0.906, 'G': 1.104},
-                            'learn': {'W': 1.005, 'U': 1.125, 'B': 1.05, 'R': 0.911, 'G': 0.91},
-                            'prod': {'W': 0.905, 'U': 0.985, 'B': 1.05, 'R': 1.156, 'G': 0.905},
-                            'comm': {'W': 1.005, 'U': 1.035, 'B': 1.2, 'R': 0.906, 'G': 0.855},
-                            'prot': {'W': 1.204, 'U': 0.985, 'B': 0.95, 'R': 0.956, 'G': 0.904}},
-          'colour_mean': {'W': 1.0, 'U': 1.0, 'B': 1.0, 'R': 1.001, 'G': 0.999},
+          'earth_average': {'rule': {'W': 1.077, 'U': 0.992, 'B': 0.975, 'R': 0.979, 'G': 0.977},
+                            'gather': {'W': 0.952, 'U': 0.917, 'B': 0.975, 'R': 1.054, 'G': 1.102},
+                            'arts': {'W': 0.902, 'U': 0.967, 'B': 1.1, 'R': 1.078, 'G': 0.952},
+                            'faith': {'W': 1.002, 'U': 0.967, 'B': 0.925, 'R': 0.978, 'G': 1.127},
+                            'care': {'W': 1.004, 'U': 1.09, 'B': 0.9, 'R': 0.954, 'G': 1.052},
+                            'learn': {'W': 1.002, 'U': 1.062, 'B': 1.025, 'R': 0.956, 'G': 0.955},
+                            'prod': {'W': 0.952, 'U': 0.992, 'B': 1.025, 'R': 1.078, 'G': 0.952},
+                            'comm': {'W': 1.002, 'U': 1.017, 'B': 1.1, 'R': 0.953, 'G': 0.927},
+                            'prot': {'W': 1.102, 'U': 0.992, 'B': 0.975, 'R': 0.979, 'G': 0.952}},
+          'colour_mean': {'W': 0.999, 'U': 1.0, 'B': 1.0, 'R': 1.001, 'G': 1.0},
           'top_in': {'W': ['rule', 'prot'],
                      'U': ['care', 'learn'],
                      'B': ['arts', 'comm'],
                      'R': ['prod'],
                      'G': ['gather', 'faith']},
           'place_spread_example': {'sphere': 'prod',
-                                   'range_by_colour': {'W': 0.174, 'U': 0.112, 'B': 0.109, 'R': 0.207, 'G': 0.16}},
+                                   'range_by_colour': {'W': 0.177, 'U': 0.117, 'B': 0.111, 'R': 0.199, 'G': 0.162}},
           'sources': [{'src': 'Schwartz 2006, cultural value orientations (7 dimensions); teachers and students, 70+ '
                               'countries, 1988-2004',
                        'used': 'the dimensions (affective and intellectual autonomy, embeddedness, hierarchy, '
@@ -10956,7 +10960,8 @@ WORLD_FIT = {'what': "v25 (Outer world design; v1 10-21, v2 10-23 on Emren's dec
                     'hit an outcome.',
           'never': 'no colour for an occupation or a nation; no competence inferred from colour; the Known floor is '
                    'a gameplay rule, apart from any description of real inequality',
-          'neutral': 'a neutral world: mixes .2, every deviation 0, so r = 1 everywhere',
+          'neutral': 'a neutral world: mixes read as .2 (whatever its burn-in does), every deviation 0, so r = 1 '
+                     'everywhere',
           'land': 'the land rewards every colour alike on Earth (nature acts through physical processes and approves '
                   'of no colour)',
           'realm': "A realm writes its own places, institutions, periods and map: a clan realm's moots may be "
@@ -11500,56 +11505,6 @@ WORLD_FIT = {'what': "v25 (Outer world design; v1 10-21, v2 10-23 on Emren's dec
                                                                                  'tightness); size a design estimate',
                                                                        'note': "a deviation added to the place's for "
                                                                                "members' settings"},
-                                                'mutual-aid group': {'values': {'autonomy': [0.5, 0.1],
-                                                                                'belonging': [0.5, 0.1],
-                                                                                'norm_strength': [0.5, 0.1],
-                                                                                'hierarchy': [0.5, 0.1],
-                                                                                'egalitarian': [0.5, 0.1],
-                                                                                'mastery': [0.5, 0.1],
-                                                                                'harmony': [0.5, 0.1]},
-                                                                     'practices': {'autonomy': [0.5, 0.05],
-                                                                                   'belonging': [0.54, 0.05],
-                                                                                   'norm_strength': [0.5, 0.05],
-                                                                                   'hierarchy': [0.5, 0.05],
-                                                                                   'egalitarian': [0.56, 0.05],
-                                                                                   'mastery': [0.5, 0.05],
-                                                                                   'harmony': [0.5, 0.05]},
-                                                                     'incentives': {'autonomy': [0.5, 0.05],
-                                                                                    'belonging': [0.54, 0.05],
-                                                                                    'norm_strength': [0.5, 0.05],
-                                                                                    'hierarchy': [0.5, 0.05],
-                                                                                    'egalitarian': [0.56, 0.05],
-                                                                                    'mastery': [0.5, 0.05],
-                                                                                    'harmony': [0.5, 0.05]},
-                                                                     'period': 'modern',
-                                                                     'source': 'design estimate',
-                                                                     'note': "a deviation added to the place's for "
-                                                                             "members' settings"},
-                                                'professional network': {'values': {'autonomy': [0.5, 0.1],
-                                                                                    'belonging': [0.5, 0.1],
-                                                                                    'norm_strength': [0.5, 0.1],
-                                                                                    'hierarchy': [0.5, 0.1],
-                                                                                    'egalitarian': [0.5, 0.1],
-                                                                                    'mastery': [0.5, 0.1],
-                                                                                    'harmony': [0.5, 0.1]},
-                                                                         'practices': {'autonomy': [0.53, 0.05],
-                                                                                       'belonging': [0.48, 0.05],
-                                                                                       'norm_strength': [0.5, 0.05],
-                                                                                       'hierarchy': [0.5, 0.05],
-                                                                                       'egalitarian': [0.5, 0.05],
-                                                                                       'mastery': [0.55, 0.05],
-                                                                                       'harmony': [0.5, 0.05]},
-                                                                         'incentives': {'autonomy': [0.53, 0.05],
-                                                                                        'belonging': [0.48, 0.05],
-                                                                                        'norm_strength': [0.5, 0.05],
-                                                                                        'hierarchy': [0.5, 0.05],
-                                                                                        'egalitarian': [0.5, 0.05],
-                                                                                        'mastery': [0.55, 0.05],
-                                                                                        'harmony': [0.5, 0.05]},
-                                                                         'period': 'modern',
-                                                                         'source': 'design estimate',
-                                                                         'note': "a deviation added to the place's "
-                                                                                 "for members' settings"},
                                                 'sports or hobby club': {'values': {'autonomy': [0.5, 0.1],
                                                                                     'belonging': [0.5, 0.1],
                                                                                     'norm_strength': [0.5, 0.1],
@@ -11656,8 +11611,10 @@ WORLD_FIT = {'what': "v25 (Outer world design; v1 10-21, v2 10-23 on Emren's dec
                                                         'source': 'the reference epoch',
                                                         'note': 'other epochs and realms state their own'}}},
                      'k': 1.5,
-                     'clip': [0.5, 2.0],
-                     'neutral': 'every dimension .5 with sd 0: r = mix / .2',
+                     'mix_k': 0.5,
+                     'clip': [0.67, 1.5],
+                     'neutral': 'every dimension .5 with sd 0, and the neutral realm reads every sphere mix as .2 '
+                                'whatever its burn-in does: r = 1 everywhere (a test world)',
                      'TILT_LAYER': 0}},
  'national': {'what': 'WA8 and decision #11 (10-23). Fifteen shared routes to national standing, each with its own '
                       'activities, dilemma, useful asset and obligations; recognition (a name), influence (a voice '
@@ -11754,7 +11711,7 @@ WORLD_FIT = {'what': "v25 (Outer world design; v1 10-21, v2 10-23 on Emren's dec
                           'name': 'Truthfinder',
                           'coverage': 'U',
                           'dilemma': 'publication versus verification and protection',
-                          'spheres': ['arts', 'learn', 'rule'],
+                          'spheres': ['arts', 'learn', 'rule', 'gather'],
                           'asset': 'a record and its sources',
                           'obligations': 'protect the sources, publish what is verified',
                           'entries': ['report a local wrong',
@@ -11873,7 +11830,7 @@ WORLD_FIT = {'what': "v25 (Outer world design; v1 10-21, v2 10-23 on Emren's dec
                           'name': 'Living-Land Steward',
                           'coverage': 'G',
                           'dilemma': 'immediate protection versus agreement with land users',
-                          'spheres': ['land', 'rule'],
+                          'spheres': ['prod', 'prot', 'rule'],
                           'asset': 'a stretch kept alive and the people who keep it',
                           'obligations': 'work with farmers and builders, not only against them',
                           'entries': ['tend a local stretch',
@@ -12056,7 +12013,7 @@ WORLD_FIT = {'what': "v25 (Outer world design; v1 10-21, v2 10-23 on Emren's dec
                          'sphere': 'learn',
                          'ways': 'U B',
                          'exists': False},
-                        {'title': 'editor of a national paper', 'sphere': 'arts', 'ways': 'U B', 'exists': False},
+                        {'title': 'editor of a national paper', 'sphere': 'gather', 'ways': 'U R', 'exists': False},
                         {'title': 'celebrated star of stage or sport',
                          'sphere': 'arts',
                          'ways': 'R B',
@@ -12064,13 +12021,14 @@ WORLD_FIT = {'what': "v25 (Outer world design; v1 10-21, v2 10-23 on Emren's dec
                         {'title': 'head of a national charity', 'sphere': 'care', 'ways': 'G W', 'exists': False},
                         {'title': 'head of a national faith body', 'sphere': 'faith', 'ways': 'W G', 'exists': False},
                         {'title': 'keeper of the national heritage',
-                         'sphere': 'faith',
-                         'ways': 'G W',
+                         'sphere': 'arts',
+                         'ways': 'G R',
                          'exists': False},
-                        {'title': 'head of the national parks', 'sphere': 'land', 'ways': 'G U', 'exists': False}],
-              'seat_map': 'one seat per route (Packs 10-23 15:57): laureate became editor of a national paper, the '
-                          'movement seat keeper of the national heritage, the laboratory-or-library seat a national '
-                          'laboratory',
+                        {'title': 'head of the national parks', 'sphere': 'prod', 'ways': 'G U', 'exists': False}],
+              'seat_map': "one seat per route, spheres and ways as Packs' catalogue "
+                          '(chroma-packs/national/catalogue.py, 10-23): laureate became editor of a national paper, '
+                          'the movement seat keeper of the national heritage, the laboratory-or-library seat a '
+                          'national laboratory',
               'climb': {'who': "a life at a route's 'wider' step: its asset has spread and it is sought beyond its "
                                'town (5 years or more at rung 4, or a summit, or a movement or firm past its town)',
                         'chance': '.02 a year for each of recognition, influence and authority, no r factor (r is '

@@ -130,10 +130,11 @@ IMP_WORLD = (
     {"repress": 1.0},                    # your traditions are mocked or banned
     {"crime": 1.0, "weak": 0.5},         # lawlessness spreads around you
 )
-# refs: crime the population-weighted mean of the localities' crime (.05 to .30); weak = 1 - law_rule at Earth's modern
-# start (law_rule about .73); repress = 1 - the mean of the rights at the modern start (.85 .85 .9 .2 .45); frail = 1 -
-# health (an estimate; Release's split was at .22)
-IMP_WORLD_REF = dict(crime=0.206, weak=0.27, repress=0.35, frail=0.25)
+# refs: crime the population-weighted mean of the localities' crime (.05 to .30); weak = 1 - law_rule and repress = 1 -
+# the mean of the rights in Earth's burned-in modern world (law_rule .856, rights .835 after the 80-year burn-in;
+# Outer world 10-23: fixed Earth refs, not read at each run's start); frail = 1 - health (an estimate; Release's split
+# was at .22)
+IMP_WORLD_REF = dict(crime=0.206, weak=0.144, repress=0.165, frail=0.25)
 IMP_WORLD_CLIP = (0.2, 4.0)
 IMP_HARM_K = 5.0                      # harm (struck by a disaster or recovering from one, or at war): 1 + 5 x harm
 IMP_LAND_X = 2.0                      # the land: x2 while a stretch the life loves is lost (only with wa_land)
@@ -149,8 +150,9 @@ IMP_CAUSE_BETRAY_WEAK = "corruption in the institutions"   # the betrayal's own 
 # #10): Earth states, by place kind, community, institution and period, three things kept apart as dimensions on 0 to 1
 # (.5 Earth's average and the neutral world), each (mean, sd): values (the people's own; read only through the existing
 # start), practices (what places and bodies do) and incentives (what is recognised and rewarded). Only incentives reach
-# the one tilt site, the years that make a regular and a known face: r[c] = mix[c] / .2 x (1 + PROFILE_K x sum_d (x[d] -
-# .5) x DIM_COLOURS[d][c]), clipped to PROFILE_CLIP and renormalised to a mean of 1 per sphere; x = the place's draw + a
+# the one tilt site, the years that make a regular and a known face: r[c] = (1 + MIX_K x (mix[c] / .2 - 1)) x (1 +
+# PROFILE_K x sum_d (x[d] - .5) x DIM_COLOURS[d][c]), clipped to PROFILE_CLIP and renormalised to a mean of 1 per sphere
+# (the sphere's mix read at half strength, Outer world 10-23, so r stays a tendency); x = the place's draw + a
 # community's + the body's own (sd .10, seeded by its id) + the period's. Sources: Schwartz 2006; Gelfand et al. 2011;
 # Harrington and Gelfand 2014; Fischer and Schwartz 2011; House et al. 2004 (GLOBE); Inglehart and Welzel 2005
 # (directions). The sizes, k and the spreads are design estimates, tuned against the Known floor (decision #5).
@@ -270,18 +272,6 @@ PROFILES = {   # kind -> name -> values, practices, incentives (dim: (mean, sd))
             incentives=dict(autonomy=(0.5, 0.05), belonging=(0.56, 0.05), norm_strength=(0.56, 0.05), hierarchy=(0.5, 0.05), egalitarian=(0.5, 0.05), mastery=(0.5, 0.05), harmony=(0.52, 0.05)),
             period='modern', source='Gelfand 2011 (religiosity and tightness); size a design estimate',
             note="a deviation added to the place's for members' settings"),
-        'mutual-aid group': dict(
-            values=dict(autonomy=(0.5, 0.1), belonging=(0.5, 0.1), norm_strength=(0.5, 0.1), hierarchy=(0.5, 0.1), egalitarian=(0.5, 0.1), mastery=(0.5, 0.1), harmony=(0.5, 0.1)),
-            practices=dict(autonomy=(0.5, 0.05), belonging=(0.54, 0.05), norm_strength=(0.5, 0.05), hierarchy=(0.5, 0.05), egalitarian=(0.56, 0.05), mastery=(0.5, 0.05), harmony=(0.5, 0.05)),
-            incentives=dict(autonomy=(0.5, 0.05), belonging=(0.54, 0.05), norm_strength=(0.5, 0.05), hierarchy=(0.5, 0.05), egalitarian=(0.56, 0.05), mastery=(0.5, 0.05), harmony=(0.5, 0.05)),
-            period='modern', source='design estimate',
-            note="a deviation added to the place's for members' settings"),
-        'professional network': dict(
-            values=dict(autonomy=(0.5, 0.1), belonging=(0.5, 0.1), norm_strength=(0.5, 0.1), hierarchy=(0.5, 0.1), egalitarian=(0.5, 0.1), mastery=(0.5, 0.1), harmony=(0.5, 0.1)),
-            practices=dict(autonomy=(0.53, 0.05), belonging=(0.48, 0.05), norm_strength=(0.5, 0.05), hierarchy=(0.5, 0.05), egalitarian=(0.5, 0.05), mastery=(0.55, 0.05), harmony=(0.5, 0.05)),
-            incentives=dict(autonomy=(0.53, 0.05), belonging=(0.48, 0.05), norm_strength=(0.5, 0.05), hierarchy=(0.5, 0.05), egalitarian=(0.5, 0.05), mastery=(0.55, 0.05), harmony=(0.5, 0.05)),
-            period='modern', source='design estimate',
-            note="a deviation added to the place's for members' settings"),
         'sports or hobby club': dict(
             values=dict(autonomy=(0.5, 0.1), belonging=(0.5, 0.1), norm_strength=(0.5, 0.1), hierarchy=(0.5, 0.1), egalitarian=(0.5, 0.1), mastery=(0.5, 0.1), harmony=(0.5, 0.1)),
             practices=dict(autonomy=(0.5, 0.05), belonging=(0.54, 0.05), norm_strength=(0.5, 0.05), hierarchy=(0.5, 0.05), egalitarian=(0.5, 0.05), mastery=(0.53, 0.05), harmony=(0.5, 0.05)),
@@ -313,10 +303,10 @@ PROFILES = {   # kind -> name -> values, practices, incentives (dim: (mean, sd))
     },
 }
 PROFILE_K = 1.5
-PROFILE_CLIP = (0.5, 2.0)
+MIX_K = 0.5   # the share of the sphere's own mix that reaches r (1: r = mix / .2)
+PROFILE_CLIP = (0.67, 1.5)
 # which group kinds (world_keys.GROUP_KINDS) are which community of PROFILES["community"]; a setting of another kind has
-# only its body's own draw (the neighbourhood's profile is the place's own). The engine has no group kind yet that is
-# plainly a mutual-aid group or a professional network (an Engine design reading, open for Outer world)
+# only its body's own draw (the neighbourhood's profile is the place's own)
 COMMUNITY_GROUPS = {"congregation": "faith congregation", "club": "sports or hobby club", "neighbours": "neighbourhood"}
 # other-shapes.md section 1's formal layer: r[s][c] += TILT_LAYER[c] x (s in TILT_FORMAL) x (law_rule / TILT_LAW_REF). Earth's
 # is 0 in every colour (decision #10: a predetermined global White-Blue lift is ruled out; a layer can come back only
