@@ -57,19 +57,24 @@ def plan(EN, L, PK_DIR, ls=os.listdir, read=None, isfile=os.path.isfile):
     WLD += sorted(f for f in names if re.fullmatch(r"sphere_\w+\.py", f))   # the spheres' tables and fitted event bases
     WLD += sorted(f for f in names if f == "parts.py" or re.fullmatch(r"(run|rules)_\w+\.py", f))   # the engine by function
     WLD += sorted(f for f in names if re.fullmatch(r"realm_\w+\.py", f))   # each realm's constants (realm_earth.py)
+    WLD += sorted(f for f in names if re.fullmatch(r"aims\d+\.py", f))     # v25 aims v2 (aims2.py), read under aims_v2
     pins = [(os.path.join(EN, f), f) for f in ENG + WLD]
     pins += [(os.path.join(L, f), f) for f in LIB + [f"earth_{p}.py" for p in PK]]
     pins += [(os.path.join(PK_DIR, "core", f), f"packs/core/{f}") for f in sorted(ls(os.path.join(PK_DIR, "core"))) if f.endswith(".py")]
     pins += [(os.path.join(PK_DIR, p, f), f"packs/{p}/{f}") for p in PK for f in PACK_FILES]
+    # v25 aims v2 (batch FIELDS): each pack's fields (FIELDS_<PACK>) and the callings' druid, whichever the packs have
+    pf = [f"packs/{p}/{f}" for p in PK for f in ("fields.py", "druid.py") if isfile(os.path.join(PK_DIR, p, f))]
+    pins += [(os.path.join(PK_DIR, f[6:]), f) for f in pf]
     # v24's Library tables and the packs' aims (footprints, aims, world answers), whichever the Library and packs have;
     # the batch reads them only with their switches on (FOOT, AIMS)
     lx = [f for f in ["earth_foot.py"] + [f"earth_{p}_foot.py" for p in PK] + ["earth_aims.py", "earth_aim_moments.py",
           "earth_aim_moments_foot.py", "earth_world_answers.py", "earth_world_answers_foot.py", "earth_world_lines.py",
           "footprint_names.py", "earth_aim_lines.py", "earth_react_lines.py",   # v25 line tables
-          "earth_nature.py", "earth_nature_foot.py", "earth_national.py", "earth_national_foot.py"] if isfile(os.path.join(L, f))]   # v25 lane D moments (batch LAND, NATIONAL)
+          "earth_nature.py", "earth_nature_foot.py", "earth_national.py", "earth_national_foot.py",   # lane D (LAND, NATIONAL)
+          "earth_fields.py", "earth_shape_moments.py", "earth_shape_moments_foot.py"] if isfile(os.path.join(L, f))]   # FIELDS
     px = [f"packs/{p}/aims.py" for p in PK if isfile(os.path.join(PK_DIR, p, "aims.py"))]
     pins += [(os.path.join(L, f), f) for f in lx] + [(os.path.join(PK_DIR, f[6:]), f) for f in px]
-    WLD = WLD + lx + px                                  # build.py lists these in the worker's SOURCES too
+    WLD = WLD + lx + px + pf                             # build.py lists these in the worker's SOURCES too
     missing = [s for s, _ in pins if not isfile(s)]
     if missing:
         raise SystemExit("STOP: missing owner files: " + ", ".join(missing))
