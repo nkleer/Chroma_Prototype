@@ -435,7 +435,7 @@ class Agenda:
         for i in range(F["F"]):
             for r in range(int(F["nr"][i])):
                 s.FB[i, r] = sum(1 << s.FKN.index(k) for k in F["forks"][i][r] if k in s.FKN)
-        s.gate_key = None; s.gate_out = None
+        s.gate_out = None; s.gate_f = None
 
     def _fits(s, n, j, si):
         """Shape moment si fits aim j of life n: its shape (or any), its rung, the aim held or pursued (the steady kinds
@@ -471,34 +471,45 @@ class Agenda:
         return s.L_FK[si] >= 0 and s.FKN[int(s.L_FK[si])] in F["forks"][f][r]
 
     def gate(s, N):
-        """Each life's weight for each shape moment (lives x shape moments): 1 where it fits an aim the life holds."""
-        # the same agenda (fields, states, rungs, assets awarded) gives the same weights: kept until it changes
-        key = (N, s.f.tobytes(), s.st.tobytes(), s.rung.tobytes(), sum(len(x) for x in s.awarded) if s.asset_tab else 0)
-        if key == s.gate_key:
-            return s.gate_out.copy()
-        F = s.F; out = np.zeros((N, len(s.SM)), bool)
-        ok = (s.f >= 0) & ((s.st == HELD) | (s.st == ACTIVE))
+        """Each life's weight for each shape moment (lives x shape moments): 1 where it fits an aim the life holds. A
+        life's row is kept until its agenda (fields, states, rungs, assets awarded) changes."""
+        aw = np.array([len(x) for x in s.awarded]) if s.asset_tab else None
+        if s.gate_out is None or s.gate_out.shape[0] != N or s.gate_f.shape != s.f.shape:
+            rows = np.arange(N); s.gate_out = np.zeros((N, len(s.SM)))
+        else:
+            ch = (s.f != s.gate_f).any(1) | (s.st != s.gate_st).any(1) | (s.rung != s.gate_rung).any(1)
+            if aw is not None:
+                ch |= aw != s.gate_aw
+            rows = np.nonzero(ch)[0]
+        if len(rows):
+            s.gate_out[rows] = s._gate_rows(rows)
+            s.gate_f = s.f.copy(); s.gate_st = s.st.copy(); s.gate_rung = s.rung.copy(); s.gate_aw = aw
+        return s.gate_out.copy()
+
+    def _gate_rows(s, rows):
+        F = s.F; fr = s.f[rows]; st = s.st[rows]; rg = s.rung[rows]; M = len(rows)
+        out = np.zeros((M, len(s.SM)), bool)
+        ok = (fr >= 0) & ((st == HELD) | (st == ACTIVE))
         if not ok.any():
-            s.gate_key, s.gate_out = key, out.astype(float)
-            return s.gate_out.copy()
-        f = np.maximum(s.f, 0); nr = F["nr"][f]
-        intok = np.zeros(N, bool)
+            return out.astype(float)
+        f = np.maximum(fr, 0); nr = F["nr"][f]
+        intok = np.zeros(M, bool)
         if s.asset_tab and s.K_INT.any():
-            for n in np.nonzero(((s.f >= 0) & (s.rung >= 1)).sum(1) >= 2)[0]:
-                intok[n] = any(s._pair(int(n), int(j)) is not None for j in np.nonzero(s.f[n] >= 0)[0])
-        fb = np.where(ok & (s.rung < nr), s.FB[f, np.minimum(s.rung, F["K"] - 1)], 0)
-        for j in range(s.MA):
-            on = ok[:, j] & (s.rung[:, j] < nr[:, j])
+            for i in np.nonzero(((fr >= 0) & (rg >= 1)).sum(1) >= 2)[0]:
+                n = int(rows[i])
+                intok[i] = any(s._pair(n, int(j)) is not None for j in np.nonzero(s.f[n] >= 0)[0])
+        fb = np.where(ok & (rg < nr), s.FB[f, np.minimum(rg, F["K"] - 1)], 0)
+        for j in range(fr.shape[1]):
+            on = ok[:, j] & (rg[:, j] < nr[:, j])
             if not on.any():
                 continue
-            sh = F["shape"][f[:, j]]; r = s.rung[:, j]
+            sh = F["shape"][f[:, j]]; r = rg[:, j]
             m = on[:, None] & ((s.SM_SH[None] == -2) | (s.SM_SH[None] == sh[:, None])) & (((s.SM_RG[None] >> r[:, None]) & 1) == 1)
-            m &= ~s.K_ARR[None] & (~s.K_ACT[None] | (s.st[:, j] == ACTIVE)[:, None])
+            m &= ~s.K_ARR[None] & (~s.K_ACT[None] | (st[:, j] == ACTIVE)[:, None])
             m &= (s.SM_FK[None] < 0) | (((fb[:, j][:, None] >> np.maximum(s.SM_FK, 0)[None]) & 1) == 1)
             m &= ~s.K_INT[None] | intok[:, None]
             out |= m
-        s.gate_key, s.gate_out = key, out.astype(float)
-        return s.gate_out.copy()
+        return out.astype(float)
 
     def mom_slots(s, sv):
         """At the situation pause: the aim each life's drawn shape moment is about (S["AG"].mom, -1 none), for its words."""
@@ -632,16 +643,15 @@ class Agenda:
         """The seeking: an active aim outside v1's slots raises the odds of the moments with a way into its rung, by
         its intensity (half of v1's own pull at the same strength)."""
         F = s.F
-        ns, js = np.nonzero((s.f >= 0) & (s.st == ACTIVE))   # by life, then slot: each life's sum in slot order
-        if not len(ns):
-            return
-        v1 = F["v1"][s.f[ns, js]]; r = s.rung[ns, js]
-        ok = (v1 >= 0) & (r < door.shape[1] - 1)
-        if ak is not None:
-            ok &= ~(ak[ns] == v1[:, None]).any(1)
-        if ok.any():
-            ns, js, v1, r = ns[ok], js[ok], v1[ok], r[ok]
-            np.add.at(pu, ns, (0.5 * s.inten[ns, js][:, None] * door[v1, r]).astype(np.float32))
+        act = (s.f >= 0) & (s.st == ACTIVE)
+        for j in np.nonzero(act.any(0))[0]:   # slot by slot (each life's sum in slot order), the empty ones skipped
+            ns = np.nonzero(act[:, j])[0]; v1 = F["v1"][s.f[ns, j]]; r = s.rung[ns, j]
+            ok = (v1 >= 0) & (r < door.shape[1] - 1)
+            if ak is not None:
+                ok &= ~(ak[ns] == v1[:, None]).any(1)
+            if ok.any():
+                ns, v1, r = ns[ok], v1[ok], r[ok]
+                pu[ns] += (0.5 * s.inten[ns, j][:, None] * door[v1, r]).astype(np.float32)
 
     # ---- forks
     def options(s, n, j, kind):
