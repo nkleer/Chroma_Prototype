@@ -141,6 +141,10 @@ class Game(CheckpointsMixin, WorldMixin, VoiceMixin, LifeMixin, ViewsMixin, Caus
         if GAME["aims"] and "aims" in E.DEFAULT:
             P["aims"] = True            # v24 aims: ladders toward what they want to become, and the heights reached
             P["heights"] = True
+        if (GAME["agenda"] or GAME["aim_forks"]) and "aims_v2" in E.DEFAULT:
+            P["aims_v2"] = True         # v25 aims v2 (lane B): one agenda, rung clocks, one resource account, forks
+            if GAME["aim_forks"]:       # the player's forks wait for the fork card (the character's are its own)
+                P["aims2_par"] = dict(P.get("aims2_par") or {}, player=(0,))
         if GAME["bold"] and "bold_play" in E.DEFAULT:
             P["bold_play"] = True       # Bold ways: the Engine offers a card's bold ways when the game asks (bold_ask)
         # the outer world (chroma-world/, approved 10-06 10:51; in the final version by Emren's 22:24 word): on wherever the
