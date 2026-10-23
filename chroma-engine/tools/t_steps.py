@@ -99,7 +99,8 @@ engine.run_steps() is engine.run() pausing six times a week for the game. On a f
      run() with the agenda, previews and reviews read; the agenda's handed-over names there; every rung reached through
      an outcome (a title of it held or once held, a test or chance won; never effort alone); every window's closing told
      once, the week after its last, and no test after it but by a way round; the player's forks kept until the player
-     answers, effort waiting at the need while they wait; no entry cost charged twice (a pause and resume included).
+     answers, effort waiting at the need while they wait, and a fork put on a moment of its own that moment is the week's
+     (and its aim the one the moment is about); no entry cost charged twice (a pause and resume included).
      The scenario pack of the decision's known risks is tools/t_aims2.py (seconds).
  29. reactions, clashes and seeking (react, clash, seek; v25 lane C), Earth and packs with the clash, seeking and repair
      moments, world on: world off the switches move nothing; react alone and all on, run_steps() lives as run() and the
@@ -1710,7 +1711,7 @@ if "aims_v2" in E.DEFAULT:
     import foresee as FS_
     t0 = time.process_time(); fails = []
     LB_ = batch.load_batch("earth", packs=list(batch.PACKS))
-    seen_ = dict(arrived=0, tests=0, forks=0, answered=0, entries=0, views=0, closed=0, paused=0, moments=0)
+    seen_ = dict(arrived=0, tests=0, forks=0, answered=0, entries=0, views=0, closed=0, paused=0, moments=0, own=0)
     import aims2 as A2M_
     WIN_ = {nm_: {0: dict(window=dict(deadline_years=3)), 1: dict(window=dict(deadline_years=4))}
             for nm_ in A2M_.compile_fields(LB_, A2M_.PAR, E.C, E.NIDX, E.AIM_HEIGHTS)["names"]}
@@ -1739,6 +1740,10 @@ if "aims_v2" in E.DEFAULT:
                             seen_["moments"] += 1
                             if AG_.mom[n_] < 0:
                                 fails.append("a shape moment to a life with no aim it fits")
+                    if kind == "situation" and AG_.put_si[0] >= 0:   # a fork put on its own moment: that is the week's
+                        seen_["own"] += 1
+                        if int(S["s"][0]) != int(AG_.put_si[0]) or int(AG_.mom[0]) != int(AG_.put_slot[0]):
+                            fails.append("a fork put on its own moment that is not the week's moment")
                     if kind == "situation" and not edit_ and t % 52 == 0:   # the views, read-only: no life moves
                         A_ = FS_.agenda(S, 0); seen_["views"] += 1
                         if sorted(x_["priority"] for x_ in A_["items"]) != list(range(1, len(A_["items"]) + 1)):
@@ -1827,7 +1832,7 @@ if "aims_v2" in E.DEFAULT:
     print(f"{'PASS' if not fails else 'FAIL'}  aims v2 (aims_v2), switched on with a player's life (world off and on): run_steps "
           f"lives as run() with the agenda, previews and reviews read ({seen_['views']} reads); {seen_['arrived']} rungs reached, "
           f"each through an outcome ({seen_['tests']} tests); {seen_['closed']} windows closed, each told once at its last "
-          f"week + 1, no test after; {seen_['forks']} forks, the player's kept until answered ({seen_['answered']} answered) and "
+          f"week + 1, no test after; {seen_['forks']} forks, the player's kept until answered ({seen_['answered']} answered; {seen_['own']} put on their own moment) and "
           f"blocking only their aims; {seen_['entries']} entry costs, none twice ({seen_['paused']} paused and resumed); "
           f"{seen_['moments']} shape moments (batch FIELDS), each to a life with an aim it fits, none with the switch off"
           f"{'' if not fails else '; ' + '; '.join(sorted(set(fails))[:4])} ({time.process_time() - t0:.0f} s)")

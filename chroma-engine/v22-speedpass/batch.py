@@ -505,13 +505,13 @@ def _packs(world, packs, pack_moments, R):
     return out
 
 
-def _druid(PK, land):
+def _druid(PK, land, world="earth"):
     """Aims v2 (batch FIELDS, with callings loaded): the callings' sixth road, the steward of the land
     (chroma-packs/callings/druid.py), joined table by table as its header says: TITLES_LAND to the titles, ROLES_LAND
     and TARGET_LAND to the rules and targets (callings' own), EXTEND_LAND or-ed onto the names it extends, HELPS_LAND,
-    WINDOWS_LAND and LIFT_LAND to the earned odds, LIFE_LAND and LIFE_LAND_LONGSHOTS to the life conditions (they wait
-    for the road's moments, druid/callings-land.lib, which the Library compiles), ECHO_LAND_LONGSHOTS and-ed onto the
-    callings' echoes, AIMS_LAND and LEGACY_LAND to aims v1 (_aims_load) and FIELDS_LAND to the fields (aims2.py, which
+    WINDOWS_LAND and LIFT_LAND to the earned odds, the road's nine moments (the Library's <world>_callings_land.py,
+    after the packs' moments, with their footprints, <world>_callings_land_foot.py), LIFE_LAND and LIFE_LAND_LONGSHOTS
+    to their life conditions, ECHO_LAND_LONGSHOTS and-ed onto the callings' echoes, AIMS_LAND and LEGACY_LAND to aims v1 (_aims_load) and FIELDS_LAND to the fields (aims2.py, which
     reads PK["druid"] as L["DRUID"]). With the land loaded (batch LAND) also LAND_WAYS_LAND or-ed onto the steward's
     rule and LIFE_LAND_WAYS onto the chair's condition. WORLDS_LAND and WORLD_ONLY_LAND are the game's (worlds.py);
     LONGSHOTS_LAND is the Library's. Off (FIELDS off), nothing here is read."""
@@ -543,6 +543,15 @@ def _druid(PK, land):
             PK["cond"]["ECHO"][nm] = dict(c_, req=f"({c_['req']}) & ({x['req_and']})" if c_.get("req") else x["req_and"])
     PK.setdefault("aims_more", []).append(("callings", dict(getattr(D_, "AIMS_LAND", {})), getattr(D_, "LEGACY_LAND", None)))
     PK["druid"] = dict(getattr(D_, "FIELDS_LAND", {}))
+    mp_ = os.path.join(LIB_DIR, f"{world}_callings_land.py")
+    if os.path.exists(mp_):   # the road's moments (the Library's compiled druid/callings-land.lib), last of the packs'
+        M_ = _module(mp_, "chroma_pack_callings_land_moments")
+        X_ = [copy.deepcopy(x) for x in list(M_.SITUATIONS) + list(getattr(M_, "ECHOES", []))]
+        clash = sorted({x["name"] for x in X_} & {x["name"] for x in PK["sits"]})
+        if clash:
+            raise ValueError(f"the druid's moments with the name of a pack moment: {clash}")
+        PK["sits"] += X_; PK["reads"] += list(getattr(M_, "EVENTS_READ", []))
+        PK["foot_more"] = [f"{world}_callings_land_foot.py"]
 
 
 def load_batch(world="earth", symmetric=False, roles=None, packs=None, pack_moments=None, setting="earth", more=None,
@@ -579,7 +588,7 @@ def load_batch(world="earth", symmetric=False, roles=None, packs=None, pack_mome
     PK = _packs(world, list(PACKS if packs is None else packs), pack_moments, R)
     FD_ = FIELDS if fields is None else fields
     if FD_ and "callings" in PK["names"]:   # aims v2: the callings' sixth road (the druid), joined only with the fields
-        _druid(PK, LAND if land is None else land)
+        _druid(PK, LAND if land is None else land, world)
     INNER_ = {**R.INNER, **PK["cond"]["INNER"]}; ECHO_ = {**R.ECHO, **PK["cond"]["ECHO"]}
     LIFE_ = {**R.LIFE, **PK["cond"]["LIFE"]}; READ_ = {**R.READ, **PK["cond"]["READ"]}
     RETURN_ = getattr(R, "RETURN", {})
@@ -819,7 +828,7 @@ def load_batch(world="earth", symmetric=False, roles=None, packs=None, pack_mome
     if FD_ and os.path.exists(sm_):
         _aim_shapes(L)
     if FOOT if foot is None else foot:
-        _foot(L, world, PK["names"], more=[f"{world}_national_foot.py"] if NAT_ON_ else [])
+        _foot(L, world, PK["names"], more=([f"{world}_national_foot.py"] if NAT_ON_ else []) + PK.get("foot_more", []))
     _adjectives(L)
     _chance(L, R)
     if BOLD_ or any(c_.get("of", "").startswith("bold:") for c_ in L["COND"]):

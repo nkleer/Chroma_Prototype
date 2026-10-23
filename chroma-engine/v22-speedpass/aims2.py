@@ -81,6 +81,7 @@ PAR = dict(
     over=1.2,           # demanded hours over capacity x this: overcommitted
     over_fork_wk=8,     # weeks overcommitted before the agenda review (or the character's own pick)
     strain_wk=26,       # weeks overcommitted before strain on needs (rest, the bonds that lost time)
+    strain_trust=0.003,  # world on: a strained week's loss of the partner's trust (the time the agenda took from them)
     strain=(0.004, 0.002),   # a week's strain: stress up, belonging down (never a forced collapse)
     restore=0.002,      # a week's restoration of the needs a pursuit meets, per 10 funded hours, x the gap
     money_k=0.1,        # an entry cost (share of a year's free money) as a debit of the money level (once)
@@ -92,20 +93,33 @@ PAR = dict(
     hours_min=0.5, money_min=0.02, energy_min=0.05,
     time_floor=0.3,     # world off: the share of free_open hours left with every commitment held (time-use surveys put
                         # even full-time working parents' leisure at about 2 h a day)
-    crowd=0.5,          # the character's own pick: each aim already pursued lowers the odds of taking up another
+    crowd=0.0,          # the character's own pick: each aim already pursued lowers the odds of taking up another (off:
+                        # the account below sets how many are pursued)
+    fund_only=True,     # the character's own pick (an unattended life) takes up or steps up an aim only at an intensity
+                        # its week can fund: the hours left after work, care, the household, ties, the essentials and
+                        # the aims already pursued, the free money left, and attention (decision file #9: "active
+                        # pursuit competes for relevant time, attention, energy, money"); the player is never limited
     refuse_need=1.3,    # going on without paying a fee: the need x this
     round_need=1.25,    # a way round a closed window: the need x this
     late=0.3,           # the need x (1 + this a decade) for a start after the field's late_from
     reask=52,           # weeks before an unchanged pending fork is put again
+    put_gap=20,         # weeks between a player's fork cards (about 2.6 a year at most while forks wait), but a window
+                        # about to close
     window_warn=13,     # weeks before a window closes that it is a fork (once a rung)
-    integrate_y=0.25,   # integrate outcomes a year for a life holding a pair the realm's AIM_ASSETS names
+    integrate_age=18,   # the youngest age an integrated asset is made at
+    integrate_gap=5,    # years after one integrated asset before another (a combined piece of work takes years)
+    integrate_w=0.18,   # an integrate moment's weight in the week's draw, beside the other shape moments' 1
+    integrate_y=0.10,   # integrate outcomes a year for a life holding a pair the realm's AIM_ASSETS names
     refresh_wk=13,      # weeks of renewed use that refresh a lapsed upkeep
+    spark_rung=0.12,    # a rung reached by one's own work: the odds it sparks a new ambition near it
+    spark_max=8,        # no spark once the agenda holds this many aims (held, pursued or paused)
     meet=(0.03, 0.06, 0.09, 0.12),   # meaning met by a rung reached outside v1's slots (v1's own meet), by height
     assets=None,        # tests: an AIM_ASSETS table in place of the realm's
     field_patch=None,   # tests: {field name: {rung index: {key: value}}} over the compiled fields
 )
 NEVER = -10 ** 9
 # a fork's why: the Library's WHY_NOW keys (earth_aim_lines.py) by fork kind; a fork whose facts changed is "changed"
+NEEDS_X = dict(go_on=1.0, pay=1.0, refuse=1.0, hard=1.5, light=0.5)   # the intensity each option takes an aim up at
 WHY_KEY = dict(go_on="commit", pay="cost", take="chance", window="window", over="over", round="changed")
 CACHE = {}   # the compiled fields of the last batch (and field_patch) a run used
 
@@ -310,6 +324,11 @@ class Agenda:
         for k_, v_ in (tab or {}).items():
             s.asset_tab[tuple(sorted(k_))] = dict(v_)
         s.dirty = True; s.w = None; s.t = 0; s.SM = np.zeros(0, int); s.mom = np.full(N, -1)
+        s.acct = False                                    # the account computed once (fundable reads it)
+        from world_keys import AIM_FORKS as FK_
+        s.FKN = list(FK_)
+        s.rng_put = np.random.default_rng([int(seed), 2511])   # which own moment a fork is put on (player lives only)
+        s.last_put = np.full(N, -10 ** 6); s.put_si = np.full(N, -1); s.put_slot = np.full(N, -1); s.put_prev = {}
 
     # ---- slots
     def _grow(s):
@@ -418,6 +437,11 @@ class Agenda:
         s.K_ACT = np.isin(s.SM_KD, [AIM_KINDS.index(k) for k in ("practice", "contest", "plateau", "setback", "mentor", "rival")])
         s.K_INT = s.SM_KD == AIM_KINDS.index("integrate"); s.K_ARR = s.SM_KD == AIM_KINDS.index("arrive")
         s.FKN = list(AIM_FORKS)
+        F = s.F; s.FB = np.zeros((F["F"], F["K"]), np.int64)   # each field rung's forks as bits of FKN (for gate)
+        for i in range(F["F"]):
+            for r in range(int(F["nr"][i])):
+                s.FB[i, r] = sum(1 << s.FKN.index(k) for k in F["forks"][i][r] if k in s.FKN)
+        s.gate_out = None; s.gate_f = None; s.gate_aged = False
 
     def _fits(s, n, j, si):
         """Shape moment si fits aim j of life n: its shape (or any), its rung, the aim held or pursued (the steady kinds
@@ -441,45 +465,90 @@ class Agenda:
             return False
         return True
 
+    def _fits_fork(s, n, j, si):
+        """Shape moment si is the own moment of the fork aim j of life n waits on: its shape (or any), its rung, and a
+        rung that names that fork; the aim held, pursued or paused (a fork's moment asks whatever the state)."""
+        F = s.F; f = int(s.f[n, j]); r = int(s.rung[n, j])
+        if f < 0 or s.st[n, j] == DROPPED or r >= F["nr"][f]:
+            return False
+        sh = int(s.L_SH[si])
+        if (sh != -2 and sh != F["shape"][f]) or not (int(s.L_RG[si]) >> r) & 1:
+            return False
+        return s.L_FK[si] >= 0 and s.FKN[int(s.L_FK[si])] in F["forks"][f][r]
+
     def gate(s, N):
-        """Each life's weight for each shape moment (lives x shape moments): 1 where it fits an aim the life holds."""
-        F = s.F; out = np.zeros((N, len(s.SM)), bool)
-        ok = (s.f >= 0) & ((s.st == HELD) | (s.st == ACTIVE))
+        """Each life's weight for each shape moment (lives x shape moments): 1 where it fits an aim the life holds. A
+        life's row is kept until its agenda (fields, states, rungs, assets awarded) changes."""
+        aw = None
+        if s.asset_tab:   # the assets awarded and whether the gap after the last one still runs: a row anew when either changes
+            aw = np.array([len(x) * 2 + bool(x_ and s.t - x_[-1]["week"] < 52 * s.par["integrate_gap"])
+                           for x, x_ in zip(s.awarded, s.assets)])
+        aged = bool(s.asset_tab) and s.t / 52 >= s.par["integrate_age"]   # of age for an integrated asset: all rows anew
+        if s.gate_out is None or s.gate_out.shape[0] != N or s.gate_f.shape != s.f.shape or aged != s.gate_aged:
+            rows = np.arange(N); s.gate_out = np.zeros((N, len(s.SM))); s.gate_aged = aged
+        else:
+            ch = (s.f != s.gate_f).any(1) | (s.st != s.gate_st).any(1) | (s.rung != s.gate_rung).any(1)
+            if aw is not None:
+                ch |= aw != s.gate_aw
+            rows = np.nonzero(ch)[0]
+        if len(rows):
+            s.gate_out[rows] = s._gate_rows(rows)
+            s.gate_f = s.f.copy(); s.gate_st = s.st.copy(); s.gate_rung = s.rung.copy(); s.gate_aw = aw
+        return s.gate_out.copy()
+
+    def _gate_rows(s, rows):
+        F = s.F; fr = s.f[rows]; st = s.st[rows]; rg = s.rung[rows]; M = len(rows)
+        out = np.zeros((M, len(s.SM)), bool)
+        ok = (fr >= 0) & ((st == HELD) | (st == ACTIVE))
         if not ok.any():
             return out.astype(float)
-        f = np.maximum(s.f, 0); nr = F["nr"][f]
-        intok = np.zeros(N, bool)
+        f = np.maximum(fr, 0); nr = F["nr"][f]
+        intok = np.zeros(M, bool)
         if s.asset_tab and s.K_INT.any():
-            for n in np.nonzero(((s.f >= 0) & (s.rung >= 1)).sum(1) >= 2)[0]:
-                intok[n] = any(s._pair(int(n), int(j)) is not None for j in np.nonzero(s.f[n] >= 0)[0])
-        fb = np.zeros(s.f.shape, np.int64)
-        for n, j in zip(*np.nonzero(ok)):
-            r = int(s.rung[n, j])
-            if r < nr[n, j]:
-                fb[n, j] = sum(1 << s.FKN.index(k) for k in F["forks"][int(s.f[n, j])][r] if k in s.FKN)
-        for j in range(s.MA):
-            on = ok[:, j] & (s.rung[:, j] < nr[:, j])
+            for i in np.nonzero(((fr >= 0) & (rg >= 1)).sum(1) >= 2)[0]:
+                n = int(rows[i])
+                intok[i] = any(s._pair(n, int(j)) is not None for j in np.nonzero(s.f[n] >= 0)[0])
+        fb = np.where(ok & (rg < nr), s.FB[f, np.minimum(rg, F["K"] - 1)], 0)
+        for j in range(fr.shape[1]):
+            on = ok[:, j] & (rg[:, j] < nr[:, j])
             if not on.any():
                 continue
-            sh = F["shape"][f[:, j]]; r = s.rung[:, j]
+            sh = F["shape"][f[:, j]]; r = rg[:, j]
             m = on[:, None] & ((s.SM_SH[None] == -2) | (s.SM_SH[None] == sh[:, None])) & (((s.SM_RG[None] >> r[:, None]) & 1) == 1)
-            m &= ~s.K_ARR[None] & (~s.K_ACT[None] | (s.st[:, j] == ACTIVE)[:, None])
+            m &= ~s.K_ARR[None] & (~s.K_ACT[None] | (st[:, j] == ACTIVE)[:, None])
             m &= (s.SM_FK[None] < 0) | (((fb[:, j][:, None] >> np.maximum(s.SM_FK, 0)[None]) & 1) == 1)
             m &= ~s.K_INT[None] | intok[:, None]
             out |= m
-        return out.astype(float)
+        out = out.astype(float)
+        if s.K_INT.any():
+            out[:, s.K_INT] *= s.par["integrate_w"]
+        return out
 
     def mom_slots(s, sv):
         """At the situation pause: the aim each life's drawn shape moment is about (S["AG"].mom, -1 none), for its words."""
         s.mom[:] = -1
         if len(s.SM):
             for n in np.nonzero(np.isin(sv, s.SM))[0]:
-                s.mom[n] = s.moment_aim(int(n), int(sv[n]))
+                s.mom[n] = s.put_slot[n] if s.put_si[n] == sv[n] else s.moment_aim(int(n), int(sv[n]))
 
     def moment_aim(s, n, si):
         """The aim a shape moment is about: the first in priority that it fits (-1 none)."""
         js = [int(j) for j in np.argsort(s.pri[n], kind="stable") if s.f[n, j] >= 0 and s._fits(n, int(j), si)]
         return js[0] if js else -1
+
+    def _pair_ok(s, n, ja, jb, x):
+        """Two of life n's aims may make the asset x: each reached at least its rung (x rungs, the lower for either and
+        the higher for one), one of them pursued, and the life of age (integrate_age)."""
+        if s.t / 52 < s.par["integrate_age"] or (s.assets[n] and s.t - s.assets[n][-1]["week"] < 52 * s.par["integrate_gap"]):
+            return False
+        lo, hi = sorted(x.get("rungs", (1, 1)))
+        ra, rb = int(s.rung[n, ja]), int(s.rung[n, jb])
+        return (min(ra, rb) >= lo and max(ra, rb) >= hi and (s.st[n, ja] == ACTIVE or s.st[n, jb] == ACTIVE)
+                and s.st[n, ja] != DROPPED and s.st[n, jb] != DROPPED)
+
+    def _pair_p(s, n, ja, jb):
+        """The combined attempt's odds of showing the two used together: by how both fit the person (luck aside)."""
+        return float(np.clip(0.3 + 0.25 * (s.fitf[n, ja] + s.fitf[n, jb] - 2), 0.1, 0.8))
 
     def _pair(s, n, j):
         F = s.F; fa = int(s.f[n, j])
@@ -490,7 +559,7 @@ class Agenda:
                 continue
             fb = int(s.f[n, k])
             for key in (tuple(sorted((F["names"][fa], F["names"][fb]))), tuple(sorted((SHAPES[F["shape"][fa]], SHAPES[F["shape"][fb]])))):
-                if key in s.asset_tab and key not in s.awarded[n]:
+                if key in s.asset_tab and key not in s.awarded[n] and s._pair_ok(n, j, int(k), s.asset_tab[key]):
                     return int(k), key
         return None
 
@@ -502,7 +571,8 @@ class Agenda:
             return
         s.t = t; F = s.F
         for n in np.nonzero(~idle & np.isin(sv, s.SM))[0]:
-            n = int(n); si = int(sv[n]); k = int(av[n]); j = s.moment_aim(n, si)
+            n = int(n); si = int(sv[n]); k = int(av[n])
+            j = int(s.put_slot[n]) if s.put_si[n] == si and s.put_slot[n] >= 0 else s.moment_aim(n, si)
             if j < 0:
                 continue
             from world_keys import AIM_TAGS, AIM_KINDS
@@ -526,8 +596,8 @@ class Agenda:
                 s.inten[n, j] = max(0.5, float(s.inten[n, j]) - 0.5); s.dirty = True
             elif tg == "try":
                 if kd == "integrate":
-                    pr = s._pair(n, j)
-                    if ok and pr is not None:
+                    pr = s._pair(n, j)   # the demonstration: the moment won (luck) and the two fit the person
+                    if ok and pr is not None and s.rng.random() < s._pair_p(n, j, pr[0]):
                         s._award(n, j, pr[0], pr[1], t)
                 elif ok:
                     s._eff_add(n, j, 0.25 * med)
@@ -572,7 +642,10 @@ class Agenda:
 
     def _award(s, n, ja, jb, key, t):
         x = s.asset_tab[key]; s.awarded[n].add(key)
-        rec = dict(name=x.get("name", " and ".join(key)), pair=list(key), week=int(t), opens=x.get("opens", ""), slots=[ja, jb])
+        th = lambda j_: (s.F["items"][int(s.f[n, j_])]["words"].get("thing") or s.F["names"][int(s.f[n, j_])])
+        nm = str(x.get("name") or " and ".join(key)).replace("{a}", th(ja)).replace("{b}", th(jb))
+        rec = dict(name=nm, pair=list(key), week=int(t), opens=x.get("opens", ""), slots=[ja, jb],
+                   fields=[s.F["names"][int(s.f[n, ja])], s.F["names"][int(s.f[n, jb])]])
         s.assets[n].append(rec)
         tt = x.get("title") or ""
         if tt and tt in s.ctx["RID"]:
@@ -586,8 +659,13 @@ class Agenda:
         if not len(js):
             return
         j = int(js[0])
+        if n in s.player and what != "let go" and s.fork[n, j] >= 0:
+            return   # a player's ambition with a fork waiting does not fade before the player answers it
         if what == "let go" or s.st[n, j] in (HELD, PAUSED):
             if s.st[n, j] != DROPPED:
+                for fk in [x for x in s.forks[n] if x["aims"] == [j] and x["kind"] != "over"]:
+                    s.apply(n, fk, "drop" if "drop" in fk["options"] else None, s.t, by="player")   # the player let it go:
+                    # the fork it waited on is answered by that
                 s.st[n, j] = DROPPED; s._log(n, j, "set aside", why=what, learned=round(float(s.learned[n, j].sum()), 2))
                 s.dirty = True
 
@@ -595,12 +673,9 @@ class Agenda:
         """The seeking: an active aim outside v1's slots raises the odds of the moments with a way into its rung, by
         its intensity (half of v1's own pull at the same strength)."""
         F = s.F
-        for j in range(s.MA):
-            f = s.f[:, j]
-            on = (f >= 0) & (s.st[:, j] == ACTIVE)
-            if not on.any():
-                continue
-            ns = np.nonzero(on)[0]; v1 = F["v1"][f[ns]]; r = s.rung[ns, j]
+        act = (s.f >= 0) & (s.st == ACTIVE)
+        for j in np.nonzero(act.any(0))[0]:   # slot by slot (each life's sum in slot order), the empty ones skipped
+            ns = np.nonzero(act[:, j])[0]; v1 = F["v1"][s.f[ns, j]]; r = s.rung[ns, j]
             ok = (v1 >= 0) & (r < door.shape[1] - 1)
             if ak is not None:
                 ok &= ~(ak[ns] == v1[:, None]).any(1)
@@ -669,14 +744,46 @@ class Agenda:
         room = s.cap["time"][n] - s.committed["time"][n]
         dem = s.F["hours"][f, min(int(s.rung[n, j]), s.F["nr"][f] - 1)]
         roomy = 1.0 if room >= dem else 0.4
+        xmax = s.fundable(n, j) if s.par.get("fund_only") else 9.0
         nact = int(((s.st[n] == ACTIVE) & (s.f[n] >= 0)).sum())
         cr = 1.0 / (1.0 + s.par["crowd"] * nact)   # the more already pursued, the less likely another is taken up
         wt = dict(go_on=ff * (0.5 + st) * roomy * cr, light=0.3 * ff * (0.5 + st) * (1.4 - roomy), hard=0.15 * ff * st * roomy,
                   pause=0.3 + 0.25 * nact, drop=0.12 * max(1.5 - ff, 0.1), pay=ff * (0.5 + st) * roomy * cr,
                   refuse=0.4 * (1.4 - roomy) + 0.2, take=ff * (0.6 + st), decline=0.25, round=0.6 * ff * (0.5 + st),
                   keep=0.3, light_last=0.5, pause_last=0.4)
-        p = np.array([wt.get(o, 0.1) for o in opts], float); p = p / p.sum()
+        p = np.array([wt.get(o, 0.1) for o in opts], float)
+        if xmax < 1.5:   # what the week cannot fund is not taken up (pausing, letting go or keeping it held instead)
+            q = p * np.array([0.0 if NEEDS_X.get(o, 0.0) > xmax + 1e-9 else 1.0 for o in opts])
+            if q.sum() > 0:
+                p = q
+        p = p / p.sum()
         return opts[int(s.rng.choice(len(opts), p=p))]
+
+    def fundable(s, n, j):
+        """The highest intensity (1.5, 1, .5 or 0) at which life n's week can fund aim j's step beside the aims it
+        already pursues: its hours (when it needs hours), its money (when it needs money) and attention. Before the
+        first account (the first month), any."""
+        if not s.acct:
+            return 9.0
+        F = s.F; par = s.par; f = int(s.f[n, j]); r = int(min(s.rung[n, j], F["nr"][f] - 1))
+        if s.rung[n, j] >= F["nr"][f] or F["time"][f, r]:
+            return 9.0
+        oth = (s.f[n] >= 0) & (s.st[n] == ACTIVE); oth[j] = False
+        fo = np.maximum(s.f[n], 0); ro = np.minimum(s.rung[n], F["K"] - 1)
+        oth &= (s.rung[n] < F["nr"][fo]) & ~F["time"][fo, ro]
+        child = s.t / 52 < 18
+        h = F["hours"][f, r]; m = F["money"][f, r] * (1 - par["family_pays"] * child)
+        x = 1.5
+        if par["attention"] > 0:
+            x = min(x, par["attention"] - float(s.inten[n, oth].sum()))
+        if h >= par["hours_min"]:
+            room = float(s.cap["time"][n]) - float((F["hours"][fo[oth], ro[oth]] * s.inten[n, oth]).sum())
+            x = min(x, room / h)
+        if m >= par["money_min"]:
+            mo = F["money"][fo[oth], ro[oth]] * (1 - par["family_pays"] * child)
+            room = float(s.cap["money"][n]) - float((mo * s.inten[n, oth]).sum())
+            x = min(x, room / m)
+        return 1.5 if x >= 1.5 else 1.0 if x >= 1.0 else 0.5 if x >= 0.5 else 0.0
 
     def apply(s, n, fk, opt, t, by="player", sets=None):
         """Apply a fork's option (and, for a review, the player's settings per aim) once; the fork is resolved."""
@@ -826,9 +933,37 @@ class Agenda:
         if s.born[n, j] <= t - 4 and not (v1 >= 0 and ak is not None and (ak[n] == v1).any()):
             h = int(F["h"][f, r]); nd = cx["need"]()
             m = cx["NIDX"]["meaning"]; nd[n, m] += s.par["meet"][h] * (1 - nd[n, m])
+            if "competence" in cx["NIDX"]:   # a step reached by one's own work meets competence too (half as much)
+                c = cx["NIDX"]["competence"]; nd[n, c] += 0.5 * s.par["meet"][h] * worked * (1 - nd[n, c])
         s._log(n, j, "arrived", say=F["say"][f][r], how=how, worked=worked)   # (its rung: the index of the rung reached)
         s.rung[n, j] = r + 1
         s.start_rung(n, j, t)
+        if worked and s.rng.random() < s.par["spark_rung"]:
+            s.spark(n, j, t)
+
+    def spark(s, n, j, t):
+        """A rung reached by one's own work can spark a new ambition (aims-shape.md section 5, "Two directions"): a field
+        the life does not hold, near the one reached (the same sphere, or a preparation shared), by how it fits the
+        person; held, its commitment a fork as any new aim's. None once the agenda holds spark_max aims."""
+        F = s.F; f = int(s.f[n, j])
+        mine = s.f[n][(s.f[n] >= 0)]
+        if int(((s.f[n] >= 0) & (s.st[n] != DROPPED)).sum()) >= s.par["spark_max"]:
+            return -1
+        near = ((F["sph"] == F["sph"][f]) & (F["sph"] >= 0)) | ((F["prep"] & F["prep"][f]) != 0)
+        near[mine] = False
+        if not near.any():
+            return -1
+        w = s.w[n] if s.w is not None else None
+        if w is not None:
+            lm = w / w.sum() - 1 / len(w); nr = float(np.linalg.norm(lm))
+            ft = F["lean"] @ (lm / nr) if nr > 1e-9 else np.zeros(F["F"])
+        else:
+            ft = np.zeros(F["F"])
+        p = np.where(near, np.exp(2.0 * ft), 0.0); p = p / p.sum()
+        g = int(s.rng.choice(F["F"], p=p))
+        k = s.add(n, g, t, src="sparked by " + F["say"][f][int(s.rung[n, j]) - 1])
+        s._log(n, k, "sparked", by_field=F["names"][f])
+        return k
 
     # ---- the week and the month
     def week(s, t, w, need, res, dead):
@@ -898,6 +1033,16 @@ class Agenda:
             b = s.ctx["NIDX"]["belonging"]
             need[s.strained, b] = np.maximum(0.0, need[s.strained, b] - s.par["strain"][1])
             st_ = np.where(s.strained, s.par["strain"][0], 0.0)
+            WL = s.ctx["WL"]() if s.ctx["WON"]() else None
+            PP = getattr(WL, "PP", None) if WL is not None else None
+            if PP is not None and s.par["strain_trust"] > 0 and hasattr(PP, "rmask") and hasattr(PP, "trust"):
+                from world_people_base import BIT as BIT_   # neglect strains trust: the partner who lost the hours
+                ns = np.nonzero(s.strained & ~dead)[0]
+                if len(ns):
+                    pk = ((PP.rmask[ns] & BIT_["partner"]) != 0) & PP.lv[ns] & PP.used[ns]
+                    rr, kk = np.nonzero(pk)
+                    if len(rr):
+                        PP.trust[ns[rr], kk] = np.maximum(0.0, PP.trust[ns[rr], kk] - s.par["strain_trust"]).astype(PP.trust.dtype)
         return st_
 
     def month(s, t, ns_, res, held, stress):
@@ -907,8 +1052,17 @@ class Agenda:
         if not (s.f >= 0).any():
             return
         F = s.F; cx = s.ctx; occ = s.f >= 0
-        for n, j in zip(*np.nonzero(occ)):
-            s.fitf[n, j] = float(np.clip(0.75 + 0.5 * s.fit(int(n), int(s.f[n, j])), 0.4, 1.25))
+        rows, cols = np.nonzero(occ)   # how each aim fits the person's colours now (fit: each life's lean once)
+        ft = np.zeros(len(rows)); lean = F["lean"]; u = None; last = -1
+        for i, (n, j) in enumerate(zip(rows.tolist(), cols.tolist())):
+            if n != last:
+                last = n; u = None
+                if s.w is not None:
+                    w = s.w[n]; lm = w / w.sum() - 1 / len(w); nr = float(np.linalg.norm(lm))
+                    u = lm / nr if nr > 1e-9 else None
+            if u is not None:
+                ft[i] = float(lean[s.f[n, j]] @ u)
+        s.fitf[rows, cols] = np.clip(0.75 + 0.5 * ft, 0.4, 1.25)
         s.account(res, held, stress)
         # rungs reached through a title of theirs held (an act, a moment, the world's rules): the demonstrated outcome
         f = np.maximum(s.f, 0)
@@ -979,7 +1133,7 @@ class Agenda:
         s.before = np.stack([work, care, np.full(N, AW["household"]), ties, np.full(N, AW["essentials"])], 1)
         money = np.clip((res[:, MON] - par["money_floor"]) / (1 - par["money_floor"]), 0, 1)
         child = s.t / 52 < 18
-        s.cap["time"] = have; s.cap["money"] = money
+        s.cap["time"] = have; s.cap["money"] = money; s.acct = True
         s.cap["energy"] = np.clip(1 - 0.25 * np.asarray(stress), 0.3, 1.0)
         f = np.maximum(s.f, 0); r = np.minimum(s.rung, F["K"] - 1)
         open_ = (s.f >= 0) & (s.rung < F["nr"][f]) & (s.st == ACTIVE) & ~F["time"][f, r]
@@ -1075,13 +1229,11 @@ class Agenda:
                         x = s.asset_tab.get(key)
                         if x is None or key in s.awarded[n]:
                             continue
-                        ra, rb = x.get("rungs", (1, 1))
-                        if s.rung[n, ja] < ra or s.rung[n, jb] < rb or not (s.st[n, ja] == ACTIVE or s.st[n, jb] == ACTIVE):
+                        if not s._pair_ok(n, ja, jb, x):
                             continue
                         if s.rng.random() >= s.par["integrate_y"] * 4 / 52:
                             continue
-                        p = float(np.clip(0.3 + 0.25 * (s.fitf[n, ja] + s.fitf[n, jb] - 2), 0.1, 0.8))
-                        if s.rng.random() >= p:
+                        if s.rng.random() >= s._pair_p(n, ja, jb):
                             continue
                         s._award(int(n), ja, jb, key, t)
 
@@ -1117,10 +1269,17 @@ class Agenda:
         for fk in s.forks[n]:
             fk["grouped"] = bool(fk["group"] is not None and keys[fk["group"]] >= 2)
 
-    def put(s, t):
-        """At the situation pause: the one fork (or agenda review) put this week to each player life, replacing its
-        next optional ask: the most urgent unresolved one not put in the last reask weeks unless its facts changed."""
-        s.put_arr[:] = -1
+    def put(s, t, sv=None, had=None):
+        """At the situation pause: the one fork (or agenda review) put this week to each player life: the most urgent
+        unresolved one not put in the last reask weeks unless its facts changed. With the week's moments (sv, and had:
+        the lives whose week holds a life event), the put lines up with the fork's own moment (a shape moment of its
+        fork that fits its aim): on a week whose drawn moment is one, or in place of an optional ask (the everyday draw,
+        never a life event: a death, a birth, a want's or a decision's moment, nor anything the world brings); a fork
+        with no moment of its own (a window, an overfull agenda) on any optional-ask week. At most one put every
+        put_gap weeks unless a window is about to close. Returns sv (a copy, changed only for player lives).
+        put(t) alone (no moments): every due fork in turn, as before."""
+        s.put_arr[:] = -1; s.put_si[:] = -1; s.put_slot[:] = -1; s.put_prev = {}
+        out = None if sv is None else np.array(sv, copy=True)
         for n in s.player:
             if n >= s.N or not s.forks[n]:
                 continue
@@ -1133,12 +1292,48 @@ class Agenda:
                 return (not fk["urgent"], wc, ("window", "pay", "take", "round", "over", "go_on").index(fk["kind"])
                         if fk["kind"] in ("window", "pay", "take", "round", "over", "go_on") else 9, fk["week"], fk["id"])
             fk = min(c, key=key)
+            si_put = -1
+            if out is not None:
+                if not fk["urgent"] and t - s.last_put[n] < s.par["put_gap"]:
+                    continue
+                if had is not None and had[n]:
+                    continue   # a life event has the week: the fork waits
+                def own_(x):
+                    if x["kind"] not in s.FKN or not len(s.SM):
+                        return []
+                    k_ = s.FKN.index(x["kind"]); j_ = int(x["aims"][0])
+                    return [int(y) for y in s.SM if s.L_FK[y] == k_ and s._fits_fork(n, j_, int(y))]
+                own = own_(fk)
+                if not own and not fk["urgent"]:   # not urgent: a fork with a moment of its own goes first
+                    for x in sorted(c, key=key):
+                        o_ = own_(x)
+                        if o_:
+                            fk, own = x, o_
+                            break
+                j = int(fk["aims"][0])
+                if own:
+                    si_put = int(out[n]) if int(out[n]) in own else own[int(s.rng_put.integers(len(own)))]
+                    out[n] = si_put; s.put_si[n] = si_put; s.put_slot[n] = j
             grp = [x for x in s.forks[n] if fk["grouped"] and x["group"] == fk["group"]] or [fk]
+            s.put_prev[n] = ([(x, x["put"], x["changed"]) for x in grp], int(s.last_put[n]), len(s.burden))
             for x in grp:
                 x["put"] = t; x["changed"] = False
-            s.put_arr[n] = fk["id"]
+            s.put_arr[n] = fk["id"]; s.last_put[n] = t
             s.burden.append(dict(what="put", life=int(n), week=int(t), id=fk["id"], forks=len(grp),
-                                 aims=len({j for x in grp for j in x["aims"]}), options=sum(len(x["options"]) for x in grp)))
+                                 aims=len({j for x in grp for j in x["aims"]}), options=sum(len(x["options"]) for x in grp),
+                                 moment=str(s.L_ST[si_put].get("name", "")) if si_put >= 0 else ""))
+        return out
+
+    def put_kept(s, sv):
+        """After the week's moment is settled (a season, an echo or the player may take the week): a fork put on its own
+        moment that did not come is not put after all (asked again on a later week)."""
+        for n, (prev, lp, nb) in list(s.put_prev.items()):
+            if s.put_si[n] >= 0 and int(sv[n]) != int(s.put_si[n]):
+                for x, p_, c_ in prev:
+                    x["put"] = p_; x["changed"] = c_
+                s.last_put[n] = lp; s.put_arr[n] = -1; s.put_si[n] = -1; s.put_slot[n] = -1
+                if len(s.burden) > nb:
+                    s.burden.pop(nb)
 
     def what_if(s, n, sets):
         """The account for life n if aims took the settings sets {slot: (active, intensity)} (others as they are), by the
