@@ -388,18 +388,23 @@ class AgendaMixin:
         return fid if fid >= 0 else None
 
     def fork_fresh(self, loc, fid, s=None):
-        """Whether the fork put this week stops the life for its card: when the Engine carries it on its own moment (a
-        due fork, Engine 10-23), the first time it is put, or when it is urgent (its window closes soon). A fork put again
-        on another moment (the Engine reasks a year on, or when its facts change) waits on the agenda, and shows as a card
-        only on a moment that is asked anyway."""
-        if fid is None:
-            return False
-        if self._fork_on_moment(s) or str(fid) not in {x[1] for x in self.history.get("forks_asked", [])}:
-            return True
+        """Whether the fork put this week stops the life for its card: only when the Engine carries it on its own moment
+        (a due fork, Engine 10-23). Any other fork waits on the agenda and comes as a card on the next moment asked anyway
+        (fork_waiting, the urgent first), so fork cards keep a life's asks a year near v24's (Release's AM4)."""
+        return fid is not None and self._fork_on_moment(s)
+
+    def fork_waiting(self, loc):
+        """A player's fork waiting that has not been put to them as a card yet (the urgent, then the oldest), or None."""
+        if not GAME["aim_forks"] or loc is None:
+            return None
         fs = loc.get("aim_forks") or []
         fs = fs[0] if fs and isinstance(fs[0], (list, tuple)) else fs
-        f = next((x for x in fs if str(x.get("id")) == str(fid)), None)
-        return bool(f and f.get("urgent"))
+        done = {x[1] for x in self.history.get("forks_asked", [])}
+        new = [f for f in fs or [] if isinstance(f, dict) and str(f.get("id")) not in done]
+        if not new:
+            return None
+        f = min(new, key=lambda f: (not f.get("urgent"), f.get("week", 0), str(f.get("id"))))
+        return int(f["id"]) if str(f["id"]).isdigit() else f["id"]
 
     def _fork_on_moment(self, s):
         return s is not None and "AIM_FORK" in self.L and int(np.asarray(self.L["AIM_FORK"])[s]) >= 0
@@ -434,12 +439,12 @@ class AgendaMixin:
         self.history.setdefault("forks_asked", []).append((round(self.age(), 1), str(fid), len(f.get("options", []))))
         aims = [names.get(int(a), "an aim") for a in f.get("aims", [])]
         pv = self._preview_words(f.get("preview"), loc, names)
+        on = self._fork_on_moment(s) and str(self.fork_now(loc, s)) == str(fid)   # the moment is this fork's own
         return clean(dict(id=str(fid), aims=aims, kind=f.get("kind", ""),
                           why=self._why_now(f.get("why", ""), f.get("preview") or {}, pv, aims, self._aim_rec(loc, f)), preview=pv,
                           urgent=bool(f.get("urgent")), grouped=bool(f.get("grouped")),
                           group=None if f.get("group") is None else str(f["group"]),
-                          later=self.fork_later(s) if self._fork_on_moment(s) else None,
-                          on_moment=self._fork_on_moment(s),
+                          later=self.fork_later(s) if on else None, on_moment=on,
                           review=str(f["group"]) if f.get("grouped") and f.get("group") is not None else str(fid)))
 
     @staticmethod
