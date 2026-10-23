@@ -87,7 +87,7 @@ ok.append(("AS4", p1 == ("pace", 0, "paused") and p2 == ("prio", 1, 1) and c.han
 g = c.g; s = g.pending["s"]; loc = g.loc
 na = len(g.L["names"])
 g.L["AIM_FORK"] = np.full(na, -1); g.L["AIM_FORK"][s] = 0
-g.L["AIM_TAG"] = np.full((na, 8), -1); g.L["AIM_TAG"][s, 2] = 3; g.L["AIM_TAG_NAMES"] = ("go", "pay", "drop", "later")
+g.L["AIM_TAG"] = np.full((na, 8), -1); g.L["AIM_TAG"][s, 2] = 3; g.L["AIM_NAMES"] = dict(tags=("go", "pay", "drop", "later"))
 loc["aim_fork"] = np.array([7]); loc["aim_forks"] = [[dict(id=7, aims=[0], kind="pay", why="the club's season starts", preview=PV, options=[], grouped=True, group=1)]]
 card = g.fork_card(loc, g.fork_now(loc, s), s)
 seen = []
@@ -96,7 +96,7 @@ g.decide = lambda k=None, **kw: seen.append(k)
 g.pending["fork"] = card
 c.handle(""); c.job = None; c.handle("~w")
 g.decide = real_decide; c.job = None; del g.pending["fork"]
-for k_ in ("AIM_FORK", "AIM_TAG", "AIM_TAG_NAMES"):
+for k_ in ("AIM_FORK", "AIM_TAG", "AIM_NAMES"):
     del g.L[k_]
 del loc["aim_fork"], loc["aim_forks"]
 ok.append(("AS6", card["aims"] == ["to master chess"] and card["later"] == 2 and card["preview"]["hours"] == "about two evenings a week"
