@@ -113,8 +113,12 @@ army's seat is the callings pack's general and adds no killing.
 4. The Library adds `dreams.py` here to its dreams.py, and writes the routes' and styles' encounters.
 5. The game's proof, `check_pack.py national`, `check_fields.py national`, and Release's WA7, WA8 and WA8n.
 
-## Open
+## Agreed with the other owners (10-23)
 
-- Outer world's `world_fit.json` SEATS lists three seats differently (the editor in arts with ways U B, the heritage
-  keeper in faith with G W, the parks in a "land" sphere); asked of Outer world 10-23, with the reasons for the
-  catalogue's (the journalist is gather, U R; land is not one of the nine spheres).
+- Outer world's `world_fit.json` SEATS follow this catalogue (the editor in gather, U R; the heritage keeper in arts,
+  G R; the parks in prod, G U); Truthfinder's spheres gained gather and the Living-Land Steward's are prod, prot and
+  rule (land is not one of the nine spheres).
+- The Engine: `callings` is listed in feature/v25; listing `national` is the Engine's change when `wa_nat_climb` lands.
+- The Library writes the moments only, in `earth_national.py`: route encounters keyed `route: <world_fit.json route
+  key>`, style moments `style: <colours>`, decisions `scope: nation`. The fields here are keyed by aim name, as every
+  aim is; `ROUTES` in `fields.py` maps each route key to its aim.
