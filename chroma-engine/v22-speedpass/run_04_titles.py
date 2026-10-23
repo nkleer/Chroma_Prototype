@@ -357,7 +357,7 @@
             r_ever=r_ever, ev_cond=lambda c_, ns_: ev_cond(c_, ns_), need=lambda: need, WL=lambda: WL, WON=lambda: WON, ak=ak,
             astr=astr, NIDX=NIDX, MON=MON, TIM=TIM, PAR=PAR, CAR=CAR, KID=KID, LOAD=LOAD, RID=RID,
             PARTNER=lambda n_: bool(held[n_, PAR])))
-        A2F_ = AG.F["of_v1"]
+        A2F_ = AG.F["of_v1"]; AG.shapes_init(L)
         aim2 = A2_.View(AG, "items"); capacity = A2_.View(AG, "account_view"); aim_forks = AG.forks; aim_fork = AG.put_arr
     def aim_fit(mix):
         """How each aim's face fits a mix of colours: the cosine of their leans (1 the same lean)."""

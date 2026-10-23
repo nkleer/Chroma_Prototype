@@ -506,7 +506,7 @@ def _packs(world, packs, pack_moments, R):
 
 
 def load_batch(world="earth", symmetric=False, roles=None, packs=None, pack_moments=None, setting="earth", more=None,
-               bold=None, links=None, aims=None, foot=None, wa=None):
+               bold=None, links=None, aims=None, foot=None, wa=None, fields=None):
     """packs: the content packs on top of the base (default PACKS, the approved ones); pack_moments: {pack: path of a
     compiled moments file} for a pack the Library has not built into chroma-library/ yet (tests). setting: the world the
     life is played in (earth, tribal, magic: the game's presets); a moment with only: <another world> is left out.
@@ -515,7 +515,10 @@ def load_batch(world="earth", symmetric=False, roles=None, packs=None, pack_mome
     aims: aims v1 (the engine's aims switch) in place of AIMS: the aim catalogue, its spark moments and the Historic marker.
     wa: the world answers (the engine's world_answers switch) in place of WORLD_ANSWERS: the Library's asked, decision
     and figure moments (<world>_world_answers.py), last in the batch.
-    foot: footprints (the engine's foot_on switch) in place of FOOT: the Library's FOOT tables, compiled to L["FOOT"]."""
+    foot: footprints (the engine's foot_on switch) in place of FOOT: the Library's FOOT tables, compiled to L["FOOT"].
+    fields: aims v2 (the engine's aims_v2 switch) in place of FIELDS: the Library's shape moments (<world>_shape_moments.py,
+    last in the batch, with their footprints) compiled to L["AIM_SHAPE"], L["AIM_KIND"], L["AIM_FORK"], L["AIM_RUNGS"],
+    L["AIM_TAG"], L["AIM_COST"] and L["AIM_NAMES"], and the new titles the fields name (<world>_fields.py TITLES_V25)."""
     sys.path.insert(0, os.path.abspath(LIB_DIR))
     sys.modules.pop(world, None)                          # always read the batch from LIB_DIR as it is now
     try:
@@ -553,6 +556,14 @@ def load_batch(world="earth", symmetric=False, roles=None, packs=None, pack_mome
                     if len(o_) > 5 and isinstance(o_[5], dict) and not o_[5].get("lever"):
                         o_[5]["lever"] = "voice"
         sits += WA_
+    FD_ = FIELDS if fields is None else fields
+    sm_ = os.path.join(LIB_DIR, f"{world}_shape_moments.py")
+    if FD_ and os.path.exists(sm_):   # aims v2: the shape moments, after the world answers' (every index before stays)
+        SM_ = [copy.deepcopy(x) for x in getattr(_module(sm_, f"chroma_{world}_shape_moments"), "SITUATIONS", [])]
+        clash = sorted({x["name"] for x in SM_} & {x["name"] for x in sits})
+        if clash:
+            raise ValueError(f"shape moments with the name of another moment: {clash}")
+        sits += SM_
     sits = [x for x in sits if not x.get("only") or setting in [w_.strip() for w_ in str(x["only"]).replace(",", " ").split()]]
     if not SHADOW_MOMENTS:   # the spheres finishing pack, part 5: moments in a town gone grey (shadow:) wait for its refit
         sits = [x for x in sits if not x.get("shadow")]
@@ -700,12 +711,20 @@ def load_batch(world="earth", symmetric=False, roles=None, packs=None, pack_mome
             if dup:
                 raise ValueError(f"pack titles or perks with the name of a base one: {dup}")
             cat = type("Catalogue", (), dict(TITLES=list(cat.TITLES) + PK["titles"], PERKS=list(cat.PERKS) + PK["perks"]))
+        fp_ = os.path.join(LIB_DIR, f"{world}_fields.py")
+        if FD_ and os.path.exists(fp_):   # aims v2: the new titles the fields name (none a rule gives: an outcome grants them)
+            have = {x["name"] for x in list(cat.TITLES) + list(cat.PERKS)}
+            tv_ = [x for x in getattr(_module(fp_, f"chroma_{world}_fields"), "TITLES_V25", []) if x["name"] not in have]
+            cat = type("Catalogue", (), dict(TITLES=list(cat.TITLES) + [x for x in tv_ if x["kind"] in TITLE_KINDS],
+                                             PERKS=list(cat.PERKS) + [x for x in tv_ if x["kind"] in PERK_KINDS]))
         L["ROLES"] = _roles(cat, R, L, extra=PK["rules"], extend=PK["extend"], packs_=PK.get("packs_"))
         _earned(L, PK)
         _targets(L, PK, R)
     L["PACKS"] = PK["names"]
     if AT_ and "ROLES" in L:
         _aims(L, AT_)
+    if FD_ and os.path.exists(sm_):
+        _aim_shapes(L)
     if FOOT if foot is None else foot:
         _foot(L, world, PK["names"])
     _adjectives(L)
@@ -948,6 +967,9 @@ SPH_MOMENTS = True   # item 15: moments with haunt: or ladder: join the batch on
 TURNOVER_MOMENTS = True    # spheres finishing pack, part 2: moments with cast_want: place_closed or place_opened join the
                            # batch at the pack's refit (until then the Library's new moments change no life); in the
                            # batch, they come only with a closing or an opening of the life's place (place_turnover on)
+FIELDS = False   # aims v2 (v25 lane B; chroma-engine/notes/v25/aims-shape.md): the Library's shape moments and the new titles
+                 # the fields name load only with the engine's aims_v2 switch on (the game sets both); off, the library and
+                 # every life are as before (the fields themselves, <world>_fields.py, are read by the engine with aims_v2)
 FLOORS = True      # item 16: the floors for rare titles and perks (earth_rules.BUDGET_FLOORS); off until the v22.3 refit
 # the v24 refit (feature/v24-refit) loads FOOT, AIMS and WORLD_ANSWERS; their moments are in the batch even with the
 # engine's switches off, and a loaded moment moves the draws. So a check of every v24 switch off against v23.2 (Release's
@@ -1206,6 +1228,32 @@ def _aims(L, AT):
                      spark=np.array([a["spark"] for a in out], int), nsteps=np.array([len(a["steps"]) for a in out], int))
 
 
+def _aim_shapes(L):
+    """Aims v2: each moment's shape data (aims-shape.md section 4), -1 for a moment that is no shape moment: L["AIM_SHAPE"]
+    (index in world_keys.AIM_SHAPES, -2 for "any"), L["AIM_KIND"] (AIM_KINDS), L["AIM_FORK"] (AIM_FORKS), L["AIM_RUNGS"]
+    (a bit per rung index it fits; all for "any"), per option L["AIM_TAG"] (AIM_TAGS) and L["AIM_COST"] (money, time,
+    family), and the names in L["AIM_NAMES"]."""
+    from world_keys import AIM_SHAPES as SH_, AIM_KINDS as KD_, AIM_FORKS as FK_, AIM_TAGS as TG_
+    S, K = L["S"], L["K"]; SHL_ = list(SH_)
+    sh = np.full(S, -1); kd = np.full(S, -1); fk = np.full(S, -1); rg = np.zeros(S, np.int64)
+    tg = np.full((S, K), -1); co = np.zeros((S, K, 3))
+    for si, src in enumerate(L["src"][:S]):
+        if not src.get("shape") or not src.get("kind"):
+            continue
+        sh[si] = -2 if src["shape"] == "any" else SHL_.index(src["shape"])
+        kd[si] = KD_.index(src["kind"]); fk[si] = FK_.index(src["fork"]) if src.get("fork") else -1
+        r_ = src.get("rungs", "any")
+        rg[si] = (1 << 8) - 1 if r_ == "any" else sum(1 << int(x) for x in r_)
+        for ki, nt in enumerate(L["notes"][si][:K]):
+            nt = nt or {}
+            if nt.get("aim") in TG_:
+                tg[si, ki] = TG_.index(nt["aim"])
+            c_ = nt.get("cost") or {}
+            co[si, ki] = [float(c_.get("money", 0)), float(c_.get("time", 0)), float(c_.get("family", 0))]
+    L.update(AIM_SHAPE=sh, AIM_KIND=kd, AIM_FORK=fk, AIM_RUNGS=rg, AIM_TAG=tg, AIM_COST=co,
+             AIM_NAMES=dict(shapes=SHL_, kinds=list(KD_), forks=list(FK_), tags=list(TG_)))
+
+
 FOOT_KINDS = ["person", "place", "means", "mark", "door", "lesson"]
 
 
@@ -1220,7 +1268,8 @@ def _foot(L, world, packs):
     from world_keys import HAUNT_KINDS as HK_, WHO_SLOTS as WS_
     tab = {}
     for f_ in [f"{world}_foot.py"] + [f"{world}_{pk}_foot.py" for pk in packs] + [f"{world}_aim_moments_foot.py",
-                                                                                 f"{world}_world_answers_foot.py"]:
+                                                                                 f"{world}_world_answers_foot.py"] + \
+            ([f"{world}_shape_moments_foot.py"] if "AIM_SHAPE" in L else []):
         p_ = os.path.join(LIB_DIR, f_)
         if os.path.exists(p_):
             for k_, v_ in getattr(_module(p_, "chroma_" + f_[:-3]), "FOOT", {}).items():

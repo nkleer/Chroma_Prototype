@@ -123,6 +123,20 @@ def _fields_lib(world, lib_dir):
     return out
 
 
+def _req(BA, src, bad):
+    """A field rung's req compiled; a name with an apostrophe inside single quotes (has('one's own')) mended first."""
+    import re
+    try:
+        return BA._code(src)
+    except SyntaxError:
+        fixed = re.sub(r"\b(has|was|had|held)\('(.*?)'\)", lambda m: f'{m.group(1)}("{m.group(2)}")', src)
+        try:
+            return BA._code(fixed)
+        except SyntaxError:
+            bad.append(src)
+            return None
+
+
 def compile_fields(L, par, C, NIDX, heights):
     """The fields for the engine (L["FIELDS"], built once per batch): the Library's where present, then every v1 aim
     without a field of its name by the adapter. Arrays by field x rung (K the most rungs)."""
@@ -131,7 +145,7 @@ def compile_fields(L, par, C, NIDX, heights):
     GR = L["ROLES"]; RID = {nm: i for i, nm in enumerate(GR["names"])}
     AIM = L["AIMS"]; V1 = {nm: i for i, nm in enumerate(AIM["names"])}
     lib = _fields_lib(L.get("world") or "earth", BA.LIB_DIR)
-    items = []
+    items = []; bad = []
     for nm, x in lib.items():
         if x.get("shape") not in AIM_SHAPES:
             continue
@@ -140,7 +154,7 @@ def compile_fields(L, par, C, NIDX, heights):
             ids = np.array([RID[y] for y in r.get("any") or [] if y in RID], int)
             h = r.get("height") or ""
             rungs.append(dict(r, say=r.get("say", ""), ids=ids, names=[y for y in r.get("any") or [] if y in RID],
-                              req=BA._code(r["req"]) if r.get("req") else None, req_s=r.get("req") or "",
+                              req=_req(BA, r.get("req"), bad) if r.get("req") else None, req_s=r.get("req") or "",
                               h=heights.index(h) + 1 if h in heights else 0))
         if not rungs:
             continue
@@ -214,7 +228,7 @@ def compile_fields(L, par, C, NIDX, heights):
             if up:
                 F["up_yrs"][i, r] = float(up.get("years", 5)); F["up_of"][i, r] = ("proficiency", "access", "credential").index(up.get("of", "proficiency"))
                 F["up_work"][i, r] = "work" in (up.get("kept_by") or ())
-            F["forks"][i][r] = list(rg.get("forks") or FORKS[k])
+            F["forks"][i][r] = list(rg["forks"] if rg.get("forks") is not None else FORKS[k])
             F["ids"][i][r] = np.asarray(rg["ids"], int); F["req"][i][r] = rg.get("req"); F["say"][i][r] = rg.get("say", "")
             F["tnames"][i][r] = list(rg.get("names") or []); F["h"][i, r] = int(rg.get("h", 0))
     lean = F["face"] - 1 / C
@@ -222,6 +236,7 @@ def compile_fields(L, par, C, NIDX, heights):
     F["of_v1"] = {int(v): i for i, v in enumerate(F["v1"]) if v >= 0}
     F["upkeep_any"] = bool((F["up_yrs"] > 0).any())
     F["src"] = "library+v1" if lib else "v1 adapter"
+    F["bad_req"] = bad   # Library conditions that would not compile even with their quotes mended (left out: no req)
     return F
 
 
@@ -263,7 +278,7 @@ class Agenda:
         s.asset_tab = {}
         for k_, v_ in (tab or {}).items():
             s.asset_tab[tuple(sorted(k_))] = dict(v_)
-        s.dirty = True; s.w = None; s.t = 0
+        s.dirty = True; s.w = None; s.t = 0; s.SM = np.zeros(0, int); s.mom = np.full(N, -1)
 
     # ---- slots
     def _grow(s):
@@ -357,6 +372,169 @@ class Agenda:
         kind = "pay" if ("pay" in F["forks"][f][r] and F["entry"][f, r] > 0 and not s.paid[n, j, r]) else "go_on"
         if first or s.st[n, j] != DROPPED:
             s.fork_new(n, [j], kind, t, "a new ambition" if first else "a new step")
+
+    # ---- shape moments (the Library's <world>_shape_moments, batch FIELDS): who they come to, and what their tags do
+    def shapes_init(s, L):
+        """The batch's shape moments: their columns and data (none: the engine-built forks and tests alone)."""
+        from world_keys import AIM_KINDS, AIM_FORKS
+        sh = np.asarray(L.get("AIM_SHAPE", np.zeros(0)))
+        s.SM = np.nonzero(sh != -1)[0] if len(sh) else np.zeros(0, int)
+        if not len(s.SM):
+            return
+        s.L_SH = sh; s.L_KD = np.asarray(L["AIM_KIND"]); s.L_FK = np.asarray(L["AIM_FORK"]); s.L_RG = np.asarray(L["AIM_RUNGS"])
+        s.L_TG = np.asarray(L["AIM_TAG"]); s.L_ST = np.asarray(L["src"], object)
+        s.SM_SH = sh[s.SM]; s.SM_KD = s.L_KD[s.SM]; s.SM_FK = s.L_FK[s.SM]; s.SM_RG = s.L_RG[s.SM]
+        s.K_ACT = np.isin(s.SM_KD, [AIM_KINDS.index(k) for k in ("practice", "contest", "plateau", "setback", "mentor", "rival")])
+        s.K_INT = s.SM_KD == AIM_KINDS.index("integrate"); s.K_ARR = s.SM_KD == AIM_KINDS.index("arrive")
+        s.FKN = list(AIM_FORKS)
+
+    def _fits(s, n, j, si):
+        """Shape moment si fits aim j of life n: its shape (or any), its rung, the aim held or pursued (the steady kinds
+        only pursued), a fork moment only at a rung that names that fork, never an arrival (told) or an integrate
+        moment without a pair the realm names."""
+        F = s.F; f = int(s.f[n, j]); r = int(s.rung[n, j])
+        if f < 0 or s.st[n, j] not in (HELD, ACTIVE) or r >= F["nr"][f]:
+            return False
+        sh = int(s.L_SH[si])
+        if sh != -2 and sh != F["shape"][f]:
+            return False
+        if not (int(s.L_RG[si]) >> r) & 1:
+            return False
+        from world_keys import AIM_KINDS
+        kd = AIM_KINDS[int(s.L_KD[si])]
+        if kd == "arrive" or (kd in ("practice", "contest", "plateau", "setback", "mentor", "rival") and s.st[n, j] != ACTIVE):
+            return False
+        if s.L_FK[si] >= 0 and s.FKN[int(s.L_FK[si])] not in F["forks"][f][r]:
+            return False
+        if kd == "integrate" and s._pair(n, j) is None:
+            return False
+        return True
+
+    def gate(s, N):
+        """Each life's weight for each shape moment (lives x shape moments): 1 where it fits an aim the life holds."""
+        F = s.F; out = np.zeros((N, len(s.SM)), bool)
+        ok = (s.f >= 0) & ((s.st == HELD) | (s.st == ACTIVE))
+        if not ok.any():
+            return out.astype(float)
+        f = np.maximum(s.f, 0); nr = F["nr"][f]
+        intok = np.zeros(N, bool)
+        if s.asset_tab and s.K_INT.any():
+            for n in np.nonzero(((s.f >= 0) & (s.rung >= 1)).sum(1) >= 2)[0]:
+                intok[n] = any(s._pair(int(n), int(j)) is not None for j in np.nonzero(s.f[n] >= 0)[0])
+        fb = np.zeros(s.f.shape, np.int64)
+        for n, j in zip(*np.nonzero(ok)):
+            r = int(s.rung[n, j])
+            if r < nr[n, j]:
+                fb[n, j] = sum(1 << s.FKN.index(k) for k in F["forks"][int(s.f[n, j])][r] if k in s.FKN)
+        for j in range(s.MA):
+            on = ok[:, j] & (s.rung[:, j] < nr[:, j])
+            if not on.any():
+                continue
+            sh = F["shape"][f[:, j]]; r = s.rung[:, j]
+            m = on[:, None] & ((s.SM_SH[None] == -2) | (s.SM_SH[None] == sh[:, None])) & (((s.SM_RG[None] >> r[:, None]) & 1) == 1)
+            m &= ~s.K_ARR[None] & (~s.K_ACT[None] | (s.st[:, j] == ACTIVE)[:, None])
+            m &= (s.SM_FK[None] < 0) | (((fb[:, j][:, None] >> np.maximum(s.SM_FK, 0)[None]) & 1) == 1)
+            m &= ~s.K_INT[None] | intok[:, None]
+            out |= m
+        return out.astype(float)
+
+    def mom_slots(s, sv):
+        """At the situation pause: the aim each life's drawn shape moment is about (S["AG"].mom, -1 none), for its words."""
+        s.mom[:] = -1
+        if len(s.SM):
+            for n in np.nonzero(np.isin(sv, s.SM))[0]:
+                s.mom[n] = s.moment_aim(int(n), int(sv[n]))
+
+    def moment_aim(s, n, si):
+        """The aim a shape moment is about: the first in priority that it fits (-1 none)."""
+        js = [int(j) for j in np.argsort(s.pri[n], kind="stable") if s.f[n, j] >= 0 and s._fits(n, int(j), si)]
+        return js[0] if js else -1
+
+    def _pair(s, n, j):
+        F = s.F; fa = int(s.f[n, j])
+        if s.rung[n, j] < 1:
+            return None
+        for k in np.nonzero((s.f[n] >= 0) & (s.rung[n] >= 1))[0]:
+            if k == j:
+                continue
+            fb = int(s.f[n, k])
+            for key in (tuple(sorted((F["names"][fa], F["names"][fb]))), tuple(sorted((SHAPES[F["shape"][fa]], SHAPES[F["shape"][fb]])))):
+                if key in s.asset_tab and key not in s.awarded[n]:
+                    return int(k), key
+        return None
+
+    def moments(s, sv, av, succ, idle, t):
+        """The week's shape moments picked: each option's aim: tag on the aim it is about (aims-shape.md section 4, with
+        the Library's extras). A tag that answers a fork the aim waits on resolves it (the life's own pick: a player's
+        is the player's)."""
+        if not len(s.SM):
+            return
+        s.t = t; F = s.F
+        for n in np.nonzero(~idle & np.isin(sv, s.SM))[0]:
+            n = int(n); si = int(sv[n]); k = int(av[n]); j = s.moment_aim(n, si)
+            if j < 0:
+                continue
+            from world_keys import AIM_TAGS, AIM_KINDS
+            tg = AIM_TAGS[int(s.L_TG[si, k])] if k < s.L_TG.shape[1] and s.L_TG[si, k] >= 0 else ""
+            kd = AIM_KINDS[int(s.L_KD[si])]
+            f = int(s.f[n, j]); r = int(s.rung[n, j]); med = float(F["ymed"][f, r]); ok = bool(succ[n])
+            by = "player" if n in s.player else "character"
+            s._log(n, j, "moment", kind=kd, tag=tg, won=ok, moment=str(s.L_ST[si].get("name", "")))
+            st_ = s.ctx["astr"]; ak = s.ctx["ak"]; v1 = int(F["v1"][f])
+            q = np.nonzero(ak[n] == v1)[0] if (ak is not None and v1 >= 0) else []
+            dv = dict(work=0.15, ease=-0.15, refuse=-0.1, round=0.1, bend=-0.2).get(tg, 0.0)
+            if dv and len(q):
+                st_[n, q[0]] = float(np.clip(st_[n, q[0]] + dv, 0, 1))
+            if tg == "work" and s.st[n, j] == ACTIVE:
+                s.eff[n, j] += 0.05 * s.need[n, j]
+            elif tg == "ease" and s.st[n, j] == ACTIVE:
+                s.inten[n, j] = max(0.5, float(s.inten[n, j]) - 0.5); s.dirty = True
+            elif tg == "try":
+                if kd == "integrate":
+                    pr = s._pair(n, j)
+                    if ok and pr is not None:
+                        s._award(n, j, pr[0], pr[1], t)
+                elif ok:
+                    s.eff[n, j] += 0.25 * med
+                    if s.eff[n, j] >= s.need[n, j] and s.fork[n, j] < 0 and not (s.wclose[n, j] >= 0 and t > s.wclose[n, j] and not s.wround[n, j]):
+                        s.arrive(n, j, t, "won " + kd, grant=True)
+                else:
+                    s.eff[n, j] = max(0.0, s.eff[n, j] - 0.05 * s.need[n, j])
+            elif tg == "pay":
+                s.eff[n, j] += 0.2 * med; s._resolve(n, j, "pay", "pay", t, by) or s.activate(n, j, max(1.0, float(s.inten[n, j])), t, pay=True)
+            elif tg == "refuse":
+                s._resolve(n, j, "pay", "refuse", t, by) or s._do(n, j, "refuse", "pay", t)
+            elif tg == "take":
+                s.eff[n, j] += 0.5 * med
+                s._resolve(n, j, "take", None, t, by)   # the waiting chance is this one, taken: no second test
+                if s.eff[n, j] >= s.need[n, j] and not (s.wclose[n, j] >= 0 and t > s.wclose[n, j] and not s.wround[n, j]):
+                    s.arrive(n, j, t, "won a chance taken", grant=True)
+            elif tg == "decline":
+                s._resolve(n, j, "take", "decline", t, by) or s._do(n, j, "decline", "take", t)
+            elif tg == "round":
+                s._resolve(n, j, "round", "round", t, by) or s._do(n, j, "round", "round", t)
+            elif tg == "stop":
+                for fk in [x for x in s.forks[n] if j in x["aims"]]:
+                    s.apply(n, fk, "drop" if "drop" in fk["options"] else None, t, by=by)
+                if s.st[n, j] != DROPPED:
+                    s._do(n, j, "drop", kd, t)
+
+    def _resolve(s, n, j, kind, opt, t, by):
+        """A pending fork of this kind on aim j answered by a moment's pick; False when there is none."""
+        fk = next((x for x in s.forks[n] if j in x["aims"] and x["kind"] == kind), None)
+        if fk is None:
+            return False
+        s.apply(n, fk, opt if opt in fk["options"] else None, t, by=by)
+        return True
+
+    def _award(s, n, ja, jb, key, t):
+        x = s.asset_tab[key]; s.awarded[n].add(key)
+        rec = dict(name=x.get("name", " and ".join(key)), pair=list(key), week=int(t), opens=x.get("opens", ""), slots=[ja, jb])
+        s.assets[n].append(rec)
+        tt = x.get("title") or ""
+        if tt and tt in s.ctx["RID"]:
+            s.ctx["r_gain"](int(n), int(s.ctx["RID"][tt]), "an integrated asset")
+        s._log(int(n), ja, "integrated asset", asset=rec["name"], pair=list(key))
 
     def v1_end(s, n, f, what):
         """v1 ended an aim: "let go" (the player, or a spark's drop) sets it aside; "faded" (no goal behind it) sets
@@ -566,6 +744,8 @@ class Agenda:
         f = int(s.f[n, j]); r = int(s.rung[n, j])
         if r >= s.F["nr"][f]:
             return False
+        if s.wclose[n, j] >= 0 and t > s.wclose[n, j] and not s.wround[n, j]:
+            return False   # past the window's last week (a chance answered too late): no test, only a way round
         x = s.eff[n, j] / max(s.need[n, j], 1e-9) - 1
         p = 0.3 + 0.5 * (s.fitf[n, j] - 1) + 0.15 * min(max(x, 0.0), 2.0) + 0.1 * (s.inten[n, j] - 1) + 0.1 * chance
         p = float(np.clip(p * s.prof[n, j], 0.1, 0.85))
@@ -707,7 +887,8 @@ class Agenda:
         if t % 52 == 0:   # unattended: once a year a held or paused ambition is looked at again (its own odds)
             for n, j in zip(*np.nonzero(occ & ((s.st == HELD) | (s.st == PAUSED)) & (s.fork < 0))):
                 n, j = int(n), int(j)
-                if n not in s.player and s.rung[n, j] < F["nr"][s.f[n, j]] and not F["time"][s.f[n, j], s.rung[n, j]]:
+                if (n not in s.player and s.rung[n, j] < F["nr"][s.f[n, j]] and not F["time"][s.f[n, j], s.rung[n, j]]
+                        and not (s.rung[n, j] == 0 and t / 52 < F["start"][s.f[n, j], 0])):
                     s.fork_new(n, [j], "go_on", t, "a year on")
         if s.asset_tab:
             s.integrate(t)
@@ -839,14 +1020,7 @@ class Agenda:
                         p = float(np.clip(0.3 + 0.25 * (s.fitf[n, ja] + s.fitf[n, jb] - 2), 0.1, 0.8))
                         if s.rng.random() >= p:
                             continue
-                        s.awarded[n].add(key)
-                        rec = dict(name=x.get("name", " and ".join(key)), pair=list(key), week=int(t), opens=x.get("opens", ""),
-                                   slots=[ja, jb])
-                        s.assets[n].append(rec)
-                        tt = x.get("title") or ""
-                        if tt and tt in s.ctx["RID"]:
-                            s.ctx["r_gain"](int(n), int(s.ctx["RID"][tt]), "an integrated asset")
-                        s._log(int(n), ja, "integrated asset", asset=rec["name"], pair=list(key))
+                        s._award(int(n), ja, jb, key, t)
 
     # ---- the player's forks: kept current, grouped by a shared bottleneck, put one a week
     def _facts(s, n, fk):
