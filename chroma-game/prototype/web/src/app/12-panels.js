@@ -139,6 +139,7 @@ function pageKey(k) {
   if (k === "c") { if (sheetEl.hidden) openSheet(); else closeSheet(); return; }
   if (k === "b") { if (bookEl.hidden) openBook(); else closeBook(); return; }
   if (k === "g") { if (worldEl.hidden) openWorld(); else closeWorld(); return; }
+  if (k === "j") { if (agendaEl.hidden) openAgenda(); else closeAgenda(); return; }
   if (k === "s") { if (!busy && hud && hud.mode === "play") saveToFile(); return; }
   if (k === "a") { autoOn = !autoOn; try { localStorage.setItem("chroma.autosave.on", autoOn ? "on" : "off"); } catch (_) {} toast(`Autosave ${autoOn ? "on: after every choice, one slot in this browser" : "off"}`); renderTools(hud); if (autoOn && hud && hud.mode === "play" && !busy) autoSaveNow(); return; }
   if (k === "o") { fileIn.click(); return; }

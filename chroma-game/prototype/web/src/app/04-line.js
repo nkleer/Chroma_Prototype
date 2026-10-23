@@ -296,7 +296,8 @@ function renderTools(h) {
     <span class="savednote" id="savedNote" aria-live="polite">${autoOn ? `${ic("check")}<span>Saved after the last choice</span>` : ""}</span>
     <button class="tbtn hud-toggle" id="tHud" aria-pressed="${hudEl.classList.contains("open")}">${ic("wheel")}<span class="t">Status</span></button>
     <button class="tbtn door" data-page="c">${ic("ci-diary")}<span class="t">Character</span><kbd>c</kbd></button>
-    <button class="tbtn door" data-page="b">${ic("ci-bookshelf")}<span class="t">Book</span><kbd>b</kbd></button>${h.world || L.world_era ? `
+    <button class="tbtn door" data-page="b">${ic("ci-bookshelf")}<span class="t">Book</span><kbd>b</kbd></button>${L.agenda ? `
+    <button class="tbtn door" data-page="j">${ic("route")}<span class="t">Agenda</span>${L.agenda.forks.length ? `<b class="agbadge">${L.agenda.forks.length}</b>` : ""}<kbd>j</kbd></button>` : ""}${h.world || L.world_era ? `
     <button class="tbtn door" data-page="g">${ic("ci-globe")}<span class="t">World</span><kbd>g</kbd></button>` : ""}
     <button class="tbtn door" id="tMenu" aria-haspopup="menu" aria-expanded="${menuOpen}">${ic("sliders")}<span class="t">Table</span></button>
     <div class="tpop" id="tPop" role="menu" aria-label="Table settings"${menuOpen ? "" : " hidden"}>
@@ -323,7 +324,8 @@ function renderTools(h) {
     s: () => tipBox(`${ic("ci-sealed-scroll")} Save`, autoOn ? "Autosave is on" : "Autosave is off", [], `Save this life to a file. Key s.<br>${autoOn ? "After every moment and every choice the life is also kept in one slot in this browser, overwritten each time; Continue on the start screen opens it." : "Nothing is kept in this browser between choices."} Key a turns autosave ${autoOn ? "off" : "on"}.`),
     o: () => tipBox(`${ic("ci-open-chest")} Load`, "", [], "Load a saved life from its file. Key o."),
     n: () => tipBox(`${ic("new")} New life`, "", [], "Leave this life and choose a new start; you can save it first. Key n."),
-    g: () => tipBox(`${ic("ci-globe")} The world`, L.world_era ? esc(cap(L.world_era.name)) : "", [], "What is publicly true now and what has happened, by age and era. Key g.") };
+    g: () => tipBox(`${ic("ci-globe")} The world`, L.world_era ? esc(cap(L.world_era.name)) : "", [], "What is publicly true now and what has happened, by age and era. Key g."),
+    j: () => tipBox(`${ic("route")} The agenda`, L.agenda && L.agenda.forks.length ? `${L.agenda.forks.length} decision${L.agenda.forks.length > 1 ? "s" : ""} waiting` : "", [], "Every aim they hold: its step and clock, how hard they pursue it, what holds it back, and what it has earned. Key j.") };
   tipsT.a = () => tipBox(`${ic("check")} Autosave ${autoOn ? "on" : "off"}`, "", [], "After every moment and every choice the life is kept in one slot in this browser, overwritten each time; Continue on the start screen opens it. Key a.");
   const inMenu = (b) => !!b.closest("#tPop");
   toolsEl.querySelectorAll("[data-key]").forEach((b) => { b.addEventListener("click", (e) => { e.stopPropagation(); send(b.dataset.key); }); if (!inMenu(b)) setTip(b, tipsT[b.dataset.key]); });

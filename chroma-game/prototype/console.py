@@ -38,6 +38,7 @@ HELP = """Keys while watching
   l       ledger: show the numbers under the story (on or off)
   p       dreams, passions and plans; make a plan for them, or drop one
   a       aims (when on): where they stand, the next step; take one up, or let one go
+  j       the agenda (when on): every aim, its step and clock, what holds it back, decisions waiting; jp, jr adjust it
   ~w ~u.. lean them toward a color until the next ask (when on); ~ alone lets go
   n       start a new life
   h       this help
@@ -144,8 +145,10 @@ def letters_to_spec(txt):
 # art pack on, gap_move .3); version 8 from v23 (the joint refit with the spheres pack and own_ix on; Picks come back);
 # version 9 with Bold ways on (GAME bold: a card's numbers can name a bold way); version 10 from v24 (the joint refit:
 # footprints, aims and the world answers give a life new state, and asks, steering and talk add the player's lines).
+# Version 11 from v25 with the agenda or fork cards on: the player's pace, priority and review answers are lines too, and
+# a fork left open comes again in the same week with the same id when they are replayed (Engine contracts.md section 7).
 # An older save replays under the new rules and is told so (Emren's card 2026-10-09: "Replay with a note").
-SAVE_VERSION = 10 if GAME["foot"] or GAME["aims"] or GAME["world_answers"] else 9 if GAME["bold"] else 8
+SAVE_VERSION = 11 if GAME["agenda"] or GAME["aim_forks"] else 10 if GAME["foot"] or GAME["aims"] or GAME["world_answers"] else 9 if GAME["bold"] else 8
 OLD_SAVE = ". This life was saved in an earlier version; it may turn out differently from here"
 
 def pushes_said(r):
@@ -481,6 +484,9 @@ class Console:
         if GAME["aims"] and (k == "a" or k.startswith("aim ") or (k[:1] == "a" and k[1:].isdigit())
                              or (k[:2] == "ad" and k[2:].isdigit())):
             return self._on_aim(line)
+        if GAME["agenda"] and (k == "j" or k.startswith("agenda ") or k.startswith("ja ")
+                               or (k[:2] in ("jp", "jr") and k[2:].split(" ")[0].isdigit())):
+            return self._on_agenda(line)
         if GAME["steer_between"] and g.pending is None and k[:1] == "~" and (k[1:] in ("", "x") or (len(k) == 2 and k[1].upper() in "WUBRG")):
             c_ = k[1].upper() if len(k) == 2 and k[1] != "x" else None
             g.steer_set(c_)
@@ -533,6 +539,43 @@ class Console:
         if k in ("f", "v", "n", "l", "k"):
             return self._keys(k)
         return "Unknown key. Type h for help.", False
+
+    def _on_agenda(self, line):
+        """Key j: the agenda (v25, GAME agenda). jp<slot> <pace>: how an aim is pursued (pursuing, reduced, keeping_up,
+        paused, holding); jr<slot> <rank>: move it in the order. Browser: 'agenda pace <slot> <pace>', 'agenda prio <slot>
+        <rank>'."""
+        g = self.g; k = line.strip().lower().split()
+        if k[:2] == ["agenda", "apply"] or k[:1] == ["ja"]:     # a review's answers: browser JSON, or ja <fork>=<option> s<slot>=<pace>
+            if k[0] == "agenda":
+                try:
+                    a = json.loads(line.strip()[len("agenda apply"):])
+                except ValueError:
+                    return "That review answer could not be read.", False
+                ch, sets = a.get("choices") or {}, a.get("set") or {}
+            else:
+                pairs = [w.split("=", 1) for w in k[1:] if "=" in w]
+                ch = {x: v for x, v in pairs if not (x[:1] == "s" and x[1:].isdigit())}
+                sets = {x[1:]: v for x, v in pairs if x[:1] == "s" and x[1:].isdigit()}
+            A, err = g.agenda_apply(ch, sets)
+            if err:
+                return err[:1].upper() + err[1:] + ".", False
+            self.note = "Agenda changed"
+            return "\n".join(g.agenda_lines(A)), False
+        if k and k[0] == "agenda" and len(k) == 4 and k[1] in ("pace", "prio") and k[2].isdigit():
+            k = [("jp" if k[1] == "pace" else "jr") + k[2], k[3]]
+        if len(k) == 2 and k[0][:2] in ("jp", "jr") and k[0][2:].isdigit():
+            slot = int(k[0][2:])
+            if k[0][:2] == "jp":
+                A, err = g.agenda_pace(slot, k[1])
+            else:
+                A, err = (g.agenda_priority(slot, int(k[1])) if k[1].isdigit() else (None, "a rank is a number"))
+            if err:
+                return err[:1].upper() + err[1:] + ".", False
+            self.note = "Agenda changed"
+            return "\n".join(g.agenda_lines(A)), False
+        if k == ["j"]:
+            return "\n".join(g.agenda_lines()), False
+        return "jp<slot> <pace> or jr<slot> <rank>. Type j for the agenda.", False
 
     def _on_aim(self, line):
         """Key a: the aims track (v24, GAME aims). a1, a2..: take up the aim listed; ad1, ad2..: let a held aim go.

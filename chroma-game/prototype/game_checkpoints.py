@@ -91,6 +91,8 @@ class CheckpointsMixin:
             self._last_recon[kk] = t
         elif GAME["rung_ask"] and self._rung_here(loc, s) and t - self._last_seen.get(s, -10 ** 6) >= again // 2:
             pass                                        # v22.5 proposal: the next rung of a pack career or a summit is asked
+        elif GAME["aim_forks"] and self.fork_now(loc, s) is not None:
+            pass                                        # v25: a fork on a held aim is always put to the player
         elif ret is not None:
             pass                                        # Picks come back: a return is always put to the player
         elif GAME["bold"] and self._bold_forced(t, s):
@@ -296,6 +298,10 @@ class CheckpointsMixin:
                   options=sorted(opts, key=lambda o: o["idx"]), own=own, a=a.copy(), by_idx={o["idx"]: o for o in opts})
         if getattr(self, "_ask_why", None):             # v24 asks: what made this moment one to put to the player
             cp["why_ask"] = self._ask_why
+        if GAME["aim_forks"]:                           # v25: a fork card says which aims, why now, and what it asks
+            fid = self.fork_now(loc, s)
+            if fid is not None:
+                cp["fork"] = self.fork_card(loc, fid)
         if GAME["talk"] and getattr(self, "_ask_big", False):
             cp["big"] = True                            # v24: a big moment, one the player may talk over with them
         for o in opts:                                  # the Library's role slots in an option ({friend}, {boss}): the scene's people

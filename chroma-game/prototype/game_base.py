@@ -273,6 +273,15 @@ GAME = dict(
     # of the largest footprint in each ring (game_world_answers.py). wa_phase2: the second phase for Known lives
     # (decisions for others). Changes play when on: off until the joint proof
     world_answers=False, wa_phase2=False,
+    # v25 agenda (Emren's decision file section 5, #9; game_agenda.py), with GAME aims: every held aim on one persistent
+    # agenda (importance, step, progress and clock, commitment state, priority, pending forks, the real bottleneck, earned
+    # assets apart from potential rewards), read from the Engine's foresee.agenda (v24's aims when it has none). Reading
+    # it changes nothing; the player's pace and priority (keys jp, jr) change the life. Off: no agenda
+    agenda=False,
+    # v25 fork cards (#9: "present consequential forks for every held aim"; game_agenda.py): "every" puts each fork the
+    # Engine puts (S["aim_fork"]) to the player as its moment's card, with its preview, in the place of the next
+    # optional ask; "" asks none (the character answers, as the Engine's declared policy for unattended lives)
+    aim_forks="",
 )
 BOLD_IX = 1000          # Bold ways: a bold way's number on the card, BOLD_IX + 100 x its slot + its base way (bix: the base)
 
@@ -295,7 +304,7 @@ GAME_OFF = dict(piv=0.0, piv_own=0.0, piv_steady=0.0, learn_full=False, lean=0.0
                 era_cost=0.0, backfire=0.0, turn_max=0, fig_own=False, own_ix=False, trust_judge=False, lines_tied=False,
                 own_mark="", lean_self=0.0, own_teach=0.0, dream_own=False, dream_firm=0.0, dream_help=0.0, hind_thin=0.5, season_need=0.0, season_calm=0.0, fork_k=0.0, fork_told=False, rung_ask=False,
                 world_hold=False, world_seed=False, faith_home=0.0,
-                line_wait=0.0, news_touch=False, rare_ask=False, returns=False, stakes=False, causes=False, causes_fold=False, bold=False, because=False, arrows=False, foot=False, aims=False, ask_matter=0.0, steer_between=False, talk=False, world_answers=False, wa_phase2=False,
+                line_wait=0.0, news_touch=False, rare_ask=False, returns=False, stakes=False, causes=False, causes_fold=False, bold=False, because=False, arrows=False, foot=False, aims=False, ask_matter=0.0, steer_between=False, talk=False, world_answers=False, wa_phase2=False, agenda=False, aim_forks="",
                 own_stress=0.5, own_free=0.3, dream_fit=0.5, rare_imp=0.5)
 # v22.5's joint refit (chroma-engine/notes/v22.5-refit-plan.md §2, with the engine's V225): every v22.5 game switch on
 # with its fitted value. F12 world_hold (with the engine's own_open and start_hold), F15 world_seed, F10 line_wait and news_touch (the

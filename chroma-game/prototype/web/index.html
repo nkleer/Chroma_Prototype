@@ -1621,6 +1621,42 @@
   .ev .ask.oorfold:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; border-radius: 4px; }
   .ogrid.oorg:empty { display: none; }
   @media (prefers-reduced-motion: reduce) { .ev .ask.oorfold .chev { transition: none; } }
+/* v25 the agenda (app/14-agenda.js): the page, its cards and the status panel's strip */
+  .agenda .agcap { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+  .agenda .agcap .chip b { font-weight: 600; }
+  .agenda .agcap .ag-stretched b { color: var(--gold); }
+  .agenda .agcap .ag-overcommitted b { color: var(--bad, #c0504d); }
+  .agenda h4 { margin: 14px 0 6px; font: 600 var(--fs-1) var(--ui); letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold); }
+  .agenda .agforks { display: grid; gap: 8px; }
+  .agenda .agitems { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr)); gap: 12px; margin-top: 12px; }
+  .agcard { display: grid; gap: 5px; padding: 10px 12px; border-radius: 10px; box-shadow: inset 0 0 0 1px rgb(var(--hl) / 0.14); min-width: 0; font-size: var(--fs-1); color: var(--ink2); }
+  .agcard.focus { box-shadow: inset 0 0 0 1px var(--gold3); }
+  .agcard .agh { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+  .agcard .agn { font: 600 var(--fs-1) var(--ui); color: var(--gold); min-width: 1.2em; }
+  .agcard .an { font: 400 var(--fs-2)/1.25 var(--serif); color: var(--ink); min-width: 0; }
+  .agcard .agl { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+  .agcard .ladder, .agrow .ladder { display: inline-flex; gap: 4px; }
+  .agcard .ladder i, .agrow .ladder i { width: 9px; height: 9px; border-radius: 2px; background: rgb(var(--hl) / 0.08); box-shadow: 0 0 0 1px rgb(var(--hl) / 0.18); }
+  .agcard .ladder i.on, .agrow .ladder i.on { background: var(--gold3); }
+  .agprog { height: 4px; border-radius: 2px; background: rgb(var(--hl) / 0.1); overflow: hidden; }
+  .agprog i { display: block; height: 100%; background: var(--gold3); }
+  .agcard .agbn, .agcard .agwaitl { color: var(--ink); }
+  .agcard .aged { display: grid; grid-template-columns: 6.5em 1fr; gap: 6px; align-items: start; }
+  .agcard .aged .ml { color: var(--muted); }
+  .agcard .chip.dim { opacity: 0.7; }
+  .agcard .agctl { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 4px; }
+  .agcard .agctl button { padding: 3px 8px; font-size: var(--fs-1); }
+  .agcard .agctl button.on { box-shadow: inset 0 0 0 1px var(--gold3); color: var(--ink); }
+  .agstrip .agrow { display: grid; grid-template-columns: 18px minmax(0, 1fr) auto auto; gap: 6px; align-items: center; cursor: pointer; padding: 2px 0; }
+  .agstrip .agrow .an { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font: 400 var(--fs-1) var(--serif); color: var(--ink); }
+  .agstrip .agwait, .tbtn .agbadge { display: inline-grid; place-items: center; min-width: 16px; height: 16px; padding: 0 4px; border-radius: 8px; background: var(--gold3); color: #1b1408; font: 600 11px var(--ui); }
+  .agstrip .agopen { margin-top: 6px; font-size: var(--fs-1); }
+  @media (max-width: 640px) { .agcard .aged { grid-template-columns: 1fr; } }
+  .agenda .agpv, .note.fork .agpv { width: 100%; border-collapse: collapse; margin: 6px 0; font-size: var(--fs-1); }
+  .agenda .agpv td, .note.fork .agpv td { padding: 3px 6px; vertical-align: top; box-shadow: inset 0 1px 0 rgb(var(--hl) / 0.1); color: var(--ink); }
+  .agenda .agpv td:first-child, .note.fork .agpv td:first-child { white-space: nowrap; color: var(--ink2); width: 1%; }
+  .agenda .agbtns { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-top: 12px; }
+  .note.fork button { margin-top: 6px; }
 </style>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" xmlns:c2pa="http://c2pa.org/manifest"><metadata><c2pa:manifest>AAAWgmp1bWIAAAAeanVtZGMycGEAEQAQgAAAqgA4m3EDYzJwYQAAABZcanVtYgAAAEdqdW1kYzJtYQARABCAAACqADibcQN1cm46YzJwYTowNTlmZGNhZC1hYWEyLTRjNTEtYmNlYS02OTc3M2IxOTY1NWUAAAADl2p1bWIAAAApanVtZGMyYXMAEQAQgAAAqgA4m3EDYzJwYS5hc3NlcnRpb25zAAAAALxqdW1iAAAARGp1bWRjYm9yABEAEIAAAKoAOJtxE2MycGEuaW5ncmVkaWVudC52MwAAAAAYYzJzaIsNiPuAmv6qBipQagwh/KkAAABwY2JvcqNpZGM6Zm9ybWF0bWltYWdlL3N2Zyt4bWxqaW5zdGFuY2VJRHgseG1wOmlpZDoyNGJkYTllYy1lZTgyLTQwNzItOGM5MS1kOTU5NGRkMzc3YmRscmVsYXRpb25zaGlwaHBhcmVudE9mAAAB4mp1bWIAAABBanVtZGNib3IAEQAQgAAAqgA4m3ETYzJwYS5hY3Rpb25zLnYyAAAAABhjMnNoh8Iy414KdQ5s5+WUXircnAAAAZljYm9yomdhY3Rpb25zgqJmYWN0aW9ua2MycGEub3BlbmVkanBhcmFtZXRlcnOha2luZ3JlZGllbnRzgaJjdXJseC1zZWxmI2p1bWJmPWMycGEuYXNzZXJ0aW9ucy9jMnBhLmluZ3JlZGllbnQudjNkaGFzaFggkW/qMixZiE+b7yw0fQ+Pd0Fie/Hh61MatikQFv1n2IukZmFjdGlvbngdY29tLmFudGhyb3BpYy5jbGF1ZGUucHJvdmlkZWRqcGFyYW1ldGVyc6F4H2NvbS5hbnRocm9waWMub3JpZ2luLWNvbmZpZGVuY2VndW5rbm93bmtkZXNjcmlwdGlvbnhmQ2xhdWRlIHByb3ZpZGVkIHRoaXMgZmlsZSBhdCB0aGUgcmVxdWVzdCBvZiBhIHVzZXIgYW5kIG1heSBoYXZlIGNyZWF0ZWQgb3IgbW9kaWZpZWQgdGhlIGZpbGUgY29udGVudHMubXNvZnR3YXJlQWdlbnShZG5hbWVmQ2xhdWRlcmFsbEFjdGlvbnNJbmNsdWRlZPUAAADIanVtYgAAAEBqdW1kY2JvcgARABCAAACqADibcRNjMnBhLmhhc2guZGF0YQAAAAAYYzJzaIlKrzCy1OmFVlilbZCp6zYAAACAY2JvcqVjYWxnZnNoYTI1NmNwYWRNAAAAAAAAAAAAAAAAAGRoYXNoWCBGSENuu5aADYwrmwvtDZteGWOiZiNKA0VPQDAiNvX1x2RuYW1lbmp1bWJmIG1hbmlmZXN0amV4Y2x1c2lvbnOBomVzdGFydBiGZmxlbmd0aBkeBAAAAj5qdW1iAAAAJ2p1bWRjMmNsABEAEIAAAKoAOJtxA2MycGEuY2xhaW0udjIAAAACD2Nib3KlY2FsZ2ZzaGEyNTZpc2lnbmF0dXJleE1zZWxmI2p1bWJmPS9jMnBhL3VybjpjMnBhOjA1OWZkY2FkLWFhYTItNGM1MS1iY2VhLTY5NzczYjE5NjU1ZS9jMnBhLnNpZ25hdHVyZWppbnN0YW5jZUlEeCx4bXA6aWlkOjdmNjlkNWI3LTYzODMtNDVlMi04NTE1LThmYWI3NzAwNGUxOHJjcmVhdGVkX2Fzc2VydGlvbnODomN1cmx4LXNlbGYjanVtYmY9YzJwYS5hc3NlcnRpb25zL2MycGEuaW5ncmVkaWVudC52M2RoYXNoWCCRb+oyLFmIT5vvLDR9D493QWJ78eHrUxq2KRAW/WfYi6JjdXJseCpzZWxmI2p1bWJmPWMycGEuYXNzZXJ0aW9ucy9jMnBhLmFjdGlvbnMudjJkaGFzaFgghJvyRGmA0ju/326UFr+5A4agyWb7P5CjdO5dTbsE1wOiY3VybHgpc2VsZiNqdW1iZj1jMnBhLmFzc2VydGlvbnMvYzJwYS5oYXNoLmRhdGFkaGFzaFgg9dd8wD7kilKnz1xwXaDA4G69huwGMIomKh8dc2ig97h0Y2xhaW1fZ2VuZXJhdG9yX2luZm+jZG5hbWVvQW50aHJvcGljIEZpbGVzZ3ZlcnNpb25lMS4wLjBrc3BlY1ZlcnNpb25lMi40LjAAABA4anVtYgAAAChqdW1kYzJjcwARABCAAACqADibcQNjMnBhLnNpZ25hdHVyZQAAABAIY2JvctKEWQISogEmGCFZAgowggIGMIIBjaADAgECAhRA5aAK7sI50L64g/oGQgU9Z1UTADAKBggqhkjOPQQDAzBJMRcwFQYDVQQKEw5BbnRocm9waWMsIFBCQzEuMCwGA1UEAxMlQW50aHJvcGljIENvbnRlbnQgQ3JlZGVudGlhbHMgUm9vdCBDQTAeFw0yNjA4MDcxODQzNTZaFw0yODA4MDYxOTQzNTZaMEQxFzAVBgNVBAoTDkFudGhyb3BpYywgUEJDMSkwJwYDVQQDEyBBbnRocm9waWMgQ2xhdWRlIENvbnRlbnQgU2lnbmluZzBZMBMGByqGSM49AgEGCCqGSM49AwEHA0IABJh6CmvLUBgFFNU0vUKlOVtE6djd17L5SuwX0LemFisBM3dkd/3cyjxFA3Qo5S46fX0/ihY0VZ7mfb9KF703t5OjWDBWMA4GA1UdDwEB/wQEAwIHgDAVBgNVHSUEDjAMBgorBgEEAYPoXgIBMAwGA1UdEwEB/wQCMAAwHwYDVR0jBBgwFoAUzlHiBIFOZFsj+OPEz5o+nMHXXMIwCgYIKoZIzj0EAwMDZwAwZAIwMXMdFJ4BetLLVY7ORuE9noqbbAZOZn/aArXyTwFAZfKrPzxF2vPoJNf1+UCdg1XGAjBwX1zd9WGqYkqmL5SFqw1QySjr1zJfpJM9+1rdDwSPLMOPOjKuiXjoU/pUUeG9RwmhY3BhZFkNngAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPZYQMPtXBaRqv+Fydzhnh2P7CvJkHrlHjWpwY6AxO0c0FLtbmmrrI1YeA6JCQxuWsg059nbbu7lsMUU5BlJIZ8g3Qs=</c2pa:manifest></metadata>
@@ -2912,7 +2948,8 @@ function renderTools(h) {
     <span class="savednote" id="savedNote" aria-live="polite">${autoOn ? `${ic("check")}<span>Saved after the last choice</span>` : ""}</span>
     <button class="tbtn hud-toggle" id="tHud" aria-pressed="${hudEl.classList.contains("open")}">${ic("wheel")}<span class="t">Status</span></button>
     <button class="tbtn door" data-page="c">${ic("ci-diary")}<span class="t">Character</span><kbd>c</kbd></button>
-    <button class="tbtn door" data-page="b">${ic("ci-bookshelf")}<span class="t">Book</span><kbd>b</kbd></button>${h.world || L.world_era ? `
+    <button class="tbtn door" data-page="b">${ic("ci-bookshelf")}<span class="t">Book</span><kbd>b</kbd></button>${L.agenda ? `
+    <button class="tbtn door" data-page="j">${ic("route")}<span class="t">Agenda</span>${L.agenda.forks.length ? `<b class="agbadge">${L.agenda.forks.length}</b>` : ""}<kbd>j</kbd></button>` : ""}${h.world || L.world_era ? `
     <button class="tbtn door" data-page="g">${ic("ci-globe")}<span class="t">World</span><kbd>g</kbd></button>` : ""}
     <button class="tbtn door" id="tMenu" aria-haspopup="menu" aria-expanded="${menuOpen}">${ic("sliders")}<span class="t">Table</span></button>
     <div class="tpop" id="tPop" role="menu" aria-label="Table settings"${menuOpen ? "" : " hidden"}>
@@ -2939,7 +2976,8 @@ function renderTools(h) {
     s: () => tipBox(`${ic("ci-sealed-scroll")} Save`, autoOn ? "Autosave is on" : "Autosave is off", [], `Save this life to a file. Key s.<br>${autoOn ? "After every moment and every choice the life is also kept in one slot in this browser, overwritten each time; Continue on the start screen opens it." : "Nothing is kept in this browser between choices."} Key a turns autosave ${autoOn ? "off" : "on"}.`),
     o: () => tipBox(`${ic("ci-open-chest")} Load`, "", [], "Load a saved life from its file. Key o."),
     n: () => tipBox(`${ic("new")} New life`, "", [], "Leave this life and choose a new start; you can save it first. Key n."),
-    g: () => tipBox(`${ic("ci-globe")} The world`, L.world_era ? esc(cap(L.world_era.name)) : "", [], "What is publicly true now and what has happened, by age and era. Key g.") };
+    g: () => tipBox(`${ic("ci-globe")} The world`, L.world_era ? esc(cap(L.world_era.name)) : "", [], "What is publicly true now and what has happened, by age and era. Key g."),
+    j: () => tipBox(`${ic("route")} The agenda`, L.agenda && L.agenda.forks.length ? `${L.agenda.forks.length} decision${L.agenda.forks.length > 1 ? "s" : ""} waiting` : "", [], "Every aim they hold: its step and clock, how hard they pursue it, what holds it back, and what it has earned. Key j.") };
   tipsT.a = () => tipBox(`${ic("check")} Autosave ${autoOn ? "on" : "off"}`, "", [], "After every moment and every choice the life is kept in one slot in this browser, overwritten each time; Continue on the start screen opens it. Key a.");
   const inMenu = (b) => !!b.closest("#tPop");
   toolsEl.querySelectorAll("[data-key]").forEach((b) => { b.addEventListener("click", (e) => { e.stopPropagation(); send(b.dataset.key); }); if (!inMenu(b)) setTip(b, tipsT[b.dataset.key]); });
@@ -3319,8 +3357,8 @@ function aimsBind(root, L) {
   root.querySelectorAll("[data-ad]").forEach((b) => b.addEventListener("click", (e) => { e.stopPropagation(); send(`aim drop ${b.dataset.ad}`); }));
   root.querySelectorAll("[data-aset]").forEach((b) => {
     const c = (L.aim_choices || []).find((y) => y.aim === b.dataset.aset);
-    if (c) setTip(b, () => tipBox(`${ic("target")} ${esc(c.aim)} ${aimFace(c.face)}`, esc(cap(c.domain)), [], c.felt ? "They already feel this one." : "Close to who they are now."));
-    b.addEventListener("click", (e) => { e.stopPropagation(); send(`aim set ${b.dataset.aset}`); });
+    if (c) setTip(b, () => tipBox(`${ic("target")} ${esc(c.aim)} ${aimFace(c.face)}`, esc(cap(c.domain)), c.preview ? previewRows(c.preview) : [], c.felt ? "They already feel this one." : "Close to who they are now."));
+    b.addEventListener("click", (e) => { e.stopPropagation(); if (c && c.preview) openPreview(c); else send(`aim set ${b.dataset.aset}`); });
   });
 }
 // v24 steering between asks (the game's steer_between): lean them toward a color until the next ask; each choice meanwhile
@@ -3422,7 +3460,7 @@ function renderHud(L) {
     <button class="ghost sheetbtn" id="openSheet">${ic("ci-diary")} The whole character</button>
     <div class="hmore">
     ${goalsHTML(L)}
-    ${aimsHTML(L)}
+    ${L.agenda ? agendaStripHTML(L) : aimsHTML(L)}
     ${steerHTML(L)}
     <div class="hsec"><h4>Titles</h4><div class="trows">${titles}</div>${statuses ? `<div class="perks stats">${statuses}</div>` : ""}</div>
     ${perks ? `<div class="hsec"><h4>Perks${pk.length > PERK_SHOW + 2 ? ` <span class="cnt">${pk.length}</span>` : ""}</h4><div class="perks">${perks}</div></div>` : ""}
@@ -3477,7 +3515,7 @@ function renderHud(L) {
   hudEl.querySelectorAll("[data-st]").forEach((el) => { const x = L.states[+el.dataset.st]; setTip(el, () => x.reads ? stTip(x) : tipBox(`${ic(x.icon)} ${esc(cap(x.word))}`, "", [[esc(x.name), stateValue(x)]], "")); });
   if (L.foot) footTips(hudEl, L.foot);
   if (L.world_answers) worldAnsTips(hudEl, L.world_answers);
-  if (L.aims) aimsBind(hudEl, L);
+  if (L.agenda) agendaStripBind(hudEl); else if (L.aims) aimsBind(hudEl, L);
   steerBind(hudEl);
   hudEl.querySelectorAll("[data-gj]").forEach((el) => { const g = (L.goals || []).find((x) => x.j === +el.dataset.gj); if (g) setTip(el, () => goalTip({ kind: g.kind, colors: g.colors, domain: g.domain, source: g.source, horizon: g.horizon }, g)); });
   const ap = $("addPlan"); if (ap) { ap.addEventListener("click", (e) => { e.stopPropagation(); send("p"); }); setTip(ap, () => tipBox(`${ic("quill")} Make a plan`, "", [], "Set them a plan: a year, five years or a lifetime, in a life domain or in some colors. You see how sure they feel, and how plans like it usually go. Key p.")); }
@@ -3884,6 +3922,7 @@ function renderTable(h) {
         ${cp.thread ? `<p class="note thread" id="cpThread" tabindex="0">${ic("link")} ${rich(cp.thread.line)}</p>` : ""}
         ${cp.extra ? `<p class="note">${rich(cp.extra)}</p>` : ""}
         ${cp.thought ? `<p class="note">${rich(cp.thought)}</p>` : ""}
+        ${cp.fork ? forkNoteHTML(cp.fork) : ""}
         ${cp.why_ask ? `<p class="note whyask">${ic(cp.why_ask.kind === "aim" ? "target" : cp.why_ask.kind === "people" ? "people" : "heart")} This matters to them now: ${esc(cp.why_ask.say)}</p>` : ""}
         ${cp.talk ? (cp.talk.said ? `<p class="note talk">${ic("voice")} ${esc(L.name)}: ${esc(cp.talk.said.line)}</p>` : `<p class="note talk">${ic("voice")} Talk it over first: ${cp.options.filter((o) => o.colors !== "-" && o.n != null).map((o) => `<button class="ghost tk" data-talk="${o.n}">${o.n}</button>`).join("")}</p>`) : ""}
         ${cp.voice ? `<div class="voicebox"><p class="insight">${rich(cp.voice.line)}</p><div class="vlines">${vlines}</div>${asides.map((x) => `<p class="aside">${rich(x)}</p>`).join("")}</div>` : ""}
@@ -4942,6 +4981,7 @@ function pageKey(k) {
   if (k === "c") { if (sheetEl.hidden) openSheet(); else closeSheet(); return; }
   if (k === "b") { if (bookEl.hidden) openBook(); else closeBook(); return; }
   if (k === "g") { if (worldEl.hidden) openWorld(); else closeWorld(); return; }
+  if (k === "j") { if (agendaEl.hidden) openAgenda(); else closeAgenda(); return; }
   if (k === "s") { if (!busy && hud && hud.mode === "play") saveToFile(); return; }
   if (k === "a") { autoOn = !autoOn; try { localStorage.setItem("chroma.autosave.on", autoOn ? "on" : "off"); } catch (_) {} toast(`Autosave ${autoOn ? "on: after every choice, one slot in this browser" : "off"}`); renderTools(hud); if (autoOn && hud && hud.mode === "play" && !busy) autoSaveNow(); return; }
   if (k === "o") { fileIn.click(); return; }
@@ -4970,6 +5010,7 @@ function applyState(m) {
   addFeed(m.feed);
   renderWho(hud.life);
   renderTools(hud);
+  if (!agendaEl.hidden && !busy) { if (hud.life && hud.life.agenda) openAgenda(agFocus); else closeAgenda(); }   // v25: the agenda follows the life
   if (["menu", "custom", "name"].includes(hud.mode)) { if (!busy) renderScreen(hud); } else screenEl.innerHTML = "";
   const t = performance.now();
   const hudEmpty = !!(hud.life && hud.life.w && !hudEl.firstElementChild);   // a life's first stretch runs under the interlude: draw the HUD once, not leave it blank
@@ -4992,6 +5033,7 @@ document.addEventListener("keydown", (e) => {
   if (!sheetEl.hidden) { if (e.key === "Escape" || e.key === "c") closeSheet(); return; }
   if (!bookEl.hidden) { if (e.key === "Escape" || e.key === "b") closeBook(); return; }
   if (!worldEl.hidden) { if (e.key === "Escape" || e.key === "g") closeWorld(); return; }
+  if (!agendaEl.hidden) { if (e.key === "Escape" || e.key === "j") closeAgenda(); return; }
   if (IL.on && !busy && ["Enter", " ", "Escape"].includes(e.key)) { e.preventDefault(); ilFinish(); return; }
   if (IL.on && busy && e.key === "Escape") { pause(); ilFinish(); return; }
   if (e.key === "Escape") { if (menuOpen) { setMenu(false); const m = $("tMenu"); if (m) m.focus(); return; } if (busy) pause(); else if (hud && hud.plan) send("x"); hideTip(); hudEl.classList.remove("open"); return; }
@@ -5015,6 +5057,7 @@ document.addEventListener("keydown", (e) => {
     return;
   }
   if (!hud.cp && ["w", "m", "y", "d"].includes(e.key) && mode === "play") { send(e.key); return; }
+  if (e.key === "j" && hud.life && hud.life.agenda) { if (agendaEl.hidden) openAgenda(); else closeAgenda(); return; }
   if (["i", "c", "b", "s", "o", "n", "a"].includes(e.key) || (e.key === "g" && (hud.world || (hud.life && hud.life.world_era)))) { pageKey(e.key); return; }
   if (["f", "v", "l", "p", "k"].includes(e.key)) send(e.key);
   if (e.key === "x" && hud.plan) send("x");
@@ -5042,6 +5085,122 @@ try {
   };
   worker.onerror = (e) => { clearTimeout(watchdog); fatal(e.message || "the engine worker failed to load."); };
 } catch (e) { clearTimeout(watchdog); fatal(e.message || String(e)); }
+/* ---------------- v25 the agenda (the game's agenda switch; Emren's decision file section 5, #9): every held aim on one
+   persistent page (key j, the Agenda door): importance, the step and its clock, the commitment state and priority, the
+   character's own lean, pending decisions, the real bottleneck, earned assets apart from what an aim could bring. A
+   compact strip of it sits in the status panel. Reading it costs no time; pace and priority are the player's acts. ---- */
+const agendaEl = document.createElement("div"); agendaEl.className = "help sheetwrap"; agendaEl.hidden = true; document.body.appendChild(agendaEl);
+agendaEl.addEventListener("click", (e) => { if (e.target === agendaEl) closeAgenda(); });
+let agFocus = null;              // the aim the player just adjusted: the page reopens on it when the new state comes
+function closeAgenda() { agendaEl.hidden = true; agendaEl.innerHTML = ""; hideTip(); }
+const AG_PACE = [["pursuing", "In full"], ["reduced", "Less"], ["keeping_up", "Keep up"], ["paused", "Pause"], ["holding", "Just hold"]];
+const AG_FORK = { go_on: "go on or stop", pay: "pay the cost", take: "take the chance", round: "a way round" };
+const agLadder = (x) => `<span class="ladder">${Array.from({ length: x.step.of }, (_, i) => `<i class="${i < x.step.i ? "on" : ""}"></i>`).join("")}</span>`;
+const agStep = (x) => x.step.of ? `step ${x.step.i} of ${x.step.of}${x.step.next ? `, next: ${esc(x.step.next)}` : x.step.i >= x.step.of ? ", every step reached" : ""}` : "";
+const agForkWord = (f) => esc(AG_FORK[f.kind] || f.kind || "a decision");
+function agendaStripHTML(L) {      // the status panel's strip: the first three aims, and decisions waiting
+  const A = L.agenda; if (!A) return "";
+  const rows = A.items.slice(0, 3).map((x) => `<div class="agrow" data-agj="${x.slot}">${ic(x.calling ? "flame" : "route")}<span class="an">${esc(x.aim)}</span>${agLadder(x)}${x.pending.length ? `<b class="agwait" title="decisions waiting">${x.pending.length}</b>` : ""}</div>`).join("");
+  const more = A.items.length > 3 ? `<span class="muted">+${A.items.length - 3} more</span>` : "";
+  return `<div class="hsec agstrip"><h4>Agenda${A.forks.length ? ` <span class="cnt">${A.forks.length} waiting</span>` : ""}</h4>${rows || `<span class="empty">No aims yet</span>`}${more}<button class="ghost agopen" id="agOpen">${ic("route")} Open the agenda <kbd>j</kbd></button></div>`;
+}
+function agendaStripBind(root) {
+  const b = root.querySelector("#agOpen"); if (b) b.addEventListener("click", (e) => { e.stopPropagation(); openAgenda(); });
+  root.querySelectorAll("[data-agj]").forEach((el) => el.addEventListener("click", (e) => { e.stopPropagation(); openAgenda(+el.dataset.agj); }));
+}
+function openAgenda(focus) {
+  const L = hud && hud.life, A = L && L.agenda; if (!A) { toast("The agenda opens once the life has begun."); return; }
+  hideTip(); closeHud();
+  const can = A.full && hud.mode === "play" && !busy;
+  const capRow = A.capacity.length ? `<div class="agcap">${A.capacity.map((c) => `<span class="chip ag-${c.load.replace(/ /g, "-")}" data-agc="${esc(c.res)}">${esc(c.say)}: <b>${esc(c.load)}</b></span>`).join("")}</div>` : "";
+  const groups = {}; A.forks.forEach((f) => { const g = f.group == null ? "solo-" + f.id : "g-" + f.group; (groups[g] = groups[g] || []).push(f); });
+  const aimOf = (s) => (A.items.find((x) => x.slot === s) || {}).aim || "an aim";
+  const forks = Object.entries(groups).map(([g, fs]) => `<div class="agfg">${fs.length > 1 ? `<div class="muted">Linked: ${fs.length} decisions that share ${esc(fs[0].blocks || "a limit")}${can && (A.reviews || {})[String(fs[0].group)] ? ` <button class="ghost" data-agrv="${esc(String(fs[0].group))}">Look at them together</button>` : ""}</div>` : ""}${fs.map((f) => `<div class="wst"><span>${ic("flag")} ${esc(cap(aimOf(f.slot)))}: ${agForkWord(f)}</span><span class="ml">${f.deadline != null ? `decide by ${Math.floor(f.deadline)}` : f.age != null ? `waiting since ${Math.floor(f.age)}` : ""}</span></div>`).join("")}</div>`).join("");
+  const card = (x) => {
+    const bn = x.bottleneck ? `<div class="agbn">${ic("hourglass")} Held back by ${esc(x.bottleneck.say.toLowerCase())}${x.bottleneck.shared_with.length ? `, shared with ${x.bottleneck.shared_with.map((s) => esc(aimOf(+s))).join(", ")}` : ""}</div>` : "";
+    const prog = x.frac != null ? `<div class="agprog"><i style="width:${Math.round(x.frac * 100)}%"></i></div>` : "";
+    const clock = [x.effort_years != null ? `${x.effort_years} years at it` : "", x.clock].filter(Boolean).join(" · ");
+    const earned = x.earned.map((a) => `<span class="chip" data-agx="${x.slot}" title="${esc(a.source || "")}">${ic("check")}${esc(a.name)}</span>`).join("");
+    const pot = x.potential.map((a) => `<span class="chip dim">${ic("star")}${esc(a.name)}${a.step ? ` <span class="muted">at ${esc(a.step)}</span>` : ""}</span>`).join("");
+    const ctl = can ? `<div class="agctl">${AG_PACE.map(([k, w]) => `<button class="ghost${x.state === k ? " on" : ""}" data-agp="${x.slot}" data-pace="${k}" aria-pressed="${x.state === k}">${w}</button>`).join("")}
+      <button class="ghost" data-agr="${x.slot}" data-rank="${Math.max(1, x.priority - 1)}" aria-label="Move up"${x.priority <= 1 ? " disabled" : ""}>↑</button><button class="ghost" data-agr="${x.slot}" data-rank="${x.priority + 1}" aria-label="Move down"${x.priority >= A.items.length ? " disabled" : ""}>↓</button></div>` : "";
+    return `<section class="agcard${focus === x.slot ? " focus" : ""}" id="ag${x.slot}"><div class="agh"><b class="agn">${x.priority}</b>${ic(x.calling ? "flame" : "route")}<span class="an">${esc(x.aim)}</span> ${pips(lettersOf(x.face || ""))}
+      <span class="chip">${esc(x.importance)}</span><span class="chip">${esc(x.state_say)}</span>${x.by_player ? `<span class="muted">set by you</span>` : ""}${x.calling ? `<span class="muted">a calling</span>` : ""}</div>
+      <div class="agl">${agLadder(x)} <span>${agStep(x)}</span></div>${prog}${clock ? `<div class="muted">${esc(clock)}</div>` : ""}
+      ${x.why_now ? `<div>${esc(cap(x.why_now))}</div>` : ""}${x.lean ? `<div class="muted">${esc(L.name)} is ${esc(x.lean)} about it</div>` : ""}${bn}
+      ${x.pending.length ? `<div class="agwaitl">${ic("flag")} ${x.pending.length} decision${x.pending.length > 1 ? "s" : ""} waiting on you</div>` : ""}
+      ${earned ? `<div class="aged"><span class="ml">Earned</span><div class="chips">${earned}</div></div>` : ""}${pot ? `<div class="aged"><span class="ml">Could bring</span><div class="chips">${pot}</div></div>` : ""}${ctl}</section>`;
+  };
+  agendaEl.hidden = false;
+  agendaEl.innerHTML = `<div class="box paper sheet world agenda" role="dialog" aria-label="The agenda">
+    <div class="shh"><div><div class="shn">${ic("route")} The agenda</div><div class="muted">what ${esc(L.name)} is working toward, at ${Math.floor(L.age)}</div></div><button class="ghost" id="agClose" aria-label="Close">${ic("x")}</button></div>
+    ${A.full ? "" : `<p class="note">This engine shows the aims only. Shared time and money, the decisions waiting and what holds an aim back come with the v25 engine.</p>`}
+    ${capRow}
+    ${forks ? `<h4>Decisions waiting</h4><div class="agforks">${forks}</div>` : ""}
+    <div class="agitems">${A.items.map(card).join("") || `<span class="empty">No aims yet</span>`}</div></div>`;
+  $("agClose").addEventListener("click", closeAgenda);
+  agendaEl.querySelectorAll("[data-agp]").forEach((b) => b.addEventListener("click", (e) => { e.stopPropagation(); send(`agenda pace ${b.dataset.agp} ${b.dataset.pace}`); agFocus = +b.dataset.agp; }));
+  agendaEl.querySelectorAll("[data-agr]").forEach((b) => b.addEventListener("click", (e) => { e.stopPropagation(); send(`agenda prio ${b.dataset.agr} ${b.dataset.rank}`); agFocus = +b.dataset.agr; }));
+  agendaEl.querySelectorAll("[data-agc]").forEach((el) => { const c = A.capacity.find((y) => y.res === el.dataset.agc); if (c) setTip(el, () => tipBox(`${esc(c.say)}: ${esc(c.load)}`, "", c.items.map((s) => [esc(cap(typeof s === "number" ? aimOf(s) : s)), "draws on it"]), "One account for every aim, with work, care and the people in their life.")); });
+  agendaEl.querySelectorAll("[data-agrv]").forEach((b) => b.addEventListener("click", (e) => { e.stopPropagation(); openReview(b.dataset.agrv); }));
+  if (focus != null) { const el = $("ag" + focus); if (el) el.scrollIntoView({ block: "nearest" }); }
+}
+
+/* Information before a commitment (#9): what taking up an aim would ask, from the life as it is (the Engine's preview):
+   what it needs, what it takes, what it competes with, its deadline, what nobody knows yet, and how to step back. Shown
+   before the aim is taken up; the v24 engine has no previews, and then the choice is taken at once as before. */
+function previewRows(pv) {
+  const r = [];
+  if (pv.needs.length) r.push(["Needs", esc(pv.needs.join(", "))]);
+  const take = [pv.hours, pv.money && `each year ${pv.money}`, pv.entry && `to start, ${pv.entry}`].filter(Boolean);
+  if (take.length) r.push(["Takes", esc(take.join("; "))]);
+  if (pv.overlaps.length) r.push(["Competes with", esc(pv.overlaps.join(", "))]);
+  if (pv.window) r.push(["The chance", esc(pv.window)]);
+  if (pv.unknown.length) r.push(["Not known yet", esc(pv.unknown.join(", "))]);
+  if (pv.exit) r.push(["Stepping back", esc(pv.exit)]);
+  return r;
+}
+const previewTable = (pv) => { const r = previewRows(pv); return r.length ? `<table class="agpv">${r.map(([a, b]) => `<tr><td>${a}</td><td>${b}</td></tr>`).join("")}</table>` : ""; };
+function openPreview(c) {
+  hideTip(); closeHud();
+  agendaEl.hidden = false;
+  agendaEl.innerHTML = `<div class="box paper sheet world agenda" role="dialog" aria-label="Before taking it up">
+    <div class="shh"><div><div class="shn">${ic("target")} ${esc(c.aim)} ${aimFace(c.face)}</div><div class="muted">what it would ask of ${esc(hud.life.name)}, as things stand</div></div><button class="ghost" id="agClose" aria-label="Close">${ic("x")}</button></div>
+    ${previewTable(c.preview) || `<p class="muted">Nothing it asks is known yet.</p>`}
+    <div class="center agbtns"><button class="primary" id="pvOk">${ic("check")} Take it up</button><button class="ghost" id="pvNo">Not now</button></div></div>`;
+  $("agClose").addEventListener("click", closeAgenda); $("pvNo").addEventListener("click", closeAgenda);
+  $("pvOk").addEventListener("click", () => { closeAgenda(); send(`aim set ${c.aim}`); });
+}
+/* The agenda review (#9): decisions that share a real limit (time, money, a deadline, a person's time) seen and answered
+   together. Each shows why it is linked, what each way would ask, and the shared account now and after the ways picked,
+   as the Engine lists them. Any decision left unanswered stays waiting; nothing is approved for the player. */
+function openReview(g) {
+  const L = hud && hud.life, A = L && L.agenda, R = A && (A.reviews || {})[g]; if (!R) return;
+  const pick = {};
+  const capChips = (cs) => cs.map((c) => `<span class="chip ag-${c.load.replace(/ /g, "-")}">${esc(c.say)}: <b>${esc(c.load)}</b></span>`).join("");
+  const draw = () => {
+    const combo = R.combos.find((c) => R.forks.every((f) => (c.choices[f.id] || null) === (pick[f.id] || null)));
+    const after = combo ? `<div class="agcap"><span class="ml">After</span>${capChips(combo.capacity)}</div>${combo.slower.length ? `<div class="muted">Slower: ${esc(combo.slower.join(", "))}</div>` : ""}` : Object.keys(pick).length ? `<div class="muted">The account after these is worked out when they are applied.</div>` : "";
+    agendaEl.innerHTML = `<div class="box paper sheet world agenda" role="dialog" aria-label="Decisions together">
+      <div class="shh"><div><div class="shn">${ic("flag")} Decisions together</div><div class="muted">${esc(cap(R.why || "they share a limit"))}</div></div><button class="ghost" id="agClose" aria-label="Close">${ic("x")}</button></div>
+      <div class="agcap"><span class="ml">Now</span>${capChips(R.capacity)}</div>${after}
+      ${R.forks.map((f) => `<section class="agcard"><div class="agh">${ic("route")}<span class="an">${esc(f.aim)}</span>${f.deadline != null ? `<span class="chip">decide by ${Math.floor(f.deadline)}</span>` : ""}</div>
+        ${f.why ? `<div>${esc(cap(f.why))}</div>` : ""}${f.preview ? previewTable(f.preview) : ""}
+        <div class="agctl">${f.options.map((o) => `<button class="ghost${pick[f.id] === o.key ? " on" : ""}" data-rf="${esc(f.id)}" data-ro="${esc(o.key)}" aria-pressed="${pick[f.id] === o.key}">${esc(o.say)}</button>`).join("")}</div></section>`).join("")}
+      <div class="center agbtns"><button class="primary" id="rvOk"${Object.keys(pick).length ? "" : " disabled"}>${ic("check")} Settle ${Object.keys(pick).length < R.forks.length ? "these, leave the rest waiting" : "them"}</button><button class="ghost" id="rvBack">Back to the agenda</button></div></div>`;
+    $("agClose").addEventListener("click", closeAgenda); $("rvBack").addEventListener("click", () => openAgenda());
+    agendaEl.querySelectorAll("[data-rf]").forEach((b) => b.addEventListener("click", (e) => { e.stopPropagation(); const k = b.dataset.rf; pick[k] = pick[k] === b.dataset.ro ? undefined : b.dataset.ro; if (pick[k] === undefined) delete pick[k]; draw(); }));
+    const ok = $("rvOk"); if (ok) ok.addEventListener("click", () => { send(`agenda apply ${JSON.stringify({ choices: pick, set: {} })}`); agFocus = R.forks[0].slot; });
+  };
+  hideTip(); closeHud(); agendaEl.hidden = false; draw();
+}
+/* A fork card (the game's aim_forks): the moment is a decision about held aims; the card says which, why now and what
+   each way would ask, and when the decision is linked to others, opens them together. */
+function forkNoteHTML(f) {
+  return `<div class="note fork">${ic("flag")} A decision on their aim${f.aims.length > 1 ? "s" : ""}, ${esc(f.aims.join(" and ") || "an aim")}${f.why ? `. ${esc(cap(f.why))}` : ""}
+    ${f.preview ? previewTable(f.preview) : ""}${f.grouped && f.group != null ? `<button class="ghost" data-fkrv="${esc(f.group)}">Linked with other decisions: see them together</button>` : ""}</div>`;
+}
+document.addEventListener("click", (e) => { const b = e.target.closest && e.target.closest("[data-fkrv]"); if (b) { e.stopPropagation(); openReview(b.dataset.fkrv); } });
 </script>
 
 <style>

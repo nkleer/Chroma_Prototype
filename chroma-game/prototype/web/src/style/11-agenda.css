@@ -1,0 +1,36 @@
+/* v25 the agenda (app/14-agenda.js): the page, its cards and the status panel's strip */
+  .agenda .agcap { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+  .agenda .agcap .chip b { font-weight: 600; }
+  .agenda .agcap .ag-stretched b { color: var(--gold); }
+  .agenda .agcap .ag-overcommitted b { color: var(--bad, #c0504d); }
+  .agenda h4 { margin: 14px 0 6px; font: 600 var(--fs-1) var(--ui); letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold); }
+  .agenda .agforks { display: grid; gap: 8px; }
+  .agenda .agitems { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr)); gap: 12px; margin-top: 12px; }
+  .agcard { display: grid; gap: 5px; padding: 10px 12px; border-radius: 10px; box-shadow: inset 0 0 0 1px rgb(var(--hl) / 0.14); min-width: 0; font-size: var(--fs-1); color: var(--ink2); }
+  .agcard.focus { box-shadow: inset 0 0 0 1px var(--gold3); }
+  .agcard .agh { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+  .agcard .agn { font: 600 var(--fs-1) var(--ui); color: var(--gold); min-width: 1.2em; }
+  .agcard .an { font: 400 var(--fs-2)/1.25 var(--serif); color: var(--ink); min-width: 0; }
+  .agcard .agl { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+  .agcard .ladder, .agrow .ladder { display: inline-flex; gap: 4px; }
+  .agcard .ladder i, .agrow .ladder i { width: 9px; height: 9px; border-radius: 2px; background: rgb(var(--hl) / 0.08); box-shadow: 0 0 0 1px rgb(var(--hl) / 0.18); }
+  .agcard .ladder i.on, .agrow .ladder i.on { background: var(--gold3); }
+  .agprog { height: 4px; border-radius: 2px; background: rgb(var(--hl) / 0.1); overflow: hidden; }
+  .agprog i { display: block; height: 100%; background: var(--gold3); }
+  .agcard .agbn, .agcard .agwaitl { color: var(--ink); }
+  .agcard .aged { display: grid; grid-template-columns: 6.5em 1fr; gap: 6px; align-items: start; }
+  .agcard .aged .ml { color: var(--muted); }
+  .agcard .chip.dim { opacity: 0.7; }
+  .agcard .agctl { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 4px; }
+  .agcard .agctl button { padding: 3px 8px; font-size: var(--fs-1); }
+  .agcard .agctl button.on { box-shadow: inset 0 0 0 1px var(--gold3); color: var(--ink); }
+  .agstrip .agrow { display: grid; grid-template-columns: 18px minmax(0, 1fr) auto auto; gap: 6px; align-items: center; cursor: pointer; padding: 2px 0; }
+  .agstrip .agrow .an { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font: 400 var(--fs-1) var(--serif); color: var(--ink); }
+  .agstrip .agwait, .tbtn .agbadge { display: inline-grid; place-items: center; min-width: 16px; height: 16px; padding: 0 4px; border-radius: 8px; background: var(--gold3); color: #1b1408; font: 600 11px var(--ui); }
+  .agstrip .agopen { margin-top: 6px; font-size: var(--fs-1); }
+  @media (max-width: 640px) { .agcard .aged { grid-template-columns: 1fr; } }
+  .agenda .agpv, .note.fork .agpv { width: 100%; border-collapse: collapse; margin: 6px 0; font-size: var(--fs-1); }
+  .agenda .agpv td, .note.fork .agpv td { padding: 3px 6px; vertical-align: top; box-shadow: inset 0 1px 0 rgb(var(--hl) / 0.1); color: var(--ink); }
+  .agenda .agpv td:first-child, .note.fork .agpv td:first-child { white-space: nowrap; color: var(--ink2); width: 1%; }
+  .agenda .agbtns { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-top: 12px; }
+  .note.fork button { margin-top: 6px; }

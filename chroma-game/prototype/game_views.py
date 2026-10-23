@@ -177,8 +177,13 @@ class ViewsMixin:
             d["foot"] = self.foot_stacks()
         if GAME["aims"]:                                # v24 aims: the track, the heights, and the aims they could take up
             d["aims"] = self.aims_view() or []
+            if GAME["agenda"]:                          # v25: the persistent agenda
+                d["agenda"] = self.agenda_view()
             d["heights"] = self.heights_view()
             d["aim_choices"] = self.aim_choices_view()
+            if GAME["agenda"]:                          # v25: what taking one up would ask, before it is taken
+                for c in d["aim_choices"]:
+                    c["preview"] = self.preview_view(c["aim"])
         if GAME["steer_between"]:                       # v24: the player's lean between asks, if one is held
             d["steer"] = self.steer_view()
         if GAME["world_answers"]:                       # v24 world answers: the "Your world" panel
@@ -652,6 +657,8 @@ class ViewsMixin:
             d["stake_card"] = True
         if cp.get("why_ask"):                           # v24 asks: why this moment was put to the player
             d["why_ask"] = cp["why_ask"]
+        if cp.get("fork"):                              # v25: a fork on a held aim, with its preview
+            d["fork"] = cp["fork"]
         if cp.get("big"):                               # v24: a big moment can be talked over once, and its answer
             d["talk"] = dict(open=cp.get("talked") is None, said=cp.get("talked"))
         return d

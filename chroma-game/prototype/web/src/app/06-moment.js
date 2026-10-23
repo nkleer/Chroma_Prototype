@@ -344,6 +344,7 @@ function renderTable(h) {
         ${cp.thread ? `<p class="note thread" id="cpThread" tabindex="0">${ic("link")} ${rich(cp.thread.line)}</p>` : ""}
         ${cp.extra ? `<p class="note">${rich(cp.extra)}</p>` : ""}
         ${cp.thought ? `<p class="note">${rich(cp.thought)}</p>` : ""}
+        ${cp.fork ? forkNoteHTML(cp.fork) : ""}
         ${cp.why_ask ? `<p class="note whyask">${ic(cp.why_ask.kind === "aim" ? "target" : cp.why_ask.kind === "people" ? "people" : "heart")} This matters to them now: ${esc(cp.why_ask.say)}</p>` : ""}
         ${cp.talk ? (cp.talk.said ? `<p class="note talk">${ic("voice")} ${esc(L.name)}: ${esc(cp.talk.said.line)}</p>` : `<p class="note talk">${ic("voice")} Talk it over first: ${cp.options.filter((o) => o.colors !== "-" && o.n != null).map((o) => `<button class="ghost tk" data-talk="${o.n}">${o.n}</button>`).join("")}</p>`) : ""}
         ${cp.voice ? `<div class="voicebox"><p class="insight">${rich(cp.voice.line)}</p><div class="vlines">${vlines}</div>${asides.map((x) => `<p class="aside">${rich(x)}</p>`).join("")}</div>` : ""}

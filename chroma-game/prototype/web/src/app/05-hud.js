@@ -355,8 +355,8 @@ function aimsBind(root, L) {
   root.querySelectorAll("[data-ad]").forEach((b) => b.addEventListener("click", (e) => { e.stopPropagation(); send(`aim drop ${b.dataset.ad}`); }));
   root.querySelectorAll("[data-aset]").forEach((b) => {
     const c = (L.aim_choices || []).find((y) => y.aim === b.dataset.aset);
-    if (c) setTip(b, () => tipBox(`${ic("target")} ${esc(c.aim)} ${aimFace(c.face)}`, esc(cap(c.domain)), [], c.felt ? "They already feel this one." : "Close to who they are now."));
-    b.addEventListener("click", (e) => { e.stopPropagation(); send(`aim set ${b.dataset.aset}`); });
+    if (c) setTip(b, () => tipBox(`${ic("target")} ${esc(c.aim)} ${aimFace(c.face)}`, esc(cap(c.domain)), c.preview ? previewRows(c.preview) : [], c.felt ? "They already feel this one." : "Close to who they are now."));
+    b.addEventListener("click", (e) => { e.stopPropagation(); if (c && c.preview) openPreview(c); else send(`aim set ${b.dataset.aset}`); });
   });
 }
 // v24 steering between asks (the game's steer_between): lean them toward a color until the next ask; each choice meanwhile
@@ -458,7 +458,7 @@ function renderHud(L) {
     <button class="ghost sheetbtn" id="openSheet">${ic("ci-diary")} The whole character</button>
     <div class="hmore">
     ${goalsHTML(L)}
-    ${aimsHTML(L)}
+    ${L.agenda ? agendaStripHTML(L) : aimsHTML(L)}
     ${steerHTML(L)}
     <div class="hsec"><h4>Titles</h4><div class="trows">${titles}</div>${statuses ? `<div class="perks stats">${statuses}</div>` : ""}</div>
     ${perks ? `<div class="hsec"><h4>Perks${pk.length > PERK_SHOW + 2 ? ` <span class="cnt">${pk.length}</span>` : ""}</h4><div class="perks">${perks}</div></div>` : ""}
@@ -513,7 +513,7 @@ function renderHud(L) {
   hudEl.querySelectorAll("[data-st]").forEach((el) => { const x = L.states[+el.dataset.st]; setTip(el, () => x.reads ? stTip(x) : tipBox(`${ic(x.icon)} ${esc(cap(x.word))}`, "", [[esc(x.name), stateValue(x)]], "")); });
   if (L.foot) footTips(hudEl, L.foot);
   if (L.world_answers) worldAnsTips(hudEl, L.world_answers);
-  if (L.aims) aimsBind(hudEl, L);
+  if (L.agenda) agendaStripBind(hudEl); else if (L.aims) aimsBind(hudEl, L);
   steerBind(hudEl);
   hudEl.querySelectorAll("[data-gj]").forEach((el) => { const g = (L.goals || []).find((x) => x.j === +el.dataset.gj); if (g) setTip(el, () => goalTip({ kind: g.kind, colors: g.colors, domain: g.domain, source: g.source, horizon: g.horizon }, g)); });
   const ap = $("addPlan"); if (ap) { ap.addEventListener("click", (e) => { e.stopPropagation(); send("p"); }); setTip(ap, () => tipBox(`${ic("quill")} Make a plan`, "", [], "Set them a plan: a year, five years or a lifetime, in a life domain or in some colors. You see how sure they feel, and how plans like it usually go. Key p.")); }
