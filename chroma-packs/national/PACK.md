@@ -109,8 +109,8 @@ army's seat is the callings pack's general and adds no killing.
 2. The Engine's climb gives the seats their chance in time (.02 a year, times 1.5 with an aim for the route, only to a
    free seat) and reads each seat's req in roles.py as its gate; the seats' own rate is 0, so the chance is counted
    once. The seats are calibrated by the climb against WA7, not by TARGET_NATIONAL (which holds only the assets).
-3. The Library adds `dreams.py` here to its dreams.py behind the same switch (dreams.py is read by every life), and
-   writes the routes' and styles' encounters.
+3. The ten dreams are in the Library's dreams.py (DREAMS_NATIONAL, feature/v25), read only with `wa_nat_climb` on;
+   `dreams.py` here is their source and is never loaded. The Library writes the routes' and styles' encounters.
 4. The game's proof, `check_pack.py national`, `check_fields.py national`, and Release's WA7, WA8 and WA8n.
 
 ## Agreed with the other owners (10-23)

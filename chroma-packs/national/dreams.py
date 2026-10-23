@@ -1,8 +1,9 @@
 # Chroma content pack: National standing. Dreams for the ten new routes (Pathways and packs thread, 2026-10-23, for
 # v25), for the Library's dreams.py, in the same fields as chroma-packs/core/dreams.py.
 #
-# SWITCHED OFF: nothing reads this file. The routes' fields (fields.py) name these dreams; they reach a life once the
-# Library adds them to dreams.py and the pack's fields are read (aims_v2 on, `national` in batch.PACKS).
+# SWITCHED OFF: the engine never reads this file; it is the source. The Library has copied the ten into its dreams.py
+# as DREAMS_NATIONAL, DREAM_KIND_NATIONAL and TRIGGER_NATIONAL (feature/v25 af2c1a0, wording unchanged), which the
+# Engine reads only with wa_nat_climb on. check_fields.py reads this file for the names the fields use.
 #
 # Why: a dream is how a life left alone takes up an aim (68% of the aims taken on head 10 came from dreams), and no
 # modern Earth dream points at the ten new seats' routes. One dream per route in modern Earth; the tribal and magic
