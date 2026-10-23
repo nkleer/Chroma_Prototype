@@ -103,8 +103,8 @@ engine.run_steps() is engine.run() pausing six times a week for the game. On a f
      The scenario pack of the decision's known risks is tools/t_aims2.py (seconds).
  29. reactions, clashes and seeking (react, clash, seek; v25 lane C), Earth and packs with the clash, seeking and repair
      moments, world on: world off the switches move nothing; react alone and all on, run_steps() lives as run() and the
-     lives move; every clash has stakes, comes from 10, one a sphere (every sphere its dispute touches) in 2 years and 3
-     in 10; every clash, seeking or repair moment met took the place of an ask; seeking moves no colour and admits only
+     lives move; every clash has stakes, comes from 10, one a sphere (every sphere its dispute touches) in 2 years, before
+     18 one in 2 years in any sphere, and 3 in 10 (one before 18 counting half); every clash, seeking or repair moment met took the place of an ask; seeking moves no colour and admits only
      through a place; states carry durations and k stays at most 1/3; the caller's demand (P["scn"]) is recorded with
      its tag, response and stakes.
 
@@ -1875,10 +1875,11 @@ if "react" in E.DEFAULT and "clash" in batch.load_batch.__code__.co_varnames:
         fails.append("all on: run_steps not the lives of run() (" + " ".join(sorted(k_ for k_ in d2_ if d2_[k_] != d3_.get(k_))[:6]) + ")")
     rx_ = o2_["react"]; cl_ = rx_["clash"]; thr_ = 0.25
     for n_, wk_ in enumerate(cl_["weeks"]):   # no clash without stakes; from 10; one a sphere (every sphere the
-        # dispute touches) in 2 years; 3 in 10 years
-        for i_, (t_, sp_, k_) in enumerate(wk_):
-            if k_ < thr_ or t_ < 520 or any(t2_ > t_ - 104 and set(sp2_) & set(sp_) for t2_, sp2_, _ in wk_[:i_]) \
-                    or sum(1 for t2_, _, _ in wk_[:i_] if t2_ > t_ - 520) >= 3:
+        # dispute touches) in 2 years; before 18 one in 2 years in any sphere; 3 in 10 years, one before 18 counting .5
+        for i_, (t_, sp_, k_, a_) in enumerate(wk_):
+            if k_ < thr_ or t_ < 520 or any(t2_ > t_ - 104 and set(sp2_) & set(sp_) for t2_, sp2_, _, _ in wk_[:i_]) \
+                    or (a_ < 18 and any(t2_ > t_ - 104 for t2_, _, _, _ in wk_[:i_])) \
+                    or sum(0.5 if a2_ < 18 else 1.0 for t2_, _, _, a2_ in wk_[:i_] if t2_ > t_ - 520) >= 3 - 1e-9:
                 fails.append(f"life {n_}: clash at week {t_}, sphere {sp_}, stakes {k_:.2f} breaks a ceiling"); break
     met_ = sum(1 for n_, t_, s_ in o2_["life_events"] if s_ in V25_S_)   # each v25 moment met took an ask's place
     n_put_ = cl_["replaced_event"] if "replaced_event" in cl_ else 0

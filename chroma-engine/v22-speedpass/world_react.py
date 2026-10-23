@@ -81,6 +81,8 @@ REACT_DEFAULT = dict(
 CLASH_DEFAULT = dict(
     thr=0.25,              # the stakes at which a demand that conflicts with an aim, need or commitment is a clash
     age=10.0, sphere_yrs=2.0, decade_n=3,   # ceilings, provisional [C]: from age 10; one per sphere in 2 years; 3 in 10
+    young_age=18.0, young_yrs=2.0, young_w=0.5,   # before young_age: one clash in young_yrs across every sphere, and each
+                                                  # counts young_w toward the decade's 3 (a youth does not spend it)
     a_major=0.08,          # a clash's colour step, at full stakes (a major demand: 0.05 to 0.15 once)
     merge_cos=0.8,         # two demands one dispute: the same stake and purposes this alike
     wait=7,                # weeks a carried clash waits for an ask to replace; by the eighth it is answered in the background
@@ -1011,9 +1013,13 @@ class React:
                     continue   # unchanged: not put again (the demand is answered in the background as any other)
             if len(group) > 1:
                 self.cl_stats["merged"] += len(group) - 1
-            yrs = np.asarray(self.cl_hist[n]); dec_ = int(((t - yrs) < 520).sum()) if len(yrs) else 0
+            hist_ = self.cl_hist[n]   # (week, weight): the decade ceiling counts a clash before young_age as young_w
+            dec_ = sum(w_ for t_, w_ in hist_ if t - t_ < 520)
+            young_ = age < cp["young_age"]
+            last_any_ = max((t_ for t_, _ in hist_), default=-10 ** 9)
             touched = sorted({max(s_, 0) for s_ in sps} | ({SPHERES.index(x_) for x_ in dsp["spheres"]} if dsp is not None else set()))
-            if any(t - self.cl_last[n, s_] < 52 * cp["sphere_yrs"] for s_ in touched) or dec_ >= cp["decade_n"]:
+            if any(t - self.cl_last[n, s_] < 52 * cp["sphere_yrs"] for s_ in touched) or dec_ >= cp["decade_n"] - 1e-9 \
+                    or (young_ and t - last_any_ < 52 * cp["young_yrs"]):
                 # (every sphere the dispute touches: one a sphere in 2 years, whichever sphere it comes through)
                 self.cl_stats["ceiling"] += 1
                 continue
@@ -1031,7 +1037,8 @@ class React:
                 self.cl_last[n, s_] = t
                 if SPHERES[s_] not in dsp["spheres"]:
                     dsp["spheres"].append(SPHERES[s_])
-            self.cl_hist[n].append(int(t)); self.cl_wk[n].append((int(t), list(touched), float(dd["stakes"][i])))
+            self.cl_hist[n].append((int(t), cp["young_w"] if young_ else 1.0))
+            self.cl_wk[n].append((int(t), list(touched), float(dd["stakes"][i]), round(float(age), 2)))
             self.cl_stats["put"] += 1; self.cl_stats["by_sphere"][max(sp, 0)] += 1
             gia = self._give_in_as(dd, i)
             setting = self._setting_of(dd["kn"][i])
