@@ -90,6 +90,13 @@ engine.run_steps() is engine.run() pausing six times a week for the game. On a f
      loaded with the switch off no national moment comes; on, run_steps() lives as run() and the lives move;
      recognition, influence and authority kept apart, a seat held by one life and never an engine office, none before
      18, phase 2's national only with a seat, a voice or an office, and decisions at nation scope only by them.
+ 28. aims v2 (aims_v2, v25 lane B), Earth and packs with the Library's and the packs' fields (the druid joined), a player's life (forks
+     left open but one answered), world off (every field's first two rungs given a deadline) and on: run_steps() lives as
+     run() with the agenda, previews and reviews read; the agenda's handed-over names there; every rung reached through
+     an outcome (a title of it held or once held, a test or chance won; never effort alone); every window's closing told
+     once, the week after its last, and no test after it but by a way round; the player's forks kept until the player
+     answers, effort waiting at the need while they wait; no entry cost charged twice (a pause and resume included).
+     The scenario pack of the decision's known risks is tools/t_aims2.py (seconds).
 
     python3 -B chroma-engine/tools/t_steps.py [ENGINE_DIR]
 T_JOBS=N: the rows of 8 and 9 on N processes (default up to 4, by the cores there are; 1: one after another).
@@ -1606,6 +1613,132 @@ if "wa_nat_climb" in E.DEFAULT and os.path.exists(os.path.join(batch.LIB_DIR, "e
           f"({seen_['kinds']} life-years), a seat held once and never an engine office, phase 2's national only with a "
           f"seat, a voice or an office, {seen_['natdec']} decisions at nation scope all by national lives"
           f"{'' if not fails else '; ' + '; '.join(fails[:4])} ({time.process_time() - t0:.0f} s)")
+# 28. aims v2 (aims_v2; v25 lane B, Emren's decision #9), Earth and packs with the Library's fields (or v1's adapter)
+if "aims_v2" in E.DEFAULT:
+    import foresee as FS_
+    t0 = time.process_time(); fails = []
+    LB_ = batch.load_batch("earth", packs=list(batch.PACKS))
+    seen_ = dict(arrived=0, tests=0, forks=0, answered=0, entries=0, views=0, closed=0, paused=0, moments=0)
+    import aims2 as A2M_
+    WIN_ = {nm_: {0: dict(window=dict(deadline_years=3)), 1: dict(window=dict(deadline_years=4))}
+            for nm_ in A2M_.compile_fields(LB_, A2M_.PAR, E.C, E.NIDX, E.AIM_HEIGHTS)["names"]}
+    LBF_ = batch.load_batch("earth", packs=list(batch.PACKS), fields=True) if "fields" in batch.load_batch.__code__.co_varnames else None
+    ASM_ = np.nonzero(np.asarray(LBF_["AIM_SHAPE"]) != -1)[0] if LBF_ is not None and "AIM_SHAPE" in LBF_ else np.zeros(0, int)
+    if len(ASM_):   # with the switch off, the batch's shape moments never come
+        o0_ = E.run(N=3, years=30, seed=6, lib=LBF_, P=dict(E.DEFAULT, world=False))
+        if np.asarray(o0_["sit_n"])[:, ASM_].sum():
+            fails.append("a shape moment came with aims_v2 off")
+    cases_ = [(False, 4, 40, 9, LB_, WIN_), (True, 2, 25, 4, LB_, None)] + ([(False, 3, 30, 6, LBF_, None)] if len(ASM_) else [])
+    for wl_, N_, Y_, sd_, LL_, FP_ in cases_:   # world off: every field's first two rungs with a deadline; then the shape moments
+        P_ = dict(E.DEFAULT, aims_v2=True, world=wl_, aims2_par=dict(player=(0,), field_patch=FP_))
+        kw = dict(N=N_, years=Y_, seed=sd_, lib=LL_, log_lives=(0,))
+        o1_ = E.run(**kw, P=P_)
+        for edit_ in (False, True):
+            g = E.run_steps(**kw, P=P_); msg = next(g); made_ = {}; done_ = set(); ans_ = None; pz_ = None
+            while True:
+                kind, t, S, val = msg
+                if S.get("AIM2_ON") and kind in ("situation", "end") and S["age"] >= 3:
+                    AG_ = S["AG"]
+                    for nm_ in ("AG", "aim2", "capacity", "aim_forks", "aim_fork"):
+                        if nm_ not in S:
+                            fails.append(f"{nm_} not handed over")
+                    if kind == "situation" and len(AG_.SM):   # a shape moment only to a life holding an aim it fits
+                        for n_ in np.nonzero(np.isin(S["s"], AG_.SM))[0]:
+                            seen_["moments"] += 1
+                            if AG_.mom[n_] < 0:
+                                fails.append("a shape moment to a life with no aim it fits")
+                    if kind == "situation" and not edit_ and t % 52 == 0:   # the views, read-only: no life moves
+                        A_ = FS_.agenda(S, 0); seen_["views"] += 1
+                        if sorted(x_["priority"] for x_ in A_["items"]) != list(range(1, len(A_["items"]) + 1)):
+                            fails.append("agenda priorities not 1..n")
+                        for x_ in A_["items"]:
+                            FS_.preview(S, 0, x_["slot"])
+                        if AG_.forks[0]:
+                            FS_.review(S, 0, AG_.forks[0][0]["id"])
+                    if kind == "situation" and edit_ and AG_.put_arr[0] >= 0 and ans_ is None and S["age"] >= 15:
+                        fk_ = next(x_ for x_ in AG_.forks[0] if x_["id"] == AG_.put_arr[0])   # the player answers one
+                        o_ = next((x_ for x_ in ("go_on", "pay", "take", "round", "keep") if x_ in fk_["options"]), None)
+                        if o_ is not None:
+                            r_ = FS_.apply_review(S, 0, dict(choices={fk_["id"]: o_}, set={}))
+                            ans_ = (fk_["id"], fk_["aims"][0], t); seen_["answered"] += 1
+                            if r_["errors"]:
+                                fails.append(f"apply_review: {r_['errors']}")
+                    if kind == "situation" and edit_ and ans_ is not None and pz_ is None and t - ans_[2] >= 104:
+                        j_ = ans_[1]   # pause and resume the answered aim: its entry is not charged again
+                        if AG_.st[0, j_] == 1:
+                            had_ = {(e_["field"], e_["rung"]) for e_ in AG_.entry_log[0]}; n0_ = len(AG_.entry_log[0])
+                            FS_.set_pace(S, 0, j_, "paused"); FS_.set_pace(S, 0, j_, "pursuing")
+                            pz_ = t; seen_["paused"] += 1
+                            if any((e_["field"], e_["rung"]) in had_ for e_ in AG_.entry_log[0][n0_:]):
+                                fails.append("an entry charged again after a pause and resume")
+                    if kind == "end":
+                        F_ = AG_.F; f_ = AG_.f
+                        for fk_ in AG_.forks[0]:   # the player's forks: kept until answered, blocking only their aims
+                            e0_ = made_.setdefault(fk_["id"], {j_: float(AG_.eff[0, j_]) for j_ in fk_["aims"]})
+                            for j_ in fk_["aims"]:   # effort waits at the need (or where it stood when the fork came)
+                                if fk_["kind"] != "over" and AG_.eff[0, j_] > max(AG_.need[0, j_], e0_.get(j_, 0.0)) + 1e-9:
+                                    fails.append("effort past the need while the player's fork waits")
+                        open_ = {x_["id"] for x_ in AG_.forks[0]}
+                        for id_ in list(made_):
+                            if id_ not in open_ and id_ not in done_:
+                                done_.add(id_)
+                                if not any(r_["what"] == "decided" and r_.get("id") == id_ and r_["life"] == 0 and r_.get("by") == "player"
+                                           for r_ in AG_.log):
+                                    fails.append(f"the player's fork {id_} resolved without the player")
+                        if t % 52 == 0:   # a reached rung: one of its titles held or once held, or a test won (never effort alone)
+                            won_ = {(r_["life"], r_["slot"], r_["rung"]) for r_ in AG_.log if r_["what"] == "arrived" and r_["how"].startswith("won")}
+                            for n_, j_ in zip(*np.nonzero(f_ >= 0)):
+                                fi_ = int(f_[n_, j_])
+                                for k_ in range(int(AG_.rung[n_, j_])):
+                                    if (int(n_), int(j_), k_) in won_ or S["r_ever"][n_, F_["ids"][fi_][k_]].any() or (wl_ and F_["h"][fi_, k_] == 1):
+                                        continue
+                                    fails.append(f"{F_['names'][fi_]}: rung {k_ + 1} reached with no outcome")
+                try:
+                    msg = g.send(val)
+                except StopIteration as done:
+                    o2_ = done.value
+                    break
+            if not edit_ and digest(o1_) != digest(o2_):
+                fails.append(f"world {'on' if wl_ else 'off'}: run_steps (reading the agenda, its previews and reviews) not the lives of run()")
+            a2_ = o2_["aims2"]; lg_ = a2_["log"]
+            closed_ = {}
+            for r_ in lg_:
+                if r_["what"] == "window closed":
+                    k_ = (r_["life"], r_["slot"], r_["rung"])
+                    if k_ in closed_:
+                        fails.append("a window's closing told twice")
+                    closed_[k_] = r_["week_closed"]; seen_["closed"] += 1
+                    if r_["week"] != r_["week_closed"] + 1:
+                        fails.append(f"a window told closed at week {r_['week']}, its last week {r_['week_closed']}")
+            rounds_ = set()   # a way round found after the window closed (another route, not the window reopened)
+            for r_ in lg_:
+                k_ = (r_["life"], r_["slot"], r_["rung"])
+                if r_["what"] == "decided" and r_.get("option") == "round":
+                    rounds_.add(k_)
+                if r_["what"] == "test":
+                    seen_["tests"] += 1
+                    if k_ in closed_ and r_["week"] > closed_[k_] and k_ not in rounds_:
+                        fails.append("a test after its window closed")
+                if r_["what"] == "arrived":
+                    seen_["arrived"] += 1
+                    if not (r_["how"] == "its title held" or r_["how"].startswith("won")):
+                        fails.append(f"a rung reached by {r_['how']}")
+                if r_["what"] == "fork":
+                    seen_["forks"] += 1
+            for n_ in range(N_):
+                if len({(e_["field"], e_["rung"]) for e_ in a2_["entries"][n_]}) != len(a2_["entries"][n_]):
+                    fails.append("an entry cost charged twice")
+                seen_["entries"] += len(a2_["entries"][n_])
+    if not seen_["arrived"] or not seen_["forks"] or not seen_["answered"] or not seen_["closed"] or (len(ASM_) and not seen_["moments"]):
+        fails.append(f"too little seen: {seen_}")
+    bad += bool(fails)
+    print(f"{'PASS' if not fails else 'FAIL'}  aims v2 (aims_v2), switched on with a player's life (world off and on): run_steps "
+          f"lives as run() with the agenda, previews and reviews read ({seen_['views']} reads); {seen_['arrived']} rungs reached, "
+          f"each through an outcome ({seen_['tests']} tests); {seen_['closed']} windows closed, each told once at its last "
+          f"week + 1, no test after; {seen_['forks']} forks, the player's kept until answered ({seen_['answered']} answered) and "
+          f"blocking only their aims; {seen_['entries']} entry costs, none twice ({seen_['paused']} paused and resumed); "
+          f"{seen_['moments']} shape moments (batch FIELDS), each to a life with an aim it fits, none with the switch off"
+          f"{'' if not fails else '; ' + '; '.join(sorted(set(fails))[:4])} ({time.process_time() - t0:.0f} s)")
 # 11. nothing read at a pause outside the handed-over names (an engine without STATE_MISSED reads its whole frame)
 if hasattr(E, "STATE_MISSED"):
     bad += bool(E.STATE_MISSED)

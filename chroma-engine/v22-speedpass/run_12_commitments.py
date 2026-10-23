@@ -318,3 +318,5 @@
 
         if AIM_ON:   # aims v1: a spark moment's try, seal or drop
             aim_spark()
+        if AIM2_ON:   # aims v2: a shape moment's aim: tag on the aim it is about
+            AG.moments(s, a, succ, idle, t)
