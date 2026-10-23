@@ -69,6 +69,8 @@
                 wp_ = WP_ if UPL_ON and P["up_ease"] else np.asarray(P["world_profile"], float); tm_ = wp_ + 0.5 * e_i * (np.asarray(e_p, float) - wp_)
                 tm_ = np.broadcast_to(tm_ / tm_.sum(), (N, C))
             cm_ = P["cur_mix"]
+            if RX_ON:   # v25 react: this month's demanding sources reach them through the demand, not the current
+                cl_, st_ = RX.cur_parts(cl_, st_)
             cur_ = (cm_[0] * cl_ + cm_[1] * st_ + cm_[2] * tm_) / sum(cm_)
             cur_m = cur_.copy() if cur_m is None else cur_m + (cur_ - cur_m) / (12 * P["cur_mem"])   # what has reached them lately
             cur_ = cur_m
@@ -106,6 +108,9 @@
             for n_ in np.nonzero(WL.PP.mark_die & ~dead)[0] if P["self_death"] else ():   # (deaths only where lives can die)
                 die(int(n_), "an accident at work")
             WL.PP.mark_die = np.zeros(N, bool)
+        if RX_ON and RX.dz.any():   # v25 react: the month's colour steps, c' = (1 - a) c + a q (booked as social)
+            rdz_ = RX.take_dz()
+            dz_ = dz_ + rdz_; chan[:, 2] += rdz_
         z_new = centre(z + dz_ + drift)
         v = 0.7 * v + 0.3 * (z_new - z)
         if P["tw_pen"]:    # a big life event reaches the deep core directly, in proportion to how hard it hit
@@ -333,6 +338,7 @@
                 **(dict(btrust=btrust.copy(), btrust_y=bt_y) if BT_ON else {}),
                 **(dict(prison_ties=pt_log) if P.get("prison_ties") else {}),   # part 4: ties made and ended (switch on only)
                 **(dict(current=cur_sum) if CUR_ON else {}),
+                **(dict(react=RX.output()) if RX_ON else {}),   # v25 (react, clash, seek): switch on only
                 **(dict(body=dict(body=body_v, mind=mind_v, conditions=dict(weight=bd_cw, kind=bd_ck, age=bd_ca, kinds=COND_KINDS),
                                   serious=dict(kind=bd_sk, since=bd_s0, until=bd_s1, kinds=SER_KINDS), kept=bd_keep,
                                   constitution=bd_con, resilience=md_res, threats=md_end, decline=dict(at=dl_at, since=dl_t0, cause=list(dl_cause))))

@@ -141,6 +141,10 @@ class Game(CheckpointsMixin, WorldMixin, VoiceMixin, LifeMixin, ViewsMixin, Caus
         if GAME["aims"] and "aims" in E.DEFAULT:
             P["aims"] = True            # v24 aims: ladders toward what they want to become, and the heights reached
             P["heights"] = True
+        if (GAME["agenda"] or GAME["aim_forks"]) and "aims_v2" in E.DEFAULT:
+            P["aims_v2"] = True         # v25 aims v2 (lane B): one agenda, rung clocks, one resource account, forks
+            if GAME["aim_forks"]:       # the player's forks wait for the fork card (the character's are its own)
+                P["aims2_par"] = dict(P.get("aims2_par") or {}, player=(0,))
         if GAME["bold"] and "bold_play" in E.DEFAULT:
             P["bold_play"] = True       # Bold ways: the Engine offers a card's bold ways when the game asks (bold_ask)
         # the outer world (chroma-world/, approved 10-06 10:51; in the final version by Emren's 22:24 word): on wherever the
@@ -156,6 +160,8 @@ class Game(CheckpointsMixin, WorldMixin, VoiceMixin, LifeMixin, ViewsMixin, Caus
                 P["wa_phase2"] = bool(GAME["wa_phase2"])
             if GAME["land_row"] and "wa_land" in E.DEFAULT:
                 P["wa_land"] = True         # v25 land: the towns' land, the ways and the nature moments (lane D)
+            if GAME["clash_card"] and "clash" in E.DEFAULT:
+                P["react"] = P["clash"] = True   # v25 lane C: demands and responses, and the clash moments (clash needs react)
             if GAME["prizes"] and "tilt_world" in E.DEFAULT:
                 P["tilt_world"] = True      # v25: what this world prizes, by town, and how it moves (lane A)
             P["world_cfg"] = dict(setting="earth", pace=float(min(2.0, max(0.5, float(pace or 1.0)))),

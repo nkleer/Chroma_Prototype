@@ -28,7 +28,7 @@ function openAgenda(focus) {
   const capRow = A.capacity.length ? `<div class="agcap">${A.capacity.map((c) => `<span class="chip ag-${c.load.replace(/ /g, "-")}" data-agc="${esc(c.res)}">${esc(c.say)}: <b>${esc(c.load)}</b></span>`).join("")}</div>` : "";
   const groups = {}; A.forks.forEach((f) => { const g = f.group == null ? "solo-" + f.id : "g-" + f.group; (groups[g] = groups[g] || []).push(f); });
   const aimOf = (s) => (A.items.find((x) => x.slot === s) || {}).aim || "an aim";
-  const forks = Object.entries(groups).map(([g, fs]) => `<div class="agfg">${fs.length > 1 ? `<div class="muted">Linked: ${fs.length} decisions that share ${esc(fs[0].blocks || "a limit")}${can && (A.reviews || {})[String(fs[0].group)] ? ` <button class="ghost" data-agrv="${esc(String(fs[0].group))}">Look at them together</button>` : ""}</div>` : ""}${fs.map((f) => `<div class="wst"><span>${ic("flag")} ${esc(cap(aimOf(f.slot)))}: ${agForkWord(f)}</span><span class="ml">${f.deadline != null ? `decide by ${Math.floor(f.deadline)}` : f.age != null ? `waiting since ${Math.floor(f.age)}` : ""}</span></div>`).join("")}</div>`).join("");
+  const forks = Object.entries(groups).map(([g, fs]) => `<div class="agfg">${fs.length > 1 ? `<div class="muted">Linked: ${fs.length} decisions that share ${esc(fs[0].blocks || "a limit")}${can && (A.reviews || {})[String(fs[0].group)] ? ` <button class="ghost" data-agrv="${esc(String(fs[0].group))}">Look at them together</button>` : ""}</div>` : ""}${fs.map((f) => `<div class="wst"><span>${ic("flag")} ${esc(cap(aimOf(f.slot)))}: ${agForkWord(f)}${can && f.group == null && (A.reviews || {})[String(f.id)] ? ` <button class="ghost" data-agrv="${esc(String(f.id))}">Decide</button>` : ""}</span><span class="ml">${f.deadline != null ? `decide by ${Math.floor(f.deadline)}` : f.age != null ? `waiting since ${Math.floor(f.age)}` : ""}</span></div>`).join("")}</div>`).join("");
   const card = (x) => {
     const bn = x.bottleneck ? `<div class="agbn">${ic("hourglass")} Held back by ${esc(x.bottleneck.say.toLowerCase())}${x.bottleneck.shared_with.length ? `, shared with ${x.bottleneck.shared_with.map((s) => esc(aimOf(+s))).join(", ")}` : ""}</div>` : "";
     const prog = x.frac != null ? `<div class="agprog"><i style="width:${Math.round(x.frac * 100)}%"></i></div>` : "";
@@ -112,7 +112,8 @@ function openReview(g) {
 function forkNoteHTML(f) {
   return `<div class="note fork">${ic("flag")} A decision on their aim${f.aims.length > 1 ? "s" : ""}, ${esc(f.aims.join(" and ") || "an aim")}${f.why ? `. ${esc(cap(f.why))}` : ""}
     ${f.preview ? previewTable(f.preview) : ""}${f.grouped && f.group != null ? `<button class="ghost" data-fkrv="${esc(f.group)}">Linked with other decisions: see them together</button>` : ""}
-    ${f.later != null ? `<p class="muted">Not choosing leaves it waiting on the agenda: only this aim waits. It is never decided for you.</p>` : ""}</div>`;
+    ${f.later != null ? `<p class="muted">Not choosing leaves it waiting on the agenda: only this aim waits. It is never decided for you.</p>`
+      : f.review != null && !f.grouped ? `<button class="ghost" data-fkrv="${esc(f.review)}">Decide it now</button><p class="muted">This week's moment goes on as usual. Left, the decision waits on the agenda (only this aim waits) and comes back in a year.</p>` : ""}</div>`;
 }
 document.addEventListener("click", (e) => { const b = e.target.closest && e.target.closest("[data-fkrv]"); if (b) { e.stopPropagation(); openReview(b.dataset.fkrv); } });
 /* A clash moment (the game's clash_card, #3): a real demand meets something that matters to them. The banner names the

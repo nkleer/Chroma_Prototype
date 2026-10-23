@@ -99,13 +99,20 @@ engine.run_steps() is engine.run() pausing six times a week for the game. On a f
      run() with the agenda, previews and reviews read; the agenda's handed-over names there; every rung reached through
      an outcome (a title of it held or once held, a test or chance won; never effort alone); every window's closing told
      once, the week after its last, and no test after it but by a way round; the player's forks kept until the player
-     answers, effort waiting at the need while they wait; no entry cost charged twice (a pause and resume included).
+     answers, effort waiting at the need while they wait, and a fork put on a moment of its own that moment is the week's
+     (and its aim the one the moment is about); no entry cost charged twice (a pause and resume included).
      The scenario pack of the decision's known risks is tools/t_aims2.py (seconds).
- 29. WA3, a standing level reaches its town (wa_reach, v25), world on: with the world answers off, nothing; on, run_steps
+ 29. reactions, clashes and seeking (react, clash, seek; v25 lane C), Earth and packs with the clash, seeking and repair
+     moments, world on: world off the switches move nothing; react alone and all on, run_steps() lives as run() and the
+     lives move; every clash has stakes, comes from 10, one a sphere (every sphere its dispute touches) in 2 years, before
+     18 one in 2 years in any sphere, and 3 in 10 (one before 18 counting half); every clash, seeking or repair moment met took the place of an ask; seeking moves no colour and admits only
+     through a place; states carry durations and k stays at most 1/3; the caller's demand (P["scn"]) is recorded with
+     its tag, response and stakes.
+ 30. WA3, a standing level reaches its town (wa_reach, v25), world on: with the world answers off, nothing; on, run_steps
      lives as run() and the lives move; an act on the town's sphere from the close circle reads at most 1 + REACH[level, 2]
      and a founding nudges the town by its reach / 3 (off: 3 and the whole nudge); a level-0 life's presence leaves the
      town's spheres alone and a level-1 life's leans its haunts' spheres in its town, recorded as being there; group
-     presence x (1 + .5 x REACH[level, 2]).
+     presence x (1 + .5 x REACH[level, 2]); the level lingers (held 3, 6, 11 years ago: 2, 1, 0).
 
     python3 -B chroma-engine/tools/t_steps.py [ENGINE_DIR]
 T_JOBS=N: the rows of 8 and 9 on N processes (default up to 4, by the cores there are; 1: one after another).
@@ -153,6 +160,16 @@ def digest(o):
     for k in sorted(o):
         hs = hashlib.md5(); h(o[k], hs); out[k] = hs.hexdigest()
     return out
+
+
+def _drain(g):
+    """run_steps passing every value back unchanged: its outputs."""
+    msg = next(g)
+    while True:
+        try:
+            msg = g.send(msg[3])
+        except StopIteration as done:
+            return done.value
 
 
 EARTH = None
@@ -505,8 +522,9 @@ P2_ = [("the spheres' haunts, hours and marks (sph_haunts, sph_hours, sph_marks)
         dict(pen_pay=0.5, low_net=(3.0, 0.1, 1.0), work_die=0.00007), {}, 70, 6),
        # 14 lives: with v24's rates, 10 lives bought no second home inside the gap (the switch had nothing to move)
        ("v22.5 round 3, a home bought again only years later (ev_gapfit)", dict(ev_gapfit={"buying a home": (3, 8)}), {}, 70, 14),
+       # 11 lives: with v24's rates, 10 lives met no lasting illness the switch's points moved (it had nothing to move)
        ("v22.5 round 3d, a lasting illness at its own rates by age (age_pts)",
-        dict(age_pts={"living with a chronic illness": ((0, 0.0045), (40, 0.01), (80, 0.05))}), {}, 70, 10)]
+        dict(age_pts={"living with a chronic illness": ((0, 0.0045), (40, 0.01), (80, 0.05))}), {}, 70, 11)]
 # a switch's own readouts, which are not the lives (the finishing pack's)
 OWN_KEYS_ = ("world", "place_turnover", "pt_lives", "btrust", "btrust_y", "prison_ties", "grey_y")
 
@@ -777,8 +795,9 @@ if "place_turnover" in E.DEFAULT and hasattr(E, "bt_care") and hasattr(E, "pt_pu
         return e0_(self, p, t, why)
     _wp.People._pt_q, E.bt_care, E.pt_pull_of, E.pt_pull_u, _wp.People._add, _wp.People._lead_end = _ptq, _bc, _po, _pu, _add, _le
     try:   # (the pull back's shadow line at .2, so it is on for some weeks; every life serves 3 years from 18)
-        Y_ = 40   # (30 lives over 40 years: with the pack on in DEFAULT, 10 over 35 held no led place to close)
-        o_ = E.run(N=30, years=Y_, seed=4, lib=EARTH, P=dict(
+        Y_ = 40   # (30 lives over 40 years: with the pack on in DEFAULT, 10 over 35 held no led place to close; seed 6:
+        # with v24, seed 4's 30 lives held no led place either, and seed 5's none)
+        o_ = E.run(N=30, years=Y_, seed=6, lib=EARTH, P=dict(
             E.DEFAULT, world=True, place_turnover=True, lead_ways=True, sph_levers=True, sph_fair=True, sph_events=True,
             sph_haunts=True, sph_hours=True, cur_on=True, body_trust=True, fair_read=True, c3_inst=True, prison_ties=True,
             prison_par=dict(E.DEFAULT["prison_par"], shadow=0.2, test=(18, 3)), sh_world=True))
@@ -1697,7 +1716,7 @@ if "aims_v2" in E.DEFAULT:
     import foresee as FS_
     t0 = time.process_time(); fails = []
     LB_ = batch.load_batch("earth", packs=list(batch.PACKS))
-    seen_ = dict(arrived=0, tests=0, forks=0, answered=0, entries=0, views=0, closed=0, paused=0, moments=0)
+    seen_ = dict(arrived=0, tests=0, forks=0, answered=0, entries=0, views=0, closed=0, paused=0, moments=0, own=0)
     import aims2 as A2M_
     WIN_ = {nm_: {0: dict(window=dict(deadline_years=3)), 1: dict(window=dict(deadline_years=4))}
             for nm_ in A2M_.compile_fields(LB_, A2M_.PAR, E.C, E.NIDX, E.AIM_HEIGHTS)["names"]}
@@ -1726,6 +1745,10 @@ if "aims_v2" in E.DEFAULT:
                             seen_["moments"] += 1
                             if AG_.mom[n_] < 0:
                                 fails.append("a shape moment to a life with no aim it fits")
+                    if kind == "situation" and AG_.put_si[0] >= 0:   # a fork put on its own moment: that is the week's
+                        seen_["own"] += 1
+                        if int(S["s"][0]) != int(AG_.put_si[0]) or int(AG_.mom[0]) != int(AG_.put_slot[0]):
+                            fails.append("a fork put on its own moment that is not the week's moment")
                     if kind == "situation" and not edit_ and t % 52 == 0:   # the views, read-only: no life moves
                         A_ = FS_.agenda(S, 0); seen_["views"] += 1
                         if sorted(x_["priority"] for x_ in A_["items"]) != list(range(1, len(A_["items"]) + 1)):
@@ -1814,27 +1837,121 @@ if "aims_v2" in E.DEFAULT:
     print(f"{'PASS' if not fails else 'FAIL'}  aims v2 (aims_v2), switched on with a player's life (world off and on): run_steps "
           f"lives as run() with the agenda, previews and reviews read ({seen_['views']} reads); {seen_['arrived']} rungs reached, "
           f"each through an outcome ({seen_['tests']} tests); {seen_['closed']} windows closed, each told once at its last "
-          f"week + 1, no test after; {seen_['forks']} forks, the player's kept until answered ({seen_['answered']} answered) and "
+          f"week + 1, no test after; {seen_['forks']} forks, the player's kept until answered ({seen_['answered']} answered; {seen_['own']} put on their own moment) and "
           f"blocking only their aims; {seen_['entries']} entry costs, none twice ({seen_['paused']} paused and resumed); "
           f"{seen_['moments']} shape moments (batch FIELDS), each to a life with an aim it fits, none with the switch off"
           f"{'' if not fails else '; ' + '; '.join(sorted(set(fails))[:4])} ({time.process_time() - t0:.0f} s)")
-# 29. WA3, a standing level reaches its town (wa_reach, v25; world_people_answers.WA_REACH), world on
+# 29. reactions, clashes and seeking (react, clash, seek; v25 lane C, decisions #2 to #4), Earth and packs, world on
+if "react" in E.DEFAULT and "clash" in batch.load_batch.__code__.co_varnames:
+    t0 = time.process_time(); fails = []
+    L26_ = batch.load_batch("earth", packs=list(batch.PACKS), clash=True, seek=True)
+    kw = dict(N=6, years=18, seed=5, lib=L26_, log_lives=(0,))
+    P0_ = dict(E.DEFAULT, world=True)
+    o0_ = E.run(**kw, P=dict(P0_))
+    kwo_ = dict(N=4, years=5, seed=7, lib=EARTH, log_lives=(0,))   # world off: the switches do nothing
+    if digest(E.run(**kwo_, P=dict(E.DEFAULT, react=True, clash=True, seek=True))) != digest(E.run(**kwo_, P=dict(E.DEFAULT))):
+        fails.append("world off: react moved the lives")
+    P1_ = dict(P0_, react=True)   # react alone: run_steps lives as run(), the lives move
+    o1_ = E.run(**kw, P=P1_)
+    if digest(o1_) == digest(o0_):
+        fails.append("react: nothing moved")
+    if digest(o1_) != digest(_drain(E.run_steps(**kw, P=P1_))):
+        fails.append("react: run_steps not the lives of run()")
+    P2_ = dict(P0_, react=True, clash=True, seek=True)
+    o2_ = E.run(**kw, P=P2_)
+    V25_S_ = set(np.nonzero((np.asarray(L26_["W_CLASH"]) >= 0) | (np.asarray(L26_["W_STATE"]) >= 0)
+                            | (np.asarray(L26_["REPAIR_TAG"]) >= 0).any(1))[0].tolist())
+    g = E.run_steps(**kw, P=P2_); msg = next(g); n_put_, n_seen_ = 0, 0
+    while True:
+        kind, t, S, val = msg
+        if kind == "end" and S["age"] >= 3:
+            if not all(S.get(sw_) for sw_ in ("RX_ON", "CL_ON", "SK_ON")) or any(nm_ not in S for nm_ in
+                    ("demands", "responses", "react_log", "involve", "states", "clash", "disputes", "clash_now", "seek")):
+                fails.append("a v25 name or switch not handed over"); break
+            for n_ in range(6):
+                for st_, v_ in (S["states"][n_] or {}).items():   # states carry their durations
+                    if not (0 <= v_["level"] <= 1 and v_["weeks"] >= 0) and len(fails) < 6:
+                        fails.append(f"life {n_} state {st_} {v_}")
+                if S["seek"][n_]["k"] > 1 / 3 + 1e-9 and len(fails) < 6:   # k at most 1/3 at full independence
+                    fails.append(f"life {n_} seek k {S['seek'][n_]['k']}")
+        if kind == "situation" and S["age"] >= 10:
+            c_ = S["clash"]
+            n_seen_ += sum(1 for n_ in range(6) if c_[n_] is not None)
+        try:
+            msg = g.send(val)
+        except StopIteration as done:
+            o3_ = done.value
+            break
+    d2_, d3_ = digest(o2_), digest(o3_)
+    if d2_ != d3_:
+        fails.append("all on: run_steps not the lives of run() (" + " ".join(sorted(k_ for k_ in d2_ if d2_[k_] != d3_.get(k_))[:6]) + ")")
+    rx_ = o2_["react"]; cl_ = rx_["clash"]; thr_ = 0.25
+    for n_, wk_ in enumerate(cl_["weeks"]):   # no clash without stakes; from 10; one a sphere (every sphere the
+        # dispute touches) in 2 years; before 18 one in 2 years in any sphere; 3 in 10 years, one before 18 counting .5
+        for i_, (t_, sp_, k_, a_) in enumerate(wk_):
+            if k_ < thr_ or t_ < 520 or any(t2_ > t_ - 104 and set(sp2_) & set(sp_) for t2_, sp2_, _, _ in wk_[:i_]) \
+                    or (a_ < 18 and any(t2_ > t_ - 104 for t2_, _, _, _ in wk_[:i_])) \
+                    or sum(0.5 if a2_ < 18 else 1.0 for t2_, _, _, a2_ in wk_[:i_] if t2_ > t_ - 520) >= 3 - 1e-9:
+                fails.append(f"life {n_}: clash at week {t_}, sphere {sp_}, stakes {k_:.2f} breaks a ceiling"); break
+    met_ = sum(1 for n_, t_, s_ in o2_["life_events"] if s_ in V25_S_)   # each v25 moment met took an ask's place
+    n_put_ = cl_["replaced_event"] if "replaced_event" in cl_ else 0
+    n_put_ += cl_["dropped_natural"]
+    if met_ > n_put_:
+        fails.append(f"{met_} clash, seeking or repair moments met, only {n_put_} asks replaced")
+    for n_, lg_ in enumerate(rx_["log"]):   # seeking and repair answers never take a colour step
+        if any(e_.get("seek") is not None and (e_.get("layers") or {}).get("drift") for e_ in lg_):
+            fails.append(f"life {n_}: a seeking answer moved colours"); break
+    for n_, tr_ in enumerate((rx_["seek"] or {}).get("tried", [])):   # admission only through access and a place
+        if any(r_["admitted"] and (not r_["access"] or r_["place"] < 0) for r_ in tr_):
+            fails.append(f"life {n_}: admitted with no access or place"); break
+    if not cl_["put"]:
+        fails.append("no clash put in 6 lives x 18 years")
+    # the caller's demand (P["scn"]): its tag and a forced response reach the record, through the same path
+    # and its stakes, given as a number, are taken as given (a demand recorded with them, or a dispute opened that week)
+    P4_ = dict(P2_, scn=True); g = E.run_steps(**kw, P=P4_); msg = next(g); sent_, st_sent_, st_ok_ = False, -1, None
+    while True:
+        kind, t, S, val = msg
+        if kind == "week" and not sent_ and S["age"] >= 17.8:   # (late: the record keeps the last 40)
+            S["scn_demand"][0].append(dict(source=dict(key="household"), tag="t26", response="accept")); sent_ = True
+        if kind == "week" and st_sent_ < 0 and S["age"] >= 16.0:
+            S["scn_demand"][1].append(dict(source=dict(key="household"), tag="t26s", stakes=0.9)); st_sent_ = t
+        if kind == "end" and t == st_sent_:
+            st_ok_ = any(d_.get("tag") == "t26s" and d_["stakes"]["score"] == 0.9 for d_ in S["demands"][1]) \
+                or any(d_["since"] == t for d_ in S["disputes"][1])
+        try:
+            msg = g.send(val)
+        except StopIteration as done:
+            o4_ = done.value
+            break
+    tg_ = [e_ for e_ in o4_["react"]["log"][0] if e_.get("tag") == "t26"]
+    if sent_ and not (tg_ and tg_[0]["response"] == "accept"):
+        fails.append(f"scn: the caller's demand not in the record as asked ({tg_[:1]})")
+    if not st_ok_:
+        fails.append("scn: the caller's stakes not taken as given")
+    bad += bool(fails)
+    print(f"{'PASS' if not fails else 'FAIL'}  reactions, clashes and seeking (react, clash, seek), world on: world off "
+          f"nothing; react alone and all on, run_steps lives as run() and the lives move; {cl_['put']} clashes, every one "
+          f"with stakes and within the ceilings; {met_} clash, seeking or repair moments met, each in place of an ask; "
+          f"{n_seen_} clash cards seen at the situation pause; seeking moves no colour and admits only through a place; "
+          f"the caller's demand recorded with its tag, response and stakes"
+          f"{'' if not fails else '; ' + '; '.join(fails[:4])} ({time.process_time() - t0:.0f} s)")
+# 30. WA3, a standing level reaches its town (wa_reach, v25; world_people_answers.WA_REACH), world on
 if "wa_reach" in E.DEFAULT:
     import world_people_answers as WPA_
-    from world_keys import LEVERS as LV29_
-    from world_people_base import DI as DI29_, REACH as RE29_
-    t0 = time.process_time(); fails = []; seen_ = dict(lever=[], town=0, groups=0)
-    L29_ = batch.load_batch("earth", packs=list(batch.PACKS), wa=True, aims=bool(E.DEFAULT.get("aims")),
+    from world_keys import LEVERS as LV30_
+    from world_people_base import DI as DI30_, REACH as RE30_
+    t0 = time.process_time(); fails = []; seen_ = dict(lever=[], town=0, groups=0, linger=None)
+    L30_ = batch.load_batch("earth", packs=list(batch.PACKS), wa=True, aims=bool(E.DEFAULT.get("aims")),
                             foot=bool(E.DEFAULT.get("foot_on")))
-    P29_ = dict(E.DEFAULT, world=True)
-    kw = dict(N=2, years=12, seed=11, lib=L29_, log_lives=(0,))
-    if digest(E.run(**kw, P=dict(P29_, world_answers=False, wa_reach=False))) != digest(E.run(**kw, P=dict(P29_, world_answers=False))):
+    P30_ = dict(E.DEFAULT, world=True)
+    kw = dict(N=2, years=12, seed=11, lib=L30_, log_lives=(0,))
+    if digest(E.run(**kw, P=dict(P30_, world_answers=False, wa_reach=False))) != digest(E.run(**kw, P=dict(P30_, world_answers=False))):
         fails.append("world answers off: the switch moved a life")
-    kw = dict(N=3, years=30, seed=11, lib=L29_, log_lives=(0,))
-    o0_ = E.run(**kw, P=dict(P29_, wa_reach=False)); o1_ = E.run(**kw, P=P29_)
+    kw = dict(N=3, years=30, seed=11, lib=L30_, log_lives=(0,))
+    o0_ = E.run(**kw, P=dict(P30_, wa_reach=False)); o1_ = E.run(**kw, P=P30_)
     if digest(o0_) == digest(o1_):
         fails.append("on: nothing moved")
-    g = E.run_steps(**kw, P=P29_); msg = next(g)
+    g = E.run_steps(**kw, P=P30_); msg = next(g)
     while True:
         kind, t, S, val = msg
         try:
@@ -1844,20 +1961,29 @@ if "wa_reach" in E.DEFAULT:
                 fails.append("on: run_steps not the lives of run()")
             break
     # the rules, on a life at a pause (the run left there)
-    g = E.run_steps(N=3, years=12, seed=11, lib=L29_, P=P29_); msg = next(g)
+    g = E.run_steps(N=3, years=12, seed=11, lib=L30_, P=P30_); msg = next(g)
     while True:
         kind, t, S, val = msg
         if kind == "end" and S.get("WL") is not None and S["age"] >= 11:
             PP_ = S["WL"].PP; W_ = PP_.W; N_ = PP_.N; lv_ = np.arange(N_) % 3
-            PP_.standing[:, 0] = lv_
-            if not PP_.wa_r or not np.array_equal(PP_.wa_treach(), RE29_[lv_, 2]) or list(RE29_[:, 2]) != [0, 1, 2, 3]:
+            PP_.standing[:, 0] = lv_; PP_.wa_held[:] = WPA_.NEVER
+            if not PP_.wa_r or not np.array_equal(PP_.wa_treach(), RE30_[lv_, 2]) or list(RE30_[:, 2]) != [0, 1, 2, 3]:
                 fails.append("the switch not read, or the town's ring reach not REACH[level, 2]")
+            # the level lingers: level 2 last held 3, 6, 11 years ago reads 2, 1, 0 (one level per 5 years after 5)
+            PP_.standing[0, 0] = 0; ly_ = []
+            for y_ in (3, 6, 11):
+                PP_.wa_held[0] = WPA_.NEVER; PP_.wa_held[0, :3] = t - int(y_ * 52)
+                ly_.append(int(PP_.wa_level(0, t)))
+            seen_["linger"] = ly_
+            if ly_ != [2, 1, 0]:
+                fails.append(f"the lingering level: level 2 held 3, 6, 11 years ago reads {ly_}")
+            PP_.wa_held[:] = WPA_.NEVER; PP_.standing[:, 0] = lv_
             # groups (A): a member's presence x (1 + .5 x the level's reach at the town's ring)
-            PP_._wa_yr = int(PP_._age(t))
+            PP_._wa_yr = int(PP_._age(t)); PP_._wa_held = lambda t_: None   # (the levels held: set above)
             s0_ = PP_.snorm.copy(); PP_.wa_r = False; PP_._wa_month(t); d0_ = np.abs(PP_.snorm - s0_).sum((1, 2))
             PP_.snorm[...] = s0_; PP_.wa_r = True; PP_._wa_month(t); d1_ = np.abs(PP_.snorm - s0_).sum((1, 2))
             ok_ = d0_ > 1e-9; seen_["groups"] = int(ok_.sum())
-            if not np.allclose(d1_[ok_] / d0_[ok_], 1 + WPA_.WA_REACH["groups"] * RE29_[lv_[ok_], 2], rtol=2e-3):
+            if not np.allclose(d1_[ok_] / d0_[ok_], 1 + WPA_.WA_REACH["groups"] * RE30_[lv_[ok_], 2], rtol=2e-3):
                 fails.append(f"groups: presence x {np.round(d1_[ok_] / d0_[ok_], 3)} at levels {lv_[ok_]}")
             # town (with B): a level-0 life's presence leaves the town's spheres alone; a level-1 life's leans its
             # haunts' spheres in its town, recorded as being there
@@ -1866,11 +1992,11 @@ if "wa_reach" in E.DEFAULT:
             if not hn_:
                 fails.append("no life with a haunt to probe")
             else:
-                n_ = hn_[0]; PP_.standing[:, 0] = 0; ss_ = W_.sph_s.copy(); PP_._wa_presence(t)
+                n_ = hn_[0]; PP_.standing[:, 0] = 0; PP_.wa_held[:] = WPA_.NEVER; ss_ = W_.sph_s.copy(); PP_._wa_presence(t)
                 if not np.array_equal(ss_, W_.sph_s) or any(u_[1] == "town_sphere" for u_ in un_):
                     fails.append("town: level 0 moved the town's spheres")
                 PP_.standing[n_, 0] = 1; ss_ = W_.sph_s.copy(); PP_._wa_presence(t)
-                js_ = {int(HS29_) for HS29_ in WPA_.HAUNT_SPH[[np.unravel_index(int(p_), W_.hp_s.shape[:3])[1] for p_ in PP_.hnt[n_] if p_ >= 0]]}
+                js_ = {int(HS30_) for HS30_ in WPA_.HAUNT_SPH[[np.unravel_index(int(p_), W_.hp_s.shape[:3])[1] for p_ in PP_.hnt[n_] if p_ >= 0]]}
                 mv_ = {(int(l_), int(j_)) for l_, j_ in zip(*np.nonzero(np.abs(W_.sph_s - ss_).sum(-1) > 1e-12))}
                 tu_ = {u_[2] for u_ in un_ if u_[1] == "town_sphere" and u_[0] == n_ and u_[3] == "being there"}
                 seen_["town"] = len(mv_)
@@ -1881,13 +2007,13 @@ if "wa_reach" in E.DEFAULT:
             # founding's own town nudge x reach / 3; off, the domain's 3 and 1
             tw_ = []; sl_ = W_.sph_lever
             W_.sph_lever = lambda *a_, **k_: tw_.append(k_.get("tw", 1.0)) or "none"
-            PP_.hnt[0] = -1; PP_.dreach[0, DI29_["close"]] = 3.0; ma_ = np.full(5, 0.2)
+            PP_.hnt[0] = -1; PP_.dreach[0, DI30_["close"]] = 3.0; ma_ = np.full(5, 0.2)
             for l_ in range(4):
-                PP_.standing[0, 0] = l_
-                x_ = PP_._sph_lever(0, 0, LV29_.index("found"), ma_, 1.0, 0, DI29_["close"], t)
+                PP_.standing[0, 0] = l_; PP_.wa_held[0] = WPA_.NEVER
+                x_ = PP_._sph_lever(0, 0, LV30_.index("found"), ma_, 1.0, 0, DI30_["close"], t)
                 seen_["lever"].append((x_["reach"], round(tw_[-1], 4)) if x_ else None)
             PP_.wa_r = False
-            x_ = PP_._sph_lever(0, 0, LV29_.index("found"), ma_, 1.0, 0, DI29_["close"], t)
+            x_ = PP_._sph_lever(0, 0, LV30_.index("found"), ma_, 1.0, 0, DI30_["close"], t)
             seen_["lever"].append((x_["reach"], round(tw_[-1], 4)) if x_ else None)
             W_.sph_lever = sl_
             if seen_["lever"] != [(1.0, 0.3333), (2.0, 0.6667), (3.0, 1.0), (3.0, 1.0), (3.0, 1.0)]:
@@ -1903,7 +2029,8 @@ if "wa_reach" in E.DEFAULT:
           f"answers off, nothing; on, run_steps lives as run() and the lives move; an act on the town's sphere from the "
           f"close circle reads (reach, a founding's town share) {seen_['lever'][:4]} at levels 0 to 3 ({seen_['lever'][4:]} "
           f"off); a level-1 life's presence leans {seen_['town']} spheres of its town (its haunts', recorded as being there), "
-          f"level 0's none; group presence x (1 + .5 x REACH[level, 2]) in {seen_['groups']} lives"
+          f"level 0's none; group presence x (1 + .5 x REACH[level, 2]) in {seen_['groups']} lives; level 2 held 3, 6, 11 "
+          f"years ago reads {seen_['linger']}"
           f"{'' if not fails else '; ' + '; '.join(fails[:4])} ({time.process_time() - t0:.0f} s)")
 # 11. nothing read at a pause outside the handed-over names (an engine without STATE_MISSED reads its whole frame)
 if hasattr(E, "STATE_MISSED"):

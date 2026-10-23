@@ -53,7 +53,9 @@
                 gate_sea = gate.copy()                         # for the season's own moments, before they are kept out
                 gate[:, TH_ANY] = False                       # a season's moments come only in its season
             avail = L["STG"][:, stage].T & gate
-        aff = np.exp(2.0 * (nic @ L["ALPHA"].T)) * avail * RATE[None] * (1 + P["dom_freq"] * (held * I) @ L["DOM"].T)
+        if CL_ON or SK_ON:   # v25: which moments each life could be brought this week (a clash or seeking moment waits for its own)
+            RX.avail = avail
+        aff = np.exp(2.0 * ((RX.seek_draw_mix(nic) if SK_ON else nic) @ L["ALPHA"].T)) * avail * RATE[None] * (1 + P["dom_freq"] * (held * I) @ L["DOM"].T)   # seek: (1 - k) surroundings + k attraction
         if SACS_ON_:   # S5: a sacred line's moments come only with an offer (or a wound) of the life's own
             aff[:, SACS_] = 0.0
         if BAT:
@@ -224,6 +226,8 @@
             if DTH_ON and (dl_at > NEVER // 2).any():   # F2: in a last decline nothing new begins
                 ev_p = ev_p * np.where((dl_at > NEVER // 2)[:, None], 1 - SH_NEW[None], 1.0)
             fire = rng.random(ev_p.shape) < ev_p
+            if CL_ON or SK_ON:   # v25: a clash, seeking or repair moment takes the place of an optional ask this week
+                RX.v25_fire(fire, frc_, WL)
             if WON:
                 fire |= frc_
             if dead.any():
@@ -309,7 +313,8 @@
         if LAND_ON and WL.land.play:   # v25 lane D: who is there in this week's together moment (S["company"])
             WL.land.pick(np.where(had_ev, s_ev, s) if P["base_rates"] else s, age)
         if AIM2_ON:   # aims v2: the one fork (or agenda review) put this week to a player's life (aim_fork), and the aim
-            AG.put(t); AG.mom_slots(s)   # each drawn shape moment is about
+            s = AG.put(t, s, had_ev if P["base_rates"] else None); AG.mom_slots(s)   # each drawn shape moment is about
+            # (a player's fork put on its own moment, in place of the week's optional ask)
         if pausing:
             _pause_state(pz_st, ST_CELLS, ST_FR)
             s = yield Pause("situation", t, pz_st, s)
@@ -320,6 +325,8 @@
         if BAT and P["base_rates"] and len(ECH):   # a due echo comes back in a week without a life event
             pe_ = (echo_ready & avail0[:, ECH_S] & ~once_done[:, ROOT[ECH_S]] & ~had_ev[:, None] & ~dead[:, None]) \
                 * np.minimum(1, P["echo_w"] * echo_fac)                    # once: on an echo is honoured too
+            if AIM2_ON and (AG.put_si >= 0).any():   # aims v2: a player's fork put on its own moment keeps the week
+                pe_ = pe_ * ~((AG.put_si >= 0) & (s == AG.put_si))[:, None]
             fe_ = rng.random(pe_.shape) < pe_
             has_e = fe_.any(1)
             if has_e.any():
@@ -393,10 +400,14 @@
         rk = np.where(hit.any(1), np.argmax(np.where(hit, p_re, -1.0), 1), -1)
         recon = rk >= 0
         s = np.where(recon, L["RECON"], s)
+        if AIM2_ON:   # aims v2: a fork put on its own moment that a season, a reconsidering or the player took is asked later
+            AG.put_kept(s)
         if EP_ON and (recon & (ep_now >= 0)).any():   # reconsidering takes the week: the seed waits for another
             for n in np.nonzero(recon & (ep_now >= 0))[0]:
                 sd_ = ep_seeds[ep_now[n]]; sd_["done"] = sd_["got"] = None; ep_now[n] = -1
         sit_n[np.arange(N), s] += 1                              # how often each situation came up in each life
+        if SK_ON:   # v25 seek: what they met lately (diminishing returns, curiosity)
+            RX.encounter(L["ALPHA"][s], ~dead)
         m = L["M"][s]; e = Eeff[s]; e0 = L["E"][s]; diff = L["DIFF"][s]; mask = L["MASK"][s]
         stakes = L["STAKES"][s]; alpha = L["ALPHA"][s]; oid = L["OID"][s]
         ri = np.nonzero(recon)[0]; rkk = rk[ri]
@@ -475,6 +486,8 @@
                 closed_s = np.where((closed_s < 0) & (u2_ > 0), kd_, closed_s)
                 clu_ = np.maximum(clu_, u2_)
             mask = mask & ~gone_
+            if CL_ON:   # v25 clash: a clash moment's infeasible families are not offered (no exit, nobody to talk to)
+                mask = RX.clash_mask(s, mask)
             diff = diff + WL.odds(s)   # finding work by local unemployment, education by places, treatment by hospitals
             if SV_ON:   # phase 5, service as a chapter: 5 years after the guard or the host, hiring is easier in prot and
                 # rule work and a little harder elsewhere; 10 years after prison, harder by the record's weight (Pager 2003)

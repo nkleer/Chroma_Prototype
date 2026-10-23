@@ -15,13 +15,14 @@ be proved alone:
                 in their town reach the story and its offers come x 1.5 (E5). It adds no moment odds (aims v1's)
   R wa_reach    WA3: a standing level reaches its town (WA_REACH): an act on the town's sphere reads at most 1 + the
                 level's reach at the town's ring, a founding nudges the town by its reach / 3, a life of standing's
-                presence spills to its haunts' spheres in town (with B) and carries further in its groups (with A)
+                presence spills to its haunts' spheres in town (with B) and carries further in its groups (with A);
+                the level lingers 5 years, then fades a level per 5 years
   F wa_phase2   a Known life's decisions for others (F2), the rivals, allies and successor around them (F3), the
                 decisions in the ledger (F4), what the world kept (F5) and the price (F6). No land (v25)
 Its own dice stream (_wa_rng), so the ledger alone draws nothing and moves no other draw."""
 import numpy as np
 from world_keys import DOMAINS, GROUP_KINDS, HAUNT_KINDS, LADDER, LEVERS, SPHERES
-from world_people_base import BIT, C, DI, G, HAUNT_SPH, REACH, _csum, _norm, _uclip
+from world_people_base import BIT, C, DI, G, HAUNT_SPH, NEVER, REACH, _csum, _norm, _uclip
 
 # the ledger's unit keys (world-answers-v1.md section 4 D), shared with the Library's lines and the Game
 WA_UNITS = ("person_colours", "person_closer", "person_further", "person_trust_up", "person_trust_down", "group_norm",
@@ -45,9 +46,10 @@ WA_SCOPES = ("place", "town_sphere", "nation")
 # three places, each a reach, never a colour: an act that lands on the town's sphere reads at most 1 + that reach (a
 # close-circle act no longer reaches the town as far as it reaches the close circle) and a founding nudges the town by
 # its reach / 3; town: a level-1 life's presence spills from its haunts to their spheres in town, this much a year per
-# sphere x that reach (recorded as being there); groups: a member's presence (A) x (1 + this x that reach). Engine
-# estimates (Release's WA3, records/v25/round0.md)
-WA_REACH = dict(town=0.004, groups=0.5)
+# sphere x that reach (recorded as being there); groups: a member's presence (A) x (1 + this x that reach). The level
+# lingers (the coordinator's design call, 10-23): the highest level held in the last linger years, then one level down
+# per linger years without holding it again. Engine estimates (Release's WA3, records/v25/round0.md)
+WA_REACH = dict(town=0.004, groups=0.5, linger=5.0)
 _PK = ("person_colours", "person_closer", "person_further", "person_trust_up", "person_trust_down")
 
 
@@ -68,6 +70,7 @@ class AnswersMixin:
         self.wa_g, self.wa_p, self.wa_l, self.wa_n, self.wa_2 = (bool(P.get(k_, False)) for k_ in
                                                                  ("wa_groups", "wa_places", "wa_ledger", "wa_notice", "wa_phase2"))
         self.wa_r = bool(P.get("wa_reach", False))                # WA3: a standing level's reach at town scope
+        self.wa_held = np.full((N, 4), NEVER, np.int64)            # WA3: the last week each standing level was held
         self.wa_T = T; self.wa_steps = dict(T["ledger"]["steps"])
         self.wa_rec = float(T.get("recover", {}).get("y", 0.0))   # what a life caused fades back by this a year
         LG_ = T["ledger"]
@@ -343,6 +346,8 @@ class AnswersMixin:
         of age: B's presence and the places kept open, F's figures."""
         N, M = self.N, self.M; live = ~self.dead
         self.wa_byw[np.arange(N), self._wa_rg()] += 4 * live
+        if self.wa_r:   # WA3: the levels held this month (the lingering reach reads them)
+            self._wa_held(t)
         act = (self.skind >= 0) & (self.skind != G["household"]) & live[:, None]
         for n_, j_ in zip(*np.nonzero((self.skind >= 0) & (self.wa_gjoin != self.sjoin))):
             self._wa_greset(int(n_), int(j_))
@@ -438,11 +443,27 @@ class AnswersMixin:
                         self._wa_unit(int(n_), "town_sphere", (loc_, j_), float(_tv(new, old)), dict(town=loc_, sphere=SPHERES[j_]),
                                       t, base=old, d=new - old, what="being there")
 
+    def _wa_held(self, t):
+        """WA3: each standing level held now (People.standing[:, 0] and below) marked held this week (dead lives keep
+        theirs)."""
+        lv_ = np.clip(np.asarray(self.standing[:, 0]), 0, 3).astype(np.int64)
+        hold_ = (np.arange(4)[None, :] <= lv_[:, None]) & ~np.asarray(self.dead, bool)[:, None]
+        self.wa_held[hold_] = int(t)
+
+    def wa_level(self, n=None, t=None):
+        """WA3 (wa_reach): the lingering standing level, all lives or life n: the highest level held in the last linger
+        years (People.standing[:, 0] now counts), then one level down per linger years without holding it again
+        (k - floor(years since level k was last held / linger), best over k)."""
+        t = int(self.t if t is None else t)
+        y_ = np.maximum(t - self.wa_held, 0) / 52.0                        # N x 4, years since each level was held
+        lg_ = np.where(self.wa_held > NEVER // 2, np.arange(4)[None, :] - np.floor(y_ / WA_REACH["linger"]), 0.0).max(1)
+        lv_ = np.maximum(np.clip(np.asarray(self.standing[:, 0]), 0, 3), np.maximum(lg_, 0.0)).astype(np.int64)
+        return lv_ if n is None else lv_[n]
+
     def wa_treach(self, n=None):
-        """WA3 (wa_reach): the reach a life's standing level (its best ring's, People.standing[:, 0]) gives at the town's
-        ring (the institutions', REACH[level, 2]: 0, 1, 2, 3); all lives, or life n."""
-        lv_ = np.clip(np.asarray(self.standing[:, 0] if n is None else self.standing[n, 0]), 0, 3).astype(np.int64)
-        return REACH[lv_, 2]
+        """WA3 (wa_reach): the reach a life's lingering standing level (wa_level) gives at the town's ring (the
+        institutions', REACH[level, 2]: 0, 1, 2, 3); all lives, or life n."""
+        return REACH[self.wa_level(n), 2]
 
     def _wa_kept_open(self, t):
         """B: a slump, war or disaster cascade running in a town closes no place a life there leads: kept open."""
