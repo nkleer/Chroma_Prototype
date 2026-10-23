@@ -30,8 +30,9 @@
 # use; a title held for life as an achievement has none. Sources are named in the comment above each field; "estimate"
 # where no count is known. Words a player reads name no real faith, order, firm, army, country or person.
 #
-# A sixth calling, the druid's "to keep the land" (the steward of the land, with the nature sphere and Outer world's
-# land.json), joins this file later, written by its own owner; its place is marked at the end.
+# A sixth calling, the druid's "to keep the land" (the steward of the land, with Outer world's land.json), is written
+# and held as FIELDS_LAND in druid.py, which nothing loads; the Engine joins it here behind aims_v2 (PACK.md, "The
+# sixth road"). Its place is marked at the end.
 
 FIELDS_CALLINGS = {
     # W, the faith leader. Clock: ordination follows a degree and two to three years at a faith's college, or a
@@ -261,5 +262,5 @@ FIELDS_CALLINGS = {
                  demand=dict(hours=8, money=0.1, entry=0.3, energy=0.55), window=None, upkeep=None),
         ]),
 
-    # G, the steward of the land (the druid): "to keep the land" joins here later, with its own owner.
+    # G, the steward of the land (the druid): "to keep the land", held in druid.py as FIELDS_LAND, joins here.
 }
