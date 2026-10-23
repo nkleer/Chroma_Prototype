@@ -13,6 +13,9 @@
                 WL.land_setup(P); company = WL.land.company
             if NAT_ON:    # v25 lane D: national standing (WorldLink.nat, world_national.py)
                 WL.nat_setup(P)
+                if AIM2_ON:   # aim_x from aims v2's agenda: an aim's next rung a standing-3 title (National._aimed)
+                    WL.nat.AG = AG
+                    WL.nat.top = {nm_ for nm_, sd_ in zip(L["ROLES"]["names"], L["ROLES"]["standing"]) if sd_ == 3}
         if P["work_die"] is not None:   # F9.29: a death at work, a work-year at this x danger (world_people._marks_year)
             WL.PP.mk_die = float(P["work_die"])
         LW_ON = bool(getattr(WL, "lw", False)) and RON
