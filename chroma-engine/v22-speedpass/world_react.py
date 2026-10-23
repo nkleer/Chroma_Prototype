@@ -83,8 +83,7 @@ CLASH_DEFAULT = dict(
     age=10.0, sphere_yrs=2.0, decade_n=3,   # ceilings, provisional [C]: from age 10; one per sphere in 2 years; 3 in 10
     a_major=0.08,          # a clash's colour step, at full stakes (a major demand: 0.05 to 0.15 once)
     merge_cos=0.8,         # two demands one dispute: the same stake and purposes this alike
-    wait=26,               # weeks a carried clash (or a seeking moment) waits for an ask to replace, before the clash is
-                           # answered in the background (the seeking moment is dropped)
+    wait=7,                # weeks a carried clash waits for an ask to replace; by the eighth it is answered in the background
 )
 SEEK_DEFAULT = dict(
     k_max=1.0 / 3,         # attraction's share of the encounter mix at full independence (Emren's starting suggestion)
@@ -92,7 +91,10 @@ SEEK_DEFAULT = dict(
     bored_cur=1.0,         # boredom's lift of curiosity
     dim_k=2.0,             # diminishing returns: the same kind of encounter again gives exp(-dim_k x its share lately)
     content_k=0.5,         # contentment keeps a satisfying life stable: k x (1 - content_k x content)
-    try_p=0.04, try_gap=0.25,   # monthly chance of trying a new place, at an attraction this far from what surrounds them
+    sight_k=5.0,           # curiosity looks at what is in sight: a novel colour x (0.2 + sight_k x what places in reach
+                           # showed lately; a demand from a gathering, scene, club or online, about half a year)
+    wait=26,               # weeks a seeking or repair moment waits for an ask to replace, before it is dropped
+    try_p=0.04, try_gap=0.15, try_base=0.25,   # (try_base: now and then even close to what surrounds them)   # monthly chance of trying a new place, at an attraction this far from what surrounds them
     exp_mem=0.2,           # how far one experience revises expectations
 )
 
@@ -168,6 +170,7 @@ class React:
         self.d_id = 0
         # seeking (seek, decision #4)
         self.attr = np.full((N, C), 1.0 / C); self.k_ind = np.zeros(N); self.enc = np.full((N, C), 1.0 / C)
+        self.sight = np.zeros((N, C))   # what places in reach showed them lately (seek's curiosity looks there)
         self.expect = np.zeros((N, C)); self.tried = [[] for _ in range(N)]
         self.sk_stats = dict(tries=0, admitted=0, refused=0, no_access=0, good=0, bad=0)
         self._pend_try = []
@@ -403,6 +406,9 @@ class React:
                 j_ = self._scn_slot(n, d_)
                 if j_ is None:
                     self.scn_missed.append((n, d_.get("tag"), "no such source"))
+                    k0_ = (d_.get("source") or {}).get("key")
+                    if self.seek_on and k0_ in ("scene", "club", "online", "neighbours") and d_.get("purpose") is not None:
+                        self.sight[n] += 0.3 * (_norm(np.asarray(d_["purpose"], float)) - self.sight[n])   # in sight only
                     continue
                 forced[len(nd)] = d_
                 nd.append(n); jd.append(j_); pur.append(np.asarray(d_["purpose"], float) if d_.get("purpose") is not None else None)
@@ -415,7 +421,7 @@ class React:
         purpose = np.array([mixd[i_] if p0_ is None else p0_ for i_, p0_ in enumerate(pur)])
         purpose = np.where(purpose.sum(1, keepdims=True) > 0, _norm(purpose - 0.1 * (purpose.sum(1, keepdims=True) > 0)), 0.0)
         purpose = np.where(purpose.sum(1, keepdims=True) > 0, purpose, 0.0)
-        purpose[np.array([isinstance(s_, tuple) and s_[0] == "nature" for s_ in src])] = 0.0   # nature asks nothing
+        purpose[jd == self.JN] = 0.0   # nature asks nothing (its own events, or the caller's)
         ch = S_["chan"][nd, jd]
         method = np.where(self.CH_OWN[ch][:, None], purpose, 0.5 * purpose + 0.5 * self.CHR[ch])
         method = np.where(method.sum(1, keepdims=True) > 0, _norm(method), 0.0)
@@ -475,8 +481,10 @@ class React:
         need_conf = ctx["nimp_aut"][nd] * (aut < 0.4) * ctl + nat * np.clip(ctl, 0, 1) * ctx["means_low"][nd]
         stakes_sc = np.maximum.reduce([aim_conf, com_conf, time_conf, need_conf]) * (0.5 + 0.5 * np.maximum(ctl, dep))
         for i_, d_ in forced.items():   # the caller's stakes, when given as a number (P["scn"] only), as legit and control
-            if isinstance(d_.get("stakes"), (int, float, np.integer, np.floating)) and not isinstance(d_.get("stakes"), bool):
-                stakes_sc[i_] = float(d_["stakes"])
+            g_ = d_.get("stakes")
+            g_ = g_.get("score") if isinstance(g_, dict) else g_   # a number, or a stakes dict's score
+            if isinstance(g_, (int, float, np.integer, np.floating)) and not isinstance(g_, bool):
+                stakes_sc[i_] = float(g_)
         ad = age_d = np.exp(-((age - 15.5) / 2.5) ** 2) * np.ones(D)
         ind = ctx["ind"][nd]
         hist = np.clip(self.griev[nd, jd] * (0.5 + ind) + 0.1 * np.minimum(self.ndis[nd, jd], 5) * (ctl > leg), 0, 1.0)
@@ -505,6 +513,10 @@ class React:
                   stakes=stakes_sc, X=X, Z=Z, ok=ok, pr=pr, src=src, ind=ind, conv=conv, w=w, has_c=has_c, ad=ad,
                   kn=kn_, af=af, as_=as_, forced=forced)
         self._dd = dd
+        if self.seek_on:   # in sight: what gatherings, scenes, clubs and online asked of them (seek's curiosity)
+            for i_ in range(D):
+                if kn_[i_] in ("neighbours", "scene", "club", "online", "friend") and has_c[i_]:
+                    self.sight[nd[i_]] += 0.3 * (purpose[i_] - self.sight[nd[i_]])
         hold_ = np.zeros(D, bool)
         if self.clash_on:   # a demand with stakes may come as a clash (the clash's own answer then sets its layers)
             hold_ = self._clash_check(t, age, dd, ctx)
@@ -542,6 +554,8 @@ class React:
             on_ = jd == M + i_
             k_ = self._pk[nd[on_], i_]
             wk[np.nonzero(on_)[0][k_ >= 0], k_[k_ >= 0]] = 0.0
+        for n_, k_ in getattr(self, "out_of_reach", ()):   # the caller's cast (P["scn"]): a person out of reach offers no way out
+            wk[nd == n_, k_] = 0.0
         for j_, mb_ in getattr(self, "_hh_mb", {}).items():
             on_ = jd == j_
             wk[on_] = np.where(mb_[nd[on_]], 0.0, wk[on_])
@@ -589,8 +603,8 @@ class React:
         comply = r in (ACC, ADO) or (r == NEG and neg_ok) or constrained
         convinced = r == ACC or (r == ADO)
         q = self._q_of(dd, i, r, neg_ok)
-        if constrained and r == DIS:
-            q = None   # constrained obedience: compliance without conviction, no step toward the demand
+        if constrained:
+            q = None   # constrained obedience: outward compliance, no colour step either way (its grievance waits)
         # 1. the reaction (a state, never from a colour)
         hab = 1.0 / (1.0 + 0.15 * self.ndem[n, j])   # exposure lowers surprise and anger; it is not acceptance
         st = ("none", 0.0)
@@ -910,9 +924,11 @@ class React:
         return out
 
     def _stake_key(self, dd, i):
+        g_ = dd["forced"].get(i, {}).get("stakes")
+        g_ = g_.get("score") if isinstance(g_, dict) else g_
         v = dict(aim=dd["aim_conf"][i], commit=dd["com_conf"][i], time=dd["time_conf"][i], need=dd["need_conf"][i])
         k_ = max(v, key=v.get)
-        if v[k_] <= 0:   # stakes the caller gave (P["scn"]) with none of the life's own: the caller's dispute
+        if v[k_] <= 0 or (isinstance(g_, (int, float, np.integer, np.floating)) and not isinstance(g_, bool)):   # stakes the caller gave (P["scn"]) with none of the life's own: the caller's dispute
             return ("given",)
         if k_ == "aim":
             af = dd["af"][i]; as_ = dd["as_"][i]
@@ -973,11 +989,19 @@ class React:
             holders = [dd["kn"][g_] for g_ in group]
             sp = int(self._S["sph"][n, j]); sps = sorted({int(self._S["sph"][n, int(dd["jd"][g_])]) for g_ in group})
             feas = self._feasible(dd, i)
-            sig_ = (round(float(dd["stakes"][i]), 1), round(float(dd["dep"][i]), 1), tuple(sorted(k_ for k_, v_ in feas.items() if v_)))
+            sig_ = (round(float(dd["stakes"][i]), 1), round(float(dd["dep"][i]), 1), ())   # what would make it new: its
+            # stakes or their dependence moved (or a new holder); the options open that week are not the dispute
             dsp = None
-            for d0 in self.disputes[n]:   # an open dispute on the same stake, a purpose alike: the same dispute
-                if d0["open"] and d0["key"] == list(key):
-                    dsp = d0; break
+            for d0 in reversed(self.disputes[n]):   # the last dispute on the same stake: open, the same dispute; settled
+                if d0["key"] == list(key):           # and nothing in it changed (holders, stakes, power, options), not
+                    if d0["open"]:                    # put again
+                        dsp = d0
+                    elif all(h_ in d0["holders"] for h_ in holders) and d0["sig"] == list(sig_[:2]) + [list(sig_[2])]:
+                        dsp = "held"
+                    break
+            if dsp == "held":
+                self.cl_stats["repeat_held"] += 1
+                continue
             if dsp is not None:
                 new_h = [h_ for h_ in holders if h_ not in dsp["holders"]]
                 if new_h:
@@ -1012,8 +1036,9 @@ class React:
             gia = self._give_in_as(dd, i)
             setting = self._setting_of(dd["kn"][i])
             hold[group] = True
-            rec = dict(id=dsp["id"], demand=dict(key=dd["kn"][i], sphere=SPHERES[sp] if sp >= 0 else None,
-                                                 purpose=[round(float(x_), 3) for x_ in dd["purpose"][i]]), spheres=dsp["spheres"], holders=list(dsp["holders"]), stakes=self._stakes_say(dd, i, key), options=[k_ for k_, v_ in feas.items() if v_], give_in_as=gia,
+            self.n_id += 1   # the clash's demand, recorded this week (S["demands"]) and named by its id
+            dm_ = self._demand_rec(t, dd, i, self.n_id); dm_["clash"] = dsp["id"]; self.demands[n].append(dm_)
+            rec = dict(id=dsp["id"], demand=dm_["id"], spheres=dsp["spheres"], holders=list(dsp["holders"]), stakes=self._stakes_say(dd, i, key), options=[k_ for k_, v_ in feas.items() if v_], give_in_as=gia,
                        sphere=SPHERES[sp] if sp >= 0 else None, setting_id=j if j < self.M else -1, k=round(float(dd["stakes"][i]), 3),
                        setting=self.CLASH_SET[setting], holder=self._holder(n, j), ally=self._ally(n, j), scene=self._scene(n, dd, i),
                        carried=False)
@@ -1033,7 +1058,7 @@ class React:
                 if fr_ in RESPONSES and dd["ok"][i, RESPONSES.index(fr_)]:
                     r = RESPONSES.index(fr_)
                 self._clash_apply(t, age, n, dsp, sub, r, False, ctx, rec, gia, succ=None)
-            self.clash[n] = rec
+                self.clash[n] = rec   # S["clash"]: put this week (a carried one shows in its moment's week instead)
         return hold
 
     def _holder(self, n, j):
@@ -1123,6 +1148,7 @@ class React:
                 sub = c_["sub"]; r = int((sub["pr"][0].cumsum() > self.rng.random()).argmax())
                 self._clash_apply(t, t / 52.0, n, c_["dispute"], sub, r, False, self._last_ctx, c_["rec"], c_["gia"])
                 c_["rec"]["carried"] = False; self.cl_stats["background"] += 1
+                self.clash[n] = c_["rec"]   # S["clash"]: put this week, answered in the background
 
     def _open(self, n, s_):
         av_ = getattr(self, "avail", None)
@@ -1213,7 +1239,9 @@ class React:
         felt = np.einsum("nd,ndc->nc", ctx["lack_all"], self.nmap(np.arange(N)))
         need_ = _norm(felt + 1e-9)
         aim_ = _norm((ctx["aim_s"][..., None] * ctx["aim_face"]).sum(1) + 1e-9) if ctx["aim_face"].shape[1] else np.full((N, C), 0.2)
-        cur_ = _norm(np.maximum(0.3 - self.enc, 0) + 1e-3)   # curiosity: the colours they have met least lately
+        self.sight *= 0.9   # (monthly: about half a year)
+        cur_ = _norm(np.maximum(0.3 - self.enc, 0) + 1e-3 + sp["sight_k"] * self.sight * np.maximum(0.4 - self.enc, 0.05))
+        # curiosity: the colours they have met least lately, and what is in sight that they have not had much of
         bored = self.st_lv[:, ST["boredom"]]
         rel_ = getattr(self, "relief", np.full((N, C), 0.2))
         pres = np.clip(self.st_lv[:, ST["anger"]] + self.st_lv[:, ST["frustration"]], 0, 1)
@@ -1228,7 +1256,7 @@ class React:
         self.motives = mot
         # attempted entry: now and then, where what draws them is far from what surrounds them
         gap = 0.5 * np.abs(self.attr - ctx["nic"]).sum(1)
-        p_ = sp["try_p"] * np.clip((gap - sp["try_gap"]) / 0.2, 0, 1) * (1 + bored) * (ind >= 0.3) * ~ctx["dead"]
+        p_ = sp["try_p"] * (sp["try_base"] + np.clip((gap - sp["try_gap"]) / 0.2, 0, 1)) * (1 + bored + pres) * (ind >= 0.3) * ~ctx["dead"]
         for n in np.nonzero(self.rng.random(N) < p_)[0]:
             mk_ = max(("belong", "instrumental", "curious", "challenge", "relief"), key=lambda k_: mot[k_][n])
             self._try_entry(t, int(n), self.attr[n], mk_)
@@ -1333,7 +1361,7 @@ class React:
         if not hasattr(self, "sk_carry"):
             self.sk_carry = {}; self.sk_last = np.full((self.N, len(STATES)), -10 ** 9); self.rp_last = np.full(self.N, -10 ** 9)
         for n, c_ in list(self.sk_carry.items()):
-            if t - c_["t"] > self.cp["wait"]:
+            if t - c_["t"] > self.sp["wait"]:
                 del self.sk_carry[n]
         if t % 4:
             return
