@@ -1,0 +1,385 @@
+# Chroma library, modern Earth: NATURE MOMENTS, writer A (v25 prep, 10-21), from chroma-world/spheres/land-moments-v1.md.
+# Poured into the Library 10-23. Ten good or mixed life events, each with the spec's
+# five seeds (lever and opens copied from land.json) and one full cross cycle. Numbers live in land.json, not here.
+# Moments: walk_clears, garden_comes_in, first_snow, cold_swim, storm_watched, good_harvest, spring_return,
+# wild_animal, night_sky, foraging.
+
+# ---------------------------------------------------------------- walk_clears (cycle 1: W>U U>B B>R R>G G>W)
+
+== the walk that clears the head
+tier: life event
+land: walk_clears
+stages: juvenile young_adult adult mature elder
+age: 12-90
+per_year: 0 .25 .25 .25 .25 .25
+tone: joy
+life: nature, health
+horizon: moment
+roles: friend, neighbour
+earth: a long walk on the edge of town, and the head clears halfway up the hill
+tribal: a long walk out past the last fire, where the hunting grounds open
+magic: a long walk out of the tower's shadow, where the old wood begins
+scene: {N} sets out with too much in the head and no plan but the hill. Halfway up, the wind turns, and the noise inside goes quiet one thought at a time.
+scene W: {N} has walked this same loop every week this month, and the gate at the top knows the hand that opens it.
+scene U: {N} keeps stopping to look at things: a fern, a crust of lichen, a track in the mud nobody could name.
+scene B: From the top {N} can see the whole edge of town, and which of the fields has a sign on the gate.
+scene R: The path goes the long way round, and the ridge goes straight up, and {N} is looking at the ridge.
+scene G: There is a flat stone under an old thorn tree, and nobody else is on the hill.
+scene tribal: {N} walks out past the last fire with nothing to carry and nowhere to be. Where the hunting grounds open, the noise of the camp falls away behind.
+scene magic: {N} walks out of the tower's shadow until the bells are too faint to hear. At the edge of the old wood the air changes, and so does {N}.
+- W | ask the walking group if you can come along with them every Saturday from now on | land: W | v: conformity, benevolence | lever: loyalty | foot: place gather.circle | chance: 82
+- U | learn the names of what grows along the hill path, with a pocket guide in hand | land: U | v: self-direction | lever: loyalty | foot: mark learned a skill | chance: 75
+- B | walk the field you might buy one day, and talk with the farmer who owns it | land: B | v: achievement, power | lever: exit | foot: person neighbour | chance: 65
+- R | leave the path and run the ridge, all the way to the top | land: R | v: stimulation, hedonism | lever: subvert | opens: trail_running | foot: means health+.03 | chance: 70
+- G | sit on the flat stone until the birds forget you are there | land: G | v: universalism | lever: neglect | opens: wildlife_survey | foot: lesson stillness lets the world come back | chance: 85
+- W>U | sign up for the guided walk the naturalists lead once a month | land: W | v: conformity, self-direction | lever: loyalty | foot: person mentor | chance: 78
+- U>B | draw a better map of the hill routes and sell copies at the outdoor shop | land: U | v: achievement, self-direction | lever: found | foot: means money+.03 | chance: 55
+- B>R | bet {friend} you can reach the top first, and the loser buys lunch | land: B | v: power, stimulation | lever: lead | foot: person friend | chance: 68
+- R>G | take your shoes off and walk the last stretch barefoot through the wet grass | land: R | v: stimulation, universalism | lever: exit | foot: means freedom+.03 | chance: 72
+- G>W | carry a bag up and bring down the litter other walkers left behind | land: G | v: universalism, conformity | lever: loyalty | foot: place prod.wild | chance: 85
+works: Halfway up the hill the knot comes undone, and {N} walks home lighter than in weeks.
+works: {N} comes back muddy to the knees and sleeps the whole night through.
+fails: The rain comes in sideways, and {N} turns back with the same thoughts, only wetter.
+fails: The head will not clear today; every step brings the same worry round again.
+
+# ---------------------------------------------------------------- garden_comes_in (cycle 2: W>B B>G G>U U>R R>W)
+
+== the garden comes in all at once
+tier: life event
+land: garden_comes_in
+stages: juvenile young_adult adult mature elder
+age: 12-90
+per_year: 0 .25 .25 .25 .25 .25
+tone: joy
+life: nature, home
+horizon: moment
+roles: neighbour, friend, elder
+earth: the plot in late summer, when the beans and marrows come faster than anyone can eat them
+tribal: the clearing by the stream in late summer, when the gourds and beans ripen all at once
+magic: the walled herb garden below the tower in late summer, heavy with everything at once
+scene: It is late summer, and the garden has stopped asking and started giving: beans by the bucket, marrows the size of an arm, tomatoes splitting on the vine. {N} stands in the middle of it with a basket that is already too small.
+scene W: There is a list on the shed door of who on the street has had what, and {neighbour} is next.
+scene U: {N} sowed three kinds of bean in three rows this spring, and one row has clearly won.
+scene B: At the prices in the shops, the baskets by the gate are worth a fair bit.
+scene R: There is far too much of everything, and {N} would like to eat it all tonight, with everyone.
+scene G: The bees are working the last flowers, and one corner has gone to seed on its own.
+scene tribal: The gourds and beans in the stream clearing have ripened all at once, more than the family can carry. {N} fills a basket, and there is still more.
+scene magic: The walled garden under the tower is heavy with herbs and fruit, and the gardener has left {N} to bring it in. The baskets fill faster than the cellar can take them.
+- W | leave a box of the glut on every doorstep along the street | land: W | v: benevolence, tradition | lever: loyalty | foot: person neighbour | chance: 85
+- U | keep notes on which seeds did best, row by row, for next spring | land: U | v: self-direction, achievement | lever: loyalty | foot: mark learned a skill | chance: 80
+- B | take the surplus to the Saturday market and sell it off a trestle table | land: B | v: achievement | lever: exit | opens: market_garden | foot: means money+.03 | chance: 65
+- R | throw a feast with all of it at once, and call in anyone passing | land: R | v: hedonism, benevolence | lever: loyalty | foot: means ties+.04 | chance: 75
+- G | save the best seed, and let one corner run wild for the bees | land: G | v: universalism, tradition | lever: neglect | opens: beekeeping | foot: lesson a wild corner feeds the rest | chance: 85
+- W>B | enter the best of it in the summer show and play by the judges' rules | land: W | v: conformity, achievement | lever: loyalty | foot: place gather.great | chance: 55
+- B>G | swap your surplus with the other plot-holders for their cuttings and seedlings | land: B | v: achievement, benevolence | lever: fund | foot: person friend | chance: 78
+- G>U | ask {elder} how the old growers kept beans through the winter, and write it all down | land: G | v: tradition, self-direction | lever: voice | foot: person mentor | chance: 80
+- U>R | pickle, dry and ferment the lot, one wild experiment every night | land: U | v: self-direction, stimulation | lever: found | foot: means time-.04 | chance: 62
+- R>W | turn up at the hall kitchen with the whole harvest and cook for the lunch club | land: R | v: benevolence, stimulation | lever: lead | foot: place gather.hall | chance: 72
+works: The kitchen smells of it for a week, and {N} has never felt so plainly fed by their own hands.
+works: Every jar and basket finds a home, and next year's plan is already forming.
+fails: Half of it spoils before anyone can eat it, and {N} composts the guilt along with the marrows.
+fails: The slugs and a wet week get there first, and the glut turns out smaller than it looked.
+
+# ---------------------------------------------------------------- first_snow (cycle 1: W>U U>B B>R R>G G>W)
+
+== the first snow
+tier: life event
+land: first_snow
+stages: child juvenile young_adult adult mature elder
+age: 5-90
+per_year: .33 .33 .33 .33 .33 .33
+tone: joy
+life: nature, leisure
+horizon: moment
+roles: neighbour, friend, sibling, parent
+earth: the first snow of winter, fallen overnight, so the street wakes up quiet
+tribal: the first snow of the cold season, falling on the camp before dawn
+magic: the first snow of winter, settling on the tower roofs and the market square
+scene: {N} wakes to a strange light and a deeper quiet, and the street outside has gone soft and new overnight. Nobody has walked on it yet.
+scene W: {neighbour}'s path is still deep, and {neighbour} should not be out on ice.
+scene U: {N} wonders how deep it is, and whether it came earlier than last year.
+scene B: Half the driveways on the street are still buried, and people have places to be.
+scene R: There is enough for a proper fight, and {friend} is already at the window.
+scene G: Past the last houses the fields are untouched, and the only sound is the snow itself.
+scene tribal: Snow fell on the camp before dawn, the first of the cold season. {N} steps out of the shelter into a world without tracks.
+scene magic: The first snow lies on the tower roofs and the market square, and the lamps glow in it. Even the ravens on the battlements are quiet.
+- W | take the shovel round and clear {neighbour}'s path before anyone slips | land: W | v: benevolence, conformity | lever: loyalty | foot: person neighbour | chance: 85
+- U | measure the depth at the gate each morning and keep a log of the whole winter | land: U | v: self-direction | lever: neglect | foot: means time-.03 | chance: 80
+- B | build the biggest snowman on the street and claim the best spot | land: B | v: achievement, power | lever: voice | foot: lesson the best spot goes early | chance: 70
+- R | start a snowball war that pulls in the whole street | land: R | v: stimulation, hedonism | lever: loyalty | foot: person friend | chance: 80
+- G | walk out alone past the last houses, into the quiet fields | land: G | v: universalism, self-direction | lever: neglect | foot: place prod.wild | chance: 85
+- W>U | follow the steps in an old library book and build a proper snow shelter | land: W | v: conformity, self-direction | lever: loyalty | foot: mark learned a skill | chance: 65
+- U>B | wax the old sledge and find the fastest line down to win the race | land: U | v: achievement, self-direction | lever: lead | foot: place gather.games | chance: 60
+- B>R | build the biggest snowman on the street, then dare the others to beat it | land: B | v: power, stimulation | lever: lead | foot: person rival | chance: 65
+- R>G | lie in the fresh snow and sweep out shapes until the cold gets in | land: R | v: hedonism, universalism | lever: neglect | foot: means health+.02 | chance: 80
+- G>W | scatter seed and put out water for the birds, and keep it up all winter | land: G | v: universalism, benevolence | lever: loyalty | foot: door kept your word | chance: 80
+works: The snow holds all day, and {N} comes in glowing and soaked to the knees, happier than in weeks.
+works: By evening the street is full of tracks and laughter, and {N} made half of both.
+fails: By noon it has turned to grey slush, and the spell of the morning goes with it.
+fails: The snow is too thin to do anything with, and {N} stands in it, waiting for more that does not come.
+
+# ---------------------------------------------------------------- cold_swim (cycle 2: W>B B>G G>U U>R R>W)
+
+== the cold swim
+tier: life event
+land: cold_swim
+stages: juvenile young_adult adult mature elder
+age: 12-90
+per_year: 0 .25 .25 .25 .25 .25
+tone: joy
+life: nature, health
+horizon: moment
+roles: friend, neighbour
+earth: a cold swim on a summer morning, in the river pool below the weir
+tribal: a cold swim in the deep pool where the river bends below the camp
+magic: a cold swim in the lake under the tower, where the meltwater comes down from the peaks
+scene: The water is far colder than the day, and {N} stands on the edge with the breath already short. Then in, and the cold is a shout through the whole body, and then something like joy.
+scene W: The morning swimmers have come here for years, and today they nod to {N} as one of them.
+scene U: {N} has noticed that the water moves differently past the far bank, faster and darker.
+scene B: People drive past this spot every day and have no idea it is here.
+scene R: There is a high rock on the far side, and someone has scratched a tally of jumps into it.
+scene G: The water is still, and the sky is in it, and {N} wants to lie in both.
+scene tribal: The deep pool below the camp is cold enough to stop the breath. {N} wades in to the waist, then goes under, and comes up shouting.
+scene magic: The lake under the tower is fed by meltwater from the peaks and stays cold all summer. {N} goes in from the old landing stage, and the cold rings like a bell.
+- W | join the morning swimmers and help them sweep the steps afterwards | land: W | v: conformity, benevolence | lever: loyalty | foot: place gather.circle | chance: 82
+- U | learn how the currents run before swimming out past the shallows | land: U | v: self-direction, security | lever: neglect | opens: sailing | foot: mark learned a skill | chance: 78
+- B | put the swim spot on the visitors' map and charge a little to guide people | land: B | v: achievement, power | lever: voice | opens: shore_business | foot: means money+.03 | chance: 60
+- R | climb the high rock and jump, feet first, into the deep part | land: R | v: stimulation | lever: subvert | opens: wild_swimming | foot: mark took a wild risk | chance: 65
+- G | float face up and let the water take the weight, eyes on the sky | land: G | v: universalism, hedonism | lever: neglect | foot: lesson the water holds you up | chance: 85
+- W>B | train to the club's timetable to win the summer race across the lake | land: W | v: conformity, achievement | lever: loyalty | foot: place gather.games | chance: 55
+- B>G | talk the landowner into leaving the gate to the pool open for everyone | land: B | v: power, universalism | lever: voice | foot: person neighbour | chance: 55
+- G>U | ask the old swimmer who has come here forty years what the water does each month | land: G | v: tradition, self-direction | lever: voice | foot: person elder | chance: 80
+- U>R | read the current, then try the long swim across the pool to the far bank | land: U | v: self-direction, stimulation | lever: subvert | foot: means health+.03 | chance: 62
+- R>W | dare {friend} and the whole crowd in, then keep them coming back every week | land: R | v: stimulation, benevolence | lever: found | foot: person friend | chance: 70
+works: {N} comes out shaking and laughing, and the cold glow lasts until lunchtime.
+works: The whole day after feels clean and sharp at the edges, and {N} sleeps like a stone.
+fails: The cold wins inside a minute, and {N} is out again, gasping, with nothing to show but chattering teeth.
+fails: The water is murkier than it looked, and {N} climbs out feeling worse than before.
+
+# ---------------------------------------------------------------- storm_watched (cycle 1: W>U U>B B>R R>G G>W)
+
+== the storm from the window
+tier: life event
+land: storm_watched
+stages: juvenile young_adult adult mature elder
+age: 12-90
+per_year: 0 .25 .25 .25 .25 .25
+tone: mixed
+life: nature, home
+horizon: moment
+roles: neighbour, partner, parent, friend
+earth: a big storm, watched from the kitchen window while the lights flicker
+tribal: a big storm over the plain, watched from the mouth of the cave
+magic: a great storm over the valley, watched from a high window of the tower
+scene: The storm comes in at dusk, and {N} watches it from behind the glass: trees bent flat, rain in sheets, the street lamps shaking. Somewhere a gate bangs and bangs.
+scene W: {neighbour} lives alone, and {Ns} eyes keep going to their dark window.
+scene U: The forecast said it would peak at nine, and {N} has the clock and the barometer side by side.
+scene B: An old tree in the lane is coming down, and that is a lot of good timber.
+scene R: Every gust pulls at {N} like a hand on the sleeve: come out.
+scene G: The roar has a rhythm to it, if {N} listens long enough.
+scene tribal: The storm crosses the plain like a running herd, and the clan watches it from the mouth of the cave. {N} sits nearest the edge, where the spray reaches.
+scene magic: From a high window of the tower {N} watches the storm walk down the valley, lightning in its hands. The old glass hums with every gust.
+- W | go round the neighbours when it eases, door by door, to see who needs a hand | land: W | v: benevolence, security | lever: loyalty | foot: person neighbour | chance: 85
+- U | track it hour by hour, and check it against the forecast in the morning | land: U | v: self-direction | lever: neglect | foot: mark learned a skill | chance: 78
+- B | head out at first light to gather the fallen branches before anyone else does | land: B | v: achievement, security | lever: exit | opens: wood_crafts | foot: means money+.03 | chance: 70
+- R | step out into the storm and let it hit you full in the face | land: R | v: stimulation | lever: subvert | foot: mark took a wild risk | chance: 55
+- G | lie awake and listen to it all night, without trying to sleep | land: G | v: universalism | lever: neglect | foot: lesson fear and wonder sit together | chance: 85
+- W>U | note which drains overflow and send the list to the council in the morning | land: W | v: security, self-direction | lever: voice | opens: flood_warden | foot: means time-.03 | chance: 70
+- U>B | catch the lightning on a long exposure and enter the best shot in a competition | land: U | v: achievement, self-direction | lever: lead | foot: place arts.craft | chance: 50
+- B>R | bet {friend} on how many trees come down by morning, then go out early to count | land: B | v: power, stimulation | lever: subvert | foot: person friend | chance: 60
+- R>G | open every window and let the wind and the smell of rain through the house | land: R | v: stimulation, universalism | lever: neglect | foot: lesson a house can take some weather | chance: 72
+- G>W | light candles, make tea, and keep everyone in the house together till it passes | land: G | v: benevolence, tradition | lever: loyalty | foot: means ties+.04 | chance: 85
+works: When it is over the air is washed and strange, and for a moment {N} feels the size of the world.
+works: The house holds, and in the morning the street comes out to look at it all together.
+fails: The storm takes the fence and half the night's sleep, and {N} spends the next day tired and on edge.
+fails: A branch comes through the shed roof, and the wonder of it is gone by morning.
+
+# ---------------------------------------------------------------- good_harvest (cycle 2: W>B B>G G>U U>R R>W)
+
+== the good harvest
+tier: life event
+land: good_harvest
+stages: juvenile young_adult adult mature elder
+age: 12-90
+per_year: 0 .2 .2 .2 .2 .2
+tone: joy
+life: nature, work
+horizon: moment
+roles: parent, neighbour, sibling, friend
+earth: a good year on the farm: the barns full and the price holding
+tribal: a good year on the river flats: the grain stores full and the herds fat
+magic: a good year on the tower's farms: the granaries full and the steward smiling
+scene: It has been a good year: the rain came when it should and stopped when it should, and the barns are full to the doors. {parent} stands in the yard, doing sums in the head and smiling at them.
+scene W: There is a harvest supper in the village hall every year, and the first share has always gone to it.
+scene U: The low field floods in every wet year, and this year there is money to fix it.
+scene B: The field next door has been for sale since spring, and now there is enough.
+scene R: After a year like this, {N} wants one night in town that nobody forgets.
+scene G: The birds have followed the harvester all week, and the hedges are loud with them.
+scene tribal: The grain stores on the river flats are full, and the herds are fat for the cold. The clan gathers to decide what the good year is for.
+scene magic: The tower's granaries are full to the rafters, and the steward has left a purse on the table. {N} has a say in where it goes.
+- W | give the first sacks to the harvest supper, as the family always has | land: W | v: tradition, benevolence | lever: loyalty | foot: place gather.hall | chance: 85
+- U | put the gain into new drains for the low field that floods | land: U | v: security, achievement | lever: voice | foot: means money-.04 | chance: 70
+- B | buy the field next door while the money is there | land: B | v: power, achievement | lever: voice | opens: land_dealing | foot: means money-.08 | chance: 60
+- R | spend a good share of it on one wild night out in town, everyone invited | land: R | v: hedonism, stimulation | lever: neglect | foot: means money-.04 | chance: 75
+- G | leave the last strip of the field standing for the birds and the hares | land: G | v: universalism, tradition | lever: loyalty | foot: lesson a little left over feeds many | chance: 85
+- W>B | sell through the growers' co-operative at the agreed price, and bank the rest | land: W | v: conformity, security | lever: loyalty | foot: means money+.04 | chance: 75
+- B>G | buy a few hardy old-breed sheep to graze the rough ground the old way | land: B | v: achievement, tradition | lever: fund | opens: keeping_animals | foot: place prod.land | chance: 65
+- G>U | try the elders' old rotation on one field and measure what it does | land: G | v: tradition, self-direction | lever: found | opens: regen_farming | foot: person mentor | chance: 60
+- U>R | spend it on a second-hand machine and teach yourself to fix it in the barn | land: U | v: self-direction, stimulation | lever: fund | foot: means money-.05 | chance: 55
+- R>W | throw the barn open for a dance and invite the whole valley | land: R | v: stimulation, benevolence | lever: lead | foot: means ties+.05 | chance: 78
+works: The good year carries the family through the winter with something to spare, and {parent} sleeps well for once.
+works: Neighbours stop at the gate to say so, and {N} feels part of something that has been going on for a long time.
+fails: The price drops at the market the same week, and the good year turns out merely ordinary.
+fails: Half the gain is gone on repairs before anyone has decided what it was for.
+
+# ---------------------------------------------------------------- spring_return (cycle 1: W>U U>B B>R R>G G>W)
+
+== the first warm day
+tier: life event
+land: spring_return
+stages: juvenile young_adult adult mature elder
+age: 12-90
+per_year: 0 .25 .25 .25 .25 .25
+tone: joy
+life: nature, leisure
+horizon: moment
+roles: neighbour, friend, colleague
+earth: the first warm day after winter, when the whole town seems to open its windows at once
+tribal: the first warm day after the cold season, when the camp throws open every hide
+magic: the first warm day after winter, when the tower's shutters open one by one
+scene: The first warm day arrives without warning. {N} steps out and the air is soft, there is birdsong where there was none, and the whole street seems to have opened its windows at once.
+scene W: The verges are full of the winter's litter, and {neighbour} is already out with a bag.
+scene U: {N} could swear the swallows are back a week earlier than last year.
+scene B: The market opens for the season on Saturday, and the stall has sat in the shed all winter.
+scene R: The hills are right there, and everything else can wait.
+scene G: The soil has gone from cold to crumbly overnight, and the seed packets are on the sill.
+scene tribal: The first warm day comes, and the camp throws open every hide to the sun. {N} smells the earth thawing and the river running high.
+scene magic: The tower's shutters open one by one on the first warm morning, and the courtyard fills with people blinking at the sun. Even the old keeper has come out.
+- W | knock on doors and get the street's spring clean-up going | land: W | v: conformity, benevolence | lever: voice | opens: allotment | foot: person neighbour | chance: 80
+- U | write down the day the first swallow came, and check it against last year's note | land: U | v: self-direction | lever: neglect | foot: lesson small changes show over years | chance: 85
+- B | drag the stall out of the shed and open for the season | land: B | v: achievement | lever: voice | opens: keeping_animals | foot: place comm.market | chance: 70
+- R | skip the day's work or school and head up into the hills | land: R | v: hedonism, stimulation | lever: exit | opens: trail_running | foot: means freedom+.03 | chance: 65
+- G | plant something in the warm soil, and wait to see what comes | land: G | v: tradition, universalism | lever: loyalty | foot: place prod.land | chance: 85
+- W>U | volunteer for the spring bird count the naturalists hold every year | land: W | v: conformity, self-direction | lever: loyalty | opens: wildlife_survey | foot: person mentor | chance: 78
+- U>B | work out which crops to start early, and sell the first seedlings in town | land: U | v: achievement, self-direction | lever: found | foot: means money+.03 | chance: 60
+- B>R | race {colleague} up the hill at lunch, and the loser buys the ices | land: B | v: power, stimulation | lever: lead | foot: person colleague | chance: 65
+- R>G | throw off the coat and lie in the long grass by the river all afternoon | land: R | v: hedonism, universalism | lever: neglect | foot: means health+.02 | chance: 80
+- G>W | gather the street to sow wildflowers and bulbs along the verge | land: G | v: universalism, benevolence | lever: found | opens: wildflower_meadow | foot: means ties+.04 | chance: 75
+works: The warmth gets into {N} and stays all week, and winter feels like something that happened to someone else.
+works: By evening {N} has sun on the face and soil under the nails, and is hopeful about everything.
+fails: By afternoon the clouds are back and the cold with them, and the spring was only a rumour.
+fails: {N} spends the warm day indoors after all, watching it through the window, and minds more than expected.
+
+# ---------------------------------------------------------------- wild_animal (cycle 2: W>B B>G G>U U>R R>W)
+
+== the wild thing on the path
+tier: life event
+land: wild_animal
+stages: child juvenile young_adult adult mature elder
+age: 5-90
+per_year: .25 .25 .25 .25 .25 .25
+tone: joy
+life: nature, leisure
+horizon: moment
+roles: friend, parent, sibling, elder
+earth: a fox, a deer, a heron or an owl crossing the path at dusk on the edge of town
+tribal: a fox, an elk, a heron or an owl crossing the path at dusk beyond the camp
+magic: a fox, a stag, a heron or an owl crossing the path at dusk, with eyes that seem to know you
+scene: At dusk, on the edge of town, something wild steps onto the path ahead: a fox, or a deer, or a heron lifting off the ditch. It stops and looks at {N}, and for a moment neither of them moves.
+scene W: {N} has heard that the town keeps a count of its wild animals, and this one should be on it.
+scene U: It is a long way from where its kind should be, and {N} wonders why.
+scene B: {N} has the camera ready, and the light is perfect.
+scene R: It turns and slips into the hedge, and {N} wants to go after it.
+scene G: It has not run yet. If {N} stays perfectly still, it might not.
+scene tribal: At dusk, beyond the last fire, an elk steps out of the trees and stands in the path. The clan has stories about such meetings, and {N} remembers all of them at once.
+scene magic: An owl lands on the gatepost at dusk and turns its head to look at {N}, slow and certain. The old ones say such creatures carry messages, if anyone stays still enough to hear.
+- W | send what you saw, and where and when, to the town's wildlife count | land: W | v: conformity, universalism | lever: voice | foot: place learn.keeping | chance: 85
+- U | find out where it lives and why it came this far into town | land: U | v: self-direction | lever: loyalty | foot: mark learned a skill | chance: 72
+- B | wait as long as it takes for the photo everyone will want to see | land: B | v: achievement | lever: voice | foot: place arts.craft | chance: 50
+- R | follow it into the hedge and along the ditch, as far as it goes | land: R | v: stimulation, self-direction | lever: exit | foot: place prod.wild | chance: 60
+- G | stay perfectly still and let it go on its way | land: G | v: universalism | lever: neglect | foot: lesson the wild does not need us | chance: 88
+- W>B | write it up for the town newsletter, with your own name under it | land: W | v: conformity, achievement | lever: voice | foot: means ties+.03 | chance: 65
+- B>G | ask the landowner to leave its hedge uncut, and promise to keep watch | land: B | v: power, universalism | lever: voice | foot: door kept your word | chance: 55
+- G>U | ask {elder} what the old folk said it means when one crosses your path | land: G | v: tradition, self-direction | lever: voice | foot: person elder | chance: 80
+- U>R | sit up at the window with a torch and notebook to see if it returns | land: U | v: self-direction, stimulation | lever: found | foot: means time-.03 | chance: 60
+- R>W | gather {friend} and the others for a dusk walk to look for it, all together | land: R | v: stimulation, benevolence | lever: lead | foot: person friend | chance: 75
+works: It holds {Ns} eye for a long moment, then goes, and {N} carries that look for days.
+works: {N} tells everyone about it that evening, and the telling makes it bigger, and it was already big.
+fails: It is gone before {N} can even be sure what it was.
+fails: A dog barks somewhere and it bolts, and the moment breaks before it has begun.
+
+# ---------------------------------------------------------------- night_sky (cycle 1: W>U U>B B>R R>G G>W)
+
+== the night full of stars
+tier: life event
+land: night_sky
+stages: juvenile young_adult adult mature elder
+age: 12-90
+per_year: 0 .25 .25 .25 .25 .25
+tone: joy
+life: nature, friends
+horizon: moment
+roles: friend, partner, sibling, neighbour
+earth: a clear night away from the street lamps, and more stars than seemed possible
+tribal: a clear night on the open plain, with the whole sky lit from edge to edge
+magic: a clear night on the tower's roof, where the old star charts were drawn
+scene: The night is clear and cold and moonless, and past the last street lamp the sky is thick with stars, more than {N} knew were there. A faint band of light runs right across it.
+scene W: {friend} and the others are inside, and they are missing this.
+scene U: One bright point is not twinkling, which means it is a planet, but which one?
+scene B: People in the city would pay good money for a night like this.
+scene R: The grass is dry, the night is mild enough, and there is a sleeping bag in the cupboard.
+scene G: The longer {N} looks, the further away everything gets, {N} included.
+scene tribal: On the open plain the whole sky is lit from edge to edge, and the fire is only a small thing under it. The elders say the first hunters are up there, keeping watch.
+scene magic: On the tower roof, where the old star charts were drawn, the night is clear for the first time in weeks. The great lens is under its cover, and {N} does not need it.
+- W | go back in and bring everyone out to see it | land: W | v: benevolence | lever: voice | foot: means ties+.03 | chance: 85
+- U | learn to name the stars and planets, with a chart and a torch | land: U | v: self-direction | lever: loyalty | foot: mark learned a skill | chance: 75
+- B | plan a dark-sky weekend for paying guests in the top field | land: B | v: achievement, power | lever: voice | opens: campsite | foot: means money+.03 | chance: 55
+- R | drag a sleeping bag outside and sleep under it till dawn | land: R | v: stimulation, hedonism | lever: exit | foot: means freedom+.03 | chance: 75
+- G | lie back in the grass and let yourself feel very small | land: G | v: universalism | lever: neglect | foot: lesson troubles shrink under the sky | chance: 88
+- W>U | go along to the astronomy society's open night and look through their telescope | land: W | v: conformity, self-direction | lever: loyalty | foot: place gather.hall | chance: 78
+- U>B | work out when the meteor shower peaks and enter the best photograph in the club's contest | land: U | v: achievement, self-direction | lever: lead | foot: place arts.craft | chance: 55
+- B>R | bet {friend} you can stay out on the hill all night without going in | land: B | v: power, stimulation | lever: subvert | foot: person friend | chance: 62
+- R>G | climb the hill in the dark with no torch, and let your eyes find the way | land: R | v: stimulation, universalism | lever: exit | foot: place prod.wild | chance: 60
+- G>W | ask the council to turn the lane's lamps off after midnight, so everyone has this | land: G | v: universalism, conformity | lever: voice | foot: place rule.voice | chance: 50
+works: {N} goes in at last with a stiff neck and a quiet head, and the stars are still there behind the eyes.
+works: Somewhere in the hour on the grass a trouble shrinks to its proper size, and {N} sleeps well.
+fails: Cloud rolls in within minutes, and the sky closes like a lid.
+fails: It is too cold to stay out long, and {N} goes in before the eyes have even adjusted.
+
+# ---------------------------------------------------------------- foraging (cycle 2: W>B B>G G>U U>R R>W)
+
+== the autumn hedges
+tier: life event
+land: foraging
+stages: juvenile young_adult adult mature elder
+age: 12-90
+per_year: 0 .25 .25 .25 .25 .25
+tone: joy
+life: nature, friends
+horizon: moment
+roles: friend, grandparent, neighbour
+earth: an autumn afternoon along the hedges and the edge of the wood, with a basket
+tribal: an autumn afternoon in the hazel thickets, gathering for the cold months
+magic: an autumn afternoon in the old wood below the tower, where the herb-wives gather
+scene: Autumn, and the hedges are heavy with it: sloes, rosehips, hazelnuts, the last brambles, mushrooms pushing up through the leaves. {N} has a basket and an afternoon and nobody waiting.
+scene W: {grandparent} always said it: never more than a third, and leave the rest for the birds and the next one along.
+scene U: There is a cluster of mushrooms at the foot of the oak, and {N} is nearly sure what they are. Nearly.
+scene B: The new restaurant in town pays well for wild things, and {N} knows where the best ones grow.
+scene R: There is one bush loaded with fruit, and nobody else has found it yet.
+scene G: {N} only needs enough for tonight, and the hedge has more than enough.
+scene tribal: The hazel thickets are full, and the band has gone out to gather for the cold months. {N} knows the old rule, and knows the best tree.
+scene magic: The herb-wives gather in the old wood below the tower each autumn, and this year {N} goes with a basket of their own. The wood is generous, and watching.
+- W | pick by the old rule, never more than a third of any bush | land: W | v: tradition, conformity | lever: loyalty | foot: place prod.wild | chance: 85
+- U | learn properly which mushrooms are safe, from someone who really knows | land: U | v: self-direction, security | lever: loyalty | opens: forage_guide | foot: person mentor | chance: 75
+- B | fill the basket to sell to the restaurants in town | land: B | v: achievement | lever: voice | foot: means money+.03 | chance: 65
+- R | strip the best bush bare before anyone else gets to it | land: R | v: hedonism, stimulation | lever: subvert | foot: person rival | chance: 70
+- G | take only what you will eat today, and leave the rest on the branch | land: G | v: universalism, tradition | lever: neglect | opens: forage_guide | foot: lesson enough is plenty | chance: 88
+- W>B | get the picking permit from the estate and gather their woods by the book, to sell | land: W | v: conformity, achievement | lever: loyalty | foot: person keeper | chance: 60
+- B>G | trade a jar of your jam to {neighbour} for the secret of their best spot | land: B | v: power, tradition | lever: fund | foot: person neighbour | chance: 70
+- G>U | ask {grandparent} for the old hedge recipes, and cook every one of them this week | land: G | v: tradition, self-direction | lever: voice | foot: mark learned a skill | chance: 78
+- U>R | make syrups, jellies and cordials, and try every strange recipe in the book | land: U | v: self-direction, stimulation | lever: found | foot: means time-.04 | chance: 62
+- R>W | lead {friend} and a gang on a hedge raid, then share it all out fairly | land: R | v: stimulation, benevolence | lever: lead | foot: person friend | chance: 75
+works: {N} comes home with a full basket and scratched hands, and the kitchen smells of autumn all evening.
+works: The jars line up on the shelf, and every one of them is an afternoon {N} can remember.
+fails: The best spots have been picked clean already, and the basket comes home nearly empty.
+fails: A cold rain comes in, and {N} turns back with damp sleeves and a handful of sour sloes.

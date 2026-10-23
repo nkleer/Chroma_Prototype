@@ -1,0 +1,301 @@
+# Chroma library, modern Earth: NATURE MOMENTS, writer D (spec chroma-world/spheres/land-moments-v1.md, brief
+# chroma-ideas/v25-prep/library/briefs/NATURE.md, 10-21). Poured into the Library 10-23.
+#   Phase 2 decisions (tier: decision, cast_want: decide, five seeds, no crosses, no footprints):
+#      save_the_wood (rule), drain_the_marsh (prod), open_a_quarry (prod), plant_trees (gather), water_rule (rule),
+#      flood_defence (rule)
+#   Together moments (five seeds and one cross cycle, a scene with line for every company kind):
+#      sunset (s1), campfire_night (s2), fishing_with_elder (s1)
+
+# ================================================================ phase 2 decisions
+
+== the builder and the old wood
+tier: decision
+land: save_the_wood
+cast_want: decide
+sphere: rule
+stages: adult mature elder
+age: 25-90
+tone: mixed
+life: nature, community
+horizon: years
+roles: colleague, rival, neighbour, elder
+earth: a builder wants the old wood at the edge of town for homes, and the committee {N} chairs must answer
+tribal: a neighbouring band wants the old grove cleared for a winter camp, and the council at the fire must answer
+magic: a guild of builders wants the old wood below the tower for a new quarter, and the town council must answer
+scene: The wood at the edge of town is older than any street in it, and half the town learned to walk on its paths. A builder has bought the rights to it and wants to put up homes, and the list of families waiting for a house is long. The planning committee, which {N} now chairs, must give its answer, and protesters are already camping under the trees.
+scene tribal: A neighbouring band wants the old grove cleared for its winter camp, and offers furs and friendship for it. {elder} says the grove has sheltered the band since before the oldest telling.
+scene magic: The builders' guild wants the old wood below the tower for a new quarter of the town, and the wood's keepers have come to the council to speak against it.
+- W | put the wood under the town's protection, for good | land: W | v: universalism, security | scope: town_sphere | lever: voice | chance: 65
+- U | allow homes on half the wood, by a careful plan that keeps the oldest trees | land: U | v: achievement, security | scope: place | lever: voice | chance: 70
+- B | sell the wood for the homes and the money they bring | land: B | v: power, achievement | scope: place | lever: exit | chance: 75
+- R | join the protesters' camp under the trees and let the plan wait | land: R | v: stimulation, self-direction | scope: place | lever: subvert | chance: 50
+- G | let it grow on into the town's own wild wood, open to everyone | land: G | v: universalism, tradition | scope: town_sphere | lever: voice | chance: 60
+works: The answer holds, and a year on even some who argued against it say the town chose well.
+works: {colleague} says it is the clearest ruling the committee has made in years.
+fails: The builder appeals, and the wood waits behind a fence while the lawyers take their time.
+fails: {rival} says the committee decided before it listened, and the next meeting is packed and angry.
+
+== the marsh below the town
+tier: decision
+land: drain_the_marsh
+cast_want: decide
+sphere: prod
+stages: adult mature elder
+age: 25-90
+tone: mixed
+life: nature, work
+horizon: years
+roles: colleague, rival, neighbour, elder
+earth: the marsh below the town could be drained for fields, and the farmers' board {N} chairs must decide
+tribal: the wet meadow where the band cuts reeds could be dried out for planting, and the council at the fire must decide
+magic: the fen below the tower could be drained for new fields, and the growers' council {N} sits on must decide
+scene: Below the town the marsh spreads out in reeds and standing water, full of birds in spring and mist in autumn. The farmers want it drained for good fields; others say it is what holds the river back from the houses in a wet winter. The farmers' board, which {N} chairs, has to say what happens to it.
+scene tribal: The wet meadow gives the band its reeds for roofs and baskets, but the young ones say it could feed twice as many if it were dry. {elder} remembers the year the water came all the way to the fires.
+scene magic: The fen below the tower is said to be where the river spirits rest, and the growers want it dry by next spring.
+- W | drain only the parts the commoners agree to, field by field | land: W | v: conformity, universalism | scope: place | lever: voice | chance: 65
+- U | drain it properly, with ditches and pumps, to an engineer's plan | land: U | v: achievement, security | scope: place | lever: voice | chance: 70
+- B | drain the marsh and sell off the new fields | land: B | v: power, achievement | scope: place | lever: exit | chance: 75
+- R | refuse outright, and say so loudly to the whole board | land: R | v: self-direction, stimulation | scope: place | lever: voice | chance: 55
+- G | let the water back onto the old drained fields instead | land: G | v: universalism, tradition | scope: town_sphere | lever: subvert | chance: 50
+works: The decision stands, and by the next wet winter the town can see what it chose.
+works: {elder} stops {N} in the street to say the board has done right by the valley.
+fails: The farmers and the walkers both feel cheated, and the letters keep coming to {Ns} door.
+fails: {rival} gets the decision sent back for review, and the marsh waits another year in the old muddle.
+
+== the stone under the hill
+tier: decision
+land: open_a_quarry
+cast_want: decide
+sphere: prod
+stages: adult mature elder
+age: 25-90
+tone: mixed
+life: nature, work
+horizon: years
+roles: colleague, rival, neighbour, elder
+earth: there is good stone under the hill field, a company wants to quarry it, and the board {N} chairs must decide
+tribal: there is flint under the far ridge, a trading band wants to dig it, and the council at the fire must decide
+magic: there is star-iron under the hill, the miners' guild wants to dig it, and the council {N} sits on must decide
+scene: Under the hill field, the survey says, there is stone enough for a working lifetime. The company promises jobs and a new road; the walkers and the families on the lane say a quarry is a wound that takes generations to close. The board, which {N} chairs, has the final say.
+scene tribal: The traders say the flint under the far ridge would make the band rich in blades for a generation. {elder} says the ridge is where the band's dead look out over the valley.
+scene magic: The miners' guild has found star-iron under the hill, enough to arm the realm, and the hill folk have come down to ask that it be left alone.
+- W | open it, with binding rules for putting the land right after | land: W | v: conformity, security | scope: town_sphere | lever: voice | chance: 65
+- U | open it, and plan now for the lake it will leave behind | land: U | v: achievement, self-direction | scope: place | lever: voice | chance: 70
+- B | open the quarry and sell the stone to whoever pays best | land: B | v: power, achievement | scope: place | lever: exit | chance: 75
+- R | block it with a snap vote before the company can win anyone over | land: R | v: self-direction, stimulation | scope: town_sphere | lever: subvert | chance: 50
+- G | keep the hill closed, as it has always been | land: G | v: tradition, universalism | scope: place | lever: voice | chance: 65
+works: The board's answer holds, and the town settles into it sooner than anyone expected.
+works: {colleague} says nobody could have weighed it more fairly, and says so at the next meeting too.
+fails: The company appeals, and the hill sits under a cloud of lawyers' letters for a year.
+fails: {rival} says the board was bought one way or the other, and enough people believe it to make the next meeting hard.
+
+== the planting scheme
+tier: decision
+land: plant_trees
+cast_want: decide
+sphere: gather
+stages: adult mature elder
+age: 25-90
+tone: mixed
+life: nature, community
+horizon: years
+roles: colleague, rival, neighbour, elder
+earth: a scheme to plant trees on the town's bare land is on the table, and the group {N} leads must choose how
+tribal: the elders want new trees where the old grove was cut for fuel, and the council at the fire must choose how
+magic: the realm's foresters offer young trees for the bare hills, and the town council {N} sits on must choose how
+scene: There is money and goodwill for a new wood on the bare land past the playing fields, and a long list of people ready to dig. But every tree planted is land that is not grazed, built on or played on, and the trees will take a lifetime to look like a wood. The planting group, which {N} leads, must decide how it is done.
+scene tribal: The old grove was cut for fuel in the long winters, and now the hillside slides when it rains. {elder} has kept seeds from the last of the old trees.
+scene magic: The realm's foresters have sent carts of young trees for the bare hills, and every family in town has an opinion on where they should go.
+- W | plant the town's memorial wood, a tree for every family who asks | land: W | v: tradition, benevolence | scope: town_sphere | lever: loyalty | chance: 75
+- U | plant only where the flood maps say trees will hold back the water | land: U | v: achievement, security | scope: place | lever: voice | chance: 70
+- B | plant fast timber that can be sold once it is grown | land: B | v: power, achievement | scope: place | lever: exit | chance: 70
+- R | call out the volunteers and plant everywhere, this weekend | land: R | v: stimulation, self-direction | scope: town_sphere | lever: subvert | chance: 55
+- G | fence the land off and let the wood seed itself | land: G | v: universalism, tradition | scope: place | lever: voice | chance: 65
+works: The first spring the young trees come through, and people walk out of town just to look at them.
+works: {neighbour} says it is the first plan in years that the whole street turned out for.
+fails: A dry summer takes half the young trees, and the arguments start again over what was done wrong.
+fails: {rival} says the group never asked the people who use the land, and the meeting turns sour.
+
+== who gets the water
+tier: decision
+land: water_rule
+cast_want: decide
+sphere: rule
+stages: adult mature elder
+age: 25-90
+tone: mixed
+life: nature, community
+horizon: years
+roles: colleague, rival, neighbour, elder
+earth: a dry summer has left the reservoir low, and the committee {N} chairs must say who gets the water
+tribal: the spring is failing in a dry year, and the council at the fire must say who draws first
+magic: the tower's cistern is running low in a dry year, and the council {N} sits on must say who draws from it
+scene: It has not rained properly in months, the reservoir is lower than anyone has seen it, and the river is a trickle between stones. The farms, the workshops and the houses all want more than there is. The committee, which {N} chairs, has to say who gets the water and who goes short.
+scene tribal: The spring that feeds the camp is down to a slow drip, and the herders and the families are already quarrelling at it. {elder} says there is an old way of sharing, if anyone still wants it.
+scene magic: The tower's cistern is low, the rain charms have failed, and the merchants, the farmers and the poor quarter have each sent someone to the council.
+- W | give every household the same share, with no exceptions | land: W | v: universalism, conformity | scope: town_sphere | lever: voice | chance: 65
+- U | put in meters and price the water by how much is used | land: U | v: achievement, security | scope: town_sphere | lever: voice | chance: 65
+- B | serve those who pay the most first | land: B | v: power, achievement | scope: town_sphere | lever: voice | chance: 70
+- R | open the reservoir now and deal with what comes later | land: R | v: hedonism, stimulation | scope: town_sphere | lever: subvert | chance: 55
+- G | let the river take its share first, then share out the rest | land: G | v: universalism, tradition | scope: place | lever: loyalty | chance: 60
+works: The rule is hard, but it holds, and the town gets to the autumn rain without a fight.
+works: {neighbour} says the committee did the fairest thing it could, and most of the street agrees.
+fails: Someone is always found taking more than their share, and the committee spends the summer chasing them.
+fails: {rival} says the committee chose its own friends first, and the complaint will not go away.
+
+== what to build after the flood
+tier: decision
+land: flood_defence
+cast_want: decide
+sphere: rule
+stages: adult mature elder
+age: 25-90
+tone: mixed
+life: nature, community
+horizon: years
+roles: colleague, rival, neighbour, elder
+earth: the river came through the town last winter, and the committee {N} chairs must decide what to build against the next one
+tribal: the river took the low camp in the last wet season, and the council at the fire must decide what to raise against it
+magic: the river burst its banks below the tower last winter, and the council {N} sits on must decide what to raise against the next flood
+scene: Last winter the river came over the old wall and into the low streets, and the marks are still on the doors. There is money for one big answer, and everybody has a different one. The committee, which {N} chairs, has to choose.
+scene tribal: The river took the low camp in the last wet season, and the band has been sleeping on the ridge since. {elder} says the river was there first, and the camp should remember it.
+scene magic: The river burst its banks below the tower last winter, and now the wizards, the masons and the river folk each say they know how to stop it.
+- W | build the wall the town voted for, just as it voted | land: W | v: conformity, security | scope: town_sphere | lever: loyalty | chance: 70
+- U | model the river first, and build only where it pays back | land: U | v: achievement, security | scope: place | lever: voice | chance: 65
+- B | protect the shops and offices in the town centre first | land: B | v: power, security | scope: place | lever: exit | chance: 70
+- R | tear down the old wall and start again from nothing | land: R | v: self-direction, stimulation | scope: town_sphere | lever: subvert | chance: 50
+- G | give the river room, and let the low meadows flood | land: G | v: universalism, tradition | scope: place | lever: voice | chance: 60
+works: The next wet winter comes, and the low streets stay dry enough for the town to breathe again.
+works: {elder} says it is the first time in a long life that the town has planned for the river instead of arguing with it.
+fails: The work runs late and over budget, and the next high water arrives before it is done.
+fails: {rival} says the committee protected the wrong streets, and the people in the others are not quick to forget.
+
+# ================================================================ together moments
+
+# ---------------------------------------------------------------- sunset (cycle s1)
+
+== the sun going down
+tier: life event
+land: sunset
+stages: child juvenile young_adult adult mature elder
+age: 5-90
+per_year: .5 .5 .5 .5 .5 .5
+tone: joy
+life: nature, leisure
+horizon: moment
+roles: friend, partner, parent, grandparent, sibling, child
+with: alone, friend, partner, kin, stranger, witness
+earth: a clear evening by the water or on a hill, and the sun goes down slowly over the far side
+tribal: a clear evening on the hill above the camp, and the sun goes down behind the hunting grounds
+magic: a clear evening on the old walls, and the sun goes down behind the tower and lights every window in it
+scene: It is a clear evening, and {N} has stopped where the land opens out, by the water or on the hill. The sun goes down slowly, and for a few minutes everything on the far side glows like coals.
+scene W: {N} has watched it from this same spot before, and likes that the spot is still here.
+scene U: {N} wonders why the light changes so fast at the very end, and where it goes.
+scene B: The quiet makes {N} brave, and there is something {N} has been meaning to say for weeks.
+scene R: {N} wants to chase it, to be somewhere higher or further out when it finally goes.
+scene G: {N} lets the evening be what it is, and does not reach for anything.
+scene with alone: {N} is alone on the bench by the water, with nobody to talk to and nothing to do but watch. The gulls go quiet one by one.
+scene with friend: {N} and {with} walked up the hill without meaning to stay, and now neither wants to leave. They sit on the stile with their knees drawn up and talk less and less as the light goes.
+scene with partner: {N} and {with} sit on the sea wall with their shoulders touching while the sun goes down behind the far headland. {with} says something about it, and {N} realises they were both thinking the same thing.
+scene with kin: {N} and {with} are on the way home along the river path when the sky catches, and they both stop without being asked. It is the kind of evening the family will bring up again years later.
+scene with stranger: A walker with a dog stops at the rail beside {N}, and for a minute they are the only two people looking out at it. "Worth the climb," the walker says.
+scene with witness: On the next bench an old man is feeding the swans as the sun goes, talking to them softly, the way he must every evening. {N} ends up watching him more than the sky.
+scene tribal: {N} sits on the hill above the camp as the sun goes down behind the hunting grounds. Below, the first fires are being lit.
+scene magic: From the old walls {N} watches the sun go down behind the tower, and for a moment every window in it burns at once.
+- W | make the bench by the water a regular spot: the same one, every week | land: W | v: tradition, security | lever: loyalty | foot: place prod.wild | chance: 85
+- U | puzzle out why the sky turns to fire at the end of the day | land: U | v: self-direction | lever: loyalty | foot: lesson light bends at the day's edge | chance: 80
+- B | use the quiet to ask what you have been waiting weeks to ask | land: B | v: achievement, self-direction | lever: voice | with_only: friend, partner, kin | foot: means ties+.03 | chance: 60
+- R | hurry out to the point to catch the very last of it | land: R | v: stimulation, hedonism | lever: exit | foot: means time-.03 | chance: 75
+- G | say nothing at all, and just watch it go | land: G | v: universalism, tradition | lever: neglect | foot: lesson some things need no words | chance: 90
+- W>U | note the time and the sky from the same spot every evening for a year | land: W | v: conformity, self-direction | lever: loyalty | foot: door kept your word | chance: 65
+- U>B | study the light until your pictures of it are the best anyone has taken | land: U | v: achievement, self-direction | lever: lead | foot: mark learned a skill | chance: 55
+- B>R | race to the top of the hill for the widest view around | land: B | v: achievement, stimulation | lever: exit | foot: means health+.03 | chance: 75
+- R>G | kick off your shoes and feel the cool ground as the light goes | land: R | v: hedonism, universalism | lever: neglect | foot: means freedom+.02 | chance: 85
+- G>W | pick up the litter along the path on the way back down | land: G | v: universalism, benevolence | lever: loyalty | foot: place prod.wild | chance: 85
+works: The light goes slowly, and {N} walks home lighter than the day deserved.
+works: Years later {N} still remembers this one evening out of hundreds.
+fails: A bank of cloud rolls in from nowhere, and the sun goes out like a lamp before it reaches the hills.
+fails: {N} is too full of the day to see it, and only notices once it is dark.
+
+# ---------------------------------------------------------------- campfire_night (cycle s2)
+
+== the fire on the shore
+tier: life event
+land: campfire_night
+stages: juvenile young_adult adult mature elder
+age: 12-90
+per_year: 0 .25 .25 .25 .25 .25
+tone: joy
+life: nature, friends
+horizon: moment
+roles: friend, group, parent, grandparent, sibling, child, elder
+with: friend, group, kin
+earth: a summer night by a fire in the wood or on the shore, with sparks going up into the dark
+tribal: a summer night at the gathering fire, the whole band round it and the drums kept low
+magic: a summer night by a fire at the wood's edge, where the sparks drift too long before they go out
+scene: It is a summer night, and the fire is going well in a ring of stones at the edge of the trees. The sparks go up into the dark, someone has brought too much food, and nobody wants to be the first to go home.
+scene W: There are songs that are always sung at this fire, and {N} knows every word.
+scene U: Above the trees the stars are out, more of them than {N} ever sees in town.
+scene B: {N} has a story ready, and it is a good one, especially the part {N} is in.
+scene R: {N} has no intention of sleeping tonight.
+scene G: The fire ticks and settles, and behind it the wood is full of small sounds.
+scene with friend: {N} and {with} have dragged driftwood up the beach all evening, and now the fire is theirs. They lie back on the sand with their feet towards it, talking about nothing, then about everything.
+scene with group: {group} has the fire going by the time {N} arrives, and a space opens in the circle without anyone asking. Someone passes a mug of tea, someone starts a song, and the night settles in.
+scene with kin: {N} and {with} sit by the fire the family always builds on the first warm night, in the same ring of stones as every year. {with} pokes it with the same old stick and tells the same old story about the summer it rained.
+scene tribal: The whole band sits round the gathering fire with the drums kept low, and {elder} begins the long telling that only comes out in summer.
+scene magic: At the wood's edge the fire burns quietly, and its sparks drift too long before they go out, as if the trees were watching them.
+- W | keep the old fire songs going, verse after verse | land: W | v: tradition, conformity | lever: loyalty | foot: place arts.song | chance: 85
+- U | tell the story behind the stars overhead, the way the old ones told it | land: U | v: self-direction, tradition | lever: loyalty | foot: lesson the sky keeps the old tales | chance: 75
+- B | tell the tale where you come out the hero, and tell it well | land: B | v: achievement, power | lever: voice | foot: lesson a good story grows with telling | chance: 70
+- R | stay by the fire until the sun comes up | land: R | v: stimulation, hedonism | lever: subvert | foot: means freedom+.02 | chance: 70
+- G | let the fire burn down and listen to the wood around you | land: G | v: universalism, tradition | lever: loyalty | foot: means health+.03 | chance: 85
+- W>B | promise to host next summer's fire, and make it the best one yet | land: W | v: tradition, achievement | lever: found | foot: door kept your word | chance: 70
+- B>G | pay the woodsman for proper firewood instead of breaking live branches | land: B | v: achievement, universalism | lever: fund | foot: means money-.03 | chance: 80
+- G>U | sit back from the light and learn which owl is calling | land: G | v: universalism, self-direction | lever: loyalty | foot: mark learned a skill | chance: 70
+- U>R | read the map and lead everyone down to the shore by moonlight | land: U | v: self-direction, stimulation | lever: exit | foot: place prod.wild | chance: 70
+- R>W | pull everyone up to dance round the fire, the shy ones too | land: R | v: stimulation, benevolence | lever: lead | foot: means ties+.04 | chance: 75
+works: The fire burns down to a glow, and the night is one {N} will tell for years.
+works: By the end of the night the circle feels closer than it did at the start, and nobody needs to say so.
+fails: A wind gets up off the water, the smoke follows {N} round the circle, and the night breaks up early.
+fails: Rain comes over the trees just as the fire gets going, and everyone runs for cover.
+
+# ---------------------------------------------------------------- fishing_with_elder (cycle s1)
+
+== a morning's fishing with an old hand
+tier: life event
+land: fishing_with_elder
+stages: child juvenile young_adult adult mature elder
+age: 8-90
+per_year: .25 .25 .25 .25 .25 .25
+tone: joy
+life: nature, family
+horizon: moment
+roles: grandparent, parent, elder, neighbour, friend
+with: kin, friend
+earth: an early morning on the riverbank with someone who has fished this water all their life
+tribal: an early morning at the fish weir with the oldest fisher of the band
+magic: an early morning on the lake below the tower, with an old fisher who says the water knows her name
+scene: The mist is still lying on the water when {N} and the old hand set up on the bank. The old hand has fished this stretch for longer than {N} has been alive, and moves without hurrying, as if the river will wait.
+scene W: Every knot has a right way, and the old hand shows it slowly, twice.
+scene U: The old hand keeps talking about how the river used to be, and {N} wants to know more.
+scene B: There is a big one in the deep pool, and the fish stall in town pays well for a fish like that.
+scene R: The best water is out past the reeds, where the old hand never goes.
+scene G: The fish on {Ns} line is beautiful, and still very much alive.
+scene with kin: {N} goes out with {with}, who has fished this bend of the river since before {N} was born. They are on the bank before the rest of the family is up, a flask between them, and {with} hands over the second rod without a word.
+scene with friend: {N} and {with} tag along with {elder}, who has fished this bend of the river for as long as anyone in the lane remembers. {elder} sets them up side by side on the bank, tells them to keep their voices down, and then talks the whole morning.
+scene tribal: At the fish weir {elder}, the oldest fisher of the band, shows {N} how the stakes are set so the river keeps some fish for next year.
+scene magic: On the lake below the tower an old fisher lets {N} hold the line, and says the water only gives to those who ask it properly.
+- W | learn the old hand's knots one by one, and tie them the old way | land: W | v: tradition, conformity | lever: loyalty | opens: angling_club | foot: mark learned a skill | chance: 80
+- U | ask how the river has changed since they were young | land: U | v: self-direction, universalism | lever: voice | opens: water_testing | foot: lesson rivers remember what people forget | chance: 85
+- B | keep the big one to show everyone at home | land: B | v: achievement, power | lever: exit | opens: catch_to_sell | foot: lesson a good catch gets talked about | chance: 65
+- R | wade out past the reeds, further than the old hand would go | land: R | v: stimulation, self-direction | lever: subvert | foot: means freedom+.03 | chance: 60
+- G | slip the fish back into the water and watch it go | land: G | v: universalism, benevolence | lever: neglect | foot: lesson some catches are for letting go | chance: 90
+- W>U | keep a catch book of every fish, the weather and the water, like the old hand | land: W | v: tradition, self-direction | lever: loyalty | foot: door learned a skill | chance: 70
+- U>B | learn which pools hold the big fish, and keep the spots to yourself | land: U | v: achievement, power | lever: lead | foot: door kept it hidden | chance: 65
+- B>R | save up for a proper rod of your own and fish on your own terms | land: B | v: achievement, self-direction | lever: fund | foot: means money-.03 | chance: 70
+- R>G | lie back on the bank with the line out and let the morning drift | land: R | v: hedonism, universalism | lever: neglect | foot: means health+.03 | chance: 85
+- G>W | help clear the bank of old line and litter before heading home | land: G | v: universalism, benevolence | lever: loyalty | opens: restore_river | foot: place prod.wild | chance: 85
+works: The morning goes slowly and well, and {N} carries home more than a fish.
+works: The old hand says {N} has the knack, and says it again to the family that evening.
+fails: Nothing bites all morning, and the mist never lifts.
+fails: {N} tangles the line in the reeds and spends the best hour of the morning undoing it.
