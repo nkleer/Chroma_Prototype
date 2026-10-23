@@ -13,6 +13,12 @@ from story_base import LIB_ECHO, LIB_GONE, PERSON_SLOTS
 from game_base import F
 
 
+# v25 land row: the weeks between nature moments asked as life events; None: never (each comes as an everyday moment).
+# Measured on presets 1 to 4, seeds 1 and 2, all of v25 on, against v24's 1.08 asks a year: None 1.15 (+6%, nature
+# moments almost never asked), 10 years 1.23 (+14%, 0.09 asked a year), as life events 1.25 (+16%, 0.25 a year).
+# Release's AM4 reads asks a year within 10% of v24, so None it is until that budget changes.
+LAND_ASK_GAP = None
+
 class CheckpointsMixin:
     def _light_steer(self, loc, cp, c):
         """P3: a light steer toward color c. Their own pick is drawn again with the steer added to each option's pull, as
@@ -65,6 +71,11 @@ class CheckpointsMixin:
         conflict = seen.any() and int(np.argmax(np.where(seen, U_R, -np.inf))) != int(np.argmax(np.where(seen, U_I, -np.inf)))
         return stakes + 0.4 * commit + 0.3 * rite + 0.3 * conflict
 
+    def _land_moment(self, s):
+        """Whether moment s is one of the Library's nature moments (its batch source has a land: key)."""
+        src = self.L.get("src")
+        return isinstance(src, list) and 0 <= s < len(src) and isinstance(src[s], dict) and bool(src[s].get("land"))
+
     def _checkpoint(self, t, loc, a):
         recon = bool(loc["recon"][0])
         s = int(loc["s"][0])
@@ -92,7 +103,11 @@ class CheckpointsMixin:
         elif GAME["rung_ask"] and self._rung_here(loc, s) and t - self._last_seen.get(s, -10 ** 6) >= again // 2:
             pass                                        # v22.5 proposal: the next rung of a pack career or a summit is asked
         elif GAME["aim_forks"] and self.fork_fresh(loc, self.fork_now(loc, s), s):
-            pass                                        # v25: a new or urgent fork on a held aim is always put to the player
+            self._v25_owed = self.__dict__.get("_v25_owed", 0) + 1   # v25: a due or urgent fork on a held aim is
+            # always put to the player, in the place of the next everyday ask (the Engine's protocol: it replaces one)
+        elif GAME["clash_card"] and self.clash_card(loc, s) is not None:
+            self._v25_owed = self.__dict__.get("_v25_owed", 0) + 1   # v25: a clash the Engine carries on its own moment,
+            # likewise in the place of the next everyday ask
         elif ret is not None:
             pass                                        # Picks come back: a return is always put to the player
         elif GAME["bold"] and self._bold_forced(t, s):
@@ -101,6 +116,10 @@ class CheckpointsMixin:
             # v6: life events are rare and come at real rates, so they are the big moments to offer the player; everyday
             # situations fill most weeks, and each one waits longer every time it has been a checkpoint (variety)
             life = "had_ev" in loc and bool(loc["had_ev"][0]) and int(loc["s_ev"][0]) == s
+            if (life and GAME["land_row"] and self._land_moment(s)
+                    and (LAND_ASK_GAP is None or t - self.__dict__.get("_land_asked", -10 ** 6) < LAND_ASK_GAP)):
+                life = False                    # v25: a nature moment comes as a life event at most once in LAND_ASK_GAP
+                # (else as an everyday one), so the land's moments (about one a year) keep asks a year near v24's (AM4)
             sh = self._sit_share.get(self.L["names"][s])
             rare = GAME["rare_ask"] and s not in self._cp_n and sh is not None and sh < RARE_SHARE
             # v24 asks: what matters to them now (an aim's next step, a need they lack, the people in their life) weighs
@@ -129,11 +148,16 @@ class CheckpointsMixin:
             if GAME["returns"] and s in self._cp_n and self.__dict__.get("_ret_owed", 0) > 0:
                 self._ret_owed -= 1
                 return None                     # Picks come back: a return took this repeat's place: told, not asked
+            if (GAME["aim_forks"] or GAME["clash_card"]) and not life and not rare and self.__dict__.get("_v25_owed", 0) > 0:
+                self._v25_owed -= 1
+                return None                     # v25: a fork or clash card took this everyday ask's place: told, not asked
             if GAME["bold"] and not life and not rare and self._link_owed > 0:
                 self._link_owed -= 1
                 return None                     # Bold ways: a link took this everyday ask's place: told, not asked
         self._last_seen[s] = t
         self._cp_n[s] = self._cp_n.get(s, 0) + 1
+        if GAME["land_row"] and self._land_moment(s):
+            self._land_asked = t
         return self._build_checkpoint(t, loc, a)
 
     def _fork(self, loc, s):
@@ -300,6 +324,7 @@ class CheckpointsMixin:
             cp["why_ask"] = self._ask_why
         if GAME["aim_forks"]:                           # v25: a fork card says which aims, why now, and what it asks
             fid = self.fork_now(loc, s)
+            fid = fid if fid is not None else self.fork_waiting(loc)   # else a fork not yet put to them rides this ask
             if fid is not None:
                 cp["fork"] = self.fork_card(loc, fid, s)
         if GAME["land_row"] and self.company_say(loc):  # v25: who is with them at a land moment
