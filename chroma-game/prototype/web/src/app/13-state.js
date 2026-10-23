@@ -19,6 +19,7 @@ function applyState(m) {
   addFeed(m.feed);
   renderWho(hud.life);
   renderTools(hud);
+  if (!agendaEl.hidden && !busy) { if (hud.life && hud.life.agenda) openAgenda(agFocus); else closeAgenda(); }   // v25: the agenda follows the life
   if (["menu", "custom", "name"].includes(hud.mode)) { if (!busy) renderScreen(hud); } else screenEl.innerHTML = "";
   const t = performance.now();
   const hudEmpty = !!(hud.life && hud.life.w && !hudEl.firstElementChild);   // a life's first stretch runs under the interlude: draw the HUD once, not leave it blank
@@ -41,6 +42,7 @@ document.addEventListener("keydown", (e) => {
   if (!sheetEl.hidden) { if (e.key === "Escape" || e.key === "c") closeSheet(); return; }
   if (!bookEl.hidden) { if (e.key === "Escape" || e.key === "b") closeBook(); return; }
   if (!worldEl.hidden) { if (e.key === "Escape" || e.key === "g") closeWorld(); return; }
+  if (!agendaEl.hidden) { if (e.key === "Escape" || e.key === "j") closeAgenda(); return; }
   if (IL.on && !busy && ["Enter", " ", "Escape"].includes(e.key)) { e.preventDefault(); ilFinish(); return; }
   if (IL.on && busy && e.key === "Escape") { pause(); ilFinish(); return; }
   if (e.key === "Escape") { if (menuOpen) { setMenu(false); const m = $("tMenu"); if (m) m.focus(); return; } if (busy) pause(); else if (hud && hud.plan) send("x"); hideTip(); hudEl.classList.remove("open"); return; }
@@ -64,8 +66,9 @@ document.addEventListener("keydown", (e) => {
     return;
   }
   if (!hud.cp && ["w", "m", "y", "d"].includes(e.key) && mode === "play") { send(e.key); return; }
+  if (e.key === "j" && hud.life && hud.life.agenda) { if (agendaEl.hidden) openAgenda(); else closeAgenda(); return; }
   if (["i", "c", "b", "s", "o", "n", "a"].includes(e.key) || (e.key === "g" && (hud.world || (hud.life && hud.life.world_era)))) { pageKey(e.key); return; }
-  if (["f", "v", "l", "p"].includes(e.key)) send(e.key);
+  if (["f", "v", "l", "p", "k"].includes(e.key)) send(e.key);
   if (e.key === "x" && hud.plan) send("x");
 });
 

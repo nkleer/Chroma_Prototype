@@ -355,8 +355,8 @@ function aimsBind(root, L) {
   root.querySelectorAll("[data-ad]").forEach((b) => b.addEventListener("click", (e) => { e.stopPropagation(); send(`aim drop ${b.dataset.ad}`); }));
   root.querySelectorAll("[data-aset]").forEach((b) => {
     const c = (L.aim_choices || []).find((y) => y.aim === b.dataset.aset);
-    if (c) setTip(b, () => tipBox(`${ic("target")} ${esc(c.aim)} ${aimFace(c.face)}`, esc(cap(c.domain)), [], c.felt ? "They already feel this one." : "Close to who they are now."));
-    b.addEventListener("click", (e) => { e.stopPropagation(); send(`aim set ${b.dataset.aset}`); });
+    if (c) setTip(b, () => tipBox(`${ic("target")} ${esc(c.aim)} ${aimFace(c.face)}`, esc(cap(c.domain)), c.preview ? previewRows(c.preview) : [], c.felt ? "They already feel this one." : "Close to who they are now."));
+    b.addEventListener("click", (e) => { e.stopPropagation(); if (c && c.preview) openPreview(c); else send(`aim set ${b.dataset.aset}`); });
   });
 }
 // v24 steering between asks (the game's steer_between): lean them toward a color until the next ask; each choice meanwhile
@@ -380,10 +380,11 @@ function placesHTML(L) {
   const ps = (P.posts || []).map((x, i) => `<span class="chip" data-plp="${i}">${ic("crown")}${esc(cap(x.title || x.name))} ${pip(x.colour)}</span>`).join("");   // S7: what they lead
   const up = (P.rungs || []).filter((r) => r.rung > 0);
   const rs = up.map((r) => `<span class="chip" data-plr="${r.sphere}">${ic(SPH_ICON[r.sphere] || "home")}${esc(cap(r.word))} <span class="pc">(${esc(r.sphere_name.toLowerCase())})</span></span>`).join("");
-  const tw = (P.town || []).slice(0, 3).map((t) => `<span class="chip" data-plt="${t.sphere}">${ic(SPH_ICON[t.sphere] || "home")}${esc(t.sphere_name)} ${pip(t.lead)}</span>`).join("");
-  if (!hs && !rs && !tw) return "";
+  const tw = (P.town || []).slice(0, 3).map((t) => `<span class="chip" data-plt="${t.sphere}">${ic(SPH_ICON[t.sphere] || "home")}${esc(t.sphere_name)} ${pip(t.lead)}${t.prize === "easier" ? ` <b class="prz up" title="easier for them here">▲</b>` : t.prize === "steeper" ? ` <b class="prz down" title="steeper for them here">▼</b>` : ""}</span>`).join("");
+  const ld = P.land ? landHTML(P.land) : "";
+  if (!hs && !rs && !tw && !ld) return "";
   return `<div class="hsec"><h4>Their places</h4>${hs ? `<div class="perks">${hs}</div>` : `<span class="empty">No haunt of their own yet</span>`}
-    <div class="chips">${rs || `<span class="muted">A newcomer in every sphere</span>`}</div>${ps ? `<div class="chips"><span class="muted">They lead</span> ${ps}</div>` : ""}${tw ? `<div class="chips"><span class="muted">Their town lives by</span> ${tw}</div>` : ""}</div>`;
+    <div class="chips">${rs || `<span class="muted">A newcomer in every sphere</span>`}</div>${ps ? `<div class="chips"><span class="muted">They lead</span> ${ps}</div>` : ""}${tw ? `<div class="chips"><span class="muted">Their town lives by</span> ${tw}</div>` : ""}${ld}</div>`;
 }
 // v22.4 on a place's hover: S1 how the sphere's decisions feel to them, S3 their name there and its last word on them, S4 the odd one out
 const fairRows = (P, sp) => { const f = (P.fair || {})[sp]; return f ? [["Fairness", `<span class="${f.side === "fair" ? "up" : "down"}">${esc(f.line)}</span>`]] : []; };
@@ -412,7 +413,7 @@ function bindPlaces(L) {
   hudEl.querySelectorAll("[data-plr]").forEach((el) => { const r = P.rungs.find((x) => x.sphere === el.dataset.plr); setTip(el, () => tipBox(`${ic(SPH_ICON[r.sphere] || "home")} ${esc(r.sphere_name)}`, esc(r.question),
     [["Their standing", esc(cap(r.word))], ["Rung", `${r.rung + 1} of 5`]].concat(fairRows(P, r.sphere)), "Standing rises with years of showing up and with what they do there.")); });
   hudEl.querySelectorAll("[data-plt]").forEach((el) => { const t = P.town.find((x) => x.sphere === el.dataset.plt); setTip(el, () => tipBox(`${ic(SPH_ICON[t.sphere] || "home")} ${esc(t.sphere_name)}`, "",
-    [["Share of the town's hours", pct(t.hours)], ["Its way here", `${pip(t.lead)} ${esc(t.lead_name)}`]].concat(fairRows(P, t.sphere)), "How their town spends its days, and the way each part of life is done there.")); });
+    [["Share of the town's hours", pct(t.hours)], ["Its way here", `${pip(t.lead)} ${esc(t.lead_name)}`]].concat(t.prize ? [["Their climb here", esc(t.prize)]] : []).concat(fairRows(P, t.sphere)), "How their town spends its days, and the way each part of life is done there.")); });
 }
 
 function renderHud(L) {
@@ -458,7 +459,7 @@ function renderHud(L) {
     <button class="ghost sheetbtn" id="openSheet">${ic("ci-diary")} The whole character</button>
     <div class="hmore">
     ${goalsHTML(L)}
-    ${aimsHTML(L)}
+    ${L.agenda ? agendaStripHTML(L) : aimsHTML(L)}
     ${steerHTML(L)}
     <div class="hsec"><h4>Titles</h4><div class="trows">${titles}</div>${statuses ? `<div class="perks stats">${statuses}</div>` : ""}</div>
     ${perks ? `<div class="hsec"><h4>Perks${pk.length > PERK_SHOW + 2 ? ` <span class="cnt">${pk.length}</span>` : ""}</h4><div class="perks">${perks}</div></div>` : ""}
@@ -513,7 +514,7 @@ function renderHud(L) {
   hudEl.querySelectorAll("[data-st]").forEach((el) => { const x = L.states[+el.dataset.st]; setTip(el, () => x.reads ? stTip(x) : tipBox(`${ic(x.icon)} ${esc(cap(x.word))}`, "", [[esc(x.name), stateValue(x)]], "")); });
   if (L.foot) footTips(hudEl, L.foot);
   if (L.world_answers) worldAnsTips(hudEl, L.world_answers);
-  if (L.aims) aimsBind(hudEl, L);
+  if (L.agenda) agendaStripBind(hudEl); else if (L.aims) aimsBind(hudEl, L);
   steerBind(hudEl);
   hudEl.querySelectorAll("[data-gj]").forEach((el) => { const g = (L.goals || []).find((x) => x.j === +el.dataset.gj); if (g) setTip(el, () => goalTip({ kind: g.kind, colors: g.colors, domain: g.domain, source: g.source, horizon: g.horizon }, g)); });
   const ap = $("addPlan"); if (ap) { ap.addEventListener("click", (e) => { e.stopPropagation(); send("p"); }); setTip(ap, () => tipBox(`${ic("quill")} Make a plan`, "", [], "Set them a plan: a year, five years or a lifetime, in a life domain or in some colors. You see how sure they feel, and how plans like it usually go. Key p.")); }

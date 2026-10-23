@@ -572,7 +572,7 @@ class LifeMixin:
         if GAME["because"] and age >= max(self.start_age, SETBACK_AGE):
             sb = self._setback(loc)                     # a silent setback this week: a short told line
             if sb:
-                self._say(sb[1], 1, "setback", name=sb[0])
+                self._say(sb[1], 1, "setback", name=sb[0], **({"cause": sb[2]} if sb[2] else {}))   # v24 N3: and its cause
                 self.history.setdefault("setbacks", []).append((round(age, 1), sb[0]))
         if self.story.one_roll and loc.get("WL") is not None:
             self._one_roll(loc, kids=True)              # F7: a child the world lost after the engine's moment

@@ -255,7 +255,8 @@ GAME = dict(
     aims=False,
     # v24 asks (plan section 7): which moments are put to the player weighs what matters to the character now (an aim's
     # next step, a need they lack, the people in their life; game_asks.py), this x 0 to 1 on the moment's importance, and
-    # the card says why it was asked. How often stays the player's setting (key f). 0: off, every moment weighs as before
+    # the card says why it was asked. How often stays the player's setting (key f). 0: off, every moment weighs as before.
+    # This is the default for a new life; the player turns it on or off for their life with key k (ASK_MATTER_ON)
     ask_matter=0.0,
     # v24 steering between asks (plan section 7, "more ways to step in"): while watching, the player can lean them toward
     # a color (key ~ and a letter) until the next ask (at most game_asks.STEER_YEARS); each moment not asked meanwhile has
@@ -272,6 +273,25 @@ GAME = dict(
     # of the largest footprint in each ring (game_world_answers.py). wa_phase2: the second phase for Known lives
     # (decisions for others). Changes play when on: off until the joint proof
     world_answers=False, wa_phase2=False,
+    # v25 agenda (Emren's decision file section 5, #9; game_agenda.py), with GAME aims: every held aim on one persistent
+    # agenda (importance, step, progress and clock, commitment state, priority, pending forks, the real bottleneck, earned
+    # assets apart from potential rewards), read from the Engine's foresee.agenda (v24's aims when it has none). Reading
+    # it changes nothing; the player's pace and priority (keys jp, jr) change the life. Off: no agenda
+    agenda=False,
+    # v25 fork cards (#9: "present consequential forks for every held aim"; game_agenda.py): "every" puts each fork the
+    # Engine puts (S["aim_fork"]) to the player as its moment's card, with its preview, in the place of the next
+    # optional ask; "" asks none (the character answers, as the Engine's declared policy for unattended lives)
+    aim_forks="",
+    # v25 what this world prizes (#10; game_prizes.py): the Engine's S["prizes"] for the life's town, in the Library's
+    # motive words on the world page, the status lines and the town's sphere rows (easier, steeper). Reading only. Off: none
+    prizes=False,
+    # v25 clash moments on the card (#3; game_clash.py): the Engine's S["clash"] and L["CLASH_TAG"] as a banner (the
+    # demand's sphere and what is at stake, never colours against colours) and each option's kind. Off: none
+    clash_card=False,
+    # v25 the land row (land-v1.md sections 5 and 10; game_land.py): the world page's land line (each stretch's health and
+    # wildness, the last hazard, the harvest), the land ways they hold with their steps and bridges, and who is with them
+    # at a land moment. Words only, from the Engine's land keys and land.json. Off: none
+    land_row=False,
 )
 BOLD_IX = 1000          # Bold ways: a bold way's number on the card, BOLD_IX + 100 x its slot + its base way (bix: the base)
 
@@ -294,7 +314,7 @@ GAME_OFF = dict(piv=0.0, piv_own=0.0, piv_steady=0.0, learn_full=False, lean=0.0
                 era_cost=0.0, backfire=0.0, turn_max=0, fig_own=False, own_ix=False, trust_judge=False, lines_tied=False,
                 own_mark="", lean_self=0.0, own_teach=0.0, dream_own=False, dream_firm=0.0, dream_help=0.0, hind_thin=0.5, season_need=0.0, season_calm=0.0, fork_k=0.0, fork_told=False, rung_ask=False,
                 world_hold=False, world_seed=False, faith_home=0.0,
-                line_wait=0.0, news_touch=False, rare_ask=False, returns=False, stakes=False, causes=False, causes_fold=False, bold=False, because=False, arrows=False, foot=False, aims=False, ask_matter=0.0, steer_between=False, talk=False, world_answers=False, wa_phase2=False,
+                line_wait=0.0, news_touch=False, rare_ask=False, returns=False, stakes=False, causes=False, causes_fold=False, bold=False, because=False, arrows=False, foot=False, aims=False, ask_matter=0.0, steer_between=False, talk=False, world_answers=False, wa_phase2=False, agenda=False, aim_forks="", prizes=False, clash_card=False, land_row=False,
                 own_stress=0.5, own_free=0.3, dream_fit=0.5, rare_imp=0.5)
 # v22.5's joint refit (chroma-engine/notes/v22.5-refit-plan.md §2, with the engine's V225): every v22.5 game switch on
 # with its fitted value. F12 world_hold (with the engine's own_open and start_hold), F15 world_seed, F10 line_wait and news_touch (the
@@ -314,9 +334,18 @@ GAME.update(V225)
 PACK = dict(own_ix=True)
 PACK_OFF = {k: GAME[k] for k in PACK}
 GAME.update(PACK)                                   # v23: the pack's joint refit switched it on (chroma-release/records/v23/scope.md)
-if os.environ.get("CHROMA_GAME"):                   # checks and calibration only: "off", "v224", "pack" or settings as JSON
+# v24's joint refit (chroma-release/records/v24/scope.md; Release's order 10-19 20:32 UTC under Emren's 12:24 go-ahead):
+# the v24 game parts on, with the Engine's v24 defaults: the hover arrows, footprints, aims and heights, asks weighed by
+# what matters (off by default: the player turns it on with key k, plan section 7 "play changes only if the player sets
+# it"; Release 10-19 21:08), steering between asks, talking it over, and the world answers with the second phase for
+# Known lives. V24_OFF keeps v23.2's values (CHROMA_GAME="v232")
+ASK_MATTER_ON = 0.5                                 # what key k sets ask_matter to (asks_check and talk_check measured .5)
+V24 = dict(arrows=True, foot=True, aims=True, steer_between=True, talk=True, world_answers=True, wa_phase2=True)
+V24_OFF = {k: GAME[k] for k in V24}
+GAME.update(V24)
+if os.environ.get("CHROMA_GAME"):                   # checks and calibration only: "off", "v224", "pack", "v232" or JSON
     import json as _json
-    GAME.update({"off": GAME_OFF, "v224": {**V225_OFF, **PACK_OFF, "stakes": False, "returns": False}, "pack": PACK}.get(os.environ["CHROMA_GAME"])
+    GAME.update({"off": GAME_OFF, "v224": {**V225_OFF, **PACK_OFF, "stakes": False, "returns": False}, "pack": PACK, "v232": V24_OFF}.get(os.environ["CHROMA_GAME"])
                 or _json.loads(os.environ["CHROMA_GAME"]))
 # checks only: settings for the engine's own P as JSON (for example CHROMA_ENGINE='{"shadows": true}' to see light and
 # shadow on screen), laid over the life's P when it is set up. Read only when set: without it every life is the page's own
