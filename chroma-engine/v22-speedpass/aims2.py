@@ -102,6 +102,8 @@ PAR = dict(
     round_need=1.25,    # a way round a closed window: the need x this
     late=0.3,           # the need x (1 + this a decade) for a start after the field's late_from
     reask=52,           # weeks before an unchanged pending fork is put again
+    put_gap=20,         # weeks between a player's fork cards (about 2.6 a year at most while forks wait), but a window
+                        # about to close
     window_warn=13,     # weeks before a window closes that it is a fork (once a rung)
     integrate_y=0.25,   # integrate outcomes a year for a life holding a pair the realm's AIM_ASSETS names
     refresh_wk=13,      # weeks of renewed use that refresh a lapsed upkeep
@@ -317,6 +319,10 @@ class Agenda:
             s.asset_tab[tuple(sorted(k_))] = dict(v_)
         s.dirty = True; s.w = None; s.t = 0; s.SM = np.zeros(0, int); s.mom = np.full(N, -1)
         s.acct = False                                    # the account computed once (fundable reads it)
+        from world_keys import AIM_FORKS as FK_
+        s.FKN = list(FK_)
+        s.rng_put = np.random.default_rng([int(seed), 2511])   # which own moment a fork is put on (player lives only)
+        s.last_put = np.full(N, -10 ** 6); s.put_si = np.full(N, -1); s.put_slot = np.full(N, -1); s.put_prev = {}
 
     # ---- slots
     def _grow(s):
@@ -453,6 +459,17 @@ class Agenda:
             return False
         return True
 
+    def _fits_fork(s, n, j, si):
+        """Shape moment si is the own moment of the fork aim j of life n waits on: its shape (or any), its rung, and a
+        rung that names that fork; the aim held, pursued or paused (a fork's moment asks whatever the state)."""
+        F = s.F; f = int(s.f[n, j]); r = int(s.rung[n, j])
+        if f < 0 or s.st[n, j] == DROPPED or r >= F["nr"][f]:
+            return False
+        sh = int(s.L_SH[si])
+        if (sh != -2 and sh != F["shape"][f]) or not (int(s.L_RG[si]) >> r) & 1:
+            return False
+        return s.L_FK[si] >= 0 and s.FKN[int(s.L_FK[si])] in F["forks"][f][r]
+
     def gate(s, N):
         """Each life's weight for each shape moment (lives x shape moments): 1 where it fits an aim the life holds."""
         # the same agenda (fields, states, rungs, assets awarded) gives the same weights: kept until it changes
@@ -488,7 +505,7 @@ class Agenda:
         s.mom[:] = -1
         if len(s.SM):
             for n in np.nonzero(np.isin(sv, s.SM))[0]:
-                s.mom[n] = s.moment_aim(int(n), int(sv[n]))
+                s.mom[n] = s.put_slot[n] if s.put_si[n] == sv[n] else s.moment_aim(int(n), int(sv[n]))
 
     def moment_aim(s, n, si):
         """The aim a shape moment is about: the first in priority that it fits (-1 none)."""
@@ -516,7 +533,8 @@ class Agenda:
             return
         s.t = t; F = s.F
         for n in np.nonzero(~idle & np.isin(sv, s.SM))[0]:
-            n = int(n); si = int(sv[n]); k = int(av[n]); j = s.moment_aim(n, si)
+            n = int(n); si = int(sv[n]); k = int(av[n])
+            j = int(s.put_slot[n]) if s.put_si[n] == si and s.put_slot[n] >= 0 else s.moment_aim(n, si)
             if j < 0:
                 continue
             from world_keys import AIM_TAGS, AIM_KINDS
@@ -600,8 +618,13 @@ class Agenda:
         if not len(js):
             return
         j = int(js[0])
+        if n in s.player and what != "let go" and s.fork[n, j] >= 0:
+            return   # a player's ambition with a fork waiting does not fade before the player answers it
         if what == "let go" or s.st[n, j] in (HELD, PAUSED):
             if s.st[n, j] != DROPPED:
+                for fk in [x for x in s.forks[n] if x["aims"] == [j] and x["kind"] != "over"]:
+                    s.apply(n, fk, "drop" if "drop" in fk["options"] else None, s.t, by="player")   # the player let it go:
+                    # the fork it waited on is answered by that
                 s.st[n, j] = DROPPED; s._log(n, j, "set aside", why=what, learned=round(float(s.learned[n, j].sum()), 2))
                 s.dirty = True
 
@@ -1170,10 +1193,17 @@ class Agenda:
         for fk in s.forks[n]:
             fk["grouped"] = bool(fk["group"] is not None and keys[fk["group"]] >= 2)
 
-    def put(s, t):
-        """At the situation pause: the one fork (or agenda review) put this week to each player life, replacing its
-        next optional ask: the most urgent unresolved one not put in the last reask weeks unless its facts changed."""
-        s.put_arr[:] = -1
+    def put(s, t, sv=None, had=None):
+        """At the situation pause: the one fork (or agenda review) put this week to each player life: the most urgent
+        unresolved one not put in the last reask weeks unless its facts changed. With the week's moments (sv, and had:
+        the lives whose week holds a life event), the put lines up with the fork's own moment (a shape moment of its
+        fork that fits its aim): on a week whose drawn moment is one, or in place of an optional ask (the everyday draw,
+        never a life event: a death, a birth, a want's or a decision's moment, nor anything the world brings); a fork
+        with no moment of its own (a window, an overfull agenda) on any optional-ask week. At most one put every
+        put_gap weeks unless a window is about to close. Returns sv (a copy, changed only for player lives).
+        put(t) alone (no moments): every due fork in turn, as before."""
+        s.put_arr[:] = -1; s.put_si[:] = -1; s.put_slot[:] = -1; s.put_prev = {}
+        out = None if sv is None else np.array(sv, copy=True)
         for n in s.player:
             if n >= s.N or not s.forks[n]:
                 continue
@@ -1186,12 +1216,48 @@ class Agenda:
                 return (not fk["urgent"], wc, ("window", "pay", "take", "round", "over", "go_on").index(fk["kind"])
                         if fk["kind"] in ("window", "pay", "take", "round", "over", "go_on") else 9, fk["week"], fk["id"])
             fk = min(c, key=key)
+            si_put = -1
+            if out is not None:
+                if not fk["urgent"] and t - s.last_put[n] < s.par["put_gap"]:
+                    continue
+                if had is not None and had[n]:
+                    continue   # a life event has the week: the fork waits
+                def own_(x):
+                    if x["kind"] not in s.FKN or not len(s.SM):
+                        return []
+                    k_ = s.FKN.index(x["kind"]); j_ = int(x["aims"][0])
+                    return [int(y) for y in s.SM if s.L_FK[y] == k_ and s._fits_fork(n, j_, int(y))]
+                own = own_(fk)
+                if not own and not fk["urgent"]:   # not urgent: a fork with a moment of its own goes first
+                    for x in sorted(c, key=key):
+                        o_ = own_(x)
+                        if o_:
+                            fk, own = x, o_
+                            break
+                j = int(fk["aims"][0])
+                if own:
+                    si_put = int(out[n]) if int(out[n]) in own else own[int(s.rng_put.integers(len(own)))]
+                    out[n] = si_put; s.put_si[n] = si_put; s.put_slot[n] = j
             grp = [x for x in s.forks[n] if fk["grouped"] and x["group"] == fk["group"]] or [fk]
+            s.put_prev[n] = ([(x, x["put"], x["changed"]) for x in grp], int(s.last_put[n]), len(s.burden))
             for x in grp:
                 x["put"] = t; x["changed"] = False
-            s.put_arr[n] = fk["id"]
+            s.put_arr[n] = fk["id"]; s.last_put[n] = t
             s.burden.append(dict(what="put", life=int(n), week=int(t), id=fk["id"], forks=len(grp),
-                                 aims=len({j for x in grp for j in x["aims"]}), options=sum(len(x["options"]) for x in grp)))
+                                 aims=len({j for x in grp for j in x["aims"]}), options=sum(len(x["options"]) for x in grp),
+                                 moment=str(s.L_ST[si_put].get("name", "")) if si_put >= 0 else ""))
+        return out
+
+    def put_kept(s, sv):
+        """After the week's moment is settled (a season, an echo or the player may take the week): a fork put on its own
+        moment that did not come is not put after all (asked again on a later week)."""
+        for n, (prev, lp, nb) in list(s.put_prev.items()):
+            if s.put_si[n] >= 0 and int(sv[n]) != int(s.put_si[n]):
+                for x, p_, c_ in prev:
+                    x["put"] = p_; x["changed"] = c_
+                s.last_put[n] = lp; s.put_arr[n] = -1; s.put_si[n] = -1; s.put_slot[n] = -1
+                if len(s.burden) > nb:
+                    s.burden.pop(nb)
 
     def what_if(s, n, sets):
         """The account for life n if aims took the settings sets {slot: (active, intensity)} (others as they are), by the

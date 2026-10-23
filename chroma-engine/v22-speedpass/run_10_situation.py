@@ -309,7 +309,8 @@
         if LAND_ON and WL.land.play:   # v25 lane D: who is there in this week's together moment (S["company"])
             WL.land.pick(np.where(had_ev, s_ev, s) if P["base_rates"] else s, age)
         if AIM2_ON:   # aims v2: the one fork (or agenda review) put this week to a player's life (aim_fork), and the aim
-            AG.put(t); AG.mom_slots(s)   # each drawn shape moment is about
+            s = AG.put(t, s, had_ev if P["base_rates"] else None); AG.mom_slots(s)   # each drawn shape moment is about
+            # (a player's fork put on its own moment, in place of the week's optional ask)
         if pausing:
             _pause_state(pz_st, ST_CELLS, ST_FR)
             s = yield Pause("situation", t, pz_st, s)
@@ -320,6 +321,8 @@
         if BAT and P["base_rates"] and len(ECH):   # a due echo comes back in a week without a life event
             pe_ = (echo_ready & avail0[:, ECH_S] & ~once_done[:, ROOT[ECH_S]] & ~had_ev[:, None] & ~dead[:, None]) \
                 * np.minimum(1, P["echo_w"] * echo_fac)                    # once: on an echo is honoured too
+            if AIM2_ON and (AG.put_si >= 0).any():   # aims v2: a player's fork put on its own moment keeps the week
+                pe_ = pe_ * ~((AG.put_si >= 0) & (s == AG.put_si))[:, None]
             fe_ = rng.random(pe_.shape) < pe_
             has_e = fe_.any(1)
             if has_e.any():
@@ -393,6 +396,8 @@
         rk = np.where(hit.any(1), np.argmax(np.where(hit, p_re, -1.0), 1), -1)
         recon = rk >= 0
         s = np.where(recon, L["RECON"], s)
+        if AIM2_ON:   # aims v2: a fork put on its own moment that a season, a reconsidering or the player took is asked later
+            AG.put_kept(s)
         if EP_ON and (recon & (ep_now >= 0)).any():   # reconsidering takes the week: the seed waits for another
             for n in np.nonzero(recon & (ep_now >= 0))[0]:
                 sd_ = ep_seeds[ep_now[n]]; sd_["done"] = sd_["got"] = None; ep_now[n] = -1
