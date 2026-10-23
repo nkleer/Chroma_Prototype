@@ -484,11 +484,10 @@ def build_tree():
             shutil.copytree(sd, os.path.join(L, "sources"), ignore=SKIPF); break
     K = os.path.join(T, "chroma-packs")
     cp_files(src["packs"], K)
-    for d in ("core", "politics", "science", "stage", "art", "tools"):         # tools/ (the Packs' checks) from the shared folder if the
-        sd = os.path.join(src["packs"], d)                                     # candidate lacks it; art only where the candidate has it
-        if d == "art" and not os.path.isdir(sd):
-            continue
-        shutil.copytree(sd if os.path.isdir(sd) else os.path.join(REAL, LIVE["packs"], d), os.path.join(K, d), ignore=SKIPF)
+    packs = {d for d in os.listdir(src["packs"]) if os.path.isfile(os.path.join(src["packs"], d, "catalogue.py"))}
+    for d in sorted(packs | {"core", "politics", "science", "stage", "tools"}):  # tools/ (the Packs' checks) from the shared folder if
+        sd = os.path.join(src["packs"], d)                                     # the candidate lacks it; any other pack (a folder with a
+        shutil.copytree(sd if os.path.isdir(sd) else os.path.join(REAL, LIVE["packs"], d), os.path.join(K, d), ignore=SKIPF)   # catalogue: art, callings, national) only where the candidate has it
     shutil.copytree(src["game"], os.path.join(T, "chroma-game", "prototype"), ignore=SKIPF)
     v21 = os.path.join(REAL, GAME_V21, "engine_pin")                          # check_identity's go-live rules
     shutil.copytree(v21, os.path.join(T, GAME_V21, "engine_pin"), ignore=SKIPF)
