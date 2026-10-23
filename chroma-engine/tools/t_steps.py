@@ -78,8 +78,9 @@ engine.run_steps() is engine.run() pausing six times a week for the game. On a f
      draws); on, run_steps() lives as run() and the lives move; a setback's named fact is one its kind follows, with its
      words and its cause index; each kind's life weight averages 1 over the living each year (the counts hold).
  25. what a world rewards (tilt_world, v25 #10), Earth and the neutral world, world on: run_steps() lives as run() and the
-     lives move; each year's r has a mean of 1 per sphere and every cell within .5 to 2; prizes and prizes_moves well
-     formed; the neutral world starts every sphere at .2 a colour, its places even, inst_even on, and r 1 everywhere.
+     lives move; each year's r has a mean of 1 per sphere and every cell within the realm's clip (Earth .67 to 1.5);
+     prizes and prizes_moves well formed; the neutral world starts every sphere at .2 a colour, its places even,
+     inst_even on, and its r is 1 everywhere, every year.
 
     python3 -B chroma-engine/tools/t_steps.py [ENGINE_DIR]
 T_JOBS=N: the rows of 8 and 9 on N processes (default up to 4, by the cores there are; 1: one after another).
@@ -1419,10 +1420,13 @@ if "tilt_world" in E.DEFAULT:
                 PP_ = S["WL"].PP
                 if getattr(PP_, "tilt_ver", 0) != ver_:   # a new year's r: each sphere's mean 1, every cell within .5..2
                     ver_ = PP_.tilt_ver; seen_["years"] += 1
+                    lo_, hi_ = PP_._tilt_T["clip"]
                     for r_ in (PP_.tilt_r, PP_.tilt_town):
                         seen_["worst"] = max(seen_["worst"], float(np.abs(r_.mean(-1) - 1).max()))
-                        if r_.min() < 0.5 - 1e-9 or r_.max() > 2 + 1e-9:
+                        if r_.min() < lo_ - 1e-9 or r_.max() > hi_ + 1e-9:
                             fails.append(f"{rl_}: a cell of r at {r_.min():.3f} or {r_.max():.3f}")
+                        if rl_ == "neutral" and np.abs(r_ - 1).max() > 1e-12:   # the neutral world: r 1, always
+                            fails.append(f"neutral: r off 1 by {np.abs(r_ - 1).max():.2g} at age {S['age']}")
                     pz_ = S["prizes"]
                     if pz_ is None or len(pz_) != 3 or any(len(d_) != 9 or any(len(v_) != 5 for v_ in d_.values()) for d_ in pz_):
                         fails.append(f"{rl_}: prizes malformed")
@@ -1452,8 +1456,8 @@ if "tilt_world" in E.DEFAULT:
     bad += bool(fails)
     print(f"{'PASS' if not fails else 'FAIL'}  what a world rewards (tilt_world), Earth and the neutral world, world on: "
           f"run_steps lives as run() and the lives move; {seen_['years']} years of r, each sphere's mean 1 (worst "
-          f"{seen_['worst']:.1g}) and every cell within .5..2; prizes and {seen_['moves']} moves well formed; the neutral "
-          f"world's r 1 at its start{'' if not fails else '; ' + '; '.join(fails[:4])} ({time.process_time() - t0:.0f} s)")
+          f"{seen_['worst']:.1g}) and every cell within the realm's clip; prizes and {seen_['moves']} moves well formed; the "
+          f"neutral world's r 1 at its start and every year{'' if not fails else '; ' + '; '.join(fails[:4])} ({time.process_time() - t0:.0f} s)")
 # 11. nothing read at a pause outside the handed-over names (an engine without STATE_MISSED reads its whole frame)
 if hasattr(E, "STATE_MISSED"):
     bad += bool(E.STATE_MISSED)

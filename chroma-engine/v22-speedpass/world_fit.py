@@ -151,6 +151,7 @@ def tilt_tables(R, perm):
     lay = np.asarray(getattr(R, "TILT_LAYER", (0.0,) * C), float)[perm]
     formal = np.array([s in getattr(R, "TILT_FORMAL", ()) for s in SPHERES], float)
     T = dict(layer=formal[:, None] * lay[None], law_ref=float(getattr(R, "TILT_LAW_REF", 0.73)),
+             mix_k=float(getattr(R, "MIX_K", 1.0)), mix_even=bool(getattr(R, "SPH_MIX_EVEN", False)),
              k=float(getattr(R, "PROFILE_K", 0.0)), clip=tuple(getattr(R, "PROFILE_CLIP", (0.5, 2.0))), DC=None)
     dims = getattr(R, "PROFILE_DIMS", None); prof = getattr(R, "PROFILES", None); dc = getattr(R, "DIM_COLOURS", None)
     if not dims or not prof or not dc:
@@ -167,8 +168,20 @@ def tilt_tables(R, perm):
     return T
 
 
+def _mix(W, T):
+    """The towns' sphere mixes as the tilt reads them: the world's, or .2 a colour in a realm that reads them even
+    (realm_neutral: r = 1 everywhere, always, whatever its burn-in does)."""
+    s = np.asarray(W.sph_s, float)
+    return np.full_like(s, 0.2) if T.get("mix_even") else s
+
+
+def _mixr(sph, T):
+    """The sphere mix's part of r: 1 + MIX_K x (mix / .2 - 1) (MIX_K 1: mix / .2)."""
+    return 1.0 + T["mix_k"] * (sph / 0.2 - 1.0)
+
+
 def tilt_r(x, T, clip=None):
-    """r from x = mix / .2 x (1 + k x dev . DC) + layer x law: each cell held to the clip and each sphere renormalised to a
+    """r from x = (1 + MIX_K x (mix / .2 - 1)) x (1 + k x dev . DC) + layer x law: each cell held to the clip and each sphere renormalised to a
     mean of 1 (repeated until both hold), so a mix that drifts far stays a tendency, never a wall."""
     lo, hi = clip or T["clip"]
     r = np.asarray(x, float)
@@ -191,17 +204,17 @@ def tilt_town(W, T, cache, sph=None, law=None):
     """Each town's r (towns x 9 x 5) and its incentives' deviation (towns x dims): its place kind's draw (seeded by the
     world's seed and the town) and the epoch's (modern: the reference, 0). T: tilt_tables; cache: a dict kept per run."""
     from world_base import LOC_KINDS
-    sph = np.asarray(W.sph_s, float) if sph is None else sph; nl = sph.shape[0]
+    sph = _mix(W, T) if sph is None else sph; nl = sph.shape[0]
     law = T["layer"][None] * (float(W.law_rule) / T["law_ref"]) if law is None else law
     if T["DC"] is None:
-        return tilt_r(sph / 0.2 + law, T), None
+        return tilt_r(_mixr(sph, T) + law, T), None
     D = T["DC"].shape[0]; z_ = (np.zeros(D), np.zeros(D))
     per = T["period"].get(W._sph_tables()["ep"], z_)
     if "town" not in cache:
         cache["town"] = np.array([_draw(int(getattr(W, "_seed", 0)), (7717, l),
                                         T["place"].get(LOC_KINDS[int(W.loc_kind[l])], z_)) for l in range(nl)])
     xt = cache["town"] + per[0]
-    return tilt_r(sph / 0.2 * (1 + T["k"] * (xt @ T["DC"]))[:, None, :] + law, T), xt
+    return tilt_r(_mixr(sph, T) * (1 + T["k"] * (xt @ T["DC"]))[:, None, :] + law, T), xt
 
 
 def tilt_year(PP, here, age):
@@ -211,7 +224,7 @@ def tilt_year(PP, here, age):
     more since last listed (PP.tilt_moves). Returns the gain (N x 9) that multiplies a year present."""
     from world_people_base import G as GK
     from world_keys import GROUP_KINDS
-    W = PP.W; N = PP.N; nl = W.sph_s.shape[0]; sph = np.asarray(W.sph_s, float)
+    W = PP.W; N = PP.N; nl = W.sph_s.shape[0]
     T = getattr(PP, "_tilt_T", None)
     if T is None:
         T = PP._tilt_T = tilt_tables(PP.tilt_R, getattr(W, "perm", np.arange(C))); PP._tilt_dev = {}
@@ -220,10 +233,10 @@ def tilt_year(PP, here, age):
     law = T["layer"][None] * (float(W.law_rule) / T["law_ref"])           # 1 x 9 x 5
     loc = np.clip(np.asarray(PP.loc), 0, nl - 1)
     if T["DC"] is None:
-        r_town = tilt_r(sph / 0.2 + law, T); r_n = r_town[loc]
+        r_town = tilt_r(_mixr(_mix(W, T), T) + law, T); r_n = r_town[loc]
     else:
         D = T["DC"].shape[0]
-        r_town, xt = tilt_town(W, T, cache, sph, law)
+        r_town, xt = tilt_town(W, T, cache, None, law)
         # a life's own settings in each sphere: the body's draw (an institution's by its id) and its community's
         xs = np.zeros((N, 9, D)); ns = np.zeros((N, 9))
         ss = PP.set_sphere; act = (PP.skind >= 0) & (ss >= 0) & ~np.asarray(PP.dead)[:, None]
@@ -241,7 +254,7 @@ def tilt_year(PP, here, age):
                 cache[key_] = dv_
             xs[n_, ss[n_, j_]] += dv_; ns[n_, ss[n_, j_]] += 1
         xp = xt[loc][:, None, :] + xs / np.maximum(ns, 1)[..., None]        # N x 9 x dims
-        r_n = tilt_r(sph[loc] / 0.2 * (1 + T["k"] * (xp @ T["DC"])) + law, T)
+        r_n = tilt_r(_mixr(_mix(W, T)[loc], T) * (1 + T["k"] * (xp @ T["DC"])) + law, T)
     # the gain: the pie's fit to r over the mean fit of the town's people in the sphere (the casts living there, the lives present)
     p_ = np.asarray(PP.w, float); p_ = p_ / np.maximum(p_.sum(1, keepdims=True), 1e-12)
     val = np.einsum("nc,nsc->ns", p_, r_n)
