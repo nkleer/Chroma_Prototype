@@ -1,0 +1,661 @@
+# Chroma library, modern Earth: SEEKING AND REPAIR MOMENTS (v25 prep, Library, 10-23). Goes to chroma-library/earth_seek.lib.
+# Syntax: header of chroma-library/build.py, with the v25 keys state: (moment) and seek: / repair: (option).
+# Rule: Emren's v25 decisions, section 4 (decision #4) and section 2; keys: chroma-engine/notes/v25/contracts.md, 4.
+# Eighteen life events, per_year 0 everywhere: the Engine sends a seeking moment when a state applies, and a repair
+# moment when a tie is strained. Nothing reads this file until the Engine's seek switch is on, so no life changes.
+# Nothing here is built or run.
+#
+# A. Seeking, ten moments, two per state (state: boredom | frustration | anger | content | low_mood). States never come
+#    from a colour, and no option here says one does. Seeking moves what draws them; it never grants entry: every option
+#    toward a new setting is an attempt (go along, put a name down, turn up), and the works and fails lines show an
+#    admission, a cold welcome, or a fit that surprises.
+# B. Repair, eight moments about one strained tie each (partner x3, friend x2, parent of a grown child x1, sibling x1,
+#    colleague x1). No cast_want:; life: names the area. Separate is at most two options in a moment and never the
+#    default; the works lines show what staying makes. Time, money, chores, plans, hurt words and distance only.
+#
+# Balance layout: five one-colour options and one full cross cycle per moment, the cycles alternating through the
+# file (s1 W>U U>B B>R R>G G>W, s2 W>B U>R B>G R>W G>U): odd moments s1, even moments s2, nine of each.
+#
+# Plan (option order W U B R G, then the cycle's five crosses in the order above):
+#
+#   seeking                 cycle  W        U        B        R        G        | crosses
+#   1 same day (boredom)    s1     persist  revise   deepen   help     own_int  | method   negot    persist  revise   deepen
+#   2 pastime (boredom)     s2     own_int  keep     withdr   method   negot    | deepen   help     own_int  keep     withdr
+#   3 piece (frustration)   s1     negot    persist  revise   deepen   help     | withdr   method   negot    persist  revise
+#   4 door (frustration)    s2     withdr   method   negot    persist  revise   | own_int  keep     withdr   method   negot
+#   5 told (anger)          s1     method   negot    persist  revise   deepen   | keep     withdr   method   negot    persist
+#   6 mark (anger)          s2     keep     withdr   method   negot    persist  | help     own_int  keep     withdr   method
+#   7 season (content)      s1     deepen   help     own_int  keep     withdr   | persist  revise   deepen   help     own_int
+#   8 offer (content)       s2     revise   deepen   help     own_int  keep     | negot    persist  revise   deepen   help
+#   9 flat weeks (low_mood) s1     help     own_int  keep     withdr   method   | revise   deepen   help     own_int  keep
+#  10 ended (low_mood)      s2     deepen   help     own_int  keep     withdr   | persist  revise   deepen   help     own_int
+#
+#   repair                  cycle  W        U        B        R        G        | crosses
+#  11 evenings (partner)    s1     talk     separ    bound    routine  reneg    | shared   talk     repair   bound    routine
+#  12 money (partner)       s2     repair   bound    routine  reneg    shared   | separ    repair   bound    routine  talk
+#  13 plan (partner)        s1     bound    routine  reneg    shared   separ    | repair   talk     routine  reneg    shared
+#  14 cancels (friend)      s2     routine  reneg    shared   talk     repair   | bound    routine  separ    shared   talk
+#  15 joke (friend)         s1     reneg    shared   talk     separ    bound    | routine  reneg    shared   talk     repair
+#  16 calls (parent)        s2     shared   talk     separ    bound    routine  | reneg    shared   talk     repair   separ
+#  17 always (sibling)      s1     separ    repair   bound    routine  reneg    | shared   talk     repair   bound    routine
+#  18 carried (colleague)   s2     repair   bound    routine  reneg    shared   | talk     separ    talk     separ    reneg
+#
+# Colour by tag over the whole file, counted by the option's leading colour (single + cross led = total):
+#
+#   seek          W          U          B          R          G
+#   deepen        2+1 = 3    1+1 = 2    1+2 = 3    1+1 = 2    1+1 = 2
+#   method        1+1 = 2    1+1 = 2    1+1 = 2    1+1 = 2    1+1 = 2
+#   help          1+1 = 2    2+1 = 3    1+1 = 2    1+2 = 3    1+1 = 2
+#   negotiate     1+1 = 2    1+1 = 2    1+1 = 2    1+1 = 2    1+1 = 2
+#   own_interest  1+1 = 2    1+1 = 2    2+1 = 3    1+1 = 2    1+2 = 3
+#   persist       1+2 = 3    1+1 = 2    1+1 = 2    1+1 = 2    1+1 = 2
+#   keep          1+1 = 2    1+1 = 2    1+1 = 2    2+1 = 3    1+1 = 2
+#   revise        1+1 = 2    1+2 = 3    1+1 = 2    1+1 = 2    1+1 = 2
+#   withdraw      1+1 = 2    1+1 = 2    1+1 = 2    1+1 = 2    2+1 = 3
+#
+#   repair        W          U          B          R          G
+#   talk          1+1 = 2    1+3 = 4    1+2 = 3    1+1 = 2    0+2 = 2
+#   repair        2+1 = 3    1+1 = 2    0+2 = 2    0+1 = 1    1+1 = 2
+#   boundary      1+1 = 2    2+0 = 2    2+1 = 3    1+2 = 3    1+0 = 1
+#   routine       1+1 = 2    1+1 = 2    2+1 = 3    2+1 = 3    1+2 = 3
+#   renegotiate   1+1 = 2    1+1 = 2    1+0 = 1    2+1 = 3    2+1 = 3
+#   shared        1+2 = 3    1+1 = 2    1+1 = 2    1+1 = 2    2+1 = 3
+#   separate      1+1 = 2    1+1 = 2    1+1 = 2    1+1 = 2    1+1 = 2
+#
+# Every seek tag goes to all five colours (2 or 3 each); every repair tag to all five (1 to 4); separate is 2 per
+# colour and at most two options in any moment.
+#
+# Ages: seeking 12-90 (the work moment 16-75, the refusals 14-90, the content offer 14-90); repair: partners 16-90,
+# parent of a grown child 18-80, sibling 14-90, colleague 16-75, friends 12-90. Nothing under 12. No bars, no drinking.
+
+
+# ================================================================ A. SEEKING
+
+# ---------------------------------------------------------------- 1. boredom, at work (cycle s1)
+
+== the same day, every day
+tier: life event
+state: boredom
+stages: juvenile young_adult adult mature elder
+age: 16-75
+per_year: 0 0 0 0 0 0
+tone: trouble
+life: work
+horizon: months
+roles: colleague, boss, friend, mentor, elder
+earth: a job done well for so long that it no longer asks anything of {N}
+tribal: the same task at the camp, season after season, done without a thought
+magic: the same duty in the guild hall every day, so practised it no longer needs the mind
+scene: {N} can do the work with eyes half shut now, and most days that is how it gets done. The hours are fine, the pay is fine, {colleague} is fine, and by noon {N} is counting minutes. Nothing is wrong, and that is the trouble.
+scene tribal: {N} has tended the fish traps every day for many seasons, and the hands do it alone now. The talk at the fire is the same talk. {elder} says a task done well is enough; {N} is not sure it is.
+scene magic: In the guild hall {N} copies the same wards onto the same doors, and the ink barely needs watching. {mentor} has stopped checking the work. The days are safe, and each one is exactly like the last.
+- W | keep the work to its proper standard, and put the spare hours into savings | v: conformity, security | seek: persist | foot: means money+.03 | chance: 85
+- U | write down what the job was meant to lead to, and whether it still should | v: self-direction | seek: revise | foot: lesson an old aim can retire | chance: 75
+- B | push for the hardest account in the place, the one nobody wants | v: achievement, power | seek: deepen | foot: person rival | chance: 55
+- R | ask {friend} for a plan, any plan, for the free evenings this month | v: stimulation, hedonism | seek: help | foot: means ties+.03 | chance: 80
+- G | put a name down for a plot at the allotments, to walk to after work | v: self-direction, security | seek: own_interest | foot: place prod.land | chance: 70
+- W>U | apply for the evening certificate that leads to the next grade, every form done right | v: conformity, achievement | seek: method | foot: place learn.higher | chance: 65
+- U>B | show {boss} the figures for a faster method, and ask for the freed hours | v: self-direction, power | seek: negotiate | foot: means time+.04 | chance: 60
+- B>R | do the job as it is, fast, and spend the saved energy on the weekends | v: hedonism, security | seek: persist | foot: means freedom+.03 | chance: 80
+- R>G | drop the plan to rise at this firm, and look at work outdoors instead | v: stimulation, universalism | seek: revise | foot: door took a wild risk | chance: 55
+- G>W | offer to teach the new starters, and go deeper into the craft by teaching it | v: benevolence, conformity | seek: deepen | foot: person colleague | chance: 80
+works: A few weeks on, the days have an edge again, and {N} catches the clock less often.
+works: The new thing does not fit the way {N} expected. It fits in another way, and that turns out better.
+fails: The door {N} knocks on opens onto polite faces and no seat, and the old days are waiting where they were.
+fails: Nothing much changes. The flatness stays, but {N} now knows one more thing it is not about.
+
+# ---------------------------------------------------------------- 2. boredom, at home and in a pastime (cycle s2)
+
+== the pastime gone flat
+tier: life event
+state: boredom
+stages: juvenile young_adult adult mature elder
+age: 12-90
+per_year: 0 0 0 0 0 0
+tone: trouble
+life: play, home
+horizon: months
+roles: friend, sibling
+earth: the weekend pastime that used to fill the hours, and now fills nothing
+tribal: the evening game by the fire that used to be the best part of the day
+magic: the little charms {N} used to spend whole evenings on, now left half-made
+scene: For years the weekends belonged to one pastime: the drawing, the bike rides, the long games with {friend}. Lately {N} sets it out and puts it away again an hour later without having started. The free hours are there, and they feel empty.
+scene tribal: The stone-throwing game by the fire used to be the best part of {Ns} day. Now {N} sits at the edge and watches {friend} play, and the evenings drag. Nobody has noticed but {N}.
+scene magic: {N} used to spend whole evenings coaxing small charms out of string and wax. The half-made ones pile up on the sill now, and {friend} asks why the window has stopped glowing.
+- W | start a proper weekly club for the pastime, with a time and a place kept | v: conformity, benevolence | seek: own_interest | foot: place gather.hall | chance: 60
+- U | keep a set hour for the pastime each week, bored or not, and note what changes | v: self-direction, security | seek: keep | foot: lesson interest can come back slowly | chance: 80
+- B | put the whole thing away for a season, and spend the hours earning | v: achievement, security | seek: withdraw | foot: means money+.03 | chance: 85
+- R | try the same pastime a new way: outdoors, at dawn, somewhere never tried | v: stimulation | seek: method | foot: means freedom+.03 | chance: 75
+- G | offer to share it with {sibling} for a while, taking turns to choose what to do | v: benevolence, tradition | seek: negotiate | foot: means ties+.03 | chance: 75
+- W>B | enter the open contest for it, and train to a real standard | v: achievement, conformity | seek: deepen | foot: person rival | chance: 55
+- U>R | ask the oldest hand at the club what made it exciting for them, and try that | v: self-direction, stimulation | seek: help | foot: person mentor | chance: 70
+- B>G | turn up at the open day of the walking club, just to see who is there | v: achievement, benevolence | seek: own_interest | foot: place gather.games | chance: 65
+- R>W | keep the standing game with {friend} every week, even on the flat days | v: benevolence, conformity | seek: keep | foot: mark kept your word | chance: 80
+- G>U | step back from all of it, and let the free hours stay free for a while | v: security, self-direction | seek: withdraw | foot: lesson empty hours can rest | chance: 85
+works: {N} turns up half expecting nothing, and an hour passes without a glance at the clock.
+works: It is not the old pleasure back. It is a new one, smaller and sharper, and {N} keeps it.
+fails: The welcome is polite and thin, and {N} walks home early to the same empty evening.
+fails: The flatness lasts the season. Something is changing, and {N} cannot yet see into what.
+
+# ---------------------------------------------------------------- 3. frustration, help near (cycle s1)
+
+== the piece that breaks at the same place
+tier: life event
+state: frustration
+stages: juvenile young_adult adult mature elder
+age: 12-90
+per_year: 0 0 0 0 0 0
+tone: trouble
+life: learning, play
+horizon: months
+roles: mentor, friend, grandparent, neighbour, elder
+earth: months of work on one skill, and it still breaks at the same place every time
+tribal: the bow {N} has shaped all season, which still splits at the same knot
+magic: a spell practised for months, which still fizzles at the same word
+scene: For months {N} has worked at one thing, a tune on the old piano, a joint in the wood, a stubborn page of figures, and it still breaks at the same place. {mentor} has watched twice and plainly would help if asked. Every evening the same mistake arrives on time.
+scene tribal: All season {N} has shaped bows from the same kind of wood, and every one splits at the knot. {elder}, who has made bows for longer than anyone, sits three fires away. {N} has not asked.
+scene magic: {N} has practised the lighting spell for months, and it fizzles at the same word every time. {mentor} keeps an open door in the tower for anyone stuck, and {N} has walked past it twice this week.
+- W | ask for a proper extra hour in the practice room, and agree to keep it tidy | v: conformity, achievement | seek: negotiate | foot: means time+.03 | chance: 75
+- U | go back to it every evening, slowly, until the break shows its cause | v: self-direction, achievement | seek: persist | foot: mark learned a skill | chance: 55
+- B | trade the hard piece for one that can win something sooner | v: achievement, power | seek: revise | foot: lesson pick the battle worth winning | chance: 80
+- R | throw every hour at it for one wild week, morning and night | v: stimulation, achievement | seek: deepen | foot: means health-.03 | chance: 60
+- G | ask {mentor} to sit alongside and watch the hands, just once | v: benevolence, tradition | seek: help | foot: means ties+.03 | chance: 85
+- W>U | set it aside until next term, as the teacher's plan says | v: conformity, security | seek: withdraw | foot: lesson rest is part of practice | chance: 85
+- U>B | film the attempts, find the exact moment it fails, and drill only that | v: self-direction, achievement | seek: method | foot: means time-.03 | chance: 70
+- B>R | strike a deal at home: all the chores done, and the practice room free all weekend | v: power, stimulation | seek: negotiate | foot: means freedom+.03 | chance: 70
+- R>G | play it badly and loudly in the yard until it is fun again | v: stimulation, hedonism | seek: persist | foot: person neighbour | chance: 75
+- G>W | promise {grandparent} a plain version by summer, not a perfect one | v: benevolence, tradition | seek: revise | foot: door kept your word | chance: 80
+works: The break gives way one evening, quietly, and {N} gets through the whole thing twice, to be sure it was not luck.
+works: It is still not right, but it breaks later now, and {N} can see the end from here.
+fails: The same place, the same break. {N} is tired of the sound of it.
+fails: A new mistake joins the old one, and the week ends further back than it began.
+
+# ---------------------------------------------------------------- 4. frustration, no help near (cycle s2)
+
+== the door that keeps saying no
+tier: life event
+state: frustration
+stages: juvenile young_adult adult mature elder
+age: 14-90
+per_year: 0 0 0 0 0 0
+tone: trouble
+life: work, learning
+horizon: months
+roles: friend, parent
+earth: the third refusal from the place {N} has worked toward, and nobody nearby who ever got in
+tribal: the hunters' band that turns {N} away again, and no kin who ever ran with it
+magic: the academy's third refusal, and not one person in the village who has passed its gate
+scene: The third letter says no, as kindly as the first two: no place this year. {N} has done everything the guidance asked, and nobody in the family or the street has ever got through this door to say what is missing. {friend} means well and knows nothing about it.
+scene tribal: For the third season the hunters' band has turned {N} away at the gathering. None of {Ns} kin ever ran with them, so nobody can say what the band wants. {friend} shrugs and offers to go fishing instead.
+scene magic: The academy's third refusal comes sealed in wax, with no reason given. Nobody in {Ns} village has ever passed its gate, and {friend} has never even seen it.
+- W | stop applying for now, and do the waiting job properly | v: conformity, security | seek: withdraw | foot: means money+.03 | chance: 85
+- U | study the lists of past entrants, and work out what the ones admitted had in common | v: self-direction, achievement | seek: method | foot: mark learned a skill | chance: 70
+- B | write to the person in charge directly, and ask what it would take | v: power, achievement | seek: negotiate | foot: lesson ask the gate itself | chance: 55
+- R | apply again straight away, the same way, with everything poured into it | v: stimulation, achievement | seek: persist | foot: mark took a wild risk | chance: 50
+- G | turn the aim toward the nearer course that people from around here get into | v: security, tradition | seek: revise | foot: place learn.higher | chance: 75
+- W>B | start a small study group of the others who were turned down, and set its pace | v: conformity, power | seek: own_interest | foot: place gather.talk | chance: 60
+- U>R | hold to the promise made at the start: one more honest try, then think again | v: self-direction, stimulation | seek: keep | foot: door kept your word | chance: 80
+- B>G | take the year at home, and let the whole thing cool | v: security, benevolence | seek: withdraw | foot: mark stayed home | chance: 85
+- R>W | turn up in person on the open day, and ask to be seen | v: stimulation, conformity | seek: method | foot: person mentor | chance: 55
+- G>U | ask whether a part-time place or a later start could be arranged | v: benevolence, self-direction | seek: negotiate | foot: means time-.04 | chance: 60
+works: A different answer comes at last: a place, a yes with conditions, or someone who explains what the letters never did.
+works: The no stands, but {N} can see the gap now, and a way across it that does not need this door.
+fails: Another polite no, and still nobody to ask why.
+fails: The new way in is open, but the welcome is cool, and {N} sits at the back wondering if it was worth it.
+
+# ---------------------------------------------------------------- 5. anger, at a person (cycle s1)
+
+== the private thing told to everyone
+tier: life event
+state: anger
+stages: juvenile young_adult adult mature elder
+age: 12-90
+per_year: 0 0 0 0 0 0
+tone: trouble
+life: friends
+horizon: week
+roles: friend
+earth: something {N} said in confidence, now going round everyone
+tribal: a thing told to {friend} at the stream, now repeated around every fire
+magic: a secret shared with {friend}, now whispered through the whole guild
+scene: Something {N} told {friend} in confidence is going round everyone, and it came back today in someone else's mouth. {friend} has not said sorry, or even mentioned it. The anger sits in {Ns} chest all afternoon and will not go down.
+scene tribal: A thing {N} told {friend} at the stream is being repeated around every fire tonight. {friend} laughs with the others as if it were nothing. {N} cannot eat.
+scene magic: A secret {N} trusted to {friend} is being whispered through the guild's halls. {friend} passes {N} on the stair without a word. The anger hums like a badly bound ward.
+- W | write down calmly exactly what was broken, and set a time to go through it | v: conformity, universalism | seek: method | foot: lesson calm words carry further | chance: 75
+- U | tell {friend} the new terms plainly: no more confidences until trust is rebuilt | v: self-direction, security | seek: negotiate | foot: means ties-.03 | chance: 75
+- B | carry on as before in public, and keep score in private | v: power, security | seek: persist | foot: door kept it hidden | chance: 85
+- R | decide {friend} is not the friend it seemed, and expect less from now on | v: self-direction, stimulation | seek: revise | foot: person friend lost | chance: 70
+- G | spend more time with {friend}, not less, until the reason comes out | v: benevolence | seek: deepen | foot: means time-.03 | chance: 60
+- W>U | keep the old promise between them, and repeat nothing about {friend} to anyone | v: tradition, self-direction | seek: keep | foot: mark kept your word | chance: 80
+- U>B | step back from the shared group for a few weeks, and watch who asks why | v: self-direction, power | seek: withdraw | foot: means freedom+.03 | chance: 80
+- B>R | say exactly what was broken, sharply, in front of the people who heard the story | v: power, stimulation | seek: method | foot: person rival | chance: 55
+- R>G | tell {friend} how much it hurt, loudly and honestly, and ask for a new start | v: stimulation, benevolence | seek: negotiate | foot: lesson honest anger can mend | chance: 65
+- G>W | let it pass, as old friends do, and keep turning up | v: tradition, benevolence | seek: persist | foot: means ties+.03 | chance: 85
+works: The anger runs its course, and what is left can be talked about. Something between them is clearer, if not the same.
+works: {friend} understands at last what was broken, and the next secret {N} chooses to tell is kept.
+fails: Nothing is settled. The story keeps going round, and {N} keeps hearing it.
+fails: It goes badly: words are said that make it worse, and both of them walk away hot in the face.
+
+# ---------------------------------------------------------------- 6. anger, at a rule or a body (cycle s2)
+
+== the mark that should not stand
+tier: life event
+state: anger
+stages: juvenile young_adult adult mature elder
+age: 12-90
+per_year: 0 0 0 0 0 0
+tone: trouble
+life: work, learning
+horizon: months
+roles: mentor, friend, elder
+earth: a mark on {Ns} record for something {N} did not do, and a rule that says it stands
+tribal: blame laid on {N} at the council fire for a lost net, and the custom that blame once spoken stays
+magic: a demerit in the guild's book for a broken ward {N} never touched
+scene: The people who run things have put a mark on {Ns} record for something {N} did not do, and the rule says a mark, once entered, stands. The one who did it is known and untouched. {N} reads the letter three times and is angrier each time.
+scene tribal: At the council fire the loss of the big net was laid on {N}, though {N} was upriver that day. Custom says blame once spoken is not unsaid, and {elder} looks away.
+scene magic: The guild's book now shows a demerit beside {Ns} name for a broken ward {N} never touched. The guild's law says entries are never struck out. {friend} heard someone laughing about it on the stair.
+- W | keep working by the rules anyway, and let the clean record that follows answer | v: conformity, security | seek: keep | foot: lesson a clean record answers back | chance: 80
+- U | stop volunteering for anything there, and do only what is required | v: self-direction, security | seek: withdraw | foot: means time+.03 | chance: 85
+- B | find the clause that says when a mark can be struck out, and use it | v: power, achievement | seek: method | foot: mark learned a skill | chance: 55
+- R | go to the office in person, and argue for a hearing to their faces | v: stimulation, universalism | seek: negotiate | foot: mark defied an authority | chance: 50
+- G | carry on as before, and trust the people who know {N} to know better | v: tradition, benevolence | seek: persist | foot: means ties+.03 | chance: 80
+- W>B | find someone respected to speak at the review, and ask them properly | v: conformity, power | seek: help | foot: person go-between | chance: 60
+- U>R | start a small newsletter setting out how the rule fails people | v: universalism, self-direction | seek: own_interest | foot: place rule.voice | chance: 60
+- B>G | stay on with the team anyway, and make sure everyone hears the truth | v: benevolence, power | seek: keep | foot: person friend | chance: 75
+- R>W | walk out of the place for good, and say why in writing | v: stimulation, universalism | seek: withdraw | foot: means freedom+.05 | chance: 70
+- G>U | gather the others the rule has caught, and look at the cases together | v: benevolence, universalism | seek: method | foot: place gather.talk | chance: 65
+works: The mark is struck out at last, with a dry note and no apology, and {N} keeps the letter anyway.
+works: The mark stays, but the rule is looked at again, and the next one caught by it will have an easier time.
+fails: The mark stands. The people who run things have moved on, and only {N} is still angry.
+fails: It turns sour: the complaint becomes its own mark, and {N} learns how the place treats people who object.
+
+# ---------------------------------------------------------------- 7. content, keeping a good thing going (cycle s1)
+
+== the good season
+tier: life event
+state: content
+stages: juvenile young_adult adult mature elder
+age: 12-90
+per_year: 0 0 0 0 0 0
+tone: joy
+life: home, friends
+horizon: months
+roles: friend, grandparent, neighbour
+earth: a stretch of life where the days fit and the people are near
+tribal: a fat season at the camp, the stores full and the songs easy
+magic: a calm season in the realm, the wards holding and the house warm
+scene: Things are good. The days have a shape {N} likes, {friend} is near, and the work or the school asks enough and not too much. {N} notices it one evening on the walk home, and wonders what it takes to keep it.
+scene tribal: The stores are full, the hunting has been kind, and the songs at the fire come easily. {N} sits with {friend} and feels it plainly: this is a good season. The old ones say good seasons need tending.
+scene magic: The wards hold, the harvest charms took, and the house is warm with people {N} loves. {friend} calls it a lucky year, and {N} wonders whether luck needs looking after.
+- W | give more time to what makes it good: the shared meals, the standing plans | v: tradition, conformity | seek: deepen | foot: place gather.house | chance: 85
+- U | ask {grandparent} what kept the good years good, and listen to the answer | v: self-direction, tradition | seek: help | foot: lesson good things need tending | chance: 85
+- B | start a small trade on the side while the ground is steady | v: achievement, security | seek: own_interest | foot: means money+.04 | chance: 70
+- R | keep the weekly evening with {friend} free, whatever else comes up | v: hedonism, benevolence | seek: keep | foot: mark kept your word | chance: 85
+- G | step back from the extra things, and let the good days be quiet ones | v: security, tradition | seek: withdraw | foot: means time+.04 | chance: 90
+- W>U | carry on exactly as now: the same days, kept with care | v: conformity, security | seek: persist | foot: means health+.03 | chance: 90
+- U>B | set one small new aim on top of the good days, and see what it costs | v: achievement, self-direction | seek: revise | foot: lesson aims can grow from rest | chance: 75
+- B>R | make more room for the best part: the music, the games, whatever lights the week | v: hedonism, achievement | seek: deepen | foot: place arts.song | chance: 80
+- R>G | ask the friends round for a big shared meal, and let them help make it | v: benevolence, hedonism | seek: help | foot: means ties+.04 | chance: 85
+- G>W | start a small shared garden with the neighbours, to keep the street close | v: universalism, benevolence | seek: own_interest | foot: person neighbour | chance: 70
+works: The season lasts longer than {N} dared hope, and some of it simply becomes how life is.
+works: A small change keeps the good thing fresh, and {N} learns what keeping something going feels like.
+fails: The good season thins out on its own, the way seasons do, and {N} is glad of what it was.
+fails: The new thing costs more than it gives, and {N} has to win the old calm back.
+
+# ---------------------------------------------------------------- 8. content, a new pull anyway (cycle s2)
+
+== the offer on a good day
+tier: life event
+state: content
+stages: juvenile young_adult adult mature elder
+age: 14-90
+per_year: 0 0 0 0 0 0
+tone: mixed
+life: work, home
+horizon: months
+roles: friend, grandparent, elder
+earth: an offer to start again somewhere new, just when life at home is good
+tribal: a travelling band's invitation to walk with them over the mountains, in a good season at home
+magic: a place at the far academy, offered just as {Ns} life at home is settled and good
+scene: Life is good: the days fit and the people are near. Then {friend} mentions an opening somewhere new, a team, a course, a crew in another town, and says {N} would be good at it. {N} was not looking, and cannot stop thinking about it.
+scene tribal: The season at home is good, the stores full and the fire warm. A travelling band passing through invites {N} to walk with them over the mountains to the summer grounds, and {elder} says nothing either way. {N} has not slept well since.
+scene magic: Life in the village is settled and kind. Then a letter comes from the far academy: a place, if {N} wants it, from the next moon. {N} reads it on the porch with the sun on the page, and does not know what to feel.
+- W | redraw the plan for the next years with the offer written in, carefully | v: conformity, achievement | seek: revise | foot: means time-.03 | chance: 80
+- U | take the next course in the thing already loved here, and go further in it | v: self-direction | seek: deepen | foot: place learn.higher | chance: 75
+- B | ask the new place what it would really offer, and at what cost | v: achievement, power | seek: help | foot: person go-between | chance: 70
+- R | go along to one open day at the new place, just to feel it | v: stimulation, self-direction | seek: own_interest | foot: means money-.03 | chance: 75
+- G | stay with the people here, as promised, and say so warmly | v: tradition, benevolence | seek: keep | foot: mark turned down a chance | chance: 90
+- W>B | ask for terms that let both lives fit: a later start, a trial month | v: conformity, power | seek: negotiate | foot: means freedom+.03 | chance: 60
+- U>R | change nothing: notice the pull, and enjoy being wanted | v: self-direction, hedonism | seek: persist | foot: lesson being wanted is enough | chance: 90
+- B>G | turn the aim homeward: build the new thing here instead of going to it | v: achievement, benevolence | seek: revise | foot: place gather.hall | chance: 60
+- R>W | throw more into what is already good: the team here, the people here | v: stimulation, conformity | seek: deepen | foot: place gather.games | chance: 80
+- G>U | ask someone who once left home how it went for them, and weigh the answer | v: tradition, self-direction | seek: help | foot: means ties+.03 | chance: 85
+works: Whatever {N} chooses is chosen and not drifted into, and the days after feel like {Ns} own.
+works: The new door opens, or the old one is held, and either way {N} finds more there than expected.
+fails: The visit goes cold: the people at the new place are busy and distant, and the pull fades into a small ache.
+fails: {N} holds still too long and the offer goes to someone else; home is still good, if a little restless in the head.
+
+# ---------------------------------------------------------------- 9. low mood, a quiet season (cycle s1)
+
+== the long flat weeks
+tier: life event
+state: low_mood
+stages: juvenile young_adult adult mature elder
+age: 12-90
+per_year: 0 0 0 0 0 0
+tone: mixed
+life: home, core
+horizon: months
+roles: friend, grandparent
+earth: weeks where everything is a little heavier than it should be, and nothing in particular is wrong
+tribal: a long stretch of short days, when the fire seems smaller and the walk to the water longer
+magic: a season when even the house-lights burn low, and nobody can say why
+scene: For weeks now the days have weighed a little more than they should. Nothing in particular is wrong; getting up is slower, and the things that used to help help less. {friend} has noticed and not said anything yet.
+scene tribal: The days are short, and for weeks {N} has felt the fire grow smaller and the walk to the water grow longer. Nobody is ill and nothing is lost. {friend} sits beside {N} more often than before.
+scene magic: All season the house-lights in {Ns} room have burned low, and the charms that lift a mood do not take. Nothing is wrong that anyone can name. {friend} leaves a warm loaf at the door without knocking.
+- W | tell {friend} plainly how the weeks have been, and take up the offer of walks | v: benevolence, conformity | seek: help | foot: means ties+.04 | chance: 80
+- U | start one small new thing each day: a page, a sketch, a short walk | v: self-direction | seek: own_interest | foot: lesson small steps still count | chance: 80
+- B | keep the commitments that matter most, and drop the rest without guilt | v: security, achievement | seek: keep | foot: means time+.04 | chance: 85
+- R | step back from everything for a few weeks, and let the days be small and soft | v: hedonism, self-direction | seek: withdraw | foot: means health+.03 | chance: 80
+- G | change the shape of the day: up with the light, out under the trees first | v: universalism, security | seek: method | foot: place prod.wild | chance: 75
+- W>U | lower the aims for the season on purpose, and write the new ones down | v: conformity, self-direction | seek: revise | foot: lesson aims can bend for a season | chance: 85
+- U>B | go deeper into the one thing that still holds interest, and give it the best hours | v: self-direction, achievement | seek: deepen | foot: mark learned a skill | chance: 75
+- B>R | book a talk with someone trained to listen, and go, even on a flat day | v: security, self-direction | seek: help | foot: place care.houses | chance: 75
+- R>G | go along to the open morning at the community garden, and see who is there | v: stimulation, universalism | seek: own_interest | foot: place prod.land | chance: 70
+- G>W | keep the weekly visit to {grandparent}, however heavy the week | v: tradition, benevolence | seek: keep | foot: mark kept your word | chance: 85
+works: It lifts slowly, the way weather lifts: one morning {N} notices the light before noticing the weight.
+works: The weeks are still heavy, but {N} is no longer carrying them alone, and that changes how they feel.
+fails: The low weeks run on longer than {N} hoped. They are still weeks, though, and they keep moving.
+fails: The plan does not help much this time; {N} sets it down gently and keeps looking for what will.
+
+# ---------------------------------------------------------------- 10. low mood, after a loss (cycle s2)
+
+== after something ended
+tier: life event
+state: low_mood
+stages: juvenile young_adult adult mature elder
+age: 12-90
+per_year: 0 0 0 0 0 0
+tone: mixed
+life: home, core
+horizon: months
+roles: friend, elder
+earth: the months after something ended that {N} had built a life around
+tribal: the moons after a loss that took a piece of the camp with it
+magic: the seasons after an ending that left a cold room in {Ns} house
+scene: This year something ended that {N} had built a life around: a place, a person, a plan. The worst of it has passed, and what is left is a long low quiet. {friend} keeps asking how {N} is, and {N} keeps saying fine.
+scene tribal: This year a loss took a piece of the camp with it, and a piece of {N}. The mourning songs are sung and done, and the quiet after them is long. {elder} leaves a little food by {Ns} sleeping place each night.
+scene magic: An ending this year left a cold room in {Ns} house, and nobody has the charm to warm it. The rites are over. {friend} comes by and talks about the weather for an hour, which helps a little.
+- W | take up the shared duties and do them well, as a way of honouring them | v: tradition, conformity | seek: deepen | foot: door kept your word | chance: 80
+- U | ask {friend} to sit and talk about what ended, not around it | v: benevolence, self-direction | seek: help | foot: means ties+.04 | chance: 80
+- B | sign up for the course the old life never left time for | v: achievement, self-direction | seek: own_interest | foot: place learn.higher | chance: 65
+- R | keep the trip that was planned before, and go anyway, tears and all | v: stimulation, hedonism | seek: keep | foot: mark kept your word | chance: 70
+- G | step back for a season: fewer people, more walks, early nights | v: security, tradition | seek: withdraw | foot: place prod.wild | chance: 85
+- W>B | carry on with the routines exactly as before, and let them hold things up | v: conformity, security | seek: persist | foot: means health+.03 | chance: 85
+- U>R | let the old plan go, and write down what is wanted now, however small | v: self-direction, stimulation | seek: revise | foot: lesson plans can be written again | chance: 75
+- B>G | put the hours into the work once shared, and make it thrive | v: achievement, benevolence | seek: deepen | foot: place prod.land | chance: 70
+- R>W | turn up once at the group for people after a loss, and see | v: benevolence, conformity | seek: help | foot: place gather.talk | chance: 70
+- G>U | learn the names of the birds on the morning walk, one a week | v: universalism, self-direction | seek: own_interest | foot: mark learned a skill | chance: 75
+works: The quiet does not go, but it changes: one day it holds a memory {N} can smile at.
+works: Something small and new takes root in the space the ending left, and {N} tends it without quite meaning to.
+fails: The low stretch runs on through the season, slow but moving, and {N} keeps going in small ways.
+fails: It does not take this time, and {N} goes back to the quiet, meaning to try again later.
+
+
+# ================================================================ B. REPAIR
+
+# ---------------------------------------------------------------- 11. partner, time (cycle s1)
+
+== the evenings that disappeared
+tier: life event
+stages: juvenile young_adult adult mature elder
+age: 16-90
+per_year: 0 0 0 0 0 0
+tone: trouble
+life: love, home
+horizon: months
+roles: partner
+earth: long hours and late journeys home, and the evenings with {partner} gone without anyone deciding it
+tribal: long hunts and late returns, and the evenings by the shared fire gone
+magic: the long watches at the tower, and the evenings with {partner} gone without a word
+scene: Somewhere in the last months the evenings with {partner} disappeared. Work runs late, the other one is asleep or out, and the talk is about bins and bills. Nobody chose it, and both of them feel it.
+scene tribal: Long hunts and late returns have eaten the evenings {N} and {partner} used to spend at their own fire. They pass each other at dawn with a word about the meat. Nobody chose it, and both of them feel it.
+scene magic: The long watches at the tower have taken the evenings {N} and {partner} used to share. They leave each other notes under the lamp. Nobody chose it, and both of them feel it.
+- W | sit down with {partner} on a set evening and say plainly what is missing | v: conformity, benevolence | repair: talk | foot: means ties+.03 | chance: 80
+- U | suggest a few weeks apart, to think clearly about what each one wants | v: self-direction | repair: separate | foot: means freedom+.04 | chance: 70
+- B | draw a line at work: home by seven twice a week, whatever the boss says | v: power, security | repair: boundary | foot: means money-.03 | chance: 65
+- R | claim one free evening a week together, out of the house, no excuses | v: hedonism, stimulation | repair: routine | foot: place arts.stage | chance: 80
+- G | swap who does what, so one of them is always home to cook for both | v: benevolence, tradition | repair: renegotiate | foot: means time+.03 | chance: 80
+- W>U | sign both of them up for the weekly cooking class, and keep going | v: conformity, self-direction | repair: shared | foot: place arts.craft | chance: 75
+- U>B | ask {partner} what the lost evenings have cost, and listen without defending | v: self-direction, achievement | repair: talk | foot: lesson listen before answering | chance: 75
+- B>R | make up for the missed birthday with something planned properly this time | v: achievement, hedonism | repair: repair | foot: means money-.04 | chance: 80
+- R>G | say out loud that it hurts, and turn down the next late shift | v: stimulation, benevolence | repair: boundary | foot: mark turned down a chance | chance: 70
+- G>W | move the days around: breakfast together every morning, even if it means rising early | v: tradition, conformity | repair: routine | foot: door kept your word | chance: 80
+works: The evenings come back in a new shape, and years on they are one of the first things both of them name about their life together.
+works: It takes a season of trying. What grows from it is a habit of noticing each other, and they keep it.
+fails: The good intentions last three weeks, and then the late hours win again.
+fails: The talk opens an older hurt, and for a while the house is colder, not warmer.
+
+# ---------------------------------------------------------------- 12. partner, money (cycle s2)
+
+== the money talk that always goes wrong
+tier: life event
+stages: juvenile young_adult adult mature elder
+age: 16-90
+per_year: 0 0 0 0 0 0
+tone: trouble
+life: love, money
+horizon: months
+roles: partner
+earth: the same argument about money, every month, the same way
+tribal: the same quarrel over the stores, every moon, about who took and who gave
+magic: the same argument over the household purse, every moon, word for word
+scene: Every month {N} and {partner} have the same argument about money, and it goes the same way: one spends, one worries, both say things they regret. This month it started over something small and ended in silence. The account is not empty; the trust around it is thin.
+scene tribal: Every moon {N} and {partner} quarrel over the stores: who traded away the good skins, who keeps back too much. This moon it ended in silence by the fire. There is enough to eat, and not enough trust about it.
+scene magic: Every moon {N} and {partner} argue over the household purse, word for word the same. This moon {partner} went to sleep in the other room. The purse is not empty; the trust around it is thin.
+- W | own up to the spending that was kept quiet, and lay out the real figures | v: conformity, universalism | repair: repair | foot: mark owned up | chance: 70
+- U | set a firm line for both: no big purchase without a day's notice to the other | v: self-direction, security | repair: boundary | foot: door kept your word | chance: 75
+- B | set a fixed money hour each week, with the figures on the table | v: power, security | repair: routine | foot: lesson numbers calm the room | chance: 75
+- R | split it differently: each keeps a share to spend freely, no questions asked | v: hedonism, self-direction | repair: renegotiate | foot: means freedom+.04 | chance: 80
+- G | start saving together for one thing both want: a trip, a garden, a home | v: benevolence, tradition | repair: shared | foot: means money+.05 | chance: 75
+- W>B | propose keeping the money fully separate, with the household costs halved | v: conformity, power | repair: separate | foot: means freedom+.03 | chance: 75
+- U>R | apologise for the worst thing said, and explain what was really meant | v: self-direction, benevolence | repair: repair | foot: means ties+.03 | chance: 80
+- B>G | hold the line on the debt together: nothing new until it is cleared | v: security, benevolence | repair: boundary | foot: means money+.03 | chance: 70
+- R>W | move the money talk to a walk, and never again at the kitchen table | v: stimulation, conformity | repair: routine | foot: lesson where the talk happens matters | chance: 80
+- G>U | tell {partner} what money meant at home growing up, and ask for the same story | v: tradition, self-direction | repair: talk | foot: means ties+.04 | chance: 80
+works: The next money talk is shorter and kinder, and over the years their shared savings jar becomes a small family legend.
+works: They find out the fight was never really about money, and what they build from knowing it lasts.
+fails: The new plan holds for a month, and then the old argument comes back in a new coat.
+fails: The figures are clear now, and so is the gap between what each of them wants, and neither knows yet what to do with it.
+
+# ---------------------------------------------------------------- 13. partner, a plan made alone (cycle s1)
+
+== the plan made without asking
+tier: life event
+stages: juvenile young_adult adult mature elder
+age: 16-90
+per_year: 0 0 0 0 0 0
+tone: trouble
+life: love, home
+horizon: months
+roles: partner
+earth: a big plan {partner} said yes to without asking {N} first
+tribal: a season with the far hunt that {partner} promised, telling {N} after
+magic: a post at the distant keep that {partner} accepted, and mentioned at supper
+scene: {partner} has said yes to something big, a new job across the city with long hours, without asking {N} first. It may even be a good plan. What hurts is the being told.
+scene tribal: {partner} has promised the far hunt a whole season, and told {N} after the promise was made. It may be a good choice for the camp. What hurts is the being told.
+scene magic: {partner} has accepted a post at the distant keep, and mentioned it at supper as if it were the weather. It may be a fine post. What hurts is the being told.
+- W | set a rule for both of them: no big yes without the other's yes first | v: conformity, security | repair: boundary | foot: door kept your word | chance: 75
+- U | rearrange the weeks around the new job on paper, before anyone resents it | v: self-direction, security | repair: routine | foot: means time-.03 | chance: 80
+- B | agree to the plan, in exchange for choosing the next big thing | v: power, achievement | repair: renegotiate | foot: means freedom+.03 | chance: 70
+- R | turn it into an adventure, and plan the first weekend of the new life together | v: stimulation, hedonism | repair: shared | foot: means money-.03 | chance: 80
+- G | say this kind of telling cannot go on, and stay at the family home awhile | v: tradition, security | repair: separate | foot: mark came home | chance: 65
+- W>U | ask for an apology for the telling, and give one for the shouting | v: conformity, self-direction | repair: repair | foot: means ties+.03 | chance: 70
+- U>B | ask {partner} why it was never talked through, and hear the whole answer | v: self-direction, power | repair: talk | foot: lesson the reason is rarely simple | chance: 75
+- B>R | change the house rhythm: one evening a week for the big decisions, out loud | v: power, stimulation | repair: routine | foot: means ties+.04 | chance: 75
+- R>G | swap the load: whoever took the job gives up the chores that clash with it | v: stimulation, benevolence | repair: renegotiate | foot: means time+.03 | chance: 75
+- G>W | build something both choose, start to finish: a garden at the new place | v: benevolence, conformity | repair: shared | foot: place prod.land | chance: 75
+works: The plan goes ahead, and so does a new habit of asking first. Years later it is the habit they are proudest of.
+works: The hurt is named and answered, and the next big choice is made at the same table, slowly.
+fails: The plan goes ahead and the hurt goes with it, quiet and unspoken.
+fails: The talk turns into a list of every old decision made alone, and nothing is settled tonight.
+
+# ---------------------------------------------------------------- 14. friend, always cancelling (cycle s2)
+
+== the friend who always cancels
+tier: life event
+stages: juvenile young_adult adult mature elder
+age: 12-90
+per_year: 0 0 0 0 0 0
+tone: trouble
+life: friends
+horizon: months
+roles: friend
+earth: the fourth plan in a row that {friend} has cancelled an hour before
+tribal: {friend} missing the shared fishing trip again, with a reason that comes too late
+magic: {friend}'s fourth note of regret, arriving by bird an hour before
+scene: {friend} has cancelled the last four plans, always an hour before, always with a reason. {N} has started not asking, and {friend} has not noticed that either. The friendship is old, and it is thinning.
+scene tribal: {friend} has missed the shared fishing trip four times now, each time with a reason that comes too late. {N} has started going alone. The friendship is old, and it is thinning.
+scene magic: {friend}'s fourth note of regret arrives by bird an hour before they were meant to meet. {N} reads it standing at the door, coat already on. The friendship is old, and it is thinning.
+- W | suggest one fixed day a month, always the same, so it cannot slide | v: conformity, tradition | repair: routine | foot: door kept your word | chance: 80
+- U | offer to do all the planning from now on, if {friend} just turns up | v: self-direction, benevolence | repair: renegotiate | foot: means time-.03 | chance: 75
+- B | start something together with a stake in it: a stall at the weekend market | v: achievement, power | repair: shared | foot: place comm.market | chance: 65
+- R | tell {friend} straight out: the cancelling hurts, and it is getting old | v: stimulation, self-direction | repair: talk | foot: lesson saying it out loud helps | chance: 75
+- G | turn up at the door with food, and ask what is really going on | v: benevolence | repair: repair | foot: lesson cancelling can hide trouble | chance: 80
+- W>B | say the next cancelled plan is the last one {N} makes, and mean it | v: conformity, power | repair: boundary | foot: means freedom+.03 | chance: 70
+- U>R | switch to short, easy plans that are hard to cancel: a walk, a call | v: self-direction, stimulation | repair: routine | foot: means ties+.02 | chance: 85
+- B>G | let the friendship drift, and give the evenings to the people who turn up | v: security, benevolence | repair: separate | foot: person friend lost | chance: 80
+- R>W | sign up together for the weekly pottery class {friend} always talked about | v: stimulation, conformity | repair: shared | foot: place arts.craft | chance: 70
+- G>U | ask {friend} what the friendship needs right now, and listen to all of it | v: benevolence, self-direction | repair: talk | foot: means ties+.04 | chance: 80
+works: {friend} turns up, then turns up again, and the old friendship finds a shape that fits the new lives.
+works: The real reason comes out, and it was never about {N}; what grows from that evening is a steadier, more honest friendship.
+fails: The next plan is cancelled too, with a better reason than ever.
+fails: The talk is awkward, both of them are polite, and the friendship stays where it was, old and thin.
+
+# ---------------------------------------------------------------- 15. friend, hurt words (cycle s1)
+
+== the joke that went too far
+tier: life event
+stages: juvenile young_adult adult mature elder
+age: 12-90
+per_year: 0 0 0 0 0 0
+tone: trouble
+life: friends
+horizon: months
+roles: friend
+earth: a joke about {N} that {friend} made in front of everyone, and that still stings
+tribal: a mocking song about {N} that {friend} sang at the fire, to laughter
+magic: a cutting jest about {N} that {friend} made before the whole guild
+scene: Last week {friend} made a joke about {N} in front of everyone, about the one thing {N} is most touchy about. Everyone laughed, {friend} loudest. It still stings, and {friend} has acted since as if nothing happened.
+scene tribal: At the fire {friend} sang a mocking song about {N}, about the one thing {N} is most touchy about, and the whole circle laughed. It still stings. {friend} greets {N} each morning as if nothing happened.
+scene magic: Before the whole guild {friend} made a cutting jest about {N}, about the one thing {N} is most touchy about. The masters smiled. {friend} has acted since as if nothing happened.
+- W | agree on a rule between them: some things are not for jokes | v: conformity, benevolence | repair: renegotiate | foot: door kept your word | chance: 75
+- U | suggest a project together where each needs the other's skill | v: self-direction, achievement | repair: shared | foot: mark learned a skill | chance: 70
+- B | tell {friend} plainly that the joke cost something, and name what | v: power, self-direction | repair: talk | foot: lesson naming the cost helps | chance: 70
+- R | walk away from the group for a while, and find people who are kinder | v: stimulation, self-direction | repair: separate | foot: person friend | chance: 75
+- G | ask, quietly, that this one topic stays off limits from now on | v: benevolence, security | repair: boundary | foot: lesson a quiet ask is heard | chance: 80
+- W>U | keep seeing each other, but in the smaller, quieter circle where they talk properly | v: conformity, self-direction | repair: routine | foot: place gather.circle | chance: 80
+- U>B | swap the roles: stop being the easy target, and set the tone for once | v: self-direction, power | repair: renegotiate | foot: means freedom+.03 | chance: 60
+- B>R | challenge {friend} to write a comic sketch together for the local show | v: achievement, stimulation | repair: shared | foot: place arts.stage | chance: 65
+- R>G | tell {friend} it hurt, loudly, and then laugh about something else together | v: stimulation, benevolence | repair: talk | foot: means ties+.03 | chance: 75
+- G>W | make the first step back: an invitation, and an apology for the cold week | v: benevolence, conformity | repair: repair | foot: means ties+.04 | chance: 80
+works: {friend} goes quiet for a moment, then is sorry, really sorry, and the friendship is stronger for having been tested.
+works: Something they make together afterwards becomes the story they tell, and the joke is a footnote to it.
+fails: {friend} shrugs it off as only a joke, and {N} feels foolish for raising it.
+fails: Things smooth over on the surface, and the sting stays underneath.
+
+# ---------------------------------------------------------------- 16. parent of a grown child (cycle s2)
+
+== the calls that turn into lectures
+tier: life event
+stages: young_adult adult mature
+age: 18-80
+per_year: 0 0 0 0 0 0
+tone: trouble
+life: family
+horizon: months
+roles: parent
+earth: weekly calls with {parent} that turn, every time, into advice nobody asked for
+tribal: visits to {parent}'s fire that turn, every time, into instructions on how to live
+magic: {parent}'s weekly letters by bird, each one a list of how {N} should be living
+scene: Every call with {parent} turns into advice: the job, the home, the people, the way {N} lives. {N} is long grown, still answers like a sulky teenager, and both of them hang up sore. They love each other; the calls are wearing it thin.
+scene tribal: Every visit to {parent}'s fire turns into instructions: how to set snares, whom to trust, where to sleep. {N} has been grown for years and still leaves feeling small. They love each other; the visits are wearing it thin.
+scene magic: {parent}'s letters come by bird every week, each one a list of how {N} should be living. {N} has stopped opening them on the day they come. They love each other; the letters are wearing it thin.
+- W | invite {parent} to help with one real project: the repairs, the papers, the plot | v: tradition, conformity | repair: shared | foot: means ties+.03 | chance: 75
+- U | ask {parent} what the worry underneath the advice really is | v: self-direction, benevolence | repair: talk | foot: lesson advice often hides worry | chance: 75
+- B | call less often for a while, and say why | v: self-direction, power | repair: separate | foot: means freedom+.04 | chance: 80
+- R | say, warmly and once, that some topics are closed from now on | v: self-direction, stimulation | repair: boundary | foot: mark defied an authority | chance: 65
+- G | move the calls to a walk together each month, where talk comes easier | v: tradition, benevolence | repair: routine | foot: place prod.wild | chance: 75
+- W>B | change the roles: ask {parent} for advice on one thing, and only that thing | v: conformity, power | repair: renegotiate | foot: means ties+.02 | chance: 70
+- U>R | start writing down the family's stories with {parent}, one each visit | v: tradition, self-direction | repair: shared | foot: place arts.page | chance: 80
+- B>G | sit down with {parent} and say how the calls feel from this side | v: benevolence, power | repair: talk | foot: means ties+.04 | chance: 70
+- R>W | apologise for the years of snapping back, and mean it | v: conformity, benevolence | repair: repair | foot: mark owned up | chance: 75
+- G>U | move further away, for the work and a little for the distance | v: security, self-direction | repair: separate | foot: mark moved away | chance: 70
+works: The next call is shorter and warmer, and over the years the two of them find a way of being adults together.
+works: {parent} hears it, slowly, and the advice turns into stories, which {N} finds worth keeping.
+fails: The calls go on as before, and {N} goes on answering like a sulky teenager.
+fails: {parent} is hurt by the change, and the next months are polite and careful.
+
+# ---------------------------------------------------------------- 17. sibling, the chores (cycle s1)
+
+== the one who always does it
+tier: life event
+stages: juvenile young_adult adult mature elder
+age: 14-90
+per_year: 0 0 0 0 0 0
+tone: trouble
+life: family, home
+horizon: months
+roles: sibling
+earth: every family chore and errand on {N}, while {sibling} turns up when it suits
+tribal: the water and the wood for the family's fire carried by {N}, while {sibling} roams
+magic: the household wards and the old ones tended by {N}, while {sibling} visits when it suits
+scene: Somehow it is always {N} who does it: the dishes, the errands, the calls, the forms for the family. {sibling} turns up when it suits, gets thanked warmly, and leaves. This week {N} said something sharp, and they have not spoken since.
+scene tribal: It is always {N} who carries the water and the wood for the family's fire. {sibling} roams with the young hunters and is welcomed home like a hero. This moon {N} said something sharp, and they have not spoken since.
+scene magic: It is always {N} who renews the household wards and tends the old ones of the family. {sibling} visits when it suits and is thanked as if for a gift. This week {N} said something sharp, and they have not spoken since.
+- W | keep a polite distance from {sibling} for a season, and do only a fair half | v: conformity, universalism | repair: separate | foot: means time+.04 | chance: 75
+- U | apologise for the sharp words, and explain the tiredness behind them | v: self-direction, benevolence | repair: repair | foot: mark owned up | chance: 80
+- B | refuse to do the other share any longer, and say so once | v: power, security | repair: boundary | foot: means freedom+.04 | chance: 70
+- R | change the days: one big shared chore day, both of them, loud music on | v: stimulation, hedonism | repair: routine | foot: means ties+.03 | chance: 75
+- G | split the jobs out loud between them, in a list both agree to | v: benevolence, tradition | repair: renegotiate | foot: door kept your word | chance: 75
+- W>U | plan a shared project for the family: a gathering, a repair, a surprise | v: conformity, self-direction | repair: shared | foot: place gather.house | chance: 70
+- U>B | ask {sibling} how it looks from the other side, and listen to all of it | v: self-direction, power | repair: talk | foot: lesson the other side looks different | chance: 75
+- B>R | make it up with a treat for both: a day out, no chores mentioned | v: hedonism, achievement | repair: repair | foot: means money-.03 | chance: 80
+- R>G | say plainly where the line is, then sit down to a meal together as usual | v: stimulation, benevolence | repair: boundary | foot: lesson a line can be kind | chance: 70
+- G>W | put a rota on the kitchen wall, and both keep to it | v: tradition, conformity | repair: routine | foot: means time+.03 | chance: 75
+works: The rota holds, mostly, and somewhere in the arguing {N} and {sibling} become the kind of siblings who call each other first.
+works: {sibling} had no idea how much it was; once shown, {sibling} picks up more than expected, and keeps picking it up.
+fails: {sibling} agrees to everything and does almost none of it.
+fails: The silence goes on longer than either of them wants, and the chores pile up in the middle.
+
+# ---------------------------------------------------------------- 18. colleague, the uneven load (cycle s2)
+
+== the shared work carried by one
+tier: life event
+stages: juvenile young_adult adult mature elder
+age: 16-75
+per_year: 0 0 0 0 0 0
+tone: trouble
+life: work
+horizon: months
+roles: colleague, boss
+earth: a joint task where {N} does the hours and {colleague} does the talking
+tribal: the shared net-mending where {N} ties the knots and {colleague} does the boasting
+magic: a joint commission at the guild where {N} does the binding and {colleague} does the talking
+scene: The joint project with {colleague} has become {N} doing the hours and {colleague} doing the talking. There was a tense word in the corridor last week, and now they share a desk in silence. The deadline is a month away.
+scene tribal: The net-mending was meant to be shared, and it has become {N} tying the knots while {colleague} talks to the elders about it. They had words at the shore. The fishing season starts at the next moon.
+scene magic: The guild gave the commission to {N} and {colleague} together. {N} does the binding while {colleague} explains it to the masters. They had sharp words on the stair, and the commission is due at midsummer.
+- W | apologise properly for the tense word, and suggest starting fresh | v: conformity, benevolence | repair: repair | foot: means ties+.03 | chance: 80
+- U | draw a clear line: every task written down, a name beside each one | v: self-direction, security | repair: boundary | foot: lesson write down who does what | chance: 80
+- B | change the hours: one fixed block together each morning, nowhere to hide | v: power, achievement | repair: routine | foot: means time-.03 | chance: 70
+- R | propose swapping the jobs for a week, the hard part for the talking | v: stimulation, self-direction | repair: renegotiate | foot: means freedom+.03 | chance: 65
+- G | eat lunch together once a week, and plan the work as a pair | v: benevolence, tradition | repair: shared | foot: means ties+.04 | chance: 80
+- W>B | ask for a meeting with {colleague} and {boss} on how the work is split | v: conformity, power | repair: talk | foot: means ties-.03 | chance: 60
+- U>R | ask to move to another project now, and keep things civil | v: self-direction, stimulation | repair: separate | foot: person colleague | chance: 70
+- B>G | tell {colleague} straight, over coffee, what the split feels like | v: power, benevolence | repair: talk | foot: lesson a quiet word costs little | chance: 75
+- R>W | finish this one project well, then stop pairing with {colleague} for good | v: stimulation, conformity | repair: separate | foot: person colleague lost | chance: 75
+- G>U | offer to teach {colleague} the hard part, in return for help with the people side | v: benevolence, self-direction | repair: renegotiate | foot: means time-.04 | chance: 70
+works: The work evens out, and the next joint project is one both of them ask for.
+works: It never quite becomes friendship, but it becomes a good working pair, and the deadline is met with time to spare.
+fails: The split stays uneven, and {N} carries the work to the deadline alone.
+fails: The talk goes badly, and the desk is colder than before for the rest of the month.

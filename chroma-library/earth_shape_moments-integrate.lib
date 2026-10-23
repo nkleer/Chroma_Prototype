@@ -1,0 +1,374 @@
+# Chroma library, modern Earth: SHAPE MOMENTS of kind `integrate` (v25 prep, draft 10-23).
+# Pours into chroma-library/earth_shape_moments-*.lib (POUR-NOTES.md). Nothing built or run.
+# An integrate moment comes only to a life that holds rungs in two pursuits: the first is {aim.*}, the second
+# {aim2.*} (slots {aim2.thing} and {aim2.doing} only). It is the one way an integrated asset is earned (aims-shape.md
+# section 5; Emren's decision #9): a shown application of the two together, never the holding of two titles.
+# Every moment: shape any, kind integrate, fork empty, ages 16 to 90, per_year 0.
+# Layout: the balance layout, W U B R G once each, then one full cross cycle, alternating:
+#   cycle A: W>U U>B B>R R>G G>W       cycle B: W>B B>G G>U U>R R>W       (5 moments each)
+# aim: tags: `try` (make the combined attempt, in that colour's way) or `skip` (keep the two apart for now, a fair
+# choice). Seven try and three skip a moment; each one-colour option skips in three of the ten moments.
+# Footprints: try options leave a person, a place or a mark; skips a lesson (at most two a moment), a door or a means.
+# The first works and fails lines (`not` the skips) are the combined attempt's; the second fit every option.
+# Ask of the Engine: read `try` on kind integrate as the demonstration (success by fit, effort in both and luck);
+# a success is what lets AIM_ASSETS grant the pair's asset, once per pair; `skip` grants nothing and costs nothing.
+
+# ---------------------------------------------------------------- integrate: someone asks (cycle A)
+
+== the evening where both are wanted
+tier: life event
+shape: any
+kind: integrate
+rungs: 1 2 3 4
+fork:
+stages: juvenile young_adult adult mature elder
+age: 16-90
+per_year: 0 0 0 0 0 0
+tone: joy
+life: interests, community
+horizon: week
+roles: colleague, mentor, friend
+earth: {aim.person} asks {N} to bring {aim2.thing} into an evening of {aim.doing}, just to see what happens
+tribal: the elders ask {N} to bring {aim2.doing} to the fire where the clan talks of {aim.doing}
+magic: the guild asks {N} to bring {aim2.thing} into its hall of {aim.thing} for one evening
+scene: {aim.person} has heard that {N} knows {aim2.thing} as well, and asks a favour: one evening at {aim.place} where {N} brings {aim.thing} and {aim2.thing} to the same table. Nobody there has tried it before. The evening is set for next week, and the notice goes up tomorrow.
+scene tribal: Word has reached the elders that {N} knows {aim2.doing} as well as {aim.doing}. They ask {N} to speak of both at the fire when the moon is full, five nights from now.
+scene magic: The guild has heard that {N} knows {aim2.thing} beside {aim.thing}, and offers its hall for one evening to show how the two meet. The notice goes up on the guild's door tomorrow.
+- W | say yes, and plan the evening in proper order with {aim.person} | v: conformity, benevolence | aim: try | foot: person colleague | chance: 72
+- U | say yes, and spend the week working out exactly where the two connect | v: self-direction, achievement | aim: try | foot: mark learned a skill | chance: 65
+- B | say yes, and make sure the evening goes out under {Ns} own name | v: power, achievement | aim: try | foot: person patron | chance: 60
+- R | say yes, and walk in with no plan but a bag of things to show | v: stimulation, self-direction | aim: try | foot: person friend | chance: 55
+- G | thank {aim.person}, and wait until the two have settled side by side | v: security, tradition | aim: skip | foot: lesson some things need to ripen | chance: 90
+- W>U | ask for a later date, once the fit between them is worked out on paper | v: conformity, self-direction | aim: skip | foot: lesson a plan before a crowd | chance: 88
+- U>B | prepare one sharp example that shows what neither does alone | v: self-direction, power | aim: try | foot: person regular | chance: 62
+- B>R | pass on this one, and save the idea for a bigger room later | v: power, stimulation | aim: skip | foot: door turned down a chance | chance: 88
+- R>G | turn it into a hands-on night where everyone has a go at both | v: stimulation, benevolence | aim: try | foot: place gather.hall | chance: 62
+- G>W | bring two people who know {aim2.thing} to help the evening go well | v: benevolence, conformity | aim: try | foot: person friend | chance: 68
+works not G W>U B>R: Halfway through, someone asks a question that needs both to answer, and {N} answers it. Afterwards {aim.person} asks for another evening next season, and a stranger asks how to reach {N}.
+works: Whatever {N} decided, {aim.person} now knows that {aim2.thing} is part of {Ns} life, and remembers it.
+fails not G W>U B>R: The two halves of the evening never quite meet and the room drifts politely, but {N} goes home knowing which bridge was missing.
+fails: For days {N} turns the idea over, unsure whether the two belong together at all.
+
+# ---------------------------------------------------------------- integrate: a gap only they see (cycle B)
+
+== a gap only {N} can see
+tier: life event
+shape: any
+kind: integrate
+rungs: 1 2 3 4
+fork:
+stages: juvenile young_adult adult mature elder
+age: 16-90
+per_year: 0 0 0 0 0 0
+tone: mixed
+life: work, interests
+horizon: months
+roles: colleague, elder, rival
+earth: something at {aim.place} keeps going wrong, and the answer is plain to anyone who knows {aim2.thing}
+tribal: a trouble in the clan's {aim.doing} that nobody can mend, and a way to mend it that comes from {aim2.doing}
+magic: a flaw in the guild's way of {aim.doing} that only someone versed in {aim2.thing} would see
+scene: For months the same thing has gone wrong at {aim.place}, and everyone there has stopped noticing. {N} sees it at once, because it is a problem {aim2.doing} solved long ago. The busy season starts in a month, and saying so would mean telling people who have done this for years that they missed something.
+scene tribal: The same trouble returns each season in the clan's {aim.doing}, and the old ones have stopped seeing it. {N} sees it at once, for {aim2.doing} met the same trouble long ago. The busy moon is near.
+scene magic: The same flaw runs through the guild's way of {aim.doing}, and the masters no longer see it. {N} does, because {aim2.doing} met it long ago and found the answer. The guild's busy season opens within the month.
+- W | keep quiet for now, since it is not {Ns} place to correct the old hands | v: conformity, tradition | aim: skip | foot: lesson rank keeps its own timing | chance: 90
+- U | note how {aim2.doing} handles it, and test the fix on one small case | v: self-direction, achievement | aim: try | foot: mark learned a skill | chance: 65
+- B | fix it quietly, and let the better results speak for {N} | v: power, achievement | aim: try | foot: person patron | chance: 60
+- R | let it go, as the pleasure of each lies in keeping them separate | v: hedonism, stimulation | aim: skip | foot: lesson each has its own pleasure | chance: 90
+- G | mention it gently to the one who has been there longest | v: benevolence, tradition | aim: try | foot: person elder | chance: 70
+- W>B | raise it at the next meeting, with a proposal ready and {Ns} name on it | v: conformity, power | aim: try | foot: person colleague | chance: 62
+- B>G | offer the fix to the whole group, if {N} may lead the change | v: power, benevolence | aim: try | foot: place gather.hall | chance: 60
+- G>U | leave it for now, and watch a full season first to be sure | v: security, self-direction | aim: skip | foot: means time+.03 | chance: 88
+- U>R | try the fix on the spot one evening, and see who notices | v: self-direction, stimulation | aim: try | foot: person rival | chance: 58
+- R>W | bring it up laughing over tea, and let the group decide together | v: stimulation, conformity | aim: try | foot: person friend | chance: 68
+works not W R G>U: The fix holds, and the old hands start asking {N} where it came from. One of them asks to be introduced to someone who knows {aim2.thing}.
+works: Whatever {N} did, the gap is now something {N} knows how to see, and that does not go away.
+fails not W R G>U: The fix is right in principle and wrong in the details, and {N} learns exactly where {aim.thing} works differently.
+fails: The trouble goes on as before, and {N} notices it again at every visit.
+
+# ---------------------------------------------------------------- integrate: a project needing both (cycle A)
+
+== the project that needs both halves
+tier: life event
+shape: any
+kind: integrate
+rungs: 2 3 4
+fork:
+stages: juvenile young_adult adult mature elder
+age: 16-90
+per_year: 0 0 0 0 0 0
+tone: mixed
+life: community, work
+horizon: months
+roles: colleague, patron, elder
+earth: a project in town needs someone who knows {aim.thing} and {aim2.thing} together, and the planners have run out of names
+tribal: the clan plans a great work that needs both {aim.doing} and {aim2.doing}, and the elders look round the fire
+magic: the court plans a work that needs a hand in {aim.thing} and a head for {aim2.thing}, and its stewards are short of both
+scene: The town is putting together a project that needs both {aim.thing} and {aim2.thing}, and {aim.person} has put {Ns} name forward. The people running it want an answer within the fortnight, and the work would take most free evenings for a season.
+scene tribal: The clan means to build something before winter that needs both {aim.doing} and {aim2.doing}, and the elders have looked to {N}. They want an answer before the next moon.
+scene magic: The court's stewards need someone versed in both {aim.thing} and {aim2.thing} for a work to be finished by midwinter, and {aim.person} has given them {Ns} name. They want an answer within the fortnight.
+- W | accept, and agree a clear share of the work and the hours | v: conformity, security | aim: try | foot: person colleague | chance: 70
+- U | ask to wait until the plans are clear enough to judge properly | v: self-direction, security | aim: skip | foot: lesson see the plans first | chance: 88
+- B | accept, provided {N} leads the part where the two meet | v: power, achievement | aim: try | foot: person patron | chance: 60
+- R | throw in at once, and sketch the first idea at the meeting itself | v: stimulation, self-direction | aim: try | foot: mark learned a skill | chance: 58
+- G | accept, and bring in people from both sides who have helped before | v: benevolence, tradition | aim: try | foot: person friend | chance: 68
+- W>U | accept, and draw up a careful plan of where each half fits | v: conformity, self-direction | aim: try | foot: place rule.counsel | chance: 66
+- U>B | take the hardest part, the piece nobody else knows how to design | v: self-direction, achievement | aim: try | foot: mark learned a skill | chance: 60
+- B>R | accept on the spot, and promise the planners more than they asked for | v: power, stimulation | aim: try | foot: person go-between | chance: 55
+- R>G | say no for now, so the season keeps its free evenings | v: hedonism, benevolence | aim: skip | foot: means time+.04 | chance: 92
+- G>W | decline, and point the planners to someone with more time | v: benevolence, conformity | aim: skip | foot: lesson others can carry it | chance: 90
+works not U R>G G>W: The part where the two meet turns out to be the part that works best, and the planners ask {N} to stay on for the next one.
+works: Whatever {N} answered, the planners now know {Ns} name, and it comes up again.
+fails not U R>G G>W: The two halves pull against each other for most of the season, and {N} learns where each one has to give way.
+fails: The season runs longer than anyone planned, and {N} grows tired of being asked about it.
+
+# ---------------------------------------------------------------- integrate: someone wants to learn both (cycle B)
+
+== the newcomer who wants both
+tier: life event
+shape: any
+kind: integrate
+rungs: 2 3 4
+fork:
+stages: juvenile young_adult adult mature elder
+age: 16-90
+per_year: 0 0 0 0 0 0
+tone: joy
+life: learning, interests
+horizon: months
+roles: regular, colleague, friend
+earth: a newcomer at {aim.place} asks {N} to teach {aim.thing} the way {aim2.thing} taught {N}
+tribal: a young one of the clan asks {N} to teach {aim.doing} with what {aim2.doing} taught {N}
+magic: an apprentice asks {N} to teach {aim.thing} through what {aim2.thing} has shown {N}
+scene: A newcomer at {aim.place} has noticed how {N} goes about {aim.doing}, and has worked out that some of it comes from {aim2.thing}. They ask to be taught both together, starting next month, and they cannot pay much.
+scene tribal: A young one of the clan has watched {N} at {aim.doing} and sees that it carries something of {aim2.doing}. They ask to learn both from {N} through the winter.
+scene magic: An apprentice has seen that {Ns} way with {aim.thing} owes something to {aim2.thing}, and asks to study both under {N} from the next moon.
+- W | agree, and set regular hours and a fair way to share them | v: conformity, benevolence | aim: try | foot: person regular | chance: 70
+- U | agree, and work out a course that moves from one to the other | v: self-direction, achievement | aim: try | foot: mark learned a skill | chance: 64
+- B | decline, since the way {N} does it is an edge worth keeping close | v: power, achievement | aim: skip | foot: lesson an edge kept close | chance: 90
+- R | agree, and teach it the way it comes, all at once and by feel | v: stimulation, hedonism | aim: try | foot: person friend | chance: 60
+- G | say not yet, until {N} has lived longer with the two together | v: tradition, security | aim: skip | foot: lesson teach what has settled | chance: 90
+- W>B | send the newcomer to the proper teachers of each, one at a time | v: conformity, power | aim: skip | foot: door turned down a chance | chance: 88
+- B>G | agree, and build a small circle of learners around the pair | v: power, benevolence | aim: try | foot: place gather.circle | chance: 60
+- G>U | agree, starting with the slow basics that both of them share | v: tradition, self-direction | aim: try | foot: mark learned a skill | chance: 70
+- U>R | agree, and try odd exercises that jump between the two mid-session | v: self-direction, stimulation | aim: try | foot: mark took a wild risk | chance: 56
+- R>W | agree, and open the sessions to anyone else who wants to come | v: stimulation, universalism | aim: try | foot: place gather.hall | chance: 66
+works not B G W>B: Teaching both together, {N} sees the join more clearly than ever. The newcomer brings a friend, then another, and by spring {aim.person} asks whether it could become a regular class.
+works: Whatever {N} said, the newcomer goes away with something, and greets {N} warmly from then on.
+fails not B G W>B: The newcomer gets lost between the two, and {N} learns which half has to come first.
+fails: For a while {N} wonders whether the newcomer saw something in {Ns} work that {N} has not.
+
+# ---------------------------------------------------------------- integrate: a habit carried across (cycle A)
+
+== one habit carried across
+tier: life event
+shape: any
+kind: integrate
+rungs: 1 2 3 4
+fork:
+stages: juvenile young_adult adult mature elder
+age: 16-90
+per_year: 0 0 0 0 0 0
+tone: mixed
+life: interests, inner
+horizon: months
+roles: mentor, friend, rival
+earth: a habit from {aim2.doing} might be the answer to something stuck in {aim.doing}
+tribal: a way of {aim2.doing} that might loosen something stuck in {aim.doing}
+magic: a discipline from {aim2.thing} that might unlock something stuck in {Ns} {aim.thing}
+scene: Something in {aim.doing} has been stuck for weeks, and an important day at {aim.place} is three weeks off. Halfway through {aim2.doing} one morning, {N} catches a habit that might be the answer. Trying it would mean bending how {aim.thing} is done, in front of people who do it the usual way.
+scene tribal: Something in {Ns} {aim.doing} has been stuck since the last moon, and the gathering is near. In the middle of {aim2.doing}, {N} catches a habit that might loosen it.
+scene magic: Something in {Ns} {aim.thing} has been stuck for weeks, and the guild's next trial is close. During {aim2.doing} one dawn, {N} glimpses a discipline that might unlock it.
+- W | ask {aim.person} first whether the new habit is allowed | v: conformity, security | aim: try | foot: person mentor | chance: 72
+- U | test the habit for a fortnight, and keep careful notes on it | v: self-direction, achievement | aim: try | foot: mark learned a skill | chance: 65
+- B | adopt it outright, and let the others wonder what changed | v: power, achievement | aim: try | foot: person rival | chance: 60
+- R | leave it, because {aim2.doing} is the escape and not a tool | v: hedonism, stimulation | aim: skip | foot: lesson keep one thing free | chance: 92
+- G | work it in slowly, in the small daily part nobody watches | v: tradition, security | aim: try | foot: mark learned a skill | chance: 72
+- W>U | finish the season the usual way, and study the habit properly after | v: conformity, self-direction | aim: skip | foot: means time+.03 | chance: 90
+- U>B | hold it back until it is proven, so nobody sees an early stumble | v: self-direction, power | aim: skip | foot: lesson proof before show | chance: 88
+- B>R | bring it out on the important day itself, all or nothing | v: power, stimulation | aim: try | foot: mark took a wild risk | chance: 52
+- R>G | try it out with a friend from {aim2.thing}, for the fun of it | v: stimulation, benevolence | aim: try | foot: person friend | chance: 68
+- G>W | show the habit to the group, so that all of them can share it | v: benevolence, conformity | aim: try | foot: person colleague | chance: 64
+works not R W>U U>B: The habit fits better than it had any right to. Within a month {aim.person} asks where it came from, and wants to meet the people who taught it.
+works: Whatever {N} chose, the stuck part of {aim.doing} starts to move, a little.
+fails not R W>U U>B: The habit jars at first, and {N} learns that it needs changing before it can cross over.
+fails: The stuck part stays stuck a while longer, and {N} keeps turning it over.
+
+# ---------------------------------------------------------------- integrate: two crowds that never meet (cycle B)
+
+== two crowds that never meet
+tier: life event
+shape: any
+kind: integrate
+rungs: 1 2 3 4
+fork:
+stages: juvenile young_adult adult mature elder
+age: 16-90
+per_year: 0 0 0 0 0 0
+tone: joy
+life: community, friends
+horizon: months
+roles: friend, colleague, go-between
+earth: the people of {aim.thing} and the people of {aim2.thing} have never been in one room, and {N} knows both
+tribal: two fires of the clan, one for {aim.doing} and one for {aim2.doing}, that never sit together
+magic: two circles of the guild, one of {aim.thing} and one of {aim2.thing}, that have never shared a table
+scene: {N} has noticed that the crowd at {aim.place} and the crowd around {aim2.thing} could use each other, and that {N} is the only one who knows both. {aim.person} suggests a joint evening before the season ends, six weeks from now, if {N} will do the asking.
+scene tribal: {N} sits at two fires, one where {aim.doing} is talked of and one for {aim2.doing}, and they have never shared a meal. {aim.person} says the midsummer feast would be the time, if {N} will do the asking.
+scene magic: {N} belongs to two circles of the guild, one of {aim.thing} and one of {aim2.thing}, and they have never shared a table. {aim.person} suggests the turn of the season, if {N} will carry the invitations.
+- W | leave each group to its own customs for now | v: conformity, tradition | aim: skip | foot: lesson each crowd has its ways | chance: 90
+- U | wait, and first find out what each side actually wants from the other | v: self-direction, security | aim: skip | foot: lesson find the need first | chance: 88
+- B | host it, and make sure {N} is the one both sides thank | v: power, achievement | aim: try | foot: person patron | chance: 62
+- R | throw the evening together within a week, food, noise and all | v: stimulation, hedonism | aim: try | foot: place gather.house | chance: 58
+- G | invite a few from each side round to {Ns} home first, quietly | v: benevolence, tradition | aim: try | foot: person friend | chance: 70
+- W>B | organise it properly, with {N} chairing and both leaders thanked | v: conformity, power | aim: try | foot: person go-between | chance: 64
+- B>G | hold back, and keep both crowds as {Ns} own private worlds | v: power, security | aim: skip | foot: means time+.03 | chance: 90
+- G>U | pair one person from each side who share the same small problem | v: benevolence, self-direction | aim: try | foot: person colleague | chance: 68
+- U>R | run one mixed evening as an experiment, and see what sparks | v: self-direction, stimulation | aim: try | foot: place gather.hall | chance: 62
+- R>W | ask both crowds along to the yearly fair as one big group | v: stimulation, conformity | aim: try | foot: place gather.great | chance: 60
+works not W U B>G: Two people who would never have met start talking about something that needs both crowds, and afterwards both groups ask {N} to do it again.
+works: Whatever {N} did, each crowd now knows a little more about the other, through {N}.
+fails not W U B>G: The two crowds stay at their own ends of the room, polite and apart, and {N} sees which words each side was missing.
+fails: The season ends with the two worlds as separate as ever, and {N} still carries both alone.
+
+# ---------------------------------------------------------------- integrate: a need where they meet (cycle A)
+
+== a need the town has not named
+tier: life event
+shape: any
+kind: integrate
+rungs: 2 3 4
+fork:
+stages: juvenile young_adult adult mature elder
+age: 16-90
+per_year: 0 0 0 0 0 0
+tone: mixed
+life: community, work
+horizon: months
+roles: neighbour, elder, colleague
+earth: something the town needs this winter sits right where {aim.thing} and {aim2.thing} meet
+tribal: a need of the clan before the cold that sits where {aim.doing} and {aim2.doing} meet
+magic: a need of the town below the tower that sits where {aim.thing} and {aim2.thing} meet
+scene: The town has a problem this winter that nobody has quite put into words: something people need that sits right where {aim.thing} and {aim2.thing} meet. {aim.person} mentions it in passing, and the cold months are six weeks off. Nobody has asked {N}, and nobody will.
+scene tribal: The clan has a need before the cold that the elders have not put into words, and it sits where {aim.doing} and {aim2.doing} meet. Nobody has asked {N}, and the first frost is near.
+scene magic: The town below the tower has a need this winter that sits where {aim.thing} and {aim2.thing} meet. {aim.person} mentions it in passing; the frost is six weeks off, and nobody will ask.
+- W | write to the town's committee with a plain offer to help | v: universalism, conformity | aim: try | foot: place rule.counsel | chance: 62
+- U | look into exactly who needs what, and then offer something that fits | v: self-direction, universalism | aim: try | foot: mark learned a skill | chance: 66
+- B | leave it, since unpaid work for the town would cost {N} the season | v: power, security | aim: skip | foot: lesson time has a price too | chance: 90
+- R | start helping straight away, and work out the rest along the way | v: stimulation, benevolence | aim: try | foot: mark helped someone in need | chance: 60
+- G | start with the neighbours on {Ns} own street, nothing grand | v: benevolence, tradition | aim: try | foot: person neighbour | chance: 74
+- W>U | draw up a careful offer, and take it to the people in charge | v: conformity, self-direction | aim: try | foot: person go-between | chance: 64
+- U>B | design a fix that uses both, and keep the credit for it | v: self-direction, power | aim: try | foot: person patron | chance: 58
+- B>R | wait until someone asks, and pays properly, before stepping in | v: power, hedonism | aim: skip | foot: door turned down a chance | chance: 88
+- R>G | gather a few friends from both sides and simply get on with it | v: stimulation, benevolence | aim: try | foot: person friend | chance: 64
+- G>W | leave it to those whose job it is, and keep {Ns} own house steady | v: security, conformity | aim: skip | foot: lesson others hold that duty | chance: 90
+works not B B>R G>W: By midwinter the need is met in a small way that took both to manage, and the committee asks to see {N} about the spring.
+works: Whatever {N} chose, the winter passes, and the need has at least been named out loud.
+fails not B B>R G>W: The help comes too late or in the wrong shape, and {N} learns what the town actually needed.
+fails: The cold months are hard on the town, and {N} wonders all winter what might have gone differently.
+
+# ---------------------------------------------------------------- integrate: one piece of work that shows both (cycle B)
+
+== the work that shows both
+tier: life event
+shape: any
+kind: integrate
+rungs: 2 3 4
+fork:
+stages: juvenile young_adult adult mature elder
+age: 16-90
+per_year: 0 0 0 0 0 0
+tone: mixed
+life: work, interests
+horizon: months
+roles: patron, mentor, colleague
+earth: a chance to make one piece of work that only someone with {aim.thing} and {aim2.thing} could make
+tribal: a call to make one thing for the clan's great gathering that carries both {aim.doing} and {aim2.doing}
+magic: a call from the court for one work that joins {aim.thing} and {aim2.thing}
+scene: {aim.person} is planning an open day at {aim.place} at the end of the season, and asks {N} for something different: one piece of work, shown on the day, that only someone who knows both {aim.thing} and {aim2.thing} could make. It could be a demonstration, a written account or a made thing, and the day is two months off.
+scene tribal: The elders want something for the great gathering that only {N} could bring: one made thing or one telling that carries both {aim.doing} and {aim2.doing}. The gathering is two moons off.
+scene magic: The court has asked {aim.person} for works that join two arts, and {aim.person} has asked {N} for one that joins {aim.thing} and {aim2.thing}. The works are shown at midwinter.
+- W | agree, and keep strictly to what the day asks for | v: conformity, achievement | aim: try | foot: person colleague | chance: 68
+- U | agree, and make a careful account of how the two inform each other | v: self-direction, achievement | aim: try | foot: mark learned a skill | chance: 62
+- B | agree, and aim the piece at the most important people who will come | v: power, achievement | aim: try | foot: person patron | chance: 58
+- R | agree, and make the boldest thing that comes to mind | v: stimulation, self-direction | aim: try | foot: mark took a wild risk | chance: 52
+- G | let it pass this year, and keep the season for the usual round | v: security, tradition | aim: skip | foot: lesson there is always next year | chance: 90
+- W>B | agree, and make it the piece people will remember {N} by | v: conformity, power | aim: try | foot: place gather.great | chance: 60
+- B>G | agree, and make it with the household's help so it is partly theirs | v: achievement, benevolence | aim: try | foot: person friend | chance: 62
+- G>U | agree, and make something modest and useful rather than showy | v: tradition, self-direction | aim: try | foot: mark learned a skill | chance: 70
+- U>R | say no for now, as forcing an unready idea would spoil it | v: self-direction, stimulation | aim: skip | foot: lesson ideas come when ready | chance: 88
+- R>W | say no to the piece, and offer to help run the day instead | v: hedonism, conformity | aim: skip | foot: person colleague | chance: 90
+works not G U>R R>W: On the day, people stop at {Ns} piece longer than at any other, and someone from beyond the town asks whether {N} would make one for them.
+works: Whatever {N} gave, {aim.person} thanks {N} at the end of the day, and means it.
+fails not G U>R R>W: The piece is muddled, two good ideas pulling apart, and {N} sees clearly which one should lead next time.
+fails: The day comes and goes, and {N} cannot quite tell whether it mattered.
+
+# ---------------------------------------------------------------- integrate: a small trial with nothing riding on it (cycle A)
+
+== a trial run on a quiet day
+tier: life event
+shape: any
+kind: integrate
+rungs: 1 2 3 4
+fork:
+stages: juvenile young_adult adult mature elder
+age: 16-90
+per_year: 0 0 0 0 0 0
+tone: joy
+life: interests, work
+horizon: week
+roles: mentor, colleague, friend
+earth: a quiet week at {aim.place}, and {aim.person} offers a corner of it to try {aim2.thing} in
+tribal: a still day at the camp, and {aim.person} offers {N} the afternoon to try {aim2.doing} with {aim.doing}
+magic: an idle day in the tower, and {aim.person} offers a room to try {aim2.thing} beside {aim.thing}
+scene: It is a quiet week at {aim.place}, and {aim.person} offers {N} a corner of the weekend to try something new with a few willing people. {N} has wondered for a while what {aim.doing} would look like with {aim2.thing} in it. Nothing rides on it, and the offer is only for this week.
+scene tribal: The camp is still for a day while the hunters rest, and {aim.person} offers {N} the afternoon and a few willing hands. {N} has long wondered what {aim.doing} would be with {aim2.doing} in it.
+scene magic: The tower is idle for a day, and {aim.person} offers {N} an empty room and a few curious pupils. {N} has long wondered what {aim.thing} would become with {aim2.thing} worked into it.
+- W | decline politely, as the weekend is already promised to others | v: conformity, benevolence | aim: skip | foot: mark kept your word | chance: 92
+- U | accept, and run it as a small, careful test with notes | v: self-direction, achievement | aim: try | foot: mark learned a skill | chance: 72
+- B | accept, and invite one person whose good opinion matters | v: power, achievement | aim: try | foot: person patron | chance: 62
+- R | let the day go, as the idea is more fun as a daydream for now | v: hedonism, stimulation | aim: skip | foot: lesson some ideas like waiting | chance: 92
+- G | accept, and keep it small and homely with familiar faces | v: tradition, benevolence | aim: try | foot: person friend | chance: 76
+- W>U | accept, and set out the session step by step beforehand | v: conformity, self-direction | aim: try | foot: person colleague | chance: 72
+- U>B | accept, and use the trial to find what could later be offered properly | v: self-direction, achievement | aim: try | foot: place gather.hall | chance: 66
+- B>R | accept, and make the trial lively enough that word gets round | v: power, stimulation | aim: try | foot: person regular | chance: 60
+- R>G | spend the free day outdoors with friends instead | v: hedonism, benevolence | aim: skip | foot: lesson rest feeds the next idea | chance: 92
+- G>W | accept, and ask {aim.person} to stay and help keep it on track | v: benevolence, conformity | aim: try | foot: person mentor | chance: 74
+works not W R R>G: The few who came leave talking, and one of them asks when the next one is. {aim.person} offers {N} a regular slot.
+works: Whatever {N} did with the day, the idea is still there, a little clearer than before.
+fails not W R R>G: The trial is awkward and half the room is lost, and {N} sees which part needs explaining first.
+fails: The quiet week ends, and a chance like it does not come back soon.
+
+# ---------------------------------------------------------------- integrate: an opening that asks for both (cycle B)
+
+== the opening that asks for both
+tier: life event
+shape: any
+kind: integrate
+rungs: 2 3 4
+fork:
+stages: juvenile young_adult adult mature elder
+age: 16-90
+per_year: 0 0 0 0 0 0
+tone: mixed
+life: work, learning
+horizon: months
+roles: patron, mentor, boss, colleague
+earth: an opening somewhere asks for someone who can show {aim.thing} and {aim2.thing} working together
+tribal: a neighbouring clan asks for one who can show {aim.doing} and {aim2.doing} joined, for a season among them
+magic: a post at court for one who can show {aim.thing} and {aim2.thing} worked as one
+scene: {aim.person} passes on a notice: an opening somewhere that asks, unusually, for someone who can show {aim.thing} and {aim2.thing} working together. Knowing both is not enough: the application wants one worked example, and it closes in a month.
+scene tribal: A neighbouring clan has sent word through {aim.person}: they want one who can show {aim.doing} and {aim2.doing} joined, to stay a season among them. They will judge by what is shown at the next gathering, a moon from now.
+scene magic: A post has opened at court for one who can show {aim.thing} and {aim2.thing} worked as one. The steward wants a demonstration, not a list of honours, by the month's end.
+- W | apply by the book, with the worked example done exactly to the brief | v: conformity, achievement | aim: try | foot: person boss | chance: 58
+- U | hold off, as one worked example is not yet enough to judge the fit | v: self-direction, security | aim: skip | foot: lesson know the fit first | chance: 88
+- B | let this one pass, since a better-placed opening will come on {Ns} terms | v: power, achievement | aim: skip | foot: door turned down a chance | chance: 90
+- R | apply on impulse, with the wildest worked example {N} can imagine | v: stimulation, self-direction | aim: try | foot: mark took a wild risk | chance: 50
+- G | apply, with an example drawn from {Ns} own everyday round | v: benevolence, tradition | aim: try | foot: mark learned a skill | chance: 64
+- W>B | apply, and ask {aim.person} for a letter to go with it | v: conformity, power | aim: try | foot: person patron | chance: 60
+- B>G | apply, and make the example about the town that raised {N} | v: achievement, tradition | aim: try | foot: person elder | chance: 58
+- G>U | leave it, and spend the year learning how the two truly fit | v: security, self-direction | aim: skip | foot: lesson the fit takes years | chance: 90
+- U>R | apply with an example built on an experiment nobody has tried | v: self-direction, stimulation | aim: try | foot: place learn.keeping | chance: 54
+- R>W | apply as a pair, with a friend who knows {aim2.thing} well | v: stimulation, conformity | aim: try | foot: person friend | chance: 56
+works not U B G>U: The worked example is what they remember. {N} is invited to meet the people behind the opening, and a new door stands open.
+works: Whatever {N} decided, {aim.person} keeps {Ns} name in mind for the next one.
+fails not U B G>U: Someone else's example is sharper this time, and {N} comes away knowing what the joining still lacks.
+fails: The month passes quickly, and the notice comes down before {N} feels sure of anything.
