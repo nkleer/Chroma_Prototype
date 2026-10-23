@@ -1,0 +1,480 @@
+# Chroma content pack, The Five Callings: THE LAND ROAD (the sixth road, Green's second calling; druid/BRIEF.md, v25
+# prep, Packs, draft 10-23), a tendency, never a wall: a [farmer], [forester], [park ranger] or [professional
+# beekeeper] (with [gardener or groundskeeper] and [farm hand] on the everyday moments), then [steward of the land] (the
+# Known rung, of the community kind: the chair of the town's land trust), then [keeper of the land] (the summit, a facet
+# on the steward). Switched off until `callings` is in batch.PACKS; the Packs thread pours it into callings/ as
+# callings-land.lib. Syntax: header of chroma-library/build.py. Rules: callings/MOMENTS-BRIEF.md (pack rules, balance
+# layout) and the Library's footprints brief (chroma-ideas/v25-prep/library/briefs/FOOTPRINTS.md). Names in title:,
+# grants:, takes_if_fails:, holds:, requires: and aims: come from catalogue-land.py, core/*.py and the base catalogue
+# (chroma-library/earth_perks_titles.py: farmer, forester, park ranger, professional beekeeper, gardener or
+# groundskeeper, farm hand, knowing the woods, the one everyone asks, friend in power, good name in town, apprentice of
+# one's own, known across the country); each title takes its tribal and magic form from worlds-land.py (the band's
+# keeper of the grove, the great druid of the clans; a druid of the grove, archdruid of the circle).
+#
+# The land is never a judge (the v25 decision file, section 2): a flood, a drought, a stream running brown or a meadow
+# the birds have left is physical, and people read it. No line says the land wants, approves, forgives or punishes, and
+# no colour is the land's favourite. Each colour's honest road runs through every moment: White's rules, permits, votes
+# and members heard; Blue's survey, count sheets and method; Black's land bought, deals and friends who decide; Red's
+# nights on the marsh, campaigns and the rule broken for the land; Green's hands in the soil, the old ways of hedging
+# and grazing, and patience. Real and unglamorous where it is: mud, forms, committee evenings, volunteers who do not
+# come; a step up is a good year, not a finish line.
+#
+# Nine moments. Two holder pairs (everyday, holds:, rate .5, gap 1-3, no share: line), whose halves share stages, ages,
+# holds:, rate and gap, split the colours 2 and 3 and use the cycle on the pair's header line (s3 and s4: with the
+# other roads' pairs, each cycle is used three times in the pack); they take no new title: the next rung is an aims:,
+# and grants: gives only a perk plainly earned. Then four life events and the magic world's own event, each even on its
+# own (the five one-colour options and the combination half named in its header comment, every colour's mean the same
+# inside the moment): the two steps at their real chances (the chair 30, as the brief's senior post in a congregation;
+# the summit 6, the same for every colour, with the earned-odds lifts of helps-land.py on top in the engine; no perk on
+# failure), the fall, the long shot (3, with grants_if_fails: a long shot that missed) and the circle at the old stones.
+# The D halves are the ones the other roads' Earth life events leave unused (D6, both halves; each of D1 to D5 is used
+# twice there), and the magic event takes D1b, so the magic world's four pair sets (D1a, D6a, D6b and now D1b) hold
+# every pair twice. Every option of a life event leaves one or two footprints: the fields it already has, or a foot:
+# just before chance:. Everyday moments carry none (footprints there are deferred to v25.1, tracker F1).
+#
+# Content limits, never broken: no harm to a child; no suicide or self-harm; nobody is killed. No animal is hurt by any
+# act: hedging, grazing, counting and watching are what is done; the shoot and the band's hunts are named and never
+# shown. No real body, river, firm, bird reserve, country or year: "the land trust", "the council", "the river
+# authority", "the rare birds' body". Modern Earth has no magic and no druid. In the magic world the one supernatural
+# act is the old pact of the deep grove's spirits (moment 9): one choice among ordinary ones, priced on a closed:
+# approval: line with a backfire, never the person's own gift. Wrongs and closed acts are pickable with plain labels,
+# each marked, with a real backfire, spread over the colours: a protected hedge grubbed out (B), a stream check signed
+# without looking (W), drains blocked without the tenant's leave (R), a gift's condition kept from the members (G), the
+# chair refused on conditions (UR), a spill kept quiet for a friend (WBG), a footpath shut without leave (UBR), the
+# spirits' pact (U). Every moment carries earth:, tribal: and magic: lines (moment 9 the magic one alone) and an
+# untagged scene for each other world; an option whose act reads differently there carries its own tribal: or magic:
+# wording; works and fails lines are written to read in every world.
+
+# ================================================================ holder pairs
+
+# ---------------------------------------------------------------- farmer, forester, ranger, beekeeper, groundskeeper or farm hand: calls BG / calls WUR (cycle s3)
+
+== the old hedge along the top lane
+tier: everyday
+rate: 0.5
+gap: 1-3
+times: per farmer, forester, park ranger, beekeeper, groundskeeper or farm hand a year: about 1 in 20 are asked to grub out, cut back or lay an old hedge or a line of old trees on the land they work (estimate); old hedges are among the oldest things on farmland, and many were taken out to make fields bigger (estimate); about 1.5 lives in 100 are farmers, 3 in 100 gardeners or groundskeepers and 3 in 100 farm hands (catalogue shares)
+stages: young_adult adult mature elder
+age: 18-85
+calls: BG
+holds: farmer | forester | park ranger | professional beekeeper | gardener or groundskeeper | farm hand
+tone: mixed
+life: work, nature
+horizon: months
+roles: boss, mentor
+earth: the old hedge along the top lane is overgrown and full of gaps, and the farm wants it gone so the big machines can turn
+tribal: the old break of thorn and hazel along the top of the valley has grown wild, and the hunters want it burned off so the herds come through
+magic: the old hedge along the top lane of the lord's land has grown wild, and the steward wants it grubbed out so the great ploughs can turn
+scene: The hedge along the top lane is older than anything else on the land: hazel, hawthorn and old field maple, laid by hand three generations ago and let go since. It is full of gaps, it leans into the lane, and the contractor's machines cannot turn at the end of the field. {boss} wants it out before the spring, and the contractor can come on Thursday. {mentor} says there are nests in it every year, and that a hedge that old may be protected.
+scene W: Old hedges have rules: some may not be taken out without the council's leave, and there is a form for asking. {N} would rather know which kind this is before Thursday.
+scene U: Nobody has ever counted what lives in it. {N} suspects the answer is more than anyone thinks: the nests, the bats along it at dusk, the bees in the bank below.
+scene B: A field without the hedge is two acres bigger and an hour quicker to work. {N} can see exactly what that is worth, and what the hazel and the timber would fetch.
+scene R: {N} has walked that lane since childhood, and the thought of a machine tearing through it makes {N} want to stand in the gateway with arms folded.
+scene G: A hedge like that is laid once a generation: each stem cut half through, bent over and woven, and in three springs it is thick again from the root. {N} learned how from {mentor}, and the hands still know it.
+scene tribal: Along the top of the valley runs an old break of thorn and hazel, planted by the grandmothers of the band's grandmothers to turn the herds and the wind. It has grown wild and gappy, and {boss}, the leader of the hunters, wants it burned off before the spring so the herds will come through to the hunting ground. {mentor} says the birds have always nested in it.
+scene magic: The hedge along the top lane of the lord's land is older than the manor: hazel and thorn and old maple, laid by hand long ago and let go since. {boss}, the lord's steward, wants it grubbed out before the spring so the great ploughs can turn, and the hedge-wardens' roll at the lord's court may have its name on it.
+- W | ask the council whether the hedge is protected, and wait for the answer | v: conformity, security | tribal: ask the elders whether the old break may be burned, and wait for their word | magic: ask at the lord's court whether the hedge is on the wardens' roll, and wait | chance: 80
+- U | walk the hedge at dawn and dusk for a week, and count what lives in it | v: achievement, universalism | grants: knowing the woods | tribal: watch the old break at dawn and dusk for a moon, and mark what lives in it | chance: 75
+- B | grub it out in the winter, before anyone asks whether it is protected | v: power, achievement | mark: hid a wrong | closed: law: a protected hedge grubbed out without leave; backfire: the council's officer sees the gap from the lane, and the fine and the order to replant follow | tribal: burn the old break off before the elders can talk about it | magic: grub it out in the winter, before the court's wardens can look at the roll | chance: 85
+- R | refuse to take it out, and tell {boss} to find someone else for the job | v: self-direction, universalism | mark: defied an authority | tribal: refuse to burn it, and tell the hunters to find other hands | magic: refuse to grub it out, and tell the steward to find another labourer | chance: 70
+- G | lay the hedge by hand this winter, the old way, so it thickens from the root | v: tradition, benevolence | habit | body: light | aims: steward of the land | tribal: cut and bend the old break by hand, the grandmothers' way, so it thickens from the root | magic: lay the hedge by hand this winter, as the hedge-layers of the old manor did | chance: 75
+- W>R | apply for a protection order on the hedge, and fight for it at the council | v: conformity, universalism | tribal: ask the elders to forbid any burning on the break, and speak for it at the fire | magic: petition the lord's court to put the hedge on the wardens' roll, and argue for it | chance: 60
+- U>G | work out a wider gate for the machines, so the hedge can stay | v: achievement, benevolence | tribal: work out a wider gap for the herds at one end, so the break can stay | magic: work out a wider gateway for the ploughs, so the hedge can stay | chance: 65
+- B>W | sell the hazel and the timber, and pay for replanting the gaps by the book | v: power, conformity | aims: steward of the land | tribal: trade the hazel poles at the gathering, and plant new thorn in the gaps as the elders say | magic: sell the hazel and the timber, and replant the gaps as the court's rules ask | chance: 55
+- R>U | walk the hedge with the contractor at dawn, and show what lives in it | v: stimulation, universalism | tribal: walk the break with the hunters at dawn, and show them the nests | magic: walk the hedge with the ploughmen at dawn, and show them what lives in it | chance: 70
+- G>B | sell the sloes, nuts and poles every autumn, so the hedge pays its way | v: tradition, achievement | tribal: trade the break's sloes and hazel nuts at every autumn gathering, so it earns its keep | magic: sell the sloes, the nuts and the poles at the autumn fair, so the hedge pays its way | chance: 65
+works: By the spring it is settled, and the top lane looks the way {N} meant it to.
+works: The next summer {N} walks the top lane at dusk, and is glad of what was decided.
+fails: The work takes twice as long as it should, through mud and rain, and {boss} is not pleased.
+fails: It ends in a quarrel at the gate, and for a season {N} and {boss} barely speak.
+
+== the stream runs brown after the storm
+tier: everyday
+rate: 0.5
+gap: 1-3
+times: per farmer, forester, park ranger, beekeeper, groundskeeper or farm hand a year: about 1 in 10 see soil wash off a field into a stream or a ditch after heavy rain (estimate); soil washed off fields is one of the commonest troubles of small rivers on farmland (estimate); about 1.5 lives in 100 are farmers, 3 in 100 gardeners or groundskeepers and 3 in 100 farm hands (catalogue shares)
+stages: young_adult adult mature elder
+age: 18-85
+calls: WUR
+holds: farmer | forester | park ranger | professional beekeeper | gardener or groundskeeper | farm hand
+tone: trouble
+life: work, nature
+horizon: week
+roles: colleague, boss
+earth: after a night of storm the stream below the fields runs brown with soil, and the pool at the bottom is filling with silt
+tribal: after the great storm the stream below the camp runs thick with earth, and the pool where the fish spawn is filling with mud
+magic: after the storm the brook below the manor fields runs brown with soil, and the mill pond at the bottom is silting up
+scene: After a night of rain like nobody remembers, the stream below the fields runs brown as tea, and the pool at the bottom, where the trout lie in summer, has a bank of silt across it. Up the slope, a field {colleague} ploughed straight down the hill last month has lost its top inch of soil, and more is going every hour. The stream check for the farm's grant is due this week, and {N} is the one who signs it.
+scene W: The grant form asks whether the farm's ditches and streams run clean. {N} has always filled it in honestly, and the answer has always been yes.
+scene U: Soil goes where water takes it, and water takes the steepest way down. {N} can read on the slope exactly which furrows sent it.
+scene B: The washed field up the slope will be worth half what it was by the spring, and {colleague} knows it. A buyer with ready money could do well this week.
+scene R: The pool at the bottom was where {N} learned to swim, and now it is mud. {N} is halfway up the hill to {colleague}'s gate before thinking about what to say.
+scene G: Grass holds soil, roots hold banks, and willow holds both. {N} looks at the bare bank and thinks of what grew there when the stream ran clear.
+scene tribal: After the great storm the stream below the camp runs thick with earth, and the pool where the fish spawn each spring is filling with mud. Up the slope, where {colleague}'s family burned and dug the ground for a root patch this year, the earth is washing away with every shower.
+scene magic: After a night of storm the brook below the manor fields runs brown with soil, and the miller's pond at the bottom is silting up. Up the slope, a field {colleague} ploughed straight down the hill has lost its top soil, and the lord's reeve comes this week to ask whether the brook is kept.
+- W | sign off the stream check as clean, since it ran clean all summer | v: conformity, security | mark: hid a wrong | self_control: - | closed: approval: a stream check signed without looking; backfire: the inspector walks the stream the next month, the grant is held back, and the farm's name is noted | tribal: tell the elders the pool is as it always was, since it ran clear all summer | magic: tell the reeve the brook is kept, since it ran clear all summer | chance: 80
+- U | take jars of water above and below the fields, and find where the soil comes from | v: achievement, universalism | mark: learned a skill | tribal: walk the stream above and below the camp, and find where the earth comes from | chance: 75
+- B | offer {colleague} a low price for the washed field, while the mud is fresh | v: power, achievement | tribal: offer {colleague}'s family a bargain for the washed slope, while the mud is fresh | chance: 70
+- R | go straight up the hill and tell {colleague} what the ploughing has done | v: self-direction, benevolence | tribal: go straight up the slope and tell {colleague}'s family what their digging has done | chance: 75
+- G | drive willow stakes into the bare bank, so roots hold it by the summer | v: tradition, benevolence | body: light | aims: steward of the land | chance: 75
+- W>R | ring the river authority, and report the field that washed into the stream | v: conformity, universalism | tribal: take it to the elders at the fire, and name the slope that washed into the stream | magic: report the washed field to the reeve, and name it before the manor court | chance: 60
+- U>G | map where grass by the water would catch the soil, and plant those strips | v: achievement, tradition | aims: steward of the land | tribal: mark where grass by the water would catch the earth, and leave those strips unburned | chance: 65
+- B>W | apply to the grant scheme for fencing and a grass strip, with every form in order | v: achievement, conformity | tribal: ask the elders for the band's help to fence the stream bank, as the custom allows | magic: petition the lord's steward for fencing and a meadow strip, with every form in order | chance: 70
+- R>U | wade in with a rake, and clear the gravel to see how deep the silt lies | v: stimulation, universalism | body: light | tribal: wade in and rake the mud off the spawning stones, to see how deep it lies | magic: wade in with a rake, and clear the millrace gravel to see how deep the silt lies | chance: 65
+- G>B | let the wet bottom strip go to rough meadow, and sell the hay | v: tradition, achievement | tribal: let the wet ground by the stream go to tall grass, and trade the cut grass at the gathering | magic: let the wet strip go to meadow, and sell the hay at the manor fair | chance: 65
+works: The stream runs clear again by the summer, and the fish are back in the pool at the bottom.
+works: Whatever {N} chose, the next big storm sends less soil down the hill.
+fails: The next storm sends the soil down again, and the pool at the bottom stays half mud for the year.
+fails: It turns into a quarrel up and down the hill, and {colleague} stops waving across the fields.
+
+# ---------------------------------------------------------------- steward of the land: calls UG / calls WBR (cycle s4)
+
+== the year the lapwings did not nest
+tier: everyday
+rate: 0.5
+gap: 1-3
+times: per steward of the land a year: about 1 in 8 see a bird or a flower the trust's land is known for fail to come back (estimate); birds that nest on the ground in wet meadows have fallen hard on farmland over the last generations (estimate); about 1 life in 1,000 is a steward of the land (catalogue share)
+stages: adult mature elder
+age: 28-95
+calls: UG
+holds: steward of the land
+tone: trouble
+life: community, nature
+horizon: months
+roles: colleague, mentor
+earth: the trust's low meadow has had nesting lapwings every spring for as long as the counts go back, and this spring there are none
+tribal: the wet meadow below the grove has had the crested plovers' nests every spring the band remembers, and this spring there are none
+magic: the grove's wet meadow has had the crested plovers' nests every spring in the druids' book, and this spring there are none
+scene: Every spring for twenty-two years the trust's count sheets have the same line: lapwings nesting on the low meadow, eight pairs, eleven, six, nine. This spring {N} walks the meadow three dawns running and finds none. The ground is drier than it was; dogs run loose from the new path by the estate; the grazier stopped putting cattle on it two years ago. {colleague} from the committee wants to know what the trust means to do.
+scene W: The trust's plan for the meadow was written years ago and nobody has looked at it since. There are rules the trust could make, and it has never made them.
+scene U: Twenty-two years of count sheets sit in a box in {Ns} back room. Somewhere in them is the year it started to go wrong.
+scene B: Nothing happens on the meadow without money: the grazier wants paying, the drains want blocking, the fence wants building. {N} knows who funds this kind of thing.
+scene R: {N} lay out on that meadow at dawn as a child and watched the lapwings tumble over it. A spring without that sound is a spring {N} will not accept.
+scene G: Lapwings nest in short grass by wet hollows, and cattle make both. The meadow has grown rank and dry since the cattle went, and the birds went with them.
+scene tribal: Every spring the band remembers, the crested plovers have tumbled over the wet meadow below the grove and nested in its short grass. This spring {N}, the band's keeper of the grove, walks it three dawns running and finds no nest. The herds have grazed elsewhere since the river moved, and the meadow has gone tall and dry.
+scene magic: The druids' book of the grove has a line for every spring: the crested plovers nesting on the wet meadow, eight pairs, eleven, six. This spring {N}, druid of the grove, finds none. A new road runs along the meadow's edge, and the lord's hounds run loose on it.
+- W | close the meadow to dogs from spring to midsummer, with a sign on every gate | v: conformity, security | tribal: ask the elders to keep the dogs from the wet meadow until midsummer | magic: ask the lord to keep his hounds off the wet meadow until midsummer | chance: 75
+- U | go through twenty years of count sheets, and find the year it began | v: achievement, universalism | grants: the one everyone asks | tribal: ask every old one of the band in turn which spring the plovers began to go | magic: go through every spring in the druids' book, and find the year it began | chance: 80
+- B | find the money to pay a grazier to bring cattle back and mow late | v: power, achievement | tribal: trade with the herding band to bring their herds through the wet meadow each spring | magic: strike a bargain with a drover to graze the meadow, paid from the grove's tithes | chance: 70
+- R | block the meadow's old drains one night, so the hollows hold water again | v: stimulation, self-direction | mark: took a wild risk | closed: approval: drains blocked that also drain the tenant's field; backfire: the tenant's next field floods, and the trust pays for the damage and the apology | tribal: dam the meadow's ditch one night with stones and turf, without asking the elders | magic: block the meadow's drains one night, without the lord's leave | chance: 80
+- G | graze the meadow short again with a few old-breed cattle of your own | v: tradition, benevolence | habit | aims: keeper of the land | tribal: bring the band's own small herd to graze the wet meadow each spring | magic: graze the meadow short with a few of the grove's own old-breed cattle | chance: 70
+- W>G | put a nesting season into the trust's rules, voted on by the members | v: conformity, tradition | aims: keeper of the land | tribal: ask the elders to make the plovers' season a custom of the band | magic: ask the circle to write a nesting season into the grove's law | chance: 65
+- U>W | draw up a meadow plan the grazier and the dog walkers can both keep | v: universalism, conformity | tribal: work out a way for the herds and the dogs that every hearth can keep | magic: draw up a meadow plan the drovers and the lord's huntsmen can both keep | chance: 60
+- B>U | interest the university in the meadow, and win a student to study it | v: achievement, power | tribal: interest the wise woman of the next band in the meadow, and have her watch it a season | magic: interest the scholars of the college in the meadow, and win a student to study it | chance: 70
+- R>B | rally the volunteers and the local paper, and shame the estate over its dogs | v: stimulation, power | tribal: rally the young hunters to tell every band how the dogs spoiled the meadow | magic: rally the town's broadsheet against the lord's loose hounds | chance: 60
+- G>R | lie out on the meadow at dawn each morning, and wait for the first bird back | v: tradition, stimulation | body: light | tribal: lie out on the wet meadow at dawn each morning, watching for the first plover | chance: 70
+works: The next spring three pairs are back on the low meadow, tumbling over it at dawn.
+works: Whatever {N} chose, the meadow is wetter and quieter by the next spring, and the worry eases.
+fails: The next spring is as empty as this one, and {N} is the one who has to say so.
+fails: The plan stalls in talk, the summer comes, and the meadow goes on as it was.
+
+== a wood given with strings attached
+tier: everyday
+rate: 0.5
+gap: 1-3
+times: per steward of the land a year: about 1 in 15 are offered land or a wood as a gift or a bequest with conditions attached (estimate); many land trusts got their first land as a gift or through a will (estimate); about 1 life in 1,000 is a steward of the land (catalogue share)
+stages: adult mature elder
+age: 28-95
+calls: WBR
+holds: steward of the land
+tone: mixed
+life: community, money
+horizon: months
+roles: elder, colleague
+earth: an old landowner offers the trust his wood for nothing, on one condition: that his shooting days go on in it for as long as he lives
+tribal: an old hunter of the next band offers the grove's keeper his family's wood on the ridge, on condition that his kin still hunt it each autumn
+magic: an old knight with no heir offers the grove his wood on the hill, on condition that his hunting days go on in it as long as he lives
+scene: {elder}, who owns the wood above the town, asks {N} round for tea. He is eighty-six and has no children who want the place. He will give the trust the wood, all forty acres of it, for nothing. There is a letter from his lawyer, and one line in it says the shooting days go on, with his friends and the pheasant pens, for as long as he lives. The committee meets on Thursday.
+scene W: A gift like this goes before the members, all of it, and the trust's rules say so. A line kept back would be a lie told to the members.
+scene U: {N} knows roughly what pheasant pens do to the floor of a wood, but not how much. It could be measured.
+scene B: Forty acres for nothing. The trust has never had a chance like it, and {N} knows the old man's lawyer is a friend of a friend.
+scene R: Birds raised in pens and driven over guns in the trust's own wood. {N} can already hear what the members will say, and part of {N} agrees with them.
+scene G: The wood has stood two hundred years, shoot or no shoot. Old men do not live forever, and woods outlast their owners.
+scene tribal: {elder}, an old hunter of the next band, comes to {N}, the band's keeper of the grove, with a gift: his family's wood on the ridge, for the grove to keep. His kin must still hunt there every autumn, as they always have, for as long as he lives.
+scene magic: {elder}, an old knight with no heir, sends for {N}, druid of the grove. He will give the grove his wood on the hill, forty acres of old oak, if his hunting days go on in it with his friends for as long as he lives. The circle meets at the new moon.
+- W | put the whole letter before the members, the shooting line included | v: conformity, universalism | tribal: tell the whole band at the fire what the gift asks, the hunting included | magic: lay the knight's whole letter before the circle, the hunting clause included | chance: 80
+- U | survey what the pheasant pens do to the wood floor, and put a number on it | v: achievement, universalism | tribal: count the deer and the young trees on the ridge, and see what the hunts leave | magic: survey what the knight's hunts do to the floor of the wood, and set it down | chance: 75
+- B | bargain with the old man for fewer shooting days and no new pens | v: power, achievement | grants: friend in power | tribal: bargain with the old hunter for fewer hunts and only his own kin | magic: bargain with the knight for fewer hunting days and no new kennels | chance: 70
+- R | refuse the wood outright while the shooting goes on in it | v: self-direction, universalism | mark: made an enemy | tribal: refuse the ridge wood outright while another band hunts in it | magic: refuse the knight's wood outright while his hunts go on in it | chance: 75
+- G | take the wood, keep the shoot, and leave the shooting line out of the minutes | v: tradition, security | mark: hid a wrong | closed: approval: a gift's condition kept from the members; backfire: the members find the shooting line in the deeds at the next meeting, and two of the committee resign | tribal: take the wood, and say nothing at the fire of the old hunter's terms | magic: take the wood, and leave the hunting clause out of the circle's record | chance: 85
+- W>G | take the gift only if the deed keeps the wood standing for good | v: conformity, tradition | tribal: take the gift only if the old hunter swears at the fire that the wood will never be cut | magic: take the gift only if the deed binds every heir to keep the wood standing | chance: 60
+- U>W | write rules for the shoot: no new pens, and no shooting in the nesting months | v: universalism, conformity | aims: keeper of the land | tribal: work out rules for the autumn hunts: no fires, and no hunting in the birthing season | magic: write rules for the hunts: no new kennels, and no hunting in the nesting months | chance: 65
+- B>U | have a lawyer friend read the deed, and find what else it binds | v: power, achievement | tribal: ask a trader who knows the ways of gifts what else the old hunter's terms bind | magic: have a clerk of the court read the deed, and find what else it binds | chance: 70
+- R>B | take the whole thing to the town's paper, and let the town decide | v: stimulation, power | tribal: tell it at every fire in the valley, and let the bands decide | magic: take it to the town's broadsheet, and let the town decide | chance: 65
+- G>R | walk the wood with the old man, and hear why the shoot matters to him | v: benevolence, tradition | mark: made a friend | tribal: walk the ridge wood with the old hunter, and hear why the hunts matter to him | magic: walk the wood with the old knight, and hear why the hunts matter to him | chance: 55
+works: By the spring it is settled, and {N} can face the members at the meeting with a clear head.
+works: Whatever {N} chose, the wood above the town is still standing, and the trust's name is still good.
+fails: The wood splits everyone down the middle, and two old friends stop speaking.
+fails: It drags on all winter, nobody is pleased with the end of it, and {N} is the one they blame.
+
+# ================================================================ steps
+
+# ---------------------------------------------------------------- 5. the land trust needs a chair (pairs D6a)
+# The Known rung: the old chair of the town's land trust steps down, and the members look for a farmer, forester,
+# ranger or beekeeper of three years or more to keep its meadow, wood and river (tenure, and LIFE_LAND in
+# engine-conditions-land.py; with the land on, the Packs thread adds the ten third-step titles of LAND_WAYS_LAND to
+# holds:). Every colour's way of taking it on is a try at the chair's real chance (30, the brief's senior post in a
+# congregation): `title: steward of the land`. White's formal nomination and Green's standing rest on [good name in
+# town]; someone without it is chosen only by the members' leave (`requires: good name in town | without: approval |
+# lacking: .5`). The pairs at 82 are the honest other ways: a year beside the old chair first, the trust's count taken
+# on instead, the chair refused until the council hands over the low meadow (a closed: approval act), the deputy put
+# forward, and the members asked who they want. Every colour's mean is 56.
+
+== the land trust needs a chair
+tier: life event
+stages: adult mature elder
+age: 28-90
+holds: farmer | forester | park ranger | professional beekeeper
+tenure: 3-100
+per_year: 0 0 0 .03 .04 .03
+drivers: community+.3 prosper+.1
+times: per farmer, forester, park ranger or beekeeper of three years or more a year: about 1 in 30 are asked to stand for the chair of the town's land, wildlife or commons trust (estimate); about one such trust a town of 10,000 to 20,000, its chair held about ten years (the land trusts' census and the wildlife and commons groups; estimate); about 1 life in 1,000 is a steward of the land (catalogue share)
+likelier: a chair stepping down, a fight over a field everyone knows, years of work parties, good years with money for land
+rarer: a chair who stays twenty years, a trust that has folded, a town that has never had one
+gap: 2-5
+domain: community.5
+tone: mixed
+life: community, nature
+horizon: months
+roles: mentor, colleague, rival, boss
+earth: the old chair of the town's land trust steps down, and the members ask who will keep the meadow, the wood and the river after her
+tribal: the old keeper of the grove can no longer walk the hunting grounds, and the bands ask who will keep the grove and the grounds after her
+magic: the old druid of the grove goes to her rest, and the circle asks who will keep the grove after her
+scene: {mentor} has chaired the town's land trust for nineteen years: the low meadow, the wood above the town, two miles of river bank and a committee of nine who argue about all of them. At the yearly meeting she stands up and says this is her last year. Afterwards three members come and find {N} by the tea urn. {rival}, who sits on the council's planning committee, has already said he would do it.
+scene W: The trust has a constitution, and the chair is elected under it by the members, with a seconder and a vote. {N} has read it twice.
+scene U: {N} has opinions about the trust: the counts nobody looks at again, the plan nobody follows. In the chair, they could be put right.
+scene B: The chair is where the money, the council and the land deals meet. {N} would rather hold it than watch {rival} hold it.
+scene R: {N} has spent more Saturdays in the trust's mud than anyone. If anyone is going to fight for that meadow, it should be {N}.
+scene G: {N} has worked this valley's land for years, and knows which field floods first and where the orchids come up. Nobody knows it better, in all its seasons.
+scene tribal: The old keeper of the grove, {mentor}, has grown too stiff to walk the hunting grounds and says so at the fire. The bands look round for who will keep the grove, the burning and the grounds after her, and {rival} of the other hearth has already said he will.
+scene magic: The old druid of the grove, {mentor}, has gone to her rest after forty years, and the circle of the grove will name her successor at the next new moon. {rival}, who has the ear of the lord's steward, has already put his name forward.
+- W | stand for the chair by the trust's rules, with a seconder and a statement | v: conformity, achievement | title: steward of the land | requires: good name in town | without: approval | lacking: .5 | tribal: ask the elders and the old keeper by the custom, and keep every old rule of the grove | magic: put your name to the circle in the proper form, with a word on every law of the grove | chance: 30
+- U | bring the members a written plan for the meadow, the wood and the river | v: achievement, universalism | title: steward of the land | mark: learned a skill | self_control: + | tribal: show the bands at the fire how you would keep the grove, the burning and the grounds, season by season | magic: bring the circle a written plan for the grove, the meadow and the stream | chance: 30
+- B | go for the chair openly against {rival}, and win the committee over first | v: power, achievement | title: steward of the land | mark: made an enemy | tribal: put yourself forward against {rival} of the other hearth, and win the elders over first | magic: put your name forward against {rival}, and win the circle's elders over first | chance: 30
+- R | tell the meeting plainly what the trust has let slip, and how to win it back | v: self-direction, benevolence | title: steward of the land | identity | tribal: tell the bands straight out at the fire what the grove has lost, and how to win it back | magic: tell the circle straight out what the grove has let slip, and how to fight for it | chance: 30
+- G | stand as the one who knows the valley's land best, in all its seasons | v: tradition, benevolence | title: steward of the land | requires: good name in town | without: approval | lacking: .5 | tribal: put yourself forward as the one who knows the grounds best, in every season | magic: put your name forward as the one who knows the grove best, in every season | chance: 30
+- BG | ask to work a year beside the old chair first, learning the books and the hedges | v: achievement, security | self_control: + | tribal: ask to walk the grounds a season beside the old keeper first | magic: ask to serve a year at the old druid's side first | foot: means time-.05 | chance: 82
+- UG | take on the trust's yearly count instead, and leave the chair to others | v: universalism, tradition | self_control: - | tribal: take on the counting of the herds and the birds instead, and leave the grove to another | magic: take on the grove's book of springs instead, and leave the chair to another | foot: place prod.wild | chance: 82
+- UR | refuse the chair in writing until the council hands over the low meadow's lease | v: universalism, self-direction | mark: defied an authority | closed: approval: the chair refused on conditions; backfire: the members give the chair to someone else, and the council remembers the letter | tribal: refuse the grove until the elders give the wet meadow back to its keeping | magic: refuse the chair until the lord gives the low meadow back to the grove | chance: 82
+- WB | put the trust's deputy forward, and offer to stand at her side | v: benevolence, security | binds | mark: made a friend | tribal: speak at the fire for the old keeper's helper, and offer to stand beside her | magic: speak to the circle for the old druid's helper, and offer to stand beside her | chance: 82
+- WR | ask the members at the yearly meeting who they want, and abide by it | v: conformity, benevolence | tribal: ask every hearth at the fire who they want to keep the grove | magic: ask every druid of the circle who they want, and abide by it | foot: means ties+.04 | chance: 82
+works: Within the season it is settled, and the valley turns to {N} first.
+works: Whatever {N} chose, the meadow, the wood and the river are in good hands, and {N} sleeps well that month.
+fails: The choice falls on {rival}, and {N} has to smile through it with everyone else.
+fails: It goes badly at the one meeting that mattered, and the choice falls on someone from outside the valley.
+
+# ---------------------------------------------------------------- 6. the country comes to see the land (pairs D6b)
+# The summit, a facet on the steward held for five years or more (LIFE_LAND): the land the trust has kept is suddenly
+# known, and people come from across the country to see it. Every colour's way of taking the name on is a try at the
+# summit's real chance (6): `title: keeper of the land` with `grants: known across the country`. A step at real odds,
+# not a long shot, so no perk on failure, and no mark on the singles (the title and the name are their two footprints).
+# The pairs at 80 are the honest other ways: a café that pays two wardens, the far groups visited on their own land, two
+# young wardens taught, a reserve made by law, and a careful letter to each town that asks. Every colour's mean is 43.
+
+== the country comes to see the land
+tier: life event
+stages: adult mature elder
+age: 35-100
+holds: steward of the land
+tenure: 5-100
+per_year: 0 0 0 .01 .02 .02
+drivers: era+.3 fortune+.2
+times: per steward of the land of five years or more a year: about 1 in 50 find people coming from across the country to see the land the trust keeps, after a story, a programme or a rare bird (estimate); a few hundred living people in a large country are known for a reserve, a wood or a river they kept or brought back (estimate); about 3 lives in 100,000 become keepers of the land (catalogue share; estimate)
+likelier: years of the same valley's counts, a rare bird or flower back, a programme on the radio or the television, a mentor who sends visitors on
+rarer: a trust with nothing to show yet, a fight with the council, a move away
+gap: 5-15
+domain: community.5
+tone: joy
+life: community, nature, publiclife
+horizon: years
+roles: boss, colleague, mentor, friend
+earth: the meadow, the wood and the river the trust has kept for years are suddenly famous, and coaches of visitors come from across the country
+tribal: runners from bands far beyond the valley come to see the grove and the grounds the keeper has kept, and to learn how
+magic: druids and scholars from distant groves of the realm come to walk the grove's woods, and ask its druid how it was done
+scene: It began with a paragraph in a big paper about the orchids on the low meadow, then a radio piece, then a programme crew in waders in the river. Now coaches come on Sundays, the car park is full by ten, schools write every week, and a minister's office has asked whether the trust's way could be copied across the country. {boss}, the leader of the council, wants to know what {N} means to do about it.
+scene W: People come because the land is kept well, and it is kept well because the rules are kept. {N} would like to keep it that way, however many come.
+scene U: Twenty years of counts, and now there are enough eyes on the land to learn what really worked. {N} has a question in mind that nobody has asked.
+scene B: A name like this opens doors: the council's land committee, the national bodies, the money that decides where land goes. {N} knows it will not last forever.
+scene R: The coaches, the cameras, the children running down the boardwalk. {N} feels every bit of it, and wants every one of them to love the place.
+scene G: {N} never set out to be known. The meadow came back the way meadows do, one season on another, and now people come from far away to stand in it.
+scene tribal: Runners have come from bands three valleys away to see the grove and the grounds {N} has kept, and two elders have walked for days to sit at {Ns} fire and learn how the herds came back. The traders carry the story from camp to camp, and {boss}, the eldest of the band, asks what {N} means to do about it.
+scene magic: Druids and scholars from distant groves of the realm have come to walk the grove's woods, and a royal clerk writes that the crown would have every grove kept the same way. {boss}, the lord's steward, wants to know what {N}, druid of the grove, means to do.
+- W | set fair rules for the visitors: paths, numbers and seasons, kept by all | v: universalism, conformity | title: keeper of the land | grants: known across the country | tribal: set the old rules for the visitors: where they may walk, how many, and in which moons | magic: set fair rules for the visitors: paths, numbers and seasons, kept by every grove | chance: 6
+- U | publish the twenty years of counts, so any trust can do the same | v: achievement, universalism | title: keeper of the land | grants: known across the country | habit | tribal: teach the twenty winters of counting to every band's keeper who comes | magic: set down the grove's book of springs for every grove of the realm | chance: 6
+- B | let the programme follow the trust for a year, with your name on the work | v: power, achievement | title: keeper of the land | grants: known across the country | identity | tribal: let the traders carry your name from camp to camp, with the grove's story | magic: let the royal clerk set your name to the grove's way in the crown's book | chance: 6
+- R | say yes to every school and every coach, and lead the walks yourself | v: benevolence, stimulation | title: keeper of the land | grants: known across the country | self_control: - | tribal: say yes to every band that comes, and walk them round the grounds yourself | magic: say yes to every grove that sends, and walk them round the woods yourself | chance: 6
+- G | keep the paths few and the visitors quiet, and the meadow first | v: tradition, universalism | title: keeper of the land | grants: known across the country | tribal: keep the paths few and the visitors quiet, and the grounds as they are | magic: keep the paths few and the visitors quiet, and the woods as they are | chance: 6
+- BR | open a café by the car park, and let its takings pay two wardens | v: achievement, stimulation | tribal: trade with the visiting bands for food and furs, to keep two young watchers at the grounds | magic: let an innkeeper open by the grove's gate, and let the rent pay two wardens | foot: means money+.05 | chance: 80
+- RG | go out to the far groups yourself, and walk their own land with them | v: benevolence, stimulation | body: light | tribal: walk out to the far bands yourself, and walk their own grounds with them | magic: ride out to the far groves yourself, and walk their own woods with them | foot: means time-.06 | chance: 80
+- UB | train two young wardens to take over one day, and teach them the whole work | v: achievement, benevolence | grants: apprentice of one's own | binds | tribal: take two young ones of the band beside you, and teach them all you know of the grove | magic: take two young druids into the grove, and teach them all you know of its woods | chance: 80
+- WG | ask the council to make the meadow and the wood a reserve by law | v: conformity, tradition | tribal: ask the gathering of the bands to swear the grove and the grounds be kept for good | magic: ask the crown to make the grove's woods a reserve by royal charter | foot: place rule.counsel | chance: 80
+- WU | write each town that asks a careful letter on keeping its own land | v: universalism, benevolence | mark: helped someone in need | tribal: send each far band's runner home with a careful word on keeping their own grounds | magic: write each grove that asks a careful letter on keeping its own woods | chance: 80
+works: By the end of the year {Ns} name is known far beyond the valley, and the visitors keep coming.
+works: Whatever {N} chose, the land is well kept and well loved, and the valley's own still come first.
+fails: The fuss dies down after a season, and the valley is quiet again.
+fails: The talk moves on to another place, and {N} goes back to the ordinary work of the land, a little relieved.
+
+# ================================================================ fall and wrong
+
+# ---------------------------------------------------------------- 7. what runs into the river at night (triads D6a)
+# A friend's farm is letting slurry into the stream at night, and the steward, a farmer or a ranger walking the bank
+# finds the pipe. Nothing in it judges anyone: the water is cloudy, the pool below is empty of fish, and the stream
+# will mend once the pipe stops. Tell or keep quiet. The wrong sits on the WBG triad (White's loyalty to a
+# friend over the rule, Black's farm saved from the fine, Green's trust that the stream will clear by itself): say
+# nothing (hid a wrong; closed: approval: a spill seen and kept quiet; when it fails the town hears it, and
+# `takes_if_fails: good name in town`, the backfire). The others: the river authority rung that night, samples taken, one
+# week given to mend it, the paper told, the pipe blocked together and reported in the morning, the samples laid before
+# the town meeting, the friend stood by through the fine, a weekly walk of the river with the friend, and a grant found
+# for a covered store. Chances are set by act and the singles solved around the triads until every colour's mean is 70.
+
+== what runs into the river at night
+tier: life event
+stages: young_adult adult mature elder
+age: 20-95
+holds: steward of the land | keeper of the land | farmer | forester | park ranger | professional beekeeper
+per_year: 0 0 .01 .015 .015 .01
+drivers: trouble+.2 prosper+.1
+times: per steward of the land, farmer, forester, ranger or beekeeper a year: about 1 in 70 find a neighbour's farm or works letting something into a stream at night (estimate); slurry and silage leaks are among the commonest causes of fish lost from small rivers on farmland (water regulators' reports; estimate); about 1.5 lives in 100 are farmers (catalogue share)
+likelier: a wet winter and a full slurry store, an old pipe, a farm in debt, a dry summer with low water
+rarer: a new store with a cover, a river warden who walks the bank, a farm with time to mend things
+gap: 5-15
+domain: community.5
+tone: trouble
+life: community, nature, friends
+horizon: week
+roles: friend, colleague, boss
+earth: walking the river at night, the steward finds a pipe from a friend's dairy running slurry into the stream
+tribal: walking the river at dusk, the keeper of the grove finds a friend's family soaking hides in the pool above the band's drinking water
+magic: walking the river at night, the druid finds a pipe from a friend's dye-works running into the stream above the town
+scene: Walking the river bank at night after the first warm rain, {N} smells it before seeing it: a pipe from the slurry store at {friend}'s dairy, half hidden in the nettles, running dark into the stream. Below it the water is cloudy for a hundred yards, and the pool by the bridge is empty of fish. {friend} has had a bad year with the milk price and has a letter from the bank on the kitchen table. The river authority has a line that answers at any hour.
+scene W: The law on this is plain, and so is the duty of anyone who keeps land: report it, the same night, whoever it is.
+scene U: How much, for how long, and from where exactly? Without samples taken tonight, nobody will ever know for sure.
+scene B: {friend} owes the bank, and a fine would finish the farm. {N} could use that, or protect it.
+scene R: The pool by the bridge was full of trout last week. {N} wants to shout, and is frightened for {friend} at the same time.
+scene G: A stream mends once what fouls it stops: the water runs on, and the fish come back from upstream within a few seasons. What matters is that the pipe stops tonight.
+scene tribal: Walking the river at dusk, {N}, the band's keeper of the grove, finds {friend}'s family soaking a winter's hides in the still pool above the place where the band draws its water. The water below runs cloudy and sour, and the little fish have gone from the shallows. {friend}'s family had a hard winter, and the hides are their trade at the gathering.
+scene magic: Walking the river at night, {N}, druid of the grove, finds a pipe from {friend}'s dye-works running into the stream above the town, the water below it stained and sour. {friend} owes the moneylenders, and the lord's water bailiff would close the works for good.
+- W | ring the river authority's line that night, and report the pipe | v: conformity, universalism | identity | tribal: tell the elders at the fire that night whose hides foul the pool | magic: send word to the lord's water bailiff that night, and report the pipe | foot: person friend lost | chance: 72
+- U | take samples above and below the pipe, and write down every time | v: achievement, universalism | mark: learned a skill | tribal: look at and smell the water above and below the pool, and mark the places with stones | magic: draw water above and below the pipe in stoppered flasks, and note every hour | chance: 65
+- B | tell {friend} there is one week to mend the pipe, or it gets reported | v: power, security | mark: made an enemy | tribal: tell {friend}'s family they have till the new moon to move the hides, or the elders hear | magic: tell {friend} there is one week to mend the pipe, or the bailiff hears of it | chance: 73
+- R | photograph the pipe by torchlight, and send the pictures to the paper | v: stimulation, universalism | mark: took a wild risk | tribal: run to the next band's fire that night, and tell everyone what fouls the river | magic: take the tale to the town's broadsheet that night, before anyone can hide the pipe | chance: 66
+- G | help {friend} block the pipe that night, and report it together in the morning | v: benevolence, tradition | body: light | mark: helped someone in need | tribal: help {friend}'s family carry the hides to a pit far from the river that night | magic: help {friend} block the pipe that night, and go to the bailiff together in the morning | chance: 70
+- WUR | report it, and lay the samples before the town meeting | v: universalism, conformity | tribal: tell the elders, and lay the tale before the whole gathering of the bands | magic: report it, and lay the flasks before the town's open meeting | foot: place rule.voice | chance: 75
+- WBR | report it, and stand by {friend} through the inspection and the fine | v: benevolence, security | binds | tribal: tell the elders, and stand by {friend}'s family when they answer for it | magic: report it, and stand by {friend} through the bailiff's hearing | foot: means time-.04 | chance: 69
+- WBG | say nothing, for {friend}'s sake, and let the stream clear by itself | v: security, benevolence | mark: hid a wrong | self_control: - | takes_if_fails: good name in town | closed: approval: a spill seen and kept quiet; backfire: the river authority traces the spill, learns the trust's chair walked that bank, and the town hears it | tribal: say nothing at the fire, for {friend}'s sake, and let the pool clear by itself | magic: say nothing, for {friend}'s sake, and let the brook clear by itself | chance: 60
+- URG | walk the river with {friend} every week until the fish come back to the pool | v: universalism, benevolence | tribal: walk the river with {friend}'s family every moon until the little fish come back | foot: place prod.wild | chance: 78
+- UBG | find a grant with {friend} for a covered store, and mend the farm for good | v: security, achievement | tribal: trade with the next band for a tanning place downriver, and help {friend}'s family dig the pit | magic: find a loan with {friend} for a covered vat, and mend the works for good | foot: door helped someone in need | chance: 72
+works: The stream runs clear again within the month, and the matter is settled the way {N} chose.
+works: By the next spring the fish are back in the pool by the bridge, and {N} can look {friend} in the eye.
+fails: The stream mends in its own time, but the matter goes badly: questions, a hearing and a cold silence along the valley.
+fails: Word gets out the wrong way, and for a season {N} is the name the valley whispers about.
+
+# ================================================================ long shot
+
+# ---------------------------------------------------------------- 8. the cranes nest on the old marsh (triads D6b)
+# A pair of cranes, gone from the country's marshes for generations, nests on the old marsh the trust let flood ten
+# years ago. It comes to a steward of two years or more, or a farmer, forester, ranger or beekeeper of eight, from
+# thirty-five, the summit's first age (`tenure: 2-99` on the holds; LIFE_LAND_LONGSHOTS has the exact years). The long
+# shot is the summit at 3 in every colour, `title: keeper of the land; steward of the land` (the facet first, so a
+# farmer who meets it skips one rung, as the pack's rule allows), with `grants_if_fails: a long shot that missed`
+# (core/longshot.py), so every single fits everyone who meets the moment. The birds come because water came back, not
+# as a reward for anyone. The triads at 84, the ways to weigh it: the nest guarded by a rota, the trust's newsletter, a
+# hide at the far edge, the footpath shut without leave (a closed: law act), or the nest kept a secret. Every colour's
+# mean is 43.5.
+
+== the cranes nest on the old marsh
+tier: life event
+stages: adult mature elder
+age: 35-95
+holds: steward of the land | farmer | forester | park ranger | professional beekeeper
+tenure: 2-99
+per_year: 0 0 0 .01 .01 .01
+drivers: era+.2 fortune+.3
+times: per steward of the land of two years or more, or farmer, forester, ranger or beekeeper of eight, a year: about 1 in 100 see a rare bird or plant come back to land they keep (estimate); cranes and other great marsh birds have come back to nest in a few places after centuries away, and each return draws the country's eyes (estimate); about 3 lives in 100,000 become keepers of the land (catalogue share)
+likelier: a marsh let flood years before, a dry spring elsewhere, a quiet valley, a year when the papers want good news
+rarer: drained land, a busy path, a hard winter
+gap: 6-15
+domain: community.5
+tone: joy
+life: community, nature
+horizon: months
+roles: mentor, colleague, rival, boss
+earth: a pair of cranes, gone from the country's marshes for generations, nests on the old marsh the trust let flood, and the country's eyes turn to the valley
+tribal: a pair of great cranes, a bird the band knows only from the oldest songs, nests on the old marsh below the grove, and the bands come to look
+magic: a pair of great cranes, a bird the realm's old books call lost, nests on the grove's old marsh, and the realm's eyes turn to the valley
+scene: Ten years ago {N} and a dozen volunteers blocked the ditches on the old marsh and let it flood. This April, at dawn, {N} hears a sound like a trumpet from the reeds and, through the glasses, sees two tall grey birds: a pair of cranes, gone from the country's marshes since anyone's great-grandparents were young. By May there is a nest. Nobody else knows yet, and {mentor} says that if word gets out, half the country will be in the lane by the weekend.
+scene W: There are laws for a rare bird's nest, and a body that keeps the list. {N} has the form and the number, and a careful habit of doing things properly.
+scene U: Nobody in the country has watched cranes nest for generations. Every day of what happens on that marsh is something no one alive has seen.
+scene B: A bird like this could make the trust's name, and {Ns} with it: the money, the programme, the minister on the boardwalk. {N} knows how quickly a chance like this goes.
+scene R: {N} cannot stop grinning. Ten years of mud and arguments, and now this, at dawn, in the reeds.
+scene G: Water came back to the marsh, then the reeds, the frogs and the herons, and now the cranes. It took ten years, the way such things take, and nothing could have hurried it.
+scene tribal: Ten winters ago {N}, the band's keeper of the grove, had the young ones dam the ditches on the old marsh below the grove and let it flood. Now, at dawn, a call like a horn comes from the reeds, and two tall grey birds stand in the water: great cranes, a bird the band knows only from the oldest songs. Soon there is a nest, and nobody else has seen it yet.
+scene magic: Ten winters ago {N}, druid of the grove, let the old marsh flood again. Now, at dawn, a call like a horn comes from the reeds: a pair of great cranes, a bird the realm's old books call lost, and soon a nest. Nobody else knows, and {mentor} says that if word reaches the capital, half the court will ride out to see.
+- W | report the nest to the rare birds' body, and keep its rules to the letter | v: conformity, universalism | title: keeper of the land; steward of the land | grants_if_fails: a long shot that missed | self_control: + | tribal: tell the elders of every band at the gathering, and keep the old rules round the nest | magic: report the nest to the realm's keepers of birds, and keep their rules to the letter | chance: 3
+- U | watch the nest every day from a hide, and write all of it down | v: achievement, universalism | title: keeper of the land; steward of the land | grants_if_fails: a long shot that missed | tribal: watch the nest every dawn from the reeds, and remember every day of it | magic: watch the nest every day from a hide, and set it all down in the grove's book | chance: 3
+- B | tell the papers, and put the trust's name and your own on the cranes | v: power, achievement | title: keeper of the land; steward of the land | grants_if_fails: a long shot that missed | tribal: tell the traders, and let your name travel with the cranes from camp to camp | magic: tell the broadsheets, and put the grove's name and your own on the cranes | chance: 3
+- R | camp at the marsh's edge until the chicks fly, and turn back anyone who comes | v: stimulation, benevolence | door | title: keeper of the land; steward of the land | grants_if_fails: a long shot that missed | body: light | tribal: sleep at the marsh's edge until the young fly, and turn back anyone who comes | magic: camp at the marsh's edge until the young fly, and turn back any rider who comes | chance: 3
+- G | keep the water high and the marsh quiet, and let the season run its course | v: tradition, universalism | title: keeper of the land; steward of the land | grants_if_fails: a long shot that missed | habit | tribal: keep the dams high and the marsh quiet, and let the season run its course | chance: 3
+- WUG | guard the nest with a rota of volunteers, day and night, by the rules | v: universalism, benevolence | tribal: guard the nest with a round of the band's young ones, day and night | magic: guard the nest with a rota of the grove's novices, day and night | foot: place prod.wild | chance: 84
+- WUB | write it up in the trust's newsletter, with the dates and the counts | v: achievement, conformity | tribal: tell it at the elders' fire, dawn by dawn, so it is remembered | magic: write it up in the grove's book, with the dates and the counts | foot: lesson keep the record as you go | chance: 84
+- WRG | build a hide at the far edge, and let the town see from a distance | v: benevolence, universalism | tribal: build a screen of reeds at the far edge, and let the band look from a distance | magic: build a hide at the far edge, and let the townsfolk look from a distance | foot: means ties+.04 | chance: 84
+- UBR | shut the footpath past the marsh without waiting for the council | v: self-direction, power | mark: defied an authority | closed: law: a public footpath shut without leave; backfire: the walkers report it, and the council makes the trust open the path and pay its costs | tribal: block the hunters' trail past the marsh without waiting for the elders | magic: chain the lord's path past the marsh without waiting for his leave | chance: 84
+- BRG | keep the nest a secret, even from the committee, until the chicks fly | v: security, tradition | tribal: keep the nest a secret, even from the elders, until the young fly | magic: keep the nest a secret, even from the circle, until the young fly | foot: door turned down a chance | chance: 84
+works: By the autumn two young cranes fly over the marsh, and the valley is spoken of across the country.
+works: Whatever {N} chose, the chicks fly, and the marsh {N} let flood ten years ago is a place people speak of.
+fails: The nest fails in a wet week early in the summer, as first nests often do, and the cranes leave.
+fails: The fuss fades after a season, the cranes move on, and {N} goes back to the ordinary counts and the ordinary weeks.
+
+# ================================================================ world-only (magic)
+
+# ---------------------------------------------------------------- 9. the circle meets at the old stones (only: magic; pairs D1b)
+# The magic crossing to the summit (worlds-land.py, WORLD_ONLY_LAND): at midsummer the druids of every grove gather at
+# the old stones to name a new archdruid. For a druid of the grove ([steward of the land]) of three years or more
+# (LIFE_LAND), each one-colour way is a try for [keeper of the land] (archdruid of the circle) at its real chance, 6.
+# Blue's way takes up the old pact written in the circle's oldest book, with the spirits of the deep grove: their power,
+# never the druid's own gift, at 15, with the price on a closed: approval: line and its backfire (seven winters keeping
+# the deep grove's bounds by night, and the circle learns of it). The pairs are the honest ways: the moor's springs
+# tended with the young druids, the pact's past takers named before the circle, the oldest book read through the night,
+# the druid of the high moors spoken for, and every grove walked first. They form a ring (each colour in two), so their
+# chances are solved around the singles (66 and 84) until every colour's mean is 40.5. per_year as the other roads'
+# world-only events; LIFE_LAND gates it (three years a druid of the grove).
+
+== the circle meets at the old stones
+tier: life event
+only: magic
+stages: adult mature elder
+age: 35-100
+holds: steward of the land
+tenure: 3-99
+per_year: 0 0 0 .02 .02 .01
+drivers: fortune+.2 community+.1
+times: per druid of the grove of three years or more in the magic world a year: about 1 in 60 is at the old stones when the circle gathers to name a new archdruid (estimate); in many old tales the keepers of the woods chose their chief at a gathering, and some said the spirits of the deep woods had a voice in it (estimate); about 1 life in 1,000 is a druid of the grove (catalogue share)
+likelier: an old archdruid failing, a druid known for the grove kept, a midsummer feast, a circle already divided
+rarer: a young archdruid in good health, a grove far from the stones, a druid the circle mistrusts
+gap: 8-20
+domain: community.5
+tone: mixed
+life: community, nature
+horizon: months
+roles: elder, rival, mentor, colleague
+magic: the druids of every grove gather at the old stones to name a new archdruid, and the spirits of the deep grove offer an old pact
+scene magic: At midsummer the druids of every grove in the realm walk to the old stones on the high moor, where the archdruids have been named for longer than the books remember. {elder}, the old archdruid, is too frail to keep the circle, and will step down at the next full moon. On the first night a voice comes to {N} out of the deep grove beyond the stones: the old spirits of the woods will win the circle for {N}, if {N} takes up the old pact and pays the price they will name. {rival}, it is whispered, has heard the same voice.
+scene magic W: The circle names its archdruid by its own law: a voice from every grove, and the eldest's word last. {N} is uneasy at anything that comes round the side of it.
+scene magic U: The old pact is written in the circle's oldest book, in a hand nobody has read for a hundred years. {N} knows where the book is kept, and how to read the hand.
+scene magic B: The druid of the high moors has more groves behind him than anyone, and no wish to be archdruid himself. {N} knows what his word would be worth.
+scene magic R: The stones hum at night, and the deep grove beyond them is dark and full of sound. {N} wants to walk into it alone and see what is there.
+scene magic G: Every grove of the realm has its own woods, its own springs and its own seasons. {N} would like to have walked them all before asking any of them for a voice.
+- W | wait for the circle's naming, and stand by its law of choosing | v: conformity, tradition | identity | title: keeper of the land | chance: 6
+- U | take up the old pact from the circle's oldest book, at the price the spirits name | v: achievement, power | title: keeper of the land | mark: hid a wrong | closed: approval: the spirits' pact, kept from the circle; backfire: the price comes due: seven winters keeping the deep grove's bounds by night, and the circle learns of the pact | self_control: - | chance: 15
+- B | count the groves one by one, and win the waverers before the naming | v: power, achievement | title: keeper of the land | chance: 6
+- R | walk alone into the deep grove at night, and ask the voice its name | v: stimulation, self-direction | title: keeper of the land | mark: took a wild risk | chance: 6
+- G | go on keeping your own grove, and leave the naming to its season | v: tradition, benevolence | title: keeper of the land | chance: 6
+- RG | tend the springs of the high moor with the young druids every night until the naming | v: stimulation, tradition | habit | foot: place prod.wild | chance: 84
+- UB | find out who took up the old pact before, and name them before the circle | v: achievement, security | mark: made an enemy | chance: 66
+- UR | read the circle's oldest book through the night, and learn what the pact truly asks | v: achievement, stimulation | mark: learned a skill | chance: 66
+- WB | speak for the druid of the high moors, and stand at his right hand | v: security, benevolence | door | grants: friend in power | chance: 84
+- WG | walk to every grove of the realm first, and ask each for its voice | v: tradition, conformity | foot: means time-.05 | chance: 66
+works: At the full moon the circle names its archdruid, the horns sound across the moor, and the groves settle into the new years.
+works: Whatever {N} chose, the midsummer gathering ends in peace, and the druids go home to their woods.
+fails: The circle names {rival}, and nobody speaks of the voice in the deep grove again.
+fails: The gathering splits over the naming, it drags on for a year, and {N} is left out of the end of it.

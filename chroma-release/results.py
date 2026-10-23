@@ -1,9 +1,9 @@
 """Check results in one file, so the release record can be built from them (backend plan item 4, chroma-env/backend-plan.md).
 
 Every release check appends one line to chroma-release/out/results.jsonl when it ends: which check, PASS or FAIL (or RAN,
-MISS), when, where its report is, and a short note. v22_checks.py writes one line per check it runs or reuses; the
-stand-alone scripts (check_speedpass, check_saves, check_legacy, check_pin, ...) write their own with done() as their last
-line, unless v22_checks.py ran them. record.py reads them.
+MISS, INCONCLUSIVE), when, where its report is, and a short note. v22_checks.py writes one line per check it runs or
+reuses; the stand-alone scripts (check_speedpass, check_saves, check_legacy, check_pin, ...) write their own with done()
+as their last line, unless v22_checks.py ran them. record.py reads them.
 
 Each line also goes to the machine's own file, out/results.d/<machine>.jsonl (<machine> is a random id kept in the
 machine's temp folder): when several machines append to results.jsonl at the same moment over the shared folder, one
@@ -14,7 +14,7 @@ takes both, drops lines that are the same, and orders them by time.
     add("saves", "PASS", report_path, note="6 presets", candidate={"game": "/tmp/build/prototype"})
     done("saves", rc, REPORT)          # a check script's last line before sys.exit(rc)
 
-    python3 -B chroma-release/results.py add <check id> <PASS|FAIL|RAN|MISS> <report path> [note]   # from a shell script
+    python3 -B chroma-release/results.py add <check id> <PASS|FAIL|RAN|MISS|INCONCLUSIVE> <report path> [note]   # from a shell script
         (CHROMA_COMMIT, when set, names the repository commit the files came from, as for done())
     python3 -B chroma-release/results.py latest [id prefix]                                        # the newest per check
 """
@@ -46,7 +46,10 @@ def machine():
 
 
 def add(check, result, report="", note="", candidate=None, run=None, secs=None, reused_from=None):
-    """Append one result. result: PASS, FAIL, RAN (ran, nothing to compare) or MISS (differs from the reference)."""
+    """Append one result. result: PASS, FAIL, RAN (ran, nothing to compare), MISS (differs from the reference) or
+    INCONCLUSIVE (from v25: the evidence settles neither way, a run did not finish, or the budget ran out)."""
+    if result not in ("PASS", "FAIL", "RAN", "MISS", "INCONCLUSIVE"):
+        raise ValueError(f"result {result!r}: PASS, FAIL, RAN, MISS or INCONCLUSIVE")
     row = dict(check=check, result=result, time=time.strftime("%Y-%m-%d %H:%M:%S", time.gmtime()), report=report, note=note)
     for k, v in (("candidate", candidate), ("run", run), ("secs", secs), ("reused_from", reused_from)):
         if v is not None:

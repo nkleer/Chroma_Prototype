@@ -8,7 +8,8 @@ chroma-packs/<pack>/*.lib, against the base catalogue chroma-library/earth_perks
   1. catalogue fields (as in the base catalogue), names unique against the base;
   2. color balance of the pack's own commitment titles (profiles counted 1 each, split over their letters) and perks
      (ways split over their letters): within 3% of each other (Library rule), and which colors each perk kind holds;
-  3. references in gained / lost / needs: [names] must be catalogue names, 'quoted' names a moment or a history mark;
+  3. references in gained / lost / needs: [names] must be catalogue names (of a pack named in the catalogue's DEPENDS
+     too), 'quoted' names a moment or a history mark;
   4. names used by the moments in title:, drops:, grants:, takes:, suspends:, requires:, holds:, aims: must exist
      (kind:<kind> and {title} as the engine reads them);
   5. the share sums the pack adds (titles and perks per life).
@@ -72,6 +73,11 @@ def main(pack):
     base_names = {x["name"] for x in base.TITLES} | {x["name"] for x in base.PERKS}
     pack_names = [x["name"] for x in T + K]
     all_names = base_names | set(pack_names) | {x["name"] for x in R}
+    # A pack that builds on other packs (national, 10-23) names them in DEPENDS; their titles and perks may be named too,
+    # and the pack is only switched on with them.
+    for dep in getattr(cat, "DEPENDS", []):
+        d_ = load(f"{PACKS}/{dep}/catalogue.py", f"{dep}_dep_cat")
+        all_names |= {x["name"] for x in list(d_.TITLES) + list(getattr(d_, "PERKS", []))}
 
     # 1. fields and names
     for n in set(pack_names):
