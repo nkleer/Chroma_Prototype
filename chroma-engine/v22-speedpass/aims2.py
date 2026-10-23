@@ -92,7 +92,12 @@ PAR = dict(
     hours_min=0.5, money_min=0.02, energy_min=0.05,
     time_floor=0.3,     # world off: the share of free_open hours left with every commitment held (time-use surveys put
                         # even full-time working parents' leisure at about 2 h a day)
-    crowd=0.5,          # the character's own pick: each aim already pursued lowers the odds of taking up another
+    crowd=0.0,          # the character's own pick: each aim already pursued lowers the odds of taking up another (off:
+                        # the account below sets how many are pursued)
+    fund_only=True,     # the character's own pick (an unattended life) takes up or steps up an aim only at an intensity
+                        # its week can fund: the hours left after work, care, the household, ties, the essentials and
+                        # the aims already pursued, the free money left, and attention (decision file #9: "active
+                        # pursuit competes for relevant time, attention, energy, money"); the player is never limited
     refuse_need=1.3,    # going on without paying a fee: the need x this
     round_need=1.25,    # a way round a closed window: the need x this
     late=0.3,           # the need x (1 + this a decade) for a start after the field's late_from
@@ -106,6 +111,7 @@ PAR = dict(
 )
 NEVER = -10 ** 9
 # a fork's why: the Library's WHY_NOW keys (earth_aim_lines.py) by fork kind; a fork whose facts changed is "changed"
+NEEDS_X = dict(go_on=1.0, pay=1.0, refuse=1.0, hard=1.5, light=0.5)   # the intensity each option takes an aim up at
 WHY_KEY = dict(go_on="commit", pay="cost", take="chance", window="window", over="over", round="changed")
 CACHE = {}   # the compiled fields of the last batch (and field_patch) a run used
 
@@ -310,6 +316,7 @@ class Agenda:
         for k_, v_ in (tab or {}).items():
             s.asset_tab[tuple(sorted(k_))] = dict(v_)
         s.dirty = True; s.w = None; s.t = 0; s.SM = np.zeros(0, int); s.mom = np.full(N, -1)
+        s.acct = False                                    # the account computed once (fundable reads it)
 
     # ---- slots
     def _grow(s):
@@ -674,14 +681,46 @@ class Agenda:
         room = s.cap["time"][n] - s.committed["time"][n]
         dem = s.F["hours"][f, min(int(s.rung[n, j]), s.F["nr"][f] - 1)]
         roomy = 1.0 if room >= dem else 0.4
+        xmax = s.fundable(n, j) if s.par.get("fund_only") else 9.0
         nact = int(((s.st[n] == ACTIVE) & (s.f[n] >= 0)).sum())
         cr = 1.0 / (1.0 + s.par["crowd"] * nact)   # the more already pursued, the less likely another is taken up
         wt = dict(go_on=ff * (0.5 + st) * roomy * cr, light=0.3 * ff * (0.5 + st) * (1.4 - roomy), hard=0.15 * ff * st * roomy,
                   pause=0.3 + 0.25 * nact, drop=0.12 * max(1.5 - ff, 0.1), pay=ff * (0.5 + st) * roomy * cr,
                   refuse=0.4 * (1.4 - roomy) + 0.2, take=ff * (0.6 + st), decline=0.25, round=0.6 * ff * (0.5 + st),
                   keep=0.3, light_last=0.5, pause_last=0.4)
-        p = np.array([wt.get(o, 0.1) for o in opts], float); p = p / p.sum()
+        p = np.array([wt.get(o, 0.1) for o in opts], float)
+        if xmax < 1.5:   # what the week cannot fund is not taken up (pausing, letting go or keeping it held instead)
+            q = p * np.array([0.0 if NEEDS_X.get(o, 0.0) > xmax + 1e-9 else 1.0 for o in opts])
+            if q.sum() > 0:
+                p = q
+        p = p / p.sum()
         return opts[int(s.rng.choice(len(opts), p=p))]
+
+    def fundable(s, n, j):
+        """The highest intensity (1.5, 1, .5 or 0) at which life n's week can fund aim j's step beside the aims it
+        already pursues: its hours (when it needs hours), its money (when it needs money) and attention. Before the
+        first account (the first month), any."""
+        if not s.acct:
+            return 9.0
+        F = s.F; par = s.par; f = int(s.f[n, j]); r = int(min(s.rung[n, j], F["nr"][f] - 1))
+        if s.rung[n, j] >= F["nr"][f] or F["time"][f, r]:
+            return 9.0
+        oth = (s.f[n] >= 0) & (s.st[n] == ACTIVE); oth[j] = False
+        fo = np.maximum(s.f[n], 0); ro = np.minimum(s.rung[n], F["K"] - 1)
+        oth &= (s.rung[n] < F["nr"][fo]) & ~F["time"][fo, ro]
+        child = s.t / 52 < 18
+        h = F["hours"][f, r]; m = F["money"][f, r] * (1 - par["family_pays"] * child)
+        x = 1.5
+        if par["attention"] > 0:
+            x = min(x, par["attention"] - float(s.inten[n, oth].sum()))
+        if h >= par["hours_min"]:
+            room = float(s.cap["time"][n]) - float((F["hours"][fo[oth], ro[oth]] * s.inten[n, oth]).sum())
+            x = min(x, room / h)
+        if m >= par["money_min"]:
+            mo = F["money"][fo[oth], ro[oth]] * (1 - par["family_pays"] * child)
+            room = float(s.cap["money"][n]) - float((mo * s.inten[n, oth]).sum())
+            x = min(x, room / m)
+        return 1.5 if x >= 1.5 else 1.0 if x >= 1.0 else 0.5 if x >= 0.5 else 0.0
 
     def apply(s, n, fk, opt, t, by="player", sets=None):
         """Apply a fork's option (and, for a review, the player's settings per aim) once; the fork is resolved."""
@@ -993,7 +1032,7 @@ class Agenda:
         s.before = np.stack([work, care, np.full(N, AW["household"]), ties, np.full(N, AW["essentials"])], 1)
         money = np.clip((res[:, MON] - par["money_floor"]) / (1 - par["money_floor"]), 0, 1)
         child = s.t / 52 < 18
-        s.cap["time"] = have; s.cap["money"] = money
+        s.cap["time"] = have; s.cap["money"] = money; s.acct = True
         s.cap["energy"] = np.clip(1 - 0.25 * np.asarray(stress), 0.3, 1.0)
         f = np.maximum(s.f, 0); r = np.minimum(s.rung, F["K"] - 1)
         open_ = (s.f >= 0) & (s.rung < F["nr"][f]) & (s.st == ACTIVE) & ~F["time"][f, r]
