@@ -23,6 +23,8 @@ _LIFE = np.array([_FI[f] for f in LIFE_FACTS]); _WORLD = np.array([_FI[f] for f 
 IMP_WORLD_DEFAULT = dict(norm="country")   # imp_world_par: "country" (every living person) or "town" (each town's own)
 
 
+MOVE_STEP = 0.07   # a sphere's prize move is listed once it has shifted this much since its last listed move
+
 def realm(name="earth"):
     """The realm module a run reads its world-fit constants from (P["realm"]: "earth", or "neutral", the test world)."""
     if name in (None, "earth"):
@@ -221,7 +223,7 @@ def tilt_year(PP, here, age):
     """Once a year, at the rungs (world_people_settings._sph_hours): r for each town and life, and each life's gain per
     sphere, its pie's fit to r over the mean of that over the town's people (its living casts there, and the lives
     present in the sphere), so the tilt moves standing between colours and adds none. Lists the cells that moved .02 or
-    more since last listed (PP.tilt_moves). Returns the gain (N x 9) that multiplies a year present."""
+    more since last listed (PP.tilt_moves; a sphere's move once any colour shifts MOVE_STEP). Returns the gain (N x 9) that multiplies a year present."""
     from world_people_base import G as GK
     from world_keys import GROUP_KINDS
     W = PP.W; N = PP.N; nl = W.sph_s.shape[0]
@@ -266,19 +268,20 @@ def tilt_year(PP, here, age):
     hl_ = here & ~np.asarray(PP.dead)[:, None]
     np.add.at(tot, loc, np.where(hl_, val, 0.0)); np.add.at(cnt, loc, hl_.astype(float))
     gain = val / np.maximum(np.where(cnt > 0, tot / np.maximum(cnt, 1), 1.0), 1e-9)[loc]
-    # what the game reads: r in each life's town now, and the cells that moved .02 or more since last listed
+    # what the game reads: r in each life's town now, and a sphere's move once its prize has shifted by MOVE_STEP or more
+    # in any colour since that sphere's last listed move (cumulative; about 3 a life-year at .07, Gamification asked 2 to 4)
     if PP.tilt_listed is not None:
-        big = np.abs(r_n - PP.tilt_listed) >= 0.02
-        big &= ~np.asarray(PP.dead)[:, None, None]
+        dd_ = r_n - PP.tilt_listed
+        big = (np.abs(dd_).max(2) >= MOVE_STEP) & ~np.asarray(PP.dead)[:, None]
         if big.any():
             from sphere_data import SPHERES
             moved_home = loc != PP.tilt_lloc
             dt_ = r_town[loc] - PP.tilt_ltown
-            for n_, s_, c_ in zip(*np.nonzero(big)):
-                d_ = float(r_n[n_, s_, c_] - PP.tilt_listed[n_, s_, c_])
+            for n_, s_ in zip(*np.nonzero(big)):
+                c_ = int(np.abs(dd_[n_, s_]).argmax()); d_ = float(dd_[n_, s_, c_])
                 cause = "a new town" if moved_home[n_] else ("the town's ways" if abs(dt_[n_, s_, c_]) >= 0.5 * abs(d_)
                                                              else "their places")
-                PP.tilt_moves[n_].append(dict(sphere=SPHERES[s_], colour="WUBRG"[int(c_)],
+                PP.tilt_moves[n_].append(dict(sphere=SPHERES[s_], colour="WUBRG"[c_],
                                               age=int(age), by=round(d_, 3), to=round(float(r_n[n_, s_, c_]), 3), cause=cause))
             PP.tilt_listed[big] = r_n[big]; PP.tilt_ltown[big] = r_town[loc][big]
         PP.tilt_lloc = loc.copy()
