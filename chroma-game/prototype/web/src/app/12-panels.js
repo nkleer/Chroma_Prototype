@@ -111,15 +111,20 @@ function openWorld() {
   // WL5: the character's own record of what the world changed of theirs, by age
   const times = (W.times || []).slice().reverse().slice(0, 40).map((x) => `<div class="whist${x.big ? " big" : ""}" data-tm="${esc(x.cause || "")}"><span class="wa">${wAge(x.age, nm)}</span>${ic("globe")}<span>${esc(x.text)}</span></div>`).join("");
   const levers = (W.levers || []).map((x, i) => [x, i]).reverse().slice(0, 40).map(([x, i]) => `<div class="whist${x.went === "fired" || x.went === "state" ? " big" : ""}" data-lv="${i}"><span class="wa">${wAge(x.age, nm)}</span>${ic(LEVER_ICON[x.lever] || "push")}<span>${esc(x.text)}</span></div>`).join("");
+  // v25 what this world prizes (#10): which ways count for more toward standing in each sphere of their town, and for them
+  const Z = W.prizes;
+  const prizes = Z ? (Z.even ? `<p class="muted">Every way counts alike here.</p>` : `<div class="mts">${Z.rows.filter((x) => x.more.length || x.less.length).map((x) => `<div class="wst prize"><span class="ml">${esc(x.name)}</span><span>${pips(lettersOf(x.more_c))} ${x.more.length ? esc(x.more.join(" and ")) + " count for more" : ""}${x.more.length && x.less.length ? "; " : ""}${x.less.length ? esc(x.less.join(" and ")) + " for less" : ""}</span><span class="muted">for ${esc(nm)}: ${esc(x.for_me)}</span></div>`).join("")}</div>`)
+    + (Z.moves.length ? `<div class="whists">${Z.moves.slice().reverse().map((m) => `<div class="whist"><span class="wa">${wAge(m.age, nm)}</span>${ic("globe")}<span>${esc(m.name)} moved${m.cause ? ": " + esc(m.cause) : ""}</span></div>`).join("")}</div>` : "") : "";
   const hist = (W.history || []).slice(0, 60).map((x, i) => `<div class="whist${x.big ? " big" : ""}"><span class="wa">${wAge(x.age, nm)}</span>${ic(x.icon)}<span>${esc(x.text)}</span></div>`).join("");
   worldEl.hidden = false;
   worldEl.innerHTML = `<div class="box paper sheet world" role="dialog" aria-label="The world">
     <div class="shh"><div><div class="shn">${ic("ci-globe")} The world</div><div class="muted">the public record, as of ${esc(nm)}'s ${Math.floor(W.age)}th year</div></div><button class="ghost" id="wClose" aria-label="Close">${ic("x")}</button></div>
     ${worldLine(W)}
     <div class="shg">
-      <section><h4>The times</h4>${era || `<span class="empty">No era named yet</span>`}${place}<h4>Government</h4>${gov || `<span class="empty">–</span>`}${state ? `<div class="chips">${state}</div>` : ""}</section>
+      <section><h4>The times</h4>${era || `<span class="empty">No era named yet</span>`}${place}${W.land ? `<div class="wst"><span class="ml">${ic("leaf")} The land</span><span>${esc(W.land)}</span></div>` : ""}<h4>Government</h4>${gov || `<span class="empty">–</span>`}${state ? `<div class="chips">${state}</div>` : ""}</section>
       <section><h4>The figures, as published</h4>${econ}${laws ? `<h4>Laws</h4><div class="chips">${laws}</div>` : ""}${rights ? `<h4>Rights</h4><div class="chips">${rights}</div>` : ""}</section>
       <section>${polls ? `<h4>What people accept</h4><div class="mts">${polls}</div>` : ""}${figs ? `<h4>Public figures <span class="muted" style="text-transform:none;letter-spacing:0">as ${esc(nm)} reads them</span></h4>${figs}` : ""}</section>
+      ${prizes ? `<section class="wide"><h4>What this world prizes <span class="muted" style="text-transform:none;letter-spacing:0">in ${esc(nm)}'s town, now</span></h4>${prizes}</section>` : ""}
       ${times ? `<section class="wide"><h4>What the times did to ${esc(nm)}</h4><div class="whists">${times}</div></section>` : ""}
       ${levers ? `<section class="wide"><h4>What ${esc(nm)} did in town</h4><div class="whists">${levers}</div></section>` : ""}
       <section class="wide"><h4>History</h4><div class="whists">${hist || `<span class="empty">Nothing yet</span>`}</div></section>
@@ -139,6 +144,7 @@ function pageKey(k) {
   if (k === "c") { if (sheetEl.hidden) openSheet(); else closeSheet(); return; }
   if (k === "b") { if (bookEl.hidden) openBook(); else closeBook(); return; }
   if (k === "g") { if (worldEl.hidden) openWorld(); else closeWorld(); return; }
+  if (k === "j") { if (agendaEl.hidden) openAgenda(); else closeAgenda(); return; }
   if (k === "s") { if (!busy && hud && hud.mode === "play") saveToFile(); return; }
   if (k === "a") { autoOn = !autoOn; try { localStorage.setItem("chroma.autosave.on", autoOn ? "on" : "off"); } catch (_) {} toast(`Autosave ${autoOn ? "on: after every choice, one slot in this browser" : "off"}`); renderTools(hud); if (autoOn && hud && hud.mode === "play" && !busy) autoSaveNow(); return; }
   if (k === "o") { fileIn.click(); return; }

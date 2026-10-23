@@ -29,6 +29,10 @@ from game_bold import BoldMixin
 from game_because import BecauseMixin
 from game_foot import FootMixin
 from game_aims import AimsMixin
+from game_agenda import AgendaMixin
+from game_prizes import PrizesMixin
+from game_clash import ClashMixin
+from game_land import LandMixin
 from game_asks import AsksMixin
 from game_world_answers import WorldAnswersMixin
 
@@ -56,7 +60,7 @@ PRESETS = {
 }
 
 
-class Game(CheckpointsMixin, WorldMixin, VoiceMixin, LifeMixin, ViewsMixin, CausesMixin, BoldMixin, BecauseMixin, FootMixin, AimsMixin, AsksMixin, WorldAnswersMixin):
+class Game(CheckpointsMixin, WorldMixin, VoiceMixin, LifeMixin, ViewsMixin, CausesMixin, BoldMixin, BecauseMixin, FootMixin, AimsMixin, AgendaMixin, PrizesMixin, ClashMixin, LandMixin, AsksMixin, WorldAnswersMixin):
     """One life. Drive it with advance() and decide(); read it with status() and the log."""
     _recall_t = -10 ** 6    # week a memory coming back was last told
     # how much each part of temperament must move before the log says so, and the words for up and down
@@ -99,6 +103,7 @@ class Game(CheckpointsMixin, WorldMixin, VoiceMixin, LifeMixin, ViewsMixin, Caus
         self.vrng = np.random.default_rng(self.seed + 7)   # picks among the Library's voice and lesson variants
         self.start_age = float(start_age)
         self.freq = freq
+        self.ask_matter = GAME["ask_matter"]   # v24 asks: what matters to them weighs in (key k turns it on or off)
         self.detail = detail            # 0 quiet, 1 normal, 2 every week
         self.log = []                   # lines not yet shown
         self.feed = []                  # the same lines with a type and details, for the browser's HUD

@@ -2,6 +2,8 @@
 const STRAIN = { no: 0, low: 1, medium: 2, high: 3 };
 const ARROW = { "much worse": ["down", "▼▼"], worse: ["down", "▼"], "about right": ["eq", "●"], better: ["up", "▲"], "much better": ["up", "▲▲"] };
 const MISREAD = { hopeful: ["down", "▼"], doubtful: ["up", "▲"], fair: ["eq", "●"] };
+// a commitment's chance before the choice, in three sizes of words, never a number (plan section 1; Release H1)
+const chanceSay = (p) => p >= 0.6 ? "likely" : p >= 0.3 ? "perhaps" : "a long shot";
 const MISREAD_WORD = { hopeful: "they think it likelier than it is", doubtful: "they think it less likely than it is", fair: "they read it about right" };
 
 // Because of you, and meanwhile (GAME because, v23.2): the needs the pick's week moved, split into what the pick did and
@@ -175,6 +177,7 @@ function optRow(o, i, num) {
   if (!o.own && (acc === "reluctant" || acc === "against it")) marks.push(`<span class="mk2 rel">${acc === "against it" ? "against it" : "would rather not"}</span>`);
   if (st === "out of reach") marks.push(`<span class="mk2 law why">${ic("lock")}${esc(o.why || "out of reach")}</span>`);
   else if (o.needs && o.closed) marks.push(`<span class="mk2 law why">${ic("lock")}${esc(CLOSED_WORD[o.closed] || "closed")}</span>`);
+  if (o.clash_kind) marks.push(clashChip(o.clash_kind));
   if (o.lever) marks.push(`<span class="mk2 lever">${ic(o.lever.icon)}${esc(o.lever.name)}</span>`);
   if (o.wcause) marks.push(`<span class="mk2 wcause ${o.wcause.how}" data-wc="${esc(o.wcause.hover)}">${ic(o.wcause.how === "closed" ? "lock" : "globe")}${esc(o.wcause.note)}</span>`);   // WL3
   if (o.seen && o.seen.kind !== "none") marks.push(`<span class="mk2 seen" data-sn="${esc(o.seen.text)}" style="cursor:help;color:var(${o.seen.kind === "wrong" ? "--stress" : o.seen.kind === "seen" ? "--peace" : "--ink2"})">${ic("eye")}${esc(o.seen.word)}</span>`);   // S6
@@ -227,7 +230,7 @@ function stripHTML(o, num) {
   if (sk.win) facts.push(`<span><b>For good</b> <span class="up">${esc(sk.win)}</span></span>`);
   if (sk.people) facts.push(`<span><b>For good</b> <span class="${STAKE_DOWN.has(o.mark) ? "down" : "up"}">${esc(sk.people)}</span></span>`);
   if (!pass) facts.push(`<span><b>If it fails</b> <span class="down">${(sk.risk || sk.fails || sk.cost ? [esc(stakeFails(sk))] : []).concat((f.lose || []).map((x) => `${x[0] === "+" ? "+" : "−"}${esc(x.slice(1))}`), ["strain", "doubt"]).join(", ")}</span></span>`);
-  if (o.commit) facts.push(`<span><b>Could start</b> ${ic(KIND_ICON[o.commit] || "anchor")} a ${esc(o.commit)}${f.commit_p ? ` (about ${pct(f.commit_p)})` : ""}</span>`);
+  if (o.commit) facts.push(`<span><b>Could start</b> ${ic(KIND_ICON[o.commit] || "anchor")} a ${esc(o.commit)}${f.commit_p ? ` (${chanceSay(f.commit_p)})` : ""}</span>`);
   if (o.seen) facts.push(`<span><b>Seen it done</b> ${esc(o.seen.text)}</span>`);   // S6
   if (o.lever) facts.push(`<span class="lever"><b>A push on the world</b> ${ic(o.lever.icon)}${esc(o.lever.what || o.lever.name)}${o.lever.target ? ` (${esc(o.lever.target)})` : ""}</span>`);
   if (o.status === "out of reach") facts.push(`<span class="down"><b>Out of reach</b> ${esc(o.why)}; can be forced, at higher risk</span>`);
@@ -269,7 +272,7 @@ function tipOption(o, name, num) {
   if (sk.win) rows.push(["For good", `<span class="up">${ic("star")} ${esc(sk.win)}</span>`]);
   if (sk.people) rows.push(["For good", `<span class="${STAKE_DOWN.has(o.mark) ? "down" : "up"}">${ic("people")} ${esc(sk.people)}</span>`]);
   if (o.means.length) rows.push(["If it fails", `<span class="down">${(sk.risk || sk.fails || sk.cost ? [esc(stakeFails(sk))] : []).concat((f.lose || []).map((x) => `${x[0] === "+" ? "+" : "−"}${esc(x.slice(1))}`), ["strain", "doubt in these ways"]).join(", ")}</span>`]);
-  if (o.commit) rows.push(["Could start", `${ic(KIND_ICON[o.commit] || "anchor")} a ${esc(o.commit)}` + (f.commit_p ? ` (about ${pct(f.commit_p)})` : "")]);
+  if (o.commit) rows.push(["Could start", `${ic(KIND_ICON[o.commit] || "anchor")} a ${esc(o.commit)}` + (f.commit_p ? ` (${chanceSay(f.commit_p)})` : "")]);
   if (o.needs) rows.push(["Needs", `${esc(cap(o.needs.line))}` + (o.closed ? `. Without it, ${CLOSED_WORD[o.closed] || "the world"} stands in the way: it can still be tried, at higher risk.` : ".")]);
   if ((o.helped || []).length) rows.push(["Helped by", o.helped.map((h) => `${ic(roleIconOf(h))} ${esc(cap(h.pred))}${h.plus ? ` <span class="up">+${h.plus}%</span>` : ""}`).join("<br>")]);
   if ((o.roles_fx || []).length) rows.push(["Titles and perks", o.roles_fx.map((x) => `<span class="${x.gain ? "up" : "down"}">${ic(roleIconOf(x))}</span> ${esc(x.line)}`).join("<br>")]);
@@ -342,6 +345,9 @@ function renderTable(h) {
         ${cp.thread ? `<p class="note thread" id="cpThread" tabindex="0">${ic("link")} ${rich(cp.thread.line)}</p>` : ""}
         ${cp.extra ? `<p class="note">${rich(cp.extra)}</p>` : ""}
         ${cp.thought ? `<p class="note">${rich(cp.thought)}</p>` : ""}
+        ${cp.company ? `<p class="note company">${ic("leaf")} ${esc(cap(cp.company))}</p>` : ""}
+        ${cp.clash_card ? clashBannerHTML(cp.clash_card) : ""}
+        ${cp.fork ? forkNoteHTML(cp.fork) : ""}
         ${cp.why_ask ? `<p class="note whyask">${ic(cp.why_ask.kind === "aim" ? "target" : cp.why_ask.kind === "people" ? "people" : "heart")} This matters to them now: ${esc(cp.why_ask.say)}</p>` : ""}
         ${cp.talk ? (cp.talk.said ? `<p class="note talk">${ic("voice")} ${esc(L.name)}: ${esc(cp.talk.said.line)}</p>` : `<p class="note talk">${ic("voice")} Talk it over first: ${cp.options.filter((o) => o.colors !== "-" && o.n != null).map((o) => `<button class="ghost tk" data-talk="${o.n}">${o.n}</button>`).join("")}</p>`) : ""}
         ${cp.voice ? `<div class="voicebox"><p class="insight">${rich(cp.voice.line)}</p><div class="vlines">${vlines}</div>${asides.map((x) => `<p class="aside">${rich(x)}</p>`).join("")}</div>` : ""}

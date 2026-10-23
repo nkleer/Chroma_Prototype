@@ -54,6 +54,8 @@
                             gov_office=r_has[:, W_GOV_].any(1) if RON and W_GOV_ else None,
                             head_gov=r_has[:, W_HOG_] if RON and W_HOG_ >= 0 else None,
                             lead_has=(np.where(LW_T_ >= 0, r_has[:, np.maximum(LW_T_, 0)], False) if LW_ON else None)))
+            if TW_ON and getattr(WL.PP, "tilt_ver", 0) != tw_ver:   # v25 #10: r as the year's rungs computed it (the game's)
+                tw_ver = WL.PP.tilt_ver; prizes = WF.prizes(WL.PP); prizes_moves = WL.PP.tilt_moves
             if LW_ON and WL.PP.lw_lost:   # S7: an office the post's end took (a fall, a term, a hand-over, a move)
                 for n_, i_, why_ in WL.PP.lw_lost:
                     if LW_T_[i_] >= 0:
@@ -127,6 +129,8 @@
                 y = y + dy_; asrc[:, 1] += dy_
         if EP_ON:
             ep_now[:] = -1   # no return yet this week (set after the situation pause, read from the choose pause on)
+        if IW_ON:   # N3: no setback yet this week
+            iw_fact[:] = -1; iw_why[:] = [None] * N
         if NW_ON:   # need_why: a new week's record (what the caller changes at the "week" pause is the player's)
             nw[:] = 0; nw_imp[:] = -1; nw_imp_cause[:] = -1; nw_prev[:] = need
         if pausing:

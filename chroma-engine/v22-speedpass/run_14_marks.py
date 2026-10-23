@@ -364,14 +364,40 @@
             hist_m = np.where(idle[:, None], hist_m, hist_m + (ma - hist_m) / 520)
             ep_ = np.maximum(ea, 0); ep_ = ep_ / np.maximum(ep_.sum(1, keepdims=True), 1e-9)
             hist_e = np.where(idle[:, None], hist_e, hist_e + (ep_ - hist_e) / 520)
-        imp = rng.random(N) < P["impose_p"]
+        if IW_ON and WON:   # v25 N3: each life's weight per kind (world_fit.imp_g), yearly and when harm or a home changes
+            if IW_E is None:
+                IW_E = WF.imp_elasticities(RLM, nI); iw_dk = np.full(len(np.asarray(WL.W.loc_crime)), -1)
+            dk_ = np.asarray(WL.W.disaster_kind); iw_dk = np.where(dk_ >= 0, dk_, iw_dk)
+            if IW_E is not None:
+                key_ = WF.imp_key(WL.W, WL.PP, int(age))
+                if key_ != iw_key:
+                    iw_key = key_; iw_g, iw_X = WF.imp_g(RLM, IW_E, WL.W, WL.PP, res[:, HEA], age, dead, P["imp_world_par"])
+        if iw_g is None:
+            imp = rng.random(N) < P["impose_p"]
         if IA_ON:   # imp_age: only the setbacks that can happen at this age (realm_earth.IMP_AGE)
-            pa_ = pb * (age >= IMP_AGE_); imp &= pa_.sum() > 0
+            pa_ = pb * (age >= IMP_AGE_)
+        if iw_g is not None:   # N3: a life's weekly chance is impose_p x its kinds' weights (1 on average, more where bad)
+            pw_ = pa_ / pa_.sum() if IA_ON else pb
+            imp = rng.random(N) < P["impose_p"] * ((pw_ * iw_g).sum(1) / pw_.sum())
+        if IA_ON:
+            imp &= pa_.sum() > 0
         if imp.any():
-            which = rng.choice(nI, size=imp.sum(), p=pa_ / pa_.sum()) if IA_ON else rng.choice(nI, size=imp.sum(), p=pb)
+            if iw_g is not None:   # the kind from pb x g, by the draw rng.choice makes (so with every e at 0, v24's kinds)
+                ii_ = np.nonzero(imp)[0]; cdf_ = (pw_ * iw_g[ii_]).cumsum(1); cdf_ /= cdf_[:, -1:]
+                which = (cdf_ <= rng.random(len(ii_))[:, None]).sum(1)
+            else:
+                which = rng.choice(nI, size=imp.sum(), p=pa_ / pa_.sum()) if IA_ON else rng.choice(nI, size=imp.sum(), p=pb)
             need[imp] += 0.5 * L["IMP"][which]
+            if iw_g is not None:   # the fact that weighed most, and the panel's words for it
+                f_ = WF.imp_fact(IW_E, iw_X, ii_, which); iw_fact[ii_] = f_
+                lc_ = np.asarray(WL.PP.loc)[ii_]
+                for q_, n_ in enumerate(ii_):
+                    iw_why[n_] = WF.imp_words(RLM, int(which[q_]), int(f_[q_]), WL.W, int(lc_[q_]), iw_dk)
             if NW_ON:
                 nw_mark(NW_SET); nw_imp[imp] = which; nw_imp_cause[imp] = imp_cause(np.nonzero(imp)[0], which)
+                if iw_g is not None:   # a world fact named: its cause word (world_fit.imp_causes: 14 + fact, the betrayal's 21)
+                    nw_imp_cause[ii_] = np.where(f_ < 0, nw_imp_cause[ii_], np.where((f_ == 1) & (which == 1),
+                                                 len(IMP_CAUSES) + len(WF.IMP_FACTS), len(IMP_CAUSES) + f_))
             stress[imp] += 0.15
             res[imp, FRE] = _uclip(res[imp, FRE] + 0.5 * IMP_FREE[which], 0, 1)
             ii = np.nonzero(imp)[0]

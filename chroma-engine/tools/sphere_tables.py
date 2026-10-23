@@ -5,7 +5,7 @@ compares an existing copy with the files (and recomputes the colour-even rows of
 that the copy carries).
     python3 -B chroma-engine/tools/sphere_tables.py SPHERES_DATA_DIR [--check]
 SPHERES_DATA_DIR is the master copy chroma-world/spheres/data (the nine sphere files, plan.json, epochs.json, dynamics.json,
-marks.json; dynamics.json also gives haunt_shares).
+marks.json; dynamics.json also gives haunt_shares; land.json and world_fit.json, v25, copied whole).
 Writes (or checks) sphere_data.py beside engine.py in the tree this script sits in."""
 import sys, os, re, json, pprint
 import numpy as np
@@ -211,6 +211,9 @@ def build(src):
     WORLD_ANSWERS["notice"]["goal_sphere"] = dict(wa_["notice"]["goal_sphere"])
     WORLD_ANSWERS["groups"]["grow"]["levers"] = list(wa_["groups"]["grow"]["levers"])
     WORLD_ANSWERS["notice"]["ask"]["by_rung"] = {int(k): v for k, v in wa_["notice"]["ask"]["by_rung"].items()}
+    # v25 (Outer world's land-v1.md and world-fit-v1.md / v2): the land (lane D) and the world fit (lane A: N3 setbacks,
+    # Earth's profiles, national standing), copied whole as the JSON has them
+    LAND = rd("land.json"); WORLD_FIT = rd("world_fit.json")
     return dict(SPHERES=SPHERES, COLORS=list(COLS), EPOCHS=EPOCHS, DRIVERS=DRIVERS, FACE_NEEDS=FACE_NEEDS, M0=M0, J=J,
                 D=D, MEETS=MEETS, FACE_NAMES=FACE_NAMES, PARAMS=PARAMS, SUBSECTORS=SUB, PLACE_BY_EPOCH=PLACE, EVENTS=EVENTS,
                 TEACH=TEACH, TIME=TIME, TIME_AGES=TIME_AGES, TIME_GROUPS=["early", "middle", "machine", "modern"], DEPTH=DEPTH,
@@ -220,7 +223,7 @@ def build(src):
                 LINKS=LINKS, LINK_COLOUR=LINK_COLOUR, MEMORIES=MEMORIES, MEM_FADE=MEM_FADE, PAIR_QUARRELS=PAIR_QUARRELS,
                 CASCADES=CASCADES, LEVER_OFFICE=LEVER_OFFICE, FAIR=FAIR, SHADOW=SHADOW, DEEP=DEEP, FAR=FAR,
                 PLACE_READ=PLACE_READ, PLACE_READING=PLACE_READING, LEAD_POSTS=LEAD_POSTS, OFFER=OFFER, TURNOVER=TURNOVER,
-                TRUST=TRUST, WORLD_ANSWERS=WORLD_ANSWERS)
+                TRUST=TRUST, WORLD_ANSWERS=WORLD_ANSWERS, LAND=LAND, WORLD_FIT=WORLD_FIT)
 
 
 def audit(T):
