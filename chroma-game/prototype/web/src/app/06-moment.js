@@ -177,6 +177,7 @@ function optRow(o, i, num) {
   if (!o.own && (acc === "reluctant" || acc === "against it")) marks.push(`<span class="mk2 rel">${acc === "against it" ? "against it" : "would rather not"}</span>`);
   if (st === "out of reach") marks.push(`<span class="mk2 law why">${ic("lock")}${esc(o.why || "out of reach")}</span>`);
   else if (o.needs && o.closed) marks.push(`<span class="mk2 law why">${ic("lock")}${esc(CLOSED_WORD[o.closed] || "closed")}</span>`);
+  if (o.clash_kind) marks.push(clashChip(o.clash_kind));
   if (o.lever) marks.push(`<span class="mk2 lever">${ic(o.lever.icon)}${esc(o.lever.name)}</span>`);
   if (o.wcause) marks.push(`<span class="mk2 wcause ${o.wcause.how}" data-wc="${esc(o.wcause.hover)}">${ic(o.wcause.how === "closed" ? "lock" : "globe")}${esc(o.wcause.note)}</span>`);   // WL3
   if (o.seen && o.seen.kind !== "none") marks.push(`<span class="mk2 seen" data-sn="${esc(o.seen.text)}" style="cursor:help;color:var(${o.seen.kind === "wrong" ? "--stress" : o.seen.kind === "seen" ? "--peace" : "--ink2"})">${ic("eye")}${esc(o.seen.word)}</span>`);   // S6
@@ -344,6 +345,8 @@ function renderTable(h) {
         ${cp.thread ? `<p class="note thread" id="cpThread" tabindex="0">${ic("link")} ${rich(cp.thread.line)}</p>` : ""}
         ${cp.extra ? `<p class="note">${rich(cp.extra)}</p>` : ""}
         ${cp.thought ? `<p class="note">${rich(cp.thought)}</p>` : ""}
+        ${cp.company ? `<p class="note company">${ic("leaf")} ${esc(cap(cp.company))}</p>` : ""}
+        ${cp.clash_card ? clashBannerHTML(cp.clash_card) : ""}
         ${cp.fork ? forkNoteHTML(cp.fork) : ""}
         ${cp.why_ask ? `<p class="note whyask">${ic(cp.why_ask.kind === "aim" ? "target" : cp.why_ask.kind === "people" ? "people" : "heart")} This matters to them now: ${esc(cp.why_ask.say)}</p>` : ""}
         ${cp.talk ? (cp.talk.said ? `<p class="note talk">${ic("voice")} ${esc(L.name)}: ${esc(cp.talk.said.line)}</p>` : `<p class="note talk">${ic("voice")} Talk it over first: ${cp.options.filter((o) => o.colors !== "-" && o.n != null).map((o) => `<button class="ghost tk" data-talk="${o.n}">${o.n}</button>`).join("")}</p>`) : ""}

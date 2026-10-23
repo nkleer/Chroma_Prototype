@@ -671,6 +671,7 @@ class EngineWorld:
             self.lived.add(lk)
             sn["place"] = dict(locality=lk, kind=pl.get("kind", ""), society=pl.get("society", 0), lived=sorted(self.lived),
                                home_society=pl.get("home_society", 0), status=pl.get("status", ""), language=pl.get("lang", 1))
+            sn["place"].update({k: pl[k] for k in ("land", "land_hazard", "harvest") if k in pl})   # v25 land (lane D)
         except Exception:
             pass
         cast = []

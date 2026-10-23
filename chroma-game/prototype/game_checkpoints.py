@@ -301,7 +301,16 @@ class CheckpointsMixin:
         if GAME["aim_forks"]:                           # v25: a fork card says which aims, why now, and what it asks
             fid = self.fork_now(loc, s)
             if fid is not None:
-                cp["fork"] = self.fork_card(loc, fid)
+                cp["fork"] = self.fork_card(loc, fid, s)
+        if GAME["land_row"] and self.company_say(loc):  # v25: who is with them at a land moment
+            cp["company"] = self.company_say(loc)
+        if GAME["clash_card"]:                          # v25: a clash moment's banner and each option's kind
+            cl = self.clash_card(loc, s)
+            if cl:
+                cp["clash_card"] = cl
+                for o in opts:
+                    if o["idx"] in cl["kinds"]:
+                        o["clash_kind"] = cl["kinds"][o["idx"]]
         if GAME["talk"] and getattr(self, "_ask_big", False):
             cp["big"] = True                            # v24: a big moment, one the player may talk over with them
         for o in opts:                                  # the Library's role slots in an option ({friend}, {boss}): the scene's people

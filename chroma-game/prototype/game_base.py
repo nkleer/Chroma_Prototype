@@ -285,6 +285,13 @@ GAME = dict(
     # v25 what this world prizes (#10; game_prizes.py): the Engine's S["prizes"] for the life's town, in the Library's
     # motive words on the world page, the status lines and the town's sphere rows (easier, steeper). Reading only. Off: none
     prizes=False,
+    # v25 clash moments on the card (#3; game_clash.py): the Engine's S["clash"] and L["CLASH_TAG"] as a banner (the
+    # demand's sphere and what is at stake, never colours against colours) and each option's kind. Off: none
+    clash_card=False,
+    # v25 the land row (land-v1.md sections 5 and 10; game_land.py): the world page's land line (each stretch's health and
+    # wildness, the last hazard, the harvest), the land ways they hold with their steps and bridges, and who is with them
+    # at a land moment. Words only, from the Engine's land keys and land.json. Off: none
+    land_row=False,
 )
 BOLD_IX = 1000          # Bold ways: a bold way's number on the card, BOLD_IX + 100 x its slot + its base way (bix: the base)
 
@@ -307,7 +314,7 @@ GAME_OFF = dict(piv=0.0, piv_own=0.0, piv_steady=0.0, learn_full=False, lean=0.0
                 era_cost=0.0, backfire=0.0, turn_max=0, fig_own=False, own_ix=False, trust_judge=False, lines_tied=False,
                 own_mark="", lean_self=0.0, own_teach=0.0, dream_own=False, dream_firm=0.0, dream_help=0.0, hind_thin=0.5, season_need=0.0, season_calm=0.0, fork_k=0.0, fork_told=False, rung_ask=False,
                 world_hold=False, world_seed=False, faith_home=0.0,
-                line_wait=0.0, news_touch=False, rare_ask=False, returns=False, stakes=False, causes=False, causes_fold=False, bold=False, because=False, arrows=False, foot=False, aims=False, ask_matter=0.0, steer_between=False, talk=False, world_answers=False, wa_phase2=False, agenda=False, aim_forks="", prizes=False,
+                line_wait=0.0, news_touch=False, rare_ask=False, returns=False, stakes=False, causes=False, causes_fold=False, bold=False, because=False, arrows=False, foot=False, aims=False, ask_matter=0.0, steer_between=False, talk=False, world_answers=False, wa_phase2=False, agenda=False, aim_forks="", prizes=False, clash_card=False, land_row=False,
                 own_stress=0.5, own_free=0.3, dream_fit=0.5, rare_imp=0.5)
 # v22.5's joint refit (chroma-engine/notes/v22.5-refit-plan.md §2, with the engine's V225): every v22.5 game switch on
 # with its fitted value. F12 world_hold (with the engine's own_open and start_hold), F15 world_seed, F10 line_wait and news_touch (the

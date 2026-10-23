@@ -508,6 +508,11 @@ class Console:
                 if r.get("error"):
                     return r["error"][:1].upper() + r["error"][1:] + ".", False
                 return f"{g.name}: {r['line']}", False
+            fk = (g.pending or {}).get("fork") if GAME["aim_forks"] else None
+            if fk and fk.get("later") is not None and (k == "" or (len(k) == 2 and k[0] == "~")):
+                g.decide(fk["later"])                   # v25: a player's fork is never answered for them; it waits
+                self.job = dict(kind="run", until_cp=True)
+                return "", True
             if k == "":
                 g.decide(None)
                 self.job = dict(kind="run", until_cp=True)

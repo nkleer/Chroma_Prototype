@@ -31,6 +31,8 @@ from game_foot import FootMixin
 from game_aims import AimsMixin
 from game_agenda import AgendaMixin
 from game_prizes import PrizesMixin
+from game_clash import ClashMixin
+from game_land import LandMixin
 from game_asks import AsksMixin
 from game_world_answers import WorldAnswersMixin
 
@@ -58,7 +60,7 @@ PRESETS = {
 }
 
 
-class Game(CheckpointsMixin, WorldMixin, VoiceMixin, LifeMixin, ViewsMixin, CausesMixin, BoldMixin, BecauseMixin, FootMixin, AimsMixin, AgendaMixin, PrizesMixin, AsksMixin, WorldAnswersMixin):
+class Game(CheckpointsMixin, WorldMixin, VoiceMixin, LifeMixin, ViewsMixin, CausesMixin, BoldMixin, BecauseMixin, FootMixin, AimsMixin, AgendaMixin, PrizesMixin, ClashMixin, LandMixin, AsksMixin, WorldAnswersMixin):
     """One life. Drive it with advance() and decide(); read it with status() and the log."""
     _recall_t = -10 ** 6    # week a memory coming back was last told
     # how much each part of temperament must move before the log says so, and the words for up and down

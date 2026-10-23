@@ -381,9 +381,10 @@ function placesHTML(L) {
   const up = (P.rungs || []).filter((r) => r.rung > 0);
   const rs = up.map((r) => `<span class="chip" data-plr="${r.sphere}">${ic(SPH_ICON[r.sphere] || "home")}${esc(cap(r.word))} <span class="pc">(${esc(r.sphere_name.toLowerCase())})</span></span>`).join("");
   const tw = (P.town || []).slice(0, 3).map((t) => `<span class="chip" data-plt="${t.sphere}">${ic(SPH_ICON[t.sphere] || "home")}${esc(t.sphere_name)} ${pip(t.lead)}${t.prize === "easier" ? ` <b class="prz up" title="easier for them here">▲</b>` : t.prize === "steeper" ? ` <b class="prz down" title="steeper for them here">▼</b>` : ""}</span>`).join("");
-  if (!hs && !rs && !tw) return "";
+  const ld = P.land ? landHTML(P.land) : "";
+  if (!hs && !rs && !tw && !ld) return "";
   return `<div class="hsec"><h4>Their places</h4>${hs ? `<div class="perks">${hs}</div>` : `<span class="empty">No haunt of their own yet</span>`}
-    <div class="chips">${rs || `<span class="muted">A newcomer in every sphere</span>`}</div>${ps ? `<div class="chips"><span class="muted">They lead</span> ${ps}</div>` : ""}${tw ? `<div class="chips"><span class="muted">Their town lives by</span> ${tw}</div>` : ""}</div>`;
+    <div class="chips">${rs || `<span class="muted">A newcomer in every sphere</span>`}</div>${ps ? `<div class="chips"><span class="muted">They lead</span> ${ps}</div>` : ""}${tw ? `<div class="chips"><span class="muted">Their town lives by</span> ${tw}</div>` : ""}${ld}</div>`;
 }
 // v22.4 on a place's hover: S1 how the sphere's decisions feel to them, S3 their name there and its last word on them, S4 the odd one out
 const fairRows = (P, sp) => { const f = (P.fair || {})[sp]; return f ? [["Fairness", `<span class="${f.side === "fair" ? "up" : "down"}">${esc(f.line)}</span>`]] : []; };

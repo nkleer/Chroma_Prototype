@@ -9,9 +9,12 @@ functions land, test/agenda_check.py plays real lives with them.
     AS2  a preview before taking up an aim: what it takes, costs and competes with, its deadline, unknowns, the way back
     AS3  the review's answers reach apply_review once, in the contract's shape; a fork left out stays waiting
     AS4  pace and priority reach set_pace and set_priority; a wrong pace is refused in words
-    AS5  a save (version 11) replays the same agenda acts in the same order, at the same week"""
+    AS5  a save (version 11) replays the same agenda acts in the same order, at the same week
+    AS6  a fork card: the fork put this week on its own moment, its aims, why and preview; Enter (or a light steer) on
+         it answers "later", never the character's pick"""
 import json, os, sys
-os.environ["CHROMA_GAME"] = json.dumps({"agenda": True})
+import numpy as np
+os.environ["CHROMA_GAME"] = json.dumps({"agenda": True, "aim_forks": "every"})
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path[:0] = [os.path.dirname(HERE), HERE]
 os.chdir(os.path.dirname(HERE))
@@ -81,6 +84,23 @@ ok.append(("AS3", a1 == ("apply", {"choices": {"f1": "wait"}, "set": {1: "paused
 c.handle("jp0 paused"); p1 = acts()[-1]
 c.handle("jr1 1"); p2 = acts()[-1]
 ok.append(("AS4", p1 == ("pace", 0, "paused") and p2 == ("prio", 1, 1) and c.handle("jp0 fast")[0] == "No such pace."))
+g = c.g; s = g.pending["s"]; loc = g.loc
+na = len(g.L["names"])
+g.L["AIM_FORK"] = np.full(na, -1); g.L["AIM_FORK"][s] = 0
+g.L["AIM_TAG"] = np.full((na, 8), -1); g.L["AIM_TAG"][s, 2] = 3; g.L["AIM_TAG_NAMES"] = ("go", "pay", "drop", "later")
+loc["aim_fork"] = np.array([7]); loc["aim_forks"] = [[dict(id=7, aims=[0], kind="pay", why="the club's season starts", preview=PV, options=[], grouped=True, group=1)]]
+card = g.fork_card(loc, g.fork_now(loc, s), s)
+seen = []
+real_decide = g.decide
+g.decide = lambda k=None, **kw: seen.append(k)
+g.pending["fork"] = card
+c.handle(""); c.job = None; c.handle("~w")
+g.decide = real_decide; c.job = None; del g.pending["fork"]
+for k_ in ("AIM_FORK", "AIM_TAG", "AIM_TAG_NAMES"):
+    del g.L[k_]
+del loc["aim_fork"], loc["aim_forks"]
+ok.append(("AS6", card["aims"] == ["to master chess"] and card["later"] == 2 and card["preview"]["hours"] == "about two evenings a week"
+           and card["group"] == "1" and seen == [2, 2]))
 sv = json.loads(c.save()); t0 = c.g.t
 n0 = len(acts()); mine = acts()[:]
 c2 = Console(); t, b = c2.load(json.dumps(sv))

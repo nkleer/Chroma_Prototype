@@ -530,6 +530,8 @@ class ViewsMixin:
                 if x["sphere"] in pz:
                     x["prize"] = pz[x["sphere"]]["for_me"]
         P = dict(haunts=haunts, rungs=rungs, town=town)
+        if GAME["land_row"]:                            # v25: the land ways they hold, and the bridges
+            P["land"] = self.land_ways()
         try:
             self._social_places(WL, hi, P)              # v22.4 (S1, S3, S4, S7): only while their switches are on
         except Exception:
@@ -637,6 +639,8 @@ class ViewsMixin:
                 opts[-1]["arrows"] = o["arrows"]
             if o.get("aims"):                           # v24 aims: the aim steps this option leads into, only while aims is on
                 opts[-1]["aims"] = o["aims"]
+            if o.get("clash_kind"):                     # v25: the kind of answer to a clash this option is
+                opts[-1]["clash_kind"] = o["clash_kind"]
         sp = self.shadow_pull(self.loc, (cp.get("view") or {}).get("heart")) if self.loc is not None else None
         if sp is not None:                           # item 2: once seen, the heart's pick their shadow drives carries a mark
             for o in opts:
@@ -663,6 +667,10 @@ class ViewsMixin:
             d["stake_card"] = True
         if cp.get("why_ask"):                           # v24 asks: why this moment was put to the player
             d["why_ask"] = cp["why_ask"]
+        if cp.get("company"):                           # v25: who is with them at a land moment
+            d["company"] = cp["company"]
+        if cp.get("clash_card"):                        # v25: a clash moment: its sphere and what is at stake
+            d["clash_card"] = cp["clash_card"]
         if cp.get("fork"):                              # v25: a fork on a held aim, with its preview
             d["fork"] = cp["fork"]
         if cp.get("big"):                               # v24: a big moment can be talked over once, and its answer

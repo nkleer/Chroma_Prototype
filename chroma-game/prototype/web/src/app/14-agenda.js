@@ -111,6 +111,24 @@ function openReview(g) {
    each way would ask, and when the decision is linked to others, opens them together. */
 function forkNoteHTML(f) {
   return `<div class="note fork">${ic("flag")} A decision on their aim${f.aims.length > 1 ? "s" : ""}, ${esc(f.aims.join(" and ") || "an aim")}${f.why ? `. ${esc(cap(f.why))}` : ""}
-    ${f.preview ? previewTable(f.preview) : ""}${f.grouped && f.group != null ? `<button class="ghost" data-fkrv="${esc(f.group)}">Linked with other decisions: see them together</button>` : ""}</div>`;
+    ${f.preview ? previewTable(f.preview) : ""}${f.grouped && f.group != null ? `<button class="ghost" data-fkrv="${esc(f.group)}">Linked with other decisions: see them together</button>` : ""}
+    ${f.later != null ? `<p class="muted">Not choosing leaves it waiting on the agenda: only this aim waits. It is never decided for you.</p>` : ""}</div>`;
 }
 document.addEventListener("click", (e) => { const b = e.target.closest && e.target.closest("[data-fkrv]"); if (b) { e.stopPropagation(); openReview(b.dataset.fkrv); } });
+/* A clash moment (the game's clash_card, #3): a real demand meets something that matters to them. The banner names the
+   part of life it is in and what is at stake, never their colours against the others'; each option carries its kind. */
+const CLASH_KIND = { confront: ["voice", "stand up to it"], give_in: ["anchor", "go along with it"], leave: ["gate", "leave it behind"],
+  own_scene: ["candle", "find people of their own"], bridge: ["link", "build a bridge"] };
+const clashChip = (k) => { const c = CLASH_KIND[k]; return c ? `<span class="mk2 clash">${ic(c[0])}${c[1]}</span>` : ""; };
+function clashBannerHTML(c) {
+  return `<p class="note clash">${ic("bolt")} At odds${c.spheres.length ? ` in ${esc(c.spheres.join(" and ").toLowerCase())}` : ""}${c.stakes.length ? `: what is asked runs against ${esc(c.stakes.join(", "))}` : ""}</p>`;
+}
+/* The land ways they hold (the game's land_row; land-v1.md section 5): each way with its three steps, the next one and
+   its usual years, and the bridges: a held pair opens something; one half held names the other as a door. */
+const LAND_ICON = { field: "sprout", wood: "leaf", water: "rain" };
+function landHTML(D) {
+  if (!D.ways.length && !D.bridges.length) return "";
+  const ws = D.ways.map((w) => `<div class="agrow" title="${esc(w.hours + " hours a week; meets " + w.meets)}">${ic(LAND_ICON[w.stretch] || "leaf")}<span class="an">${esc(w.name)}</span><span class="ladder">${w.steps.map((s, i) => `<i class="${i < w.step ? "on" : ""}"></i>`).join("")}</span>${w.next ? `<span class="muted">next: ${esc(w.next)}${w.steps[w.step] && w.steps[w.step].clock ? ` (${esc(w.steps[w.step].clock)})` : ""}</span>` : ""}</div>`).join("");
+  const bs = D.bridges.map((b) => b.held ? `<span class="chip">${ic("crown")}${esc(b.opens)}</span>` : `<span class="chip dim">${ic("gate")}${esc(b.opens)} <span class="muted">with ${esc(b.need)}</span></span>`).join("");
+  return `<div class="agstrip land"><h4>The land</h4>${ws}${bs ? `<div class="chips">${bs}</div>` : ""}</div>`;
+}

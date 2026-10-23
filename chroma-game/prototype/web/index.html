@@ -3389,9 +3389,10 @@ function placesHTML(L) {
   const up = (P.rungs || []).filter((r) => r.rung > 0);
   const rs = up.map((r) => `<span class="chip" data-plr="${r.sphere}">${ic(SPH_ICON[r.sphere] || "home")}${esc(cap(r.word))} <span class="pc">(${esc(r.sphere_name.toLowerCase())})</span></span>`).join("");
   const tw = (P.town || []).slice(0, 3).map((t) => `<span class="chip" data-plt="${t.sphere}">${ic(SPH_ICON[t.sphere] || "home")}${esc(t.sphere_name)} ${pip(t.lead)}${t.prize === "easier" ? ` <b class="prz up" title="easier for them here">▲</b>` : t.prize === "steeper" ? ` <b class="prz down" title="steeper for them here">▼</b>` : ""}</span>`).join("");
-  if (!hs && !rs && !tw) return "";
+  const ld = P.land ? landHTML(P.land) : "";
+  if (!hs && !rs && !tw && !ld) return "";
   return `<div class="hsec"><h4>Their places</h4>${hs ? `<div class="perks">${hs}</div>` : `<span class="empty">No haunt of their own yet</span>`}
-    <div class="chips">${rs || `<span class="muted">A newcomer in every sphere</span>`}</div>${ps ? `<div class="chips"><span class="muted">They lead</span> ${ps}</div>` : ""}${tw ? `<div class="chips"><span class="muted">Their town lives by</span> ${tw}</div>` : ""}</div>`;
+    <div class="chips">${rs || `<span class="muted">A newcomer in every sphere</span>`}</div>${ps ? `<div class="chips"><span class="muted">They lead</span> ${ps}</div>` : ""}${tw ? `<div class="chips"><span class="muted">Their town lives by</span> ${tw}</div>` : ""}${ld}</div>`;
 }
 // v22.4 on a place's hover: S1 how the sphere's decisions feel to them, S3 their name there and its last word on them, S4 the odd one out
 const fairRows = (P, sp) => { const f = (P.fair || {})[sp]; return f ? [["Fairness", `<span class="${f.side === "fair" ? "up" : "down"}">${esc(f.line)}</span>`]] : []; };
@@ -3761,6 +3762,7 @@ function optRow(o, i, num) {
   if (!o.own && (acc === "reluctant" || acc === "against it")) marks.push(`<span class="mk2 rel">${acc === "against it" ? "against it" : "would rather not"}</span>`);
   if (st === "out of reach") marks.push(`<span class="mk2 law why">${ic("lock")}${esc(o.why || "out of reach")}</span>`);
   else if (o.needs && o.closed) marks.push(`<span class="mk2 law why">${ic("lock")}${esc(CLOSED_WORD[o.closed] || "closed")}</span>`);
+  if (o.clash_kind) marks.push(clashChip(o.clash_kind));
   if (o.lever) marks.push(`<span class="mk2 lever">${ic(o.lever.icon)}${esc(o.lever.name)}</span>`);
   if (o.wcause) marks.push(`<span class="mk2 wcause ${o.wcause.how}" data-wc="${esc(o.wcause.hover)}">${ic(o.wcause.how === "closed" ? "lock" : "globe")}${esc(o.wcause.note)}</span>`);   // WL3
   if (o.seen && o.seen.kind !== "none") marks.push(`<span class="mk2 seen" data-sn="${esc(o.seen.text)}" style="cursor:help;color:var(${o.seen.kind === "wrong" ? "--stress" : o.seen.kind === "seen" ? "--peace" : "--ink2"})">${ic("eye")}${esc(o.seen.word)}</span>`);   // S6
@@ -3928,6 +3930,8 @@ function renderTable(h) {
         ${cp.thread ? `<p class="note thread" id="cpThread" tabindex="0">${ic("link")} ${rich(cp.thread.line)}</p>` : ""}
         ${cp.extra ? `<p class="note">${rich(cp.extra)}</p>` : ""}
         ${cp.thought ? `<p class="note">${rich(cp.thought)}</p>` : ""}
+        ${cp.company ? `<p class="note company">${ic("leaf")} ${esc(cap(cp.company))}</p>` : ""}
+        ${cp.clash_card ? clashBannerHTML(cp.clash_card) : ""}
         ${cp.fork ? forkNoteHTML(cp.fork) : ""}
         ${cp.why_ask ? `<p class="note whyask">${ic(cp.why_ask.kind === "aim" ? "target" : cp.why_ask.kind === "people" ? "people" : "heart")} This matters to them now: ${esc(cp.why_ask.say)}</p>` : ""}
         ${cp.talk ? (cp.talk.said ? `<p class="note talk">${ic("voice")} ${esc(L.name)}: ${esc(cp.talk.said.line)}</p>` : `<p class="note talk">${ic("voice")} Talk it over first: ${cp.options.filter((o) => o.colors !== "-" && o.n != null).map((o) => `<button class="ghost tk" data-talk="${o.n}">${o.n}</button>`).join("")}</p>`) : ""}
@@ -4969,7 +4973,7 @@ function openWorld() {
     <div class="shh"><div><div class="shn">${ic("ci-globe")} The world</div><div class="muted">the public record, as of ${esc(nm)}'s ${Math.floor(W.age)}th year</div></div><button class="ghost" id="wClose" aria-label="Close">${ic("x")}</button></div>
     ${worldLine(W)}
     <div class="shg">
-      <section><h4>The times</h4>${era || `<span class="empty">No era named yet</span>`}${place}<h4>Government</h4>${gov || `<span class="empty">–</span>`}${state ? `<div class="chips">${state}</div>` : ""}</section>
+      <section><h4>The times</h4>${era || `<span class="empty">No era named yet</span>`}${place}${W.land ? `<div class="wst"><span class="ml">${ic("leaf")} The land</span><span>${esc(W.land)}</span></div>` : ""}<h4>Government</h4>${gov || `<span class="empty">–</span>`}${state ? `<div class="chips">${state}</div>` : ""}</section>
       <section><h4>The figures, as published</h4>${econ}${laws ? `<h4>Laws</h4><div class="chips">${laws}</div>` : ""}${rights ? `<h4>Rights</h4><div class="chips">${rights}</div>` : ""}</section>
       <section>${polls ? `<h4>What people accept</h4><div class="mts">${polls}</div>` : ""}${figs ? `<h4>Public figures <span class="muted" style="text-transform:none;letter-spacing:0">as ${esc(nm)} reads them</span></h4>${figs}` : ""}</section>
       ${prizes ? `<section class="wide"><h4>What this world prizes <span class="muted" style="text-transform:none;letter-spacing:0">in ${esc(nm)}'s town, now</span></h4>${prizes}</section>` : ""}
@@ -5209,9 +5213,27 @@ function openReview(g) {
    each way would ask, and when the decision is linked to others, opens them together. */
 function forkNoteHTML(f) {
   return `<div class="note fork">${ic("flag")} A decision on their aim${f.aims.length > 1 ? "s" : ""}, ${esc(f.aims.join(" and ") || "an aim")}${f.why ? `. ${esc(cap(f.why))}` : ""}
-    ${f.preview ? previewTable(f.preview) : ""}${f.grouped && f.group != null ? `<button class="ghost" data-fkrv="${esc(f.group)}">Linked with other decisions: see them together</button>` : ""}</div>`;
+    ${f.preview ? previewTable(f.preview) : ""}${f.grouped && f.group != null ? `<button class="ghost" data-fkrv="${esc(f.group)}">Linked with other decisions: see them together</button>` : ""}
+    ${f.later != null ? `<p class="muted">Not choosing leaves it waiting on the agenda: only this aim waits. It is never decided for you.</p>` : ""}</div>`;
 }
 document.addEventListener("click", (e) => { const b = e.target.closest && e.target.closest("[data-fkrv]"); if (b) { e.stopPropagation(); openReview(b.dataset.fkrv); } });
+/* A clash moment (the game's clash_card, #3): a real demand meets something that matters to them. The banner names the
+   part of life it is in and what is at stake, never their colours against the others'; each option carries its kind. */
+const CLASH_KIND = { confront: ["voice", "stand up to it"], give_in: ["anchor", "go along with it"], leave: ["gate", "leave it behind"],
+  own_scene: ["candle", "find people of their own"], bridge: ["link", "build a bridge"] };
+const clashChip = (k) => { const c = CLASH_KIND[k]; return c ? `<span class="mk2 clash">${ic(c[0])}${c[1]}</span>` : ""; };
+function clashBannerHTML(c) {
+  return `<p class="note clash">${ic("bolt")} At odds${c.spheres.length ? ` in ${esc(c.spheres.join(" and ").toLowerCase())}` : ""}${c.stakes.length ? `: what is asked runs against ${esc(c.stakes.join(", "))}` : ""}</p>`;
+}
+/* The land ways they hold (the game's land_row; land-v1.md section 5): each way with its three steps, the next one and
+   its usual years, and the bridges: a held pair opens something; one half held names the other as a door. */
+const LAND_ICON = { field: "sprout", wood: "leaf", water: "rain" };
+function landHTML(D) {
+  if (!D.ways.length && !D.bridges.length) return "";
+  const ws = D.ways.map((w) => `<div class="agrow" title="${esc(w.hours + " hours a week; meets " + w.meets)}">${ic(LAND_ICON[w.stretch] || "leaf")}<span class="an">${esc(w.name)}</span><span class="ladder">${w.steps.map((s, i) => `<i class="${i < w.step ? "on" : ""}"></i>`).join("")}</span>${w.next ? `<span class="muted">next: ${esc(w.next)}${w.steps[w.step] && w.steps[w.step].clock ? ` (${esc(w.steps[w.step].clock)})` : ""}</span>` : ""}</div>`).join("");
+  const bs = D.bridges.map((b) => b.held ? `<span class="chip">${ic("crown")}${esc(b.opens)}</span>` : `<span class="chip dim">${ic("gate")}${esc(b.opens)} <span class="muted">with ${esc(b.need)}</span></span>`).join("");
+  return `<div class="agstrip land"><h4>The land</h4>${ws}${bs ? `<div class="chips">${bs}</div>` : ""}</div>`;
+}
 </script>
 
 <style>

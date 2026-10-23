@@ -121,7 +121,7 @@ function openWorld() {
     <div class="shh"><div><div class="shn">${ic("ci-globe")} The world</div><div class="muted">the public record, as of ${esc(nm)}'s ${Math.floor(W.age)}th year</div></div><button class="ghost" id="wClose" aria-label="Close">${ic("x")}</button></div>
     ${worldLine(W)}
     <div class="shg">
-      <section><h4>The times</h4>${era || `<span class="empty">No era named yet</span>`}${place}<h4>Government</h4>${gov || `<span class="empty">–</span>`}${state ? `<div class="chips">${state}</div>` : ""}</section>
+      <section><h4>The times</h4>${era || `<span class="empty">No era named yet</span>`}${place}${W.land ? `<div class="wst"><span class="ml">${ic("leaf")} The land</span><span>${esc(W.land)}</span></div>` : ""}<h4>Government</h4>${gov || `<span class="empty">–</span>`}${state ? `<div class="chips">${state}</div>` : ""}</section>
       <section><h4>The figures, as published</h4>${econ}${laws ? `<h4>Laws</h4><div class="chips">${laws}</div>` : ""}${rights ? `<h4>Rights</h4><div class="chips">${rights}</div>` : ""}</section>
       <section>${polls ? `<h4>What people accept</h4><div class="mts">${polls}</div>` : ""}${figs ? `<h4>Public figures <span class="muted" style="text-transform:none;letter-spacing:0">as ${esc(nm)} reads them</span></h4>${figs}` : ""}</section>
       ${prizes ? `<section class="wide"><h4>What this world prizes <span class="muted" style="text-transform:none;letter-spacing:0">in ${esc(nm)}'s town, now</span></h4>${prizes}</section>` : ""}

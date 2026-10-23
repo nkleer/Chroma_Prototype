@@ -15,7 +15,7 @@ Part of class Game (game.py), which inherits AgendaMixin. What it reads, from th
 The words for sizes are the game's (IMPORTANCE, STATE_SAY, LEAN, LOAD): never a number before a choice."""
 import numpy as np
 
-from game_base import F, GAME
+from game_base import E, F, GAME
 from game_words import clean
 
 IMPORTANCE = ((0.66, "central"), (0.33, "important"), (0.0, "in the background"))
@@ -299,7 +299,17 @@ class AgendaMixin:
         fid = int(fid[0]) if fid.size else -1
         return fid if fid >= 0 and int(np.asarray(self.L["AIM_FORK"])[s]) >= 0 else None
 
-    def fork_card(self, loc, fid):
+    def fork_later(self, s):
+        """The option of moment s that leaves a player's fork open ("later": only that aim waits), or None. The Engine
+        tags it in L["AIM_TAG"][s, k] by the index of "later" in its tag names (L["AIM_TAG_NAMES"] or E.AIM_TAGS)."""
+        names = list(self.L.get("AIM_TAG_NAMES") or getattr(E, "AIM_TAGS", ()) or ())
+        if "later" not in names or "AIM_TAG" not in self.L:
+            return None
+        row = np.asarray(self.L["AIM_TAG"])[s]
+        ks = np.nonzero(row == names.index("later"))[0]
+        return int(ks[0]) if ks.size else None
+
+    def fork_card(self, loc, fid, s=None):
         """The fork on the card: which aims it is about, why now, its preview in words, and whether it is linked to
         other decisions (an agenda review), from S["aim_forks"]; None when the Engine has no record of it."""
         fs = loc.get("aim_forks") or []
@@ -312,7 +322,8 @@ class AgendaMixin:
         return clean(dict(id=str(fid), aims=[names.get(int(a), "an aim") for a in f.get("aims", [])], kind=f.get("kind", ""),
                           why=f.get("why", ""), preview=self._preview_words(f.get("preview"), loc, names),
                           urgent=bool(f.get("urgent")), grouped=bool(f.get("grouped")),
-                          group=None if f.get("group") is None else str(f["group"])))
+                          group=None if f.get("group") is None else str(f["group"]),
+                          later=None if s is None else self.fork_later(s)))
 
     @staticmethod
     def preview_lines(pv):
