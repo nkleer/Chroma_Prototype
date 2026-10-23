@@ -11,7 +11,7 @@ Rules checked:
     2. a v1 aim's field keeps v1's face, sphere, domain, calling, dreams, below, tribal, magic and, step for step, say,
        any, req and height (a field with fewer rungs keeps that many of v1's steps, in order); a new field's dreams are in dreams.py;
     3. a rung: say; any names catalogue titles or TITLES_V25; years (median, low, high) with low <= median <= high;
-       share 0 to 1; rung 1's start (from, best_to, late_from) in order; contests_y 0 or more; forks one or two of
+       share 0 to 1; an optional step is an -ing phrase; rung 1's start (from, best_to, late_from) in order; contests_y 0 or more; forks one or two of
        go_on, pay, take, round; a time rung has no forks and no contests;
     4. coverage (section 4): every rung not reached by time alone has three or more ways in among the shape moments of
        kind practice, contest, chance or mentor for its shape (or "any") that fit its shape rung, one of them practice.
@@ -120,6 +120,10 @@ def main():
             if not r.get("say"):
                 prob.append(f"{rw}: no say")
             CA.words(rw, r.get("say"), prob)
+            if "step" in r:   # optional: the phrase read into {next} ("becoming a rated player")
+                CA.words(f"{rw} step", r["step"], prob)
+                if re.search(r"\byou(r|rs)?\b", r["step"]) or not r["step"].split()[0].endswith("ing"):
+                    prob.append(f"{rw}: step must be an -ing phrase without you, not {r['step']!r}")
             for x in r.get("any", []):
                 if x not in names:
                     prob.append(f"{rw}: {x!r} is not a catalogue title or TITLES_V25")

@@ -659,3 +659,35 @@ works: The work evens out, and the next joint project is one both of them ask fo
 works: It never quite becomes friendship, but it becomes a good working pair, and the deadline is met with time to spare.
 fails: The split stays uneven, and {N} carries the work to the deadline alone.
 fails: The talk goes badly, and the desk is colder than before for the rest of the month.
+
+
+== the lesson that asks nothing
+tier: life event
+state: boredom
+stages: juvenile young_adult
+age: 12-18
+per_year: 0 0 0 0 0 0
+tone: trouble
+life: learning
+horizon: months
+roles: friend, grandparent, a teacher
+earth: lessons that ask so little of {N} that the school day passes without touching the mind
+tribal: the same teachings at the elders' fire, learned long ago and told again every night
+magic: the apprentices' drills at the academy, mastered seasons ago and still set every morning
+scene: {N} finishes the class work in ten minutes and spends the rest of the lesson watching the window. The marks are fine, the teacher is fine, {friend} is fine, and by the second lesson {N} is counting the minutes to the bell. Nothing is hard, and nothing is asking anything either.
+scene tribal: {N} learned the names of the stars and the moods of the river two winters ago, and still sits through them every night at the elders' fire. {friend} dozes; {N} draws patterns in the dust with a stick. {grandparent} has noticed, and says nothing yet.
+scene magic: At the academy {N} has known the first-year drills by heart since autumn, and still chants them every morning with the rest. The master sets the same small ward again, and {N} finishes it before the candle has settled. Behind the closed doors of the tower, harder work goes on.
+- W | ask a teacher for the extension work kept for the class above | v: conformity, achievement | seek: deepen | foot: mark learned a skill | chance: 75
+- U | finish the easy exercises early, then solve each one a second way | v: self-direction, achievement | seek: method | foot: lesson easy work hides harder questions | chance: 70
+- B | ask to move up a set in the subject that drags the most | v: achievement, power | seek: negotiate | foot: person rival | chance: 55
+- R | put a name down for the after-school drama club, just to see | v: stimulation, hedonism | seek: own_interest | foot: place arts.stage | chance: 70
+- G | ask {grandparent} to show how the vegetable beds are kept, on Saturday mornings | v: benevolence, universalism | seek: help | foot: place prod.land | chance: 80
+- W>B | do every piece of homework to the top mark, and go for the end-of-term prize | v: conformity, achievement | seek: persist | foot: means time-.03 | chance: 65
+- U>R | rethink the subjects picked for next term, and look at the ones nobody suggested | v: self-direction, stimulation | seek: revise | foot: means freedom+.03 | chance: 75
+- B>G | stop fighting the dull lessons, and put the energy into a Saturday job at the stables | v: achievement, universalism | seek: withdraw | foot: means money+.03 | chance: 85
+- R>W | keep the place in the school band, every rehearsal, even in the flat weeks | v: stimulation, conformity | seek: keep | foot: mark kept your word | chance: 80
+- G>U | start a lunchtime log of the school field: birds, weather, what grows where | v: universalism, self-direction | seek: own_interest | foot: lesson small things reward a look | chance: 75
+works: By the end of term the school day has something in it again, and {N} stops watching the clock above the board.
+works: The new thing is harder than {N} expected, and that turns out to be the point.
+fails: The answer is a kind no, and the lessons go on at the same slow pace as before.
+fails: Nothing much shifts this term. The days stay flat, but {N} knows a little better what is missing.
