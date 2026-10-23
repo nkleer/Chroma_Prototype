@@ -878,6 +878,11 @@ DEFAULT = dict(
     # (aims v1's heights: Known reached, its standing still held) decides for others in the sphere it stands in, 4 to 8
     # times a year (8 to 12 at national standing), with rivals, allies and a successor, at a price in hours and stress
     world_answers=True, wa_groups=True, wa_places=True, wa_ledger=True, wa_notice=True, wa_phase2=True,   # on at v24
+    # WA3 (v25, Release's records/v25/round0.md): a standing level reaches its town (world_people_answers.WA_REACH): an
+    # act on the town's sphere reads at most 1 + the level's reach at the town's ring (REACH[level, 2]), a founding nudges
+    # the town by its reach / 3, a level-1 life's presence spills from its haunts to their spheres in town, and a
+    # member's presence in a group carries x (1 + .5 x that reach). Read only with world_answers on
+    wa_reach=True,
     # footprints (the next stage's workstream 3; plan.md section 3), on since v24 (V24_OFF); needs the batch's FOOT
     # (batch.FOOT or load_batch(foot=True)). Each picked option's footprints get real state (run_03_moments.py, the
     # footprints): a person in the cast (off-world, ties by foot_par ties), a haunt, a means, a mark or door (one only a
@@ -1583,7 +1588,7 @@ UPD_OFF = dict(dis_match=False,
                # aims v2 (v25 lane B)
                aims_v2=False,
                # the world answers v1 (workstream 6) and its second phase
-               world_answers=False, wa_phase2=False,
+               world_answers=False, wa_phase2=False, wa_reach=False,
                # footprints (workstream 3)
                foot_on=False,
                # v25 lane A: setbacks that fit the world, what a world rewards
@@ -1595,7 +1600,7 @@ UPD_OFF = dict(dis_match=False,
 # the v24 refit's switches off (Release's K4 PNEW, with batch CHROMA_BATCH_OFF=FOOT,AIMS,WORLD_ANSWERS and v23.2's packs in
 # CHROMA_PACKS): the lives of v23.2
 V24_OFF = dict(need_tab=None, shared_hist=0.0, imp_age=False, aims=False, heights=False, world_answers=False,
-               wa_phase2=False, foot_on=False, cause_fit=False, aims_v2=False)
+               wa_phase2=False, foot_on=False, cause_fit=False, aims_v2=False, wa_reach=False)
 # everything since the go-live off, for the identity check (C-E14): lives then equal engine_v9_golive.py
 GOLIVE = {**V10_OFF, **ID_OFF, **FIX_OFF, **UPD_OFF, "world": False}
 from realm_earth import ROLE_BY_SETTING, ACCEPT_BY_SETTING   # Earth's (realm_earth.py)

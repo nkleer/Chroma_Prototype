@@ -360,13 +360,14 @@ class SpheresMixin:
         self.hp_off[l, h, i] += np.log(np.maximum(new, 1e-9)) - np.log(np.maximum(old, 1e-9))
         self.hp_s[l, h, i] = new
 
-    def sph_lever(self, loc, j, place, lever, ma, size, rung, rng, office="budget", span=None, went=1.0):
+    def sph_lever(self, loc, j, place, lever, ma, size, rung, rng, office="budget", span=None, went=1.0, tw=1.0):
         """Phase 4 (sph_levers): a life's lever lands on its place (a flat place id, World.place_info) or, with place -1,
         on its town's sphere j (the caller passes the smaller size there). ma: the act's colours in this world's frame;
         size: reach / 3 x the rung's multiplier x how well it went; rung: 0 newcomer .. 4 leader. span: a fund act's
         quarters when the caller knows them (lead_ways: what is left of a leader's post), else FUND_SPAN by rung. Returns
         what moved (a word) for the record. went: how well the act went (place_turnover reads a found act that went well,
-        .5 or more). dynamics.json levers' on_the_mix, as Outer world's answers read them."""
+        .5 or more). tw: the share of a founding's own nudge to the town (WA3, wa_reach: the founder's reach / 3; 1 else).
+        dynamics.json levers' on_the_mix, as Outer world's answers read them."""
         if size <= 0 or getattr(self, "sph_s", None) is None:
             return "none"
         loc = int(loc); j = int(j); q = int(self.t // 13); ma = np.asarray(ma, float)
@@ -433,7 +434,7 @@ class SpheresMixin:
                         self.pt_found.append([q, int(loc), h2, [float(x) for x in new]])
                 elif pt_ and went >= 0.5:   # every place of the kind closed: the founder's opens the first empty slot
                     self.pt_found += [[q, int(loc), int(h_), [float(x) for x in new]] for h_ in hs_]
-            self.sph_s[loc, j] = self._sph_nudge(town, new, 1.0 / (nP + 1))
+            self.sph_s[loc, j] = self._sph_nudge(town, new, tw / (nP + 1))
         elif lever == "fund":
             span = FUND_SPAN[min(int(rung), 4)] if span is None else int(span)
             if span <= 0:
