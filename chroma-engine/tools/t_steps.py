@@ -1356,13 +1356,20 @@ if "aims_v2" in E.DEFAULT:
     import foresee as FS_
     t0 = time.process_time(); fails = []
     LB_ = batch.load_batch("earth", packs=list(batch.PACKS))
-    seen_ = dict(arrived=0, tests=0, forks=0, answered=0, entries=0, views=0, closed=0, paused=0)
+    seen_ = dict(arrived=0, tests=0, forks=0, answered=0, entries=0, views=0, closed=0, paused=0, moments=0)
     import aims2 as A2M_
     WIN_ = {nm_: {0: dict(window=dict(deadline_years=3)), 1: dict(window=dict(deadline_years=4))}
             for nm_ in A2M_.compile_fields(LB_, A2M_.PAR, E.C, E.NIDX, E.AIM_HEIGHTS)["names"]}
-    for wl_, N_, Y_, sd_ in ((False, 4, 40, 9), (True, 2, 25, 4)):   # world off: every field's first two rungs with a deadline
-        P_ = dict(E.DEFAULT, aims_v2=True, world=wl_, aims2_par=dict(player=(0,), field_patch=None if wl_ else WIN_))
-        kw = dict(N=N_, years=Y_, seed=sd_, lib=LB_, log_lives=(0,))
+    LBF_ = batch.load_batch("earth", packs=list(batch.PACKS), fields=True) if "fields" in batch.load_batch.__code__.co_varnames else None
+    ASM_ = np.nonzero(np.asarray(LBF_["AIM_SHAPE"]) != -1)[0] if LBF_ is not None and "AIM_SHAPE" in LBF_ else np.zeros(0, int)
+    if len(ASM_):   # with the switch off, the batch's shape moments never come
+        o0_ = E.run(N=3, years=30, seed=6, lib=LBF_, P=dict(E.DEFAULT, world=False))
+        if np.asarray(o0_["sit_n"])[:, ASM_].sum():
+            fails.append("a shape moment came with aims_v2 off")
+    cases_ = [(False, 4, 40, 9, LB_, WIN_), (True, 2, 25, 4, LB_, None)] + ([(False, 3, 30, 6, LBF_, None)] if len(ASM_) else [])
+    for wl_, N_, Y_, sd_, LL_, FP_ in cases_:   # world off: every field's first two rungs with a deadline; then the shape moments
+        P_ = dict(E.DEFAULT, aims_v2=True, world=wl_, aims2_par=dict(player=(0,), field_patch=FP_))
+        kw = dict(N=N_, years=Y_, seed=sd_, lib=LL_, log_lives=(0,))
         o1_ = E.run(**kw, P=P_)
         for edit_ in (False, True):
             g = E.run_steps(**kw, P=P_); msg = next(g); made_ = {}; done_ = set(); ans_ = None; pz_ = None
@@ -1373,6 +1380,11 @@ if "aims_v2" in E.DEFAULT:
                     for nm_ in ("AG", "aim2", "capacity", "aim_forks", "aim_fork"):
                         if nm_ not in S:
                             fails.append(f"{nm_} not handed over")
+                    if kind == "situation" and len(AG_.SM):   # a shape moment only to a life holding an aim it fits
+                        for n_ in np.nonzero(np.isin(S["s"], AG_.SM))[0]:
+                            seen_["moments"] += 1
+                            if AG_.mom[n_] < 0:
+                                fails.append("a shape moment to a life with no aim it fits")
                     if kind == "situation" and not edit_ and t % 52 == 0:   # the views, read-only: no life moves
                         A_ = FS_.agenda(S, 0); seen_["views"] += 1
                         if sorted(x_["priority"] for x_ in A_["items"]) != list(range(1, len(A_["items"]) + 1)):
@@ -1455,14 +1467,15 @@ if "aims_v2" in E.DEFAULT:
                 if len({(e_["field"], e_["rung"]) for e_ in a2_["entries"][n_]}) != len(a2_["entries"][n_]):
                     fails.append("an entry cost charged twice")
                 seen_["entries"] += len(a2_["entries"][n_])
-    if not seen_["arrived"] or not seen_["forks"] or not seen_["answered"] or not seen_["closed"]:
+    if not seen_["arrived"] or not seen_["forks"] or not seen_["answered"] or not seen_["closed"] or (len(ASM_) and not seen_["moments"]):
         fails.append(f"too little seen: {seen_}")
     bad += bool(fails)
     print(f"{'PASS' if not fails else 'FAIL'}  aims v2 (aims_v2), switched on with a player's life (world off and on): run_steps "
           f"lives as run() with the agenda, previews and reviews read ({seen_['views']} reads); {seen_['arrived']} rungs reached, "
           f"each through an outcome ({seen_['tests']} tests); {seen_['closed']} windows closed, each told once at its last "
           f"week + 1, no test after; {seen_['forks']} forks, the player's kept until answered ({seen_['answered']} answered) and "
-          f"blocking only their aims; {seen_['entries']} entry costs, none twice ({seen_['paused']} paused and resumed)"
+          f"blocking only their aims; {seen_['entries']} entry costs, none twice ({seen_['paused']} paused and resumed); "
+          f"{seen_['moments']} shape moments (batch FIELDS), each to a life with an aim it fits, none with the switch off"
           f"{'' if not fails else '; ' + '; '.join(sorted(set(fails))[:4])} ({time.process_time() - t0:.0f} s)")
 # 11. nothing read at a pause outside the handed-over names (an engine without STATE_MISSED reads its whole frame)
 if hasattr(E, "STATE_MISSED"):

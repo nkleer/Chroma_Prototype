@@ -485,8 +485,12 @@ class Agenda:
             dv = dict(work=0.15, ease=-0.15, refuse=-0.1, round=0.1, bend=-0.2).get(tg, 0.0)
             if dv and len(q):
                 st_[n, q[0]] = float(np.clip(st_[n, q[0]] + dv, 0, 1))
-            if tg == "work" and s.st[n, j] == ACTIVE:
-                s.eff[n, j] += 0.05 * s.need[n, j]
+            if tg == "later":
+                fk = next((x for x in s.forks[n] if j in x["aims"]), None)
+                if fk is not None:
+                    s.apply(n, fk, "later", t, by=by)
+            elif tg == "work" and s.st[n, j] == ACTIVE:
+                s._eff_add(n, j, 0.05 * s.need[n, j])
             elif tg == "ease" and s.st[n, j] == ACTIVE:
                 s.inten[n, j] = max(0.5, float(s.inten[n, j]) - 0.5); s.dirty = True
             elif tg == "try":
@@ -495,19 +499,20 @@ class Agenda:
                     if ok and pr is not None:
                         s._award(n, j, pr[0], pr[1], t)
                 elif ok:
-                    s.eff[n, j] += 0.25 * med
+                    s._eff_add(n, j, 0.25 * med)
                     if s.eff[n, j] >= s.need[n, j] and s.fork[n, j] < 0 and not (s.wclose[n, j] >= 0 and t > s.wclose[n, j] and not s.wround[n, j]):
                         s.arrive(n, j, t, "won " + kd, grant=True)
                 else:
                     s.eff[n, j] = max(0.0, s.eff[n, j] - 0.05 * s.need[n, j])
             elif tg == "pay":
-                s.eff[n, j] += 0.2 * med; s._resolve(n, j, "pay", "pay", t, by) or s.activate(n, j, max(1.0, float(s.inten[n, j])), t, pay=True)
+                s._resolve(n, j, "pay", "pay", t, by) or s.activate(n, j, max(1.0, float(s.inten[n, j])), t, pay=True)
+                s._eff_add(n, j, 0.2 * med)
             elif tg == "refuse":
                 s._resolve(n, j, "pay", "refuse", t, by) or s._do(n, j, "refuse", "pay", t)
             elif tg == "take":
-                s.eff[n, j] += 0.5 * med
                 s._resolve(n, j, "take", None, t, by)   # the waiting chance is this one, taken: no second test
-                if s.eff[n, j] >= s.need[n, j] and not (s.wclose[n, j] >= 0 and t > s.wclose[n, j] and not s.wround[n, j]):
+                s._eff_add(n, j, 0.5 * med)
+                if s.eff[n, j] >= s.need[n, j] and s.fork[n, j] < 0 and not (s.wclose[n, j] >= 0 and t > s.wclose[n, j] and not s.wround[n, j]):
                     s.arrive(n, j, t, "won a chance taken", grant=True)
             elif tg == "decline":
                 s._resolve(n, j, "take", "decline", t, by) or s._do(n, j, "decline", "take", t)
@@ -518,6 +523,13 @@ class Agenda:
                     s.apply(n, fk, "drop" if "drop" in fk["options"] else None, t, by=by)
                 if s.st[n, j] != DROPPED:
                     s._do(n, j, "drop", kd, t)
+
+    def _eff_add(s, n, j, x):
+        """Effort from a moment; while a fork waits on the aim it stops at the need, as the week's own effort does."""
+        e = s.eff[n, j] + x
+        if s.fork[n, j] >= 0:
+            e = min(e, max(s.eff[n, j], s.need[n, j]))
+        s.eff[n, j] = max(0.0, e)
 
     def _resolve(s, n, j, kind, opt, t, by):
         """A pending fork of this kind on aim j answered by a moment's pick; False when there is none."""
@@ -771,8 +783,8 @@ class Agenda:
         if s.born[n, j] <= t - 4 and not (v1 >= 0 and ak is not None and (ak[n] == v1).any()):
             h = int(F["h"][f, r]); nd = cx["need"]()
             m = cx["NIDX"]["meaning"]; nd[n, m] += s.par["meet"][h] * (1 - nd[n, m])
+        s._log(n, j, "arrived", say=F["say"][f][r], how=how, worked=worked)   # (its rung: the index of the rung reached)
         s.rung[n, j] = r + 1
-        s._log(n, j, "arrived", say=F["say"][f][r], how=how, worked=worked)
         s.start_rung(n, j, t)
 
     # ---- the week and the month
@@ -1211,7 +1223,8 @@ class Agenda:
         out["time"] = dict(have=round(float(s.cap["time"][n]), 1), committed=round(float(s.committed["time"][n]), 1),
                            before={k: round(float(v), 1) for k, v in zip(CAPACITY_BEFORE, s.before[n])},
                            items=[dict(nm(j), hours=round(float(s.dem[n, j]), 1), funded=round(float(s.fh[n, j]), 1),
-                                       shared_prep=bool(s.syn[n, j])) for j in act])
+                                       shared_prep=bool(s.syn[n, j])) for j in act] +
+                                 [dict(name=k, hours=round(float(v), 1)) for k, v in zip(CAPACITY_BEFORE, s.before[n]) if v > 0])
         out["money"] = dict(have=round(float(s.cap["money"][n]), 3), committed=round(float(s.committed["money"][n]), 3),
                             items=[dict(nm(j), year=round(float(F["money"][int(s.f[n, j]), min(int(s.rung[n, j]), F["nr"][int(s.f[n, j])] - 1)] * s.inten[n, j]), 3)) for j in act],
                             entries=list(s.entry_log[n]))

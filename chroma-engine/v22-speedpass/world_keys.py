@@ -130,7 +130,8 @@ AIM_KINDS = ("practice", "contest", "mentor", "rival", "plateau", "cost", "chanc
              "arrive", "integrate")
 AIM_FORKS = ("go_on", "pay", "take", "round")
 # the aim: tags a shape moment's option may carry (section 4, with the Library's accepted extras of 10-23)
-AIM_TAGS = ("work", "ease", "try", "skip", "pay", "refuse", "take", "decline", "round", "stop", "hold", "bend")
+AIM_TAGS = ("work", "ease", "try", "skip", "pay", "refuse", "take", "decline", "round", "stop", "hold", "bend", "later")
+# ("later": a player's fork answered later stays open; only its aim waits)
 # the one resource account (contracts.md section 5): its resources, and what is spent before any aim
 CAPACITY_RES = ("time", "attention", "energy", "money", "access", "support")
 CAPACITY_BEFORE = ("work", "care", "household", "ties", "essentials")
