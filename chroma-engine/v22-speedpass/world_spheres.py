@@ -310,6 +310,10 @@ class SpheresMixin:
         for l, h, i in zip(*np.nonzero((self.pt_open >= 0) & (self.pt_open <= q))):
             l, h, i = int(l), int(h), int(i)
             off = r.normal(0, T["sd"], C)[self.perm]                     # drawn in W U B R G, as the first places' were
+            if self.p.get("realm", "earth") != "earth":   # v25: a test realm's new places have no lasting lean either
+                import world_fit as WF_
+                if getattr(WF_.realm(self.p["realm"]), "PLACE_FACES_EVEN", False):
+                    off = np.zeros_like(off)
             old = int(self.hp_nm[l, h, i]); nm = old
             while nm == old:
                 nm = int(r.integers(0, 1000))

@@ -86,7 +86,7 @@ def _log_facts(R, W, loc, frail, age, land, hl, war):
     return X
 
 
-def imp_g(R, E, W, PP, hea, age, dead, par=None, land=None):
+def imp_g(R, E, W, PP, hea, age, dead, par=None, land=None, out=None):
     """g (lives x kinds) and the lives' log facts X (lives x IMP_FACTS, for the cause). hea: the lives' health; age: their
     age (the lives are one cohort); dead: theirs; land: None, or each life's 'a loved stretch lost' (wa_land)."""
     par = dict(IMP_WORLD_DEFAULT, **(par or {}))
@@ -105,12 +105,15 @@ def imp_g(R, E, W, PP, hea, age, dead, par=None, land=None):
         nl = len(np.asarray(W.loc_crime)); lc = np.clip(np.asarray(PP.loc), 0, nl - 1); lk = np.clip(ml, 0, nl - 1)
         s = np.zeros((nl, E.shape[0])); c = np.zeros(nl)
         np.add.at(s, lc[al], gl_c[al]); np.add.at(c, lc[al], 1.0); np.add.at(s, lk, gl_k); np.add.at(c, lk, 1.0)
-        mu = np.where(c[:, None] > 0, s / np.maximum(c, 1)[:, None], 1.0)[lc]
+        mt = np.where(c[:, None] > 0, s / np.maximum(c, 1)[:, None], 1.0); mu_c, mu_k = mt[lc], mt[lk]
     else:
-        mu = ((gl_c[al].sum(0) + gl_k.sum(0)) / max(int(al.sum()) + len(gl_k), 1))[None]
+        mu_c = mu_k = ((gl_c[al].sum(0) + gl_k.sum(0)) / max(int(al.sum()) + len(gl_k), 1))[None]
     gw = np.exp(Xc[0, _WORLD] @ Ew.T) if N else np.ones(E.shape[0])      # kinds, the world part
-    g = np.clip(gl_c / np.maximum(mu, 1e-12) * gw[None], lo, hi)
+    g = np.clip(gl_c / np.maximum(mu_c, 1e-12) * gw[None], lo, hi)
     g[:, ~(E != 0).any(1)] = 1.0                                           # a kind that follows nothing: exactly v24's
+    if out is not None:   # for the checks: the life part over every living person, normalised (its mean per kind is 1)
+        out["pop"] = np.concatenate([(gl_c / np.maximum(mu_c, 1e-12))[al], gl_k / np.maximum(mu_k, 1e-12)])
+        out["world"] = gw
     return g, Xc
 
 
