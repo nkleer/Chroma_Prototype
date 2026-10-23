@@ -560,6 +560,8 @@ class AnswersMixin:
 
     def _wa_draw_rate(self, n, nat):
         lo, hi = self.wa_T["phase2"]["decisions_y"]["national" if nat else "known"]
+        if nat and getattr(self, "nat", None) is not None and self.nat.influence_only()[n]:   # v25: a national voice, no seat
+            lo, hi = self.nat.C["influence_y"]
         self.wa_rate[n] = float(self._wa_rng.uniform(lo, hi))
 
     def _wa_open(self, n):

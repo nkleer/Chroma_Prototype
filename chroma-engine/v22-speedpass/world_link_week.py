@@ -396,6 +396,46 @@ class LinkWeekMixin:
                 if sc_ in PM.WA_SCOPES:
                     self.wa_scope[si, ki] = PM.WA_SCOPES.index(sc_)
         self.wa_pend = {}; self._wa_ma = None
+        # v25 lane D: a land decision (the batch's land: moments) only with wa_land on; a national one (scope: nation on
+        # the moment, the batch's national moments) only with wa_nat_climb on, and then only for a life at national
+        # standing (WorldLink._wa_week). Off, or with neither in the batch, the keys are as before
+        src_ = self.L["src"]
+        drop_ = {si for si in range(S) if (src_[si].get("land") and not P.get("wa_land"))
+                 or (str(src_[si].get("scope") or "") == "nation" and not P.get("wa_nat_climb"))}
+        if drop_:
+            self.wa_keys = {k_: [si for si in v_ if si not in drop_] for k_, v_ in self.wa_keys.items()}
+        self.wa_nat_s = {si for si in range(S) if str(src_[si].get("scope") or "") == "nation"} if P.get("wa_nat_climb") else set()
+
+    def land_setup(self, P):
+        """v25 lane D, the land (wa_land with world_answers; world_land.py): the towns' stretches, the lives' land, the
+        hazards' feedback (World.land_hx); People.land is the same object (its views)."""
+        import world_land as WLD
+        import world_fit as WF
+        par_i = [c_[0] for c_ in self.E.COMMITMENTS].index("partner")
+        self.land = WLD.Land(self.W, self.PP, P, self.L, WF.realm(P.get("realm", "earth")), par_i=par_i)
+        self.land.WL = self; self.PP.land = self.land
+
+    def nat_setup(self, P):
+        """v25 lane D, national standing (wa_nat_climb with world_answers; world_national.py): People.nat is the same
+        object (People._standing reads its levels and roads; the views read it)."""
+        import world_national as WN
+        import world_fit as WF
+        self.nat = WN.National(self.PP, P, WF.realm(P.get("realm", "earth")))
+        self.PP.nat = self.nat; self.PP.nat_on = True
+
+    def scn(self, items):
+        """The scenario hook (scn): a hazard or a harvest the caller brings to the lives' towns this week (with the land
+        on, with all its consequences; without it, a hazard strikes as the world's own)."""
+        if getattr(self, "land", None) is not None:
+            self.land.scn(items, range(self.N))
+            return
+        from world_base import HAZARDS
+        W = self.W
+        for it in items or []:
+            if dict(it or {}).get("kind") in HAZARDS:
+                for l in sorted({int(x_) for x_ in np.asarray(self.PP.loc)}):
+                    W.dis_pending.append([int(W.t), l, HAZARDS.index(it["kind"]), float(it.get("severity", 0.6))])
+                W._strike()
 
     def _wa_week(self):
         """The moments the world answers bring this week (an ask, a decision, a figure's), one a life without one."""
@@ -406,6 +446,10 @@ class LinkWeekMixin:
         self.wa_pend = {}
         for x_ in PP.wa_take(PP.t, self.pending):
             ss_ = self.wa_keys.get(x_["key"]) or []
+            if self.wa_nat_s and x_["key"] == "decide":   # wa_nat_climb: national decisions for a life at national
+                nat_ = bool(PP.wa_nat[int(x_["n"])])           # standing, the town's for the rest
+                cand_ = [si for si in ss_ if (si in self.wa_nat_s) == nat_]
+                ss_ = cand_ if cand_ else (ss_ if nat_ else [])
             ss2_ = [si for si in ss_ if self.msph[si] == x_["sphere"]]
             PP.wa_taken(x_)
             if not (ss2_ or ss_):
@@ -424,6 +468,13 @@ class LinkWeekMixin:
         ma_ = self._wa_ma[int(n)] if self._wa_ma is not None else np.full(PM.C, 1.0 / PM.C)
         ev_ = self.PP.wa_resolve(int(n), x_["key"], j_, sc_, ma_, bool(succ_n), bool(idle_n))
         ev_.update(moment=self.L["names"][s_n])
+        ld_ = getattr(self, "land", None)
+        if ld_ is not None and x_["key"] == "decide" and ld_.play and ld_.ld[s_n]:   # v25 lane D: a land decision
+            PP = self.PP; n_ = int(n)
+            reach_ = max(float(PP.dreach[n_, PM.DI["institution"]]), 1.0)
+            lv_ = ld_.decide(n_, int(s_n), int(a_n), bool(succ_n), bool(idle_n), reach_, PP._wa_open(n_), PP._wa_team(n_), int(PP.t))
+            if lv_ is not None:
+                ev_["land"] = lv_
         return ev_
 
     def _wa_name(self, a_):
