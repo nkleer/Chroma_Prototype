@@ -350,6 +350,7 @@ class Agenda:
         s.acct = False                                    # the account computed once (fundable reads it)
         s.sm_open = None                                  # the shape moments open to each life this week (run_10)
         s.spark_q = []; s._depth = 0                      # sparks raised inside a step, taken up after it
+        s.told = np.zeros(N, bool)                        # a player's fork moment this week that the game did not ask
         from world_keys import AIM_FORKS as FK_
         s.FKN = list(FK_)
         s.rng_put = np.random.default_rng([int(seed), 2511])   # which own moment a fork is put on (player lives only)
@@ -465,6 +466,8 @@ class Agenda:
         from world_keys import AIM_TAGS as TG_
         s.L_STOP = (s.L_TG == TG_.index("stop")).any(1) if s.L_TG.ndim == 2 else np.zeros(len(sh), bool)
         s.SM_STOP = s.L_STOP[s.SM]   # a moment with a "stop" option: not about an aim adopted within stop_grace weeks
+        s.SM_SET = set(int(y) for y in s.SM)
+        s.L_LATER = (s.L_TG == TG_.index("later")) if s.L_TG.ndim == 2 else np.zeros((len(sh), 1), bool)
         F = s.F; s.FB = np.zeros((F["F"], F["K"]), np.int64)   # each field rung's forks as bits of FKN (for gate)
         for i in range(F["F"]):
             for r in range(int(F["nr"][i])):
@@ -599,6 +602,37 @@ class Agenda:
                     return int(k), key
         return None
 
+    def own_fork(s, n, si):
+        """The fork life n waits on whose own moment shape moment si is (its aim, the moment's fork kind), else None."""
+        if not len(s.SM) or si not in s.SM_SET or s.L_FK[si] < 0 or not s.forks[n]:
+            return None
+        j = int(s.put_slot[n]) if s.put_si[n] == si and s.put_slot[n] >= 0 else s.moment_aim(n, si)
+        if j < 0:
+            return None
+        kd = s.FKN[int(s.L_FK[si])]
+        return next((x for x in s.forks[n] if j in x["aims"] and x["kind"] == kd), None)
+
+    def told_later(s, t, sv, a, mask, asked):
+        """At the choice: a player's fork moment that the game told (its own default answered it, the game did not ask:
+        asked False) is answered "later": the fork stays open, nothing is chosen for the player and nothing is charged
+        (_moments), and the moment's other effects are those of its "later" option when it has one open (else the life's
+        own pick plays out, its aim: tag read as "later"). When the game asks, the player's pick stands. Lives with no
+        player are not touched. Returns a (a copy when a pick changed)."""
+        s.told[:] = False
+        if asked or not s.player or not len(s.SM):
+            return a
+        s.t = t; a0 = a
+        for n in s.player:
+            if n >= s.N or s.own_fork(n, int(sv[n])) is None:
+                continue
+            s.told[n] = True
+            si = int(sv[n]); kl = s.L_LATER[si]
+            ks = np.nonzero(kl[:mask.shape[1]] & mask[n, :len(kl)])[0]
+            if len(ks):
+                a = a.copy() if a is a0 else a
+                a[n] = int(ks[0])
+        return a
+
     def _moments(s, sv, av, succ, idle, t):
         """The week's shape moments picked: each option's aim: tag on the aim it is about (aims-shape.md section 4, with
         the Library's extras). A tag that answers a fork the aim waits on resolves it (the life's own pick: a player's
@@ -616,6 +650,9 @@ class Agenda:
             kd = AIM_KINDS[int(s.L_KD[si])]
             f = int(s.f[n, j]); r = int(s.rung[n, j]); med = float(F["ymed"][f, r]); ok = bool(succ[n])
             by = "player" if n in s.player else "character"
+            if s.told[n] and s.own_fork(n, si) is not None:   # a player's fork moment the game did not ask: "later", the
+                s._log(n, j, "moment", kind=kd, tag="later", won=ok, moment=str(s.L_ST[si].get("name", "")), told=True)
+                continue   # fork left open as it was, nothing chosen and nothing charged (no effort, strain or entry)
             s._log(n, j, "moment", kind=kd, tag=tg, won=ok, moment=str(s.L_ST[si].get("name", "")))
             st_ = s.ctx["astr"]; ak = s.ctx["ak"]; v1 = int(F["v1"][f])
             q = np.nonzero(ak[n] == v1)[0] if (ak is not None and v1 >= 0) else []

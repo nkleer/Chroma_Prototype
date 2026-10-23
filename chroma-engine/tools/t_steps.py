@@ -100,7 +100,8 @@ engine.run_steps() is engine.run() pausing six times a week for the game. On a f
      an outcome (a title of it held or once held, a test or chance won; never effort alone); every window's closing told
      once, the week after its last, and no test after it but by a way round; the player's forks kept until the player
      answers, effort waiting at the need while they wait, and a fork put on a moment of its own that moment is the week's
-     (and its aim the one the moment is about); no entry cost charged twice (a pause and resume included).
+     (and its aim the one the moment is about); a player's fork moment the game does not ask (pick_asked unset) answered
+     "later": the fork left open, nothing decided or charged; no entry cost charged twice (a pause and resume included).
      The scenario pack of the decision's known risks is tools/t_aims2.py (seconds).
  29. reactions, clashes and seeking (react, clash, seek; v25 lane C), Earth and packs with the clash, seeking and repair
      moments, world on: world off the switches move nothing; react alone and all on, run_steps() lives as run() and the
@@ -1711,7 +1712,7 @@ if "aims_v2" in E.DEFAULT:
     import foresee as FS_
     t0 = time.process_time(); fails = []
     LB_ = batch.load_batch("earth", packs=list(batch.PACKS))
-    seen_ = dict(arrived=0, tests=0, forks=0, answered=0, entries=0, views=0, closed=0, paused=0, moments=0, own=0)
+    seen_ = dict(arrived=0, tests=0, forks=0, answered=0, entries=0, views=0, closed=0, paused=0, moments=0, own=0, told=0)
     import aims2 as A2M_
     WIN_ = {nm_: {0: dict(window=dict(deadline_years=3)), 1: dict(window=dict(deadline_years=4))}
             for nm_ in A2M_.compile_fields(LB_, A2M_.PAR, E.C, E.NIDX, E.AIM_HEIGHTS)["names"]}
@@ -1727,9 +1728,25 @@ if "aims_v2" in E.DEFAULT:
         kw = dict(N=N_, years=Y_, seed=sd_, lib=LL_, log_lives=(0,))
         o1_ = E.run(**kw, P=P_)
         for edit_ in (False, True):
-            g = E.run_steps(**kw, P=P_); msg = next(g); made_ = {}; done_ = set(); ans_ = None; pz_ = None
+            g = E.run_steps(**kw, P=P_); msg = next(g); made_ = {}; done_ = set(); ans_ = None; pz_ = None; told_ = None
             while True:
                 kind, t, S, val = msg
+                if S.get("AIM2_ON") and kind == "odds" and S["AG"].told[0]:   # the player's fork moment, not asked (the
+                    AG_ = S["AG"]; fk_ = AG_.own_fork(0, int(S["s"][0]))     # game never sets pick_asked here): "later"
+                    j_ = fk_["aims"][0]
+                    told_ = (t, fk_["id"], (AG_.F["names"][int(AG_.f[0, j_])], int(AG_.rung[0, j_])), len(AG_.log),
+                             int(AG_.st[0, j_]), float(AG_.inten[0, j_]))
+                if S.get("AIM2_ON") and kind == "end" and told_ is not None and told_[0] == t:
+                    AG_ = S["AG"]; seen_["told"] += 1; j_ = next(iter(x_["aims"][0] for x_ in AG_.forks[0] if x_["id"] == told_[1]), None)
+                    if j_ is None:
+                        fails.append("a player's fork moment not asked closed its fork")
+                    if any(r_["life"] == 0 and r_.get("id") == told_[1] and r_["what"] == "decided" for r_ in AG_.log[told_[3]:]):
+                        fails.append("a player's fork moment not asked decided its fork")
+                    if any((e_["field"], e_["rung"]) == told_[2] and e_["week"] == t for e_ in AG_.entry_log[0]):
+                        fails.append("a player's fork moment not asked charged its entry")
+                    if not any(r_["life"] == 0 and r_["what"] == "moment" and r_.get("told") and r_["tag"] == "later" for r_ in AG_.log[told_[3]:]):
+                        fails.append("a player's fork moment not asked not answered later")
+                    told_ = None
                 if S.get("AIM2_ON") and kind in ("situation", "end") and S["age"] >= 3:
                     AG_ = S["AG"]
                     for nm_ in ("AG", "aim2", "capacity", "aim_forks", "aim_fork"):
@@ -1826,14 +1843,14 @@ if "aims_v2" in E.DEFAULT:
                 if len({(e_["field"], e_["rung"]) for e_ in a2_["entries"][n_]}) != len(a2_["entries"][n_]):
                     fails.append("an entry cost charged twice")
                 seen_["entries"] += len(a2_["entries"][n_])
-    if not seen_["arrived"] or not seen_["forks"] or not seen_["answered"] or not seen_["closed"] or (len(ASM_) and not seen_["moments"]):
+    if not seen_["arrived"] or not seen_["forks"] or not seen_["answered"] or not seen_["closed"] or (len(ASM_) and not (seen_["moments"] and seen_["told"])):
         fails.append(f"too little seen: {seen_}")
     bad += bool(fails)
     print(f"{'PASS' if not fails else 'FAIL'}  aims v2 (aims_v2), switched on with a player's life (world off and on): run_steps "
           f"lives as run() with the agenda, previews and reviews read ({seen_['views']} reads); {seen_['arrived']} rungs reached, "
           f"each through an outcome ({seen_['tests']} tests); {seen_['closed']} windows closed, each told once at its last "
           f"week + 1, no test after; {seen_['forks']} forks, the player's kept until answered ({seen_['answered']} answered; {seen_['own']} put on their own moment) and "
-          f"blocking only their aims; {seen_['entries']} entry costs, none twice ({seen_['paused']} paused and resumed); "
+          f"blocking only their aims, {seen_['told']} fork moments not asked left open, nothing charged; {seen_['entries']} entry costs, none twice ({seen_['paused']} paused and resumed); "
           f"{seen_['moments']} shape moments (batch FIELDS), each to a life with an aim it fits, none with the switch off"
           f"{'' if not fails else '; ' + '; '.join(sorted(set(fails))[:4])} ({time.process_time() - t0:.0f} s)")
 # 29. reactions, clashes and seeking (react, clash, seek; v25 lane C, decisions #2 to #4), Earth and packs, world on

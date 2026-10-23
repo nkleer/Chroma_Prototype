@@ -822,6 +822,10 @@ DEFAULT = dict(
     # anchored on that kind (whose own clock it then clears). An ordinary echo of a kind with a waiting seed is that seed's return.
     # Tuned 10-17 with the Library's back: tags and RETURNS (#271): about 8 returns in a played life of about 85 asks
     echo_play=False, echo_asked=False,
+    # aims v2 (aims_v2, a player's life): set by the game when it asks the player the week's moment (its checkpoint), spent
+    # at the choice. A player's fork moment the game does not ask (the life's own default tells it) is answered "later":
+    # the fork stays open and nothing is charged; run() never asks
+    pick_asked=False,
     # every change has a cause (E1): for a played life only (events), each title or perk gained "in time" records the clause
     # of its rule that held and the history behind it (the mark and its moment, the moment met, the title or perk built on,
     # money, age), and each lost as time passed or slipped away how long it was held and unused; read-only (no draw), so

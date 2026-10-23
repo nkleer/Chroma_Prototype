@@ -160,6 +160,12 @@
             a = yield Pause("choose", t, pz_st, a)
             pz_st._fr = None
             if NW_ON: nw_mark(NW_PLAYER)
+        if AIM2_ON and AG.player:   # aims v2: a player's fork moment the game did not ask (pick_asked, set by the game
+            a_ = AG.told_later(t, s, a, mask, P["pick_asked"])   # when it asks) is answered "later" (the fork stays open)
+            if pausing and a_ is not a:
+                a_self = np.where(a_ != a, a_, a_self)   # the life's own default, not a counter-pick
+            a = a_
+        P["pick_asked"] = False
         if BO_ON:   # the slot taken: the game's (bold_take: a slot, with a its base way; -1 an ordinary way), else the
             bot_ = P["bold_take"]; P["bold_take"] = None   # character's own while its base way stands
             if bot_ is not None:
