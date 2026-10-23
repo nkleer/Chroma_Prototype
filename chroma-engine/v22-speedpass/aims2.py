@@ -81,6 +81,7 @@ PAR = dict(
     over=1.2,           # demanded hours over capacity x this: overcommitted
     over_fork_wk=8,     # weeks overcommitted before the agenda review (or the character's own pick)
     strain_wk=26,       # weeks overcommitted before strain on needs (rest, the bonds that lost time)
+    strain_trust=0.003,  # world on: a strained week's loss of the partner's trust (the time the agenda took from them)
     strain=(0.004, 0.002),   # a week's strain: stress up, belonging down (never a forced collapse)
     restore=0.002,      # a week's restoration of the needs a pursuit meets, per 10 funded hours, x the gap
     money_k=0.1,        # an entry cost (share of a year's free money) as a debit of the money level (once)
@@ -110,6 +111,8 @@ PAR = dict(
     integrate_w=0.25,   # an integrate moment's weight in the week's draw, beside the other shape moments' 1
     integrate_y=0.15,   # integrate outcomes a year for a life holding a pair the realm's AIM_ASSETS names
     refresh_wk=13,      # weeks of renewed use that refresh a lapsed upkeep
+    spark_rung=0.12,    # a rung reached by one's own work: the odds it sparks a new ambition near it
+    spark_max=8,        # no spark once the agenda holds this many aims (held, pursued or paused)
     meet=(0.03, 0.06, 0.09, 0.12),   # meaning met by a rung reached outside v1's slots (v1's own meet), by height
     assets=None,        # tests: an AIM_ASSETS table in place of the realm's
     field_patch=None,   # tests: {field name: {rung index: {key: value}}} over the compiled fields
@@ -930,9 +933,37 @@ class Agenda:
         if s.born[n, j] <= t - 4 and not (v1 >= 0 and ak is not None and (ak[n] == v1).any()):
             h = int(F["h"][f, r]); nd = cx["need"]()
             m = cx["NIDX"]["meaning"]; nd[n, m] += s.par["meet"][h] * (1 - nd[n, m])
+            if "competence" in cx["NIDX"]:   # a step reached by one's own work meets competence too (half as much)
+                c = cx["NIDX"]["competence"]; nd[n, c] += 0.5 * s.par["meet"][h] * worked * (1 - nd[n, c])
         s._log(n, j, "arrived", say=F["say"][f][r], how=how, worked=worked)   # (its rung: the index of the rung reached)
         s.rung[n, j] = r + 1
         s.start_rung(n, j, t)
+        if worked and s.rng.random() < s.par["spark_rung"]:
+            s.spark(n, j, t)
+
+    def spark(s, n, j, t):
+        """A rung reached by one's own work can spark a new ambition (aims-shape.md section 5, "Two directions"): a field
+        the life does not hold, near the one reached (the same sphere, or a preparation shared), by how it fits the
+        person; held, its commitment a fork as any new aim's. None once the agenda holds spark_max aims."""
+        F = s.F; f = int(s.f[n, j])
+        mine = s.f[n][(s.f[n] >= 0)]
+        if int(((s.f[n] >= 0) & (s.st[n] != DROPPED)).sum()) >= s.par["spark_max"]:
+            return -1
+        near = ((F["sph"] == F["sph"][f]) & (F["sph"] >= 0)) | ((F["prep"] & F["prep"][f]) != 0)
+        near[mine] = False
+        if not near.any():
+            return -1
+        w = s.w[n] if s.w is not None else None
+        if w is not None:
+            lm = w / w.sum() - 1 / len(w); nr = float(np.linalg.norm(lm))
+            ft = F["lean"] @ (lm / nr) if nr > 1e-9 else np.zeros(F["F"])
+        else:
+            ft = np.zeros(F["F"])
+        p = np.where(near, np.exp(2.0 * ft), 0.0); p = p / p.sum()
+        g = int(s.rng.choice(F["F"], p=p))
+        k = s.add(n, g, t, src="sparked by " + F["say"][f][int(s.rung[n, j]) - 1])
+        s._log(n, k, "sparked", by_field=F["names"][f])
+        return k
 
     # ---- the week and the month
     def week(s, t, w, need, res, dead):
@@ -1002,6 +1033,16 @@ class Agenda:
             b = s.ctx["NIDX"]["belonging"]
             need[s.strained, b] = np.maximum(0.0, need[s.strained, b] - s.par["strain"][1])
             st_ = np.where(s.strained, s.par["strain"][0], 0.0)
+            WL = s.ctx["WL"]() if s.ctx["WON"]() else None
+            PP = getattr(WL, "PP", None) if WL is not None else None
+            if PP is not None and s.par["strain_trust"] > 0 and hasattr(PP, "rmask") and hasattr(PP, "trust"):
+                from world_people_base import BIT as BIT_   # neglect strains trust: the partner who lost the hours
+                ns = np.nonzero(s.strained & ~dead)[0]
+                if len(ns):
+                    pk = ((PP.rmask[ns] & BIT_["partner"]) != 0) & PP.lv[ns] & PP.used[ns]
+                    rr, kk = np.nonzero(pk)
+                    if len(rr):
+                        PP.trust[ns[rr], kk] = np.maximum(0.0, PP.trust[ns[rr], kk] - s.par["strain_trust"]).astype(PP.trust.dtype)
         return st_
 
     def month(s, t, ns_, res, held, stress):
