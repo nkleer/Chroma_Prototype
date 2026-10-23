@@ -1,0 +1,554 @@
+# Chroma library, modern Earth: NATIONAL DECISIONS (v25 decision #11, cut item 3; brief briefs/NATIONAL.md, 10-23).
+# Draft for chroma-library/earth_national-*.lib (built as earth_national.py). The moments a life holding a national
+# seat decides: the authority band of 8 to 12 decisions a year at the nation's scope (world_fit.json national.three and
+# decisions; chroma-engine/notes/v25/other-shapes.md section 5). Format: the F2 decisions of earth_world_answers-1.lib
+# (tier: decision, cast_want: decide, a sphere:, 2 to 4 options each with scope: nation and a lever:), plus the moment
+# key scope: nation. Nothing reads these until the Engine's wa_nat_climb switch is on.
+#   24 decisions, 85 options; each colour leads 17 (a cross option is led by its means). Six decisions offer a
+#   subvert way (one in four): the voting districts B, the national arts grants G>B, the waiting list U, the
+#   curriculum W, the news ownership B, the emergency lines R.
+#      rule    the voting districts | gifts to office holders | the citizens' petitions
+#      gather  registering associations | the national day | gathering in public squares
+#      arts    the national arts grants | the old exchange hall
+#      faith   chaplains in hospitals and prisons | the rest days in the national calendar
+#      care    the national waiting list | the carers' allowance | the costly new medicine
+#      learn   the national curriculum | the national research fund | university fees
+#      prod    the wage floor | the forest in the national park | the standard for new homes
+#      comm    the broadcaster's charter | the national post | how much news one owner may hold
+#      prot    the sea walls | the emergency lines
+# A law is policy here, never a scene of force. Syntax: header of chroma-library/build.py.
+
+# ================================================================ rule
+
+== the boundaries of the voting districts
+tier: decision
+cast_want: decide
+sphere: rule
+scope: nation
+stages: adult mature elder
+age: 30-90
+tone: mixed
+life: community, work
+horizon: years
+roles: colleague, rival
+earth: the commission that redraws the country's voting districts answers to {N}, and its rules are {Ns} to set
+scene: The country's voting districts were drawn a generation ago. The cities have grown and the hill counties have emptied, and some seats now hold three times the voters of others. The boundary commission answers to {Ns} office, and the rules {N} sets for it will shape every election for a decade.
+- W | equal numbers of voters in every district, drawn by one fixed formula | v: universalism, conformity | scope: nation | lever: lead | chance: 65
+- U | hand the map to an independent panel of statisticians, its workings published | v: achievement, universalism | scope: nation | lever: found | chance: 60
+- B | quietly redraw the lines so that allies' seats grow safer | v: power, achievement | scope: nation | lever: subvert | chance: 55
+- G | keep the old districts that follow the valleys and county borders | v: tradition, security | scope: nation | lever: loyalty | chance: 60
+works: The new map passes the assembly, and the next election is fought on it with fewer complaints than anyone expected.
+works: {colleague} says the commission's report is the first in years that both benches have read to the end.
+fails: Every party finds a seat it has lost, and the commission's hearings run on for a year.
+fails: {rival} takes the map to the courts, and the old districts stand while the case is heard.
+
+== the rules on gifts to office holders
+tier: decision
+cast_want: decide
+sphere: rule
+scope: nation
+stages: adult mature elder
+age: 30-90
+tone: mixed
+life: community, work
+horizon: years
+roles: colleague, rival
+earth: a run of quiet gifts to office holders has reached the papers, and the new rules on gifts are {Ns} to write
+scene: Dinners, holidays, a painting on loan: a run of quiet gifts to office holders has filled the papers for a month. The ethics office has rules nobody reads and no power to enforce them. The assembly has passed the task of new rules to {N}, and whatever {N} writes will bind every office in the country.
+- W | a public register of every gift above a small value, with fines for any left off | v: conformity, universalism | scope: nation | lever: lead | chance: 65
+- R | scrap the forms, and let any citizen question any office holder in an open hearing | v: stimulation | scope: nation | lever: voice | chance: 55
+- B | allow gifts, tax them heavily, and spend the takings on the ethics office | v: power, conformity | scope: nation | lever: fund | chance: 55
+works: The rules settle in within a year, and the next round of stories about gifts is short and dull.
+works: {colleague} says the corridors of the assembly feel a little cleaner, and nobody laughs.
+fails: The first cases are slow and petty, and the papers say the rules have teeth only for small fry.
+fails: {rival} finds a gap in the wording within a month, and the old habits go on through it.
+
+== how the citizens' petitions reach the assembly
+tier: decision
+cast_want: decide
+sphere: rule
+scope: nation
+stages: adult mature elder
+age: 30-90
+tone: mixed
+life: community
+horizon: years
+roles: colleague, rival
+earth: citizens' petitions to the national assembly sit unread, and {N} must set how they are heard
+scene: Any citizen may petition the national assembly, and every year hundreds do. Most sit in a drawer until they are forgotten, and the people who signed them say so loudly. The rules for how a petition reaches the floor are being rewritten, and the draft is {Ns}.
+- R | any petition with enough names forces a debate within a month | v: stimulation | scope: nation | lever: voice | chance: 60
+- B | a petition goes to debate once a set number of members put their names to it | v: power, conformity | scope: nation | lever: lead | chance: 60
+- U>B | a petitions office that costs each one before the assembly sees it | v: achievement, power | scope: nation | lever: found | chance: 60
+works: The first petition under the new rules is debated on a full floor, and the signers fill the gallery.
+works: {colleague} says the post to the assembly has changed tone: fewer angry letters, more careful ones.
+fails: The new rules are gamed within a season by the groups with the loudest lists.
+fails: {rival} calls the change window dressing, and the drawer fills up again.
+
+# ================================================================ gather
+
+== the register of associations
+tier: decision
+cast_want: decide
+sphere: gather
+scope: nation
+stages: adult mature elder
+age: 30-90
+tone: mixed
+life: community
+horizon: years
+roles: colleague, rival, elder
+earth: the country's register of clubs and associations is being rewritten, and the new rules are {Ns} to set
+scene: Every club, choir, residents' group and charity in the country must register, and the forms have grown thicker each decade. The big charities cope; the small clubs give up and meet without papers. The register is to be rewritten, and {Ns} office will set the new rules.
+- B>G | a small fee to register, spent on a free advice desk for small groups | v: achievement, benevolence | scope: nation | lever: fund | chance: 60
+- R | let any group meet and raise money without registering at all | v: stimulation | scope: nation | lever: exit | chance: 60
+- G | let the old federations of clubs vouch for their members, as they always have | v: tradition, benevolence | scope: nation | lever: loyalty | chance: 60
+- U | an open register that publishes every group's funders and accounts | v: universalism, achievement | scope: nation | lever: lead | chance: 60
+works: Within two years hundreds of small clubs that had given up on the forms are back on the books.
+works: {elder}, who has run a walking club for forty years, writes to say the new rules are the first that make sense.
+fails: The big charities find the new rules easy and the small clubs still find them hard.
+fails: {rival} warns of groups hiding behind the change, and the review is reopened.
+
+== the country's national day
+tier: decision
+cast_want: decide
+sphere: gather
+scope: nation
+stages: adult mature elder
+age: 30-90
+tone: joy
+life: community
+horizon: months
+roles: colleague, rival
+earth: the national day's budget and plan come to {N} to settle
+scene: Every year the country keeps its national day with a parade in the capital and feasts in the towns. The budget is the same as last year and the costs are not. The organising committee has brought three plans to {N}, and the one {N} picks is the one the country will keep.
+- G | the old parade and the towns' own feasts, kept as every region keeps them | v: tradition, benevolence | scope: nation | lever: loyalty | chance: 65
+- R | hand the whole budget to the towns, to throw whatever festival they like | v: stimulation, hedonism | scope: nation | lever: found | chance: 60
+- B | let sponsors pay for a great show in the capital, their names on the stage | v: achievement, power | scope: nation | lever: fund | chance: 65
+works: The day goes off well across the country, and the pictures from the small towns are the ones people share.
+works: {colleague} says it is the first national day in years that people talked about the week after.
+fails: Half the country says the day felt like someone else's party, and says so in the letters pages.
+fails: {rival} points to the bill, and the next year's budget is cut before the plans are drawn.
+
+== the rules for gathering in public squares
+tier: decision
+cast_want: decide
+sphere: gather
+scope: nation
+stages: adult mature elder
+age: 30-90
+tone: mixed
+life: community
+horizon: years
+roles: colleague, rival
+earth: the national rules on permits for public gatherings come to {N} for rewriting
+scene: The rules for who may gather in a public square, and when, are a patchwork of old bylaws that differ from town to town. A choir needs a permit in one city and a march needs none in the next. The interior office has asked {N} to write one set of rules for the whole country.
+- W | one permit rule for every gathering, applied the same to every cause | v: universalism, conformity | scope: nation | lever: lead | chance: 65
+- R | no permit for any peaceful gathering, only a day's notice | v: self-direction, universalism | scope: nation | lever: voice | chance: 60
+- U | permits scaled by size and place, set from the records of past gatherings | v: security, achievement | scope: nation | lever: lead | chance: 60
+- G>W | let each town's council keep its own rules for its own squares | v: tradition, conformity | scope: nation | lever: loyalty | chance: 60
+works: A year on, the squares hold their markets, choirs and marches much as before, with far fewer forms.
+works: {colleague} says the town halls have stopped phoning the office to ask what the rules are.
+fails: The first big gathering under the new rules ends in a row over whose permit came first.
+fails: {rival} says the rules suit some causes better than others, and the charge sticks for a while.
+
+# ================================================================ arts
+
+== the national arts grants
+tier: decision
+cast_want: decide
+sphere: arts
+scope: nation
+stages: adult mature elder
+age: 30-90
+tone: mixed
+life: community, work
+horizon: years
+roles: colleague, rival, mentor
+earth: the arts council's fund is no larger and twice as many have applied, and {N} sets how it is shared
+scene: The arts council's grant fund is the same size as last year, and twice as many have applied: the old orchestras and theatres, a hundred small companies, and painters who have never shown in a gallery. {N} chairs the council now, and how the fund is shared is {Ns} call.
+- G>B | quietly renew the old houses' grants before the new panel sits | v: tradition, power | scope: nation | lever: subvert | chance: 60
+- R | split the fund into hundreds of small grants for first works | v: stimulation | scope: nation | lever: found | chance: 60
+- W>U | grants by blind panels who never see the applicants' names | v: universalism, achievement | scope: nation | lever: lead | chance: 60
+- U | grants by a published score of audience, quality and new work | v: achievement, universalism | scope: nation | lever: fund | chance: 60
+works: The season that follows is a busy one, and the critics write about names they had never heard before.
+works: {mentor} sends a note saying the council has done more good than it knows.
+fails: The old houses and the new companies both feel short-changed, and both say so in print.
+fails: {rival} on the council calls the round a muddle, and asks for every grant to be looked at again.
+
+== the old exchange hall on the heritage list
+tier: decision
+cast_want: decide
+sphere: arts
+scope: nation
+stages: adult mature elder
+age: 30-90
+tone: mixed
+life: community
+horizon: years
+roles: colleague, rival, elder
+earth: the capital's old exchange hall needs a roof the heritage fund cannot pay for, and {N} decides what becomes of it
+scene: The old exchange hall in the capital has been on the national heritage list for a century, with its painted ceiling and its iron dome. Now the dome leaks and the heritage fund cannot pay for a new one. A developer offers to restore the front in exchange for flats behind it. The heritage board has sent the question to {N}.
+- G | restore it slowly with heritage money, as it was, however long it takes | v: tradition, security | scope: nation | lever: loyalty | chance: 60
+- B | take the developer's offer: the old front kept, flats behind it | v: achievement, power | scope: nation | lever: fund | chance: 65
+- R>G | open it half-mended as studios and a market hall, and mend it as it earns | v: stimulation, benevolence | scope: nation | lever: found | chance: 60
+works: Within a few years the hall is busy again, and people who had never been inside come to see the ceiling.
+works: {elder} says the hall has been saved for another hundred years, and says it on the radio.
+fails: The work runs years over and the scaffolding becomes part of the view.
+fails: {rival} says the country's heritage is being sold off piece by piece, and the hall is the example.
+
+# ================================================================ faith
+
+== the chaplains in hospitals and prisons
+tier: decision
+cast_want: decide
+sphere: faith
+scope: nation
+stages: adult mature elder
+age: 30-90
+tone: mixed
+life: health, community
+horizon: years
+roles: colleague, rival, elder
+earth: the posts of the chaplains in public hospitals and prisons come to {N} for a decision
+scene: For generations the country's hospitals and prisons have paid chaplains, all of them from the oldest congregations. Now the smaller faiths ask for a share, people of no faith ask for counsellors, and the budget asks for cuts. The question has come to {Ns} desk.
+- W | open the posts to carers of every faith and none, chosen by one standard | v: universalism, conformity | scope: nation | lever: lead | chance: 60
+- G | keep the posts with the congregations that have served the wards for generations | v: tradition, benevolence | scope: nation | lever: loyalty | chance: 60
+- U | fund the posts by what patients and inmates ask for, counted ward by ward | v: achievement, universalism | scope: nation | lever: fund | chance: 60
+- R | end the paid posts, and let any congregation send visitors freely | v: stimulation | scope: nation | lever: exit | chance: 60
+works: The new arrangement settles in quietly, and the ward staff say the visits are more welcome than before.
+works: {elder} writes that the decision was made with care, and the letter is read in many halls.
+fails: Some wards go months without anyone to sit with the dying, and the papers find them.
+fails: {rival} says the decision has insulted half the country, and the argument runs for a season.
+
+== the rest days in the national calendar
+tier: decision
+cast_want: decide
+sphere: faith
+scope: nation
+stages: adult mature elder
+age: 30-90
+tone: mixed
+life: work, community
+horizon: years
+roles: colleague, rival
+earth: the country's public holidays follow the old feast days, and a bill on them waits on {N}
+scene: The country's public holidays follow the calendar of its oldest congregations. Newer faiths keep their feasts on working days; employers say there are too many days off already; others want the old days kept as they are. The bill on the national calendar waits on {Ns} word.
+- G | keep the old feast days as the country's rest days, as they have always been | v: tradition, conformity | scope: nation | lever: loyalty | chance: 65
+- R | give every worker floating rest days to take on the feasts of their own choosing | v: hedonism, stimulation | scope: nation | lever: found | chance: 60
+- B>G | trade one old feast day for a working day, and put the gain into pensions | v: achievement, benevolence | scope: nation | lever: fund | chance: 50
+works: The new calendar comes in with less fuss than feared, and the first year passes without a strike or a sermon on it.
+works: {colleague} says the office has never had so many letters of thanks on one question.
+fails: The employers and the congregations both feel cheated, and both write to the papers.
+fails: {rival} makes the calendar a cause, and the next sitting begins with a motion to undo it.
+
+# ================================================================ care
+
+== the national waiting list for operations
+tier: decision
+cast_want: decide
+sphere: care
+scope: nation
+stages: adult mature elder
+age: 30-90
+tone: mixed
+life: health
+horizon: years
+roles: colleague, rival
+earth: waits for operations have grown across the country, and the health service's new rules sit with {N}
+scene: Waits for operations have grown in every region, and in some they are twice as long as in others. The surgeons are tired, the patients are angry, and the health service's review lands next spring. The new rules for the waiting list are {Ns} to set.
+- W | one national list, by need alone, the same in every region | v: universalism, conformity | scope: nation | lever: lead | chance: 60
+- B | let hospitals sell spare theatre time to private patients and spend the fees on the list | v: achievement, power | scope: nation | lever: fund | chance: 60
+- G | let each region run its own list, close to the doctors who know its people | v: benevolence, tradition | scope: nation | lever: loyalty | chance: 60
+- U | move the slowest cases off the published figures until the review has passed | v: achievement, security | scope: nation | lever: subvert | chance: 55
+works: By the end of the second year the waits are shorter in most regions, and the review says so.
+works: {colleague} says the surgeons' rooms have a little more hope in them than they did.
+fails: The waits shrink for a season and then grow back, and the review asks why.
+fails: {rival} finds the regions where things got worse, and puts them on every front page.
+
+== the carers' allowance
+tier: decision
+cast_want: decide
+sphere: care
+scope: nation
+stages: adult mature elder
+age: 30-90
+tone: mixed
+life: home, health, money
+horizon: years
+roles: colleague, rival
+earth: the allowance for people who care at home for someone is being reformed, and the reform is {Ns}
+scene: Across the country a great many people care at home for a parent, a partner or a sick relative, and the allowance they get has not changed in years. The carers' groups want more; the treasury wants less. The reform of the allowance has been handed to {N}.
+- W | the same allowance for every carer, paid by the hours of care given | v: universalism, benevolence | scope: nation | lever: lead | chance: 60
+- R | a budget in each carer's own hands, to spend on whatever rest they need | v: hedonism, benevolence | scope: nation | lever: found | chance: 60
+- G | pay it through local care circles, which also send neighbours to give relief | v: benevolence, universalism | scope: nation | lever: loyalty | chance: 60
+works: The carers' groups call the reform the first real change in a generation, and the take-up is high.
+works: {colleague} says the letters from carers have changed from anger to thanks.
+fails: The forms are hard, and many who need the allowance never claim it.
+fails: {rival} says the reform costs too much for too little, and the treasury agrees.
+
+== the costly new medicine
+tier: decision
+cast_want: decide
+sphere: care
+scope: nation
+stages: adult mature elder
+age: 30-90
+tone: trouble
+life: health, money
+horizon: years
+roles: colleague, rival
+earth: a new medicine for a rare illness costs as much as a hundred common treatments, and the health service's choice sits with {N}
+scene: A new medicine for a rare wasting illness works, and it costs as much as a hundred ordinary treatments. A few thousand people in the country could take it. The medicines board is split, the patients' families are at the doors, and the decision on whether the health service pays has come to {N}.
+- U | buy only what the trials show is worth its cost, by a published measure | v: achievement, universalism | scope: nation | lever: lead | chance: 60
+- W | cover it for every patient who needs it, and find the money across the whole service | v: universalism, benevolence | scope: nation | lever: fund | chance: 50
+- B | press the maker for a lower price in return for a long, sure contract | v: power, achievement | scope: nation | lever: fund | chance: 55
+works: The decision holds, and the families and the board both say, in the end, that it was fairly made.
+works: {colleague} says other countries' health services have asked for the reasoning.
+fails: Whatever is chosen, someone is left out, and their story is told on the evening news.
+fails: {rival} calls the decision heartless or reckless, depending on the day, and both stick a little.
+
+# ================================================================ learn
+
+== what the country's schools teach and test
+tier: decision
+cast_want: decide
+sphere: learn
+scope: nation
+stages: adult mature elder
+age: 30-90
+tone: mixed
+life: work, community
+horizon: years
+roles: colleague, rival, mentor
+earth: the national curriculum and its exams are being rewritten, and the draft is {Ns}
+scene: Every ten years the national curriculum is rewritten, and this time the argument is louder than ever: the teachers say the exams eat the year, the employers say school leavers cannot write, and the regions want their own history taught. The draft is on {Ns} desk.
+- W | issue one national curriculum by order over the summer, before the assembly can debate it | v: conformity, security | scope: nation | lever: subvert | chance: 55
+- R | drop the exams, and let schools assess by projects the pupils choose | v: stimulation | scope: nation | lever: exit | chance: 55
+- U | keep the exams, and add a long piece of research each pupil designs | v: achievement, self-direction | scope: nation | lever: found | chance: 60
+- G | teach the regions' own history and languages in every school | v: tradition, benevolence | scope: nation | lever: loyalty | chance: 60
+works: The first year under the new curriculum goes better than the teachers feared, and the inspectors say so.
+works: {mentor}, retired from the classroom for years, sends a note to say it is the curriculum the country needed.
+fails: The schools spend the year learning the new rules instead of teaching, and the results dip.
+fails: {rival} says the change was made in a hurry, and the next government promises to undo it.
+
+== the national research fund
+tier: decision
+cast_want: decide
+sphere: learn
+scope: nation
+stages: adult mature elder
+age: 30-90
+tone: mixed
+life: work
+horizon: years
+roles: colleague, rival, mentor
+earth: the research council's fund for the next five years is {Ns} to divide
+scene: The research council's fund is set for the next five years, and every university, laboratory and lone scholar in the country has a case. The old fields want what they had; the new fields want a start; industry wants a say. {N} chairs the council, and the rules for the fund are {Ns}.
+- U | give by open review of proposals, the best first, whatever the field | v: achievement, self-direction | scope: nation | lever: lead | chance: 60
+- B | match every grant with industry money, and let the partners hold the patents | v: power, achievement | scope: nation | lever: fund | chance: 60
+- R | set aside a fifth for long shots no panel would back | v: stimulation | scope: nation | lever: found | chance: 55
+- W | spread the fund evenly across the universities of every region | v: universalism, conformity | scope: nation | lever: fund | chance: 60
+works: Five years on, the council's report has a list of findings long enough to quiet the critics.
+works: {mentor} says some of the work funded this round will be taught for a generation.
+fails: The fund is spread too thin or held too tight, and the best people go abroad to work.
+fails: {rival} lists the projects that came to nothing, and the list is read out in the assembly.
+
+== the fees at the national universities
+tier: decision
+cast_want: decide
+sphere: learn
+scope: nation
+stages: adult mature elder
+age: 30-90
+tone: mixed
+life: money, work
+horizon: years
+roles: colleague, rival
+earth: how the country's universities are paid for is being settled, and the settlement is {Ns}
+scene: The country's universities are short of money and full of students, and the question of who pays has been put off for ten years. The students want it free, the treasury wants it paid for, and the poorer towns say their young people never get a place either way. The settlement is {Ns} to make.
+- U>W | free tuition for every student who passes the entrance exam | v: achievement, universalism | scope: nation | lever: fund | chance: 55
+- B | fees for all, with loans repaid out of later earnings | v: achievement, power | scope: nation | lever: lead | chance: 60
+- G>U | free places for students who go back to work in their home regions | v: benevolence, achievement | scope: nation | lever: found | chance: 55
+works: The settlement holds through two governments, and the universities can plan for once.
+works: {colleague} says the number of students from the small towns has started to climb.
+fails: The students march, the treasury grumbles, and the settlement pleases nobody for a year.
+fails: {rival} finds the courses that have closed since, and blames the settlement for every one.
+
+# ================================================================ prod
+
+== the national wage floor
+tier: decision
+cast_want: decide
+sphere: prod
+scope: nation
+stages: adult mature elder
+age: 30-90
+tone: mixed
+life: work, money
+horizon: years
+roles: colleague, rival
+earth: the lowest wage any worker in the country may be paid is up for review, and {N} sets how it is fixed
+scene: The lowest wage a worker may be paid in the country has not kept up with rents, and the unions say so every week. The employers say a higher floor will close the small firms in the poorer regions. The review of how the floor is set has come to {N}.
+- W | one wage floor for every worker in every region, the same for all | v: universalism, conformity | scope: nation | lever: lead | chance: 60
+- U | a floor set each year by an independent board from the figures | v: achievement, security | scope: nation | lever: found | chance: 60
+- B | a lower floor for firms that train apprentices | v: achievement, power | scope: nation | lever: fund | chance: 55
+- G | let each trade's own council of workers and owners set its floor | v: tradition, benevolence | scope: nation | lever: loyalty | chance: 60
+works: The new floor comes in, the small firms mostly hold, and the papers find fewer people working two jobs.
+works: {colleague} says the unions and the employers met in the same room for the first time in years.
+fails: Some small firms close in the poorer regions, and every closure is laid at {Ns} door.
+fails: {rival} says the floor is too low or too high, and both sides quote {rival}.
+
+== the old forest in the national park
+tier: decision
+cast_want: decide
+sphere: prod
+scope: nation
+stages: adult mature elder
+age: 30-90
+tone: mixed
+life: work, community
+horizon: years
+roles: colleague, rival, elder
+earth: the timber board, the walkers and the park's villages all want the national park's old forest, and {N} decides its use
+scene: The old forest in the northern national park covers a fifth of the region. The timber board wants to cut its outer slopes for the mills, which are short of work; the walkers and climbers want it opened; the villages inside the park want to be left as they are. The plan for the park's next twenty years is {Ns}.
+- G | keep the old forest whole, with only the villagers' old rights to cut firewood | v: tradition, universalism | scope: nation | lever: loyalty | chance: 60
+- B | lease the outer slopes to the timber firms, and spend the rent on the park | v: achievement, power | scope: nation | lever: fund | chance: 60
+- R | open the park to campers and climbers, and the new trades that follow them | v: stimulation, hedonism | scope: nation | lever: found | chance: 60
+works: The plan settles in, and within a few years the park's villages and the mills both have more work than before.
+works: {elder}, who has walked the forest all a long life, says it is in better hands than it was.
+fails: The first winter under the new plan brings fallen trees, angry mill hands and a long report.
+fails: {rival} takes the side of whoever lost out, and the plan is sent back for review.
+
+== the standard for new homes
+tier: decision
+cast_want: decide
+sphere: prod
+scope: nation
+stages: adult mature elder
+age: 30-90
+tone: mixed
+life: home, money
+horizon: years
+roles: colleague, rival
+earth: the building standard for new homes is being rewritten, and the builders, the buyers and the inspectors wait on {N}
+scene: New homes in the country leak heat and cost a fortune to warm, and a stricter building standard would add a tenth to the price of each. The builders say the country cannot afford it; the buyers say they cannot afford the bills. The new standard is {Ns} to set.
+- W | one strict standard for every new home, with an inspection of each | v: conformity, security | scope: nation | lever: lead | chance: 60
+- U | a standard by results: builders meet a measured figure however they like | v: achievement, self-direction | scope: nation | lever: found | chance: 60
+- R | let builders try new materials under a trial licence | v: stimulation | scope: nation | lever: found | chance: 55
+- G | let the regions keep their old ways of building in stone and timber | v: tradition, security | scope: nation | lever: loyalty | chance: 60
+works: The first homes under the new standard come in warmer and only a little dearer, and the buyers notice.
+works: {colleague} says the builders' trade body has stopped complaining in public, which is as good as praise.
+fails: The building slows for two years while firms learn the new rules, and house prices rise.
+fails: {rival} finds a row of new homes that failed inspection, and they are on the news for a week.
+
+# ================================================================ comm
+
+== the national broadcaster's charter
+tier: decision
+cast_want: decide
+sphere: comm
+scope: nation
+stages: adult mature elder
+age: 30-90
+tone: mixed
+life: community, work
+horizon: years
+roles: colleague, rival
+earth: the national broadcaster's ten-year charter is up for renewal, and the draft is {Ns}
+scene: Every ten years the national broadcaster's charter is renewed, and every ten years the argument is the same: who pays, who it serves, and who decides what goes on air. The regions say the capital has all the airtime; the commercial stations say the licence fee is unfair; the newsrooms want to be left alone. The draft charter is {Ns}.
+- W | equal airtime for every region, written into the charter | v: universalism, conformity | scope: nation | lever: lead | chance: 60
+- B | let the broadcaster sell advertising, and cut the licence fee to match | v: achievement, power | scope: nation | lever: fund | chance: 60
+- R | hand a fifth of the airtime to new makers with no track record | v: stimulation | scope: nation | lever: found | chance: 55
+- U | fund the news and science desks first, and fit the rest to what is left | v: achievement, universalism | scope: nation | lever: fund | chance: 60
+works: The new charter passes, and the first season under it has more people watching than the last.
+works: {colleague} says the newsroom has stopped looking over its shoulder.
+fails: The charter is fought over line by line, and passes so late that the first season is a scramble.
+fails: {rival} says the broadcaster has been made a mouthpiece, and the charge follows it for years.
+
+== the national post's round
+tier: decision
+cast_want: decide
+sphere: comm
+scope: nation
+stages: adult mature elder
+age: 30-90
+tone: mixed
+life: community, work
+horizon: years
+roles: colleague, rival, elder
+earth: the national post loses money every year, and the plan for its round is {Ns} to settle
+scene: The national post still delivers to every door in the country six days a week, from the capital's towers to the last farm up the last valley, and it loses money every year doing it. Its board has run out of savings to make. The plan for the post's round has come to {N}.
+- W | keep the same delivery to every door in the country, town and hill farm alike | v: universalism, conformity | scope: nation | lever: loyalty | chance: 60
+- B | sell the parcel business, and keep the letters going on what it brings | v: achievement, power | scope: nation | lever: fund | chance: 60
+- U | deliver by the figures: daily where post is heavy, twice weekly where light | v: achievement, security | scope: nation | lever: lead | chance: 60
+works: The post's books come close to balancing for the first time in a decade, and the vans keep running.
+works: {elder}, on a farm at the end of a long track, says the post still comes and that is what matters.
+fails: The new round is slow to settle, and the letters about late letters pile up.
+fails: {rival} says the post has been gutted, and the villages that lost a delivery agree.
+
+== how much news one owner may hold
+tier: decision
+cast_want: decide
+sphere: comm
+scope: nation
+stages: adult mature elder
+age: 30-90
+tone: mixed
+life: community, work
+horizon: years
+roles: colleague, rival
+earth: one firm now owns half the country's papers and wants more, and the ruling on its merger is {Ns}
+scene: One firm now owns half the country's newspapers and wants to buy a radio network too. The small papers say they will be squeezed out; the firm says it alone keeps the local papers alive. The ruling on the merger, and on the rules for every merger after it, is {Ns}.
+- W | a cap: no owner may hold more than a set share of the country's news | v: universalism, conformity | scope: nation | lever: lead | chance: 60
+- R | let the merger go ahead, and fund small new outlets that want to start | v: stimulation | scope: nation | lever: found | chance: 60
+- B | wave the merger through in return for the firm's papers backing the next budget | v: power, achievement | scope: nation | lever: subvert | chance: 55
+works: The ruling stands, and within a few years there are more voices on the newsstands than there were.
+works: {colleague} says the ruling is quoted in every argument about the papers since.
+fails: The firm finds a way round the ruling within a year, and the papers keep shrinking.
+fails: {rival} says the ruling was made for one side's sake, and the papers that agree say so loudly.
+
+# ================================================================ prot
+
+== the sea walls on the east coast
+tier: decision
+cast_want: decide
+sphere: prot
+scope: nation
+stages: adult mature elder
+age: 30-90
+tone: trouble
+life: home, community
+horizon: years
+roles: colleague, rival, elder
+earth: the sea walls along the coast are old and the money will mend half of them, and {N} decides which
+scene: The sea walls along the east coast were built by the grandparents of the people behind them, and the last storm opened three of them. The money in the budget will mend half the walls at most. The coastal towns, the farmers on the low fields and the engineers all have a plan, and the choice is {Ns}.
+- U | mend the walls the flood models say protect the most homes | v: achievement, security | scope: nation | lever: lead | chance: 60
+- G | let the lowest fields go back to salt marsh, which holds the sea better than walls | v: universalism, security | scope: nation | lever: found | chance: 55
+- W | mend every wall a little, so that no stretch of coast is left out | v: universalism, conformity | scope: nation | lever: loyalty | chance: 55
+- B | mend first the walls of the towns that pay half the cost | v: power, security | scope: nation | lever: fund | chance: 60
+works: The next winter's storms come and go, and the walls and the marsh both hold.
+works: {elder}, who has farmed the low fields all a long life, says the plan was hard but right.
+fails: A stretch of coast left for later floods in the spring, and the families there want to know why.
+fails: {rival} says the plan picked winners and losers along the coast, and the losers agree.
+
+== the country's emergency lines
+tier: decision
+cast_want: decide
+sphere: prot
+scope: nation
+stages: adult mature elder
+age: 30-90
+tone: mixed
+life: health, community
+horizon: years
+roles: colleague, rival
+earth: the emergency lines are answered by forty local rooms of mixed quality, and their future is {Ns} to decide
+scene: The country's emergency calls are answered by forty local rooms. Some answer in seconds and some in minutes, and the rooms in the hills are the slowest. The review of how the calls are answered, and who is sent, has come to {N}.
+- U | merge the rooms into a few large ones, run by the figures | v: achievement, security | scope: nation | lever: lead | chance: 60
+- G | keep the local rooms, where the call takers know every lane | v: tradition, security | scope: nation | lever: loyalty | chance: 60
+- R | start sending trained volunteers by phone alert in three regions before the assembly votes | v: stimulation, benevolence | scope: nation | lever: subvert | chance: 55
+- W | one standard every room must meet, with the same answer time across the country | v: universalism, conformity | scope: nation | lever: lead | chance: 60
+works: A year on, the calls are answered faster in most of the country, and the hill rooms have caught up.
+works: {colleague} says the crews say help is reaching people sooner than it used to.
+fails: The change is slow to bed in, and a few bad nights in the first winter make the news.
+fails: {rival} says the review was decided before it began, and the rooms' staff say the same.
