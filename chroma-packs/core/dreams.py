@@ -189,9 +189,8 @@ TRIGGER_MORE = {
     "a teacher or coach": ("a writer of books", "a scientist whose work stands"),
     "a neighbour's workshop in the shed": ("a master of a craft",),
     "a parade or a festival": ("to give the town a stage of its own",),
-    "a street protest": ("to change how the country thinks",),
-    "the news": ("the country's leader", "to explain science to everyone"),
-    "a nature documentary": ("to keep a record of the world that lasts",),
+    "a street protest": ("to change how the country thinks", "the country's leader"),
+    "a nature documentary": ("to keep a record of the world that lasts", "to explain science to everyone"),
   },
   "tribal": {
     "a storyteller at the fire": ("a maker of verses", "a keeper of the band's tellings", "a maker of dances and tellings"),
