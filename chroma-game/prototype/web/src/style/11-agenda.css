@@ -2,7 +2,7 @@
   .agenda .agcap { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
   .agenda .agcap .chip b { font-weight: 600; }
   .agenda .agcap .ag-stretched b { color: var(--gold); }
-  .agenda .agcap .ag-overcommitted b { color: var(--bad, #c0504d); }
+  .agenda .agcap .ag-overcommitted b { color: var(--bad); }
   .agenda h4 { margin: 14px 0 6px; font: 600 var(--fs-1) var(--ui); letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold); }
   .agenda .agforks { display: grid; gap: 8px; }
   .agenda .agitems { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr)); gap: 12px; margin-top: 12px; }
@@ -34,3 +34,9 @@
   .agenda .agpv td:first-child, .note.fork .agpv td:first-child { white-space: nowrap; color: var(--ink2); width: 1%; }
   .agenda .agbtns { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-top: 12px; }
   .note.fork button { margin-top: 6px; }
+  /* v25 what this world prizes (app/12-panels.js, app/05-hud.js) */
+  .wst.prize { display: grid; grid-template-columns: minmax(7em, auto) 1fr auto; gap: 8px; align-items: baseline; }
+  @media (max-width: 640px) { .wst.prize { grid-template-columns: 1fr; gap: 2px; } }
+  .chip .prz { font-size: 10px; margin-left: 2px; }
+  .chip .prz.up { color: var(--ok); }
+  .chip .prz.down { color: var(--bad); }

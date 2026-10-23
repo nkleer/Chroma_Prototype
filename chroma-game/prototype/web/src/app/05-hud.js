@@ -380,7 +380,7 @@ function placesHTML(L) {
   const ps = (P.posts || []).map((x, i) => `<span class="chip" data-plp="${i}">${ic("crown")}${esc(cap(x.title || x.name))} ${pip(x.colour)}</span>`).join("");   // S7: what they lead
   const up = (P.rungs || []).filter((r) => r.rung > 0);
   const rs = up.map((r) => `<span class="chip" data-plr="${r.sphere}">${ic(SPH_ICON[r.sphere] || "home")}${esc(cap(r.word))} <span class="pc">(${esc(r.sphere_name.toLowerCase())})</span></span>`).join("");
-  const tw = (P.town || []).slice(0, 3).map((t) => `<span class="chip" data-plt="${t.sphere}">${ic(SPH_ICON[t.sphere] || "home")}${esc(t.sphere_name)} ${pip(t.lead)}</span>`).join("");
+  const tw = (P.town || []).slice(0, 3).map((t) => `<span class="chip" data-plt="${t.sphere}">${ic(SPH_ICON[t.sphere] || "home")}${esc(t.sphere_name)} ${pip(t.lead)}${t.prize === "easier" ? ` <b class="prz up" title="easier for them here">▲</b>` : t.prize === "steeper" ? ` <b class="prz down" title="steeper for them here">▼</b>` : ""}</span>`).join("");
   if (!hs && !rs && !tw) return "";
   return `<div class="hsec"><h4>Their places</h4>${hs ? `<div class="perks">${hs}</div>` : `<span class="empty">No haunt of their own yet</span>`}
     <div class="chips">${rs || `<span class="muted">A newcomer in every sphere</span>`}</div>${ps ? `<div class="chips"><span class="muted">They lead</span> ${ps}</div>` : ""}${tw ? `<div class="chips"><span class="muted">Their town lives by</span> ${tw}</div>` : ""}</div>`;
@@ -412,7 +412,7 @@ function bindPlaces(L) {
   hudEl.querySelectorAll("[data-plr]").forEach((el) => { const r = P.rungs.find((x) => x.sphere === el.dataset.plr); setTip(el, () => tipBox(`${ic(SPH_ICON[r.sphere] || "home")} ${esc(r.sphere_name)}`, esc(r.question),
     [["Their standing", esc(cap(r.word))], ["Rung", `${r.rung + 1} of 5`]].concat(fairRows(P, r.sphere)), "Standing rises with years of showing up and with what they do there.")); });
   hudEl.querySelectorAll("[data-plt]").forEach((el) => { const t = P.town.find((x) => x.sphere === el.dataset.plt); setTip(el, () => tipBox(`${ic(SPH_ICON[t.sphere] || "home")} ${esc(t.sphere_name)}`, "",
-    [["Share of the town's hours", pct(t.hours)], ["Its way here", `${pip(t.lead)} ${esc(t.lead_name)}`]].concat(fairRows(P, t.sphere)), "How their town spends its days, and the way each part of life is done there.")); });
+    [["Share of the town's hours", pct(t.hours)], ["Its way here", `${pip(t.lead)} ${esc(t.lead_name)}`]].concat(t.prize ? [["Their climb here", esc(t.prize)]] : []).concat(fairRows(P, t.sphere)), "How their town spends its days, and the way each part of life is done there.")); });
 }
 
 function renderHud(L) {

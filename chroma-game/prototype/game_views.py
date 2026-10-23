@@ -88,6 +88,7 @@ class ViewsMixin:
                     f"{x['progress'] * 100:.0f}% of the way)" if x["kind"] == "plan" else f" [{x['colors']}]")
             L.append(f"{x['kind']:<12} {x['name']}{tail}, strength {x['strength'] * 100:.0f}%" + (" [your plan]" if x["by_player"] else ""))
         L += self.aim_lines(loc)                        # v24 aims, only while aims is on
+        L += self.prizes_lines(self.prizes_view(loc)) if GAME["prizes"] else []   # v25: what this world prizes
         hv_ = self.heights_view(loc)
         if hv_:
             L.append("heights      " + ", ".join(f"{h['height']} at {h['age']:.0f}" for h in hv_))
@@ -523,6 +524,11 @@ class ViewsMixin:
                                 lead_name=nm(ESP.FACE, v["leads"])) for s_, v in sp.items()), key=lambda x: -x["hours"])
         except Exception:
             town = []
+        if GAME["prizes"]:                              # v25: their climb in each of the town's spheres, easier or steeper
+            pz = {x["sphere"]: x for x in (self.prizes_view() or {}).get("rows", [])}
+            for x in town:
+                if x["sphere"] in pz:
+                    x["prize"] = pz[x["sphere"]]["for_me"]
         P = dict(haunts=haunts, rungs=rungs, town=town)
         try:
             self._social_places(WL, hi, P)              # v22.4 (S1, S3, S4, S7): only while their switches are on

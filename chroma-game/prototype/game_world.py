@@ -165,6 +165,8 @@ class WorldMixin:
         if isinstance(p, dict):
             p["times"] = [x for x in self.history.get("times", []) if x.get("told", True)][-60:]
             p["steers"] = self.history.get("steers", [])[-200:] if GAME["world_steers"] else []
+            if GAME["prizes"]:                          # v25: what this world prizes, for the life's town
+                p["prizes"] = self.prizes_view()
             if self.history.get("levers"):              # spheres phase 4: their lever acts on the town's spheres
                 p["levers"] = self.history["levers"][-200:]
         return p
