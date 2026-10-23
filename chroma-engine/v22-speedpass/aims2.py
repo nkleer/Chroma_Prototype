@@ -105,7 +105,10 @@ PAR = dict(
     put_gap=20,         # weeks between a player's fork cards (about 2.6 a year at most while forks wait), but a window
                         # about to close
     window_warn=13,     # weeks before a window closes that it is a fork (once a rung)
-    integrate_y=0.25,   # integrate outcomes a year for a life holding a pair the realm's AIM_ASSETS names
+    integrate_age=18,   # the youngest age an integrated asset is made at
+    integrate_gap=5,    # years after one integrated asset before another (a combined piece of work takes years)
+    integrate_w=0.25,   # an integrate moment's weight in the week's draw, beside the other shape moments' 1
+    integrate_y=0.15,   # integrate outcomes a year for a life holding a pair the realm's AIM_ASSETS names
     refresh_wk=13,      # weeks of renewed use that refresh a lapsed upkeep
     meet=(0.03, 0.06, 0.09, 0.12),   # meaning met by a rung reached outside v1's slots (v1's own meet), by height
     assets=None,        # tests: an AIM_ASSETS table in place of the realm's
@@ -435,7 +438,7 @@ class Agenda:
         for i in range(F["F"]):
             for r in range(int(F["nr"][i])):
                 s.FB[i, r] = sum(1 << s.FKN.index(k) for k in F["forks"][i][r] if k in s.FKN)
-        s.gate_out = None; s.gate_f = None
+        s.gate_out = None; s.gate_f = None; s.gate_aged = False
 
     def _fits(s, n, j, si):
         """Shape moment si fits aim j of life n: its shape (or any), its rung, the aim held or pursued (the steady kinds
@@ -473,9 +476,13 @@ class Agenda:
     def gate(s, N):
         """Each life's weight for each shape moment (lives x shape moments): 1 where it fits an aim the life holds. A
         life's row is kept until its agenda (fields, states, rungs, assets awarded) changes."""
-        aw = np.array([len(x) for x in s.awarded]) if s.asset_tab else None
-        if s.gate_out is None or s.gate_out.shape[0] != N or s.gate_f.shape != s.f.shape:
-            rows = np.arange(N); s.gate_out = np.zeros((N, len(s.SM)))
+        aw = None
+        if s.asset_tab:   # the assets awarded and whether the gap after the last one still runs: a row anew when either changes
+            aw = np.array([len(x) * 2 + bool(x_ and s.t - x_[-1]["week"] < 52 * s.par["integrate_gap"])
+                           for x, x_ in zip(s.awarded, s.assets)])
+        aged = bool(s.asset_tab) and s.t / 52 >= s.par["integrate_age"]   # of age for an integrated asset: all rows anew
+        if s.gate_out is None or s.gate_out.shape[0] != N or s.gate_f.shape != s.f.shape or aged != s.gate_aged:
+            rows = np.arange(N); s.gate_out = np.zeros((N, len(s.SM))); s.gate_aged = aged
         else:
             ch = (s.f != s.gate_f).any(1) | (s.st != s.gate_st).any(1) | (s.rung != s.gate_rung).any(1)
             if aw is not None:
@@ -509,7 +516,10 @@ class Agenda:
             m &= (s.SM_FK[None] < 0) | (((fb[:, j][:, None] >> np.maximum(s.SM_FK, 0)[None]) & 1) == 1)
             m &= ~s.K_INT[None] | intok[:, None]
             out |= m
-        return out.astype(float)
+        out = out.astype(float)
+        if s.K_INT.any():
+            out[:, s.K_INT] *= s.par["integrate_w"]
+        return out
 
     def mom_slots(s, sv):
         """At the situation pause: the aim each life's drawn shape moment is about (S["AG"].mom, -1 none), for its words."""
@@ -523,6 +533,20 @@ class Agenda:
         js = [int(j) for j in np.argsort(s.pri[n], kind="stable") if s.f[n, j] >= 0 and s._fits(n, int(j), si)]
         return js[0] if js else -1
 
+    def _pair_ok(s, n, ja, jb, x):
+        """Two of life n's aims may make the asset x: each reached at least its rung (x rungs, the lower for either and
+        the higher for one), one of them pursued, and the life of age (integrate_age)."""
+        if s.t / 52 < s.par["integrate_age"] or (s.assets[n] and s.t - s.assets[n][-1]["week"] < 52 * s.par["integrate_gap"]):
+            return False
+        lo, hi = sorted(x.get("rungs", (1, 1)))
+        ra, rb = int(s.rung[n, ja]), int(s.rung[n, jb])
+        return (min(ra, rb) >= lo and max(ra, rb) >= hi and (s.st[n, ja] == ACTIVE or s.st[n, jb] == ACTIVE)
+                and s.st[n, ja] != DROPPED and s.st[n, jb] != DROPPED)
+
+    def _pair_p(s, n, ja, jb):
+        """The combined attempt's odds of showing the two used together: by how both fit the person (luck aside)."""
+        return float(np.clip(0.3 + 0.25 * (s.fitf[n, ja] + s.fitf[n, jb] - 2), 0.1, 0.8))
+
     def _pair(s, n, j):
         F = s.F; fa = int(s.f[n, j])
         if s.rung[n, j] < 1:
@@ -532,7 +556,7 @@ class Agenda:
                 continue
             fb = int(s.f[n, k])
             for key in (tuple(sorted((F["names"][fa], F["names"][fb]))), tuple(sorted((SHAPES[F["shape"][fa]], SHAPES[F["shape"][fb]])))):
-                if key in s.asset_tab and key not in s.awarded[n]:
+                if key in s.asset_tab and key not in s.awarded[n] and s._pair_ok(n, j, int(k), s.asset_tab[key]):
                     return int(k), key
         return None
 
@@ -569,8 +593,8 @@ class Agenda:
                 s.inten[n, j] = max(0.5, float(s.inten[n, j]) - 0.5); s.dirty = True
             elif tg == "try":
                 if kd == "integrate":
-                    pr = s._pair(n, j)
-                    if ok and pr is not None:
+                    pr = s._pair(n, j)   # the demonstration: the moment won (luck) and the two fit the person
+                    if ok and pr is not None and s.rng.random() < s._pair_p(n, j, pr[0]):
                         s._award(n, j, pr[0], pr[1], t)
                 elif ok:
                     s._eff_add(n, j, 0.25 * med)
@@ -615,7 +639,10 @@ class Agenda:
 
     def _award(s, n, ja, jb, key, t):
         x = s.asset_tab[key]; s.awarded[n].add(key)
-        rec = dict(name=x.get("name", " and ".join(key)), pair=list(key), week=int(t), opens=x.get("opens", ""), slots=[ja, jb])
+        th = lambda j_: (s.F["items"][int(s.f[n, j_])]["words"].get("thing") or s.F["names"][int(s.f[n, j_])])
+        nm = str(x.get("name") or " and ".join(key)).replace("{a}", th(ja)).replace("{b}", th(jb))
+        rec = dict(name=nm, pair=list(key), week=int(t), opens=x.get("opens", ""), slots=[ja, jb],
+                   fields=[s.F["names"][int(s.f[n, ja])], s.F["names"][int(s.f[n, jb])]])
         s.assets[n].append(rec)
         tt = x.get("title") or ""
         if tt and tt in s.ctx["RID"]:
@@ -1161,13 +1188,11 @@ class Agenda:
                         x = s.asset_tab.get(key)
                         if x is None or key in s.awarded[n]:
                             continue
-                        ra, rb = x.get("rungs", (1, 1))
-                        if s.rung[n, ja] < ra or s.rung[n, jb] < rb or not (s.st[n, ja] == ACTIVE or s.st[n, jb] == ACTIVE):
+                        if not s._pair_ok(n, ja, jb, x):
                             continue
                         if s.rng.random() >= s.par["integrate_y"] * 4 / 52:
                             continue
-                        p = float(np.clip(0.3 + 0.25 * (s.fitf[n, ja] + s.fitf[n, jb] - 2), 0.1, 0.8))
-                        if s.rng.random() >= p:
+                        if s.rng.random() >= s._pair_p(n, ja, jb):
                             continue
                         s._award(int(n), ja, jb, key, t)
 
