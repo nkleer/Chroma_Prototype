@@ -418,6 +418,11 @@ class Agenda:
         s.K_ACT = np.isin(s.SM_KD, [AIM_KINDS.index(k) for k in ("practice", "contest", "plateau", "setback", "mentor", "rival")])
         s.K_INT = s.SM_KD == AIM_KINDS.index("integrate"); s.K_ARR = s.SM_KD == AIM_KINDS.index("arrive")
         s.FKN = list(AIM_FORKS)
+        F = s.F; s.FB = np.zeros((F["F"], F["K"]), np.int64)   # each field rung's forks as bits of FKN (for gate)
+        for i in range(F["F"]):
+            for r in range(int(F["nr"][i])):
+                s.FB[i, r] = sum(1 << s.FKN.index(k) for k in F["forks"][i][r] if k in s.FKN)
+        s.gate_key = None; s.gate_out = None
 
     def _fits(s, n, j, si):
         """Shape moment si fits aim j of life n: its shape (or any), its rung, the aim held or pursued (the steady kinds
@@ -443,20 +448,21 @@ class Agenda:
 
     def gate(s, N):
         """Each life's weight for each shape moment (lives x shape moments): 1 where it fits an aim the life holds."""
+        # the same agenda (fields, states, rungs, assets awarded) gives the same weights: kept until it changes
+        key = (N, s.f.tobytes(), s.st.tobytes(), s.rung.tobytes(), sum(len(x) for x in s.awarded) if s.asset_tab else 0)
+        if key == s.gate_key:
+            return s.gate_out.copy()
         F = s.F; out = np.zeros((N, len(s.SM)), bool)
         ok = (s.f >= 0) & ((s.st == HELD) | (s.st == ACTIVE))
         if not ok.any():
-            return out.astype(float)
+            s.gate_key, s.gate_out = key, out.astype(float)
+            return s.gate_out.copy()
         f = np.maximum(s.f, 0); nr = F["nr"][f]
         intok = np.zeros(N, bool)
         if s.asset_tab and s.K_INT.any():
             for n in np.nonzero(((s.f >= 0) & (s.rung >= 1)).sum(1) >= 2)[0]:
                 intok[n] = any(s._pair(int(n), int(j)) is not None for j in np.nonzero(s.f[n] >= 0)[0])
-        fb = np.zeros(s.f.shape, np.int64)
-        for n, j in zip(*np.nonzero(ok)):
-            r = int(s.rung[n, j])
-            if r < nr[n, j]:
-                fb[n, j] = sum(1 << s.FKN.index(k) for k in F["forks"][int(s.f[n, j])][r] if k in s.FKN)
+        fb = np.where(ok & (s.rung < nr), s.FB[f, np.minimum(s.rung, F["K"] - 1)], 0)
         for j in range(s.MA):
             on = ok[:, j] & (s.rung[:, j] < nr[:, j])
             if not on.any():
@@ -467,7 +473,8 @@ class Agenda:
             m &= (s.SM_FK[None] < 0) | (((fb[:, j][:, None] >> np.maximum(s.SM_FK, 0)[None]) & 1) == 1)
             m &= ~s.K_INT[None] | intok[:, None]
             out |= m
-        return out.astype(float)
+        s.gate_key, s.gate_out = key, out.astype(float)
+        return s.gate_out.copy()
 
     def mom_slots(s, sv):
         """At the situation pause: the aim each life's drawn shape moment is about (S["AG"].mom, -1 none), for its words."""
@@ -595,18 +602,16 @@ class Agenda:
         """The seeking: an active aim outside v1's slots raises the odds of the moments with a way into its rung, by
         its intensity (half of v1's own pull at the same strength)."""
         F = s.F
-        for j in range(s.MA):
-            f = s.f[:, j]
-            on = (f >= 0) & (s.st[:, j] == ACTIVE)
-            if not on.any():
-                continue
-            ns = np.nonzero(on)[0]; v1 = F["v1"][f[ns]]; r = s.rung[ns, j]
-            ok = (v1 >= 0) & (r < door.shape[1] - 1)
-            if ak is not None:
-                ok &= ~(ak[ns] == v1[:, None]).any(1)
-            if ok.any():
-                ns, v1, r = ns[ok], v1[ok], r[ok]
-                pu[ns] += (0.5 * s.inten[ns, j][:, None] * door[v1, r]).astype(np.float32)
+        ns, js = np.nonzero((s.f >= 0) & (s.st == ACTIVE))   # by life, then slot: each life's sum in slot order
+        if not len(ns):
+            return
+        v1 = F["v1"][s.f[ns, js]]; r = s.rung[ns, js]
+        ok = (v1 >= 0) & (r < door.shape[1] - 1)
+        if ak is not None:
+            ok &= ~(ak[ns] == v1[:, None]).any(1)
+        if ok.any():
+            ns, js, v1, r = ns[ok], js[ok], v1[ok], r[ok]
+            np.add.at(pu, ns, (0.5 * s.inten[ns, js][:, None] * door[v1, r]).astype(np.float32))
 
     # ---- forks
     def options(s, n, j, kind):
@@ -907,8 +912,17 @@ class Agenda:
         if not (s.f >= 0).any():
             return
         F = s.F; cx = s.ctx; occ = s.f >= 0
-        for n, j in zip(*np.nonzero(occ)):
-            s.fitf[n, j] = float(np.clip(0.75 + 0.5 * s.fit(int(n), int(s.f[n, j])), 0.4, 1.25))
+        rows, cols = np.nonzero(occ)   # how each aim fits the person's colours now (fit: each life's lean once)
+        ft = np.zeros(len(rows)); lean = F["lean"]; u = None; last = -1
+        for i, (n, j) in enumerate(zip(rows.tolist(), cols.tolist())):
+            if n != last:
+                last = n; u = None
+                if s.w is not None:
+                    w = s.w[n]; lm = w / w.sum() - 1 / len(w); nr = float(np.linalg.norm(lm))
+                    u = lm / nr if nr > 1e-9 else None
+            if u is not None:
+                ft[i] = float(lean[s.f[n, j]] @ u)
+        s.fitf[rows, cols] = np.clip(0.75 + 0.5 * ft, 0.4, 1.25)
         s.account(res, held, stress)
         # rungs reached through a title of theirs held (an act, a moment, the world's rules): the demonstrated outcome
         f = np.maximum(s.f, 0)
