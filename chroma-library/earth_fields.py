@@ -3311,7 +3311,7 @@ FIELDS_EARTH_LAND = {
                  years=(1, 1, 2), share=0.9, start=(14, 35, 65), contests_y=1, forks=["go_on"]),
             # land.json's "stage manager" is already a catalogue career (W U, theatre): reused, not written twice
             dict(say="runs a stage", demand=dict(hours=8, money=.03, entry=.02, energy=.6),
-                 any=["stage manager"],
+                 any=["festival stage manager"],
                  years=(4.0, 3, 5), share=0.45, contests_y=2, forks=["pay"]),
             dict(say="the festival is theirs", demand=dict(hours=12, money=.05, entry=.1, energy=.7),
                  any=["festival director"], height="Known",
@@ -3495,7 +3495,7 @@ FIELDS_EARTH_LAND = {
             # "volunteers wanted to count what lives here", kept up for years)
             dict(say="first counts", demand=dict(hours=3, money=.02, entry=.05, energy=.2),
                  window=dict(every=1, open_weeks=12, deadline_age=None, deadline_years=None, pause_stops=False),  # the breeding-season counts
-                 any=["community observer"],
+                 any=["wildlife counter"],
                  years=(1, 1, 2), share=0.9, start=(12, 50, 75), contests_y=1, forks=["go_on"]),
             dict(say="a square of their own", demand=dict(hours=4, money=.03, entry=.05, energy=.3),
                  upkeep=dict(of="proficiency", years=3, kept_by=["counting"]),  # calls and marks are forgotten unused
@@ -3556,7 +3556,7 @@ FIELDS_EARTH_LAND = {
             # land.json's "master woodworker" reuses the catalogue's [master craftsperson] (career, G: "years as a
             # [craft maker], a waiting list and an apprentice of their own")
             dict(say="a workshop and apprentices", demand=dict(hours=20, money=.1, entry=.4, energy=.45),
-                 any=["master craftsperson"],
+                 any=["master woodworker"],
                  years=(13.0, 10, 20), share=0.12, contests_y=2, forks=["take"]),
         ]),
 
@@ -5490,6 +5490,52 @@ _TITLES_LAND = [
               "every landowner on the river"]),
 ]
 TITLES_V25 = TITLES_V25 + _TITLES_LAND
+
+# Chroma library, modern Earth: three land ladder titles the land ways first borrowed from optional packs' catalogues
+# (stage manager from the stage pack, community observer from the science pack, master craftsperson from the art
+# pack). Library, 10-23: a land rung must not depend on a pack being loaded, so each gets a land title of its own, named
+# as land.json's ladder_titles name it ("wildlife counter", "master woodworker"), and "festival stage manager" (land.json
+# says "stage manager", already a pack career). Same format as titles-land.py. Shares are estimates.
+
+_TITLES_LAND_EXTRA = [
+  # way "field_events", rung 2 (runs a stage)
+  dict(name="festival stage manager", kind="status", sphere="arts", face="arts.W", ways="",
+       profiles=[("W U", "Keeps the running order, the safety checks and the changeovers to the minute."),
+                 ("R", "Thrives on the rush between acts and the fix made with seconds to spare."),
+                 ("G B", "Knows every hand on the field by name, and who to call when the rain comes.")],
+       meets="need:competence+.06 res:ties+.04 res:time-.06", lasts="life",
+       ages=(18, 90), share=0.003,   # estimate
+       say="the stage manager at the town's festival",
+       gained="a stage of their own at the fair or the show, run through a whole weekend without a hitch",
+       lost="never as a record; the stage passes to someone else when the weekends stop",
+       needs="seasons as [fair volunteer]; a crew who turn up, and the organisers' trust",
+       doors=["the festival's committee", "the acts and the hire firms who come back each year"]),
+  # way "wildlife_survey", rung 1 (first counts)
+  dict(name="wildlife counter", kind="status", sphere="learn", face="learn.U", ways="",
+       profiles=[("U W", "Learns the calls and the marks, and writes down every count the same way."),
+                 ("G", "Goes for the early hours outside and the creatures that turn up."),
+                 ("B R", "Wants the rare sighting, and is first out on the morning it might come.")],
+       meets="need:competence+.04 need:meaning+.03 res:time-.02", lasts="life",
+       ages=(12, 100), share=0.02,   # estimate
+       say="a wildlife counter",
+       gained="a season of counts sent in to the recording group, checked and kept",
+       lost="never as a record; the counting stops when the mornings do",
+       needs="a guide book or an older counter to learn from; the recording group's yearly count",
+       doors=["the recording group's evenings", "a survey square of their own"]),
+  # way "wood_crafts", rung 3 (a workshop and apprentices)
+  dict(name="master woodworker", kind="status", sphere="arts", face="arts.U", ways="",
+       profiles=[("U B", "Knows every timber's habits, and prices the work at what it is worth."),
+                 ("W G", "Teaches the apprentices the old way, joint by joint, as it was taught."),
+                 ("R", "Makes the one piece nobody thought could be made from that wood.")],
+       meets="need:competence+.1 need:autonomy+.05 res:ties+.03 res:time-.08", lasts="life",
+       ages=(30, 100), share=0.0008,   # estimate
+       say="a master woodworker",
+       gained="a workshop of their own, a waiting list of buyers, and apprentices learning at the bench",
+       lost="never as a record; the workshop closes when the hands or the buyers go",
+       needs="years as [craft maker]; a workshop and tools of one's own; an apprentice who stays",
+       doors=["the makers' guild and its show", "buyers who order a piece years ahead"]),
+]
+TITLES_V25 = TITLES_V25 + _TITLES_LAND_EXTRA
 
 
 # Rung steps for Earth's fields (v25 prep, Library).
