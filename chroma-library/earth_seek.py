@@ -841,6 +841,55 @@ SITUATIONS = [
     ('finish this one project well, then stop pairing with {colleague} for good', 'R1', 'W.7', 0.5, '', {'v': 'stimulation, conformity', 'repair': 'separate', 'chance': 0.75}),
     ('offer to teach {colleague} the hard part, in return for help with the people side', 'G1', 'U.7', 0.5, '', {'v': 'benevolence, self-direction', 'repair': 'renegotiate', 'chance': 0.7}),
  ]},
+{'name': 'the lesson that asks nothing',
+ 'stages': 'juvenile young_adult',
+ 'age': (12, 18),
+ 'alpha': 'W.2 U.2 B.2 R.2 G.2',
+ 'stakes': 1.0,
+ 'rate': 0.3,
+ 'per_year': (0.0, 0.0, 0.0, 0.0, 0.0, 0.0),
+ 'drivers': '',
+ 'tier': 'life event',
+ 'tone': 'trouble',
+ 'life': 'learning',
+ 'horizon': 'months',
+ 'roles': 'friend, grandparent, a teacher',
+ 'state': 'boredom',
+ 'worlds': {'earth': 'lessons that ask so little of {N} that the school day passes without touching the mind',
+            'tribal': "the same teachings at the elders' fire, learned long ago and told again every night",
+            'magic': "the apprentices' drills at the academy, mastered seasons ago and still set every morning"},
+ 'timing': {},
+ 'scenes': {'earth': [('',
+                       '{N} finishes the class work in ten minutes and spends the rest of the lesson watching the '
+                       'window. The marks are fine, the teacher is fine, {friend} is fine, and by the second lesson '
+                       '{N} is counting the minutes to the bell. Nothing is hard, and nothing is asking anything '
+                       'either.')],
+            'tribal': [('',
+                        '{N} learned the names of the stars and the moods of the river two winters ago, and still '
+                        "sits through them every night at the elders' fire. {friend} dozes; {N} draws patterns in "
+                        'the dust with a stick. {grandparent} has noticed, and says nothing yet.')],
+            'magic': [('',
+                       'At the academy {N} has known the first-year drills by heart since autumn, and still chants '
+                       'them every morning with the rest. The master sets the same small ward again, and {N} '
+                       'finishes it before the candle has settled. Behind the closed doors of the tower, harder work '
+                       'goes on.')]},
+ 'outcomes': (['By the end of term the school day has something in it again, and {N} stops watching the clock above '
+               'the board.',
+               'The new thing is harder than {N} expected, and that turns out to be the point.'],
+              ['The answer is a kind no, and the lessons go on at the same slow pace as before.',
+               'Nothing much shifts this term. The days stay flat, but {N} knows a little better what is missing.']),
+ 'options': [
+    ('ask a teacher for the extension work kept for the class above', 'W1', None, 0.45, '', {'v': 'conformity, achievement', 'seek': 'deepen', 'chance': 0.75}),
+    ('finish the easy exercises early, then solve each one a second way', 'U1', None, 0.45, '', {'v': 'self-direction, achievement', 'seek': 'method', 'chance': 0.7}),
+    ('ask to move up a set in the subject that drags the most', 'B1', None, 0.45, '', {'v': 'achievement, power', 'seek': 'negotiate', 'chance': 0.55}),
+    ('put a name down for the after-school drama club, just to see', 'R1', None, 0.45, '', {'v': 'stimulation, hedonism', 'seek': 'own_interest', 'chance': 0.7}),
+    ('ask {grandparent} to show how the vegetable beds are kept, on Saturday mornings', 'G1', None, 0.45, '', {'v': 'benevolence, universalism', 'seek': 'help', 'chance': 0.8}),
+    ('do every piece of homework to the top mark, and go for the end-of-term prize', 'W1', 'B.7', 0.5, '', {'v': 'conformity, achievement', 'seek': 'persist', 'chance': 0.65}),
+    ('rethink the subjects picked for next term, and look at the ones nobody suggested', 'U1', 'R.7', 0.5, '', {'v': 'self-direction, stimulation', 'seek': 'revise', 'chance': 0.75}),
+    ('stop fighting the dull lessons, and put the energy into a Saturday job at the stables', 'B1', 'G.7', 0.5, '', {'v': 'achievement, universalism', 'seek': 'withdraw', 'chance': 0.85}),
+    ('keep the place in the school band, every rehearsal, even in the flat weeks', 'R1', 'W.7', 0.5, '', {'v': 'stimulation, conformity', 'seek': 'keep', 'chance': 0.8}),
+    ('start a lunchtime log of the school field: birds, weather, what grows where', 'G1', 'U.7', 0.5, '', {'v': 'universalism, self-direction', 'seek': 'own_interest', 'chance': 0.75}),
+ ]},
 ]
 
 ECHOES = [
