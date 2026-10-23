@@ -250,6 +250,10 @@
                         continue
                     if ev_ is not None and n in events:
                         events[n].append(dict(cast_want=ev_))
+                if CL_ON:   # v25 clash: a clash moment answered (the player's pick for a played life)
+                    RX.clash_answer(t, s, a, succ, idle, set(log_lives) if pausing else set())
+                if SK_ON:   # v25 seek: a seeking or repair moment answered
+                    RX.seek_answer(t, s, a, succ, idle, set(log_lives) if pausing else set())
                 if SAC_ON_:   # S5: offers decided off-screen this week (no moment for them)
                     for ev_ in WL.PP.sac_take():
                         n_ = int(ev_["n"])

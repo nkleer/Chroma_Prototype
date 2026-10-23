@@ -272,3 +272,19 @@ NORM_KEYS_ALL = NORM_KEYS + LAW_V23         # what an option's norm: may name
 # ---- Technology: the keys an option's tech: may name (from world_keys.py)
 TECH_KEYS = ["phone", "computer", "internet", "video calls", "online dating", "remote work", "ai helper", "modern medicine",
              "car", "plane"]
+
+
+# ---- v25 lane C (react, clash, seek): how modern Earth reads a way of asking, and its ages (world_react.py)
+# A demand's method, as this world reads the way it is asked (chroma-engine/notes/v25/contracts.md section 2): each
+# channel's colours W U B R G (None: the source's own ways, as they show them). Illustrative [I]: rules and enforcement
+# read as order (W) and power (B); incentives as gain (B); routines as order and method (W U); access as knowledge and
+# leverage (U B); pressure as force (B R); belonging and provision as community (W G); activities and encounters as
+# action and discovery (R, U R). Earth's nature acts through process only: it asks nothing in colours.
+REACT_CHANNEL_READ = {"attach": None, "example": None, "pressure": (0.0, 0.0, 0.5, 0.5, 0.0),
+                      "routine": (0.5, 0.5, 0.0, 0.0, 0.0), "incentive": (0.0, 0.2, 0.8, 0.0, 0.0),
+                      "access": (0.0, 0.5, 0.5, 0.0, 0.0), "rule": (0.7, 0.3, 0.0, 0.0, 0.0),
+                      "provision": (0.5, 0.0, 0.0, 0.0, 0.5), "enforce": (0.5, 0.0, 0.5, 0.0, 0.0),
+                      "activity": (0.0, 0.0, 0.0, 0.7, 0.3), "encounter": (0.0, 0.4, 0.0, 0.6, 0.0),
+                      "belonging": (0.5, 0.0, 0.0, 0.0, 0.5), "process": (0.0, 0.0, 0.0, 0.0, 0.0)}
+REACT_ADULT_AGE = 17.0      # the age around which Earth's law and custom grant a person their own standing (a soft ramp,
+                            # 1.5 years wide, one part of independence among home, income and freedom; never a switch)

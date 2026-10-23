@@ -112,3 +112,17 @@ INST_SPHERE = {"school": "learn", "university": "learn", "employer": None, "bank
                "party": "rule", "union": "prod", "charity": "care", "council": "rule", "ministry": "rule"}
 SECTOR_SPHERE = {"farm": "prod", "industry": "prod", "services": "comm", "knowledge": "learn", "public": "rule"}
 STATE_SPHERE = {"say": "rule", "law_book": "rule", "rights": "rule", "purse": "rule", "war": "prot", "force": "prot"}
+# v25 lane C (chroma-engine/notes/v25/contracts.md sections 2 and 3; world_react.py): the six responses to a demand
+# (willing acceptance, selective adoption, negotiation, secure disagreement, backlash, withdrawal), the channels a source
+# acts through (people: attach, example, pressure; institutions: routine, incentive, access; the state: rule, provision,
+# enforce; gathering places: activity, encounter, belonging; Earth's nature: process) and the five clash families (an
+# option's clash kind: confront, give in, leave, seek another scene or support, bridge)
+RESPONSES = ["accept", "adopt", "negotiate", "disagree", "backlash", "withdraw"]
+CHANNELS = ["attach", "example", "pressure", "routine", "incentive", "access", "rule", "provision", "enforce", "activity",
+            "encounter", "belonging", "process"]
+CLASH_KINDS = ["confront", "give_in", "leave", "own_scene", "bridge"]
+STATES = ["boredom", "frustration", "anger", "content", "low_mood"]   # situational and wellbeing states (never a colour's)
+CLASH_SETTINGS = ["household", "school", "work", "congregation", "town", "group", "land"]   # a clash moment's clash: (the setting)
+CLASH_BANDS = ["teen", "adult"]                                                            # its band: (10 to 19, or adult)
+SEEK_TAGS = ["deepen", "method", "help", "negotiate", "own_interest", "persist", "keep", "revise", "withdraw"]   # seek: (decision #4)
+REPAIR_TAGS = ["talk", "repair", "boundary", "routine", "renegotiate", "shared", "separate"]                     # repair: (a relationship)

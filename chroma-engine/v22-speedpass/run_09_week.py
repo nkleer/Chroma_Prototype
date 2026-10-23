@@ -80,6 +80,12 @@
                 world_cast(WL.drain())
             else:
                 WL.drain()
+        if RX_ON:   # v25 lane C: a new week's demands and responses; a clash waiting for its moment is brought (after the
+            RX.week_reset()   # world's week, which set this week's forced moments)
+            if CL_ON:
+                RX.clash_week(t, WL)
+            if SK_ON:
+                RX.seek_week(t, WL, age)
         if t % record_every == 0:
             if GG_ON:
                 grey_y.append(WL.W.sph_grey()[np.asarray(WL.PP.loc)].astype(np.float32))
@@ -128,6 +134,10 @@
             _ = yield Pause("week", t, pz_st, None)
             pz_st._fr = None
             if NW_ON: nw_mark(NW_PLAYER)
+            if SCN_ON and scn_cast:   # the scenario harness's cast (P["scn"]): set before the week's reactions
+                for n_, mx_ in RX.apply_cast(list(scn_cast)):
+                    z[n_] = centre(np.log(np.maximum(mx_, 1e-4))); k[n_] = z[n_].copy(); w[n_] = softmax(z[n_])
+                scn_cast.clear()
             if WFX_ON:
                 wfx = [[] for _ in range(N)]
         e_i, e_p = era_i[t], era_p[t]

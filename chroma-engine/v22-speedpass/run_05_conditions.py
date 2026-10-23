@@ -438,3 +438,6 @@
     OWN_ON = bool(P.get("own_open")) and "OWN" in L       # v22.5, F12: the culture's own acts always on offer
     STH_ON = False; STH_SOC = None; STH_FW = None         # v22.5, F12: the start holds (world on)
     SOC_OWN = 0.0; onic = None                             # v22.5, G19w: the company a life picks (world on)
+    # v25 lane C (world_react.py; world on): reactions, clashes, seeking, the scenario hooks; off, nothing of them exists
+    RX_ON = CL_ON = SK_ON = SCN_ON = False; RX = None; rx_dis = None
+    demands = responses = react_log = involve = states = clash = disputes = clash_now = seek = scn_demand = scn_cast = None

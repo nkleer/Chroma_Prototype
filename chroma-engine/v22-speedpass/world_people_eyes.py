@@ -682,6 +682,7 @@ class EyesMixin:
         c2 = c * c
         wg = c2 * self._caw                                       # the close circle's weight: closeness^2 x role by age
         csum = np.matmul(wg.astype(np.float64)[:, None, :], self._cpie)[:, 0, :]; cw = wg.sum(1)
+        self._rx_close = (wg, csum, cw)   # v25 react (world_react.py) reads each close person's part (a record only)
         tot = self._setw + P["close_w"] * cw
         msc = (self._setmix + P["close_w"] * csum) / np.maximum(tot, 1e-9)[:, None]
         msc = np.where(tot[:, None] > 1e-9, msc, self.w)

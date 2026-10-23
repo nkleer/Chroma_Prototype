@@ -53,7 +53,7 @@
                 gate_sea = gate.copy()                         # for the season's own moments, before they are kept out
                 gate[:, TH_ANY] = False                       # a season's moments come only in its season
             avail = L["STG"][:, stage].T & gate
-        aff = np.exp(2.0 * (nic @ L["ALPHA"].T)) * avail * RATE[None] * (1 + P["dom_freq"] * (held * I) @ L["DOM"].T)
+        aff = np.exp(2.0 * ((RX.seek_draw_mix(nic) if SK_ON else nic) @ L["ALPHA"].T)) * avail * RATE[None] * (1 + P["dom_freq"] * (held * I) @ L["DOM"].T)   # seek: (1 - k) surroundings + k attraction
         if SACS_ON_:   # S5: a sacred line's moments come only with an offer (or a wound) of the life's own
             aff[:, SACS_] = 0.0
         if BAT:
@@ -381,6 +381,8 @@
             for n in np.nonzero(recon & (ep_now >= 0))[0]:
                 sd_ = ep_seeds[ep_now[n]]; sd_["done"] = sd_["got"] = None; ep_now[n] = -1
         sit_n[np.arange(N), s] += 1                              # how often each situation came up in each life
+        if SK_ON:   # v25 seek: what they met lately (diminishing returns, curiosity)
+            RX.encounter(L["ALPHA"][s], ~dead)
         m = L["M"][s]; e = Eeff[s]; e0 = L["E"][s]; diff = L["DIFF"][s]; mask = L["MASK"][s]
         stakes = L["STAKES"][s]; alpha = L["ALPHA"][s]; oid = L["OID"][s]
         ri = np.nonzero(recon)[0]; rkk = rk[ri]
@@ -459,6 +461,8 @@
                 closed_s = np.where((closed_s < 0) & (u2_ > 0), kd_, closed_s)
                 clu_ = np.maximum(clu_, u2_)
             mask = mask & ~gone_
+            if CL_ON:   # v25 clash: a clash moment's infeasible families are not offered (no exit, nobody to talk to)
+                mask = RX.clash_mask(s, mask)
             diff = diff + WL.odds(s)   # finding work by local unemployment, education by places, treatment by hospitals
             if SV_ON:   # phase 5, service as a chapter: 5 years after the guard or the host, hiring is easier in prot and
                 # rule work and a little harder elsewhere; 10 years after prison, harder by the record's weight (Pager 2003)
