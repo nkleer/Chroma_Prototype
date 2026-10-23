@@ -24,6 +24,10 @@ class SpheresMixin:
         import sphere_data as SD
         P_ = self.perm; pr = dict(SD.PARAMS, **(self.p.get("sph_par") or {})); ep = self.SPH_EPOCH.get(self.cfg.get("setting", "earth"), "modern")
         M0 = np.asarray(SD.M0[ep], float)[:, P_]
+        if self.p.get("realm", "earth") != "earth":   # v25: a test realm (realm_neutral) may start every sphere at .2 a colour
+            import world_fit as WF_
+            if getattr(WF_.realm(self.p["realm"]), "SPH_M0_EVEN", False):
+                M0 = np.full_like(M0, 0.2)
         D = np.array([SD.D[d] for d in SD.DRIVERS], float)[:, :, P_]            # 8 drivers x 9 spheres x 5 colours
         D = D - D.mean(1, keepdims=True)                                          # each colour's mean over the spheres out
         kd = dict(pr["k_drivers"], insecurity=pr["kQ"], plenty=pr["kO"])
@@ -196,6 +200,10 @@ class SpheresMixin:
         if getattr(self, "hp_off", None) is None:
             r = self._sph_rng(); sd = float(T["pr"].get("place_sd", 0.6))
             self.hp_off = r.normal(0, sd, (nl, H, N_PLACES, C))[..., self.perm]   # drawn in W U B R G, held in this frame
+            if self.p.get("realm", "earth") != "earth":   # v25: a test realm's places may have no lasting lean (realm_neutral)
+                import world_fit as WF_
+                if getattr(WF_.realm(self.p["realm"]), "PLACE_FACES_EVEN", False):
+                    self.hp_off = np.zeros_like(self.hp_off)
             self.hp_nm = r.integers(0, 1000, (nl, H, N_PLACES))
             self.hp_s = base * np.exp(self.hp_off); self.hp_s /= self.hp_s.sum(-1, keepdims=True)
         tgt = base * np.exp(self.hp_off); tgt /= tgt.sum(-1, keepdims=True)
@@ -302,6 +310,10 @@ class SpheresMixin:
         for l, h, i in zip(*np.nonzero((self.pt_open >= 0) & (self.pt_open <= q))):
             l, h, i = int(l), int(h), int(i)
             off = r.normal(0, T["sd"], C)[self.perm]                     # drawn in W U B R G, as the first places' were
+            if self.p.get("realm", "earth") != "earth":   # v25: a test realm's new places have no lasting lean either
+                import world_fit as WF_
+                if getattr(WF_.realm(self.p["realm"]), "PLACE_FACES_EVEN", False):
+                    off = np.zeros_like(off)
             old = int(self.hp_nm[l, h, i]); nm = old
             while nm == old:
                 nm = int(r.integers(0, 1000))
