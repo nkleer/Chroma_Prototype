@@ -123,7 +123,7 @@ class React:
         rp = dict(REACT_DEFAULT); rp.update(P.get("react_par") or {}); self.p = rp
         cp = dict(CLASH_DEFAULT); cp.update(P.get("clash_par") or {}); self.cp = cp
         sp = dict(SEEK_DEFAULT); sp.update(P.get("seek_par") or {}); self.sp = sp
-        self.clash_on = bool(clash); self.seek_on = bool(seek)
+        self.clash_on = bool(clash); self.seek_on = bool(seek); self.scn_on = bool(P.get("scn"))
         self.rng = np.random.default_rng([int(seed), 2525])
         M = self.M = self.PP.M; self.J = M + len(PERSONS) + 2
         self.JN = M + len(PERSONS); self.JS = M + len(PERSONS) + 1   # nature's slot, the state's
@@ -160,6 +160,7 @@ class React:
         # clashes (clash, decision #3)
         self.clash = [None] * N; self.clash_now = [[] for _ in range(N)]; self.disputes = [[] for _ in range(N)]
         self.cl_last = np.full((N, len(SPHERES)), -10 ** 9, np.int64); self.cl_hist = [[] for _ in range(N)]
+        self.cl_wk = [[] for _ in range(N)]   # every clash put: (week, sphere, stakes), for the record and the checks
         self.carry = {}   # life -> dispute id of a clash waiting for its moment
         self.cl_stats = dict(put=0, carried=0, background=0, merged=0, repeat_held=0, ceiling=0, by_colour_only=0,
                              replaced=0, dropped_natural=0, family={k_: 0 for k_ in CLASH_KINDS},
@@ -397,7 +398,7 @@ class React:
                     if rng.random() < rp["nature_rate"]:
                         nd.append(int(n)); jd.append(self.JN); pur.append(np.zeros(C)); src.append(("nature", float(dis_[n])))
         forced = {}
-        for n in range(N):   # the caller's (P["scn"]): each as this week's demand, through the same path
+        for n in (range(N) if self.scn_on else ()):   # the caller's (P["scn"]): each as this week's demand, the same path
             for d_ in list(self.scn_demand[n]):
                 j_ = self._scn_slot(n, d_)
                 if j_ is None:
@@ -473,6 +474,9 @@ class React:
         time_conf = hours * ctx["cares"][nd] * np.clip(1 - ctx["res_tim"][nd], 0, 1)
         need_conf = ctx["nimp_aut"][nd] * (aut < 0.4) * ctl + nat * np.clip(ctl, 0, 1) * ctx["means_low"][nd]
         stakes_sc = np.maximum.reduce([aim_conf, com_conf, time_conf, need_conf]) * (0.5 + 0.5 * np.maximum(ctl, dep))
+        for i_, d_ in forced.items():   # the caller's stakes, when given as a number (P["scn"] only), as legit and control
+            if isinstance(d_.get("stakes"), (int, float, np.integer, np.floating)) and not isinstance(d_.get("stakes"), bool):
+                stakes_sc[i_] = float(d_["stakes"])
         ad = age_d = np.exp(-((age - 15.5) / 2.5) ** 2) * np.ones(D)
         ind = ctx["ind"][nd]
         hist = np.clip(self.griev[nd, jd] * (0.5 + ind) + 0.1 * np.minimum(self.ndis[nd, jd], 5) * (ctl > leg), 0, 1.0)
@@ -908,12 +912,33 @@ class React:
     def _stake_key(self, dd, i):
         v = dict(aim=dd["aim_conf"][i], commit=dd["com_conf"][i], time=dd["time_conf"][i], need=dd["need_conf"][i])
         k_ = max(v, key=v.get)
+        if v[k_] <= 0:   # stakes the caller gave (P["scn"]) with none of the life's own: the caller's dispute
+            return ("given",)
         if k_ == "aim":
             af = dd["af"][i]; as_ = dd["as_"][i]
             return ("aim", int(np.argmax(as_ * np.maximum(-self.fit(af, dd["purpose"][i][None]), 0))))
         if k_ == "commit":
             return ("commit", int(dd["com_k"][i]))
         return (k_,)
+
+    def _stakes_say(self, dd, i, key):
+        """What is at stake, in the shape the Game reads (contracts.md section 3): aims (aim indices), needs (names),
+        commitments (kind names), means (time or money), access; with the dispute key and the stakes score."""
+        import engine as _E
+        out = dict(key=list(key), score=round(float(dd["stakes"][i]), 3), aims=[], needs=[], commitments=[], means=False,
+                   access=[])
+        if key[0] == "aim":
+            out["aims"] = [int(key[1])]
+        elif key[0] == "commit":
+            out["commitments"] = [_E.KNAMES[int(key[1])]] if 0 <= int(key[1]) < len(_E.KNAMES) else []
+        elif key[0] == "time":
+            out["means"] = True
+        elif key[0] == "need":
+            if dd["ch"][i] == CH["process"]:
+                out["means"] = True   # nature: their livelihood
+            else:
+                out["needs"] = ["autonomy"]
+        return out
 
     def _feasible(self, dd, i):
         return dict(confront=True, give_in=True, leave=bool(dd["ext"][i]), own_scene=bool(dd["alt_s"][i] >= self.p["alt_min"]),
@@ -963,7 +988,9 @@ class React:
             if len(group) > 1:
                 self.cl_stats["merged"] += len(group) - 1
             yrs = np.asarray(self.cl_hist[n]); dec_ = int(((t - yrs) < 520).sum()) if len(yrs) else 0
-            if t - self.cl_last[n, max(sp, 0)] < 52 * cp["sphere_yrs"] or dec_ >= cp["decade_n"]:
+            touched = sorted({max(s_, 0) for s_ in sps} | ({SPHERES.index(x_) for x_ in dsp["spheres"]} if dsp is not None else set()))
+            if any(t - self.cl_last[n, s_] < 52 * cp["sphere_yrs"] for s_ in touched) or dec_ >= cp["decade_n"]:
+                # (every sphere the dispute touches: one a sphere in 2 years, whichever sphere it comes through)
                 self.cl_stats["ceiling"] += 1
                 continue
             # a clash: one dispute, its holders, its stakes, its feasible options
@@ -976,13 +1003,17 @@ class React:
             dsp["sig"] = list(sig_[:2]) + [list(sig_[2])]; dsp["last_asked"] = int(t); dsp["changed"] = int(t); dsp["n_asked"] += 1
             dsp["setting_id"] = j if j < self.M else -1; dsp["sphere"] = SPHERES[sp] if sp >= 0 else None
             dsp["k"] = round(float(dd["stakes"][i]), 3)
-            self.cl_last[n, max(sp, 0)] = t; self.cl_hist[n].append(int(t))
+            for s_ in touched:
+                self.cl_last[n, s_] = t
+                if SPHERES[s_] not in dsp["spheres"]:
+                    dsp["spheres"].append(SPHERES[s_])
+            self.cl_hist[n].append(int(t)); self.cl_wk[n].append((int(t), list(touched), float(dd["stakes"][i])))
             self.cl_stats["put"] += 1; self.cl_stats["by_sphere"][max(sp, 0)] += 1
             gia = self._give_in_as(dd, i)
             setting = self._setting_of(dd["kn"][i])
             hold[group] = True
-            rec = dict(id=dsp["id"], demand=None, spheres=dsp["spheres"], holders=list(dsp["holders"]), stakes=dict(key=list(key),
-                       score=round(float(dd["stakes"][i]), 3)), options=[k_ for k_, v_ in feas.items() if v_], give_in_as=gia,
+            rec = dict(id=dsp["id"], demand=dict(key=dd["kn"][i], sphere=SPHERES[sp] if sp >= 0 else None,
+                                                 purpose=[round(float(x_), 3) for x_ in dd["purpose"][i]]), spheres=dsp["spheres"], holders=list(dsp["holders"]), stakes=self._stakes_say(dd, i, key), options=[k_ for k_, v_ in feas.items() if v_], give_in_as=gia,
                        sphere=SPHERES[sp] if sp >= 0 else None, setting_id=j if j < self.M else -1, k=round(float(dd["stakes"][i]), 3),
                        setting=self.CLASH_SET[setting], holder=self._holder(n, j), ally=self._ally(n, j), scene=self._scene(n, dd, i),
                        carried=False)
@@ -998,6 +1029,9 @@ class React:
             else:   # no moment for it: answered in the background, by the same odds
                 self.cl_stats["background"] += 1
                 r = int((dd["pr"][i].cumsum() > self.rng.random()).argmax())
+                fr_ = dd["forced"].get(i, {}).get("response")   # the caller's response (P["scn"]), when feasible
+                if fr_ in RESPONSES and dd["ok"][i, RESPONSES.index(fr_)]:
+                    r = RESPONSES.index(fr_)
                 self._clash_apply(t, age, n, dsp, sub, r, False, ctx, rec, gia, succ=None)
             self.clash[n] = rec
         return hold
@@ -1167,6 +1201,8 @@ class React:
             else:
                 self.cl_stats["replaced_event"] = self.cl_stats.get("replaced_event", 0) + 1
             frc[n, s_] = True
+            if k_ == "clash":   # S["clash"]: the clash this week's moment puts (the Game's card)
+                self.clash[n] = self.carry[n]["rec"]
 
     # ------------------------------------------------------------------ seeking (seek, decision #4)
     def seek_month(self, t, age, ctx):
@@ -1455,6 +1491,7 @@ class React:
         kinds = list(GROUP_KINDS) + list(PERSONS) + ["nature", "state"]
         return dict(responses=RESPONSES, kinds=kinds, count=self.count.copy(), drift_by=self.drift_by.copy(),
                     constrained=self.n_constrained, inner=self.n_inner, drifts=self.n_drift, log=self.log,
-                    clash=dict(self.cl_stats, by_sphere=self.cl_stats["by_sphere"].copy()) if self.clash_on else None,
+                    clash=dict(self.cl_stats, by_sphere=self.cl_stats["by_sphere"].copy(), weeks=[list(x_) for x_ in self.cl_wk])
+                    if self.clash_on else None,
                     disputes=self.disputes if self.clash_on else None,
                     seek=dict(self.sk_stats, tried=self.tried) if self.seek_on else None)

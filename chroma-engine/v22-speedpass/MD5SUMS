@@ -44,7 +44,7 @@ b48237a23a05d3890d5ce90a3dcf44b3  run_10_situation.py
 9f897ecf1dac76548c56e503fbb10bed  run_11_choice.py
 d61b7b29b958f4a33c5972e45e8efeed  run_12_commitments.py
 01720ff1695150c870cf71f115857ef5  run_13_learning.py
-64d7b3c745452863727ceeff46100725  run_14_marks.py
+54a130e61937357be7571d133ba3b5e0  run_14_marks.py
 905bdbe7a635101d3ce4aae58e27753f  run_15_titles.py
 07d35b3ca9d31480c9645e3ed4e275e6  run_16_world.py
 9bf08251aab6f08949a330112c164f05  run_17_inner.py
@@ -66,6 +66,6 @@ a477bf6814143aacc26c4ae844356bd5  world_link_base.py
 fccb7cc4b9419ae0908ed6a9234d1afe  world_link_life.py
 be866d578e2192f4db843977651a4712  realm_earth.py
 3a675425cbb82bb45db679e10e21f6dd  world_people_answers.py
-3546a096685ebff4e7b407cfb8ad7329  world_react.py
+3ca0838f3fe2007d20e69e31472d4faf  world_react.py
 99df6df655905d4dc799ed97ecf2c804  world_fit.py
 6296b4db28a3b501630cd92d1a81e8e6  realm_neutral.py

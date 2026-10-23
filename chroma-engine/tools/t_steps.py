@@ -81,6 +81,12 @@ engine.run_steps() is engine.run() pausing six times a week for the game. On a f
      lives move; each year's r has a mean of 1 per sphere and every cell within the realm's clip (Earth .67 to 1.5);
      prizes and prizes_moves well formed; the neutral world starts every sphere at .2 a colour, its places even,
      inst_even on, and its r is 1 everywhere, every year.
+ 26. reactions, clashes and seeking (react, clash, seek; v25 lane C), Earth and packs with the clash, seeking and repair
+     moments, world on: world off the switches move nothing; react alone and all on, run_steps() lives as run() and the
+     lives move; every clash has stakes, comes from 10, one a sphere (every sphere its dispute touches) in 2 years and 3
+     in 10; every clash, seeking or repair moment met took the place of an ask; seeking moves no colour and admits only
+     through a place; states carry durations and k stays at most 1/3; the caller's demand (P["scn"]) is recorded with
+     its tag, response and stakes.
 
     python3 -B chroma-engine/tools/t_steps.py [ENGINE_DIR]
 T_JOBS=N: the rows of 8 and 9 on N processes (default up to 4, by the cores there are; 1: one after another).
@@ -128,6 +134,16 @@ def digest(o):
     for k in sorted(o):
         hs = hashlib.md5(); h(o[k], hs); out[k] = hs.hexdigest()
     return out
+
+
+def _drain(g):
+    """run_steps passing every value back unchanged: its outputs."""
+    msg = next(g)
+    while True:
+        try:
+            msg = g.send(msg[3])
+        except StopIteration as done:
+            return done.value
 
 
 EARTH = None
@@ -1458,6 +1474,99 @@ if "tilt_world" in E.DEFAULT:
           f"run_steps lives as run() and the lives move; {seen_['years']} years of r, each sphere's mean 1 (worst "
           f"{seen_['worst']:.1g}) and every cell within the realm's clip; prizes and {seen_['moves']} moves well formed; the "
           f"neutral world's r 1 at its start and every year{'' if not fails else '; ' + '; '.join(fails[:4])} ({time.process_time() - t0:.0f} s)")
+# 26. reactions, clashes and seeking (react, clash, seek; v25 lane C, decisions #2 to #4), Earth and packs, world on
+if "react" in E.DEFAULT and "clash" in batch.load_batch.__code__.co_varnames:
+    t0 = time.process_time(); fails = []
+    L26_ = batch.load_batch("earth", packs=list(batch.PACKS), clash=True, seek=True)
+    kw = dict(N=6, years=18, seed=5, lib=L26_, log_lives=(0,))
+    P0_ = dict(E.DEFAULT, world=True)
+    o0_ = E.run(**kw, P=dict(P0_))
+    kwo_ = dict(N=4, years=5, seed=7, lib=EARTH, log_lives=(0,))   # world off: the switches do nothing
+    if digest(E.run(**kwo_, P=dict(E.DEFAULT, react=True, clash=True, seek=True))) != digest(E.run(**kwo_, P=dict(E.DEFAULT))):
+        fails.append("world off: react moved the lives")
+    P1_ = dict(P0_, react=True)   # react alone: run_steps lives as run(), the lives move
+    o1_ = E.run(**kw, P=P1_)
+    if digest(o1_) == digest(o0_):
+        fails.append("react: nothing moved")
+    if digest(o1_) != digest(_drain(E.run_steps(**kw, P=P1_))):
+        fails.append("react: run_steps not the lives of run()")
+    P2_ = dict(P0_, react=True, clash=True, seek=True)
+    o2_ = E.run(**kw, P=P2_)
+    V25_S_ = set(np.nonzero((np.asarray(L26_["W_CLASH"]) >= 0) | (np.asarray(L26_["W_STATE"]) >= 0)
+                            | (np.asarray(L26_["REPAIR_TAG"]) >= 0).any(1))[0].tolist())
+    g = E.run_steps(**kw, P=P2_); msg = next(g); n_put_, n_seen_ = 0, 0
+    while True:
+        kind, t, S, val = msg
+        if kind == "end" and S["age"] >= 3:
+            if not all(S.get(sw_) for sw_ in ("RX_ON", "CL_ON", "SK_ON")) or any(nm_ not in S for nm_ in
+                    ("demands", "responses", "react_log", "involve", "states", "clash", "disputes", "clash_now", "seek")):
+                fails.append("a v25 name or switch not handed over"); break
+            for n_ in range(6):
+                for st_, v_ in (S["states"][n_] or {}).items():   # states carry their durations
+                    if not (0 <= v_["level"] <= 1 and v_["weeks"] >= 0) and len(fails) < 6:
+                        fails.append(f"life {n_} state {st_} {v_}")
+                if S["seek"][n_]["k"] > 1 / 3 + 1e-9 and len(fails) < 6:   # k at most 1/3 at full independence
+                    fails.append(f"life {n_} seek k {S['seek'][n_]['k']}")
+        if kind == "situation" and S["age"] >= 10:
+            c_ = S["clash"]
+            n_seen_ += sum(1 for n_ in range(6) if c_[n_] is not None)
+        try:
+            msg = g.send(val)
+        except StopIteration as done:
+            o3_ = done.value
+            break
+    d2_, d3_ = digest(o2_), digest(o3_)
+    if d2_ != d3_:
+        fails.append("all on: run_steps not the lives of run() (" + " ".join(sorted(k_ for k_ in d2_ if d2_[k_] != d3_.get(k_))[:6]) + ")")
+    rx_ = o2_["react"]; cl_ = rx_["clash"]; thr_ = 0.25
+    for n_, wk_ in enumerate(cl_["weeks"]):   # no clash without stakes; from 10; one a sphere (every sphere the
+        # dispute touches) in 2 years; 3 in 10 years
+        for i_, (t_, sp_, k_) in enumerate(wk_):
+            if k_ < thr_ or t_ < 520 or any(t2_ > t_ - 104 and set(sp2_) & set(sp_) for t2_, sp2_, _ in wk_[:i_]) \
+                    or sum(1 for t2_, _, _ in wk_[:i_] if t2_ > t_ - 520) >= 3:
+                fails.append(f"life {n_}: clash at week {t_}, sphere {sp_}, stakes {k_:.2f} breaks a ceiling"); break
+    met_ = sum(1 for n_, t_, s_ in o2_["life_events"] if s_ in V25_S_)   # each v25 moment met took an ask's place
+    n_put_ = cl_["replaced_event"] if "replaced_event" in cl_ else 0
+    n_put_ += cl_["dropped_natural"]
+    if met_ > n_put_:
+        fails.append(f"{met_} clash, seeking or repair moments met, only {n_put_} asks replaced")
+    for n_, lg_ in enumerate(rx_["log"]):   # seeking and repair answers never take a colour step
+        if any(e_.get("seek") is not None and (e_.get("layers") or {}).get("drift") for e_ in lg_):
+            fails.append(f"life {n_}: a seeking answer moved colours"); break
+    for n_, tr_ in enumerate((rx_["seek"] or {}).get("tried", [])):   # admission only through access and a place
+        if any(r_["admitted"] and (not r_["access"] or r_["place"] < 0) for r_ in tr_):
+            fails.append(f"life {n_}: admitted with no access or place"); break
+    if not cl_["put"]:
+        fails.append("no clash put in 6 lives x 18 years")
+    # the caller's demand (P["scn"]): its tag and a forced response reach the record, through the same path
+    # and its stakes, given as a number, are taken as given (a demand recorded with them, or a dispute opened that week)
+    P4_ = dict(P2_, scn=True); g = E.run_steps(**kw, P=P4_); msg = next(g); sent_, st_sent_, st_ok_ = False, -1, None
+    while True:
+        kind, t, S, val = msg
+        if kind == "week" and not sent_ and S["age"] >= 17.8:   # (late: the record keeps the last 40)
+            S["scn_demand"][0].append(dict(source=dict(key="household"), tag="t26", response="accept")); sent_ = True
+        if kind == "week" and st_sent_ < 0 and S["age"] >= 16.0:
+            S["scn_demand"][1].append(dict(source=dict(key="household"), tag="t26s", stakes=0.9)); st_sent_ = t
+        if kind == "end" and t == st_sent_:
+            st_ok_ = any(d_.get("tag") == "t26s" and d_["stakes"]["score"] == 0.9 for d_ in S["demands"][1]) \
+                or any(d_["since"] == t for d_ in S["disputes"][1])
+        try:
+            msg = g.send(val)
+        except StopIteration as done:
+            o4_ = done.value
+            break
+    tg_ = [e_ for e_ in o4_["react"]["log"][0] if e_.get("tag") == "t26"]
+    if sent_ and not (tg_ and tg_[0]["response"] == "accept"):
+        fails.append(f"scn: the caller's demand not in the record as asked ({tg_[:1]})")
+    if not st_ok_:
+        fails.append("scn: the caller's stakes not taken as given")
+    bad += bool(fails)
+    print(f"{'PASS' if not fails else 'FAIL'}  reactions, clashes and seeking (react, clash, seek), world on: world off "
+          f"nothing; react alone and all on, run_steps lives as run() and the lives move; {cl_['put']} clashes, every one "
+          f"with stakes and within the ceilings; {met_} clash, seeking or repair moments met, each in place of an ask; "
+          f"{n_seen_} clash cards seen at the situation pause; seeking moves no colour and admits only through a place; "
+          f"the caller's demand recorded with its tag, response and stakes"
+          f"{'' if not fails else '; ' + '; '.join(fails[:4])} ({time.process_time() - t0:.0f} s)")
 # 11. nothing read at a pause outside the handed-over names (an engine without STATE_MISSED reads its whole frame)
 if hasattr(E, "STATE_MISSED"):
     bad += bool(E.STATE_MISSED)
