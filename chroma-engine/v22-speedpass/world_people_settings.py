@@ -5,6 +5,7 @@ here reads module names through the imports below, the same objects world_people
 the People."""
 import numpy as np
 from library import COLORS
+import world_fit as WF   # v25 #10: what a world rewards (tilt_world)
 from world_keys import GROUP_KINDS, HAUNT_KINDS, INST_KINDS, LADDER, SECTORS, SPHERES, TIME_ROWS
 from world_people_base import (BIT, C, COMM_W, G, GROUP_SPH, HAUNT_AGE, HAUNT_COST, HAUNT_SPH, INST_OF, KINMASK, KTA,
     K_COH, K_DEPTH, K_DRIFT, K_F, K_GATE, K_LEAD, K_NCAST, K_SIZE, K_TS, K_TSY, K_WA, K_WM, K_WV, K_XC, LEAD_BIT,
@@ -696,11 +697,14 @@ class SettingsMixin:
                     ok_ = self.hnt[:, q_] >= 0
                     np.add.at(pres, (ar_[ok_], hs_[ok_, q_]), (hrs[:, 2] / np.maximum(nk_, 1))[ok_])
             here = pres >= 2.0
+            # v25 #10 (tilt_world): a year present counts by the life's fit to what the town rewards there (world_fit.tilt_year;
+            # 1 on average over the town's people in the sphere): the one site where the world's tilt is read
+            tw_ = WF.tilt_year(self, here, a) if getattr(self, "tilt_on", False) else None
             if getattr(self, "eyes_on", False):   # S3: a good name at their places speeds the climb, a bad one slows it; S4: x1.5 both ways
                 mu_up, mu_dn = self._eyes_rung_mult()
-                self.ryrs = np.where(here, self.ryrs + mu_up, self.ryrs * 0.8)
+                self.ryrs = np.where(here, self.ryrs + (mu_up if tw_ is None else mu_up * tw_), self.ryrs * 0.8)
             else:
-                self.ryrs = np.where(here, self.ryrs + 1, self.ryrs * 0.8)
+                self.ryrs = np.where(here, self.ryrs + (1 if tw_ is None else tw_), self.ryrs * 0.8)
             tg = np.where(self.ryrs >= 5, 2, np.where(self.ryrs >= 1, 1, 0)).astype(float)   # years make a regular, then a known face
             ss = self.set_sphere; act = self.skind >= 0
             for j_ in range(self.M):   # standing earned in a setting: a pillar there (rank .85 or more), its leader a leader

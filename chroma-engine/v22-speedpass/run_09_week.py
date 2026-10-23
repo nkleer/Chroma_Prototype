@@ -54,6 +54,8 @@
                             gov_office=r_has[:, W_GOV_].any(1) if RON and W_GOV_ else None,
                             head_gov=r_has[:, W_HOG_] if RON and W_HOG_ >= 0 else None,
                             lead_has=(np.where(LW_T_ >= 0, r_has[:, np.maximum(LW_T_, 0)], False) if LW_ON else None)))
+            if TW_ON and getattr(WL.PP, "tilt_ver", 0) != tw_ver:   # v25 #10: r as the year's rungs computed it (the game's)
+                tw_ver = WL.PP.tilt_ver; prizes = WF.prizes(WL.PP); prizes_moves = WL.PP.tilt_moves
             if LW_ON and WL.PP.lw_lost:   # S7: an office the post's end took (a fall, a term, a hand-over, a move)
                 for n_, i_, why_ in WL.PP.lw_lost:
                     if LW_T_[i_] >= 0:

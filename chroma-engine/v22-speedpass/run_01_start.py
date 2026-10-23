@@ -52,7 +52,7 @@ def _run(N=1000, years=80, seed=0, P=None, record_every=52, intervention=None, l
     iw_fact = np.full(N, -1) if IW_ON else None; iw_why = [None] * N if IW_ON else None   # this week's setback's fact, words
     iw_dk = None                                          # each town's last disaster kind (HAZARDS index, -1 none)
     TW_ON = bool(P["tilt_world"]) and bool(P["world"])   # #10: what a world rewards (world_fit.tilt_r, at the rungs)
-    prizes = prizes_moves = None
+    prizes = prizes_moves = None; tw_ver = 0
     FREE_STAGE = np.asarray(P["freedom_stage"], float)
     IMP_FREE = np.minimum(L["IMP"][:, NIDX["autonomy"]], 0)    # impositions on autonomy also take freedom
     BEREAVE = np.array([nm == "bereavement" for nm in L["names"]])

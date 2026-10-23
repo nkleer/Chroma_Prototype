@@ -27,6 +27,7 @@ from world_link_base import _code_md5, _isin_small, _uclip  # noqa: F401
 from world_link_week import LinkWeekMixin
 from world_link_rates import LinkRatesMixin
 from world_link_life import LinkLifeMixin
+import world_fit as WF   # v25 lane A (the realm, what a world rewards)
 
 
 class WorldLink(LinkWeekMixin, LinkRatesMixin, LinkLifeMixin):
@@ -43,6 +44,10 @@ class WorldLink(LinkWeekMixin, LinkRatesMixin, LinkLifeMixin):
             s3_.update({k: P[k] for k in getattr(WM, "SPH_RULES", ()) if P.get(k)})   # the spheres' (item 15), when on
             s3_.update({k: P[k] for k in getattr(WM, "C_RULES", ()) if P.get(k)})     # the C hooks' (item 10), when on
             s3_.update({k: P[k] for k in getattr(WM, "FIN_RULES", ()) if P.get(k)})   # the finishing pack's, when on
+            if P.get("realm", "earth") != "earth":   # v25: a test realm (realm_neutral.py), and its colour-even bodies
+                s3_["realm"] = P["realm"]
+                if getattr(WF.realm(P["realm"]), "INST_EVEN", False):
+                    s3_["inst_even"] = True
             if s3_:
                 cfg["params"] = dict(cfg.get("params") or {}, **s3_)
             W = burned_world(int(seed if ws is None else ws), cfg, burn)
@@ -59,6 +64,9 @@ class WorldLink(LinkWeekMixin, LinkRatesMixin, LinkLifeMixin):
                     PP = PM.People(W, N, run_seed=int(seed) + 7919 * k_, female=np.asarray(female, bool))
                     PP.birth(self.t0)
         self.PP = PP
+        PP.tilt_on = bool(P.get("tilt_world", False))   # v25 #10: what a world rewards, at the rung climb (world_fit.tilt_year)
+        if PP.tilt_on:
+            PP.tilt_R = WF.realm(P.get("realm", "earth"))
         S, K = L["S"], L["K"]; self.S = S
         names = L["names"]; src = L["src"]
         # each moment's rate kind (world-build.md: illness and old-age deaths by season and medicine, disasters by place,

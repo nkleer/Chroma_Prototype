@@ -144,6 +144,189 @@ IMP_CAUSE = {   # what the panel names, by the fact that weighed most ({disaster
 }
 IMP_CAUSE_BETRAY_WEAK = "corruption in the institutions"   # the betrayal's own word for weak law
 
+# ---- v25 #10, what a world rewards (switch tilt_world; Outer world's chroma-world/spheres/world-fit-v2.md section 2 and
+# data/world_fit.json "tilt.engine", which wins; Engine contracts.md section 8). No global colour bonus (Emren's decision
+# #10): Earth states, by place kind, community, institution and period, three things kept apart as dimensions on 0 to 1
+# (.5 Earth's average and the neutral world), each (mean, sd): values (the people's own; read only through the existing
+# start), practices (what places and bodies do) and incentives (what is recognised and rewarded). Only incentives reach
+# the one tilt site, the years that make a regular and a known face: r[c] = mix[c] / .2 x (1 + PROFILE_K x sum_d (x[d] -
+# .5) x DIM_COLOURS[d][c]), clipped to PROFILE_CLIP and renormalised to a mean of 1 per sphere; x = the place's draw + a
+# community's + the body's own (sd .10, seeded by its id) + the period's. Sources: Schwartz 2006; Gelfand et al. 2011;
+# Harrington and Gelfand 2014; Fischer and Schwartz 2011; House et al. 2004 (GLOBE); Inglehart and Welzel 2005
+# (directions). The sizes, k and the spreads are design estimates, tuned against the Known floor (decision #5).
+PROFILE_DIMS = ('autonomy', 'belonging', 'norm_strength', 'hierarchy', 'egalitarian', 'mastery', 'harmony')
+DIM_COLOURS = {   # many-to-many, interpretive: a design reading, not an empirical law (W U B R G; sums need not be 1)
+    'autonomy': dict(W=0.0, U=0.638, B=0.434, R=0.862, G=0.066),
+    'belonging': dict(W=0.443, U=0.0, B=0.13, R=0.0, G=0.427),
+    'norm_strength': dict(W=0.406, U=0.155, B=0.178, R=0.0, G=0.261),
+    'hierarchy': dict(W=0.315, U=0.27, B=0.415, R=0.0, G=0.0),
+    'egalitarian': dict(W=0.257, U=0.0, B=0.0, R=0.413, G=0.33),
+    'mastery': dict(W=0.0, U=0.231, B=0.444, R=0.325, G=0.0),
+    'harmony': dict(W=0.178, U=0.306, B=0.0, R=0.0, G=0.516),
+}
+PROFILES = {   # kind -> name -> values, practices, incentives (dim: (mean, sd)), period, source, note
+    'place': {
+        'capital': dict(
+            values=dict(autonomy=(0.5, 0.1), belonging=(0.5, 0.1), norm_strength=(0.5, 0.1), hierarchy=(0.5, 0.1), egalitarian=(0.5, 0.1), mastery=(0.5, 0.1), harmony=(0.5, 0.1)),
+            practices=dict(autonomy=(0.537, 0.04), belonging=(0.444, 0.04), norm_strength=(0.456, 0.04), hierarchy=(0.498, 0.04), egalitarian=(0.518, 0.04), mastery=(0.518, 0.04), harmony=(0.491, 0.04)),
+            incentives=dict(autonomy=(0.537, 0.04), belonging=(0.444, 0.04), norm_strength=(0.456, 0.04), hierarchy=(0.498, 0.04), egalitarian=(0.518, 0.04), mastery=(0.518, 0.04), harmony=(0.491, 0.04)),
+            period='modern', source='Schwartz 2006; Gelfand 2011; Harrington and Gelfand 2014; Inglehart and Welzel 2005 (directions); sizes are design estimates',
+            note="values at the middle: Earth's people keep the existing start's lean (no new lean, lives unchanged); practices and incentives share the place's deviation, which feeds the faces and the tilt site respectively"),
+        'second city': dict(
+            values=dict(autonomy=(0.5, 0.1), belonging=(0.5, 0.1), norm_strength=(0.5, 0.1), hierarchy=(0.5, 0.1), egalitarian=(0.5, 0.1), mastery=(0.5, 0.1), harmony=(0.5, 0.1)),
+            practices=dict(autonomy=(0.507, 0.04), belonging=(0.474, 0.04), norm_strength=(0.476, 0.04), hierarchy=(0.498, 0.04), egalitarian=(0.488, 0.04), mastery=(0.498, 0.04), harmony=(0.491, 0.04)),
+            incentives=dict(autonomy=(0.507, 0.04), belonging=(0.474, 0.04), norm_strength=(0.476, 0.04), hierarchy=(0.498, 0.04), egalitarian=(0.488, 0.04), mastery=(0.498, 0.04), harmony=(0.491, 0.04)),
+            period='modern', source='Schwartz 2006; Gelfand 2011; Harrington and Gelfand 2014; Inglehart and Welzel 2005 (directions); sizes are design estimates',
+            note="values at the middle: Earth's people keep the existing start's lean (no new lean, lives unchanged); practices and incentives share the place's deviation, which feeds the faces and the tilt site respectively"),
+        'university city': dict(
+            values=dict(autonomy=(0.5, 0.1), belonging=(0.5, 0.1), norm_strength=(0.5, 0.1), hierarchy=(0.5, 0.1), egalitarian=(0.5, 0.1), mastery=(0.5, 0.1), harmony=(0.5, 0.1)),
+            practices=dict(autonomy=(0.527, 0.04), belonging=(0.454, 0.04), norm_strength=(0.466, 0.04), hierarchy=(0.458, 0.04), egalitarian=(0.538, 0.04), mastery=(0.478, 0.04), harmony=(0.491, 0.04)),
+            incentives=dict(autonomy=(0.527, 0.04), belonging=(0.454, 0.04), norm_strength=(0.466, 0.04), hierarchy=(0.458, 0.04), egalitarian=(0.538, 0.04), mastery=(0.478, 0.04), harmony=(0.491, 0.04)),
+            period='modern', source='Schwartz 2006; Gelfand 2011; Harrington and Gelfand 2014; Inglehart and Welzel 2005 (directions); sizes are design estimates',
+            note="values at the middle: Earth's people keep the existing start's lean (no new lean, lives unchanged); practices and incentives share the place's deviation, which feeds the faces and the tilt site respectively"),
+        'port city': dict(
+            values=dict(autonomy=(0.5, 0.1), belonging=(0.5, 0.1), norm_strength=(0.5, 0.1), hierarchy=(0.5, 0.1), egalitarian=(0.5, 0.1), mastery=(0.5, 0.1), harmony=(0.5, 0.1)),
+            practices=dict(autonomy=(0.512, 0.04), belonging=(0.484, 0.04), norm_strength=(0.446, 0.04), hierarchy=(0.498, 0.04), egalitarian=(0.488, 0.04), mastery=(0.508, 0.04), harmony=(0.491, 0.04)),
+            incentives=dict(autonomy=(0.512, 0.04), belonging=(0.484, 0.04), norm_strength=(0.446, 0.04), hierarchy=(0.498, 0.04), egalitarian=(0.488, 0.04), mastery=(0.508, 0.04), harmony=(0.491, 0.04)),
+            period='modern', source='Schwartz 2006; Gelfand 2011; Harrington and Gelfand 2014; Inglehart and Welzel 2005 (directions); sizes are design estimates',
+            note="values at the middle: Earth's people keep the existing start's lean (no new lean, lives unchanged); practices and incentives share the place's deviation, which feeds the faces and the tilt site respectively"),
+        'declining industrial town': dict(
+            values=dict(autonomy=(0.5, 0.1), belonging=(0.5, 0.1), norm_strength=(0.5, 0.1), hierarchy=(0.5, 0.1), egalitarian=(0.5, 0.1), mastery=(0.5, 0.1), harmony=(0.5, 0.1)),
+            practices=dict(autonomy=(0.462, 0.04), belonging=(0.564, 0.04), norm_strength=(0.536, 0.04), hierarchy=(0.498, 0.04), egalitarian=(0.528, 0.04), mastery=(0.428, 0.04), harmony=(0.491, 0.04)),
+            incentives=dict(autonomy=(0.462, 0.04), belonging=(0.564, 0.04), norm_strength=(0.536, 0.04), hierarchy=(0.498, 0.04), egalitarian=(0.528, 0.04), mastery=(0.428, 0.04), harmony=(0.491, 0.04)),
+            period='modern', source='Schwartz 2006; Gelfand 2011; Harrington and Gelfand 2014; Inglehart and Welzel 2005 (directions); sizes are design estimates',
+            note="values at the middle: Earth's people keep the existing start's lean (no new lean, lives unchanged); practices and incentives share the place's deviation, which feeds the faces and the tilt site respectively"),
+        'industrial town': dict(
+            values=dict(autonomy=(0.5, 0.1), belonging=(0.5, 0.1), norm_strength=(0.5, 0.1), hierarchy=(0.5, 0.1), egalitarian=(0.5, 0.1), mastery=(0.5, 0.1), harmony=(0.5, 0.1)),
+            practices=dict(autonomy=(0.477, 0.04), belonging=(0.544, 0.04), norm_strength=(0.536, 0.04), hierarchy=(0.528, 0.04), egalitarian=(0.508, 0.04), mastery=(0.478, 0.04), harmony=(0.491, 0.04)),
+            incentives=dict(autonomy=(0.477, 0.04), belonging=(0.544, 0.04), norm_strength=(0.536, 0.04), hierarchy=(0.528, 0.04), egalitarian=(0.508, 0.04), mastery=(0.478, 0.04), harmony=(0.491, 0.04)),
+            period='modern', source='Schwartz 2006; Gelfand 2011; Harrington and Gelfand 2014; Inglehart and Welzel 2005 (directions); sizes are design estimates',
+            note="values at the middle: Earth's people keep the existing start's lean (no new lean, lives unchanged); practices and incentives share the place's deviation, which feeds the faces and the tilt site respectively"),
+        'market town': dict(
+            values=dict(autonomy=(0.5, 0.1), belonging=(0.5, 0.1), norm_strength=(0.5, 0.1), hierarchy=(0.5, 0.1), egalitarian=(0.5, 0.1), mastery=(0.5, 0.1), harmony=(0.5, 0.1)),
+            practices=dict(autonomy=(0.462, 0.04), belonging=(0.564, 0.04), norm_strength=(0.556, 0.04), hierarchy=(0.498, 0.04), egalitarian=(0.488, 0.04), mastery=(0.478, 0.04), harmony=(0.521, 0.04)),
+            incentives=dict(autonomy=(0.462, 0.04), belonging=(0.564, 0.04), norm_strength=(0.556, 0.04), hierarchy=(0.498, 0.04), egalitarian=(0.488, 0.04), mastery=(0.478, 0.04), harmony=(0.521, 0.04)),
+            period='modern', source='Schwartz 2006; Gelfand 2011; Harrington and Gelfand 2014; Inglehart and Welzel 2005 (directions); sizes are design estimates',
+            note="values at the middle: Earth's people keep the existing start's lean (no new lean, lives unchanged); practices and incentives share the place's deviation, which feeds the faces and the tilt site respectively"),
+        'commuter suburb': dict(
+            values=dict(autonomy=(0.5, 0.1), belonging=(0.5, 0.1), norm_strength=(0.5, 0.1), hierarchy=(0.5, 0.1), egalitarian=(0.5, 0.1), mastery=(0.5, 0.1), harmony=(0.5, 0.1)),
+            practices=dict(autonomy=(0.477, 0.04), belonging=(0.504, 0.04), norm_strength=(0.536, 0.04), hierarchy=(0.518, 0.04), egalitarian=(0.468, 0.04), mastery=(0.528, 0.04), harmony=(0.491, 0.04)),
+            incentives=dict(autonomy=(0.477, 0.04), belonging=(0.504, 0.04), norm_strength=(0.536, 0.04), hierarchy=(0.518, 0.04), egalitarian=(0.468, 0.04), mastery=(0.528, 0.04), harmony=(0.491, 0.04)),
+            period='modern', source='Schwartz 2006; Gelfand 2011; Harrington and Gelfand 2014; Inglehart and Welzel 2005 (directions); sizes are design estimates',
+            note="values at the middle: Earth's people keep the existing start's lean (no new lean, lives unchanged); practices and incentives share the place's deviation, which feeds the faces and the tilt site respectively"),
+        'coastal resort': dict(
+            values=dict(autonomy=(0.5, 0.1), belonging=(0.5, 0.1), norm_strength=(0.5, 0.1), hierarchy=(0.5, 0.1), egalitarian=(0.5, 0.1), mastery=(0.5, 0.1), harmony=(0.5, 0.1)),
+            practices=dict(autonomy=(0.507, 0.04), belonging=(0.504, 0.04), norm_strength=(0.476, 0.04), hierarchy=(0.498, 0.04), egalitarian=(0.488, 0.04), mastery=(0.478, 0.04), harmony=(0.521, 0.04)),
+            incentives=dict(autonomy=(0.507, 0.04), belonging=(0.504, 0.04), norm_strength=(0.476, 0.04), hierarchy=(0.498, 0.04), egalitarian=(0.488, 0.04), mastery=(0.478, 0.04), harmony=(0.521, 0.04)),
+            period='modern', source='Schwartz 2006; Gelfand 2011; Harrington and Gelfand 2014; Inglehart and Welzel 2005 (directions); sizes are design estimates',
+            note="values at the middle: Earth's people keep the existing start's lean (no new lean, lives unchanged); practices and incentives share the place's deviation, which feeds the faces and the tilt site respectively"),
+        'farming village': dict(
+            values=dict(autonomy=(0.5, 0.1), belonging=(0.5, 0.1), norm_strength=(0.5, 0.1), hierarchy=(0.5, 0.1), egalitarian=(0.5, 0.1), mastery=(0.5, 0.1), harmony=(0.5, 0.1)),
+            practices=dict(autonomy=(0.437, 0.04), belonging=(0.594, 0.04), norm_strength=(0.586, 0.04), hierarchy=(0.498, 0.04), egalitarian=(0.488, 0.04), mastery=(0.478, 0.04), harmony=(0.541, 0.04)),
+            incentives=dict(autonomy=(0.437, 0.04), belonging=(0.594, 0.04), norm_strength=(0.586, 0.04), hierarchy=(0.498, 0.04), egalitarian=(0.488, 0.04), mastery=(0.478, 0.04), harmony=(0.541, 0.04)),
+            period='modern', source='Schwartz 2006; Gelfand 2011; Harrington and Gelfand 2014; Inglehart and Welzel 2005 (directions); sizes are design estimates',
+            note="values at the middle: Earth's people keep the existing start's lean (no new lean, lives unchanged); practices and incentives share the place's deviation, which feeds the faces and the tilt site respectively"),
+        'fishing village': dict(
+            values=dict(autonomy=(0.5, 0.1), belonging=(0.5, 0.1), norm_strength=(0.5, 0.1), hierarchy=(0.5, 0.1), egalitarian=(0.5, 0.1), mastery=(0.5, 0.1), harmony=(0.5, 0.1)),
+            practices=dict(autonomy=(0.477, 0.04), belonging=(0.594, 0.04), norm_strength=(0.576, 0.04), hierarchy=(0.498, 0.04), egalitarian=(0.518, 0.04), mastery=(0.478, 0.04), harmony=(0.531, 0.04)),
+            incentives=dict(autonomy=(0.477, 0.04), belonging=(0.594, 0.04), norm_strength=(0.576, 0.04), hierarchy=(0.498, 0.04), egalitarian=(0.518, 0.04), mastery=(0.478, 0.04), harmony=(0.531, 0.04)),
+            period='modern', source='Schwartz 2006; Gelfand 2011; Harrington and Gelfand 2014; Inglehart and Welzel 2005 (directions); sizes are design estimates',
+            note="values at the middle: Earth's people keep the existing start's lean (no new lean, lives unchanged); practices and incentives share the place's deviation, which feeds the faces and the tilt site respectively"),
+        'mountain village': dict(
+            values=dict(autonomy=(0.5, 0.1), belonging=(0.5, 0.1), norm_strength=(0.5, 0.1), hierarchy=(0.5, 0.1), egalitarian=(0.5, 0.1), mastery=(0.5, 0.1), harmony=(0.5, 0.1)),
+            practices=dict(autonomy=(0.467, 0.04), belonging=(0.584, 0.04), norm_strength=(0.576, 0.04), hierarchy=(0.498, 0.04), egalitarian=(0.488, 0.04), mastery=(0.478, 0.04), harmony=(0.571, 0.04)),
+            incentives=dict(autonomy=(0.467, 0.04), belonging=(0.584, 0.04), norm_strength=(0.576, 0.04), hierarchy=(0.498, 0.04), egalitarian=(0.488, 0.04), mastery=(0.478, 0.04), harmony=(0.571, 0.04)),
+            period='modern', source='Schwartz 2006; Gelfand 2011; Harrington and Gelfand 2014; Inglehart and Welzel 2005 (directions); sizes are design estimates',
+            note="values at the middle: Earth's people keep the existing start's lean (no new lean, lives unchanged); practices and incentives share the place's deviation, which feeds the faces and the tilt site respectively"),
+        'river village': dict(
+            values=dict(autonomy=(0.5, 0.1), belonging=(0.5, 0.1), norm_strength=(0.5, 0.1), hierarchy=(0.5, 0.1), egalitarian=(0.5, 0.1), mastery=(0.5, 0.1), harmony=(0.5, 0.1)),
+            practices=dict(autonomy=(0.477, 0.04), belonging=(0.584, 0.04), norm_strength=(0.566, 0.04), hierarchy=(0.498, 0.04), egalitarian=(0.488, 0.04), mastery=(0.478, 0.04), harmony=(0.541, 0.04)),
+            incentives=dict(autonomy=(0.477, 0.04), belonging=(0.584, 0.04), norm_strength=(0.566, 0.04), hierarchy=(0.498, 0.04), egalitarian=(0.488, 0.04), mastery=(0.478, 0.04), harmony=(0.541, 0.04)),
+            period='modern', source='Schwartz 2006; Gelfand 2011; Harrington and Gelfand 2014; Inglehart and Welzel 2005 (directions); sizes are design estimates',
+            note="values at the middle: Earth's people keep the existing start's lean (no new lean, lives unchanged); practices and incentives share the place's deviation, which feeds the faces and the tilt site respectively"),
+        'remote area': dict(
+            values=dict(autonomy=(0.5, 0.1), belonging=(0.5, 0.1), norm_strength=(0.5, 0.1), hierarchy=(0.5, 0.1), egalitarian=(0.5, 0.1), mastery=(0.5, 0.1), harmony=(0.5, 0.1)),
+            practices=dict(autonomy=(0.477, 0.04), belonging=(0.584, 0.04), norm_strength=(0.556, 0.04), hierarchy=(0.468, 0.04), egalitarian=(0.518, 0.04), mastery=(0.478, 0.04), harmony=(0.561, 0.04)),
+            incentives=dict(autonomy=(0.477, 0.04), belonging=(0.584, 0.04), norm_strength=(0.556, 0.04), hierarchy=(0.468, 0.04), egalitarian=(0.518, 0.04), mastery=(0.478, 0.04), harmony=(0.561, 0.04)),
+            period='modern', source='Schwartz 2006; Gelfand 2011; Harrington and Gelfand 2014; Inglehart and Welzel 2005 (directions); sizes are design estimates',
+            note="values at the middle: Earth's people keep the existing start's lean (no new lean, lives unchanged); practices and incentives share the place's deviation, which feeds the faces and the tilt site respectively"),
+        'tech boom town': dict(
+            values=dict(autonomy=(0.5, 0.1), belonging=(0.5, 0.1), norm_strength=(0.5, 0.1), hierarchy=(0.5, 0.1), egalitarian=(0.5, 0.1), mastery=(0.5, 0.1), harmony=(0.5, 0.1)),
+            practices=dict(autonomy=(0.537, 0.04), belonging=(0.434, 0.04), norm_strength=(0.456, 0.04), hierarchy=(0.498, 0.04), egalitarian=(0.488, 0.04), mastery=(0.558, 0.04), harmony=(0.491, 0.04)),
+            incentives=dict(autonomy=(0.537, 0.04), belonging=(0.434, 0.04), norm_strength=(0.456, 0.04), hierarchy=(0.498, 0.04), egalitarian=(0.488, 0.04), mastery=(0.558, 0.04), harmony=(0.491, 0.04)),
+            period='modern', source='Schwartz 2006; Gelfand 2011; Harrington and Gelfand 2014; Inglehart and Welzel 2005 (directions); sizes are design estimates',
+            note="values at the middle: Earth's people keep the existing start's lean (no new lean, lives unchanged); practices and incentives share the place's deviation, which feeds the faces and the tilt site respectively"),
+        'energy boom town': dict(
+            values=dict(autonomy=(0.5, 0.1), belonging=(0.5, 0.1), norm_strength=(0.5, 0.1), hierarchy=(0.5, 0.1), egalitarian=(0.5, 0.1), mastery=(0.5, 0.1), harmony=(0.5, 0.1)),
+            practices=dict(autonomy=(0.497, 0.04), belonging=(0.474, 0.04), norm_strength=(0.506, 0.04), hierarchy=(0.538, 0.04), egalitarian=(0.488, 0.04), mastery=(0.548, 0.04), harmony=(0.431, 0.04)),
+            incentives=dict(autonomy=(0.497, 0.04), belonging=(0.474, 0.04), norm_strength=(0.506, 0.04), hierarchy=(0.538, 0.04), egalitarian=(0.488, 0.04), mastery=(0.548, 0.04), harmony=(0.431, 0.04)),
+            period='modern', source='Schwartz 2006; Gelfand 2011; Harrington and Gelfand 2014; Inglehart and Welzel 2005 (directions); sizes are design estimates',
+            note="values at the middle: Earth's people keep the existing start's lean (no new lean, lives unchanged); practices and incentives share the place's deviation, which feeds the faces and the tilt site respectively"),
+    },
+    'community': {
+        'faith congregation': dict(
+            values=dict(autonomy=(0.5, 0.1), belonging=(0.5, 0.1), norm_strength=(0.5, 0.1), hierarchy=(0.5, 0.1), egalitarian=(0.5, 0.1), mastery=(0.5, 0.1), harmony=(0.5, 0.1)),
+            practices=dict(autonomy=(0.5, 0.05), belonging=(0.56, 0.05), norm_strength=(0.56, 0.05), hierarchy=(0.5, 0.05), egalitarian=(0.5, 0.05), mastery=(0.5, 0.05), harmony=(0.52, 0.05)),
+            incentives=dict(autonomy=(0.5, 0.05), belonging=(0.56, 0.05), norm_strength=(0.56, 0.05), hierarchy=(0.5, 0.05), egalitarian=(0.5, 0.05), mastery=(0.5, 0.05), harmony=(0.52, 0.05)),
+            period='modern', source='Gelfand 2011 (religiosity and tightness); size a design estimate',
+            note="a deviation added to the place's for members' settings"),
+        'mutual-aid group': dict(
+            values=dict(autonomy=(0.5, 0.1), belonging=(0.5, 0.1), norm_strength=(0.5, 0.1), hierarchy=(0.5, 0.1), egalitarian=(0.5, 0.1), mastery=(0.5, 0.1), harmony=(0.5, 0.1)),
+            practices=dict(autonomy=(0.5, 0.05), belonging=(0.54, 0.05), norm_strength=(0.5, 0.05), hierarchy=(0.5, 0.05), egalitarian=(0.56, 0.05), mastery=(0.5, 0.05), harmony=(0.5, 0.05)),
+            incentives=dict(autonomy=(0.5, 0.05), belonging=(0.54, 0.05), norm_strength=(0.5, 0.05), hierarchy=(0.5, 0.05), egalitarian=(0.56, 0.05), mastery=(0.5, 0.05), harmony=(0.5, 0.05)),
+            period='modern', source='design estimate',
+            note="a deviation added to the place's for members' settings"),
+        'professional network': dict(
+            values=dict(autonomy=(0.5, 0.1), belonging=(0.5, 0.1), norm_strength=(0.5, 0.1), hierarchy=(0.5, 0.1), egalitarian=(0.5, 0.1), mastery=(0.5, 0.1), harmony=(0.5, 0.1)),
+            practices=dict(autonomy=(0.53, 0.05), belonging=(0.48, 0.05), norm_strength=(0.5, 0.05), hierarchy=(0.5, 0.05), egalitarian=(0.5, 0.05), mastery=(0.55, 0.05), harmony=(0.5, 0.05)),
+            incentives=dict(autonomy=(0.53, 0.05), belonging=(0.48, 0.05), norm_strength=(0.5, 0.05), hierarchy=(0.5, 0.05), egalitarian=(0.5, 0.05), mastery=(0.55, 0.05), harmony=(0.5, 0.05)),
+            period='modern', source='design estimate',
+            note="a deviation added to the place's for members' settings"),
+        'sports or hobby club': dict(
+            values=dict(autonomy=(0.5, 0.1), belonging=(0.5, 0.1), norm_strength=(0.5, 0.1), hierarchy=(0.5, 0.1), egalitarian=(0.5, 0.1), mastery=(0.5, 0.1), harmony=(0.5, 0.1)),
+            practices=dict(autonomy=(0.5, 0.05), belonging=(0.54, 0.05), norm_strength=(0.5, 0.05), hierarchy=(0.5, 0.05), egalitarian=(0.5, 0.05), mastery=(0.53, 0.05), harmony=(0.5, 0.05)),
+            incentives=dict(autonomy=(0.5, 0.05), belonging=(0.54, 0.05), norm_strength=(0.5, 0.05), hierarchy=(0.5, 0.05), egalitarian=(0.5, 0.05), mastery=(0.53, 0.05), harmony=(0.5, 0.05)),
+            period='modern', source='design estimate',
+            note="a deviation added to the place's for members' settings"),
+        'neighbourhood': dict(
+            values=dict(autonomy=(0.5, 0.1), belonging=(0.5, 0.1), norm_strength=(0.5, 0.1), hierarchy=(0.5, 0.1), egalitarian=(0.5, 0.1), mastery=(0.5, 0.1), harmony=(0.5, 0.1)),
+            practices=dict(autonomy=(0.5, 0.05), belonging=(0.5, 0.05), norm_strength=(0.5, 0.05), hierarchy=(0.5, 0.05), egalitarian=(0.5, 0.05), mastery=(0.5, 0.05), harmony=(0.5, 0.05)),
+            incentives=dict(autonomy=(0.5, 0.05), belonging=(0.5, 0.05), norm_strength=(0.5, 0.05), hierarchy=(0.5, 0.05), egalitarian=(0.5, 0.05), mastery=(0.5, 0.05), harmony=(0.5, 0.05)),
+            period='modern', source="the place's own profile; no deviation of its own",
+            note="a deviation added to the place's for members' settings"),
+    },
+    'institution': {
+        'any body': dict(
+            values=dict(autonomy=(0.5, 0.1), belonging=(0.5, 0.1), norm_strength=(0.5, 0.1), hierarchy=(0.5, 0.1), egalitarian=(0.5, 0.1), mastery=(0.5, 0.1), harmony=(0.5, 0.1)),
+            practices=dict(autonomy=(0.5, 0.1), belonging=(0.5, 0.1), norm_strength=(0.5, 0.1), hierarchy=(0.5, 0.1), egalitarian=(0.5, 0.1), mastery=(0.5, 0.1), harmony=(0.5, 0.1)),
+            incentives=dict(autonomy=(0.5, 0.1), belonging=(0.5, 0.1), norm_strength=(0.5, 0.1), hierarchy=(0.5, 0.1), egalitarian=(0.5, 0.1), mastery=(0.5, 0.1), harmony=(0.5, 0.1)),
+            period='modern', source='House et al. 2004 (GLOBE: organisations differ within one society); sd a design estimate',
+            note="a deviation drawn around its place (sd .10), seeded by the body's id, kept, drifting .1 a year toward its leaders' practice; no sphere-typical mean, because the sphere's character is already in its colour mix"),
+    },
+    'period': {
+        'modern': dict(
+            values=dict(autonomy=(0.5, 0.0), belonging=(0.5, 0.0), norm_strength=(0.5, 0.0), hierarchy=(0.5, 0.0), egalitarian=(0.5, 0.0), mastery=(0.5, 0.0), harmony=(0.5, 0.0)),
+            practices=dict(autonomy=(0.5, 0.0), belonging=(0.5, 0.0), norm_strength=(0.5, 0.0), hierarchy=(0.5, 0.0), egalitarian=(0.5, 0.0), mastery=(0.5, 0.0), harmony=(0.5, 0.0)),
+            incentives=dict(autonomy=(0.5, 0.0), belonging=(0.5, 0.0), norm_strength=(0.5, 0.0), hierarchy=(0.5, 0.0), egalitarian=(0.5, 0.0), mastery=(0.5, 0.0), harmony=(0.5, 0.0)),
+            period='modern', source='the reference epoch',
+            note='other epochs and realms state their own'),
+    },
+}
+PROFILE_K = 1.5
+PROFILE_CLIP = (0.5, 2.0)
+# which group kinds (world_keys.GROUP_KINDS) are which community of PROFILES["community"]; a setting of another kind has
+# only its body's own draw (the neighbourhood's profile is the place's own). The engine has no group kind yet that is
+# plainly a mutual-aid group or a professional network (an Engine design reading, open for Outer world)
+COMMUNITY_GROUPS = {"congregation": "faith congregation", "club": "sports or hobby club", "neighbours": "neighbourhood"}
+# other-shapes.md section 1's formal layer: r[s][c] += TILT_LAYER[c] x (s in TILT_FORMAL) x (law_rule / TILT_LAW_REF). Earth's
+# is 0 in every colour (decision #10: a predetermined global White-Blue lift is ruled out; a layer can come back only
+# as a property of particular institutions, places or periods, with its spread and source, through PROFILES)
+TILT_FORMAL = ("rule", "prot", "learn", "care", "prod")   # the spheres whose formal bodies the layer may apply to
+TILT_LAYER = (0.0, 0.0, 0.0, 0.0, 0.0)                   # W U B R G, sums to 0
+TILT_LAW_REF = 0.73                                      # the layer is at full strength at this law_rule
+TILT_LAND = (1.0, 1.0, 1.0, 1.0, 1.0)   # read by lane D: the land rewards every colour alike on Earth (decision #2)
+
+
 
 # ---- The heights of a life (aims v1, plan.md section 5, behind aims and heights): Earth's names for each height. The
 # core reads leading a sphere (rung 4; Emren 10-19, not pillar) as Known and a summit title (TIER 2) as Notable in every realm; what a
