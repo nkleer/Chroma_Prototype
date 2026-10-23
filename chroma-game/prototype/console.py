@@ -8,7 +8,7 @@ import json
 import random
 import time
 import numpy as np
-from game import GAME, Game, PRESETS, WORLDS, FREQ, COLORS, CNAME, letters, label_name, rel_word, accept_word, STAGES, base_word, adj_defs, AROUND_WORDS, AROUND_DEFAULT, book_catalog
+from game import GAME, ASK_MATTER_ON, Game, PRESETS, WORLDS, FREQ, COLORS, CNAME, letters, label_name, rel_word, accept_word, STAGES, base_word, adj_defs, AROUND_WORDS, AROUND_DEFAULT, book_catalog
 from story import SETTINGS, WORLD, plain, NEED_SAY
 
 CHUNK = 104           # weeks simulated per call before handing back to the screen
@@ -33,6 +33,7 @@ HELP = """Keys while watching
   d       ten years
   s       status: colors, the four color vectors, meta variables, titles
   f       how often checkpoints come (rare, normal, often, every)
+  k       what matters to them weighs in on which moments come to you (on or off)
   v       how much of daily life the story tells (quiet, normal, every week)
   l       ledger: show the numbers under the story (on or off)
   p       dreams, passions and plans; make a plan for them, or drop one
@@ -141,9 +142,10 @@ def letters_to_spec(txt):
 # saves (the setup and the player's lines, replayed): version 3 from v22.3, stages 2 and 3; version 4 from v22.4 (S1-S7);
 # version 5 from the v22.4 S4 fix (odd_lmu/odd_lvar save keys); version 6 from the v22.4 refit (S1-S7, green jobs and the
 # art pack on, gap_move .3); version 8 from v23 (the joint refit with the spheres pack and own_ix on; Picks come back);
-# version 9 with Bold ways on (GAME bold: a card's numbers can name a bold way).
+# version 9 with Bold ways on (GAME bold: a card's numbers can name a bold way); version 10 from v24 (the joint refit:
+# footprints, aims and the world answers give a life new state, and asks, steering and talk add the player's lines).
 # An older save replays under the new rules and is told so (Emren's card 2026-10-09: "Replay with a note").
-SAVE_VERSION = 9 if GAME["bold"] else 8
+SAVE_VERSION = 10 if GAME["foot"] or GAME["aims"] or GAME["world_answers"] else 9 if GAME["bold"] else 8
 OLD_SAVE = ". This life was saved in an earlier version; it may turn out differently from here"
 
 def pushes_said(r):
@@ -491,7 +493,7 @@ class Console:
                 return g.status(), False
             if k == "h":
                 return HELP, False
-            if k in ("f", "v", "n", "l"):
+            if k in ("f", "v", "n", "l", "k"):
                 return self._keys(k)
             if k == "i":
                 return self._foresee(), False
@@ -528,7 +530,7 @@ class Console:
             return g.status(), False
         if k == "h":
             return HELP, False
-        if k in ("f", "v", "n", "l"):
+        if k in ("f", "v", "n", "l", "k"):
             return self._keys(k)
         return "Unknown key. Type h for help.", False
 
@@ -690,6 +692,11 @@ class Console:
             g.freq = order[(order.index(g.freq) + 1) % len(order)]
             self.note = f"Checkpoints: {g.freq}"
             return f"Checkpoints now come: {g.freq}.", False
+        if k == "k":
+            g.ask_matter = 0.0 if g.ask_matter else (GAME["ask_matter"] or ASK_MATTER_ON)
+            self.note = "What matters: " + ("on" if g.ask_matter else "off")
+            return ("Moments that touch what matters to them now (an aim's next step, a need they lack, the people in "
+                    "their life) now come to you more often." if g.ask_matter else "Moments come to you as before."), False
         if k == "l":
             g.ledger = not g.ledger
             self.note = "Ledger " + ("on" if g.ledger else "off")

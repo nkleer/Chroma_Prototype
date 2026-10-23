@@ -302,6 +302,7 @@ function renderTools(h) {
     <div class="tpop" id="tPop" role="menu" aria-label="Table settings"${menuOpen ? "" : " hidden"}>
       <div class="pk">How the life is told</div>
       ${row('data-key="f"', "flag", "Moments", L.freq)}
+      ${row(`data-key="k" aria-pressed="${!!L.asks}"`, "heart", "When it matters to them", L.asks ? "asks more" : "off")}
       ${row('data-key="v"', "eye", "Story detail", story)}
       ${row('data-page="i"', "hourglass", "Interlude", PACE_WORD[ilPace])}
       ${row(`data-key="l" aria-pressed="${!!L.ledger}"`, "book", "Numbers under the story", L.ledger ? "on" : "off")}
@@ -313,6 +314,7 @@ function renderTools(h) {
       ${row('id="tHelp"', "help", "Keys", "h")}
     </div>`;
   const tipsT = { f: () => tipBox(`${ic("flag")} Checkpoints: ${L.freq}`, "", [], "How often the life stops for you to steer: rare, normal, often or every moment. Key f."),
+    k: () => tipBox(`${ic("heart")} When it matters: ${L.asks ? "on" : "off"}`, "", [], "When on, a moment that touches what matters to them now (the next step of an aim, a need they lack, the people in their life) comes to you more often. Key k."),
     v: () => tipBox(`${ic("eye")} Story: ${story}`, "", [], "How much of daily life the story tells: quiet, normal or every week. Key v."),
     l: () => tipBox(`${ic("book")} Ledger ${L.ledger ? "on" : "off"}`, "", [], "Show the engine's numbers under the story. Key l."),
     i: () => tipBox(`${ic("hourglass")} Interlude: ${PACE_WORD[ilPace]}`, "", [], "The everyday life between two moments: slow, short or off. Key i."),

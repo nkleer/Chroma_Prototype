@@ -103,7 +103,7 @@ class CheckpointsMixin:
             rare = GAME["rare_ask"] and s not in self._cp_n and sh is not None and sh < RARE_SHARE
             # v24 asks: what matters to them now (an aim's next step, a need they lack, the people in their life) weighs
             # in, and a moment that matters much (MATTER_SOON) may come as soon as a life event may
-            matter, why = self._matters(loc, s) if GAME["ask_matter"] and t - self._last_cp >= gap_weeks // 2 else (0.0, None)
+            matter, why = self._matters(loc, s) if self.ask_matter and t - self._last_cp >= gap_weeks // 2 else (0.0, None)
             soon = matter >= MATTER_SOON
             if t - self._last_cp < (gap_weeks // 2 if life or rare or soon else gap_weeks):
                 return None
@@ -121,7 +121,7 @@ class CheckpointsMixin:
                 return None                     # v22.5 proposal: every option ends alike: told, not asked
             if (self._importance(loc, s, a) + (0.5 if life else 0.0) + GAME["tie_imp"] * tied
                     + GAME["tie_pick"] * (cause is not None) + GAME["fork_k"] * fork + GAME["rare_imp"] * rare
-                    + GAME["ask_matter"] * matter < thr):
+                    + self.ask_matter * matter < thr):
                 return None
             self._ask_why = why; self._ask_big = life or soon
             if GAME["returns"] and s in self._cp_n and self.__dict__.get("_ret_owed", 0) > 0:

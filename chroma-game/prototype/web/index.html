@@ -2918,6 +2918,7 @@ function renderTools(h) {
     <div class="tpop" id="tPop" role="menu" aria-label="Table settings"${menuOpen ? "" : " hidden"}>
       <div class="pk">How the life is told</div>
       ${row('data-key="f"', "flag", "Moments", L.freq)}
+      ${row(`data-key="k" aria-pressed="${!!L.asks}"`, "heart", "When it matters to them", L.asks ? "asks more" : "off")}
       ${row('data-key="v"', "eye", "Story detail", story)}
       ${row('data-page="i"', "hourglass", "Interlude", PACE_WORD[ilPace])}
       ${row(`data-key="l" aria-pressed="${!!L.ledger}"`, "book", "Numbers under the story", L.ledger ? "on" : "off")}
@@ -2929,6 +2930,7 @@ function renderTools(h) {
       ${row('id="tHelp"', "help", "Keys", "h")}
     </div>`;
   const tipsT = { f: () => tipBox(`${ic("flag")} Checkpoints: ${L.freq}`, "", [], "How often the life stops for you to steer: rare, normal, often or every moment. Key f."),
+    k: () => tipBox(`${ic("heart")} When it matters: ${L.asks ? "on" : "off"}`, "", [], "When on, a moment that touches what matters to them now (the next step of an aim, a need they lack, the people in their life) comes to you more often. Key k."),
     v: () => tipBox(`${ic("eye")} Story: ${story}`, "", [], "How much of daily life the story tells: quiet, normal or every week. Key v."),
     l: () => tipBox(`${ic("book")} Ledger ${L.ledger ? "on" : "off"}`, "", [], "Show the engine's numbers under the story. Key l."),
     i: () => tipBox(`${ic("hourglass")} Interlude: ${PACE_WORD[ilPace]}`, "", [], "The everyday life between two moments: slow, short or off. Key i."),
@@ -3540,6 +3542,8 @@ function renderPlan(h) {
 const STRAIN = { no: 0, low: 1, medium: 2, high: 3 };
 const ARROW = { "much worse": ["down", "▼▼"], worse: ["down", "▼"], "about right": ["eq", "●"], better: ["up", "▲"], "much better": ["up", "▲▲"] };
 const MISREAD = { hopeful: ["down", "▼"], doubtful: ["up", "▲"], fair: ["eq", "●"] };
+// a commitment's chance before the choice, in three sizes of words, never a number (plan section 1; Release H1)
+const chanceSay = (p) => p >= 0.6 ? "likely" : p >= 0.3 ? "perhaps" : "a long shot";
 const MISREAD_WORD = { hopeful: "they think it likelier than it is", doubtful: "they think it less likely than it is", fair: "they read it about right" };
 
 // Because of you, and meanwhile (GAME because, v23.2): the needs the pick's week moved, split into what the pick did and
@@ -3765,7 +3769,7 @@ function stripHTML(o, num) {
   if (sk.win) facts.push(`<span><b>For good</b> <span class="up">${esc(sk.win)}</span></span>`);
   if (sk.people) facts.push(`<span><b>For good</b> <span class="${STAKE_DOWN.has(o.mark) ? "down" : "up"}">${esc(sk.people)}</span></span>`);
   if (!pass) facts.push(`<span><b>If it fails</b> <span class="down">${(sk.risk || sk.fails || sk.cost ? [esc(stakeFails(sk))] : []).concat((f.lose || []).map((x) => `${x[0] === "+" ? "+" : "−"}${esc(x.slice(1))}`), ["strain", "doubt"]).join(", ")}</span></span>`);
-  if (o.commit) facts.push(`<span><b>Could start</b> ${ic(KIND_ICON[o.commit] || "anchor")} a ${esc(o.commit)}${f.commit_p ? ` (about ${pct(f.commit_p)})` : ""}</span>`);
+  if (o.commit) facts.push(`<span><b>Could start</b> ${ic(KIND_ICON[o.commit] || "anchor")} a ${esc(o.commit)}${f.commit_p ? ` (${chanceSay(f.commit_p)})` : ""}</span>`);
   if (o.seen) facts.push(`<span><b>Seen it done</b> ${esc(o.seen.text)}</span>`);   // S6
   if (o.lever) facts.push(`<span class="lever"><b>A push on the world</b> ${ic(o.lever.icon)}${esc(o.lever.what || o.lever.name)}${o.lever.target ? ` (${esc(o.lever.target)})` : ""}</span>`);
   if (o.status === "out of reach") facts.push(`<span class="down"><b>Out of reach</b> ${esc(o.why)}; can be forced, at higher risk</span>`);
@@ -3807,7 +3811,7 @@ function tipOption(o, name, num) {
   if (sk.win) rows.push(["For good", `<span class="up">${ic("star")} ${esc(sk.win)}</span>`]);
   if (sk.people) rows.push(["For good", `<span class="${STAKE_DOWN.has(o.mark) ? "down" : "up"}">${ic("people")} ${esc(sk.people)}</span>`]);
   if (o.means.length) rows.push(["If it fails", `<span class="down">${(sk.risk || sk.fails || sk.cost ? [esc(stakeFails(sk))] : []).concat((f.lose || []).map((x) => `${x[0] === "+" ? "+" : "−"}${esc(x.slice(1))}`), ["strain", "doubt in these ways"]).join(", ")}</span>`]);
-  if (o.commit) rows.push(["Could start", `${ic(KIND_ICON[o.commit] || "anchor")} a ${esc(o.commit)}` + (f.commit_p ? ` (about ${pct(f.commit_p)})` : "")]);
+  if (o.commit) rows.push(["Could start", `${ic(KIND_ICON[o.commit] || "anchor")} a ${esc(o.commit)}` + (f.commit_p ? ` (${chanceSay(f.commit_p)})` : "")]);
   if (o.needs) rows.push(["Needs", `${esc(cap(o.needs.line))}` + (o.closed ? `. Without it, ${CLOSED_WORD[o.closed] || "the world"} stands in the way: it can still be tried, at higher risk.` : ".")]);
   if ((o.helped || []).length) rows.push(["Helped by", o.helped.map((h) => `${ic(roleIconOf(h))} ${esc(cap(h.pred))}${h.plus ? ` <span class="up">+${h.plus}%</span>` : ""}`).join("<br>")]);
   if ((o.roles_fx || []).length) rows.push(["Titles and perks", o.roles_fx.map((x) => `<span class="${x.gain ? "up" : "down"}">${ic(roleIconOf(x))}</span> ${esc(x.line)}`).join("<br>")]);
@@ -5012,7 +5016,7 @@ document.addEventListener("keydown", (e) => {
   }
   if (!hud.cp && ["w", "m", "y", "d"].includes(e.key) && mode === "play") { send(e.key); return; }
   if (["i", "c", "b", "s", "o", "n", "a"].includes(e.key) || (e.key === "g" && (hud.world || (hud.life && hud.life.world_era)))) { pageKey(e.key); return; }
-  if (["f", "v", "l", "p"].includes(e.key)) send(e.key);
+  if (["f", "v", "l", "p", "k"].includes(e.key)) send(e.key);
   if (e.key === "x" && hud.plan) send("x");
 });
 

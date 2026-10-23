@@ -97,7 +97,7 @@ class ViewsMixin:
         """Everything the browser's HUD shows, as plain numbers and words (status() is the same for the terminal)."""
         loc = self.loc
         d = dict(name=self.name, age=round(self.age(), 1), setting=self.setting, place=self.story.place,
-                 freq=self.freq, detail=self.detail, ledger=self.ledger, over=self.over)
+                 freq=self.freq, detail=self.detail, ledger=self.ledger, over=self.over, asks=self.ask_matter > 0)
         if loc is None:
             return d
         w = E.softmax(loc["z"][0]); a = E.softmax(loc["y"][0])
