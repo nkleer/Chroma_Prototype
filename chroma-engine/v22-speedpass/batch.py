@@ -605,11 +605,16 @@ def load_batch(world="earth", symmetric=False, roles=None, packs=None, pack_mome
                     if len(o_) > 5 and isinstance(o_[5], dict) and not o_[5].get("lever"):
                         o_[5]["lever"] = "voice"
         sits += WA_
+    XR_ = []   # v25 lane D: the nature and national files' outside events read through the colours (EVENTS_READ)
     for on_, f_ in ((LAND if land is None else land, "nature"), (NATIONAL if national is None else national, "national")):
         xp_ = os.path.join(LIB_DIR, f"{world}_{f_}.py")   # v25 lane D: the nature moments, then the national ones, last
         if not (on_ and os.path.exists(xp_)):
             continue
-        X_ = [copy.deepcopy(x) for x in getattr(_module(xp_, f"chroma_{world}_{f_}"), "SITUATIONS", [])]
+        # its moments and echoes (as a pack's: SITUATIONS + ECHOES) and its read events; its MARKS dict, empty in every
+        # Library file, needs nothing: the engine takes the marks from the options' mark: notes (engine.py, marks)
+        XM_ = _module(xp_, f"chroma_{world}_{f_}")
+        X_ = [copy.deepcopy(x) for x in list(getattr(XM_, "SITUATIONS", [])) + list(getattr(XM_, "ECHOES", []))]
+        XR_ += list(getattr(XM_, "EVENTS_READ", []))
         clash = sorted({x["name"] for x in X_} & {x["name"] for x in sits})
         if clash:
             raise ValueError(f"{f_} moments with the name of another moment: {clash}")
@@ -727,7 +732,7 @@ def load_batch(world="earth", symmetric=False, roles=None, packs=None, pack_mome
     L["INNER"] = np.array([s.get("tier") == "inner" for s in L["src"]])
     # outside events read through the person's colors
     evr = []
-    for ev in list(getattr(B, "EVENTS_READ", [])) + PK["reads"]:
+    for ev in list(getattr(B, "EVENTS_READ", [])) + PK["reads"] + XR_:
         if ev.get("only") and setting not in str(ev["only"]).replace(",", " ").split():
             continue
         c = READ_.get(ev["name"], {})

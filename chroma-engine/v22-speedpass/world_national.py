@@ -14,7 +14,8 @@ the life pursues is in that sphere; no town-size factor, no r), authority only t
 not held by another life of the run and not one of the engine's own offices (a seat that exists already as a title, head
 of government, minister, party leader, general, magnate, comes by that title's own ways). The movement road (a movement
 led with movement_share or more of the country) and the money road (money and work rank) reach national influence, and
-national standing (People._standing), not authority. A seat ends with its term, a fall, or age.
+national standing (People._standing), not authority. A seat ends with its term, a fall, or age. In world answers'
+phase 2 a seat held or a national name makes a life Known (its decisions band); a voice alone does not (Vision, 10-23).
 
 The seats are Packs' catalogue titles with standing=3; while chroma-packs/national is not in the batch, a seat is the
 engine's record (People.nat_view), not a title the catalogue grants. Its own dice stream; off, nothing here exists."""
@@ -121,7 +122,8 @@ class National:
                 if kd in k_:
                     continue
                 j = int(js[r.integers(len(js))])
-                p_ = C["base"] * (C["aim_x"] if goal[n] == j else 1.0)
+                b_ = C["base"][kd] if isinstance(C["base"], dict) else C["base"]
+                p_ = b_ * (C["aim_x"] if self._aimed(n, j, goal) else 1.0)
                 if u[n, q_] >= p_:
                     continue
                 rs = self.by_sph.get(j, [])
@@ -132,6 +134,14 @@ class National:
                     continue
                 self._gain(n, kd, j, rs[int(r.integers(len(rs)))], t, a, "climb")
         self._levels()
+
+    def _aimed(self, n, j, goal):
+        """Whether the life aims at a route in sphere j (x aim_x). Today: the goal it pursues is in that sphere (world
+        answers' wa_gsph)."""
+        # TODO(aims_v2, lane B): other-shapes.md section 5 reads "x aim_x when an aim's next rung is a standing-3 title in
+        # that sphere". When aims v2 lands, check here the life's held aim (its route field) and its next rung's title
+        # (standing 3, sphere j), and fall back to wa_gsph only for a life with no aim.
+        return goal[n] == j
 
     def _gain(self, n, kd, j, ri, t, a, how):
         x_ = dict(sphere=SPHERES[j], route=self.routes[ri]["key"] if ri is not None else None, since=t, last=t, how=how)
@@ -167,6 +177,11 @@ class National:
     def national(self):
         """At national standing for world answers' phase 2: a seat held (authority) or a national voice (influence)."""
         return np.array([("influence" in k_) or bool((k_.get("authority") or {}).get("held", False)) for k_ in self.kind], bool)
+
+    def known(self):
+        """Known in world answers' phase 2 by national standing (decision of 10-23, Vision): a seat held (authority) or a
+        national name (recognition). Influence alone (a voice, the money road's) is not."""
+        return np.array([("recognition" in k_) or bool((k_.get("authority") or {}).get("held", False)) for k_ in self.kind], bool)
 
     def influence_only(self):
         return np.array([("influence" in k_) and not bool((k_.get("authority") or {}).get("held", False)) for k_ in self.kind], bool)

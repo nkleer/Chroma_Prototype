@@ -42,8 +42,9 @@
                     sw_ = st_w if RON else np.zeros(N)
                     hold_ = (rg_ >= 3) | (sw_ >= 1) | ((r_has[:, HT_I[0]].any(1) if len(HT_I[0]) else False) if HT_ON else False)
                     kn_ = (ht_t[:, 0] >= 0) if HT_ON else ((rg_ >= 4) | (sw_ >= 1))
-                    nl_ = WL.nat.national() if NAT_ON else False   # wa_nat_climb: a seat or a national voice is Known too
-                    WL.PP.wa_set_known(((kn_ & hold_) | nl_) & ~dead, np.asarray(WL.gov_office, bool) | nl_, t)
+                    # wa_nat_climb: a seat held or a national name (recognition) is Known too; a voice alone is not
+                    nk_ = WL.nat.known() if NAT_ON else False; nl_ = WL.nat.national() if NAT_ON else False
+                    WL.PP.wa_set_known(((kn_ & hold_) | nk_) & ~dead, np.asarray(WL.gov_office, bool) | nl_, t)
                     hp_, sp_ = WL.PP.wa_price()   # F6: the phase's hours, and its stress in a busy season (monthly)
                     res[:, TIM] = _uclip(res[:, TIM] - hp_, 0.05, 1)
                     if t % 4 == 0:
