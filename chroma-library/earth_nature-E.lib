@@ -1,0 +1,464 @@
+# Chroma library, modern Earth: NATURE MOMENTS, writer E (v25 prep, 10-23), from chroma-world/spheres/land-moments-v1.md v1.1.
+# Poured into the Library 10-23. Eleven together moments, each with the spec's five
+# seeds (lever and opens copied from land.json), one full cross cycle and a scene with line for every company kind.
+# Numbers live in land.json, not here; the Engine joins gate, size and effect by the land: key.
+# Moments: dog_walk_neighbours, planting_day, river_cleanup, harvest_festival, outdoor_celebration, lost_in_fog,
+# boundary_quarrel, show_rivalry, remembrance_tree, first_date_outdoors, storm_night_together.
+# Cycles: s1 is W>U, U>B, B>R, R>G, G>W; s2 is W>B, B>G, G>U, U>R, R>W.
+
+# ---------------------------------------------------------------- dog_walk_neighbours (cycle s1)
+
+== the dog walkers' hour
+tier: life event
+land: dog_walk_neighbours
+stages: juvenile young_adult adult mature elder
+age: 12-90
+per_year: 0 .25 .25 .25 .25 .25
+tone: joy
+life: nature, community
+horizon: moment
+roles: neighbour, friend, group
+with: stranger, group
+earth: the early walk round the park with the dog, when the same faces come round the same paths
+tribal: the walk out with the camp dogs at first light, when the other families' dogs come running to meet them
+magic: the morning walk with the hound along the tower moat, where the same few walkers pass every day
+scene: Every morning the dog decides the route, and every morning it leads {N} round the park to the same bench by the pond. The same faces come round the same paths, and the dogs know each other far better than their people do.
+scene W: {N} knows every dog on the path by name and hardly any of their owners.
+scene U: There are four ways round the park, and the dog has firm opinions about all of them.
+scene B: One of the regulars mentioned last week that the yard by the station is taking people on.
+scene R: The dogs are straining at their leads to get to each other, and the far field is empty.
+scene G: Past the far gate the mown grass stops and the meadow begins, wet and humming.
+scene with stranger: A walker {N} has never seen before is being towed along by a young dog that wants to meet everyone. The two leads tangle round {Ns} legs, and the stranger laughs and apologises in the same breath.
+scene with group: {group} gather at the pond bench at the same hour every morning, dogs milling round their feet, cups in hand. They make room for {N} without stopping their talk.
+scene tribal: At first light {N} walks out with the camp dogs, and the other families' dogs come running across the grass to meet them. Their people follow more slowly, calling greetings across the dew.
+scene magic: {N} walks the hound along the tower moat each morning, past the same few faces: the baker, the old scribe, a girl with a raven on her shoulder. The hound greets them all by name, it seems, and {N} has never asked a single one.
+- W | learn the name of every walker on the morning round, not just their dogs | land: W | v: benevolence, conformity | lever: voice | foot: person neighbour | chance: 80
+- U | map the best routes round the park and pass copies to the regulars | land: U | v: self-direction, benevolence | lever: loyalty | opens: trail_running | foot: place prod.wild | chance: 75
+- B | find out which walker knows about the job at the yard, and ask them | land: B | v: achievement | lever: voice | foot: person regular | chance: 60
+- R | let the dogs off together and watch them run wild across the empty field | land: R | v: stimulation, hedonism | lever: subvert | foot: means freedom+.03 | chance: 70
+- G | take the long way home through the meadow, at the dog's pace | land: G | v: universalism | lever: exit | opens: wildflower_meadow | foot: means health+.03 | chance: 85
+- W>U | start a notebook at the bench for lost dogs, found keys and who saw what | land: W | v: conformity, benevolence | lever: found | foot: place gather.circle | chance: 70
+- U>B | learn some dog training from the regulars and offer to walk busy neighbours' dogs | land: U | v: achievement, self-direction | lever: found | foot: means money+.03 | chance: 60
+- B>R | challenge the bench lot to a dog race across the field, winner picks tomorrow's route | land: B | v: power, stimulation | lever: lead | foot: person friend | chance: 65
+- R>G | follow the dog off the path into the reeds to see what it has found | land: R | v: stimulation, universalism | lever: exit | foot: lesson a dog's nose finds hidden things | chance: 70
+- G>W | carry spare bags and quietly clear up what careless owners leave behind | land: G | v: universalism, conformity | lever: loyalty | foot: means ties+.03 | chance: 85
+works: The dog drags {N} home late, and {N} realises half the street now nods hello.
+works: A name learned on the path turns into a chat, and the chat turns into a favour offered.
+fails: It pours all week, the park empties, and the only walker out is {N}, dripping.
+fails: Two of the dogs take against each other on sight, and {N} spends the morning apologising.
+
+# ---------------------------------------------------------------- planting_day (cycle s2)
+
+== the town planting day
+tier: life event
+land: planting_day
+stages: juvenile young_adult adult mature elder
+age: 12-90
+per_year: 0 .25 .25 .25 .25 .25
+tone: joy
+life: nature, community
+horizon: moment
+roles: group, friend, neighbour, parent, grandparent, sibling, elder
+with: group, kin, friend
+earth: a cold bright Saturday on the bare field by the school, with spades, saplings and a tea urn
+tribal: the day the band sets new shoots along the stream, every hand with a digging stick
+magic: the day the town plants the new orchard below the tower, with saplings the tower's gardener raised all winter
+scene: The bare field by the school is full of people in old coats, and rows of saplings in pots wait along the fence. Someone has marked the ground with canes, someone else is handing out spades, and the tea urn is already steaming.
+scene W: There is a clipboard by the gate with a rota for watering through the summer, and half of it is empty.
+scene U: The canes have been set out in straight lines, and {N} can see at least three that will end up in deep shade.
+scene B: A board by the gate thanks the shop and the garage for paying for the trees.
+scene R: The organisers want two hundred in the ground by dusk, and {N} has strong arms and a spade.
+scene G: Along the hedge, young trees are already coming up on their own: hawthorn, oak, a self-sown birch.
+scene with group: {group} have claimed a corner of the field with their own spades and a flask, and wave {N} over. By the third tree they have a system, and by the tenth an argument about it.
+scene with kin: {N} and {with} share one spade and one bucket, taking turns to dig and to hold the sapling straight. {with} says the family planted a tree like this once, years ago, and wonders aloud if it is still standing.
+scene with friend: {N} and {with} turned up mostly for the tea, and stay until the light goes. Their row is the crookedest on the field, and they are both proud of it.
+scene tribal: The band walks down to the stream together, every hand with a digging stick, and the shoots are set out along the bank where the old ones died back. {elder} shows how deep, and how far apart.
+scene magic: The town gathers below the tower to plant the new orchard, and the tower's gardener hands out saplings raised under glass all winter. Some of them hum faintly when held.
+- W | sign up for the summer watering rota on the clipboard by the gate | land: W | v: conformity, benevolence | lever: loyalty | opens: allotment | foot: door kept your word | chance: 80
+- U | plan where each tree should go, by the light and the wet ground | land: U | v: self-direction, universalism | lever: voice | opens: rewilding | foot: mark learned a skill | chance: 70
+- B | sponsor a row of the trees, with your name on a small plaque | land: B | v: achievement, power | lever: voice | foot: means money-.03 | chance: 80
+- R | plant twice as many as anyone else on the field before dusk | land: R | v: achievement, stimulation | lever: loyalty | foot: means health+.03 | chance: 70
+- G | plant only what grows here on its own, and leave space between for the wild | land: G | v: universalism, tradition | lever: voice | opens: wildflower_meadow | foot: place prod.land | chance: 75
+- W>B | offer to run next year's planting day, and ask the shops to pay for it | land: W | v: conformity, achievement | lever: found | foot: place rule.counsel | chance: 55
+- B>G | pay for a few fruit trees yourself, for anyone in town to pick from | land: B | v: benevolence, universalism | lever: fund | foot: means ties+.03 | chance: 75
+- G>U | ask {elder} which trees grew on this field before it was mown, and plant those | land: G | v: tradition, self-direction | lever: voice | foot: person elder | chance: 75
+- U>R | learn grafting from the gardener and try a wild cross of two old apple trees | land: U | v: self-direction, stimulation | lever: found | foot: person mentor | chance: 55
+- R>W | get the whole field singing while they dig, so nobody drifts off early | land: R | v: stimulation, benevolence | lever: lead | foot: person friend | chance: 70
+works: By dusk the field is a grid of thin stems and stakes, and {N} can point to the ones that were theirs.
+works: The trees take, nearly all of them, and in spring the field shows a faint haze of new leaf.
+fails: The ground is frozen hard, and half the saplings go home in their pots to wait for a softer day.
+fails: A dry summer follows, the rota falls apart, and many of the young trees do not make it.
+
+# ---------------------------------------------------------------- river_cleanup (cycle s1)
+
+== the river clean-up
+tier: life event
+land: river_cleanup
+stages: juvenile young_adult adult mature elder
+age: 12-90
+per_year: 0 .25 .25 .25 .25 .25
+tone: joy
+life: nature, community
+horizon: moment
+roles: group, friend, neighbour
+with: group, stranger, friend
+earth: a morning in waders on the worn stretch of river below the bridge, with bin bags and litter pickers
+tribal: a morning clearing the fouled pool below the falls, where the band draws its water
+magic: a morning raking out the moat stream below the tower, where the old water spirit has gone quiet
+scene: Below the bridge the river runs slow and brown, and its banks are snagged with plastic. A van has dropped off bin bags, gloves and litter pickers, and a few dozen people in boots are working down the stretch, calling out what they find.
+scene W: The river trust has a stall on the bank with a sign-up sheet and a map of the stretches it looks after.
+scene U: Every bag that comes out is a list of what the town throws away, and nobody is writing it down.
+scene B: Half buried in the mud by the outfall are three rusting drums with a firm's name stencilled on the side.
+scene R: There is a shopping trolley on its side in the deep part, and everyone keeps saying someone should get it out.
+scene G: Some of what lies in the water is not litter at all: fallen branches and a sunk log, with small fish sheltering under them.
+scene with group: {group} have taken the stretch by the old mill, working in a line along the bank and passing the full bags back hand to hand. Somebody keeps a running score of the strangest finds.
+scene with stranger: A man in waders {N} has never met is working the same bank, and without a word holds the bag open while {N} hauls out a tangle of rope. They fall into step, one pulling, one bagging.
+scene with friend: {N} and {with} share one pair of waders between them and argue about whose turn it is. By noon they are both soaked anyway, and have stopped caring.
+scene tribal: The pool below the falls has gone foul, choked with rotting brush and the leavings of the camp. The band wades in together to clear it, and {elder} sits on the rocks, telling them where the spring comes in.
+scene magic: The moat stream below the tower has silted up and gone quiet, and the old ones say the water spirit has turned its face away. The town turns out with rakes and baskets to bring it back.
+- W | put your name down with the river trust and come to their monthly work days | land: W | v: conformity, universalism | lever: loyalty | opens: restore_river | foot: place prod.wild | chance: 80
+- U | log every item pulled out of the water, bag by bag, and share the list | land: U | v: self-direction, universalism | lever: loyalty | opens: water_testing | foot: mark learned a skill | chance: 75
+- B | photograph the drums and report the firm whose name is on them | land: B | v: security, power | lever: voice | foot: person rival | chance: 60
+- R | wade into the deep part and haul the trolley out yourself | land: R | v: stimulation, achievement | lever: subvert | foot: mark took a wild risk | chance: 60
+- G | leave the fallen branches where they lie, and tell the others they are homes | land: G | v: universalism | lever: voice | opens: restore_river | foot: lesson logs in the water shelter fish | chance: 75
+- W>U | come back to the same stretch every month and note how it changes | land: W | v: conformity, self-direction | lever: loyalty | foot: door kept your word | chance: 70
+- U>B | learn which finds the scrap yard pays for, and buy the group new gloves with it | land: U | v: achievement, benevolence | lever: fund | foot: means ties+.03 | chance: 65
+- B>R | dare the others to a race: whoever fills the most bags by noon wins | land: B | v: power, stimulation | lever: lead | foot: person friend | chance: 70
+- R>G | follow the river upstream past the last houses, to see where it still runs clean | land: R | v: stimulation, universalism | lever: exit | foot: means freedom+.03 | chance: 70
+- G>W | ask the council to stop mowing the bank to the edge, so the reeds come back | land: G | v: universalism, conformity | lever: voice | foot: place rule.voice | chance: 55
+works: By noon the bank is clear for a long way down, and the river looks almost surprised to be seen.
+works: Months later {N} walks the same stretch and sees a heron standing where the trolley used to be.
+fails: The rain comes in, the river rises, and the morning ends with more mud than bags.
+fails: A week later the bank below the bridge is snagged again, and the work feels like sweeping a beach.
+
+# ---------------------------------------------------------------- harvest_festival (cycle s2)
+
+== the harvest fair
+tier: life event
+land: harvest_festival
+stages: child juvenile young_adult adult mature elder
+age: 5-90
+per_year: .25 .25 .25 .25 .25 .25
+tone: joy
+life: nature, community
+horizon: moment
+roles: group, friend, parent, grandparent, sibling, neighbour, elder
+with: group, kin, friend
+earth: the autumn fair on the market square, with stalls of apples and squashes and a tug of war on the field
+tribal: the gathering after the last harvest, when every family brings its baskets to the meeting ground
+magic: the harvest fair below the tower, where the prize marrow is weighed on an old enchanted scale
+scene: The square is full of trestle tables piled with apples, squashes and jars, and the smell of toffee and woodsmoke drifts over everything. A brass band is tuning up by the fountain, and the tug of war rope is already laid out on the field.
+scene W: The stall committee is two people short, and nobody has put out the tables at the far end.
+scene U: The produce tent has a long table of prize vegetables, each with a card, and the judge has gone home with a cold.
+scene B: The best pitch, right by the entrance, is still empty, and the man with the clipboard says it is going cheap.
+scene R: The tug of war team from the other end of town is big, loud and very sure of itself.
+scene G: {N} has a basket of what came up this year: knobbly apples, a few onions, one enormous pumpkin.
+scene with group: {group} have a stall of their own this year, and {N} is roped in behind it, wrapping jars in newspaper and telling everyone the chutney is homemade. The stall next door keeps sending over samples.
+scene with kin: {N} goes round the stalls with {with}, the way the family always does, ending at the same cake stall as every year. {with} buys too much and pretends not to have.
+scene with friend: {N} and {with} lose each other in the crowd twice and find each other at the tug of war rope both times. They share a paper bag of hot chestnuts and judge everyone's pumpkins harshly.
+scene tribal: After the last harvest every family carries its baskets to the meeting ground, and the elders count the stores aloud for the winter. Then the drums start, and the young ones line up for the pulling games.
+scene magic: The harvest fair is held below the tower, and the prize marrow is weighed on an old enchanted scale said to know when someone has cheated. The tower's apprentices run the toffee stall, badly.
+- W | help run the stalls, from setting up at dawn to packing away | land: W | v: benevolence, conformity | lever: loyalty | opens: field_events | foot: place gather.great | chance: 85
+- U | offer to judge the produce tent, and write a fair card for every entry | land: U | v: self-direction, conformity | lever: voice | foot: mark learned a skill | chance: 70
+- B | take the best pitch by the entrance and sell everything you can | land: B | v: achievement | lever: exit | opens: market_garden | foot: person regular | chance: 65
+- R | pull for the underdogs in the tug of war, and win it | land: R | v: stimulation, achievement | lever: subvert | opens: field_sports | foot: person friend | chance: 60
+- G | bring a basket of what your own garden grew this year | land: G | v: tradition, universalism | lever: loyalty | opens: allotment | foot: place prod.land | chance: 85
+- W>B | enter the baking contest exactly by the rules, and aim for the cup | land: W | v: conformity, achievement | lever: loyalty | foot: lesson a fair win tastes better | chance: 55
+- B>G | swap your best jar for a twist of seed from the oldest grower at the fair | land: B | v: achievement, tradition | lever: fund | foot: person elder | chance: 75
+- G>U | ask the growers how they kept the old apple kinds going, and note every name | land: G | v: tradition, self-direction | lever: voice | foot: person mentor | chance: 75
+- U>R | time the hay bale race and find the quickest line through it before your turn | land: U | v: self-direction, stimulation | lever: lead | foot: place gather.games | chance: 60
+- R>W | start the dancing at the end of the day and pull the whole square in | land: R | v: stimulation, benevolence | lever: lead | foot: means ties+.04 | chance: 70
+works: By the time the stalls come down {N} has eaten too much, laughed too much and knows half the town by sight.
+works: The fair goes the way the good ones always do, and {N} carries home a jar of something and a warm feeling that lasts the week.
+fails: Rain sets in by lunchtime, the stalls pack up early, and the square is left to the pigeons.
+fails: {N} spends most of the afternoon stuck at the back of the crowd and misses everything worth seeing.
+
+# ---------------------------------------------------------------- outdoor_celebration (cycle s1)
+
+== the party when the weather turned
+tier: life event
+land: outdoor_celebration
+stages: juvenile young_adult adult mature elder
+age: 12-90
+per_year: 0 .25 .25 .25 .25 .25
+tone: mixed
+life: nature, family
+horizon: moment
+roles: parent, sibling, grandparent, friend, group, neighbour
+with: kin, friend, group
+earth: a wedding or a birthday in a field, with bunting and long tables, and a wall of rain coming over the hill
+tribal: a joining feast in the open meadow, and the sky darkening over the far ridge
+magic: a wedding on the tower lawn, and a storm rolling in that the weather-witch swore would never come
+scene: The tables are laid out on the grass with bunting overhead and a cake under a net, and everyone is in their good clothes. Then the light goes strange, the wind lifts the tablecloths, and a wall of rain comes over the hill.
+scene W: There is an old barn at the edge of the field, and somebody needs to say so calmly before the shouting starts.
+scene U: The clouds were building all morning, and {N} has been watching them since the speeches.
+scene B: The tent people are packing up a job two fields away, and they would come for a price.
+scene R: The band is still playing, and the rain smells wonderful.
+scene G: The rain is coming whatever anyone does, and the swallows are already low over the grass.
+scene with kin: It is {with}'s day, or near enough, and {N} has helped set up every table since dawn. {with} looks at the sky, then at {N}, with the face that means do something.
+scene with friend: {N} and {with} were hiding at the back table, out of the speeches, when the first drops fell. {with} grabs two plates of cake and looks at {N}: run, or stay?
+scene with group: {group} put the whole day together, from the bunting to the band, and every one of them is staring at the sky. Someone says it will pass, and nobody believes it.
+scene tribal: The joining feast is laid out in the open meadow, and the whole band is there in its best furs. Over the far ridge the sky has gone dark, and the first cold gust scatters the flowers.
+scene magic: The wedding is on the tower lawn, and the weather-witch swore the day would hold. Now a storm is rolling over the hills, and the witch is nowhere to be seen.
+- W | lead everyone calmly into the old barn, the oldest guests first | land: W | v: benevolence, security | lever: voice | foot: mark helped someone in need | chance: 80
+- U | read the sky early and move the tables under cover before the rain arrives | land: U | v: security, self-direction | lever: loyalty | foot: lesson the clouds give fair warning | chance: 70
+- B | ring the tent people at once and pay whatever they ask | land: B | v: security, power | lever: exit | opens: field_events | foot: means money-.06 | chance: 65
+- R | dance in the rain on the wet grass while the band plays on | land: R | v: hedonism, stimulation | lever: subvert | opens: field_events | foot: means freedom+.03 | chance: 75
+- G | let it rain and keep eating, since the rain is part of the day | land: G | v: universalism, hedonism | lever: neglect | foot: person friend | chance: 75
+- W>U | write down what went wrong, so the next party here has a proper rain plan | land: W | v: conformity, self-direction | lever: found | foot: lesson always keep a second plan | chance: 70
+- U>B | find a hall free tonight from what you know of the area, and book it first | land: U | v: achievement, security | lever: lead | foot: person neighbour | chance: 60
+- B>R | take the microphone and turn the soaking into the best story of the night | land: B | v: power, stimulation | lever: lead | foot: means ties+.04 | chance: 70
+- R>G | run out to rescue the cake, then stop to watch the storm come in | land: R | v: stimulation, universalism | lever: exit | foot: mark took a wild risk | chance: 70
+- G>W | gather the soaked flowers off the tables and give a bunch to every guest | land: G | v: benevolence, universalism | lever: loyalty | foot: means ties+.03 | chance: 80
+works: The rain passes in an hour, the sun comes back low and golden, and the pictures from the barn are the best of the day.
+works: Years later everyone still calls it the party with the rain, and says it was the best one.
+fails: The rain sets in for the evening, the field turns to mud, and the party breaks up early and damp.
+fails: The wind takes the bunting and half the food, and {N} spends the rest of the day mopping up and apologising.
+
+# ---------------------------------------------------------------- lost_in_fog (cycle s2)
+
+== lost in the fog on the moor
+tier: life event
+land: lost_in_fog
+stages: young_adult adult mature elder
+age: 16-90
+per_year: 0 0 .1 .1 .1 .1
+tone: mixed
+life: nature, health
+horizon: moment
+roles: friend, partner, parent, sibling
+with: alone, friend, partner, kin
+earth: a walk on the high moor, and the fog comes down so fast the path is gone in minutes
+tribal: a crossing of the high ground, and the mist comes down until the camp's fires vanish
+magic: a walk among the standing stones on the moor, and a fog rolls in that seems to move against the wind
+scene: The walk started bright, but the fog comes down over the moor in minutes, and soon {N} cannot see the next marker post. Every direction looks the same, the air has gone cold and wet, and the path has simply gone.
+scene W: Every walking guide says the same thing: stop, stay together, keep warm.
+scene U: There is a map in the bag, and a compass {N} has not used in years.
+scene B: There is still a little signal on the phone, and the rescue line is there for exactly this.
+scene R: The ground slopes away to the left, and down is surely the way home.
+scene G: The fog came in fast, and fog like this often goes as fast as it came.
+scene with alone: {N} is on the moor alone, which seemed a fine idea an hour ago. The silence in the fog is total, and {N} can hear every heartbeat.
+scene with friend: {N} and {with} were halfway through an argument about the route when the fog came down, and now neither of them is sure of anything. {with} goes quiet, which is worse.
+scene with partner: {N} and {with} were laughing a minute ago; now {with} has a hand on {Ns} sleeve and is not letting go. Neither wants to be the one to say they are lost.
+scene with kin: {N} brought {with} up here, promising an easy walk with a view, and now there is no view and no path. {with} is trying to look calm for {Ns} sake.
+scene tribal: {N} is crossing the high ground when the mist comes down, and the fires of the camp vanish behind it. There is no sound but water dripping off the heather.
+scene magic: Among the standing stones the fog rolls in against the wind, and the stones seem to have moved. The old ones say the moor tests walkers, and {N} is being tested now.
+- W | stop where you are and follow the rule: stay put, put on every layer, keep warm | land: W | v: security, conformity | lever: loyalty | foot: lesson staying put keeps you findable | chance: 75
+- U | take a bearing with the map and compass, and walk it post by post | land: U | v: self-direction, security | lever: loyalty | foot: mark learned a skill | chance: 65
+- B | call the rescue line while there is signal, since that is what it is for | land: B | v: security | lever: exit | foot: lesson the rescue line is for anyone | chance: 80
+- R | push on down the slope by feel, trusting your feet | land: R | v: stimulation, self-direction | lever: exit | foot: mark took a wild risk | chance: 50
+- G | sit on your pack and wait, since fog like this tends to lift | land: G | v: universalism, security | lever: neglect | foot: place prod.wild | chance: 70
+- W>B | blow the whistle in the proper signal, again and again, until someone answers | land: W | v: conformity, security | lever: voice | foot: person friend | chance: 65
+- B>G | make for the stone wall you passed, and claim its shelter until the air clears | land: B | v: security, universalism | lever: exit | foot: means health+.02 | chance: 75
+- G>U | listen for running water and follow the stream down, the way old walkers did | land: G | v: tradition, self-direction | lever: exit | foot: means freedom+.03 | chance: 60
+- U>R | work out roughly where you are, then take the steep short way off the hill | land: U | v: self-direction, stimulation | lever: subvert | foot: door took a wild risk | chance: 55
+- R>W | sing out loud as you walk, so nobody loses anybody in the fog | land: R | v: stimulation, benevolence | lever: lead | with_only: friend, partner, kin | foot: means ties+.03 | chance: 70
+works: The fog thins as suddenly as it came, and the marker post is ten steps away, right where it should be.
+works: {N} comes down off the moor cold to the bone and shaking with relief, and the tea at the bottom is the best in years.
+fails: It takes hours to find the path again, and {N} gets home soaked, frozen and badly shaken.
+fails: A bad fall on the wet rocks ends in a sprained ankle and a long, slow limp to the road.
+
+# ---------------------------------------------------------------- boundary_quarrel (cycle s1)
+
+== the hedge between the gardens
+tier: life event
+land: boundary_quarrel
+stages: young_adult adult mature elder
+age: 20-90
+per_year: 0 0 .1 .1 .1 .1
+tone: trouble
+life: nature, home
+horizon: months
+roles: neighbour, rival
+with: rival
+earth: the hedge between two back gardens, grown tall and wide, and a neighbour at the door about it
+tribal: the line of stones between two families' plots, shifted in the night, and the other family at the fire about it
+magic: the old hedge between two cottages below the tower, which the neighbour swears creeps closer every spring
+scene: The hedge between the two gardens has grown tall and wide over the years, and now {rival} is at the door about it: the light, the leaves in the gutter, the line where one garden ends. The tone is polite, and the jaw is set.
+scene W: There must be a fair way to split this, and a fence would settle it for good.
+scene U: The deeds have a plan with the boundary drawn on it, and nobody has looked at it in years.
+scene B: The strip in question is a stride wide and would make a fine parking space.
+scene R: {N} has a saw in the shed and is tired of talking about it.
+scene G: The hedge is full of nesting sparrows, and it was here before either house.
+scene with rival: {rival} has said hello over that hedge for years, and now stands on the step with a tape measure and a list. "I'm not trying to start anything," {rival} says, which is how these things start.
+scene tribal: The stones that mark the line between two families' plots have shifted in the night, and {Ns} neighbours are at the fire to say they were always there. The elders lean in to listen.
+scene magic: The old hedge between the two cottages below the tower creeps a little closer every spring, or so the neighbour swears. The hedge itself keeps no side, though the hedgewitch down the lane might.
+- W | offer to share the cost of a new fence along the line | land: W | v: benevolence, security | lever: voice | foot: person neighbour | chance: 65
+- U | measure it from the deeds and show {rival} where the line really runs | land: U | v: self-direction, security | lever: voice | foot: lesson the old plan settles it | chance: 55
+- B | buy the strip from {rival} and be done with it | land: B | v: power, security | lever: exit | foot: means money-.06 | chance: 60
+- R | take the saw out this weekend and cut the hedge back yourself | land: R | v: self-direction, stimulation | lever: subvert | foot: means ties-.03 | chance: 55
+- G | leave the hedge to grow, since it was there before either of you | land: G | v: universalism, tradition | lever: loyalty | foot: lesson hedges outlast quarrels | chance: 60
+- W>U | ask the council for a mediator to walk the line with both neighbours | land: W | v: conformity, security | lever: voice | foot: place rule.counsel | chance: 60
+- U>B | look up the rules on hedge height and hold {rival} to every letter of them | land: U | v: power, self-direction | lever: lead | foot: door made an enemy | chance: 60
+- B>R | plant a quick screen of willow on your side overnight and let it do the talking | land: B | v: power, stimulation | lever: subvert | foot: means money-.03 | chance: 55
+- R>G | lose your temper over the hedge, then knock the next morning and say sorry | land: R | v: benevolence, stimulation | lever: voice | foot: mark owned up | chance: 65
+- G>W | invite {rival} to trim it together, and split the clippings for both compost heaps | land: G | v: benevolence, tradition | lever: loyalty | foot: person rival lost | chance: 50
+works: It takes a cold month and two awkward talks, but the line is settled and the hellos come back, stiffly.
+works: The quarrel ends with a new fence or a trimmed hedge, and a nod across it that both sides can live with.
+fails: Letters go back and forth for a season, and every time {N} pulls into the drive the curtain next door twitches.
+fails: The hedge comes down or it stays, and either way {rival} stops speaking, and the whole street picks a side.
+
+# ---------------------------------------------------------------- show_rivalry (cycle s2)
+
+== the prize table at the town show
+tier: life event
+land: show_rivalry
+stages: young_adult adult mature elder
+age: 16-90
+per_year: 0 0 .25 .25 .25 .25
+tone: mixed
+life: nature, leisure
+horizon: week
+roles: rival, group, neighbour, friend, elder
+with: rival, group
+earth: the town's produce and flower show in the hall, long tables of entries, and a rival grower two places down
+tribal: the gathering where the season's best roots and fruit are laid out, another grower's basket heaped beside the next
+magic: the autumn show below the tower, where an enchanted ribbon drifts to the winner, and a rival grower knows too much about charms
+scene: The hall smells of sweet peas and damp earth, and the long tables are lined with onions, dahlias and marrows, each on its plate with a card. {Ns} entry sits two places down from the grower who has won three years running, and the judges are working their way along the row.
+scene W: The rules are pinned up by the door, and they are very particular about stalk length.
+scene U: {Ns} onions came out well this year, but the winner's are bigger, and {N} wants to know how.
+scene B: The cup has the winners' names engraved round the base, going back decades, and {Ns} is not on it.
+scene R: The judge has a cousin among the entrants, everyone knows it, and nobody says it.
+scene G: Most of what {N} grew this year has already been eaten at the kitchen table, and it was very good.
+scene with rival: {rival} has beaten {N} three years running, and always says so kindly. Today {rival} leans over to straighten {Ns} card, just a little too helpfully.
+scene with group: {group} have entered as a team this year, a whole table of their plot's best, and they are anxious about the beans. They keep looking at {N} as if {N} might know what the judges like.
+scene tribal: At the gathering the season's best roots and fruit are laid out on skins for all to see. Another grower's basket sits beside {Ns}, heaped higher, and the elders walk slowly along the line.
+scene magic: At the autumn show below the tower an enchanted ribbon drifts along the tables and settles on the winner. The champion grower has been seen at the hedgewitch's door twice this month, buying something.
+- W | enter by the rules to the letter, and shake the winner's hand whoever it is | land: W | v: conformity, tradition | lever: loyalty | opens: allotment | foot: place gather.hall | chance: 75
+- U | save seed from your best and breed a better one for next year | land: U | v: achievement, self-direction | lever: voice | opens: regen_farming | foot: mark learned a skill | chance: 65
+- B | win this time, whatever it takes | land: B | v: power, achievement | lever: subvert | foot: door kept it hidden | chance: 55
+- R | challenge the judge out loud about the cousin on the entry list | land: R | v: self-direction, stimulation | lever: voice | foot: mark defied an authority | chance: 50
+- G | skip the show this year, since the garden is for eating, not for prizes | land: G | v: universalism, hedonism | lever: exit | foot: means time+.03 | chance: 85
+- W>B | join the show committee and get the rule on stalk length changed | land: W | v: conformity, power | lever: found | foot: place rule.counsel | chance: 55
+- B>G | offer the winning grower a fair price for a handful of their seed | land: B | v: achievement, benevolence | lever: fund | foot: person friend | chance: 65
+- G>U | ask the oldest grower in the hall how it was done in their day, and listen | land: G | v: tradition, self-direction | lever: voice | foot: person elder | chance: 80
+- U>R | enter something nobody has shown before: an odd old kind no one can name | land: U | v: self-direction, stimulation | lever: found | foot: lesson strange entries get remembered | chance: 55
+- R>W | laugh off the loss, buy the winner a cup of tea, and mean it | land: R | v: benevolence, hedonism | lever: loyalty | foot: person rival lost | chance: 70
+works: The card says second again, but the winner shakes {Ns} hand properly this time, and it feels almost as good.
+works: A rosette goes on {Ns} plate, and {N} carries it home past the whole street, trying not to grin.
+fails: The judges pass {Ns} entry without a pause, and the walk home is a long one.
+fails: Words are said by the tea urn that cannot be unsaid, and next year's show already feels like a feud.
+
+# ---------------------------------------------------------------- remembrance_tree (cycle s1)
+
+== the path they used to walk
+tier: life event
+land: remembrance_tree
+stages: young_adult adult mature elder
+age: 16-90
+per_year: 0 0 0 0 0 0
+when: an adult kin has died; a place they loved outdoors
+tone: mixed
+life: nature, family
+horizon: years
+roles: parent, grandparent, sibling, partner, child
+with: kin, alone
+earth: the hill path someone loved, walked again in the weeks after they have gone
+tribal: the high rock above the camp where the one who died used to sit, climbed again after the mourning
+magic: the grove below the tower where the one who died used to walk, where the old trees are said to remember
+scene: {dead} walked this path most mornings for years, and now {N} walks it without them. The bench is still there, the view is still there, and the wind still comes up the valley the way it always did.
+scene W: There is nothing up here to say {dead} was ever here, and {N} thinks there should be.
+scene U: {N} keeps thinking about time: how long the hill has been here, and how long anything lasts.
+scene B: There is a sign on the field gate below the path: land for sale, building plans applied for.
+scene R: {N} wants to do something loud, something {dead} would have laughed at.
+scene G: The grass is moving on the hill the way it moved when {dead} was alive, and the larks are up.
+scene with kin: {N} and {with} walk up together, not saying much, the way {dead} would have walked it with either of them. At the top {with} sits on the bench and says, "This was always the spot."
+scene with alone: {N} comes up alone, early, before anyone else is about. The path is wet, and there is nobody to be brave for.
+scene tribal: {N} climbs to the high rock above the camp where {dead} used to sit and watch the herds. After the mourning the place feels too big, and the wind too loud.
+scene magic: In the grove below the tower, where {dead} used to walk, the old trees are said to remember every footstep. {N} stands among them and listens, just in case.
+- W | ask the council for a bench on the path, with {dead}'s name on a plate | land: W | v: tradition, benevolence | lever: voice | foot: means money-.03 | chance: 70
+- U | plant a young oak there, a tree that will outlive every one of you | land: U | v: universalism, tradition | lever: loyalty | foot: place prod.wild | chance: 75
+- B | put in an offer on the field below, so no one can ever build there | land: B | v: power, security | lever: exit | foot: means money-.10 | chance: 50
+- R | climb to the top of the hill and shout {dead}'s name into the wind | land: R | v: stimulation, self-direction | lever: subvert | foot: means freedom+.03 | chance: 75
+- G | scatter the ashes where {dead} used to walk, and let the wind take them | land: G | v: tradition, universalism | lever: loyalty | foot: lesson grief walks easier outdoors | chance: 80
+- W>U | walk the path on the same day every year, and note what has changed | land: W | v: tradition, self-direction | lever: loyalty | foot: door kept your word | chance: 80
+- U>B | gather {dead}'s favourite walks into a small guide, sold for the people who cared for them | land: U | v: benevolence, achievement | lever: fund | foot: place care.houses | chance: 55
+- B>R | organise a sponsored run up the hill in {dead}'s name, and run it first | land: B | v: achievement, stimulation | lever: lead | foot: means health+.03 | chance: 60
+- R>G | swim once in the cold pool below the path, where {dead} used to swim | land: R | v: stimulation, tradition | lever: exit | foot: mark took a wild risk | chance: 65
+- G>W | bring the family up each spring to tidy the path and share {dead}'s stories | land: G | v: tradition, benevolence | lever: loyalty | foot: means ties+.04 | chance: 75
+works: Months later {N} walks the path and finds it lighter, as if {dead} had made room.
+works: The family comes up together on the anniversary, and for the first time the talk is more laughing than crying.
+fails: The walk only makes it worse today, and {N} turns back before the top, the path too full of {dead}.
+fails: The plan falls through, the bench or the plot or the tree, and {N} feels they have let {dead} down.
+
+# ---------------------------------------------------------------- first_date_outdoors (cycle s2)
+
+== the first afternoon by the lake
+tier: life event
+land: first_date_outdoors
+stages: young_adult adult mature elder
+age: 16-90
+per_year: 0 0 0 0 0 0
+when: a new romance; a lake, a park or a beach
+tone: joy
+life: nature, love
+horizon: moment
+roles: partner
+with: partner
+earth: a first day out with someone new, by the lake in the park, with the whole afternoon ahead
+tribal: a first walk out with someone new, down to the lake below the camp, with the afternoon ahead
+magic: a first day out with someone new, at the lake below the tower where the swans are said to be enchanted
+scene: It is a bright afternoon by the lake, and {N} and someone new are still at the stage of choosing every word. Boats are tied up at the jetty, there is an island in the middle with one tree on it, and the grass slopes down to the water.
+scene W: {N} has packed a proper picnic: a cloth, real plates, something homemade.
+scene U: There is so much {N} wants to ask, and a rowing boat would mean an hour with no interruptions.
+scene B: {Ns} family has a field on the hill above the lake, with the best view for miles.
+scene R: The island is not that far, and the water looks warm enough.
+scene G: The grass is long and soft, and there is no hurry about anything.
+scene with partner: {with} turns up a little late and a little nervous, holding a paper bag from the bakery. They walk down to the water side by side, close but not quite touching.
+scene tribal: {N} walks down to the lake below the camp with someone new, both of them pretending not to notice the others watching. The reeds are tall, and the afternoon is long.
+scene magic: At the lake below the tower the swans are said to be enchanted, and to bow to new sweethearts. A swan glides past {N} and the newcomer without bowing, and they both laugh.
+- W | lay out a proper picnic, planned down to the napkins | land: W | v: tradition, benevolence | lever: loyalty | foot: means time-.02 | chance: 80
+- U | row out on the lake and talk about everything, with no one to interrupt | land: U | v: self-direction, stimulation | lever: loyalty | foot: means ties+.03 | chance: 75
+- B | take {with} up to the view from your family's land above the lake | land: B | v: power, security | lever: exit | foot: place prod.land | chance: 65
+- R | swim out to the island together, laughing the whole way | land: R | v: stimulation, hedonism | lever: exit | foot: mark took a wild risk | chance: 60
+- G | lie back in the long grass and see who talks first | land: G | v: hedonism, universalism | lever: neglect | foot: lesson silence can be easy | chance: 80
+- W>B | book a table at the lakeside cafe ahead, so the day goes exactly to plan | land: W | v: conformity, achievement | lever: lead | foot: means money-.03 | chance: 70
+- B>G | bring a basket of food you grew yourself, and let it say what words cannot | land: B | v: achievement, universalism | lever: voice | foot: lesson homegrown food speaks plainly | chance: 70
+- G>U | walk slowly along the shore and name the birds for {with}, one by one | land: G | v: universalism, self-direction | lever: voice | foot: place prod.wild | chance: 75
+- U>R | find the hidden cove you know of, where nobody else ever goes | land: U | v: self-direction, stimulation | lever: exit | foot: door kept it hidden | chance: 65
+- R>W | ask {with} straight out, before the day ends, to come again next week | land: R | v: stimulation, benevolence | lever: voice | foot: door kept your word | chance: 65
+works: The afternoon goes by in what feels like ten minutes, and they are still talking when the park keeper rings the closing bell.
+works: Walking back, their hands find each other without either of them deciding it, and neither lets go.
+fails: The clouds come over and the wind gets up, and the day ends early with wet shoes and polite goodbyes.
+fails: The talk never quite catches, and they part at the gate with a "maybe again soon" that neither of them is sure about.
+
+# ---------------------------------------------------------------- storm_night_together (cycle s1)
+
+== the night of the storm
+tier: life event
+land: storm_night_together
+stages: juvenile young_adult adult mature elder
+age: 12-90
+per_year: 0 .25 .25 .25 .25 .25
+tone: mixed
+life: nature, home
+horizon: moment
+roles: parent, sibling, grandparent, child, neighbour, group, elder
+with: kin, group
+earth: a winter storm at night, the power out, and the household or the street gathered in one candlelit room
+tribal: a storm in the night, and the band crowded together in the big shelter while the wind tears at the hides
+magic: a storm in the night that rattles the tower's shutters, and the whole lane gathered in the one cellar with a fire
+scene: The storm arrives after dark and bangs at the windows for an hour, and then the power goes. The house fills up: the household, and soon a couple of neighbours too, everyone in the one room with a candle and the hiss of rain on the glass.
+scene W: There are candles in the drawer and blankets in the cupboard, and nobody has thought to fetch them.
+scene U: The old wind-up radio still works, and there is a forecast on the hour.
+scene B: Something hit the roof a minute ago, and it sounded very much like {Ns} roof.
+scene R: Down at the harbour the boats are knocking against the quay, and the moorings were never meant for this.
+scene G: The wind is very loud and the room is very warm, and the youngest is asking for a story.
+scene with kin: {N} and {with} sit under one blanket, counting the seconds between flash and thunder the way the family always has. Each time it comes closer, they both laugh, a little too loudly.
+scene with group: {group} have ended up in the one house with a gas stove, and the kettle has been on all night. Somebody has brought cards, somebody has brought a dog, and nobody is going home until it blows over.
+scene tribal: The storm comes in the night and the band crowds into the big shelter while the wind tears at the hides. Someone builds up the fire, and {elder} begins to talk.
+scene magic: A storm rattles the tower's shutters all night, and the whole lane gathers in the one cellar with a fire. The old ones say it is the sky's old quarrel with the sea, and pour the tea.
+- W | share out the candles and blankets so everyone in the room has some | land: W | v: benevolence, conformity | lever: loyalty | foot: mark helped someone in need | chance: 85
+- U | keep the radio on all night and track the storm on a scrap of paper | land: U | v: self-direction, security | lever: neglect | foot: lesson storms pass in bands | chance: 75
+- B | check your own roof and windows before helping anyone else | land: B | v: security, power | lever: exit | foot: means ties-.02 | chance: 75
+- R | head down to the harbour and tie the boats down before the worst of it | land: R | v: stimulation, benevolence | lever: subvert | foot: mark took a wild risk | chance: 55
+- G | tell stories by candlelight until the storm passes | land: G | v: tradition, benevolence | lever: loyalty | foot: means ties+.04 | chance: 85
+- W>U | take charge of the torches and the first-aid box, and know where everything is | land: W | v: conformity, security | lever: lead | foot: mark learned a skill | chance: 75
+- U>B | fill every pan and the bath with water before the taps fail, and take the credit | land: U | v: security, achievement | lever: lead | foot: means ties+.02 | chance: 70
+- B>R | get everyone guessing the minute the lights come back, and keep the score | land: B | v: stimulation, hedonism | lever: lead | foot: person friend | chance: 75
+- R>G | open the back door a crack and watch the storm tear through the trees | land: R | v: stimulation, universalism | lever: exit | foot: means freedom+.02 | chance: 80
+- G>W | gather everyone into the one warm room and keep the old songs going | land: G | v: tradition, benevolence | lever: loyalty | foot: place gather.house | chance: 80
+works: By dawn the wind has dropped, and the street comes out blinking to count slates and share what is left in the kettles.
+works: Years later it is still the storm night everyone talks about: the candles, the stories and the dog that slept through all of it.
+fails: The roof leaks over the landing, nobody sleeps, and the morning shows a fence down and a long clean-up ahead.
+fails: The power stays off for two days, the food in the freezer spoils, and the cold gets into everyone's temper.

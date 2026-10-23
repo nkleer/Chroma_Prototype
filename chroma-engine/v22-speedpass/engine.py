@@ -48,6 +48,8 @@ NMAP = NMAP_V6
 from realm_earth import NEED_MAP_V7, COMMIT_MEETS_V7, IMP_AGE, IMP_CAUSES   # needs that fit life (need_tab "v7", imp_age): Earth's
 NMAP_V7 = np.array(NEED_MAP_V7, float)
 from realm_earth import HEIGHT_NAMES   # aims v1: Earth's names of the three heights
+import world_fit as WF   # v25 lane A: setbacks that fit the world (imp_world), what a world rewards (tilt_world)
+IMP_FACTS = WF.IMP_FACTS   # imp_world: the facts a setback's cause can be (iw_fact indexes these)
 AIM_HEIGHTS = ["Known", "Notable", "Historic"]   # a step's height: 0 none, 1 Known, 2 Notable, 3 Historic
 STAGE_NAMES = [s[0] for s in STAGES]
 STAGE_LO = np.array([s[1][0] for s in STAGES], float)
@@ -904,6 +906,17 @@ DEFAULT = dict(
     world=False,         # the outer world (world.py, world_people.py through world_link.py): a living society around the lives
     world_cfg=None,      # World cfg (pace, tech_level, climate, setting, preset, legacy, start; burn_years), world_seed (else the run's)
     world_seed=None, world_obj=None, people_obj=None,   # a World or People already made (the game's saved world), else new
+    # v25 lane A (chroma-engine/notes/v25/other-shapes.md sections 1 and 2; world_fit.py): the realm whose world-fit
+    # constants a run reads ("earth", realm_earth.py; "neutral", realm_neutral.py, a test world never offered to a player)
+    realm="earth",
+    imp_world=False,     # N3, setbacks that fit the world (with the world on): who gets each setback, and how many in a harsher
+                         # world, follow the life's and the world's facts (realm IMP_WORLD); off, everyone's the same (v24)
+    imp_world_par=None,  # {norm: "country" (default) or "town"}: what a life's facts are normalised over each year
+    trace_off=(),        # test only (tools/white_trace.py): parts read colour-blind, by name: "climb" (a year present
+                         # counts 1, not S3's good-name speed), "title_odds" (a title's weight by practice or colours 1),
+                         # "rank" (rank in a group no longer moves with an act's fit); () every part as it is
+    tilt_world=False,    # #10, what a world rewards: the years that make a regular and a known face in a sphere grow by
+                         # the life's fit to r, the town's sphere mix and the realm's incentives (with the world's rungs)
     # stage 3 of the v22 update, the world's rules (chroma-world/model/stage3-rules.md §8): a culture that moves (LW1) and
     # history from causes (LW2). Passed to a new World; a saved world keeps its own. Off by default: stage 1 goes live
     # alone as v22.2 (Emren 10-09 19:15 UTC), these come on with stages 2 to 4 (v22.3)
@@ -1550,6 +1563,8 @@ UPD_OFF = dict(dis_match=False,
                world_answers=False, wa_phase2=False,
                # footprints (workstream 3)
                foot_on=False,
+               # v25 lane A: setbacks that fit the world, what a world rewards
+               imp_world=False, tilt_world=False, trace_off=(),
     # the v22.3 refit's satisfaction level (the new mechanics lift satisfaction; the set point moved .80 -> .86)
     sat_mid=0.8)
 # the v24 refit's switches off (Release's K4 PNEW, with batch CHROMA_BATCH_OFF=FOOT,AIMS,WORLD_ANSWERS and v23.2's packs in
@@ -1787,6 +1802,13 @@ STATE = (
 )
 # names there only when a switch in the state is on: titles (the packs' roles), name -> switch
 STATE_IF = dict.fromkeys(("r_has", "r_ever", "r_since", "r_prof", "p_acc", "p_lev", "p_sus"), "RON")
+# v25 N3 (imp_world, world on): per life this week's setback's world fact (iw_fact, an IMP_FACTS index, -1 none or no
+# world fact made it likelier) and its words (iw_why, None or the realm's IMP_CAUSE words), from the marks on; with
+# need_why, nw_imp_cause then indexes world_fit.imp_causes(realm) (head 6's 14 causes, then one per fact)
+STATE_IF.update(dict.fromkeys(("iw_fact", "iw_why"), "IW_ON"))
+# v25 #10 (tilt_world, world on): per life r in their town now (prizes: {sphere: [W, U, B, R, G]}, 1 even) and the moves
+# of a cell by .02 or more since it was last listed (prizes_moves: a list of dict(sphere, colour, age, by, cause))
+STATE_IF.update(dict.fromkeys(("prizes", "prizes_moves"), "TW_ON"))
 # names also read where they are there (not checked by tools/t_steps.py): the game's (the family's ways, each goal slot's
 # steps per situation and the helper that fills them, the places' around with the world on) and Release's check_roll's
 # (F8, F10: retired, this week's commitment kind, its success, the world's forced moments, the titles' once-a-life lists)
@@ -1809,6 +1831,7 @@ STATE_MORE = ("fam", "gsr", "goal_rel_S", "around", "retired", "ck", "ok_", "frc
               "mark_last",   # foresee.marks_toward: the week each mark was last left (NEVER never)
               "FOOT_ON", "foot_log",   # footprints: on, and every pick's footprints so far (foot_log, a list of dicts)
               "foot", "foot_open",     # per life (None off): the last act's footprints (kind, value, who); doors (kind, since)
+              "IW_ON", "TW_ON",   # v25 lane A's switches as the run holds them (on only with the world)
               "btrust")   # body_trust (finishing pack part 3): each life's trust per sphere (N x 9, NaN before 15); None off
 STATE_MISSED = set()   # names read at a pause that are not handed over (STATE, STATE_IF, STATE_MORE): t_steps wants none
 

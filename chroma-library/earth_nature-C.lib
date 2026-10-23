@@ -1,0 +1,274 @@
+# Chroma library, modern Earth: NATURE MOMENTS, writer C (v25 prep, 10-21), from land-moments-v1.md v1.1.
+# Moments: sick_river, wood_cleared, hay_fever, winter_dark, harvest_fails, climate_worry, outdoor_injury.
+# Draft only: the Library pours it into the .lib sources on Friday. The Engine joins gate, size and effect from
+# land.json by the land: key; no numbers from the spec are restated in text.
+
+# ---------------------------------------------------------------- sick_river (cycle s1)
+
+== the morning the swim spot closed
+tier: life event
+land: sick_river
+stages: juvenile young_adult adult mature elder
+age: 12-90
+per_year: 0 0 0 0 0 0
+when: a water stretch drops a size in health (a spill, a fish die-off)
+tone: trouble
+life: nature, leisure
+horizon: months
+roles: friend, neighbour, elder, group
+earth: a notice tied to the fence at the swimming place, and small dead fish turning in the shallows
+tribal: the fishing pool below the falls gone dull and sour, and the fish floating in the slack water
+magic: the river below the alchemists' works gone sour, and the old water-spirit's pool empty of fish
+scene: There is a notice tied to the fence at the swimming place, and the shallows are full of small dead fish turning slowly in the current. {N} has swum here every summer, and {neighbour} says the smell reaches all the way up the lane.
+scene W: Somebody is supposed to be in charge of this river, and {N} wants to know who.
+scene U: The dead fish are all one small kind, and {N} wonders why only them.
+scene B: There are other places to swim, and {N} is already thinking which.
+scene R: Somebody did this, and {N} is angry enough to go and find them.
+scene G: The river was here long before the town, and {N} feels it hurt like a person.
+scene tribal: The fishing pool below the falls has gone dull and sour, and the fish float in the slack water. {elder} says the river is sick, and nobody may drink or bathe there until it says otherwise.
+scene magic: Below the alchemists' works the river has turned sour, and the pool where the old water-spirit was said to sleep is empty of fish. The tower has sent nobody to look.
+- W | report the spill to the council and speak up for the clean-up rules at the meeting | land: W | v: conformity, universalism | lever: voice | foot: place rule.voice | chance: 70
+- U | take water samples up the river, bottle by bottle, until you find where it starts | land: U | v: self-direction, universalism | lever: voice | foot: mark learned a skill | chance: 60
+- B | find a cleaner swim at the lake over the hill and go there from now on | land: B | v: hedonism, security | lever: exit | foot: means time-.03 | chance: 85
+- R | march up to the works by the bridge and tell the boss what they have done | land: R | v: stimulation, universalism | lever: voice | foot: person rival | chance: 50
+- G | sit by the water one evening and grieve for it, then leave it time to mend | land: G | v: universalism, tradition | lever: neglect | foot: lesson rivers heal slower than people | chance: 75
+- W>U | sign up for the monthly sampling rota the river trust keeps | land: W | v: conformity, self-direction | lever: loyalty | opens: water_testing | foot: means ties+.03 | chance: 75
+- U>B | write up what the tests show and sell the story to the local paper | land: U | v: achievement, self-direction | lever: voice | foot: means money+.03 | chance: 55
+- B>R | put money behind a loud campaign to make the works pay for the clean-up | land: B | v: power, stimulation | lever: fund | foot: means money-.06 | chance: 50
+- R>G | follow the whole river on foot to its spring, to see where it still runs clean | land: R | v: stimulation, universalism | lever: loyalty | foot: place prod.wild | chance: 75
+- G>W | gather the neighbours to clear the banks and plant reeds along the sick stretch | land: G | v: benevolence, universalism | lever: found | opens: restore_river | foot: person neighbour | chance: 70
+works: By the next summer the shallows run clear again, and the first swimmers go in shrieking at the cold.
+works: The source is found and stopped, and the notice comes down from the fence at last.
+fails: The notice stays on the fence all summer, and nobody ever says whose fault it was.
+fails: The river clears a little, then sickens again after the next heavy rain.
+
+# ---------------------------------------------------------------- wood_cleared (cycle s2)
+
+== the wood behind the builders' fence
+tier: life event
+land: wood_cleared
+stages: juvenile young_adult adult mature elder
+age: 12-90
+per_year: 0 0 0 0 0 0
+when: a wood stretch loses .15+ wildness to building
+tone: trouble
+life: nature, community
+horizon: months
+roles: friend, neighbour, grandparent, elder, group
+earth: the wood at the edge of town fenced off, and the first big trees down for new houses
+tribal: the old grove felled by the people of the next valley to build their longhouses
+magic: the old wood cleared by the lord's builders for a new quarter of the city
+scene: The wood at the edge of town has a fence round it now, and the first big trees lie sawn into lengths beside a sign showing the new houses. {N} learned to climb in there, and {friend} stands at the fence saying nothing.
+scene W: There was a consultation, apparently, and {N} never heard a word about it.
+scene U: Nobody ever counted what lived in there, and soon nobody will be able to.
+scene B: The new houses will sell, and somebody will do very well out of them.
+scene R: Half the trees are still standing, and the fence is not very high.
+scene G: {grandparent} walked in that wood as a child, and {N} does not know how to tell them.
+scene tribal: The people of the next valley have felled the old grove for their longhouses, and the clearing smells of cut sap. {elder} says the grove's spirits must find another home, and so must the deer.
+scene magic: The lord's builders have cleared the old wood for a new quarter of the city, and the stumps carry the surveyors' chalk marks. The dryads, people say, left the night before.
+- W | write to the council asking for a new wood to be planted on the fields beyond | land: W | v: conformity, universalism | lever: voice | foot: place rule.voice | chance: 65
+- U | list every bird, beetle and flower that lived in the wood, and publish the count | land: U | v: self-direction, universalism | lever: voice | foot: mark learned a skill | chance: 70
+- B | put your savings into the new houses while the price is still low | land: B | v: achievement, security | lever: loyalty | opens: building_on_land | foot: means money-.06 | chance: 65
+- R | chain yourself to the last big oak before the saws reach it | land: R | v: stimulation, universalism | lever: subvert | foot: mark defied an authority | chance: 50
+- G | walk every path of the wood one last time, slowly, and say goodbye | land: G | v: tradition, universalism | lever: exit | foot: lesson a place lives on in you | chance: 90
+- W>B | use the planning rules to make the builders pay for a park on the new estate | land: W | v: conformity, power | lever: voice | foot: place rule.counsel | chance: 55
+- B>G | put money toward the trust buying the copse that is left, and let it grow wild | land: B | v: power, universalism | lever: fund | opens: rewilding | foot: means money-.06 | chance: 50
+- G>U | gather acorns from the felled oaks and raise them in pots for a wood to come | land: G | v: universalism, self-direction | lever: found | foot: means time-.04 | chance: 75
+- U>R | map the paths through what is left and race them with {friend} before it goes | land: U | v: self-direction, stimulation | lever: lead | opens: trail_running | foot: place prod.wild | chance: 70
+- R>W | start a loud friends-of-the-wood group to guard the woods the town still has | land: R | v: stimulation, benevolence | lever: found | opens: wood_guardian | foot: place gather.circle; person friend | chance: 65
+works: The council promises a new wood on the far fields, and the first saplings go in by autumn.
+works: What is left of the wood is kept, and {N} walks it the next spring with {friend}.
+fails: The last trees come down in a single week, and the sign with the new houses stands where they grew.
+fails: Nobody listens, and by winter there is only mud and a new road where the wood was.
+
+# ---------------------------------------------------------------- hay_fever (cycle s1)
+
+== the spring that makes the eyes stream
+tier: life event
+land: hay_fever
+stages: juvenile young_adult adult mature elder
+age: 12-90
+per_year: 0 .25 .25 .25 .25 .25
+tone: trouble
+life: nature, health
+horizon: months
+roles: friend, partner, parent, colleague
+earth: a high-pollen month in late spring, with streaming eyes and a sneeze every minute
+tribal: the season the grass flowers on the plain, and the eyes stream through every hunt
+magic: the weeks the realm's meadows come into flower, and every breath itches
+scene: The grass is in flower all along the verges, and {N} has sneezed nineteen times before breakfast. Everyone else is out in the sun, and {Ns} eyes are swollen half shut.
+scene W: The forecast says to stay in on the worst days, and {N} is inclined to do as told.
+scene U: The bad days are not random, and {N} has started to suspect a pattern.
+scene B: Somewhere there must be a town where this does not happen.
+scene R: The sun is out and {friend} has rung, and the sneezing can come along too.
+scene G: It comes every year with the grass, and goes every year with the rain.
+scene tribal: The grass is flowering on the plain, and {N} cannot creep up on anything for sneezing. The old ones laugh and say the grass is greeting {N} by name.
+scene magic: All the realm's meadows are in flower at once, and the herb-wife's drops have run out. {N} breathes through a cloth soaked in mint and sneezes anyway.
+- W | keep the windows shut and stay in on the worst days, as the forecast advises | land: W | v: conformity, security | lever: neglect | foot: means freedom-.03 | chance: 80
+- U | keep a pollen diary and plan the whole month around the good days | land: U | v: self-direction, security | lever: loyalty | foot: lesson the bad days can be read | chance: 75
+- B | start looking at a move to somewhere by the coast, where the air is cleaner | land: B | v: security, self-direction | lever: exit | foot: door moved away | chance: 50
+- R | go to the picnic anyway, with tissues in every pocket | land: R | v: hedonism, stimulation | lever: neglect | foot: means health-.03 | chance: 55
+- G | put up with it and wait for the first rain to wash the air | land: G | v: tradition, security | lever: neglect | foot: lesson every season passes | chance: 80
+- W>U | see the doctor and take the drops every morning, exactly as prescribed | land: W | v: conformity, security | lever: loyalty | foot: place care.houses | chance: 80
+- U>B | learn which herbs ease it and sell your own blend at the market stall | land: U | v: achievement, self-direction | lever: found | foot: place comm.market | chance: 50
+- B>R | spend your savings on a weekend high in the hills, where the grass is still short | land: B | v: hedonism, stimulation | lever: exit | foot: means money-.03 | chance: 70
+- R>G | walk out at dawn while dew holds the pollen down, and take the day | land: R | v: stimulation, universalism | lever: loyalty | foot: place prod.wild | chance: 65
+- G>W | grow the bee flowers that throw no pollen dust, and share the seed along the street | land: G | v: benevolence, universalism | lever: found | foot: person neighbour | chance: 70
+works: A week of soft rain comes through, and {N} wakes one morning breathing easily again.
+works: By the time the grass has seeded, {N} has got the measure of it, and barely notices the last of it.
+fails: The pollen hangs on for weeks, and {N} misses half the sunny days of the year.
+fails: Nothing helps much, and {N} spends the best of the spring indoors with the curtains drawn.
+
+# ---------------------------------------------------------------- winter_dark (cycle s2)
+
+== the weeks when it is dark by four
+tier: life event
+land: winter_dark
+stages: juvenile young_adult adult mature elder
+age: 12-90
+per_year: 0 .25 .25 .25 .25 .25
+tone: trouble
+life: nature, health
+horizon: months
+roles: friend, partner, parent, sibling, neighbour, elder, group
+earth: deep winter, dark on the way out in the morning and dark again by four
+tribal: the long dark of midwinter, when the sun barely clears the ridge
+magic: the long night of the realm's winter, when the tower's lamplighters work all day
+scene: It is dark when {N} leaves the house and dark again long before tea, and the days have run together into one grey stretch. {N} has stopped answering {friend}'s messages and cannot quite say why.
+scene W: The club still meets on Tuesdays, and {N} has not missed one yet.
+scene U: {N} has read that the trouble is the light, and wonders if light can be the cure.
+scene B: Somewhere it is summer now, and {N} has been looking at the prices.
+scene R: Staying in is the worst of it, and {N} wants to be out and moving.
+scene G: Even the garden is asleep, and part of {N} would like to sleep with it.
+scene tribal: The sun barely clears the ridge now, and the band sits close round the fire through the long dark. {N} finds it hard to rise, and harder still to care.
+scene magic: The realm's long night has come, and the tower's lamplighters work from morning to morning. {N} sits under a glowing stone and longs for the real sun.
+- W | keep to the club night and the morning routine, whatever the weather does | land: W | v: conformity, security | lever: loyalty | foot: place gather.hall | chance: 75
+- U | buy a daylight lamp and sit by it for half an hour every morning | land: U | v: self-direction, security | lever: loyalty | foot: means health+.03 | chance: 70
+- B | book a week somewhere hot and sunny with the money put by | land: B | v: hedonism, achievement | lever: exit | foot: means money-.06 | chance: 80
+- R | get out every evening, a walk, a class, a friend's kitchen, anywhere but the sofa | land: R | v: stimulation, hedonism | lever: exit | foot: means ties+.03 | chance: 65
+- G | sleep longer, eat soup and let the season be what it is | land: G | v: tradition, security | lever: neglect | foot: lesson winter asks for rest | chance: 75
+- W>B | join the committee that hangs the town's winter lights, and run the switch-on | land: W | v: conformity, achievement | lever: lead | foot: place gather.great | chance: 65
+- B>G | buy a proper coat and boots and take the long way home through the park | land: B | v: hedonism, universalism | lever: fund | foot: place prod.wild | chance: 75
+- G>U | rise with the late sunrise as the old farmers did, and note how mood follows light | land: G | v: tradition, self-direction | lever: loyalty | foot: means health+.02 | chance: 60
+- U>R | learn the star charts and go out with the sky watchers on the clear frosty nights | land: U | v: self-direction, stimulation | lever: loyalty | foot: place gather.circle; person friend | chance: 70
+- R>W | knock on doors and start a winter supper rota for the street | land: R | v: stimulation, benevolence | lever: found | foot: person neighbour | chance: 65
+works: The days start to lengthen, and one afternoon {N} notices it is still light at five.
+works: The worst of the dark passes, and {N} rings {friend} back at last, and they talk for an hour.
+fails: The dark weeks drag on, and {N} gets through them, but only just.
+fails: {N} stays in more and more, and by the end of winter the house feels very small.
+
+# ---------------------------------------------------------------- harvest_fails (cycle s1)
+
+== the year the crop lay flat in the field
+tier: life event
+land: harvest_fails
+stages: juvenile young_adult adult mature elder
+age: 12-90
+per_year: 0 .2 .2 .2 .2 .2
+tone: trouble
+life: nature, work
+horizon: months
+roles: parent, partner, sibling, neighbour, elder, group
+earth: a wet summer that flattens the crop in the field, and the accounts spread over the kitchen table
+tribal: a year when the millet withers on the hillside and the stores look thin for winter
+magic: a year of blight on the barony's fields, and the lord's steward still riding out for his share
+scene: The rain came at the wrong time, and half the crop is lying flat and spoiling in the field. The accounts are spread over the kitchen table, and in town the price of bread has already gone up.
+scene W: The co-op was set up for years like this one, and {N} knows it.
+scene U: The same crop has failed twice in five years, and {N} is starting to wonder why.
+scene B: A neighbour has offered for the land before, and the letter is still in a drawer.
+scene R: One bad year is one bad year, and {N} wants to plant big and win it back.
+scene G: {elder} has seen worse years than this, and says so, often.
+scene tribal: The millet has withered on the hillside, and the stores in the pit look thin for winter. The band talks late round the fire about where to move and what to plant.
+scene magic: Blight has taken the barony's fields this year, and still the steward rides out to count the lord's share. {N} watches him write it down in his book.
+- W | take the loss to the co-op and share it out as the members agreed | land: W | v: conformity, benevolence | lever: loyalty | foot: place prod.land | chance: 75
+- U | go through the soil and weather records and pick a hardier crop for next year | land: U | v: self-direction, achievement | lever: voice | foot: mark learned a skill | chance: 60
+- B | sell the land while it still fetches a fair price | land: B | v: security, achievement | lever: exit | opens: land_dealing | foot: means money+.10 | chance: 65
+- R | borrow from the bank and sow twice the acreage next spring | land: R | v: stimulation, achievement | lever: voice | foot: door took a wild risk | chance: 50
+- G | tighten belts at home, mend what can be mended, and wait for a kinder year | land: G | v: tradition, security | lever: loyalty | foot: lesson lean years end too | chance: 80
+- W>U | ask the farm college to run its field trials on your poorest ground | land: W | v: conformity, self-direction | lever: voice | opens: regen_farming | foot: person mentor | chance: 60
+- U>B | work out which buyers pay most for what survived, and sell straight to them | land: U | v: achievement, self-direction | lever: found | foot: place comm.market | chance: 60
+- B>R | rent the spoiled field out for fairs and festivals until the soil recovers | land: B | v: achievement, stimulation | lever: found | opens: field_events | foot: means money+.06 | chance: 55
+- R>G | let the ruined field run wild for a year and see what comes up by itself | land: R | v: stimulation, universalism | lever: neglect | opens: wildflower_meadow | foot: place prod.wild | chance: 70
+- G>W | share seed and labour with the neighbours, the way the old families did in lean years | land: G | v: tradition, benevolence | lever: loyalty | foot: person neighbour | chance: 75
+works: The lean months are hard, but the next spring comes in kind, and the new crop stands up straight.
+works: Between the co-op, the neighbours and a careful winter, the farm comes through with less lost than feared.
+fails: The bank letters keep coming, and the year's loss takes three more to make good.
+fails: The next season is poor as well, and the talk at the kitchen table turns to selling up.
+
+# ---------------------------------------------------------------- climate_worry (cycle s2)
+
+== the worry that will not let go at night
+tier: life event
+land: climate_worry
+stages: juvenile young_adult
+age: 16-25
+per_year: 0 0 0 0 0 0
+when: ages 16 to 25 while extremes rise; 6 in 10
+tone: mixed
+life: nature, community
+horizon: months
+roles: friend, parent, sibling, partner, colleague, elder, group
+earth: another season of fires and floods on the news, and a worry that sits in the chest at night
+tribal: the rains coming later every year, and the old signs of the seasons no longer to be trusted
+magic: the seers' warnings that the realm's seasons are turning, and the springs in the hills drying one by one
+scene: Another season of fires and floods is on the news, and {N} lies awake working out how old {N} will be when it gets worse. {friend} says not to think about it, and {N} thinks about little else.
+scene W: There must be people already working on this together, and {N} wants to find them.
+scene U: Under the headlines there is a science, and {N} wants to understand it properly.
+scene B: {N} has a life to build, and wonders how much of this is really {Ns} to carry.
+scene R: {N} is angry, and the anger wants somewhere to go.
+scene G: {N} keeps thinking that a smaller, slower life might be part of the answer.
+scene tribal: The rains come later every year, and the old signs of the seasons can no longer be trusted. {N} asks {elder} what the people did the last time the world changed, and the answer takes all night.
+scene magic: The tower's seers say the realm's seasons are turning, and the springs in the hills are drying one by one. {N} reads their warnings by candlelight and cannot sleep.
+- W | join the local group that plants trees and lobbies the council | land: W | v: universalism, conformity | lever: voice | foot: place rule.voice | chance: 75
+- U | choose a course that works on the answers, and study it hard | land: U | v: achievement, universalism | lever: loyalty | foot: place learn.higher | chance: 65
+- B | decide it is no one person's to fix, and put your energy into your own life | land: B | v: achievement, security | lever: neglect | foot: lesson carry only what you can | chance: 70
+- R | march with the crowd, chanting, and sit down in the road with them | land: R | v: stimulation, universalism | lever: subvert | foot: mark defied an authority | chance: 55
+- G | live more lightly: mend things, cycle, and grow some of your own food | land: G | v: universalism, self-direction | lever: exit | foot: place prod.land | chance: 75
+- W>B | take a job in the council's new energy team and work your way up | land: W | v: conformity, achievement | lever: loyalty | foot: person colleague | chance: 60
+- B>G | put your first savings into the town's shared solar roof scheme | land: B | v: security, universalism | lever: fund | foot: means money-.03 | chance: 70
+- G>U | count the birds and first flowers each spring with the naturalists, so there is a record | land: G | v: universalism, self-direction | lever: loyalty | opens: wildlife_survey | foot: person mentor | chance: 75
+- U>R | turn what the science says into a short play for the street festival | land: U | v: self-direction, stimulation | lever: voice | foot: place arts.stage | chance: 60
+- R>W | knock on every door in the street to start a monthly repair cafe | land: R | v: stimulation, benevolence | lever: found | foot: place gather.hall | chance: 65
+works: The worry does not leave, but it has somewhere to go now, and {N} sleeps better for it.
+works: {N} finds other people carrying the same thing, and it is lighter carried together.
+fails: The worry comes back at three in the morning, as heavy as before.
+fails: For a while nothing {N} does feels like enough, and {N} stops talking about it.
+
+# ---------------------------------------------------------------- outdoor_injury (cycle s1)
+
+== the bad fall on the frozen yard
+tier: life event
+land: outdoor_injury
+stages: young_adult adult mature elder
+age: 18-90
+per_year: 0 0 0 0 0 0
+when: outdoor work or play: a fall on ice, a slip on the boat, a wrenched back (never graphic)
+tone: trouble
+life: nature, health
+horizon: months
+roles: colleague, friend, partner, neighbour
+earth: a bad fall on the frozen yard at work, and a broken wrist in a cast for the rest of the winter
+tribal: a bad fall on the wet rocks at the river crossing, and a twisted knee through the whole hunting moon
+magic: a slip on the deck of a river barge, and a wrenched back the temple healers can only half mend
+scene: {N} went down hard on the frozen yard this morning, and now the wrist is in a cast and the doctor says months, not weeks. {colleague} has already sent a message asking who will cover the work.
+scene W: Somebody was meant to grit the yard, and {N} knows exactly who.
+scene U: {N} keeps going over the fall, and the moment it could have gone differently.
+scene B: The work does not stop for a broken wrist, and neither does the rent.
+scene R: Sitting still is the worst part, and {N} is already itching to be out again.
+scene G: The body has been asking {N} to slow down for a while, and now it has insisted.
+scene tribal: {N} slipped on the wet rocks at the river crossing and twisted a knee badly. The hunt has gone on without {N}, and the healer says to keep off it until the moon is new again.
+scene magic: {N} slipped on the deck of the river barge and wrenched a back the temple healers can only half mend. The barge master has taken on another hand for the season.
+- W | keep every safety rule from now on, and teach them to each new starter | land: W | v: conformity, benevolence | lever: voice | foot: person colleague | chance: 75
+- U | work out exactly why the fall happened, and change the yard so nobody slips there again | land: U | v: self-direction, security | lever: voice | foot: mark learned a skill | chance: 70
+- B | claim for the injury and look for a safer job indoors | land: B | v: security, achievement | lever: exit | foot: means money+.06 | chance: 60
+- R | go back to work in the cast long before it has healed | land: R | v: stimulation, achievement | lever: neglect | foot: means health-.06 | chance: 50
+- G | rest, keep it still and let the body take the time it needs | land: G | v: security, tradition | lever: neglect | foot: means time-.06 | chance: 80
+- W>U | do the physio exercises from the hospital every day, exactly as written | land: W | v: conformity, self-direction | lever: loyalty | foot: place care.houses | chance: 75
+- U>B | study the accident records and put yourself forward as the firm's safety officer | land: U | v: achievement, self-direction | lever: lead | foot: person boss | chance: 50
+- B>R | pay for the best physio in town, to be back outdoors by the spring | land: B | v: achievement, stimulation | lever: fund | foot: means money-.06 | chance: 70
+- R>G | swap the heavy work for long, gentle walks in the hills while it mends | land: R | v: stimulation, universalism | lever: exit | foot: place prod.wild | chance: 70
+- G>W | let the neighbours help while it mends, and pass the favour on once you are well | land: G | v: benevolence, tradition | lever: loyalty | foot: person neighbour | chance: 80
+works: The cast comes off in the spring, and the wrist works as well as it ever did.
+works: The mending is slow but steady, and by summer {N} is back outdoors, a little more careful on the ice.
+fails: It heals badly, and the wrist aches every time the weather turns cold.
+fails: The months off cost more than {N} had put by, and the injury lingers well past the doctor's guess.
