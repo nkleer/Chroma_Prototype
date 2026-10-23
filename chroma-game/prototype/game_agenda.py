@@ -387,13 +387,14 @@ class AgendaMixin:
         fid = int(fid[0]) if fid.size else -1
         return fid if fid >= 0 else None
 
-    def fork_fresh(self, loc, fid):
-        """Whether the fork put this week stops the life for its card: the first time it is put, or when it is urgent
-        (its window closes soon). A fork put again (the Engine reasks a year on, or when its facts change) waits on the
-        agenda, and shows as a card only on a moment that is asked anyway."""
+    def fork_fresh(self, loc, fid, s=None):
+        """Whether the fork put this week stops the life for its card: when the Engine carries it on its own moment (a
+        due fork, Engine 10-23), the first time it is put, or when it is urgent (its window closes soon). A fork put again
+        on another moment (the Engine reasks a year on, or when its facts change) waits on the agenda, and shows as a card
+        only on a moment that is asked anyway."""
         if fid is None:
             return False
-        if str(fid) not in {x[1] for x in self.history.get("forks_asked", [])}:
+        if self._fork_on_moment(s) or str(fid) not in {x[1] for x in self.history.get("forks_asked", [])}:
             return True
         fs = loc.get("aim_forks") or []
         fs = fs[0] if fs and isinstance(fs[0], (list, tuple)) else fs

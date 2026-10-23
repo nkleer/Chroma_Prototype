@@ -71,7 +71,8 @@ def plan(EN, L, PK_DIR, ls=os.listdir, read=None, isfile=os.path.isfile):
           "earth_aim_moments_foot.py", "earth_world_answers.py", "earth_world_answers_foot.py", "earth_world_lines.py",
           "footprint_names.py", "earth_aim_lines.py", "earth_react_lines.py",   # v25 line tables
           "earth_nature.py", "earth_nature_foot.py", "earth_national.py", "earth_national_foot.py",   # lane D (LAND, NATIONAL)
-          "earth_fields.py", "earth_shape_moments.py", "earth_shape_moments_foot.py"] if isfile(os.path.join(L, f))]   # FIELDS
+          "earth_fields.py", "earth_shape_moments.py", "earth_shape_moments_foot.py",   # FIELDS
+          "earth_clash.py", "earth_clash_foot.py", "earth_seek.py", "earth_seek_foot.py"] if isfile(os.path.join(L, f))]   # lane C
     px = [f"packs/{p}/aims.py" for p in PK if isfile(os.path.join(PK_DIR, p, "aims.py"))]
     pins += [(os.path.join(L, f), f) for f in lx] + [(os.path.join(PK_DIR, f[6:]), f) for f in px]
     WLD = WLD + lx + px + pf                             # build.py lists these in the worker's SOURCES too

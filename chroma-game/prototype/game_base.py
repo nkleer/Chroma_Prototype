@@ -439,6 +439,8 @@ def library_for(setting):
                 batch.WORLD_ANSWERS = True              # v24 world answers: the Library's asked, decision and figure moments
             if (GAME["agenda"] or GAME["aim_forks"]) and hasattr(batch, "FIELDS"):
                 batch.FIELDS = True                     # v25 aims v2: the fields, the shape moments, the druid (a pair with aims_v2)
+            if GAME["clash_card"] and hasattr(batch, "CLASH_MOMENTS"):
+                batch.CLASH_MOMENTS = True              # v25 lane C: the Library's clash moments (<world>_clash.py)
             if GAME["land_row"] and hasattr(batch, "LAND"):
                 batch.LAND = True                       # v25 land: the Library's nature moments (<world>_nature.py)
             _LIBS[key] = (batch.load_batch("earth", packs=PACKS, setting="earth"), sys.modules.get("earth"))
