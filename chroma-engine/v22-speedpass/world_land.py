@@ -107,6 +107,10 @@ class Land:
         self.ways = [[] for _ in range(N)]; self.bopen = [[] for _ in range(N)]; self.bheld = [[] for _ in range(N)]
         self.hours = np.zeros(N)
         self.last = np.full(N, NEVER, np.int64)     # the week of the life's last land moment (the budget)
+        self.fspent = np.zeros(N)                   # the moments the land brought, fading by the year (inside the budget)
+        self.fq = {}                                # this week's: life -> the moment the land brings
+        self.tot_m = np.zeros(N); self.tot_t = np.full(N, NEVER, np.int64)   # the drawn odds' mean over the year (seasons)
+        self.kin_due = np.zeros(N, bool)            # a remembrance to come in the year after a kin's death
         self.once = [set() for _ in range(N)]       # moments the land brings once a life
         self.every = np.zeros((N, 3)); self._yr = -1   # everyday reach used this year, per stretch
         self.book = [dict() for _ in range(N)]; self.lt = np.full(N, NEVER, np.int64)
@@ -193,6 +197,7 @@ class Land:
         t = int(PP.t); a = float(PP._age(t))
         if int(t // 52) != self._yr:
             self._yr = int(t // 52); self.every[:] = 0; self.wcut[:] = 0
+        self.fspent *= np.exp(-1.0 / 52.0); self.fq = {}
         dn = np.asarray(W.disaster_now, float)
         for l in np.nonzero(dn > 0)[0]:
             self._strike(int(l), int(np.asarray(W.disaster_kind)[l]), float(dn[l]), t, a, S_)
@@ -456,7 +461,8 @@ class Land:
         dk = (dt != self.dt0) & (dt > NEVER // 2) & ((PP.rmask & KIN_BITS) != 0)
         self.dt0 = dt.copy()
         for n in np.nonzero(dk.any(1) & ~np.asarray(PP.dead, bool))[0]:
-            self.kin_t[n] = t
+            self.kin_t[n] = t   # whether the remembrance comes in the year after: decided once, at the death
+            self.kin_due[n] = self._rng.random() < float(E["force"].get("remembrance_tree", 0.0))
             gone = set(PP.uid[n, dk[n]].tolist())
             mm = [m_ for m_ in self.mem[n] if m_["cid"] in gone and not m_.get("recalled")]
             if mm:
@@ -465,15 +471,16 @@ class Land:
                 self.st["recalls"] += 1; self._dim(n, "meaning", 0.1)
                 self.news.append((int(n), dict(kind="memory_recalled", cid=int(mm[0]["cid"]), moment=mm[0]["moment"],
                                                age=mm[0]["age"])))
-                self._fire(n, "remembrance_tree", t, p=E["memory_recall"])
+                if self._fire(n, "remembrance_tree", t, p=E["memory_recall"]):
+                    self.kin_due[n] = False
         held = S_.get("held") if isinstance(S_, dict) else None
         if held is not None:
             par = np.asarray(held, bool)[:, self.par_i]
             self.par_t[par & ~self.par0] = t; self.par0 = par.copy()
         if t % 13 == 0:
             for n in np.nonzero(~np.asarray(PP.dead, bool))[0]:
-                if t - self.kin_t[n] < 52:
-                    self._fire(n, "remembrance_tree", t, p=self.E["force"].get("remembrance_tree", 0.0))
+                if self.kin_due[n] and t - self.kin_t[n] < 52 and self._fire(n, "remembrance_tree", t):
+                    self.kin_due[n] = False
                 if t - self.par_t[n] < 26:
                     self._fire(n, "first_date_outdoors", t, p=self.E["force"].get("first_date_outdoors", 0.0))
 
@@ -492,18 +499,31 @@ class Land:
             return False
         if once:
             self.once[n].add(key)
-        self.WL.fire_now[n, ss[0] if len(ss) == 1 else ss[int(self._rng.integers(len(ss)))]] = True
+        si = ss[0] if len(ss) == 1 else ss[int(self._rng.integers(len(ss)))]
+        self.WL.fire_now[n, si] = True; self.fq[int(n)] = int(si)
         return True
 
     def ev_scale(self, ev):
         """The drawn land moments' weekly odds (ev: N x the land moments), held to the budget: about per_year a year in
-        all, none inside gap_weeks of the last; a good harvest's moment only in a good year, a failed one's in a poor."""
-        loc = np.asarray(self.PP.loc); t = int(self.PP.t)
+        all with the moments the land brings itself (fspent: those of about the last year), none inside gap_weeks of the
+        last nor in a week the land brings one; a good harvest's moment only in a good year, a failed one's in a poor,
+        each there at 1 / its year's odds (harvest odds), so it keeps its written share over the years.
+        The budget reads the odds' mean over the year (tot_m), not the week's, so a season's moments get their whole
+        share in their season (a week's at most season_x x the mean)."""
+        loc = np.asarray(self.PP.loc); t = int(self.PP.t); E = self.E
         hv = self.harvest[loc]; fresh = (t - self.harvest_t[loc]) < 52
-        ev = ev * np.where(self.gate_good[None], (hv == 0)[:, None] & fresh[:, None], True)
-        ev = ev * np.where(self.gate_poor[None], (hv == 2)[:, None] & fresh[:, None], True)
+        od = self.T["for_all_lives"][0]["odds"]   # in its year at 1 / the year's odds: over the years, its written rate
+        ev = ev * np.where(self.gate_good[None], ((hv == 0) & fresh)[:, None] / od["good"], 1.0)
+        ev = ev * np.where(self.gate_poor[None], ((hv == 2) & fresh)[:, None] / od["poor"], 1.0)
         tot = ev.sum(1)
-        k = np.minimum(1.0, self.E["per_year"] / 52.0 / np.maximum(tot, 1e-12)) * ((t - self.last) >= self.E["gap_weeks"])
+        new_ = self.tot_t < NEVER // 2
+        a_ = np.where(new_, 1.0, 1.0 - np.exp(-np.maximum(t - self.tot_t, 0) / 52.0))
+        self.tot_m += a_ * (tot - self.tot_m); self.tot_t[:] = t
+        tm_ = np.maximum(self.tot_m, tot / float(E["season_x"]))
+        b_ = np.maximum(float(E["per_year"]) - self.fspent, 0.0) / 52.0
+        k = np.minimum(1.0, b_ / np.maximum(tm_, 1e-12)) * ((t - self.last) >= E["gap_weeks"])
+        if self.fq:
+            k[list(self.fq)] = 0.0
         return ev * k[:, None]
 
     def seen(self, ns, ss):
@@ -512,6 +532,8 @@ class Land:
         for n, si in zip(np.asarray(ns).tolist(), np.asarray(ss).tolist()):
             if 0 <= si < self.S and (self.ls[si] or self.ld[si]):
                 self.last[n] = t; self.st["moments"] += 1; self.mlog.append((int(n), t, int(si)))
+                if self.fq.get(int(n)) == int(si):   # the land brought it: inside the budget
+                    self.fspent[n] += 1.0
                 tn_ = self.mtone[si]
                 if tn_ in self.st["tone"]:
                     self.st["tone"][tn_] += 1

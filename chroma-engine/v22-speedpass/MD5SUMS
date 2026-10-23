@@ -50,7 +50,7 @@ e3696668f84af8b3e91e184628e85e9b  run_14_marks.py
 07d35b3ca9d31480c9645e3ed4e275e6  run_16_world.py
 9bf08251aab6f08949a330112c164f05  run_17_inner.py
 48dc164fa103b642080f44bc6bcc93b6  run_18_integrate.py
-813c4c5232a17a4cb3eb6c5e4cc464cc  realm_earth.py
+0fdf74306290f31ce264624b1b7056db  realm_earth.py
 6296b4db28a3b501630cd92d1a81e8e6  realm_neutral.py
 66a0bff7655152436dfd4595c5a63f31  rules_art.py
 b036ac9829d63c126ac2ef064cf5412d  rules_callings.py
@@ -70,5 +70,5 @@ fccb7cc4b9419ae0908ed6a9234d1afe  world_link_life.py
 cbddac2b9cee790c15e52fa649b71843  world_people_answers.py
 5ea8eb8e505bc09702997669cea3e6df  world_react.py
 99df6df655905d4dc799ed97ecf2c804  world_fit.py
-df45e7db5c43fa8ae5b35d498c13432c  world_land.py
+b79803141b770e002295e765da1f32cb  world_land.py
 c775f61fbd8d494c7a66ad2da767b58a  world_national.py

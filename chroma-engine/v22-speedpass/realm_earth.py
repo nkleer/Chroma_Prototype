@@ -340,7 +340,10 @@ LAND_ENGINE = dict(
     walk_min=200.0, walk_sd=0.8, nature_haunts=("prod.wild", "prod.land"),
     worry_share=0.6, worry_ages=(16, 25), worry_rise=0.05,   # climate_worry (Hickman 2021): while extremes rise this much
     attach_age=12, lost=0.2, haunt_years=10,   # sick_land: lost .2 since 12; clear after 10 years of haunting
-    per_year=1.0, gap_weeks=13,         # the moments' budget: about one a year, never two in a quarter
+    per_year=1.0, gap_weeks=13,         # the moments' budget: about one a year, never two in a quarter (the moments the
+                                        # land brings itself inside it: the drawn ones get what they leave)
+    season_x=2.0,                       # the budget reads the year's mean odds, a week's at most this x it (a season's
+                                        # moments get their whole share in season)
     alone=(0.3, 0.1),                   # company: alone about .3 of the time for adults, .1 for the young
     stranger_tie=0.25,                  # a stranger becomes an acquaintance 1 in 4
     tie_small=0.02, tie_clear=0.05,     # a tie closer a little, clearly
@@ -350,10 +353,12 @@ LAND_ENGINE = dict(
     way_k=0.1,                          # a held way's yearly effect, in sd units per unit of its effect (keenness 1)
     everyday=0.002, everyday_step=0.0005,   # reach.everyday: at most .002 a year on a stretch; a moment's use moves it this
     tend_per10=0.002, tend_cap=0.02,    # uses.tend: a group tending a stretch, per 10 members a year, at most
-    # the moments the land brings when its state holds (a moment's `when`), the chance it comes in that week or year
+    # the moments the land brings when its state holds (a moment's `when`), the chance it comes in that week or year;
+    # remembrance_tree: the chance a kin's death brings it in the year after, drawn once at the death (a recall brings
+    # it at memory_recall); climate_worry: a worried life's chance a year (LN4's adult tone, Release 10-23)
     force=dict(flood_home=1.0, storm_damage=1.0, neighbours_dig_out=0.3, smoke_days=0.3, heatwave=0.3, drought=0.2,
                dry_well=0.2, sick_river=0.3, wood_cleared=0.3, protest_at_the_wood=0.2, river_clean_again=1.0,
-               planted_tree_grown=1.0, remembrance_tree=0.3, first_date_outdoors=0.3, climate_worry=0.3,
+               planted_tree_grown=1.0, remembrance_tree=0.15, first_date_outdoors=0.3, climate_worry=0.15,
                outdoor_injury=0.05),
     # heat_summer: quarrels (a close tie's break in a fight) x heat_quarrel[0] for heat_quarrel[1] weeks after a heat
     # strike in the town (the weeks an estimate: a summer's spell, as long as the ties' quarterly tick)
@@ -370,7 +375,7 @@ LAND_ENGINE = dict(
     # tenders lose; its yield or money costs: the farmers and builders lose) brings their moment at push_p, push_weeks
     # later (the rival moments: the tenders' by stretch, the farmers' and builders' one); its options are the lean in or the
     # backlash (company rival). All estimates
-    notice=dict(ask_y=0.1, ask_age=16, lean_decay=0.8, lean_full=3.0, push_p=0.1, push_weeks=(4, 26),
+    notice=dict(ask_y=0.1, ask_age=16, lean_decay=0.8, lean_full=3.0, push_p=0.05, push_weeks=(4, 26),
                 push_tend=dict(field="boundary_quarrel", wood="protest_at_the_wood", water="boundary_quarrel"),
                 push_work="verge_meadow"),
 )
