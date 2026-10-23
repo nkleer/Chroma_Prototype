@@ -1,0 +1,959 @@
+# Chroma library, modern Earth: SHAPE MOMENTS for the ladder shapes home and land (v25 prep draft, 10-23).
+# Syntax: header of build.py, plus the v25 keys shape:, kind:, rungs:, fork: (moments) and aim:, cost: (options),
+# aims-shape.md section 4. Pours into chroma-library/earth_shape_moments-*.lib (POUR-NOTES.md). Nothing built or run.
+# Every moment: the five one-colour ways and one full cross cycle (s1 W>U U>B B>R R>G G>W, s2 W>B U>R B>G R>W G>U).
+# home rungs: 0 a bond, 1 a household, 2 the household holds, 3 the centre of the line. Its "contest" is a test: a hard
+#   winter for the household, a family crisis weathered together ({aim.contest} names it). Fields: love (a promise
+#   for life, marrying well, a quick mind, loving with everything, protecting the ones I love), line (a family that
+#   holds, the family name, children who question, a big loud family, the family's ways, many grandchildren, where
+#   we come from), home (a home that runs well, our own roof, a home everyone is welcome in), and taking in a child.
+#   A household's troubles are money, room, illness, distance and disagreement, never violence, neglect or abuse.
+#   Only the low practice comes under 12, as a child's part in a household (no money, no romance, no nights out).
+# land rungs: 0 tending, 1 keeping, 2 stewarding (the 30 ways of land.json and the land fields use rungs 0 to 2). Its
+#   "contest" is a show or a harvest fair ({aim.contest} names it: a match, a race, a count for some ways). Fields: the
+#   family land, wild living, farming, a street garden, the perfect garden, an animal sanctuary, champion horses, and
+#   the 30 ways (allotments, bees, timber, wild swimming, fishing, the flood warden, a kiosk by the water and the rest).
+#   Weather, water, soil, growth and animals act; the land never judges or approves; people read meaning into it.
+#   Land moments are 12 and over.
+# Ways in (practice, contest, chance, mentor): home rungs 0 to 3 and land rungs 0 to 2 each have four, one a practice.
+# No integrate moments here (the Library writes those separately).
+
+# ================================================================ HOME
+
+# ---------------------------------------------------------------- home, practice, rungs 0 1 (cycle s1)
+
+== an ordinary week in the household
+tier: life event
+shape: home
+kind: practice
+rungs: 0 1
+fork:
+stages: child juvenile young_adult adult mature elder
+age: 8-90
+per_year: 0 0 0 0 0 0
+tone: joy
+life: home, family
+horizon: week
+roles: parent, grandparent, sibling, friend
+earth: an ordinary week at home: meals, chores, and the evening when everyone is in
+tribal: an ordinary turn of the moon at the family's shelter: water fetched, the fire kept, everyone back by dark
+magic: an ordinary week in a household of the realm: the hearth charm renewed, the meals, the lamp lit at dusk
+scene: The week has its own shape at home: who cooks, who fixes, who calls whom at the end of the day. {N} has a part in it, and {aim.doing} is made of weeks like this far more than of big days.
+scene tribal: The shelter runs on small jobs: water, wood, the fire, the evening meal. {N} has a share of them, and the family notices who does theirs.
+scene magic: The household runs on small things: the hearth charm renewed each morning, the meals, the lamp lit at dusk. {N} has a share of it, and the old house seems to settle when it is done.
+- W | keep the shared meal to its day and its hour, however tired everyone is | v: tradition, conformity | aim: work | foot: door kept your word | chance: 85
+- U | ask everyone what the week needs, and fix the part that keeps going wrong | v: self-direction, benevolence | aim: work | foot: lesson asking first saves arguments | chance: 75
+- B | take one job at home and make it plainly their own | v: achievement, power | aim: work | foot: means time-.03 | chance: 85
+- R | turn a dull evening into a game night, and ask {friend} round | v: stimulation, hedonism | aim: work | foot: means ties+.04 | chance: 80
+- G | help {grandparent} do things the way they always did | v: tradition, benevolence | aim: work | foot: lesson the old way has its reasons | chance: 85
+- W>U | write the household's jobs on a list by the door, and keep to it | v: conformity, self-direction | aim: work | foot: means time+.03 | chance: 80
+- U>B | learn the one repair that everyone else at home avoids | v: self-direction, achievement | aim: work | foot: mark learned a skill | chance: 70
+- B>R | strike a deal to swap the dull job for the fun one, this week only | v: power, stimulation | aim: ease | foot: means freedom+.03 | chance: 80
+- R>G | bring everyone outside for the evening, whatever the weather | v: stimulation, benevolence | aim: ease | foot: means ties+.03 | chance: 75
+- G>W | let the week run itself for once, and just be part of it | v: benevolence, security | aim: ease | foot: means health+.03 | chance: 85
+works: The week holds its shape, and somebody says at dinner that it is good to be home.
+works: Nobody notices anything special, which is the point: the house simply works, and {N} is part of why.
+fails: The week comes apart by the middle, and everyone eats at different times again.
+fails: {N} does their part, and nobody seems to see it; the house is busy with its own worries.
+
+# ---------------------------------------------------------------- home, practice, rungs 2 3 (cycle s2)
+
+== the long table, years on
+tier: life event
+shape: home
+kind: practice
+rungs: 2 3
+fork:
+stages: adult mature elder
+age: 30-95
+per_year: 0 0 0 0 0 0
+tone: mixed
+life: family, home
+horizon: months
+roles: child, partner, sibling, elder
+earth: years in, the household others count on: birthdays remembered, the spare room ready, the call at the right time
+tribal: years in, the fire the whole kin comes back to: the stores counted, the stories kept, the young ones fed
+magic: years in, the hall the whole house comes back to: the wards renewed, the names remembered, the long table set
+scene: Years in, {aim.doing} has become something others lean on: the house people come back to, the one who remembers the dates, the voice that calls at the right moment. It takes more keeping than it looks, and this year {N} feels the weight of it.
+scene tribal: The kin come back to {Ns} fire from every camp now. Someone has to count the stores, keep the stories and feed whoever walks in, and it is mostly {N}.
+scene magic: The house's long table seats three generations now, and the old wards on the door want renewing. {N} keeps all of it going, and is starting to wonder for how long.
+- W | keep every birthday, call and gathering on its date, as always | v: tradition, conformity | aim: work | foot: door kept your word | chance: 80
+- U | write down how the household runs, so it does not live only in one head | v: self-direction, security | aim: work | foot: lesson written ways outlast memory | chance: 75
+- B | ask the grown ones to take a fixed share, and hold them to it | v: power, achievement | aim: work | foot: means ties-.03 | chance: 60
+- R | throw a gathering for no reason at all, and fill the house | v: stimulation, hedonism | aim: work | foot: means money-.04; person friend | chance: 75
+- G | hand one of the family's ways to {child}, slowly, by doing it together | v: tradition, benevolence | aim: work | foot: means ties+.04 | chance: 80
+- W>B | set the family's calendar for the year and give everyone their part | v: conformity, power | aim: work | foot: means freedom-.03 | chance: 65
+- U>R | try a new way of meeting, a trip together instead of the same table | v: self-direction, stimulation | aim: work | foot: means money-.05 | chance: 60
+- B>G | let the grown children host this year, and keep your hands off | v: achievement, benevolence | aim: ease | foot: means time+.05 | chance: 65
+- R>W | step back for a season and let the house be quieter | v: hedonism, security | aim: ease | foot: means health+.04 | chance: 85
+- G>U | sit with the oldest ones and learn what they still remember | v: tradition, self-direction | aim: work | foot: person elder | chance: 85
+works: The house fills on the day, the way it does, and the youngest already know where everything goes.
+works: Someone else picks up a thread {N} used to carry alone, without being asked.
+fails: Fewer come this year, each with a good reason, and the table looks long.
+fails: {N} keeps it all going and is worn thin by the end of it; the thanks come late.
+
+# ---------------------------------------------------------------- home, contest (a test), rungs 0 1 (cycle s1)
+
+== when {aim.contest} comes to the household
+tier: life event
+shape: home
+kind: contest
+rungs: 0 1
+fork:
+stages: young_adult adult mature elder
+age: 18-90
+per_year: 0 0 0 0 0 0
+tone: trouble
+life: home, money, family
+horizon: months
+roles: partner, parent, sibling, friend
+earth: a hard winter for the household: hours cut at work, the heating failing, everyone home and short of room
+tribal: a hard winter for the shelter: the herds thin, the stores low, everyone close round one fire
+magic: a hard winter for the household: the hearth charm failing, the larder low, everyone in the one warm room
+scene: It is {aim.contest}, the first real one: money runs short, work is uncertain, and everyone {N} shares a roof with is tired and short of room. How the household comes through it will be talked about for years, one way or another.
+scene tribal: The herds are thin and the stores are low, and the whole shelter sits close round one fire. The elders say a family shows what it is in the lean months.
+scene magic: The hearth charm is failing, the larder is low, and the whole household lives in the one warm room. The neighbours are watching to see which houses hold.
+- W | draw up a strict budget together, and everyone keeps to it | v: security, conformity | aim: try | foot: means money+.04 | chance: 65
+- U | look into every grant, swap and saving there is, and use them | v: self-direction, security | aim: try | foot: mark learned a skill | chance: 60
+- B | take on extra work and carry the household through yourself | v: achievement, power | aim: try | foot: means money+.05; means health-.04 | chance: 55
+- R | keep spirits up with music, games and a feast made of almost nothing | v: hedonism, stimulation | aim: try | foot: means ties+.05 | chance: 60
+- G | ask the neighbours and the wider family to pool what they have | v: benevolence, tradition | aim: try | foot: person neighbour | chance: 65
+- W>U | sit everyone down and plan the months ahead, week by week | v: conformity, self-direction | aim: try | foot: lesson a plan calms a house | chance: 70
+- U>B | sell what the household can spare, and drive a hard bargain | v: achievement, power | aim: try | foot: means money+.05 | chance: 65
+- B>R | keep the trouble to yourself and act as if all is well | v: power, hedonism | aim: skip | foot: door kept it hidden | chance: 50
+- R>G | take everyone to stay with the wider family for the worst weeks | v: stimulation, benevolence | aim: skip | foot: means money+.03 | chance: 70
+- G>W | keep your head down, keep things as they are, and let it pass | v: security, tradition | aim: skip | foot: lesson hard seasons do pass | chance: 80
+works: The household comes out of the lean months thinner, closer, and a little proud of itself.
+works: It is hard all the way through, but nobody is left to carry it alone, and that is remembered.
+fails: The months grind on, tempers fray, and the household comes through it, but only just.
+fails: The money runs out before the trouble does, and the spring starts with debts to pay.
+
+# ---------------------------------------------------------------- home, contest (a test), rungs 2 3 (cycle s2)
+
+== the season the whole family is tested
+tier: life event
+shape: home
+kind: contest
+rungs: 2 3
+fork:
+stages: adult mature elder
+age: 35-95
+per_year: 0 0 0 0 0 0
+tone: trouble
+life: family, home, health
+horizon: months
+roles: parent, child, sibling, partner
+earth: a family crisis weathered together: an illness in the older generation and a job lost in the younger, in one season
+tribal: a hard season for the whole kin: an elder failing and a young hunter's luck gone, both at once
+magic: a hard season for the whole house: an elder's sight failing and a young one's apprenticeship ended, both at once
+scene: This is {aim.contest}, and it comes when nobody planned it: the oldest of the family needs looking after, one of the younger ones has lost their work and needs a room, and the bills do not wait. The whole family is watching how {Ns} household holds, and so is {N}.
+scene tribal: The oldest of the kin can no longer walk to the river, and a young hunter has come back with nothing three moons running. Everyone looks to {Ns} fire.
+scene magic: The house's eldest is losing their sight, and a young one's apprenticeship has ended without a place. The family gathers in {Ns} hall to see what will be done.
+- W | call the family together and share out the care fairly, on a rota | v: conformity, universalism | aim: try | foot: door kept your word | chance: 65
+- U | find out every kind of help there is, and get the right one in | v: self-direction, security | aim: try | foot: place care.houses | chance: 65
+- B | take the decisions yourself, quickly, and answer for them | v: power, achievement | aim: try | foot: means time-.05 | chance: 55
+- R | move everyone in together for the season and make it loud and warm | v: stimulation, benevolence | aim: try | foot: means ties+.06; means freedom-.04 | chance: 55
+- G | take the oldest one in, and do the caring as it was once done for them | v: benevolence, tradition | aim: try | foot: mark helped someone in need | chance: 60
+- W>B | set the rules for the shared house, and see that they are kept | v: conformity, power | aim: try | foot: means ties-.03 | chance: 60
+- U>R | let the crisis run its course, and step in only where you are needed | v: self-direction, stimulation | aim: skip | foot: means health+.03 | chance: 70
+- B>G | pay for help from outside so the family can stay a family | v: achievement, benevolence | aim: try | foot: means money-.08 | chance: 70
+- R>W | say plainly you cannot carry it this time, and ask someone else to lead | v: self-direction, security | aim: skip | foot: means time+.04 | chance: 75
+- G>U | let each branch of the family handle its own part, and trust them | v: benevolence, self-direction | aim: skip | foot: lesson trust lets others step up | chance: 70
+works: The season is long, but the family comes through it on speaking terms, and some of it closer than before.
+works: People who had drifted come back to help, and the house is fuller than it has been in years.
+fails: The care falls unevenly, and an old grudge between two branches of the family wakes up again.
+fails: The household holds, but {N} comes out of the season tired in a way that takes a year to lift.
+
+# ---------------------------------------------------------------- home, mentor, rungs 0 1 2 3 (cycle s1)
+
+== the one who has kept a household before
+tier: life event
+shape: home
+kind: mentor
+rungs: 0 1 2 3
+fork:
+stages: young_adult adult mature elder
+age: 18-85
+per_year: 0 0 0 0 0 0
+tone: joy
+life: family, home, friends
+horizon: months
+roles: mentor, elder, grandparent
+earth: an older person who has kept a household together through more than {N} has seen yet
+tribal: an old one of the clan who has kept a fire going through more winters than anyone can count
+magic: an old steward of the realm who has kept a great house standing through three reigns
+scene: Down the road there is {aim.person}, who has kept a household going through more than {N} has seen yet, and who offers, half joking, to tell {N} where it usually goes wrong. The offer comes at the right moment: {N} has been {aim.doing} on instinct, and the instinct is running out.
+scene tribal: The old woman of the next shelter has kept a fire going through more winters than anyone can count, and she has been watching how {N} does it.
+scene magic: The old steward of the great house has kept it standing through three reigns, and sends word that {N} may come and ask questions.
+- W | ask how they did it, and follow the advice to the letter for a year | v: tradition, conformity | aim: work | foot: person mentor | chance: 80
+- U | listen to everything, then keep only what fits your own house | v: self-direction, achievement | aim: work | foot: lesson take advice, keep judgement | chance: 75
+- B | ask them to put in a word where it will open doors for the family | v: power, achievement | aim: try | foot: person patron | chance: 50
+- R | invite them round and let the house speak for itself | v: stimulation, benevolence | aim: try | foot: person friend | chance: 70
+- G | visit them every week, and help with whatever they are doing | v: benevolence, tradition | aim: work | foot: mark helped someone in need | chance: 85
+- W>U | ask them to sit down over the family's plans and accounts together | v: conformity, self-direction | aim: work | foot: mark learned a skill | chance: 70
+- U>B | trade what you are good at for what they know | v: self-direction, power | aim: try | foot: person mentor | chance: 65
+- B>R | thank them, and keep their number for a harder day | v: power, self-direction | aim: ease | foot: door turned down a chance | chance: 85
+- R>G | bring the whole house along, and make an afternoon of it | v: stimulation, benevolence | aim: work | foot: means ties+.04 | chance: 80
+- G>W | take things slower, the way they wish they had at your age | v: benevolence, security | aim: ease | foot: means health+.03 | chance: 85
+works: The advice turns out to be right about almost everything, and kind about the rest.
+works: One remark over a cup of tea saves {Ns} household a year of trouble.
+fails: The advice belongs to another time, and half of it does not fit {Ns} house at all.
+fails: The older one means well but talks over {N}, and the visits thin out.
+
+# ---------------------------------------------------------------- home, rival, rungs 1 2 3 (cycle s2)
+
+== the other branch of the family
+tier: life event
+shape: home
+kind: rival
+rungs: 1 2 3
+fork:
+stages: young_adult adult mature elder
+age: 20-95
+per_year: 0 0 0 0 0 0
+tone: mixed
+life: family, home, conflict
+horizon: years
+roles: rival, sibling, parent, elder
+earth: a sibling or an in-law with their own idea of where the family gathers and whose ways it keeps
+tribal: another hearth of the same kin, pulling the young ones and the feasts toward its own fire
+magic: a cousin's house of the same blood, with a finer hall and its own claim on the family's feasts
+scene: {rival} has their own idea of how the family should be: where it gathers, whose ways it keeps, whose word counts. This year both households want the big gathering, and the rest of the family is quietly picking sides.
+scene tribal: Another hearth of the same kin keeps calling the young ones and the feasts to its own fire. {rival} tends it, and does not hide that it is meant as a challenge.
+scene magic: {rival}'s house is of the same blood and has the finer hall, and this year it has sent out word of the midwinter feast before {N} could.
+- W | propose taking turns, year by year, and write it down | v: conformity, universalism | aim: work | foot: door kept your word | chance: 70
+- U | find out through someone they trust what {rival} really wants from it | v: self-direction, benevolence | aim: try | foot: person go-between | chance: 60
+- B | make your gathering the one nobody will want to miss | v: power, achievement | aim: try | foot: means money-.05 | chance: 55
+- R | have it out with {rival} face to face, and clear the air | v: stimulation, self-direction | aim: try | foot: lesson saying it aloud clears the air | chance: 50
+- G | let them have it this year, and keep the peace | v: benevolence, security | aim: ease | foot: mark gave in to pressure | chance: 85
+- W>B | invite {rival} to run it together, and share the credit | v: conformity, power | aim: work | foot: means ties+.04 | chance: 60
+- U>R | start a new day of your own that does not compete with theirs | v: self-direction, stimulation | aim: work | foot: means freedom+.03 | chance: 70
+- B>G | win over the oldest of the family first, and the rest will follow | v: power, tradition | aim: try | foot: person elder | chance: 55
+- R>W | go to theirs with good grace, and bring the best dish | v: hedonism, conformity | aim: ease | foot: means ties+.05 | chance: 80
+- G>U | hold a smaller gathering of your own, the way you like it | v: tradition, self-direction | aim: ease | foot: place gather.house | chance: 80
+works: The two households find a way to share the family, and the young ones get two tables instead of one.
+works: {rival} gives a little ground, and {N} finds that giving some back costs less than expected.
+fails: The family splits its year between two houses, and some cousins stop coming to either.
+fails: The quarrel goes quiet but not away, and it surfaces again at the next big day.
+
+# ---------------------------------------------------------------- home, setback, rungs any (cycle s1)
+
+== the hope that does not come this year
+tier: life event
+shape: home
+kind: setback
+rungs: any
+fork:
+stages: young_adult adult mature elder
+age: 18-90
+per_year: 0 0 0 0 0 0
+tone: trouble
+life: home, family, loss
+horizon: months
+roles: partner, parent, friend, sibling
+earth: something the household had built a year around falls through: a home lost at the last moment, a match that ends, a long hope that does not come
+tribal: a hope the family had held all year does not come, and the elders say only that seasons turn
+magic: a house promised to the family goes to another by the steward's word, and the plans made around it are unmade
+scene: The thing {N} had built the year around falls through at the last moment, and nobody is to blame. The plan for {aim.thing} has a hole in it now, and the people at home are waiting, gently, to see what {N} does next.
+scene tribal: The hope the family had held all year does not come, and the shelter is quiet about it. The elders say only that seasons turn.
+scene magic: The house promised to the family has gone to another by the steward's word, and the plans made around it have to be unmade.
+- W | pick the plan up where it broke, and start again on the same lines | v: conformity, security | aim: work | foot: door kept your word | chance: 70
+- U | work out what went wrong, and what can be different next time | v: self-direction, achievement | aim: work | foot: mark learned a skill | chance: 70
+- B | push harder, find another way in, and do not wait | v: achievement, power | aim: work | foot: means time-.05 | chance: 55
+- R | get away for a few days, then come back to it with fresh eyes | v: stimulation, self-direction | aim: work | foot: means freedom+.03 | chance: 75
+- G | lean on the people closest, and let them carry some of it | v: benevolence, security | aim: work | foot: means ties+.05 | chance: 80
+- W>U | ask someone who has been through the same how they went on | v: conformity, self-direction | aim: work | foot: place gather.talk | chance: 75
+- U>B | set a new, smaller goal for this year that can really be reached | v: self-direction, achievement | aim: work | foot: lesson a smaller step still counts | chance: 75
+- B>R | let this one go, and put the energy into your work for a while | v: power, stimulation | aim: stop | foot: person colleague | chance: 85
+- R>G | stop chasing it, and give the time to the people already at home | v: hedonism, benevolence | aim: stop | foot: lesson the people here still count | chance: 85
+- G>W | let the hope rest, and stay close to the friend who stood by you | v: security, tradition | aim: stop | foot: person friend | chance: 85
+works: The household closes round the loss, and the next step, whatever it turns out to be, is easier to see.
+works: In a few months the hole in the plan has become a shape {N} can work with.
+fails: The loss sits heavy in the house for longer than anyone expected.
+fails: {N} carries more of it alone than anyone knows, and the year is a hard one.
+
+# ---------------------------------------------------------------- home, plateau, rungs 1 2 3, fork go_on (cycle s2)
+
+== the household that runs on habit
+tier: life event
+shape: home
+kind: plateau
+rungs: 1 2 3
+fork: go_on
+stages: young_adult adult mature elder
+age: 22-95
+per_year: 0 0 0 0 0 0
+tone: mixed
+life: home, family, partner
+horizon: years
+roles: partner, child, sibling, friend
+earth: years of the same routine at home, and the feeling that {aim.thing} has stopped growing
+tribal: seasons of the same round at the fire, and the sense that the kin is no longer growing closer
+magic: years of the same rites in the house, and the sense that the household has stopped deepening
+scene: Nothing is wrong at home, exactly. The days run the same way, the savings sit where they sat, the calls come on their dates and say the same things. A round birthday this year has {N} asking whether {aim.doing} should be pushed on, changed, eased off, or left as what it already is.
+scene tribal: The kin meet at the same fire on the same nights and say the same things. As the moon turns, {N} wonders whether this is all it will be.
+scene magic: The wards are renewed, the table set, the names said, year on year. The turning of the year asks every household for its vows again, and {N} has to decide what to say.
+- W | keep every habit exactly as it is, since steadiness is the point | v: tradition, security | aim: work | foot: door kept your word | chance: 85
+- U | change one thing that has gone stale, and see what follows | v: self-direction, stimulation | aim: work | foot: lesson one change can wake a house | chance: 70
+- B | set the household a goal for the year, and see that it is met | v: achievement, power | aim: work | foot: means money+.04 | chance: 60
+- R | shake it up with a move, a trip or a room made new | v: stimulation, hedonism | aim: work | foot: mark took a wild risk | chance: 50
+- G | stop measuring for a while, and be glad of what holds | v: benevolence, tradition | aim: ease | foot: means health+.03 | chance: 85
+- W>B | take on a bigger family duty, such as an elder's care | v: conformity, power | aim: work | foot: means time-.05 | chance: 55
+- U>R | ask the others at home what they want next, and follow their lead | v: self-direction, benevolence | aim: work | foot: means ties+.04 | chance: 75
+- B>G | ease back for a year, and spend some of the time on yourself | v: achievement, security | aim: ease | foot: means freedom+.04 | chance: 85
+- R>W | let it go, and put the hours into friends outside the house | v: self-direction, tradition | aim: stop | foot: person friend | chance: 80
+- G>U | let it go as a goal, and simply live in the home it has become | v: benevolence, self-direction | aim: stop | foot: lesson it was already a home | chance: 90
+works: Something shifts, small at first, and the house feels as if it is going somewhere again.
+works: Whatever {N} chose, the year has a direction, and the others at home can feel it.
+fails: The change does not take, and the old routine settles back like dust.
+fails: The year slides by much like the last one, and the question waits for next year.
+
+# ---------------------------------------------------------------- home, cost, rungs 0 1 2, fork pay (cycle s1)
+
+== what the household can afford
+tier: life event
+shape: home
+kind: cost
+rungs: 0 1 2
+fork: pay
+stages: young_adult adult mature
+age: 18-75
+per_year: 0 0 0 0 0 0
+tone: mixed
+life: home, money, family
+horizon: years
+roles: partner, parent, child, sibling
+earth: the price of {aim.doing}: a bigger place, time away from work, or the family's patience
+tribal: the price of a bigger shelter: hides, labour, and the patience of the whole hearth
+magic: the price of a bigger house: the steward's fee, a season's labour, and the household's patience
+scene: This year {aim.doing} has a price, and it has come due all at once: the place is too small, and the deposit, the extra room or the time off work will cost more than the household has put by. Someone at home has started asking how long this goes on, and the answer is needed before the lease runs out in spring.
+scene tribal: A bigger shelter would hold everyone, but it would take every hide the family has and a season of labour before the herds move. The hearth is tired of waiting.
+scene magic: A larger house is offered for the steward's fee, payable by midsummer. It would take the household's savings and a season of everyone's labour, and patience is already thin.
+- W | pay only what the household agreed, and nothing over it | v: security, conformity | aim: pay | cost: money .3, time .1, family .1 | foot: means money-.05 | chance: 80
+- U | find the cheaper way that gets most of it, and pay for that | v: self-direction, security | aim: pay | cost: money .2, time .3, family .1 | foot: mark learned a skill | chance: 70
+- B | borrow what it takes, and back yourself to pay it back | v: power, achievement | aim: pay | cost: money .6, time .1, family .2 | foot: means money-.08 | chance: 60
+- R | throw everything at it now, savings and all | v: stimulation, self-direction | aim: pay | cost: money .7, time .3, family .3 | foot: mark took a wild risk | chance: 55
+- G | put the family's peace first, and let this one go | v: benevolence, security | aim: stop | foot: lesson a smaller place can hold us | chance: 85
+- W>U | say not this year, set a date, and save toward it | v: conformity, self-direction | aim: refuse | foot: door kept your word | chance: 85
+- U>B | let it go, and put what was saved into something that pays back | v: achievement, security | aim: stop | foot: lesson knowing the limit is a skill | chance: 80
+- B>R | refuse the price as it stands, and bargain hard for a better one | v: power, stimulation | aim: refuse | foot: means money+.03 | chance: 55
+- R>G | ask the wider family to chip in, and promise them a room in return | v: stimulation, benevolence | aim: pay | cost: money .2, time .1, family .4 | foot: means ties+.04 | chance: 65
+- G>W | make do where you are, and make it work better | v: tradition, security | aim: refuse | foot: mark stayed home | chance: 80
+works: The money is found, or saved, or done without, and the household agrees it was the right call.
+works: It is tight for a year, but the plan holds, and nobody at home feels it was forced on them.
+fails: It costs more than anyone said it would, and the arguments about money go on into the summer.
+fails: The deadline comes before the answer does, and the choice is half made for {N} by default.
+
+# ---------------------------------------------------------------- home, chance, rungs 0 1 2 3, fork take (cycle s2)
+
+== the step that will not wait
+tier: life event
+shape: home
+kind: chance
+rungs: 0 1 2 3
+fork: take
+stages: young_adult adult mature elder
+age: 18-85
+per_year: 0 0 0 0 0 0
+tone: joy
+life: home, family, love
+horizon: years
+roles: partner, parent, friend, child
+earth: a chance that would carry {aim.thing} a long way at once: a house that fits everyone, a question asked at last, a child who needs a home now
+tribal: a chance for the hearth: a share of another clan's better winter ground, if the family moves before the snow
+magic: a chance for the house: a grant of land from the court, if the family takes it up before the season turns
+scene: A chance comes that would carry {aim.thing} a long way at once, with {aim.next} suddenly close enough to touch, if {N} says yes before the month is out. It is a lot to ask of everyone at home, and {aim.person} needs an answer.
+scene tribal: Another clan offers the family a share of their better winter ground, if they move before the snow. It would change everything for {Ns} hearth.
+scene magic: The court offers {Ns} household a grant of land with a house upon it, to be taken up before the season turns. It would change everything, and the family is not of one mind.
+- W | take it, but only once everyone at home has said yes | v: conformity, benevolence | aim: take | foot: door kept your word | chance: 75
+- U | ask for every detail first, then take it with open eyes | v: self-direction, security | aim: take | foot: person go-between | chance: 70
+- B | take it at once, before anyone else can | v: power, achievement | aim: take | foot: person rival | chance: 70
+- R | jump at it, and sort out the details afterwards | v: stimulation, hedonism | aim: take | foot: mark took a wild risk | chance: 60
+- G | say no, because the timing would cost the family too much | v: benevolence, security | aim: decline | foot: mark turned down a chance | chance: 85
+- W>B | take it on firm terms, written down and agreed | v: conformity, power | aim: take | foot: means money-.04 | chance: 70
+- U>R | think it through, and find you no longer want this at all | v: self-direction, stimulation | aim: stop | foot: lesson wanting can change | chance: 90
+- B>G | turn it down, and use the offer to win something smaller nearer home | v: power, tradition | aim: decline | foot: means money+.03 | chance: 70
+- R>W | let it go, and keep the friend who offered it | v: self-direction, benevolence | aim: stop | foot: person friend | chance: 85
+- G>U | let it pass this time, and wait for a moment that suits everyone | v: benevolence, self-direction | aim: decline | foot: door turned down a chance | chance: 85
+works: The step is taken, or wisely left, and a year later {N} would make the same call.
+works: There is a lot of upheaval, but the household lands on its feet and is glad it moved when it did.
+fails: The chance comes with strings nobody mentioned, and the first year is harder than planned.
+fails: {N} wonders for a long time afterwards about the other answer.
+
+# ---------------------------------------------------------------- home, round, rungs 0 1 2 3, fork round (cycle s1)
+
+== a way round at home
+tier: life event
+shape: home
+kind: round
+rungs: 0 1 2 3
+fork: round
+stages: young_adult adult mature elder
+age: 18-90
+per_year: 0 0 0 0 0 0
+tone: mixed
+life: home, family
+horizon: years
+roles: parent, partner, friend, sibling
+earth: a block in the way of {aim.thing}, and a way round it: {aim.round}
+tribal: the usual way shut, and another: living at a neighbouring hearth for a time
+magic: the usual way barred by the house's rules, and another: a household beyond the city wall
+scene: The straight road to {aim.thing} is shut for now, and nobody can say when it will open: the money is not there, the family is against it, or the waiting list does not move. There is another way, {aim.round}, and it would mean doing things differently from how {N} imagined.
+scene tribal: The clan will not give {N} a shelter of their own this winter. But a neighbouring hearth has room, and has said so.
+scene magic: The house's elders have barred the plan by their old rules. Beyond the city wall, households keep other customs, and one of them has offered a place.
+- W | go the other way properly: ask, apply, and follow its rules | v: conformity, security | aim: round | foot: door kept your word | chance: 70
+- U | look into {aim.round} carefully before committing to it | v: self-direction, security | aim: round | foot: mark learned a skill | chance: 75
+- B | take {aim.round}, and make it work better than the straight road would have | v: achievement, power | aim: round | foot: means money-.04 | chance: 55
+- R | throw yourself into {aim.round} and see where it leads | v: stimulation, self-direction | aim: round | foot: mark took a wild risk | chance: 60
+- G | wait at home a while longer, and go round only when the family can come too | v: benevolence, tradition | aim: round | foot: mark stayed home | chance: 70
+- W>U | ask someone who went that way how it really is | v: conformity, self-direction | aim: round | foot: person go-between | chance: 80
+- U>B | let the old plan go, and take what you learned somewhere else | v: self-direction, achievement | aim: stop | foot: lesson the road taught plenty anyway | chance: 90
+- B>R | go round without telling the family, and tell them once it works | v: power, stimulation | aim: round | foot: door kept it hidden | chance: 50
+- R>G | take a smaller version of it now, rather than the whole thing later | v: stimulation, security | aim: round | foot: means freedom+.03 | chance: 70
+- G>W | let it go for now, and stay close to the people who said no | v: tradition, benevolence | aim: stop | foot: lesson some roads wait for later | chance: 85
+works: The choice settles, and {N} finds that a door shut in one place has opened in another.
+works: It is not what {N} imagined, but it is moving, and the waiting is over.
+fails: The new road has its own walls, and the first months go slowly.
+fails: Some of the family take it badly, and the house is cooler for a season.
+
+# ---------------------------------------------------------------- home, reaction, rungs 0 1 (cycle s2)
+
+== what the family makes of it
+tier: life event
+shape: home
+kind: reaction
+rungs: 0 1
+fork:
+stages: juvenile young_adult adult
+age: 16-50
+per_year: 0 0 0 0 0 0
+tone: mixed
+life: family, home, love
+horizon: months
+roles: parent, grandparent, sibling, elder
+earth: the family's answer to what {N} wants from home life: proud, worried, or against it
+tribal: the kin's answer to the young one's wish for a hearth of their own
+magic: the house's answer to the young one's plans: pride, worry, and the old rules
+scene: {parent} has heard what {N} wants from life, {aim.thing}, and sooner than anyone planned. {parent} is proud of it and worried by it in the same breath, {sibling} has opinions, and everyone at home seems to want a say before {N} takes the next step.
+scene tribal: The kin have heard that {N} wants a hearth of their own, sooner than is usual. {parent} is proud and worried at once, and the elders have begun to talk.
+scene magic: The house has heard {Ns} plans, and {parent} is proud of them and frightened by them in the same breath. The old rules have something to say, too.
+- W | hear them out, then lay out your plan step by step | v: conformity, security | aim: hold | foot: means ties+.03 | chance: 75
+- U | answer every worry with a fact, one at a time | v: self-direction, achievement | aim: hold | foot: lesson calm answers carry further | chance: 60
+- B | say plainly that it is your life and your call | v: power, self-direction | aim: hold | foot: means ties-.04 | chance: 70
+- R | dig in, and tell them they will come round once they see it | v: stimulation, self-direction | aim: hold | foot: mark defied an authority | chance: 55
+- G | take their worry seriously, and slow your plans to their pace | v: benevolence, tradition | aim: bend | foot: means ties+.05 | chance: 85
+- W>B | agree to wait a set time, if they back you after it | v: conformity, power | aim: bend | foot: door kept your word | chance: 75
+- U>R | go ahead quietly, and let them see by how it goes | v: self-direction, stimulation | aim: hold | foot: means freedom+.04 | chance: 65
+- B>G | win over the oldest of the family, and let them bring the rest round | v: power, tradition | aim: hold | foot: person elder | chance: 60
+- R>W | give in for now, for the sake of peace at home | v: security, conformity | aim: bend | foot: mark gave in to pressure | chance: 85
+- G>U | ask {parent} what they wish someone had told them at your age | v: benevolence, self-direction | aim: bend | foot: lesson they were young once too | chance: 80
+works: The family comes round, slowly, and {parent} is the first to say so out loud.
+works: The worry stays, but it turns into help: advice, a lift, a spare chair.
+fails: The argument goes quiet and comes back up at every family meal.
+fails: Whichever way it went, something is left unsaid between {N} and {parent} for a long time.
+
+# ---------------------------------------------------------------- home, arrive, rungs any (cycle s1)
+
+== the household that has shown it holds
+tier: life event
+shape: home
+kind: arrive
+rungs: any
+fork:
+stages: young_adult adult mature elder
+age: 18-95
+per_year: 0 0 0 0 0 0
+tone: joy
+life: family, home
+horizon: week
+roles: partner, child, parent, sibling
+earth: the proof, after it was tested: the hard season weathered together, the keys handed over, the promise kept when keeping it cost something
+tribal: the kin gathered at {Ns} fire after the lean months, without being called, the plain proof of it
+magic: the great door of the house opened for the whole family after the hard season, the plain proof of it
+scene: It has been shown, not just hoped: the hard season weathered together, the keys handed over, the promise kept when keeping it cost something, and the house full on the day without anyone being asked. Everyone at home can see where things stand now: {aim.rung}.
+scene tribal: After the lean months the kin come to {Ns} fire without being called, from every camp, and sit as if they had always meant to. Nobody needs to say what it means.
+scene magic: After the hard season the great door of the house is opened for the whole family, three generations under one roof, and the old steward nods to {N} as if a thing were settled.
+- W | mark the day properly, with the family's old words | v: tradition, conformity | foot: door kept your word | chance: 95
+- U | sit quietly afterwards and write down how it came about | v: self-direction, universalism | foot: lesson it was built from small days | chance: 95
+- B | let the wider family and the street know, and enjoy it | v: power, achievement | foot: person neighbour | chance: 90
+- R | throw the party of the year, and dance until late | v: hedonism, stimulation | foot: means money-.04; means ties+.04 | chance: 90
+- G | thank everyone who carried a part of it, the oldest first | v: benevolence, tradition | foot: means ties+.05 | chance: 95
+- W>U | take stock with the others at home, and plan the next years together | v: conformity, self-direction | foot: means ties+.03 | chance: 90
+- U>B | put it on record, and leave a copy of the papers in the town archive | v: self-direction, achievement | foot: place learn.keeping | chance: 90
+- B>R | enjoy it for one evening, then straight back to the next thing | v: achievement, hedonism | foot: means time-.04 | chance: 90
+- R>G | take everyone out for a long day in the open, all of them | v: stimulation, benevolence | foot: means health+.03 | chance: 85
+- G>W | change nothing, and keep the door open as it always was | v: tradition, security | foot: mark stayed home | chance: 95
+works: The day is everything it should be, and {N} will remember small parts of it for the rest of their life.
+works: Nobody makes a speech, but everyone knows, and that is enough.
+fails: The day is good, and over too fast, and the ordinary worries are back by morning.
+fails: One empty chair is noticed more than all the full ones, but the day holds anyway.
+
+# ================================================================ LAND
+
+# ---------------------------------------------------------------- land, practice, rungs 0 1 (cycle s2)
+
+== an early hour at {aim.place}
+tier: life event
+shape: land
+kind: practice
+rungs: 0 1
+fork:
+stages: juvenile young_adult adult mature elder
+age: 12-90
+per_year: 0 0 0 0 0 0
+tone: joy
+life: nature, leisure
+horizon: week
+roles: friend, mentor, regular, neighbour
+earth: an ordinary hour of {aim.doing} at {aim.place}, in whatever weather the day brings
+tribal: an ordinary morning of {aim.doing} on the clan's ground, in whatever weather the sky sends
+magic: an ordinary morning of {aim.doing} on the realm's old ground, where the hedge-spirits are said to watch
+scene: The weather has turned again, and {N} has an hour at {aim.place} before the rest of the day starts. Nobody is watching; it is {aim.doing} in the cold or the wet, the kind of hour nobody sees and that adds up over a year.
+scene tribal: The sky is low and the ground is wet, and {N} goes out to the clan's ground anyway. Nobody watches; the old ones say these are the mornings that count.
+scene magic: Mist lies on the old ground, and {N} goes out before the house wakes. The hedge-spirits are said to watch such mornings; {N} has never seen one.
+- W | do the jobs in the order the old hands taught, every one | v: tradition, conformity | aim: work | foot: door kept your word | chance: 85
+- U | try one small change, and note what difference it makes | v: self-direction, achievement | aim: work | foot: mark learned a skill | chance: 70
+- B | get ahead of everyone else on the season, whatever it takes | v: achievement, power | aim: work | foot: means health-.03 | chance: 65
+- R | go out in the worst of the weather, just for the feel of it | v: stimulation, hedonism | aim: work | foot: means health+.03 | chance: 75
+- G | slow down, and watch what the weather and the season are doing | v: universalism, tradition | aim: work | foot: lesson the season sets the pace | chance: 85
+- W>B | keep a record of every hour out there, and what came of it | v: conformity, achievement | aim: work | foot: lesson records show what memory misses | chance: 80
+- U>R | read up on it indoors, and go out once the weather lifts | v: self-direction, hedonism | aim: ease | foot: means freedom+.03 | chance: 85
+- B>G | leave the dull jobs, and spend the hour on what is doing best | v: achievement, universalism | aim: ease | foot: means time+.03 | chance: 80
+- R>W | give the hour a miss for {friend}'s sake, and come back next week | v: hedonism, conformity | aim: ease | foot: means ties+.03 | chance: 85
+- G>U | bring someone newer along, and show them what you know | v: benevolence, self-direction | aim: work | foot: person friend | chance: 80
+works: The hour does what hours out there do: nothing much, and a little more than last week.
+works: By the end of it {Ns} hands know something they did not know in spring.
+fails: The rain sets in, and {N} comes back soaked with little done.
+fails: The hour is spent, and nothing out there seems any different for it.
+
+# ---------------------------------------------------------------- land, practice, rungs 2 (cycle s1)
+
+== the year's round in {Ns} keeping
+tier: life event
+shape: land
+kind: practice
+rungs: 2 3 4
+fork:
+stages: adult mature elder
+age: 28-95
+per_year: 0 0 0 0 0 0
+tone: mixed
+life: nature, community, work
+horizon: months
+roles: regular, mentor, friend, colleague
+earth: years in, the year's round of {aim.doing} that other people now depend on: the rota, the records, the newcomers, the plan
+tribal: years in, the clan's ground in {Ns} keeping: who goes where, which slope rests, what is left for the next
+magic: years in, the old ground in {Ns} keeping: the rotas, the long book of records, the old bargains with the hedge-spirits
+scene: Years in, {aim.doing} is no longer only {Ns}: there are newcomers to show round, a rota to keep, records to pass on, and the next ten years at {aim.place} to think about. Other people's seasons now hang on {Ns} planning, and this year there is more of it than ever.
+scene tribal: The clan's ground is in {Ns} keeping now: who hunts where, which slope rests, what is left for the next generation. The young ones ask {N} before they ask the elders.
+scene magic: The old ground is in {Ns} keeping now, with its long book of records and its rotas. Some say the hedge-spirits keep their own bargains with whoever holds the book.
+- W | keep the rota and the rules exactly, so everyone knows where they stand | v: conformity, security | aim: work | foot: door kept your word | chance: 80
+- U | start a proper record, and teach others to keep it | v: self-direction, universalism | aim: work | foot: mark learned a skill | chance: 70
+- B | take the decisions yourself, and make {aim.place} the best around | v: power, achievement | aim: work | foot: means time-.05 | chance: 60
+- R | try something bold this year that nobody has tried there | v: stimulation, self-direction | aim: work | foot: mark took a wild risk | chance: 50
+- G | plan for what the soil, the water and the creatures will need in twenty years | v: universalism, tradition | aim: work | foot: lesson the long view pays slowly | chance: 75
+- W>U | write the way it is done into a guide for the newcomers | v: conformity, self-direction | aim: work | foot: person regular | chance: 80
+- U>B | find the money and the help to do it properly, on a plan | v: achievement, power | aim: work | foot: person patron | chance: 55
+- B>R | hand the dull parts to others, and keep the best for yourself | v: power, hedonism | aim: ease | foot: means freedom+.04 | chance: 75
+- R>G | take a season off the planning, and simply be out there | v: hedonism, universalism | aim: ease | foot: means health+.04 | chance: 85
+- G>W | let the younger ones take a share of the running now | v: benevolence, conformity | aim: ease | foot: means time+.05 | chance: 80
+works: The year runs well, and the newcomers start doing things the way {N} does without being told.
+works: At the season's end {aim.place} is in better shape than {N} found it, and people say so.
+fails: There is too much of it, and {N} spends the summer in meetings instead of out doing the work.
+fails: A plan that looked good on paper meets a wet year and too few hands.
+
+# ---------------------------------------------------------------- land, contest (a show or fair), rungs 0 1 (cycle s2)
+
+== the day of {aim.contest}
+tier: life event
+shape: land
+kind: contest
+rungs: 0 1
+fork:
+stages: juvenile young_adult adult mature elder
+age: 12-90
+per_year: 0 0 0 0 0 0
+tone: joy
+life: nature, community, leisure
+horizon: week
+roles: friend, rival, regular, mentor
+earth: the day of {aim.contest}, when the season's work is out where people can see it and compare
+tribal: the harvest gathering of the clans, when every hearth lays out the best the season gave
+magic: the midsummer fair of the realm, when every holding sets out its best before the guild's judges
+scene: The day of {aim.contest} comes round, when the season's work is out where everyone can see it and compare. {N} has something worth showing for the first time, and {aim.person} has already asked whether {N} is entering.
+scene tribal: At the harvest gathering of the clans, each hearth lays out the best the season gave. {N} has something worth laying out for the first time.
+scene magic: At the midsummer fair every holding sets out its best before the guild's judges. {N} has something worth setting out, and the stalls are filling.
+- W | enter by the rules, every form filled and every class read | v: conformity, achievement | aim: try | foot: place gather.great | chance: 55
+- U | study what the judges look for, and prepare for exactly that | v: self-direction, achievement | aim: try | foot: mark learned a skill | chance: 55
+- B | enter everything you can, and go for the top prize | v: power, achievement | aim: try | foot: person rival | chance: 45
+- R | enter on the morning, on a whim, with whatever looks best | v: stimulation, hedonism | aim: try | foot: mark took a wild risk | chance: 40
+- G | go along to help and watch, and show nothing this year | v: benevolence, tradition | aim: skip | foot: person regular | chance: 90
+- W>B | enter with the club, and help it take the shield | v: conformity, power | aim: try | foot: place gather.hall | chance: 55
+- U>R | enter something unusual, just to see what they make of it | v: self-direction, stimulation | aim: try | foot: lesson odd things get noticed | chance: 45
+- B>G | enter only what you are sure of, and keep the rest back | v: achievement, security | aim: try | foot: lesson show what you are sure of | chance: 60
+- R>W | skip the judging, and enjoy the day with {friend} | v: hedonism, benevolence | aim: skip | foot: means ties+.04 | chance: 90
+- G>U | spend the day swapping notes with the old hands instead | v: tradition, self-direction | aim: skip | foot: person mentor | chance: 85
+works: The day goes well, and {N} comes home knowing more people at {aim.place} than in the morning.
+works: {N} learns more about {aim.thing} in one afternoon than in a month alone.
+fails: The judging, or the day, goes another way, and {N} comes home a little flat.
+fails: It rains all afternoon, and half the town stays home.
+
+# ---------------------------------------------------------------- land, contest (a show or fair), rungs 1 2 (cycle s1)
+
+== the judges from beyond the town
+tier: life event
+shape: land
+kind: contest
+rungs: 1 2 3 4
+fork:
+stages: juvenile young_adult adult mature elder
+age: 16-95
+per_year: 0 0 0 0 0 0
+tone: mixed
+life: nature, community, public life
+horizon: week
+roles: rival, mentor, regular, friend
+earth: {aim.contest} at its biggest, with entrants and judges from far beyond the town
+tribal: the great gathering of all the clans, held once in a long while, where the best of each hearth is set side by side
+magic: the realm's great fair at the capital, where holdings from every province set out their best
+scene: This year it is the big one: {aim.contest} with entrants from far beyond the town, and judges who know {aim.thing} better than anyone {N} has met. {N} has a real chance, and so do {rival} and a dozen others.
+scene tribal: The great gathering of all the clans comes once in a long while, and the best of each hearth is set side by side. {Ns} name has been spoken among those to watch.
+scene magic: The realm's great fair is held at the capital, and holdings from every province send their best. {N} has been asked to bring something, and {rival} will be there too.
+- W | prepare by the book for months, and present it without a fault | v: conformity, achievement | aim: try | foot: means time-.05 | chance: 50
+- U | bring something nobody else has, from years of your own trials | v: self-direction, achievement | aim: try | foot: mark learned a skill | chance: 45
+- B | go to win, and make sure the right people see you do it | v: power, achievement | aim: try | foot: person patron | chance: 40
+- R | go for the hardest class there is, the one you might well lose | v: stimulation, self-direction | aim: try | foot: mark took a wild risk | chance: 35
+- G | let the year's work speak, and enter it just as it is | v: tradition, universalism | aim: try | foot: lesson plain work stands up | chance: 50
+- W>U | offer to help run it or judge a class instead of entering | v: conformity, universalism | aim: skip | foot: place gather.great | chance: 85
+- U>B | enter, and use the day to meet every buyer and board worth knowing | v: achievement, power | aim: try | foot: person colleague | chance: 50
+- B>R | stay away this year, and come back next time with something unbeatable | v: power, stimulation | aim: skip | foot: door turned down a chance | chance: 80
+- R>G | go along for the spectacle, and come home full of ideas | v: stimulation, universalism | aim: skip | foot: lesson the best learn by looking | chance: 90
+- G>W | bring the whole group from {aim.place}, and enter as one | v: benevolence, conformity | aim: try | foot: means ties+.05 | chance: 50
+works: {N} comes home with a name that people from far beyond the town now know.
+works: The day goes better than {N} dared hope, and a few of the right people take note.
+fails: {rival} has the better day, and says so, kindly enough.
+fails: A late frost, an animal off its food, a bad night's sleep: the day goes wrong in a dozen small ways.
+
+# ---------------------------------------------------------------- land, mentor, rungs 0 1 2 (cycle s2)
+
+== the old hand at {aim.place}
+tier: life event
+shape: land
+kind: mentor
+rungs: 0 1 2
+fork:
+stages: juvenile young_adult adult mature elder
+age: 12-80
+per_year: 0 0 0 0 0 0
+tone: joy
+life: nature, friends, learning
+horizon: months
+roles: mentor, elder, regular
+earth: someone who has done {aim.doing} for forty years, and notices what {N} is getting wrong
+tribal: an old one of the clan who knows the ground and the water in every season, and watches the young
+magic: an old warden of the realm's ground, said to know the hedge-spirits by name, who has taken notice of {N}
+scene: At {aim.place} there is {aim.person}, who has been at it for forty years and more and has noticed what {N} is getting wrong. The offer comes gruffly: an hour a week, if {N} turns up on time, starting before the season gets going.
+scene tribal: The old one who knows every season of the clan's ground has been watching {N}. One morning they say, without looking up, that {N} is doing it wrong, and can come and learn.
+scene magic: The old warden of the realm's ground, said to know the hedge-spirits by name, has taken notice of {N}, and sends word: one morning a week, at first light.
+- W | turn up on time every week, and do exactly as you are told | v: conformity, tradition | aim: work | foot: person mentor | chance: 85
+- U | ask why about everything, and write the answers down | v: self-direction, achievement | aim: work | foot: mark learned a skill | chance: 75
+- B | learn everything they know, then set out to do it better | v: achievement, power | aim: try | foot: person mentor | chance: 60
+- R | argue with half of it, and try the rest straight away | v: stimulation, self-direction | aim: try | foot: lesson arguing teaches too | chance: 60
+- G | work alongside them in silence, and learn by watching | v: tradition, benevolence | aim: work | foot: person elder | chance: 85
+- W>B | ask them to put your name forward where it counts | v: conformity, power | aim: try | foot: person patron | chance: 50
+- U>R | take the lessons when the season allows, not every week | v: self-direction, hedonism | aim: ease | foot: means freedom+.03 | chance: 85
+- B>G | take only the tips that help, and keep to your own way | v: achievement, self-direction | aim: ease | foot: means time+.03 | chance: 80
+- R>W | bring a friend along, and make the mornings a habit for both | v: stimulation, benevolence | aim: work | foot: person friend | chance: 75
+- G>U | help them with their own work, and ask questions as you go | v: benevolence, self-direction | aim: work | foot: mark helped someone in need | chance: 85
+works: Within a season {N} does in an hour what used to take a morning, and the old hand almost smiles.
+works: The lessons are short and gruff and exactly right.
+fails: The old hand is a hard teacher, and some weeks {N} goes home feeling clumsy.
+fails: The two of them rub each other the wrong way, and the mornings stop by autumn.
+
+# ---------------------------------------------------------------- land, rival, rungs 0 1 2 (cycle s1)
+
+== the neighbour who does it the other way
+tier: life event
+shape: land
+kind: rival
+rungs: 0 1 2 3 4
+fork:
+stages: juvenile young_adult adult mature elder
+age: 14-95
+per_year: 0 0 0 0 0 0
+tone: mixed
+life: nature, neighbours, conflict
+horizon: years
+roles: rival, neighbour, regular
+earth: someone on the same stretch who does {aim.doing} the opposite way, and does well at it
+tribal: another hearth working the same ground by other customs, and taking more from it each season
+magic: a rival holding on the same old ground, kept by other methods and, some say, other bargains
+scene: {rival} works the same stretch as {N} and does everything the other way, and this season {Ns} way looks worse beside it. People at {aim.place} have started comparing, out loud.
+scene tribal: Another hearth works the same slope by other customs, and takes more from it every season. The clan has started to compare.
+scene magic: {rival} holds land on the same old ground and keeps it by other methods, and other bargains, some say. This year the comparison is being made out loud.
+- W | keep to the proven way, and let the results speak over the years | v: tradition, security | aim: work | foot: lesson one good season proves little | chance: 75
+- U | ask {rival} straight out how they do it | v: self-direction, achievement | aim: work | foot: person friend | chance: 60
+- B | set out to beat them at the next show, in front of everyone | v: power, achievement | aim: try | foot: person rival | chance: 45
+- R | try their way on one corner, just to see | v: stimulation, self-direction | aim: try | foot: mark learned a skill | chance: 60
+- G | wish them well, and keep doing what suits your own stretch | v: benevolence, universalism | aim: ease | foot: means ties+.03 | chance: 85
+- W>U | propose a fair trial side by side, with honest records | v: conformity, self-direction | aim: try | foot: door kept your word | chance: 55
+- U>B | quietly study their methods, and better them | v: self-direction, achievement | aim: work | foot: means time-.04 | chance: 55
+- B>R | needle them at {aim.place} until it becomes a proper contest | v: power, stimulation | aim: try | foot: means ties-.03 | chance: 50
+- R>G | stop comparing for a season, and just enjoy being out there | v: hedonism, universalism | aim: ease | foot: means health+.03 | chance: 85
+- G>W | suggest pooling what you each have, so both stretches do better | v: benevolence, conformity | aim: work | foot: person neighbour | chance: 65
+works: The comparison turns into something useful, and both of them do better the year after.
+works: {N} learns one thing from {rival} that changes how {N} works for good.
+fails: The rivalry sours into something petty, and people at {aim.place} take sides.
+fails: {Ns} way still looks worse beside theirs, and {N} has to live with that for a season.
+
+# ---------------------------------------------------------------- land, setback, rungs any (cycle s2)
+
+== the season the weather takes
+tier: life event
+shape: land
+kind: setback
+rungs: any
+fork:
+stages: juvenile young_adult adult mature elder
+age: 12-95
+per_year: 0 0 0 0 0 0
+tone: trouble
+life: nature, loss, work
+horizon: months
+roles: friend, mentor, elder, parent
+earth: a season's work lost to the weather or the water: a late frost, a flood, a summer with no rain, a sickness among the animals
+tribal: a season's work lost to a flood on the river flats, and an elder who calls it a sign
+magic: a season's work lost to a hard frost out of season, and a wise one who says the hedge-spirits are owed something
+scene: The weather takes the season's work: a late frost, a flood, a summer with no rain, or a sickness that runs through the animals. {elder} says it is a sign, and {N} is not so sure. Either way, months of work at {aim.place} are gone, and the next season starts from further back.
+scene tribal: The river comes over the flats and takes the season's work with it. {elder} says the river is angry; {N} watches the water go down and counts what is left.
+scene magic: A hard frost out of season takes the growth overnight. The old wise one says the hedge-spirits are owed something; {N} is not sure what to believe.
+- W | start again at once, the way it has always been done | v: tradition, conformity | aim: work | foot: means time-.04 | chance: 75
+- U | work out what made it worse, and change what you can for next time | v: self-direction, achievement | aim: work | foot: mark learned a skill | chance: 70
+- B | buy in what was lost, and carry on as if nothing happened | v: power, achievement | aim: work | foot: means money-.06 | chance: 70
+- R | go back out into the mess the next morning, and start clearing | v: stimulation, self-direction | aim: work | foot: means health-.03 | chance: 75
+- G | take the season as it came, and plan round the weather from now on | v: universalism, security | aim: work | foot: lesson the weather keeps no score | chance: 80
+- W>B | rally the others at {aim.place} to rebuild together, on a plan | v: conformity, power | aim: work | foot: means ties+.05 | chance: 65
+- U>R | let it go, and take what the loss taught into something new | v: self-direction, stimulation | aim: stop | foot: lesson a loss can point elsewhere | chance: 85
+- B>G | cut your losses, and let this go for something steadier | v: achievement, security | aim: stop | foot: mark learned a skill | chance: 85
+- R>W | step back for good, and give your tools to someone starting out | v: self-direction, benevolence | aim: stop | foot: person friend | chance: 85
+- G>U | listen to {elder}, and change what you grow or where you go | v: tradition, self-direction | aim: work | foot: person elder | chance: 65
+works: The next season comes in better than anyone feared, and {N} is ready for whatever it brings.
+works: The loss stays a loss, but {N} comes out of it knowing more about the weather than before.
+fails: The next season is thin too, and {N} wonders how many more the purse and the back can take.
+fails: The clearing up takes longer than the growing ever did.
+
+# ---------------------------------------------------------------- land, plateau, rungs 0 1 2, fork go_on (cycle s1)
+
+== the season nothing improves
+tier: life event
+shape: land
+kind: plateau
+rungs: 0 1 2 3 4
+fork: go_on
+stages: juvenile young_adult adult mature elder
+age: 14-95
+per_year: 0 0 0 0 0 0
+tone: mixed
+life: nature, work, leisure
+horizon: years
+roles: mentor, friend, partner
+earth: years of {aim.doing} at {aim.place}, and the sense that it has stopped getting better
+tribal: seasons on the same ground, and the sense that nothing more is being learned from it
+magic: years on the old ground, and the sense that its secrets have closed to {N}
+scene: Three seasons running, {aim.doing} at {aim.place} has come out the same: no better, no worse, the same results and the same mistakes. A new season is about to start, the hours are as long as ever, and {N} has to decide what they are for.
+scene tribal: Three seasons on the same ground, and nothing new learned from it. The clan moves camp soon, and {N} must decide whether to keep this ground or not.
+scene magic: Three years on the old ground, and its secrets seem closed. At the turn of the year the warden asks who will keep each holding, and {N} must answer.
+- W | keep at it exactly as you are, and trust the years | v: tradition, security | aim: work | foot: door kept your word | chance: 80
+- U | change your method from the ground up, and test it properly | v: self-direction, achievement | aim: work | foot: mark learned a skill | chance: 55
+- B | set yourself a hard target for this season, and hit it | v: achievement, power | aim: work | foot: means time-.05 | chance: 50
+- R | drop the routine, and go about it some completely new way | v: stimulation, self-direction | aim: work | foot: mark took a wild risk | chance: 50
+- G | cut back to a few hours, and keep it for the quiet it gives | v: security, tradition | aim: ease | foot: means time+.05 | chance: 90
+- W>U | join a course or a society, and learn the next part properly | v: conformity, self-direction | aim: work | foot: place gather.hall | chance: 70
+- U>B | bring in a partner who knows the part you do not | v: achievement, power | aim: work | foot: person colleague | chance: 60
+- B>R | take a year away from it, and come back hungry | v: achievement, hedonism | aim: ease | foot: means freedom+.05 | chance: 85
+- R>G | let it go, and spend the hours outdoors in other ways | v: stimulation, universalism | aim: stop | foot: lesson being out there was the point | chance: 85
+- G>W | hand your place to someone keener, and help them start | v: benevolence, conformity | aim: stop | foot: person friend | chance: 85
+works: Something gives at last, and the season comes out better than the three before it.
+works: Whatever {N} chose, the hours feel well spent again.
+fails: The new season comes out the same as the last, and the question waits another year.
+fails: The change costs more effort than it gives back, at least this year.
+
+# ---------------------------------------------------------------- land, cost, rungs 0 1 2, fork pay (cycle s2)
+
+== the fees, the gear and the weekends
+tier: life event
+shape: land
+kind: cost
+rungs: 0 1 2 3 4
+fork: pay
+stages: juvenile young_adult adult mature elder
+age: 16-90
+per_year: 0 0 0 0 0 0
+tone: mixed
+life: money, nature, family
+horizon: years
+roles: partner, parent, friend, neighbour
+earth: the price of {aim.doing}: the rent or the fees going up, gear to replace, and every weekend gone
+tribal: the price of keeping the clan's ground: labour owed, gifts to the other hearths, and nights away from the fire
+magic: the price of a holding on the old ground: the warden's fee, the tools, and the household's patience
+scene: This year {aim.doing} costs more: the fees or the rent have gone up, the gear needs replacing, and at home they have started counting the weekends {N} spends at {aim.place}. The renewal is due by the end of the month.
+scene tribal: Keeping the clan's ground means labour owed to the other hearths, gifts at the gathering, and nights away from the fire. The family is counting the nights.
+scene magic: The warden has raised the fee for a holding on the old ground, payable on the quarter day, and the tools want replacing. At home the patience is thinning.
+- W | pay what the budget allows, and nothing beyond it | v: security, conformity | aim: pay | cost: money .3, time .1, family .1 | foot: means money-.04 | chance: 80
+- U | mend the old gear, share the rest, and pay only the fees | v: self-direction, security | aim: pay | cost: money .2, time .3, family .1 | foot: mark learned a skill | chance: 70
+- B | pay it all, and earn it back with work on the side | v: achievement, power | aim: pay | cost: money .5, time .3, family .1 | foot: means money-.06 | chance: 65
+- R | pay whatever it takes, since it is the best part of the week | v: hedonism, stimulation | aim: pay | cost: money .6, time .4, family .3 | foot: means money-.08 | chance: 60
+- G | let it go this year, and give the weekends back to the family | v: benevolence, security | aim: stop | foot: lesson some seasons belong elsewhere | chance: 85
+- W>B | ask the club or society for a fair deal, and hold them to it | v: conformity, power | aim: refuse | foot: means money+.03 | chance: 55
+- U>R | work out that it is not worth it, and put the hours elsewhere | v: self-direction, hedonism | aim: stop | foot: mark learned a skill | chance: 85
+- B>G | refuse the rise, and find a cheaper patch through a neighbour | v: power, benevolence | aim: refuse | foot: person neighbour | chance: 60
+- R>W | say not this year, and come back when the money is there | v: hedonism, security | aim: refuse | foot: door turned down a chance | chance: 85
+- G>U | go fewer weekends, and agree the days with the family first | v: benevolence, self-direction | aim: pay | cost: money .2, time .1, family .1 | foot: door kept your word | chance: 85
+works: The sums come out, just, and the weekends are agreed at home without a row.
+works: It costs what it costs, and nobody at home feels it was decided behind their back.
+fails: The money is tighter than {N} thought, and something else has to give by autumn.
+fails: The family agrees, but the weekends stay a sore point for the rest of the year.
+
+# ---------------------------------------------------------------- land, chance, rungs 0 1 2, fork take (cycle s1)
+
+== the offer with a date on it
+tier: life event
+shape: land
+kind: chance
+rungs: 0 1 2 3 4
+fork: take
+stages: juvenile young_adult adult mature elder
+age: 16-90
+per_year: 0 0 0 0 0 0
+tone: joy
+life: nature, work, money
+horizon: years
+roles: mentor, partner, friend, rival
+earth: a chance to take {aim.doing} much further: more land or water to tend, a lease, a seat on the board, someone to back {N}
+tribal: a chance from the elders: a whole slope of the clan's ground to keep, if {N} takes it before the moon turns
+magic: a chance from the realm: a larger holding on the old ground, with its own hedge-spirit, if {N} takes it by the solstice
+scene: A chance comes that would take {aim.doing} much further: more to tend, a lease, a seat on the board, or {aim.person} offering to back {N}. It would put {aim.next} within reach, and take a lot more of {Ns} time. The answer is wanted before the season starts.
+scene tribal: The elders offer {N} a whole slope of the clan's ground to keep, if {N} takes it before the moon turns. It is an honour, and a weight.
+scene magic: The realm offers {N} a larger holding on the old ground, said to have its own hedge-spirit, to be taken up by the solstice. It would mean more of everything.
+- W | take it on the proper terms, and keep every one of them | v: conformity, security | aim: take | foot: door kept your word | chance: 75
+- U | take it after reading every term, and what it will ask | v: self-direction, achievement | aim: take | foot: lesson read every term first | chance: 70
+- B | take it, and ask for more while they are offering | v: power, achievement | aim: take | foot: person patron | chance: 60
+- R | take it on the spot, and work the rest out as it comes | v: stimulation, hedonism | aim: take | foot: mark took a wild risk | chance: 60
+- G | say no, since you already have what you can care for well | v: universalism, security | aim: decline | foot: mark turned down a chance | chance: 90
+- W>U | ask for a season's trial before committing to it all | v: conformity, self-direction | aim: take | foot: means time-.04 | chance: 70
+- U>B | take it with a partner, and share the work and the gain | v: achievement, power | aim: take | foot: person colleague | chance: 65
+- B>R | turn it down, and use their interest to bargain for what you want more | v: power, stimulation | aim: decline | foot: means money+.03 | chance: 65
+- R>G | let it pass, and see that it goes to someone who needs it more | v: self-direction, benevolence | aim: decline | foot: mark helped someone in need | chance: 85
+- G>W | let the whole thing go, and keep only the part you love doing | v: benevolence, tradition | aim: stop | foot: lesson enough to care for well | chance: 85
+works: The bigger work fits, after a hard first season, and {N} grows into it.
+works: Whichever way {N} answered, the season starts with the matter settled and nothing left hanging.
+fails: The new work is more than it looked, and the first year is a scramble.
+fails: {N} wonders through the whole summer whether the other answer was right.
+
+# ---------------------------------------------------------------- land, round, rungs 0 1 2, fork round (cycle s2)
+
+== the way in that is shut
+tier: life event
+shape: land
+kind: round
+rungs: 0 1 2 3 4
+fork: round
+stages: juvenile young_adult adult mature elder
+age: 12-90
+per_year: 0 0 0 0 0 0
+tone: mixed
+life: nature, community
+horizon: years
+roles: friend, mentor, regular, neighbour
+earth: the usual way in shut, by a waiting list, no land, or the place sold or closed, and another way round: {aim.round}
+tribal: the clan's best ground closed to {N} for now, and another way: the next clan's ground, by their leave
+magic: the old ground closed by the warden's word, and another way: the wild ground beyond the wall
+scene: The usual way in is shut for now: the waiting list has not moved in two years, or the ground {N} counted on has been sold, or the club is full. There is another way, {aim.round}, and it is not what {N} pictured. Waiting longer means another season gone.
+scene tribal: The elders have closed the clan's best ground to all but the eldest hearths. The next clan has said {N} may work theirs, by their leave and their customs.
+scene magic: The warden has closed the old ground to newcomers. Beyond the city wall there is wild ground that nobody keeps, and nobody protects.
+- W | apply the proper way to {aim.round}, and wait your turn there | v: conformity, security | aim: round | foot: door kept your word | chance: 75
+- U | try {aim.round} for one season, and see if it works | v: self-direction, achievement | aim: round | foot: mark learned a skill | chance: 70
+- B | go straight to {aim.round}, and make yourself useful there fast | v: achievement, power | aim: round | foot: person regular | chance: 65
+- R | turn up at {aim.round} tomorrow, and simply start | v: stimulation, self-direction | aim: round | foot: mark took a wild risk | chance: 60
+- G | keep your name on the old list, and go round meanwhile with {friend} | v: tradition, benevolence | aim: round | foot: means ties+.03 | chance: 75
+- W>B | ask the people in charge to make room, and press the point | v: conformity, power | aim: round | foot: person go-between | chance: 50
+- U>R | let it go, and take what you learned into something else outdoors | v: self-direction, stimulation | aim: stop | foot: lesson the waiting taught patience | chance: 85
+- B>G | share someone else's patch or stretch, and split the work | v: power, benevolence | aim: round | foot: person neighbour | chance: 70
+- R>W | give it up for now, and help the ones who did get in | v: self-direction, benevolence | aim: stop | foot: person friend | chance: 85
+- G>U | wait one more season, learning at {aim.round} meanwhile | v: tradition, self-direction | aim: round | foot: place learn.keeping | chance: 75
+works: The way round turns out to be a way in, and by the season's end {N} is part of the place.
+works: Whichever way {N} goes, the waiting is over, and that alone is a relief.
+fails: The way round has its own waiting and its own rules, and the first months go slowly.
+fails: The new place never quite feels like {Ns}, and {N} keeps glancing back at the old one.
+
+# ---------------------------------------------------------------- land, reaction, rungs 0 1 (cycle s1)
+
+== what the family makes of the hours outdoors
+tier: life event
+shape: land
+kind: reaction
+rungs: 0 1
+fork:
+stages: juvenile young_adult adult
+age: 12-60
+per_year: 0 0 0 0 0 0
+tone: mixed
+life: family, nature
+horizon: months
+roles: parent, sibling, partner, elder
+earth: the family's answer to {N} spending every spare hour on {aim.doing}: proud, worried, or against it
+tribal: the hearth's answer to {Ns} long days on the far ground, away from the fire
+magic: the house's answer to {Ns} hours on the old ground, among the old tales of the hedge-spirits
+scene: At home they have noticed where {Ns} hours go: {aim.place}, every spare one, and talk of {aim.thing} at every meal. {parent} is half proud and half worried, someone else thinks it is a waste of a good mind, and this week the question has come out at the table.
+scene tribal: The hearth has noticed how long {N} is gone on the far ground. {parent} is proud of what {N} brings back, and worried by the nights away.
+scene magic: The house has noticed {Ns} hours on the old ground. {parent} is proud, the steward is doubtful, and the old tales of the hedge-spirits are being told again, pointedly.
+- W | agree fair hours with them, and keep to them | v: conformity, security | aim: bend | foot: door kept your word | chance: 85
+- U | show them what you have learned, and the results behind it | v: self-direction, achievement | aim: hold | foot: lesson showing beats telling | chance: 65
+- B | say it is your time and your choice, and leave it there | v: power, self-direction | aim: hold | foot: means ties-.03 | chance: 70
+- R | keep going exactly as before, and let them grumble | v: stimulation, hedonism | aim: hold | foot: means freedom+.04 | chance: 60
+- G | bring them out to {aim.place} for a day, so they can see it | v: benevolence, universalism | aim: hold | foot: means ties+.05 | chance: 75
+- W>U | cut back in the busy weeks, and keep the holidays for it | v: conformity, self-direction | aim: bend | foot: means time+.04 | chance: 85
+- U>B | lay out where it could lead: a living, a seat, a name | v: achievement, power | aim: hold | foot: lesson a plan calms worried people | chance: 60
+- B>R | agree at home, and go anyway when nobody is looking | v: power, stimulation | aim: hold | foot: door kept it hidden | chance: 55
+- R>G | give in for now, and go back to it once things are calmer | v: hedonism, security | aim: bend | foot: mark gave in to pressure | chance: 85
+- G>W | ask an older relative who understands to speak up for them | v: tradition, conformity | aim: hold | foot: person elder | chance: 65
+works: The family comes round, and one of them even turns up at {aim.place} with a flask of tea.
+works: The argument cools into an arrangement everyone can live with.
+fails: The question comes back at every meal, a little sharper each time.
+fails: {N} keeps the peace, and minds it more than anyone at home knows.
+
+# ---------------------------------------------------------------- land, arrive, rungs any (cycle s2)
+
+== the season it shows
+tier: life event
+shape: land
+kind: arrive
+rungs: any
+fork:
+stages: juvenile young_adult adult mature elder
+age: 12-95
+per_year: 0 0 0 0 0 0
+tone: joy
+life: nature, community
+horizon: week
+roles: friend, mentor, parent, regular
+earth: the proof at last, in front of people who know: a prize at {aim.contest}, the society's vote, others coming to learn how it is done
+tribal: the clan coming to {Ns} ground after the harvest gathering to see how it is done, the plain proof of it
+magic: the warden writing {Ns} name in the long book of the old ground after the fair, the plain proof of it
+scene: It is shown, in front of people who know: a prize at {aim.contest}, or the meeting's vote, or others coming to {N} to learn how it is done. Ask anyone at {aim.place} and they will put it in a few words: {aim.rung}.
+scene tribal: After the harvest gathering the clan comes to {Ns} ground to see how it is done, and the elders nod. Nobody needs to say what it means.
+scene magic: After the fair the warden opens the long book of the old ground and writes {Ns} name in it, beside the names of keepers long gone.
+- W | thank the people who run {aim.place}, and take on what comes with it | v: conformity, tradition | foot: door kept your word | chance: 95
+- U | write down what worked, so the next one starts further on | v: self-direction, universalism | foot: lesson slow years made the difference | chance: 95
+- B | let the town know, and make the most of the name | v: power, achievement | foot: person patron | chance: 90
+- R | celebrate out there with everyone who helped, until dark | v: hedonism, stimulation | foot: means ties+.05 | chance: 90
+- G | go out alone the next morning, and carry on as before | v: tradition, security | foot: means health+.03 | chance: 95
+- W>B | accept the role it brings, and run it well | v: conformity, power | foot: means time-.05 | chance: 85
+- U>R | start planning the next thing at once, bigger and stranger | v: self-direction, stimulation | foot: means time-.03 | chance: 90
+- B>G | treat yourself to the one tool you have always wanted for it | v: achievement, hedonism | foot: means money-.04 | chance: 95
+- R>W | throw a party for the whole of {aim.place}, and invite the town | v: stimulation, universalism | foot: person neighbour | chance: 85
+- G>U | take a newcomer under their wing, the way someone once did for them | v: benevolence, self-direction | foot: person friend | chance: 90
+works: It is a good day, and {N} will remember small parts of it for years: a handshake, the weather, a joke.
+works: Nobody makes much of it, but from now on people ask {N} first.
+fails: The day is good and over too soon, and the ordinary jobs are waiting next morning.
+fails: Someone {N} wanted there is not, and the day feels a little smaller for it.
