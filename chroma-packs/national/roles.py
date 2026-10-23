@@ -9,11 +9,11 @@
 # The seats. Each req is the route's "wider" step (Outer world's world_fit.json "national", climb.who): years in the
 # titles the seat refines, as roles.py's summits ask (five or more at the Known rung, fewer from a summit), and one of
 # the route's ways of being known beyond the town: a good name in the field, the route's own asset, or the shared
-# reach ladder ([known across the country]), never the reach alone. The background rate, .0015 a check (about .02 a
-# year), is the Engine's NATIONAL_CLIMB base (other-shapes.md section 5): with `wa_nat_climb` on, the climb gives the
-# same chance (times 1.5 with an aim for the route) and only to a free seat, so the Engine reads one of the two, never
-# both. Most seats come by the player's act at a route's moments (the Library's encounters), whose option chances carry
-# the real odds. Each seat ends as its catalogue lost= says: a term, a vote, a scandal (the mark [hid a wrong]) or age,
+# reach ladder ([known across the country]), never the reach alone. No background rate (rate 0, as core/reach.py's
+# acts-only rules): the chance in time is the Engine's NATIONAL_CLIMB (other-shapes.md section 5, .02 a year, times
+# 1.5 with an aim for the route, only to a free seat, with `wa_nat_climb` on), which reads req here as its gate, so the
+# chance is never counted twice (the Engine, 10-23 18:36). The rest come by the player's act at a route's moments (the
+# Library's encounters), whose option chances carry the real odds. Each seat ends as its catalogue lost= says: a term, a vote, a scandal (the mark [hid a wrong]) or age,
 # and never after its catalogue ages (C-X4). A seat gives no recognition (decision #11: the three are kept apart), so
 # there is no EXTEND onto [known across the country].
 #
@@ -30,7 +30,7 @@ ROLES_NATIONAL = {
                                               "(yrs_has('senior cleric') >= 10)) & "
                                               "(has('standing with both sides') | has('a flock that follows you') | "
                                               "has('mediator') | has('known across the country'))",
-                                          rate=0.0015, weight="colors",
+                                          rate=0.0, weight="colors",
                                           lose=[("yrs_has('head of a national faith body') >= 7", "the term ended"),
                                                 ("mk('hid a wrong')", "a split in the faith, over what was hidden"),
                                                 ("age >= 88", "stepped down in old age")],
@@ -42,7 +42,7 @@ ROLES_NATIONAL = {
                                 "(yrs_has('research facility lead') >= 5)) & "
                                 "(has('name in the field') | has('a finding that held up') | "
                                 "has('a finding and its method') | has('known across the country'))",
-                            rate=0.0015, weight="colors",
+                            rate=0.0, weight="colors",
                             lose=[("yrs_has('chief scientist') >= 5", "the appointment ended"),
                                   ("mk('hid a wrong')", "a quarrel with the government in public"),
                                   ("age >= 74", "retired")],
@@ -57,7 +57,7 @@ ROLES_NATIONAL = {
                                                   "(has('name in the field') | has('an invention in everyday use') | "
                                                   "has('a working national system') | "
                                                   "has('known across the country'))",
-                                              rate=0.0015, weight="colors",
+                                              rate=0.0, weight="colors",
                                               lose=[("yrs_has('director of a national laboratory') >= 8",
                                                      "the term ended"),
                                                     ("age >= 74", "retired")],
@@ -67,7 +67,7 @@ ROLES_NATIONAL = {
                                        req="(age >= 35) & (yrs_has('journalist') >= 10) & "
                                            "(has('source who trusts you') | has('name in the field') | "
                                            "has('a record and its sources') | has('known across the country'))",
-                                       rate=0.0015, weight="colors",
+                                       rate=0.0, weight="colors",
                                        lose=[("yrs_has('editor of a national paper') >= 6", "the owners' displeasure"),
                                              ("mk('hid a wrong')", "a story that proved wrong"),
                                              ("age >= 74", "retired")],
@@ -81,7 +81,7 @@ ROLES_NATIONAL = {
                                                  "(has('a seat on boards') | has('investors who back you') | "
                                                  "has('the voice of a whole industry') | "
                                                  "has('known across the country'))",
-                                             rate=0.0015, weight="colors",
+                                             rate=0.0, weight="colors",
                                              lose=[("yrs_has('head of a national industry body') >= 6",
                                                     "the members' vote"),
                                                    ("age >= 79", "retired")],
@@ -92,7 +92,7 @@ ROLES_NATIONAL = {
                                                 req="(age >= 40) & ((yrs_has('chief executive') >= 5) | "
                                                     "(yrs_has('accountant') >= 15)) & "
                                                     "(has('a seat on boards') | has('a portfolio of people backed'))",
-                                                rate=0.0015, weight="colors",
+                                                rate=0.0, weight="colors",
                                                 lose=[("yrs_has('head of a national bank or exchange') >= 7",
                                                        "a vote of the board or the government"),
                                                       ("age >= 79", "retired")],
@@ -106,7 +106,7 @@ ROLES_NATIONAL = {
                                                   "(yrs_has('touring musician') >= 5)) & "
                                                   "(has('a lead role to remember') | has('known across the country') | "
                                                   "has('a household name'))",
-                                              rate=0.0015, weight="colors",
+                                              rate=0.0, weight="colors",
                                               lose="~has('lead actor or actress') & ~has('professional athlete') & "
                                                    "~has('touring musician') & (age >= 40)",
                                               lrate=0.01, lwhy="the work stopped, and the fame faded"),
@@ -116,7 +116,7 @@ ROLES_NATIONAL = {
                                            "(yrs_has('forester') >= 10)) & "
                                            "(has('good name in town') | has('a stretch of land kept alive') | "
                                            "has('known across the country'))",
-                                       rate=0.0015, weight="colors",
+                                       rate=0.0, weight="colors",
                                        lose=[("yrs_has('head of the national parks') >= 8", "the term ended"),
                                              ("age >= 74", "retired")],
                                        lrate=0.08),
@@ -130,7 +130,7 @@ ROLES_NATIONAL = {
                                                 "(yrs_has('folk musician') >= 15)) & "
                                                 "(has('name in the field') | has('a living tradition kept') | "
                                                 "has('known across the country'))",
-                                            rate=0.0015, weight="colors",
+                                            rate=0.0, weight="colors",
                                             lose=[("yrs_has('keeper of the national heritage') >= 10", "stepped down"),
                                                   ("age >= 88", "retired")],
                                             lrate=0.08),
@@ -143,7 +143,7 @@ ROLES_NATIONAL = {
                                            "(yrs_has('renowned healer') >= 3)) & "
                                            "(has('good name in town') | has('a web of groups that help each other') | "
                                            "has('known across the country'))",
-                                       rate=0.0015, weight="colors",
+                                       rate=0.0, weight="colors",
                                        lose=[("yrs_has('head of a national charity') >= 8", "stepped down"),
                                              ("mk('hid a wrong')", "a scandal"),
                                              ("age >= 84", "retired")],
@@ -233,19 +233,12 @@ ROLES_NATIONAL = {
 # own rules (core/reach.py, EXTEND in the other packs) already take a summit to [known across the country].
 EXTEND_NATIONAL = {}
 
-# Fit targets (batch._targets): the seats are summits, the only fitting tier word the engine reads for them today
-# (batch.TIERS). Release's WA7 judges national standing of any kind (the fifteen seats, recognition and influence) at
-# .01 to .03 of lives left alone (world_fit.json "national", targets), so the ten new seats belong under one lift of
-# their own, not each at the summit floor (ten summits at 1 in 100 would put a tenth of lives in a national seat):
-# a proposal for the Engine, a "national" tier fitted with the climb, which this table then names. The five seats that
-# exist keep their own tiers. The seats' assets keep the 10x multiple of the perks of the Known rungs and summits
-# (callings/roles.py, TARGET_CALLINGS).
+# Fit targets (batch._targets): the assets keep the 10x multiple of the perks of the Known rungs and summits
+# (callings/roles.py, TARGET_CALLINGS). The seats are not here: with rate 0 no lift can move them, and a summit the fit
+# cannot reach would raise the shared summit lift for every other pack's summits. Their calibration is the climb's,
+# against Release's WA7 (national standing of any kind in .01 to .03 of lives left alone; world_fit.json "national",
+# targets).
 TARGET_NATIONAL = {
-    "head of a national faith body": "summit", "chief scientist": "summit",
-    "director of a national laboratory": "summit", "editor of a national paper": "summit",
-    "head of a national industry body": "summit", "head of a national bank or exchange": "summit",
-    "celebrated star of stage or sport": "summit", "head of the national parks": "summit",
-    "keeper of the national heritage": "summit", "head of a national charity": "summit",
     "a standing mandate": 10, "a working public service": 10, "standing with both sides": 10,
     "a finding and its method": 10, "a working national system": 10, "a record and its sources": 10,
     "the voice of a whole industry": 10, "a firm and its people": 10, "a portfolio of people backed": 10,

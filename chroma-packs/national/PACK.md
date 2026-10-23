@@ -105,13 +105,13 @@ army's seat is the callings pack's general and adds no killing.
 
 ## Switching it on (the Engine, with Emren's word)
 
-1. `callings` in batch.PACKS first (DEPENDS), then `national`.
-2. The Engine's climb (`wa_nat_climb`) reads the seats' standing=3 and the routes' fields; the background rate in
-   roles.py (.0015 a check, about .02 a year) is the climb's base, so the Engine reads one or the other.
-3. A "national" tier for TARGET_NATIONAL, fitted with the climb against WA7 (the table names the seats as summits until
-   the tier exists).
-4. The Library adds `dreams.py` here to its dreams.py, and writes the routes' and styles' encounters.
-5. The game's proof, `check_pack.py national`, `check_fields.py national`, and Release's WA7, WA8 and WA8n.
+1. `callings` in batch.PACKS first (DEPENDS; it is listed on feature/v25), then `national`, with `wa_nat_climb`.
+2. The Engine's climb gives the seats their chance in time (.02 a year, times 1.5 with an aim for the route, only to a
+   free seat) and reads each seat's req in roles.py as its gate; the seats' own rate is 0, so the chance is counted
+   once. The seats are calibrated by the climb against WA7, not by TARGET_NATIONAL (which holds only the assets).
+3. The Library adds `dreams.py` here to its dreams.py behind the same switch (dreams.py is read by every life), and
+   writes the routes' and styles' encounters.
+4. The game's proof, `check_pack.py national`, `check_fields.py national`, and Release's WA7, WA8 and WA8n.
 
 ## Agreed with the other owners (10-23)
 
