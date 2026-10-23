@@ -91,6 +91,12 @@
             if ODD_ON_:   # S4: an unplayed life holds on more where its colour is strong and its rung high (log odds x tau)
                 oU_ = WL.eyes_pull(s) * (P["tau0"] * (1 + 0.5 * stress))[:, None]
                 U_R = U_R + oU_; U_I = U_I + oU_
+            if CL_ON:   # v25 clash: an unplayed life answers its clash by the reaction odds of each family (log odds x tau)
+                cU_ = RX.clash_pull(s, U_R.shape[1]) * (P["tau0"] * (1 + 0.5 * stress))[:, None]
+                U_R = U_R + cU_; U_I = U_I + cU_
+            if SK_ON:   # v25 seek: a seeking or repair moment's options by the states and the tie (log odds x tau)
+                sU_ = RX.seek_pull(s, U_R.shape[1]) * (P["tau0"] * (1 + 0.5 * stress))[:, None]
+                U_R = U_R + sU_; U_I = U_I + sU_
         if SHON:   # overuse ("when all you have is a hammer"): the shadow pulls toward its colour's ways, fitting or not
             shU_ = P["sh_over"] * np.einsum("nkc,nc->nk", m, shA); U_R = U_R + shU_; U_I = U_I + shU_
         ctrl = np.minimum(1, CTRL[stage] * dsc * _uclip(1 - P["ctrl_stress"] * stress, 0.05, 1)
