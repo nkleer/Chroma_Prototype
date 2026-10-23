@@ -18,6 +18,12 @@ from game_base import F
 # moments almost never asked), 10 years 1.23 (+14%, 0.09 asked a year), as life events 1.25 (+16%, 0.25 a year).
 # Release's AM4 reads asks a year within 10% of v24, so None it is until that budget changes.
 LAND_ASK_GAP = None
+# v25 fork cards: the share of the pacing's gap (FREQ) that must have passed since the last ask before a fork's own moment
+# stops the life; None: every one the Engine carries stops it. A fork moment not stopped for is played as "later" by the
+# Engine (the fork stays open on the agenda, nothing chosen), and a fork whose window is about to close always stops it.
+# Measured on presets 1 to 4, seeds 1 and 2, all of v25 on, put_gap 52, against v24's 1.08 asks a year: None 1.56 (+44%),
+# 0.5 1.14 (+6%, fork moments 0.10 asked a year), 1.0 1.15. Release's AM4 reads asks a year within 10% of v24 (Vision 10-23).
+FORK_ASK_SHARE = 0.5
 
 class CheckpointsMixin:
     def _light_steer(self, loc, cp, c):
@@ -102,7 +108,7 @@ class CheckpointsMixin:
             self._last_recon[kk] = t
         elif GAME["rung_ask"] and self._rung_here(loc, s) and t - self._last_seen.get(s, -10 ** 6) >= again // 2:
             pass                                        # v22.5 proposal: the next rung of a pack career or a summit is asked
-        elif GAME["aim_forks"] and self.fork_fresh(loc, self.fork_now(loc, s), s):
+        elif GAME["aim_forks"] and self._fork_stops(t, loc, s, gap_weeks):
             self._v25_owed = self.__dict__.get("_v25_owed", 0) + 1   # v25: a due or urgent fork on a held aim is
             # always put to the player, in the place of the next everyday ask (the Engine's protocol: it replaces one)
         elif GAME["clash_card"] and self.clash_card(loc, s) is not None:
@@ -159,6 +165,17 @@ class CheckpointsMixin:
         if GAME["land_row"] and self._land_moment(s):
             self._land_asked = t
         return self._build_checkpoint(t, loc, a)
+
+    def _fork_stops(self, t, loc, s, gap_weeks):
+        """v25: whether the fork the Engine put this week stops the life for its card: always when its window is about to
+        close (a postponed fork never quietly expires), else on its own moment once FORK_ASK_SHARE of the pacing's gap has
+        passed since the last ask."""
+        fid = self.fork_now(loc, s)
+        if fid is None:
+            return False
+        if self.fork_urgent(loc, fid):
+            return True
+        return self.fork_fresh(loc, fid, s) and (FORK_ASK_SHARE is None or t - self._last_cp >= FORK_ASK_SHARE * gap_weeks)
 
     def _fork(self, loc, s):
         """v22.5 proposal: the share (0 to 1) of a moment's open options that lead somewhere lasting: a title or perk
