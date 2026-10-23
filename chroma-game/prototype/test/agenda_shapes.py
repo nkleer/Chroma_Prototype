@@ -11,7 +11,7 @@ functions land, test/agenda_check.py plays real lives with them.
     AS4  pace and priority reach set_pace and set_priority; a wrong pace is refused in words
     AS5  a save (version 11) replays the same agenda acts in the same order, at the same week
     AS6  a fork card: the fork put this week on its own moment, its aims, why and preview; Enter (or a light steer) on
-         it answers "later", never the character's pick"""
+         it answers "later", never the character's pick; a why given as a Library WHY_NOW key reads as its line"""
 import json, os, sys
 import numpy as np
 os.environ["CHROMA_GAME"] = json.dumps({"agenda": True, "aim_forks": "every"})
@@ -22,6 +22,7 @@ import pinned; pinned.ensure()
 import random; random.seed(1)
 from console import Console
 import game_base
+from game_agenda import AL
 F = game_base.F
 CAP = {"time": dict(have=20, committed=24, items=[0, 1, "work"]), "money": dict(have=1000, committed=300, items=[0]),
        "energy": dict(have=1, committed=0.5, items=[0])}
@@ -96,11 +97,15 @@ g.decide = lambda k=None, **kw: seen.append(k)
 g.pending["fork"] = card
 c.handle(""); c.job = None; c.handle("~w")
 g.decide = real_decide; c.job = None; del g.pending["fork"]
+loc["aim_forks"][0][0]["why"] = "window"                  # a Library WHY_NOW key: its line, with the preview's facts
+a2_was = loc.get("aim2"); loc["aim2"] = [[dict(field="chess", say="a place in the club's first team")]]
+why_w = g.fork_card(loc, 7, s)["why"]; loc.pop("aim2") if a2_was is None else loc.__setitem__("aim2", a2_was)
 for k_ in ("AIM_FORK", "AIM_TAG", "AIM_NAMES"):
     del g.L[k_]
 del loc["aim_fork"], loc["aim_forks"]
 ok.append(("AS6", card["aims"] == ["to master chess"] and card["later"] == 2 and card["preview"]["hours"] == "about two evenings a week"
-           and card["group"] == "1" and seen == [2, 2]))
+           and card["group"] == "1" and seen == [2, 2] and card["why"] == "the club's season starts"
+           and (AL is None or f"closes when {g.name} is about 33" in why_w)))
 sv = json.loads(c.save()); t0 = c.g.t
 n0 = len(acts()); mine = acts()[:]
 c2 = Console(); t, b = c2.load(json.dumps(sv))
