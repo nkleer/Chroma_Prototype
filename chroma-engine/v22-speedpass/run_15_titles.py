@@ -173,5 +173,9 @@
                     f_pend[:] = keep_
                 if AIM_ON:   # aims v1: strength, steps reached, callings
                     aim_month(ns_)
+                if AIM2_ON:  # aims v2: the account, rungs reached through their titles, upkeep, reviews, assets
+                    AG.month(t, ns_, res, held, stress)
                 if HT_ON:    # the heights reached (read-only)
                     ht_month()
+        if AIM2_ON:   # aims v2: effort, learning, windows, outcomes, restoration and strain (the week)
+            stress = stress + AG.week(t, w, need, res, dead)

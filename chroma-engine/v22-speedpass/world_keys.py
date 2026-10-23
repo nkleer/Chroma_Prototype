@@ -112,3 +112,26 @@ INST_SPHERE = {"school": "learn", "university": "learn", "employer": None, "bank
                "party": "rule", "union": "prod", "charity": "care", "council": "rule", "ministry": "rule"}
 SECTOR_SPHERE = {"farm": "prod", "industry": "prod", "services": "comm", "knowledge": "learn", "public": "rule"}
 STATE_SPHERE = {"say": "rule", "law_book": "rule", "rights": "rule", "purse": "rule", "war": "prot", "force": "prot"}
+# v25 aims v2 (lane B, switch aims_v2; chroma-engine/notes/v25/aims-shape.md section 2): the ladder shapes, core labels only
+# (the words a player sees are each field's), the twelve moment kinds every shape carries, and the fork kinds
+AIM_SHAPES = {
+    "competition": ["taking part", "regular", "winning", "master", "summit"],
+    "craft": ["learner", "journeyman", "trusted hand", "master", "a name in the craft"],
+    "art": ["trying", "showing", "a following", "recognised", "a body of work"],
+    "knowledge": ["student", "practitioner", "contributor", "authority", "a finding that lasts"],
+    "career": ["a foot in", "established", "senior", "leading", "the top"],
+    "cause": ["caring", "joining", "organising", "leading", "a change that lasts"],
+    "home": ["a bond", "a household", "the household holds", "the centre of the line"],
+    "land": ["tending", "keeping", "stewarding", "guarding", "a land kept for good"],
+    "faith": ["seeking", "belonging", "serving", "guiding", "a teacher remembered"],
+    "venture": ["first steps out", "a seasoned hand", "known for it", "a legend of it"],
+}
+AIM_KINDS = ("practice", "contest", "mentor", "rival", "plateau", "cost", "chance", "setback", "round", "reaction",
+             "arrive", "integrate")
+AIM_FORKS = ("go_on", "pay", "take", "round")
+# the aim: tags a shape moment's option may carry (section 4, with the Library's accepted extras of 10-23)
+AIM_TAGS = ("work", "ease", "try", "skip", "pay", "refuse", "take", "decline", "round", "stop", "hold", "bend", "later")
+# ("later": a player's fork answered later stays open; only its aim waits)
+# the one resource account (contracts.md section 5): its resources, and what is spent before any aim
+CAPACITY_RES = ("time", "attention", "energy", "money", "access", "support")
+CAPACITY_BEFORE = ("work", "care", "household", "ties", "essentials")

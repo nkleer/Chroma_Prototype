@@ -858,6 +858,12 @@ DEFAULT = dict(
     aims=True,   # on at the v24 refit
     aims_par=dict(slots=3, fit=0.3, seek=1.0, reluctant=0.5, spark_seek=2.0, meet=(0.03, 0.06, 0.09, 0.12), half=4.0,
                   half_set=2.0, drop=0.05, call_yrs=3.0, set_s=0.5, spark_up=0.15, spark_base=0.0),
+    # aims v2 (v25 lane B; Emren's decision #9; chroma-engine/notes/v25/aims-shape.md, aims2.py), off: every held aim on
+    # one agenda (held, active, paused, dropped; no slot limit), each rung's three clocks (effort funded from the one
+    # resource account, external windows, demonstrated outcomes: effort alone never reaches a rung), forks for every held
+    # aim (a player's kept until answered, aims2_par player), agenda reviews, gains kept in proportion, selective upkeep,
+    # integrated assets. Needs aims. aims2_par: None = aims2.PAR, a dict overrides any of its numbers
+    aims_v2=False, aims2_par=None,
     # the heights of a life (plan.md section 5), read-only: the week each height (Known, Notable, Historic) was first
     # reached (realm_earth.HEIGHT_NAMES, leading a sphere (rung 4), a summit title, leading a movement); on with aims
     heights=True,
@@ -1574,6 +1580,8 @@ UPD_OFF = dict(dis_match=False,
                need_tab=None, shared_hist=0.0, imp_age=False,
                # aims v1 and the heights reading (workstream 5)
                aims=False, heights=False,
+               # aims v2 (v25 lane B)
+               aims_v2=False,
                # the world answers v1 (workstream 6) and its second phase
                world_answers=False, wa_phase2=False,
                # footprints (workstream 3)
@@ -1587,7 +1595,7 @@ UPD_OFF = dict(dis_match=False,
 # the v24 refit's switches off (Release's K4 PNEW, with batch CHROMA_BATCH_OFF=FOOT,AIMS,WORLD_ANSWERS and v23.2's packs in
 # CHROMA_PACKS): the lives of v23.2
 V24_OFF = dict(need_tab=None, shared_hist=0.0, imp_age=False, aims=False, heights=False, world_answers=False,
-               wa_phase2=False, foot_on=False, cause_fit=False)
+               wa_phase2=False, foot_on=False, cause_fit=False, aims_v2=False)
 # everything since the go-live off, for the identity check (C-E14): lives then equal engine_v9_golive.py
 GOLIVE = {**V10_OFF, **ID_OFF, **FIX_OFF, **UPD_OFF, "world": False}
 from realm_earth import ROLE_BY_SETTING, ACCEPT_BY_SETTING   # Earth's (realm_earth.py)
@@ -1830,6 +1838,10 @@ STATE_IF.update(dict.fromkeys(("prizes", "prizes_moves"), "TW_ON"))
 # cid -1 alone, a stranger, a witness or a group) from the situation pause on. scn (world on): scn_hazard, the list the
 # caller fills at the "week" pause (dict(kind, severity) or dict(harvest)), applied to the lives' towns that week
 STATE_IF.update(company="LAND_ON", scn_hazard="SCN_ON")
+# aims v2 (aims_v2; aims-shape.md section 6, contracts.md sections 5 and 6): per person all their aims (aim2, read per
+# person), the one resource account (capacity, per person), the unresolved forks (aim_forks) and the one put this week
+# (aim_fork, an id or -1, set at the "situation" pause); AG, the agenda itself, for foresee's functions
+STATE_IF.update(dict.fromkeys(("AG", "aim2", "capacity", "aim_forks", "aim_fork"), "AIM2_ON"))
 # names also read where they are there (not checked by tools/t_steps.py): the game's (the family's ways, each goal slot's
 # steps per situation and the helper that fills them, the places' around with the world on) and Release's check_roll's
 # (F8, F10: retired, this week's commitment kind, its success, the world's forced moments, the titles' once-a-life lists)

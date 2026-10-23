@@ -247,7 +247,7 @@
                 aby, atest, acall, abirth, aim_best, gal, ht_t, aim_take, aim_end, aim_fit, aim_of_goal, WA_ON, WA2_ON,
                 wa_book, wa_lines, wa_known, FOOT_ON, foot_log,
                 foot, foot_open, mark_last, IW_ON, iw_fact, iw_why, TW_ON, prizes, prizes_moves, LAND_ON, SCN_ON, NAT_ON,
-                company, scn_hazard)
+                company, scn_hazard, AIM2_ON, AG, aim2, capacity, aim_forks, aim_fork)
     if pausing:
         ST_CELLS = tuple(zip(_handed.__code__.co_freevars, _handed.__closure__)); ST_FR = sys._getframe()
         pz_st = PauseState()

@@ -345,6 +345,7 @@
                 **(dict(aims=dict(names=AIM["names"], log=aim_log, aim=ak, strength=astr, steps=astep, own=aown, by_player=aby,
                                   calling=acall, best=aim_best, goal_aim=gal, missing=AIM["missing"])) if AIM_ON else {}),
                 **(dict(heights=dict(names=list(AIM_HEIGHTS), week=ht_t)) if HT_ON else {}),
+                **(dict(aims2=AG.output()) if AIM2_ON else {}),
                 **(dict(wa_ledger=WL.wa_output()) if WA_ON else {}),
                 **(dict(land=WL.land.output()) if LAND_ON else {}),   # v25 lane D: the land (world_land.Land.output)
                 **(dict(national=WL.nat.output()) if NAT_ON else {}),   # and national standing (world_national.National)
