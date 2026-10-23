@@ -7,7 +7,7 @@ People."""
 import numpy as np
 from library import COLORS
 from world_keys import DOMAINS, HAUNT_KINDS, NORM_KEYS, SPHERES, CAUGHT_TAGS as WK_CAUGHT, ODD_TAGS as WK_ODD
-from world_people_base import (C, EYES_DEFAULT, EYES_ENEMY, EYES_G, EYES_LEAVE, G, HAUNT_SPH, K_XC, MON, NEVER, NNORM,
+from world_people_base import (C, DI, EYES_DEFAULT, EYES_ENEMY, EYES_G, EYES_LEAVE, G, HAUNT_SPH, K_XC, MON, NEVER, NNORM,
     REACH, RING_OF, _EPS6, _csum, _isin_small, _logit, _norm, _sig, _uclip)
 
 
@@ -642,6 +642,10 @@ class EyesMixin:
         mv = self.skind == G["movement"]
         st[:, 3] = np.maximum(st[:, 3], np.where((mv & (self.srank >= 0.85)).any(1), 2, np.where((mv & (self.srank >= 0.6)).any(1), 1, 0)))
         st[:, 2] = np.maximum(st[:, 2], np.where((mv & (self.srank >= 0.85)).any(1), 2, 0))
+        nat = getattr(self, "nat", None)
+        if nat is not None:   # v25 wa_nat_climb: the movement road reaches national standing 3 (world_national.py)
+            mv_r, mo_r = nat.roads(mon)
+            st[:, 3] = np.where(mv_r, 3.0, st[:, 3])
         st = _uclip(np.round(st), 0, 3)
         sd = st[:, RING_OF]   # (N, domains): what holds across a whole ring
         ds = getattr(self, "dom_st", None); ts = getattr(self, "title_st", None)
@@ -654,6 +658,9 @@ class EyesMixin:
             else:
                 tr = ts.reshape(N, 4)
             sd = np.maximum(sd, _uclip(np.round(tr), 0, 3)[:, RING_OF])
+        if nat is not None:   # the money road: national standing 3 in the economy; the climb's levels (its three kinds)
+            sd[:, DI["economy"]] = np.where(mo_r, 3.0, sd[:, DI["economy"]])
+            sd = np.maximum(sd, nat.dom)
         for r_ in range(1, 4):
             st[:, r_] = sd[:, RING_OF == r_].max(1)
         st[:, 0] = st[:, 1:].max(1)

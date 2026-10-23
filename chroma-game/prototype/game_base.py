@@ -437,6 +437,8 @@ def library_for(setting):
                 batch.AIMS = True                       # v24 aims: the aim catalogue, its spark moments, the Historic marker
             if GAME["world_answers"] and hasattr(batch, "WORLD_ANSWERS"):
                 batch.WORLD_ANSWERS = True              # v24 world answers: the Library's asked, decision and figure moments
+            if GAME["land_row"] and hasattr(batch, "LAND"):
+                batch.LAND = True                       # v25 land: the Library's nature moments (<world>_nature.py)
             _LIBS[key] = (batch.load_batch("earth", packs=PACKS, setting="earth"), sys.modules.get("earth"))
         else:                                       # v22.5 F15 (world_seed): the clan and the towers on the Library's seed
             seed_ = getattr(WDS, "SEED", None) if GAME["world_seed"] and key in ("tribal", "magic") else None

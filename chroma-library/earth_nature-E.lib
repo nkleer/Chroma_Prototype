@@ -13,7 +13,7 @@ tier: life event
 land: dog_walk_neighbours
 stages: juvenile young_adult adult mature elder
 age: 12-90
-per_year: 0 .25 .25 .25 .25 .25
+per_year: 0 .25 .18 .18 .18 .18
 tone: joy
 life: nature, community
 horizon: moment
@@ -54,7 +54,7 @@ tier: life event
 land: planting_day
 stages: juvenile young_adult adult mature elder
 age: 12-90
-per_year: 0 .25 .25 .25 .25 .25
+per_year: 0 .25 .18 .18 .18 .18
 tone: joy
 life: nature, community
 horizon: moment
@@ -96,7 +96,7 @@ tier: life event
 land: river_cleanup
 stages: juvenile young_adult adult mature elder
 age: 12-90
-per_year: 0 .25 .25 .25 .25 .25
+per_year: 0 .25 .18 .18 .18 .18
 tone: joy
 life: nature, community
 horizon: moment
@@ -138,7 +138,7 @@ tier: life event
 land: harvest_festival
 stages: child juvenile young_adult adult mature elder
 age: 5-90
-per_year: .25 .25 .25 .25 .25 .25
+per_year: .25 .25 .18 .18 .18 .18
 tone: joy
 life: nature, community
 horizon: moment
@@ -265,7 +265,7 @@ tier: life event
 land: boundary_quarrel
 stages: young_adult adult mature elder
 age: 20-90
-per_year: 0 0 .1 .1 .1 .1
+per_year: 0 0 .36 .36 .36 .36
 tone: trouble
 life: nature, home
 horizon: months

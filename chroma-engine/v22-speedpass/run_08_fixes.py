@@ -246,8 +246,9 @@
                 bold_now, bold_pick, nw, nw_imp, nw_imp_cause, J, FRpos, clu_, CLU_ON, AIM_ON, HT_ON, AIM, ak, astr, astep, aown,
                 aby, atest, acall, abirth, aim_best, gal, ht_t, aim_take, aim_end, aim_fit, aim_of_goal, WA_ON, WA2_ON,
                 wa_book, wa_lines, wa_known, FOOT_ON, foot_log,
-                foot, foot_open, mark_last, IW_ON, iw_fact, iw_why, TW_ON, prizes, prizes_moves, demands, responses,
-                react_log, involve, states, clash, disputes, clash_now, seek, scn_demand, scn_cast, RX_ON, CL_ON, SK_ON, SCN_ON)
+                foot, foot_open, mark_last, IW_ON, iw_fact, iw_why, TW_ON, prizes, prizes_moves, LAND_ON, SCN_ON, NAT_ON,
+                company, scn_hazard, AIM2_ON, AG, aim2, capacity, aim_forks, aim_fork, demands, responses, react_log, involve,
+                states, clash, disputes, clash_now, seek, scn_demand, scn_cast, RX_ON, CL_ON, SK_ON)
     if pausing:
         ST_CELLS = tuple(zip(_handed.__code__.co_freevars, _handed.__closure__)); ST_FR = sys._getframe()
         pz_st = PauseState()

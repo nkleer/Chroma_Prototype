@@ -249,6 +249,11 @@ class ViewsMixin:
                   lang=round(float(self.lang[n]), 2))
         if getattr(self, "eyes_on", False):   # S3, S4 (only when on): "your places", their faces and the life's name there
             pv["places"] = self.eyes_info(n)
+        if getattr(self, "land", None) is not None:   # v25 lane D (wa_land): the portrait's land row, and the life's
+            pv.update(self.land.place(n))               # ways and bridges
+            pv.update(self.land.person(n))
+        if getattr(self, "nat", None) is not None:   # v25 lane D (wa_nat_climb): national standing, its kinds apart
+            pv["national"] = self.nat.view(n)
         return pv
 
     def figure_view(self, n, W=None):

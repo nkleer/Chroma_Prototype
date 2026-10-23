@@ -13,14 +13,22 @@ Part of class Game (game.py), which inherits AgendaMixin. What it reads, from th
 - Without agenda (v24's engine), the agenda is read from aims(S, n): the aims, their steps and strength; no capacity,
   forks or bottlenecks, and the screen says so rather than inventing them.
 The words for sizes are the game's (IMPORTANCE, STATE_SAY, LEAN, LOAD): never a number before a choice."""
+import zlib
+
 import numpy as np
 
 from game_base import E, F, GAME
 from game_words import clean
 
+try:                                 # the Library's words for the agenda, previews and reviews (earth_aim_lines.py, v25)
+    import earth_aim_lines as AL
+except Exception:
+    AL = None
 IMPORTANCE = ((0.66, "central"), (0.33, "important"), (0.0, "in the background"))
 STATE_SAY = dict(holding="held, not pursued", pursuing="pursued in full", reduced="pursued, less", keeping_up="kept up",
                  paused="paused", set_aside="set aside")
+if AL is not None:                   # the Library's labels win ("going lightly" for reduced)
+    STATE_SAY.update({k: v["label"] for k, v in AL.STATE_WORDS.items() if v.get("label")})
 PACES = ("pursuing", "reduced", "keeping_up", "paused", "holding")       # what the player may set (set_aside: drop)
 LEAN = ((0.33, "keen"), (-0.33, "of two minds"), (-1.01, "reluctant"))
 LOAD = ((0.75, "room to spare"), (1.0, "full"), (1.2, "stretched"), (9e9, "overcommitted"))   # committed / have, up to
@@ -240,6 +248,62 @@ class AgendaMixin:
             unknown=[str(x) for x in pv.get("unknown") or []],
             exit=(ex.get("say", "") if isinstance(ex, dict) else str(ex or "")))
 
+    def _lib_line(self, lines, key, **slots):
+        """One of the Library's lines, picked by the life's name and the key (the same line every time), with its slots
+        filled; "" when a slot it names has no words here (a line is shown only when its fact is known)."""
+        if not lines:
+            return ""
+        i0 = zlib.crc32(f"{self.name}|{key}".encode()) % len(lines)
+        slots = dict(dict(N=self.name, Ns=self.name + "'s"), **{k: v for k, v in slots.items() if v})
+        for j in range(len(lines)):                      # the picked line, else the next one whose slots are all known
+            try:
+                s = lines[(i0 + j) % len(lines)].format(**slots)
+            except (KeyError, IndexError):
+                continue
+            return s[:1].upper() + s[1:]
+        return ""
+
+    @staticmethod
+    def _aim_rec(loc, f):
+        """The fork's first aim's record in S["aim2"] (field, say = the next rung's words), or {}."""
+        a2 = loc.get("aim2") or []
+        a2 = a2[0] if a2 and isinstance(a2[0], (list, tuple)) else a2
+        try:
+            r = a2[int(f.get("aims", [])[0])]
+        except (IndexError, TypeError, ValueError):
+            return {}
+        return r if isinstance(r, dict) else {}
+
+    def _why_now(self, why, raw, pv, aims, rec=None):
+        """Why a fork is put now: when the Engine gives one of the Library's WHY_NOW keys (commit, cost, chance, window,
+        over, changed), its line with the preview's facts and the aim's next rung (S["aim2"] say); else the Engine's
+        words as they are."""
+        rec = rec or {}
+        if AL is None or not isinstance(why, str) or why not in getattr(AL, "WHY_NOW", {}):
+            return why
+        win = (raw.get("window") or {}).get("closes") if isinstance(raw.get("window"), dict) else None
+        others = [w for w in (pv or {}).get("overlaps") or [] if w not in aims]
+        return self._lib_line(AL.WHY_NOW[why], "why:" + why, thing=raw.get("thing") or rec.get("field"),
+                              next=raw.get("next") or rec.get("say"), door=raw.get("door"), hours_words=(pv or {}).get("hours"),
+                              money_words=(pv or {}).get("money"), other=others[0] if others else None,
+                              closes=win is not None and f"when {self.name} is about {int(win)}")
+
+    def _lib_preview(self, pv, raw, thing):
+        """The preview as the Library's sentences (earth_aim_lines PREVIEW, in PREVIEW_ORDER), for the parts whose facts
+        the Engine gave; "" without the Library's table."""
+        if AL is None or not pv:
+            return ""
+        P = AL.PREVIEW
+        aims_over = [w for w, r in zip(pv["overlaps"], raw.get("overlaps") or []) if isinstance(r, int) or str(r).isdigit()]
+        win = (raw.get("window") or {}).get("closes")
+        parts = dict(hours=pv["hours"] and self._lib_line(P["hours"], "hours", hours_words=pv["hours"], thing=thing),
+                     money_year=pv["money"] and self._lib_line(P["money_year"], "money", money_words=f"{pv['money']}, each year"),
+                     entry=pv["entry"] and self._lib_line(P["entry"], "entry", entry_words=pv["entry"]),
+                     overlap_aim=aims_over and self._lib_line(P["overlap_aim"], "overlap", other=aims_over[0]),
+                     overlap_work="work" in (raw.get("overlaps") or []) and self._lib_line(P["overlap_work"], "work"),
+                     window=win is not None and self._lib_line(P["window"], "window", closes=f"when {self.name} is about {int(win)}"))
+        return " ".join(parts[k] for k in AL.PREVIEW_ORDER if parts.get(k))
+
     def preview_view(self, aim, step=None):
         """Before taking up an aim or committing to its next step: the preview in words, or None (off, or an engine
         without previews: v24's aims show their ladder only)."""
@@ -249,7 +313,9 @@ class AgendaMixin:
         pv = F.preview(S, 0, aim, step)
         if not pv or isinstance(pv, str):
             return None
-        return clean(self._preview_words(pv, S, self._names(S)))
+        out = self._preview_words(pv, S, self._names(S))
+        out["say"] = self._lib_preview(out, pv, pv.get("thing"))
+        return clean(out)
 
     def review_view(self, group):
         """An agenda review: the linked forks of one group, why they are linked, each one's preview and options, the
@@ -269,7 +335,13 @@ class AgendaMixin:
                  for f in r.get("forks", [])]
         combos = [dict(choices={str(k): str(v) for k, v in (c.get("choices") or {}).items()}, capacity=cap_words(c.get("capacity")),
                        slower=[names.get(int(s), "an aim") for s in c.get("slower", [])]) for c in r.get("combos", [])]
-        return clean(dict(group=r.get("group", group), why=r.get("why", ""), forks=forks, capacity=cap_words(r.get("capacity")),
+        why = r.get("why", "")
+        if AL is not None and why in AL.LINKED:
+            why = self._lib_line(AL.LINKED[why], "linked") or why
+        for f, x in zip(forks, r.get("forks", [])):
+            if f["preview"]:
+                f["preview"]["say"] = self._lib_preview(f["preview"], x.get("preview") or {}, (x.get("preview") or {}).get("thing"))
+        return clean(dict(group=r.get("group", group), why=why, forks=forks, capacity=cap_words(r.get("capacity")),
                           combos=combos))
 
     def agenda_apply(self, choices, sets=None):
@@ -301,8 +373,16 @@ class AgendaMixin:
 
     def fork_later(self, s):
         """The option of moment s that leaves a player's fork open ("later": only that aim waits), or None. The Engine
-        tags it in L["AIM_TAG"][s, k] by the index of "later" in its tag names (L["AIM_TAG_NAMES"] or E.AIM_TAGS)."""
-        names = list(self.L.get("AIM_TAG_NAMES") or getattr(E, "AIM_TAGS", ()) or ())
+        tags it in L["AIM_TAG"][s, k] by the index of "later" in its tag names (L["AIM_NAMES"]["tags"], else
+        world_keys.AIM_TAGS: contracts.md)."""
+        names = (self.L.get("AIM_NAMES") or {}).get("tags") if isinstance(self.L.get("AIM_NAMES"), dict) else None
+        if not names:
+            try:
+                import world_keys
+                names = getattr(world_keys, "AIM_TAGS", ())
+            except Exception:
+                names = ()
+        names = list(names or ())
         if "later" not in names or "AIM_TAG" not in self.L:
             return None
         row = np.asarray(self.L["AIM_TAG"])[s]
@@ -319,8 +399,10 @@ class AgendaMixin:
             return None
         names = self._names(loc)
         self.history.setdefault("forks_asked", []).append((round(self.age(), 1), str(fid), len(f.get("options", []))))
-        return clean(dict(id=str(fid), aims=[names.get(int(a), "an aim") for a in f.get("aims", [])], kind=f.get("kind", ""),
-                          why=f.get("why", ""), preview=self._preview_words(f.get("preview"), loc, names),
+        aims = [names.get(int(a), "an aim") for a in f.get("aims", [])]
+        pv = self._preview_words(f.get("preview"), loc, names)
+        return clean(dict(id=str(fid), aims=aims, kind=f.get("kind", ""),
+                          why=self._why_now(f.get("why", ""), f.get("preview") or {}, pv, aims, self._aim_rec(loc, f)), preview=pv,
                           urgent=bool(f.get("urgent")), grouped=bool(f.get("grouped")),
                           group=None if f.get("group") is None else str(f["group"]),
                           later=None if s is None else self.fork_later(s)))
@@ -330,7 +412,7 @@ class AgendaMixin:
         """A preview as short lines: what it takes, costs, competes with, its deadline, the unknowns, the way back."""
         if not pv:
             return []
-        L = []
+        L = [pv["say"]] if pv.get("say") else []
         if pv["needs"]:
             L.append("needs " + ", ".join(pv["needs"]))
         cost = [x for x in (pv["hours"], pv["money"] and f"each year {pv['money']}", pv["entry"] and f"to start, {pv['entry']}") if x]

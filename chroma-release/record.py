@@ -15,6 +15,13 @@ is checked from a commit of main) and "since: YYYY-MM-DD HH:MM" in UTC (only res
 table "| Row | Checks | What |" whose Checks cell names result ids separated by commas (v22_checks.py --list shows
 them; a stand-alone script's id is in its own doc). A row passes when every one of its checks' newest results is PASS;
 a check that "RAN" (nothing to compare against) leaves the row open until someone writes "ran is enough" in its What.
+
+From v25 the bar may have a fourth column, Strength (Emren's decisions file for v25, section 11): mandatory,
+calibration or diagnostic. A check's result is then PASS, FAIL (or MISS), INCONCLUSIVE, or RAN; a row's state is the
+worst of its checks' (FAIL, INCONCLUSIVE, OPEN while a check has not run, PASS). A row whose What begins "NOT
+APPLICABLE:" is a coherent cut and needs its row named in the "For v25.1" section, or it fails. "Ran is enough" does
+not apply: RAN counts as INCONCLUSIVE on a mandatory row, and as run on the others. READY needs every mandatory row PASS
+or NOT APPLICABLE and every other row run; calibration and diagnostic results are reported and do not block.
 """
 import json, os, re, subprocess, sys, time
 
@@ -57,8 +64,29 @@ def parse_scope(text):
         if len(cells) < 3 or cells[0].lower() == "row" or set(cells[0]) <= set("-: "):
             continue
         checks = [c.strip().strip("`") for c in cells[1].split(",") if c.strip()]
-        bar.append(dict(row=cells[0], checks=checks, what=cells[2]))
+        strength = cells[3].lower() if len(cells) > 3 and cells[3] else None
+        if strength not in (None, "mandatory", "calibration", "diagnostic"):
+            sys.exit(f"bar row {cells[0]}: strength '{cells[3]}' is not mandatory, calibration or diagnostic")
+        bar.append(dict(row=cells[0], checks=checks, what=cells[2], strength=strength))
     return meta, {k: "\n".join(v).strip() for k, v in sections.items()}, bar
+
+
+def row_state(b, states, cut):
+    """One row's state under a bar with strengths: the worst of its checks' results (FAIL, INCONCLUSIVE, OPEN, PASS)."""
+    if b["what"].lower().startswith("not applicable"):
+        return "NOT APPLICABLE" if re.search(r"(^|\W)%s(\W|$)" % re.escape(b["row"].split()[0]), cut) else "FAIL"
+    worst = "PASS"
+    for s in states:
+        s = {"MISS": "FAIL", "NA": "INCONCLUSIVE", "N/A": "INCONCLUSIVE"}.get(s, s)  # N/A only by a written cut
+        if s == "RAN":
+            s = "INCONCLUSIVE" if b["strength"] == "mandatory" else "PASS"
+        elif s == "WAITING":
+            s = "OPEN"
+        elif s not in ("PASS", "FAIL", "INCONCLUSIVE"):
+            s = "INCONCLUSIVE"
+        if ["PASS", "OPEN", "INCONCLUSIVE", "FAIL"].index(s) > ["PASS", "OPEN", "INCONCLUSIVE", "FAIL"].index(worst):
+            worst = s
+    return worst
 
 
 def counts(r, meta):
@@ -81,16 +109,28 @@ def build(version):
         if counts(r, meta):
             newest[r["check"]] = r
     rows, open_rows, failed = [], [], []
+    inconclusive, reported = [], []               # strength rows only: mandatory INCONCLUSIVE; calibration misses
+    cut = sec.get("for v25.1", "") + "\n" + sec.get("for " + version + ".1", "")
     for b in bar:
         got = [newest.get(c) for c in b["checks"]]
         states = [g["result"] if g else "WAITING" for g in got]
-        ran_ok = "ran is enough" in b["what"].lower()
-        if any(s in ("FAIL", "MISS") for s in states):
-            state = "FAIL"; failed.append(b["row"])
-        elif all(s == "PASS" or (s == "RAN" and ran_ok) for s in states):
-            state = "PASS"
+        if b["strength"] is None:                 # a bar of three columns: as before v25
+            ran_ok = "ran is enough" in b["what"].lower()
+            if any(s in ("FAIL", "MISS") for s in states):
+                state = "FAIL"; failed.append(b["row"])
+            elif all(s == "PASS" or (s == "RAN" and ran_ok) for s in states):
+                state = "PASS"
+            else:
+                state = "OPEN"; open_rows.append(b["row"])
         else:
-            state = "OPEN"; open_rows.append(b["row"])
+            state = row_state(b, states, cut)
+            name = f"{b['row']} ({b['strength']})"
+            if b["strength"] == "mandatory":
+                {"FAIL": failed, "INCONCLUSIVE": inconclusive, "OPEN": open_rows}.get(state, []).append(b["row"])
+            elif state == "OPEN":
+                open_rows.append(name)
+            elif state in ("FAIL", "INCONCLUSIVE"):
+                reported.append(f"{name} {state}")
         cells = []
         for c, g in zip(b["checks"], got):
             if not g:
@@ -99,16 +139,27 @@ def build(version):
             rep = os.path.relpath(g["report"], path("release")) if g.get("report", "").startswith(path("release")) else g.get("report", "")
             cells.append(f"{c}: {g['result']}{' (reused)' if g.get('reused_from') else ''}, {emren(g['time'])}"
                          + (f", `{rep}`" if rep else "") + (f"; {g['note'][:140]}" if g.get("note") and g["result"] != "PASS" else ""))
-        rows.append(f"| {b['row']} | {b['what']} | {'**' + state + '**' if state != 'OPEN' else state} | {'<br>'.join(cells)} |")
-    n_pass = sum(1 for r in rows if "**PASS**" in r)
-    verdict = ("READY: every row of the bar passes" if not open_rows and not failed and bar else
+        st = ('**' + state + '**' if state != 'OPEN' else state) + (f" ({b['strength']})" if b["strength"] else "")
+        rows.append(f"| {b['row']} | {b['what']} | {st} | {'<br>'.join(cells)} |")
+    n_pass = sum(1 for r in rows if "**PASS**" in r or "**NOT APPLICABLE**" in r)
+    ok = not open_rows and not failed and not inconclusive and bar
+    strengths = any(b["strength"] for b in bar)
+    verdict = (("READY: every mandatory row passes and every other row has run" if strengths
+                else "READY: every row of the bar passes") if ok else
                "NOT READY: " + "; ".join(x for x in (f"failed {', '.join(failed)}" if failed else "",
+                                                       f"inconclusive {', '.join(inconclusive)}" if inconclusive else "",
                                                        f"open {', '.join(open_rows)}" if open_rows else "",
                                                        "the bar is empty" if not bar else "") if x))
+    if reported:
+        verdict += ". Reported, not blocking: " + ", ".join(reported)
     now = time.strftime("%Y-%m-%d %H:%M", time.gmtime(time.time() + EMREN))
     out = [f"# Chroma release record: {version}", "",
            f"Built by `chroma-release/record.py {version}` at {now} Emren's time (UTC+3) from `out/results.jsonl` and "
            f"`records/{version}/scope.md`. Do not edit this file: change scope.md or run the checks, then run record.py again.", ""]
+    if strengths:
+        out += ["Each row has a strength (mandatory, calibration or diagnostic). Only mandatory rows decide READY; the "
+                "others are reported with their results. A row reads PASS, FAIL, INCONCLUSIVE, OPEN (not run yet) or NOT "
+                "APPLICABLE (a cut written under the next version).", ""]
     if meta.get("commit"):
         out += [f"Candidate: repository commit `{meta['commit']}` (only results of checks run on it count).", ""]
     if meta.get("since"):

@@ -40,3 +40,4 @@
   .chip .prz { font-size: 10px; margin-left: 2px; }
   .chip .prz.up { color: var(--ok); }
   .chip .prz.down { color: var(--bad); }
+  .agenda .agsay, .note.fork .agsay { margin: 6px 0 2px; font: 400 var(--fs-2)/1.4 var(--serif); color: var(--ink); }

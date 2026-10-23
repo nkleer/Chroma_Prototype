@@ -316,6 +316,83 @@ TILT_LAYER = (0.0, 0.0, 0.0, 0.0, 0.0)                   # W U B R G, sums to 0
 TILT_LAW_REF = 0.73                                      # the layer is at full strength at this law_rule
 TILT_LAND = (1.0, 1.0, 1.0, 1.0, 1.0)   # read by lane D: the land rewards every colour alike on Earth (decision #2)
 
+# ---- v25 lane D, the land (wa_land; chroma-world/spheres/land-v1.md, values in sphere_data.LAND). Earth's land is
+# physical (decision #2): nothing below reads a colour. What LAND leaves to the engine, each an estimate unless a source
+# is named. sd: one standard deviation of each felt state, the unit LAND's sizes (small .1, clear .25, strong .5, very
+# strong 1) are written in (estimates from the engine's own spread among adult lives)
+LAND_ENGINE = dict(
+    sd=dict(need=0.12, money=0.15, health=0.10, mood=0.25, stress=0.20),
+    # a strike's households (for_all_lives disaster_hit): the share of a struck town's households hit is .05 + .25 x
+    # severity (flood, fire, quake, storm; heat hits no home); over displaced_sev they also leave home (one size step more)
+    hit_share=(0.05, 0.25), displaced_sev=0.7, hit_kinds=("flood", "fire", "quake", "storm"),
+    disrupted=0.2,              # disaster_near: of the rest of the town, 1 in 5 cut off or out of work (safety - clear)
+    # the hit person's year (after_disaster shapes, Bonanno 2024): weeks at full depth, then weeks to fade out; delayed:
+    # fine at first (delayed_dip: weeks at a depth), low from a year to two years. Chronic lasts until helped: each week
+    # after its first two years ends it with chronic_end (x 3 with close bonds)
+    course=dict(resilient=(8, 8), recovery=(26, 52), chronic=(104, 0), delayed=(52, 52)), delayed_dip=(8, 0.3),
+    chronic_end=0.005,
+    shape_bonds=1.0, shape_money=1.0,   # close bonds (ties) raise the odds of resilient; isolation and money lost, chronic
+    course_safety=0.3, course_stress=0.02,   # each week at full depth: the safety need's supply and stress
+    trust_weeks=52, trust_belong=0.1,   # after_help: the town's trust clearly up for a year, then fading by .5 a quarter
+    heat_old=75, heat_frail=0.4,        # heat_summer: the old and the frail (health under this) lose health clearly
+    # nature time (dose): minutes a week outdoors on the town's land (walks) = walk_min x the town's nature access x a
+    # lognormal of sd walk_sd for each person, plus the hours in nature haunts and in the land ways held
+    walk_min=200.0, walk_sd=0.8, nature_haunts=("prod.wild", "prod.land"),
+    worry_share=0.6, worry_ages=(16, 25), worry_rise=0.05,   # climate_worry (Hickman 2021): while extremes rise this much
+    attach_age=12, lost=0.2, haunt_years=10,   # sick_land: lost .2 since 12; clear after 10 years of haunting
+    per_year=1.0, gap_weeks=13,         # the moments' budget: about one a year, never two in a quarter
+    alone=(0.3, 0.1),                   # company: alone about .3 of the time for adults, .1 for the young
+    stranger_tie=0.25,                  # a stranger becomes an acquaintance 1 in 4
+    tie_small=0.02, tie_clear=0.05,     # a tie closer a little, clearly
+    way_age=(14, 18),   # ways: a way opens (step 0) from 14, as a helper beside an adult; steps 1 and 2 from 18
+    max_ways=3, way_time=1 / 112.0,     # ways: at most three held; each hour a week is this share of the week's waking
+                                        # hours (as world_answers' price)
+    way_k=0.1,                          # a held way's yearly effect, in sd units per unit of its effect (keenness 1)
+    everyday=0.002, everyday_step=0.0005,   # reach.everyday: at most .002 a year on a stretch; a moment's use moves it this
+    tend_per10=0.002, tend_cap=0.02,    # uses.tend: a group tending a stretch, per 10 members a year, at most
+    # the moments the land brings when its state holds (a moment's `when`), the chance it comes in that week or year
+    force=dict(flood_home=1.0, storm_damage=1.0, neighbours_dig_out=0.3, smoke_days=0.3, heatwave=0.3, drought=0.2,
+               dry_well=0.2, sick_river=0.3, wood_cleared=0.3, protest_at_the_wood=0.2, river_clean_again=1.0,
+               planted_tree_grown=1.0, remembrance_tree=0.3, first_date_outdoors=0.3, climate_worry=0.3,
+               outdoor_injury=0.05),
+    # heat_summer: quarrels (a close tie's break in a fight) x heat_quarrel[0] for heat_quarrel[1] weeks after a heat
+    # strike in the town (the weeks an estimate: a summer's spell, as long as the ties' quarterly tick)
+    heat_quarrel=(1.1, 13),
+    # company.kinds group: the group's norm moves toward the chosen face by this (a third of a voice act's .03; estimate)
+    group_norm=0.01,
+    # company.kinds kin: the shared memory (KEPT's people ring) is recalled when that kin dies: their remembrance moment
+    # comes at this chance (in place of force's), and the recall adds meaning + small
+    memory_recall=1.0,
+    # notice (people 2.0, as world_answers): a life's land lean, the faces it chose (tend: W, G; work: B, U), each a count
+    # decaying by lean_decay a year, full at lean_full. Asks: the stretch's tenders, or its builders and farmers, ask it in
+    # at ask_y a year x (1 + people x the lean's strength), from ask_age, opening one of their ways on the stretch (a way
+    # led by W or G, or by B or U) when it holds room. Pushback: a choice that costs others (a face's land costs: the
+    # tenders lose; its yield or money costs: the farmers and builders lose) brings their moment at push_p, push_weeks
+    # later (the rival moments: the tenders' by stretch, the farmers' and builders' one); its options are the lean in or the
+    # backlash (company rival). All estimates
+    notice=dict(ask_y=0.1, ask_age=16, lean_decay=0.8, lean_full=3.0, push_p=0.1, push_weeks=(4, 26),
+                push_tend=dict(field="boundary_quarrel", wood="protest_at_the_wood", water="boundary_quarrel"),
+                push_work="verge_meadow"),
+)
+# which stretch a Known land decision moves (its moment's land: key; the decisions open no way to read it from)
+LAND_DECIDE = dict(save_the_wood="wood", drain_the_marsh="water", open_a_quarry="field", plant_trees="wood",
+                   water_rule="water", flood_defence="water")
+
+# ---- v25 lane D, national standing (wa_nat_climb; chroma-engine/notes/v25/other-shapes.md section 5, world-fit-v2.md
+# section 3, sphere_data.WORLD_FIT national). The climb: a life at a route's wider step (rung_years at rung 4, or a summit
+# title held, or a movement or firm past its town) reaches each kind (recognition, influence, authority) with base a
+# year, x aim_x with an aim for that route; authority only to a free seat (no town-size factor, decision #11). The
+# movement road (a movement holding movement_share of the country) and the money road (money and work rank) reach
+# national influence, not authority. country_people: the model country's people a movement's members are counted
+# against (estimate). Authority holds while the seat is held and hold_after_years after; recognition fades over
+# recognition_fade_years without new work; influence holds while its asset (rung 4, the movement, the money) holds
+NATIONAL_CLIMB = dict(rung_years=5, base=0.02, aim_x=1.5, movement_share=0.01, money=0.99, work_rank=0.85,
+                      hold_after_years=2, recognition_fade_years=10, country_people=1_000_000, influence_y=(4, 8),
+                      # base may be a dict by kind (recognition, influence, authority) for a test;
+                      # a seat's term in years (drawn when taken), its fall or scandal a year, the age it ends by, and a
+                      # movement's members or a firm's people past its town (estimates)
+                      seat_years=(4, 10), seat_fall=0.05, seat_age=75, past_town=dict(movement=1000, work=200))
+
 
 
 # ---- The heights of a life (aims v1, plan.md section 5, behind aims and heights): Earth's names for each height. The
@@ -494,3 +571,16 @@ REACT_CHANNEL_READ = {"attach": None, "example": None, "pressure": (0.0, 0.0, 0.
                       "belonging": (0.5, 0.0, 0.0, 0.0, 0.5), "process": (0.0, 0.0, 0.0, 0.0, 0.0)}
 REACT_ADULT_AGE = 17.0      # the age around which Earth's law and custom grant a person their own standing (a soft ramp,
                             # 1.5 years wide, one part of independence among home, income and freedom; never a switch)
+
+
+# v25 aims v2 (lane B, aims_v2; aims-shape.md section 5): Earth's week for the one resource account, hours a week.
+# Waking hours after sleep (about 8.8 h a day), the essentials (eating, personal care, about 2 h a day) and household
+# work (about 2 h a day), a partner's own time, and the free hours of a life with nothing held (world off: res time 1).
+# Rounded from the American Time Use Survey 2019 averages (sleep 8.8 h, eating and personal care 1.9 h, household 1.9 h,
+# leisure and sport 5.2 h a day); provisional, as every aims_v2 number.
+AIM_WEEK = dict(wake=116.0, essentials=14.0, household=13.0, partner=7.0, free_open=36.0)
+# integrated assets (aims-shape.md section 5, "Gains"): a rare asset a life earns once when an integrate outcome shows two
+# of its fields used together. Key: (field, field) by name (either order), or (shape, shape); value dict(name (the
+# asset's words), title ("" or a catalogue title or perk it grants), opens (words: what it opens), rungs (the least rung
+# reached in each, default (1, 1))). The Library writes Earth's; empty, nobody earns one (the mechanism stays).
+AIM_ASSETS = {}

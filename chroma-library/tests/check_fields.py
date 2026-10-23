@@ -127,6 +127,11 @@ def main():
             for x in r.get("any", []):
                 if x not in names:
                     prob.append(f"{rw}: {x!r} is not a catalogue title or TITLES_V25")
+            if r.get("req"):   # compiles as written (a name with an apostrophe goes in double quotes)
+                try:
+                    compile(re.sub(r"[|&!]", lambda m: {"|": " or ", "&": " and ", "!": " not "}[m.group()], r["req"]), rw, "eval")
+                except SyntaxError:
+                    prob.append(f"{rw}: req does not compile: {r['req']!r}")
             if r.get("height", "") not in HEIGHTS:
                 prob.append(f"{rw}: height {r.get('height')!r}")
             if nm in FL:

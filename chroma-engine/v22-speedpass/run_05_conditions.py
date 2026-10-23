@@ -433,11 +433,15 @@
     WA_ON = bool(P["world_answers"]) and WON   # the world answers v1 (world on; world_people_answers.py): its ledger, the
     WA2_ON = WA_ON and bool(P["wa_phase2"])    # People's (each life's units and told lines), who is Known (the phase)
     wa_book = wa_lines = wa_known = None
+    LAND_ON = bool(P["wa_land"]) and WA_ON          # v25 lane D: the land (world_land.py; WorldLink.land)
+    SCN_ON = bool(P["scn"]) and WON                 # the scenario hook: the caller's hazards and harvests (scn_hazard)
+    NAT_ON = bool(P["wa_nat_climb"]) and WA_ON      # national standing (world_people_eyes.py, the climb)
+    company = None; scn_hazard = [] if SCN_ON else None
     TRG_ = np.asarray(L.get("W_TRUST", np.full((L["S"], 2), -1))).reshape(-1, 2)[:L["S"]]   # body_trust's moment gate:
     TRG_S_ = np.nonzero(TRG_[:, 0] >= 0)[0]                  # (sphere, 0 low / 1 high) per moment (batch.py; -1 none)
     OWN_ON = bool(P.get("own_open")) and "OWN" in L       # v22.5, F12: the culture's own acts always on offer
     STH_ON = False; STH_SOC = None; STH_FW = None         # v22.5, F12: the start holds (world on)
     SOC_OWN = 0.0; onic = None                             # v22.5, G19w: the company a life picks (world on)
     # v25 lane C (world_react.py; world on): reactions, clashes, seeking, the scenario hooks; off, nothing of them exists
-    RX_ON = CL_ON = SK_ON = SCN_ON = False; RX = None; rx_dis = None
+    RX_ON = CL_ON = SK_ON = False; RX = None; rx_dis = None   # (SCN_ON: lane D's, above: P["scn"] and the world)
     demands = responses = react_log = involve = states = clash = disputes = clash_now = seek = scn_demand = scn_cast = None

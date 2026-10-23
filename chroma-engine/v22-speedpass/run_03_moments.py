@@ -77,6 +77,21 @@
     WAW_ON_ = bool(WAW_.any())
     if WAW_ON_:
         REG_ = REG_ & ~WAW_
+    # v25 lane D: the land's nature moments (load_batch(land=True): land:) and the national routes' and styles'
+    # (load_batch(national=True): route:, style:) never come by the everyday draw. A nature moment comes as a life event
+    # held to the land's budget (world_land.Land.ev_scale) or brought by the land's state, with wa_land on, never with it
+    # off; a route's or a style's comes only when an aim brings it. In no batch, nothing changes
+    LANDM_ = np.array([bool(x_.get("land")) for x_ in L["src"][:L["S"]]], bool)
+    LXM_ = LANDM_ | np.array([bool(x_.get("route") or x_.get("style")) for x_ in L["src"][:L["S"]]], bool)
+    LXM_ON_ = bool(LXM_.any())
+    if LXM_ON_:
+        REG_ = REG_ & ~LXM_
+    # aims v2 (the batch's shape moments, batch FIELDS): a shape moment comes only to a life holding an aim it fits
+    # (aims_v2 on), never by the stages' fill or the routine's; with the switch off, never
+    ASM_ = np.asarray(L["AIM_SHAPE"]) != -1 if "AIM_SHAPE" in L else np.zeros(L["S"], bool)
+    ASM_ON_ = bool(ASM_.any()); ASM_I = np.nonzero(ASM_)[0]
+    if ASM_ON_:
+        REG_ = REG_ & ~ASM_
     GAPLO_ = np.nan_to_num(GAP_[:, 0])[None]; GAPW_ = np.maximum(np.nan_to_num(GAP_[:, 1] - GAP_[:, 0]), 1 / 52)[None]
     # the same gap on an everyday or inner moment (a stray dog that follows you home is not a weekly thing): its weight ramps
     # from 0 at lo years after it last came to full at hi (the game thread's finding, 2026-10-05 22:00)

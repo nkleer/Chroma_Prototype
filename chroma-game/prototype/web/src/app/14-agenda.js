@@ -73,7 +73,7 @@ function previewRows(pv) {
   if (pv.exit) r.push(["Stepping back", esc(pv.exit)]);
   return r;
 }
-const previewTable = (pv) => { const r = previewRows(pv); return r.length ? `<table class="agpv">${r.map(([a, b]) => `<tr><td>${a}</td><td>${b}</td></tr>`).join("")}</table>` : ""; };
+const previewTable = (pv) => { const r = previewRows(pv); return (pv.say ? `<p class="agsay">${esc(pv.say)}</p>` : "") + (r.length ? `<table class="agpv">${r.map(([a, b]) => `<tr><td>${a}</td><td>${b}</td></tr>`).join("")}</table>` : ""); };
 function openPreview(c) {
   hideTip(); closeHud();
   agendaEl.hidden = false;

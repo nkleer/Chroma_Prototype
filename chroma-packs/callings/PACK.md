@@ -5,7 +5,7 @@ Engine adds `callings` (with Emren's word, at a refit). Engine name: `callings`.
 next-table-2026-10-19/plan.md, section 5, "Then the missing faces that keep each colour pair fair". The four packs'
 twenty public callings give every colour pair two faces and no single colour one (chroma-packs/notes/
 v24-aims-ladders.md); these are the five single colours, as the Vision thread agreed (10-19 12:04 UTC). The steward of
-the land, or druid, joins with the nature sphere in v25. Each road is the first slice of a pathway pack in
+the land, or druid, is written for v25 and held apart ("The sixth road" below). Each road is the first slice of a pathway pack in
 chroma-pack-ideas/next-packs.md (Faith Leadership, Engineering Crafts and Technology, Business and Wealth, Military,
 Medicine and Rescue); when one of those packs is built, it takes its road's titles over.
 
@@ -42,6 +42,8 @@ Medicine and Rescue); when one of those packs is built, it takes its road's titl
 | aims.py | AIMS_CALLINGS (the five single-colour callings' ladders) and LEGACY_CALLINGS |
 | callings-faith.lib, -invention.lib, -business.lib, -command.lib, -healing.lib, -echoes.lib | the 47 moments, one file per road (MOMENTS-BRIEF.md) |
 | MOMENTS-BRIEF.md | the plan for every moment: tier, stages, holds, rates, chances, the balance layout |
+| druid.py | the sixth road, held: every table of the steward of the land, each named for the callings table it joins (nothing loads it) |
+| druid/callings-land.lib | the sixth road's 9 moments, held in a folder no build or check reads |
 
 ## Colour balance
 
@@ -85,3 +87,42 @@ world, and every supernatural way is optional, priced and someone else's power.
    on, and add LEGACY_CALLINGS to the or of the packs' LEGACY_<PACK>.
 3. **Proof:** packs are always on once listed, so the switch-on changes lives: the full proof with the refit. The pie
    gap against the run without the pack stays at .01 or less (the pack rule).
+
+## The sixth road: the steward of the land (held)
+
+Written 2026-10-23 for v25 (cut-order item 6, the last cut), from druid/BRIEF.md in the shared folder's
+`chroma-ideas/v25-prep/packs/`: Emren's card "Yes, no land" (10-19 14:57) and the v25 decision file, sections 2, 5 and
+8. Green's second calling climbs from base land titles ([farmer], [forester], [park ranger], [professional beekeeper])
+to [steward of the land] (the Known rung, of the community kind: the chair of the town's land trust), [keeper of the
+land] (the summit, known across the country) and [a work that outlives you]. With the land on, ten of land.json's ways
+(two led by each colour) and six of its bridges lead onto the same rungs.
+
+**Held, not poured.** `callings` is listed in batch.PACKS on feature/v25, so anything in its loaded files would change
+v25's lives. The road is therefore kept in `druid.py`, which nothing loads, with its moments in `druid/`, a folder no
+build or check reads. The Engine joins it behind `aims_v2`, and the land's ways behind `wa_land` (agreed 10-23 18:36).
+`druid.py`'s header lists the join table by table; the step titles from land.json's ways (LAND_STEP1 to LAND_STEP3) are
+the Library's drafts and are set empty if the land is cut, which leaves the road climbing on base titles alone.
+
+**Checked joined** (a scratch copy of chroma-packs with every table poured in, 10-23):
+
+| Check | Result |
+|---|---|
+| `check_pack.py callings` | all checks pass: 12 titles, 15 perks, 56 moments in 7 files; titles W U B R 7.00, G 8.00 (spread .028) |
+| `check_fields.py callings` | no problems with the land's step titles left out; "to keep the land" (land shape, 5 rungs) is Known after 13.5 years' median effort (9% of those who keep at it), Notable after 23.5 (0.45%), Historic after 31.5 (0.14%) |
+| `check_aims.py callings` | two expected flags: the land's 30 step titles are not yet catalogue names (the Library pours them with the land), and the faces lean to G (W U B R 1, G 2), the lean Emren's card accepts |
+| the Library's `build.py` on the moments | 9 situations, 90 options (17 with a footprint), no layout problems |
+| the Library's `check.py` on the moments | choice share even; drift (what moves a neutral life's colours) spread .14 over the life, .20 from adult on and .76 as a young adult, where one pair stands alone, after grading the everyday moments' alphas (it was 1.02, leaning G) |
+| the engine's `load_batch` with callings | loads; the steward compiles as a career rung and the keeper as a summit |
+
+**Colour balance.** Both titles carry three profiles, the road's single and two pairs covering the other four (G | W U |
+B R and G | W R | U B). The aim's face is G, so with the healer the callings' six faces are W U B R G G; Emren's card
+accepts the lean, and this records the exception rather than moving the face.
+
+**In a magic realm.** The steward is the druid of the grove and the keeper the archdruid of the circle, the realm's old
+woods in their care; in the tribal world, the great druid of the clans who keeps the grove and the hunting grounds
+whole. The rungs, the trust's chair and the summit keep their shape, and any spirit of the deep groves is optional,
+priced and someone else's power (WORLDS_LAND). The land is never a judge: a flood, a drought or a dying river is
+physical, and people read it.
+
+**At the join (the Engine, with Emren's word):** pour the tables as `druid.py`'s header says, move
+`druid/callings-land.lib` up into `callings/` for the Library's build, then the switch-on steps above.

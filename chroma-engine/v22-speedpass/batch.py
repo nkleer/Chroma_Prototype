@@ -505,8 +505,49 @@ def _packs(world, packs, pack_moments, R):
     return out
 
 
+def _druid(PK, land):
+    """Aims v2 (batch FIELDS, with callings loaded): the callings' sixth road, the steward of the land
+    (chroma-packs/callings/druid.py), joined table by table as its header says: TITLES_LAND to the titles, ROLES_LAND
+    and TARGET_LAND to the rules and targets (callings' own), EXTEND_LAND or-ed onto the names it extends, HELPS_LAND,
+    WINDOWS_LAND and LIFT_LAND to the earned odds, LIFE_LAND and LIFE_LAND_LONGSHOTS to the life conditions (they wait
+    for the road's moments, druid/callings-land.lib, which the Library compiles), ECHO_LAND_LONGSHOTS and-ed onto the
+    callings' echoes, AIMS_LAND and LEGACY_LAND to aims v1 (_aims_load) and FIELDS_LAND to the fields (aims2.py, which
+    reads PK["druid"] as L["DRUID"]). With the land loaded (batch LAND) also LAND_WAYS_LAND or-ed onto the steward's
+    rule and LIFE_LAND_WAYS onto the chair's condition. WORLDS_LAND and WORLD_ONLY_LAND are the game's (worlds.py);
+    LONGSHOTS_LAND is the Library's. Off (FIELDS off), nothing here is read."""
+    p_ = os.path.join(PACK_DIR, "callings", "druid.py")
+    if not os.path.exists(p_):
+        return
+    D_ = _module(p_, "chroma_pack_callings_druid")
+    PK["titles"] += [copy.deepcopy(x) for x in getattr(D_, "TITLES_LAND", [])]
+    rules_ = {nm: dict(r) for nm, r in getattr(D_, "ROLES_LAND", {}).items()}
+    if land:
+        for nm, w_ in getattr(D_, "LAND_WAYS_LAND", {}).items():
+            if nm in rules_ and rules_[nm].get("req"):
+                rules_[nm]["req"] = f"({rules_[nm]['req']}) | ({w_})"
+    PK["rules"].update(rules_); PK["packs_"]["rule"].update(dict.fromkeys(rules_, "callings"))
+    PK["target"].update(getattr(D_, "TARGET_LAND", {}))
+    for nm, x in getattr(D_, "EXTEND_LAND", {}).items():
+        PK["extend"].setdefault(nm, []).append(x); PK["packs_"]["ext"].setdefault(nm, []).append("callings")
+    PK["helps"].update(getattr(D_, "HELPS_LAND", {})); PK["windows"].update(getattr(D_, "WINDOWS_LAND", {}))
+    PK["lift"].update(getattr(D_, "LIFT_LAND", {}))
+    life_ = {nm: dict(c) for nm, c in {**getattr(D_, "LIFE_LAND", {}), **getattr(D_, "LIFE_LAND_LONGSHOTS", {})}.items()}
+    if land:
+        for nm, w_ in getattr(D_, "LIFE_LAND_WAYS", {}).items():
+            if nm in life_ and life_[nm].get("req"):
+                life_[nm]["req"] = f"({life_[nm]['req']}) | ({w_})"
+    PK["cond"]["LIFE"].update(life_)
+    for nm, x in getattr(D_, "ECHO_LAND_LONGSHOTS", {}).items():   # a new dict: the rules module's own stays as it is
+        c_ = PK["cond"]["ECHO"].get(nm)
+        if c_ is not None and x.get("req_and"):
+            PK["cond"]["ECHO"][nm] = dict(c_, req=f"({c_['req']}) & ({x['req_and']})" if c_.get("req") else x["req_and"])
+    PK.setdefault("aims_more", []).append(("callings", dict(getattr(D_, "AIMS_LAND", {})), getattr(D_, "LEGACY_LAND", None)))
+    PK["druid"] = dict(getattr(D_, "FIELDS_LAND", {}))
+
+
 def load_batch(world="earth", symmetric=False, roles=None, packs=None, pack_moments=None, setting="earth", more=None,
-               bold=None, links=None, aims=None, foot=None, wa=None, clash=None, seek=None):
+               bold=None, links=None, aims=None, foot=None, wa=None, land=None, national=None, fields=None, clash=None,
+               seek=None):
     """packs: the content packs on top of the base (default PACKS, the approved ones); pack_moments: {pack: path of a
     compiled moments file} for a pack the Library has not built into chroma-library/ yet (tests). setting: the world the
     life is played in (earth, tribal, magic: the game's presets); a moment with only: <another world> is left out.
@@ -516,6 +557,15 @@ def load_batch(world="earth", symmetric=False, roles=None, packs=None, pack_mome
     wa: the world answers (the engine's world_answers switch) in place of WORLD_ANSWERS: the Library's asked, decision
     and figure moments (<world>_world_answers.py), last in the batch.
     foot: footprints (the engine's foot_on switch) in place of FOOT: the Library's FOOT tables, compiled to L["FOOT"].
+    land: the land (the engine's wa_land switch) in place of LAND: the Library's nature moments (<world>_nature.py), after
+    the world answers'. national: national standing (the engine's wa_nat_climb switch) in place of NATIONAL: the
+    Library's national moments (<world>_national.py: the routes' and styles' encounters, the decisions with scope:
+    nation) and their footprints, last, and the national dreams (dreams.py DREAMS_NATIONAL, DREAM_KIND_NATIONAL,
+    TRIGGER_NATIONAL).
+    fields: aims v2 (the engine's aims_v2 switch) in place of FIELDS: the Library's shape moments (<world>_shape_moments.py,
+    last in the batch, after the land's and the national ones, with their footprints) compiled to L["AIM_SHAPE"],
+    L["AIM_KIND"], L["AIM_FORK"], L["AIM_RUNGS"], L["AIM_TAG"], L["AIM_COST"] and L["AIM_NAMES"], and the new titles the
+    fields name (<world>_fields.py TITLES_V25).
     clash, seek: v25 lane C (the engine's clash and seek switches) in place of CLASH_MOMENTS and SEEK_MOMENTS: the Library's
     clash moments (<world>_clash.py) and seeking and repair moments (<world>_seek.py), last in the batch."""
     v25_on_ = (CLASH_MOMENTS if clash is None else clash, SEEK_MOMENTS if seek is None else seek)   # (the name clash is reused below)
@@ -527,6 +577,9 @@ def load_batch(world="earth", symmetric=False, roles=None, packs=None, pack_mome
         sys.path.pop(0)
     R = importlib.import_module(f"{world}_rules")
     PK = _packs(world, list(PACKS if packs is None else packs), pack_moments, R)
+    FD_ = FIELDS if fields is None else fields
+    if FD_ and "callings" in PK["names"]:   # aims v2: the callings' sixth road (the druid), joined only with the fields
+        _druid(PK, LAND if land is None else land)
     INNER_ = {**R.INNER, **PK["cond"]["INNER"]}; ECHO_ = {**R.ECHO, **PK["cond"]["ECHO"]}
     LIFE_ = {**R.LIFE, **PK["cond"]["LIFE"]}; READ_ = {**R.READ, **PK["cond"]["READ"]}
     RETURN_ = getattr(R, "RETURN", {})
@@ -556,6 +609,33 @@ def load_batch(world="earth", symmetric=False, roles=None, packs=None, pack_mome
                     if len(o_) > 5 and isinstance(o_[5], dict) and not o_[5].get("lever"):
                         o_[5]["lever"] = "voice"
         sits += WA_
+    XR_ = []   # v25 lane D: the nature and national files' outside events read through the colours (EVENTS_READ)
+    for on_, f_ in ((LAND if land is None else land, "nature"), (NATIONAL if national is None else national, "national")):
+        xp_ = os.path.join(LIB_DIR, f"{world}_{f_}.py")   # v25 lane D: the nature moments, then the national ones, last
+        if not (on_ and os.path.exists(xp_)):
+            continue
+        # its moments and echoes (as a pack's: SITUATIONS + ECHOES) and its read events; its MARKS dict, empty in every
+        # Library file, needs nothing: the engine takes the marks from the options' mark: notes (engine.py, marks)
+        XM_ = _module(xp_, f"chroma_{world}_{f_}")
+        X_ = [copy.deepcopy(x) for x in list(getattr(XM_, "SITUATIONS", [])) + list(getattr(XM_, "ECHOES", []))]
+        XR_ += list(getattr(XM_, "EVENTS_READ", []))
+        clash = sorted({x["name"] for x in X_} & {x["name"] for x in sits})
+        if clash:
+            raise ValueError(f"{f_} moments with the name of another moment: {clash}")
+        for x_ in X_:   # a decision's option without a lever is voice (as the world answers')
+            if str(x_.get("cast_want") or "").strip() == "decide":
+                for o_ in x_.get("options", []):
+                    if len(o_) > 5 and isinstance(o_[5], dict) and not o_[5].get("lever"):
+                        o_[5]["lever"] = "voice"
+        sits += X_
+    NAT_ON_ = bool(NATIONAL if national is None else national)
+    sm_ = os.path.join(LIB_DIR, f"{world}_shape_moments.py")
+    if FD_ and os.path.exists(sm_):   # aims v2: the shape moments, after the world answers' (every index before stays)
+        SM_ = [copy.deepcopy(x) for x in getattr(_module(sm_, f"chroma_{world}_shape_moments"), "SITUATIONS", [])]
+        clash = sorted({x["name"] for x in SM_} & {x["name"] for x in sits})
+        if clash:
+            raise ValueError(f"shape moments with the name of another moment: {clash}")
+        sits += SM_
     for on_, nm_ in zip(v25_on_, ("clash", "seek")):
         cp_ = os.path.join(LIB_DIR, f"{world}_{nm_}.py")
         if on_ and os.path.exists(cp_):   # v25 lane C: forced moments only (per_year 0), after every other, so every index stays
@@ -664,7 +744,7 @@ def load_batch(world="earth", symmetric=False, roles=None, packs=None, pack_mome
     L["INNER"] = np.array([s.get("tier") == "inner" for s in L["src"]])
     # outside events read through the person's colors
     evr = []
-    for ev in list(getattr(B, "EVENTS_READ", [])) + PK["reads"]:
+    for ev in list(getattr(B, "EVENTS_READ", [])) + PK["reads"] + XR_:
         if ev.get("only") and setting not in str(ev["only"]).replace(",", " ").split():
             continue
         c = READ_.get(ev["name"], {})
@@ -693,6 +773,17 @@ def load_batch(world="earth", symmetric=False, roles=None, packs=None, pack_mome
             L["DREAM_TRIGGERS"] = list(D_.DREAM_TRIGGERS[setting])
         L["DREAMS"] = [d_ for d_ in D_.DREAMS if setting in d_["worlds"].split()]
         dream_grow_data(L, D_, setting)
+        if NAT_ON_:   # v25 lane D: the national routes' dreams, only with national standing loaded
+            L["DREAMS"] += [d_ for d_ in getattr(D_, "DREAMS_NATIONAL", []) if setting in d_["worlds"].split()]
+            L["DREAM_KIND"].update(getattr(D_, "DREAM_KIND_NATIONAL", {}))
+            for k_, v_ in getattr(D_, "TRIGGER_NATIONAL", {}).get(setting, {}).items():
+                if k_ in L["TRIGGER_DREAMS"]:
+                    L["TRIGGER_DREAMS"][k_] = list(L["TRIGGER_DREAMS"][k_]) + [x_ for x_ in v_ if x_ not in L["TRIGGER_DREAMS"][k_]]
+        if FD_:   # aims v2: the packs' dreams (dreams.py DREAMS_PACKS, DREAM_KIND_PACKS, TRIGGER_PACKS), kept apart: the
+            # engine joins them only with aims_v2 on (run_02), never from chroma-packs/core/dreams.py, their source
+            L["DREAMS_PACKS"] = [d_ for d_ in getattr(D_, "DREAMS_PACKS", []) if setting in d_["worlds"].split()]
+            L["DREAM_KIND_PACKS"] = dict(getattr(D_, "DREAM_KIND_PACKS", {}))
+            L["TRIGGER_PACKS"] = {k_: list(v_) for k_, v_ in getattr(D_, "TRIGGER_PACKS", {}).get(setting, {}).items()}
     L["SETTING"] = setting
     L["VOICE"] = getattr(B, "VOICE", {})      # v7: the character's inner voice and the world's lessons (explain.py keys)
     L["LESSONS"] = getattr(B, "LESSONS", {})
@@ -711,14 +802,24 @@ def load_batch(world="earth", symmetric=False, roles=None, packs=None, pack_mome
             if dup:
                 raise ValueError(f"pack titles or perks with the name of a base one: {dup}")
             cat = type("Catalogue", (), dict(TITLES=list(cat.TITLES) + PK["titles"], PERKS=list(cat.PERKS) + PK["perks"]))
+        fp_ = os.path.join(LIB_DIR, f"{world}_fields.py")
+        if FD_ and os.path.exists(fp_):   # aims v2: the new titles the fields name (none a rule gives: an outcome grants them)
+            have = {x["name"] for x in list(cat.TITLES) + list(cat.PERKS)}
+            tv_ = [x for x in getattr(_module(fp_, f"chroma_{world}_fields"), "TITLES_V25", []) if x["name"] not in have]
+            cat = type("Catalogue", (), dict(TITLES=list(cat.TITLES) + [x for x in tv_ if x["kind"] in TITLE_KINDS],
+                                             PERKS=list(cat.PERKS) + [x for x in tv_ if x["kind"] in PERK_KINDS]))
         L["ROLES"] = _roles(cat, R, L, extra=PK["rules"], extend=PK["extend"], packs_=PK.get("packs_"))
         _earned(L, PK)
         _targets(L, PK, R)
     L["PACKS"] = PK["names"]
+    if PK.get("druid") is not None:
+        L["DRUID"] = PK["druid"]   # aims v2: the druid's fields (FIELDS_LAND), read by aims2.py with aims_v2 on
     if AT_ and "ROLES" in L:
         _aims(L, AT_)
+    if FD_ and os.path.exists(sm_):
+        _aim_shapes(L)
     if FOOT if foot is None else foot:
-        _foot(L, world, PK["names"])
+        _foot(L, world, PK["names"], more=[f"{world}_national_foot.py"] if NAT_ON_ else [])
     _adjectives(L)
     _chance(L, R)
     if BOLD_ or any(c_.get("of", "").startswith("bold:") for c_ in L["COND"]):
@@ -976,12 +1077,20 @@ WORLD_ANSWERS = True    # the world answers v1 (chroma-world/spheres/world-answe
                         # figure moments (<world>_world_answers.py: cast_want asked_*, decide, rival_push, ally_*,
                         # successor_*) load only with the engine's world_answers switch on (the game sets both); off, the
                         # library and every life are as before. Loaded, they come only when the world brings them
+LAND = False       # v25 lane D: the Library's nature moments (<world>_nature.py: land:, with:, the options' land: faces and
+                   # opens:) load only with the engine's wa_land switch on (the game sets both); off, the library and every
+                   # life are as before. Loaded, they come only as the land brings them (world_land.py)
+NATIONAL = False   # v25 lane D: the Library's national moments (<world>_national.py) and the national dreams load only with
+                   # the engine's wa_nat_climb switch on (the game sets both); off, the library and every life are as before
 RETURN_MOMENTS = False  # picks come back: moments with tier: return join the batch only for a played life with echo_play
                         # on (the game sets it); off, the library and every life are as before
 SPH_MOMENTS = True   # item 15: moments with haunt: or ladder: join the batch once the spheres' haunts and rungs are built
 TURNOVER_MOMENTS = True    # spheres finishing pack, part 2: moments with cast_want: place_closed or place_opened join the
                            # batch at the pack's refit (until then the Library's new moments change no life); in the
                            # batch, they come only with a closing or an opening of the life's place (place_turnover on)
+FIELDS = False   # aims v2 (v25 lane B; chroma-engine/notes/v25/aims-shape.md): the Library's shape moments and the new titles
+                 # the fields name load only with the engine's aims_v2 switch on (the game sets both); off, the library and
+                 # every life are as before (the fields themselves, <world>_fields.py, are read by the engine with aims_v2)
 FLOORS = True      # item 16: the floors for rare titles and perks (earth_rules.BUDGET_FLOORS); off until the v22.3 refit
 # the v24 refit (feature/v24-refit) loads FOOT, AIMS and WORLD_ANSWERS; their moments are in the batch even with the
 # engine's switches off, and a loaded moment moves the draws. So a check of every v24 switch off against v23.2 (Release's
@@ -1180,6 +1289,13 @@ def _aims_load(world, PK):
             table[nm] = dict(x, src=pk)
         if getattr(m_, f"LEGACY_{pk.upper()}", None):
             legacy.append(str(getattr(m_, f"LEGACY_{pk.upper()}")))
+    for pk, am_, lg_ in PK.get("aims_more", []):   # a pack's road joined behind a switch (the druid: _druid)
+        for nm, x in am_.items():
+            if nm in table:
+                raise ValueError(f"aim {nm!r} in two catalogues ({table[nm]['src']}, {pk})")
+            table[nm] = dict(x, src=pk)
+        if lg_:
+            legacy.append(str(lg_))
     lf_ = os.path.join(PACK_DIR, "core", "legacy.py")
     if PK["names"] and os.path.exists(lf_):
         lm_ = _module(lf_, "chroma_pack_core_legacy")
@@ -1240,10 +1356,36 @@ def _aims(L, AT):
                      spark=np.array([a["spark"] for a in out], int), nsteps=np.array([len(a["steps"]) for a in out], int))
 
 
+def _aim_shapes(L):
+    """Aims v2: each moment's shape data (aims-shape.md section 4), -1 for a moment that is no shape moment: L["AIM_SHAPE"]
+    (index in world_keys.AIM_SHAPES, -2 for "any"), L["AIM_KIND"] (AIM_KINDS), L["AIM_FORK"] (AIM_FORKS), L["AIM_RUNGS"]
+    (a bit per rung index it fits; all for "any"), per option L["AIM_TAG"] (AIM_TAGS) and L["AIM_COST"] (money, time,
+    family), and the names in L["AIM_NAMES"]."""
+    from world_keys import AIM_SHAPES as SH_, AIM_KINDS as KD_, AIM_FORKS as FK_, AIM_TAGS as TG_
+    S, K = L["S"], L["K"]; SHL_ = list(SH_)
+    sh = np.full(S, -1); kd = np.full(S, -1); fk = np.full(S, -1); rg = np.zeros(S, np.int64)
+    tg = np.full((S, K), -1); co = np.zeros((S, K, 3))
+    for si, src in enumerate(L["src"][:S]):
+        if not src.get("shape") or not src.get("kind"):
+            continue
+        sh[si] = -2 if src["shape"] == "any" else SHL_.index(src["shape"])
+        kd[si] = KD_.index(src["kind"]); fk[si] = FK_.index(src["fork"]) if src.get("fork") else -1
+        r_ = src.get("rungs", "any")
+        rg[si] = (1 << 8) - 1 if r_ == "any" else sum(1 << int(x) for x in r_)
+        for ki, nt in enumerate(L["notes"][si][:K]):
+            nt = nt or {}
+            if nt.get("aim") in TG_:
+                tg[si, ki] = TG_.index(nt["aim"])
+            c_ = nt.get("cost") or {}
+            co[si, ki] = [float(c_.get("money", 0)), float(c_.get("time", 0)), float(c_.get("family", 0))]
+    L.update(AIM_SHAPE=sh, AIM_KIND=kd, AIM_FORK=fk, AIM_RUNGS=rg, AIM_TAG=tg, AIM_COST=co,
+             AIM_NAMES=dict(shapes=SHL_, kinds=list(KD_), forks=list(FK_), tags=list(TG_)))
+
+
 FOOT_KINDS = ["person", "place", "means", "mark", "door", "lesson"]
 
 
-def _foot(L, world, packs):
+def _foot(L, world, packs, more=()):
     """Footprints (plan.md section 3; the format in chroma-library/footprint_names.py and tests/check_footprint.py): the
     Library's FOOT[(moment, option label)] = [(kind, value), ...] of the base (<world>_foot.py), each loaded pack
     (<world>_<pack>_foot.py), the aim moments and the world answers, compiled per moment and option: L["FOOT"][(s, k)] =
@@ -1254,7 +1396,8 @@ def _foot(L, world, packs):
     from world_keys import HAUNT_KINDS as HK_, WHO_SLOTS as WS_
     tab = {}
     for f_ in [f"{world}_foot.py"] + [f"{world}_{pk}_foot.py" for pk in packs] + [f"{world}_aim_moments_foot.py",
-                                                                                 f"{world}_world_answers_foot.py"]:
+                                                                                 f"{world}_world_answers_foot.py"] + list(more) + \
+            ([f"{world}_shape_moments_foot.py"] if "AIM_SHAPE" in L else []):
         p_ = os.path.join(LIB_DIR, f_)
         if os.path.exists(p_):
             for k_, v_ in getattr(_module(p_, "chroma_" + f_[:-3]), "FOOT", {}).items():

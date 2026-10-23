@@ -65,7 +65,8 @@ def plan(EN, L, PK_DIR, ls=os.listdir, read=None, isfile=os.path.isfile):
     # the batch reads them only with their switches on (FOOT, AIMS)
     lx = [f for f in ["earth_foot.py"] + [f"earth_{p}_foot.py" for p in PK] + ["earth_aims.py", "earth_aim_moments.py",
           "earth_aim_moments_foot.py", "earth_world_answers.py", "earth_world_answers_foot.py", "earth_world_lines.py",
-          "footprint_names.py"] if isfile(os.path.join(L, f))]
+          "footprint_names.py", "earth_aim_lines.py", "earth_react_lines.py",   # v25 line tables
+          "earth_nature.py", "earth_nature_foot.py", "earth_national.py", "earth_national_foot.py"] if isfile(os.path.join(L, f))]   # v25 lane D moments (batch LAND, NATIONAL)
     px = [f"packs/{p}/aims.py" for p in PK if isfile(os.path.join(PK_DIR, p, "aims.py"))]
     pins += [(os.path.join(L, f), f) for f in lx] + [(os.path.join(PK_DIR, f[6:]), f) for f in px]
     WLD = WLD + lx + px                                  # build.py lists these in the worker's SOURCES too

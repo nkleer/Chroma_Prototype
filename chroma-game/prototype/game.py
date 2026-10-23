@@ -154,6 +154,10 @@ class Game(CheckpointsMixin, WorldMixin, VoiceMixin, LifeMixin, ViewsMixin, Caus
             if GAME["world_answers"] and "world_answers" in E.DEFAULT:
                 P["world_answers"] = True   # v24 world answers: the world answers the life (with the world only)
                 P["wa_phase2"] = bool(GAME["wa_phase2"])
+            if GAME["land_row"] and "wa_land" in E.DEFAULT:
+                P["wa_land"] = True         # v25 land: the towns' land, the ways and the nature moments (lane D)
+            if GAME["prizes"] and "tilt_world" in E.DEFAULT:
+                P["tilt_world"] = True      # v25: what this world prizes, by town, and how it moves (lane A)
             P["world_cfg"] = dict(setting="earth", pace=float(min(2.0, max(0.5, float(pace or 1.0)))),
                                   tech_level=tech if tech in ("behind", "modern", "ahead") else "modern",
                                   climate=climate if climate in ("low", "middle", "high") else "middle")

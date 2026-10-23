@@ -21,6 +21,9 @@
     DG_ON = bool(P.get("dream_grow")) and bool(DRM_)   # v22.5, F6: dreams that grow up
     if DG_ON:   # the Library's added dreams join, so every age has dreams of every colour (dreams.py DREAMS_MORE)
         DRM_ = list(DRM_) + list(L.get("DREAMS_MORE") or [])
+    DP_ON_ = bool(P["aims"] and P.get("aims_v2") and GON and P["roles"] and "ROLES" in L and L.get("AIMS") and L.get("DREAMS_PACKS"))
+    if DP_ON_:   # aims v2: the packs' dreams (the Library's dreams.py DREAMS_PACKS, via batch FIELDS) join last
+        DRM_ = list(DRM_) + list(L["DREAMS_PACKS"])
     if DRM_:
         DRM_X = np.array([parse(d_["means"]) for d_ in DRM_]); DRM_X = DRM_X / DRM_X.sum(1, keepdims=True)   # its ways, as shares
         DRM_M = DRM_X - 1 / C
@@ -29,10 +32,15 @@
         DRM_S = np.array([[nm_ in d_["stages"].split() for nm_ in STAGE_NAMES] for d_ in DRM_])
     if DG_ON:   # F6: the youngest age each dream can start at (by its kind), the play dreams, each spark's subjects and ages
         DK_ = L.get("DREAM_KIND") or {}; KF_ = L.get("KIND_FROM") or {}
+        if DP_ON_:   # aims v2: the packs' dreams' kinds (DREAM_KIND_PACKS)
+            DK_ = {**DK_, **(L.get("DREAM_KIND_PACKS") or {})}
         DRM_FROM = np.array([float(KF_.get(DK_.get(d_["name"], ""), 0.0)) for d_ in DRM_])
         DRM_PLAY = np.array([DK_.get(d_["name"]) == "play" for d_ in DRM_])
         PLAY_UNTIL_ = float(L.get("PLAY_UNTIL") or 0.0)
         ix_ = {d_["name"]: i_ for i_, d_ in enumerate(DRM_)}; TD_ = L.get("TRIGGER_DREAMS") or {}
+        if DP_ON_:   # aims v2: the sparks that show the packs' dreams too (TRIGGER_PACKS, only sparks dreams.py has)
+            TD_ = {k_: list(v_) + [x_ for x_ in (L.get("TRIGGER_PACKS") or {}).get(k_, ()) if x_ not in v_]
+                   for k_, v_ in TD_.items()}
         TRIG_SUBJ = [[ix_[x_] for x_ in TD_.get(tr_[0], ()) if x_ in ix_] for tr_ in DTR_]
         TRIG_AGE = np.array([(L.get("TRIGGER_AGES") or {}).get(tr_[0], (0.0, 1e9)) for tr_ in DTR_], float)
     gname = np.full((N, NGS), -1)

@@ -52,6 +52,9 @@ class WorldLink(LinkWeekMixin, LinkRatesMixin, LinkLifeMixin):
                 cfg["params"] = dict(cfg.get("params") or {}, **s3_)
             W = burned_world(int(seed if ws is None else ws), cfg, burn)
         self.W = W; self.t0 = int(W.t); self.N = N; self.E = E; self.L = L
+        if "land_hx" in W.__dict__:   # v25 lane D: a world saved from a run with the land on keeps no feedback here
+            del W.land_hx              # (WorldLink.land_setup sets it again with wa_land on)
+        self.land = None; self.nat = None
         PP = P.get("people_obj")
         if PP is None:
             PP = PM.People(W, N, run_seed=int(seed), female=np.asarray(female, bool))
@@ -63,6 +66,8 @@ class WorldLink(LinkWeekMixin, LinkRatesMixin, LinkLifeMixin):
                         break
                     PP = PM.People(W, N, run_seed=int(seed) + 7919 * k_, female=np.asarray(female, bool))
                     PP.birth(self.t0)
+        for a_ in ("land", "nat", "nat_on", "quarrel_x"):   # v25 lane D: a People from a run with them on keeps none here
+            PP.__dict__.pop(a_, None)                        # (land_setup and nat_setup set them again when on)
         self.PP = PP
         tr_ = tuple(P.get("trace_off") or ())   # test only (tools/white_trace.py): parts of the world read colour-blind
         if tr_:
@@ -513,4 +518,8 @@ class WorldLink(LinkWeekMixin, LinkRatesMixin, LinkLifeMixin):
                 self.pending[n_] = (-1, it_["kind"], si_); self.fire_now[n_, si_] = True; self.sac_pend[n_] = it_
         if getattr(self, "wa_on", False):   # the world answers: an ask, a Known life's decision, a figure's moment
             self._wa_week()
+        if self.land is not None:   # v25 lane D: the land's week (strikes, courses, drift, the moments it brings)
+            self.land.week(S_)
+        if self.nat is not None:    # v25 lane D: the national climb (yearly)
+            self.nat.week(S_)
         return self.week_events

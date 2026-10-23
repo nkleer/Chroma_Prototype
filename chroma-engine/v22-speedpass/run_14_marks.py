@@ -237,6 +237,10 @@
                         if res[n_, MON] >= DP_["found_lv"] and (hk[n_] < 0).any() and not (hk[n_] == 2).any():
                             hk[n_, int(np.argmax(hk[n_] < 0))] = 2
                             db_log(n_, kind="holding gained", holding=H_KIND[2], why="founded")
+                if LAND_ON and WL.land.play:   # v25 lane D: the land moments answered (happens, the face, the company, a way)
+                    WL.land.on_act(np.nonzero(live_ & ~dead)[0], s, a, succ, idle, age, int(WL.PP.t))
+                    lf_ = WL.land.take(); need += lf_[0]; mood = mood + lf_[1]; stress = stress + lf_[2]
+                    res[:] = _uclip(res + lf_[3], 0, 1)
                 for n in list(WL.pending):
                     ev_ = WL.resolve(n, s[n], a[n], succ[n], idle[n])
                     if SAC_ON_ and isinstance(ev_, dict) and ev_.get("kind") == "sacred":
@@ -370,8 +374,11 @@
             dk_ = np.asarray(WL.W.disaster_kind); iw_dk = np.where(dk_ >= 0, dk_, iw_dk)
             if IW_E is not None:
                 key_ = WF.imp_key(WL.W, WL.PP, int(age))
+                if LAND_ON:   # v25 lane D: and each life's "a loved stretch lost" (the land fact)
+                    key_ = key_ + (WL.land.lost.tobytes(),)
                 if key_ != iw_key:
-                    iw_key = key_; iw_g, iw_X = WF.imp_g(RLM, IW_E, WL.W, WL.PP, res[:, HEA], age, dead, P["imp_world_par"])
+                    iw_key = key_; iw_g, iw_X = WF.imp_g(RLM, IW_E, WL.W, WL.PP, res[:, HEA], age, dead, P["imp_world_par"],
+                                                         land=WL.land.lost if LAND_ON else None)
         if iw_g is None:
             imp = rng.random(N) < P["impose_p"]
         if IA_ON:   # imp_age: only the setbacks that can happen at this age (realm_earth.IMP_AGE)

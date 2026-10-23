@@ -9,6 +9,10 @@
         if WA_ON:   # the world answers: the People's state and the moments it brings (the batch's, with WORLD_ANSWERS)
             WL.wa_setup(P)
             wa_book = WL.PP.wa_u; wa_lines = WL.PP.wa_told; wa_known = WL.PP.wa_known
+            if LAND_ON:   # v25 lane D: the land (WorldLink.land, world_land.py); its company list is handed over as is
+                WL.land_setup(P); company = WL.land.company
+            if NAT_ON:    # v25 lane D: national standing (WorldLink.nat, world_national.py)
+                WL.nat_setup(P)
         if P["work_die"] is not None:   # F9.29: a death at work, a work-year at this x danger (world_people._marks_year)
             WL.PP.mk_die = float(P["work_die"])
         LW_ON = bool(getattr(WL, "lw", False)) and RON
@@ -406,7 +410,7 @@
         ba_rng = np.random.default_rng([int(seed), 83])
     if WON and P.get("react"):   # v25 lane C (world_react.py): reactions, and with them clashes and seeking
         import world_react as WRX
-        RX_ON = True; CL_ON = bool(P.get("clash")); SK_ON = bool(P.get("seek")); SCN_ON = bool(P.get("scn"))
+        RX_ON = True; CL_ON = bool(P.get("clash")); SK_ON = bool(P.get("seek"))
         RX = WRX.React(N, P, seed, WL, FR, clash=CL_ON, seek=SK_ON)
         RX.set_lib(L)
         demands, responses, react_log, involve = RX.demands, RX.responses, RX.log, RX.involve
