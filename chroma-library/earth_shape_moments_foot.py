@@ -2453,6 +2453,256 @@ FOOT = {('the ordinary weeknight at {aim.place}', 'take the dullest job on the l
                                                                                                'neighbour')],
  ('the season it shows', 'take a newcomer under their wing, the way someone once did for them'): [('person',
                                                                                                    'friend')],
+ ('the evening where both are wanted', 'say yes, and plan the evening in proper order with {aim.person}'): [('person',
+                                                                                                             'colleague')],
+ ('the evening where both are wanted', 'say yes, and spend the week working out exactly where the two connect'): [('mark',
+                                                                                                                   'learned '
+                                                                                                                   'a '
+                                                                                                                   'skill')],
+ ('the evening where both are wanted', 'say yes, and make sure the evening goes out under {Ns} own name'): [('person',
+                                                                                                             'patron')],
+ ('the evening where both are wanted', 'say yes, and walk in with no plan but a bag of things to show'): [('person',
+                                                                                                           'friend')],
+ ('the evening where both are wanted', 'thank {aim.person}, and wait until the two have settled side by side'): [('lesson',
+                                                                                                                  'some '
+                                                                                                                  'things '
+                                                                                                                  'need '
+                                                                                                                  'to '
+                                                                                                                  'ripen')],
+ ('the evening where both are wanted', 'ask for a later date, once the fit between them is worked out on paper'): [('lesson',
+                                                                                                                    'a '
+                                                                                                                    'plan '
+                                                                                                                    'before '
+                                                                                                                    'a '
+                                                                                                                    'crowd')],
+ ('the evening where both are wanted', 'prepare one sharp example that shows what neither does alone'): [('person',
+                                                                                                          'regular')],
+ ('the evening where both are wanted', 'pass on this one, and save the idea for a bigger room later'): [('door',
+                                                                                                         'turned '
+                                                                                                         'down a '
+                                                                                                         'chance')],
+ ('the evening where both are wanted', 'turn it into a hands-on night where everyone has a go at both'): [('place',
+                                                                                                           'gather.hall')],
+ ('the evening where both are wanted', 'bring two people who know {aim2.thing} to help the evening go well'): [('person',
+                                                                                                                'friend')],
+ ('a gap only {N} can see', 'keep quiet for now, since it is not {Ns} place to correct the old hands'): [('lesson',
+                                                                                                          'rank '
+                                                                                                          'keeps its '
+                                                                                                          'own '
+                                                                                                          'timing')],
+ ('a gap only {N} can see', 'note how {aim2.doing} handles it, and test the fix on one small case'): [('mark',
+                                                                                                       'learned a '
+                                                                                                       'skill')],
+ ('a gap only {N} can see', 'fix it quietly, and let the better results speak for {N}'): [('person', 'patron')],
+ ('a gap only {N} can see', 'let it go, as the pleasure of each lies in keeping them separate'): [('lesson',
+                                                                                                   'each has its own '
+                                                                                                   'pleasure')],
+ ('a gap only {N} can see', 'mention it gently to the one who has been there longest'): [('person', 'elder')],
+ ('a gap only {N} can see', 'raise it at the next meeting, with a proposal ready and {Ns} name on it'): [('person',
+                                                                                                          'colleague')],
+ ('a gap only {N} can see', 'offer the fix to the whole group, if {N} may lead the change'): [('place',
+                                                                                               'gather.hall')],
+ ('a gap only {N} can see', 'leave it for now, and watch a full season first to be sure'): [('means', 'time+.03')],
+ ('a gap only {N} can see', 'try the fix on the spot one evening, and see who notices'): [('person', 'rival')],
+ ('a gap only {N} can see', 'bring it up laughing over tea, and let the group decide together'): [('person',
+                                                                                                   'friend')],
+ ('the project that needs both halves', 'accept, and agree a clear share of the work and the hours'): [('person',
+                                                                                                        'colleague')],
+ ('the project that needs both halves', 'ask to wait until the plans are clear enough to judge properly'): [('lesson',
+                                                                                                             'see '
+                                                                                                             'the '
+                                                                                                             'plans '
+                                                                                                             'first')],
+ ('the project that needs both halves', 'accept, provided {N} leads the part where the two meet'): [('person',
+                                                                                                     'patron')],
+ ('the project that needs both halves', 'throw in at once, and sketch the first idea at the meeting itself'): [('mark',
+                                                                                                                'learned '
+                                                                                                                'a '
+                                                                                                                'skill')],
+ ('the project that needs both halves', 'accept, and bring in people from both sides who have helped before'): [('person',
+                                                                                                                 'friend')],
+ ('the project that needs both halves', 'accept, and draw up a careful plan of where each half fits'): [('place',
+                                                                                                         'rule.counsel')],
+ ('the project that needs both halves', 'take the hardest part, the piece nobody else knows how to design'): [('mark',
+                                                                                                               'learned '
+                                                                                                               'a '
+                                                                                                               'skill')],
+ ('the project that needs both halves', 'accept on the spot, and promise the planners more than they asked for'): [('person',
+                                                                                                                    'go-between')],
+ ('the project that needs both halves', 'say no for now, so the season keeps its free evenings'): [('means',
+                                                                                                    'time+.04')],
+ ('the project that needs both halves', 'decline, and point the planners to someone with more time'): [('lesson',
+                                                                                                        'others can '
+                                                                                                        'carry it')],
+ ('the newcomer who wants both', 'agree, and set regular hours and a fair way to share them'): [('person',
+                                                                                                 'regular')],
+ ('the newcomer who wants both', 'agree, and work out a course that moves from one to the other'): [('mark',
+                                                                                                     'learned a '
+                                                                                                     'skill')],
+ ('the newcomer who wants both', 'decline, since the way {N} does it is an edge worth keeping close'): [('lesson',
+                                                                                                         'an edge '
+                                                                                                         'kept '
+                                                                                                         'close')],
+ ('the newcomer who wants both', 'agree, and teach it the way it comes, all at once and by feel'): [('person',
+                                                                                                     'friend')],
+ ('the newcomer who wants both', 'say not yet, until {N} has lived longer with the two together'): [('lesson',
+                                                                                                     'teach what has '
+                                                                                                     'settled')],
+ ('the newcomer who wants both', 'send the newcomer to the proper teachers of each, one at a time'): [('door',
+                                                                                                       'turned down '
+                                                                                                       'a chance')],
+ ('the newcomer who wants both', 'agree, and build a small circle of learners around the pair'): [('place',
+                                                                                                   'gather.circle')],
+ ('the newcomer who wants both', 'agree, starting with the slow basics that both of them share'): [('mark',
+                                                                                                    'learned a '
+                                                                                                    'skill')],
+ ('the newcomer who wants both', 'agree, and try odd exercises that jump between the two mid-session'): [('mark',
+                                                                                                          'took a '
+                                                                                                          'wild '
+                                                                                                          'risk')],
+ ('the newcomer who wants both', 'agree, and open the sessions to anyone else who wants to come'): [('place',
+                                                                                                     'gather.hall')],
+ ('one habit carried across', 'ask {aim.person} first whether the new habit is allowed'): [('person', 'mentor')],
+ ('one habit carried across', 'test the habit for a fortnight, and keep careful notes on it'): [('mark',
+                                                                                                 'learned a skill')],
+ ('one habit carried across', 'adopt it outright, and let the others wonder what changed'): [('person', 'rival')],
+ ('one habit carried across', 'leave it, because {aim2.doing} is the escape and not a tool'): [('lesson',
+                                                                                                'keep one thing '
+                                                                                                'free')],
+ ('one habit carried across', 'work it in slowly, in the small daily part nobody watches'): [('mark',
+                                                                                              'learned a skill')],
+ ('one habit carried across', 'finish the season the usual way, and study the habit properly after'): [('means',
+                                                                                                        'time+.03')],
+ ('one habit carried across', 'hold it back until it is proven, so nobody sees an early stumble'): [('lesson',
+                                                                                                     'proof before '
+                                                                                                     'show')],
+ ('one habit carried across', 'bring it out on the important day itself, all or nothing'): [('mark',
+                                                                                             'took a wild risk')],
+ ('one habit carried across', 'try it out with a friend from {aim2.thing}, for the fun of it'): [('person',
+                                                                                                  'friend')],
+ ('one habit carried across', 'show the habit to the group, so that all of them can share it'): [('person',
+                                                                                                  'colleague')],
+ ('two crowds that never meet', 'leave each group to its own customs for now'): [('lesson',
+                                                                                  'each crowd has its ways')],
+ ('two crowds that never meet', 'wait, and first find out what each side actually wants from the other'): [('lesson',
+                                                                                                            'find '
+                                                                                                            'the '
+                                                                                                            'need '
+                                                                                                            'first')],
+ ('two crowds that never meet', 'host it, and make sure {N} is the one both sides thank'): [('person', 'patron')],
+ ('two crowds that never meet', 'throw the evening together within a week, food, noise and all'): [('place',
+                                                                                                    'gather.house')],
+ ('two crowds that never meet', 'invite a few from each side round to {Ns} home first, quietly'): [('person',
+                                                                                                    'friend')],
+ ('two crowds that never meet', 'organise it properly, with {N} chairing and both leaders thanked'): [('person',
+                                                                                                       'go-between')],
+ ('two crowds that never meet', 'hold back, and keep both crowds as {Ns} own private worlds'): [('means',
+                                                                                                 'time+.03')],
+ ('two crowds that never meet', 'pair one person from each side who share the same small problem'): [('person',
+                                                                                                      'colleague')],
+ ('two crowds that never meet', 'run one mixed evening as an experiment, and see what sparks'): [('place',
+                                                                                                  'gather.hall')],
+ ('two crowds that never meet', 'ask both crowds along to the yearly fair as one big group'): [('place',
+                                                                                                'gather.great')],
+ ('a need the town has not named', "write to the town's committee with a plain offer to help"): [('place',
+                                                                                                  'rule.counsel')],
+ ('a need the town has not named', 'look into exactly who needs what, and then offer something that fits'): [('mark',
+                                                                                                              'learned '
+                                                                                                              'a '
+                                                                                                              'skill')],
+ ('a need the town has not named', 'leave it, since unpaid work for the town would cost {N} the season'): [('lesson',
+                                                                                                            'time '
+                                                                                                            'has a '
+                                                                                                            'price '
+                                                                                                            'too')],
+ ('a need the town has not named', 'start helping straight away, and work out the rest along the way'): [('mark',
+                                                                                                          'helped '
+                                                                                                          'someone '
+                                                                                                          'in need')],
+ ('a need the town has not named', 'start with the neighbours on {Ns} own street, nothing grand'): [('person',
+                                                                                                     'neighbour')],
+ ('a need the town has not named', 'draw up a careful offer, and take it to the people in charge'): [('person',
+                                                                                                      'go-between')],
+ ('a need the town has not named', 'design a fix that uses both, and keep the credit for it'): [('person', 'patron')],
+ ('a need the town has not named', 'wait until someone asks, and pays properly, before stepping in'): [('door',
+                                                                                                        'turned down '
+                                                                                                        'a chance')],
+ ('a need the town has not named', 'gather a few friends from both sides and simply get on with it'): [('person',
+                                                                                                        'friend')],
+ ('a need the town has not named', 'leave it to those whose job it is, and keep {Ns} own house steady'): [('lesson',
+                                                                                                           'others '
+                                                                                                           'hold '
+                                                                                                           'that '
+                                                                                                           'duty')],
+ ('the work that shows both', 'agree, and keep strictly to what the day asks for'): [('person', 'colleague')],
+ ('the work that shows both', 'agree, and make a careful account of how the two inform each other'): [('mark',
+                                                                                                       'learned a '
+                                                                                                       'skill')],
+ ('the work that shows both', 'agree, and aim the piece at the most important people who will come'): [('person',
+                                                                                                        'patron')],
+ ('the work that shows both', 'agree, and make the boldest thing that comes to mind'): [('mark', 'took a wild risk')],
+ ('the work that shows both', 'let it pass this year, and keep the season for the usual round'): [('lesson',
+                                                                                                   'there is always '
+                                                                                                   'next year')],
+ ('the work that shows both', 'agree, and make it the piece people will remember {N} by'): [('place',
+                                                                                             'gather.great')],
+ ('the work that shows both', "agree, and make it with the household's help so it is partly theirs"): [('person',
+                                                                                                        'friend')],
+ ('the work that shows both', 'agree, and make something modest and useful rather than showy'): [('mark',
+                                                                                                  'learned a skill')],
+ ('the work that shows both', 'say no for now, as forcing an unready idea would spoil it'): [('lesson',
+                                                                                              'ideas come when '
+                                                                                              'ready')],
+ ('the work that shows both', 'say no to the piece, and offer to help run the day instead'): [('person',
+                                                                                               'colleague')],
+ ('a trial run on a quiet day', 'decline politely, as the weekend is already promised to others'): [('mark',
+                                                                                                     'kept your '
+                                                                                                     'word')],
+ ('a trial run on a quiet day', 'accept, and run it as a small, careful test with notes'): [('mark',
+                                                                                             'learned a skill')],
+ ('a trial run on a quiet day', 'accept, and invite one person whose good opinion matters'): [('person', 'patron')],
+ ('a trial run on a quiet day', 'let the day go, as the idea is more fun as a daydream for now'): [('lesson',
+                                                                                                    'some ideas like '
+                                                                                                    'waiting')],
+ ('a trial run on a quiet day', 'accept, and keep it small and homely with familiar faces'): [('person', 'friend')],
+ ('a trial run on a quiet day', 'accept, and set out the session step by step beforehand'): [('person', 'colleague')],
+ ('a trial run on a quiet day', 'accept, and use the trial to find what could later be offered properly'): [('place',
+                                                                                                             'gather.hall')],
+ ('a trial run on a quiet day', 'accept, and make the trial lively enough that word gets round'): [('person',
+                                                                                                    'regular')],
+ ('a trial run on a quiet day', 'spend the free day outdoors with friends instead'): [('lesson',
+                                                                                       'rest feeds the next idea')],
+ ('a trial run on a quiet day', 'accept, and ask {aim.person} to stay and help keep it on track'): [('person',
+                                                                                                     'mentor')],
+ ('the opening that asks for both', 'apply by the book, with the worked example done exactly to the brief'): [('person',
+                                                                                                               'boss')],
+ ('the opening that asks for both', 'hold off, as one worked example is not yet enough to judge the fit'): [('lesson',
+                                                                                                             'know '
+                                                                                                             'the '
+                                                                                                             'fit '
+                                                                                                             'first')],
+ ('the opening that asks for both', 'let this one pass, since a better-placed opening will come on {Ns} terms'): [('door',
+                                                                                                                   'turned '
+                                                                                                                   'down '
+                                                                                                                   'a '
+                                                                                                                   'chance')],
+ ('the opening that asks for both', 'apply on impulse, with the wildest worked example {N} can imagine'): [('mark',
+                                                                                                            'took a '
+                                                                                                            'wild '
+                                                                                                            'risk')],
+ ('the opening that asks for both', 'apply, with an example drawn from {Ns} own everyday round'): [('mark',
+                                                                                                    'learned a '
+                                                                                                    'skill')],
+ ('the opening that asks for both', 'apply, and ask {aim.person} for a letter to go with it'): [('person', 'patron')],
+ ('the opening that asks for both', 'apply, and make the example about the town that raised {N}'): [('person',
+                                                                                                     'elder')],
+ ('the opening that asks for both', 'leave it, and spend the year learning how the two truly fit'): [('lesson',
+                                                                                                      'the fit takes '
+                                                                                                      'years')],
+ ('the opening that asks for both', 'apply with an example built on an experiment nobody has tried'): [('place',
+                                                                                                        'learn.keeping')],
+ ('the opening that asks for both', 'apply as a pair, with a friend who knows {aim2.thing} well'): [('person',
+                                                                                                     'friend')],
  ('the long evening with {aim.thing}', 'keep the same hour every evening, whatever else is on'): [('means',
                                                                                                    'time-.04')],
  ('the long evening with {aim.thing}', 'write down exactly what does not make sense, and start from there'): [('lesson',

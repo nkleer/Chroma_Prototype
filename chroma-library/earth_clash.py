@@ -18,45 +18,43 @@ SITUATIONS = [
  'tone': 'trouble',
  'life': 'family, home',
  'horizon': 'months',
- 'roles': 'parent, sibling, grandparent, friend',
+ 'roles': 'parent, sibling, friend',
  'clash': 'household',
  'band': 'teen',
- 'worlds': {'earth': 'a new rule at home, back by nine on school nights, and it falls on the one evening that '
-                     'matters',
-            'tribal': 'a new rule of the hearth, back inside the camp by dark, on the very nights that matter most '
-                      'to {N}',
-            'magic': 'a new rule of the house, doors barred at the ninth bell, on the one evening {N} lives for'},
+ 'worlds': {'earth': 'a new rule at home, laid down without discussion, and it lands on what matters most to {N}',
+            'tribal': 'a new rule of the hearth, said once at the fire, and it lands on what matters most to {N}',
+            'magic': 'a new rule of the house, written into its wards, and it lands on what matters most to {N}'},
  'timing': {},
  'scenes': {'earth': [('',
-                       'A new rule has come down from {clash.holder} for everyone in {clash.setting}: back by nine '
-                       'on school nights, and no arguing about it. The one evening of the week that matters most to '
-                       '{N} runs until ten. The whole house is waiting to see what {N} does.')],
+                       'A new rule has come down from {clash.holder} for everyone in {clash.setting}: '
+                       '{clash.demand}. It was said once at dinner, and it is not up for discussion. It lands '
+                       'squarely on the thing that matters most to {N} this year, and the whole house is waiting to '
+                       'see what {N} does.')],
             'tribal': [('',
-                        'The word from {clash.holder} has been said at the fire: back inside the camp by dark, every '
-                        'night, no exceptions. The gatherings {N} cares about begin after dark. The whole hearth is '
-                        'waiting to see what {N} does.')],
+                        'The word from {clash.holder} has been said at the fire: {clash.demand}. No exceptions. It '
+                        'lands on the very thing {N} cares about most, and the whole hearth is waiting to see what '
+                        '{N} does.')],
             'magic': [('',
-                       'The wards of {clash.setting} now close at the ninth bell, on the word of {clash.holder}. The '
-                       'one evening {N} lives for runs past the tenth. The household is waiting to see what {N} '
-                       'does.')]},
- 'outcomes': (['The rule stays, but the one evening is allowed once a fortnight. Nobody quite won, and the house is '
-               'calmer for it.',
-               'It takes a month of trying, and by the end of term the evening is {Ns} again, on conditions {N} did '
-               'not choose.'],
-              ['Nothing moves. The rule stands as it was, {N} misses the evening, and the house goes quiet in a cold '
-               'way.',
-               'It half works: the rule bends for two weeks, then snaps back the first time {N} is late.']),
+                       'On the word of {clash.holder}, the rule of {clash.setting} is now this: {clash.demand}. It '
+                       "is written into the house's wards. It lands on the one thing {N} lives for, and the "
+                       'household is waiting to see what {N} does.')]},
+ 'outcomes': (['The rule stays, with one exception carved out for what matters most to {N}. Nobody quite won, and '
+               'the house is calmer for it.',
+               'It takes a month of trying, and by the end of term the rule has softened, on conditions {N} did not '
+               'choose.'],
+              ['Nothing moves. The rule stands as it was, and the house goes quiet in a cold way.',
+               'It half works: the rule bends for two weeks, then snaps back the first time {N} slips.']),
  'options': [
     ('write down why the rule is unfair, and ask for a proper family vote', 'W1', None, 0.45, '', {'v': 'universalism, conformity', 'clash': 'confront', 'chance': 0.5}),
     ('keep to the rule until the end of term, noting how it goes', 'U1', None, 0.45, '', {'v': 'self-direction, security', 'clash': 'give_in', 'chance': 0.85}),
-    ("make a deal to sleep at {grandparent}'s on the nights that matter", 'B1', None, 0.45, '', {'v': 'power, self-direction', 'clash': 'leave', 'chance': 0.55}),
+    ('keep to your own room in the evenings, on your own projects', 'B1', None, 0.45, '', {'v': 'power, self-direction', 'clash': 'leave', 'chance': 0.7}),
     ('spend every free hour you do have with the crowd at {clash.scene}', 'R1', None, 0.45, '', {'v': 'stimulation, hedonism', 'clash': 'own_scene', 'chance': 0.75}),
     ('ask {clash.ally} to sit down one evening with them and {clash.holder}', 'G1', None, 0.45, '', {'v': 'benevolence, tradition', 'clash': 'bridge', 'chance': 0.6}),
-    ('apply for the summer course that boards away from home, every form done right', 'W1', 'U.7', 0.5, '', {'v': 'conformity, achievement', 'clash': 'leave', 'chance': 0.6}),
-    ('find a club that meets before nine, and soon help run it', 'U1', 'B.7', 0.5, '', {'v': 'self-direction, power', 'clash': 'own_scene', 'chance': 0.7}),
-    ('offer a trade: home early all week, for one late evening a week', 'B1', 'R.7', 0.5, '', {'v': 'power, stimulation', 'clash': 'bridge', 'chance': 0.55}),
+    ('set a strict timetable of your own, and spend the evenings by it in your room', 'W1', 'U.7', 0.5, '', {'v': 'conformity, self-direction', 'clash': 'leave', 'chance': 0.75}),
+    ('find a club of your own at school, and soon help run it', 'U1', 'B.7', 0.5, '', {'v': 'self-direction, power', 'clash': 'own_scene', 'chance': 0.7}),
+    ('offer a trade: keep to it most of the week, with one evening free of it', 'B1', 'R.7', 0.5, '', {'v': 'power, stimulation', 'clash': 'bridge', 'chance': 0.55}),
     ('argue it out loud at dinner, with {sibling} on your side', 'R1', 'G.7', 0.5, '', {'v': 'stimulation, benevolence', 'clash': 'confront', 'chance': 0.45}),
-    ('agree to the rule and mean it: the house runs better with it', 'G1', 'W.7', 0.5, '', {'v': 'benevolence, conformity', 'clash': 'give_in', 'chance': 0.9}),
+    ('agree to the rule, and keep to it at home', 'G1', 'W.7', 0.5, '', {'v': 'benevolence, conformity', 'clash': 'give_in', 'chance': 0.9}),
  ]},
 {'name': 'the list on the kitchen wall',
  'stages': 'young_adult adult mature elder',
@@ -77,27 +75,24 @@ SITUATIONS = [
                      'plans',
             'tribal': "the elders of the hearth have shared out the winter's work and stores, and one share costs "
                       '{N} dearly',
-            'magic': 'a sealed scroll of household rules hangs by the hearth, and one rule takes the very hours {N} '
-                     'planned for'},
+            'magic': 'a sealed scroll of household rules hangs by the hearth, and one rule cuts across {Ns} plans'},
  'timing': {},
  'scenes': {'earth': [('',
                        'A list is pinned to the kitchen wall, in the hand of {clash.holder}: how {clash.setting} '
-                       'will be run from now on, who pays for what and who decides. Most of it is fair. One line, '
-                       'about {Ns} evenings and {Ns} share of the money, cuts straight across the life {N} has been '
-                       'building.')],
+                       'will be run from now on. Most of it is fair. One line is not: {clash.demand}. It cuts '
+                       'straight across the life {N} has been building.')],
             'tribal': [('',
                         "The elders of the hearth have shared out the winter's work and stores. Most of it is fair. "
-                        'The part that falls on {N} takes the days {N} had set aside for something of {Ns} own, and '
-                        '{clash.holder} will not hear a word against it.')],
+                        'The part that falls on {N} is not: {clash.demand}. It takes what {N} had set aside for '
+                        'something of {Ns} own, and {clash.holder} will not hear a word against it.')],
             'magic': [('',
                        'A new scroll of household rules hangs by the hearth, sealed by {clash.holder}. Most of it is '
-                       "fair. One rule, about who may use the house's study and when, takes the very hours {N} had "
-                       'planned for.')]},
+                       'fair. One rule is not: {clash.demand}. It takes the very hours {N} had planned for.')]},
  'outcomes': (['The line is rewritten, not the way {N} wanted it, but in a way {N} can live with. The list stays on '
                'the wall.',
-               '{N} gets the evenings back, and pays for them with a bigger share of the chores.'],
+               '{N} gets most of it back, and pays for it with a bigger share of the chores.'],
               ['Nothing changes. The list stays as it is, and the kitchen is a tense place for a while.',
-               'It half works: the money part is settled, and the evenings are argued over every week.']),
+               'It half works: half the line is settled, and the rest is argued over every week.']),
  'options': [
     ('agree to the list as written, and keep your part of it', 'W1', None, 0.45, '', {'v': 'conformity, security', 'clash': 'give_in', 'chance': 0.9}),
     ('move out to a place of your own, with the sums done first', 'U1', None, 0.45, '', {'v': 'self-direction, achievement', 'clash': 'leave', 'chance': 0.65}),
@@ -106,11 +101,11 @@ SITUATIONS = [
     ('remind {clash.holder} how this family always did it, and that it worked', 'G1', None, 0.45, '', {'v': 'tradition, benevolence', 'clash': 'confront', 'chance': 0.5}),
     ("join the residents' committee, where your way of running things is welcome", 'W1', 'B.7', 0.5, '', {'v': 'conformity, power', 'clash': 'own_scene', 'chance': 0.7}),
     ('write a new list with {clash.ally}, and bring it to the house together', 'U1', 'R.7', 0.5, '', {'v': 'self-direction, stimulation', 'clash': 'bridge', 'chance': 0.55}),
-    ('say plainly that their own money stays their own unless that line changes', 'B1', 'G.7', 0.5, '', {'v': 'power, security', 'clash': 'confront', 'chance': 0.45}),
-    ('bite your tongue and keep to it, since the rent depends on it', 'R1', 'W.7', 0.5, '', {'v': 'security, conformity', 'clash': 'give_in', 'chance': 0.9}),
+    ('say plainly where the line is, and that it holds unless something changes', 'B1', 'G.7', 0.5, '', {'v': 'power, security', 'clash': 'confront', 'chance': 0.45}),
+    ('keep to the new line as written, and let the rest of the list be', 'R1', 'W.7', 0.5, '', {'v': 'security, conformity', 'clash': 'give_in', 'chance': 0.9}),
     ('move back to the town you grew up in, and think it through there', 'G1', 'U.7', 0.5, '', {'v': 'tradition, self-direction', 'clash': 'leave', 'chance': 0.6}),
  ]},
-{'name': 'the subject that was taken off the timetable',
+{'name': 'the notice at school',
  'stages': 'juvenile young_adult',
  'age': (11, 19),
  'alpha': 'W.2 U.2 B.2 R.2 G.2',
@@ -125,39 +120,41 @@ SITUATIONS = [
  'roles': 'parent, sibling, friend, a teacher',
  'clash': 'school',
  'band': 'teen',
- 'worlds': {'earth': 'the new timetable puts {N} on the set course, and the subject {N} wanted most is gone from it',
-            'tribal': 'the elders have given out the crafts for the year, and {N} is set to learn the wrong one',
-            'magic': "the masters have set the year's course of study, and the art {N} hoped to learn is not on it"},
+ 'worlds': {'earth': 'a notice at school sets a new line for every student, and it cuts across the year {N} had '
+                     'planned',
+            'tribal': 'the elders have set the young their tasks for the year, and {Ns} task cuts across what {N} '
+                      'wanted',
+            'magic': 'the masters have set a new rule for every student, and it cuts across the year {N} had '
+                     'planned'},
  'timing': {},
  'scenes': {'earth': [('',
-                       'The new timetable is up at {clash.setting}, and {N} has been put on the set course. The '
-                       'subject {N} wanted most is gone from it, and {clash.holder} says there will be no changes '
-                       'this year. A whole year of {Ns} life has just been decided.')],
+                       'A notice has gone up at {clash.setting}, signed by {clash.holder}: {clash.demand}. There '
+                       'will be no exceptions this year. It cuts across the one part of school {N} was looking '
+                       'forward to, and a whole year now looks different.')],
             'tribal': [('',
-                        'The elders have given out the crafts for the year, and {N} has been set to learn the one '
-                        'the family always learns. The craft {N} wanted goes to someone else, and {clash.holder} '
-                        'says it is settled.')],
+                        'The elders have set the young their tasks for the year, and the word from {clash.holder} is '
+                        'this: {clash.demand}. It cuts across what {N} wanted to learn, and it is settled.')],
             'magic': [('',
-                       "The masters of {clash.setting} have set the year's course of study. The art {N} hoped to "
-                       'learn is not on it, and {clash.holder} says the course is the same for every student.')]},
- 'outcomes': (['The subject comes back, as one lesson a week after school. It is not what {N} wanted, and it is '
-               'something.',
+                       "The masters of {clash.setting} have posted the year's rule for every student, and "
+                       '{clash.holder} has said it plainly: {clash.demand}. The year {N} hoped for is not in it.')]},
+ 'outcomes': (['The line stays, with one exception made for {N} after a long talk. It is not what {N} wanted, and it '
+               'is something.',
                '{N} gets the change, a term late and with a pile of catching up to do.'],
-              ['The timetable stays as it is, and {N} spends the year on a course {N} did not choose.',
+              ['The line stays as it is, and {N} spends the year living with it.',
                'It half works: {clash.holder} agrees to look again next year, and this year is gone.']),
  'options': [
-    ('ask through the proper channels to move to the school that teaches it', 'W1', None, 0.45, '', {'v': 'conformity, achievement', 'clash': 'leave', 'chance': 0.55}),
-    ('teach yourself the subject at the library, with others who want it too', 'U1', None, 0.45, '', {'v': 'self-direction, achievement', 'clash': 'own_scene', 'chance': 0.75}),
-    ('offer a deal: top marks on the set course, for one class of your choosing', 'B1', None, 0.45, '', {'v': 'achievement, power', 'clash': 'bridge', 'chance': 0.5}),
-    ('stand up in assembly and say the timetable is wrong', 'R1', None, 0.45, '', {'v': 'stimulation, self-direction', 'clash': 'confront', 'chance': 0.4}),
-    ('take the set course as {sibling} did, and give it a fair chance', 'G1', None, 0.45, '', {'v': 'tradition, security', 'clash': 'give_in', 'chance': 0.9}),
+    ('ask through the proper channels to move to another school', 'W1', None, 0.45, '', {'v': 'conformity, achievement', 'clash': 'leave', 'chance': 0.55}),
+    ('spend the free periods in the library, with others who feel the same', 'U1', None, 0.45, '', {'v': 'self-direction, achievement', 'clash': 'own_scene', 'chance': 0.75}),
+    ('offer a deal: top marks all year, for one exception of your choosing', 'B1', None, 0.45, '', {'v': 'achievement, power', 'clash': 'bridge', 'chance': 0.5}),
+    ('stand up in assembly and say the new line is wrong', 'R1', None, 0.45, '', {'v': 'stimulation, self-direction', 'clash': 'confront', 'chance': 0.4}),
+    ('go along with it this year, as {sibling} did before', 'G1', None, 0.45, '', {'v': 'tradition, security', 'clash': 'give_in', 'chance': 0.9}),
     ('ask {clash.ally} to put your case to {clash.holder}, with your marks to back it', 'W1', 'B.7', 0.5, '', {'v': 'conformity, achievement', 'clash': 'bridge', 'chance': 0.55}),
-    ('bring the numbers: how many asked for the subject, and why it matters', 'U1', 'R.7', 0.5, '', {'v': 'self-direction, stimulation', 'clash': 'confront', 'chance': 0.5}),
-    ('take the set course for now, and plan the switch for next year', 'B1', 'G.7', 0.5, '', {'v': 'achievement, security', 'clash': 'give_in', 'chance': 0.85}),
+    ('bring the numbers: how many it affects, and what it costs them', 'U1', 'R.7', 0.5, '', {'v': 'self-direction, stimulation', 'clash': 'confront', 'chance': 0.5}),
+    ('do what the notice asks, every day of term', 'B1', 'G.7', 0.5, '', {'v': 'achievement, security', 'clash': 'give_in', 'chance': 0.85}),
     ('ask {parent} for a year out at sixteen, to work out what you want', 'R1', 'W.7', 0.5, '', {'v': 'stimulation, conformity', 'clash': 'leave', 'chance': 0.5}),
     ('join the after-school nature group, where your questions are welcome', 'G1', 'U.7', 0.5, '', {'v': 'benevolence, self-direction', 'clash': 'own_scene', 'chance': 0.75}),
  ]},
-{'name': 'the course that wants it done one way',
+{'name': 'what the course now asks',
  'stages': 'young_adult adult mature elder',
  'age': (18, 75),
  'alpha': 'W.2 U.2 B.2 R.2 G.2',
@@ -172,40 +169,39 @@ SITUATIONS = [
  'roles': 'a teacher, friend, colleague, partner',
  'clash': 'school',
  'band': 'adult',
- 'worlds': {'earth': 'the college course marks every piece of work by the one approved method, and {Ns} own way '
-                     'fails',
-            'tribal': 'the old teacher of the craft will pass it on only if every step is done exactly the old way',
-            'magic': 'the college of mages grades every working by the approved method, and {Ns} own method fails'},
+ 'worlds': {'earth': 'the college course sets a new condition for passing, and it cuts across {Ns} job, life and way '
+                     'of working',
+            'tribal': 'the old teacher of the craft sets a condition for passing it on, and it cuts across {Ns} own '
+                      'way',
+            'magic': 'the college of mages sets a new condition for every working, and {Ns} own method fails it'},
  'timing': {},
  'scenes': {'earth': [('',
-                       'At {clash.setting}, {clash.holder} has made it plain: every piece of work is done the one '
-                       'approved way and handed in on the set night, or it fails. {N} has another way that works, '
-                       'and a job and a life around the classes. The fees are already paid.')],
+                       'At {clash.setting}, {clash.holder} has made it plain: {clash.demand}, or the work fails. {N} '
+                       'has a job and a life around the classes, and a way of working that works. The fees are '
+                       'already paid.')],
             'tribal': [('',
-                        'The old teacher of the craft has said it twice now: every step the old way, in the old '
-                        'order, or not at all. {N} has found a way that works better, and the teaching is the only '
-                        'way into the craft.')],
+                        'The old teacher of the craft has said it twice now: {clash.demand}, or not at all. {N} has '
+                        'found a way that works better, and the teaching is the only way into the craft.')],
             'magic': [('',
-                       'At {clash.setting}, {clash.holder} grades every working by the approved method and no other. '
-                       "{Ns} own method works, and fails the mark every time. The year's fees are paid.")]},
- 'outcomes': (['One piece of work done {Ns} way is allowed, as a trial. It passes, narrowly, and the rule bends a '
-               'little.',
+                       'At {clash.setting}, {clash.holder} grades every working by one rule: {clash.demand}. {Ns} '
+                       "own method works, and fails the mark every time. The year's fees are paid.")]},
+ 'outcomes': (['One exception is allowed, as a trial. It passes, narrowly, and the rule bends a little.',
                '{N} gets through the course, with a certificate and a few scars from the argument.'],
               ['The rule holds, and {Ns} best piece of work comes back marked as a fail.',
-               'It half works: one mark is changed on appeal, and the rest of the year is done the approved way.']),
+               'It half works: one mark is changed on appeal, and the rest of the year is done as asked.']),
  'options': [
     ("join the students' society, and help set its rules", 'W1', None, 0.45, '', {'v': 'conformity, universalism', 'clash': 'own_scene', 'chance': 0.75}),
-    ('show {clash.holder} your method beside theirs, and ask for a fair trial', 'U1', None, 0.45, '', {'v': 'self-direction, achievement', 'clash': 'bridge', 'chance': 0.5}),
-    ('tell {clash.holder} straight: mark the work on results, or lose a paying student', 'B1', None, 0.45, '', {'v': 'power, achievement', 'clash': 'confront', 'chance': 0.45}),
-    ('grit your teeth and do it their way, because the fees are spent', 'R1', None, 0.45, '', {'v': 'self-direction, security', 'clash': 'give_in', 'chance': 0.85}),
+    ('show {clash.holder} what your way produces, and ask for a fair trial', 'U1', None, 0.45, '', {'v': 'self-direction, achievement', 'clash': 'bridge', 'chance': 0.5}),
+    ('tell {clash.holder} straight: judge the work on results, or lose a paying student', 'B1', None, 0.45, '', {'v': 'power, achievement', 'clash': 'confront', 'chance': 0.45}),
+    ('hand the work in as asked, on the set night', 'R1', None, 0.45, '', {'v': 'self-direction, security', 'clash': 'give_in', 'chance': 0.85}),
     ('drop the course, and give the evenings back to the people at home', 'G1', None, 0.45, '', {'v': 'tradition, benevolence', 'clash': 'leave', 'chance': 0.75}),
-    ('read the course rules closely, and appeal the marks by the book', 'W1', 'U.7', 0.5, '', {'v': 'conformity, self-direction', 'clash': 'confront', 'chance': 0.55}),
-    ('do it their way to the letter, and keep your own method for later', 'U1', 'B.7', 0.5, '', {'v': 'achievement, power', 'clash': 'give_in', 'chance': 0.85}),
+    ('read the course rules closely, and appeal by the book', 'W1', 'U.7', 0.5, '', {'v': 'conformity, self-direction', 'clash': 'confront', 'chance': 0.55}),
+    ('learn the approved way to the letter, and use it', 'U1', 'B.7', 0.5, '', {'v': 'achievement, power', 'clash': 'give_in', 'chance': 0.85}),
     ('walk out mid-term and put the time into a project of your own', 'B1', 'R.7', 0.5, '', {'v': 'power, stimulation', 'clash': 'leave', 'chance': 0.65}),
     ('find the crowd at {clash.scene} who learn by doing and argue till late', 'R1', 'G.7', 0.5, '', {'v': 'stimulation, benevolence', 'clash': 'own_scene', 'chance': 0.7}),
     ('ask {clash.ally}, who knows both sides, to find a way through for everyone', 'G1', 'W.7', 0.5, '', {'v': 'benevolence, conformity', 'clash': 'bridge', 'chance': 0.6}),
  ]},
-{'name': 'the rota at the Saturday job',
+{'name': 'the new terms at the Saturday job',
  'stages': 'juvenile young_adult',
  'age': (14, 19),
  'alpha': 'W.2 U.2 B.2 R.2 G.2',
@@ -220,38 +216,35 @@ SITUATIONS = [
  'roles': 'boss, colleague, parent, friend',
  'clash': 'work',
  'band': 'teen',
- 'worlds': {'earth': 'the new rota at the Saturday job takes every weekend, and an unpaid half hour to close up',
-            'tribal': 'the herder wants {N} with the flock every rest day now, as well as the working days',
-            'magic': "the workshop's master wants {N} at the bench every free day, and sweeping up after closing "
-                     'too'},
+ 'worlds': {'earth': 'new terms at the Saturday job, take it or leave it, and they cut into everything else {N} does',
+            'tribal': 'the herder has set new terms for the young ones with the flock, and they take {Ns} rest days',
+            'magic': "the workshop's master has set new terms for the apprentices, and they take {Ns} free days"},
  'timing': {},
  'scenes': {'earth': [('',
-                       'The new rota is up at {clash.setting}: {N} now works every Saturday and most Sundays, and '
-                       'stays on unpaid to close up. That is how it works now, says {clash.holder}: take it or leave '
-                       'it. The money matters, and so does everything else {N} used to do with the weekend.')],
+                       'The new terms are up on the board at {clash.setting}: {clash.demand}. Take it or leave it, '
+                       'says {clash.holder}. The money matters, and so does everything else {N} used to do with the '
+                       'weekend.')],
             'tribal': [('',
-                        'The herder has told {N} to come with the flock every rest day as well as the working days. '
-                        'The share of the herd is good. The rest days were the only days {N} had for anything '
-                        'else.')],
+                        'The herder has told {N} how it is to be now: {clash.demand}. The share of the herd is good. '
+                        'The rest days were the only days {N} had for anything else.')],
             'magic': [('',
-                       'The master of {clash.setting} wants {N} at the bench every free day now, and sweeping the '
-                       'floor after closing for nothing. The coin is welcome, and the free days were everything '
-                       'else.')]},
- 'outcomes': (['The Sundays go back to how they were, and the closing half hour is paid. The Saturdays stay.',
+                       'The master of {clash.setting} has set down the new terms: {clash.demand}. The coin is '
+                       'welcome, and the free days were everything else.')]},
+ 'outcomes': (['The terms soften on one point, and stay as they were on the rest.',
                '{N} keeps one free weekend a month, and the pay goes down a little to match.'],
-              ['The rota stays as it is, take it or leave it, and {N} is a little less welcome at work.',
-               'It half works: the unpaid half hour stops, and every weekend is still taken.']),
+              ['The terms stay as they are, take it or leave it, and {N} is a little less welcome at work.',
+               'It half works: the worst of it stops, and every weekend is still taken.']),
  'options': [
-    ('ask {clash.ally} to help draw up a fair rota that everyone signs', 'W1', None, 0.45, '', {'v': 'universalism, conformity', 'clash': 'bridge', 'chance': 0.6}),
+    ('ask {clash.ally} to help draw up fair terms that everyone signs', 'W1', None, 0.45, '', {'v': 'universalism, conformity', 'clash': 'bridge', 'chance': 0.6}),
     ('bring {clash.holder} the hours, written down, and the rules on young workers', 'U1', None, 0.45, '', {'v': 'self-direction, achievement', 'clash': 'confront', 'chance': 0.55}),
-    ('take the extra hours for now, and save the money for something better', 'B1', None, 0.45, '', {'v': 'achievement, security', 'clash': 'give_in', 'chance': 0.85}),
+    ('take the new terms as they stand, and the pay with them', 'B1', None, 0.45, '', {'v': 'achievement, security', 'clash': 'give_in', 'chance': 0.85}),
     ('quit on the spot, and take your weekends back', 'R1', None, 0.45, '', {'v': 'stimulation, hedonism', 'clash': 'leave', 'chance': 0.7}),
     ('find weekend work at the farm shop, where the regulars know your name', 'G1', None, 0.45, '', {'v': 'benevolence, security', 'clash': 'own_scene', 'chance': 0.65}),
-    ('agree to the rota and learn the work properly, start to finish', 'W1', 'U.7', 0.5, '', {'v': 'conformity, achievement', 'clash': 'give_in', 'chance': 0.85}),
+    ('agree to the terms, and learn the work properly, start to finish', 'W1', 'U.7', 0.5, '', {'v': 'conformity, achievement', 'clash': 'give_in', 'chance': 0.85}),
     ('line up a better job first, then hand in your notice', 'U1', 'B.7', 0.5, '', {'v': 'achievement, power', 'clash': 'leave', 'chance': 0.55}),
     ('start selling what you make at the weekend market, on your own terms', 'B1', 'R.7', 0.5, '', {'v': 'power, stimulation', 'clash': 'own_scene', 'chance': 0.6}),
-    ('get the whole crew together and ask {clash.holder}, cheerfully, for a fairer rota', 'R1', 'G.7', 0.5, '', {'v': 'stimulation, benevolence', 'clash': 'bridge', 'chance': 0.55}),
-    ('speak up for all the young ones on the rota, not just yourself', 'G1', 'W.7', 0.5, '', {'v': 'benevolence, universalism', 'clash': 'confront', 'chance': 0.45}),
+    ('get the whole crew together and ask {clash.holder}, cheerfully, for fairer terms', 'R1', 'G.7', 0.5, '', {'v': 'stimulation, benevolence', 'clash': 'bridge', 'chance': 0.55}),
+    ('speak up for all the young workers there, side by side', 'G1', 'W.7', 0.5, '', {'v': 'benevolence, universalism', 'clash': 'confront', 'chance': 0.45}),
  ]},
 {'name': 'the new way of working',
  'stages': 'young_adult adult mature',
@@ -268,34 +261,30 @@ SITUATIONS = [
  'roles': 'boss, colleague, partner, friend',
  'clash': 'work',
  'band': 'adult',
- 'worlds': {'earth': 'new hours, a new way of doing the job and a target by every name, and {Ns} way of working fits '
-                     'none of it',
+ 'worlds': {'earth': 'a new way of working from Monday, and {Ns} way of doing the job does not fit it',
             'tribal': 'the hunt leader has changed how the hunts are run, and {Ns} way of tracking has no place in '
                       'it',
             'magic': 'the guild master has decreed a new method for every journeyman, and {Ns} own craft does not '
                      'fit it'},
  'timing': {},
  'scenes': {'earth': [('',
-                       'From Monday, says {clash.holder}, things at {clash.setting} are done differently: new hours, '
-                       'a new way of doing the job, and a target on the board by every name. {Ns} way of doing the '
-                       'work, the one {N} is good at, fits none of it. There is rent to pay, and people counting on '
-                       'the wage.')],
+                       'From Monday, says {clash.holder}, things at {clash.setting} are done differently: '
+                       '{clash.demand}. {Ns} way of doing the work, the one {N} is good at, does not fit it. There '
+                       'is rent to pay, and people counting on the wage.')],
             'tribal': [('',
-                        'The hunt leader has changed how the hunts are run: everyone in one line, at one pace, by '
-                        'one plan. {Ns} way of tracking, the one that has fed families for years, has no place in '
-                        'it, and the winter is coming.')],
+                        'The hunt leader has changed how the hunts are run: {clash.demand}. {Ns} way of tracking, '
+                        'the one that has fed families for years, has no place in it, and the winter is coming.')],
             'magic': [('',
-                       'The guild master of {clash.setting} has decreed a new method for every journeyman, from the '
-                       "first cut to the last polish. {Ns} own craft does not fit it, and the guild's seal is what "
-                       'brings the work in.')]},
- 'outcomes': (['The new way stays, with one exception carved out for the part {N} does best. {N} still hates the '
-               'board.',
+                       'The guild master of {clash.setting} has decreed a new method for every journeyman: '
+                       "{clash.demand}. {Ns} own craft does not fit it, and the guild's seal is what brings the work "
+                       'in.')]},
+ 'outcomes': (['The new way stays, with one exception carved out for the part {N} does best.',
                '{N} lands on their feet, a few months poorer in patience, and the work is good again.'],
-              ['Nothing bends. The targets go up on the board, and {Ns} name is near the bottom of it.',
-               'It half works: {clash.holder} listens, nods, and changes the hours but not the rest.']),
+              ['Nothing bends. The new way stands, and {Ns} name is near the bottom of the board.',
+               'It half works: {clash.holder} listens, nods, and changes one thing but not the rest.']),
  'options': [
     ('point out in the staff meeting that the change breaks the agreed terms', 'W1', None, 0.45, '', {'v': 'conformity, universalism', 'clash': 'confront', 'chance': 0.5}),
-    ('learn the new system inside out, and wait for its flaws to show', 'U1', None, 0.45, '', {'v': 'self-direction, achievement', 'clash': 'give_in', 'chance': 0.85}),
+    ('learn the new system inside out, and work to it', 'U1', None, 0.45, '', {'v': 'self-direction, achievement', 'clash': 'give_in', 'chance': 0.85}),
     ('take the better offer from across town, and say why on the way out', 'B1', None, 0.45, '', {'v': 'power, achievement', 'clash': 'leave', 'chance': 0.6}),
     ('go out after work with the people who do the job the way you do', 'R1', None, 0.45, '', {'v': 'hedonism, stimulation', 'clash': 'own_scene', 'chance': 0.8}),
     ('ask {clash.ally}, who has been here longest, to help find a middle way', 'G1', None, 0.45, '', {'v': 'benevolence, tradition', 'clash': 'bridge', 'chance': 0.55}),
@@ -303,9 +292,9 @@ SITUATIONS = [
     ("join the trade's evening meetups, where people swap better ways of doing it", 'U1', 'R.7', 0.5, '', {'v': 'self-direction, stimulation', 'clash': 'own_scene', 'chance': 0.75}),
     ('propose a trial: your team works your way for a month, results on the table', 'B1', 'G.7', 0.5, '', {'v': 'achievement, security', 'clash': 'bridge', 'chance': 0.5}),
     ('tell {clash.holder}, in front of everyone, that this will wreck the work', 'R1', 'W.7', 0.5, '', {'v': 'stimulation, universalism', 'clash': 'confront', 'chance': 0.4}),
-    ('keep your head down and do it their way: people at home rely on the wage', 'G1', 'U.7', 0.5, '', {'v': 'benevolence, security', 'clash': 'give_in', 'chance': 0.9}),
+    ('work the new way, every hour it asks', 'G1', 'U.7', 0.5, '', {'v': 'benevolence, security', 'clash': 'give_in', 'chance': 0.9}),
  ]},
-{'name': 'the promises at the coming of age',
+{'name': 'what the congregation expects of the young',
  'stages': 'juvenile young_adult',
  'age': (11, 19),
  'alpha': 'W.2 U.2 B.2 R.2 G.2',
@@ -320,40 +309,38 @@ SITUATIONS = [
  'roles': 'parent, grandparent, friend, elder',
  'clash': 'congregation',
  'band': 'teen',
- 'worlds': {'earth': '{N} is to stand up at the coming-of-age gathering and say the promises, and is not sure they '
-                     'are true for {N}',
-            'tribal': 'the elders expect {N} at the coming-of-age rite, to speak the old vows in front of the whole '
-                      'clan',
-            'magic': "the temple expects {N} to take the novice's vows at the turning of the year, before the whole "
-                     'house'},
+ 'worlds': {'earth': 'the congregation expects something of {N} this year, the family expects it too, and {N} is not '
+                     'sure it is right',
+            'tribal': 'the elders expect something of {N} at the next rite, the family expects it too, and {N} is '
+                      'not sure',
+            'magic': 'the temple expects something of {N} at the turning of the year, and {N} is not sure it is '
+                     'right'},
  'timing': {},
  'scenes': {'earth': [('',
-                       'Next month {N} is to stand up at {clash.setting} and say the promises of the coming of age, '
-                       'in front of everyone. The family expects it, and so does {clash.holder}. {N} is not sure the '
-                       'words are true for {N}, and saying them would mean something.')],
+                       'At the door after the gathering, {clash.holder} spoke to {Ns} family: {clash.demand}. The '
+                       'family expects it too. {N} is not sure it is right for {N}, and going along with it would '
+                       'mean something.')],
             'tribal': [('',
-                        'At the next full moon {N} is to stand before the whole clan and speak the old vows. The '
-                        "family's place in the clan rests on it, and {clash.holder} expects it. {N} is not sure the "
-                        'vows are {Ns} own.')],
+                        'At the fire, the elders have said what is expected of {N} at the next rite: {clash.demand}. '
+                        "The family's place in the clan rests on it. {N} is not sure it is {Ns} own.")],
             'magic': [('',
-                       "At the turning of the year {N} is to take the novice's vows before the whole house. {Ns} "
-                       'name is already written in the book, in the hand of {clash.holder}. {N} is not sure the vows '
-                       'are {Ns} to make.')]},
- 'outcomes': (["The day is put off a year, with the family's grudging blessing, and {N} has time to find out what "
+                       'At the turning of the year the novices are named, and the word from {clash.holder} is plain: '
+                       '{clash.demand}. {Ns} name is already in the book. {N} is not sure it is right.')]},
+ 'outcomes': (["The matter is put off a year, with the family's grudging blessing, and {N} has time to find out what "
                '{N} thinks.',
-               '{N} stands up and says the promises in words that are partly {Ns} own, and nobody objects.'],
-              ['The day comes as planned. {N} goes through with it, and the doubt is still there afterwards.',
+               '{N} finds a way to do what is asked partly in {Ns} own way, and nobody objects.'],
+              ['Nothing changes. {N} goes along with it, and the doubt is still there afterwards.',
                'It half works: {clash.holder} agrees to wait, and the family talks of little else all summer.']),
  'options': [
-    ('stand up and say the promises: the family has done it for generations', 'W1', None, 0.45, '', {'v': 'tradition, conformity', 'clash': 'give_in', 'chance': 0.9}),
+    ('do what is asked, at every gathering, as the family always has', 'W1', None, 0.45, '', {'v': 'tradition, conformity', 'clash': 'give_in', 'chance': 0.9}),
     ("ask {parent} for a year's wait, to decide when older", 'U1', None, 0.45, '', {'v': 'self-direction, security', 'clash': 'leave', 'chance': 0.55}),
     ("find the young people's group that debates the big questions, and soon lead it", 'B1', None, 0.45, '', {'v': 'power, achievement', 'clash': 'own_scene', 'chance': 0.7}),
     ('tell {clash.ally} how you feel, all of it, and ask for help', 'R1', None, 0.45, '', {'v': 'stimulation, benevolence', 'clash': 'bridge', 'chance': 0.65}),
-    ('tell {clash.holder} the old words deserve someone who means them', 'G1', None, 0.45, '', {'v': 'tradition, universalism', 'clash': 'confront', 'chance': 0.5}),
-    ('join the volunteers who visit the care home, and serve without the vows', 'W1', 'B.7', 0.5, '', {'v': 'conformity, achievement', 'clash': 'own_scene', 'chance': 0.75}),
+    ('tell {clash.holder} the old ways deserve someone who means them', 'G1', None, 0.45, '', {'v': 'tradition, universalism', 'clash': 'confront', 'chance': 0.5}),
+    ('join the volunteers who visit the care home, and serve that way', 'W1', 'B.7', 0.5, '', {'v': 'conformity, achievement', 'clash': 'own_scene', 'chance': 0.75}),
     ('ask {clash.holder} the questions you really have, and see if there is room', 'U1', 'R.7', 0.5, '', {'v': 'self-direction, stimulation', 'clash': 'bridge', 'chance': 0.5}),
-    ('say you will stand up only if you may say the words your own way', 'B1', 'G.7', 0.5, '', {'v': 'power, tradition', 'clash': 'confront', 'chance': 0.4}),
-    ("say the words for the family's sake, though your heart is not in it", 'R1', 'W.7', 0.5, '', {'v': 'security, conformity', 'clash': 'give_in', 'chance': 0.9}),
+    ('say you will do it only if you may do it your own way', 'B1', 'G.7', 0.5, '', {'v': 'power, tradition', 'clash': 'confront', 'chance': 0.4}),
+    ('go to the classes the congregation runs, and learn what is asked', 'R1', 'W.7', 0.5, '', {'v': 'security, conformity', 'clash': 'give_in', 'chance': 0.9}),
     ("spend the summer at {grandparent}'s, away from it all, to think it through", 'G1', 'U.7', 0.5, '', {'v': 'tradition, self-direction', 'clash': 'leave', 'chance': 0.6}),
  ]},
 {'name': 'what the congregation now expects',
@@ -371,44 +358,40 @@ SITUATIONS = [
  'roles': 'friend, partner, elder, neighbour',
  'clash': 'congregation',
  'band': 'adult',
- 'worlds': {'earth': "two evenings a week for the congregation's work, every gathering, and no open disagreement "
-                     'with its decisions',
-            'tribal': 'the keeper of the sacred fire asks more of everyone now, and wants no voice raised against '
-                      'the old ruling',
-            'magic': "the temple's high keeper demands more service of every member, and silence about its rulings"},
+ 'worlds': {'earth': 'the congregation asks something new of every member, and it cuts across {Ns} family, work and '
+                     'views',
+            'tribal': 'the keeper of the sacred fire asks something new of everyone, and wants no voice raised '
+                      'against it',
+            'magic': "the temple's high keeper demands something new of every member, and silence about it"},
  'timing': {},
  'scenes': {'earth': [('',
-                       'The word from {clash.holder} to {clash.setting} is plain: from now on, every member at every '
-                       "gathering, two evenings a week for the congregation's work, and no open disagreement with "
-                       'its decisions. {N} has a family, a job and opinions, and {Ns} friends of twenty years are '
-                       'all here.')],
+                       'The word from {clash.holder} to {clash.setting} was read out at the last gathering: '
+                       '{clash.demand}. Nobody spoke. {N} has a family, a job and opinions, and {Ns} friends of '
+                       'twenty years are all here.')],
             'tribal': [('',
-                        'The keeper of the sacred fire has asked more of everyone: a night a week at the fire, a '
-                        'share of every hunt, and no voice raised against the old ruling. {N} has a family to feed '
-                        'and a view of the ruling, and every friend {N} has sits at that fire.')],
+                        'The keeper of the sacred fire has asked more of everyone: {clash.demand}. {N} has a family '
+                        'to feed and a view of the matter, and every friend {N} has sits at that fire.')],
             'magic': [('',
-                       'The high keeper of {clash.setting} has demanded more service of every member, and silence '
-                       "about the temple's rulings. {N} has work, a family and doubts about one ruling in "
-                       'particular, and the temple is where {Ns} oldest friends are.')]},
- 'outcomes': (['The evenings drop to one a week, and the rule on disagreement is quietly forgotten. It cost {N} a '
-               'friend or two to get there.',
+                       'The high keeper of {clash.setting} has demanded more of every member: {clash.demand}. {N} '
+                       'has work, a family and doubts, and the temple is where {Ns} oldest friends are.')]},
+ 'outcomes': (['Some of it is eased, and the rest is quietly forgotten. It cost {N} a friend or two to get there.',
                '{N} finds a place to stand, inside or outside, and the old friends mostly stay friends.'],
               ['Nothing changes. The new expectations stand, and {N} is watched a little more closely at every '
                'gathering.',
-               'It half works: the evenings are eased, and the silence about the decisions is not.']),
+               'It half works: one part is eased, and the rest is not.']),
  'options': [
     ('write to the members, and resign your place properly', 'W1', None, 0.45, '', {'v': 'conformity, universalism', 'clash': 'leave', 'chance': 0.75}),
     ('look for a reading group that asks the old questions freely', 'U1', None, 0.45, '', {'v': 'self-direction, universalism', 'clash': 'own_scene', 'chance': 0.7}),
-    ('broker a deal with {clash.holder}: fewer evenings, and a seat on the working group', 'B1', None, 0.45, '', {'v': 'power, achievement', 'clash': 'bridge', 'chance': 0.5}),
+    ('broker a deal with {clash.holder}: less asked, and a seat on the working group', 'B1', None, 0.45, '', {'v': 'power, achievement', 'clash': 'bridge', 'chance': 0.5}),
     ('stand up at the next gathering and say what many are thinking', 'R1', None, 0.45, '', {'v': 'stimulation, universalism', 'clash': 'confront', 'chance': 0.45}),
-    ('give the evenings gladly: these are your people, and the work matters', 'G1', None, 0.45, '', {'v': 'benevolence, tradition', 'clash': 'give_in', 'chance': 0.9}),
+    ('take on what is asked, alongside the people you have known for years', 'G1', None, 0.45, '', {'v': 'benevolence, tradition', 'clash': 'give_in', 'chance': 0.9}),
     ('ask {clash.ally} to bring both sides to one meeting, with an agreed agenda', 'W1', 'U.7', 0.5, '', {'v': 'conformity, self-direction', 'clash': 'bridge', 'chance': 0.55}),
     ('put the figures before the members: what is asked, what it costs, who decided', 'U1', 'B.7', 0.5, '', {'v': 'self-direction, power', 'clash': 'confront', 'chance': 0.45}),
-    ('go along with it for now, and win a seat where decisions get made', 'B1', 'R.7', 0.5, '', {'v': 'power, stimulation', 'clash': 'give_in', 'chance': 0.75}),
+    ("do what is asked, and take on a role in the congregation's work", 'B1', 'R.7', 0.5, '', {'v': 'power, stimulation', 'clash': 'give_in', 'chance': 0.75}),
     ('stop going, and give those mornings to the hills and the people you love', 'R1', 'G.7', 0.5, '', {'v': 'hedonism, benevolence', 'clash': 'leave', 'chance': 0.8}),
     ('join the smaller congregation across town, where things are done the gentler way', 'G1', 'W.7', 0.5, '', {'v': 'tradition, conformity', 'clash': 'own_scene', 'chance': 0.7}),
  ]},
-{'name': 'the hall the town is closing',
+{'name': "the town's new rule for the young",
  'stages': 'juvenile young_adult',
  'age': (12, 19),
  'alpha': 'W.2 U.2 B.2 R.2 G.2',
@@ -423,37 +406,34 @@ SITUATIONS = [
  'roles': 'friend, parent, neighbour, grandparent',
  'clash': 'town',
  'band': 'teen',
- 'worlds': {'earth': 'the town is selling the old youth hall, and groups of young people in the square are to be '
-                     'moved on',
-            'tribal': "the elders have given the young people's clearing to the herds, and the young are to keep to "
-                      'the camp',
-            'magic': 'the council has sealed the old meeting hall, and the young are not to gather in the square '
-                     'after dusk'},
+ 'worlds': {'earth': 'a new rule from the council falls hardest on the young, and on the places where they meet',
+            'tribal': 'the elders have made a new rule for the young of the camp, and it takes the places where they '
+                      'meet',
+            'magic': 'the council has posted a new rule for the young, and it takes the places where they meet'},
  'timing': {},
  'scenes': {'earth': [('',
-                       'The old youth hall is to be sold, by a vote of {clash.holder}, and from next month there is '
-                       'nowhere in {clash.setting} for {Ns} age to go in the evenings. A new rule says groups of '
-                       'young people in the square will be moved on. Everyone {N} knows is talking about it.')],
+                       'A new rule from {clash.holder} has gone up on every notice board in {clash.setting}: '
+                       '{clash.demand}. It falls hardest on {Ns} age, and on the places where {Ns} friends meet. '
+                       'Everyone {N} knows is talking about it.')],
             'tribal': [('',
-                        "The elders have given the young people's clearing to the herds, and the young are to keep "
-                        "to the camp. There is nowhere left for {Ns} age to be together, away from the grown ones' "
-                        'eyes.')],
+                        'The elders have made a new rule for the young, and said so at the fire: {clash.demand}. '
+                        "There is little room left for {Ns} age to be together, away from the grown ones' eyes.")],
             'magic': [('',
-                       'The council of {clash.setting} has sealed the old meeting hall with a ward, and the young '
-                       'are not to gather in the square after dusk. Everyone {N} knows is talking about it.')]},
- 'outcomes': (['The hall is sold, and one room of it stays for the young on two evenings a week. It is smaller, and '
-               'it is theirs.',
-               'The council puts off the sale a year, and {N} finds that grown-ups can be moved, slowly.'],
-              ['The hall is sold as planned, and the square is emptied every evening.',
-               'It half works: the moving-on rule is dropped, and there is still nowhere to go.']),
+                       'The council of {clash.setting} has posted its word in the square, sealed with a ward: '
+                       '{clash.demand}. Everyone {N} knows is talking about it.')]},
+ 'outcomes': (['The rule is softened for the young after a full public meeting. It is less than they asked, and it '
+               'is something.',
+               'The council puts off the rule a year, and {N} finds that grown-ups can be moved, slowly.'],
+              ['The rule stands as written, and is enforced from the first week.',
+               'It half works: the worst part is dropped, and there is still nowhere to go.']),
  'options': [
     ('help start a youth club that meets in the school hall each week', 'W1', None, 0.45, '', {'v': 'conformity, benevolence', 'clash': 'own_scene', 'chance': 0.65}),
-    ('draw up a plan that keeps part of the hall, and take it to {clash.ally}', 'U1', None, 0.45, '', {'v': 'self-direction, universalism', 'clash': 'bridge', 'chance': 0.5}),
-    ('go to the council meeting and demand somewhere better in return', 'B1', None, 0.45, '', {'v': 'power, achievement', 'clash': 'confront', 'chance': 0.4}),
-    ('keep within the new rules, grumbling, because there is no other choice yet', 'R1', None, 0.45, '', {'v': 'hedonism, security', 'clash': 'give_in', 'chance': 0.9}),
+    ('draw up a fairer version of the rule, and take it to {clash.ally}', 'U1', None, 0.45, '', {'v': 'self-direction, universalism', 'clash': 'bridge', 'chance': 0.5}),
+    ('go to the council meeting and demand something better in return', 'B1', None, 0.45, '', {'v': 'power, achievement', 'clash': 'confront', 'chance': 0.4}),
+    ('keep within the new rule, and find what there is to do', 'R1', None, 0.45, '', {'v': 'hedonism, security', 'clash': 'give_in', 'chance': 0.9}),
     ("spend the summer at {grandparent}'s, out where there is room to be young", 'G1', None, 0.45, '', {'v': 'tradition, security', 'clash': 'leave', 'chance': 0.6}),
     ('collect signatures, read up on the rules, and petition the council properly', 'W1', 'U.7', 0.5, '', {'v': 'conformity, self-direction', 'clash': 'confront', 'chance': 0.5}),
-    ('keep to the rules, and quietly learn how the council makes its decisions', 'U1', 'B.7', 0.5, '', {'v': 'self-direction, power', 'clash': 'give_in', 'chance': 0.85}),
+    ('keep to the rule, and learn how the council makes its decisions', 'U1', 'B.7', 0.5, '', {'v': 'self-direction, power', 'clash': 'give_in', 'chance': 0.85}),
     ("make the next town's hall your own, by bus each weekend", 'B1', 'R.7', 0.5, '', {'v': 'power, stimulation', 'clash': 'leave', 'chance': 0.65}),
     ('take your friends to the open fields at the edge of town on summer days', 'R1', 'G.7', 0.5, '', {'v': 'stimulation, benevolence', 'clash': 'own_scene', 'chance': 0.75}),
     ('get the old neighbours and the young ones round one table, with {clash.ally} chairing', 'G1', 'W.7', 0.5, '', {'v': 'benevolence, conformity', 'clash': 'bridge', 'chance': 0.55}),
@@ -473,41 +453,36 @@ SITUATIONS = [
  'roles': 'neighbour, friend, partner, rival',
  'clash': 'town',
  'band': 'adult',
- 'worlds': {'earth': "the town's new plan builds over the common, moves the street market, and sets new rules on "
-                     'what may be done at home',
-            'tribal': "the clan's council has chosen to move camp across the river, away from the place {N} has made "
-                      'home',
-            'magic': 'the council has granted the old common to a builder-mage, and new rules come with the towers'},
+ 'worlds': {'earth': "the town's new plan runs straight through the part of town {N} cares about",
+            'tribal': "the clan's council has made its choice for the camp, and it runs through everything {N} has "
+                      'built',
+            'magic': 'the council has granted a new plan for the town, and new rules come with it'},
  'timing': {},
  'scenes': {'earth': [('',
-                       'A plan for {clash.setting} has been passed by {clash.holder}: the common by {Ns} street will '
-                       "be built over, the street market moved, and new rules set on what may be done in one's own "
-                       'front yard. {N} has lived here for years, and the plan runs straight through the part of '
-                       'town {N} cares about.')],
+                       'A plan for {clash.setting} has been passed by {clash.holder}: {clash.demand}. {N} has lived '
+                       'here for years, and the plan runs straight through the part of town {N} cares about.')],
             'tribal': [('',
-                        "The clan's council has chosen to move camp across the river when the snows end. The new "
-                        'ground is better for the herds and worse for everything {N} has built here, and the choice '
-                        'has been made.')],
+                        "The clan's council has chosen, and said it at the fire: {clash.demand}. It is better for "
+                        'the herds and worse for everything {N} has built here.')],
             'magic': [('',
-                       'The council of {clash.setting} has granted the old common to a builder-mage. Towers will '
-                       "rise where the market stood, and new rules come with them on what may be done on one's own "
-                       'doorstep.')]},
- 'outcomes': (['The plan goes ahead with half the common kept, after a year of meetings. {N} knows every name on the '
-               'council now.',
+                       'The council of {clash.setting} has granted a builder-mage the right to remake the old '
+                       'quarter, with its word attached: {clash.demand}. Towers will rise where the market stood.')]},
+ 'outcomes': (['The plan goes ahead with its worst part dropped, after a year of meetings. {N} knows every name on '
+               'the council now.',
                '{N} finds a way to live with the new town, and some of it turns out better than feared.'],
-              ['The plan goes ahead as passed, and the common is fenced off by the spring.',
-               'It half works: the market stays where it was, and the common is built over anyway.']),
+              ['The plan goes ahead as passed, and the first fences are up by the spring.',
+               'It half works: one part is dropped, and the rest goes ahead anyway.']),
  'options': [
     ('propose, through the proper channels, a smaller plan both sides could accept', 'W1', None, 0.45, '', {'v': 'universalism, conformity', 'clash': 'bridge', 'chance': 0.5}),
     ('read every page of the plan, and show the council where its numbers fail', 'U1', None, 0.45, '', {'v': 'self-direction, achievement', 'clash': 'confront', 'chance': 0.55}),
     ('accept the plan, and get in early on whatever it brings', 'B1', None, 0.45, '', {'v': 'power, achievement', 'clash': 'give_in', 'chance': 0.75}),
     ('pack up and move somewhere with more life and fewer rules', 'R1', None, 0.45, '', {'v': 'stimulation, self-direction', 'clash': 'leave', 'chance': 0.7}),
-    ('join the neighbours keeping the allotments the plan left alone', 'G1', None, 0.45, '', {'v': 'benevolence, tradition', 'clash': 'own_scene', 'chance': 0.75}),
-    ('follow the new rules to the letter, since the fines would ruin you', 'W1', 'B.7', 0.5, '', {'v': 'conformity, security', 'clash': 'give_in', 'chance': 0.9}),
+    ('join the neighbours who keep the allotments going, whatever the plan', 'G1', None, 0.45, '', {'v': 'benevolence, tradition', 'clash': 'own_scene', 'chance': 0.75}),
+    ("follow the plan's new rules to the letter", 'W1', 'B.7', 0.5, '', {'v': 'conformity, security', 'clash': 'give_in', 'chance': 0.9}),
     ('find the town that suits you best, visit it twice, then move', 'U1', 'R.7', 0.5, '', {'v': 'self-direction, stimulation', 'clash': 'leave', 'chance': 0.65}),
     ("make your street's residents' group the one the council listens to", 'B1', 'G.7', 0.5, '', {'v': 'power, benevolence', 'clash': 'own_scene', 'chance': 0.6}),
     ('throw a street party, and invite the whole council to it', 'R1', 'W.7', 0.5, '', {'v': 'stimulation, conformity', 'clash': 'bridge', 'chance': 0.55}),
-    ('speak at the hearing for the families and the wildlife that use the common', 'G1', 'U.7', 0.5, '', {'v': 'universalism, self-direction', 'clash': 'confront', 'chance': 0.45}),
+    ('speak at the hearing for the families and the wildlife the plan would touch', 'G1', 'U.7', 0.5, '', {'v': 'universalism, self-direction', 'clash': 'confront', 'chance': 0.45}),
  ]},
 {'name': "the club's new terms",
  'stages': 'juvenile young_adult',
@@ -524,39 +499,35 @@ SITUATIONS = [
  'roles': 'friend, parent, rival, mentor',
  'clash': 'group',
  'band': 'teen',
- 'worlds': {'earth': 'the club wants three practices a week, everything done the one way, and anyone who misses two '
-                     'is out',
-            'tribal': 'the leader of the young hunters wants every youth at every practice, done the one way, or out',
-            'magic': "the apprentice circle's leader wants every evening and every working done the one way, or out"},
+ 'worlds': {'earth': 'the club has new terms for every member, and anyone who will not keep them is out',
+            'tribal': 'the leader of the young hunters has set new terms for every youth, or out',
+            'magic': "the apprentice circle's leader has set new terms for every apprentice, or out"},
  'timing': {},
  'scenes': {'earth': [('',
-                       'New terms have come from {clash.holder} for everyone in {clash.setting}: three practices a '
-                       'week, everything done the one way, and anyone who misses two is out. {N} has been part of it '
-                       'for years and {Ns} friends are all there, but the new terms leave no room for anything '
-                       'else.')],
+                       'New terms have come from {clash.holder} for everyone in {clash.setting}: {clash.demand}. '
+                       'Anyone who will not is out. {N} has been part of it for years and {Ns} friends are all '
+                       'there, and the new terms leave little room for anything else.')],
             'tribal': [('',
-                        'The leader of the young hunters wants every youth at every practice, at dawn, every move '
-                        'made the one way, or out. {Ns} friends are all among the young hunters, and the practices '
-                        'take every free day.')],
+                        'The leader of the young hunters has set new terms: {clash.demand}, or out. {Ns} friends are '
+                        'all among the young hunters, and the terms take every free day.')],
             'magic': [('',
-                       'The leader of the apprentice circle wants every evening, every working done the one way, and '
-                       'any who miss two are out. {Ns} friends are all in the circle, and the evenings were all {N} '
-                       'had.')]},
- 'outcomes': (['The terms soften to two practices and one warning. Nobody says who won, and {N} is still in.',
+                       'The leader of the apprentice circle has set new terms: {clash.demand}, or out. {Ns} friends '
+                       'are all in the circle, and the evenings were all {N} had.')]},
+ 'outcomes': (['The terms soften on one point. Nobody says who won, and {N} is still in.',
                '{N} finds a place that fits, and keeps most of the old friends on the way.'],
-              ['The terms stand, and {N} misses two practices before the month is out.',
+              ['The terms stand, and {N} has to choose by the end of the month.',
                'It half works: the club agrees to a vote next season, and this season runs by the new terms.']),
  'options': [
     ("point out that the club's own rules say changes need a members' vote", 'W1', None, 0.45, '', {'v': 'conformity, universalism', 'clash': 'confront', 'chance': 0.5}),
     ('keep to the new terms for a season, and see what you learn', 'U1', None, 0.45, '', {'v': 'self-direction, achievement', 'clash': 'give_in', 'chance': 0.85}),
-    ('quit, and take what you are good at to the other club that wants you', 'B1', None, 0.45, '', {'v': 'power, achievement', 'clash': 'leave', 'chance': 0.65}),
+    ('quit, and take what you are good at to the other club', 'B1', None, 0.45, '', {'v': 'power, achievement', 'clash': 'leave', 'chance': 0.65}),
     ('start something of your own with the others who feel the same', 'R1', None, 0.45, '', {'v': 'stimulation, self-direction', 'clash': 'own_scene', 'chance': 0.7}),
     ('ask {clash.ally} to speak for the old members and the new ones together', 'G1', None, 0.45, '', {'v': 'benevolence, tradition', 'clash': 'bridge', 'chance': 0.55}),
     ('leave at the end of the season, properly, with your place handed on', 'W1', 'B.7', 0.5, '', {'v': 'conformity, power', 'clash': 'leave', 'chance': 0.75}),
     ('find the open sessions at {clash.scene}, where you can try things your way', 'U1', 'R.7', 0.5, '', {'v': 'self-direction, stimulation', 'clash': 'own_scene', 'chance': 0.75}),
-    ('offer {clash.holder} a deal: two practices, and you bring in two new members', 'B1', 'G.7', 0.5, '', {'v': 'power, security', 'clash': 'bridge', 'chance': 0.55}),
+    ('offer {clash.holder} a deal: easier terms, and two new members brought in', 'B1', 'G.7', 0.5, '', {'v': 'power, security', 'clash': 'bridge', 'chance': 0.55}),
     ('tell {clash.holder}, in front of the whole club, that the new terms are unfair', 'R1', 'W.7', 0.5, '', {'v': 'stimulation, universalism', 'clash': 'confront', 'chance': 0.4}),
-    ("go along with it for your friends' sake: the club is them", 'G1', 'U.7', 0.5, '', {'v': 'benevolence, self-direction', 'clash': 'give_in', 'chance': 0.9}),
+    ('keep to the new terms, alongside the friends who stay', 'G1', 'U.7', 0.5, '', {'v': 'benevolence, self-direction', 'clash': 'give_in', 'chance': 0.9}),
  ]},
 {'name': "the club's new direction",
  'stages': 'young_adult adult mature elder',
@@ -573,39 +544,136 @@ SITUATIONS = [
  'roles': 'friend, rival, regular, colleague',
  'clash': 'group',
  'band': 'adult',
- 'worlds': {'earth': 'the club has taken money from a big backer, and with it a new name, new rules and the old '
-                     'members asked to make way',
-            'tribal': "the band's leader has made a pact with a stronger band, and the band's old ways must give way "
-                      'to theirs',
-            'magic': "the circle's chair has taken a patron's gold, and the patron's rules come with it"},
+ 'worlds': {'earth': 'the club is changing direction, new terms come with it, and the old members are asked to make '
+                     'way',
+            'tribal': "the band's leader has made a pact with a stronger band, and the band's old ways must give way",
+            'magic': "the circle's chair has taken a patron, and the patron's terms come with it"},
  'timing': {},
  'scenes': {'earth': [('',
-                       'The news from {clash.holder} is that {clash.setting} will take money from a big backer, and '
-                       'with it come a new name, new rules on how things are run, and the old members asked to make '
-                       'way. {N} has given years to it, and the vote is next week.')],
+                       'The news from {clash.holder} is that {clash.setting} is changing direction, and new terms '
+                       'come with it: {clash.demand}. {N} has given years to it, and the vote is next week.')],
             'tribal': [('',
-                        "The band's leader has made a pact with a stronger band across the hills. Their ways come "
-                        'with the pact: who leads, who hunts, who sits where. {N} has given years to this band.')],
+                        "The band's leader has made a pact with a stronger band across the hills, and their terms "
+                        'come with it: {clash.demand}. {N} has given years to this band.')],
             'magic': [('',
-                       "The chair of {clash.setting} has taken a patron's gold, and the patron's rules come with it: "
-                       'a new name, new workings, and the old members asked to make way. {N} has given years to the '
-                       'circle.')]},
- 'outcomes': (["The backer's money comes in with the old name kept, after a long night of arguing. Some members "
-               'leave anyway.',
+                       "The chair of {clash.setting} has taken a patron's gold, and the patron's terms come with it: "
+                       '{clash.demand}. {N} has given years to the circle.')]},
+ 'outcomes': (['The change goes ahead with one old thing kept, after a long night of arguing. Some members leave '
+               'anyway.',
                '{N} ends up somewhere that feels like the club used to, and misses the old one less than expected.'],
               ['The vote goes through as announced, and the old members are thanked and shown the door.',
-               'It half works: the old name stays, and nearly everything else changes.']),
+               'It half works: one old thing stays, and nearly everything else changes.']),
  'options': [
-    ('accept the vote: it was done by the rules, and the group decided', 'W1', None, 0.45, '', {'v': 'conformity, universalism', 'clash': 'give_in', 'chance': 0.9}),
+    ('accept the vote, and stay on under the new terms', 'W1', None, 0.45, '', {'v': 'conformity, universalism', 'clash': 'give_in', 'chance': 0.9}),
     ('resign, and put the time into studying what you used to do there', 'U1', None, 0.45, '', {'v': 'self-direction, achievement', 'clash': 'leave', 'chance': 0.75}),
     ('set up a new group of your own, run your way, and invite the best', 'B1', None, 0.45, '', {'v': 'power, achievement', 'clash': 'own_scene', 'chance': 0.6}),
     ('throw an evening for old and new members alike, and get them talking', 'R1', None, 0.45, '', {'v': 'stimulation, benevolence', 'clash': 'bridge', 'chance': 0.6}),
     ('speak for the founding members at the meeting: this was theirs first', 'G1', None, 0.45, '', {'v': 'tradition, benevolence', 'clash': 'confront', 'chance': 0.5}),
     ('join the older society in the next town, which keeps the old standards', 'W1', 'U.7', 0.5, '', {'v': 'conformity, self-direction', 'clash': 'own_scene', 'chance': 0.7}),
-    ('work out with {clash.ally} a split both sides can sign: old name, new money', 'U1', 'B.7', 0.5, '', {'v': 'self-direction, power', 'clash': 'bridge', 'chance': 0.5}),
+    ('work out with {clash.ally} terms that both old and new members can sign', 'U1', 'B.7', 0.5, '', {'v': 'self-direction, power', 'clash': 'bridge', 'chance': 0.5}),
     ('tell {clash.holder} the members will leave too unless the terms change', 'B1', 'R.7', 0.5, '', {'v': 'power, stimulation', 'clash': 'confront', 'chance': 0.45}),
-    ('stay for the friends there, since leaving would cost you all of them', 'R1', 'G.7', 0.5, '', {'v': 'hedonism, benevolence', 'clash': 'give_in', 'chance': 0.85}),
+    ('stay on with the friends there, whatever the new terms', 'R1', 'G.7', 0.5, '', {'v': 'hedonism, benevolence', 'clash': 'give_in', 'chance': 0.85}),
     ('step away quietly, and give your evenings back to your family', 'G1', 'W.7', 0.5, '', {'v': 'benevolence, security', 'clash': 'leave', 'chance': 0.75}),
+ ]},
+{'name': 'the notice by the old stretch',
+ 'stages': 'juvenile young_adult',
+ 'age': (12, 19),
+ 'alpha': 'W.2 U.2 B.2 R.2 G.2',
+ 'stakes': 1.0,
+ 'rate': 0.3,
+ 'per_year': (0.0, 0.0, 0.0, 0.0, 0.0, 0.0),
+ 'drivers': '',
+ 'tier': 'life event',
+ 'tone': 'trouble',
+ 'life': 'nature, community',
+ 'horizon': 'months',
+ 'roles': 'parent, friend, grandparent, neighbour',
+ 'clash': 'land',
+ 'band': 'teen',
+ 'worlds': {'earth': 'a notice says what is to be done with the stretch of land {N} knows best, and the town is '
+                     'split over it',
+            'tribal': 'the clan means to change the use of the grove {N} knows best, and the families are split over '
+                      'it',
+            'magic': "the lord's stewards mean to change the use of the old grove, and the village is split over it"},
+ 'timing': {},
+ 'scenes': {'earth': [('',
+                       'A notice from {clash.holder} has gone up by the gate to {clash.setting}: {clash.demand}. {N} '
+                       'has spent years out there, and knows where the birds nest and where the water runs. The work '
+                       'would bring jobs to families {N} knows, and the town is split.')],
+            'tribal': [('',
+                        'The word from {clash.holder} has been said at the fire: {clash.demand}. {N} has spent years '
+                        'in that grove and knows its birds and its springs. The change would feed more families '
+                        'through the winter, and the clan is split.')],
+            'magic': [('',
+                       'A decree from {clash.holder} is nailed to the old oak at {clash.setting}: {clash.demand}. '
+                       '{N} knows every nest and spring there. The work would bring coin to the village, and the '
+                       'village is split.')]},
+ 'outcomes': (['Half of the stretch is kept and half is worked, after a long meeting in the school hall. {N} knows '
+               'which half the birds use.',
+               'The work goes ahead later than planned, with a strip left for the nests, and the jobs come anyway.'],
+              ['The work goes ahead as planned, and the stretch is changed by the autumn.',
+               'It half works: the plan is put off a season, and nobody can say what next year brings.']),
+ 'options': [
+    ('step back from the whole quarrel, and put the evenings into schoolwork', 'W1', None, 0.45, '', {'v': 'conformity, security', 'clash': 'leave', 'chance': 0.75}),
+    ("start a wildlife log with {friend}, and join the young recorders' group", 'U1', None, 0.45, '', {'v': 'self-direction, universalism', 'clash': 'own_scene', 'chance': 0.75}),
+    ('offer {clash.holder} a deal: half the work goes ahead, and the young ones tend the rest', 'B1', None, 0.45, '', {'v': 'power, achievement', 'clash': 'bridge', 'chance': 0.45}),
+    ('make a loud fuss about it at school and in the street, with a painted sign', 'R1', None, 0.45, '', {'v': 'stimulation, universalism', 'clash': 'confront', 'chance': 0.45}),
+    ('let the work go ahead, and help with the replanting that is promised', 'G1', None, 0.45, '', {'v': 'benevolence, security', 'clash': 'give_in', 'chance': 0.85}),
+    ("ask {clash.ally} to set out both sides' case at the open meeting", 'W1', 'U.7', 0.5, '', {'v': 'conformity, self-direction', 'clash': 'bridge', 'chance': 0.55}),
+    ('count the nests and the wildlife for a month, and send the numbers to the paper', 'U1', 'B.7', 0.5, '', {'v': 'self-direction, power', 'clash': 'confront', 'chance': 0.5}),
+    ('drop the objection, and take the summer work the plan brings', 'B1', 'R.7', 0.5, '', {'v': 'achievement, stimulation', 'clash': 'give_in', 'chance': 0.8}),
+    ("spend the summer at {grandparent}'s, where the country is still open", 'R1', 'G.7', 0.5, '', {'v': 'stimulation, tradition', 'clash': 'leave', 'chance': 0.6}),
+    ('join the volunteers who look after the reserve across the valley each weekend', 'G1', 'W.7', 0.5, '', {'v': 'benevolence, conformity', 'clash': 'own_scene', 'chance': 0.7}),
+ ]},
+{'name': 'the decision on the land nearby',
+ 'stages': 'young_adult adult mature elder',
+ 'age': (18, 90),
+ 'alpha': 'W.2 U.2 B.2 R.2 G.2',
+ 'stakes': 1.0,
+ 'rate': 0.3,
+ 'per_year': (0.0, 0.0, 0.0, 0.0, 0.0, 0.0),
+ 'drivers': '',
+ 'tier': 'life event',
+ 'tone': 'trouble',
+ 'life': 'nature, community, work',
+ 'horizon': 'years',
+ 'roles': 'neighbour, friend, partner, elder',
+ 'clash': 'land',
+ 'band': 'adult',
+ 'worlds': {'earth': 'a decision on how the land and water nearby are used, with work and harvests on one side and '
+                     "wildlife and some neighbours' living on the other",
+            'tribal': "the clan's council has decided the use of the land and water nearby, and the families "
+                      'downstream would pay for it',
+            'magic': "a decree binds the land and water nearby to the city's use, and the lower farms and the wild "
+                     'valley would pay for it'},
+ 'timing': {},
+ 'scenes': {'earth': [('',
+                       'The decision from {clash.holder} on {clash.setting} is short: {clash.demand}. {N} has lived '
+                       'and worked beside that land for years. The plan would bring work and cheaper food to the '
+                       'town, and would cost the wildlife there its home and some neighbours their living.')],
+            'tribal': [('',
+                        "The clan's council has decided the use of {clash.setting}: {clash.demand}. It would mean "
+                        'more food this winter, and less for the families downstream and the creatures that live '
+                        'there.')],
+            'magic': [('',
+                       "A decree from {clash.holder} binds {clash.setting} to the city's use: {clash.demand}. The "
+                       'city would gain by it, and the lower farms and the wild things of the valley would lose.')]},
+ 'outcomes': (['The plan goes ahead in a smaller form, with a share kept back for the lower ground. Both sides '
+               'grumble, and both can live with it.',
+               '{N} ends up with a say in how the land is used, and less time for anything else.'],
+              ['The plan goes ahead as decided, and the change is plain to see within a year.',
+               'It half works: the worst of it is put off, and the rest goes ahead.']),
+ 'options': [
+    ('join the association that keeps watch over the land and water, by its rules', 'W1', None, 0.45, '', {'v': 'conformity, universalism', 'clash': 'own_scene', 'chance': 0.7}),
+    ('work out with {clash.ally} a version of the plan both sides can live with', 'U1', None, 0.45, '', {'v': 'self-direction, achievement', 'clash': 'bridge', 'chance': 0.5}),
+    ('tell {clash.holder} there will be a legal challenge unless the neighbours get their share', 'B1', None, 0.45, '', {'v': 'power, security', 'clash': 'confront', 'chance': 0.45}),
+    ('take the offer made to the neighbours, sign, and let the matter rest', 'R1', None, 0.45, '', {'v': 'hedonism, security', 'clash': 'give_in', 'chance': 0.85}),
+    ('pack up and move to where the land is still worked the old way', 'G1', None, 0.45, '', {'v': 'tradition, security', 'clash': 'leave', 'chance': 0.6}),
+    ('find the old rights to the land in the records, and hold them to it', 'W1', 'B.7', 0.5, '', {'v': 'conformity, power', 'clash': 'confront', 'chance': 0.55}),
+    ('keep to the new limits, and learn to make do with what is left', 'U1', 'R.7', 0.5, '', {'v': 'self-direction, stimulation', 'clash': 'give_in', 'chance': 0.85}),
+    ('hand your part in it to a neighbour on fair terms, and step away', 'B1', 'G.7', 0.5, '', {'v': 'power, security', 'clash': 'leave', 'chance': 0.7}),
+    ('throw in with the group that walks, fishes and clears litter there every month', 'R1', 'W.7', 0.5, '', {'v': 'stimulation, universalism', 'clash': 'own_scene', 'chance': 0.75}),
+    ('bring the old farmers and the planners to walk the ground together', 'G1', 'U.7', 0.5, '', {'v': 'benevolence, self-direction', 'clash': 'bridge', 'chance': 0.55}),
  ]},
 ]
 

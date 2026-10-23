@@ -6,18 +6,18 @@ earth_fields.py holds FIELDS_EARTH {field: dict} (the 60 v1 aims and the dream f
 earth_shape_moments.py is built from earth_shape_moments-*.lib ("python3 build.py earth_shape_moments"). Nothing reads
 either file until the Engine's aims refit is on.
 Rules checked:
-    1. a field: its shape; 3 to 5 rungs, which with skip: fill the shape's rungs; the keys of section 3; places are
+    1. a field: its shape; 3 to 5 rungs, which with skip: fill the shape's rungs (land: 3 to 5 of its 5); the keys of section 3; places are
        haunts; people are coach, rival, peer or patron; two or more ways round; no colour words, Magic or unsafe words;
     2. a v1 aim's field keeps v1's face, sphere, domain, calling, dreams, below, tribal, magic and, step for step, say,
-       any, req and height (a land field keeps three of v1's steps, in order); a new field's dreams are in dreams.py;
+       any, req and height (a field with fewer rungs keeps that many of v1's steps, in order); a new field's dreams are in dreams.py;
     3. a rung: say; any names catalogue titles or TITLES_V25; years (median, low, high) with low <= median <= high;
        share 0 to 1; rung 1's start (from, best_to, late_from) in order; contests_y 0 or more; forks one or two of
        go_on, pay, take, round; a time rung has no forks and no contests;
     4. coverage (section 4): every rung not reached by time alone has three or more ways in among the shape moments of
        kind practice, contest, chance or mentor for its shape (or "any") that fit its shape rung, one of them practice.
        Reported, and checked once earth_shape_moments.py exists;
-    5. TITLES_V25: names unique and new to the catalogue, each in the catalogue's format (kind, sphere, face, ways,
-       profiles, meets, ages, share, say, gained, lost, needs; doors optional). They stay out of earth_perks_titles.py,
+    5. TITLES_V25: names unique and new to the catalogue, each in the catalogue's format (kind, sphere, face, ways
+       ("" on a status), profiles, meets, ages, share, say, gained, lost, needs; doors optional). They stay out of earth_perks_titles.py,
        so no life changes until the Engine reads them with the refit on.
 Standard library only; nothing is written.
 """
@@ -28,7 +28,7 @@ LIB = os.path.abspath(sys.argv[1] if len(sys.argv) > 1 and not sys.argv[1].start
 sys.path.insert(0, os.path.join(LIB, "tests"))
 import check_aims as CA   # its catalogue, word checks and loader
 
-SHAPES = {"competition": 5, "craft": 5, "art": 5, "knowledge": 5, "career": 5, "cause": 5, "home": 4, "land": 3,
+SHAPES = {"competition": 5, "craft": 5, "art": 5, "knowledge": 5, "career": 5, "cause": 5, "home": 4, "land": 5,
           "faith": 5, "venture": 4}
 FORKS = {"go_on", "pay", "take", "round"}
 PEOPLE = {"coach", "rival", "peer", "patron"}
@@ -59,8 +59,8 @@ def main():
             prob.append(f"{w}: already named")
         new[t.get("name")] = t.get("kind")
         for k in ("kind", "sphere", "face", "ways", "profiles", "meets", "ages", "share", "say", "gained", "lost", "needs"):
-            if not t.get(k):
-                prob.append(f"{w}: no {k}")
+            if not t.get(k) and not (k == "ways" and t.get("kind") == "status" and t.get(k) == ""):
+                prob.append(f"{w}: no {k}")   # a status has ways="" (perks_titles/00-head.py)
         for k in ("say", "gained"):
             CA.words(f"{w} {k}", t.get(k), prob)
     names = set(kind) | set(new)
@@ -78,8 +78,8 @@ def main():
             prob.append(f"{w}: shape {sh!r}")
             continue
         rs, skip = d.get("rungs", []), list(d.get("skip", []))
-        lo = 3 if sh != "land" else 3
-        if not lo <= len(rs) <= 5 or len(rs) + len(skip) != SHAPES[sh] or any(not 0 <= s < SHAPES[sh] for s in skip):
+        fill = len(rs) + len(skip) <= SHAPES[sh] if sh == "land" else len(rs) + len(skip) == SHAPES[sh]
+        if not 3 <= len(rs) <= 5 or not fill or any(not 0 <= s < SHAPES[sh] for s in skip):
             prob.append(f"{w}: {len(rs)} rungs and skip {skip} do not fill the {sh} shape's {SHAPES[sh]} rungs")
         idx = [i for i in range(SHAPES[sh]) if i not in skip]
         shape_rungs[nm] = list(zip(range(len(rs)), idx, rs))
@@ -101,7 +101,7 @@ def main():
                 if d.get(k) != v1.get(k):
                     prob.append(f"{w}: {k} is not v1's")
             st = v1["steps"]
-            if sh == "land" and len(st) > len(rs):
+            if len(st) > len(rs):   # a field may leave out v1 steps (land keeps three, home four): the rest in order
                 kept = [s for s in st if s["say"] in [r.get("say") for r in rs]]
             else:
                 kept = st
