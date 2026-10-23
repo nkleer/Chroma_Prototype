@@ -917,6 +917,21 @@ DEFAULT = dict(
                          # "rank" (rank in a group no longer moves with an act's fit); () every part as it is
     tilt_world=False,    # #10, what a world rewards: the years that make a regular and a known face in a sphere grow by
                          # the life's fit to r, the town's sphere mix and the realm's incentives (with the world's rungs)
+    # v25 lane D (chroma-engine/notes/v25/other-shapes.md sections 4 and 5; world_land.py, world_people_eyes.py): the land,
+    # with world_answers and the world (land-v1.md; sphere_data.LAND; the realm's LAND_ENGINE): each town's field, wood and
+    # water, the hazards' hits and feedback, the households a strike hits and their years after, the town's trust after,
+    # N3's "a loved stretch lost". Its parts, read only with wa_land on: wa_land_dev (decision #7's 2nd cut: the home
+    # health's drift, time in nature, harvests, sick land, worry) and wa_land_play (the 6th: the batch's nature moments,
+    # load_batch(land=True), their company, faces, ways and bridges, a Known life's land decisions)
+    wa_land=False, wa_land_dev=True, wa_land_play=True,
+    scn=False,           # the scenario hook (with the world): S["scn_hazard"], a list the caller fills at the "week" pause
+                         # with dict(kind=a hazard, severity=.6; or harvest=good, normal or poor), applied to the lives' towns
+    # national standing (#11, with world_answers' phase 2 and the world; WORLD_FIT national, the realm's NATIONAL_CLIMB):
+    # the climb (years at rung 4, a summit, the movement and money roads) to recognition, influence and authority, kept
+    # apart; a seat held and its hold after; national decisions from the batch's scope: nation moments (load_batch(
+    # national=True)); the national dreams read only with it on
+    wa_nat_climb=False,
+    wa_land_par=None, wa_nat_par=None,   # tests: LAND_ENGINE's and NATIONAL_CLIMB's values over the realm's ({key: value})
     # stage 3 of the v22 update, the world's rules (chroma-world/model/stage3-rules.md §8): a culture that moves (LW1) and
     # history from causes (LW2). Passed to a new World; a saved world keeps its own. Off by default: stage 1 goes live
     # alone as v22.2 (Emren 10-09 19:15 UTC), these come on with stages 2 to 4 (v22.3)
@@ -1565,6 +1580,8 @@ UPD_OFF = dict(dis_match=False,
                foot_on=False,
                # v25 lane A: setbacks that fit the world, what a world rewards
                imp_world=False, tilt_world=False, trace_off=(),
+               # v25 lane D: the land, the scenario hook, national standing
+               wa_land=False, scn=False, wa_nat_climb=False,
     # the v22.3 refit's satisfaction level (the new mechanics lift satisfaction; the set point moved .80 -> .86)
     sat_mid=0.8)
 # the v24 refit's switches off (Release's K4 PNEW, with batch CHROMA_BATCH_OFF=FOOT,AIMS,WORLD_ANSWERS and v23.2's packs in
@@ -1809,6 +1826,10 @@ STATE_IF.update(dict.fromkeys(("iw_fact", "iw_why"), "IW_ON"))
 # v25 #10 (tilt_world, world on): per life r in their town now (prizes: {sphere: [W, U, B, R, G]}, 1 even) and the moves
 # of a cell by .02 or more since it was last listed (prizes_moves: a list of dict(sphere, colour, age, by, cause))
 STATE_IF.update(dict.fromkeys(("prizes", "prizes_moves"), "TW_ON"))
+# v25 lane D (wa_land, world on): per life the company in this week's together moment (company: None, or dict(kind, cid);
+# cid -1 alone, a stranger, a witness or a group) from the situation pause on. scn (world on): scn_hazard, the list the
+# caller fills at the "week" pause (dict(kind, severity) or dict(harvest)), applied to the lives' towns that week
+STATE_IF.update(company="LAND_ON", scn_hazard="SCN_ON")
 # names also read where they are there (not checked by tools/t_steps.py): the game's (the family's ways, each goal slot's
 # steps per situation and the helper that fills them, the places' around with the world on) and Release's check_roll's
 # (F8, F10: retired, this week's commitment kind, its success, the world's forced moments, the titles' once-a-life lists)
@@ -1832,6 +1853,7 @@ STATE_MORE = ("fam", "gsr", "goal_rel_S", "around", "retired", "ck", "ok_", "frc
               "FOOT_ON", "foot_log",   # footprints: on, and every pick's footprints so far (foot_log, a list of dicts)
               "foot", "foot_open",     # per life (None off): the last act's footprints (kind, value, who); doors (kind, since)
               "IW_ON", "TW_ON",   # v25 lane A's switches as the run holds them (on only with the world)
+              "LAND_ON", "SCN_ON", "NAT_ON",   # v25 lane D's (on only with the world; LAND_ON and NAT_ON with world_answers)
               "btrust")   # body_trust (finishing pack part 3): each life's trust per sphere (N x 9, NaN before 15); None off
 STATE_MISSED = set()   # names read at a pause that are not handed over (STATE, STATE_IF, STATE_MORE): t_steps wants none
 

@@ -70,6 +70,8 @@
             aff[:, PTW_] = 0.0
         if WAW_ON_:   # the world answers: an ask, a decision or a figure's moment comes only when the world brings it
             aff[:, WAW_] = 0.0
+        if LXM_ON_:   # v25 lane D: a nature, route or style moment never by the everyday draw
+            aff[:, LXM_] = 0.0
         if WO_ON:   # F10: a world moment only on the world's event; one waiting for the world keeps its gap:
             aff[:, WMZ_] = 0.0
             if len(WG_I):
@@ -201,6 +203,12 @@
                 ev_p[:, PTW_] = 0.0
             if WAW_ON_:
                 ev_p[:, WAW_] = 0.0
+            if LXM_ON_:   # v25 lane D: a nature moment at the land's budget (wa_land on; never off), a route's or a style's
+                if LAND_ON and WL.land.play:   # only when an aim brings it
+                    ev_p[:, WL.land.ls_i] = WL.land.ev_scale(ev_p[:, WL.land.ls_i])
+                    ev_p[:, LXM_ & ~WL.land.ls] = 0.0
+                else:
+                    ev_p[:, LXM_] = 0.0
             if BL_ON:   # v22.5 F1: the body's own risks (constitution, habits, strain, money) reach its moments in the Library
                 bk_ = np.minimum(np.exp(BP_["risk_k"] * (np.interp(age, BAGE_X, BAGE_Y) - body_v)), 2.0)
                 if P["risk_norm"]:   # F9: the risks choose who, the Library's rates how many (the living's mean is 1)
@@ -239,6 +247,8 @@
                     if n in events:
                         events[n].append(dict(death=dict(age=round(age, 2), role=ROLES[r_], left=int(WL.PP.alive[n, r_]))))
             ev_last[had_ev, s_ev[had_ev]] = t
+            if LAND_ON and had_ev.any():   # v25 lane D: the land moments' budget clock
+                WL.land.seen(np.nonzero(had_ev)[0], s_ev[had_ev])
             if WFX_ON:   # a life event the world brought (its event) or made likelier or rarer (its rate), when it comes
                 for n in np.nonzero(had_ev & ~dead)[0]:
                     si_ = int(s_ev[n])
@@ -294,6 +304,8 @@
         # pick is situation 0 as before (the NaN row's argmax); every other row divides as before, bit for bit
         aff /= np.maximum(aff.sum(1, keepdims=True), 1e-300)
         s = (aff.cumsum(1) > rng.random((N, 1))).argmax(1)
+        if LAND_ON and WL.land.play:   # v25 lane D: who is there in this week's together moment (S["company"])
+            WL.land.pick(np.where(had_ev, s_ev, s) if P["base_rates"] else s, age)
         if pausing:
             _pause_state(pz_st, ST_CELLS, ST_FR)
             s = yield Pause("situation", t, pz_st, s)

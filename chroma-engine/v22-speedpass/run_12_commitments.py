@@ -154,6 +154,8 @@
                     wfx_track("money", {k_: w2_[k_] for k_ in ("prices_work", "recession", "disaster")}, age, dead)
                     wfx_track("freedom", {k_: w2_[k_] for k_ in ("rec_hours", "disaster_time")}, age, dead)
                     wfx_track("ties", {"pandemic": w2_["pandemic"]}, age, dead)
+            if LAND_ON:   # v25 lane D: what the land adds to the targets (time in nature: health)
+                lt_ = WL.land.targets(); mt = mt + lt_["money"]; ht = ht + lt_["health"]
         if DB_ON:   # phase 5: holdings yield, a home saves the rent, debts' payments take their share of income
             d_inc[:] = np.maximum(mt, 0.02)
             hm_ = (hk == 0).any(1)
