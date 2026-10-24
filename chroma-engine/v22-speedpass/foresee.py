@@ -482,8 +482,8 @@ def agenda(S, n):
                           by_player=it["by_player"], importance=imp, why_now=why, state=_game_state(AG, n, j),
                           priority=rank[j], step=dict(i=r, of=nr, say=F["say"][f][rr] if r < nr else F["say"][f][nr - 1],
                                                       next_say=F["say"][f][r + 1] if r + 1 < nr else None),
-                          progress=dict(frac=it["frac"], effort_years=it["effort"],
-                                        years=(float(F["ymed"][f, rr]), float(F["ylo"][f, rr]), float(F["yhi"][f, rr]))),
+                          progress=dict(frac=it["frac"], effort_years=it["effort"],   # AM2: this life's own clock
+                                        years=AG.clock(n, j) or (float(F["ymed"][f, rr]), float(F["ylo"][f, rr]), float(F["yhi"][f, rr]))),
                           frac=it["frac"], lean=round(fit, 2), pending=[x["id"] for x in pf],
                           bottleneck=dict(res=BN_RES.get(bn, bn), shared_with=others) if bn else None,
                           earned=earned, potential=pot, upkeep=it["upkeep"], intensity=it["intensity"],

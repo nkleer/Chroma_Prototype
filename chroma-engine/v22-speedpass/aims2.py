@@ -1623,6 +1623,10 @@ class Agenda:
               ("; the deadline runs on while paused" if wd and wd.get("closes") is not None and not wd.get("pause_stops") else "") +
               "; letting it go keeps the learning and the people met, " + ("the fee is not returned" if ent else "and costs nothing more"))
         door = ", ".join(F["tnames"][f][r][:2]) or F["say"][f][r]   # what the opening could lead to (a chance's)
+        ck = s.clock(n, j) if j is not None and r == int(s.rung[n, j]) else None   # AM2: this life's own clock on its
+        years = (dict(typical=ck[0], range=(ck[1], ck[2]), confirmed=False, basis="this life") if ck is not None   # rung
+                 else dict(typical=float(F["ymed"][f, r]), range=(float(F["ylo"][f, r]), float(F["yhi"][f, r])), confirmed=False,
+                           basis="the field"))
         nxt = {}
         if j is not None and r != int(min(s.rung[n, j], F["nr"][f] - 1)):   # a step other than the aim's next rung
             nxt = dict(next=F["say"][f][int(min(s.rung[n, j], F["nr"][f] - 1))])
@@ -1631,10 +1635,28 @@ class Agenda:
                               money=(round(mon * 0.5, 3), round(mon * 1.5, 3))),
                     hours=(round(hrs * 0.5, 1), round(hrs * 1.5, 1)), hours_now=round(hrs * inten, 1), room=round(room, 1),
                     funded=bool(room >= hrs * inten),
-                    years=dict(typical=float(F["ymed"][f, r]), range=(float(F["ylo"][f, r]), float(F["yhi"][f, r])),
-                               confirmed=False),
+                    years=years,
                     overlaps=over, overlap_aims=others, before=bf, window=wd, unknown=unk, time=bool(F["time"][f, r]),
                     exit=dict(say=ex))
+
+    def clock(s, n, j):
+        """This life's clock on aim j's current rung (AM2: the preview from the actual character): the years still to go,
+        its own drawn need less its effort, at its pace now (effort a year: funding x intensity x fit x talent x kept
+        proficiency, as the week adds it) and at its pace fully funded: (typical, at full funding, at its pace now); an aim set aside or unfunded reads full funding throughout.
+        None when the rung is reached, comes with time, or no effort can be made at all. A view: draws nothing."""
+        F = s.F; f = int(s.f[n, j]); r = int(s.rung[n, j])
+        if r >= F["nr"][f] or F["time"][f, r]:
+            return None
+        left = max(0.0, float(s.need[n, j] - s.eff[n, j]))
+        full = float(s.inten[n, j] * s.fitf[n, j] * s.talent[n, j] * s.prof[n, j])
+        now = float(s.funded[n, j]) * full
+        if full <= 1e-6:
+            return None
+        lo = left / full
+        if s.st[n, j] != ACTIVE or now <= 1e-6:
+            return (round(lo, 2), round(lo, 2), round(lo, 2))   # set aside or unfunded: no pace of its own to read, so full funding
+        hi = left / max(now, full * 0.05)
+        return (round(hi, 2), round(lo, 2), round(hi, 2))
 
     def item(s, n, j):
         """aims-shape.md section 6: one aim of S["aim2"]."""
@@ -1642,7 +1664,8 @@ class Agenda:
         done = r >= nr; t = s.t
         frac = 1.0 if done else float(min(1.0, s.eff[n, j] / max(s.need[n, j], 1e-9)))
         fd = float(s.funded[n, j])
-        left = None if done or s.st[n, j] != ACTIVE else round(max(0.0, F["ymed"][f, rr] * (1 - frac)) / max(fd * s.inten[n, j], 0.05), 1)
+        ck = None if done or s.st[n, j] != ACTIVE else s.clock(n, j)   # AM2: this life's need, effort and pace
+        left = None if ck is None else round(ck[0], 1)
         bn = ""
         if not done:
             if s.fork[n, j] >= 0:
