@@ -98,4 +98,7 @@ Earth's about it is data in Earth's files, and its design note says in one parag
 - Force-push `main` or a `release/` branch, delete a `release/` branch, or delete any branch without Emren's word.
 - Commit run outputs, caches, screenshots or anything over 50 MB, or make an `_archive/` folder here (it lives in the
   shared folder).
+- The one exception to the two rules above is an orphan `pc/<job>` branch, which brings run results back from Emren's
+  PC. It may hold run outputs (nothing over 50 MB), is never merged, and is deleted by the cloud thread that copied its
+  files into the shared folder and checked their md5s (`chroma-env/DECISIONS.md`, "Releases and publishing").
 - Write to the shared folder's tracked files except through `tools/mirror.py`.
