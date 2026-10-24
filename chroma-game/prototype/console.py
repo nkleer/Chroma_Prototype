@@ -565,7 +565,8 @@ class Console:
             if err:
                 return err[:1].upper() + err[1:] + ".", False
             self.note = "Agenda changed"
-            return "\n".join(g.agenda_lines(A)), False
+            no = [e[:1].upper() + e[1:] + "." for e in (A or {}).get("errors") or []]   # answers the Engine refused
+            return "\n".join(no + g.agenda_lines(A)), False
         if k and k[0] == "agenda" and len(k) == 4 and k[1] in ("pace", "prio") and k[2].isdigit():
             k = [("jp" if k[1] == "pace" else "jr") + k[2], k[3]]
         if len(k) == 2 and k[0][:2] in ("jp", "jr") and k[0][2:].isdigit():
