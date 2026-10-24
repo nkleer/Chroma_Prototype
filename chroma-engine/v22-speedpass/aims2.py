@@ -114,8 +114,8 @@ PAR = dict(
     integrate_y=0.10,   # integrate outcomes a year for a life holding a pair the realm's AIM_ASSETS names
     refresh_wk=13,      # weeks of renewed use that refresh a lapsed upkeep
     spark_rung=0.12,    # a rung reached by one's own work: the odds it sparks a new ambition near it
-    grant="player",     # whose won test is given its rung's title: "player" (the player's lives only; a life left alone
-                        # holds a title only by the catalogue's own rules, so its heights stay today's: A2) or "all"
+    grant=False,        # a won test is given its rung's title (True, as 225679d): off, a rung's title comes only through
+                        # the catalogue's own rules, the same for every life, played or left alone (A2; no success bonus)
     spark_max=8,        # no spark once the agenda holds this many aims (held, pursued or paused)
     meet=(0.03, 0.06, 0.09, 0.12),   # meaning met by a rung reached outside v1's slots (v1's own meet), by height
     assets=None,        # tests: an AIM_ASSETS table in place of the realm's
@@ -1040,8 +1040,8 @@ class Agenda:
     # ---- outcomes
     def outcome(s, n, j, t, chance=False):
         """A test (a contest, or a chance taken): success by fit, effort past the need, intensity, kept proficiency and
-        luck. Won: the rung is reached, and on a player's life its first title the catalogue can grant is given (PAR grant).
-        Lost: a setback."""
+        luck. Won: the rung is reached (its title only through the catalogue's own rules, unless PAR grant). Lost: a
+        setback."""
         f = int(s.f[n, j]); r = int(s.rung[n, j])
         if r >= s.F["nr"][f]:
             return False
@@ -1065,7 +1065,7 @@ class Agenda:
         worked = bool(grant or (s.st[n, j] == ACTIVE and s.eff[n, j] >= 0.5 * s.need[n, j]))
         s.worked[n, j, r] = 1 if worked else 0
         s.learned[n, j, r] = max(s.learned[n, j, r], 1.0 if worked else min(1.0, s.eff[n, j] / max(s.need[n, j], 1e-9)))
-        if grant and len(F["ids"][f][r]) and (s.par["grant"] == "all" or n in s.player):
+        if grant and len(F["ids"][f][r]) and s.par["grant"]:
             i = int(F["ids"][f][r][0])
             cx["r_gain"](n, i, "reached " + F["say"][f][r])
         v1 = int(F["v1"][f]); ak = cx["ak"]
