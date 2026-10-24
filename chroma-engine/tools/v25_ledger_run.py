@@ -12,6 +12,10 @@ before the Library loads), every *_par as in code, no player. One core.
   --nat-test   NR1's targeted lives: the shipped set with the national climb's yearly odds at .5 for each kind and its
                wider step after 1 year at rung 4 (wa_nat_par base .5, rung_years 1; a test setting, never shipped), so
                that every route a life can stand on is drawn. Its file is marked nat_test; the judge reads it for NR1 only.
+  --nat-general  with --nat-test, NR1's commander: the general's callings ("the army needs a new general", "the war
+               leader is chosen at the gathering") open after 1 year as an army officer instead of 12 or 6 (a test
+               setting, never shipped), so that lives hold the general's summit and the route's step can be read; the
+               file is marked nat_general
 
 What is read, and how (no draw is added, so the lives are LA's own; the readers, v25_ledger_hook.py, wrap world_react.React
 and aims2.Agenda methods in this process and only look; a played life uses the same hook, SK):
@@ -41,7 +45,7 @@ argv = [a for a in sys.argv[1:] if not a.startswith("--")]
 if len(argv) != 5:
     sys.exit(__doc__)
 TREE, SEED, N, YEARS, OUT = os.path.abspath(argv[0]), int(argv[1]), int(argv[2]), int(argv[3]), os.path.abspath(argv[4])
-BASE = "--base" in sys.argv; NAT_TEST = "--nat-test" in sys.argv
+BASE = "--base" in sys.argv; NAT_GEN = "--nat-general" in sys.argv; NAT_TEST = "--nat-test" in sys.argv or NAT_GEN
 ENG = os.path.join(TREE, "chroma-engine", "v22-speedpass")
 sys.path.insert(0, ENG)
 os.environ.setdefault("OMP_NUM_THREADS", "1")
@@ -62,6 +66,11 @@ else:
     P = dict(E.DEFAULT); P.update(E.SHIP_V25)
     if NAT_TEST:
         P["wa_nat_par"] = dict(base=dict(recognition=0.5, influence=0.5, authority=0.5), rung_years=1)
+    if NAT_GEN:   # the general's callings after 1 year as an army officer (the Library's rule as the engine reads it)
+        import earth_rules as ER
+        lf_ = ER.PACK_RULES["callings"]["LIFE"]
+        lf_["the army needs a new general"]["req"] = "~has('general') & (yrs_has('army officer') >= 1)"
+        lf_["the war leader is chosen at the gathering"]["req"] = "~has('general') & (yrs_has('army officer') >= 1)"
 P["world"] = True
 L = batch.load_batch("earth", packs=list(batch.PACKS))
 t0 = time.time()
@@ -69,7 +78,7 @@ o = E.run(N=N, years=YEARS, seed=SEED, lib=L, P=P)
 secs = round(time.time() - t0, 1)
 
 res = H.record(o, L, base=BASE, head=dict(
-    tree=TREE, seed=SEED, N=N, years=YEARS, base=BASE, nat_test=NAT_TEST, secs=secs,
+    tree=TREE, seed=SEED, N=N, years=YEARS, base=BASE, nat_test=NAT_TEST, nat_general=NAT_GEN, secs=secs,
     engine_md5=__import__("hashlib").md5(open(os.path.join(ENG, "engine.py"), "rb").read()).hexdigest()[:12]))
 os.makedirs(os.path.dirname(OUT) or ".", exist_ok=True)
 with open(OUT, "w", encoding="utf-8") as f_:
