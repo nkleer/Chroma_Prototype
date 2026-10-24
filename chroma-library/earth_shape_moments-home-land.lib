@@ -300,7 +300,7 @@ scene magic: The wards are renewed, the table set, the names said, year on year.
 - G | stop measuring for a while, and be glad of what holds | v: benevolence, tradition | aim: ease | foot: means health+.03 | chance: 85
 - W>B | take on a bigger family duty, such as an elder's care | v: conformity, power | aim: work | foot: means time-.05 | chance: 55
 - U>R | ask the others at home what they want next, and follow their lead | v: self-direction, benevolence | aim: work | foot: means ties+.04 | chance: 75
-- B>G | ease back for a year, and spend some of the time on yourself | v: achievement, security | aim: ease | foot: means freedom+.04 | chance: 85
+- B>G | ease back for a year, and spend some of the time on yourself | v: achievement, security | aim: later | foot: means freedom+.04 | chance: 85
 - R>W | let it go, and put the hours into friends outside the house | v: self-direction, tradition | aim: stop | foot: person friend | chance: 80
 - G>U | let it go as a goal, and simply live in the home it has become | v: benevolence, self-direction | aim: stop | foot: lesson it was already a home | chance: 90
 works: Something shifts, small at first, and the house feels as if it is going somewhere again.
@@ -334,7 +334,7 @@ scene magic: A larger house is offered for the steward's fee, payable by midsumm
 - B | borrow what it takes, and back yourself to pay it back | v: power, achievement | aim: pay | cost: money .6, time .1, family .2 | foot: means money-.08 | chance: 60
 - R | throw everything at it now, savings and all | v: stimulation, self-direction | aim: pay | cost: money .7, time .3, family .3 | foot: mark took a wild risk | chance: 55
 - G | put the family's peace first, and let this one go | v: benevolence, security | aim: stop | foot: lesson a smaller place can hold us | chance: 85
-- W>U | say not this year, set a date, and save toward it | v: conformity, self-direction | aim: refuse | foot: door kept your word | chance: 85
+- W>U | say not this year, set a date, and save toward it | v: conformity, self-direction | aim: later | foot: door kept your word | chance: 85
 - U>B | let it go, and put what was saved into something that pays back | v: achievement, security | aim: stop | foot: lesson knowing the limit is a skill | chance: 80
 - B>R | refuse the price as it stands, and bargain hard for a better one | v: power, stimulation | aim: refuse | foot: means money+.03 | chance: 55
 - R>G | ask the wider family to chip in, and promise them a room in return | v: stimulation, benevolence | aim: pay | cost: money .2, time .1, family .4 | foot: means ties+.04 | chance: 65
@@ -374,7 +374,7 @@ scene magic: The court offers {Ns} household a grant of land with a house upon i
 - U>R | think it through, and find you no longer want this at all | v: self-direction, stimulation | aim: stop | foot: lesson wanting can change | chance: 90
 - B>G | turn it down, and use the offer to win something smaller nearer home | v: power, tradition | aim: decline | foot: means money+.03 | chance: 70
 - R>W | let it go, and keep the friend who offered it | v: self-direction, benevolence | aim: stop | foot: person friend | chance: 85
-- G>U | let it pass this time, and wait for a moment that suits everyone | v: benevolence, self-direction | aim: decline | foot: door turned down a chance | chance: 85
+- G>U | let it pass this time, and wait for a moment that suits everyone | v: benevolence, self-direction | aim: later | foot: door turned down a chance | chance: 85
 works: The step is taken, or wisely left, and a year later {N} would make the same call.
 works: There is a lot of upheaval, but the household lands on its feet and is glad it moved when it did.
 fails: The chance comes with strings nobody mentioned, and the first year is harder than planned.
@@ -405,7 +405,7 @@ scene magic: The house's elders have barred the plan by their old rules. Beyond 
 - U | look into {aim.round} carefully before committing to it | v: self-direction, security | aim: round | foot: mark learned a skill | chance: 75
 - B | take {aim.round}, and make it work better than the straight road would have | v: achievement, power | aim: round | foot: means money-.04 | chance: 55
 - R | throw yourself into {aim.round} and see where it leads | v: stimulation, self-direction | aim: round | foot: mark took a wild risk | chance: 60
-- G | wait at home a while longer, and go round only when the family can come too | v: benevolence, tradition | aim: round | foot: mark stayed home | chance: 70
+- G | wait at home a while longer, and go round only when the family can come too | v: benevolence, tradition | aim: later | foot: mark stayed home | chance: 70
 - W>U | ask someone who went that way how it really is | v: conformity, self-direction | aim: round | foot: person go-between | chance: 80
 - U>B | let the old plan go, and take what you learned somewhere else | v: self-direction, achievement | aim: stop | foot: lesson the road taught plenty anyway | chance: 90
 - B>R | go round without telling the family, and tell them once it works | v: power, stimulation | aim: round | foot: door kept it hidden | chance: 50
@@ -770,7 +770,7 @@ scene magic: Three years on the old ground, and its secrets seem closed. At the 
 - G | cut back to a few hours, and keep it for the quiet it gives | v: security, tradition | aim: ease | foot: means time+.05 | chance: 90
 - W>U | join a course or a society, and learn the next part properly | v: conformity, self-direction | aim: work | foot: place gather.hall | chance: 70
 - U>B | bring in a partner who knows the part you do not | v: achievement, power | aim: work | foot: person colleague | chance: 60
-- B>R | take a year away from it, and come back hungry | v: achievement, hedonism | aim: ease | foot: means freedom+.05 | chance: 85
+- B>R | take a year away from it, and come back hungry | v: achievement, hedonism | aim: later | foot: means freedom+.05 | chance: 85
 - R>G | let it go, and spend the hours outdoors in other ways | v: stimulation, universalism | aim: stop | foot: lesson being out there was the point | chance: 85
 - G>W | hand your place to someone keener, and help them start | v: benevolence, conformity | aim: stop | foot: person friend | chance: 85
 works: Something gives at last, and the season comes out better than the three before it.
@@ -807,7 +807,7 @@ scene magic: The warden has raised the fee for a holding on the old ground, paya
 - W>B | ask the club or society for a fair deal, and hold them to it | v: conformity, power | aim: refuse | foot: means money+.03 | chance: 55
 - U>R | work out that it is not worth it, and put the hours elsewhere | v: self-direction, hedonism | aim: stop | foot: mark learned a skill | chance: 85
 - B>G | refuse the rise, and find a cheaper patch through a neighbour | v: power, benevolence | aim: refuse | foot: person neighbour | chance: 60
-- R>W | say not this year, and come back when the money is there | v: hedonism, security | aim: refuse | foot: door turned down a chance | chance: 85
+- R>W | say not this year, and come back when the money is there | v: hedonism, security | aim: later | foot: door turned down a chance | chance: 85
 - G>U | go fewer weekends, and agree the days with the family first | v: benevolence, self-direction | aim: pay | cost: money .2, time .1, family .1 | foot: door kept your word | chance: 85
 works: The sums come out, just, and the weekends are agreed at home without a row.
 works: It costs what it costs, and nobody at home feels it was decided behind their back.
@@ -880,7 +880,7 @@ scene magic: The warden has closed the old ground to newcomers. Beyond the city 
 - U>R | let it go, and take what you learned into something else outdoors | v: self-direction, stimulation | aim: stop | foot: lesson the waiting taught patience | chance: 85
 - B>G | share someone else's patch or stretch, and split the work | v: power, benevolence | aim: round | foot: person neighbour | chance: 70
 - R>W | give it up for now, and help the ones who did get in | v: self-direction, benevolence | aim: stop | foot: person friend | chance: 85
-- G>U | wait one more season, learning at {aim.round} meanwhile | v: tradition, self-direction | aim: round | foot: place learn.keeping | chance: 75
+- G>U | wait one more season, learning at {aim.round} meanwhile | v: tradition, self-direction | aim: later | foot: place learn.keeping | chance: 75
 works: The way round turns out to be a way in, and by the season's end {N} is part of the place.
 works: Whichever way {N} goes, the waiting is over, and that alone is a relief.
 fails: The way round has its own waiting and its own rules, and the first months go slowly.

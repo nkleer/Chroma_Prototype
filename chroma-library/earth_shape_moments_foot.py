@@ -1840,6 +1840,613 @@ FOOT = {('the ordinary weeknight at {aim.place}', 'take the dullest job on the l
                                                                                                 'something else')],
  ('the night the people came', "give the night's flowers to the youngest in the room"): [('mark',
                                                                                           'helped someone in need')],
+ ("the first term's fee falls due", 'sign on for the full term, and turn up to every session it covers'): [('mark',
+                                                                                                            'kept '
+                                                                                                            'your '
+                                                                                                            'word')],
+ ("the first term's fee falls due", 'ask what the term actually teaches, and sign on only for the part that helps'): [('lesson',
+                                                                                                                       'ask '
+                                                                                                                       'what '
+                                                                                                                       'it '
+                                                                                                                       'covers')],
+ ("the first term's fee falls due", 'sign on, and ask to be moved up to the stronger group straight away'): [('person',
+                                                                                                              'rival')],
+ ("the first term's fee falls due", 'skip the fee, and play for fun wherever a game turns up'): [('means',
+                                                                                                  'freedom+.03')],
+ ("the first term's fee falls due", "stop here, glad of the start, and keep the friends from the beginners' weeks"): [('person',
+                                                                                                                       'friend')],
+ ("the first term's fee falls due", 'sign on, and keep a notebook of every session to see what changes'): [('mark',
+                                                                                                            'learned '
+                                                                                                            'a '
+                                                                                                            'skill')],
+ ("the first term's fee falls due", 'wait a term, and watch how the regulars do it before paying to join'): [('lesson',
+                                                                                                              'watching '
+                                                                                                              'teaches '
+                                                                                                              'too')],
+ ("the first term's fee falls due", 'sign on, and ask to be entered in {aim.contest} before the term is out'): [('mark',
+                                                                                                                 'took '
+                                                                                                                 'a '
+                                                                                                                 'wild '
+                                                                                                                 'risk')],
+ ("the first term's fee falls due", 'sign on together with a friend, so neither of them drops out alone'): [('person',
+                                                                                                             'friend')],
+ ("the first term's fee falls due", 'let it go for now, and help out at {aim.place} on the open days instead'): [('mark',
+                                                                                                                  'helped '
+                                                                                                                  'someone '
+                                                                                                                  'in '
+                                                                                                                  'need')],
+ ("the beginners' group moves up", 'move up with the group as planned, and keep to every session'): [('mark',
+                                                                                                      'kept your '
+                                                                                                      'word')],
+ ("the beginners' group moves up", 'ask to stay with the newcomers a few more weeks, and move up when ready'): [('lesson',
+                                                                                                                 'ready '
+                                                                                                                 'beats '
+                                                                                                                 'early')],
+ ("the beginners' group moves up", 'move up, and pick out the best one there to measure against'): [('person',
+                                                                                                     'rival')],
+ ("the beginners' group moves up", 'try one session at the harder level, and decide on the spot'): [('lesson',
+                                                                                                     'try it before '
+                                                                                                     'deciding')],
+ ("the beginners' group moves up", 'let it go before it stops being fun, and keep in touch with the group'): [('person',
+                                                                                                               'friend')],
+ ("the beginners' group moves up", 'move up, and do the extra drills the main group expects of newcomers'): [('mark',
+                                                                                                              'learned '
+                                                                                                              'a '
+                                                                                                              'skill')],
+ ("the beginners' group moves up", 'find another place where beginners keep a session of their own'): [('place',
+                                                                                                        'gather.games')],
+ ("the beginners' group moves up", 'move up, but only every other week, and practise at home in between'): [('means',
+                                                                                                             'time+.04')],
+ ("the beginners' group moves up", 'move up, and make a point of welcoming the next beginner through the door'): [('mark',
+                                                                                                                   'helped '
+                                                                                                                   'someone '
+                                                                                                                   'in '
+                                                                                                                   'need')],
+ ("the beginners' group moves up", 'stop, and take what the first weeks taught into something calmer'): [('lesson',
+                                                                                                          'a start '
+                                                                                                          'is never '
+                                                                                                          'wasted')],
+ ('the first real piece comes out wrong', 'order the materials, and make the same piece again, step by step as taught'): [('mark',
+                                                                                                                           'learned '
+                                                                                                                           'a '
+                                                                                                                           'skill')],
+ ('the first real piece comes out wrong', 'take the spoiled piece apart, and find exactly where it went wrong'): [('lesson',
+                                                                                                                   'the '
+                                                                                                                   'mistake '
+                                                                                                                   'shows '
+                                                                                                                   'the '
+                                                                                                                   'way')],
+ ('the first real piece comes out wrong', 'ask the best hand at {aim.place} to look at it and say what is wrong'): [('person',
+                                                                                                                     'mentor')],
+ ('the first real piece comes out wrong', 'start something completely different, just to get the fun of it back'): [('means',
+                                                                                                                     'freedom+.03')],
+ ('the first real piece comes out wrong', 'leave the order for a month, and let the disappointment settle first'): [('lesson',
+                                                                                                                     'disappointment '
+                                                                                                                     'settles '
+                                                                                                                     'with '
+                                                                                                                     'time')],
+ ('the first real piece comes out wrong', 'make the next piece smaller and simpler, and get one thing right'): [('lesson',
+                                                                                                                 'small '
+                                                                                                                 'and '
+                                                                                                                 'right '
+                                                                                                                 'first')],
+ ('the first real piece comes out wrong', 'let it go, and keep the eye for good work that it trained'): [('lesson',
+                                                                                                          'a trained '
+                                                                                                          'eye '
+                                                                                                          'stays')],
+ ('the first real piece comes out wrong', 'keep the crooked piece in plain sight, and beat it on the next try'): [('lesson',
+                                                                                                                   'pride '
+                                                                                                                   'can '
+                                                                                                                   'be '
+                                                                                                                   'a '
+                                                                                                                   'spur')],
+ ('the first real piece comes out wrong', 'stop for good, and give the crooked piece to someone who will like it anyway'): [('person',
+                                                                                                                             'friend')],
+ ('the first real piece comes out wrong', 'go on, but only in the class sessions, with no extra hours at home'): [('means',
+                                                                                                                   'time+.03')],
+ ('the weeks of nothing but the basics', 'sign up again, and do the plain work as carefully as the rest'): [('mark',
+                                                                                                             'kept '
+                                                                                                             'your '
+                                                                                                             'word')],
+ ('the weeks of nothing but the basics', 'ask what each plain exercise is for, and practise with that in mind'): [('lesson',
+                                                                                                                   'every '
+                                                                                                                   'drill '
+                                                                                                                   'has '
+                                                                                                                   'a '
+                                                                                                                   'reason')],
+ ('the weeks of nothing but the basics', 'turn the basics into a race, and be the quickest clean hand in the group'): [('person',
+                                                                                                                        'rival')],
+ ('the weeks of nothing but the basics', 'make something small and real at home on the side, to keep the spark'): [('mark',
+                                                                                                                    'learned '
+                                                                                                                    'a '
+                                                                                                                    'skill')],
+ ('the weeks of nothing but the basics', 'let it go, and keep the few plain skills for mending things at home'): [('mark',
+                                                                                                                   'learned '
+                                                                                                                   'a '
+                                                                                                                   'skill')],
+ ('the weeks of nothing but the basics', 'sign up, and ask the teacher for a harder version of each exercise'): [('person',
+                                                                                                                  'mentor')],
+ ('the weeks of nothing but the basics', 'find a teacher who teaches the basics through real pieces'): [('person',
+                                                                                                         'teacher')],
+ ('the weeks of nothing but the basics', "skip a term, and come back when the household's weeks are less full"): [('means',
+                                                                                                                   'time+.04')],
+ ('the weeks of nothing but the basics', 'stop for good, and teach a younger one the bits already learned'): [('mark',
+                                                                                                               'helped '
+                                                                                                               'someone '
+                                                                                                               'in '
+                                                                                                               'need')],
+ ('the weeks of nothing but the basics', 'keep at it slowly, one session a week, and stop worrying about the pace'): [('lesson',
+                                                                                                                       'slow '
+                                                                                                                       'still '
+                                                                                                                       'gets '
+                                                                                                                       'there')],
+ ('the first piece turned away', "read the call's rules again, and send the next piece exactly as asked"): [('lesson',
+                                                                                                             'read '
+                                                                                                             'the '
+                                                                                                             'rules '
+                                                                                                             'first')],
+ ('the first piece turned away', 'ask the ones who said no what would have made it a yes'): [('person', 'mentor')],
+ ('the first piece turned away', 'send it somewhere bigger, to prove the first lot wrong'): [('mark',
+                                                                                              'took a wild risk')],
+ ('the first piece turned away', 'make something new and bolder for the next call, straight away'): [('lesson',
+                                                                                                      'new work '
+                                                                                                      'answers '
+                                                                                                      'best')],
+ ('the first piece turned away', 'keep making things for friends and family, and skip the calls for a while'): [('means',
+                                                                                                                 'ties+.03')],
+ ('the first piece turned away', 'keep a file of every piece sent and every answer, and learn from the pattern'): [('mark',
+                                                                                                                    'learned '
+                                                                                                                    'a '
+                                                                                                                    'skill')],
+ ('the first piece turned away', 'study the pieces that were taken, and work out what they had'): [('lesson',
+                                                                                                    'see what gets '
+                                                                                                    'chosen')],
+ ('the first piece turned away', 'stop sending work out, and make things only for the fun of it'): [('means',
+                                                                                                     'freedom+.03')],
+ ('the first piece turned away', 'let it go for good, and keep the friends made at the first show'): [('person',
+                                                                                                       'friend')],
+ ('the first piece turned away', 'stop for now, and keep the habit of looking closely that it gave'): [('lesson',
+                                                                                                        'looking '
+                                                                                                        'closely is '
+                                                                                                        'kept')],
+ ('when practice stops being new', 'book the next block, and keep a set time each day for practice'): [('mark',
+                                                                                                        'kept your '
+                                                                                                        'word')],
+ ('when practice stops being new', 'ask the teacher for pieces that are hard in a new way'): [('person', 'teacher')],
+ ('when practice stops being new', 'set a goal: one piece played or shown in public before the year is out'): [('lesson',
+                                                                                                                'a '
+                                                                                                                'goal '
+                                                                                                                'pulls '
+                                                                                                                'hard')],
+ ('when practice stops being new', 'drop the set pieces, and play or make whatever comes, for a month'): [('means',
+                                                                                                           'freedom+.03')],
+ ('when practice stops being new', 'stop the lessons, and keep {aim.doing} as a small thing at home'): [('means',
+                                                                                                         'ties+.03')],
+ ('when practice stops being new', 'book the lessons, and practise with a chart until it is habit again'): [('mark',
+                                                                                                             'learned '
+                                                                                                             'a '
+                                                                                                             'skill')],
+ ('when practice stops being new', 'find a group to do it with, so it stops being a lonely hour'): [('place',
+                                                                                                     'gather.circle')],
+ ('when practice stops being new', 'stop for good, and keep the ear and the hands it trained'): [('mark',
+                                                                                                  'learned a skill')],
+ ('when practice stops being new', "stop, and spend the hours helping at the school's or the street's shows"): [('mark',
+                                                                                                                 'helped '
+                                                                                                                 'someone '
+                                                                                                                 'in '
+                                                                                                                 'need')],
+ ('when practice stops being new', 'take a term off, and come back to it if it is missed'): [('lesson',
+                                                                                              'missing it tells the '
+                                                                                              'truth')],
+ ('the chapter that will not go in', 'go back to the start of the hard part, and work through it in order'): [('mark',
+                                                                                                               'learned '
+                                                                                                               'a '
+                                                                                                               'skill')],
+ ('the chapter that will not go in', 'find a different explanation of the same thing, from another book or teacher'): [('lesson',
+                                                                                                                        'another '
+                                                                                                                        'way '
+                                                                                                                        'in '
+                                                                                                                        'exists')],
+ ('the chapter that will not go in', 'ask the cleverest one in the group to explain it, and trade help for help'): [('lesson',
+                                                                                                                     'help '
+                                                                                                                     'is '
+                                                                                                                     'worth '
+                                                                                                                     'trading')],
+ ('the chapter that will not go in', 'skip ahead to the parts that are fun, and come back to it later'): [('means',
+                                                                                                           'freedom+.03')],
+ ('the chapter that will not go in', 'stop here, and keep the curiosity for reading in a gentler way'): [('lesson',
+                                                                                                          'curiosity '
+                                                                                                          'does not '
+                                                                                                          'need '
+                                                                                                          'tests')],
+ ('the chapter that will not go in', 'ask the teacher for extra time after the lesson, and bring every question'): [('person',
+                                                                                                                     'teacher')],
+ ('the chapter that will not go in', 'let it go, and keep the habit of hard thinking for something else'): [('lesson',
+                                                                                                             'hard '
+                                                                                                             'thinking '
+                                                                                                             'travels '
+                                                                                                             'well')],
+ ('the chapter that will not go in', 'sit the test anyway, and use whatever comes back as a map'): [('mark',
+                                                                                                     'took a wild '
+                                                                                                     'risk')],
+ ('the chapter that will not go in', 'study it with a friend, out loud, until it makes sense to both'): [('person',
+                                                                                                          'friend')],
+ ('the chapter that will not go in', 'slow down, take the test next time round, and learn it properly'): [('means',
+                                                                                                           'health+.02')],
+ ('the first marked work comes back', 'read every comment, put each one right, and hand the work in again anyway'): [('mark',
+                                                                                                                      'learned '
+                                                                                                                      'a '
+                                                                                                                      'skill')],
+ ('the first marked work comes back', 'work out which mistakes were understanding and which were carelessness'): [('lesson',
+                                                                                                                   'know '
+                                                                                                                   'which '
+                                                                                                                   'mistake '
+                                                                                                                   'it '
+                                                                                                                   'was')],
+ ('the first marked work comes back', 'go on to the next part, and set out to beat the top mark'): [('person',
+                                                                                                     'rival')],
+ ('the first marked work comes back', 'change the way of studying completely: new hours, new place, new method'): [('place',
+                                                                                                                    'learn.keeping')],
+ ('the first marked work comes back', 'stop the course, and keep the subject as something to read about at leisure'): [('lesson',
+                                                                                                                        'interest '
+                                                                                                                        'outlives '
+                                                                                                                        'the '
+                                                                                                                        'marks')],
+ ('the first marked work comes back', 'ask the teacher what a good mark looks like, then work to that'): [('person',
+                                                                                                           'teacher')],
+ ('the first marked work comes back', 'let it go, and take the method it taught to a subject that fits better'): [('mark',
+                                                                                                                   'learned '
+                                                                                                                   'a '
+                                                                                                                   'skill')],
+ ('the first marked work comes back', 'go on, but take the next part more slowly, over two terms instead of one'): [('means',
+                                                                                                                     'time+.04')],
+ ('the first marked work comes back', 'go on, and start a study group for the others who did badly too'): [('mark',
+                                                                                                            'helped '
+                                                                                                            'someone '
+                                                                                                            'in '
+                                                                                                            'need')],
+ ('the first marked work comes back', 'put the next part off a term, and read around the subject meanwhile'): [('means',
+                                                                                                                'health+.02')],
+ ('the end of the trial months', 'accept the offer, and learn the rules of the place properly'): [('mark',
+                                                                                                   'kept your word')],
+ ('the end of the trial months', 'ask what the next year would actually teach, and decide on the answer'): [('lesson',
+                                                                                                             'ask '
+                                                                                                             'what '
+                                                                                                             'it '
+                                                                                                             'teaches')],
+ ('the end of the trial months', 'accept, but ask for one real task to carry alone'): [('person', 'boss')],
+ ('the end of the trial months', 'turn it down, and try another kind of work before settling on one'): [('lesson',
+                                                                                                         'a first '
+                                                                                                         'job '
+                                                                                                         'teaches '
+                                                                                                         'anyway')],
+ ('the end of the trial months', 'stay on, but ask for hours that leave room for home'): [('means', 'time+.04')],
+ ('the end of the trial months', 'accept, and keep a notebook of how the senior people do things'): [('mark',
+                                                                                                      'learned a '
+                                                                                                      'skill')],
+ ('the end of the trial months', 'stay, and quietly learn which jobs lead somewhere and which do not'): [('person',
+                                                                                                          'colleague')],
+ ('the end of the trial months', 'stay only if the dull jobs come with something new each month'): [('lesson',
+                                                                                                     'ask and it may '
+                                                                                                     'come')],
+ ('the end of the trial months', 'leave on good terms, and keep the friend made on the first day'): [('person',
+                                                                                                      'friend')],
+ ('the end of the trial months', "ask to start the full post after the season's family duties are done"): [('means',
+                                                                                                            'ties+.03')],
+ ('the week of the first review', 'go in prepared, with a list of what was done and what comes next'): [('lesson',
+                                                                                                         'a list '
+                                                                                                         'speaks '
+                                                                                                         'well')],
+ ('the week of the first review', 'ask in the review for a new task, one that would teach something'): [('mark',
+                                                                                                         'learned a '
+                                                                                                         'skill')],
+ ('the week of the first review', 'ask in the review for more pay or a better title, and say why'): [('means',
+                                                                                                      'money+.04')],
+ ('the week of the first review', 'say plainly in the review that the work has gone dull, and see what is offered'): [('lesson',
+                                                                                                                       'plain '
+                                                                                                                       'words '
+                                                                                                                       'open '
+                                                                                                                       'doors')],
+ ('the week of the first review', 'ask to drop to fewer days, and keep the job without the push'): [('means',
+                                                                                                     'time+.05')],
+ ('the week of the first review', 'take on the extra work everyone avoids, and say so at the review'): [('person',
+                                                                                                         'boss')],
+ ('the week of the first review', 'quietly look for another post in the same line of work'): [('lesson',
+                                                                                               'the line matters, '
+                                                                                               'not the place')],
+ ('the week of the first review', 'ask for the review to be put back a season, and settle in first'): [('means',
+                                                                                                        'health+.03')],
+ ('the week of the first review', 'hand in notice after the review, and try something that feels more useful'): [('lesson',
+                                                                                                                  'knowing '
+                                                                                                                  'what '
+                                                                                                                  'bores '
+                                                                                                                  'is '
+                                                                                                                  'useful')],
+ ('the week of the first review', 'stop after the review, and use the spare hours to work out what fits'): [('person',
+                                                                                                             'colleague')],
+ ('the group asks for a regular hand', 'take the regular job, and keep to it every week as promised'): [('mark',
+                                                                                                         'kept your '
+                                                                                                         'word')],
+ ('the group asks for a regular hand', 'ask what the job really involves before saying yes or no'): [('lesson',
+                                                                                                      'ask before '
+                                                                                                      'saying yes')],
+ ('the group asks for a regular hand', 'take it, and push to have a say in what the group does next'): [('person',
+                                                                                                         'rival')],
+ ('the group asks for a regular hand', 'stay a helper for the big days only, and skip the weekly grind'): [('means',
+                                                                                                            'freedom+.03')],
+ ('the group asks for a regular hand', 'step back, glad to have helped once, and keep the people met'): [('person',
+                                                                                                          'friend')],
+ ('the group asks for a regular hand', 'take the job, and write down how it is done so others can follow'): [('mark',
+                                                                                                              'learned '
+                                                                                                              'a '
+                                                                                                              'skill')],
+ ('the group asks for a regular hand', 'offer a smaller job that fits the week, and do it well'): [('means',
+                                                                                                    'time+.03')],
+ ('the group asks for a regular hand', 'take it on, and start something bolder than the group has tried'): [('mark',
+                                                                                                             'took a '
+                                                                                                             'wild '
+                                                                                                             'risk')],
+ ('the group asks for a regular hand', 'share the job with a friend, so it stays fun for both'): [('person',
+                                                                                                   'friend')],
+ ('the group asks for a regular hand', 'stop, and give the hours to a neighbour who needs them more'): [('mark',
+                                                                                                         'helped '
+                                                                                                         'someone in '
+                                                                                                         'need')],
+ ('the first petition sent back', 'go to the next meeting, and help redraft the request by the proper rules'): [('person',
+                                                                                                                 'colleague')],
+ ('the first petition sent back', 'find out exactly why it was refused, and who decided'): [('lesson',
+                                                                                             'find who decides')],
+ ('the first petition sent back', 'go back with more names behind it, so it cannot be ignored'): [('means',
+                                                                                                   'ties+.04')],
+ ('the first petition sent back', 'make the refusal public, loudly, and see who joins'): [('mark',
+                                                                                           'defied an authority')],
+ ('the first petition sent back', 'stop chasing the big ask, and help one person nearby instead'): [('mark',
+                                                                                                     'helped someone '
+                                                                                                     'in need')],
+ ('the first petition sent back', 'go on, and take the slow official route all the way up'): [('lesson',
+                                                                                               'the slow route still '
+                                                                                               'arrives')],
+ ('the first petition sent back', 'try a different way in altogether: a new group, a new door'): [('place',
+                                                                                                   'rule.voice')],
+ ('the first petition sent back', 'take a season off from it, and come back with fresh strength'): [('means',
+                                                                                                     'health+.03')],
+ ('the first petition sent back', 'stop for now, and keep in touch with the ones who stood up alongside'): [('person',
+                                                                                                             'friend')],
+ ('the first petition sent back', 'stay in the group, but only to listen and learn for now'): [('mark',
+                                                                                                'learned a skill')],
+ ('the lease with more than one name on it', 'sign, and set out together in writing who pays for what'): [('mark',
+                                                                                                           'kept '
+                                                                                                           'your '
+                                                                                                           'word')],
+ ('the lease with more than one name on it', 'talk it through properly first: money, chores, what each expects'): [('lesson',
+                                                                                                                    'say '
+                                                                                                                    'it '
+                                                                                                                    'before '
+                                                                                                                    'signing')],
+ ('the lease with more than one name on it', "sign, but keep an account and a room that are only one's own"): [('means',
+                                                                                                                'freedom+.03')],
+ ('the lease with more than one name on it', 'skip the lease for now, and share the place a few months to see'): [('lesson',
+                                                                                                                   'trying '
+                                                                                                                   'first '
+                                                                                                                   'is '
+                                                                                                                   'fair')],
+ ('the lease with more than one name on it', 'sign, and ask family and friends round to the new place the first weekend'): [('means',
+                                                                                                                             'ties+.04')],
+ ('the lease with more than one name on it', 'sign for six months instead of a year, and review it honestly then'): [('lesson',
+                                                                                                                      'a '
+                                                                                                                      'short '
+                                                                                                                      'promise '
+                                                                                                                      'first')],
+ ('the lease with more than one name on it', 'let it go gently, and say clearly why, so everyone can move on'): [('lesson',
+                                                                                                                  'knowing '
+                                                                                                                  'what '
+                                                                                                                  'is '
+                                                                                                                  'wanted')],
+ ('the lease with more than one name on it', 'sign straight away, and pick the bolder place across town'): [('mark',
+                                                                                                             'took a '
+                                                                                                             'wild '
+                                                                                                             'risk')],
+ ('the lease with more than one name on it', 'wait until the end of the summer, and keep the easy months a little longer'): [('means',
+                                                                                                                              'ties+.03')],
+ ('the lease with more than one name on it', 'step back from the lease, and stay on good terms with the others'): [('person',
+                                                                                                                    'friend')],
+ ('the rota nobody keeps', 'bring a fair rota to the talk, and be the first to keep it'): [('mark',
+                                                                                            'kept your word')],
+ ('the rota nobody keeps', 'work out where the money and hours actually go, and bring the figures'): [('mark',
+                                                                                                       'learned a '
+                                                                                                       'skill')],
+ ('the rota nobody keeps', "take charge of the household's money, and run it tightly"): [('means', 'money+.04')],
+ ('the rota nobody keeps', 'skip the rota, and turn the chores into one loud evening a week'): [('means',
+                                                                                                 'ties+.03')],
+ ('the rota nobody keeps', 'ease off the plans for now, and just look after each other through the winter'): [('means',
+                                                                                                               'health+.03')],
+ ('the rota nobody keeps', 'agree house rules at the talk, and see that everyone keeps them'): [('lesson',
+                                                                                                 'rules need someone '
+                                                                                                 'keeping them')],
+ ('the rota nobody keeps', 'try a different setup: separate shelves, separate bills, shared meals'): [('lesson',
+                                                                                                       'shared does '
+                                                                                                       'not mean '
+                                                                                                       'everything')],
+ ('the rota nobody keeps', 'slow the big plans by a year, and get the everyday running first'): [('means',
+                                                                                                  'time+.04')],
+ ('the rota nobody keeps', 'admit it is not working, and part on fair terms before it sours'): [('lesson',
+                                                                                                 'living together '
+                                                                                                 'shows people')],
+ ('the rota nobody keeps', 'let this household go, and keep the friendship it started with'): [('person', 'friend')],
+ ('the first winter on the plot', 'pay the rent, and keep the winter jobs on the list, week by week'): [('mark',
+                                                                                                         'kept your '
+                                                                                                         'word')],
+ ('the first winter on the plot', "use the bare months to read up, and plan next year's ground properly"): [('mark',
+                                                                                                             'learned '
+                                                                                                             'a '
+                                                                                                             'skill')],
+ ('the first winter on the plot', 'take on the empty plot next door too, while it is going cheap'): [('means',
+                                                                                                      'money-.04')],
+ ('the first winter on the plot', 'try something new for winter: a cold frame, a hardy crop, an odd idea'): [('lesson',
+                                                                                                              'winter '
+                                                                                                              'still '
+                                                                                                              'grows '
+                                                                                                              'things')],
+ ('the first winter on the plot', 'come only on mild days, and let the ground rest as it does in winter'): [('means',
+                                                                                                             'health+.03')],
+ ('the first winter on the plot', 'ask the old hands which winter jobs matter, and do those first'): [('person',
+                                                                                                       'mentor')],
+ ('the first winter on the plot', 'give up the plot, and grow a little at home with what was learned'): [('lesson',
+                                                                                                          'small '
+                                                                                                          'ground '
+                                                                                                          'still '
+                                                                                                          'teaches')],
+ ('the first winter on the plot', 'keep it, and set out to have the best plot on the row by summer'): [('person',
+                                                                                                        'rival')],
+ ('the first winter on the plot', 'share the plot with a friend, half the work and twice the company'): [('person',
+                                                                                                          'friend')],
+ ('the first winter on the plot', 'hand the plot on to someone on the waiting list, and help them start'): [('mark',
+                                                                                                             'helped '
+                                                                                                             'someone '
+                                                                                                             'in '
+                                                                                                             'need')],
+ ("the first season's losses", 'start again on the same plan, and do each step more carefully'): [('mark',
+                                                                                                   'learned a '
+                                                                                                   'skill')],
+ ("the first season's losses", 'find out exactly what went wrong, and change only that'): [('lesson',
+                                                                                            'find the one cause')],
+ ("the first season's losses", 'double the effort this season, and leave nothing to chance'): [('means',
+                                                                                                'health-.03')],
+ ("the first season's losses", 'try something different altogether next season, and see what takes'): [('lesson',
+                                                                                                        'trying '
+                                                                                                        'things '
+                                                                                                        'shows what '
+                                                                                                        'works')],
+ ("the first season's losses", 'start smaller, with only what did well, and go gently'): [('means', 'time+.03')],
+ ("the first season's losses", 'join the local society, and follow the methods of its best old hands'): [('place',
+                                                                                                          'prod.land')],
+ ("the first season's losses", 'let it go, and take what was learned into some other outdoor work'): [('mark',
+                                                                                                       'learned a '
+                                                                                                       'skill')],
+ ("the first season's losses", 'skip a season, and come back when there is time to do it well'): [('means',
+                                                                                                   'time+.04')],
+ ("the first season's losses", 'go on, and share the failures openly with the other beginners'): [('person',
+                                                                                                   'friend')],
+ ("the first season's losses", 'stop, and keep the eye for weather and seasons that the year gave'): [('lesson',
+                                                                                                       'weather is '
+                                                                                                       'read '
+                                                                                                       'slowly')],
+ ("the newcomers' welcome comes to an end", 'join the course, and keep the early mornings as asked'): [('mark',
+                                                                                                        'kept your '
+                                                                                                        'word')],
+ ("the newcomers' welcome comes to an end", 'ask to sit in on a session first, and decide after'): [('lesson',
+                                                                                                     'see it before '
+                                                                                                     'joining')],
+ ("the newcomers' welcome comes to an end", 'join, and ask for a teacher who will push hard'): [('person', 'mentor')],
+ ("the newcomers' welcome comes to an end", 'keep coming to the gatherings, but skip the course and the set hours'): [('means',
+                                                                                                                       'freedom+.03')],
+ ("the newcomers' welcome comes to an end", 'join, and bring along someone who has been lonely lately'): [('mark',
+                                                                                                           'helped '
+                                                                                                           'someone '
+                                                                                                           'in '
+                                                                                                           'need')],
+ ("the newcomers' welcome comes to an end", 'join, and keep a quiet notebook of the questions it raises'): [('mark',
+                                                                                                             'learned '
+                                                                                                             'a '
+                                                                                                             'skill')],
+ ("the newcomers' welcome comes to an end", 'step away, and keep the habit of stillness it taught'): [('lesson',
+                                                                                                       'stillness '
+                                                                                                       'can be '
+                                                                                                       'kept')],
+ ("the newcomers' welcome comes to an end", 'join, and go at it with everything for the first season'): [('means',
+                                                                                                          'time-.04')],
+ ("the newcomers' welcome comes to an end", 'let it go, but keep up with the friend who first brought the invitation'): [('person',
+                                                                                                                          'friend')],
+ ("the newcomers' welcome comes to an end", 'look for a quieter group nearby whose ways suit the week better'): [('place',
+                                                                                                                  'faith.congregation')],
+ ('the mornings that feel empty', 'keep the practice exactly, and go on the retreat as promised'): [('mark',
+                                                                                                     'kept your '
+                                                                                                     'word')],
+ ('the mornings that feel empty', 'talk the emptiness through with an older one who has felt it too'): [('person',
+                                                                                                         'mentor')],
+ ('the mornings that feel empty', 'go on the retreat, and set out to come back changed'): [('lesson',
+                                                                                            'some things come '
+                                                                                            'unforced')],
+ ('the mornings that feel empty', 'try a different practice for a while: walking, music, silence outdoors'): [('means',
+                                                                                                               'health+.03')],
+ ('the mornings that feel empty', 'give up the retreat place, and keep a small practice at home for now'): [('means',
+                                                                                                             'time+.03')],
+ ('the mornings that feel empty', 'go on the retreat, and take on the hardest of its disciplines'): [('mark',
+                                                                                                      'learned a '
+                                                                                                      'skill')],
+ ('the mornings that feel empty', 'let it go, and keep looking for meaning in other places'): [('lesson',
+                                                                                                'the search goes '
+                                                                                                'on')],
+ ('the mornings that feel empty', 'put the retreat off a year, and give the practice time to come back'): [('lesson',
+                                                                                                            'flat '
+                                                                                                            'weeks '
+                                                                                                            'do '
+                                                                                                            'pass')],
+ ('the mornings that feel empty', 'stop for now, and give the morning hour to helping at the shelter'): [('mark',
+                                                                                                          'helped '
+                                                                                                          'someone '
+                                                                                                          'in need')],
+ ('the mornings that feel empty', 'go on the retreat with a friend, and talk it all over after'): [('person',
+                                                                                                    'friend')],
+ ('home from the first hard outing', 'go again, after a proper course on safety and finding the way'): [('mark',
+                                                                                                         'learned a '
+                                                                                                         'skill')],
+ ('home from the first hard outing', 'go over what went wrong with the group, and change the plan'): [('lesson',
+                                                                                                       'the weak '
+                                                                                                       'point '
+                                                                                                       'shows')],
+ ('home from the first hard outing', 'go again, and lead this time, to be sure it is done right'): [('lesson',
+                                                                                                     'leading weighs '
+                                                                                                     'more')],
+ ('home from the first hard outing', 'go again straight away, before the fear has time to set'): [('mark',
+                                                                                                   'took a wild '
+                                                                                                   'risk')],
+ ('home from the first hard outing', 'stay home this time, and go next season when it feels right'): [('means',
+                                                                                                       'health+.03')],
+ ('home from the first hard outing', 'go again on an easier route, and build up from there step by step'): [('lesson',
+                                                                                                             'easier '
+                                                                                                             'first, '
+                                                                                                             'then '
+                                                                                                             'harder')],
+ ('home from the first hard outing', 'stop, and keep the hard-won knack for reading weather and maps'): [('mark',
+                                                                                                          'learned a '
+                                                                                                          'skill')],
+ ('home from the first hard outing', 'go again, with better gear and a harder route to prove the point'): [('means',
+                                                                                                            'money-.04')],
+ ('home from the first hard outing', 'let it go, and keep the friends made on that hard first trip'): [('person',
+                                                                                                        'friend')],
+ ('home from the first hard outing', 'go again, but only with the seasoned group that looks after newcomers'): [('place',
+                                                                                                                 'gather.circle')],
+ ('the deposit on the first big trip', 'pay the deposit from savings set aside for it, and plan every day'): [('means',
+                                                                                                               'money-.06')],
+ ('the deposit on the first big trip', 'find a cheaper way to do the same trip, and pay for that'): [('lesson',
+                                                                                                      'cheaper is '
+                                                                                                      'not worse')],
+ ('the deposit on the first big trip', 'pay, and stretch it into a longer, bigger trip than planned'): [('means',
+                                                                                                         'money-.10')],
+ ('the deposit on the first big trip', 'pay tonight, before there is time to think better of it'): [('mark',
+                                                                                                     'took a wild '
+                                                                                                     'risk')],
+ ('the deposit on the first big trip', 'put the big trip off a year, and keep the small outings close to home'): [('means',
+                                                                                                                   'ties+.03')],
+ ('the deposit on the first big trip', 'pay, and take extra work to cover it before leaving'): [('means',
+                                                                                                 'time-.05')],
+ ('the deposit on the first big trip', 'let the deposit go, and spend the money learning a new skill instead'): [('mark',
+                                                                                                                  'learned '
+                                                                                                                  'a '
+                                                                                                                  'skill')],
+ ('the deposit on the first big trip', 'ask the family to help with the deposit, and promise to bring them along next time'): [('person',
+                                                                                                                                'parent')],
+ ('the deposit on the first big trip', 'stop the plans, and put the saved money toward what the household needs'): [('lesson',
+                                                                                                                     'the '
+                                                                                                                     'road '
+                                                                                                                     'will '
+                                                                                                                     'wait')],
+ ('the deposit on the first big trip', 'take a shorter trip this year instead, and learn from that first'): [('lesson',
+                                                                                                              'short '
+                                                                                                              'trips '
+                                                                                                              'teach '
+                                                                                                              'first')],
  ('an ordinary week in the household', 'keep the shared meal to its day and its hour, however tired everyone is'): [('door',
                                                                                                                      'kept '
                                                                                                                      'your '
