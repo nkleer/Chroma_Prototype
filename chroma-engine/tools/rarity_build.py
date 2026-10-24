@@ -4,7 +4,7 @@ least once, on the live batch with batch.PACKS on and the outer world on, as the
 Build your own set P["world"]; the world's own moments, traders, two places, a name on the list, only come with it). The
 same keys as the game's stopgap rarity.py (lives, sit, read, mark, role), so the game reads it in its place. Seeds 101,
 102, ..., each drawing its own world; the table is the same however the seeds are split over machines.
-    python3 chroma-engine/tools/rarity_build.py [lives per seed, 200] [seeds, 20]     (env LIB, PACKS, PACK_DIR,
+    python3 chroma-engine/tools/rarity_build.py [lives per seed, 200] [seeds, 20]     (env SHIP=v25 for the shipped set; LIB, PACKS, PACK_DIR,
         PACK_MOMENTS for a test; OUT)
     ... [lives] [seeds] --only 105,106,107,108 --parts DIR   run some seeds, each written to DIR/part_<seed>.json
     ... [lives] [seeds] --merge DIR                          the table from DIR's parts (every seed's must be there)"""
@@ -19,12 +19,18 @@ if os.environ.get("LIB"):
     batch.LIB_DIR = os.environ["LIB"]
 PACKS_ = [x for x in os.environ.get("PACKS", "").split(",") if x] or list(batch.PACKS)
 PMOM_ = json.loads(os.environ.get("PACK_MOMENTS", "{}")) or None
+SHIP_ = os.environ.get("SHIP") == "v25"   # SHIP=v25: the shipped set (engine.SHIP_V25 over DEFAULT, batch flags SHIP_V25_BATCH)
+if SHIP_:
+    for k_, v_ in E.SHIP_V25_BATCH.items():
+        setattr(batch, k_, v_)
 
 
 def one(args):
     seed, n = args
     L = batch.load_batch("earth", packs=PACKS_, pack_moments=PMOM_)
     P = dict(E.DEFAULT); P["world"] = True   # the outer world on, as the game plays modern Earth
+    if SHIP_:
+        P.update(E.SHIP_V25)
     o = E.run(N=n, years=80, seed=seed, lib=L, P=P)
     rd = np.zeros((n, len(o["read_names"])), bool)
     for who, t, j, r in o["read_log"]:

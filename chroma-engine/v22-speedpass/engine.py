@@ -1625,6 +1625,13 @@ V24_OFF = dict(need_tab=None, shared_hist=0.0, imp_age=False, aims=False, height
                wa_reach=False)
 # lane C's v25 switches off (every life is v24's, head 10), and lane D's WA3 reach
 V25_OFF = dict(react=False, clash=False, seek=False, scn=False, wa_reach=False)
+# v25's shipped set (Vision 10-24; Release's records/v25/scope.md, "The shipped settings"): laid over DEFAULT by the game,
+# rarity_build.py and Release's readers (DEFAULT keeps v25 off, so the off proofs hold), with the batch's flags those
+# switches read (set on batch before load_batch); every *_par stays None (the values in code)
+SHIP_V25 = dict(world=True, realm="earth", react=True, clash=True, seek=True, aims_v2=True, imp_world=True,
+                tilt_world=True, wa_land=True, wa_nat_climb=True)
+SHIP_V25_BATCH = dict(AIMS=True, FOOT=True, WORLD_ANSWERS=True, FIELDS=True, LAND=True, NATIONAL=True,
+                      CLASH_MOMENTS=True, SEEK_MOMENTS=True)
 # everything since the go-live off, for the identity check (C-E14): lives then equal engine_v9_golive.py
 GOLIVE = {**V10_OFF, **ID_OFF, **FIX_OFF, **UPD_OFF, "world": False}
 from realm_earth import ROLE_BY_SETTING, ACCEPT_BY_SETTING   # Earth's (realm_earth.py)
