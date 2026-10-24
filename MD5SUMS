@@ -1,5 +1,5 @@
-519aaa7ed1e458310a4b6fc3f5ef02b0  LEDGER_MD5.txt
-547b7ca48c47712d0d236e59c8a98cfc  TAILS.md
+a665aeeb91164fa9877ca291ab0b6e1e  LEDGER_MD5.txt
+305dfd46328d734e5d5f79c1f6e53e70  TAILS.md
 b076bc4a1997167fa54a79beea3d4da9  chroma-release/out/k4_114faf0_speedpass/speedpass_20261024-082503_s41.txt
 6425bc033cffed77ec601e2fd63801e7  chroma-release/out/k4_114faf0_speedpass/speedpass_20261024-082503_sweepA.txt
 de9161c3a3b3c8df3c543a9a38bfc481  chroma-release/out/k4_114faf0_speedpass/speedpass_20261024-082503_sweepB.txt
@@ -8,6 +8,7 @@ de9161c3a3b3c8df3c543a9a38bfc481  chroma-release/out/k4_114faf0_speedpass/speedp
 5326aa655992e151a5957f344d236b9b  chroma-release/out/k4_114faf0_speedpass/speedpass_20261024-082625_s42.txt
 0ddaeb9c88e56e97ab12eea0cc4752fc  chroma-release/out/k4_114faf0_speedpass/speedpass_20261024-082625_sweepC.txt
 45f491e6a7295150d466125d0ae32c5b  chroma-release/out/k4_114faf0_speedpass/speedpass_20261024-082625_sweepD.txt
+1aecf8e0ca6bf33a417fdc4559940dd2  chroma-release/out/proofs/identity1.jsonl
 7ceaf53b92a8bda113c7e65dd8608fc5  chroma-release/out/v25/k4/k4_part1_114faf0.txt
 082ceebe4afb55db0e11cad8a332284d  chroma-release/out/v25/k4/k4_part2_114faf0.txt
 3e2e2fac300adc4d2b69a1f2dbb9e20c  chroma-release/out/v25/k4/k4_part3_114faf0.txt
@@ -24,3 +25,13 @@ e9220f6a3bad831c7012f9fe6aeb568c  chroma-release/out/v25/k4/pc_k4p4_full.txt
 d8549e30f86e9efc2b9f8b73b0e81bc2  chroma-release/out/v25/pc_final_87caab7/diag_k3_5287a43_killed_1023/identity1.log
 048e30156ccf96d899d313df7c153853  chroma-release/out/v25/pc_final_87caab7/diag_k3_5287a43_killed_1023/run.txt
 1afd792174e837e2a661b8a83abc5c4f  chroma-release/out/v25/pc_final_87caab7/diag_k3_5287a43_killed_1023/t_steps.log
+98230cfe3452b2b2e5ea23b4f3b83180  chroma-release/out/v25/pc_final_87caab7/ledger_violations/la_41_violations.json
+cdcd5351dcda5dac5acd439f37e26b1a  chroma-release/out/v25/pc_final_87caab7/ledger_violations/la_42_violations.json
+a869a0162f9548dc165504d02b37111c  chroma-release/out/v25/pc_final_87caab7/ledger_violations/la_43_violations.json
+d178ac445a51339cd908aef0d8a77f93  chroma-release/out/v25/pc_final_87caab7/ledger_violations/la_44_violations.json
+425c308cc4e005ae1b97dcd2c5564da9  chroma-release/out/v25/pc_final_87caab7/ledger_violations/lb_41_violations.json
+237cff7158ba23aac50a7ccc0e354a20  chroma-release/out/v25/pc_final_87caab7/ledger_violations/lb_42_violations.json
+fd6417247b2f52f33ae483c2b76032b0  chroma-release/out/v25/pc_final_87caab7/ledger_violations/lb_43_violations.json
+8c21e764c1c2de49a5203342b392d6da  chroma-release/out/v25/pc_final_87caab7/ledger_violations/lb_44_violations.json
+1f35e53baa0292cf614d5b069a52d60f  chroma-release/out/v25/pc_final_87caab7/ledger_violations/nat_41_violations.json
+b2c164d226fe2d5f05c16e97035107a7  chroma-release/out/v25/pc_final_87caab7/ledger_violations/nat_42_violations.json

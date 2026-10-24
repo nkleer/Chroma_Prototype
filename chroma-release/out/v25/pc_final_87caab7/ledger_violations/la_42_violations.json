@@ -1,0 +1,123 @@
+{
+ "file": "la_42.json",
+ "md5": "a554e04aee7962cd2a471ce328352f4d",
+ "violation_counts": {
+  "AM0|a rung reached after its window closed": 4,
+  "CL0|a clash answered twice": 11
+ },
+ "violations": [
+  {
+   "case": "a clash answered twice",
+   "dispute": 158,
+   "life": 8,
+   "row": "CL0",
+   "week": 835
+  },
+  {
+   "case": "a clash answered twice",
+   "dispute": 894,
+   "life": 367,
+   "row": "CL0",
+   "week": 1764
+  },
+  {
+   "case": "a clash answered twice",
+   "dispute": 75,
+   "life": 139,
+   "row": "CL0",
+   "week": 1786
+  },
+  {
+   "case": "a clash answered twice",
+   "dispute": 664,
+   "life": 349,
+   "row": "CL0",
+   "week": 1849
+  },
+  {
+   "case": "a clash answered twice",
+   "dispute": 1186,
+   "life": 392,
+   "row": "CL0",
+   "week": 2104
+  },
+  {
+   "case": "a clash answered twice",
+   "dispute": 1343,
+   "life": 134,
+   "row": "CL0",
+   "week": 2265
+  },
+  {
+   "case": "a rung reached after its window closed",
+   "closed": 1560,
+   "field": "to win at the highest level",
+   "life": 233,
+   "row": "AM0",
+   "rung": 2,
+   "week": 2472
+  },
+  {
+   "case": "a clash answered twice",
+   "dispute": 1620,
+   "life": 82,
+   "row": "CL0",
+   "week": 2513
+  },
+  {
+   "case": "a rung reached after its window closed",
+   "closed": 1456,
+   "field": "to dance",
+   "life": 149,
+   "row": "AM0",
+   "rung": 1,
+   "week": 2804
+  },
+  {
+   "case": "a rung reached after its window closed",
+   "closed": 1560,
+   "field": "to win at the highest level",
+   "life": 345,
+   "row": "AM0",
+   "rung": 2,
+   "week": 2860
+  },
+  {
+   "case": "a clash answered twice",
+   "dispute": 2038,
+   "life": 314,
+   "row": "CL0",
+   "week": 2972
+  },
+  {
+   "case": "a rung reached after its window closed",
+   "closed": 1456,
+   "field": "to dance",
+   "life": 166,
+   "row": "AM0",
+   "rung": 1,
+   "week": 3432
+  },
+  {
+   "case": "a clash answered twice",
+   "dispute": 3286,
+   "life": 72,
+   "row": "CL0",
+   "week": 4940
+  },
+  {
+   "case": "a clash answered twice",
+   "dispute": 3636,
+   "life": 240,
+   "row": "CL0",
+   "week": 5060
+  },
+  {
+   "case": "a clash answered twice",
+   "dispute": 3705,
+   "life": 274,
+   "row": "CL0",
+   "week": 5176
+  }
+ ]
+}

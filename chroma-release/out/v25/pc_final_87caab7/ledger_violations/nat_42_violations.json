@@ -1,0 +1,110 @@
+{
+ "file": "nat_42.json",
+ "md5": "06dd45fc6d2abea8189689e17b5b837a",
+ "violation_counts": {
+  "AM0|a rung reached after its window closed": 1,
+  "CL0|a clash answered twice": 13
+ },
+ "violations": [
+  {
+   "case": "a clash answered twice",
+   "dispute": 810,
+   "life": 46,
+   "row": "CL0",
+   "week": 1684
+  },
+  {
+   "case": "a rung reached after its window closed",
+   "closed": 1820,
+   "field": "to command an army",
+   "life": 314,
+   "row": "AM0",
+   "rung": 1,
+   "week": 2068
+  },
+  {
+   "case": "a clash answered twice",
+   "dispute": 1217,
+   "life": 316,
+   "row": "CL0",
+   "week": 2128
+  },
+  {
+   "case": "a clash answered twice",
+   "dispute": 1297,
+   "life": 212,
+   "row": "CL0",
+   "week": 2224
+  },
+  {
+   "case": "a clash answered twice",
+   "dispute": 1584,
+   "life": 24,
+   "row": "CL0",
+   "week": 2498
+  },
+  {
+   "case": "a clash answered twice",
+   "dispute": 1414,
+   "life": 9,
+   "row": "CL0",
+   "week": 2554
+  },
+  {
+   "case": "a clash answered twice",
+   "dispute": 1891,
+   "life": 18,
+   "row": "CL0",
+   "week": 2837
+  },
+  {
+   "case": "a clash answered twice",
+   "dispute": 2411,
+   "life": 135,
+   "row": "CL0",
+   "week": 3400
+  },
+  {
+   "case": "a clash answered twice",
+   "dispute": 2511,
+   "life": 63,
+   "row": "CL0",
+   "week": 3559
+  },
+  {
+   "case": "a clash answered twice",
+   "dispute": 2956,
+   "life": 194,
+   "row": "CL0",
+   "week": 4182
+  },
+  {
+   "case": "a clash answered twice",
+   "dispute": 3201,
+   "life": 167,
+   "row": "CL0",
+   "week": 4556
+  },
+  {
+   "case": "a clash answered twice",
+   "dispute": 3238,
+   "life": 162,
+   "row": "CL0",
+   "week": 4565
+  },
+  {
+   "case": "a clash answered twice",
+   "dispute": 3583,
+   "life": 65,
+   "row": "CL0",
+   "week": 5060
+  },
+  {
+   "case": "a clash answered twice",
+   "dispute": 3634,
+   "life": 186,
+   "row": "CL0",
+   "week": 5116
+  }
+ ]
+}

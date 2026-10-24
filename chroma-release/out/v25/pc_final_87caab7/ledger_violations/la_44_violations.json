@@ -1,0 +1,123 @@
+{
+ "file": "la_44.json",
+ "md5": "312df2f26386d0578dbf12c9763d5e7e",
+ "violation_counts": {
+  "AM0|a rung reached after its window closed": 4,
+  "CL0|a clash answered twice": 11
+ },
+ "violations": [
+  {
+   "case": "a clash answered twice",
+   "dispute": 94,
+   "life": 2,
+   "row": "CL0",
+   "week": 816
+  },
+  {
+   "case": "a clash answered twice",
+   "dispute": 569,
+   "life": 387,
+   "row": "CL0",
+   "week": 1332
+  },
+  {
+   "case": "a clash answered twice",
+   "dispute": 609,
+   "life": 0,
+   "row": "CL0",
+   "week": 1372
+  },
+  {
+   "case": "a clash answered twice",
+   "dispute": 895,
+   "life": 184,
+   "row": "CL0",
+   "week": 1752
+  },
+  {
+   "case": "a clash answered twice",
+   "dispute": 1520,
+   "life": 353,
+   "row": "CL0",
+   "week": 2400
+  },
+  {
+   "case": "a rung reached after its window closed",
+   "closed": 1456,
+   "field": "to dance",
+   "life": 8,
+   "row": "AM0",
+   "rung": 1,
+   "week": 2468
+  },
+  {
+   "case": "a rung reached after its window closed",
+   "closed": 1820,
+   "field": "to command an army",
+   "life": 14,
+   "row": "AM0",
+   "rung": 1,
+   "week": 2648
+  },
+  {
+   "case": "a rung reached after its window closed",
+   "closed": 2340,
+   "field": "to command an army",
+   "life": 14,
+   "row": "AM0",
+   "rung": 2,
+   "week": 2652
+  },
+  {
+   "case": "a clash answered twice",
+   "dispute": 1850,
+   "life": 316,
+   "row": "CL0",
+   "week": 2740
+  },
+  {
+   "case": "a clash answered twice",
+   "dispute": 1975,
+   "life": 188,
+   "row": "CL0",
+   "week": 2896
+  },
+  {
+   "case": "a rung reached after its window closed",
+   "closed": 1456,
+   "field": "to dance",
+   "life": 38,
+   "row": "AM0",
+   "rung": 1,
+   "week": 3400
+  },
+  {
+   "case": "a clash answered twice",
+   "dispute": 2512,
+   "life": 385,
+   "row": "CL0",
+   "week": 3473
+  },
+  {
+   "case": "a clash answered twice",
+   "dispute": 2555,
+   "life": 11,
+   "row": "CL0",
+   "week": 3532
+  },
+  {
+   "case": "a clash answered twice",
+   "dispute": 3375,
+   "life": 6,
+   "row": "CL0",
+   "week": 4696
+  },
+  {
+   "case": "a clash answered twice",
+   "dispute": 3571,
+   "life": 149,
+   "row": "CL0",
+   "week": 5072
+  }
+ ]
+}

@@ -22,8 +22,48 @@
 - seed 43 start 2026-10-24T08:17:32Z end 2026-10-24T09:45:13Z wall 5261 s exit 0
 - seed 42 start 2026-10-24T08:17:32Z end 2026-10-24T09:45:25Z wall 5273 s exit 0
 - LB end 2026-10-24T09:45:25Z
+- la/nat 41-44 on 87caab7 (from 08:52:18Z) ended by the WSL shutdown at 10:23:02Z; partial (empty) logs in ~/chroma/jobs/final/killed_1023/
+- nat 42 start 2026-10-24T10:26:54Z
+- la 44 start 2026-10-24T10:26:54Z
+- la 41 start 2026-10-24T10:26:54Z
+- nat 41 start 2026-10-24T10:26:54Z
+- la 42 start 2026-10-24T10:26:54Z
+- la 43 start 2026-10-24T10:26:54Z
+- nat 42 start 2026-10-24T10:26:54Z end 2026-10-24T11:27:35Z wall 3641 s exit 0
+- la 41 start 2026-10-24T10:26:54Z end 2026-10-24T11:28:14Z wall 3680 s exit 0
+- la 43 start 2026-10-24T10:26:54Z end 2026-10-24T11:28:17Z wall 3683 s exit 0
+- nat 41 start 2026-10-24T10:26:54Z end 2026-10-24T11:28:29Z wall 3695 s exit 0
+- la 42 start 2026-10-24T10:26:54Z end 2026-10-24T11:28:32Z wall 3698 s exit 0
+- la 44 start 2026-10-24T10:26:54Z end 2026-10-24T11:28:43Z wall 3709 s exit 0
+- LA/NR1 end 2026-10-24T11:28:44Z
 
+d9fbeb6f4cdfa08a335efffa95ddbd7d  la_41.json  (961209 B)
+    stdout: /home/emren/chroma/out/v25_lb/la_41.json: seed 41, 400 lives x 100 years in 3666.1 s; 4763 clashes put, 4763 answered, 8750 rungs reached, 19 violations (2 kinds)
+    violation_counts: {"AM0|a rung reached after its window closed": 1, "CL0|a clash answered twice": 18}
+a554e04aee7962cd2a471ce328352f4d  la_42.json  (954739 B)
+    stdout: /home/emren/chroma/out/v25_lb/la_42.json: seed 42, 400 lives x 100 years in 3685.7 s; 4749 clashes put, 4749 answered, 8695 rungs reached, 15 violations (2 kinds)
+    violation_counts: {"AM0|a rung reached after its window closed": 4, "CL0|a clash answered twice": 11}
+2308cf955e54186b4d2c17b50f6accdb  la_43.json  (972193 B)
+    stdout: /home/emren/chroma/out/v25_lb/la_43.json: seed 43, 400 lives x 100 years in 3669.6 s; 5063 clashes put, 5063 answered, 8625 rungs reached, 12 violations (2 kinds)
+    violation_counts: {"AM0|a rung reached after its window closed": 1, "CL0|a clash answered twice": 11}
+312df2f26386d0578dbf12c9763d5e7e  la_44.json  (955527 B)
+    stdout: /home/emren/chroma/out/v25_lb/la_44.json: seed 44, 400 lives x 100 years in 3697.8 s; 4721 clashes put, 4721 answered, 8686 rungs reached, 15 violations (2 kinds)
+    violation_counts: {"AM0|a rung reached after its window closed": 4, "CL0|a clash answered twice": 11}
 21b3329217219b6ecb108bee31208e90  lb_41.json  (115928 B)
+    stdout: /home/emren/chroma/out/v25_lb/lb_41.json: seed 41, 400 lives x 100 years in 5225.2 s; base
+    violation_counts: {}
 f31707b292c6a17d27ea9ee332dc1116  lb_42.json  (115819 B)
+    stdout: /home/emren/chroma/out/v25_lb/lb_42.json: seed 42, 400 lives x 100 years in 5264.0 s; base
+    violation_counts: {}
 6cbe13ffaaaa52b72226a6503dc59337  lb_43.json  (115815 B)
+    stdout: /home/emren/chroma/out/v25_lb/lb_43.json: seed 43, 400 lives x 100 years in 5251.7 s; base
+    violation_counts: {}
 269b2bd63561842f3d43c034c86ae2c2  lb_44.json  (115880 B)
+    stdout: /home/emren/chroma/out/v25_lb/lb_44.json: seed 44, 400 lives x 100 years in 5248.9 s; base
+    violation_counts: {}
+5bce0398c8d0850233db4f6a25c64b21  nat_41.json  (975658 B)
+    stdout: /home/emren/chroma/out/v25_lb/nat_41.json: seed 41, 400 lives x 100 years in 3683.1 s; 4785 clashes put, 4785 answered, 8752 rungs reached, 16 violations (2 kinds)
+    violation_counts: {"AM0|a rung reached after its window closed": 2, "CL0|a clash answered twice": 14}
+06dd45fc6d2abea8189689e17b5b837a  nat_42.json  (962539 B)
+    stdout: /home/emren/chroma/out/v25_lb/nat_42.json: seed 42, 400 lives x 100 years in 3626.1 s; 4762 clashes put, 4762 answered, 8645 rungs reached, 14 violations (2 kinds)
+    violation_counts: {"AM0|a rung reached after its window closed": 1, "CL0|a clash answered twice": 13}

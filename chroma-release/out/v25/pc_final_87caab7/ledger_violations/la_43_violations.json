@@ -1,0 +1,96 @@
+{
+ "file": "la_43.json",
+ "md5": "2308cf955e54186b4d2c17b50f6accdb",
+ "violation_counts": {
+  "AM0|a rung reached after its window closed": 1,
+  "CL0|a clash answered twice": 11
+ },
+ "violations": [
+  {
+   "case": "a clash answered twice",
+   "dispute": 573,
+   "life": 355,
+   "row": "CL0",
+   "week": 1336
+  },
+  {
+   "case": "a clash answered twice",
+   "dispute": 896,
+   "life": 36,
+   "row": "CL0",
+   "week": 1748
+  },
+  {
+   "case": "a clash answered twice",
+   "dispute": 1889,
+   "life": 149,
+   "row": "CL0",
+   "week": 2728
+  },
+  {
+   "case": "a clash answered twice",
+   "dispute": 2413,
+   "life": 182,
+   "row": "CL0",
+   "week": 3246
+  },
+  {
+   "case": "a clash answered twice",
+   "dispute": 2512,
+   "life": 288,
+   "row": "CL0",
+   "week": 3300
+  },
+  {
+   "case": "a rung reached after its window closed",
+   "closed": 1820,
+   "field": "to command an army",
+   "life": 8,
+   "row": "AM0",
+   "rung": 1,
+   "week": 3716
+  },
+  {
+   "case": "a clash answered twice",
+   "dispute": 2854,
+   "life": 231,
+   "row": "CL0",
+   "week": 3896
+  },
+  {
+   "case": "a clash answered twice",
+   "dispute": 3479,
+   "life": 37,
+   "row": "CL0",
+   "week": 4584
+  },
+  {
+   "case": "a clash answered twice",
+   "dispute": 3654,
+   "life": 11,
+   "row": "CL0",
+   "week": 4836
+  },
+  {
+   "case": "a clash answered twice",
+   "dispute": 3656,
+   "life": 141,
+   "row": "CL0",
+   "week": 4848
+  },
+  {
+   "case": "a clash answered twice",
+   "dispute": 2632,
+   "life": 127,
+   "row": "CL0",
+   "week": 4852
+  },
+  {
+   "case": "a clash answered twice",
+   "dispute": 3301,
+   "life": 19,
+   "row": "CL0",
+   "week": 4916
+  }
+ ]
+}
