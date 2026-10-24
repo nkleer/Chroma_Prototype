@@ -329,6 +329,18 @@ def _roles(cat, R, L, extra=None, extend=None, packs_=None):
                      for nm, r_ in getattr(R, "ROLES_FIT", {}).items() if nm in ID}
     for i_, r_ in G["rule_fit"].items():
         r_["say"] = r_["say"] or items[i_].get("cause")
+    # K4 (every v24 and v25 switch off: v23.2's lives), read only with a switch off: founder_moment off, the rule a title
+    # of <world>_rules.ROLES_ACTS_V25 had before v25 made it acts-only (the packs' own, or none); role_rates off, v23.2's
+    # measured multipliers (ROLE_NORM_V23, ROLE_ACC_MOVE_V23, ROLE_ACC_FIRST_V23) in place of the v24 refit's
+    G["rule_acts_off"] = {ID[nm]: _rule1(nm, dict((extra or {}).get(nm, {})), ID, norm, acc_mv, acc_fs, opt, extend, packs_)
+                          for nm in getattr(R, "ROLES_ACTS_V25", ()) if nm in ID}
+    for i_, r_ in G["rule_acts_off"].items():
+        r_["say"] = r_["say"] or items[i_].get("cause")
+    if getattr(R, "ROLE_NORM_V23", None) is not None:
+        nv_, mv_, fv_ = R.ROLE_NORM_V23, getattr(R, "ROLE_ACC_MOVE_V23", {}), getattr(R, "ROLE_ACC_FIRST_V23", {})
+        G["rates_v23"] = dict(norm=np.array([float(nv_.get(nm, 1.0)) for nm in names]),
+                              acc_move=np.array([float(mv_.get(nm, 1.0)) for nm in names]),
+                              acc_first=np.array([float(fv_.get(nm, 1.0)) for nm in names]))
     # act fields
     S, K = L["S"], L["K"]
     G["A_REQ"] = np.full((S, K), -1); G["A_WITHOUT"] = np.full((S, K), -1); G["S_REQ"] = np.full(S, -1)

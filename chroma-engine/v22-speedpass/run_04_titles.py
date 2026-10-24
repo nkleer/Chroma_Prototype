@@ -21,6 +21,8 @@
     tries_ct = None                                          # failed tries per life and title or perk (try_lift)
     if RON:
         GR = L["ROLES"]; NT_, NP_, NI_ = GR["NT"], GR["NP"], GR["NI"]
+        if not P.get("founder_moment") and GR.get("rule_acts_off"):   # v25 off: the rules v25 made acts-only, as before
+            GR = dict(GR, rule=[GR["rule_acts_off"].get(i_, r_) for i_, r_ in enumerate(GR["rule"])])
         if P.get("green_jobs") and GR.get("rule_when"):   # v22.4: the green entry jobs' rules and roads (ROLES_WHEN)
             GR = dict(GR, rule=[GR["rule_when"].get(i_, r_) for i_, r_ in enumerate(GR["rule"])])
         if P.get("cause_fit") and GR.get("rule_fit"):   # E2: the cause audit's tightened conditions (ROLES_FIT)
@@ -28,7 +30,11 @@
         if P.get("sph_titles") and GR.get("rule_sph"):   # item 15: the sphere titles follow their own rules
             sr_ = {**GR["rule_sph"], **(GR.get("rule_sph_when") or {})} if P.get("green_jobs") else GR["rule_sph"]
             GR = dict(GR, rule=[sr_.get(i_, r_) for i_, r_ in enumerate(GR["rule"])])   # (earth_rules.SPH_TITLE_ROLES)
-        r_has = np.zeros((N, NI_), bool); r_ever = np.zeros((N, NI_), bool)
+        if P.get("role_rates") is None and GR.get("rates_v23") is not None:   # v24 off: v23.2's measured multipliers (a
+            rv_ = GR["rates_v23"]                                              # budget tier's lifted norm, hz, stays)
+            GR = dict(GR, rule=[dict(r_, norm=r_["norm"] if "hz" in r_ else float(rv_["norm"][i_]), acc_move=float(rv_["acc_move"][i_]),
+                                     acc_first=float(rv_["acc_first"][i_])) for i_, r_ in enumerate(GR["rule"])])
+        r_has =np.zeros((N, NI_), bool); r_ever = np.zeros((N, NI_), bool)
         r_since = np.full((N, NI_), NEVER); r_end = np.full((N, NI_), NEVER)
         p_acc = np.zeros((N, NP_), bool); p_lev = np.zeros((N, NP_)); p_sus = np.full((N, NP_), NEVER)   # access, skill, suspended until
         tries_ct = np.zeros((N, NI_), np.int8)
