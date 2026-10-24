@@ -412,7 +412,11 @@ for t_, r_ in TITLE_LINKS.items():
     ROLES[t_] = d_
 # only ever through an act (the packs, 07:21): a failed long shot (grants_if_fails), so every holder has a real scene behind
 # it for the Book, the peace reading and the echoes; rate 0 means no draw "in time", and the rate fit leaves it out
-ROLES_ACTS_ONLY = {"a long shot that missed": dict(rate=0)}
+ROLES_ACTS_ONLY = {"a long shot that missed": dict(rate=0),
+                   # v25 A2: founding a movement only through its founding moment ('a following of your own', C5), never
+                   # drawn "in time" with no cause (the catalogue: "a new movement founded in their lifetime, by them").
+                   # Drawn in time it was every Historic life left alone (v24's refit doubled its norm, 1.109 to 2.021)
+                   "founder of a movement": dict(rate=0)}
 # One budget for big lives across all the packs on (Emren, pack ideas thread, relayed 08:14): about 1 life in 3 holds a big
 # career and about 1 in 20 reaches a summit; community titles at 10x their real share, capped at 1 in 4 (batch.TARGET_CAP).
 # Pack titles join a tier through the tier words in TARGET_<PACK> (batch._targets).

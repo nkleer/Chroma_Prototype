@@ -143,7 +143,11 @@ INNER = {
        for nm_ in ("where the evenings go at fifteen", "where the evenings go at twenty", "where the evenings go at thirty",
                    "where the days go at sixty-five")},
     "a following of your own": dict(
-        req="founding & (meaning < .4) & (lo_meaning >= 52) & (ties > .8) & (yrs_faith >= 10)",
+        # v25: the Library's "unmet meaning high (below .4 for a year)" read on the v7 needs table, where adult meaning sits
+        # above .95 in half of all weeks and a year below .5 never came (the moment came 0 times in 800 lives left alone),
+        # and ten years of faith with wide ties keeps it higher still: meaning in the lowest quarter of adult weeks (< .9)
+        # while the founding's year-long window is open
+        req="founding & (meaning < .9) & (ties > .8) & (yrs_faith >= 10)",
         more=["outlook > .55", "ties > .9", "hW + hU > .5"],
         less=["harsh > .5", "ties < .85"]),
 }
