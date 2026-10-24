@@ -291,7 +291,7 @@ scene magic: For a year the next door in the tower has stayed shut, and {Ns} fam
 - W>B | set a firm test six months from now, and train for that | v: conformity, achievement | aim: work | foot: door kept your word | chance: 65
 - B>G | let it go, and put what it taught into something that pays | v: power, security | aim: stop | foot: mark learned a skill | chance: 85
 - G>U | come back to it only when a real question pulls hard enough | v: tradition, self-direction | aim: ease | foot: lesson questions return when they are ready | chance: 80
-- U>R | give it a season off, and try something next to it | v: self-direction, stimulation | aim: ease | foot: means freedom+.04 | chance: 80
+- U>R | give it a season off, and try something next to it | v: self-direction, stimulation | aim: later | foot: means freedom+.04 | chance: 80
 - R>W | let it go gracefully, and pass the notes to someone just starting | v: stimulation, benevolence | aim: stop | foot: person friend | chance: 85
 works: {N} keeps at it, and one ordinary evening the stuck place gives way.
 works: The change of pace is what was needed; {aim.thing} looks different from a step back.
@@ -324,7 +324,7 @@ scene magic: The upper library opens to those who pay at the turn of the season,
 - B | pay the full price and make sure it pays back | v: achievement, power | aim: pay | cost: money .5, time .3, family .1 | foot: means money-.08 | chance: 65
 - R | throw everything at it: the money, the evenings, the lot | v: stimulation | aim: pay | cost: money .6, time .5, family .3 | foot: means money-.10 | chance: 60
 - G | not this year: the family needs the money more | v: benevolence, security | aim: ease | foot: means ties+.03 | chance: 90
-- W>U | apply for a grant first, and wait for the answer before spending | v: conformity, self-direction | aim: ease | foot: place learn.higher | chance: 70
+- W>U | apply for a grant first, and wait for the answer before spending | v: conformity, self-direction | aim: later | foot: place learn.higher | chance: 70
 - U>B | pay half now, and earn the rest by teaching the basics to others | v: self-direction, achievement | aim: pay | cost: money .3, time .4, family .1 | foot: means time-.06 | chance: 65
 - B>R | borrow it, and trust in paying it off | v: power, stimulation | aim: pay | cost: money .5, time .2, family .2 | foot: place comm.credit | chance: 55
 - R>G | let it go: what has been learned stays, whatever happens next | v: stimulation, universalism | aim: stop | foot: lesson learning stays after stopping | chance: 85
@@ -360,7 +360,7 @@ scene magic: The high tower has offered {N} a place, once; the letter says so in
 - B | accept, but ask for better terms first | v: power, achievement | aim: take | foot: person patron | chance: 55
 - R | say yes on the spot and pack tonight | v: stimulation | aim: take | foot: mark took a wild risk | chance: 60
 - G | decline: home and the people here come first | v: tradition, benevolence | aim: decline | foot: mark stayed home | chance: 90
-- W>B | ask for a year's delay, to arrive properly prepared | v: conformity, achievement | aim: ease | foot: door turned down a chance | chance: 70
+- W>B | ask for a year's delay, to arrive properly prepared | v: conformity, achievement | aim: later | foot: door turned down a chance | chance: 70
 - B>G | take it part time, and keep your roots here | v: power, security | aim: take | foot: means time-.06 | chance: 60
 - G>U | stay, and find a way to learn the same things from here | v: tradition, self-direction | aim: decline | foot: person teacher | chance: 75
 - U>R | take it, and treat the move as half the adventure | v: self-direction, stimulation | aim: take | foot: mark left home | chance: 65
@@ -793,7 +793,7 @@ scene magic: The tower asks a fee for the next seat, and a year of evenings in i
 - U | find a cheaper way to the same qualification | v: self-direction | aim: refuse | foot: mark learned a skill | chance: 70
 - B | pay whatever it takes: this is the step that matters | v: power, achievement | aim: pay | cost: money .6, time .5, family .3 | foot: means money-.10 | chance: 60
 - R | go all in now, and sort out the rest later | v: stimulation | aim: pay | cost: money .5, time .6, family .4 | foot: means health-.04 | chance: 55
-- G | wait a year, until the family can carry it | v: security, benevolence | aim: ease | foot: means ties+.03 | chance: 85
+- G | wait a year, until the family can carry it | v: security, benevolence | aim: later | foot: means ties+.03 | chance: 85
 - W>B | ask the employer to pay, in return for staying two years | v: conformity, power | aim: pay | cost: money .1, time .4, family .2 | foot: door kept your word | chance: 65
 - B>G | let the next step go, and keep the safety already built | v: power, security | aim: stop | foot: lesson enough can be plenty | chance: 85
 - G>U | lay it out plainly to the family, and decide together | v: tradition, self-direction | aim: pay | cost: money .3, time .3, family .1 | foot: means ties+.04 | chance: 70
@@ -830,7 +830,7 @@ scene magic: A distant court has summoned {N} to be its steward, and the carriag
 - B | accept, and get the best terms anyone there has ever had | v: power, achievement | aim: take | foot: person patron | chance: 60
 - R | accept tonight, and tell everyone tomorrow | v: stimulation | aim: take | foot: mark took a wild risk | chance: 55
 - G | turn it down: the family is settled here | v: tradition, security | aim: decline | foot: mark stayed home | chance: 90
-- W>U | ask for six months to finish the work already started | v: conformity, self-direction | aim: ease | foot: door kept your word | chance: 65
+- W>U | ask for six months to finish the work already started | v: conformity, self-direction | aim: later | foot: door kept your word | chance: 65
 - U>B | accept, but only on condition it can be done from here | v: self-direction, power | aim: take | foot: means freedom+.03 | chance: 55
 - B>R | turn it down, and use what it showed to start something new | v: power, stimulation | aim: stop | foot: lesson worth more than expected | chance: 75
 - R>G | take it, and bring the family along for the adventure | v: stimulation, benevolence | aim: take | foot: mark moved away | chance: 60
