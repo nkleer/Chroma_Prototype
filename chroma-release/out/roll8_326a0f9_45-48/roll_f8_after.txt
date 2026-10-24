@@ -1,0 +1,15 @@
+f8_after (K9), 2026-10-24 12:54 UTC; repo /tmp/v25_f8b/tree, commit 326a0f9b6d967a75c717070f92d1563786cd4ead (--as-is); the game plays a pin filled from engine /tmp/v25_f8b/tree/chroma-engine/v22-speedpass, lib /tmp/v25_f8b/tree/chroma-library, packs /tmp/v25_f8b/tree/chroma-packs
+engine lives: 1200 (seeds 45-48 x 300 lives x 100 years; Earth with the packs, world on); as DEFAULT has them (--as-is)
+FAIL F8.1 work moments after retiring, lives that did not go back: 13937 weeks in 250 lives (target 0)
+       age 56.31: the credit union's loans to small traders
+       age 56.35: the shop's pay and the lean year
+       age 56.37: the shop's pay and the lean year
+       age 56.38: the empty shop on the high street
+FAIL F8.2 work moments in a week retired and not working, any life: 17273 weeks (target 0)
+       age 54.73: the new machines at the works
+       age 55.04: hiring at the workshop
+       age 55.23: the fate of the old mill
+       age 55.42: the fate of the old mill
+     reported: lives that retired 1146; went back to work after retiring 301; jobs taken while retired without a career pick that week (a title or another path) 11
+     moments: the empty shop on the high street (1880); the credit union's loans to small traders (1848); the shop's pay and the lean year (1847); the market square's trading hours (1828); the rival drawing the newcomers away (935); the rival who wants the town's backing (928); the rival's plan for the whole sphere (927); what the book about the town will say (773); what the town theatre stages next season (743); who gets the arts fund's money this year (734)
+f8_after: FAIL (3914 s)
