@@ -699,10 +699,11 @@ class AnswersMixin:
                     self.wa_q.append(dict(n=int(n_), key="rival_push", sphere=j, cid=int(x_["cid"]), until=int(t) + 8))
 
     def wa_take(self, t, pending):
-        """The moments waiting this week (one a life, not one with a moment already): (life, key, sphere, cid)."""
+        """The moments waiting this week (one a life, not one with a moment already): (life, key, sphere, cid). A decision
+        for others waits only while its life is Known: one that waited past the phase's end is not taken."""
         out = []; seen = set(pending)
         for x_ in sorted(self.wa_q, key=lambda y_: (y_["key"] != "decide", y_["until"])):
-            if x_["n"] in seen:
+            if x_["n"] in seen or (x_["key"] == "decide" and not self.wa_known[x_["n"]]):
                 continue
             seen.add(x_["n"]); out.append(x_)
         return out
