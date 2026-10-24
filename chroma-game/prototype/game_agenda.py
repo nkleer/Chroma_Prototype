@@ -13,6 +13,7 @@ Part of class Game (game.py), which inherits AgendaMixin. What it reads, from th
 - Without agenda (v24's engine), the agenda is read from aims(S, n): the aims, their steps and strength; no capacity,
   forks or bottlenecks, and the screen says so rather than inventing them.
 The words for sizes are the game's (IMPORTANCE, STATE_SAY, LEAN, LOAD): never a number before a choice."""
+import re
 import zlib
 
 import numpy as np
@@ -256,7 +257,8 @@ class AgendaMixin:
             money=money_say(cost.get("money"), have),
             overlaps=[self._with_say(w, names) for w in pv.get("overlaps") or []],
             window=(f"opens at {int(win['opens'])}, " if win.get("opens") is not None and win["opens"] > self.age() else "")
-                   + (f"closes at {int(win['closes'])}" if win.get("closes") is not None else ""),
+                   + ((f"closed at {int(win['closes'])}" if win.get("closed") else f"closes at {int(win['closes'])}")
+                      if win.get("closes") is not None else ""),
             unknown=[str(x) for x in pv.get("unknown") or []],
             exit=(ex.get("say", "") if isinstance(ex, dict) else str(ex or "")))
 
@@ -367,11 +369,34 @@ class AgendaMixin:
         sets = {int(k): v for k, v in (sets or {}).items()}
         if any(v not in PACES for v in sets.values()):
             return None, "no such pace"
+        slot = {str(f.get("id")): f.get("slot") for f in (F.agenda(S, 0) or {}).get("forks") or []}
         r = F.apply_review(S, 0, dict(choices={str(k): str(v) for k, v in choices.items()}, set=sets))
         if isinstance(r, str):
             return None, r
         self.history.setdefault("agenda", []).append((round(self.age(), 1), "review", dict(choices), sets))
-        return self.agenda_view(S), None
+        A = self.agenda_view(S)
+        if A is not None:   # an answer the Engine refused (a closed window, a fork that lapsed) is said in plain words,
+            # never passed over as if it applied
+            A["errors"] = [self._refusal_words(str(e), S, choices, slot) for e in r.get("errors") or []]
+        return A, None
+
+    def _refusal_words(self, e, S, choices, slot):
+        """An answer the Engine refused, in the game's words (Vision 10-24: no ids or option keys). slot: each fork's
+        aim before the answers applied."""
+        m = re.search(r"closed at age ([0-9.]+)", e)
+        if m:
+            return f"that choice has passed: the window closed at {int(float(m.group(1)))}"
+        if e.startswith(("no such fork", "no fork")):
+            return "that decision is no longer waiting: it was settled, or its time passed"
+        if e.startswith("not an option here"):
+            key = e.split(":", 1)[-1].strip()
+            for j in [slot.get(str(i)) for i, v in choices.items() if str(v) == key]:
+                pv = F.preview(S, 0, int(j)) if j is not None else None
+                win = (pv or {}).get("window") or {}
+                if win.get("closed") and win.get("closes") is not None:
+                    return f"that choice has passed: the window closed at {int(win['closes'])}"
+            return "that choice is no longer open"
+        return e
 
     # ---- fork cards (GAME aim_forks): the Engine puts at most one fork a week (S["aim_fork"], an id or -1) at the
     # situation pause, in place of the next optional ask; with aim_forks "every" it is always asked. When the week's
