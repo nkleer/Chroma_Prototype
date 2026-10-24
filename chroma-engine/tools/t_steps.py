@@ -106,9 +106,11 @@ engine.run_steps() is engine.run() pausing six times a week for the game. On a f
  29. reactions, clashes and seeking (react, clash, seek; v25 lane C), Earth and packs with the clash, seeking and repair
      moments, world on: world off the switches move nothing; react alone and all on, run_steps() lives as run() and the
      lives move; every clash has stakes, comes from 10, one a sphere (every sphere its dispute touches) in 2 years, before
-     18 one in 2 years in any sphere, and 3 in 10 (one before 18 counting half); every clash, seeking or repair moment met took the place of an ask; seeking moves no colour and admits only
-     through a place; states carry durations and k stays at most 1/3; the caller's demand (P["scn"]) is recorded with
-     its tag, response and stakes.
+     18 one in 2 years in any sphere, and 3 in 10 (one before 18 counting half); every clash, seeking or repair moment
+     met took the place of an ask (for a played life the week's own moment too, and at least half its clashes come as
+     moments); seeking moves no colour and admits only through a place; states carry durations and k stays at most 1/3;
+     the caller's demand (P["scn"]) is recorded with its tag, response and stakes, and two in one week (one dispute)
+     each on its own record.
  30. WA3, a standing level reaches its town (wa_reach, v25), world on: with the world answers off, nothing; on, run_steps
      lives as run() and the lives move; an act on the town's sphere from the close circle reads at most 1 + REACH[level, 2]
      and a founding nudges the town by its reach / 3 (off: 3 and the whole nudge); a level-0 life's presence leaves the
@@ -1865,6 +1867,7 @@ if "aims_v2" in E.DEFAULT:
 # 29. reactions, clashes and seeking (react, clash, seek; v25 lane C, decisions #2 to #4), Earth and packs, world on
 if "react" in E.DEFAULT and "clash" in batch.load_batch.__code__.co_varnames:
     t0 = time.process_time(); fails = []
+    import world_react as WRX_
     L26_ = batch.load_batch("earth", packs=list(batch.PACKS), clash=True, seek=True)
     kw = dict(N=6, years=18, seed=5, lib=L26_, log_lives=(0,))
     P0_ = dict(E.DEFAULT, world=True)
@@ -1906,7 +1909,7 @@ if "react" in E.DEFAULT and "clash" in batch.load_batch.__code__.co_varnames:
     d2_, d3_ = digest(o2_), digest(o3_)
     if d2_ != d3_:
         fails.append("all on: run_steps not the lives of run() (" + " ".join(sorted(k_ for k_ in d2_ if d2_[k_] != d3_.get(k_))[:6]) + ")")
-    rx_ = o2_["react"]; cl_ = rx_["clash"]; thr_ = 0.25
+    rx_ = o2_["react"]; cl_ = rx_["clash"]; thr_ = WRX_.CLASH_DEFAULT["thr"]
     for n_, wk_ in enumerate(cl_["weeks"]):   # no clash without stakes; from 10; one a sphere (every sphere the
         # dispute touches) in 2 years; before 18 one in 2 years in any sphere; 3 in 10 years, one before 18 counting .5
         for i_, (t_, sp_, k_, a_) in enumerate(wk_):
@@ -1916,7 +1919,7 @@ if "react" in E.DEFAULT and "clash" in batch.load_batch.__code__.co_varnames:
                 fails.append(f"life {n_}: clash at week {t_}, sphere {sp_}, stakes {k_:.2f} breaks a ceiling"); break
     met_ = sum(1 for n_, t_, s_ in o2_["life_events"] if s_ in V25_S_)   # each v25 moment met took an ask's place
     n_put_ = cl_["replaced_event"] if "replaced_event" in cl_ else 0
-    n_put_ += cl_["dropped_natural"]
+    n_put_ += cl_["dropped_natural"] + cl_.get("replaced_week", 0)   # (a played life's: the week's own moment too)
     if met_ > n_put_:
         fails.append(f"{met_} clash, seeking or repair moments met, only {n_put_} asks replaced")
     for n_, lg_ in enumerate(rx_["log"]):   # seeking and repair answers never take a colour step
@@ -1927,6 +1930,9 @@ if "react" in E.DEFAULT and "clash" in batch.load_batch.__code__.co_varnames:
             fails.append(f"life {n_}: admitted with no access or place"); break
     if not cl_["put"]:
         fails.append("no clash put in 6 lives x 18 years")
+    p_put_, p_mom_ = len(cl_["weeks"][0]), len(cl_["moments"][0])   # the played life (log_lives 0): its clashes as moments
+    if p_mom_ > p_put_ or (p_put_ >= 2 and p_mom_ * 2 < p_put_):
+        fails.append(f"the played life: {p_mom_} clash moments of {p_put_} clashes")
     # the caller's demand (P["scn"]): its tag and a forced response reach the record, through the same path
     # and its stakes, given as a number, are taken as given (a demand recorded with them, or a dispute opened that week)
     P4_ = dict(P2_, scn=True); g = E.run_steps(**kw, P=P4_); msg = next(g); sent_, st_sent_, st_ok_ = False, -1, None
@@ -1935,10 +1941,17 @@ if "react" in E.DEFAULT and "clash" in batch.load_batch.__code__.co_varnames:
         if kind == "week" and not sent_ and S["age"] >= 17.8:   # (late: the record keeps the last 40)
             S["scn_demand"][0].append(dict(source=dict(key="household"), tag="t26", response="accept")); sent_ = True
         if kind == "week" and st_sent_ < 0 and S["age"] >= 16.0:
-            S["scn_demand"][1].append(dict(source=dict(key="household"), tag="t26s", stakes=0.9)); st_sent_ = t
+            pu_ = [0.0, 0.0, 1.0, 0.0, 0.0]   # two caller demands in one week, alike (one dispute): each its own record
+            S["scn_demand"][1].append(dict(source=dict(key="household"), tag="t26s", stakes=0.9, purpose=pu_))
+            S["scn_demand"][1].append(dict(source=dict(key="class"), tag="t26t", stakes=0.9, purpose=pu_)); st_sent_ = t
         if kind == "end" and t == st_sent_:
             st_ok_ = any(d_.get("tag") == "t26s" and d_["stakes"]["score"] == 0.9 for d_ in S["demands"][1]) \
                 or any(d_["since"] == t for d_ in S["disputes"][1])
+            for tg2_, key2_ in (("t26s", "household"), ("t26t", "class")):
+                rc_ = [d_ for d_ in S["demands"][1] if d_.get("tag") == tg2_]
+                if len(rc_) != 1 or rc_[0]["source"]["key"] != key2_:
+                    fails.append(f"scn: two caller demands in a week, {tg2_} ({key2_}) on "
+                                 f"{[(d_['id'], d_['source']['key']) for d_ in rc_]}")
         try:
             msg = g.send(val)
         except StopIteration as done:
@@ -1953,8 +1966,8 @@ if "react" in E.DEFAULT and "clash" in batch.load_batch.__code__.co_varnames:
     print(f"{'PASS' if not fails else 'FAIL'}  reactions, clashes and seeking (react, clash, seek), world on: world off "
           f"nothing; react alone and all on, run_steps lives as run() and the lives move; {cl_['put']} clashes, every one "
           f"with stakes and within the ceilings; {met_} clash, seeking or repair moments met, each in place of an ask; "
-          f"{n_seen_} clash cards seen at the situation pause; seeking moves no colour and admits only through a place; "
-          f"the caller's demand recorded with its tag, response and stakes"
+          f"{n_seen_} clash cards seen at the situation pause; the played life's clashes {p_put_}, {p_mom_} as moments; seeking moves no colour and admits only through a place; "
+          f"the caller's demand recorded with its tag, response and stakes (two in a week: each tag on its own record)"
           f"{'' if not fails else '; ' + '; '.join(fails[:4])} ({time.process_time() - t0:.0f} s)")
 # 30. WA3, a standing level reaches its town (wa_reach, v25; world_people_answers.WA_REACH), world on
 if "wa_reach" in E.DEFAULT:

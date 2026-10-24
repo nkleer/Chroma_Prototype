@@ -208,10 +208,10 @@ def c1():
             if free:
                 n = st["n"] = free[0]; st["t0"] = t
                 for k_ in ("household", "congregation"):
-                    S["scn_demand"][n].append(dict(source=dict(key=k_), purpose=col(B=.6, R=.4), stakes=0.6, power=.8,
+                    S["scn_demand"][n].append(dict(source=dict(key=k_), purpose=col(B=.6, R=.4), stakes=0.9, power=.8,
                                                    control=.7, legit=.4, tag=f"C1{k_}"))
         if "t0" in st and kind == "week" and st["t0"] < t <= st["t0"] + 8 * 13 and (t - st["t0"]) % 13 == 0:
-            S["scn_demand"][st["n"]].append(dict(source=dict(key="household"), purpose=col(B=.6, R=.4), stakes=0.6,
+            S["scn_demand"][st["n"]].append(dict(source=dict(key="household"), purpose=col(B=.6, R=.4), stakes=0.9,
                                                  power=.8, control=.7, legit=.4, tag="C1again"))
         if "t0" in st and kind == "end" and S["clash"][st["n"]] is not None:
             st.setdefault("clash", []).append((t, S["clash"][st["n"]]["id"], list(S["clash"][st["n"]]["holders"])))

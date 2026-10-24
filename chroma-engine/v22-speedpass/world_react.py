@@ -79,13 +79,15 @@ REACT_DEFAULT = dict(
     log_keep=40,
 )
 CLASH_DEFAULT = dict(
-    thr=0.25,              # the stakes at which a demand that conflicts with an aim, need or commitment is a clash
+    thr=0.75,              # the stakes at which a demand that conflicts with an aim, need or commitment is a clash (.25 at
+                           # first: 90% of lives sat at the decade ceiling by 25; at .75 real demand sets the rate)
     age=10.0, sphere_yrs=2.0, decade_n=3,   # ceilings, provisional [C]: from age 10; one per sphere in 2 years; 3 in 10
     young_age=18.0, young_yrs=2.0, young_w=0.5,   # before young_age: one clash in young_yrs across every sphere, and each
                                                   # counts young_w toward the decade's 3 (a youth does not spend it)
     a_major=0.08,          # a clash's colour step, at full stakes (a major demand: 0.05 to 0.15 once)
     merge_cos=0.8,         # two demands one dispute: the same stake and purposes this alike
     wait=7,                # weeks a carried clash waits for an ask to replace; by the eighth it is answered in the background
+    wait_player=26,        # a played life's: from the eighth week it comes on its own moment; only past this, in the background
 )
 SEEK_DEFAULT = dict(
     k_max=1.0 / 3,         # attraction's share of the encounter mix at full independence (Emren's starting suggestion)
@@ -120,13 +122,14 @@ class React:
     (and week() for the caller's demands), reads dnic (this month's change to the niche pull), cur_parts() and takes
     dz (the colour steps, then cleared) into its integrate step."""
 
-    def __init__(self, N, P, seed, WL, FR, clash=False, seek=False):
+    def __init__(self, N, P, seed, WL, FR, clash=False, seek=False, players=()):
         self.N = N; self.WL = WL; self.PP = WL.PP; self.FR = np.asarray(FR, float)
         self.FRc = self.FR - self.FR.mean(1, keepdims=True)   # the tension, centred: an even mix sits with anything at 0
         self._nmp = None
         rp = dict(REACT_DEFAULT); rp.update(P.get("react_par") or {}); self.p = rp
         cp = dict(CLASH_DEFAULT); cp.update(P.get("clash_par") or {}); self.cp = cp
         sp = dict(SEEK_DEFAULT); sp.update(P.get("seek_par") or {}); self.sp = sp
+        self.players = {int(x_) for x_ in players}   # the logged (played) lives: their clashes come as moments
         self.clash_on = bool(clash); self.seek_on = bool(seek); self.scn_on = bool(P.get("scn"))
         self.rng = np.random.default_rng([int(seed), 2525])
         M = self.M = self.PP.M; self.J = M + len(PERSONS) + 2
@@ -164,7 +167,9 @@ class React:
         # clashes (clash, decision #3)
         self.clash = [None] * N; self.clash_now = [[] for _ in range(N)]; self.disputes = [[] for _ in range(N)]
         self.cl_last = np.full((N, len(SPHERES)), -10 ** 9, np.int64); self.cl_hist = [[] for _ in range(N)]
-        self.cl_wk = [[] for _ in range(N)]   # every clash put: (week, sphere, stakes), for the record and the checks
+        self.cl_wk = [[] for _ in range(N)]      # every clash put: (week, spheres, stakes, age), for the record and the checks
+        self.cl_mom = [[] for _ in range(N)]     # the weeks a clash came as its moment (answered on the card)
+        self.cl_block = [[] for _ in range(N)]   # the clashes a ceiling held back: (week, sphere, decade or young, stakes)
         self.carry = {}   # life -> dispute id of a clash waiting for its moment
         self.cl_stats = dict(put=0, carried=0, background=0, merged=0, repeat_held=0, ceiling=0, by_colour_only=0,
                              replaced=0, dropped_natural=0, family={k_: 0 for k_ in CLASH_KINDS},
@@ -590,9 +595,10 @@ class React:
             return dd["q_rest"][i] if dd["ext"][i] else None   # where they go, by the time spent there
         return None
 
-    def _respond(self, t, age, dd, i, r, by_player, ctx, clash=None, a_k=1.0, succ=None):
+    def _respond(self, t, age, dd, i, r, by_player, ctx, clash=None, a_k=1.0, succ=None, dm=None):
         """Response r to demand i: the reaction, the act, the learning, the consequences and the colour step, kept
-        apart; the records (S["demands"], S["responses"], S["react_log"]). clash: the dispute when it came as one."""
+        apart; the records (S["demands"], S["responses"], S["react_log"]). clash: the dispute when it came as one; dm:
+        its demand's record, made when the clash was put (one record for one demand)."""
         rp = self.p; PP = self.PP
         n = int(dd["nd"][i]); j = int(dd["jd"][i]); kn = dd["kn"][i]
         leg, ctl, dep, warm, ext = dd["leg"][i], dd["ctl"][i], dd["dep"][i], dd["warm"][i], dd["ext"][i]
@@ -681,8 +687,9 @@ class React:
         Xi = dd["X"][i]; con = self.COEF[r] * Xi
         top = [TERMS[x_] for x_ in np.argsort(-np.abs(con)) if abs(con[x_]) > 1e-9]
         why = list(dict.fromkeys(WHY_OF[x_] for x_ in top))[:2]
-        self.n_id += 1
-        dm = self._demand_rec(t, dd, i, self.n_id)
+        if dm is None:
+            self.n_id += 1
+            dm = self._demand_rec(t, dd, i, self.n_id)
         rs = dict(demand=dm["id"], response=RESPONSES[r], by_player=bool(by_player), state=dict(kind=st[0], level=round(st[1], 3)),
                   act=act, learn=dict(trust=round(float(dtr), 3), works=float(neg_ok) if r == NEG else None, held=held_),
                   effects=effects, drift=drift, comply=bool(comply), convinced=bool(convinced and not constrained),
@@ -692,7 +699,9 @@ class React:
             rs["tag"] = dm["tag"]
         if clash is not None:
             rs["clash"] = clash
-        self.demands[n].append(dm); self.responses[n].append(rs)
+        if not any(x_ is dm for x_ in self.demands[n]):   # (a clash answered the week it was put: recorded once)
+            self.demands[n].append(dm)
+        self.responses[n].append(rs)
         lg = self.log[n]; lg.append(dict(t=int(t), age=round(float(age), 2), demand=dm["id"], source=dm["source"], tag=dm.get("tag"),
                                          response=RESPONSES[r], layers=dict(state=rs["state"], act=act, learn=rs["learn"],
                                                                             effects=effects, drift=drift),
@@ -975,7 +984,8 @@ class React:
         cp = self.cp; D = len(dd["nd"]); hold = np.zeros(D, bool)
         if age < cp["age"]:
             return hold
-        cand = np.nonzero(dd["stakes"] >= cp["thr"])[0]
+        cand = np.nonzero((dd["stakes"] >= cp["thr"]) & (dd["jd"] != self.JN))[0]   # nature alone is never a clash: its
+        # stakes meet a person only through a human commitment (a loan, a promise), which comes as that person's demand
         # colour alone never starts one: count the demands whose colours oppose theirs but carry no stakes
         self.cl_stats["by_colour_only"] += int(((dd["fp"] < -0.3) & (dd["stakes"] < cp["thr"])).sum())
         done = set()
@@ -1018,8 +1028,11 @@ class React:
             young_ = age < cp["young_age"]
             last_any_ = max((t_ for t_, _ in hist_), default=-10 ** 9)
             touched = sorted({max(s_, 0) for s_ in sps} | ({SPHERES.index(x_) for x_ in dsp["spheres"]} if dsp is not None else set()))
-            if any(t - self.cl_last[n, s_] < 52 * cp["sphere_yrs"] for s_ in touched) or dec_ >= cp["decade_n"] - 1e-9 \
-                    or (young_ and t - last_any_ < 52 * cp["young_yrs"]):
+            blk_ = ("sphere" if any(t - self.cl_last[n, s_] < 52 * cp["sphere_yrs"] for s_ in touched) else
+                    "decade" if dec_ >= cp["decade_n"] - 1e-9 else
+                    "young" if young_ and t - last_any_ < 52 * cp["young_yrs"] else None)
+            if blk_ is not None:
+                self.cl_block[n].append((int(t), blk_, round(float(dd["stakes"][i]), 3)))
                 # (every sphere the dispute touches: one a sphere in 2 years, whichever sphere it comes through)
                 self.cl_stats["ceiling"] += 1
                 continue
@@ -1045,18 +1058,24 @@ class React:
             hold[group] = True
             self.n_id += 1   # the clash's demand, recorded this week (S["demands"]) and named by its id
             dm_ = self._demand_rec(t, dd, i, self.n_id); dm_["clash"] = dsp["id"]; self.demands[n].append(dm_)
+            for g_ in group[1:]:   # each demand merged into the dispute keeps its own record (its source, its caller's tag)
+                self.n_id += 1
+                dg_ = self._demand_rec(t, dd, g_, self.n_id); dg_["clash"] = dsp["id"]; self.demands[n].append(dg_)
             rec = dict(id=dsp["id"], demand=dm_["id"], spheres=dsp["spheres"], holders=list(dsp["holders"]), stakes=self._stakes_say(dd, i, key), options=[k_ for k_, v_ in feas.items() if v_], give_in_as=gia,
                        sphere=SPHERES[sp] if sp >= 0 else None, setting_id=j if j < self.M else -1, k=round(float(dd["stakes"][i]), 3),
                        setting=self.CLASH_SET[setting], holder=self._holder(n, j), ally=self._ally(n, j), scene=self._scene(n, dd, i),
                        carried=False)
-            sub = self._dd_sub(dd, i)
+            sub = self._dd_sub(dd, i); sub["dm"] = dm_   # (its answer completes this record, not a second one)
             band = 0 if age < 20 else 1
             av_ = getattr(self, "avail", None)   # (the moments open to them this week: stage, age, conditions, once)
-            ss = [s_ for s_ in getattr(self, "CL_S", {}).get((setting, band), []) if self.AGE[s_, 0] <= age <= self.AGE[s_, 1]
-                  and (av_ is None or av_[n, s_])]
-            if ss and n not in self.carry:   # the Library's clash moment for it: it waits for its week, as a want's moment does
-                s_ = ss[int(self.rng.integers(len(ss)))]
-                self.carry[n] = dict(dispute=dsp, sub=sub, s=s_, t=int(t), rec=rec, feas=feas, gia=gia, group=[dd["kn"][g_] for g_ in group])
+            ss_all = [s_ for s_ in getattr(self, "CL_S", {}).get((setting, band), []) if self.AGE[s_, 0] <= age <= self.AGE[s_, 1]]
+            ss = [s_ for s_ in ss_all if av_ is None or av_[n, s_]]
+            play_ = n in self.players   # a played life's clash waits for its moment even when none is open this week
+            if (ss or (play_ and ss_all)) and n not in self.carry:   # the Library's clash moment for it: it waits for its
+                pool_ = ss or ss_all                                    # week, as a want's moment does
+                s_ = pool_[int(self.rng.integers(len(pool_)))]
+                self.carry[n] = dict(dispute=dsp, sub=sub, s=s_, t=int(t), rec=rec, feas=feas, gia=gia, group=[dd["kn"][g_] for g_ in group],
+                                     player=play_, ss=ss_all)
                 rec["carried"] = True; rec["moment"] = int(s_); self.cl_stats["carried"] += 1
             else:   # no moment for it: answered in the background, by the same odds
                 self.cl_stats["background"] += 1
@@ -1114,7 +1133,7 @@ class React:
             sub = dict(sub); sub["has_c"] = sub["has_c"] if gia == "constrained" else np.zeros(1, bool)
             if gia == "constrained":
                 sub["ext"] = np.zeros(1, bool); sub["dep"] = np.maximum(sub["dep"], 1.0); sub["ctl"] = np.maximum(sub["ctl"], self.p["constrained"])
-        rs = self._respond(t, age, sub, 0, r, by_player, ctx, clash=dsp["id"], succ=succ)
+        rs = self._respond(t, age, sub, 0, r, by_player, ctx, clash=dsp["id"], succ=succ, dm=sub.get("dm"))
         rs["family"] = fam; rs["give_in_as"] = gia if fam == "give_in" else None
         self.cl_stats["family"][fam] += 1
         if fam == "give_in":
@@ -1149,8 +1168,9 @@ class React:
     def clash_week(self, t, WL):
         """After the world's week: each clash waiting for its moment past clash_par wait weeks is answered in the
         background (v25_fire brings the moment in a week with an ask it can take the place of)."""
+        self._week = int(t)
         for n, c_ in list(self.carry.items()):
-            if t - c_["t"] > self.cp["wait"]:
+            if t - c_["t"] > self.cp["wait_player" if c_.get("player") else "wait"]:
                 del self.carry[n]
                 sub = c_["sub"]; r = int((sub["pr"][0].cumsum() > self.rng.random()).argmax())
                 self._clash_apply(t, t / 52.0, n, c_["dispute"], sub, r, False, self._last_ctx, c_["rec"], c_["gia"])
@@ -1199,7 +1219,7 @@ class React:
         """After the act: a carried clash moment answered (its option's family; the player's pick for a played life)."""
         for n, c_ in self.clash_on_week(s).items():
             del self.carry[n]
-            self.cl_stats["replaced"] += 1
+            self.cl_stats["replaced"] += 1; self.cl_mom[n].append(int(t))
             tg = self.CLASH_TAG[c_["s"]]; k_ = int(a[n])
             fam = CLASH_KINDS[tg[k_]] if 0 <= k_ < len(tg) and tg[k_] >= 0 and not idle[n] else "give_in"
             self._clash_apply(t, t / 52.0, n, c_["dispute"], c_["sub"], fam, n in players, self._last_ctx, c_["rec"],
@@ -1216,6 +1236,10 @@ class React:
         waiting = [(n, c_["s"], "clash") for n, c_ in self.carry.items()] + \
                   [(n, c_["s"], "seek") for n, c_ in getattr(self, "sk_carry", {}).items() if n not in self.carry]
         for n, s_, k_ in waiting:
+            c_ = self.carry[n] if k_ == "clash" else None
+            if c_ is not None and c_.get("player") and not PP.dead[n]:
+                self._fire_player(n, c_, fire, frc, WL)   # a played life: the first optional ask, else its own moment
+                continue
             if not self._open(n, s_) or PP.dead[n]:
                 continue
             pend = WL.pending.get(n)
@@ -1236,6 +1260,36 @@ class React:
             frc[n, s_] = True
             if k_ == "clash":   # S["clash"]: the clash this week's moment puts (the Game's card)
                 self.clash[n] = self.carry[n]["rec"]
+
+    def _fire_player(self, n, c_, fire, frc, WL):
+        """A played life's clash (the logged lives, by_player): it takes the first optional ask in its eight weeks: a life
+        event drawn by its rate, a caught-between or odd-one-out moment, or the week's own moment, which the game may ask;
+        never a death, birth, want's or decision's moment. A moment of its setting open that week is taken first; from the
+        eighth week it comes on its own moment, open or not (its age window and band hold)."""
+        PP = self.PP
+        pend = WL.pending.get(n)
+        eyes = pend is not None and pend[1] in ("caught", "odd")
+        other = frc[n].copy()
+        if eyes:
+            other[pend[2]] = False
+        if other.any():
+            return   # the world brings something else this week: it waits
+        s_ = c_["s"] if self._open(n, c_["s"]) else next((x_ for x_ in c_.get("ss", ()) if self._open(n, x_)), None)
+        if s_ is None:
+            if self._week - c_["t"] < self.cp["wait"] + 1:
+                return   # none of its moments open yet: it waits, up to the eighth week
+            s_ = c_["s"]
+        if eyes:
+            frc[n, pend[2]] = False; fire[n, pend[2]] = False; WL.pending.pop(n, None)
+            PP.eyes_q.pop(n, None); PP.eyes_off.pop(n, None)
+            self.cl_stats["dropped_natural"] += 1
+        elif fire[n].any():
+            self.cl_stats["replaced_event"] = self.cl_stats.get("replaced_event", 0) + 1
+        else:
+            self.cl_stats["replaced_week"] = self.cl_stats.get("replaced_week", 0) + 1
+        c_["s"] = int(s_); c_["rec"]["moment"] = int(s_)
+        frc[n, s_] = True
+        self.clash[n] = c_["rec"]
 
     # ------------------------------------------------------------------ seeking (seek, decision #4)
     def seek_month(self, t, age, ctx):
@@ -1526,7 +1580,8 @@ class React:
         kinds = list(GROUP_KINDS) + list(PERSONS) + ["nature", "state"]
         return dict(responses=RESPONSES, kinds=kinds, count=self.count.copy(), drift_by=self.drift_by.copy(),
                     constrained=self.n_constrained, inner=self.n_inner, drifts=self.n_drift, log=self.log,
-                    clash=dict(self.cl_stats, by_sphere=self.cl_stats["by_sphere"].copy(), weeks=[list(x_) for x_ in self.cl_wk])
+                    clash=dict(self.cl_stats, by_sphere=self.cl_stats["by_sphere"].copy(), weeks=[list(x_) for x_ in self.cl_wk],
+                               moments=[list(x_) for x_ in self.cl_mom], blocked=[list(x_) for x_ in self.cl_block])
                     if self.clash_on else None,
                     disputes=self.disputes if self.clash_on else None,
                     seek=dict(self.sk_stats, tried=self.tried) if self.seek_on else None)

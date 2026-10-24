@@ -27,7 +27,7 @@ de2fb10388ea825710f13263ff961c15  rules_titles.py
 888f1f717f7d53bcac8bf5395f935602  run_03_moments.py
 5ddb9be9b06cc9a1d87e32933962e44e  run_04_titles.py
 0056c5c388a022f79f1db37898b0c7cc  run_05_conditions.py
-72857cf14fe9baef4f3174f3b94fcfca  run_06_world.py
+1beefc8e4c9750b2769e48a991e47641  run_06_world.py
 f67d8d7e8e0d3972e9791608451ee961  run_07_body.py
 222ce3b326d1d9335edfa565b54c094c  run_08_fixes.py
 1cac1627cb5986bbeeb5ab79fb82f8b0  run_09_week.py
@@ -68,7 +68,7 @@ e8ad7318d10e0380149de6fe4af6f939  world_people_roster.py
 6f32b3640a897c2da559461f9b8be963  world_people_settings.py
 8bac6b36afa6a8b2655a342d499c2567  world_people_ticks.py
 14143925551076d4c86d0b5e475c5fff  world_people_views.py
-5ea8eb8e505bc09702997669cea3e6df  world_react.py
+f7f18449f6b1981262e8f9d561ed5629  world_react.py
 2c13374e7b787774e6c7288066975cb4  world_society.py
 4e1a4fb85ca1cceab01e47da71b8c543  world_spheres.py
 37e195c45b9caf1b5a76013a998fe5bc  world_years.py
