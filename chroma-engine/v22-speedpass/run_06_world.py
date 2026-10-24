@@ -13,6 +13,8 @@
                 WL.land_setup(P); company = WL.land.company
             if NAT_ON:    # v25 lane D: national standing (WorldLink.nat, world_national.py)
                 WL.nat_setup(P)
+                if RON:   # each summit title's own spheres (the wider step, National._wider)
+                    WL.nat.summits(L["ROLES"], NT_)
                 if AIM2_ON:   # aim_x from aims v2's agenda: an aim's next rung a standing-3 title (National._aimed)
                     WL.nat.AG = AG
                     WL.nat.top = {nm_ for nm_, sd_ in zip(L["ROLES"]["names"], L["ROLES"]["standing"]) if sd_ == 3}

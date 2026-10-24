@@ -399,6 +399,11 @@ NATIONAL_CLIMB = dict(rung_years=5, base=0.02, aim_x=1.5, movement_share=0.01, m
                       # a seat's term in years (drawn when taken), its fall or scandal a year, the age it ends by, and a
                       # movement's members or a firm's people past its town (estimates)
                       seat_years=(4, 10), seat_fall=0.05, seat_age=75, past_town=dict(movement=1000, work=200))
+# a summit title's own sphere where its catalogue fields (an office's sphere, its institution's or its sector's) name
+# another or none: the wider step it opens there too (National.summits; NR1, 10-24: without them the army, the arts and
+# discovery summits opened no route's sphere)
+NATIONAL_SUMMIT_SPHERE = {"magnate": "comm", "renowned artist": "arts", "celebrated author": "arts",
+                          "lead actor or actress": "arts", "celebrated inventor": "learn", "keeper of the land": "prod"}
 
 
 

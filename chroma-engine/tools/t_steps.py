@@ -96,7 +96,7 @@ engine.run_steps() is engine.run() pausing six times a week for the game. On a f
      18, phase 2's national only with a seat, a voice or an office, Known by national standing only with a seat or a
      national name (a voice alone is Known only by the heights), and decisions at nation scope only by them; with aims
      v2 the national pack's route fields are on the agenda only with wa_nat_climb on, and aim_x reads an aim whose next
-     rung is a standing-3 seat in the climb's sphere.
+     rung is a standing-3 seat in the climb's sphere; every route's spheres are a summit title's own (NR1).
  28. aims v2 (aims_v2, v25 lane B), Earth and packs with the Library's and the packs' fields (the druid joined), a player's life (forks
      left open but one answered), world off (every field's first two rungs given a deadline) and on: run_steps() lives as
      run() with the agenda, previews and reviews read; the agenda's handed-over names there; every rung reached through
@@ -1692,6 +1692,9 @@ if "wa_nat_climb" in E.DEFAULT and os.path.exists(os.path.join(batch.LIB_DIR, "e
                         fails.append(f"age {S['age']}: at national standing in phase 2 without a seat, a voice or an office")
                     if (nt_.dom[nat_].max(1) < 3).any() if nat_.any() else False:
                         fails.append(f"age {S['age']}: a national voice or seat without level 3 in its domain")
+                    if "tsph" not in seen_ and nt_.tsph is not None:   # NR1: every route's spheres opened by a summit
+                        seen_["tsph"] = [r_["key"] for r_ in nt_.routes
+                                         if not any(nt_.tsph[:, WN_.SPHERES.index(x_)].any() for x_ in r_["spheres"])]
                     pv_ = PP_.place_view(0)
                     if set(pv_.get("national", {})) != set(WN_.KINDS) | {"years_at_rung4"}:
                         fails.append("the place view has no national standing")
@@ -1712,6 +1715,8 @@ if "wa_nat_climb" in E.DEFAULT and os.path.exists(os.path.join(batch.LIB_DIR, "e
         fails.append("no decision at nation scope")
     if not all(seen_["kinds"].values()):
         fails.append(f"a kind never reached: {seen_['kinds']}")
+    if seen_.get("tsph") is None or seen_["tsph"]:
+        fails.append(f"routes whose spheres no summit title opens: {seen_.get('tsph')}")
     # a voice alone (influence, no name, no seat): Known only by the heights, so its nation-scope decisions are a Known
     # life's
     o3_ = nat_steps_(dict(P1_, wa_nat_par=dict(base=dict(recognition=0.0, influence=1.0, authority=0.0), rung_years=0)), False)
