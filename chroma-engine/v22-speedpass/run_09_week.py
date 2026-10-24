@@ -54,6 +54,7 @@
             WL.week(t, dict(w=w, held=held, res=res, stress=stress, outlook=outlook, attr=attr, dead=dead, lens=softmax(k),
                             partner_same=partner_same if ID2 else None, sector=sec_w if RON else None,
                             title_standing=st_w if RON else None, children=alive[:, 5].copy(),   # the cast keeps every child
+                            title_sph=(r_has[:, :NT_] @ WL.nat.tsph) if NAT_ON and RON and t % 52 == 0 and WL.nat.tsph is not None else None,
                             domain_standing=dst_w if RON and len(W_SDI_) else None,
                             gov_office=r_has[:, W_GOV_].any(1) if RON and W_GOV_ else None,
                             head_gov=r_has[:, W_HOG_] if RON and W_HOG_ >= 0 else None,

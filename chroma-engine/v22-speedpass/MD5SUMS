@@ -9,7 +9,7 @@ d04db4713134a752af85c5a53b2bd138  foresee.py
 e943e67e779f03070a7ba8f522cf95d6  life.py
 5b79f1b02f83cb4328e289212ce528f7  parts.py
 213d24ddc17ff3039f77e070f77f7f5c  rarity.json
-e57ab1c4546911fd41bd38dd96f2f4e0  realm_earth.py
+29047fb17452a50d6b9bd7e044d380c1  realm_earth.py
 6296b4db28a3b501630cd92d1a81e8e6  realm_neutral.py
 66a0bff7655152436dfd4595c5a63f31  rules_art.py
 b036ac9829d63c126ac2ef064cf5412d  rules_callings.py
@@ -27,10 +27,10 @@ de2fb10388ea825710f13263ff961c15  rules_titles.py
 888f1f717f7d53bcac8bf5395f935602  run_03_moments.py
 2ea74ed61990cd9c52da901128a47218  run_04_titles.py
 0056c5c388a022f79f1db37898b0c7cc  run_05_conditions.py
-f25d6cb1b499a16dba8e92a9ab90b152  run_06_world.py
+e80523e297ccf1052bfc221242ecaff7  run_06_world.py
 f67d8d7e8e0d3972e9791608451ee961  run_07_body.py
 222ce3b326d1d9335edfa565b54c094c  run_08_fixes.py
-ecd955802c442d7fd2f89facc57d0193  run_09_week.py
+e0c0c98e427926a47d96503202bd3743  run_09_week.py
 5b66eef843f637604a80b9c8fe79dc81  run_10_situation.py
 faaf4321c3ba6c3f203d545fc45c6db7  run_11_choice.py
 acb9e7edff5f1d07b74fba48e70509d5  run_12_commitments.py
@@ -55,7 +55,7 @@ a477bf6814143aacc26c4ae844356bd5  world_link_base.py
 fccb7cc4b9419ae0908ed6a9234d1afe  world_link_life.py
 1fd57f43baa0a4f477630ddc91424545  world_link_rates.py
 bf607af8bd3a90455b698f5c1d1ab143  world_link_week.py
-0ef80f53fbe5d055fa476b9f11808ace  world_national.py
+98ca967e85aa550a42f4d902350fe594  world_national.py
 db23a2713ab3f610cc0f85b2a27d5bbd  world_people.py
 9f9e2481de85387b8298bf6ccffdd5d7  world_people_acts.py
 4ad919ebca7198912c7c9853fd684f65  world_people_answers.py

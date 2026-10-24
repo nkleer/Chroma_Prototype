@@ -53,6 +53,7 @@ class National:
         self.AG = None                                      # aims v2's agenda (run_06 sets it with aims_v2 on)
         self.top = set()                                    # the batch's standing-3 titles (run_06, with the agenda)
         self.route_aim = self._routes()                     # an aim's name -> its route (chroma-packs/national ROUTES)
+        self.R_ = R_; self.tsph = None                      # each summit title's spheres (run_06: summits)
 
     # ------------------------------------------------------------------ the roads (People._standing, monthly)
     def roads(self, mon):
@@ -73,15 +74,38 @@ class National:
         self._yr = int(t // 52)
         self._year(t, S_)
 
+    def summits(self, GR, NT):
+        """Each title's spheres as a summit (NT x 9 bool; standing 2 or more): an office's (LEAD_TITLES), else its
+        institution's, else its sector's, and the realm's NATIONAL_SUMMIT_SPHERE for its own."""
+        from world_keys import INST_KINDS, INST_SPHERE, SECTORS, SECTOR_SPHERE
+        from world_people_base import LEAD_TITLES
+        own = getattr(self.R_, "NATIONAL_SUMMIT_SPHERE", {})
+        m = np.zeros((NT, len(SPHERES)), bool)
+        for i_ in range(NT):
+            if int(GR["standing"][i_]) < 2:
+                continue
+            nm_ = GR["names"][i_]; in_ = int(GR["institution"][i_]) if "institution" in GR else -1
+            se_ = int(GR["sector"][i_]) if "sector" in GR else -1
+            sp_ = (LEAD_TITLES[nm_][1] if nm_ in LEAD_TITLES else INST_SPHERE[INST_KINDS[in_]] if in_ >= 0 and INST_SPHERE[INST_KINDS[in_]]
+                   else SECTOR_SPHERE[SECTORS[se_]] if se_ >= 0 else None)
+            for x_ in (sp_, own.get(nm_)):
+                if x_:
+                    m[i_, SPHERES.index(x_)] = True
+        self.tsph = m
+        return m
+
     def _wider(self, S_):
         """Each life's spheres at a route's wider step (N x 9): rung_years at rung 4, a summit title (standing 2 or more:
-        every sphere it is in, here every sphere the life is at rung 3 or more), or a movement or firm past its town."""
+        its own spheres, summits; and every sphere the life is at rung 3 or more), or a movement or firm past its town."""
         PP = self.PP; C = self.C
         rg = np.floor(np.asarray(PP.rung, float)) if hasattr(PP, "rung") else np.zeros((self.N, len(SPHERES)))
         w = self.r4y >= C["rung_years"]
         ts = S_.get("title_standing") if isinstance(S_, dict) else None
         if ts is not None:
             w |= ((np.asarray(ts, float) >= 2)[:, None] & (rg >= 3))
+        tp = S_.get("title_sph") if isinstance(S_, dict) else None
+        if tp is not None:   # NR1: a summit opens its own sphere, whatever its rung there (a general's army, a minister's state)
+            w |= np.asarray(tp, bool)
         for g_, js_ in (("movement", ("rule", "gather")), ("work", ("comm", "prod"))):
             led = ((PP.skind == G[g_]) & (PP.srank >= 0.85) & (PP.ssize >= C["past_town"][g_])).any(1)
             for s_ in js_:

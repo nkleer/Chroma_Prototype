@@ -44,7 +44,7 @@ def _js(v):
     return v
 
 
-CNT = dict(puts=0, answered=0, merged_pairs=0, settled_first=0, deadline_week=0, paused_close=0, arrived=0)
+CNT = dict(puts=0, answered=0, merged_pairs=0, settled_first=0, deadline_week=0, paused_close=0, arrived=0, title_after_close=0)
 CL = dict(puts=[])   # every clash put: (life, week, key, dispute id, n_asked)
 AG_REC = dict(arr=[])   # every arrival: (life, slot, field, rung reached, years on the rung, share of them kept at, week)
 
@@ -68,11 +68,10 @@ def reset():
     V.clear(); VN.clear(); INST.clear(); PLAYERS.clear(); CL["puts"].clear(); AG_REC["arr"].clear()
     for k_ in CNT:
         CNT[k_] = 0
-    _seen.clear(); _answers.clear()
+    _seen.clear()
 
 
 _seen = {}      # (life, dispute id) -> (sig, holders) at its last put
-_answers = {}   # id(record) -> times answered
 
 
 def install():
@@ -152,9 +151,11 @@ def install():
         return hold
 
     def _ap(self, t, age, n, dsp, sub, r_or_family, by_player, ctx, rec, gia, succ=None):
+        twice = "answer" in rec   # (its answer completes the record: a record already answered is answered again;
+        # not by id(rec), which a later record can reuse once an answered one is let go)
         rs = _ap0(self, t, age, n, dsp, sub, r_or_family, by_player, ctx, rec, gia, succ=succ)
-        k = id(rec); _answers[k] = _answers.get(k, 0) + 1; CNT["answered"] += 1
-        if _answers[k] > 1:
+        CNT["answered"] += 1
+        if twice:
             bad("CL0", "a clash answered twice", n, t, dispute=dsp["id"])
         if rec.get("demand") is None:
             bad("CL0", "a clash with no demand on its record", n, t, dispute=dsp["id"])
@@ -175,7 +176,8 @@ def install():
         return out
 
     def _snap(s):
-        return dict(wclose=s.wclose.copy(), st=s.st.copy(), rung=s.rung.copy(), f=s.f.copy(), wround=s.wround.copy())
+        return dict(wclose=s.wclose.copy(), st=s.st.copy(), rung=s.rung.copy(), f=s.f.copy(), wround=s.wround.copy(),
+                    nlog=len(s.log))
 
     def _after(s, t, pre):
         sh = s.rung.shape
@@ -188,14 +190,20 @@ def install():
             f, r = int(s.f[n, j]), int(min(s.rung[n, j], F["nr"][int(s.f[n, j])] - 1))
             if not (bool(F["w_pstop"][f, r]) and float(F["w_dyrs"][f, r]) >= 0):
                 bad("AM0", "a pause moved a deadline", n, t, field=F["names"][f], rung=r, was=int(wc0[n, j]), now=int(s.wclose[n, j]))
-        # arrivals: never after the window closed without a way round; in the closing week they count
+        # arrivals: never after the window closed without a way round; in the closing week they count. A title of
+        # theirs held, gained through the world's own rules, is a demonstrated outcome, not the window's (decisions:
+        # "distinguish effort-based progress, external windows and demonstrated outcomes"): read, counted apart
         up = same & (s.rung > rg0)
         tr = getattr(s, "_lg", None)
+        how = {(x["life"], x["slot"]): x.get("how") for x in s.log[pre["nlog"]:] if x["what"] == "arrived"}
         for n, j in zip(*np.nonzero(up)):
             CNT["arrived"] += 1
             if wc0[n, j] >= 0 and t > wc0[n, j] and not wr0[n, j]:
-                bad("AM0", "a rung reached after its window closed", n, t, field=F["names"][int(s.f[n, j])], rung=int(rg0[n, j]),
-                    closed=int(wc0[n, j]))
+                if how.get((int(n), int(j))) == "its title held":
+                    CNT["title_after_close"] += 1
+                else:
+                    bad("AM0", "a rung reached after its window closed", n, t, field=F["names"][int(s.f[n, j])],
+                        rung=int(rg0[n, j]), closed=int(wc0[n, j]), how=how.get((int(n), int(j))))
             if wc0[n, j] >= 0 and t == wc0[n, j]:
                 CNT["deadline_week"] += 1
             if tr is not None:
