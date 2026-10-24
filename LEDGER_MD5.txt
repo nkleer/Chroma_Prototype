@@ -1,0 +1,29 @@
+# LA, LB and NR1 on Emren's PC (kept there; judged on the PC later)
+
+- seed 41 start 2026-10-24T08:17:32Z
+- seed 44 start 2026-10-24T08:17:32Z
+- seed 43 start 2026-10-24T08:17:32Z
+- seed 42 start 2026-10-24T08:17:32Z
+- nat 41 start 2026-10-24T08:30:28Z
+- la 43 start 2026-10-24T08:30:28Z
+- la 42 start 2026-10-24T08:30:28Z
+- la 44 start 2026-10-24T08:30:28Z
+- la 41 start 2026-10-24T08:30:28Z
+- nat 42 start 2026-10-24T08:30:28Z
+- la/nat 41-44 on bcb1017 (started 08:30:28Z) stopped 2026-10-24T08:52:04Z on Release's order; partial files in ~/chroma/jobs/final/killed_bcb1017/
+- nat 42 start 2026-10-24T08:52:18Z
+- la 41 start 2026-10-24T08:52:18Z
+- la 44 start 2026-10-24T08:52:18Z
+- la 42 start 2026-10-24T08:52:18Z
+- la 43 start 2026-10-24T08:52:18Z
+- nat 41 start 2026-10-24T08:52:18Z
+- seed 41 start 2026-10-24T08:17:32Z end 2026-10-24T09:44:48Z wall 5236 s exit 0
+- seed 44 start 2026-10-24T08:17:32Z end 2026-10-24T09:45:10Z wall 5258 s exit 0
+- seed 43 start 2026-10-24T08:17:32Z end 2026-10-24T09:45:13Z wall 5261 s exit 0
+- seed 42 start 2026-10-24T08:17:32Z end 2026-10-24T09:45:25Z wall 5273 s exit 0
+- LB end 2026-10-24T09:45:25Z
+
+21b3329217219b6ecb108bee31208e90  lb_41.json  (115928 B)
+f31707b292c6a17d27ea9ee332dc1116  lb_42.json  (115819 B)
+6cbe13ffaaaa52b72226a6503dc59337  lb_43.json  (115815 B)
+269b2bd63561842f3d43c034c86ae2c2  lb_44.json  (115880 B)

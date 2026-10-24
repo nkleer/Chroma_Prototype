@@ -1,0 +1,52 @@
+Speed pass check, 2026-10-24 08:26 UTC
+  base /tmp/v25k4_2/base/chroma-engine/v22-speedpass (engine.py 0b9af1489c4d, 65 files)
+  new  /tmp/v25k4_2/new/chroma-engine/v22-speedpass (engine.py da6ffefa61bb, 73 files)
+  Library /tmp/v25k4_2/base/chroma-library, packs /tmp/v25k4_2/base/chroma-packs; new on Library /tmp/v25k4_2/new/chroma-library, packs /tmp/v25k4_2/new/chroma-packs; 100 lives x 100 years, seeds 7, worlds off,seed; P new {"cause_fit": false, "role_rates": null, "founder_moment": false, "need_tab": null, "shared_hist": 0.0, "imp_age": false, "aims": false, "heights": false, "world_answers": false, "wa_phase2": false, "wa_reach": false, "foot_on": false, "self_death": true, "framing": "neutral", "faith_inherit": 0.0, "res0": [0.05, 1.0, 0.95, 0.4, 0.2], "sex": "male"}, P base {"self_death": true, "framing": "neutral", "faith_inherit": 0.0, "res0": [0.05, 1.0, 0.95, 0.4, 0.2], "sex": "male"}
+  base side kept for 2 of 2 engine runs; cache /home/emren/.cache/chroma/speedpass
+ok   id-7-off: base 748 s (kept 2026-10-24 00:45 UTC on Nkleer), new 1163 s CPU (0.64x faster): identical (67 outputs compared by digest)
+ok   id-7-seed: base 140 s (kept 2026-10-24 00:45 UTC on Nkleer), new 219 s CPU (0.64x faster): identical (67 outputs compared by digest)
+All runs: base 887 s, new 1382 s CPU: 0.64x faster overall
+Speed pass: PASS (identical lives)
+report: /home/emren/chroma/live/chroma-release/out/speedpass_20261024-082625_sweepD.txt; scratch /tmp/slD
+Speed pass check, 2026-10-24 08:26 UTC
+  base /tmp/v25k4_2/base/chroma-engine/v22-speedpass (engine.py 0b9af1489c4d, 65 files)
+  new  /tmp/v25k4_2/new/chroma-engine/v22-speedpass (engine.py da6ffefa61bb, 73 files)
+  Library /tmp/v25k4_2/base/chroma-library, packs /tmp/v25k4_2/base/chroma-packs; new on Library /tmp/v25k4_2/new/chroma-library, packs /tmp/v25k4_2/new/chroma-packs; 100 lives x 100 years, seeds 7, worlds on; P new {"cause_fit": false, "role_rates": null, "founder_moment": false, "need_tab": null, "shared_hist": 0.0, "imp_age": false, "aims": false, "heights": false, "world_answers": false, "wa_phase2": false, "wa_reach": false, "foot_on": false, "self_death": true, "framing": "pie", "faith_inherit": 1.0, "res0": [0.9, 1.0, 0.95, 0.4, 0.2], "sex": "female"}, P base {"self_death": true, "framing": "pie", "faith_inherit": 1.0, "res0": [0.9, 1.0, 0.95, 0.4, 0.2], "sex": "female"}
+  base side kept for 1 of 1 engine runs; cache /home/emren/.cache/chroma/speedpass
+  1 new run(s) differ from the kept base side: running the base again to compare in full
+MISS id-7-on: base 1436 s, new 1537 s CPU (0.93x faster): 262 outputs differ
+       A_hist: largest gap 0.333, first at [87, 0, 0]
+       A_src: largest gap 1.8, first at [87, 0, 0, 0]
+       D: largest gap 0.0409, first at [10, 0]
+       I: largest gap 1, first at [1, 2]
+       J: largest gap 0.124, first at [1, 0, 2]
+       K_hist: largest gap 1, first at [87, 3, 3]
+       M: largest gap 6.15, first at [1]
+       M_hist: largest gap 6.15, first at [87, 1]
+       R_hist: largest gap 0.668, first at [87, 0, 2]
+       V_hist.SE: largest gap 0.235, first at [87, 1, 0]
+       V_hist.acc: largest gap 0.19, first at [87, 0]
+       V_hist.adj: largest gap 1, first at [87, 2, 4]
+       V_hist.adj_v: largest gap 2.12, first at [87, 0, 0]
+       V_hist.base_mood: largest gap 0.218, first at [87, 0]
+       V_hist.body: largest gap 0.441, first at [87, 1]
+       V_hist.chan: largest gap 0.559, first at [87, 0, 2, 1]
+       V_hist.content: largest gap 0.87, first at [87, 0]
+       V_hist.core: largest gap 0.0479, first at [87, 0, 0]
+       V_hist.ctrl: largest gap 0.359, first at [87, 0]
+       V_hist.discipline: largest gap 0.386, first at [87, 0]
+All runs: base 1436 s, new 1537 s CPU: 0.93x faster overall
+Speed pass: FAIL
+report: /home/emren/chroma/live/chroma-release/out/speedpass_20261024-082625_sweepC.txt; scratch /tmp/slC
+Speed pass check, 2026-10-24 08:26 UTC
+  base /tmp/v25k4_2/base/chroma-engine/v22-speedpass (engine.py 0b9af1489c4d, 65 files)
+  new  /tmp/v25k4_2/new/chroma-engine/v22-speedpass (engine.py da6ffefa61bb, 73 files)
+  Library /tmp/v25k4_2/base/chroma-library, packs /tmp/v25k4_2/base/chroma-packs; new on Library /tmp/v25k4_2/new/chroma-library, packs /tmp/v25k4_2/new/chroma-packs; 400 lives x 100 years, seeds 42, worlds off,on,seed; P new {"cause_fit": false, "role_rates": null, "founder_moment": false, "need_tab": null, "shared_hist": 0.0, "imp_age": false, "aims": false, "heights": false, "world_answers": false, "wa_phase2": false, "wa_reach": false, "foot_on": false}, P base {}
+  base side kept for 3 of 3 engine runs; cache /home/emren/.cache/chroma/speedpass
+ok   id-42-off: base 2268 s (kept 2026-10-24 01:13 UTC on Nkleer), new 3901 s CPU (0.58x faster): identical (67 outputs compared by digest)
+ok   id-42-on: base 1125 s (kept 2026-10-24 01:13 UTC on Nkleer), new 4519 s CPU (0.25x faster): identical (71 outputs compared by digest)
+ok   id-42-seed: base 102 s (kept 2026-10-24 01:13 UTC on Nkleer), new 276 s CPU (0.37x faster): identical (67 outputs compared by digest)
+All runs: base 3495 s, new 8695 s CPU: 0.40x faster overall
+Speed pass: PASS (identical lives)
+report: /home/emren/chroma/live/chroma-release/out/speedpass_20261024-082625_s42.txt; scratch /tmp/sl42
+SAME-LIVES PART 2 FAIL 09:44:32 UTC; new /tmp/v25k4_2/new/chroma-engine/v22-speedpass
