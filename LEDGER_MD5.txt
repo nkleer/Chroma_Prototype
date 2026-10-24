@@ -37,6 +37,8 @@
 - la 44 start 2026-10-24T10:26:54Z end 2026-10-24T11:28:43Z wall 3709 s exit 0
 - LA/NR1 end 2026-10-24T11:28:44Z
 
+0f4ab79054555fb834db8d18e92d0057  judge_87caab7.json  (24190 B)
+    stdout: (none)
 d9fbeb6f4cdfa08a335efffa95ddbd7d  la_41.json  (961209 B)
     stdout: /home/emren/chroma/out/v25_lb/la_41.json: seed 41, 400 lives x 100 years in 3666.1 s; 4763 clashes put, 4763 answered, 8750 rungs reached, 19 violations (2 kinds)
     violation_counts: {"AM0|a rung reached after its window closed": 1, "CL0|a clash answered twice": 18}

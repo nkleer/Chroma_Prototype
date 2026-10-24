@@ -1,0 +1,821 @@
+LA seeds 41,42,43,44: 1600 lives x 100 years, engine.py da6ffefa61bb
+CL0   FAIL         51 breaks: a clash answered twice 51. 19296 clashes put, 19296 answered, 0 open at the end; 90 connected pairs in one week; ceilings held 19653, unchanged held 20656, colour without stakes (never a clash) 233956
+AM0   FAIL         10 breaks: a rung reached after its window closed 10. 34756 rungs reached (0 in a window's closing week, counted), 234 windows closed while paused, 136148 forks decided by the lives' own pick; the save, load and queue cases are SC1's, SK's lives the game's
+NR1   INCONCLUSIVE 3 of 15 routes reached in LA, 11 in the targeted lives; not reached: mandate_builder, discoverer, national_virtuoso, commander
+WA8n  INCONCLUSIVE 13 of 1600 LA lives reached national standing (0.0081; band .01 to .03), by kind {'influence': 6, 'recognition': 5, 'authority': 3}; routes taken in LA 3 of 15; national lives by leading colour at 40 {'G': 9, 'U': 2, 'W': 1, 'B': 1} (each under 30: the floor not read); SK's share is the game's
+CL1   FAIL         lives with two clashes in one sphere within 2 years: 0 of 1600; with more than 3 in 10 years: 207 (counting a clash before 18 as 0.5, as the engine does: 126)
+CL3   PASS         clash rate by leading colour at 40 over the mean: W 0.90 (262), U 0.98 (358), B 1.06 (273), R 1.01 (273), G 1.03 (434) (band .8 to 1.25, reported)
+AM2   FAIL         166 steps with 10 or more arrivals among keepers (LA only; SK's are the game's); outside .5 to 2: to stay strong and well for life rung 0 4.77 [2.84, 5.24] n=66; to speak every language I meet rung 0 2.42 [2.04, 2.71] n=107; to win at the highest level rung 0 2.54 [2.25, 4.08] n=39; to be a star rung 0 3.73 [2.87, 4.81] n=57; to be there when it counts rung 1 3.06 [2.77, 3.64] n=176; to know one thing better than anyone rung 0 3.19 [2.81, 3.56] n=223; to grow the perfect garden rung 0 2.98 [2.62, 3.71] n=206; to live wild and free outdoors rung 0 3.83 [3.15, 4.69] n=47; to understand the living world rung 0 3.12 [2.50, 3.56] n=111; to draw for a living rung 0 3.66 [3.25, 6.29] n=14; to master an instrument rung 0 3.16 [2.23, 4.15] n=52; to look after the town rung 0 4.04 [3.33, 5.35] n=36; to command an army rung 0 3.96 [3.43, 4.38] n=98; to command an army rung 1 2.50 [2.10, 2.88] n=91; to make money work for me rung 0 4.50 [3.98, 4.79] n=198; to be there when it counts rung 0 12.69 [8.69, 21.46] n=16; to be a healer rung 0 5.17 [4.32, 6.06] n=138; to make it big, and fast rung 0 4.44 [3.77, 6.06] n=57; to master a craft rung 0 4.16 [2.60, 5.81] n=26; to answer to no one rung 0 5.44 [4.38, 6.92] n=70; to work with animals rung 0 4.78 [4.00, 5.48] n=22; to see the world rung 0 3.48 [2.85, 4.35] n=56; to cook like nobody else rung 0 3.90 [2.81, 5.99] n=32; to teach well rung 0 5.19 [3.06, 5.92] n=41; to throw the parties the town remembers rung 0 3.21 [2.15, 3.94] n=27; to build things that last rung 0 3.17 [2.31, 4.50] n=16; to build a movement rung 0 5.80 [4.84, 6.88] n=122; to rise to the top of the firm rung 0 3.79 [2.38, 6.12] n=13; to know every root and mushroom rung 0 3.33 [2.23, 4.62] n=17; to marry well rung 0 5.22 [3.58, 6.38] n=45; to love with everything rung 0 3.00 [2.25, 4.96] n=16; to save the wild places rung 0 4.84 [3.00, 8.00] n=19; to make a home everyone is welcome in rung 0 2.45 [2.07, 3.34] n=64; to raise a big, loud family rung 0 2.76 [2.30, 3.74] n=20; to keep the long record rung 0 4.13 [2.32, 4.92] n=12; to belong to a congregation for life rung 0 3.08 [2.45, 5.44] n=50; to stand up for the underdog rung 0 3.80 [2.20, 4.38] n=17; to keep the land rung 0 3.39 [2.05, 4.07] n=21; to command an army rung 3 0.29 [0.21, 0.43] n=10; to make a home everyone is welcome in rung 2 0.03 [0.03, 0.03] n=14; to own the roof over our heads rung 2 0.00 [0.00, 0.00] n=12; to stay strong and well for life rung 3 0.00 [0.00, 0.00] n=19; to invent something the world uses rung 0 2.28 [1.64, 2.90] n=58; to work the land rung 0 2.16 [1.92, 2.62] n=115; to find out what is true rung 0 2.50 [1.06, 3.97] n=14; to work with animals rung 1 2.81 [1.61, 3.70] n=24; to be there when it counts rung 2 2.13 [1.76, 2.76] n=47; to be a healer rung 1 2.18 [1.82, 2.54] n=44; to be the one who makes things happen rung 0 4.50 [1.83, 6.09] n=13; to see justice done rung 0 2.85 [1.67, 3.52] n=17; to be somebody in this town rung 0 3.67 [1.90, 6.71] n=11; to live by my own rules rung 0 3.33 [1.54, 5.46] n=12; to keep one promise for life rung 0 2.37 [1.31, 3.45] n=19; to run the family business rung 0 2.19 [1.50, 4.46] n=14; to make art people stop for rung 0 2.73 [1.65, 5.62] n=14; to feed the street from my garden rung 0 2.66 [1.64, 5.09] n=12; to grow old among many grandchildren rung 0 2.13 [1.74, 2.44] n=93; to fall for a mind as quick as mine rung 0 2.61 [1.96, 3.84] n=20; to throw the parties the town remembers rung 1 2.20 [1.44, 2.81] n=29; to command an army rung 2 2.35 [1.34, 2.81] n=26; to feed the street from my garden rung 1 2.04 [1.37, 2.92] n=11; to belong to a congregation for life rung 3 0.50 [0.26, 0.89] n=20; to see justice done rung 2 0.28 [0.13, 0.54] n=17; water_testing rung 0 2.48 [1.37, 4.50] n=11; to feed the street from my garden rung 2 2.07 [1.26, 2.33] n=14; to lead a faith rung 0 2.43 [1.59, 3.10] n=30; to feel something greater in the music rung 0 2.27 [0.94, 3.02] n=11; to feel something greater in the music rung 1 2.05 [0.04, 2.95] n=10; to raise a family that holds together rung 0 2.12 [1.37, 2.71] n=12
+F5    PASS         Known by leading colour at 18, kept to 40 against left: W kept 0.495 (192) left 0.507 (71); U kept 0.481 (289) left 0.465 (71); B kept 0.420 (212) left 0.459 (74); R kept 0.440 (191) left 0.462 (39); G kept 0.453 (360) left 0.446 (101)
+RE3   FLAG         LA against LB: one40 0.069 vs 0.054; one70 0.106 vs 0.113; ent40 1.485 vs 1.494; changes18 4.184 vs 3.751; share2040 0.421 vs 0.424 (outside); corr3050 0.863 vs 0.862 (diagnostic)
+
+CL0 first breaks:
+[
+ {
+  "row": "CL0",
+  "case": "a clash answered twice",
+  "life": 278,
+  "week": 1504,
+  "dispute": 650,
+  "seed": 41
+ },
+ {
+  "row": "CL0",
+  "case": "a clash answered twice",
+  "life": 309,
+  "week": 1636,
+  "dispute": 770,
+  "seed": 41
+ },
+ {
+  "row": "CL0",
+  "case": "a clash answered twice",
+  "life": 86,
+  "week": 1960,
+  "dispute": 1093,
+  "seed": 41
+ },
+ {
+  "row": "CL0",
+  "case": "a clash answered twice",
+  "life": 395,
+  "week": 2140,
+  "dispute": 1277,
+  "seed": 41
+ },
+ {
+  "row": "CL0",
+  "case": "a clash answered twice",
+  "life": 273,
+  "week": 2376,
+  "dispute": 1480,
+  "seed": 41
+ },
+ {
+  "row": "CL0",
+  "case": "a clash answered twice",
+  "life": 229,
+  "week": 2565,
+  "dispute": 1677,
+  "seed": 41
+ },
+ {
+  "row": "CL0",
+  "case": "a clash answered twice",
+  "life": 82,
+  "week": 3036,
+  "dispute": 2099,
+  "seed": 41
+ },
+ {
+  "row": "CL0",
+  "case": "a clash answered twice",
+  "life": 328,
+  "week": 3269,
+  "dispute": 1940,
+  "seed": 41
+ },
+ {
+  "row": "CL0",
+  "case": "a clash answered twice",
+  "life": 173,
+  "week": 3300,
+  "dispute": 2307,
+  "seed": 41
+ },
+ {
+  "row": "CL0",
+  "case": "a clash answered twice",
+  "life": 331,
+  "week": 3567,
+  "dispute": 2585,
+  "seed": 41
+ }
+]
+
+AM0 first breaks:
+[
+ {
+  "row": "AM0",
+  "case": "a rung reached after its window closed",
+  "life": 74,
+  "week": 2380,
+  "field": "to dance",
+  "rung": 1,
+  "closed": 1456,
+  "seed": 41
+ },
+ {
+  "row": "AM0",
+  "case": "a rung reached after its window closed",
+  "life": 233,
+  "week": 2472,
+  "field": "to win at the highest level",
+  "rung": 2,
+  "closed": 1560,
+  "seed": 42
+ },
+ {
+  "row": "AM0",
+  "case": "a rung reached after its window closed",
+  "life": 149,
+  "week": 2804,
+  "field": "to dance",
+  "rung": 1,
+  "closed": 1456,
+  "seed": 42
+ },
+ {
+  "row": "AM0",
+  "case": "a rung reached after its window closed",
+  "life": 345,
+  "week": 2860,
+  "field": "to win at the highest level",
+  "rung": 2,
+  "closed": 1560,
+  "seed": 42
+ },
+ {
+  "row": "AM0",
+  "case": "a rung reached after its window closed",
+  "life": 166,
+  "week": 3432,
+  "field": "to dance",
+  "rung": 1,
+  "closed": 1456,
+  "seed": 42
+ },
+ {
+  "row": "AM0",
+  "case": "a rung reached after its window closed",
+  "life": 8,
+  "week": 3716,
+  "field": "to command an army",
+  "rung": 1,
+  "closed": 1820,
+  "seed": 43
+ },
+ {
+  "row": "AM0",
+  "case": "a rung reached after its window closed",
+  "life": 8,
+  "week": 2468,
+  "field": "to dance",
+  "rung": 1,
+  "closed": 1456,
+  "seed": 44
+ },
+ {
+  "row": "AM0",
+  "case": "a rung reached after its window closed",
+  "life": 14,
+  "week": 2648,
+  "field": "to command an army",
+  "rung": 1,
+  "closed": 1820,
+  "seed": 44
+ },
+ {
+  "row": "AM0",
+  "case": "a rung reached after its window closed",
+  "life": 14,
+  "week": 2652,
+  "field": "to command an army",
+  "rung": 2,
+  "closed": 2340,
+  "seed": 44
+ },
+ {
+  "row": "AM0",
+  "case": "a rung reached after its window closed",
+  "life": 38,
+  "week": 3400,
+  "field": "to dance",
+  "rung": 1,
+  "closed": 1456,
+  "seed": 44
+ }
+]
+
+NR1 routes: lives reaching each (LA, targeted) and those taking decisions:
+{
+ "mandate_builder": {
+  "la": 0,
+  "targeted": 0,
+  "deciding": 0
+ },
+ "public_service_architect": {
+  "la": 4,
+  "targeted": 11,
+  "deciding": 11
+ },
+ "common_ground_maker": {
+  "la": 0,
+  "targeted": 4,
+  "deciding": 3
+ },
+ "discoverer": {
+  "la": 0,
+  "targeted": 0,
+  "deciding": 0
+ },
+ "systems_inventor": {
+  "la": 0,
+  "targeted": 11,
+  "deciding": 10
+ },
+ "truthfinder": {
+  "la": 0,
+  "targeted": 4,
+  "deciding": 3
+ },
+ "enterprise_builder": {
+  "la": 0,
+  "targeted": 3,
+  "deciding": 3
+ },
+ "coalition_builder": {
+  "la": 1,
+  "targeted": 4,
+  "deciding": 5
+ },
+ "opportunity_patron": {
+  "la": 0,
+  "targeted": 4,
+  "deciding": 4
+ },
+ "rallying_voice": {
+  "la": 0,
+  "targeted": 2,
+  "deciding": 2
+ },
+ "national_virtuoso": {
+  "la": 0,
+  "targeted": 0,
+  "deciding": 0
+ },
+ "commander": {
+  "la": 0,
+  "targeted": 0,
+  "deciding": 0
+ },
+ "living_land_steward": {
+  "la": 0,
+  "targeted": 11,
+  "deciding": 11
+ },
+ "living_heritage_keeper": {
+  "la": 0,
+  "targeted": 5,
+  "deciding": 5
+ },
+ "community_weaver": {
+  "la": 8,
+  "targeted": 21,
+  "deciding": 26
+ }
+}
+
+AM2 steps: median over stated years [95%] n:
+{
+ "to win at the highest level|1": [
+  1.32,
+  0.98,
+  1.58,
+  142
+ ],
+ "to stay strong and well for life|0": [
+  4.77,
+  2.84,
+  5.24,
+  66
+ ],
+ "to stay strong and well for life|1": [
+  0.86,
+  0.15,
+  1.37,
+  310
+ ],
+ "to speak every language I meet|0": [
+  2.42,
+  2.04,
+  2.71,
+  107
+ ],
+ "to win at the highest level|0": [
+  2.54,
+  2.25,
+  4.08,
+  39
+ ],
+ "to be a star|0": [
+  3.73,
+  2.87,
+  4.81,
+  57
+ ],
+ "to live wild and free outdoors|1": [
+  1.61,
+  1.45,
+  1.79,
+  240
+ ],
+ "to be there when it counts|1": [
+  3.06,
+  2.77,
+  3.64,
+  176
+ ],
+ "to know one thing better than anyone|0": [
+  3.19,
+  2.81,
+  3.56,
+  223
+ ],
+ "to grow the perfect garden|0": [
+  2.98,
+  2.62,
+  3.71,
+  206
+ ],
+ "to live wild and free outdoors|0": [
+  3.83,
+  3.15,
+  4.69,
+  47
+ ],
+ "to outlast them all|1": [
+  0.9,
+  0.51,
+  1.09,
+  52
+ ],
+ "to understand the living world|0": [
+  3.12,
+  2.5,
+  3.56,
+  111
+ ],
+ "to draw for a living|0": [
+  3.66,
+  3.25,
+  6.29,
+  14
+ ],
+ "to invent something the world uses|0": [
+  2.28,
+  1.64,
+  2.9,
+  58
+ ],
+ "to know one thing better than anyone|1": [
+  1.21,
+  1.13,
+  1.35,
+  244
+ ],
+ "to master an instrument|0": [
+  3.16,
+  2.23,
+  4.15,
+  52
+ ],
+ "to work the land|0": [
+  2.16,
+  1.92,
+  2.62,
+  115
+ ],
+ "to grow the perfect garden|1": [
+  1.16,
+  1.02,
+  1.39,
+  161
+ ],
+ "to look after the town|0": [
+  4.04,
+  3.33,
+  5.35,
+  36
+ ],
+ "to command an army|0": [
+  3.96,
+  3.43,
+  4.38,
+  98
+ ],
+ "to command an army|1": [
+  2.5,
+  2.1,
+  2.88,
+  91
+ ],
+ "to make money work for me|0": [
+  4.5,
+  3.98,
+  4.79,
+  198
+ ],
+ "to speak every language I meet|1": [
+  1.94,
+  1.42,
+  2.16,
+  118
+ ],
+ "to be there when it counts|0": [
+  12.69,
+  8.69,
+  21.46,
+  16
+ ],
+ "to see the world|1": [
+  0.85,
+  0.48,
+  1.21,
+  93
+ ],
+ "to understand the living world|1": [
+  1.54,
+  1.37,
+  1.88,
+  62
+ ],
+ "to be a healer|0": [
+  5.17,
+  4.32,
+  6.06,
+  138
+ ],
+ "to make it big, and fast|0": [
+  4.44,
+  3.77,
+  6.06,
+  57
+ ],
+ "to find out what is true|0": [
+  2.5,
+  1.06,
+  3.97,
+  14
+ ],
+ "to win at the highest level|2": [
+  1.17,
+  0.9,
+  1.5,
+  106
+ ],
+ "to make money work for me|1": [
+  1.4,
+  1.22,
+  1.73,
+  144
+ ],
+ "to master a craft|0": [
+  4.16,
+  2.6,
+  5.81,
+  26
+ ],
+ "to work the land|1": [
+  1.55,
+  1.38,
+  1.71,
+  103
+ ],
+ "to answer to no one|0": [
+  5.44,
+  4.38,
+  6.92,
+  70
+ ],
+ "to work with animals|1": [
+  2.81,
+  1.61,
+  3.7,
+  24
+ ],
+ "to work with animals|0": [
+  4.78,
+  4.0,
+  5.48,
+  22
+ ],
+ "to see the world|2": [
+  1.69,
+  1.43,
+  2.14,
+  114
+ ],
+ "to be there when it counts|2": [
+  2.13,
+  1.76,
+  2.76,
+  47
+ ],
+ "to live wild and free outdoors|2": [
+  1.29,
+  1.17,
+  1.5,
+  164
+ ],
+ "to be a healer|1": [
+  2.18,
+  1.82,
+  2.54,
+  44
+ ],
+ "to see the world|0": [
+  3.48,
+  2.85,
+  4.35,
+  56
+ ],
+ "to master an instrument|1": [
+  1.15,
+  1.02,
+  1.53,
+  70
+ ],
+ "to be a star|1": [
+  1.38,
+  1.07,
+  2.12,
+  21
+ ],
+ "to cook like nobody else|0": [
+  3.9,
+  2.81,
+  5.99,
+  32
+ ],
+ "to understand the living world|2": [
+  0.88,
+  0.71,
+  1.14,
+  64
+ ],
+ "to teach well|0": [
+  5.19,
+  3.06,
+  5.92,
+  41
+ ],
+ "to invent something the world uses|1": [
+  1.45,
+  1.31,
+  1.98,
+  30
+ ],
+ "to answer to no one|1": [
+  1.86,
+  1.57,
+  2.22,
+  58
+ ],
+ "to make it big, and fast|1": [
+  1.3,
+  1.03,
+  1.65,
+  33
+ ],
+ "to be the one who makes things happen|0": [
+  4.5,
+  1.83,
+  6.09,
+  13
+ ],
+ "to know one thing better than anyone|2": [
+  0.87,
+  0.74,
+  0.98,
+  234
+ ],
+ "to throw the parties the town remembers|0": [
+  3.21,
+  2.15,
+  3.94,
+  27
+ ],
+ "to build things that last|0": [
+  3.17,
+  2.31,
+  4.5,
+  16
+ ],
+ "to build a movement|0": [
+  5.8,
+  4.84,
+  6.88,
+  122
+ ],
+ "to see justice done|0": [
+  2.85,
+  1.67,
+  3.52,
+  17
+ ],
+ "to be somebody in this town|0": [
+  3.67,
+  1.9,
+  6.71,
+  11
+ ],
+ "to rise to the top of the firm|0": [
+  3.79,
+  2.38,
+  6.12,
+  13
+ ],
+ "to answer to no one|2": [
+  0.74,
+  0.54,
+  0.96,
+  38
+ ],
+ "to stay strong and well for life|2": [
+  1.16,
+  1.04,
+  1.32,
+  258
+ ],
+ "to know every root and mushroom|0": [
+  3.33,
+  2.23,
+  4.62,
+  17
+ ],
+ "to work the land|2": [
+  0.82,
+  0.62,
+  1.01,
+  84
+ ],
+ "to look after the town|1": [
+  1.54,
+  0.89,
+  2.25,
+  15
+ ],
+ "to master an instrument|2": [
+  0.97,
+  0.72,
+  1.27,
+  44
+ ],
+ "to fall for a mind as quick as mine|1": [
+  0.5,
+  0.41,
+  1.86,
+  11
+ ],
+ "to live by my own rules|0": [
+  3.33,
+  1.54,
+  5.46,
+  12
+ ],
+ "to master a craft|1": [
+  1.59,
+  1.38,
+  1.8,
+  31
+ ],
+ "to marry well|0": [
+  5.22,
+  3.58,
+  6.38,
+  45
+ ],
+ "to teach well|1": [
+  1.6,
+  1.24,
+  1.93,
+  24
+ ],
+ "to keep one promise for life|0": [
+  2.37,
+  1.31,
+  3.45,
+  19
+ ],
+ "to marry well|1": [
+  1.03,
+  0.52,
+  1.86,
+  58
+ ],
+ "to run the family business|0": [
+  2.19,
+  1.5,
+  4.46,
+  14
+ ],
+ "to belong to a congregation for life|1": [
+  1.94,
+  1.34,
+  2.43,
+  54
+ ],
+ "to love with everything|0": [
+  3.0,
+  2.25,
+  4.96,
+  16
+ ],
+ "to make art people stop for|0": [
+  2.73,
+  1.65,
+  5.62,
+  14
+ ],
+ "to feed the street from my garden|0": [
+  2.66,
+  1.64,
+  5.09,
+  12
+ ],
+ "to run the family business|1": [
+  1.34,
+  0.55,
+  1.7,
+  11
+ ],
+ "to save the wild places|0": [
+  4.84,
+  3.0,
+  8.0,
+  19
+ ],
+ "to live by my own rules|1": [
+  1.27,
+  0.91,
+  1.59,
+  54
+ ],
+ "to grow the perfect garden|2": [
+  1.04,
+  0.94,
+  1.28,
+  110
+ ],
+ "to make a home everyone is welcome in|0": [
+  2.45,
+  2.07,
+  3.34,
+  64
+ ],
+ "to raise a big, loud family|0": [
+  2.76,
+  2.3,
+  3.74,
+  20
+ ],
+ "to cook like nobody else|1": [
+  1.37,
+  0.82,
+  1.68,
+  18
+ ],
+ "to keep the long record|0": [
+  4.13,
+  2.32,
+  4.92,
+  12
+ ],
+ "to lead a faith|1": [
+  1.28,
+  0.65,
+  1.4,
+  13
+ ],
+ "to know one thing better than anyone|3": [
+  0.75,
+  0.67,
+  0.82,
+  211
+ ],
+ "to grow old among many grandchildren|0": [
+  2.13,
+  1.74,
+  2.44,
+  93
+ ],
+ "to see justice done|1": [
+  1.49,
+  1.01,
+  2.01,
+  20
+ ],
+ "to own the roof over our heads|1": [
+  0.82,
+  0.53,
+  1.09,
+  67
+ ],
+ "to make money work for me|2": [
+  1.46,
+  1.07,
+  2.24,
+  73
+ ],
+ "to s
