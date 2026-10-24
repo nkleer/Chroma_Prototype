@@ -186,7 +186,7 @@
             for c_ in L["COND"]:
                 if c_["kind"] in (2, 4):   # an echo comes through its anchor, a return moment only as a pick's return
                     continue
-                cond_ok[:, c_["s"]] = ev_memo(c_["req"], ns, memo_)
+                cond_ok[:, c_["s"]] = ev_memo(c_["req_off"] if FM_OFF_ and "req_off" in c_ else c_["req"], ns, memo_)
                 cond_fac[:, c_["s"]] = factor(c_, ns, memo_) * P["inner_w"] if c_["kind"] == 1 else factor(c_, ns, memo_)
             if ID2:   # N1b: intimacy comes less often to an asexual person; a same-sex couple has a baby only as planned;
                 # an intersex person's own pregnancy or fathering is rarer (a moment without a condition starts from 1)
