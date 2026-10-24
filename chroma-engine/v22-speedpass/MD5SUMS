@@ -1,5 +1,5 @@
 e86678926c65014c04a588e743355698  aims2.py
-13287152b5ecf7cb97baf6dd4501d750  batch.py
+557c0aa0e30bc66fdd442591e5dfb8dc  batch.py
 757721ec4414965232f272d129713c58  combos.py
 7a4a30e346385bd4aee9d69fc0d09be3  earth_rules.py
 da6ffefa61bb9f44e138890ac07c771b  engine.py
@@ -15,7 +15,7 @@ e57ab1c4546911fd41bd38dd96f2f4e0  realm_earth.py
 b036ac9829d63c126ac2ef064cf5412d  rules_callings.py
 aef8174a20d1c73d793ff87cbd344278  rules_chance.py
 416c83d7e58741ee5d7ba8b2c1994861  rules_drivers.py
-a5eaead7e270f0652552a19cef2bf95c  rules_moments.py
+96cc05048535f71b5c060deb9e9fb953  rules_moments.py
 614ba4dd8a966100773f7f3c4612483f  rules_more.py
 e5263d20da671a4f536c2dd6990b5abe  rules_norms.py
 ec5143a19d07823924456ec47db5af06  rules_packs.py
@@ -25,12 +25,12 @@ de2fb10388ea825710f13263ff961c15  rules_titles.py
 02d731aa9ad5708dc221eb8b8d84de7a  run_01_start.py
 8fc87a428a9bf5ca22a779cb366eefc3  run_02_goals.py
 888f1f717f7d53bcac8bf5395f935602  run_03_moments.py
-e21e9b931cc6f79ed7bdafb7a798900f  run_04_titles.py
+2ea74ed61990cd9c52da901128a47218  run_04_titles.py
 0056c5c388a022f79f1db37898b0c7cc  run_05_conditions.py
 f25d6cb1b499a16dba8e92a9ab90b152  run_06_world.py
 f67d8d7e8e0d3972e9791608451ee961  run_07_body.py
 222ce3b326d1d9335edfa565b54c094c  run_08_fixes.py
-1cac1627cb5986bbeeb5ab79fb82f8b0  run_09_week.py
+ecd955802c442d7fd2f89facc57d0193  run_09_week.py
 5b66eef843f637604a80b9c8fe79dc81  run_10_situation.py
 faaf4321c3ba6c3f203d545fc45c6db7  run_11_choice.py
 acb9e7edff5f1d07b74fba48e70509d5  run_12_commitments.py

@@ -151,6 +151,8 @@ INNER = {
         more=["outlook > .55", "ties > .9", "hW + hU > .5"],
         less=["harsh > .5", "ties < .85"]),
 }
+# with founder_moment off (K4: v23.2's lives), the req each of these had before v25 (batch: the condition's req_off)
+INNER_V25_OFF = {"a following of your own": "founding & (meaning < .4) & (lo_meaning >= 52) & (ties > .8) & (yrs_faith >= 10)"}
 
 # echoes: anchor starts the clock (checked monthly; a mark "within the last month" means it was just made)
 JUST = 1 / 12

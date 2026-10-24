@@ -18,6 +18,7 @@
     rw_use = {}    # role_why: life -> week each perk was last in use (its ways in the life's recent acts)
     LONG_ = -1; missed_t = np.full(N, -1)                    # the long-shot perk; the last title each life missed on a long shot
     C5F_ = -1                                                # C5: the title that founds a movement ("founder of a movement")
+    FM_OFF_ = not P.get("founder_moment")                    # v25 A2 off: its founding moment's condition as before (req_off)
     tries_ct = None                                          # failed tries per life and title or perk (try_lift)
     if RON:
         GR = L["ROLES"]; NT_, NP_, NI_ = GR["NT"], GR["NP"], GR["NI"]

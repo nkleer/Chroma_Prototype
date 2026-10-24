@@ -120,8 +120,9 @@ engine.run_steps() is engine.run() pausing six times a week for the game. On a f
      town's spheres alone and a level-1 life's leans its haunts' spheres in its town, recorded as being there; group
      presence x (1 + .5 x REACH[level, 2]); the level lingers (held 3, 6, 11 years ago: 2, 1, 0).
  31. the title rates and the founder (role_rates, founder_moment; K4), Earth and packs, world off: both compiled (v23.2's
-     multipliers, the founder's rule from before v25); off, a title's multiplier is v23.2's; each switched on alone,
-     run_steps() lives as run(); role_rates on moves the lives; founder_moment on, no founder of a movement in time.
+     multipliers, the founder's rule and its founding moment's condition from before v25); off, a title's multiplier
+     is v23.2's; each switched on alone, run_steps() lives as run(); role_rates on moves the lives; founder_moment on,
+     no founder of a movement in time.
 
     python3 -B chroma-engine/tools/t_steps.py [ENGINE_DIR]
 T_JOBS=N: the rows of 8 and 9 on N processes (default up to 4, by the cores there are; 1: one after another).
@@ -2120,6 +2121,9 @@ if "role_rates" in E.DEFAULT:
     if fi_ is not None and (fi_ not in (GK_.get("rule_acts_off") or {}) or GK_["rule"][fi_]["rate"] != 0
                             or GK_["rule_acts_off"][fi_]["rate"] == 0):
         fails.append("the founder's rule: acts-only on, its rule from before v25 off")
+    fc_ = [c_ for c_ in NO24_["COND"] if c_["name"] == "a following of your own"]
+    if fc_ and ("req_off" not in fc_[0] or "lo_meaning" not in fc_[0]["req_off"].co_names or "lo_meaning" in fc_[0]["req"].co_names):
+        fails.append("the founding moment's condition: v25's on, its condition from before v25 off (req_off)")
     nmv_ = 0
     if rv_ is not None:
         nmv_ = int(sum(1 for i_, r_ in enumerate(GK_["rule"]) if "hz" not in r_ and abs(rv_["norm"][i_] - r_["norm"]) > 1e-9))
@@ -2140,7 +2144,7 @@ if "role_rates" in E.DEFAULT:
             fails.append(f"founder_moment on: {tf_} founders of a movement in time")
     bad += bool(fails)
     print(f"{'PASS' if not fails else 'FAIL'}  the title rates and the founder (role_rates, founder_moment), world off: both "
-          f"compiled ({nmv_} titles' multipliers v23.2's when off); each on alone, run_steps lives as run(); role_rates on "
+          f"compiled ({nmv_} titles' multipliers v23.2's when off, the founding moment's condition); each on alone, run_steps lives as run(); role_rates on "
           f"moves the lives; founder_moment on, none founds a movement in time"
           f"{'' if not fails else '; ' + '; '.join(fails[:4])} ({time.process_time() - t0:.0f} s)")
 # 11. nothing read at a pause outside the handed-over names (an engine without STATE_MISSED reads its whole frame)
