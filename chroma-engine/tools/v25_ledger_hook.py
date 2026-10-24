@@ -46,11 +46,19 @@ def _js(v):
 
 CNT = dict(puts=0, answered=0, merged_pairs=0, settled_first=0, deadline_week=0, paused_close=0, arrived=0, title_after_close=0)
 CL = dict(puts=[])   # every clash put: (life, week, key, dispute id, n_asked)
-AG_REC = dict(arr=[])   # every arrival: (life, slot, field, rung reached, years on the rung, share of them kept at, week)
+AG_REC = dict(arr=[])   # every arrival: (life, slot, field, rung reached, years on the rung, share of them kept at, week,
+#                         the years the life's own clock stated at the rung's start: aims2.Agenda.clock's typical, or None)
 
 INST = {}        # the React and Agenda objects of the last life (their output() when the run has no result)
 PLAYERS = set()  # the lives the agenda waits on a player for (aims2_par player)
 _INSTALLED = [False]
+
+
+def _clock(s, n, j):
+    """AM2: the years the aim's preview states for this life on its current rung (aims2.Agenda.clock's typical), None
+    where the rung has no clock (it comes with time, or no effort can be made) or the agenda has none."""
+    ck = s.clock(int(n), int(j)) if hasattr(s, "clock") else None
+    return None if ck is None else float(ck[0])
 
 
 def _WR():
@@ -210,8 +218,8 @@ def install():
                 k = (int(n), int(j)); t0, kw, tw = tr.get(k, (None, 0, 0))
                 if t0 is not None:
                     AG_REC["arr"].append((int(n), int(j), F["names"][int(s.f[n, j])], int(rg0[n, j]), round((t - t0) / 52.0, 2),
-                                          round(kw / max(tw, 1), 3), int(t)))
-                tr[k] = (int(t), 0, 0)
+                                          round(kw / max(tw, 1), 3), int(t), s._ck.get(k)))
+                tr[k] = (int(t), 0, 0); s._ck[k] = _clock(s, n, j)   # the next rung's own clock, as its preview states
 
     def _wrap(name, targ):
         f0 = getattr(A2.Agenda, name)
@@ -232,7 +240,7 @@ def install():
         r = _wk0(s, t, *a, **k)
         _after(s, int(t), pre)
         if not hasattr(s, "_lg"):
-            s._lg = {}
+            s._lg = {}; s._ck = {}
         if t % 4 == 0:
             fd = getattr(s, "funded", None)
             on = (s.f >= 0) & (s.rung < s.F["nr"][np.maximum(s.f, 0)])
@@ -240,6 +248,8 @@ def install():
             for n, j in zip(*np.nonzero(on)):
                 k_ = (int(n), int(j)); t0, kw, tw = s._lg.get(k_, (int(t), 0, 0))
                 s._lg[k_] = (t0, kw + int(kept[n, j]), tw + 1)
+                if k_ not in s._ck:   # first seen on this rung: its clock from here
+                    s._ck[k_] = _clock(s, n, j)
         return r
     A2.Agenda.week = _week
     _wrap("month", 0)

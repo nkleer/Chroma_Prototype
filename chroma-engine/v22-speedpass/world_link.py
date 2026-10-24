@@ -517,6 +517,8 @@ class WorldLink(LinkWeekMixin, LinkRatesMixin, LinkLifeMixin):
                     continue
                 self.pending[n_] = (-1, it_["kind"], si_); self.fire_now[n_, si_] = True; self.sac_pend[n_] = it_
         if getattr(self, "wa_on", False):   # the world answers: an ask, a Known life's decision, a figure's moment
+            if self.wa_work_s:   # K9 (wa_works): who works this week
+                self.wa_works = np.asarray(S_["held"])[:, self.wa_car]
             self._wa_week()
         if self.land is not None:   # v25 lane D: the land's week (strikes, courses, drift, the moments it brings)
             self.land.week(S_)

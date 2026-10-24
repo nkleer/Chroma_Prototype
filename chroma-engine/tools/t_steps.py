@@ -1959,17 +1959,18 @@ if "react" in E.DEFAULT and "clash" in batch.load_batch.__code__.co_varnames:
     d2_, d3_ = digest(o2_), digest(o3_)
     if d2_ != d3_:
         fails.append("all on: run_steps not the lives of run() (" + " ".join(sorted(k_ for k_ in d2_ if d2_[k_] != d3_.get(k_))[:6]) + ")")
-    rx_ = o2_["react"]; cl_ = rx_["clash"]; thr_ = WRX_.CLASH_DEFAULT["thr"]
+    rx_ = o2_["react"]; cl_ = rx_["clash"]; thr_ = WRX_.CLASH_DEFAULT["thr"]; yw_ = WRX_.CLASH_DEFAULT["young_w"]
     for n_, wk_ in enumerate(cl_["weeks"]):   # no clash without stakes; from 10; one a sphere (every sphere the
-        # dispute touches) in 2 years; before 18 one in 2 years in any sphere; 3 in 10 years, one before 18 counting .5
+        # dispute touches) in 2 years; before 18 one in 2 years in any sphere; never past 3 in 10 years (decision #3)
         for i_, (t_, sp_, k_, a_) in enumerate(wk_):
             if k_ < thr_ or t_ < 520 or any(t2_ > t_ - 104 and set(sp2_) & set(sp_) for t2_, sp2_, _, _ in wk_[:i_]) \
                     or (a_ < 18 and any(t2_ > t_ - 104 for t2_, _, _, _ in wk_[:i_])) \
-                    or sum(0.5 if a2_ < 18 else 1.0 for t2_, _, _, a2_ in wk_[:i_] if t2_ > t_ - 520) >= 3 - 1e-9:
+                    or sum(yw_ if a2_ < 18 else 1.0 for t2_, _, _, a2_ in wk_[:i_ + 1] if t2_ > t_ - 520) > 3 + 1e-9:
                 fails.append(f"life {n_}: clash at week {t_}, sphere {sp_}, stakes {k_:.2f} breaks a ceiling"); break
     met_ = sum(1 for n_, t_, s_ in o2_["life_events"] if s_ in V25_S_)   # each v25 moment met took an ask's place
-    n_put_ = cl_["replaced_event"] if "replaced_event" in cl_ else 0
-    n_put_ += cl_["dropped_natural"] + cl_.get("replaced_week", 0)   # (a played life's: the week's own moment too)
+    if cl_.get("replaced_event"):   # never a life event drawn by its rate (F9's births and illness, K6 and K10)
+        fails.append(f"{cl_['replaced_event']} life events drawn by their rate replaced by a clash or seeking moment")
+    n_put_ = cl_["dropped_natural"] + cl_.get("replaced_week", 0)   # the week's own moment, or a caught or odd one
     if met_ > n_put_:
         fails.append(f"{met_} clash, seeking or repair moments met, only {n_put_} asks replaced")
     for n_, lg_ in enumerate(rx_["log"]):   # seeking and repair answers never take a colour step

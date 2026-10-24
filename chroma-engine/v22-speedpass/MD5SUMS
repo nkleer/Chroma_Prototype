@@ -2,7 +2,7 @@
 557c0aa0e30bc66fdd442591e5dfb8dc  batch.py
 757721ec4414965232f272d129713c58  combos.py
 7a4a30e346385bd4aee9d69fc0d09be3  earth_rules.py
-da6ffefa61bb9f44e138890ac07c771b  engine.py
+594b1a452f94e85686187a6af6a6a875  engine.py
 c2e2b80a0d47ac3f78b29e6ddc1b0e1a  explain.py
 cc9f3c4e820e3389158039be337b9ede  foresee.py
 14b874af736c7c3971f97312eea3adb3  library.py
@@ -50,11 +50,11 @@ d3627da506794d62868da04c4b8bbeba  world_events.py
 8f748f2e35aceb54319009bb1cc559bb  world_hooks.py
 5a8b3c6fe809455c350dfc31c5194742  world_keys.py
 0b0113a1345e9208a90be8f07ae422b7  world_land.py
-2071bad3633a222c24f066096bdaa8bd  world_link.py
+f9f26fb66136bf4146d73b9a489eb520  world_link.py
 a477bf6814143aacc26c4ae844356bd5  world_link_base.py
 fccb7cc4b9419ae0908ed6a9234d1afe  world_link_life.py
 1fd57f43baa0a4f477630ddc91424545  world_link_rates.py
-bf607af8bd3a90455b698f5c1d1ab143  world_link_week.py
+0649856786816f24757b876465e324dd  world_link_week.py
 98ca967e85aa550a42f4d902350fe594  world_national.py
 db23a2713ab3f610cc0f85b2a27d5bbd  world_people.py
 9f9e2481de85387b8298bf6ccffdd5d7  world_people_acts.py
@@ -68,7 +68,7 @@ e8ad7318d10e0380149de6fe4af6f939  world_people_roster.py
 6f32b3640a897c2da559461f9b8be963  world_people_settings.py
 8bac6b36afa6a8b2655a342d499c2567  world_people_ticks.py
 14143925551076d4c86d0b5e475c5fff  world_people_views.py
-862a5edc5405896a508e54c7cc1420ed  world_react.py
+0feec26518ff6a3fe4aa309540e07986  world_react.py
 2c13374e7b787774e6c7288066975cb4  world_society.py
 4e1a4fb85ca1cceab01e47da71b8c543  world_spheres.py
 37e195c45b9caf1b5a76013a998fe5bc  world_years.py

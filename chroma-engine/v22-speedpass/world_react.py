@@ -1254,11 +1254,11 @@ class React:
             self.clash[n] = c_["rec"]
 
     def v25_fire(self, fire, frc, WL):
-        """The question budget: a clash, seeking or repair moment waiting is put only in a week that already holds an
-        optional ask for that life, and takes its place: a life event drawn by its rate (the moment is preferred, as the
-        world's are), or a caught-between or odd-one-out moment the world brought (dropped; S3 and S4 keep their state).
-        Never in place of anything else the world brings (a death, a birth, a want's or a decision's moment). frc is
-        changed in place."""
+        """The question budget: a clash, seeking or repair moment waiting takes the place of that life's optional ask
+        this week: the week's own moment, or a caught-between or odd-one-out moment the world brought (dropped; S3 and
+        S4 keep their state). Never in place of a life event drawn by its rate (a birth, an illness: F9's rates, K6 and
+        K10), nor of anything else the world brings (a death, a birth, a want's or a decision's moment): then it waits.
+        frc is changed in place."""
         PP = self.PP
         waiting = [(n, c_["s"], "clash") for n, c_ in self.carry.items()] + \
                   [(n, c_["s"], "seek") for n, c_ in getattr(self, "sk_carry", {}).items() if n not in self.carry]
@@ -1274,24 +1274,22 @@ class React:
             other = frc[n].copy()
             if eyes:
                 other[pend[2]] = False
-            if other.any():
-                continue   # the world brings something else this week: it waits
+            if other.any() or fire[n].any():
+                continue   # the world brings something else this week, or a life event comes by its rate: it waits
             if eyes:
                 frc[n, pend[2]] = False; fire[n, pend[2]] = False; WL.pending.pop(n, None)
                 PP.eyes_q.pop(n, None); PP.eyes_off.pop(n, None)
                 self.cl_stats["dropped_natural"] += 1
-            elif not fire[n].any():
-                continue   # no ask this week to take the place of
             else:
-                self.cl_stats["replaced_event"] = self.cl_stats.get("replaced_event", 0) + 1
+                self.cl_stats["replaced_week"] = self.cl_stats.get("replaced_week", 0) + 1
             frc[n, s_] = True
             if k_ == "clash":   # S["clash"]: the clash this week's moment puts (the Game's card)
                 self.clash[n] = self.carry[n]["rec"]
 
     def _fire_player(self, n, c_, fire, frc, WL):
-        """A played life's clash (the logged lives, by_player): it takes the first optional ask in its eight weeks: a life
-        event drawn by its rate, a caught-between or odd-one-out moment, or the week's own moment, which the game may ask;
-        never a death, birth, want's or decision's moment. A moment of its setting open that week is taken first; from the
+        """A played life's clash (the logged lives, by_player): it takes the first optional ask in its eight weeks: a
+        caught-between or odd-one-out moment, or the week's own moment, which the game may ask; never a life event drawn
+        by its rate, nor a death, birth, want's or decision's moment. A moment of its setting open that week is taken first; from the
         eighth week it comes on its own moment, open or not (its age window and band hold)."""
         PP = self.PP
         pend = WL.pending.get(n)
@@ -1299,8 +1297,8 @@ class React:
         other = frc[n].copy()
         if eyes:
             other[pend[2]] = False
-        if other.any():
-            return   # the world brings something else this week: it waits
+        if other.any() or fire[n].any():
+            return   # the world brings something else this week, or a life event comes by its rate: it waits
         s_ = c_["s"] if self._open(n, c_["s"]) else next((x_ for x_ in c_.get("ss", ()) if self._open(n, x_)), None)
         if s_ is None:
             if self._week - c_["t"] < self.cp["wait"] + 1:
@@ -1310,8 +1308,6 @@ class React:
             frc[n, pend[2]] = False; fire[n, pend[2]] = False; WL.pending.pop(n, None)
             PP.eyes_q.pop(n, None); PP.eyes_off.pop(n, None)
             self.cl_stats["dropped_natural"] += 1
-        elif fire[n].any():
-            self.cl_stats["replaced_event"] = self.cl_stats.get("replaced_event", 0) + 1
         else:
             self.cl_stats["replaced_week"] = self.cl_stats.get("replaced_week", 0) + 1
         c_["s"] = int(s_); c_["rec"]["moment"] = int(s_)

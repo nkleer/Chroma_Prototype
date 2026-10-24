@@ -186,26 +186,31 @@ say("CL3", "PASS" if ok3 else "FLAG", "clash rate by leading colour at 40 over t
     + ", ".join(f"{c} {v:.2f} ({len(rate[c])})" if v is not None else f"{c} -" for c, v in rr.items()) + " (band .8 to 1.25, reported)")
 
 # ---- AM2
+# each arrival against the years stated for it: the life's own clock at the rung's start where the hook recorded one
+# (aims2.Agenda.clock, what the preview says from f8c7aa1), else the field's catalogue years (older hooks)
 clocks = LA[0].get("clocks") or {}
-steps = {}
+steps = {}; own = 0
 for x in LA:
-    for n, j, f, r, yrs, kept, wk in x["aims2"]["arrivals"]:
-        if kept >= .5:
-            steps.setdefault((f, r), []).append(yrs)
+    for a_ in x["aims2"]["arrivals"]:
+        n, j, f, r, yrs, kept, wk = a_[:7]; ck = a_[7] if len(a_) > 7 else None
+        st_ = ck if ck is not None else (clocks.get(f) or [[None]])[r][0] if f in clocks and r < len(clocks[f]) else None
+        own += ck is not None
+        if kept >= .5 and st_ is not None and st_ > 0.05:
+            steps.setdefault((f, r), []).append(yrs / st_)
 rng = np.random.default_rng(0)
 ratios, outside, inside_unsure = {}, [], []
 for (f, r), ys in steps.items():
-    st_ = (clocks.get(f) or [[None]])[r][0] if f in clocks and r < len(clocks[f]) else None
-    if st_ is None or st_ <= 0 or len(ys) < 10:
+    if len(ys) < 10:
         continue
-    ys = np.asarray(ys); m = float(np.median(ys)) / st_
-    bs = [float(np.median(rng.choice(ys, len(ys)))) / st_ for _ in range(400)]
+    ys = np.asarray(ys); m = float(np.median(ys))
+    bs = [float(np.median(rng.choice(ys, len(ys)))) for _ in range(400)]
     lo, hi = np.percentile(bs, [2.5, 97.5])
     ratios[f"{f}|{r}"] = (round(m, 2), round(float(lo), 2), round(float(hi), 2), len(ys))
     if not (.5 <= m <= 2):
         (outside if (hi < .5 or lo > 2) else inside_unsure).append(f"{f} rung {r} {m:.2f} [{lo:.2f}, {hi:.2f}] n={len(ys)}")
 say("AM2", "FAIL" if outside else "INCONCLUSIVE" if inside_unsure or not ratios else "PASS",
-    f"{len(ratios)} steps with 10 or more arrivals among keepers (LA only; SK's are the game's); "
+    f"{len(ratios)} steps with 10 or more arrivals among keepers (LA only; SK's are the game's; {own} arrivals read "
+    "against the life's own clock, the rest against the catalogue's years); "
     + (f"outside .5 to 2: {'; '.join(outside + inside_unsure)}" if outside or inside_unsure else
        "every median in .5 to 2 of its stated years" if ratios else "none to read"))
 detail.append(("AM2 steps: median over stated years [95%] n", ratios))
