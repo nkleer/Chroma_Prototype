@@ -101,7 +101,7 @@ engine.run_steps() is engine.run() pausing six times a week for the game. On a f
      run() with the agenda, previews and reviews read; the agenda's handed-over names there; every rung reached through
      an outcome (a title of it held or once held, a test or chance won; never effort alone); every window's closing told
      once, the week after its last, and no test after it but by a way round; the player's forks kept until the player
-     answers, effort waiting at the need while they wait, and a fork put on a moment of its own that moment is the week's
+     answers (or its window closes: it lapses into a way round), effort waiting at the need while they wait, and a fork put on a moment of its own that moment is the week's
      (and its aim the one the moment is about); a player's fork moment the game does not ask (pick_asked unset) answered
      "later": the fork left open, nothing decided, taught or charged (its week idle); no entry cost charged twice (a pause and resume included).
      The scenario pack of the decision's known risks is tools/t_aims2.py (seconds).
@@ -1842,8 +1842,8 @@ if "aims_v2" in E.DEFAULT:
                         for id_ in list(made_):
                             if id_ not in open_ and id_ not in done_:
                                 done_.add(id_)
-                                if not any(r_["what"] == "decided" and r_.get("id") == id_ and r_["life"] == 0 and r_.get("by") == "player"
-                                           for r_ in AG_.log):
+                                if not any(((r_["what"] == "decided" and r_.get("by") == "player") or r_["what"] == "fork lapsed")
+                                           and r_.get("id") == id_ and r_["life"] == 0 for r_ in AG_.log):   # or lapsed: its window closed
                                     fails.append(f"the player's fork {id_} resolved without the player")
                         if t % 52 == 0:   # a reached rung: one of its titles held or once held, or a test won (never effort alone)
                             won_ = {(r_["life"], r_["slot"], r_["rung"]) for r_ in AG_.log if r_["what"] == "arrived" and r_["how"].startswith("won")}
