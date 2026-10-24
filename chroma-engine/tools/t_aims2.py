@@ -443,6 +443,51 @@ if "AIM_SHAPE" in LF14 and (np.asarray(LF14["AIM_SHAPE"]) != -1).any():
         told14.append(ag.assets[0][0]["moment"] if ag.assets[0] else "")
     notes.append(f"A14 assets told with a moment ({told14[0] if told14 else '-'})")
 
+# ---- A15: a window that closes on a pending fork (Gamification 10-24, preset 4 seed 2): the fork lapses by the window's
+# rule, told once the week after the last; a round fork ("a way round, or let it go") takes its place, put again as
+# changed; the lapsed fork cannot be applied, nor go_on on the closed window; urgent only before the deadline passes
+f15 = field("competition")
+for case15 in ("years", "age"):
+    F = patched(f15, 0, **(dict(w_dyrs=1.0) if case15 == "years" else dict(w_dage=T0 / 52 - 5.0)))
+    ag, st = make(F=F, player=(0,)); n = 0
+    j = ag.add(n, f15, T0)
+    fk0 = next((x_ for x_ in ag.forks[n] if j in x_["aims"]), None)
+    if fk0 is None or fk0["kind"] not in ("go_on", "pay"):
+        fails.append(f"A15 {case15}: no commitment fork at the rung's start"); continue
+    id0 = fk0["id"]; close = int(ag.wclose[n, j]); urg_late = False; put_after = []
+    for t in range(T0, max(close, T0) + 60):
+        ag.t = t; ag.refresh(n)
+        fx_ = next((x_ for x_ in ag.forks[n] if j in x_["aims"]), None)
+        if fx_ is not None and fx_["urgent"] and t > close:
+            urg_late = True
+        tick(ag, st, t)
+        if ag.put_arr[n] >= 0 and ag.put_arr[n] != id0 and t > close:
+            put_after.append(int(ag.put_arr[n]))
+    told = [r for r in ag.log if r["what"] == "window closed" and r["slot"] == j]
+    if len(told) != 1 or (case15 == "years" and told[0]["week"] != close + 1):
+        fails.append(f"A15 {case15}: the closing told {len(told)} times ({[r['week'] for r in told]}), not once at {close + 1}")
+    if any(x_["id"] == id0 for x_ in ag.forks[n]):
+        fails.append(f"A15 {case15}: the pending fork still open after its window closed")
+    rf_ = [x_ for x_ in ag.forks[n] if j in x_["aims"]]
+    if len(rf_) != 1 or rf_[0]["kind"] != "round" or "go_on" in rf_[0]["options"]:
+        fails.append(f"A15 {case15}: not one round fork in its place ({[(x_['kind'], x_['id']) for x_ in rf_]})")
+    elif rf_[0]["id"] not in put_after:
+        fails.append(f"A15 {case15}: the round fork not put again after the close")
+    if not ag.apply(n, id0, "go_on", t) or not any(r["what"] == "fork lapsed" and r.get("id") == id0 for r in ag.log):
+        fails.append(f"A15 {case15}: the lapsed fork applied, or its lapse not told")
+    fn_ = ag.fork_new(n, [j], "go_on", t, "a year on")   # a commitment asked on the closed window is its way round
+    fn_ = next((x_ for x_ in ag.forks[n] if x_["id"] == fn_), None)
+    if fn_ is None or "go_on" in fn_["options"] or not ag.apply(n, fn_["id"], "go_on", t):
+        fails.append(f"A15 {case15}: go_on on the closed window accepted")
+    if urg_late:
+        fails.append(f"A15 {case15}: a fork urgent after its window's deadline")
+    if ag.st[n, j] == A2.ACTIVE and ag.wclosed[n, j] and not ag.wround[n, j] and ag.eff[n, j] > ag.need[n, j] + 1e-9:
+        fails.append(f"A15 {case15}: progression past the closed window")
+    pv_ = ag.preview(n, j)["window"]
+    if not pv_ or not pv_.get("closed"):
+        fails.append(f"A15 {case15}: the preview not showing the window closed")
+notes.append("A15 a closing window lapses its pending fork into a way round, told once")
+
 # ---- A9: views draw nothing
 ag, st = make(player=(0,)); [ag.add(0, i, T0) for i in fs3[:3]]
 S = dict(AIM2_ON=True, AG=ag, t=T0)

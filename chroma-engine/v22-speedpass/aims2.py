@@ -813,6 +813,22 @@ class Agenda:
             return ["keep", "light_last", "pause_last"]
         return ["go_on", "drop"]
 
+    def _lapse(s, n, fk, j, t, why):
+        """A player's pending fork on aim j lapses (its window closed): taken off the agenda (S["aim_forks"]), told once in
+        the log; a fork on several aims only lets go of j."""
+        if len(fk["aims"]) > 1:
+            fk["aims"] = [k for k in fk["aims"] if k != j]; fk["changed"] = True
+        elif fk in s.forks[n]:
+            s.forks[n].remove(fk)
+        if s.fork[n, j] == fk["id"]:
+            s.fork[n, j] = next((x["id"] for x in s.forks[n] if j in x["aims"] and x["kind"] != "over"), -1)
+        s._log(n, j, "fork lapsed", kind=fk["kind"], id=fk["id"], why=why)
+        s.dirty = True
+
+    def _shut(s, n, j):
+        """Aim j's window has passed (closed, or its deadline gone by before the week told it) with no way round."""
+        return bool(s.wclose[n, j] >= 0 and not s.wround[n, j] and (s.wclosed[n, j] or s.t > s.wclose[n, j]))
+
     def can_pay(s, n, j):
         """An entry is viable only when the life can meet it: its free money (a child's family pays its share)."""
         f = int(s.f[n, j]); r = int(s.rung[n, j])
@@ -831,6 +847,8 @@ class Agenda:
         if n not in s.player:
             s.apply(n, dict(id=fid, aims=list(js), kind=kind, options=opts), s.policy(n, js, kind, opts), t, by="character")
             return fid
+        if kind in ("go_on", "pay", "take", "window") and len(js) == 1 and s.wclosed[n, js[0]] and not s.wround[n, js[0]]:
+            kind = "round"; opts = s.options(n, js[0], kind); say = "the window closed: a way round, or let it go"; why = "changed"
         old = next((x for x in s.forks[n] if x["kind"] != "over" and kind != "over" and len(js) == 1 and x["aims"] == [int(js[0])]), None)
         if old is not None:   # the aim already waits on a fork: it is rebuilt with the new facts (one decision, kept)
             old.update(kind=kind, why="changed", say=say, options=opts + ["later"], changed=True, preview=s.preview(n, int(js[0])))
@@ -904,6 +922,13 @@ class Agenda:
                 return "no such fork"
         if opt is not None and opt not in fk["options"]:
             return f"not an option here: {opt}"
+        if by == "player" and opt in ("go_on", "pay", "hard", "light", "take"):
+            sh = [j for j in fk["aims"] if s.f[n, j] >= 0 and s._shut(n, j)]
+            if sh:
+                j = sh[0]; f = int(s.f[n, j])
+                th = s.F["items"][f]["words"].get("thing") or s.F["names"][f]
+                return (f"the window for {th} closed at age {int(s.wclose[n, j]) / 52:.1f}: "
+                        f"{opt.replace('_', ' ')} can no longer apply; a way round, or let it go")
         if opt == "later":   # the player's "later": the fork stays open, only its aims wait
             fk["put"] = int(t); fk["changed"] = False
             s.burden.append(dict(what="later", life=int(n), week=int(t), id=fk["id"], aims=len(fk["aims"]), choices=0, kind=fk["kind"]))
@@ -1159,8 +1184,15 @@ class Agenda:
             n, j = int(n), int(j)
             s.wclosed[n, j] = True; s.wtold[n, j] = True
             s._log(n, j, "window closed", week_closed=int(s.wclose[n, j]))
+            lap = [x for x in s.forks[n] if j in x["aims"] and x["kind"] not in ("round", "over")]
+            for x in lap:   # a player's fork pending on the aim lapses by the window's rule (never applied after it)
+                s._lapse(n, x, j, t, "the window closed")
             if s.st[n, j] in (ACTIVE, PAUSED, HELD) and s.fork[n, j] < 0:
-                s.fork_new(n, [j], "round", t, "the window closed: a way round, or let it go")
+                fid = s.fork_new(n, [j], "round", t, "the window closed: a way round, or let it go")
+                if lap:   # in the lapsed fork's place: put again as changed (the deadline changed before a choice)
+                    nf = next((x for x in s.forks[n] if x["id"] == fid), None)
+                    if nf is not None:
+                        nf["changed"] = True; nf["why"] = "changed"
         # restoration after the hours are spent (never capacity), and strain from an overfull agenda
         if len(s.F["meets"]) and act.any():
             g = (np.where(act, s.fh, 0.0)[..., None] * F["meets"][f]).sum(1) / 10.0
@@ -1416,7 +1448,7 @@ class Agenda:
                 fk["facts"] = fa; fk["changed"] = True; fk["why"] = "changed"
                 fk["preview"] = s.preview(n, fk["aims"][0]); fk["options"] = s.options(n, fk["aims"][0], fk["kind"]) + ["later"]
             j = fk["aims"][0]
-            fk["urgent"] = bool(s.wclose[n, j] >= 0 and not s.wclosed[n, j] and s.wclose[n, j] - s.t <= s.par["window_warn"])
+            fk["urgent"] = bool(s.wclose[n, j] >= s.t and not s.wclosed[n, j] and s.wclose[n, j] - s.t <= s.par["window_warn"])
         over = s.committed["time"][n] > s.cap["time"][n] + 1e-9
         keys = {}
         for fk in s.forks[n]:
@@ -1560,7 +1592,7 @@ class Agenda:
         bf = dict(zip(CAPACITY_BEFORE, (round(float(x), 1) for x in s.before[n])))
         win = None
         if j is not None and s.wclose[n, j] >= 0:
-            win = dict(closes_age=round(int(s.wclose[n, j]) / 52, 2), closed=bool(s.wclosed[n, j]),
+            win = dict(closes_age=round(int(s.wclose[n, j]) / 52, 2), closed=s._shut(n, j) or bool(s.wclosed[n, j]),
                        pause_stops=bool(F["w_pstop"][f, r]))
         elif F["w_every"][f, r] > 0:
             win = dict(every_years=float(F["w_every"][f, r]), open_weeks=int(F["w_open"][f, r]))
@@ -1624,7 +1656,8 @@ class Agenda:
                 bn = "a door" if F["outy"][f, rr] <= 0 else ""
         win = None
         if s.wclose[n, j] >= 0:
-            win = dict(opens=round(int(s.rstart[n, j]) / 52, 2), closes=round(int(s.wclose[n, j]) / 52, 2))
+            win = dict(opens=round(int(s.rstart[n, j]) / 52, 2), closes=round(int(s.wclose[n, j]) / 52, 2),
+                       closed=s._shut(n, j) or bool(s.wclosed[n, j]))
         return dict(slot=int(j), field=F["names"][f], shape=SHAPES[F["shape"][f]], state=STATES[int(s.st[n, j])],
                     intensity=float(s.inten[n, j]), priority=float(s.pri[n, j]), rung=r, of=nr,
                     say=None if done else F["say"][f][r], effort=round(float(s.eff[n, j]), 3),
