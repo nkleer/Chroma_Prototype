@@ -822,6 +822,10 @@ DEFAULT = dict(
     # anchored on that kind (whose own clock it then clears). An ordinary echo of a kind with a waiting seed is that seed's return.
     # Tuned 10-17 with the Library's back: tags and RETURNS (#271): about 8 returns in a played life of about 85 asks
     echo_play=False, echo_asked=False,
+    # aims v2 (aims_v2, a player's life): set by the game when it asks the player the week's moment (its checkpoint), spent
+    # at the choice. A player's fork moment the game does not ask (the life's own default tells it) is answered "later":
+    # the fork stays open and nothing is charged; run() never asks
+    pick_asked=False,
     # every change has a cause (E1): for a played life only (events), each title or perk gained "in time" records the clause
     # of its rule that held and the history behind it (the mark and its moment, the moment met, the title or perk built on,
     # money, age), and each lost as time passed or slipped away how long it was held and unused; read-only (no draw), so
@@ -878,11 +882,31 @@ DEFAULT = dict(
     # (aims v1's heights: Known reached, its standing still held) decides for others in the sphere it stands in, 4 to 8
     # times a year (8 to 12 at national standing), with rivals, allies and a successor, at a price in hours and stress
     world_answers=True, wa_groups=True, wa_places=True, wa_ledger=True, wa_notice=True, wa_phase2=True,   # on at v24
+    # WA3 (v25, Release's records/v25/round0.md): a standing level reaches its town (world_people_answers.WA_REACH): an
+    # act on the town's sphere reads at most 1 + the level's reach at the town's ring (REACH[level, 2]), a founding nudges
+    # the town by its reach / 3, a level-1 life's presence spills from its haunts to their spheres in town, and a
+    # member's presence in a group carries x (1 + .5 x that reach). The level read lingers: the highest held in the last
+    # 5 years, then one level down per 5 years without holding it again. Read only with world_answers on
+    wa_reach=True,
     # footprints (the next stage's workstream 3; plan.md section 3), on since v24 (V24_OFF); needs the batch's FOOT
     # (batch.FOOT or load_batch(foot=True)). Each picked option's footprints get real state (run_03_moments.py, the
     # footprints): a person in the cast (off-world, ties by foot_par ties), a haunt, a means, a mark or door (one only a
     # return reads shuts after foot_par door_yrs), a lesson told
     foot_on=True, foot_par=dict(ties=0.05, door_yrs=5.0),   # on at the v24 refit
+    # v25 lane C (Emren's decisions #2 to #4; chroma-engine/notes/v25/contracts.md sections 2 to 4; world_react.py), world
+    # on only, all off: react, the demands a life's sources make of it (household, partner, a parent apart, a close
+    # friend, each setting, the state's rule events, a disaster as nature's process) and one response each from
+    # explainable odds (accept, adopt, negotiate, disagree, backlash, withdraw; the infeasible not drawn), its reaction,
+    # act, learning, consequences and colour step (c' = (1 - a) c + a q, q by the response: backlash toward an alternative
+    # in reach, constrained obedience none), the demand replacing its source's part of the niche pull and the current that
+    # month; the situational states (boredom, frustration, anger, contentment, low mood). clash (needs react): a demand
+    # with stakes against an aim, need or commitment comes as a clash (from 10, one per sphere in 2 years, 3 in 10; merged,
+    # not repeated unchanged), as the Library's clash moment where the batch has it (load_batch(clash=True)), replacing
+    # the next caught-between or odd-one-out ask. seek (needs react): attraction apart from access, entry and experience;
+    # the encounter mix (1 - k) surroundings + k attraction, k by independence; the seeking and repair moments
+    # (load_batch(seek=True)). scn: the scenario harness's hooks (S["scn_demand"], S["scn_cast"]); off, never read.
+    # react_par, clash_par, seek_par: {name: value} over world_react's REACT_DEFAULT, CLASH_DEFAULT, SEEK_DEFAULT (None: those)
+    react=False, clash=False, seek=False, react_par=None, clash_par=None, seek_par=None,   # (scn: below, lane D's and ours)
     echo_play_par=dict(p=0.6, w=0.3, delay=(1.0, 8.0), keep=10.0, gap=0.5, again=12.0),
     # bold ways (chroma-ideas/gameplay-2026-10-17/bold-ways.md): set only by the game for a played life, with the batch's
     # BOLD_MOMENTS. In a week the game asks (bold_ask, set at the situation pause and spent at the choice; "all": every
@@ -1583,9 +1607,11 @@ UPD_OFF = dict(dis_match=False,
                # aims v2 (v25 lane B)
                aims_v2=False,
                # the world answers v1 (workstream 6) and its second phase
-               world_answers=False, wa_phase2=False,
+               world_answers=False, wa_phase2=False, wa_reach=False,
                # footprints (workstream 3)
                foot_on=False,
+               # v25 lane C: reactions, clashes, seeking and the scenario hooks
+               react=False, clash=False, seek=False,   # (scn: lane D's line below, one hook switch for both)
                # v25 lane A: setbacks that fit the world, what a world rewards
                imp_world=False, tilt_world=False, trace_off=(),
                # v25 lane D: the land, the scenario hook, national standing
@@ -1595,7 +1621,10 @@ UPD_OFF = dict(dis_match=False,
 # the v24 refit's switches off (Release's K4 PNEW, with batch CHROMA_BATCH_OFF=FOOT,AIMS,WORLD_ANSWERS and v23.2's packs in
 # CHROMA_PACKS): the lives of v23.2
 V24_OFF = dict(need_tab=None, shared_hist=0.0, imp_age=False, aims=False, heights=False, world_answers=False,
-               wa_phase2=False, foot_on=False, cause_fit=False, aims_v2=False)
+               wa_phase2=False, foot_on=False, cause_fit=False, aims_v2=False, react=False, clash=False, seek=False, scn=False,
+               wa_reach=False)
+# lane C's v25 switches off (every life is v24's, head 10), and lane D's WA3 reach
+V25_OFF = dict(react=False, clash=False, seek=False, scn=False, wa_reach=False)
 # everything since the go-live off, for the identity check (C-E14): lives then equal engine_v9_golive.py
 GOLIVE = {**V10_OFF, **ID_OFF, **FIX_OFF, **UPD_OFF, "world": False}
 from realm_earth import ROLE_BY_SETTING, ACCEPT_BY_SETTING   # Earth's (realm_earth.py)
@@ -1827,6 +1856,12 @@ STATE = (
 )
 # names there only when a switch in the state is on: titles (the packs' roles), name -> switch
 STATE_IF = dict.fromkeys(("r_has", "r_ever", "r_since", "r_prof", "p_acc", "p_lev", "p_sus"), "RON")
+# v25 lane C (contracts.md sections 2 to 4), per person: this week's demands and responses, the last 40 responses with
+# their demands, each source's involvement, the situational states (react); the clash put this week, the open disputes,
+# the settings in dispute (clash); attraction, its motives, k and the places tried (seek); the scenario hooks (scn)
+STATE_IF.update(dict.fromkeys(("demands", "responses", "react_log", "involve", "states"), "RX_ON"))
+STATE_IF.update(dict.fromkeys(("clash", "disputes", "clash_now"), "CL_ON"))
+STATE_IF.update(seek="SK_ON", scn_demand="SCN_ON", scn_cast="SCN_ON")
 # v25 N3 (imp_world, world on): per life this week's setback's world fact (iw_fact, an IMP_FACTS index, -1 none or no
 # world fact made it likelier) and its words (iw_why, None or the realm's IMP_CAUSE words), from the marks on; with
 # need_why, nw_imp_cause then indexes world_fit.imp_causes(realm) (head 6's 14 causes, then one per fact)
@@ -1864,6 +1899,7 @@ STATE_MORE = ("fam", "gsr", "goal_rel_S", "around", "retired", "ck", "ok_", "frc
               "mark_last",   # foresee.marks_toward: the week each mark was last left (NEVER never)
               "FOOT_ON", "foot_log",   # footprints: on, and every pick's footprints so far (foot_log, a list of dicts)
               "foot", "foot_open",     # per life (None off): the last act's footprints (kind, value, who); doors (kind, since)
+              "RX_ON", "CL_ON", "SK_ON",   # v25 lane C's switches as the run has them (world on; SCN_ON is lane D's below)
               "IW_ON", "TW_ON",   # v25 lane A's switches as the run holds them (on only with the world)
               "LAND_ON", "SCN_ON", "NAT_ON",   # v25 lane D's (on only with the world; LAND_ON and NAT_ON with world_answers)
               "btrust")   # body_trust (finishing pack part 3): each life's trust per sphere (N x 9, NaN before 15); None off

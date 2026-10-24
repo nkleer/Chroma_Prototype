@@ -15,6 +15,7 @@ functions land, test/agenda_check.py plays real lives with them.
 import json, os, sys
 import numpy as np
 os.environ["CHROMA_GAME"] = json.dumps({"agenda": True, "aim_forks": "every"})
+os.environ["CHROMA_ENGINE"] = json.dumps({"aims_v2": False})   # the stand-ins below are the Engine here, not aims v2
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path[:0] = [os.path.dirname(HERE), HERE]
 os.chdir(os.path.dirname(HERE))
@@ -87,6 +88,7 @@ c.handle("jr1 1"); p2 = acts()[-1]
 ok.append(("AS4", p1 == ("pace", 0, "paused") and p2 == ("prio", 1, 1) and c.handle("jp0 fast")[0] == "No such pace."))
 g = c.g; s = g.pending["s"]; loc = g.loc
 na = len(g.L["names"])
+L_was = {k_: g.L[k_] for k_ in ("AIM_FORK", "AIM_TAG", "AIM_NAMES") if k_ in g.L}
 g.L["AIM_FORK"] = np.full(na, -1); g.L["AIM_FORK"][s] = 0
 g.L["AIM_TAG"] = np.full((na, 8), -1); g.L["AIM_TAG"][s, 2] = 3; g.L["AIM_NAMES"] = dict(tags=("go", "pay", "drop", "later"))
 loc["aim_fork"] = np.array([7]); loc["aim_forks"] = [[dict(id=7, aims=[0], kind="pay", why="the club's season starts", preview=PV, options=[], grouped=True, group=1)]]
@@ -102,6 +104,7 @@ a2_was = loc.get("aim2"); loc["aim2"] = [[dict(field="chess", say="a place in th
 why_w = g.fork_card(loc, 7, s)["why"]; loc.pop("aim2") if a2_was is None else loc.__setitem__("aim2", a2_was)
 for k_ in ("AIM_FORK", "AIM_TAG", "AIM_NAMES"):
     del g.L[k_]
+g.L.update(L_was)
 del loc["aim_fork"], loc["aim_forks"]
 ok.append(("AS6", card["aims"] == ["to master chess"] and card["later"] == 2 and card["preview"]["hours"] == "about two evenings a week"
            and card["group"] == "1" and seen == [2, 2] and card["why"] == "the club's season starts"

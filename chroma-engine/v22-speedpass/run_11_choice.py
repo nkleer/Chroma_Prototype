@@ -91,6 +91,12 @@
             if ODD_ON_:   # S4: an unplayed life holds on more where its colour is strong and its rung high (log odds x tau)
                 oU_ = WL.eyes_pull(s) * (P["tau0"] * (1 + 0.5 * stress))[:, None]
                 U_R = U_R + oU_; U_I = U_I + oU_
+            if CL_ON:   # v25 clash: an unplayed life answers its clash by the reaction odds of each family (log odds x tau)
+                cU_ = RX.clash_pull(s, U_R.shape[1]) * (P["tau0"] * (1 + 0.5 * stress))[:, None]
+                U_R = U_R + cU_; U_I = U_I + cU_
+            if SK_ON:   # v25 seek: a seeking or repair moment's options by the states and the tie (log odds x tau)
+                sU_ = RX.seek_pull(s, U_R.shape[1]) * (P["tau0"] * (1 + 0.5 * stress))[:, None]
+                U_R = U_R + sU_; U_I = U_I + sU_
         if SHON:   # overuse ("when all you have is a hammer"): the shadow pulls toward its colour's ways, fitting or not
             shU_ = P["sh_over"] * np.einsum("nkc,nc->nk", m, shA); U_R = U_R + shU_; U_I = U_I + shU_
         ctrl = np.minimum(1, CTRL[stage] * dsc * _uclip(1 - P["ctrl_stress"] * stress, 0.05, 1)
@@ -154,6 +160,12 @@
             a = yield Pause("choose", t, pz_st, a)
             pz_st._fr = None
             if NW_ON: nw_mark(NW_PLAYER)
+        if AIM2_ON and AG.player:   # aims v2: a player's fork moment the game did not ask (pick_asked, set by the game
+            a_ = AG.told_later(t, s, a, mask, P["pick_asked"])   # when it asks) is answered "later" (the fork stays open)
+            if pausing and a_ is not a:
+                a_self = np.where(a_ != a, a_, a_self)   # the life's own default, not a counter-pick
+            a = a_
+        P["pick_asked"] = False
         if BO_ON:   # the slot taken: the game's (bold_take: a slot, with a its base way; -1 an ordinary way), else the
             bot_ = P["bold_take"]; P["bold_take"] = None   # character's own while its base way stands
             if bot_ is not None:
@@ -173,6 +185,8 @@
         if BO_ON and (bold_pick >= 0).any():   # a bold pick: its felt odds are the bold way's
             ph = np.where(bold_pick >= 0, bo_ph[ar, np.maximum(bold_pick, 0)], ph)
         idle = do_nothing[ar, a] | dead                 # a life that has ended does nothing
+        if AIM2_ON and AG.player:   # aims v2: a player's fork moment the game did not ask applies nothing (told_later)
+            idle = idle | AG.told
         if BAT and IDC_ON:   # N1b: how far this week's act crossed the role expected of them (role_fit, the game's frown)
             act_cw = cw_[ar, a] * ~idle
         blocked += has & lost_open

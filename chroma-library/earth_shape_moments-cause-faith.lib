@@ -294,7 +294,7 @@ scene magic: Every petition {N} sends to the court for {aim.thing} comes back un
 - U>R | put on something public and joyful for it, where the dull meetings were | v: self-direction, stimulation | aim: work | foot: place gather.great | chance: 55
 - B>G | let it go, and keep the people who will still answer your calls | v: power, benevolence | aim: stop | foot: person friend | chance: 85
 - R>W | say it plainly at the meeting: you are done, and here is what you learned | v: self-direction, conformity | aim: stop | foot: lesson knowing when to stop | chance: 85
-- G>U | slow down, and spend the year learning how others broke through | v: tradition, self-direction | aim: ease | foot: lesson slow years can still teach | chance: 80
+- G>U | slow down, and spend the year learning how others broke through | v: tradition, self-direction | aim: later | foot: lesson slow years can still teach | chance: 80
 works: Something small shifts that would not have shifted without the extra year.
 works: {N} chooses, and the choice feels like {Ns} own.
 fails: The next year is the same as the last, only colder.
@@ -326,7 +326,7 @@ scene magic: The guild asks a fee for its next sitting on {aim.thing}, and a sea
 - B | ask the people who gain most to pay, and make it worth their while | v: power, achievement | aim: pay | cost: money .1, time .3, family .1 | foot: person patron | chance: 55
 - R | put everything into it now: savings, evenings, the lot | v: stimulation, self-direction | aim: pay | cost: money .7, time .5, family .4 | foot: means money-.10 | chance: 55
 - G | put home first, and hand {aim.thing} to someone with more to spare | v: benevolence, security | aim: stop | foot: lesson home was paying all along | chance: 90
-- W>U | wait a year, save for it properly, then go on | v: security, self-direction | aim: ease | foot: door kept your word | chance: 85
+- W>U | wait a year, save for it properly, then go on | v: security, self-direction | aim: later | foot: door kept your word | chance: 85
 - U>B | trade your know-how for the hall and the printing instead of money | v: achievement, power | aim: pay | cost: money .1, time .5, family .2 | foot: person go-between | chance: 60
 - B>R | borrow to cover it, and trust the step to pay it back | v: power, stimulation | aim: pay | cost: money .6, time .2, family .3 | foot: door took a wild risk | chance: 45
 - R>G | sit down with the family, say what it means, and ask for their help | v: stimulation, benevolence | aim: pay | cost: money .4, time .3, family .3 | foot: means ties+.03 | chance: 65
@@ -361,7 +361,7 @@ scene magic: A patron of the guild offers {N} a seat on the high council. Seats 
 - U | ask for the terms in writing, weigh them, then accept | v: self-direction, achievement | aim: take | foot: person colleague | chance: 70
 - B | take it, and use it to push {aim.thing} further than anyone expects | v: power, achievement | aim: take | foot: person patron | chance: 60
 - R | turn it down, so you can keep saying what you really think | v: self-direction, stimulation | aim: decline | foot: mark turned down a chance | chance: 85
-- G | say not yet: the household needs the time more this year | v: benevolence, security | aim: ease | foot: door turned down a chance | chance: 90
+- G | say not yet: the household needs the time more this year | v: benevolence, security | aim: later | foot: door turned down a chance | chance: 90
 - W>B | take it on condition the group gets a say in what you do there | v: conformity, power | aim: take | foot: door kept your word | chance: 60
 - U>R | take it, and change how the seat itself works | v: self-direction, stimulation | aim: take | foot: mark defied an authority | chance: 45
 - B>G | take it, and bring the old hands in as advisers | v: power, tradition | aim: take | foot: person elder | chance: 60
@@ -401,7 +401,7 @@ scene magic: A master of the guild has barred {N} from its councils on {aim.thin
 - W>U | ask the ones in the way what would change their mind, then go round | v: conformity, self-direction | aim: round | foot: person go-between | chance: 70
 - U>B | find someone inside {aim.round} who owes a favour | v: achievement, power | aim: round | foot: person colleague | chance: 60
 - B>R | go round loudly, and dare the old way to keep up | v: power, stimulation | aim: round | foot: mark defied an authority | chance: 50
-- R>G | take a season off, then try {aim.round} when the family has room for it | v: hedonism, benevolence | aim: ease | foot: means time+.04 | chance: 70
+- R>G | take a season off, then try {aim.round} when the family has room for it | v: hedonism, benevolence | aim: later | foot: means time+.04 | chance: 70
 - G>W | give it up here, and pass what you know to whoever comes next | v: tradition, universalism | aim: stop | foot: lesson a shut door ends nothing | chance: 85
 works: {aim.round} turns out to be a real way in, and nobody there asks about the old door.
 works: The block is still there, but {N} is past it.
@@ -762,7 +762,7 @@ scene magic: {N} has kept the temple's rites for years and is no closer to the i
 - G | keep a smaller part for a while, and give the time to home | v: benevolence, security | aim: ease | foot: means ties+.05 | chance: 90
 - W>U | slow down to one study night a week, and keep it | v: conformity, self-direction | aim: ease | foot: mark learned a skill | chance: 85
 - U>B | let it go, and carry what it taught into the rest of life | v: achievement, power | aim: stop | foot: lesson what was kept stays with you | chance: 85
-- B>R | step out for a season, and come back only if you miss it | v: self-direction, stimulation | aim: ease | foot: means freedom+.04 | chance: 80
+- B>R | step out for a season, and come back only if you miss it | v: self-direction, stimulation | aim: later | foot: means freedom+.04 | chance: 80
 - R>G | go on retreat for a month, somewhere you have never been | v: stimulation, tradition | aim: work | foot: place faith.shrines | chance: 65
 - G>W | let it rest, and stay close to the ones who kept the practice too | v: benevolence, tradition | aim: stop | foot: person friend | chance: 85
 works: Something opens that years of trying could not open, and it is quiet when it comes.
@@ -796,7 +796,7 @@ scene magic: The temple asks a fee for the inner teaching, and years in its hall
 - B | ask {aim.person} to sponsor the place, and owe them for it | v: power, achievement | aim: pay | cost: money .1, time .4, family .2 | foot: person patron | chance: 55
 - R | give it everything: the savings, the season, all of it | v: stimulation, self-direction | aim: pay | cost: money .6, time .6, family .4 | foot: means money-.09 | chance: 55
 - G | put the family first, and keep the practice at home for now | v: benevolence, security | aim: refuse | foot: means ties+.05 | chance: 90
-- W>B | wait a year and save for it properly | v: security, achievement | aim: ease | foot: door kept your word | chance: 85
+- W>B | wait a year and save for it properly | v: security, achievement | aim: later | foot: door kept your word | chance: 85
 - U>R | go, and bring the family to share the closing days | v: self-direction, benevolence | aim: pay | cost: money .4, time .4, family .1 | foot: means ties+.03 | chance: 65
 - B>G | go, and send money home every week you are away | v: achievement, benevolence | aim: pay | cost: money .4, time .5, family .3 | foot: means money-.06 | chance: 70
 - R>W | let this path go, and keep the friends met along it | v: self-direction, benevolence | aim: stop | foot: person friend | chance: 85
@@ -828,7 +828,7 @@ scene: {aim.person} has asked whether {N} would take on a real place in it: a ro
 scene tribal: The elders have asked {N} to become a keeper of the stones, for life. Keepers do not hunt, and they do not leave.
 scene magic: The temple calls {N} to take the inner vows and teach in its halls. The vows are for life, and the halls are far from {Ns} family.
 - W | accept, and take on every duty that comes with it | v: tradition, conformity | aim: take | foot: place faith.orders | chance: 70
-- U | ask for a year's trial first, and decide then with open eyes | v: self-direction, security | aim: ease | foot: door turned down a chance | chance: 85
+- U | ask for a year's trial first, and decide then with open eyes | v: self-direction, security | aim: later | foot: door turned down a chance | chance: 85
 - B | take it, and aim to lead the whole community within a few years | v: power, achievement | aim: take | foot: person patron | chance: 60
 - R | turn it down: it would tie you to one place and one way | v: self-direction, stimulation | aim: decline | foot: mark turned down a chance | chance: 85
 - G | take it, if it means staying near the people already known | v: benevolence, tradition | aim: take | foot: means ties+.04 | chance: 65
@@ -872,7 +872,7 @@ scene magic: A master's word has closed the temple's door to {N}. There is still
 - U>R | go through {aim.round}, and keep the questions that got you shut out | v: self-direction, stimulation | aim: round | foot: mark learned a skill | chance: 65
 - B>G | find the relatives who would quietly back you, and go round together | v: power, benevolence | aim: round | foot: means ties+.04 | chance: 65
 - R>W | let this one go, and keep the one friend who stood by through it all | v: self-direction, benevolence | aim: stop | foot: person friend | chance: 85
-- G>U | wait a season, then try {aim.round} when things at home are calmer | v: security, self-direction | aim: ease | foot: means time+.03 | chance: 75
+- G>U | wait a season, then try {aim.round} when things at home are calmer | v: security, self-direction | aim: later | foot: means time+.03 | chance: 75
 works: {aim.round} turns out warmer than the old door ever was.
 works: Nobody there asks why {N} came the long way.
 fails: The way round is a long one, and {N} walks much of it alone.

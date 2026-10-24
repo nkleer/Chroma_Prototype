@@ -340,7 +340,10 @@ LAND_ENGINE = dict(
     walk_min=200.0, walk_sd=0.8, nature_haunts=("prod.wild", "prod.land"),
     worry_share=0.6, worry_ages=(16, 25), worry_rise=0.05,   # climate_worry (Hickman 2021): while extremes rise this much
     attach_age=12, lost=0.2, haunt_years=10,   # sick_land: lost .2 since 12; clear after 10 years of haunting
-    per_year=1.0, gap_weeks=13,         # the moments' budget: about one a year, never two in a quarter
+    per_year=1.0, gap_weeks=13,         # the moments' budget: about one a year, never two in a quarter (the moments the
+                                        # land brings itself inside it: the drawn ones get what they leave)
+    season_x=2.0,                       # the budget reads the year's mean odds, a week's at most this x it (a season's
+                                        # moments get their whole share in season)
     alone=(0.3, 0.1),                   # company: alone about .3 of the time for adults, .1 for the young
     stranger_tie=0.25,                  # a stranger becomes an acquaintance 1 in 4
     tie_small=0.02, tie_clear=0.05,     # a tie closer a little, clearly
@@ -350,10 +353,12 @@ LAND_ENGINE = dict(
     way_k=0.1,                          # a held way's yearly effect, in sd units per unit of its effect (keenness 1)
     everyday=0.002, everyday_step=0.0005,   # reach.everyday: at most .002 a year on a stretch; a moment's use moves it this
     tend_per10=0.002, tend_cap=0.02,    # uses.tend: a group tending a stretch, per 10 members a year, at most
-    # the moments the land brings when its state holds (a moment's `when`), the chance it comes in that week or year
+    # the moments the land brings when its state holds (a moment's `when`), the chance it comes in that week or year;
+    # remembrance_tree: the chance a kin's death brings it in the year after, drawn once at the death (a recall brings
+    # it at memory_recall); climate_worry: a worried life's chance a year (LN4's adult tone, Release 10-23)
     force=dict(flood_home=1.0, storm_damage=1.0, neighbours_dig_out=0.3, smoke_days=0.3, heatwave=0.3, drought=0.2,
                dry_well=0.2, sick_river=0.3, wood_cleared=0.3, protest_at_the_wood=0.2, river_clean_again=1.0,
-               planted_tree_grown=1.0, remembrance_tree=0.3, first_date_outdoors=0.3, climate_worry=0.3,
+               planted_tree_grown=1.0, remembrance_tree=0.15, first_date_outdoors=0.3, climate_worry=0.15,
                outdoor_injury=0.05),
     # heat_summer: quarrels (a close tie's break in a fight) x heat_quarrel[0] for heat_quarrel[1] weeks after a heat
     # strike in the town (the weeks an estimate: a summer's spell, as long as the ties' quarterly tick)
@@ -370,7 +375,7 @@ LAND_ENGINE = dict(
     # tenders lose; its yield or money costs: the farmers and builders lose) brings their moment at push_p, push_weeks
     # later (the rival moments: the tenders' by stretch, the farmers' and builders' one); its options are the lean in or the
     # backlash (company rival). All estimates
-    notice=dict(ask_y=0.1, ask_age=16, lean_decay=0.8, lean_full=3.0, push_p=0.1, push_weeks=(4, 26),
+    notice=dict(ask_y=0.1, ask_age=16, lean_decay=0.8, lean_full=3.0, push_p=0.05, push_weeks=(4, 26),
                 push_tend=dict(field="boundary_quarrel", wood="protest_at_the_wood", water="boundary_quarrel"),
                 push_work="verge_meadow"),
 )
@@ -555,6 +560,24 @@ NORM_KEYS_ALL = NORM_KEYS + LAW_V23         # what an option's norm: may name
 # ---- Technology: the keys an option's tech: may name (from world_keys.py)
 TECH_KEYS = ["phone", "computer", "internet", "video calls", "online dating", "remote work", "ai helper", "modern medicine",
              "car", "plane"]
+
+
+# ---- v25 lane C (react, clash, seek): how modern Earth reads a way of asking, and its ages (world_react.py)
+# A demand's method, as this world reads the way it is asked (chroma-engine/notes/v25/contracts.md section 2): each
+# channel's colours W U B R G (None: the source's own ways, as they show them). Illustrative [I]: rules and enforcement
+# read as order (W) and power (B); incentives as gain (B); routines as order and method (W U); access as knowledge and
+# leverage (U B); pressure as force (B R); belonging and provision as community (W G); activities and encounters as
+# action and discovery (R, U R). Earth's nature acts through process only: it asks nothing in colours.
+REACT_CHANNEL_READ = {"attach": None, "example": None, "pressure": (0.0, 0.0, 0.5, 0.5, 0.0),
+                      "routine": (0.5, 0.5, 0.0, 0.0, 0.0), "incentive": (0.0, 0.2, 0.8, 0.0, 0.0),
+                      "access": (0.0, 0.5, 0.5, 0.0, 0.0), "rule": (0.7, 0.3, 0.0, 0.0, 0.0),
+                      "provision": (0.5, 0.0, 0.0, 0.0, 0.5), "enforce": (0.5, 0.0, 0.5, 0.0, 0.0),
+                      "activity": (0.0, 0.0, 0.0, 0.7, 0.3), "encounter": (0.0, 0.4, 0.0, 0.6, 0.0),
+                      "belonging": (0.5, 0.0, 0.0, 0.0, 0.5), "process": (0.0, 0.0, 0.0, 0.0, 0.0)}
+REACT_ADULT_AGE = 17.0      # the age around which Earth's law and custom grant a person their own standing (a soft ramp,
+                            # 1.5 years wide, one part of independence among home, income and freedom; never a switch)
+
+
 # v25 aims v2 (lane B, aims_v2; aims-shape.md section 5): Earth's week for the one resource account, hours a week.
 # Waking hours after sleep (about 8.8 h a day), the essentials (eating, personal care, about 2 h a day) and household
 # work (about 2 h a day), a partner's own time, and the free hours of a life with nothing held (world off: res time 1).
@@ -563,6 +586,27 @@ TECH_KEYS = ["phone", "computer", "internet", "video calls", "online dating", "r
 AIM_WEEK = dict(wake=116.0, essentials=14.0, household=13.0, partner=7.0, free_open=36.0)
 # integrated assets (aims-shape.md section 5, "Gains"): a rare asset a life earns once when an integrate outcome shows two
 # of its fields used together. Key: (field, field) by name (either order), or (shape, shape); value dict(name (the
-# asset's words), title ("" or a catalogue title or perk it grants), opens (words: what it opens), rungs (the least rung
-# reached in each, default (1, 1))). The Library writes Earth's; empty, nobody earns one (the mechanism stays).
+# asset's words; {a} and {b} are the two fields' things), title ("" or a catalogue title or perk it grants), opens
+# (words: what it opens), rungs (the least rung reached in each, default (1, 1))). A field pair the Library names goes
+# before its shapes' pair. Until the Library writes field pairs, every pair of shapes has one, from what each shape's
+# side brings to a combined piece of work (AIM_ASSET_SIDE): the engine's provisional words, Earth's.
+AIM_ASSET_SIDE = {
+    "competition": ("a competitor's discipline", "the clubs and the coaches"),
+    "craft": ("a maker's hand", "the workshops and the trade"),
+    "art": ("an artist's eye", "the galleries, the stages and the readers"),
+    "knowledge": ("a scholar's method", "the libraries, the labs and the journals"),
+    "career": ("the know-how of the trade", "the firms and the people who hire"),
+    "cause": ("an organiser's reach", "the groups, the meetings and the town hall"),
+    "home": ("a household's steadiness", "the families around them"),
+    "land": ("a keeper's knowledge of the land", "the farms, the woods and the trusts"),
+    "faith": ("a believer's calling", "the congregations and their works"),
+    "venture": ("a traveller's nerve", "the far places and those who go there"),
+}
 AIM_ASSETS = {}
+for _i, _a in enumerate(AIM_ASSET_SIDE):
+    for _b in list(AIM_ASSET_SIDE)[_i:]:
+        AIM_ASSETS[(_a, _b)] = dict(
+            name="{a} and {b}, put to one use", title="", rungs=(2, 3),
+            opens=f"{AIM_ASSET_SIDE[_a][0]} with {AIM_ASSET_SIDE[_b][0]}: a way into "
+                  f"{AIM_ASSET_SIDE[_a][1]}" + ("" if _a == _b else f" and {AIM_ASSET_SIDE[_b][1]}"))
+del _i, _a, _b

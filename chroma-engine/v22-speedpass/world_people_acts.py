@@ -103,6 +103,11 @@ class ActsMixin:
         # the reach: on their own place, the settings' ring (a place is a setting's ring, 1); on the town's sphere, the
         # ring of the act's own domain (an institution's, without one)
         reach = float(self.dreach[n, DI["group"] if place >= 0 else (dom if dom >= 0 else DI["institution"])])
+        tw_ = 1.0
+        if self.wa_r:   # WA3: on the town's sphere, at most 1 + the reach the standing level gives at the town's ring; a
+            if place < 0:   # founding nudges the town by its reach / 3
+                reach = min(reach, 1.0 + float(self.wa_treach(n)))
+            tw_ = reach / 3.0
         size = reach / 3.0 * float(RUNG_MULT[min(max(rg, 0), 4)]) * q
         if place < 0:
             ss_ = self.set_sphere[n]
@@ -120,7 +125,7 @@ class ActsMixin:
             hp0_ = W.hp_s[int(self.loc[n])].copy() if getattr(W, "hp_s", None) is not None else None
             ss0_ = W.sph_s[int(self.loc[n])].copy() if getattr(W, "sph_s", None) is not None else None
         what = W.sph_lever(int(self.loc[n]), j, place, lv, ma, size, rg, self.rng, office=("ban", "licence", "budget")[office],
-                           span=span, went=q)
+                           span=span, went=q, tw=tw_)
         if self.wa_l and ss0_ is not None:
             self._wa_lever(n, int(self.loc[n]), hp0_, ss0_, lv, rg, t)
         return dict(kind="sphere lever", n=int(n), t=int(t), lever=lv, sphere=SPHERES[j], place=place, size=round(size, 4), reach=reach, went=q,

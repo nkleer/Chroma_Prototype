@@ -290,7 +290,7 @@ scene magic: The guild's fees have doubled at this grade, and the journeys to th
 - G | let it go as a serious thing, and keep it for weekends with the family | v: benevolence, security | aim: stop | foot: lesson the family comes before the fee | chance: 90
 - W>B | pay, and put in the hours to earn the place it buys | v: conformity, achievement | aim: pay | cost: money .3, time .4, family .2 | foot: means time-.06 | chance: 70
 - B>G | ask the wider family to chip in, and promise them a result | v: power, tradition | aim: pay | cost: money .3, time .1, family .3 | foot: door kept your word | chance: 65
-- G>U | wait a season, and learn what can be learned for free meanwhile | v: security, self-direction | aim: ease | foot: mark learned a skill | chance: 85
+- G>U | wait a season, and learn what can be learned for free meanwhile | v: security, self-direction | aim: later | foot: mark learned a skill | chance: 85
 - U>R | find a cheaper way: borrowed equipment, shared lifts, free sessions | v: self-direction, stimulation | aim: refuse | foot: person friend | chance: 75
 - R>W | stop at this level, and coach the beginners for nothing on the side | v: self-direction, universalism | aim: stop | foot: person friend | chance: 85
 works: The sums come out, just about, and {N} goes on knowing what it cost and why.
@@ -325,7 +325,7 @@ scene magic: A letter with the court's seal offers {N} a place in its own school
 - R | say yes tonight, and work out the rest later | v: stimulation, self-direction | aim: take | foot: mark took a wild risk | chance: 60
 - G | take it, if the whole household can make the change together | v: benevolence, security | aim: take | foot: mark moved away | chance: 60
 - W>U | take it, on the condition that school or work still comes first | v: conformity, self-direction | aim: take | foot: door kept your word | chance: 70
-- U>B | ask to start next year instead, and spend the year getting stronger | v: self-direction, achievement | aim: ease | foot: door turned down a chance | chance: 75
+- U>B | ask to start next year instead, and spend the year getting stronger | v: self-direction, achievement | aim: later | foot: door turned down a chance | chance: 75
 - B>R | try out against the others it was offered to, and win the place outright | v: power, stimulation | aim: try | foot: person rival | chance: 50
 - R>G | turn it down, and keep {aim.doing} where the joy of it is | v: hedonism, benevolence | aim: decline | foot: person friend | chance: 90
 - G>W | let it go here, with thanks, and give the time to home and town | v: benevolence, conformity | aim: stop | foot: lesson knowing when is a skill | chance: 88
@@ -395,7 +395,7 @@ scene magic: The court's school has no place for {N} this year, and the master i
 - U | look into {aim.round} carefully: who runs it, how good it is, what it asks | v: self-direction, security | aim: round | foot: lesson ask before you join | chance: 75
 - B | go round the people in charge, straight to {aim.round} | v: power, achievement | aim: round | foot: mark defied an authority | chance: 60
 - R | turn up at {aim.round} tomorrow and talk your way in | v: stimulation, self-direction | aim: round | foot: mark took a wild risk | chance: 60
-- G | wait a year for a place where the family already belongs | v: tradition, security | aim: ease | foot: mark stayed home | chance: 90
+- G | wait a year for a place where the family already belongs | v: tradition, security | aim: later | foot: mark stayed home | chance: 90
 - W>U | ask for the reasons in writing, and fix each one before next year | v: conformity, self-direction | aim: ease | foot: door learned a skill | chance: 75
 - U>B | try {aim.round}, and use what it teaches to come back stronger | v: self-direction, achievement | aim: round | foot: mark learned a skill | chance: 65
 - B>R | try {aim.round}, and enjoy beating the people who said no | v: power, stimulation | aim: round | foot: person rival | chance: 60
@@ -720,7 +720,7 @@ scene magic: The last few journeys felt like errands, every inn and road already
 - W | book it anyway, as promised, and let the work bring the feeling back | v: conformity, security | aim: work | foot: door kept your word | chance: 70
 - U | change it completely: a new kind of challenge, a new skill to learn | v: self-direction, stimulation | aim: work | foot: mark learned a skill | chance: 65
 - B | raise the stakes until it means something again | v: power, stimulation | aim: work | foot: mark took a wild risk | chance: 50
-- R | take a long break, and come back only if the itch returns | v: hedonism, self-direction | aim: ease | foot: means freedom+.04 | chance: 88
+- R | take a long break, and come back only if the itch returns | v: hedonism, self-direction | aim: later | foot: means freedom+.04 | chance: 88
 - G | let it go, and keep the people met along the way | v: benevolence, tradition | aim: stop | foot: person friend | chance: 90
 - W>B | stop, and turn the experience into work: guiding, teaching, translating | v: conformity, achievement | aim: stop | foot: mark learned a skill | chance: 75
 - B>G | slow down to one trip a year, and make that one count | v: achievement, security | aim: ease | foot: means time+.05 | chance: 85
@@ -758,7 +758,7 @@ scene magic: The guild's fee for the next journey is a year's savings, and it me
 - B | borrow, sell something, do whatever it takes to go | v: achievement, power | aim: pay | cost: money .6, time .3, family .2 | foot: means money-.10 | chance: 60
 - R | go now, pay later, and see what happens | v: stimulation, hedonism | aim: pay | cost: money .5, time .4, family .3 | foot: door took a wild risk | chance: 55
 - G | let this one go: home needs the money, and {N}, more | v: benevolence, security | aim: stop | foot: lesson some years are for staying | chance: 90
-- W>U | wait a year, save properly, and plan it right | v: conformity, self-direction | aim: ease | foot: means money+.05 | chance: 82
+- W>U | wait a year, save properly, and plan it right | v: conformity, self-direction | aim: later | foot: means money+.05 | chance: 82
 - U>B | find a way to be paid to go: a job, a grant, a backer | v: self-direction, achievement | aim: refuse | foot: person patron | chance: 50
 - B>R | turn down the costly version, and do it rough and cheap | v: achievement, stimulation | aim: refuse | foot: means health-.03 | chance: 65
 - R>G | stop here, and keep the skills for trips close to home | v: stimulation, security | aim: stop | foot: mark learned a skill | chance: 85
@@ -796,7 +796,7 @@ scene magic: The court is sending an envoy to the far kingdoms for a year, and t
 - G | decline it: the people at home need {N} here this year | v: benevolence, tradition | aim: decline | foot: mark turned down a chance | chance: 90
 - W>B | accept, but only on terms that bring {N} back with something to show | v: conformity, power | aim: take | foot: door kept your word | chance: 65
 - B>G | say yes if {friend} can come too, and push hard for it | v: achievement, benevolence | aim: try | foot: person friend | chance: 50
-- G>U | ask to go for a shorter spell next year instead | v: security, self-direction | aim: ease | foot: door turned down a chance | chance: 80
+- G>U | ask to go for a shorter spell next year instead | v: security, self-direction | aim: later | foot: door turned down a chance | chance: 80
 - U>R | turn it down, and plan a stranger journey of your own | v: self-direction, stimulation | aim: decline | foot: means freedom+.04 | chance: 75
 - R>W | let it go for good, and put the restlessness into something at home | v: stimulation, universalism | aim: stop | foot: lesson the itch can point anywhere | chance: 85
 works not G G>U U>R R>W: The year away is hard and strange and good, and {N} comes back able to do things that were out of reach.
@@ -865,7 +865,7 @@ scene magic: The court has closed the border roads by decree, and no traveller m
 - U | look into {aim.round}, and find the version that teaches most | v: self-direction, achievement | aim: round | foot: mark learned a skill | chance: 70
 - B | use {aim.round} as a stepping stone, and say so openly | v: power, achievement | aim: round | foot: person colleague | chance: 65
 - R | start on {aim.round} today, without waiting for anyone's leave | v: stimulation, self-direction | aim: round | foot: mark defied an authority | chance: 55
-- G | wait for the road to open again, and tend what is close | v: tradition, security | aim: ease | foot: mark stayed home | chance: 90
+- G | wait for the road to open again, and tend what is close | v: tradition, security | aim: later | foot: mark stayed home | chance: 90
 - W>B | ask the people who said no what would change their minds, and do it | v: conformity, power | aim: ease | foot: door kept your word | chance: 65
 - B>G | take {aim.round} with the family's help and blessing | v: achievement, benevolence | aim: round | foot: means ties+.03 | chance: 75
 - G>U | let it go, and learn the ground right here instead | v: tradition, self-direction | aim: stop | foot: mark learned a skill | chance: 85

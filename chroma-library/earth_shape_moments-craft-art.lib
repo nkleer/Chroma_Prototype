@@ -287,7 +287,7 @@ scene magic: A year in the workrooms without a step forward. The masters draw up
 - B | find a harder teacher who allows no coasting | v: achievement, power | aim: work | foot: person mentor | chance: 60
 - R | stop for good, and go looking for whatever feels alive now | v: stimulation, hedonism | aim: stop | foot: lesson moving on frees the hands | chance: 75
 - G | step back to one evening a week, and keep it for the joy | v: benevolence, tradition | aim: ease | foot: means time+.04 | chance: 85
-- W>B | set a clear test for the spring, and decide then | v: conformity, achievement | aim: ease | foot: lesson a deadline clears the head | chance: 78
+- W>B | set a clear test for the spring, and decide then | v: conformity, achievement | aim: later | foot: lesson a deadline clears the head | chance: 78
 - B>G | let it go, and give your tools to someone just starting | v: power, benevolence | aim: stop | foot: mark learned a skill | chance: 80
 - G>U | slow right down, and teach a beginner what you already know | v: benevolence, self-direction | aim: ease | foot: person colleague | chance: 80
 - U>R | take a month off, then come back with a completely new idea | v: self-direction, stimulation | aim: ease | foot: means freedom+.03 | chance: 72
@@ -323,7 +323,7 @@ scene magic: The guild's fee is due at midwinter, with the cost of a year's lamp
 - B | take on extra work to pay for all of it alone | v: achievement, power | aim: pay | cost: money .1, time .5, family .2 | foot: means time-.06 | chance: 65
 - R | throw your savings at the best of everything | v: stimulation, hedonism | aim: pay | cost: money .6, time .2, family .2 | foot: means money-.08 | chance: 60
 - G | let {aim.doing} go, and put the money where the family needs it | v: benevolence, security | aim: stop | foot: lesson what was learned stays | chance: 85
-- W>U | skip the course this year, and learn from library books meanwhile | v: conformity, self-direction | aim: ease | foot: place learn.keeping | chance: 78
+- W>U | skip the course this year, and learn from library books meanwhile | v: conformity, self-direction | aim: later | foot: place learn.keeping | chance: 78
 - U>B | ask {aim.person} if you can work for them in place of a fee | v: self-direction, power | aim: pay | cost: money .05, time .4, family .1 | foot: person mentor | chance: 66
 - B>R | borrow the money and bet on it paying back | v: power, stimulation | aim: pay | cost: money .5, time .1, family .3 | foot: door took a wild risk | chance: 55
 - R>G | keep going with what you have, and ask {friend} to share tools | v: stimulation, benevolence | aim: refuse | foot: means ties+.03 | chance: 75
@@ -359,7 +359,7 @@ scene magic: A seat in the guild's high workshop in the capital has come free, a
 - B | take it, and bargain hard for more than they offered | v: power, achievement | aim: take | foot: means money+.06 | chance: 60
 - R | say yes on the spot and pack the same night | v: stimulation, self-direction | aim: take | foot: mark took a wild risk | chance: 62
 - G | turn it down, and stay where the family needs an extra pair of hands | v: benevolence, tradition | aim: decline | foot: mark stayed home | chance: 85
-- W>B | ask to start in a year, once your promises here are kept | v: conformity, achievement | aim: ease | foot: door kept your word | chance: 70
+- W>B | ask to start in a year, once your promises here are kept | v: conformity, achievement | aim: later | foot: door kept your word | chance: 70
 - B>G | turn it down, and build the same thing here, on your own ground | v: power, tradition | aim: decline | foot: door turned down a chance | chance: 65
 - G>U | keep {aim.doing} as a love rather than a living, and say no with thanks | v: benevolence, self-direction | aim: stop | foot: lesson some loves stay small | chance: 80
 - U>R | take it for a trial season only, with the way home left open | v: self-direction, stimulation | aim: take | foot: mark left home | chance: 68
@@ -397,7 +397,7 @@ scene magic: The tower's workrooms are full until the year turns. Beyond the wal
 - G | ask around the neighbours until someone knows another way in | v: tradition, benevolence | aim: round | foot: person neighbour | chance: 75
 - W>U | work from books at home this year, then try {aim.round} | v: conformity, self-direction | aim: ease | foot: place learn.keeping | chance: 74
 - U>B | trade a skill you already have for a spot at {aim.round} | v: self-direction, power | aim: round | foot: means time-.03 | chance: 64
-- B>R | wait for the spring, then turn up at {aim.round} with the work to show | v: power, stimulation | aim: ease | foot: person rival | chance: 60
+- B>R | wait for the spring, then turn up at {aim.round} with the work to show | v: power, stimulation | aim: later | foot: person rival | chance: 60
 - R>G | let {aim.doing} go for now, and keep the friend you made while waiting | v: stimulation, benevolence | aim: stop | foot: person friend | chance: 80
 - G>W | ask {mentor} for lessons at home until a place opens | v: tradition, conformity | aim: round | foot: person mentor | chance: 78
 works: The other way in turns out to suit {N} better than the first would have.
@@ -759,7 +759,7 @@ scene magic: For a year the tower's audiences have stayed the same size, and the
 - G | book only a few dates, and keep the rest of the year gentle | v: benevolence, security | aim: ease | foot: means time+.04 | chance: 85
 - W>U | ask {mentor} to look at the work and give an honest verdict | v: conformity, self-direction | aim: work | foot: lesson an outside eye helps | chance: 74
 - U>B | change the whole style, and aim it at a new crowd | v: self-direction, power | aim: work | foot: mark took a wild risk | chance: 55
-- B>R | skip a season and travel to see what others are making | v: achievement, stimulation | aim: ease | foot: means freedom+.04 | chance: 70
+- B>R | skip a season and travel to see what others are making | v: achievement, stimulation | aim: later | foot: means freedom+.04 | chance: 70
 - R>G | let {aim.doing} go, and keep the people you made it with | v: stimulation, benevolence | aim: stop | foot: person friend | chance: 80
 - G>W | keep going for the few who still come, and thank them by name | v: benevolence, conformity | aim: ease | foot: person regular | chance: 82
 works: Something shifts in the new season, and the work moves for the first time in a year.
@@ -793,7 +793,7 @@ scene magic: The tower's fee for the next year is due, and a finer instrument or
 - B | ask the family for the very best, and promise it will pay back | v: achievement, power | aim: pay | cost: money .5, time .2, family .3 | foot: means ties-.03 | chance: 62
 - R | spend everything saved on it, today | v: stimulation, hedonism | aim: pay | cost: money .6, time .1, family .2 | foot: means money-.08 | chance: 60
 - G | let {aim.doing} go as a goal, and keep it at home for joy | v: benevolence, tradition | aim: stop | foot: mark learned a skill | chance: 85
-- W>B | wait a term, put by what you can, and start properly then | v: conformity, achievement | aim: ease | foot: means time+.03 | chance: 80
+- W>B | wait a term, put by what you can, and start properly then | v: conformity, achievement | aim: later | foot: means time+.03 | chance: 80
 - B>G | keep going without lessons, learning beside others at the free group | v: power, benevolence | aim: refuse | foot: place gather.circle | chance: 72
 - G>U | borrow old kit from the family's cupboard and learn alone a while | v: tradition, self-direction | aim: refuse | foot: means ties+.03 | chance: 76
 - U>R | pay for the lessons in hours, by helping out at {aim.place} | v: self-direction, stimulation | aim: pay | cost: money .05, time .4, family .1 | foot: person mentor | chance: 68
@@ -829,7 +829,7 @@ scene magic: A summons has come from the court's company of artists, three days'
 - B | take it, and push for a bigger part than offered | v: power, achievement | aim: take | foot: person patron | chance: 58
 - R | take it at once, and sort out the rest on the way | v: stimulation | aim: take | foot: mark took a wild risk | chance: 62
 - G | say no, and stay home where the family needs the help | v: benevolence, tradition | aim: decline | foot: mark stayed home | chance: 85
-- W>U | ask for it to wait a year, until you are properly ready | v: conformity, self-direction | aim: ease | foot: door turned down a chance | chance: 68
+- W>U | ask for it to wait a year, until you are properly ready | v: conformity, self-direction | aim: later | foot: door turned down a chance | chance: 68
 - U>B | turn it down, and let the big road go with no regrets | v: self-direction, power | aim: stop | foot: lesson not every road needs taking | chance: 75
 - B>R | turn it down, and make the same chance some other way | v: power, stimulation | aim: decline | foot: mark turned down a chance | chance: 60
 - R>G | take it, and bring {friend} along for the road | v: stimulation, benevolence | aim: take | foot: mark left home | chance: 65
@@ -860,7 +860,7 @@ magic: the tower's hall turns {N} away again, and the only other way in is the s
 scene: The group at {aim.place} has said no twice, and nobody else nearby takes newcomers. There are other ways in, {aim.round} among them, and the next try at the old door is a whole year off.
 scene tribal: The clan's singers say {N} must wait another year. Far upriver there is another circle that takes anyone who can keep up, and the boats go up before the floods.
 scene magic: The tower's hall has turned {N} away a second time. Down in the town the street players' guild takes anyone, and the masters pretend not to watch it.
-- W | wait for next year's try, working steadily at {aim.round} meanwhile | v: conformity, security | aim: round | foot: person teacher | chance: 76
+- W | wait for next year's try, working steadily at {aim.round} meanwhile | v: conformity, security | aim: later | foot: person teacher | chance: 76
 - U | try three ways in at once, {aim.round} among them, and keep the best | v: self-direction | aim: round | foot: lesson there are many ways in | chance: 72
 - B | go to {aim.round} and get noticed by whoever runs it | v: power, achievement | aim: round | foot: person patron | chance: 60
 - R | make your own way in: start something with whoever will join | v: stimulation, self-direction | aim: round | foot: mark took a wild risk | chance: 60

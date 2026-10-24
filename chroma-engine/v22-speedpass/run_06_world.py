@@ -13,6 +13,9 @@
                 WL.land_setup(P); company = WL.land.company
             if NAT_ON:    # v25 lane D: national standing (WorldLink.nat, world_national.py)
                 WL.nat_setup(P)
+                if AIM2_ON:   # aim_x from aims v2's agenda: an aim's next rung a standing-3 title (National._aimed)
+                    WL.nat.AG = AG
+                    WL.nat.top = {nm_ for nm_, sd_ in zip(L["ROLES"]["names"], L["ROLES"]["standing"]) if sd_ == 3}
         if P["work_die"] is not None:   # F9.29: a death at work, a work-year at this x danger (world_people._marks_year)
             WL.PP.mk_die = float(P["work_die"])
         LW_ON = bool(getattr(WL, "lw", False)) and RON
@@ -408,3 +411,16 @@
                 for a_ in range(len(L["labels"][s_])):
                     BIRTH_O[s_, a_] = L["COMMIT"][s_, a_] == KID and not BIRTH_NOT.search(L["labels"][s_][a_])
         ba_rng = np.random.default_rng([int(seed), 83])
+    if WON and P.get("react"):   # v25 lane C (world_react.py): reactions, and with them clashes and seeking
+        import world_react as WRX
+        RX_ON = True; CL_ON = bool(P.get("clash")); SK_ON = bool(P.get("seek"))
+        RX = WRX.React(N, P, seed, WL, FR, clash=CL_ON, seek=SK_ON, players=tuple(log_lives))
+        RX.set_lib(L)
+        demands, responses, react_log, involve = RX.demands, RX.responses, RX.log, RX.involve
+        states = RX.states_view()
+        if CL_ON:
+            clash, disputes, clash_now = RX.clash, RX.disputes, RX.clash_now
+        if SK_ON:
+            seek = RX.seek_view()
+        if SCN_ON:
+            scn_demand, scn_cast = RX.scn_demand, RX.scn_cast

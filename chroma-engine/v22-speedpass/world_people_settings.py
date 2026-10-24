@@ -679,7 +679,7 @@ class SettingsMixin:
                 hmq_ = np.einsum("nqf,nqfc->nqc", W.hp_s.reshape(-1, C)[np.maximum(self.hnt, 0)], self._teach[hs_])
                 mix[:, 2] = np.where((nk_ > 0)[:, None], (hmq_ * hq_[..., None]).sum(1) / np.maximum(hq_.sum(1), 1e-9)[:, None], mix[:, 2])
                 wt[:, 2] *= np.where(nk_ > 0, hq_.sum(1) / np.maximum(nk_, 1), 1.0)
-        tot = wt.sum(1)
+        tot = wt.sum(1); self._rx_rows = (wt, mix)   # v25 react reads each row's part (a record only)
         self.places_mix = np.where(tot[:, None] > 1e-9, (wt[..., None] * mix).sum(1) / np.maximum(tot, 1e-9)[:, None], self.w)
         # the same hours in the town's own place of each row's sphere: what the current's places part is read against (cur_rel)
         rm_ = np.take_along_axis(tm, rs[:, :, None], 1)
@@ -787,6 +787,7 @@ class SettingsMixin:
         if getattr(self, "odd_on", False):   # S4: an odd-one-out place's pull on their colours x odd_press
             sw = sw * self._odd_press()[0]
         self._setw = sw.sum(1); self._setmix = (sw[..., None] * self.snorm).sum(1)
+        self._rx_sw = sw   # v25 react (world_react.py) reads each setting's part (a record only)
         fitj = _uclip(likeness(self.snorm, self.w[:, None, :]), 0, 1)
         accj = 0.5 * fitj + 0.5 * self.srank
         self._belong_set = (self.sts * self.scoh * accj * act).sum(1)
