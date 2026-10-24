@@ -405,6 +405,16 @@ class LinkWeekMixin:
         if drop_:
             self.wa_keys = {k_: [si for si in v_ if si not in drop_] for k_, v_ in self.wa_keys.items()}
         self.wa_nat_s = {si for si in range(S) if str(src_[si].get("scope") or "") == "nation"} if P.get("wa_nat_climb") else set()
+        # K9 (wa_works): a workplace's answers only for a life that works now; the moments as F8's WORK set (first life
+        # work, or at an employer, less the doors back: an option that starts a career)
+        self.wa_work_s = set(); self.wa_works = None
+        if P.get("wa_works"):
+            car_ = [c_[0] for c_ in self.E.COMMITMENTS].index("career")
+            at_ = np.asarray(self.L.get("W_AT", np.full(S, -1)))[:S]
+            door_ = (np.asarray(self.L["COMMIT"])[:S] == car_).any(1)
+            self.wa_work_s = {si for si in range(S) if ((src_[si].get("life") or "").split(",")[0].strip() == "work"
+                                                        or at_[si] == WK.INST_KINDS.index("employer")) and not door_[si]}
+            self.wa_car = car_
 
     def land_setup(self, P):
         """v25 lane D, the land (wa_land with world_answers; world_land.py): the towns' stretches, the lives' land, the
@@ -450,6 +460,8 @@ class LinkWeekMixin:
                 nat_ = bool(PP.wa_nat[int(x_["n"])])           # standing, the town's for the rest
                 cand_ = [si for si in ss_ if (si in self.wa_nat_s) == nat_]
                 ss_ = cand_ if cand_ else (ss_ if nat_ else [])
+            if self.wa_work_s and self.wa_works is not None and not self.wa_works[int(x_["n"])]:
+                ss_ = [si for si in ss_ if si not in self.wa_work_s]   # K9: not working, no workplace's answers
             ss2_ = [si for si in ss_ if self.msph[si] == x_["sphere"]]
             PP.wa_taken(x_)
             if not (ss2_ or ss_):

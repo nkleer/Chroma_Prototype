@@ -965,6 +965,10 @@ DEFAULT = dict(
     # apart; a seat held and its hold after; national decisions from the batch's scope: nation moments (load_batch(
     # national=True)); the national dreams read only with it on
     wa_nat_climb=False,
+    wa_works=True,       # K9 (retirement ends work, with world_answers): a workplace's answers (the moments at an employer,
+                         # or of first life work, F8's WORK set less the doors back) reach only a life that works now
+                         # (holds a career): a retired life, or one that left its job, no longer meets them. On, as
+                         # retire_ends: the off sets (UPD_OFF, V24_OFF, V25_OFF) hold it off
     wa_land_par=None, wa_nat_par=None,   # tests: LAND_ENGINE's and NATIONAL_CLIMB's values over the realm's ({key: value})
     # stage 3 of the v22 update, the world's rules (chroma-world/model/stage3-rules.md §8): a culture that moves (LW1) and
     # history from causes (LW2). Passed to a new World; a saved world keeps its own. Off by default: stage 1 goes live
@@ -1619,16 +1623,16 @@ UPD_OFF = dict(dis_match=False,
                # v25 lane A: setbacks that fit the world, what a world rewards
                imp_world=False, tilt_world=False, trace_off=(),
                # v25 lane D: the land, the scenario hook, national standing
-               wa_land=False, scn=False, wa_nat_climb=False,
+               wa_land=False, scn=False, wa_nat_climb=False, wa_works=False,
     # the v22.3 refit's satisfaction level (the new mechanics lift satisfaction; the set point moved .80 -> .86)
     sat_mid=0.8)
 # the v24 refit's switches off (Release's K4 PNEW, with batch CHROMA_BATCH_OFF=FOOT,AIMS,WORLD_ANSWERS and v23.2's packs in
 # CHROMA_PACKS): the lives of v23.2
 V24_OFF = dict(need_tab=None, shared_hist=0.0, imp_age=False, aims=False, heights=False, world_answers=False,
                wa_phase2=False, foot_on=False, cause_fit=False, aims_v2=False, react=False, clash=False, seek=False, scn=False,
-               wa_reach=False, role_rates=None, founder_moment=False)
+               wa_reach=False, role_rates=None, founder_moment=False, wa_works=False)
 # lane C's v25 switches off (every life is v24's, head 10), and lane D's WA3 reach
-V25_OFF = dict(react=False, clash=False, seek=False, scn=False, wa_reach=False, founder_moment=False)
+V25_OFF = dict(react=False, clash=False, seek=False, scn=False, wa_reach=False, founder_moment=False, wa_works=False)
 # v25's shipped set (Vision 10-24; Release's records/v25/scope.md, "The shipped settings"): laid over DEFAULT by the game,
 # rarity_build.py and Release's readers (DEFAULT keeps v25 off, so the off proofs hold), with the batch's flags those
 # switches read (set on batch before load_batch); every *_par stays None (the values in code)
