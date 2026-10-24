@@ -24,6 +24,7 @@ import os
 import numpy as np
 
 from world_keys import AIM_SHAPES, CAPACITY_BEFORE
+from world_keys import AIM_KINDS as AIM_KINDS_
 
 HELD, ACTIVE, PAUSED, DROPPED = range(4)
 STATES = ("held", "active", "paused", "dropped")
@@ -102,9 +103,10 @@ PAR = dict(
     refuse_need=1.3,    # going on without paying a fee: the need x this
     round_need=1.25,    # a way round a closed window: the need x this
     late=0.3,           # the need x (1 + this a decade) for a start after the field's late_from
+    stop_grace=13,      # weeks after an aim is adopted before a moment offering to stop it comes about it
     reask=52,           # weeks before an unchanged pending fork is put again
-    put_gap=20,         # weeks between a player's fork cards (about 2.6 a year at most while forks wait), but a window
-                        # about to close
+    put_gap=52,         # weeks between a player's fork cards on their own moments or the week's (at most about one a
+                        # year: the asks budget, Gamification 10-23), but a window about to close
     window_warn=13,     # weeks before a window closes that it is a fork (once a rung)
     integrate_age=18,   # the youngest age an integrated asset is made at
     integrate_gap=5,    # years after one integrated asset before another (a combined piece of work takes years)
@@ -166,6 +168,18 @@ def _fields_packs(L, pack_dir, more=()):
     return out
 
 
+def _assets_lib(world, lib_dir):
+    """The Library's integrated assets (<world>_aim_assets.py AIM_ASSETS_<WORLD>: (field or shape, field or shape) ->
+    dict(name, title, opens, rungs)), or {}."""
+    p_ = os.path.join(lib_dir, f"{world}_aim_assets.py")
+    if not os.path.exists(p_):
+        return {}
+    import importlib.util
+    sp_ = importlib.util.spec_from_file_location(f"chroma_{world}_aim_assets_v25", p_)
+    m_ = importlib.util.module_from_spec(sp_); sp_.loader.exec_module(m_)
+    return dict(getattr(m_, f"AIM_ASSETS_{world.upper()}", {}) or {})
+
+
 def _req(BA, src, bad):
     """A field rung's req compiled; a name with an apostrophe inside single quotes (has('one's own')) mended first."""
     import re
@@ -215,7 +229,8 @@ def compile_fields(L, par, C, NIDX, heights):
                           start=tuple(x.get("rungs")[0].get("start") or SHAPE_DEF[x["shape"]]["start"]),
                           words=dict(thing=x.get("thing", ""), doing=x.get("doing", ""), contest=x.get("contest", ""),
                                      round=list(x.get("round") or []), people=dict(x.get("people") or {})),
-                          dreams=list(x.get("dreams") or []), src=srcs[nm], dom=a1["dom"] if a1 else -1))
+                          dreams=list(x.get("dreams") or []), src=srcs[nm], dom=a1["dom"] if a1 else -1,
+                          skip=[int(k) for k in (x.get("skip") or [])]))
     have = {it["name"] for it in items}
     for nm, x in _fields_v1(AIM).items():
         if nm in have:
@@ -233,7 +248,7 @@ def compile_fields(L, par, C, NIDX, heights):
              calling=np.array([it["calling"] for it in items], bool), start=np.array([it["start"] for it in items], float),
              ymed=z(), ylo=z(), yhi=z(), share=z(1.0), outy=z(), hours=z(), money=z(), entry=z(), energy=z(),
              time=z(False, bool), w_every=z(), w_open=z(), w_dage=z(-1.0), w_dyrs=z(-1.0), w_pstop=z(False, bool),
-             up_yrs=z(-1.0), up_of=z(-1, int), up_work=z(False, bool), h=z(0, int),
+             up_yrs=z(-1.0), up_of=z(-1, int), up_work=z(False, bool), h=z(0, int), kmap=z(0, int),
              forks=[[[] for _ in range(K)] for _ in range(Fn)], ids=[[np.zeros(0, int)] * K for _ in range(Fn)],
              req=[[None] * K for _ in range(Fn)], say=[[""] * K for _ in range(Fn)], tnames=[[[] for _ in range(K)] for _ in range(Fn)])
     tags = sorted({t for it in items for t in it["prep"]})
@@ -247,9 +262,14 @@ def compile_fields(L, par, C, NIDX, heights):
             if nd in NIDX:
                 F["meets"][i, NIDX[nd]] = 1.0
         d = SHAPE_DEF[it["shape"]]; Ks = len(AIM_SHAPES[it["shape"]]); nr = len(it["rungs"])
+        if it["src"] == "v1":   # v1's steps spread over the ladder
+            km = [r if nr >= Ks else int(round(r * (Ks - 1) / max(nr - 1, 1))) for r in range(nr)]
+        else:   # a field's rungs are the shape's in order, less the ones it skips (aims-shape.md section 3, skip)
+            km = [k for k in range(Ks) if k not in it.get("skip", [])][:nr]
         for r, rg in enumerate(it["rungs"]):
             rg = dict(rg, **(patch.get(it["name"], {}).get(r, {})))
-            k = r if nr >= Ks else int(round(r * (Ks - 1) / max(nr - 1, 1)))   # the shape rung it maps onto
+            k = int(km[r]) if r < len(km) else Ks - 1   # the shape rung it maps onto (its moments' rung index)
+            F["kmap"][i, r] = k
             k = min(k, 4)
             dm = rg.get("demand") or {}
             ys = rg.get("years") or YEARS[k]
@@ -282,6 +302,7 @@ def compile_fields(L, par, C, NIDX, heights):
     F["of_v1"] = {int(v): i for i, v in enumerate(F["v1"]) if v >= 0}
     F["upkeep_any"] = bool((F["up_yrs"] > 0).any())
     F["src"] = "+".join((["library"] if lib else []) + (["packs"] if pkf else []) + ["v1"]) if (lib or pkf) else "v1 adapter"
+    F["assets_lib"] = _assets_lib(L.get("world") or "earth", BA.LIB_DIR)   # the Library's integrated assets, if written
     F["bad_req"] = bad   # Library conditions that would not compile even with their quotes mended (left out: no req)
     return F
 
@@ -319,13 +340,22 @@ class Agenda:
         s.over_wk = np.zeros(N, int); s.strained = np.zeros(N, bool)
         s.assets = [[] for _ in range(N)]; s.awarded = [set() for _ in range(N)]
         tab = par.get("assets")
-        if tab is None:
+        if tab is None:   # the realm's provisional rows, then the Library's (<world>_aim_assets.py) over them
             from realm_earth import AIM_ASSETS as tab
-        s.asset_tab = {}
-        for k_, v_ in (tab or {}).items():
-            s.asset_tab[tuple(sorted(k_))] = dict(v_)
+            tab = list((tab or {}).items()) + list((F.get("assets_lib") or {}).items())
+        else:
+            tab = list(tab.items())
+        s.asset_tab = {}   # a field pair is looked up before its shapes' pair (_pair, integrate)
+        for k_, v_ in tab:   # (looked up in sorted order; _ab keeps the order written, for {a} and {b})
+            s.asset_tab[tuple(sorted(k_))] = dict(v_, _ab=tuple(k_))
         s.dirty = True; s.w = None; s.t = 0; s.SM = np.zeros(0, int); s.mom = np.full(N, -1)
         s.acct = False                                    # the account computed once (fundable reads it)
+        s.sm_open = None                                  # the shape moments open to each life this week (run_10)
+        s.spark_q = []; s._depth = 0                      # sparks raised inside a step, taken up after it
+        s.told = np.zeros(N, bool)                        # a player's fork moment this week that the game did not ask
+        s.asset_due = [None] * N                          # a player's asset decided, credited when its moment is told
+        s.asset_si = np.full(N, -1); s.mom2 = np.full(N, -1)   # this week's told asset moment; an integrate moment's 2nd aim
+        s.rng_told = np.random.default_rng([int(seed), 2512])  # which integrate moment tells an asset (never the life's stream)
         from world_keys import AIM_FORKS as FK_
         s.FKN = list(FK_)
         s.rng_put = np.random.default_rng([int(seed), 2511])   # which own moment a fork is put on (player lives only)
@@ -438,6 +468,11 @@ class Agenda:
         s.K_ACT = np.isin(s.SM_KD, [AIM_KINDS.index(k) for k in ("practice", "contest", "plateau", "setback", "mentor", "rival")])
         s.K_INT = s.SM_KD == AIM_KINDS.index("integrate"); s.K_ARR = s.SM_KD == AIM_KINDS.index("arrive")
         s.FKN = list(AIM_FORKS)
+        from world_keys import AIM_TAGS as TG_
+        s.L_STOP = (s.L_TG == TG_.index("stop")).any(1) if s.L_TG.ndim == 2 else np.zeros(len(sh), bool)
+        s.SM_STOP = s.L_STOP[s.SM]   # a moment with a "stop" option: not about an aim adopted within stop_grace weeks
+        s.SM_SET = set(int(y) for y in s.SM)
+        s.L_LATER = (s.L_TG == TG_.index("later")) if s.L_TG.ndim == 2 else np.zeros((len(sh), 1), bool)
         F = s.F; s.FB = np.zeros((F["F"], F["K"]), np.int64)   # each field rung's forks as bits of FKN (for gate)
         for i in range(F["F"]):
             for r in range(int(F["nr"][i])):
@@ -454,10 +489,12 @@ class Agenda:
         sh = int(s.L_SH[si])
         if sh != -2 and sh != F["shape"][f]:
             return False
-        if not (int(s.L_RG[si]) >> r) & 1:
+        if not (int(s.L_RG[si]) >> int(F["kmap"][f, r])) & 1:
             return False
         from world_keys import AIM_KINDS
         kd = AIM_KINDS[int(s.L_KD[si])]
+        if s.L_STOP[si] and s.t - s.born[n, j] < s.par["stop_grace"]:
+            return False
         if kd == "arrive" or (kd in ("practice", "contest", "plateau", "setback", "mentor", "rival") and s.st[n, j] != ACTIVE):
             return False
         if s.L_FK[si] >= 0 and s.FKN[int(s.L_FK[si])] not in F["forks"][f][r]:
@@ -472,8 +509,10 @@ class Agenda:
         F = s.F; f = int(s.f[n, j]); r = int(s.rung[n, j])
         if f < 0 or s.st[n, j] == DROPPED or r >= F["nr"][f]:
             return False
+        if s.L_STOP[si] and s.t - s.born[n, j] < s.par["stop_grace"]:
+            return False
         sh = int(s.L_SH[si])
-        if (sh != -2 and sh != F["shape"][f]) or not (int(s.L_RG[si]) >> r) & 1:
+        if (sh != -2 and sh != F["shape"][f]) or not (int(s.L_RG[si]) >> int(F["kmap"][f, r])) & 1:
             return False
         return s.L_FK[si] >= 0 and s.FKN[int(s.L_FK[si])] in F["forks"][f][r]
 
@@ -488,17 +527,20 @@ class Agenda:
         if s.gate_out is None or s.gate_out.shape[0] != N or s.gate_f.shape != s.f.shape or aged != s.gate_aged:
             rows = np.arange(N); s.gate_out = np.zeros((N, len(s.SM))); s.gate_aged = aged
         else:
-            ch = (s.f != s.gate_f).any(1) | (s.st != s.gate_st).any(1) | (s.rung != s.gate_rung).any(1)
+            ch = (s.f != s.gate_f).any(1) | (s.st != s.gate_st).any(1) | (s.rung != s.gate_rung).any(1) | \
+                 ((s.t - s.born < s.par["stop_grace"]) != s.gate_young).any(1)
             if aw is not None:
                 ch |= aw != s.gate_aw
             rows = np.nonzero(ch)[0]
         if len(rows):
             s.gate_out[rows] = s._gate_rows(rows)
             s.gate_f = s.f.copy(); s.gate_st = s.st.copy(); s.gate_rung = s.rung.copy(); s.gate_aw = aw
+            s.gate_young = s.t - s.born < s.par["stop_grace"]
         return s.gate_out.copy()
 
     def _gate_rows(s, rows):
         F = s.F; fr = s.f[rows]; st = s.st[rows]; rg = s.rung[rows]; M = len(rows)
+        young = (s.t - s.born[rows]) < s.par["stop_grace"]
         out = np.zeros((M, len(s.SM)), bool)
         ok = (fr >= 0) & ((st == HELD) | (st == ACTIVE))
         if not ok.any():
@@ -514,11 +556,12 @@ class Agenda:
             on = ok[:, j] & (rg[:, j] < nr[:, j])
             if not on.any():
                 continue
-            sh = F["shape"][f[:, j]]; r = rg[:, j]
+            sh = F["shape"][f[:, j]]; r = F["kmap"][f[:, j], np.minimum(rg[:, j], F["K"] - 1)]   # the shape's rung index
             m = on[:, None] & ((s.SM_SH[None] == -2) | (s.SM_SH[None] == sh[:, None])) & (((s.SM_RG[None] >> r[:, None]) & 1) == 1)
             m &= ~s.K_ARR[None] & (~s.K_ACT[None] | (st[:, j] == ACTIVE)[:, None])
             m &= (s.SM_FK[None] < 0) | (((fb[:, j][:, None] >> np.maximum(s.SM_FK, 0)[None]) & 1) == 1)
             m &= ~s.K_INT[None] | intok[:, None]
+            m &= ~(s.SM_STOP[None] & young[:, j][:, None])
             out |= m
         out = out.astype(float)
         if s.K_INT.any():
@@ -527,10 +570,28 @@ class Agenda:
 
     def mom_slots(s, sv):
         """At the situation pause: the aim each life's drawn shape moment is about (S["AG"].mom, -1 none), for its words."""
-        s.mom[:] = -1
+        s.mom[:] = -1; s.mom2[:] = -1
         if len(s.SM):
             for n in np.nonzero(np.isin(sv, s.SM))[0]:
+                if s.asset_si[n] >= 0 and s.asset_si[n] == sv[n]:
+                    s.mom[n], s.mom2[n] = s.asset_due[n][0], s.asset_due[n][1]
+                    continue
                 s.mom[n] = s.put_slot[n] if s.put_si[n] == sv[n] else s.moment_aim(int(n), int(sv[n]))
+                if s.mom[n] >= 0 and s.K_INT[np.searchsorted(s.SM, sv[n])]:
+                    pr = s._pair(int(n), int(s.mom[n]))
+                    s.mom2[n] = pr[0] if pr is not None else -1
+
+    def moment_ctx(s, n):
+        """The words of this week's shape moment for life n (read-only): aim, the aim it is about, and aim2, an integrate
+        moment's second aim (an asset's pair), each with the same fields (slot, field, thing, doing, contest, round,
+        people); None where there is none."""
+        def one(j):
+            if j < 0 or s.f[n, j] < 0:
+                return None
+            f = int(s.f[n, j]); w = s.F["items"][f]["words"]
+            return dict(slot=int(j), field=s.F["names"][f], thing=w.get("thing") or s.F["names"][f], doing=w.get("doing", ""),
+                        contest=w.get("contest", ""), round=list(w.get("round") or []), people=dict(w.get("people") or {}))
+        return dict(aim=one(int(s.mom[n])), aim2=one(int(s.mom2[n])))
 
     def moment_aim(s, n, si):
         """The aim a shape moment is about: the first in priority that it fits (-1 none)."""
@@ -541,6 +602,8 @@ class Agenda:
         """Two of life n's aims may make the asset x: each reached at least its rung (x rungs, the lower for either and
         the higher for one), one of them pursued, and the life of age (integrate_age)."""
         if s.t / 52 < s.par["integrate_age"] or (s.assets[n] and s.t - s.assets[n][-1]["week"] < 52 * s.par["integrate_gap"]):
+            return False
+        if s.asset_due[n] is not None:   # one decided and waiting for its moment
             return False
         lo, hi = sorted(x.get("rungs", (1, 1)))
         ra, rb = int(s.rung[n, ja]), int(s.rung[n, jb])
@@ -564,7 +627,41 @@ class Agenda:
                     return int(k), key
         return None
 
-    def moments(s, sv, av, succ, idle, t):
+    def own_fork(s, n, si):
+        """The fork life n waits on whose own moment shape moment si is (its aim, the moment's fork kind), else None."""
+        if not len(s.SM) or si not in s.SM_SET or s.L_FK[si] < 0 or not s.forks[n]:
+            return None
+        j = int(s.put_slot[n]) if s.put_si[n] == si and s.put_slot[n] >= 0 else s.moment_aim(n, si)
+        if j < 0:
+            return None
+        kd = s.FKN[int(s.L_FK[si])]
+        return next((x for x in s.forks[n] if j in x["aims"] and x["kind"] == kd), None)
+
+    def told_later(s, t, sv, a, mask, asked):
+        """At the choice: a player's fork moment that the game told (its own default answered it, the game did not ask:
+        asked False) is answered "later": the fork stays open as it was and nothing is chosen for the player. The week
+        is the life's idle (told: run_11 adds it to idle), so the moment applies nothing: no colour drift or learning, no
+        footprint, mark or commitment, no cost or gain; its "later" option (the Library's "not now", 54 of 60 fork
+        moments) is the pick shown, never credited. When the game asks, the player's pick stands and is credited as
+        usual. Lives with no player are not touched. Returns a (a copy when a pick changed)."""
+        s.told[:] = False
+        if asked or not s.player or not len(s.SM):
+            return a
+        s.t = t; a0 = a
+        for n in s.player:
+            if n >= s.N or s.own_fork(n, int(sv[n])) is None:
+                continue
+            s.told[n] = True
+            si = int(sv[n]); kl = s.L_LATER[si]; fk = s.own_fork(n, si)
+            s._log(n, fk["aims"][0], "moment", kind=AIM_KINDS_[int(s.L_KD[si])], tag="later", won=False,
+                   moment=str(s.L_ST[si].get("name", "")), told=True, id=fk["id"])
+            ks = np.nonzero(kl[:mask.shape[1]] & mask[n, :len(kl)])[0]
+            if len(ks):
+                a = a.copy() if a is a0 else a
+                a[n] = int(ks[0])
+        return a
+
+    def _moments(s, sv, av, succ, idle, t):
         """The week's shape moments picked: each option's aim: tag on the aim it is about (aims-shape.md section 4, with
         the Library's extras). A tag that answers a fork the aim waits on resolves it (the life's own pick: a player's
         is the player's)."""
@@ -573,6 +670,11 @@ class Agenda:
         s.t = t; F = s.F
         for n in np.nonzero(~idle & np.isin(sv, s.SM))[0]:
             n = int(n); si = int(sv[n]); k = int(av[n])
+            if s.asset_si[n] >= 0 and s.asset_si[n] == si and s.asset_due[n] is not None:
+                ja, jb, key, _ = s.asset_due[n]; s.asset_due[n] = None; s.asset_si[n] = -1
+                if s.f[n, ja] >= 0 and s.f[n, jb] >= 0:   # told, not a choice: credited whatever was picked
+                    s._award(n, ja, jb, key, t, si)
+                continue
             j = int(s.put_slot[n]) if s.put_si[n] == si and s.put_slot[n] >= 0 else s.moment_aim(n, si)
             if j < 0:
                 continue
@@ -581,6 +683,8 @@ class Agenda:
             kd = AIM_KINDS[int(s.L_KD[si])]
             f = int(s.f[n, j]); r = int(s.rung[n, j]); med = float(F["ymed"][f, r]); ok = bool(succ[n])
             by = "player" if n in s.player else "character"
+            if s.told[n]:   # a player's fork moment the game did not ask (idle, so never here): nothing applied
+                continue
             s._log(n, j, "moment", kind=kd, tag=tg, won=ok, moment=str(s.L_ST[si].get("name", "")))
             st_ = s.ctx["astr"]; ak = s.ctx["ak"]; v1 = int(F["v1"][f])
             q = np.nonzero(ak[n] == v1)[0] if (ak is not None and v1 >= 0) else []
@@ -599,7 +703,7 @@ class Agenda:
                 if kd == "integrate":
                     pr = s._pair(n, j)   # the demonstration: the moment won (luck) and the two fit the person
                     if ok and pr is not None and s.rng.random() < s._pair_p(n, j, pr[0]):
-                        s._award(n, j, pr[0], pr[1], t)
+                        s._award(n, j, pr[0], pr[1], t, si)
                 elif ok:
                     s._eff_add(n, j, 0.25 * med)
                     if s.eff[n, j] >= s.need[n, j] and s.fork[n, j] < 0 and not (s.wclose[n, j] >= 0 and t > s.wclose[n, j] and not s.wround[n, j]):
@@ -641,17 +745,23 @@ class Agenda:
         s.apply(n, fk, opt if opt in fk["options"] else None, t, by=by)
         return True
 
-    def _award(s, n, ja, jb, key, t):
+    def _award(s, n, ja, jb, key, t, si=None):
         x = s.asset_tab[key]; s.awarded[n].add(key)
+        ab = x.get("_ab") or key   # {a} is the field (or shape) written first in the row, {b} the other
+        fa_, fb_ = int(s.f[n, ja]), int(s.f[n, jb])
+        if (s.F["names"][fb_] == ab[0] and s.F["names"][fa_] != ab[0]) or \
+                (s.F["names"][fa_] not in ab and SHAPES[s.F["shape"][fb_]] == ab[0] and SHAPES[s.F["shape"][fa_]] != ab[0]):
+            ja, jb = jb, ja
         th = lambda j_: (s.F["items"][int(s.f[n, j_])]["words"].get("thing") or s.F["names"][int(s.f[n, j_])])
         nm = str(x.get("name") or " and ".join(key)).replace("{a}", th(ja)).replace("{b}", th(jb))
         rec = dict(name=nm, pair=list(key), week=int(t), opens=x.get("opens", ""), slots=[ja, jb],
-                   fields=[s.F["names"][int(s.f[n, ja])], s.F["names"][int(s.f[n, jb])]])
+                   fields=[s.F["names"][int(s.f[n, ja])], s.F["names"][int(s.f[n, jb])]],
+                   moment=str(s.L_ST[si].get("name", "")) if si is not None and si >= 0 else "")
         s.assets[n].append(rec)
         tt = x.get("title") or ""
         if tt and tt in s.ctx["RID"]:
             s.ctx["r_gain"](int(n), int(s.ctx["RID"][tt]), "an integrated asset")
-        s._log(int(n), ja, "integrated asset", asset=rec["name"], pair=list(key))
+        s._log(int(n), ja, "integrated asset", asset=rec["name"], pair=list(key), moment=rec["moment"])
 
     def v1_end(s, n, f, what):
         """v1 ended an aim: "let go" (the player, or a spark's drop) sets it aside; "faded" (no goal behind it) sets
@@ -940,7 +1050,34 @@ class Agenda:
         s.rung[n, j] = r + 1
         s.start_rung(n, j, t)
         if worked and s.rng.random() < s.par["spark_rung"]:
-            s.spark(n, j, t)
+            s.spark_q.append((n, j))   # sparked at the end of the step: a new aim may grow the slots, so no mask held
+            if not s._depth:            # across an arrive goes stale (week, month, moments)
+                s._sparks(t)
+
+    def _sparks(s, t):
+        q, s.spark_q = s.spark_q, []
+        for n, j in q:
+            if s.f[n, j] >= 0:
+                s.spark(int(n), int(j), t)
+
+    def _step(s, fn, t, *a):
+        """A step (week, month, moments) with the sparks it raises taken up after it, never inside it."""
+        s._depth += 1
+        try:
+            return fn(t, *a) if fn.__name__ != "_moments" else fn(*a, t)
+        finally:
+            s._depth -= 1
+            if not s._depth and s.spark_q:
+                s._sparks(t)
+
+    def week(s, t, w, need, res, dead):
+        return s._step(s._week, t, w, need, res, dead)
+
+    def month(s, t, ns_, res, held, stress):
+        return s._step(s._month, t, ns_, res, held, stress)
+
+    def moments(s, sv, av, succ, idle, t):
+        return s._step(s._moments, t, sv, av, succ, idle)
 
     def spark(s, n, j, t):
         """A rung reached by one's own work can spark a new ambition (aims-shape.md section 5, "Two directions"): a field
@@ -967,7 +1104,7 @@ class Agenda:
         return k
 
     # ---- the week and the month
-    def week(s, t, w, need, res, dead):
+    def _week(s, t, w, need, res, dead):
         """Effort, learning, windows, outcomes, restoration and strain; returns the week's stress from strain."""
         s.t = t; s.w = w; F = s.F; N = s.N
         if s.debit.any():
@@ -1046,7 +1183,7 @@ class Agenda:
                         PP.trust[ns[rr], kk] = np.maximum(0.0, PP.trust[ns[rr], kk] - s.par["strain_trust"]).astype(PP.trust.dtype)
         return st_
 
-    def month(s, t, ns_, res, held, stress):
+    def _month(s, t, ns_, res, held, stress):
         """The account (capacity and funding), rungs reached through their titles, upkeep, the overfull agenda, the
         unattended lives' yearly look at what they hold, integrate outcomes, and the player's forks kept current."""
         s.t = t
@@ -1236,7 +1373,31 @@ class Agenda:
                             continue
                         if s.rng.random() >= s._pair_p(n, ja, jb):
                             continue
-                        s._award(int(n), ja, jb, key, t)
+                        s._told_asset(int(n), ja, jb, key, t)
+
+    def _int_moment(s, n, ja):
+        """The integrate moment that tells an asset decided for aims ja and its pair: one open to the life this week and
+        fitting ja (else one fitting, else any integrate moment); -1 when the batch has none. Draws from rng_told only."""
+        if not len(s.SM) or not s.K_INT.any():
+            return -1
+        ks = s.SM[s.K_INT]; op_ = s.sm_open[n][s.K_INT] if s.sm_open is not None and s.sm_open.shape[0] > n else np.ones(len(ks), bool)
+        fit = [i for i, si in enumerate(ks) if s._fits(n, ja, int(si))]
+        c = [i for i in fit if op_[i]] or fit or list(range(len(ks)))
+        return int(ks[c[int(s.rng_told.integers(len(c)))]])
+
+    def _told_asset(s, n, ja, jb, key, t):
+        """An asset the yearly integrate outcome decided never arrives silently: it lands with a told integrate moment
+        (the Library's, aims-shape.md section 5). A life left alone: credited now (the week the outcome decides), the
+        moment written to the log. A player's: credited when that moment is told, on the next week whose moment is not a
+        life event (put; not a choice, no "later")."""
+        si = s._int_moment(n, ja)
+        if n in s.player and si >= 0:
+            s.awarded[n].add(key); s.asset_due[n] = (ja, jb, key, si)
+            s._log(n, ja, "asset decided", pair=list(key), moment=str(s.L_ST[si].get("name", "")))
+            return
+        if si >= 0:
+            s._log(n, ja, "moment", kind="integrate", tag="told", won=True, moment=str(s.L_ST[si].get("name", "")), told=True)
+        s._award(n, ja, jb, key, t, si)
 
     # ---- the player's forks: kept current, grouped by a shared bottleneck, put one a week
     def _facts(s, n, fk):
@@ -1274,14 +1435,19 @@ class Agenda:
         """At the situation pause: the one fork (or agenda review) put this week to each player life: the most urgent
         unresolved one not put in the last reask weeks unless its facts changed. With the week's moments (sv, and had:
         the lives whose week holds a life event), the put lines up with the fork's own moment (a shape moment of its
-        fork that fits its aim): on a week whose drawn moment is one, or in place of an optional ask (the everyday draw,
+        fork kind, of the aim's shape or any, at the shape rung the aim works toward, the rung naming that fork, and
+        open to the life this week by its stage, age and conditions): on a week whose drawn moment is one, or in place of an optional ask (the everyday draw,
         never a life event: a death, a birth, a want's or a decision's moment, nor anything the world brings); a fork
         with no moment of its own (a window, an overfull agenda) on any optional-ask week. At most one put every
         put_gap weeks unless a window is about to close. Returns sv (a copy, changed only for player lives).
         put(t) alone (no moments): every due fork in turn, as before."""
-        s.put_arr[:] = -1; s.put_si[:] = -1; s.put_slot[:] = -1; s.put_prev = {}
+        s.put_arr[:] = -1; s.put_si[:] = -1; s.put_slot[:] = -1; s.put_prev = {}; s.asset_si[:] = -1
         out = None if sv is None else np.array(sv, copy=True)
         for n in s.player:
+            if n < s.N and out is not None and s.asset_due[n] is not None:   # an asset decided: its moment told first,
+                if had is None or not had[n]:   # on a week no life event has (the forks wait a week)
+                    out[n] = s.asset_si[n] = s.asset_due[n][3]
+                continue
             if n >= s.N or not s.forks[n]:
                 continue
             c = [fk for fk in s.forks[n] if fk["put"] < 0 or fk["changed"] or t - fk["put"] >= s.par["reask"]]
@@ -1303,7 +1469,8 @@ class Agenda:
                     if x["kind"] not in s.FKN or not len(s.SM):
                         return []
                     k_ = s.FKN.index(x["kind"]); j_ = int(x["aims"][0])
-                    return [int(y) for y in s.SM if s.L_FK[y] == k_ and s._fits_fork(n, j_, int(y))]
+                    op_ = s.sm_open[n] if s.sm_open is not None and s.sm_open.shape[0] > n else np.ones(len(s.SM), bool)
+                    return [int(y) for i_, y in enumerate(s.SM) if op_[i_] and s.L_FK[y] == k_ and s._fits_fork(n, j_, int(y))]
                 own = own_(fk)
                 if not own and not fk["urgent"]:   # not urgent: a fork with a moment of its own goes first
                     for x in sorted(c, key=key):
@@ -1320,7 +1487,7 @@ class Agenda:
             for x in grp:
                 x["put"] = t; x["changed"] = False
             s.put_arr[n] = fk["id"]; s.last_put[n] = t
-            s.burden.append(dict(what="put", life=int(n), week=int(t), id=fk["id"], forks=len(grp),
+            s.burden.append(dict(what="put", life=int(n), week=int(t), id=fk["id"], kind=fk["kind"], forks=len(grp),
                                  aims=len({j for x in grp for j in x["aims"]}), options=sum(len(x["options"]) for x in grp),
                                  moment=str(s.L_ST[si_put].get("name", "")) if si_put >= 0 else ""))
         return out
@@ -1328,6 +1495,9 @@ class Agenda:
     def put_kept(s, sv):
         """After the week's moment is settled (a season, an echo or the player may take the week): a fork put on its own
         moment that did not come is not put after all (asked again on a later week)."""
+        for n in np.nonzero(s.asset_si >= 0)[0]:   # a told asset moment the week did not keep: told on a later week
+            if int(sv[n]) != int(s.asset_si[n]):
+                s.asset_si[n] = -1
         for n, (prev, lp, nb) in list(s.put_prev.items()):
             if s.put_si[n] >= 0 and int(sv[n]) != int(s.put_si[n]):
                 for x, p_, c_ in prev:
