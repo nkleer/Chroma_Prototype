@@ -1,0 +1,5 @@
+v22 checks, 20261024-075020 UTC, level quick, 1 checks, up to 4 cores; run folder /mnt/project-files/chroma-release/out/v22checks_20261024-075020
+  engine /tmp/v22checks_20261024-075020-commit/225679d46e1c/chroma-engine/v22-speedpass   (candidate)
+  game   /tmp/v22checks_20261024-075020-commit/225679d46e1c/chroma-game/prototype   (candidate)
+  lib    /tmp/v22checks_20261024-075020-commit/225679d46e1c/chroma-library   (candidate)
+  packs  /tmp/v22checks_20261024-075020-commit/225679d46e1c/chroma-packs   (candidate)

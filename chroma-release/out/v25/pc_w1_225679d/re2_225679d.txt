@@ -1,0 +1,86 @@
+RE2 matched families: 4 warm and 4 controlling files, seeds [41, 42, 43, 44], commit 225679d46e1c, settings {"backlash": "opposed colours' summed share up .02 or more from 13 to 19", "child": "own", "hold": "month", "pairs": ["WU", "UB", "BR", "RG", "GW"], "setup_age": 12.0, "switches": {"clash": true, "react": true, "scn": true, "seek": true, "world": true}, "years": 25}
+  warm family {'warmth': 0.85, 'control': 0.15}, controlling family {'warmth': 0.3, 'control': 0.9}
+  lives: 400 an arm; read 400 matched (a family at the set-up, alive at 19 in both); left out: no family at the set-up 0, dead before 19 warm 0 controlling 0
+
+1. Distance to the family's mix at 19 (L1): warm 0.803, controlling 1.134; gap +0.3313, 95% [+0.3150, +0.3476] (se pairs 0.0083, seeds 0.0076; 400 pairs; per seed 41 +0.324, 42 +0.349, 43 +0.338, 44 +0.314); target >= .03: PASS
+   (at 13: warm 1.035, controlling 1.255)
+
+2. Backlash, controlling: 54/400 = 0.135, Wilson 95% [0.105, 0.172] (half-width 0.034, adequacy 0.05); target .20 to .40: FAIL
+3. Backlash, warm: 32/400 = 0.080, Wilson 95% [0.057, 0.111] (half-width 0.027); target under .10: PASS
+
+RE2: FAIL  (distance PASS, backlash controlling FAIL, backlash warm PASS)
+   backlash: the opposed colours' (all the family asks nothing of: for a pair, the other three) summed share up .02 or more from 13 to 19
+
+Which colours rose from 13 to 19, by the family's demand (its pair; the opposed colours are the other three, the opposite colour in brackets), mean change in share:
+  warm
+    family WU (against R): 47 lives, backlash 5 (0.11), opposite colour up .02 2, rejected a demand 29
+                            W      U      B      R      G
+      all              +0.069 +0.036 -0.015 -0.072 -0.018
+      backlash         -0.006 -0.028 +0.042 -0.018 +0.010
+      rejected         +0.069 +0.045 -0.010 -0.080 -0.024
+      its purpose       0.500  0.500  0.000  0.000  0.000   (the household's own rejected demands, mean)
+    family UB (against G): 125 lives, backlash 13 (0.10), opposite colour up .02 0, rejected a demand 94
+                            W      U      B      R      G
+      all              -0.006 +0.039 +0.068 +0.001 -0.101
+      backlash         +0.057 -0.071 -0.003 +0.044 -0.027
+      rejected         -0.008 +0.041 +0.069 +0.002 -0.103
+      its purpose       0.000  0.500  0.500  0.000  0.000   (the household's own rejected demands, mean)
+    family BR (against W): 68 lives, backlash 2 (0.03), opposite colour up .02 1, rejected a demand 52
+                            W      U      B      R      G
+      all              -0.103 -0.029 +0.061 +0.111 -0.039
+      backlash         -0.025 +0.047 -0.090 +0.024 +0.044
+      rejected         -0.111 -0.033 +0.072 +0.117 -0.044
+      its purpose       0.000  0.000  0.500  0.500  0.000   (the household's own rejected demands, mean)
+    family RG (against U): 88 lives, backlash 6 (0.07), opposite colour up .02 0, rejected a demand 53
+                            W      U      B      R      G
+      all              -0.026 -0.081 -0.012 +0.093 +0.025
+      backlash         +0.020 -0.032 +0.055 -0.006 -0.037
+      rejected         -0.031 -0.084 -0.013 +0.104 +0.025
+      its purpose       0.000  0.000  0.000  0.500  0.500   (the household's own rejected demands, mean)
+    family GW (against B): 72 lives, backlash 6 (0.08), opposite colour up .02 2, rejected a demand 44
+                            W      U      B      R      G
+      all              +0.057 -0.013 -0.076 +0.006 +0.025
+      backlash         -0.032 +0.017 +0.003 +0.046 -0.035
+      rejected         +0.063 -0.020 -0.080 +0.009 +0.028
+      its purpose       0.500  0.000  0.000  0.000  0.500   (the household's own rejected demands, mean)
+    the opposite colour (the child's lead at the set-up) up .02: 5/400 (diagnostic)
+    backlash lives' rise: opposite colour -0.021, the other two opposed +0.081
+  controlling
+    family WU (against R): 47 lives, backlash 7 (0.15), opposite colour up .02 6, rejected a demand 47
+                            W      U      B      R      G
+      all              +0.034 +0.018 -0.008 -0.041 -0.002
+      backlash         -0.017 -0.052 +0.025 -0.003 +0.046
+      rejected         +0.034 +0.018 -0.008 -0.041 -0.002
+      its purpose       0.500  0.500  0.000  0.000  0.000   (the household's own rejected demands, mean)
+    family UB (against G): 125 lives, backlash 18 (0.14), opposite colour up .02 7, rejected a demand 124
+                            W      U      B      R      G
+      all              -0.000 +0.021 +0.037 +0.025 -0.082
+      backlash         +0.033 -0.032 -0.034 +0.063 -0.029
+      rejected         -0.000 +0.021 +0.036 +0.025 -0.082
+      its purpose       0.000  0.500  0.500  0.000  0.000   (the household's own rejected demands, mean)
+    family BR (against W): 68 lives, backlash 4 (0.06), opposite colour up .02 3, rejected a demand 68
+                            W      U      B      R      G
+      all              -0.064 -0.011 +0.032 +0.064 -0.020
+      backlash         +0.010 +0.035 -0.039 -0.019 +0.013
+      rejected         -0.064 -0.011 +0.032 +0.064 -0.020
+      its purpose       0.000  0.000  0.500  0.500  0.000   (the household's own rejected demands, mean)
+    family RG (against U): 88 lives, backlash 11 (0.12), opposite colour up .02 7, rejected a demand 88
+                            W      U      B      R      G
+      all              -0.008 -0.050 -0.000 +0.053 +0.006
+      backlash         +0.037 -0.000 +0.032 -0.028 -0.040
+      rejected         -0.008 -0.050 -0.000 +0.053 +0.006
+      its purpose       0.000  0.000  0.000  0.500  0.500   (the household's own rejected demands, mean)
+    family GW (against B): 72 lives, backlash 14 (0.19), opposite colour up .02 5, rejected a demand 72
+                            W      U      B      R      G
+      all              +0.033 +0.007 -0.069 +0.021 +0.008
+      backlash         -0.040 +0.046 -0.030 +0.062 -0.038
+      rejected         +0.033 +0.007 -0.069 +0.021 +0.008
+      its purpose       0.500  0.000  0.000  0.000  0.500   (the household's own rejected demands, mean)
+    the opposite colour (the child's lead at the set-up) up .02: 28/400 (diagnostic)
+    backlash lives' rise: opposite colour -0.017, the other two opposed +0.087
+
+Responses to the family's demands from 13 to 19 (while living there), per life, and constrained:
+  warm          27.3 a life: accept 0.69, adopt 0.05, negotiate 0.03, disagree 0.20, backlash 0.03, withdraw 0.00; constrained 0.00; a town event's ask 0.38; others' demands 42.7 a life; left home by 19 0.31
+  controlling   46.0 a life: accept 0.07, adopt 0.08, negotiate 0.00, disagree 0.05, backlash 0.80, withdraw 0.00; constrained 0.84; a town event's ask 0.22; others' demands 45.4 a life; left home by 19 0.37
+
+Run time: 98 to 100 s per 100 lives (to 25), by file

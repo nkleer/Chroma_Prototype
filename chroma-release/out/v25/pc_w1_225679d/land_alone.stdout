@@ -1,0 +1,8 @@
+seed 41: calm largest mean drift 0.080 {'field': 0.0232, 'wood': 0.0796, 'water': 0.0159} (one town at most {'field': 0.1243, 'wood': 0.3417, 'water': 0.1495}); high extremes fall field +0.157 water +0.155; extremes [1.739, 1.739] / [1.818, 4.135]; [48, 52] s
+seed 42: calm largest mean drift 0.062 {'field': 0.0269, 'wood': 0.0622, 'water': 0.0476} (one town at most {'field': 0.1239, 'wood': 0.3471, 'water': 0.2192}); high extremes fall field +0.138 water +0.129; extremes [1.739, 1.739] / [1.818, 4.135]; [77, 132] s
+seed 43: calm largest mean drift 0.070 {'field': 0.0242, 'wood': 0.0697, 'water': 0.0308} (one town at most {'field': 0.164, 'wood': 0.2842, 'water': 0.2044}); high extremes fall field +0.155 water +0.143; extremes [1.739, 1.739] / [1.818, 4.135]; [58, 42] s
+seed 44: calm largest mean drift 0.085 {'field': 0.0271, 'wood': 0.0846, 'water': 0.0283} (one town at most {'field': 0.1079, 'wood': 0.5536, 'water': 0.1473}); high extremes fall field +0.163 water +0.158; extremes [1.739, 1.739] / [1.818, 4.135]; [49, 73] s
+LN2 calm: largest mean drift 0.085 (<= 0.15) ok
+LN2 high extremes: mean fall field 0.153, water 0.146 (0.05 to 0.2) ok
+LN2 pass
+wrote /home/emren/chroma/jobs/w1/land_alone.json
