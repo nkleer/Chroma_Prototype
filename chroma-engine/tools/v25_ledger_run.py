@@ -12,10 +12,10 @@ before the Library loads), every *_par as in code, no player. One core.
   --nat-test   NR1's targeted lives: the shipped set with the national climb's yearly odds at .5 for each kind and its
                wider step after 1 year at rung 4 (wa_nat_par base .5, rung_years 1; a test setting, never shipped), so
                that every route a life can stand on is drawn. Its file is marked nat_test; the judge reads it for NR1 only.
-  --nat-general  with --nat-test, NR1's commander: the general's callings ("the army needs a new general", "the war
-               leader is chosen at the gathering") open after 1 year as an army officer instead of 12 or 6 (a test
-               setting, never shipped), so that lives hold the general's summit and the route's step can be read; the
-               file is marked nat_general
+  --nat-general  with --nat-test, NR1's commander: the general's calling ("the army needs a new general"; and "the war
+               leader is chosen at the gathering" where a pack has it) opens after 1 year as an army officer instead of
+               12 (its req and its tenure: both; a test setting, never shipped), so that lives hold the general's summit
+               and the route's step can be read; the file is marked nat_general
 
 What is read, and how (no draw is added, so the lives are LA's own; the readers, v25_ledger_hook.py, wrap world_react.React
 and aims2.Agenda methods in this process and only look; a played life uses the same hook, SK):
@@ -73,6 +73,10 @@ else:
         lf_["the war leader is chosen at the gathering"]["req"] = "~has('general') & (yrs_has('army officer') >= 1)"
 P["world"] = True
 L = batch.load_batch("earth", packs=list(batch.PACKS))
+if NAT_GEN:   # and its tenure: one year held, not twelve
+    for nm_ in ("the army needs a new general", "the war leader is chosen at the gathering"):
+        if nm_ in L["names"] and L["ROLES"].get("S_TEN") is not None:
+            L["ROLES"]["S_TEN"][L["names"].index(nm_), 0] = 1.0
 t0 = time.time()
 o = E.run(N=N, years=YEARS, seed=SEED, lib=L, P=P)
 secs = round(time.time() - t0, 1)
