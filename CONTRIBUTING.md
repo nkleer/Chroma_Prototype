@@ -139,5 +139,8 @@ folders with `chroma-game/tools/pin.py` first and copies it too. It refuses any 
 
 - Force-push `main` or a `release/` branch, or rewrite their history.
 - Commit run outputs, screenshots, calibration runs, caches (`__pycache__`), secrets or anything over 50 MB.
+  The one exception is an orphan `pc/<job>` branch, which brings run results back from Emren's PC: it may hold run
+  outputs (nothing over 50 MB), it is never merged, and the cloud thread that copies its files into the shared folder
+  and checks their md5s then deletes it (`chroma-env/DECISIONS.md`, "Releases and publishing", Oct 24).
 - Edit a file in the shared folder that is tracked here, except through `tools/mirror.py`.
 - Make another full copy of the game, engine or Library. Use a branch.
