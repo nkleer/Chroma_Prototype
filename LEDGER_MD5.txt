@@ -115,3 +115,31 @@ d371efeb5de723d59ac0f548b6ae8d32  nat_42.json  (975201 B)
 - la 42 start 2026-10-24T15:44:36Z
 - nat 42 start 2026-10-24T15:44:36Z
 - nat 41 start 2026-10-24T15:44:36Z
+- la 44 start 2026-10-24T15:44:36Z end 2026-10-24T17:11:05Z wall 5189 s exit 0
+- nat 42 start 2026-10-24T15:44:36Z end 2026-10-24T17:11:09Z wall 5193 s exit 0
+- la 41 start 2026-10-24T15:44:36Z end 2026-10-24T17:11:12Z wall 5196 s exit 0
+- la 42 start 2026-10-24T15:44:36Z end 2026-10-24T17:11:16Z wall 5200 s exit 0
+- nat 41 start 2026-10-24T15:44:36Z end 2026-10-24T17:11:18Z wall 5202 s exit 0
+- natg 65ecdf9 end 2026-10-24T17:11:18Z
+- la 43 start 2026-10-24T15:44:36Z end 2026-10-24T17:11:19Z wall 5203 s exit 0
+- la 65ecdf9 end 2026-10-24T17:11:19Z
+f48eda3f66d5915050150b8915f81f80  judge_65ecdf9_noLB.json  (20909 B)
+    stdout: (none)
+a1bcfb226698c845e99349e461eda4ff  la_41.json  (1026678 B)
+    stdout: /home/emren/chroma/out/v25_lb/65ecdf9/la_41.json: seed 41, 400 lives x 100 years in 5185.2 s; 4815 clashes put, 4815 answered, 8764 rungs reached, 0 violations (0 kinds)
+    violation_counts: {}
+8a15d0593365a3b7fe9aedc4f3dc5088  la_42.json  (1010010 B)
+    stdout: /home/emren/chroma/out/v25_lb/65ecdf9/la_42.json: seed 42, 400 lives x 100 years in 5190.5 s; 4838 clashes put, 4838 answered, 8597 rungs reached, 0 violations (0 kinds)
+    violation_counts: {}
+87359fdef3aeca3b8c2f03eed00b1667  la_43.json  (1037144 B)
+    stdout: /home/emren/chroma/out/v25_lb/65ecdf9/la_43.json: seed 43, 400 lives x 100 years in 5193.2 s; 5190 clashes put, 5190 answered, 8584 rungs reached, 0 violations (0 kinds)
+    violation_counts: {}
+f4e28017860a2526df53b6585e3aaf1f  la_44.json  (1027968 B)
+    stdout: /home/emren/chroma/out/v25_lb/65ecdf9/la_44.json: seed 44, 400 lives x 100 years in 5174.5 s; 5022 clashes put, 5022 answered, 8605 rungs reached, 0 violations (0 kinds)
+    violation_counts: {}
+769e23dd4b0783e4323bf0bfc3bbbdf5  nat_41.json  (1036179 B)
+    stdout: /home/emren/chroma/out/v25_lb/65ecdf9/nat_41.json: seed 41, 400 lives x 100 years in 5192.1 s; 4697 clashes put, 4697 answered, 8608 rungs reached, 0 violations (0 kinds)
+    violation_counts: {}
+5788dcd895b134ccdbe041278564a777  nat_42.json  (1036201 B)
+    stdout: /home/emren/chroma/out/v25_lb/65ecdf9/nat_42.json: seed 42, 400 lives x 100 years in 5182.1 s; 4849 clashes put, 4849 answered, 8681 rungs reached, 0 violations (0 kinds)
+    violation_counts: {}
