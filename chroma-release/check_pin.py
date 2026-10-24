@@ -4,7 +4,8 @@ Owners: the engine and world modules in the engine folder (--engine; default the
 chroma-engine/archive/live-v22); earth.py and the pack batches in the Library batch folder (--lib; default
 chroma-library, where v22's next3 is live); earth_perks_titles.py in the catalogue folder (--cat; default
 chroma-library); every other earth*.py but earth_rules.py (the pack batches, earth_story.py, earth_play.py) in --lib;
-dreams.py and earth_voice.py in chroma-library; the packs' catalogue, roles and helps in chroma-packs.
+dreams.py, earth_voice.py, worlds.py and footprint_names.py in chroma-library; the packs' catalogue, roles and helps in
+chroma-packs.
 The game's rarity.py must hold the rarity table (--rarity; default chroma-engine/prototype/calib_v8/rarity.json, the
 live one). Read only.
 
@@ -40,7 +41,8 @@ def owner(rel):
         return path("packs_live", rel[len("packs/"):])
     if f == "earth_perks_titles.py":
         return os.path.join(CAT, f)
-    if f in ("dreams.py", "earth_voice.py", "worlds.py"):   # worlds.py: the clan's and the towers' words (v22.5, F12)
+    if f in ("dreams.py", "earth_voice.py", "worlds.py", "footprint_names.py"):   # worlds.py: the clan's and the towers'
+        # words (v22.5, F12); footprint_names.py: the Library's v25 footprint names (chroma-game/tools/pin.py's line tables)
         return os.path.join(LB, f)
     if f.startswith("earth") and f != "earth_rules.py":   # the Library's batches and story files (earth.py, the packs'
         return os.path.join(ST, f)                          # earth_<pack>.py, earth_story.py, earth_play.py); earth_rules is the engine's
