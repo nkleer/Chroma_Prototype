@@ -9,8 +9,10 @@ before falling to 2). Fifteen routes, three a colour; a route's colour says whos
 it, and nothing here reads a colour.
 
 Who may climb: a life at a route's wider step (rung_years or more at rung 4 in a sphere, a summit title held - a title of
-standing 2 or more - or a movement or firm it leads past its town). Each kind comes with base a year (x aim_x when the goal
-the life pursues is in that sphere; no town-size factor, no r), authority only to a free seat: one of the routes' seats
+standing 2 or more - or a movement or firm it leads past its town). Each kind comes with base a year (x aim_x with an aim
+for a route there: with aims v2, an aim on the agenda whose field is a route's aim (chroma-packs/national ROUTES) and
+whose next rung is a standing-3 seat in that sphere, the climb then taking that route; without aims v2 or the pack, the
+goal the life pursues in that sphere; no town-size factor, no r), authority only to a free seat: one of the routes' seats
 not held by another life of the run and not one of the engine's own offices (a seat that exists already as a title, head
 of government, minister, party leader, general, magnate, comes by that title's own ways). The movement road (a movement
 led with movement_share or more of the country) and the money road (money and work rank) reach national influence, and
@@ -48,6 +50,9 @@ class National:
         self.ever = np.zeros(N, bool); self.log = []
         self.mv_road = np.zeros(N, bool); self.money_road = np.zeros(N, bool)
         self._yr = -1
+        self.AG = None                                      # aims v2's agenda (run_06 sets it with aims_v2 on)
+        self.top = set()                                    # the batch's standing-3 titles (run_06, with the agenda)
+        self.route_aim = self._routes()                     # an aim's name -> its route (chroma-packs/national ROUTES)
 
     # ------------------------------------------------------------------ the roads (People._standing, monthly)
     def roads(self, mon):
@@ -123,7 +128,8 @@ class National:
                     continue
                 j = int(js[r.integers(len(js))])
                 b_ = C["base"][kd] if isinstance(C["base"], dict) else C["base"]
-                p_ = b_ * (C["aim_x"] if self._aimed(n, j, goal) else 1.0)
+                am_, ar_ = self._aimed(n, j, goal)
+                p_ = b_ * (C["aim_x"] if am_ else 1.0)
                 if u[n, q_] >= p_:
                     continue
                 rs = self.by_sph.get(j, [])
@@ -132,16 +138,52 @@ class National:
                           and self.routes[i_]["seats"][0] not in self.held]
                 if not rs:
                     continue
-                self._gain(n, kd, j, rs[int(r.integers(len(rs)))], t, a, "climb")
+                ri_ = rs[int(r.integers(len(rs)))]   # the draw always made (the stream the same), the aimed route kept
+                self._gain(n, kd, j, ar_ if ar_ in rs else ri_, t, a, "climb")
         self._levels()
 
+    def _routes(self):
+        """chroma-packs/national/fields.py ROUTES (route key -> the aim it runs through) as aim name -> route index, or
+        None without the pack (then aim_x reads the goal's sphere)."""
+        import os
+        import importlib.util
+        import batch as BA_
+        p_ = os.path.join(BA_.PACK_DIR, "national", "fields.py")
+        if not os.path.exists(p_):
+            return None
+        sp_ = importlib.util.spec_from_file_location("chroma_pack_national_routes_v25", p_)
+        m_ = importlib.util.module_from_spec(sp_); sp_.loader.exec_module(m_)
+        rk_ = {r_["key"]: i_ for i_, r_ in enumerate(self.routes)}
+        return {aim_: rk_[k_] for k_, aim_ in (getattr(m_, "ROUTES", {}) or {}).items() if k_ in rk_}
+
+    def _seat3(self, name):
+        """A standing-3 title's sphere (the routes' seats; else the catalogue's standing 3, sphere unknown), or None."""
+        x_ = self.seats.get(name)
+        if x_ is not None:
+            return x_.get("sphere")
+        return "?" if name in self.top else None
+
     def _aimed(self, n, j, goal):
-        """Whether the life aims at a route in sphere j (x aim_x). Today: the goal it pursues is in that sphere (world
-        answers' wa_gsph)."""
-        # TODO(aims_v2, lane B): other-shapes.md section 5 reads "x aim_x when an aim's next rung is a standing-3 title in
-        # that sphere". When aims v2 lands, check here the life's held aim (its route field) and its next rung's title
-        # (standing 3, sphere j), and fall back to wa_gsph only for a life with no aim.
-        return goal[n] == j
+        """Whether the life aims at a national route in sphere j (x aim_x), and that route's index (or None). With aims
+        v2 (its agenda) and the national pack's ROUTES: an aim on its agenda (held, active or paused) whose field is a
+        route's aim and whose next rung names a standing-3 title in sphere j (other-shapes.md section 5). Without them:
+        the goal the life pursues is in that sphere (world answers' wa_gsph)."""
+        AG = self.AG
+        if AG is None or self.route_aim is None:
+            return bool(goal[n] == j), None
+        F = AG.F; sj = SPHERES[j]
+        for s_ in range(AG.MA):
+            f = int(AG.f[n, s_])
+            if f < 0 or int(AG.st[n, s_]) == 3:   # aims2.DROPPED
+                continue
+            ri = self.route_aim.get(F["names"][f])
+            k = int(AG.rung[n, s_])
+            if ri is None or k >= int(F["nr"][f]):
+                continue
+            rg = F["items"][f]["rungs"][k]
+            if any(self._seat3(t_) == sj for t_ in (rg.get("any") or rg.get("names") or [])):
+                return True, ri
+        return False, None
 
     def _gain(self, n, kd, j, ri, t, a, how):
         x_ = dict(sphere=SPHERES[j], route=self.routes[ri]["key"] if ri is not None else None, since=t, last=t, how=how)

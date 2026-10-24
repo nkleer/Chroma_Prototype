@@ -1,4 +1,4 @@
-7931fbb00e19b9dcf0a3944bf2869ee4  aims2.py
+63c00c338e8fdb8c2f6d79dbe170a9ad  aims2.py
 bd4c4cf79a6de056d94c020ff530b84a  batch.py
 757721ec4414965232f272d129713c58  combos.py
 7a4a30e346385bd4aee9d69fc0d09be3  earth_rules.py
@@ -25,9 +25,9 @@ de2fb10388ea825710f13263ff961c15  rules_titles.py
 02d731aa9ad5708dc221eb8b8d84de7a  run_01_start.py
 8fc87a428a9bf5ca22a779cb366eefc3  run_02_goals.py
 888f1f717f7d53bcac8bf5395f935602  run_03_moments.py
-5ddb9be9b06cc9a1d87e32933962e44e  run_04_titles.py
+0f94f3994a2c45ea70be485ffab148b3  run_04_titles.py
 0056c5c388a022f79f1db37898b0c7cc  run_05_conditions.py
-1beefc8e4c9750b2769e48a991e47641  run_06_world.py
+f25d6cb1b499a16dba8e92a9ab90b152  run_06_world.py
 f67d8d7e8e0d3972e9791608451ee961  run_07_body.py
 222ce3b326d1d9335edfa565b54c094c  run_08_fixes.py
 1cac1627cb5986bbeeb5ab79fb82f8b0  run_09_week.py
@@ -55,7 +55,7 @@ a477bf6814143aacc26c4ae844356bd5  world_link_base.py
 fccb7cc4b9419ae0908ed6a9234d1afe  world_link_life.py
 1fd57f43baa0a4f477630ddc91424545  world_link_rates.py
 bf607af8bd3a90455b698f5c1d1ab143  world_link_week.py
-c775f61fbd8d494c7a66ad2da767b58a  world_national.py
+0ef80f53fbe5d055fa476b9f11808ace  world_national.py
 db23a2713ab3f610cc0f85b2a27d5bbd  world_people.py
 9f9e2481de85387b8298bf6ccffdd5d7  world_people_acts.py
 4ad919ebca7198912c7c9853fd684f65  world_people_answers.py

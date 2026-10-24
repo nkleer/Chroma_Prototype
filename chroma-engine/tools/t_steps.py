@@ -93,7 +93,9 @@ engine.run_steps() is engine.run() pausing six times a week for the game. On a f
      loaded with the switch off no national moment comes; on, run_steps() lives as run() and the lives move;
      recognition, influence and authority kept apart, a seat held by one life and never an engine office, none before
      18, phase 2's national only with a seat, a voice or an office, Known by national standing only with a seat or a
-     national name (a voice alone is Known only by the heights), and decisions at nation scope only by them.
+     national name (a voice alone is Known only by the heights), and decisions at nation scope only by them; with aims
+     v2 the national pack's route fields are on the agenda only with wa_nat_climb on, and aim_x reads an aim whose next
+     rung is a standing-3 seat in the climb's sphere.
  28. aims v2 (aims_v2, v25 lane B), Earth and packs with the Library's and the packs' fields (the druid joined), a player's life (forks
      left open but one answered), world off (every field's first two rungs given a deadline) and on: run_steps() lives as
      run() with the agenda, previews and reviews read; the agenda's handed-over names there; every rung reached through
@@ -1706,13 +1708,46 @@ if "wa_nat_climb" in E.DEFAULT and os.path.exists(os.path.join(batch.LIB_DIR, "e
     seen_["vdec"] = sum(d_.get("scope") == "nation" for d_ in (o3_.get("wa_ledger") or {}).get("decisions", []))
     if not seen_["voice"]:
         fails.append("no life held a voice alone")
+    # aims v2 (lane B): the national pack's route fields join the agenda only with national standing on, and aim_x reads
+    # an aim on the agenda whose next rung is a seat in the climb's sphere (National._aimed); without it, the goal's sphere
+    if "aims_v2" in E.DEFAULT and os.path.exists(os.path.join(batch.PACK_DIR, "national", "fields.py")):
+        from world_keys import SPHERES as SPH_
+
+        def nat_aims_(P_, probe):
+            g = E.run_steps(**dict(kw, years=4), P=P_); msg = next(g); src_ = None   # (pauses past 3)
+            while True:
+                kind, t, S, val = msg
+                if src_ is None and S.get("aim2") is not None:
+                    src_ = {it_["src"] for it_ in S["aim2"].ag.F["items"]}
+                if probe and kind == "end" and S.get("WL") is not None and S["WL"].nat is not None and "aimed" not in seen_:
+                    nt_ = S["WL"].nat; AG_ = nt_.AG; F_ = AG_.F; go_ = np.full(nt_.N, -1)
+                    fi_ = F_["names"].index("to keep the country's wild places"); nr_ = int(F_["nr"][fi_])
+                    sj_ = SPH_.index(nt_.seats["head of the national parks"]["sphere"])
+                    ri_ = [r_["key"] for r_ in nt_.routes].index("living_land_steward")
+                    keep_ = (int(AG_.f[0, 0]), int(AG_.st[0, 0]), int(AG_.rung[0, 0]))
+                    AG_.f[0, 0] = fi_; AG_.st[0, 0] = 0; AG_.rung[0, 0] = nr_ - 1   # held, the seat next
+                    a1_ = nt_._aimed(0, sj_, go_); a2_ = nt_._aimed(0, (sj_ + 1) % len(SPH_), go_)
+                    AG_.rung[0, 0] = nr_ - 2; a3_ = nt_._aimed(0, sj_, go_)            # a rung below: not yet
+                    AG_.f[0, 0], AG_.st[0, 0], AG_.rung[0, 0] = keep_
+                    seen_["aimed"] = (a1_, a2_[0], a3_[0])
+                    if a1_ != (True, ri_) or a2_[0] or a3_[0]:
+                        fails.append(f"aims v2: aim_x not by an aim whose next rung is the seat in its sphere: {seen_['aimed']}")
+                try:
+                    msg = g.send(val)
+                except StopIteration:
+                    return src_ or set()
+        if "pack:national" in nat_aims_(dict(P0_, aims_v2=True), False):
+            fails.append("aims v2: the national pack's fields without national standing")
+        if "pack:national" not in nat_aims_(dict(P1_, aims_v2=True), True) or "aimed" not in seen_:
+            fails.append("aims v2: the national pack's fields not on the agenda with national standing, or aim_x unread")
     bad += bool(fails)
     print(f"{'PASS' if not fails else 'FAIL'}  national standing (wa_nat_climb), world on: loaded with it off no national "
           f"moment comes; on, run_steps lives as run() and the lives move; recognition, influence and authority apart "
           f"({seen_['kinds']} life-years), a seat held once and never an engine office, phase 2's national only with a "
           f"seat, a voice or an office, Known by national standing only with a seat or a name, {seen_['natdec']} "
           f"decisions at nation scope all by national lives; a voice alone ({seen_['voice']} life-years) Known only by "
-          f"the heights ({seen_['vdec']} at nation scope){'' if not fails else '; ' + '; '.join(fails[:4])} "
+          f"the heights ({seen_['vdec']} at nation scope); with aims v2 the national fields only with it on, aim_x by an "
+          f"aim whose next rung is the seat ({seen_.get('aimed')}){'' if not fails else '; ' + '; '.join(fails[:4])} "
           f"({time.process_time() - t0:.0f} s)")
 # 28. aims v2 (aims_v2; v25 lane B, Emren's decision #9), Earth and packs with the Library's fields (or v1's adapter)
 if "aims_v2" in E.DEFAULT:

@@ -352,7 +352,9 @@
     if AIM2_ON:
         import aims2 as A2_
         A2P_ = {**A2_.PAR, **(P.get("aims2_par") or {})}
-        A2K_ = (id(L), repr(A2P_.get("field_patch")))
+        if P.get("wa_nat_climb") and P.get("world_answers") and P.get("world") and BAT:   # v25 lane D: the national
+            A2P_["packs_more"] = ("national",)   # pack's route fields with national standing on (never in batch.PACKS)
+        A2K_ = (id(L), repr(A2P_.get("field_patch")), tuple(A2P_.get("packs_more") or ()))
         if A2_.CACHE.get("key") != A2K_:
             A2_.CACHE.update(key=A2K_, F=A2_.compile_fields(L, A2P_, C, NIDX, AIM_HEIGHTS))
         AG = A2_.Agenda(N, A2_.CACHE["F"], A2P_, seed, dict(

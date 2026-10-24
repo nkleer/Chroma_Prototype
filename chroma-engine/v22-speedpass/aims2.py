@@ -149,12 +149,13 @@ def _fields_lib(world, lib_dir):
     return out
 
 
-def _fields_packs(L, pack_dir):
-    """The loaded packs' fields (chroma-packs/<pack>/fields.py FIELDS_<PACK>), then the druid's (callings' FIELDS_LAND,
-    as L["DRUID"] when the batch joined it), each with its pack; read only here, with aims_v2 on."""
+def _fields_packs(L, pack_dir, more=()):
+    """The loaded packs' fields (chroma-packs/<pack>/fields.py FIELDS_<PACK>), then more's (packs whose fields join
+    without the pack: national, with the engine's wa_nat_climb), then the druid's (callings' FIELDS_LAND, as L["DRUID"]
+    when the batch joined it), each with its pack; read only here, with aims_v2 on."""
     import importlib.util
     out = {}
-    for pk in L.get("PACKS") or []:
+    for pk in list(L.get("PACKS") or []) + [x_ for x_ in more if x_ not in (L.get("PACKS") or [])]:
         p_ = os.path.join(pack_dir, pk, "fields.py")
         if not os.path.exists(p_):
             continue
@@ -201,7 +202,7 @@ def compile_fields(L, par, C, NIDX, heights):
     GR = L["ROLES"]; RID = {nm: i for i, nm in enumerate(GR["names"])}
     AIM = L["AIMS"]; V1 = {nm: i for i, nm in enumerate(AIM["names"])}
     lib = _fields_lib(L.get("world") or "earth", BA.LIB_DIR)
-    pkf = {nm: v for nm, v in _fields_packs(L, BA.PACK_DIR).items() if nm not in lib}
+    pkf = {nm: v for nm, v in _fields_packs(L, BA.PACK_DIR, tuple(par.get("packs_more") or ())).items() if nm not in lib}
     srcs = {**{nm: "library" for nm in lib}, **{nm: "pack:" + v[0] for nm, v in pkf.items()}}
     items = []; bad = []
     for nm, x in list(lib.items()) + [(nm, v[1]) for nm, v in pkf.items()]:
