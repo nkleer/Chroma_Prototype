@@ -614,6 +614,8 @@ class React:
         comply = r in (ACC, ADO) or (r == NEG and neg_ok) or constrained
         convinced = r == ACC or (r == ADO)
         q = self._q_of(dd, i, r, neg_ok)
+        if nat:   # nature acts through process only: no answer to it is a colour step (leaving the land included; the
+            q = None   # places they go to reach them afterwards through their own ordinary channels)
         if constrained:
             q = None   # constrained obedience: outward compliance, no colour step either way (its grievance waits)
         # 1. the reaction (a state, never from a colour)

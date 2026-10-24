@@ -229,9 +229,11 @@ def r6():
         col_(kind, t, S)
     o = drive(76, 38, script, clash=True)
     rs = col_.r
-    ok = bool(rs) and all(r["drift"] is None or r["response"] == "withdraw" for r in rs)
+    nat_ = [e_ for lg_ in o["react"]["log"] for e_ in lg_ if (e_.get("source") or {}).get("key") == "nature"]
+    ok = bool(rs) and all(r["drift"] is None for r in rs) and all(e_["layers"]["drift"] is None for e_ in nat_)
     report("R6 Earth nature", ok, f"{len(rs)} answers to the land: " + ", ".join(sorted({r['act'] for r in rs}))
-           + "; no colour step from nature (a move away aside)", t0)
+           + f" ({', '.join(sorted({r['response'] for r in rs}))}); no colour step answers nature, a move away included "
+           f"({len(nat_)} answers to nature in the record, every life)", t0)
 
 
 # C1: one dispute: a family demand the congregation backs; one merged question, not repeated while nothing changes
