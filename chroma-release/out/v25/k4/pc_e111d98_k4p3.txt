@@ -1,0 +1,17 @@
+k4: new side's PACKS = ["science", "politics", "stage", "art"]   
+k4: settings new with their parts, left as they are: pick_asked, shared_hist_par, aims_par, aims2_par, wa_groups, wa_places, wa_ledger, wa_notice, foot_par, react_par, clash_par, seek_par, realm, imp_world_par, wa_land_dev, wa_land_play, wa_land_par, wa_nat_par
+== K4 part 3: e111d9850912 against release/v23.2 34721bbe7a30, 10:51 UTC
+k4: PNEW={"cause_fit": false, "role_rates": null, "founder_moment": false, "need_tab": null, "shared_hist": 0.0, "imp_age": false, "aims": false, "heights": false, "world_answers": false, "wa_phase2": false, "wa_reach": false, "foot_on": false}; batch FOOT AIMS WORLD_ANSWERS off
+Speed pass check, 2026-10-24 10:51 UTC
+  base /tmp/v25k4_3/base/chroma-engine/v22-speedpass (engine.py 0b9af1489c4d, 65 files)
+  new  /tmp/v25k4_3/new/chroma-engine/v22-speedpass (engine.py da6ffefa61bb, 73 files)
+  Library /tmp/v25k4_3/base/chroma-library, packs /tmp/v25k4_3/base/chroma-packs; new on Library /tmp/v25k4_3/new/chroma-library, packs /tmp/v25k4_3/new/chroma-packs; 400 lives x 100 years, seeds 43, worlds off,on,seed; P new {"cause_fit": false, "role_rates": null, "founder_moment": false, "need_tab": null, "shared_hist": 0.0, "imp_age": false, "aims": false, "heights": false, "world_answers": false, "wa_phase2": false, "wa_reach": false, "foot_on": false}, P base {}
+  base side kept for 3 of 3 engine runs; cache /home/emren/.cache/chroma/speedpass
+ok   id-43-off: base 517 s (kept 2026-10-24 07:34 UTC on Nkleer), new 2394 s CPU (0.22x faster): identical (67 outputs compared by digest)
+ok   id-43-on: base 2262 s (kept 2026-10-24 10:21 UTC on Nkleer), new 3001 s CPU (0.75x faster): identical (71 outputs compared by digest)
+ok   id-43-seed: base 205 s (kept 2026-10-24 00:59 UTC on Nkleer), new 381 s CPU (0.54x faster): identical (67 outputs compared by digest)
+All runs: base 2985 s, new 5776 s CPU: 0.52x faster overall
+Speed pass: PASS (identical lives)
+report: /home/emren/chroma/live/chroma-release/out/speedpass_20261024-105136_s43.txt; scratch /tmp/sl43
+SAME-LIVES PART 3 PASS 11:42:25 UTC; new /tmp/v25k4_3/new/chroma-engine/v22-speedpass
+k4.sh part 3 on e111d9850912: exit 0, 50 min

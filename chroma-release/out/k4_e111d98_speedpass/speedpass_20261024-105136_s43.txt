@@ -1,0 +1,11 @@
+Speed pass check, 2026-10-24 10:51 UTC
+  base /tmp/v25k4_3/base/chroma-engine/v22-speedpass (engine.py 0b9af1489c4d, 65 files)
+  new  /tmp/v25k4_3/new/chroma-engine/v22-speedpass (engine.py da6ffefa61bb, 73 files)
+  Library /tmp/v25k4_3/base/chroma-library, packs /tmp/v25k4_3/base/chroma-packs; new on Library /tmp/v25k4_3/new/chroma-library, packs /tmp/v25k4_3/new/chroma-packs; 400 lives x 100 years, seeds 43, worlds off,on,seed; P new {"cause_fit": false, "role_rates": null, "founder_moment": false, "need_tab": null, "shared_hist": 0.0, "imp_age": false, "aims": false, "heights": false, "world_answers": false, "wa_phase2": false, "wa_reach": false, "foot_on": false}, P base {}
+  base side kept for 3 of 3 engine runs; cache /home/emren/.cache/chroma/speedpass
+ok   id-43-off: base 517 s (kept 2026-10-24 07:34 UTC on Nkleer), new 2394 s CPU (0.22x faster): identical (67 outputs compared by digest)
+ok   id-43-on: base 2262 s (kept 2026-10-24 10:21 UTC on Nkleer), new 3001 s CPU (0.75x faster): identical (71 outputs compared by digest)
+ok   id-43-seed: base 205 s (kept 2026-10-24 00:59 UTC on Nkleer), new 381 s CPU (0.54x faster): identical (67 outputs compared by digest)
+All runs: base 2985 s, new 5776 s CPU: 0.52x faster overall
+Speed pass: PASS (identical lives)
+report: /home/emren/chroma/live/chroma-release/out/speedpass_20261024-105136_s43.txt; scratch /tmp/sl43
