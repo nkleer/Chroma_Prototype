@@ -1,4 +1,5 @@
-"""v25 lane C's own scenarios: R1 to R6, C1 and S1 of the life-drivers specs (v25-specs.md, scenario table), each a
+"""v25 lane C's own scenarios: R1 to R6, C1 and S1 of the life-drivers specs (v25-specs.md, scenario table), and R7
+(a demand taken up applies its step, whatever the colours' conformity: What shapes a life's R5 on 69e5fcd), each a
 short deterministic run through the engine's scenario hooks (P["scn"]: S["scn_cast"], S["scn_demand"]).
 
     python3 -B chroma-engine/tools/v25_scenarios.py [ENGINE_DIR] [--only R1,C1]
@@ -6,7 +7,7 @@ short deterministic run through the engine's scenario hooks (P["scn"]: S["scn_ca
 Each scenario sets a life up at a pause, puts demands to it as the engine's own would come (the same path, their tag
 carried into the record), and reads what came back: the response odds and draws, compliance, the colour step, trust,
 states, clashes and seeking. A fixed seed per scenario, so a run repeats exactly. Prints one line a scenario, PASS or
-FAIL with what was read; exit code 0 when every one passes. About 4 minutes on one core. It checks the engine's
+FAIL with what was read; exit code 0 when every one passes. About 7 minutes on one core. It checks the engine's
 behaviour against the scenario table's "expected" and "not acceptable" columns, as far as one short life can show it;
 the full pack (chroma-ideas/life-drivers-2026-10-20/scenario-pack) is What shapes a life's."""
 import os
@@ -61,7 +62,9 @@ class Collect:
 
     def __call__(self, kind, t, S):
         if kind == "end" and S.get("responses") is not None:
-            for d_, r_ in zip(S["demands"][self.n], S["responses"][self.n]):
+            dm_ = {d_["id"]: d_ for d_ in S["demands"][self.n]}   # (a response names its demand's record)
+            for r_ in S["responses"][self.n]:
+                d_ = dm_.get(r_["demand"], {})
                 if str(d_.get("tag") or "").startswith(self.pre) and self.pre:
                     self.r.append(dict(r_, t=t, tag=d_.get("tag")))
 
@@ -145,14 +148,14 @@ def r3():
 
 # R4: repair: a partner's dissatisfaction; talk and renegotiation restore trust, staying records history
 def r4():
-    t0 = time.process_time(); col_ = Collect(0, "R4")
-    def script(kind, t, S):
-        if kind == "week" and 30.0 <= S["age"] < 30.02:
-            S["scn_cast"].append((0, "partner", dict(trust=.3, warmth=.4)))
-        if kind == "week" and 30.1 <= S["age"] < 31.1 and t % 8 == 1:
+    t0 = time.process_time(); col_ = Collect(0, "R4"); st = {}
+    def script(kind, t, S):   # from 30, the first week they have a partner: a year of the partner's dissatisfaction
+        if kind == "week" and S["age"] >= 30.0 and "t0" not in st and int(np.asarray(S["WL"].PP.pslot)[0]) >= 0:
+            st["t0"] = t; S["scn_cast"].append((0, "partner", dict(trust=.3, warmth=.4)))
+        if kind == "week" and "t0" in st and st["t0"] < t <= st["t0"] + 52 and (t - st["t0"]) % 8 == 1:
             S["scn_demand"][0].append(dict(source=dict(key="partner"), tag="R4", response="negotiate"))
         col_(kind, t, S)
-    o = drive(74, 34, script, seek=True)
+    o = drive(74, 36, script, seek=True)
     rs = col_.r; ans = [a for a in (o["react"]["seek"] or {}).get("answered", []) if a["kind"] == "repair"]
     good = [r for r in rs if r["response"] == "negotiate" and r["learn"]["works"]]
     ok = bool(rs) and all(r["drift"] is None or r["response"] != "negotiate" or r["learn"]["works"] for r in rs) \
@@ -181,6 +184,40 @@ def r5():
     ok = out["settled"] < out["moved"]
     report("R5 stability and drift", ok, f"colour moved in three years: settled {out['settled']:.3f}, moved "
            f"{out['moved']:.3f}", t0)
+
+
+# R7: a demand taken up applies its step: from 35, the life's gathering place (neighbours, club, scene) asks each month for a
+# year in the place's colours and they accept (the player's pick); each acceptance moves them (a > 0, whatever their
+# colours' conformity), and five years on they stand nearer the place than their twin who was not asked (no forced drift:
+# only answers taken up move them)
+def r7():
+    t0 = time.process_time(); PL = col(R=.6, G=.4); end = {}; a_s = []; lives = {}
+    for var in ("twin", "asked"):
+        sent = {}
+        def script(kind, t, S, var=var, sent=sent):
+            age = S["age"]
+            if kind == "week" and 35.0 <= age < 36.0 and t % 4 == 0:
+                PP = S["WL"].PP; import world_keys as WK_
+                for n in range(len(S["w"])):
+                    gs = [k_ for k_ in ("neighbours", "club", "scene") if (np.asarray(PP.skind[n]) == WK_.GROUP_KINDS.index(k_)).any()]
+                    if n not in lives and gs and age < 35.02:
+                        lives[n] = gs[0]
+                    if var == "asked" and n in lives:
+                        S["scn_demand"][n].append(dict(source=dict(key=lives[n]), channel="encounter", purpose=PL, method=PL,
+                                                       power=.1, legit=.6, control=.1, response="accept", tag=f"R7_{t}"))
+            if kind == "end" and S.get("responses") is not None and var == "asked":
+                for n in lives:
+                    dm_ = {d_["id"]: d_ for d_ in S["demands"][n]}
+                    a_s.extend((r_.get("drift") or {}).get("a", 0.0) for r_ in S["responses"][n]
+                               if str(dm_.get(r_["demand"], {}).get("tag") or "").startswith("R7_"))
+            if kind == "end" and 40.0 <= age < 40.02:
+                end[var] = np.array(S["w"], float)
+        drive(15, 41, script, N=6)
+    d_ = {v_: [0.5 * float(np.abs(end[v_][n] - np.array(PL)).sum()) for n in lives] for v_ in end}
+    ok = len(lives) > 0 and len(a_s) >= 12 * len(lives) and min(a_s) > 0 and np.mean(d_["asked"]) < np.mean(d_["twin"])
+    report("R7 a demand taken up applies its step", ok, f"{len(lives)} lives asked by their gathering place, {len(a_s)} "
+           f"acceptances, a from {min(a_s) if a_s else 0:.4f} to {max(a_s) if a_s else 0:.4f}; distance to the place at 40: "
+           f"asked {np.mean(d_.get('asked', [np.nan])):.3f}, twin {np.mean(d_.get('twin', [np.nan])):.3f}", t0)
 
 
 # R6: Earth nature: a drought on a farm; stakes, responses and consequences, never nature approving a colour
@@ -246,7 +283,7 @@ def s1():
            f"from seeking", t0)
 
 
-for nm, fn in (("R1", r1), ("R2", r2), ("R3", r3), ("R4", r4), ("R5", r5), ("R6", r6), ("C1", c1), ("S1", s1)):
+for nm, fn in (("R1", r1), ("R2", r2), ("R3", r3), ("R4", r4), ("R5", r5), ("R6", r6), ("C1", c1), ("S1", s1), ("R7", r7)):
     if ONLY is None or nm in ONLY:
         fn()
 print("ALL PASS" if all(RESULTS) else f"{sum(not x for x in RESULTS)} FAILED")

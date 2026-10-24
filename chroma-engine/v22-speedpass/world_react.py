@@ -16,8 +16,9 @@ is honoured. The five layers stay apart: the reaction (a state), the act, the le
 with it), the consequences (ties, access, the place: recorded as footprints) and value development, a step
 c' = (1 - a) c + a q on the life's colours, q by the response (backlash toward an alternative actually in reach, never an
 inversion; constrained obedience none toward the demand). A source's demand replaces its part of the niche's social
-pull and of the steady current for that month (no double counting); a's scale comes from the part it replaces, so a life
-accepting everything moves as it did before.
+pull and of the steady current for that month (no double counting); a is the larger of the part it replaces and the
+experience's own significance (plasticity and belonging there, whatever the colours' conformity), and an answer taken up
+(accepted, adopted, a won negotiation) never moves less than the plain pull it replaced would have moved.
 
 Realm-ready: sources, channels, responses, the terms and the colours are core; what a channel reads as, the age of
 standing and which institutions exist are realm data. A magic realm's temple, guild or court asks through the same
@@ -68,6 +69,8 @@ REACT_DEFAULT = dict(
     person_rate=dict(partner=0.15, parent=0.08, friend=0.06), state_rate=0.5, nature_rate=1.0,
     resp_a=dict(accept=1.2, adopt=0.6, negotiate=0.5, disagree=0.3, backlash=0.8, withdraw=0.6),   # x the part replaced
     sig_k=1.0, teen_k=0.5, a_max=0.15,   # significance: x (1 + sig_k x stakes + teen_k x adolescence), a at most a_max
+    own_k=0.06,            # the experience's own significance: x plasticity x (.5 + .5 belonging there), whatever the
+                           # colours' conformity (an answer taken up moves by what it was, not only by the pull it replaced)
     constrained=0.3,       # dependence x control at which disagreeing or rejecting stays outward compliance (no exit)
     alt_min=0.05,          # an alternative's reach x what it offers below this: none in reach (backlash stays inward)
     learn=dict(accept=0.02, adopt=0.01, negotiate=0.03, negotiate_fail=-0.02, disagree=0.0, disagree_cold=-0.01,
@@ -673,7 +676,7 @@ class React:
         # 5. value development: c' = (1 - a) c + a q, a from the part of the pull the demand replaced
         drift = None
         if q is not None:
-            a = self._a(n, j, r, dd, i, ctx, clash, a_k)
+            a = self._a(n, j, r, dd, i, ctx, clash, a_k, q=q, taken=comply and not constrained and r in (ACC, ADO, NEG))
             if a > 0:
                 wv = dd["w"][i]
                 dz = _centre(np.log((1 - a) * wv + a * q) - np.log(np.maximum(wv, 1e-12)))
@@ -734,16 +737,38 @@ class React:
             rec["by"] = "event"
         return rec
 
-    def _a(self, n, j, r, dd, i, ctx, clash, a_k):
-        """The experience's significance: the part of the pull its source holds (so taking everything up moves a life as
-        before), x the response's factor, x (1 + stakes + adolescence), x dependence for the household, a parent, a
-        partner and work; a clash's at least a_major x its stakes. At most a_max."""
+    def _a(self, n, j, r, dd, i, ctx, clash, a_k, q=None, taken=False):
+        """The experience's significance, x the response's factor, x (1 + stakes + adolescence), x dependence for the
+        household, a parent, a partner and work: the larger of the part of the pull its source holds (its conformity's
+        share) and the experience's own (own_k x plasticity x belonging there, the colours' conformity aside). An answer
+        taken up (accepted, adopted, a won negotiation) moves at least what the plain pull it replaced this month would
+        have moved (the niche's and the current's parts). A clash's at least a_major x its stakes. At most a_max."""
         rp = self.p; S_ = self._S
-        base = ctx["a_nic"][n] * S_["wn"][n, j] / max(ctx["tot_nic"][n], 1e-12) \
-            + ctx["a_cl"][n] * S_["wcl"][n, j] / max(ctx["tot_cl"][n], 1e-12) + ctx["a_pl"][n] * S_["wpl"][n, j]
+        at = lambda x_: float(x_[n]) if np.ndim(x_) else float(x_)
+        wn, wcl, wpl = S_["wn"][n, j], S_["wcl"][n, j], S_["wpl"][n, j]
+        tot, cw = at(ctx["tot_nic"]), at(ctx["tot_cl"])
+        a_nic = max(at(ctx["a_nic"]), 0.0)   # a non-conforming life's pull pushes away: an answer taken up never does
+        base = a_nic * wn / max(tot, 1e-12) + at(ctx["a_cl"]) * wcl / max(cw, 1e-12) + at(ctx["a_pl"]) * wpl
         kn = dd["kn"][i]; dep = dd["dep"][i]
         fd = (0.6 + 0.8 * dep) if kn in ("household", "parent") else (0.8 + 0.6 * dep) if kn in ("partner", "work") else 1.0
-        a = base * self.RA[r] * fd * (1 + rp["sig_k"] * dd["stakes"][i] + rp["teen_k"] * dd["ad"][i]) * a_k
+        f_ = self.RA[r] * fd * (1 + rp["sig_k"] * dd["stakes"][i] + rp["teen_k"] * dd["ad"][i]) * a_k
+        own = rp["own_k"] * at(ctx["plast"]) * (0.5 + 0.5 * float(S_["bel"][n, j]))
+        a = max(base, own) * f_
+        if taken and q is not None:   # the plain pull it replaced, in the integrator's units (four weeks of the niche;
+            # the current's close and places parts, through its memory): an answer taken up is never the weaker
+            w_ = dd["w"][i]; mix = S_["mix"][n, j]
+            cur = np.asarray(ctx["cur"][n], float) if ctx.get("cur") is not None else w_
+            cdiv = np.maximum(cur, 1e-4) if ctx.get("cur_rel", True) else 1.0
+            pl = 4 * (a_nic / 0.8) * (1 - at(ctx["tw"])) * wn / max(tot - wn, 1e-9) * (mix - ctx["msc"][n])
+            if wcl > 0 and cw - wcl > 1e-9:
+                pl = pl + at(ctx["a_cl"]) * wcl / (cw - wcl) * (mix - S_["csum"][n] / max(cw, 1e-12)) / cdiv
+            pmx = getattr(self.PP, "places_mix", None)
+            if 0 < wpl < 1 and pmx is not None:
+                pl = pl + at(ctx["a_pl"]) * wpl / (1 - wpl) * (mix - np.asarray(pmx, float)[n]) / cdiv
+            d1 = _centre((q - w_) / np.maximum(w_, 1e-12))
+            m1 = float(np.linalg.norm(d1))
+            if m1 > 1e-12:
+                a = max(a, float(np.linalg.norm(_centre(pl))) / m1)
         if clash is not None:
             a = max(a, self.cp["a_major"] * min(1.0, dd["stakes"][i] / max(self.cp["thr"], 1e-9)) * self.RA[r] / self.RA[ACC])
         if dd["forced"].get(i, {}).get("a") is not None:
