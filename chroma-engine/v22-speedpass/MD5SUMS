@@ -37,7 +37,7 @@ f19600868a3d7f19a4e2ecc132db8cb6  world_people_lead.py
 888f1f717f7d53bcac8bf5395f935602  run_03_moments.py
 5ddb9be9b06cc9a1d87e32933962e44e  run_04_titles.py
 0056c5c388a022f79f1db37898b0c7cc  run_05_conditions.py
-72857cf14fe9baef4f3174f3b94fcfca  run_06_world.py
+1beefc8e4c9750b2769e48a991e47641  run_06_world.py
 f67d8d7e8e0d3972e9791608451ee961  run_07_body.py
 222ce3b326d1d9335edfa565b54c094c  run_08_fixes.py
 1cac1627cb5986bbeeb5ab79fb82f8b0  run_09_week.py
@@ -68,7 +68,7 @@ bf607af8bd3a90455b698f5c1d1ab143  world_link_week.py
 1fd57f43baa0a4f477630ddc91424545  world_link_rates.py
 fccb7cc4b9419ae0908ed6a9234d1afe  world_link_life.py
 cbddac2b9cee790c15e52fa649b71843  world_people_answers.py
-5ea8eb8e505bc09702997669cea3e6df  world_react.py
+f7f18449f6b1981262e8f9d561ed5629  world_react.py
 99df6df655905d4dc799ed97ecf2c804  world_fit.py
 df45e7db5c43fa8ae5b35d498c13432c  world_land.py
 c775f61fbd8d494c7a66ad2da767b58a  world_national.py
