@@ -417,6 +417,7 @@ ROLES_ACTS_ONLY = {"a long shot that missed": dict(rate=0),
                    # drawn "in time" with no cause (the catalogue: "a new movement founded in their lifetime, by them").
                    # Drawn in time it was every Historic life left alone (v24's refit doubled its norm, 1.109 to 2.021)
                    "founder of a movement": dict(rate=0)}
+ROLES_ACTS_V25 = ("founder of a movement",)   # made acts-only by v25: with founder_moment off, the rule each had before
 # One budget for big lives across all the packs on (Emren, pack ideas thread, relayed 08:14): about 1 life in 3 holds a big
 # career and about 1 in 20 reaches a summit; community titles at 10x their real share, capped at 1 in 4 (batch.TARGET_CAP).
 # Pack titles join a tier through the tier words in TARGET_<PACK> (batch._targets).

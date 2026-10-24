@@ -88,7 +88,8 @@ engine.run_steps() is engine.run() pausing six times a week for the game. On a f
      the marsh moves its wildness by size x k_land x reach and the flood odds with it; no way before 14 and no step
      above 0 before 18 (LAND_ENGINE way_age); a heat strike makes quarrels
      x 1.1 for its spell; a group's norm moves a little toward the chosen face, a kin's shared memory is kept and
-     recalled when they die, and notice pushes back by what a face costs and asks a leaning life in to a way.
+     recalled when they die, and notice pushes back by what a face costs and asks a leaning life in to a way; no bad
+     land moment before 18 (LAND_ENGINE bad_age, LN9).
  27. national standing (wa_nat_climb, v25 lane D), Earth and packs with the Library's national moments, world on:
      loaded with the switch off no national moment comes; on, run_steps() lives as run() and the lives move;
      recognition, influence and authority kept apart, a seat held by one life and never an engine office, none before
@@ -118,6 +119,10 @@ engine.run_steps() is engine.run() pausing six times a week for the game. On a f
      and a founding nudges the town by its reach / 3 (off: 3 and the whole nudge); a level-0 life's presence leaves the
      town's spheres alone and a level-1 life's leans its haunts' spheres in its town, recorded as being there; group
      presence x (1 + .5 x REACH[level, 2]); the level lingers (held 3, 6, 11 years ago: 2, 1, 0).
+ 31. the title rates and the founder (role_rates, founder_moment; K4), Earth and packs, world off: both compiled (v23.2's
+     multipliers, the founder's rule and its founding moment's condition from before v25); off, a title's multiplier
+     is v23.2's; each switched on alone, run_steps() lives as run(); role_rates on moves the lives; founder_moment on,
+     no founder of a movement in time.
 
     python3 -B chroma-engine/tools/t_steps.py [ENGINE_DIR]
 T_JOBS=N: the rows of 8 and 9 on N processes (default up to 4, by the cores there are; 1: one after another).
@@ -1511,7 +1516,7 @@ if "tilt_world" in E.DEFAULT:
 if "wa_land" in E.DEFAULT and os.path.exists(os.path.join(batch.LIB_DIR, "earth_nature.py")):
     from world_base import HAZARDS as HZ_
     from world_land import KIN_BITS as WL_KIN_
-    t0 = time.process_time(); fails = []; seen_ = dict(years=0, company=0, ways=0, hit=0, hot=0, parts=[], helper=0)
+    t0 = time.process_time(); fails = []; seen_ = dict(years=0, company=0, ways=0, hit=0, hot=0, parts=[], helper=0, bad=0)
     LAND_ = batch.load_batch("earth", packs=list(batch.PACKS), land=True)
     LM_ = np.array([bool(x_.get("land")) for x_ in LAND_["src"][:LAND_["S"]]])
     kw = dict(N=3, years=22, seed=5, lib=LAND_, log_lives=(0,))
@@ -1551,6 +1556,11 @@ if "wa_land" in E.DEFAULT and os.path.exists(os.path.join(batch.LIB_DIR, "earth_
                     seen_["company"] += 1
                     if c_["kind"] not in ld_.mwith[int(se_[n_])] or (c_["kind"] in ("alone", "stranger", "witness") and c_["cid"] != -1):
                         fails.append(f"week {t}: company {c_} in {LAND_['names'][int(se_[n_])]!r}")
+                ev_n_ = np.nonzero(S["had_ev"])[0]   # LN9: a bad land moment only for a life of bad_age or more
+                bd_ = [n_ for n_ in ev_n_ if int(S["s_ev"][n_]) < ld_.S and ld_.bad[int(S["s_ev"][n_])]]
+                seen_["bad"] += len(bd_)
+                if bd_ and S["age"] < ld_.E["bad_age"]:
+                    fails.append(f"week {t}: a bad land moment at {S['age']:.2f} (LN9: none before {ld_.E['bad_age']})")
             if kind == "end" and S.get("LAND_ON") and abs(S["age"] - round(S["age"])) < 1e-9 and len(fails) < 6:
                 seen_["years"] += 1; W_ = S["WL"].W
                 if not (0 <= ld_.h.min() and ld_.h.max() <= 1 and 0 <= ld_.wd.min() and ld_.wd.max() <= 1):
@@ -1634,7 +1644,7 @@ if "wa_land" in E.DEFAULT and os.path.exists(os.path.join(batch.LIB_DIR, "earth_
           f"companies of the moment's kinds; the stretches in 0..1 and the hazards' feedback the land's own state "
           f"({seen_['years']} years); ways at most 3 (most {seen_['ways']}), none before 14 and no step before 18 "
           f"({seen_['helper']} helper life-years); a flood brought at 20 hit {seen_['hit']} "
-          f"households, each with its course; a Known drain of the marsh moves its wildness by size x k_land x reach and the "
+          f"households, each with its course; {seen_['bad']} bad land moments, none before 18 (LN9); a Known drain of the marsh moves its wildness by size x k_land x reach and the "
           f"flood odds with it; heat's quarrels x 1.1 for its spell ({seen_['hot']} life-weeks); {', '.join(seen_['parts'])} "
           f"as the company and notice say; counts {dict((k_, (ld1_.get('counts') or {}).get(k_)) for k_ in ('asks', 'pushes', 'memories', 'recalls', 'norm_moves'))}"
           f"{'' if not fails else '; ' + '; '.join(fails[:4])} ({time.process_time() - t0:.0f} s)")
@@ -2100,6 +2110,42 @@ if "wa_reach" in E.DEFAULT:
           f"off); a level-1 life's presence leans {seen_['town']} spheres of its town (its haunts', recorded as being there), "
           f"level 0's none; group presence x (1 + .5 x REACH[level, 2]) in {seen_['groups']} lives; level 2 held 3, 6, 11 "
           f"years ago reads {seen_['linger']}"
+          f"{'' if not fails else '; ' + '; '.join(fails[:4])} ({time.process_time() - t0:.0f} s)")
+# 31. the title rates and the founder (role_rates, founder_moment; K4: every v24 and v25 switch off plays v23.2's lives)
+if "role_rates" in E.DEFAULT:
+    t0 = time.process_time(); fails = []
+    GK_ = NO24_["ROLES"]; IDK_ = GK_["ID"]; fi_ = IDK_.get("founder of a movement")
+    rv_ = GK_.get("rates_v23")
+    if rv_ is None:
+        fails.append("v23.2's multipliers not compiled")
+    if fi_ is not None and (fi_ not in (GK_.get("rule_acts_off") or {}) or GK_["rule"][fi_]["rate"] != 0
+                            or GK_["rule_acts_off"][fi_]["rate"] == 0):
+        fails.append("the founder's rule: acts-only on, its rule from before v25 off")
+    fc_ = [c_ for c_ in NO24_["COND"] if c_["name"] == "a following of your own"]
+    if fc_ and ("req_off" not in fc_[0] or "lo_meaning" not in fc_[0]["req_off"].co_names or "lo_meaning" in fc_[0]["req"].co_names):
+        fails.append("the founding moment's condition: v25's on, its condition from before v25 off (req_off)")
+    nmv_ = 0
+    if rv_ is not None:
+        nmv_ = int(sum(1 for i_, r_ in enumerate(GK_["rule"]) if "hz" not in r_ and abs(rv_["norm"][i_] - r_["norm"]) > 1e-9))
+        if not nmv_:
+            fails.append("v23.2's multipliers are the v24 refit's")
+    kw = dict(N=30, years=50, seed=23, lib=NO24_, log_lives=(0,))
+    o0_ = E.run(**kw, P=dict(B24_))
+    o1_ = E.run(**kw, P=dict(B24_, role_rates="v24"))
+    o2_ = E.run(**kw, P=dict(B24_, founder_moment=True))
+    if digest(o1_) == digest(o0_):
+        fails.append("role_rates on: nothing moved")
+    for P_, oo_, nm_ in ((dict(B24_, role_rates="v24"), o1_, "role_rates"), (dict(B24_, founder_moment=True), o2_, "founder_moment")):
+        if digest(_drain(E.run_steps(**kw, P=P_))) != digest(oo_):
+            fails.append(f"{nm_} on: run_steps not the lives of run()")
+    if fi_ is not None:
+        tf_ = sum(1 for _, _, i_, what_, how_ in o2_["roles"]["log"] if i_ == fi_ and what_ == "gained" and how_ == "in time")
+        if tf_:
+            fails.append(f"founder_moment on: {tf_} founders of a movement in time")
+    bad += bool(fails)
+    print(f"{'PASS' if not fails else 'FAIL'}  the title rates and the founder (role_rates, founder_moment), world off: both "
+          f"compiled ({nmv_} titles' multipliers v23.2's when off, the founding moment's condition); each on alone, run_steps lives as run(); role_rates on "
+          f"moves the lives; founder_moment on, none founds a movement in time"
           f"{'' if not fails else '; ' + '; '.join(fails[:4])} ({time.process_time() - t0:.0f} s)")
 # 11. nothing read at a pause outside the handed-over names (an engine without STATE_MISSED reads its whole frame)
 if hasattr(E, "STATE_MISSED"):

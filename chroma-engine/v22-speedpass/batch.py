@@ -236,6 +236,13 @@ def _rule1(nm, r, ID, norm, acc_mv, acc_fs, opt, extend, packs_=None):
                 norm=float(norm.get(nm, 1.0)), acc_move=float(acc_mv.get(nm, 1.0)), acc_first=float(acc_fs.get(nm, 1.0)), grants=[ID[x] for x in r.get("grants", []) if x in ID or x not in opt])
 
 
+def _absent(code, ID):
+    """A condition with has('x') and was('x') of a name not in the catalogue (ID) read as False, yrs_has('x') as 0.0:
+    held by nobody. Every name in it known, the same text."""
+    return re.sub(r"\b(yrs_has|has|was)\((['\"])(.*?)\2\)",
+                  lambda m: m.group(0) if m.group(3) in ID else ("0.0" if m.group(1) == "yrs_has" else "False"), code)
+
+
 def _roles(cat, R, L, extra=None, extend=None, packs_=None):
     """Titles and perks (chroma-engine/perks-titles-format.md): the world's catalogue, the engine's reading of how each is
     gained and lost (<world>_rules.ROLES), and the act fields on options (title, drops, grants, takes, suspends, requires,
@@ -244,6 +251,9 @@ def _roles(cat, R, L, extra=None, extend=None, packs_=None):
     items = TT + PP; NT, NP = len(TT), len(PP); NI = NT + NP
     names = [x["name"] for x in items]; ID = {nm: i for i, nm in enumerate(names)}
     rules = {**getattr(R, "ROLES", {}), **(extra or {})}; norm = getattr(R, "ROLE_NORM", {})
+    for nm_, r_ in list(rules.items()):   # the Historic marker (_aims_load): the packs' LEGACY lines name today's titles; on
+        if r_.get("legacy"):              # an older catalogue (the go-live Library) a title or perk it lacks is never held
+            rules[nm_] = dict({k_: v_ for k_, v_ in r_.items() if k_ != "legacy"}, req=_absent(r_["req"], ID))
     # a route that overfills a title (Library next3 §3: job moves bunched on office clerk, first jobs fell back on cleaner and
     # factory worker): the share of picks by that route that give the title (fitted below 1 by calib_v7/roles_check.py)
     acc_mv = getattr(R, "ROLE_ACC_MOVE", {}); acc_fs = getattr(R, "ROLE_ACC_FIRST", {})
@@ -329,6 +339,18 @@ def _roles(cat, R, L, extra=None, extend=None, packs_=None):
                      for nm, r_ in getattr(R, "ROLES_FIT", {}).items() if nm in ID}
     for i_, r_ in G["rule_fit"].items():
         r_["say"] = r_["say"] or items[i_].get("cause")
+    # K4 (every v24 and v25 switch off: v23.2's lives), read only with a switch off: founder_moment off, the rule a title
+    # of <world>_rules.ROLES_ACTS_V25 had before v25 made it acts-only (the packs' own, or none); role_rates off, v23.2's
+    # measured multipliers (ROLE_NORM_V23, ROLE_ACC_MOVE_V23, ROLE_ACC_FIRST_V23) in place of the v24 refit's
+    G["rule_acts_off"] = {ID[nm]: _rule1(nm, dict((extra or {}).get(nm, {})), ID, norm, acc_mv, acc_fs, opt, extend, packs_)
+                          for nm in getattr(R, "ROLES_ACTS_V25", ()) if nm in ID}
+    for i_, r_ in G["rule_acts_off"].items():
+        r_["say"] = r_["say"] or items[i_].get("cause")
+    if getattr(R, "ROLE_NORM_V23", None) is not None:
+        nv_, mv_, fv_ = R.ROLE_NORM_V23, getattr(R, "ROLE_ACC_MOVE_V23", {}), getattr(R, "ROLE_ACC_FIRST_V23", {})
+        G["rates_v23"] = dict(norm=np.array([float(nv_.get(nm, 1.0)) for nm in names]),
+                              acc_move=np.array([float(mv_.get(nm, 1.0)) for nm in names]),
+                              acc_first=np.array([float(fv_.get(nm, 1.0)) for nm in names]))
     # act fields
     S, K = L["S"], L["K"]
     G["A_REQ"] = np.full((S, K), -1); G["A_WITHOUT"] = np.full((S, K), -1); G["S_REQ"] = np.full(S, -1)
@@ -737,6 +759,8 @@ def load_batch(world="earth", symmetric=False, roles=None, packs=None, pack_mome
                          less=[_code(x) for x in c.get("less", [])], anchor=_code(c["anchor"]) if "anchor" in c else None,
                          delay=dl, rtxt=str(c.get("req") or ""), atxt=str(c.get("anchor") or ""),
                          of=str(src.get("of") or "").strip(), side=str(src.get("side") or "").strip()))
+        if kind == 1 and nm in getattr(R, "INNER_V25_OFF", {}):   # read with founder_moment off (v23.2's condition)
+            cond[-1]["req_off"] = _code(R.INNER_V25_OFF[nm])
     missing = [s["name"] for s in sits if s.get("tier") in ("inner", "echo") and key(s) not in INNER_ and key(s) not in ECHO_
                and not s.get("threshold")]          # a season's moments come through their season, not a condition
     if missing:
@@ -1312,7 +1336,7 @@ def _aims_load(world, PK):
         for nm, r in getattr(lm_, "ROLES_AIMS", {}).items():
             r = dict(r)
             if r.get("req") == "LEGACY":   # the or of the loaded packs' LEGACY_<PACK>; none loaded, nobody earns it
-                r["req"] = " | ".join(f"({x})" for x in legacy) if legacy else "False"
+                r["req"] = " | ".join(f"({x})" for x in legacy) if legacy else "False"; r["legacy"] = True
             PK["rules"][nm] = r
     return dict(table=table, sits=sits)
 
