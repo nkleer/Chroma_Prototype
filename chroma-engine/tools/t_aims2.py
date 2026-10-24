@@ -24,6 +24,9 @@ known risks (section 5) or a mechanism it asks for:
       naming money; an entry that cannot be paid is owed, never debited, and paid once it can be
   A12 a rung reached by one's own work sparks a new ambition near it (its sphere or a preparation shared), held with a
       fork, never one the life holds, and none once the agenda holds spark_max aims
+  A13 slots grow inside a step (Gamification 10-23's crash): rungs reached in month() and week() spark new aims past the
+      slots held (4, then 8, then 16), a player life and one left alone; every mask stays whole, the sparks come after
+      the step, and no moment offering "stop" comes about an aim adopted within stop_grace weeks
   A11 the realm's assets (realm_earth.AIM_ASSETS, every pair of shapes): none from first rungs alone, none before
       integrate_age, then one; another pair waits integrate_gap years after it; the asset named by the two fields
 
@@ -338,7 +341,19 @@ if len(ag.assets[0]) < 2:
     fails.append("A11 no second asset after the gap")
 elif not all("{" not in x["name"] and len(x["fields"]) == 2 for x in ag.assets[0]):
     fails.append("A11 an asset not named by its fields")
-notes.append(f"A11 realm assets ({len(RE_.AIM_ASSETS)} pairs) by rungs, age and gap")
+F_ = dict(F0); F_["assets_lib"] = {   # the Library's rows (<world>_aim_assets.py) over the realm's; a field pair first
+    ("land", "knowledge"): dict(name="the Library's {a} with {b}", title="", opens="", rungs=(1, 1)),
+    (F0["names"][fl_], F0["names"][fk_]): dict(name="{a}|{b}", title="", opens="", rungs=(1, 1))}
+th_ = lambda f: F0["items"][f]["words"].get("thing") or F0["names"][f]
+ag, st = make(par=dict(integrate_y=52.0), F=F_)
+ja, jb = ag.add(0, fk_, 0), ag.add(0, fl_, 0); ag.st[0, [ja, jb]] = A2.ACTIVE; ag.fitf[0, :] = 1.25; ag.rung[0, [ja, jb]] = 1
+if ag.asset_tab[("knowledge", "land")]["name"] != "the Library's {a} with {b}":
+    fails.append("A11 the realm's row over the Library's")
+for t in range(30 * 52, 34 * 52, 4):
+    ag.t = t; ag.integrate(t)
+if not ag.assets[0] or ag.assets[0][0]["name"] != f"{th_(fl_)}|{th_(fk_)}":
+    fails.append(f"A11 the field pair not first, or not in the order written: {[x['name'] for x in ag.assets[0]]}")
+notes.append(f"A11 realm assets ({len(RE_.AIM_ASSETS)} pairs) by rungs, age and gap, the Library's first")
 
 # ---- A12: a spark from a reached rung
 ag, st = make(par=dict(spark_rung=1.0))
@@ -359,6 +374,74 @@ ag2.arrive(0, jy_, T0 + 4, "won a test")
 if int((ag2.f[0] >= 0).sum()) != 1:
     fails.append("A12 a spark past spark_max")
 notes.append("A12 a reached rung sparks one near aim")
+
+# ---- A13: slots grow inside a step
+ag, st = make(N=2, player=(0,), par=dict(spark_rung=1.0, spark_max=99))
+fs13 = [i for i in range(F0["F"]) if F0["nr"][i] >= 3][:8]
+for n_ in (0, 1):
+    for f_ in fs13[:4]:
+        j_ = ag.add(n_, f_, T0); ag.activate(n_, j_, 1.0, T0, pay=False); ag.eff[n_, j_] = ag.need[n_, j_]
+st["r_ever"][:] = True   # every title held: rungs come through month()'s titles
+ma0 = ag.MA; err13 = None
+try:
+    for t in range(T0 + 1, T0 + 120):
+        for n_ in (0, 1):
+            on_ = (ag.f[n_] >= 0) & (ag.st[n_] == A2.ACTIVE)
+            ag.eff[n_, on_] = np.maximum(ag.eff[n_, on_], ag.need[n_, on_])
+        tick(ag, st, t)
+        if ag._depth or (ag.spark_q and not ag._depth):
+            fails.append("A13 sparks left inside or after a step"); break
+except Exception as e_:
+    err13 = repr(e_)
+if err13:
+    fails.append(f"A13 {err13}")
+elif ag.MA <= ma0:
+    fails.append(f"A13 the slots never grew ({ag.MA})")
+young_ = [(n_, j_) for n_ in (0, 1) for j_ in np.nonzero(ag.f[n_] >= 0)[0] if ag.t - ag.born[n_, j_] < PAR["stop_grace"]]
+if len(ag.SM) and young_:
+    st_ = [int(x) for x in ag.SM if ag.L_STOP[x]]
+    if any(ag._fits(n_, int(j_), x) or ag._fits_fork(n_, int(j_), x) for n_, j_ in young_ for x in st_):
+        fails.append("A13 a moment offering stop about an aim adopted within stop_grace")
+notes.append(f"A13 slots grew {ma0} to {ag.MA} inside steps")
+
+# ---- A14: an integrated asset never arrives silently (Vision 10-23): the yearly outcome decides it; a life left alone
+# is credited that week with its integrate moment written to the log; a player's is credited when that moment is told,
+# put on the next week no life event has (not a choice)
+LF14 = batch.load_batch("earth", packs=list(batch.PACKS), fields=True)
+if "AIM_SHAPE" in LF14 and (np.asarray(LF14["AIM_SHAPE"]) != -1).any():
+    F14 = A2.compile_fields(LF14, PAR, E.C, E.NIDX, E.AIM_HEIGHTS)
+    nm14 = lambda sh: next(i for i, n_ in enumerate(F14["names"]) if A2.SHAPES[F14["shape"][i]] == sh and F14["nr"][i] >= 3)
+    told14 = []
+    for pl_ in ((), (0,)):
+        ag, st = make(par=dict(integrate_y=52.0), player=pl_, F=F14); ag.shapes_init(LF14)
+        ja, jb = ag.add(0, nm14("knowledge"), 0), ag.add(0, nm14("land"), 0)
+        ag.st[0, [ja, jb]] = A2.ACTIVE; ag.fitf[0, :] = 1.25; ag.rung[0, [ja, jb]] = 3
+        t = 30 * 52
+        while t < 34 * 52 and not ag.assets[0] and ag.asset_due[0] is None:
+            ag.t = t; ag.integrate(t); t += 4
+        t -= 4
+        if not pl_:
+            mo_ = [r for r in ag.log if r["what"] == "moment" and r.get("told") and r["week"] == t]
+            if not ag.assets[0] or ag.assets[0][0]["week"] != t or not ag.assets[0][0]["moment"] or not mo_:
+                fails.append("A14 a life left alone: the asset not credited with its moment logged in the week decided")
+            continue
+        if ag.assets[0] or ag.asset_due[0] is None:
+            fails.append("A14 a player's asset credited before its moment, or never decided"); continue
+        si_ = ag.asset_due[0][3]; sv_ = np.zeros(2, int); sv_[:] = next(i for i in range(len(LF14["src"])) if i not in ag.SM_SET)
+        out_ = ag.put(t + 1, sv_, np.array([True, False]))
+        if out_[0] == si_ or ag.assets[0]:
+            fails.append("A14 a player's asset moment put on a life event's week")
+        out_ = ag.put(t + 2, sv_, np.zeros(2, bool)); ag.mom_slots(out_)
+        if out_[0] != si_ or ag.mom[0] != ja or ag.mom2[0] != jb:
+            fails.append("A14 a player's asset moment not put on the next week, or its aims not the pair's")
+        cx_ = ag.moment_ctx(0)
+        if not cx_["aim2"] or cx_["aim2"]["slot"] != jb or not cx_["aim2"]["thing"] or set(cx_["aim2"]) != set(cx_["aim"] or {}):
+            fails.append("A14 the moment's aim2 not the pair's second aim with the fields of aim")
+        ag.moments(out_, np.zeros(2, int), np.zeros(2, bool), np.zeros(2, bool), t + 2)
+        if len(ag.assets[0]) != 1 or ag.assets[0][0]["week"] != t + 2 or not ag.assets[0][0]["moment"] or ag.asset_due[0] is not None:
+            fails.append("A14 a player's asset not credited when its moment was told (whatever was picked, the moment lost)")
+        told14.append(ag.assets[0][0]["moment"] if ag.assets[0] else "")
+    notes.append(f"A14 assets told with a moment ({told14[0] if told14 else '-'})")
 
 # ---- A9: views draw nothing
 ag, st = make(player=(0,)); [ag.add(0, i, T0) for i in fs3[:3]]
