@@ -1,0 +1,33 @@
+Speed pass check, 2026-10-24 08:25 UTC
+  base /tmp/v25k4_3/base/chroma-engine/v22-speedpass (engine.py 0b9af1489c4d, 65 files)
+  new  /tmp/v25k4_3/new/chroma-engine/v22-speedpass (engine.py da6ffefa61bb, 73 files)
+  Library /tmp/v25k4_3/base/chroma-library, packs /tmp/v25k4_3/base/chroma-packs; new on Library /tmp/v25k4_3/new/chroma-library, packs /tmp/v25k4_3/new/chroma-packs; 400 lives x 100 years, seeds 43, worlds off,on,seed; P new {"cause_fit": false, "role_rates": null, "founder_moment": false, "need_tab": null, "shared_hist": 0.0, "imp_age": false, "aims": false, "heights": false, "world_answers": false, "wa_phase2": false, "wa_reach": false, "foot_on": false}, P base {}
+  base side kept for 3 of 3 engine runs; cache /home/emren/.cache/chroma/speedpass
+  1 new run(s) differ from the kept base side: running the base again to compare in full
+ok   id-43-off: base 517 s (kept 2026-10-24 07:34 UTC on Nkleer), new 3856 s CPU (0.13x faster): identical (67 outputs compared by digest)
+MISS id-43-on: base 2262 s, new 4513 s CPU (0.50x faster): 307 outputs differ
+       A_hist: largest gap 0.467, first at [38, 0, 0]
+       A_src: largest gap 5.17, first at [38, 0, 0, 0]
+       D: largest gap 0.275, first at [0, 0]
+       I: largest gap 1, first at [0, 4]
+       J: largest gap 0.289, first at [0, 0, 1]
+       K_hist: largest gap 1, first at [38, 0, 1]
+       M: largest gap 16.3, first at [0]
+       M_hist: largest gap 16.3, first at [38, 0]
+       Q: largest gap 0.0238, first at [0]
+       R_hist: largest gap 1, first at [38, 0, 0]
+       S_hist: largest gap 1, first at [41, 193]
+       V_hist.Q: largest gap 8.15, first at [38, 0]
+       V_hist.SE: largest gap 0.482, first at [38, 0, 0]
+       V_hist.acc: largest gap 0.74, first at [38, 0]
+       V_hist.adj: largest gap 1, first at [38, 1, 7]
+       V_hist.adj_v: largest gap 4.05, first at [38, 0, 0]
+       V_hist.base_mood: largest gap 0.34, first at [38, 0]
+       V_hist.body: largest gap 0.635, first at [38, 0]
+       V_hist.chan: largest gap 2.61, first at [38, 0, 0, 0]
+       V_hist.cload: largest gap 0.491, first at [38, 59]
+ok   id-43-seed: base 205 s (kept 2026-10-24 00:59 UTC on Nkleer), new 417 s CPU (0.49x faster): identical (67 outputs compared by digest)
+All runs: base 2985 s, new 8787 s CPU: 0.34x faster overall
+Speed pass: FAIL
+report: /home/emren/chroma/live/chroma-release/out/speedpass_20261024-082544_s43.txt; scratch /tmp/sl43
+SAME-LIVES PART 3 FAIL 10:22:00 UTC; new /tmp/v25k4_3/new/chroma-engine/v22-speedpass

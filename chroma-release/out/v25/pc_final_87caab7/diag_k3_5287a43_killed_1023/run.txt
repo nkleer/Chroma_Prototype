@@ -1,0 +1,12 @@
+v22 checks, 20261024-094440 UTC, level quick, 2 checks, up to 4 cores; run folder /mnt/project-files/chroma-release/out/v22checks_20261024-094440
+  engine /tmp/v22checks_20261024-094440-commit/5287a434fdfc/chroma-engine/v22-speedpass   (candidate)
+  game   /tmp/v22checks_20261024-094440-commit/5287a434fdfc/chroma-game/prototype   (candidate)
+  lib    /tmp/v22checks_20261024-094440-commit/5287a434fdfc/chroma-library   (candidate)
+  packs  /tmp/v22checks_20261024-094440-commit/5287a434fdfc/chroma-packs   (candidate)
+  the Engine's rows run from chroma-engine/tools
+  the tree's game plays a pin filled from engine <T>/chroma-engine/v22-speedpass, lib <T>/chroma-library, packs <T>/chroma-packs
+  work tree /tmp/v22checks_20261024-094440/tree: 13 copied scripts re-pointed to it; engine.py da6ffefa61bb, game.py 7cbe60fecb57, earth.py 6ef7d4e606df
+  packs the engine plays: science,politics,stage,art,callings
+  start identity1 (C-E14, Release): no earlier proof
+  start t_steps (item 2, Engine): no earlier proof
+  FAIL identity1 (C-E14) in 36s exit 1: KeyError: 'founder of a movement'

@@ -1,0 +1,30 @@
+k4: new side's PACKS = ["science", "politics", "stage", "art"]   
+k4: settings new with their parts, left as they are: pick_asked, shared_hist_par, aims_par, aims2_par, wa_groups, wa_places, wa_ledger, wa_notice, foot_par, react_par, clash_par, seek_par, realm, imp_world_par, wa_land_dev, wa_land_play, wa_land_par, wa_nat_par
+== K4 part 3: 114faf012cd8 against release/v23.2 34721bbe7a30, 08:25 UTC
+k4: PNEW={"cause_fit": false, "role_rates": null, "founder_moment": false, "need_tab": null, "shared_hist": 0.0, "imp_age": false, "aims": false, "heights": false, "world_answers": false, "wa_phase2": false, "wa_reach": false, "foot_on": false}; batch FOOT AIMS WORLD_ANSWERS off
+       A_hist: largest gap 0.467, first at [38, 0, 0]
+       A_src: largest gap 5.17, first at [38, 0, 0, 0]
+       D: largest gap 0.275, first at [0, 0]
+       I: largest gap 1, first at [0, 4]
+       J: largest gap 0.289, first at [0, 0, 1]
+       K_hist: largest gap 1, first at [38, 0, 1]
+       M: largest gap 16.3, first at [0]
+       M_hist: largest gap 16.3, first at [38, 0]
+       Q: largest gap 0.0238, first at [0]
+       R_hist: largest gap 1, first at [38, 0, 0]
+       S_hist: largest gap 1, first at [41, 193]
+       V_hist.Q: largest gap 8.15, first at [38, 0]
+       V_hist.SE: largest gap 0.482, first at [38, 0, 0]
+       V_hist.acc: largest gap 0.74, first at [38, 0]
+       V_hist.adj: largest gap 1, first at [38, 1, 7]
+       V_hist.adj_v: largest gap 4.05, first at [38, 0, 0]
+       V_hist.base_mood: largest gap 0.34, first at [38, 0]
+       V_hist.body: largest gap 0.635, first at [38, 0]
+       V_hist.chan: largest gap 2.61, first at [38, 0, 0, 0]
+       V_hist.cload: largest gap 0.491, first at [38, 59]
+ok   id-43-seed: base 205 s (kept 2026-10-24 00:59 UTC on Nkleer), new 417 s CPU (0.49x faster): identical (67 outputs compared by digest)
+All runs: base 2985 s, new 8787 s CPU: 0.34x faster overall
+Speed pass: FAIL
+report: /home/emren/chroma/live/chroma-release/out/speedpass_20261024-082544_s43.txt; scratch /tmp/sl43
+SAME-LIVES PART 3 FAIL 10:22:00 UTC; new /tmp/v25k4_3/new/chroma-engine/v22-speedpass
+k4.sh part 3 on 114faf012cd8: exit 1, 116 min
