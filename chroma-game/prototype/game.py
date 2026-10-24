@@ -434,6 +434,9 @@ class Game(CheckpointsMixin, WorldMixin, VoiceMixin, LifeMixin, ViewsMixin, Caus
             self._turn_pick = dict(cp=cp, choice=choice)
             self.history["picks"] += 1; self.history["own" if choice == cp["own"] else "forced"] += 1
             self.pending = None; self._last_cp = self.t
+            if self.loc is not None and "P" in self.loc:
+                self.loc["P"]["pick_asked"] = True      # v25 aims: this moment was put to the player, so a fork on it is
+                # answered by their pick; a fork moment the game did not ask is played as "later" (the fork stays open)
             try:
                 self._msg = self._gen.send(a)
             except StopIteration as e:
@@ -478,6 +481,8 @@ class Game(CheckpointsMixin, WorldMixin, VoiceMixin, LifeMixin, ViewsMixin, Caus
             self.loc["P"]["own_k"] = self.loc["P"]["drift_k"] = self.loc["P"]["ev_push_k"] = 1.0
         self.pending = None
         self._last_cp = self.t
+        if self.loc is not None and "P" in self.loc:
+            self.loc["P"]["pick_asked"] = True          # v25 aims: as above, this moment was put to the player
         try:
             self._msg = self._gen.send(a)
         except StopIteration as e:                      # the life ends in the very week of the choice
