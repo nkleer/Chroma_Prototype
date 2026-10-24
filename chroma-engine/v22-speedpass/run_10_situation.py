@@ -75,6 +75,8 @@
         if LXM_ON_:   # v25 lane D: a nature, route or style moment never by the everyday draw
             aff[:, LXM_] = 0.0
         if ASM_ON_:   # aims v2: a shape moment only to a life holding an aim it fits (aims_v2 off: never)
+            if AIM2_ON:   # (open to the life this week by its stage, age and conditions: a fork card may use it)
+                AG.sm_open = aff[:, ASM_I] > 0
             aff[:, ASM_I] = (aff[:, ASM_I] * AG.gate(N)) if AIM2_ON else 0.0
         if WO_ON:   # F10: a world moment only on the world's event; one waiting for the world keeps its gap:
             aff[:, WMZ_] = 0.0
