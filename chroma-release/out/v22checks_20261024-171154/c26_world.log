@@ -1,0 +1,123 @@
+# STEER=pick PX='{"world": true, "role_practice": true, "read_skill": 0.5, "lens_want": 0.5, "app_vigil": true}' PACKS=science,politics,stage,art,callings python3 -B chroma-engine/tools/choice_check.py run 240 .01 /tmp/v25_keep/c26/w/c26w.npz "-,W,U,B,R,G" && PACKS=science,politics,stage,art,callings python3 -B chroma-engine/tools/choice_check.py sum /tmp/v25_keep/c26/w/c26w.npz && python3 -B chroma-release/check_c26.py /tmp/v25_keep/c26/w/c26w.npz --steer pick --lift-info
+# cwd /tmp/v25_keep/c26/tree/.
+saved /tmp/v25_keep/c26/w/c26w.npz
+                                   unsteered1     white      blue     black       red     green
+  run 1: /tmp/v25_keep/c26/w/c26w.npz, PX {"world": true, "role_practice": true, "read_skill": 0.5, "lens_want": 0.5, "app_vigil": true}, steer pick
+lives                                    160       160       160       160       160       160
+choices led by its colour (pick)         nan     0.973     0.978     0.974     0.971     0.981
+
+identity colors at 40
+  white                                0.203     0.404     0.174     0.148     0.139     0.170
+  blue                                 0.187     0.162     0.355     0.157     0.148     0.157
+  black                                0.184     0.144     0.153     0.416     0.143     0.140
+  red                                  0.194     0.135     0.155     0.141     0.421     0.161
+  green                                0.232     0.156     0.163     0.137     0.149     0.372
+
+wants at 40
+  white                                0.219     0.601     0.128     0.103     0.113     0.121
+  blue                                 0.162     0.100     0.575     0.088     0.088     0.082
+  black                                0.164     0.086     0.085     0.637     0.086     0.070
+  red                                  0.180     0.093     0.096     0.083     0.600     0.094
+  green                                0.274     0.119     0.117     0.089     0.113     0.633
+
+share of lives that ever reach
+  a science-pack title                 0.319     0.406     0.463     0.356     0.369     0.400
+  a politics-pack title                0.469     0.662     0.506     0.575     0.694     0.450
+  a stage-pack title                   0.362     0.519     0.394     0.500     0.450     0.331
+  a art-pack title                     0.250     0.156     0.500     0.100     0.669     0.106
+  a callings-pack title                0.169     0.294     0.175     0.156     0.212     0.181
+  a mono-white career (5)              0.113     0.344     0.212     0.087     0.212     0.062
+  a mono-blue career (11)              0.131     0.156     0.487     0.156     0.175     0.094
+  a mono-black career (7)              0.131     0.113     0.131     0.519     0.100     0.031
+  a mono-red career (8)                0.225     0.344     0.350     0.200     0.438     0.131
+  a mono-green career (3)              0.037     0.006     0.000     0.025     0.000     0.013
+
+careers and perks
+  careers ever                           4.5       6.5       5.9       5.4       6.1       3.8
+  perks ever                            29.1      29.3      32.7      32.8      26.8      28.7
+  perks held at 50                      14.1      15.9      16.2      16.6      13.9      14.4
+  perks held at 50, 90%                   19        20        22        21        18        18
+
+life outcomes (mean)
+  money at 60                          0.366     0.364     0.383     0.456     0.390     0.347
+  time at 60                           0.135     0.110     0.139     0.133     0.261     0.109
+  health at 60                         0.789     0.802     0.756     0.784     0.758     0.819
+  ties at 60                           0.617     0.717     0.604     0.454     0.477     0.698
+  freedom at 60                        0.733     0.696     0.694     0.755     0.751     0.729
+  contentment, ages 30-70              0.777     0.760     0.767     0.742     0.744     0.730
+
+careers white lives reach most often against unsteered (ratio, steered, unsteered):
+  science communication specialist R     21.0  0.062  0.000
+  events promoter                  BR    13.0  0.037  0.000
+  warehouse worker                 BR     8.6  0.131  0.013
+  shift manager                    WB     7.0  0.850  0.119
+  civil celebrant                  WR     6.3  0.056  0.006
+  journalist                       UR     5.7  0.050  0.006
+  security guard                   W      5.4  0.181  0.031
+  teacher                          WU     5.0  0.138  0.025
+  cleaner                          W      4.7  0.219  0.044
+  lawyer                           UB     4.3  0.119  0.025
+
+careers blue lives reach most often against unsteered (ratio, steered, unsteered):
+  tattoo artist                    BR    23.0  0.069  0.000
+  full-time creator                B     19.0  0.056  0.000
+  drama teacher                    U     10.3  0.094  0.006
+  research software engineer       U     10.2  0.156  0.013
+  cybersecurity analyst            UB     7.4  0.206  0.025
+  warehouse worker                 BR     7.4  0.113  0.013
+  software developer               UR     6.3  0.331  0.050
+  street artist                    RG     4.8  0.194  0.037
+  data analyst                     U      4.5  0.150  0.031
+  pollster                         U      4.3  0.037  0.006
+
+careers black lives reach most often against unsteered (ratio, steered, unsteered):
+  talent agent                     B     21.0  0.062  0.000
+  events promoter                  BR    15.0  0.044  0.000
+  baker                            WG    15.0  0.044  0.000
+  lobbyist                         UB     7.0  0.106  0.013
+  builder                          UR     7.0  0.325  0.044
+  accountant                       UB     5.9  0.125  0.019
+  market trader                    BR     5.7  0.050  0.006
+  mechanic                         UR     5.3  0.113  0.019
+  farmer                           BG     5.0  0.044  0.006
+  cybersecurity analyst            UB     4.8  0.131  0.025
+
+careers red lives reach most often against unsteered (ratio, steered, unsteered):
+  tattoo artist                    BR    39.0  0.119  0.000
+  founder of a firm                UBR    8.0  0.525  0.062
+  electrician                      U      7.0  0.062  0.006
+  street artist                    RG     5.8  0.231  0.037
+  drama teacher                    U      5.7  0.050  0.006
+  painter or sculptor              R      5.2  0.175  0.031
+  train driver                     WU     5.0  0.075  0.013
+  art teacher                      W      4.6  0.212  0.044
+  illustrator for hire             UR     4.2  0.244  0.056
+  door staff                       BR     3.3  0.069  0.019
+
+careers green lives reach most often against unsteered (ratio, steered, unsteered):
+  forester                         UG    23.0  0.069  0.000
+  mediator                         WG    15.0  0.044  0.000
+  baker                            WG    15.0  0.044  0.000
+  inventor                         U      4.2  0.062  0.013
+  machinist                        WU     3.6  0.075  0.019
+  mechanic                         UR     3.3  0.069  0.019
+  train driver                     WU     2.6  0.037  0.013
+  community centre manager         WG     2.6  0.037  0.013
+  emergency dispatcher             WU     2.3  0.075  0.031
+  apprentice                       UG     2.2  0.319  0.144
+run: /tmp/v25_keep/c26/w/c26w.npz, world on, steer pick, PX {"app_vigil": true, "lens_want": 0.5, "read_skill": 0.5, "role_practice": true, "world": true}
+group       lives  own colour at 40  unsteered   lift  content 30-70   drop    se  perks@50 p90
+unsteered     160                                              0.777                         19  ok
+W             160             0.404      0.203  0.200          0.760  0.017 0.009            20  ok
+U             160             0.355      0.187  0.168          0.767  0.011 0.009            22  ok
+B             160             0.416      0.184  0.232          0.742  0.036 0.009            21  ok  (drop reported, not judged)
+R             160             0.421      0.194  0.227          0.744  0.033 0.009            18  ok
+G             160             0.372      0.232  0.140          0.730  0.048 0.009            18  ok  (lift reported, not judged)
+targets: lift >= 0.15 (reported, not judged), drop <= 0.12 (Black's reported, not judged), perks at 50 (90th percentile) <= 27; se: the drop's standard error over lives (information)
+choices its colour led (pick mode, information): W 0.97, U 0.98, B 0.97, R 0.97, G 0.98
+Black's edge: black_edge 0.25, role_practice on (engine /tmp/v25_keep/c26/tree/chroma-engine/v22-speedpass/engine.py)  ok
+  money at 60: Black 0.456, the other steered groups 0.371, difference +0.085 (se 0.021; reported, not judged)
+  perks held at 50: Black 16.6, the other steered groups 15.1, difference +1.458 (se 0.339; reported, not judged)
+C26 PASS
+
+exit 0 in 2529s

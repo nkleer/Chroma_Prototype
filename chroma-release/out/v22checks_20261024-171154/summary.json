@@ -1,0 +1,25 @@
+{
+ "stamp": "20261024-171154",
+ "level": "quick",
+ "live": false,
+ "src": {
+  "engine": "/tmp/v25_keep/c26-commit/65ecdf9193b9/chroma-engine/v22-speedpass",
+  "game": "/tmp/v25_keep/c26-commit/65ecdf9193b9/chroma-game/prototype",
+  "lib": "/tmp/v25_keep/c26-commit/65ecdf9193b9/chroma-library",
+  "packs": "/tmp/v25_keep/c26-commit/65ecdf9193b9/chroma-packs"
+ },
+ "commit": {
+  "repo": "/home/emren/chroma/wt/65ecdf9-clone",
+  "commit": "65ecdf9193b9ef9d0045426cb8a78e66f90a09aa",
+  "ref": "65ecdf9193b9ef9d0045426cb8a78e66f90a09aa",
+  "dirty": false
+ },
+ "ref": null,
+ "results": {
+  "c26_world": {
+   "result": "PASS",
+   "secs": 2529.2997336387634,
+   "note": ""
+  }
+ }
+}

@@ -1,0 +1,7 @@
+f4_age (K17), 2026-10-24 17:54 UTC; repo /tmp/v25_fit4/tree, commit 65ecdf9193b9ef9d0045426cb8a78e66f90a09aa; the game plays a pin filled from engine /tmp/v25_fit4/tree/chroma-engine/v22-speedpass, lib /tmp/v25_fit4/tree/chroma-library, packs /tmp/v25_fit4/tree/chroma-packs
+       1200 lives x 50 years, seeds 41, 43, 44, 42; 40 moments with an age fit, 13 child versions shut at 11.99; switched on here: none
+  ok   F4.1 no fitted moment before its new start: 0 weeks
+  ok   F4.2 no child version at 12 or over: 0 weeks
+  ok   F4.3 a child version and its twin never both at 12: 0 lives
+       reported, not judged: other moments outside their age window (weeks): reconsidering a commitment 8177; the company is short of hands for the spring show 314; the residents' club needs hands for the street fair 261; the elders ask for Saturday mornings at the shared meal 161; the credit union's loans to small traders 121; who may join the residents' club 75; what the movement asks of the council about the empty shops 71; what the tenants' movement asks for 68; the planting scheme 65; the festival in the square 62; the traders ask for spring fair Saturdays 58; the mural on the market wall 54; the fate of the old mill 38; the bill on recalling officials 33; the empty shop on the high street 32
+f4_age: PASS (2138 s)

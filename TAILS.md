@@ -2,7 +2,7 @@
 
 Machine: i9-13900HX, WSL2, 24 GB, Python 3.13.16, numpy 2.5.3, no AVX-512. run.sh jobs: /mnt/project-files (CHROMA_PROJECT
 unset), NOPROBE=1, REPO ~/chroma/wt/bcb1017-clone, ~/chroma/venv-ship (out/v25/ship_hook loads). K3 = v22_checks --only
-t_steps,identity1 run directly (run.sh refuses engA), original venv. MF, WO, LN, land: original venv. Batch: batch 9: NR1 (--nat-general) and LA on 65ecdf9, md5s, violations, and the no-LB ledger judge
+t_steps,identity1 run directly (run.sh refuses engA), original venv. MF, WO, LN, land: original venv. Batch: batch 10: K3 on 65ecdf9 (t_steps 1 FAIL, identity1 PASS); wave 1 c26b, fit4
 
 - K4 114faf0: k4p2 start 2026-10-24T08:25:19Z end 2026-10-24T08:25:20Z exit 2  [the twin launch by the stopped scheduler; the other twin stopped too, rerun clean]
 - K4 114faf0: k4p1 start 2026-10-24T08:24:59Z end 2026-10-24T09:43:20Z exit 0
@@ -85,5 +85,71 @@ ok   F8.2 work moments in a week retired and not working, any life: 0 weeks (tar
      reported: lives that retired 1152; went back to work after retiring 333; jobs taken while retired without a career pick that week (a title or another path) 9
 f8_after: PASS (4130 s)
 ship_hook: 8 patches in 4 processes (/tmp/v25_ship_f8c.log)
+```
+
+## c26b
+
+start 2026-10-24T17:11:54Z, end 2026-10-24T17:54:05Z, exit 0
+
+ship_hook: 5 patches in 3 processes (/tmp/v25_ship_c26b.log)
+
+```
+v25 c26b on 65ecdf9193b9ef9d0045426cb8a78e66f90a09aa
+v22 checks, 20261024-171154 UTC, level quick, 1 checks, up to 4 cores; run folder /mnt/project-files/chroma-release/out/v22checks_20261024-171154
+  engine /tmp/v25_keep/c26-commit/65ecdf9193b9/chroma-engine/v22-speedpass   (candidate)
+  game   /tmp/v25_keep/c26-commit/65ecdf9193b9/chroma-game/prototype   (candidate)
+  lib    /tmp/v25_keep/c26-commit/65ecdf9193b9/chroma-library   (candidate)
+  packs  /tmp/v25_keep/c26-commit/65ecdf9193b9/chroma-packs   (candidate)
+  the Engine's rows run from chroma-engine/tools
+  the tree's game plays a pin filled from engine <T>/chroma-engine/v22-speedpass, lib <T>/chroma-library, packs <T>/chroma-packs
+  work tree /tmp/v25_keep/c26/tree: 13 copied scripts re-pointed to it; engine.py 594b1a452f94, game.py 3d3df6268005, earth.py 6ef7d4e606df
+  packs the engine plays: science,politics,stage,art,callings
+  start c26_world (G19w, Engine)
+  PASS c26_world (G19w) in 2529s  [proof: 138 files]
+PASS 1, RAN 0 (no reference to compare), MISS 0, FAIL 0 of 1
+summary: /mnt/project-files/chroma-release/out/v22checks_20261024-171154/SUMMARY.md
+ship_hook: 5 patches in 3 processes (/tmp/v25_ship_c26b.log)
+```
+
+## fit4
+
+start 2026-10-24T17:54:12Z, end 2026-10-24T18:29:51Z, exit 0
+
+ship_hook: 8 patches in 4 processes (/tmp/v25_ship_fit4.log)
+
+```
+v25 fit4 on 65ecdf9193b9ef9d0045426cb8a78e66f90a09aa
+f4_age (K17), 2026-10-24 17:54 UTC; repo /tmp/v25_fit4/tree, commit 65ecdf9193b9ef9d0045426cb8a78e66f90a09aa; the game plays a pin filled from engine /tmp/v25_fit4/tree/chroma-engine/v22-speedpass, lib /tmp/v25_fit4/tree/chroma-library, packs /tmp/v25_fit4/tree/chroma-packs
+       1200 lives x 50 years, seeds 41, 43, 44, 42; 40 moments with an age fit, 13 child versions shut at 11.99; switched on here: none
+  ok   F4.1 no fitted moment before its new start: 0 weeks
+  ok   F4.2 no child version at 12 or over: 0 weeks
+  ok   F4.3 a child version and its twin never both at 12: 0 lives
+       reported, not judged: other moments outside their age window (weeks): reconsidering a commitment 8177; the company is short of hands for the spring show 314; the residents' club needs hands for the street fair 261; the elders ask for Saturday mornings at the shared meal 161; the credit union's loans to small traders 121; who may join the residents' club 75; what the movement asks of the council about the empty shops 71; what the tenants' movement asks for 68; the planting scheme 65; the festival in the square 62; the traders ask for spring fair Saturdays 58; the mural on the market wall 54; the fate of the old mill 38; the bill on recalling officials 33; the empty shop on the high street 32
+f4_age: PASS (2138 s)
+ship_hook: 8 patches in 4 processes (/tmp/v25_ship_fit4.log)
+```
+
+## enga
+
+start 2026-10-24T15:44:53Z, end 2026-10-24T18:33:50Z, exit 1
+
+(no ship_hook line: not a hook job)
+
+```
+v22 checks, 20261024-154453 UTC, level quick, 2 checks, up to 4 cores; run folder /mnt/project-files/chroma-release/out/v22checks_20261024-154453
+  engine /tmp/v22checks_20261024-154453-commit/65ecdf9193b9/chroma-engine/v22-speedpass   (candidate)
+  game   /tmp/v22checks_20261024-154453-commit/65ecdf9193b9/chroma-game/prototype   (candidate)
+  lib    /tmp/v22checks_20261024-154453-commit/65ecdf9193b9/chroma-library   (candidate)
+  packs  /tmp/v22checks_20261024-154453-commit/65ecdf9193b9/chroma-packs   (candidate)
+  the Engine's rows run from chroma-engine/tools
+  the tree's game plays a pin filled from engine <T>/chroma-engine/v22-speedpass, lib <T>/chroma-library, packs <T>/chroma-packs
+  work tree /tmp/v22checks_20261024-154453/tree: 13 copied scripts re-pointed to it; engine.py 594b1a452f94, game.py 3d3df6268005, earth.py 6ef7d4e606df
+  packs the engine plays: science,politics,stage,art,callings
+  start identity1 (C-E14, Release): no earlier proof
+  start t_steps (item 2, Engine): no earlier proof
+  PASS identity1 (C-E14) in 420s  [proof: 56 files]
+  FAIL t_steps (item 2) in 10135s exit 1: 1 FAILED
+PASS 1, RAN 0 (no reference to compare), MISS 0, FAIL 1 of 2
+summary: /mnt/project-files/chroma-release/out/v22checks_20261024-154453/SUMMARY.md
 ```
 
