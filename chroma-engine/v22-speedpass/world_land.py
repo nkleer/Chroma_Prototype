@@ -173,6 +173,7 @@ class Land:
         self.ls_i = np.nonzero(self.ls)[0]
         gh_ = self.key_s.get("good_harvest", []); hf_ = self.key_s.get("harvest_fails", [])
         self.gate_good = np.isin(self.ls_i, gh_); self.gate_poor = np.isin(self.ls_i, hf_)
+        self.bad = np.array([tn_ == "bad" for tn_ in self.mtone], bool); self.bad_ls = self.bad[self.ls_i]   # LN9
 
     # ------------------------------------------------------------------ the towns
     def _load(self):
@@ -497,9 +498,11 @@ class Land:
             return False
         if p < 1.0 and self._rng.random() >= p:
             return False
+        si = ss[0] if len(ss) == 1 else ss[int(self._rng.integers(len(ss)))]
+        if self.bad[si] and float(self.PP._age(t)) < self.E["bad_age"]:   # LN9: not told to the young (drawn as before)
+            return False
         if once:
             self.once[n].add(key)
-        si = ss[0] if len(ss) == 1 else ss[int(self._rng.integers(len(ss)))]
         self.WL.fire_now[n, si] = True; self.fq[int(n)] = int(si)
         return True
 
@@ -524,7 +527,10 @@ class Land:
         k = np.minimum(1.0, b_ / np.maximum(tm_, 1e-12)) * ((t - self.last) >= E["gap_weeks"])
         if self.fq:
             k[list(self.fq)] = 0.0
-        return ev * k[:, None]
+        ev = ev * k[:, None]
+        if float(self.PP._age(t)) < E["bad_age"]:   # LN9: no bad land moment drawn for the young (the others' odds as before)
+            ev[:, self.bad_ls] = 0.0
+        return ev
 
     def seen(self, ns, ss):
         """The land moments that came this week (the budget's clock)."""

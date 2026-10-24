@@ -88,7 +88,8 @@ engine.run_steps() is engine.run() pausing six times a week for the game. On a f
      the marsh moves its wildness by size x k_land x reach and the flood odds with it; no way before 14 and no step
      above 0 before 18 (LAND_ENGINE way_age); a heat strike makes quarrels
      x 1.1 for its spell; a group's norm moves a little toward the chosen face, a kin's shared memory is kept and
-     recalled when they die, and notice pushes back by what a face costs and asks a leaning life in to a way.
+     recalled when they die, and notice pushes back by what a face costs and asks a leaning life in to a way; no bad
+     land moment before 18 (LAND_ENGINE bad_age, LN9).
  27. national standing (wa_nat_climb, v25 lane D), Earth and packs with the Library's national moments, world on:
      loaded with the switch off no national moment comes; on, run_steps() lives as run() and the lives move;
      recognition, influence and authority kept apart, a seat held by one life and never an engine office, none before
@@ -1514,7 +1515,7 @@ if "tilt_world" in E.DEFAULT:
 if "wa_land" in E.DEFAULT and os.path.exists(os.path.join(batch.LIB_DIR, "earth_nature.py")):
     from world_base import HAZARDS as HZ_
     from world_land import KIN_BITS as WL_KIN_
-    t0 = time.process_time(); fails = []; seen_ = dict(years=0, company=0, ways=0, hit=0, hot=0, parts=[], helper=0)
+    t0 = time.process_time(); fails = []; seen_ = dict(years=0, company=0, ways=0, hit=0, hot=0, parts=[], helper=0, bad=0)
     LAND_ = batch.load_batch("earth", packs=list(batch.PACKS), land=True)
     LM_ = np.array([bool(x_.get("land")) for x_ in LAND_["src"][:LAND_["S"]]])
     kw = dict(N=3, years=22, seed=5, lib=LAND_, log_lives=(0,))
@@ -1554,6 +1555,11 @@ if "wa_land" in E.DEFAULT and os.path.exists(os.path.join(batch.LIB_DIR, "earth_
                     seen_["company"] += 1
                     if c_["kind"] not in ld_.mwith[int(se_[n_])] or (c_["kind"] in ("alone", "stranger", "witness") and c_["cid"] != -1):
                         fails.append(f"week {t}: company {c_} in {LAND_['names'][int(se_[n_])]!r}")
+                ev_n_ = np.nonzero(S["had_ev"])[0]   # LN9: a bad land moment only for a life of bad_age or more
+                bd_ = [n_ for n_ in ev_n_ if int(S["s_ev"][n_]) < ld_.S and ld_.bad[int(S["s_ev"][n_])]]
+                seen_["bad"] += len(bd_)
+                if bd_ and S["age"] < ld_.E["bad_age"]:
+                    fails.append(f"week {t}: a bad land moment at {S['age']:.2f} (LN9: none before {ld_.E['bad_age']})")
             if kind == "end" and S.get("LAND_ON") and abs(S["age"] - round(S["age"])) < 1e-9 and len(fails) < 6:
                 seen_["years"] += 1; W_ = S["WL"].W
                 if not (0 <= ld_.h.min() and ld_.h.max() <= 1 and 0 <= ld_.wd.min() and ld_.wd.max() <= 1):
@@ -1637,7 +1643,7 @@ if "wa_land" in E.DEFAULT and os.path.exists(os.path.join(batch.LIB_DIR, "earth_
           f"companies of the moment's kinds; the stretches in 0..1 and the hazards' feedback the land's own state "
           f"({seen_['years']} years); ways at most 3 (most {seen_['ways']}), none before 14 and no step before 18 "
           f"({seen_['helper']} helper life-years); a flood brought at 20 hit {seen_['hit']} "
-          f"households, each with its course; a Known drain of the marsh moves its wildness by size x k_land x reach and the "
+          f"households, each with its course; {seen_['bad']} bad land moments, none before 18 (LN9); a Known drain of the marsh moves its wildness by size x k_land x reach and the "
           f"flood odds with it; heat's quarrels x 1.1 for its spell ({seen_['hot']} life-weeks); {', '.join(seen_['parts'])} "
           f"as the company and notice say; counts {dict((k_, (ld1_.get('counts') or {}).get(k_)) for k_ in ('asks', 'pushes', 'memories', 'recalls', 'norm_moves'))}"
           f"{'' if not fails else '; ' + '; '.join(fails[:4])} ({time.process_time() - t0:.0f} s)")
