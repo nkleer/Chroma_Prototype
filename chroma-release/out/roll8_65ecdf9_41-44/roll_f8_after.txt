@@ -1,0 +1,6 @@
+f8_after (K9), 2026-10-24 15:45 UTC; repo /tmp/v25_f8a/tree, commit 65ecdf9193b9ef9d0045426cb8a78e66f90a09aa (--as-is); the game plays a pin filled from engine /tmp/v25_f8a/tree/chroma-engine/v22-speedpass, lib /tmp/v25_f8a/tree/chroma-library, packs /tmp/v25_f8a/tree/chroma-packs
+engine lives: 1200 (seeds 41-44 x 300 lives x 100 years; Earth with the packs, world on); as DEFAULT has them (--as-is)
+ok   F8.1 work moments after retiring, lives that did not go back: 0 weeks in 0 lives (target 0)
+ok   F8.2 work moments in a week retired and not working, any life: 0 weeks (target 0)
+     reported: lives that retired 1175; went back to work after retiring 326; jobs taken while retired without a career pick that week (a title or another path) 12
+f8_after: PASS (4143 s)
