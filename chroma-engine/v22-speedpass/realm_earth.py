@@ -345,6 +345,8 @@ LAND_ENGINE = dict(
     season_x=2.0,                       # the budget reads the year's mean odds, a week's at most this x it (a season's
                                         # moments get their whole share in season)
     alone=(0.3, 0.1),                   # company: alone about .3 of the time for adults, .1 for the young
+    bad_age=18,                         # LN9: a bad land moment (tone bad) is told only to a life this old; a
+                                        # younger life's household still bears the land's effects
     stranger_tie=0.25,                  # a stranger becomes an acquaintance 1 in 4
     tie_small=0.02, tie_clear=0.05,     # a tie closer a little, clearly
     way_age=(14, 18),   # ways: a way opens (step 0) from 14, as a helper beside an adult; steps 1 and 2 from 18
