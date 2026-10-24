@@ -164,6 +164,8 @@ class Game(CheckpointsMixin, WorldMixin, VoiceMixin, LifeMixin, ViewsMixin, Caus
                 P["react"] = P["clash"] = True   # v25 lane C: demands and responses, and the clash moments (clash needs react)
             if GAME["prizes"] and "tilt_world" in E.DEFAULT:
                 P["tilt_world"] = True      # v25: what this world prizes, by town, and how it moves (lane A)
+            if GAME["ship"]:                # v25's shipped set over the Earth life's P (seek, imp_world, wa_nat_climb too)
+                P.update({k_: v_ for k_, v_ in getattr(E, "SHIP_V25", {}).items() if k_ in E.DEFAULT})
             P["world_cfg"] = dict(setting="earth", pace=float(min(2.0, max(0.5, float(pace or 1.0)))),
                                   tech_level=tech if tech in ("behind", "modern", "ahead") else "modern",
                                   climate=climate if climate in ("low", "middle", "high") else "middle")
