@@ -1,0 +1,26 @@
+Go-live pin, 2026-10-06 16:38Z
+batch.py                                     41952  7547c5c57d
+combos.py                                     3066  757721ec44
+earth.py                                   2334158  cec2314202
+earth_perks_titles.py                       225019  9c203da8a4
+earth_politics.py                           690471  da69a16027
+earth_rules.py                              217459  b024dbff02
+earth_science.py                            366176  3b3919b54f
+earth_stage.py                              688177  1b952352ed
+engine.py                                   246675  8f4f714172
+explain.py                                   53560  77dbbcff09
+foresee.py                                    6570  fdf355766b
+library.py                                   28376  57df38d107
+life.py                                      15990  a42906dfd1
+schwartz.py                                  12818  c562a01425
+packs/core/longshot.py                        1955  1eb90dfc1d
+packs/core/reach.py                           2599  f2dd07f587
+packs/politics/catalogue.py                  40191  8318f9b2db
+packs/politics/helps.py                       6478  16eb2d57dd
+packs/politics/roles.py                      24458  afe7ec1aef
+packs/science/catalogue.py                   30474  d0f95138b2
+packs/science/helps.py                        4037  e6ece31633
+packs/science/roles.py                       16615  c8e2a25ff7
+packs/stage/catalogue.py                     40824  3fa2f70942
+packs/stage/helps.py                          8254  f3c7933d4f
+packs/stage/roles.py                         20694  6209f112cc

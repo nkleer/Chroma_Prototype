@@ -1,0 +1,510 @@
+# Chroma library, modern Earth: OUTSIDE EVENTS read through the person's filter (across stages). Plan: earth-plan.md "Across stages".
+# Syntax: header of build.py. Five readings each, one per color; over the file each color's joys minus troubles must net out equal.
+
+# ---------------------------------------------------------------- joys
+
+== a festival comes to town
+tier: read
+source: community
+tone: joy
+base: need:belonging+.15 need:meaning+.05
+earth: the summer festival fills the square with music, stalls and lights
+times: once or twice a year
+window: 12-110
+gap: 0.5-1
+likelier: small towns, warm seasons, peace and plenty, a strong local culture
+rarer: war, a big anonymous city, hard times that cancel it
+scene: Bunting goes up across the square, the smell of frying onions drifts over the rooftops, and a brass band is tuning up somewhere near the church.
+- W | a time for the whole town to come together, as it should | impact: 1.0 | say: {N} helps carry tables for the church stall and stays on to serve tea.
+- U | a chance to see how the town really works, stall by stall | impact: 0.8 | say: {N} wanders the stalls, asking the makers how they do it.
+- B | a crowd with money in its pockets and a few useful faces in it | impact: 0.9 | also: belonging+.03 | say: {N} works the crowd all day, selling a little and making useful friends.
+- R | music, food and dancing until the lights go out | impact: 1.3 | also: belonging+.03 | say: {N} dances in the square until the band packs up.
+- G | the old summer feast, the same as every year anyone remembers | impact: 0.9 | say: {N} sits with the old ones under the lime tree, watching the children run.
+
+== praise from a stranger
+tier: read
+source: daily life
+tone: joy
+base: need:competence+.1 need:belonging+.05
+earth: a stranger stops you to say they admire something you made, the way you handled your child, or your singing
+times: a few times a year
+window: 12-110
+gap: 0.2-2
+likelier: work done in public, a craft or a voice people notice, friendly places
+rarer: work done out of sight, cold and hurried cities
+scene: A woman in the queue taps {N} on the shoulder: she heard {N} sing at the wedding last week, and she has not stopped thinking about it.
+- W | it is good to know the work was done well | impact: 0.9 | also: competence+.05 | say: {N} thanks her warmly and walks home a little straighter.
+- U | what exactly did they notice? there may be something to learn | impact: 0.8 | also: competence+.05 | say: {N} asks her what struck her most, and listens closely.
+- B | proof of what the work is worth, and worth making use of | impact: 1.0 | also: autonomy+.05 | say: {N} asks her to say it again in front of the people who matter.
+- R | a glow that lasts all day | impact: 1.3 | also: competence+.05 | say: {N} grins all the way home and tells everyone at dinner.
+- G | kind words, taken lightly, like sun on the face | impact: 0.8 | say: {N} smiles, nods, and lets the words settle.
+
+== an unexpected refund or prize
+tier: read
+source: institution
+tone: joy
+base: need:safety+.15 res:money+.05
+earth: a tax refund, a premium bond or a raffle prize arrives out of the blue
+times: once every few years
+window: 16-110
+gap: 2-8
+likelier: a tax system that pays back, a habit of entering draws
+rarer: no paperwork in the person's name, cash-only lives
+scene: For once the letter is not a bill. Inside is a cheque from the tax office, with an apology for the delay.
+- W | set it aside for the family's needs and the next rainy day | impact: 0.9 | say: {N} puts it straight into the savings account, every penny.
+- U | work out the smartest thing it could become | impact: 0.9 | also: competence+.05 | say: {N} sits down with a pencil and works out three plans for it.
+- B | seed money; make it grow | impact: 1.1 | also: autonomy+.05 | say: {N} puts it into a deal that same week.
+- R | a gift from nowhere; spend it on something wonderful | impact: 1.2 | say: {N} books a weekend away before the cheque has cleared.
+- G | a good season; share it round | impact: 0.9 | also: belonging+.05 | say: {N} takes the whole family out for a long Sunday lunch.
+
+== a wedding invitation from near strangers
+tier: read
+source: community
+tone: joy
+base: need:belonging+.1
+earth: a thick envelope arrives: the wedding of a colleague's daughter or a cousin's friend, with your name on it
+times: once every few years
+window: 14-110
+gap: 1-6
+likelier: a large family, a small town, a workplace where everyone knows everyone
+rarer: few ties, a big city, a family that has drifted apart
+scene: A thick cream envelope lies on the mat with {Ns} name in gold ink. {N} has to read the names twice to work out who is getting married.
+- W | they thought of us; it would be rude not to go and bring a proper gift | impact: 1.0 | say: {N} replies by return of post and buys something from the list.
+- U | why were we invited? work out the connection | impact: 0.7 | say: {N} traces the link through three cousins and an old neighbour.
+- B | a room full of people worth meeting | impact: 0.9 | say: {N} goes, and comes home with four new numbers in the phone.
+- R | a free party, and a dance floor | impact: 1.3 | also: belonging+.05 | say: {N} dances with the bride's grandmother and is the last one off the floor.
+- G | the circle of people is wider than you knew | impact: 0.9 | also: meaning+.05 | say: {N} sits near the back and finds a distant cousin at the next table.
+
+== a relative's success
+tier: read
+source: community
+tone: joy
+base: need:belonging+.1 need:meaning+.05
+earth: a sibling gets the top job, a cousin is on the news, a niece wins a place at a famous university
+times: once every few years
+window: 12-110
+gap: 1-5
+likelier: a large family, ambitious relatives, good times
+rarer: a small or scattered family, hard times
+scene: {sibling} rings with the news, breathless: the promotion came through, and it is the top job.
+- W | an honour for the whole family | impact: 1.1 | also: meaning+.05 | say: {N} tells everyone who will listen and asks for a family dinner in {sibling}'s honour.
+- U | how did they do it? | impact: 0.8 | say: {N} asks {sibling} to walk through every step of it.
+- B | a sting of envy, then a thought: a relative in a high place is worth having | impact: 0.8 | also: safety+.05 | say: {N} congratulates {sibling}, and makes a note to call more often.
+- R | pure joy and a little envy, all at once | impact: 1.2 | also: competence-.05 | say: {N} whoops down the phone, then sits very still for a while afterwards.
+- G | the family tree bears good fruit | impact: 0.9 | also: belonging+.05 | say: {N} calls {parent} at once, so the news travels the old way.
+
+== the neighbours are doing well
+tier: read
+source: community
+tone: joy
+base: need:belonging+.05 need:meaning+.05
+earth: the neighbours' shop takes off, a new car sits in their drive, their son gets into medical school
+times: once every few years
+window: 12-110
+gap: 1-6
+likelier: a rising neighbourhood, good times, a street where people talk
+rarer: a declining street, hard times, neighbours who keep to themselves
+scene: A new car in the neighbours' drive, a skip full of their old kitchen, and a banner in their window: the shop is opening a second branch.
+- W | good for the street; everyone rises together | impact: 1.0 | say: {N} brings round a card and a cake.
+- U | what did they do differently? | impact: 0.8 | also: competence+.05 | say: {N} asks over the fence how they got it going, and takes notes.
+- B | if they can do it, so can I, and better | impact: 0.8 | also: autonomy+.05 competence-.05 | say: {N} looks at the new car for a long moment and starts making plans.
+- R | glad for them, and itching to do something big too | impact: 1.1 | say: {N} cheers loudest at their opening, then lies awake restless.
+- G | every garden has its season; theirs is now | impact: 0.9 | also: meaning+.05 | say: {N} waves over the hedge and goes back to the roses.
+
+== the new thing everyone is talking about
+tier: read
+source: daily life
+tone: joy
+base: need:autonomy+.1 need:competence+.05
+earth: a new phone, app or machine that suddenly everyone has, and it changes how things are done
+times: every few years
+window: 12-110
+gap: 2-6
+likelier: a fast-changing era, young people around, money to spare
+rarer: poverty, remote places, an old household
+scene: Everyone is talking about it, half of {Ns} friends already have one, and the shop window is full of it.
+- W | useful, once there are sensible rules for it | impact: 0.8 | also: safety+.05 | say: {N} waits for the instructions, reads them, and sets it up properly.
+- U | take it apart and see how it works | impact: 1.2 | also: competence+.05 | say: {N} stays up until two learning every setting.
+- B | the first to use it will be the ones who win | impact: 1.1 | also: autonomy+.05 | say: {N} finds a way to make money from it before the month is out.
+- R | a new toy, today | impact: 1.1 | say: {N} buys one on the first day and shows it to everyone.
+- G | the old way worked fine; this will pass | impact: 0.6 | also: belonging-.05 | say: {N} shrugs and keeps the old one in the drawer.
+
+== a national celebration
+tier: read
+source: institution
+tone: joy
+base: need:belonging+.15 need:meaning+.05
+earth: a national holiday, a jubilee or a big anniversary: flags, parades and fireworks
+times: once a year, with a big one every decade or two
+window: 12-110
+gap: 1-10
+likelier: peace, a shared history, a round anniversary
+rarer: a divided country, war, a person far from their own country
+scene: Flags hang from every window, the high street is closed for the parade, and fireworks are promised at dusk.
+- W | a day to honour the country and those who served it | impact: 1.2 | also: meaning+.05 | say: {N} stands for the anthem with a hand on the heart.
+- U | a show worth understanding: who organised it, and why now | impact: 0.7 | say: {N} watches the parade with a guidebook, reading up on every regiment.
+- B | a day off, crowds, and good business | impact: 0.9 | say: {N} sells flags from a folding table and does very well.
+- R | fireworks, crowds, and a party in the street | impact: 1.2 | also: belonging+.05 | say: {N} is out in the street until the last rocket goes up.
+- G | the old customs, kept alive one more year | impact: 0.9 | also: belonging+.05 | say: {N} goes to the same spot by the river where {grandparent} once watched.
+
+== new people move in next door
+tier: read
+source: community
+tone: joy
+base: need:belonging+.1
+earth: the house next door has new people, and they knock to say hello
+times: once every few years
+window: 12-110
+gap: 2-10
+likelier: a street of renters, a growing town
+rarer: a settled village where nobody moves
+scene: A removal van blocks the street all morning. By the afternoon a stranger is at {Ns} door with a tray of something homemade.
+- W | welcome them properly, with a card and an offer of help | impact: 1.0 | say: {N} brings round a card and offers to show them where everything is.
+- U | who are they, and where are they from? | impact: 0.9 | say: {N} asks a dozen questions on the doorstep and learns where they came from.
+- B | a new face; find out what they do | impact: 0.8 | say: {N} learns within a week that the newcomer runs a building firm.
+- R | a new friend, maybe; have them over tonight | impact: 1.2 | also: belonging+.05 | say: {N} is round there making friends before the boxes are even unpacked.
+- G | wait and see what kind of people they are | impact: 0.7 | say: {N} nods over the fence and keeps a friendly distance.
+
+== a story about someone like you
+tier: read
+source: community
+tone: joy
+base: need:belonging+.05 need:meaning+.1
+earth: a news story or a film about someone from your background, your town or your situation, told with respect
+times: once every few years
+window: 12-110
+gap: 2-8
+likelier: a person from a group or place seldom shown; a lively press
+rarer: a group always in the news; a closed press
+scene: On the evening news there is a story about someone from {Ns} kind of town and {Ns} kind of family, and they tell it with respect.
+- W | proof that people like us are a proper part of the country | impact: 1.0 | say: {N} records it and makes the whole family watch.
+- U | at last someone told it accurately | impact: 0.9 | say: {N} looks up the reporter and reads everything they have written.
+- B | if they can make it, so can I | impact: 1.0 | also: autonomy+.05 | say: {N} watches it twice and starts drafting a plan.
+- R | tears, right there on the sofa | impact: 1.2 | also: belonging+.05 | say: {N} cries on the sofa and rings a friend the moment it ends.
+- G | our people, our place, seen at last | impact: 0.9 | also: meaning+.05 | say: {N} cuts the article out and pins it by the door.
+
+== the sun goes dark at noon
+tier: read
+source: cosmology
+tone: joy
+base: need:meaning+.15
+earth: a total eclipse of the sun passes over the region, and the sky goes dark at midday
+times: once or twice in a life
+window: 12-110
+gap: 10-60
+likelier: a clear sky, a path of totality nearby, a chance to travel to it
+rarer: cloud, a place far from the path
+scene: At eleven minutes past noon the birds go quiet, the air turns cold, and the sun becomes a dark hole ringed with silver fire.
+- W | a moment to feel how small we are, and give thanks | impact: 1.0 | also: meaning+.05 | say: {N} stands with the neighbours in the field, silent, hands joined.
+- U | the clockwork of the sky, exactly on time | impact: 1.2 | say: {N} has the filters, the timings and a notebook ready.
+- B | a crowd of visitors who need parking, glasses and a view | impact: 0.6 | say: {N} sells eclipse glasses to the visitors at twice the price.
+- R | a shiver through the whole body | impact: 1.3 | also: meaning+.05 | say: {N} shouts out loud as the light goes, and then laughs.
+- G | the old sky doing its old turn, as it did for the ancestors | impact: 1.0 | also: meaning+.05 | say: {N} lies back in the grass and watches it the way people always have.
+
+== the home team wins the cup
+tier: read
+source: community
+tone: joy
+base: need:belonging+.15
+earth: the town's team wins the cup final after years of losing
+times: once or twice a decade, often less
+window: 12-110
+gap: 5-30
+likelier: a town with one club everyone follows, a good season
+rarer: a big city with many clubs, a person who never follows sport
+scene: The final whistle goes and the whole street erupts: car horns, strangers hugging, someone crying into a scarf.
+- W | the town's day, and everyone shares in it | impact: 1.0 | say: {N} lines the route for the open-top bus with the rest of the street.
+- U | a strange thing, how a whole town can feel one feeling | impact: 0.7 | say: {N} watches the crowd more than the match.
+- B | a winners' town, and a good week for business | impact: 0.8 | say: {N} buys scarves cheap and is selling them to the crowd by Tuesday.
+- R | the best night in years | impact: 1.4 | also: belonging+.1 | say: {N} sings in the fountain with strangers until long after dark.
+- G | the old club, the old songs, our people | impact: 1.0 | also: meaning+.05 | say: {N} digs out {grandparent}'s old scarf and wears it to the parade.
+
+== a snow day
+tier: read
+source: environment
+tone: joy
+base: need:autonomy+.1 need:belonging+.05
+earth: heavy snow overnight closes schools, roads and offices, and the town goes quiet and white
+times: once every year or few, where winters bring snow
+window: 12-110
+gap: 1-5
+likelier: cold winters, hills, a small town
+rarer: warm climates, a warming world
+scene: {N} wakes to a strange, thick silence. Outside everything is covered, and the radio is reading out the list of schools that are closed.
+- W | clear the paths and check on the old neighbours | impact: 0.9 | say: {N} shovels the whole row of front paths before breakfast.
+- U | look at the drifts, the tracks and the patterns the wind left | impact: 0.9 | say: {N} measures the snow on the garden table and photographs the crystals.
+- B | everyone is stuck; a good day to get ahead while they are not | impact: 0.8 | also: competence+.05 | say: {N} works from the kitchen table and finishes what the others will not.
+- R | a free day in a new world | impact: 1.3 | also: autonomy+.05 | say: {N} is out with a sledge before anyone else is dressed.
+- G | the world has stopped to rest; rest with it | impact: 1.0 | also: meaning+.05 | say: {N} lights the fire, puts soup on, and watches it fall.
+
+== the first warm day of the year
+tier: read
+source: environment
+tone: joy
+base: need:meaning+.05 need:autonomy+.05 need:belonging+.05
+earth: after a long winter, the first warm day: coats off, windows open, everyone outside
+times: once a year
+window: 12-110
+gap: 1-1
+likelier: long dark winters, a garden or a park nearby
+rarer: places with little change of season
+scene: After months of grey, the sun comes out warm. Windows open all along the street, and somewhere a lawnmower starts up.
+- W | time for the spring cleaning and the garden jobs, in order | impact: 0.8 | also: competence+.05 | say: {N} writes out the list of spring jobs and starts at the top.
+- U | note the first swallow, the first blossom, and the date | impact: 0.9 | say: {N} writes the date of the first swallow in the notebook, as every year.
+- B | the café terrace is open, and the best table is free | impact: 0.9 | also: autonomy+.05 | say: {N} takes the best table on the terrace before the lunch crowd.
+- R | skip the afternoon and go to the lake | impact: 1.3 | also: autonomy+.05 | say: {N} slips away early and is in the lake by three.
+- G | the year turns, as it always does | impact: 1.1 | also: meaning+.05 | say: {N} walks barefoot on the new grass and feels the ground waking.
+
+# ---------------------------------------------------------------- troubles
+
+== a pandemic and a lockdown
+tier: read
+source: institution
+tone: trouble
+base: need:belonging-.3 need:safety-.25 need:autonomy-.2
+earth: a new disease spreads and the country locks down: schools closed, streets empty, family visits forbidden
+times: once or twice in a life
+window: 12-110
+gap: 30-80
+likelier: a crowded, connected world; weak health systems; a person who lives alone
+rarer: remote places; strong early action
+scene: The streets are empty at noon. The schools are shut, the shops let people in a few at a time, and the only sound is an ambulance far away.
+- W | follow the rules to the letter, and help others keep them | impact: 0.9 | also: meaning+.05 | say: {N} keeps a careful distance in every queue and shops for the old neighbour every week.
+- U | read every study and track every number | impact: 1.0 | also: competence+.05 safety-.05 | say: {N} keeps a spreadsheet of the case numbers and checks it every morning.
+- B | stock up early, and look after your own | impact: 0.9 | also: safety+.05 belonging-.05 | say: {N} stocks up in the first week and keeps a stash nobody else may touch.
+- R | going mad indoors, climbing the walls | impact: 1.3 | also: autonomy-.05 | say: {N} paces the flat at night, then breaks the rules for a walk by the river.
+- G | hard times come and go; keep close to home and wait it out | impact: 0.9 | also: belonging+.05 | say: {N} bakes bread, tends the window boxes and rings the family every evening.
+
+== a recession
+tier: read
+source: institution
+tone: trouble
+base: need:safety-.25 need:competence-.1 res:money-.05
+earth: the economy shrinks: firms close, prices rise, and everyone knows someone who lost a job
+times: every eight to ten years
+window: 14-110
+gap: 6-12
+likelier: a trade that follows the business cycle, debt, a one-industry town
+rarer: a public-sector job, a pension, savings
+scene: Half the shops on the high street have whitewashed windows, and the news talks of nothing but the downturn.
+- W | tighten belts together; everyone must pull their weight | impact: 0.9 | also: belonging+.05 | say: {N} cuts back, and joins the food bank rota on Saturdays.
+- U | it was predictable; read the signs for the next move | impact: 0.9 | also: competence+.05 | say: {N} studies the forecasts and works out what the household should cut first.
+- B | bad times make a buyer's market | impact: 0.7 | also: autonomy+.05 | say: {N} buys cheap from people who have to sell.
+- R | furious at the bankers, the bosses, all of them | impact: 1.2 | also: meaning-.05 | say: {N} shouts at the television and joins the march on Saturday.
+- G | lean years follow fat years | impact: 0.9 | also: safety+.05 | say: {N} grows more vegetables and stops buying what the household can make.
+
+== a disaster in the next town
+tier: read
+source: environment
+tone: trouble
+base: need:safety-.2 need:belonging-.1
+earth: a flood, a fire or a storm wrecks a town nearby; you are spared, but people you know are not
+times: a few times in a life
+window: 12-110
+gap: 5-20
+likelier: floodplains, fire country, storm coasts, a warming climate
+rarer: sheltered inland places
+scene: The river burst its banks in the night. Ten miles away a whole town is under muddy water, and {Ns} phone is full of messages from people who live there.
+- W | organise: collect, sort, send, help | impact: 1.0 | also: meaning+.05 | say: {N} helps at the collection point in the school hall all week.
+- U | why there, why now, and what would have stopped it? | impact: 0.8 | also: competence+.05 | say: {N} studies the flood maps and writes to the council about the defences.
+- B | it could have been here; make sure your own are protected first | impact: 0.9 | also: safety+.05 | say: {N} packs an emergency bag that afternoon and checks the family is covered.
+- R | get over there and start bailing | impact: 1.2 | also: belonging+.05 | say: {N} gets a lift over with a load of buckets and works until dark.
+- G | the river takes back what was its own | impact: 1.1 | also: meaning-.05 | say: {N} stands on the bridge and watches the muddy water for a long time.
+
+== a war on the news
+tier: read
+source: institution
+tone: trouble
+base: need:safety-.15 need:meaning-.15
+earth: a war breaks out in another country, and every night the news shows the bombs, the refugees and the ruins
+times: a few times in a life
+window: 12-110
+gap: 3-15
+likelier: a neighbouring region at war, family ties there, rolling news
+rarer: no screens, a remote place
+scene: Every evening the same pictures: burning buildings, long lines of people with suitcases, a child holding a cat on a railway platform.
+- W | take people in, give, and stand with the victims | impact: 1.1 | also: meaning+.05 | say: {N} collects for the appeal and helps welcome a refugee family to the street.
+- U | understand the history behind it | impact: 0.9 | also: competence+.05 | say: {N} reads three books on the region and stops trusting the headlines.
+- B | the world is a jungle; make sure your own are safe | impact: 0.8 | also: safety+.05 meaning-.05 | say: {N} quietly works out where the family could go if it ever came here.
+- R | rage and grief at the screen | impact: 1.3 | say: {N} cannot watch it without shouting, and gives to every appeal.
+- G | a far storm; hold your own close | impact: 0.8 | also: belonging+.05 | say: {N} turns the news off and holds the family a little tighter at supper.
+
+== a bitter election
+tier: read
+source: institution
+tone: trouble
+base: need:belonging-.15 need:safety-.1
+earth: an election campaign splits the town and the family table; whoever wins, half the street is furious
+times: every four or five years, a bitter one every decade or so
+window: 14-110
+gap: 4-10
+likelier: a divided country, hard times, a family that argues politics
+rarer: a settled consensus, a person who never follows the news
+scene: Signs on every other lawn, shouting on every screen, and {sibling} has stopped speaking to {parent} over it.
+- W | respect the vote, accept the result, and work with whoever won | impact: 0.8 | also: meaning+.05 | say: {N} accepts the count and refuses to argue at the dinner table.
+- U | study the numbers and the arguments on both sides | impact: 0.8 | also: competence+.05 | say: {N} reads both manifestos and makes a chart of the promises.
+- B | whoever wins, be on good terms with them | impact: 0.8 | also: safety+.05 | say: {N} keeps quiet about who {N} backs and stays friendly with both camps.
+- R | this is a fight; pick a side and fight | impact: 1.3 | also: belonging+.05 | say: {N} knocks on doors every evening and falls out with {sibling} over it.
+- G | rulers come and go; the land and the family stay | impact: 0.8 | also: meaning+.05 | say: {N} tends the garden and will not talk politics at all.
+
+== a wave of layoffs at work
+tier: read
+source: institution
+tone: trouble
+base: need:safety-.3 need:competence-.1
+earth: the firm announces cuts and desks empty every week; you still have your job, for now
+times: once or twice in a working life
+window: 18-70
+gap: 4-15
+likelier: a shrinking firm or trade, a downturn, a takeover
+rarer: a growing firm, a public-sector job, a rare skill
+scene: Another desk is empty on Monday. The rumour is that there will be another round before the holidays.
+- W | keep doing the job well, and stand by the ones let go | impact: 1.0 | also: belonging+.05 | say: {N} writes a reference for every colleague who leaves.
+- U | work out who is next, and why | impact: 1.0 | also: competence+.05 | say: {N} reads the accounts and maps which teams are safe.
+- B | become the one they cannot afford to lose | impact: 1.0 | also: autonomy+.05 | say: {N} takes over the work of two empty desks and makes sure the boss notices.
+- R | angry, frightened, and ready to walk before they push | impact: 1.2 | also: autonomy+.05 | say: {N} says exactly what everyone is thinking at the next staff meeting.
+- G | what will be, will be | impact: 0.7 | also: meaning-.05 | say: {N} keeps {Ns} head down, packs the sandwiches, and waits for the news.
+
+== the local hospital is closing
+tier: read
+source: institution
+tone: trouble
+base: need:safety-.2 need:belonging-.1
+earth: the town's hospital, or the village school, is to close, and the nearest one will be an hour away
+times: once or twice in a life
+window: 12-110
+gap: 10-40
+likelier: a small or shrinking town, cuts to public services
+rarer: a big city, a growing region
+scene: The letter from the health board runs to two pages, and the line that matters is near the bottom: the emergency unit and the maternity ward close in the spring.
+- W | petition, write, and fight it through every proper channel | impact: 1.0 | also: meaning+.05 | say: {N} collects three hundred signatures outside the post office.
+- U | read the board's figures and find the flaw in them | impact: 0.9 | also: competence+.05 | say: {N} finds the mistake on page forty and sends it to the paper.
+- B | make sure your own family will still be looked after | impact: 0.8 | also: safety+.05 | say: {N} finds out where the family would go instead, and how to be seen there first.
+- R | march on the town hall | impact: 1.2 | also: belonging+.05 | say: {N} is at the front of the march with a placard and a megaphone.
+- G | the town lived before it had a hospital, and will live after | impact: 1.0 | also: meaning-.05 | say: {N} sighs, and trusts the town to manage as it did before.
+
+== a scandal in the congregation
+tier: read
+source: community
+tone: trouble
+base: need:meaning-.2 need:belonging-.15
+earth: a leader of your church, mosque, temple or movement is exposed for theft, lies or a cover-up
+times: once or twice in a life
+window: 12-110
+gap: 10-40
+likelier: holding a faith or a cause, a large or closed institution
+rarer: no faith or cause held
+scene: The headline names the minister who christened {N}. The congregation meets that evening in a hall that is half empty.
+- W | the faith is greater than its servants; clean house and carry on | impact: 1.1 | also: meaning-.05 | say: {N} volunteers for the new committee to set things right.
+- U | find out exactly what happened, and who knew | impact: 0.9 | also: competence+.05 | say: {N} reads every report and asks the hard questions at the meeting.
+- B | everyone has a price; trust no one with power | impact: 0.8 | also: autonomy+.05 meaning-.05 | say: {N} stops putting money in the plate and keeps it.
+- R | betrayed; walk out and never come back | impact: 1.2 | say: {N} storms out of the meeting and does not go back.
+- G | people fall; the old faith remains | impact: 0.9 | also: meaning+.05 | say: {N} prays alone at home, as {grandparent} used to.
+
+== break-ins on the street
+tier: read
+source: community
+tone: trouble
+base: need:safety-.25
+earth: two houses on your street are burgled in one week, and everyone is checking their locks
+times: a few times in a life
+window: 12-110
+gap: 2-10
+likelier: cities, poverty nearby, hard times
+rarer: small close villages
+scene: A police car sits outside number twelve all morning. Their back door was forced in the night, the second break-in on the street this week.
+- W | set up a neighbourhood watch and work with the police | impact: 1.0 | also: belonging+.05 | say: {N} helps get a neighbourhood watch going and keeps an eye out every evening.
+- U | work out how they got in, and fix the weak points | impact: 0.8 | also: competence+.05 | say: {N} walks round the house testing every lock and window.
+- B | better locks, cameras, and a big dog | impact: 0.9 | also: safety+.05 | say: {N} pushes for new locks and a camera, and checks them every night.
+- R | furious; if they come here, they will regret it | impact: 1.2 | say: {N} sleeps with a cricket bat by the bed.
+- G | keep close to the neighbours, and the street will mind itself | impact: 0.9 | also: belonging+.05 | say: {N} gets to know the old couple next door, and they keep an eye out for each other.
+
+== a rumour about you
+tier: read
+source: community
+tone: trouble
+base: need:belonging-.25 need:safety-.05
+earth: you hear that people at work, at school or in the street are saying something untrue about you
+times: a few times in a life
+window: 12-110
+gap: 2-8
+likelier: a small workplace or school, a rival, a public role
+rarer: few ties, a big anonymous world
+scene: {friend} stops talking when {N} walks in. Later {N} learns what is being said, and that it is not true.
+- W | set the record straight, calmly, with the facts | impact: 1.0 | say: {N} goes to the people repeating it and corrects it, point by point.
+- U | trace it to its source | impact: 0.9 | also: competence+.05 | say: {N} works out within a day who started it, and why.
+- B | find who started it, and return the favour | impact: 1.1 | also: autonomy+.05 belonging-.05 | say: {N} lets slip a little something about the one who started it.
+- R | hurt and fury; take it on head first | impact: 1.2 | also: autonomy+.05 | say: {N} marches up to the lunch table and dares whoever said it to say it again.
+- G | people talk; let it blow over | impact: 0.8 | say: {N} shrugs it off and carries on as before.
+
+== an insult from a stranger
+tier: read
+source: daily life
+tone: trouble
+base: need:belonging-.1 need:competence-.05
+earth: a stranger in the street, the car park or online says something cruel about how you look, speak or live
+times: a few times a year
+window: 12-110
+gap: 0.2-2
+likelier: crowded cities, online life, standing out from the crowd
+rarer: a small friendly place, a life mostly offline
+scene: In the car park a man leans out of his window, shouts something ugly at {N}, and drives off laughing.
+- W | rude and wrong; report it if it goes further | impact: 0.9 | say: {N} notes the number plate, just in case.
+- U | what made them like that? | impact: 0.7 | also: competence+.05 | say: {N} turns it over on the way home, wondering what makes a person say that.
+- B | it says more about them than about you | impact: 0.8 | also: autonomy+.05 | say: {N} shrugs and decides the man is not worth a second thought.
+- R | a slap in the face; the anger burns all day | impact: 1.3 | say: {N} shouts after the car, and is still shaking an hour later.
+- G | a sour wind; it will blow past | impact: 0.7 | also: meaning+.05 | say: {N} takes a breath, looks at the sky, and lets it go.
+
+== a bill you did not expect
+tier: read
+source: daily life
+tone: trouble
+base: need:safety-.15 res:money-.05
+earth: the boiler breaks, the car fails its test, or a tax demand arrives, and it is more than you have
+times: once or twice a year
+window: 18-110
+gap: 0.3-2
+likelier: an old house or car, no savings, a tight budget
+rarer: savings, new things, a landlord who pays
+scene: The mechanic wipes his hands and names a figure. It is three times what {N} has in the bank.
+- W | pay it, cut back, and set up a fund for next time | impact: 0.9 | also: competence+.05 | say: {N} pays it in instalments and opens a rainy-day account the same week.
+- U | check every line; there may be a mistake | impact: 0.8 | also: competence+.05 | say: {N} finds two errors on the bill and gets it reduced.
+- B | haggle hard, or find someone who will do it cheaper | impact: 1.0 | also: autonomy+.05 | say: {N} gets three quotes and beats the price down by a third.
+- R | why now, of all times? | impact: 1.2 | say: {N} kicks the tyre, swears, and puts it on the credit card.
+- G | things wear out; it was their time | impact: 0.8 | also: meaning+.05 | say: {N} sighs, borrows from {sibling}, and mends what can be mended.
+
+== a heatwave
+tier: read
+source: environment
+tone: trouble
+base: need:safety-.15 need:autonomy-.05
+earth: weeks of record heat: sleepless nights, burnt lawns, warnings for the old and the sick
+times: most summers now, a severe one every few years
+window: 12-110
+gap: 1-5
+likelier: a warming climate, cities, old age, poor housing
+rarer: cool coastal places
+scene: The thermometer on the shed reads forty in the shade. The tarmac is soft, the lawns are brown, and nobody has slept properly in a week.
+- W | check on the old and frail, and keep to the water rules | impact: 0.9 | also: belonging+.05 | say: {N} knocks on the old neighbours' doors each afternoon with bottles of water.
+- U | understand it: the climate, the records, what is coming | impact: 0.9 | also: meaning-.05 | say: {N} reads the climate reports late into the hot night.
+- B | keep cool, and never mind the cost | impact: 0.7 | also: safety+.05 | say: {N} grabs the last fan in the shop and keeps it in {Ns} own room.
+- R | heat in the blood: short tempers and long nights | impact: 1.2 | also: autonomy+.05 | say: {N} snaps at everyone by day and swims in the river after dark.
+- G | the land is suffering; slow down with it | impact: 1.0 | also: meaning-.05 | say: {N} closes the shutters at dawn and lives slowly, the way people do in hot countries.
+
+== a run of bad luck
+tier: read
+source: cosmology
+tone: trouble
+base: need:safety-.1 need:meaning-.1 need:competence-.05
+earth: in one week the car breaks down, the phone is lost and a pipe bursts, and it starts to feel personal
+times: a few times a year
+window: 12-110
+gap: 0.2-2
+likelier: hard times, old things, stress
+rarer: calm, well-kept lives
+scene: Monday the car, Wednesday the phone, Friday a pipe bursts under the kitchen sink. By Saturday {N} half expects the roof to fall in.
+- W | a test of patience; keep steady and do what must be done | impact: 0.9 | also: meaning+.05 | say: {N} deals with each thing in order and refuses to complain.
+- U | coincidence; there is no such thing as a curse | impact: 0.7 | also: competence+.05 | say: {N} works out the odds on the back of an envelope and laughs at them.
+- B | someone or something is behind this | impact: 1.0 | also: safety-.05 | say: {N} goes over the week, looking for whoever could be to blame.
+- R | the world is laughing; laugh back, or kick something | impact: 1.2 | also: autonomy+.05 | say: {N} kicks the bucket under the sink, then laughs until it hurts.
+- G | a bad season; keep low until it passes | impact: 1.0 | also: meaning+.05 | say: {N} keeps to the house for the weekend and waits for the turn.

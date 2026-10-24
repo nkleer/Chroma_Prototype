@@ -1,0 +1,261 @@
+# Chroma library, modern Earth: OUTSIDE EVENTS FOR CHILDREN (about 4 to 11), read through the child's own filter. Engine fix 9 (chroma-engine/earth-pull-in.md).
+# Audit 2026-10-05 (realism of readings, Emren 09:25): changes in drafts/audit/earth-child-events-changes.md.
+# The adult outside events in earth-events.lib start at 12 in the engine (earth_rules.READ_MIN_AGE); these are children's own, told at a child's height.
+# Syntax: header of build.py. Five readings each, one per color. Over the file each color's joys minus troubles net out equal (+0.20 raw),
+# and the net weighted by base size and yearly rate (check.py) is about equal too (+0.467 to +0.476).
+
+# ---------------------------------------------------------------- joys
+
+== snow closes the school
+tier: read
+source: environment
+tone: joy
+base: need:autonomy+.1 need:belonging+.05
+earth: snow falls all night, and in the morning the radio says the school is shut
+times: once every year or few, where winters bring snow
+window: 4-12
+gap: 1-4
+likelier: cold winters, hills, a small town where the buses stop
+rarer: warm climates, a warming world, a city that clears the roads by dawn
+scene: {N} wakes to a strange white light and a thick silence. Downstairs the radio is reading out the schools that are closed, and {Ns} school is on the list.
+- W | a day for helping: clear the path, and check on the old lady next door | impact: 0.9 | say: {N} helps {parent} dig out the path, then carries a flask of soup next door.
+- U | a chance to look closely at the flakes, the tracks and the drifts | impact: 0.9 | also: competence+.05 | say: {N} catches snowflakes on a dark glove and looks at each one through a magnifying glass.
+- B | a whole free day, and the best sledging hill for whoever gets there first | impact: 0.9 | also: autonomy+.05 | say: {N} is first up the big hill and lets the others have a turn on the good sledge for a sweet each.
+- R | the best day ever: snowballs, sledges and no school | impact: 1.3 | also: autonomy+.05 | say: {N} is out in the snow before breakfast and does not come in until it is dark.
+- G | the whole world gone soft and quiet under the snow | impact: 1.0 | also: meaning+.05 | say: {N} lies in the garden making snow angels, listening to the hush.
+
+== the fair comes to town
+tier: read
+source: community
+tone: joy
+base: need:belonging+.1 need:autonomy+.05
+earth: the fair sets up on the common overnight: rides, candyfloss and strings of lights
+times: once a year
+window: 4-12
+gap: 0.5-1.5
+likelier: a town with a common or a park, summer, a little money to spare
+rarer: hard times, a big city where nobody hears of it
+scene: Lorries rumble onto the common in the night. By teatime there is music, the smell of candyfloss, and a big wheel turning against the sky.
+- W | a family treat: everyone together, and a fair share of rides each | impact: 1.0 | say: {N} counts out the ride tokens carefully and gives the last one to {sibling}.
+- U | how do the rides work, and how is the hook-a-duck stall rigged? | impact: 0.8 | say: {N} watches the big wheel's motor for ages and works out the trick at the hoopla stall.
+- B | prizes to win, if the right stalls are picked | impact: 0.9 | say: {N} wins a goldfish and a giant teddy, and makes sure the whole street sees them.
+- R | lights, screams and the fastest ride, again and again | impact: 1.3 | say: {N} rides the waltzer five times in a row and screams every time.
+- G | the same fair that came when the grown-ups were small | impact: 0.9 | say: {N} eats candyfloss hand in hand with {grandparent}, at the stall {grandparent} went to as a child.
+
+== the teacher reads your work out to the class
+tier: read
+source: institution
+tone: joy
+base: need:competence+.1 need:belonging+.05
+earth: the teacher holds up your story or your picture and says, in front of everyone, that this is how it should be done
+times: a few times a year
+window: 5-12
+gap: 0.3-1.5
+likelier: a warm teacher, work done with care, a small class
+rarer: a harsh or rushed teacher, a crowded class
+scene: The teacher holds up {Ns} story in front of the whole class and reads the first page out loud. {N} goes pink to the ears.
+- W | proof that doing it properly is worth it | impact: 1.0 | also: competence+.05 | say: {N} sits up straight and makes the next story even neater.
+- U | what exactly was good about it? there is something to learn | impact: 0.8 | say: {N} asks the teacher afterwards which part was best, and why.
+- B | everyone heard, and now they all know who is best | impact: 0.9 | say: {N} glances round to make sure {rival} was listening.
+- R | a glow that lasts all day | impact: 1.3 | say: {N} runs out at home time and tells {parent} before even saying hello.
+- G | nice, but no need to make a fuss | impact: 0.8 | say: {N} smiles at the desk and quietly gets on with the next thing.
+
+== a wobbly tooth comes out
+tier: read
+source: daily life
+tone: joy
+base: need:competence+.05 need:meaning+.05
+earth: the wobbly tooth finally comes out in an apple, and there is a gap to poke a tongue through and a coin to hope for
+times: a few times a year between six and twelve
+window: 5-12
+gap: 0.3-1
+likelier: the years around six to eight and ten to twelve, when the teeth come fastest
+rarer: the quiet year or two in between
+scene: Crunch: the wobbly tooth is stuck in the apple. {N} pokes a tongue through the new gap and grins a gappy grin.
+- W | a sign of growing up properly, one step at a time | impact: 0.9 | say: {N} writes the date in the growing-up book and puts the tooth in an envelope.
+- U | how do the new teeth know when to come? | impact: 0.9 | also: competence+.05 | say: {N} studies the gap in the mirror and asks {parent} a dozen questions about teeth.
+- B | a coin under the pillow, and maybe more for a big one | impact: 0.9 | also: autonomy+.05 | say: {N} tells {sibling} that the going rate for a back tooth is double.
+- R | show the gap and the tooth to everyone, right now | impact: 1.2 | say: {N} shows the tooth to the whole bus and whistles through the gap.
+- G | the tooth fairy, coming in the night as she always has | impact: 1.0 | say: {N} tucks the tooth under the pillow and lies very still, listening for wings.
+
+== the school trip
+tier: read
+source: institution
+tone: joy
+base: need:belonging+.1 need:autonomy+.05 need:meaning+.05
+earth: a coach, packed lunches and a whole day at the zoo, the museum or the farm with the class
+times: once or twice a year
+window: 5-12
+gap: 0.5-1.5
+likelier: a lively school, a little money for trips
+rarer: cuts to the school's money, hard times at home
+scene: The coach smells of crisps and sun cream. Thirty children sing all the way to the zoo, and {N} has the window seat.
+- W | a day out where everyone stays in pairs and does it right | impact: 0.9 | say: {N} holds {friend}'s hand all day and helps the teacher count heads at every gate.
+- U | a day full of things to find out | impact: 1.1 | say: {N} fills the worksheet front and back and reads every label in the dinosaur hall.
+- B | a day to swap snacks, sit with the right people, and get the best seat | impact: 0.8 | say: {N} trades a chocolate bar for the back seat of the coach.
+- R | a day out of school with friends and a gift shop | impact: 1.3 | say: {N} sings loudest on the coach and spends all the pocket money in the gift shop.
+- G | the animals, up close, and the sound and smell of them | impact: 1.0 | say: {N} stands at the giraffe fence the whole lunch hour, just watching.
+
+== a new baby next door
+tier: read
+source: community
+tone: joy
+base: need:belonging+.05 need:meaning+.05
+earth: the neighbours bring home a new baby, and the whole street comes out to see
+times: once every few years
+window: 4-12
+gap: 3-8
+likelier: a street of young families
+rarer: an old street, flats where nobody knows anyone
+scene: A pram is parked outside next door with a balloon tied to the handle. {parent} says {N} may go and see the baby, if {N} is very gentle.
+- W | a new neighbour to welcome properly, with a card | impact: 1.0 | also: belonging+.05 | say: {N} makes a card with a stork on it and posts it through their door.
+- U | so small: how does something that small work? | impact: 0.9 | say: {N} asks how much the baby weighs and why its fingers are so wrinkly.
+- B | a baby who will need minding one day, and minders get paid | impact: 0.7 | say: {N} offers to push the pram, and wonders out loud whether babysitters get pocket money.
+- R | a baby! can it be held? | impact: 1.2 | also: belonging+.05 | say: {N} squeals so loudly at the gate that the baby wakes up.
+- G | the street has grown by one, as streets do | impact: 1.0 | also: meaning+.05 | say: {N} watches from the wall as the old ladies of the street come one by one to see.
+
+== the summer holidays begin
+tier: read
+source: institution
+tone: joy
+base: need:autonomy+.15 need:belonging+.05
+earth: the last bell of the school year rings, and six long weeks stretch out ahead
+times: once a year
+window: 5-12
+gap: 1-1
+likelier: a family with time off, a garden or a park nearby
+rarer: a summer spent minded indoors while the grown-ups work
+scene: The last bell rings. Bags fly into the air, the teacher waves from the gate, and the whole summer opens up like a door.
+- W | a summer with a good plan: swimming badges and the holiday club | impact: 0.9 | say: {N} pins the summer timetable up on the bedroom wall.
+- U | six weeks of time for the big project | impact: 1.0 | say: {N} starts the summer with a list of things to find out and a stack of library books.
+- B | no school, no teachers, and nobody saying what to do | impact: 1.0 | say: {N} lies in bed until ten and decides the rest of the day as it comes.
+- R | freedom! six whole weeks of it | impact: 1.4 | say: {N} runs the whole way home without stopping and is out on the bike before tea.
+- G | long light evenings, the same as every summer | impact: 1.0 | say: {N} goes to {grandparent}'s for the first week, as every year, and picks strawberries.
+
+# ---------------------------------------------------------------- troubles
+
+== the lights go out on a winter night
+tier: read
+source: environment
+tone: trouble
+base: need:safety-.15
+earth: one winter evening every light on the street goes out, the telly goes quiet, and the house is suddenly very dark
+times: every year or few
+window: 4-12
+gap: 1-4
+likelier: winter gales, old power lines, the countryside
+rarer: new towns with their cables underground
+scene: In the middle of the cartoon everything goes black. The fridge stops humming, the street lights are out, and the house is darker than {N} has ever seen it.
+- W | stay calm and do what the grown-ups say: candles, torches, blankets | impact: 0.9 | also: belonging+.05 | say: {N} fetches the torch from the drawer where it is always kept and sits close to {parent}.
+- U | why did it go off, and how do they get it back on? | impact: 0.9 | say: {N} peers out at the dark street and asks {parent} exactly how electricity gets to the house.
+- B | candles and no rules: a chance to stay up late | impact: 0.8 | also: autonomy+.05 | say: {N} argues that bedtime does not count when the clocks have stopped.
+- R | scary and thrilling at once, with every shadow jumping | impact: 1.2 | say: {N} screams at a shadow, then laughs, then screams again.
+- G | the old dark, the way nights were before electric lights | impact: 1.0 | say: {N} sits by the candle with {grandparent}, listening to stories from long ago.
+
+== a party you were not invited to
+tier: read
+source: community
+tone: trouble
+base: need:belonging-.2
+earth: the invitations went round the class at break, and there was not one for you
+times: once or twice a year
+window: 5-12
+gap: 0.5-2
+likelier: a big class, a new school, a child who is a little different
+rarer: a small class where everyone is asked, close friends
+scene: At break the invitations go round in shiny envelopes. {N} watches them go past, one by one, and none of them stops.
+- W | leaving someone out is wrong, and a grown-up ought to know | impact: 1.0 | say: {N} tells the teacher, and asks whether there is a rule about invitations.
+- U | why not me? there must be a reason | impact: 0.9 | also: competence-.05 | say: {N} goes through the list of who was asked, trying to work out the rule.
+- B | fine: have a better party, and leave them out instead | impact: 1.0 | say: {N} starts planning a party of {Ns} own, with a list of who will not be coming.
+- R | it hurts, and the hurt comes out in tears | impact: 1.3 | say: {N} cries all the way home and slams the bedroom door.
+- G | not everyone is friends with everyone, and that is all right | impact: 0.8 | also: belonging+.05 | say: {N} goes round to {friend}'s that Saturday instead, and they build a den.
+
+== the old tree comes down in the storm
+tier: read
+source: environment
+tone: trouble
+base: need:safety-.1 need:meaning-.1
+earth: a gale in the night brings down the big old tree at the end of the road, the one everyone climbed
+times: once or twice in a childhood
+window: 4-12
+gap: 5-15
+likelier: windy coasts, old trees, wild winters
+rarer: new estates with young trees
+scene: In the morning the big old tree at the end of the road is lying across the grass, roots in the air, and the rope swing is underneath it.
+- W | someone must clear it up, make it safe, and plant another | impact: 0.9 | say: {N} helps the neighbours drag branches to the skip and asks {parent} who will plant a new tree.
+- U | how could the wind push over something so big? | impact: 0.8 | also: competence+.05 | say: {N} counts the rings on the cut trunk and finds it was older than {grandparent}.
+- B | a pile of good wood for a den, for whoever gets there first | impact: 0.8 | say: {N} drags the best branches home before the other kids are up.
+- R | the swing is gone, and it is not fair | impact: 1.2 | say: {N} kicks the fallen trunk and cries for the rope swing.
+- G | old trees fall, and young ones grow where they stood | impact: 0.9 | also: meaning-.05 | say: {N} finds a tiny seedling by the roots and plants it in a pot on the windowsill.
+
+== a scary story on the news
+tier: read
+source: institution
+tone: trouble
+base: need:safety-.15 need:meaning-.05
+earth: the grown-ups go quiet in front of the news, and there are pictures of a flood or a fire in a faraway town
+times: every year or two
+window: 6-12
+gap: 1-3
+likelier: rolling news on in the house, a big disaster far away
+rarer: a home where the news goes off when the children are about
+scene: The grown-ups go quiet in front of the news. There are pictures of a flooded town far away, and people being lifted into boats.
+- W | the helpers are coming; there are people whose job it is to help | impact: 0.9 | also: meaning+.05 | say: {N} watches the rescue boats and asks if the class can collect money for the people there.
+- U | could it happen here? how far away is it? | impact: 1.0 | also: competence+.05 | say: {N} finds the place on the map and measures how far away it is with a finger.
+- B | at least it is not here; check the doors are locked | impact: 0.9 | also: safety+.05 | say: {N} checks the back door twice before bed.
+- R | scared, and the scared feeling will not go away | impact: 1.3 | say: {N} cannot sleep, and creeps into {parent}'s room in the night.
+- G | bad things happen in the world; hold on to the people close | impact: 0.9 | also: belonging+.05 | say: {N} curls up close to {parent} on the sofa and does not watch any more.
+
+== your favourite teacher is leaving
+tier: read
+source: institution
+tone: trouble
+base: need:belonging-.1 need:safety-.05
+earth: the teacher everyone loves is moving to another school, and a new one starts after the holidays
+times: every few years
+window: 5-12
+gap: 2-5
+likelier: a busy school where teachers move on
+rarer: a small village school with the same teacher for years
+scene: The teacher says it at the end of the day, quite quietly: after the holidays she will be teaching somewhere else. The classroom goes very still.
+- W | a proper goodbye: a card from the whole class, signed by everyone | impact: 1.0 | also: belonging+.05 | say: {N} goes round the class making sure every single person signs the card.
+- U | who will the new one be, and will things be different? | impact: 0.9 | also: competence+.05 | say: {N} asks the head what the new teacher is called and where she taught before.
+- B | the new one might be easier, or harder; better find out fast | impact: 0.8 | say: {N} plans to sit at the back on the first day and see what the new one lets slide.
+- R | it is not fair, and it hurts | impact: 1.2 | say: {N} hugs the teacher at the gate and will not let go.
+- G | people come and go, like the seasons | impact: 0.9 | also: meaning+.05 | say: {N} picks a bunch of flowers from the garden for the last day.
+
+== lost for a few minutes at the shops
+tier: read
+source: daily life
+tone: trouble
+base: need:safety-.2
+earth: one moment the grown-up was right there, and the next the shop is full of strangers' legs and trolleys
+times: once or twice in a childhood
+window: 4-9
+gap: 2-6
+likelier: busy shopping centres, Christmas crowds, a child who wanders off to look at things
+rarer: small shops, a child who holds on tight
+scene: {N} turns round from the toy shelf, and {parent} is gone. There are only strangers' legs and trolleys, and the music is very loud.
+- W | stand still and find someone who works there, as practised | impact: 0.8 | also: competence+.05 | say: {N} goes straight to the lady at the till and says {Ns} full name, just as {parent} taught.
+- U | think: where was the last place, and which way did they go? | impact: 0.9 | also: competence+.05 | say: {N} goes back to the cereal aisle, the last place {parent} was, and waits there.
+- B | a few minutes alone, and the toy aisle with nobody to say no | impact: 0.8 | say: {N} has a good look at every toy on the shelf before going to find anyone.
+- R | the floor drops away, and the crying comes before the thinking | impact: 1.3 | say: {N} bursts into tears and runs up and down the aisles calling until {parent} comes running.
+- G | stay put and wait; the grown-ups always come back | impact: 1.0 | also: belonging+.05 | say: {N} sits down by the shelf, very still, and waits until {parent} comes round the corner.
+
+== in bed with a fever while the others play
+tier: read
+source: daily life
+tone: trouble
+base: need:belonging-.1 need:autonomy-.1
+earth: a bug goes round the class, and now you are in bed with a hot head, missing the party and the match
+times: once or twice a year
+window: 4-12
+gap: 0.5-2
+likelier: winter, a big class, a new school
+rarer: summer, a small class
+scene: {N} lies in bed with a hot head and a cold flannel, listening to the other children playing in the street outside.
+- W | do as the doctor says: rest, drink, and get better properly | impact: 0.9 | say: {N} takes the medicine without a fuss and ticks off each day on the calendar.
+- U | a long time to read, if only the head would stop aching | impact: 0.8 | say: {N} reads three whole books between naps.
+- B | no school, the telly in bed, and everyone bringing things | impact: 0.8 | say: {N} rings the little bell for juice, then for a biscuit, then for a story.
+- R | stuck indoors while everyone else has fun: the worst | impact: 1.3 | also: autonomy-.05 | say: {N} sulks at the window and tries to sneak out on the second day.
+- G | the body knows what it needs; sleep, and let it pass | impact: 1.0 | say: {N} sleeps most of the week away and wakes up hungry.

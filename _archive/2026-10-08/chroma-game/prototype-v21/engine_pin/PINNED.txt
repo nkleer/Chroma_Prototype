@@ -1,0 +1,14 @@
+Titles volume 2 go-live (Emren 17:51 in the game thread, "Publish with that way, no change now. We can change it later";
+"Go live now" on the Library's card 18:22), pinned 2026-10-05T18:25Z, all six files together as chroma-engine/titles-v2-handoff.md
+says:
+- engine.py, batch.py, earth_rules.py, explain.py = chroma-engine/prototype/ (the combined hand-off with final numbers, about
+  17:30: profiles and facets, chance, perks volume 2 rules ROLES_P2 and TITLE_LINKS, early and late retirement, faith drift,
+  engagements, adoption and foster care).
+- earth.py = chroma-library/earth.py as rebuilt 18:22 (byte-identical to the staged batch: 324 situations, 3,560 options with
+  chance; md5 3a178e76...).
+- earth_perks_titles.py = chroma-library/earth_perks_titles.py (173 titles with Emren's 100, 165 perks; md5 24701fb5...).
+foresee.py, library.py and combos.py are unchanged since the 11:43 pin; life.py and schwartz.py are kept for reference.
+batch.load_batch finds the catalogue next to earth.py (the game points batch.LIB_DIR here). Never edited here. The game
+loads engine, library, combos, batch, earth_rules, earth, earth_perks_titles, foresee and explain.
+Previous pins: points hand-off + first catalogue draft (2026-10-05T11:43Z / 12:20Z), v7 (09:25Z), v6 + Earth batch
+(06:43Z), Earth pull-in first copy (06:30Z), v6 (02:50Z), v5 (2026-10-04T21:40Z).

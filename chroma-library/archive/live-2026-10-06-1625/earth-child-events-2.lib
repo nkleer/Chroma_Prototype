@@ -1,0 +1,261 @@
+# Chroma library, modern Earth: OUTSIDE EVENTS FOR CHILDREN, second set (about 4 to 11), read through the child's own filter. Engine fix 9, second set (drafts/, for the engine's conditions first).
+# Audit 2026-10-05 (realism of readings, Emren 09:25): checked, no changes (drafts/audit/earth-child-events-2-changes.md).
+# With earth-child-events.lib this gives children 28 outside events, as the adults have. Conditions proposed in drafts/child-rules-proposal-2.py.
+# Syntax: header of build.py. Five readings each, one per color. Over the file each color's joys minus troubles net out equal (raw),
+# and the net weighted by base size and yearly rate (check.py) is about equal too.
+
+# ---------------------------------------------------------------- joys
+
+== your birthday party
+tier: read
+source: daily life
+tone: joy
+base: need:belonging+.1 need:meaning+.05
+earth: a cake with candles, a few friends round after school, and a song sung just for the birthday child
+times: once a year
+window: 4-12
+gap: 0.8-1.2
+likelier: a family with a little to spare; friends living close by
+rarer: hard times at home; a move just before the day
+scene: There are balloons on the gate and a cake with candles on the table. Everyone sings, and for once the whole song is for {N}.
+- W | a day to say thanks: to the guests, the family, and everyone who came | impact: 0.9 | also: belonging+.05 | say: {N} hands out the party bags at the door and thanks every guest by name.
+- U | one year older: what is different now, and what comes next? | impact: 0.8 | say: {N} stands against the kitchen door frame to be measured, and studies the new pencil line for a long time.
+- B | presents, and being the centre of everything for a whole day | impact: 1.0 | say: {N} opens every present in front of everyone and keeps careful count.
+- R | the best day of the year: cake, games and shouting | impact: 1.35 | say: {N} runs round the garden in a paper crown, high on cake and noise.
+- G | the family all together, the same songs and the same cake as every year | impact: 1.0 | say: {N} blows out the candles while {grandparent} sings the old birthday song a beat behind everyone.
+
+== a week with the grandparents
+tier: read
+source: daily life
+tone: joy
+base: need:belonging+.1 need:safety+.05
+earth: a week of the school holidays at the grandparents' house: their rules, their food, their garden and their stories
+times: a week every year or two, where grandparents are alive and close enough
+window: 4-12
+gap: 1-3
+likelier: grandparents alive and nearby; parents who both work
+rarer: grandparents far away or unwell; hard times at home
+scene: {grandparent}'s house smells of baking and old books. There is a bed made up in the little room, and a whole week ahead.
+- W | proper manners, early nights and an old-fashioned kind of looking after | impact: 0.9 | say: {N} lays the table the old way, with the knives and forks just so, and is thanked for it.
+- U | old photographs, a shed full of strange tools, and stories about the old days | impact: 1.0 | also: competence+.05 | say: {N} spends the afternoon in the shed while {grandparent} explains what each old tool is for.
+- B | spoilt rotten: second helpings, later bedtimes and coins pressed into a hand | impact: 0.9 | say: {N} works out quickly that {grandparent} says yes to almost anything, and makes the most of it.
+- R | freedom: the woods behind the house, the river and nobody fussing | impact: 1.3 | say: {N} is out in the woods all morning and comes back for lunch muddy to the knees.
+- G | slow days in the garden, and being part of something older | impact: 1.0 | say: {N} helps {grandparent} water the tomatoes in the evening, slowly, the way it has always been done.
+
+== fireworks night
+tier: read
+source: community
+tone: joy
+base: need:belonging+.05 need:autonomy+.05
+earth: a bonfire on the playing field, hot drinks, sparklers and rockets bursting over the town
+times: once a year
+window: 4-12
+gap: 0.8-1.2
+likelier: a town that puts on a display; a dry night
+rarer: hard times; rain; a family that keeps away from crowds
+scene: The whole town seems to be on the playing field, wrapped up in scarves. The bonfire crackles, and then the first rocket goes up with a whoosh.
+- W | the whole town together, safely behind the rope | impact: 0.9 | also: belonging+.05 | say: {N} holds {parent}'s hand tight and stays behind the rope, as everyone was told to.
+- U | how do they make the colours, and why does the bang come after the light? | impact: 0.9 | say: {N} counts the seconds between each flash and its bang, and works out how far away the rockets are.
+- B | the biggest sparkler and the best view, for whoever gets to the front | impact: 0.8 | also: autonomy+.05 | say: {N} wriggles to the front of the crowd for the best view and does not give it up.
+- R | bangs, flashes and a sky on fire | impact: 1.4 | say: {N} shrieks at every bang and writes a name in the air with a sparkler, over and over.
+- G | the dark, the cold, the smell of smoke, and everyone looking up at once | impact: 1.0 | say: {N} stands very still with a warm drink, watching the sparks drift up towards the stars.
+
+== the Saturday team wins at last
+tier: read
+source: community
+tone: joy
+base: need:competence+.1 need:belonging+.05
+earth: after a season of losing, the under-elevens win their Saturday match, and the parents on the touchline go wild
+times: once a season or two, for children who play in a club team or cheer one on
+window: 6-12
+gap: 1-3
+likelier: a child in a club or a team; a sporting family
+rarer: a child with no team to play for or follow
+scene: The final whistle goes, and the score is right: the team has won, at last. {N} is at the bottom of a heap of muddy shirts on the grass.
+- W | everyone pulled together and played by the rules, and it worked | impact: 1.0 | say: {N} lines up to shake hands with the other team before joining the cheering.
+- U | the new plan worked: the coach was right about the left wing | impact: 0.9 | say: {N} goes over every move of the winning goal in the car home, drawing it on the steamed-up window.
+- B | winning: the cup, the photo, and the other team going home beaten | impact: 1.1 | also: competence+.05 | say: {N} insists on holding the little cup for the photograph.
+- R | pure joy: shouting, jumping, sliding on the wet grass | impact: 1.4 | say: {N} slides on both knees across the muddy grass with both arms up, yelling.
+- G | the team, together, after all those cold losing mornings | impact: 0.9 | say: {N} stays at the field until the very last player has gone home.
+
+== a parcel just for you
+tier: read
+source: daily life
+tone: joy
+base: need:meaning+.05 need:belonging+.05
+earth: a parcel comes in the post with the child's own name on the label, from a relative far away
+times: once every year or few
+window: 4-12
+gap: 1-3
+likelier: family far away; a birthday or a holiday coming
+rarer: a family that has lost touch with its relatives
+scene: The postman hands over a parcel, and on the label, in big careful letters, is {Ns} name. Nobody else's.
+- W | someone far away remembered, and a letter of thanks must go back | impact: 0.9 | say: {N} writes a letter of thanks that same evening, in best handwriting.
+- U | a mystery: what is inside, who sent it, and why? | impact: 1.0 | say: {N} shakes the parcel, weighs it, and studies the stamps and the postmark before opening it.
+- B | something of one's own, that nobody else can have | impact: 1.0 | say: {N} takes the parcel straight upstairs and opens it with the door shut.
+- R | rip it open, right now, on the doorstep! | impact: 1.3 | say: {N} tears the paper off on the doormat before anyone can say wait.
+- G | a little piece of the faraway family, come all this way | impact: 0.9 | say: {N} keeps the brown paper and the string in a drawer, because they came all the way from the far side of the family.
+
+== a day out at the zoo
+tier: read
+source: daily life
+tone: joy
+base: need:autonomy+.05 need:meaning+.05
+earth: a day out at the zoo or the wildlife park: lions, penguins, a packed lunch and a gift shop
+times: once every year or few
+window: 4-12
+gap: 1-3
+likelier: a family with a little to spare; a city nearby, or a car
+rarer: hard times at home
+scene: The penguins are being fed, and {N} has wriggled to the front to see. Somewhere behind, a lion roars, and the whole crowd turns at once.
+- W | a proper family day, with the map, the plan and the rules of the park | impact: 0.8 | say: {N} holds the map and makes sure the family sees every enclosure in the right order.
+- U | so many animals to learn about: what they eat, and where they come from | impact: 1.1 | also: competence+.05 | say: {N} reads the sign at every enclosure and comes home knowing what a tapir eats.
+- B | the gift shop, and a cuddly tiger to take home | impact: 0.9 | say: {N} talks {parent} into the biggest cuddly tiger in the gift shop.
+- R | the roar of the lion, the snakes, the big animals up close | impact: 1.3 | say: {N} presses right up against the glass of the snake house and does not flinch.
+- G | the animals, and a soft sad feeling that they are so far from home | impact: 0.9 | say: {N} watches the old elephant for a long time, and asks whether it misses where it came from.
+
+== something lost turns up
+tier: read
+source: daily life
+tone: joy
+base: need:safety+.05 need:meaning+.05
+earth: the teddy left on the bus or the bracelet lost in the park, found and handed in after days of hunting
+times: once every few years
+window: 4-12
+gap: 1-4
+likelier: a small town; honest neighbours
+rarer: a big city
+scene: It has been gone for days. Then there is a knock at the door, and there it is in a stranger's hand, a little dusty but safe.
+- W | an honest stranger handed it in: people are good | impact: 1.0 | say: {N} draws a picture to say thanks to the stranger who handed it in.
+- U | how did it get there, who found it, and where has it been? | impact: 0.8 | say: {N} asks exactly where it was found, and works out how it got there.
+- B | back again, and never to be lost again | impact: 0.9 | say: {N} writes {Ns} name on it in big letters straight away.
+- R | a rush of relief, and a dance round the kitchen | impact: 1.15 | say: {N} squeals, hugs it tight and dances round the kitchen with it.
+- G | lost things find their way home, in the end | impact: 1.0 | say: {N} puts it back in its old place on the shelf, where it belongs.
+
+# ---------------------------------------------------------------- troubles
+
+== an arm in a cast for six weeks
+tier: read
+source: daily life
+tone: trouble
+base: need:autonomy-.1 need:competence-.1
+earth: a fall from the climbing frame or a bike, a long wait at the hospital, and six weeks in a plaster cast
+times: once in a childhood for many children
+window: 4-12
+gap: 3-8
+likelier: children who climb and ride; the summer
+rarer: quiet children who play indoors
+scene: There was a fall, a long wait at the hospital, and now {Ns} arm is in a stiff plaster cast from the knuckles to the elbow.
+- W | being brave, doing as the doctor says, and keeping it dry | impact: 0.7 | say: {N} keeps the cast dry in the bath with a plastic bag, exactly as the nurse said.
+- U | a chance to learn how bones mend, and to write with the other hand | impact: 0.9 | also: competence+.05 | say: {N} practises writing with the other hand every evening, and looks at the X-ray picture again and again.
+- B | everyone signs it, and it gets out of games for six weeks | impact: 0.8 | say: {N} collects signatures on the cast like a film star, and sits out games lessons with a smile.
+- R | stuck: no swimming, no climbing, no anything | impact: 1.4 | say: {N} watches the others race off to the pool, scratching inside the cast with a knitting needle.
+- G | slow weeks of waiting for it to mend, as bodies do | impact: 1.0 | say: {N} sits in the garden with a book, waiting out the weeks.
+
+== a bad school report
+tier: read
+source: institution
+tone: trouble
+base: need:competence-.1 need:belonging-.05
+earth: the end-of-term report comes home in an envelope: could try harder, easily distracted
+times: two or three reports a year; a bad one now and then
+window: 5-12
+gap: 1-3
+likelier: a hard term; a move; trouble at home
+rarer: a child who is doing well at school
+scene: The envelope comes home in {Ns} school bag. {parent} reads it at the kitchen table, slowly, without saying anything.
+- W | everyone let down, and the teachers are right | impact: 1.0 | say: {N} promises at the kitchen table to do better next term, and means it.
+- U | which subjects, why, and what would fix it? | impact: 0.9 | say: {N} reads the report three times and works out which teacher wrote which line.
+- B | it is the teacher's fault, and the others got off lightly | impact: 0.9 | say: {N} argues that the teacher has always had it in for {N}.
+- R | a hot face, a slammed door, and a ruined weekend | impact: 1.3 | say: {N} stomps upstairs and stays there until teatime.
+- G | that is how it is; some things just come harder | impact: 0.9 | say: {N} shrugs, folds the report away, and goes out to play.
+
+== a grandparent goes into hospital
+tier: read
+source: daily life
+tone: trouble
+base: need:safety-.1 need:belonging-.05
+earth: a phone call, worried voices in the hall, and a grandparent in a hospital bed, looking smaller than before
+times: once or twice in a childhood, where grandparents are alive
+window: 4-12
+gap: 3-8
+likelier: older grandparents; hard times
+rarer: young and healthy grandparents
+scene: There was a phone call, and worried voices in the hall. Now {grandparent} is in a hospital bed looking smaller than before, and {N} has brought a card.
+- W | being good and quiet, and doing whatever helps | impact: 0.8 | say: {N} sits very still by the bed, and fetches water whenever it is needed.
+- U | what is wrong, and how do doctors make people better? | impact: 0.9 | also: competence+.05 | say: {N} asks the nurse what every machine is for, and remembers the answers.
+- B | will things change at home, and who will look after things now? | impact: 0.8 | say: {N} asks whether the summer week at {grandparent}'s is still going ahead.
+- R | a sick, frightened feeling that will not go away | impact: 1.3 | say: {N} cries in the car park, and then again in bed.
+- G | the one who was always there looks frail, and the world feels less steady | impact: 1.1 | say: {N} holds {grandparent}'s hand and tells the news from home, slowly, as if nothing had changed.
+
+== the big kids take over the playground
+tier: read
+source: community
+tone: trouble
+base: need:autonomy-.1 need:belonging-.05
+earth: the older children take over the pitch and the climbing frame at break, and the younger ones are crowded out to the edges
+times: a term or two at a time
+window: 5-12
+gap: 1-3
+likelier: a big school; a rough top class
+rarer: a small school; teachers who keep watch
+scene: At break the top class has taken the pitch and the climbing frame, and the younger ones are crowded into the corner by the bins.
+- W | it is not fair, and somebody in charge ought to stop it | impact: 0.9 | say: {N} goes to the teacher on duty with a list of everything the big kids have taken.
+- U | a puzzle: where else is there to play, and when? | impact: 0.9 | say: {N} works out that the field is empty for the last ten minutes, and moves the game there.
+- B | pushed down the pecking order, and wanting to be on top | impact: 1.0 | say: {N} watches the big kids closely, working out who leads them and how.
+- R | furious: break is the only good bit of the day | impact: 1.3 | say: {N} kicks the wall by the bins, then the fence, then the bin itself.
+- G | the corner is small, but the friends are still there | impact: 0.9 | also: belonging+.05 | say: {N} and the others make a new game in the corner, with chalk and a ball of string.
+
+== told off in front of the class
+tier: read
+source: institution
+tone: trouble
+base: need:belonging-.1 need:competence-.05
+earth: the teacher's voice cutting across the room with the child's name in it, and everyone turning round
+times: now and then, for most children
+window: 5-12
+gap: 1-2
+likelier: a strict teacher; a restless child
+rarer: a quiet, careful child
+scene: {N} only whispered one thing. But the teacher's voice cuts across the room with {Ns} name in it, and thirty faces turn round at once.
+- W | in the wrong, in front of everyone: the worst kind of shame | impact: 1.2 | say: {N} goes hot to the ears, and does not say a word for the rest of the lesson.
+- U | why that, and why not the ones who were really talking? | impact: 0.9 | say: {N} goes over it all at break, working out who started it.
+- B | a loss of face, and someone will pay for it | impact: 1.0 | say: {N} glares at the one who did the real talking, and plans to get even.
+- R | a burning face and a hard lump in the throat | impact: 1.3 | say: {N} answers back, and is sent to stand outside the door.
+- G | it happens to everyone, and it will be forgotten by Friday | impact: 0.8 | say: {N} goes quiet for a while, and by lunchtime is laughing again.
+
+== the cat goes missing
+tier: read
+source: daily life
+tone: trouble
+base: need:safety-.05 need:belonging-.1
+earth: the family cat does not come home for tea, then not that night, then not the next day
+times: once every few years, in homes with a pet
+window: 4-12
+gap: 3-8
+likelier: a busy road nearby; a cat that roams
+rarer: a home without pets; a flat high up in the city
+scene: The cat did not come in for tea. Its bowl is still full, and {N} has stood at the back door calling its name until dark.
+- W | the posters must go up on every lamp post, properly, today | impact: 0.8 | say: {N} makes twenty posters with the cat's picture and puts one on every lamp post in the street.
+- U | where would a cat go, and how far can it get in a day? | impact: 0.9 | say: {N} draws a map of every garden and shed the cat might be hiding in.
+- B | the cat is ours, and somebody must have taken it | impact: 0.9 | say: {N} goes from door to door asking, sure that a neighbour has it.
+- R | a terrible, empty, frightened feeling | impact: 1.2 | say: {N} cries into the cat's blanket, and cannot eat any tea.
+- G | cats wander, and most of them come home | impact: 0.9 | also: safety+.05 | say: {N} leaves the back door open a crack and a saucer of milk on the step, and waits.
+
+== no holiday this year
+tier: read
+source: daily life
+tone: trouble
+base: need:autonomy-.1 need:meaning-.05
+earth: the summer holiday is called off: there is no money for it this year, and the grown-ups do not want to talk about it
+times: in a hard year, for a family with little to spare
+window: 5-12
+gap: 2-5
+likelier: money tight at home; hard times in the world
+rarer: a family with plenty
+scene: The holiday brochure has gone from the kitchen table. "Not this year," {parent} says, and changes the subject.
+- W | the family has to tighten its belt, and everyone must help | impact: 0.8 | say: {N} says it does not matter, and offers the coins from the jar on the shelf.
+- U | why is there no money, and where does money go? | impact: 0.9 | also: competence+.05 | say: {N} asks careful questions about the bills, and gets careful answers.
+- B | everyone else at school is going somewhere, and it is not fair | impact: 1.0 | say: {N} makes up a holiday to tell the others about after the summer.
+- R | a whole long summer of nothing | impact: 1.2 | say: {N} lies on the bed staring at the ceiling, picturing the beach that is not happening.
+- G | home all summer: the garden, the park and the old places | impact: 0.9 | also: meaning+.05 | say: {N} plans a summer of picnics in the park and camping out in the garden.
