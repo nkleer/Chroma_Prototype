@@ -2,10 +2,12 @@
 with its numbers, then the detail.
 
     python3 -B chroma-engine/tools/v25_ledger_judge.py <LA files ...> [--base <LB files ...>] [--nat <nat-test files ...>]
-        [--json out.json]
+        [--sk <SK files ...>] [--json out.json]
 
 Mandatory: CL0, AM0 (LA's part: SC1 holds the save, load and queue cases, SK's lives are the game's), NR1 (LA's lives,
 then the --nat-test lives as the targeted test). Read beside them: CL1, CL3, AM2, F5, WA8n's rates, RE3 (with --base).
+--sk: played lives (v25_ledger_hook.record from heights_play.py, one life a file), read for CL0 and AM0 only, as their own
+rows (CL0sk, AM0sk) under their own head line; never pooled with LA. SK files alone are enough.
 """
 import json
 import sys
@@ -14,7 +16,7 @@ import numpy as np
 
 COL = "WUBRG"
 args = sys.argv[1:]
-groups = {"la": [], "base": [], "nat": []}; cur = "la"; jout = None
+groups = {"la": [], "base": [], "nat": [], "sk": []}; cur = "la"; jout = None
 i = 0
 while i < len(args):
     a = args[i]
@@ -22,17 +24,21 @@ while i < len(args):
         cur = "base"
     elif a == "--nat":
         cur = "nat"
+    elif a == "--sk":
+        cur = "sk"
     elif a == "--json":
         jout = args[i + 1]; i += 1
     else:
         groups[cur].append(a)
     i += 1
-if not groups["la"]:
+if not groups["la"] and not groups["sk"]:
     sys.exit(__doc__)
 LA = [json.load(open(p, encoding="utf-8")) for p in groups["la"]]
 LB = [json.load(open(p, encoding="utf-8")) for p in groups["base"]]
 NT = [json.load(open(p, encoding="utf-8")) for p in groups["nat"]]
-if any(x["base"] or x["nat_test"] for x in LA) or any(not x["base"] for x in LB) or any(not x["nat_test"] for x in NT):
+SK = [json.load(open(p, encoding="utf-8")) for p in groups["sk"]]
+if any("base" in x or "nat_test" in x for x in SK) or any("base" not in x for x in LA + LB + NT) or \
+        any(x["base"] or x["nat_test"] for x in LA) or any(not x["base"] for x in LB) or any(not x["nat_test"] for x in NT):
     sys.exit("a file is in the wrong group (LA files are the shipped set, --base files are --base runs, --nat files --nat-test)")
 lines, detail, out = [], [], {}
 
@@ -47,44 +53,60 @@ def viol(files, row):
         for k, c in x["violation_counts"].items():
             if k.startswith(row + "|"):
                 n[k.split("|", 1)[1]] = n.get(k.split("|", 1)[1], 0) + c
-        first += [dict(v, seed=x["seed"]) for v in x["violations"] if v["row"] == row]
+        first += [dict(v, seed=x.get("seed")) for v in x["violations"] if v["row"] == row]
     return n, first
 
 
+def logic(X, tag=""):
+    """CL0 and AM0 over the files X (LA's, or SK's with tag "sk")."""
+    # ---- CL0
+    cnt = {k: sum(x["counts"][k] for x in X) for k in X[0]["counts"]}
+    n_, first = viol(X, "CL0")
+    st = {}
+    for x in X:
+        for k, v in (x["clash"]["stats"] or {}).items():
+            if isinstance(v, (int, float)):
+                st[k] = st.get(k, 0) + v
+    nums = (f"{cnt['puts']} clashes put, {cnt['answered']} answered, {sum(x['clash']['unanswered_at_end'] for x in X)} open at the end; "
+            f"{cnt['merged_pairs']} connected pairs in one week; ceilings held {int(st.get('ceiling', 0))}, unchanged held "
+            f"{int(st.get('repeat_held', 0))}, colour without stakes (never a clash) {int(st.get('by_colour_only', 0))}")
+    if n_:
+        say("CL0" + tag, "FAIL", f"{sum(n_.values())} breaks: " + "; ".join(f"{k} {v}" for k, v in n_.items()) + f". {nums}")
+        detail.append(("CL0" + tag + " first breaks", first[:10]))
+    elif cnt["puts"] == 0:
+        say("CL0" + tag, "INCONCLUSIVE", "no clash was put in these lives")
+    else:
+        say("CL0" + tag, "PASS", nums)
+
+    # ---- AM0
+    n_, first = viol(X, "AM0")
+    arr = sum(len(x["aims2"]["arrivals"]) for x in X)
+    nums = (f"{cnt['arrived']} rungs reached ({cnt['deadline_week']} in a window's closing week, counted), {cnt['paused_close']} windows "
+            f"closed while paused, {sum(x['aims2']['decisions'] or 0 for x in X)} forks decided by the lives' own pick; the save, load "
+            f"and queue cases are SC1's, SK's lives the game's")
+    if n_:
+        say("AM0" + tag, "FAIL", f"{sum(n_.values())} breaks: " + "; ".join(f"{k} {v}" for k, v in n_.items()) + f". {nums}")
+        detail.append(("AM0" + tag + " first breaks", first[:10]))
+    else:
+        say("AM0" + tag, "INCONCLUSIVE" if not cnt["arrived"] and tag else "PASS", nums)
+
+
+heads = []
+if SK:
+    heads.append(f"SK: {len(SK)} played lives (one a file); presets {sorted({str(x.get('preset')) for x in SK})}, seeds "
+                 f"{sorted({str(x.get('seed')) for x in SK})}, policies {sorted({str(x.get('policy')) for x in SK})}")
+    logic(SK, "sk")
+if not LA:
+    print("\n".join(heads)); print("\n".join(lines))
+    for t, d in detail:
+        print(f"\n{t}:\n{json.dumps(d, indent=1)[:6000]}")
+    if jout:
+        json.dump(dict(sk_head=heads[0], rows=out, detail={t: d for t, d in detail}), open(jout, "w", encoding="utf-8"), indent=1)
+    sys.exit(0)
 lives = sum(x["N"] for x in LA)
 seeds = ",".join(str(x["seed"]) for x in LA)
 head = f"LA seeds {seeds}: {lives} lives x {LA[0]['years']} years, engine.py {LA[0]['engine_md5']}"
-
-# ---- CL0
-cnt = {k: sum(x["counts"][k] for x in LA) for k in LA[0]["counts"]}
-n_, first = viol(LA, "CL0")
-st = {}
-for x in LA:
-    for k, v in (x["clash"]["stats"] or {}).items():
-        if isinstance(v, (int, float)):
-            st[k] = st.get(k, 0) + v
-nums = (f"{cnt['puts']} clashes put, {cnt['answered']} answered, {sum(x['clash']['unanswered_at_end'] for x in LA)} open at the end; "
-        f"{cnt['merged_pairs']} connected pairs in one week; ceilings held {int(st.get('ceiling', 0))}, unchanged held "
-        f"{int(st.get('repeat_held', 0))}, colour without stakes (never a clash) {int(st.get('by_colour_only', 0))}")
-if n_:
-    say("CL0", "FAIL", f"{sum(n_.values())} breaks: " + "; ".join(f"{k} {v}" for k, v in n_.items()) + f". {nums}")
-    detail.append(("CL0 first breaks", first[:10]))
-elif cnt["puts"] == 0:
-    say("CL0", "INCONCLUSIVE", "no clash was put in these lives")
-else:
-    say("CL0", "PASS", nums)
-
-# ---- AM0
-n_, first = viol(LA, "AM0")
-arr = sum(len(x["aims2"]["arrivals"]) for x in LA)
-nums = (f"{cnt['arrived']} rungs reached ({cnt['deadline_week']} in a window's closing week, counted), {cnt['paused_close']} windows "
-        f"closed while paused, {sum(x['aims2']['decisions'] or 0 for x in LA)} forks decided by the lives' own pick; the save, load "
-        f"and queue cases are SC1's, SK's lives the game's")
-if n_:
-    say("AM0", "FAIL", f"{sum(n_.values())} breaks: " + "; ".join(f"{k} {v}" for k, v in n_.items()) + f". {nums}")
-    detail.append(("AM0 first breaks", first[:10]))
-else:
-    say("AM0", "PASS", nums)
+logic(LA)
 
 # ---- NR1 and WA8n
 routes = LA[0]["routes"]
@@ -241,9 +263,9 @@ if LB:
 else:
     say("RE3", "INCONCLUSIVE", "no LB files (--base)")
 
-print(head)
+print("\n".join([head] + heads))
 print("\n".join(lines))
 for t, d in detail:
     print(f"\n{t}:\n{json.dumps(d, indent=1)[:6000]}")
 if jout:
-    json.dump(dict(head=head, rows=out, detail={t: d for t, d in detail}), open(jout, "w", encoding="utf-8"), indent=1)
+    json.dump(dict(head=head, **(dict(sk_head=heads[0]) if heads else {}), rows=out, detail={t: d for t, d in detail}), open(jout, "w", encoding="utf-8"), indent=1)
