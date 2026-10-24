@@ -14,7 +14,7 @@ forks on fork cards (GAME aim_forks "every"), answered as the moments are.
          cards a year and the forks still open at the end
 
 Exit 0 when AG1 to AG3 hold, 1 otherwise."""
-import json, os, subprocess, sys
+import json, os, re, subprocess, sys
 from concurrent.futures import ThreadPoolExecutor
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -81,7 +81,7 @@ def play(preset, seed, out, on):
                     ch = {f["id"]: next((o["key"] for o in f["options"] if o["key"] != "later"), None) for f in R["forks"]}
                     t, _ = c.handle("agenda apply " + json.dumps(dict(choices={i: o for i, o in ch.items() if o}, set={})))
                     seen["decided"] = seen.get("decided", 0) + 1
-                    if "nan" in t.lower() or "{" in t:
+                    if re.search(r"\bnan\b", t.lower()) or "{" in t:   # a word, not "governance"
                         bad.append(f"at {g.age():.1f}: review apply: {t[:120]}")
             if on:
                 A = g.hud().get("agenda")
@@ -93,7 +93,7 @@ def play(preset, seed, out, on):
                 if g.age() - last_j >= 10:
                     last_j = g.age()
                     t, _ = c.handle("j")
-                    if "nan" in t.lower() or "{" in t:
+                    if re.search(r"\bnan\b", t.lower()) or "{" in t:
                         bad.append(f"at {g.age():.1f}: key j: {t[:120]}")
             line = "" if k % 2 else "2"
         busy = step(line)
