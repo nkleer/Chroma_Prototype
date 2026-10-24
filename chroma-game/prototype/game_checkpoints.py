@@ -21,9 +21,11 @@ LAND_ASK_GAP = None
 # v25 fork cards: the share of the pacing's gap (FREQ) that must have passed since the last ask before a fork's own moment
 # stops the life; None: every one the Engine carries stops it. A fork moment not stopped for is played as "later" by the
 # Engine (the fork stays open on the agenda, nothing chosen), and a fork whose window is about to close always stops it.
-# Measured on presets 1 to 4, seeds 1 and 2, all of v25 on, put_gap 52, against v24's 1.08 asks a year: None 1.56 (+44%),
-# 0.5 1.14 (+6%, fork moments 0.10 asked a year), 1.0 1.15. Release's AM4 reads asks a year within 10% of v24 (Vision 10-23).
-FORK_ASK_SHARE = 0.5
+# Measured on presets 1 to 4, seeds 1 and 2, all of v25 on, put_gap 52, against v24's 1.08 asks a year. Before unasked
+# forks stayed open (c65f81a): None 1.56 (+44%), 0.5 1.14, 1.0 1.15. With them open (a65d4bf, more forks waiting): 0.5 1.25
+# (+16%; fork moments 0.22 asked a year, fork cards 0.46), 1.0 1.10 (+2%; fork moments 0.03, fork cards 0.24, the rest
+# opening the fork's review on a moment asked anyway). Release's AM4 reads asks a year within 10% of v24 (Vision 10-23).
+FORK_ASK_SHARE = 1.0
 
 class CheckpointsMixin:
     def _light_steer(self, loc, cp, c):
