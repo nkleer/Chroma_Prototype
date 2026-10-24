@@ -500,6 +500,10 @@ DEFAULT = dict(
                          # (earth_rules.ROLES_FIT) in place of the loose ones, so a gain's cause reads true
     green_jobs=True,    # v22.4: the green entry jobs' rules and the roads that name them (earth_rules.ROLES_WHEN), read
                          # once the catalogue has the titles (Library #152); off, they hold no rule of their own (as v22.3)
+    role_rates="v24",   # the title and perk rates (earth_rules.ROLE_NORM, ROLE_ACC_MOVE, ROLE_ACC_FIRST): the v24 refit's; off
+                         # (None), v23.2's (ROLE_NORM_V23 ...), so every v24 switch off plays v23.2's lives (K4)
+    founder_moment=True,  # v25 A2: founding a movement only through its founding moment (earth_rules.ROLES_ACTS_V25 acts-only);
+                           # off, drawn in time as before v25
     acc_redraw=True,    # v22.4 (chroma-packs/notes/v22.4-engine-fallback-jobs.md): a first job or job move whose title its
                          # route refuses (acc_first, acc_move) re-draws among the other titles whose rules hold, by the same
                          # weights, so the life goes to its next-best fit, not to no title (off: the career starts untitled)
@@ -1566,7 +1570,7 @@ UPD_OFF = dict(dis_match=False,
                # what one holds is practice too
                role_practice=False, read_skill=0.0, lens_want=0.0, app_vigil=False, sh_will=0.0, cur_will=0.0, gap_move=0.0,
                # v22.4: a refused first job or job move re-draws to the next-best fit
-               acc_redraw=False, green_jobs=False, cause_fit=False,
+               acc_redraw=False, green_jobs=False, cause_fit=False, role_rates=None, founder_moment=False,
                # item 10, the C hooks (chroma-world/model/stage3-rules.md section 5)
                c3_inst=False, c4_nature=False, c5_faith=False, c2_groups=False,
                # the K limits' rule fixes (b-package.md K2 newcomer, K6 season steps)
@@ -1622,9 +1626,9 @@ UPD_OFF = dict(dis_match=False,
 # CHROMA_PACKS): the lives of v23.2
 V24_OFF = dict(need_tab=None, shared_hist=0.0, imp_age=False, aims=False, heights=False, world_answers=False,
                wa_phase2=False, foot_on=False, cause_fit=False, aims_v2=False, react=False, clash=False, seek=False, scn=False,
-               wa_reach=False)
+               wa_reach=False, role_rates=None, founder_moment=False)
 # lane C's v25 switches off (every life is v24's, head 10), and lane D's WA3 reach
-V25_OFF = dict(react=False, clash=False, seek=False, scn=False, wa_reach=False)
+V25_OFF = dict(react=False, clash=False, seek=False, scn=False, wa_reach=False, founder_moment=False)
 # v25's shipped set (Vision 10-24; Release's records/v25/scope.md, "The shipped settings"): laid over DEFAULT by the game,
 # rarity_build.py and Release's readers (DEFAULT keeps v25 off, so the off proofs hold), with the batch's flags those
 # switches read (set on batch before load_batch); every *_par stays None (the values in code)
