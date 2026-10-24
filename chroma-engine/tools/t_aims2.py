@@ -404,6 +404,45 @@ if len(ag.SM) and young_:
         fails.append("A13 a moment offering stop about an aim adopted within stop_grace")
 notes.append(f"A13 slots grew {ma0} to {ag.MA} inside steps")
 
+# ---- A14: an integrated asset never arrives silently (Vision 10-23): the yearly outcome decides it; a life left alone
+# is credited that week with its integrate moment written to the log; a player's is credited when that moment is told,
+# put on the next week no life event has (not a choice)
+LF14 = batch.load_batch("earth", packs=list(batch.PACKS), fields=True)
+if "AIM_SHAPE" in LF14 and (np.asarray(LF14["AIM_SHAPE"]) != -1).any():
+    F14 = A2.compile_fields(LF14, PAR, E.C, E.NIDX, E.AIM_HEIGHTS)
+    nm14 = lambda sh: next(i for i, n_ in enumerate(F14["names"]) if A2.SHAPES[F14["shape"][i]] == sh and F14["nr"][i] >= 3)
+    told14 = []
+    for pl_ in ((), (0,)):
+        ag, st = make(par=dict(integrate_y=52.0), player=pl_, F=F14); ag.shapes_init(LF14)
+        ja, jb = ag.add(0, nm14("knowledge"), 0), ag.add(0, nm14("land"), 0)
+        ag.st[0, [ja, jb]] = A2.ACTIVE; ag.fitf[0, :] = 1.25; ag.rung[0, [ja, jb]] = 3
+        t = 30 * 52
+        while t < 34 * 52 and not ag.assets[0] and ag.asset_due[0] is None:
+            ag.t = t; ag.integrate(t); t += 4
+        t -= 4
+        if not pl_:
+            mo_ = [r for r in ag.log if r["what"] == "moment" and r.get("told") and r["week"] == t]
+            if not ag.assets[0] or ag.assets[0][0]["week"] != t or not ag.assets[0][0]["moment"] or not mo_:
+                fails.append("A14 a life left alone: the asset not credited with its moment logged in the week decided")
+            continue
+        if ag.assets[0] or ag.asset_due[0] is None:
+            fails.append("A14 a player's asset credited before its moment, or never decided"); continue
+        si_ = ag.asset_due[0][3]; sv_ = np.zeros(2, int); sv_[:] = next(i for i in range(len(LF14["src"])) if i not in ag.SM_SET)
+        out_ = ag.put(t + 1, sv_, np.array([True, False]))
+        if out_[0] == si_ or ag.assets[0]:
+            fails.append("A14 a player's asset moment put on a life event's week")
+        out_ = ag.put(t + 2, sv_, np.zeros(2, bool)); ag.mom_slots(out_)
+        if out_[0] != si_ or ag.mom[0] != ja or ag.mom2[0] != jb:
+            fails.append("A14 a player's asset moment not put on the next week, or its aims not the pair's")
+        cx_ = ag.moment_ctx(0)
+        if not cx_["aim2"] or cx_["aim2"]["slot"] != jb or not cx_["aim2"]["thing"] or set(cx_["aim2"]) != set(cx_["aim"] or {}):
+            fails.append("A14 the moment's aim2 not the pair's second aim with the fields of aim")
+        ag.moments(out_, np.zeros(2, int), np.zeros(2, bool), np.zeros(2, bool), t + 2)
+        if len(ag.assets[0]) != 1 or ag.assets[0][0]["week"] != t + 2 or not ag.assets[0][0]["moment"] or ag.asset_due[0] is not None:
+            fails.append("A14 a player's asset not credited when its moment was told (whatever was picked, the moment lost)")
+        told14.append(ag.assets[0][0]["moment"] if ag.assets[0] else "")
+    notes.append(f"A14 assets told with a moment ({told14[0] if told14 else '-'})")
+
 # ---- A9: views draw nothing
 ag, st = make(player=(0,)); [ag.add(0, i, T0) for i in fs3[:3]]
 S = dict(AIM2_ON=True, AG=ag, t=T0)

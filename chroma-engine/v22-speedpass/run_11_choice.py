@@ -185,6 +185,8 @@
         if BO_ON and (bold_pick >= 0).any():   # a bold pick: its felt odds are the bold way's
             ph = np.where(bold_pick >= 0, bo_ph[ar, np.maximum(bold_pick, 0)], ph)
         idle = do_nothing[ar, a] | dead                 # a life that has ended does nothing
+        if AIM2_ON and AG.player:   # aims v2: a player's fork moment the game did not ask applies nothing (told_later)
+            idle = idle | AG.told
         if BAT and IDC_ON:   # N1b: how far this week's act crossed the role expected of them (role_fit, the game's frown)
             act_cw = cw_[ar, a] * ~idle
         blocked += has & lost_open

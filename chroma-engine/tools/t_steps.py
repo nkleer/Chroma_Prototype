@@ -101,7 +101,7 @@ engine.run_steps() is engine.run() pausing six times a week for the game. On a f
      once, the week after its last, and no test after it but by a way round; the player's forks kept until the player
      answers, effort waiting at the need while they wait, and a fork put on a moment of its own that moment is the week's
      (and its aim the one the moment is about); a player's fork moment the game does not ask (pick_asked unset) answered
-     "later": the fork left open, nothing decided or charged; no entry cost charged twice (a pause and resume included).
+     "later": the fork left open, nothing decided, taught or charged (its week idle); no entry cost charged twice (a pause and resume included).
      The scenario pack of the decision's known risks is tools/t_aims2.py (seconds).
  29. reactions, clashes and seeking (react, clash, seek; v25 lane C), Earth and packs with the clash, seeking and repair
      moments, world on: world off the switches move nothing; react alone and all on, run_steps() lives as run() and the
@@ -1736,15 +1736,19 @@ if "aims_v2" in E.DEFAULT:
                     j_ = fk_["aims"][0]
                     told_ = (t, fk_["id"], (AG_.F["names"][int(AG_.f[0, j_])], int(AG_.rung[0, j_])), len(AG_.log),
                              int(AG_.st[0, j_]), float(AG_.inten[0, j_]))
+                if S.get("AIM2_ON") and kind == "learn" and told_ is not None and told_[0] == t and float(np.asarray(val)[0]) != 0.0:
+                    fails.append("a player's fork moment not asked taught the life (drift from an unasked later)")
                 if S.get("AIM2_ON") and kind == "end" and told_ is not None and told_[0] == t:
                     AG_ = S["AG"]; seen_["told"] += 1; j_ = next(iter(x_["aims"][0] for x_ in AG_.forks[0] if x_["id"] == told_[1]), None)
                     if j_ is None:
                         fails.append("a player's fork moment not asked closed its fork")
+                    if not bool(np.asarray(S["idle"])[0]):
+                        fails.append("a player's fork moment not asked applied its option (its week not idle)")
                     if any(r_["life"] == 0 and r_.get("id") == told_[1] and r_["what"] == "decided" for r_ in AG_.log[told_[3]:]):
                         fails.append("a player's fork moment not asked decided its fork")
                     if any((e_["field"], e_["rung"]) == told_[2] and e_["week"] == t for e_ in AG_.entry_log[0]):
                         fails.append("a player's fork moment not asked charged its entry")
-                    if not any(r_["life"] == 0 and r_["what"] == "moment" and r_.get("told") and r_["tag"] == "later" for r_ in AG_.log[told_[3]:]):
+                    if not any(r_["life"] == 0 and r_["what"] == "moment" and r_.get("told") and r_["tag"] == "later" and r_["week"] == t for r_ in AG_.log):
                         fails.append("a player's fork moment not asked not answered later")
                     told_ = None
                 if S.get("AIM2_ON") and kind in ("situation", "end") and S["age"] >= 3:
@@ -1850,7 +1854,7 @@ if "aims_v2" in E.DEFAULT:
           f"lives as run() with the agenda, previews and reviews read ({seen_['views']} reads); {seen_['arrived']} rungs reached, "
           f"each through an outcome ({seen_['tests']} tests); {seen_['closed']} windows closed, each told once at its last "
           f"week + 1, no test after; {seen_['forks']} forks, the player's kept until answered ({seen_['answered']} answered; {seen_['own']} put on their own moment) and "
-          f"blocking only their aims, {seen_['told']} fork moments not asked left open, nothing charged; {seen_['entries']} entry costs, none twice ({seen_['paused']} paused and resumed); "
+          f"blocking only their aims, {seen_['told']} fork moments not asked left open, nothing taught or charged; {seen_['entries']} entry costs, none twice ({seen_['paused']} paused and resumed); "
           f"{seen_['moments']} shape moments (batch FIELDS), each to a life with an aim it fits, none with the switch off"
           f"{'' if not fails else '; ' + '; '.join(sorted(set(fails))[:4])} ({time.process_time() - t0:.0f} s)")
 # 29. reactions, clashes and seeking (react, clash, seek; v25 lane C, decisions #2 to #4), Earth and packs, world on
