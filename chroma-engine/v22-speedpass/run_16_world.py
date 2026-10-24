@@ -193,7 +193,8 @@
                           nmp=NMP, tot_nic=_tot_, msc=_msc_, tw=_tw_, a_nic=0.8 * plast * _soc_k_, a_cl=plast * _ck_ * _cm_[0],
                           a_pl=plast * _ck_ * _cm_[1], tot_cl=_cw_, nic=nic, belong=np.asarray(rxc_.belong, float),
                           f_need=(nimp * need).sum(1) / nimp_s_, content=content, stress=stress,
-                          lack_comp=lack[:, NIDX["competence"]], lack_mean=lack[:, NIDX["meaning"]])
+                          lack_comp=lack[:, NIDX["competence"]], lack_mean=lack[:, NIDX["meaning"]],
+                          cur=cur_m, cur_rel=bool(P["cur_rel"]))
             if rx_dis is not None:
                 RX._dis_last = rx_dis; rx_dis = None
             RX.month(t, age, rx_ctx, scn_only=t % 4 != 0)
