@@ -1,0 +1,60 @@
+{
+ "stamp": "20261024-165533",
+ "level": "quick",
+ "live": false,
+ "src": {
+  "engine": "/tmp/v25_keep/mech-commit/65ecdf9193b9/chroma-engine/v22-speedpass",
+  "game": "/tmp/v25_keep/mech-commit/65ecdf9193b9/chroma-game/prototype",
+  "lib": "/tmp/v25_keep/mech-commit/65ecdf9193b9/chroma-library",
+  "packs": "/tmp/v25_keep/mech-commit/65ecdf9193b9/chroma-packs"
+ },
+ "commit": {
+  "repo": "/home/emren/chroma/wt/65ecdf9-clone",
+  "commit": "65ecdf9193b9ef9d0045426cb8a78e66f90a09aa",
+  "ref": "65ecdf9193b9ef9d0045426cb8a78e66f90a09aa",
+  "dirty": false
+ },
+ "ref": null,
+ "results": {
+  "s6_felt": {
+   "result": "PASS",
+   "secs": 714.0973899364471,
+   "note": ""
+  },
+  "s1_parts": {
+   "result": "PASS",
+   "secs": 2796.460358142853,
+   "note": ""
+  },
+  "s1_counts": {
+   "result": "PASS",
+   "secs": 3.0036842823028564,
+   "note": ""
+  },
+  "s1_fair": {
+   "result": "FAIL",
+   "secs": 3.014246702194214,
+   "note": "exit 1: MISS s1_fair"
+  },
+  "s3_rep": {
+   "result": "PASS",
+   "secs": 3801.578996896744,
+   "note": ""
+  },
+  "s3_caught": {
+   "result": "FAIL",
+   "secs": 3.0039191246032715,
+   "note": "exit 1: MISS s3_caught"
+  },
+  "s4_odd": {
+   "result": "PASS",
+   "secs": 3.0026443004608154,
+   "note": ""
+  },
+  "s4_convert": {
+   "result": "PASS",
+   "secs": 3.0104305744171143,
+   "note": ""
+  }
+ }
+}

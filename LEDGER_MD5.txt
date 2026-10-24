@@ -123,6 +123,10 @@ d371efeb5de723d59ac0f548b6ae8d32  nat_42.json  (975201 B)
 - natg 65ecdf9 end 2026-10-24T17:11:18Z
 - la 43 start 2026-10-24T15:44:36Z end 2026-10-24T17:11:19Z wall 5203 s exit 0
 - la 65ecdf9 end 2026-10-24T17:11:19Z
+- lb 42 start 2026-10-24T18:46:07Z
+- lb 41 start 2026-10-24T18:46:07Z
+- lb 44 start 2026-10-24T18:46:07Z
+- lb 43 start 2026-10-24T18:46:07Z
 f48eda3f66d5915050150b8915f81f80  judge_65ecdf9_noLB.json  (20909 B)
     stdout: (none)
 a1bcfb226698c845e99349e461eda4ff  la_41.json  (1026678 B)

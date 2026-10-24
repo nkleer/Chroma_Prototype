@@ -1,0 +1,7 @@
+# python3 -B chroma-engine/tools/fair_check.py s1_counts 300 7 --years 80 --stats /tmp/v25_keep/mech/w/fair_300_7.json
+# cwd /tmp/v25_keep/mech/tree/.
+S1 fairness read check: engine /tmp/v25_keep/mech/tree/chroma-engine/v22-speedpass (engine.py 594b1a452f94, world_people.py dbe7284fbb40), 300 lives x 80 years, seeds 7, P {} over {"fair_read": true, "world": true}; counts read from /tmp/v25_keep/mech/w/fair_300_7.json
+  s1_counts  W 455 U 437 B 438 R 436 G 461                  ratio 1.06x      target <= 1.5x   ok  (8082 tagged events; moves by part as fired, before habituation: W 3263 U 964 B 1421 R 1619 G 2017)
+PASS s1_counts
+
+exit 0 in 3s

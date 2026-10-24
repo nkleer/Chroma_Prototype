@@ -2,7 +2,7 @@
 
 Machine: i9-13900HX, WSL2, 24 GB, Python 3.13.16, numpy 2.5.3, no AVX-512. run.sh jobs: /mnt/project-files (CHROMA_PROJECT
 unset), NOPROBE=1, REPO ~/chroma/wt/bcb1017-clone, ~/chroma/venv-ship (out/v25/ship_hook loads). K3 = v22_checks --only
-t_steps,identity1 run directly (run.sh refuses engA), original venv. MF, WO, LN, land: original venv. Batch: batch 10: K3 on 65ecdf9 (t_steps 1 FAIL, identity1 PASS); wave 1 c26b, fit4
+t_steps,identity1 run directly (run.sh refuses engA), original venv. MF, WO, LN, land: original venv. Batch: batch 11: wave 1 on 65ecdf9: MF (RE2), mech, engB3
 
 - K4 114faf0: k4p2 start 2026-10-24T08:25:19Z end 2026-10-24T08:25:20Z exit 2  [the twin launch by the stopped scheduler; the other twin stopped too, rerun clean]
 - K4 114faf0: k4p1 start 2026-10-24T08:24:59Z end 2026-10-24T09:43:20Z exit 0
@@ -151,5 +151,99 @@ v22 checks, 20261024-154453 UTC, level quick, 2 checks, up to 4 cores; run folde
   FAIL t_steps (item 2) in 10135s exit 1: 1 FAILED
 PASS 1, RAN 0 (no reference to compare), MISS 0, FAIL 1 of 2
 summary: /mnt/project-files/chroma-release/out/v22checks_20261024-154453/SUMMARY.md
+```
+
+## mf
+
+start 2026-10-24T18:34:02Z, end 2026-10-24T18:41:40Z, exit 0
+
+(no ship_hook line: not a hook job)
+
+```
+                            W      U      B      R      G
+      all              -0.073 -0.017 +0.042 +0.070 -0.022
+      backlash         +0.014 +0.054 -0.036 -0.007 -0.025
+      rejected         -0.073 -0.017 +0.042 +0.070 -0.022
+      its purpose       0.000  0.000  0.500  0.500  0.000   (the household's own rejected demands, mean)
+    family RG (against U): 88 lives, backlash 12 (0.14), opposite colour up .02 12, rejected a demand 88
+                            W      U      B      R      G
+      all              -0.012 -0.048 -0.006 +0.060 +0.006
+      backlash         +0.036 -0.007 +0.018 +0.009 -0.056
+      rejected         -0.012 -0.048 -0.006 +0.060 +0.006
+      its purpose       0.000  0.000  0.000  0.500  0.500   (the household's own rejected demands, mean)
+    family GW (against B): 72 lives, backlash 16 (0.22), opposite colour up .02 3, rejected a demand 72
+                            W      U      B      R      G
+      all              +0.040 +0.009 -0.069 +0.022 -0.001
+      backlash         -0.012 +0.029 -0.029 +0.054 -0.041
+      rejected         +0.040 +0.009 -0.069 +0.022 -0.001
+      its purpose       0.500  0.000  0.000  0.000  0.500   (the household's own rejected demands, mean)
+    the opposite colour (the child's lead at the set-up) up .02: 30/400 (diagnostic)
+    backlash lives' rise: opposite colour -0.018, the other two opposed +0.074
+
+Responses to the family's demands from 13 to 19 (while living there), per life, and constrained:
+  warm          27.1 a life: accept 0.69, adopt 0.05, negotiate 0.03, disagree 0.20, backlash 0.03, withdraw 0.00; constrained 0.00; a town event's ask 0.38; others' demands 43.2 a life; left home by 19 0.37
+  controlling   46.5 a life: accept 0.07, adopt 0.08, negotiate 0.00, disagree 0.05, backlash 0.81, withdraw 0.00; constrained 0.85; a town event's ask 0.22; others' demands 46.3 a life; left home by 19 0.34
+
+Run time: 426 to 448 s per 100 lives (to 25), by file
+```
+
+## mech
+
+start 2026-10-24T16:55:33Z, end 2026-10-24T18:45:39Z, exit 1
+
+ship_hook: 12 patches in 6 processes (/tmp/v25_ship_mech.log)
+
+```
+  lib    /tmp/v25_keep/mech-commit/65ecdf9193b9/chroma-library   (candidate)
+  packs  /tmp/v25_keep/mech-commit/65ecdf9193b9/chroma-packs   (candidate)
+  the Engine's rows run from chroma-engine/tools
+  the tree's game plays a pin filled from engine <T>/chroma-engine/v22-speedpass, lib <T>/chroma-library, packs <T>/chroma-packs
+  work tree /tmp/v25_keep/mech/tree: 13 copied scripts re-pointed to it; engine.py 594b1a452f94, game.py 3d3df6268005, earth.py 6ef7d4e606df
+  packs the engine plays: science,politics,stage,art,callings
+  start s1_parts (G6, Engine)
+  start s6_felt (G10, Engine)
+  PASS s6_felt (G10) in 714s  [proof: 137 files]
+  PASS s1_parts (G6) in 2796s  [proof: 137 files]
+  start s1_counts (G6, Engine)
+  start s1_fair (G6, Engine)
+  PASS s1_counts (G6) in 3s  [proof: 29 files]
+  FAIL s1_fair (G6) in 3s exit 1: MISS s1_fair
+  start s3_rep (G7, Engine)
+  PASS s3_rep (G7) in 3802s  [proof: 137 files]
+  start s3_caught (G7, Engine)
+  start s4_odd (G8, Engine)
+  start s4_convert (G8, Engine)
+  FAIL s3_caught (G7) in 3s exit 1: MISS s3_caught
+  PASS s4_odd (G8) in 3s  [proof: 21 files]
+  PASS s4_convert (G8) in 3s  [proof: 21 files]
+PASS 6, RAN 0 (no reference to compare), MISS 0, FAIL 2 of 8
+summary: /mnt/project-files/chroma-release/out/v22checks_20261024-165533/SUMMARY.md
+ship_hook: 12 patches in 6 processes (/tmp/v25_ship_mech.log)
+```
+
+## engB3
+
+start 2026-10-24T16:55:03Z, end 2026-10-24T18:46:46Z, exit 0
+
+ship_hook: 10 patches in 10 processes (/tmp/v25_ship_engB3.log)
+
+```
+v25 engB3 on 65ecdf9193b9ef9d0045426cb8a78e66f90a09aa
+v22 checks, 20261024-165503 UTC, level quick, 2 checks, up to 4 cores; run folder /mnt/project-files/chroma-release/out/v22checks_20261024-165503
+  engine /tmp/v22checks_20261024-165503-commit/65ecdf9193b9/chroma-engine/v22-speedpass   (candidate)
+  game   /tmp/v22checks_20261024-165503-commit/65ecdf9193b9/chroma-game/prototype   (candidate)
+  lib    /tmp/v22checks_20261024-165503-commit/65ecdf9193b9/chroma-library   (candidate)
+  packs  /tmp/v22checks_20261024-165503-commit/65ecdf9193b9/chroma-packs   (candidate)
+  the Engine's rows run from chroma-engine/tools
+  the tree's game plays a pin filled from engine <T>/chroma-engine/v22-speedpass, lib <T>/chroma-library, packs <T>/chroma-packs
+  work tree /tmp/v22checks_20261024-165503/tree: 13 copied scripts re-pointed to it; engine.py 594b1a452f94, game.py 3d3df6268005, earth.py 6ef7d4e606df
+  packs the engine plays: science,politics,stage,art,callings
+  start s5_lines (G9, Engine)
+  PASS s5_lines (G9) in 2850s  [proof: 137 files]
+  start s5_money (G9, Engine)
+  PASS s5_money (G9) in 3850s  [proof: 137 files]
+PASS 2, RAN 0 (no reference to compare), MISS 0, FAIL 0 of 2
+summary: /mnt/project-files/chroma-release/out/v22checks_20261024-165503/SUMMARY.md
+ship_hook: 10 patches in 10 processes (/tmp/v25_ship_engB3.log)
 ```
 

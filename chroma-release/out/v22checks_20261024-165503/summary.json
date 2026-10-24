@@ -1,0 +1,30 @@
+{
+ "stamp": "20261024-165503",
+ "level": "quick",
+ "live": false,
+ "src": {
+  "engine": "/tmp/v22checks_20261024-165503-commit/65ecdf9193b9/chroma-engine/v22-speedpass",
+  "game": "/tmp/v22checks_20261024-165503-commit/65ecdf9193b9/chroma-game/prototype",
+  "lib": "/tmp/v22checks_20261024-165503-commit/65ecdf9193b9/chroma-library",
+  "packs": "/tmp/v22checks_20261024-165503-commit/65ecdf9193b9/chroma-packs"
+ },
+ "commit": {
+  "repo": "/home/emren/chroma/wt/65ecdf9-clone",
+  "commit": "65ecdf9193b9ef9d0045426cb8a78e66f90a09aa",
+  "ref": "65ecdf9193b9ef9d0045426cb8a78e66f90a09aa",
+  "dirty": false
+ },
+ "ref": null,
+ "results": {
+  "s5_lines": {
+   "result": "PASS",
+   "secs": 2850.3450849056244,
+   "note": ""
+  },
+  "s5_money": {
+   "result": "PASS",
+   "secs": 3849.519803762436,
+   "note": ""
+  }
+ }
+}

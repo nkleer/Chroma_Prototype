@@ -1,0 +1,15 @@
+v22 checks, 20261024-165503 UTC, level quick, 2 checks, up to 4 cores; run folder /mnt/project-files/chroma-release/out/v22checks_20261024-165503
+  engine /tmp/v22checks_20261024-165503-commit/65ecdf9193b9/chroma-engine/v22-speedpass   (candidate)
+  game   /tmp/v22checks_20261024-165503-commit/65ecdf9193b9/chroma-game/prototype   (candidate)
+  lib    /tmp/v22checks_20261024-165503-commit/65ecdf9193b9/chroma-library   (candidate)
+  packs  /tmp/v22checks_20261024-165503-commit/65ecdf9193b9/chroma-packs   (candidate)
+  the Engine's rows run from chroma-engine/tools
+  the tree's game plays a pin filled from engine <T>/chroma-engine/v22-speedpass, lib <T>/chroma-library, packs <T>/chroma-packs
+  work tree /tmp/v22checks_20261024-165503/tree: 13 copied scripts re-pointed to it; engine.py 594b1a452f94, game.py 3d3df6268005, earth.py 6ef7d4e606df
+  packs the engine plays: science,politics,stage,art,callings
+  start s5_lines (G9, Engine)
+  PASS s5_lines (G9) in 2850s  [proof: 137 files]
+  start s5_money (G9, Engine)
+  PASS s5_money (G9) in 3850s  [proof: 137 files]
+PASS 2, RAN 0 (no reference to compare), MISS 0, FAIL 0 of 2
+summary: /mnt/project-files/chroma-release/out/v22checks_20261024-165503/SUMMARY.md

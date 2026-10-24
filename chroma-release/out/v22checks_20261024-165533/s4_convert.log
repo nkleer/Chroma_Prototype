@@ -1,0 +1,12 @@
+# python3 -B chroma-engine/tools/eyes_check.py s4_convert 300 7,8,9,10 --stats /tmp/v25_keep/mech/w/eyes_300_7-10.json
+# cwd /tmp/v25_keep/mech/tree/.
+S3/S4 places' eyes check: engine /tmp/v25_keep/mech/tree/chroma-engine/v22-speedpass (engine.py 594b1a452f94, world_people.py dbe7284fbb40), 300 lives x 80 years, seeds 7,8,9,10, P {} over {"cur_on": true, "sph_events": true, "sph_eyes": true, "sph_haunts": true, "sph_hours": true, "sph_odd": true, "world": true}; counts read from /tmp/v25_keep/mech/w/eyes_300_7-10.json
+  s4_convert W 0.0616 U 0.0592 B 0.0591 R 0.0649 G 0.0673   ratio 1.14x      target <= 1.5x   ok  (per year at a place they could move; 2429 place-years moved)
+  info: s4_convert with colour shuffled across lives (200 shuffles): median 1.17x, 90th percentile 1.27x; the run's 1.14x sits at percentile 32
+  info: conversions per year at a place (not judged): W 0.0356 U 0.0288 B 0.0255 R 0.0297 G 0.0354 ratio 1.40x; years they could move a place per year at a place W 0.578 U 0.487 B 0.431 R 0.457 G 0.526
+  info: per life-year (not judged): odd W 0.184 U 0.222 B 0.215 R 0.216 G 0.226 ratio 1.23x; conversions W 0.0246 U 0.0241 B 0.0203 R 0.0244 G 0.0300 ratio 1.48x; years at a place per life-year W 0.692 U 0.836 B 0.799 R 0.823 G 0.848
+  info: life-years W 22906 U 16900 B 14698 R 15375 G 26121, years at a place W 15841 U 14131 B 11746 R 12647 G 22148; odd-one-out moments offered W 2296 U 2115 B 1858 R 1987 G 3201; blend W 450 U 440 B 387 R 355 G 756, hold W 537 U 286 B 397 R 436 G 496, leave W 536 U 418 B 343 R 462 G 620; blends per odd moment met W 0.30 U 0.38 B 0.34 R 0.28 G 0.40
+  info: caught {'act': 7942, 'events': 16184}, picks {'apart': 3901, 'back': 4461, 'bridge': 628, 'side_a': 3867, 'side_b': 3288}; talk 1744380; acts read {'act': 1840451, 'crime': 304, 'left faith': 264, 'left job': 368, 'left partner': 648, 'sacred': 2315, 'title': 36533, 'title lost': 2280}
+PASS s4_convert
+
+exit 0 in 3s

@@ -1,0 +1,10 @@
+# python3 -B chroma-engine/tools/eyes_check.py s3_caught 300 7,8,9,10 --stats /tmp/v25_keep/mech/w/eyes_300_7-10.json
+# cwd /tmp/v25_keep/mech/tree/.
+S3/S4 places' eyes check: engine /tmp/v25_keep/mech/tree/chroma-engine/v22-speedpass (engine.py 594b1a452f94, world_people.py dbe7284fbb40), 300 lives x 80 years, seeds 7,8,9,10, P {} over {"cur_on": true, "sph_events": true, "sph_eyes": true, "sph_haunts": true, "sph_hours": true, "sph_odd": true, "world": true}; counts read from /tmp/v25_keep/mech/w/eyes_300_7-10.json
+  s3_caught  WB 3681 WR 3892 UR 1955 UG 3717 BG 2900        ratio 1.99x      target <= 1.5x   MISS
+  info: s3_caught with its 16145 moments falling at random across the five pairs (200 draws): median 1.04x, 90th percentile 1.06x
+  info: life-years W 22906 U 16900 B 14698 R 15375 G 26121, years at a place W 15841 U 14131 B 11746 R 12647 G 22148; odd-one-out moments offered W 2296 U 2115 B 1858 R 1987 G 3201; blend W 450 U 440 B 387 R 355 G 756, hold W 537 U 286 B 397 R 436 G 496, leave W 536 U 418 B 343 R 462 G 620; blends per odd moment met W 0.30 U 0.38 B 0.34 R 0.28 G 0.40
+  info: caught {'act': 7942, 'events': 16184}, picks {'apart': 3901, 'back': 4461, 'bridge': 628, 'side_a': 3867, 'side_b': 3288}; talk 1744380; acts read {'act': 1840451, 'crime': 304, 'left faith': 264, 'left job': 368, 'left partner': 648, 'sacred': 2315, 'title': 36533, 'title lost': 2280}
+MISS s3_caught
+
+exit 1 in 3s

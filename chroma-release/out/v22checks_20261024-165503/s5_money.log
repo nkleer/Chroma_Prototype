@@ -1,0 +1,10 @@
+# python3 -B chroma-engine/tools/sacred_check.py money
+# cwd /tmp/v22checks_20261024-165503/tree/.
+S5 sacred lines: engine /tmp/v22checks_20261024-165503/tree/chroma-engine/v22-speedpass; 300 lives x 80 years, seeds 31,32,33,34 (pooled), world on; every needed switch on in DEFAULT (3844 s)
+  counts: cost closed 51742, cost money 10050, cost stress 3722, cost ties 3722, crossed 316, healed 297, held 2362, lapsed 774, line home 379, line loved 189, line own_say 209, line promise 272, line truth 226, offered 1452, quiet 719, tilted 1959
+  lives with a line: 1194 of 1200; lines formed 1275
+  money not had by lead colour (mean per life; per held offer): W 0.1437 (256 lives; 0.0743), U 0.1535 (212 lives; 0.0747), B 0.1466 (194 lives; 0.0737), R 0.1335 (185 lives; 0.0737), G 0.1493 (353 lives; 0.0742)
+  info: s5_money with lead colours shuffled across the 1200 lives (200 shuffles): median 1.06x, 90th percentile 1.11x
+s5_money: ok money lost per lead colour 1.15x apart (target within 1.2x)
+
+exit 0 in 3850s

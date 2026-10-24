@@ -1,0 +1,27 @@
+v22 checks, 20261024-165533 UTC, level quick, 8 checks, up to 4 cores; run folder /mnt/project-files/chroma-release/out/v22checks_20261024-165533
+  engine /tmp/v25_keep/mech-commit/65ecdf9193b9/chroma-engine/v22-speedpass   (candidate)
+  game   /tmp/v25_keep/mech-commit/65ecdf9193b9/chroma-game/prototype   (candidate)
+  lib    /tmp/v25_keep/mech-commit/65ecdf9193b9/chroma-library   (candidate)
+  packs  /tmp/v25_keep/mech-commit/65ecdf9193b9/chroma-packs   (candidate)
+  the Engine's rows run from chroma-engine/tools
+  the tree's game plays a pin filled from engine <T>/chroma-engine/v22-speedpass, lib <T>/chroma-library, packs <T>/chroma-packs
+  work tree /tmp/v25_keep/mech/tree: 13 copied scripts re-pointed to it; engine.py 594b1a452f94, game.py 3d3df6268005, earth.py 6ef7d4e606df
+  packs the engine plays: science,politics,stage,art,callings
+  start s1_parts (G6, Engine)
+  start s6_felt (G10, Engine)
+  PASS s6_felt (G10) in 714s  [proof: 137 files]
+  PASS s1_parts (G6) in 2796s  [proof: 137 files]
+  start s1_counts (G6, Engine)
+  start s1_fair (G6, Engine)
+  PASS s1_counts (G6) in 3s  [proof: 29 files]
+  FAIL s1_fair (G6) in 3s exit 1: MISS s1_fair
+  start s3_rep (G7, Engine)
+  PASS s3_rep (G7) in 3802s  [proof: 137 files]
+  start s3_caught (G7, Engine)
+  start s4_odd (G8, Engine)
+  start s4_convert (G8, Engine)
+  FAIL s3_caught (G7) in 3s exit 1: MISS s3_caught
+  PASS s4_odd (G8) in 3s  [proof: 21 files]
+  PASS s4_convert (G8) in 3s  [proof: 21 files]
+PASS 6, RAN 0 (no reference to compare), MISS 0, FAIL 2 of 8
+summary: /mnt/project-files/chroma-release/out/v22checks_20261024-165533/SUMMARY.md

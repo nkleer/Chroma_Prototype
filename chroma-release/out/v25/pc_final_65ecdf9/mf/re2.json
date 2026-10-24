@@ -1,0 +1,54 @@
+{
+ "distance": {
+  "result": "PASS",
+  "gap": 0.3365496999999999,
+  "lo": 0.3081176355745765,
+  "hi": 0.3649817644254233,
+  "se_pairs": 0.008081825504394641,
+  "se_seeds": 0.01450615531909356,
+  "n": 400,
+  "per_seed": [
+   0.3379990999999999,
+   0.37259229999999993,
+   0.333946,
+   0.30166139999999997
+  ],
+  "l1_warm": 0.79955195,
+  "l1_ctrl": 1.1361016499999999
+ },
+ "backlash_ctrl": {
+  "result": "INCONCLUSIVE",
+  "k": 71,
+  "n": 400,
+  "p": 0.1775,
+  "lo": 0.14317534561717957,
+  "hi": 0.21796030756961446
+ },
+ "backlash_warm": {
+  "result": "PASS",
+  "k": 26,
+  "n": 400,
+  "p": 0.065,
+  "lo": 0.04474017569726697,
+  "hi": 0.09353582162445521
+ },
+ "RE2": "INCONCLUSIVE",
+ "opposite_warm": 0.035,
+ "opposite_controlling": 0.075,
+ "responses_warm": {
+  "accept": 7497,
+  "adopt": 568,
+  "negotiate": 309,
+  "disagree": 2146,
+  "backlash": 340,
+  "withdraw": 0
+ },
+ "responses_controlling": {
+  "accept": 1333,
+  "adopt": 1447,
+  "negotiate": 0,
+  "disagree": 846,
+  "backlash": 14987,
+  "withdraw": 0
+ }
+}

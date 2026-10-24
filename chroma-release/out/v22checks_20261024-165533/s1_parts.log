@@ -1,0 +1,12 @@
+# python3 -B chroma-engine/tools/fair_check.py all 300 7 --years 80 --stats /tmp/v25_keep/mech/w/fair_300_7.json; python3 -B chroma-engine/tools/fair_check.py s1_parts 300 7 --years 80 --stats /tmp/v25_keep/mech/w/fair_300_7.json
+# cwd /tmp/v25_keep/mech/tree/.
+S1 fairness read check: engine /tmp/v25_keep/mech/tree/chroma-engine/v22-speedpass (engine.py 594b1a452f94, world_people.py dbe7284fbb40), 300 lives x 80 years, seeds 7, P {} over {"fair_read": true, "world": true}
+  s1_parts   9 spheres x 5 parts                            finite           all five, each   ok  (by a state of their own: rule WR, gather RG, arts UBR, faith URG, care BG, learn WB, prod BR, comm WBG, prot WRG; the rest by the mean in rule, gather, arts, faith, care, learn, prod, comm, prot)
+  s1_counts  W 455 U 437 B 438 R 436 G 461                  ratio 1.06x      target <= 1.5x   ok  (8082 tagged events; moves by part as fired, before habituation: W 3263 U 964 B 1421 R 1619 G 2017)
+  s1_fair    W 0.488 U 0.463 B 0.444 R 0.467 G 0.476        spread 0.044     target <= .030   MISS  (adult life-years W 2643 U 3194 B 3303 R 3889 G 5571)
+MISS s1_parts,s1_counts,s1_fair
+S1 fairness read check: engine /tmp/v25_keep/mech/tree/chroma-engine/v22-speedpass (engine.py 594b1a452f94, world_people.py dbe7284fbb40), 300 lives x 80 years, seeds 7, P {} over {"fair_read": true, "world": true}; counts read from /tmp/v25_keep/mech/w/fair_300_7.json
+  s1_parts   9 spheres x 5 parts                            finite           all five, each   ok  (by a state of their own: rule WR, gather RG, arts UBR, faith URG, care BG, learn WB, prod BR, comm WBG, prot WRG; the rest by the mean in rule, gather, arts, faith, care, learn, prod, comm, prot)
+PASS s1_parts
+
+exit 0 in 2796s

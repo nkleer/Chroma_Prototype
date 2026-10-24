@@ -1,0 +1,9 @@
+# python3 -B chroma-engine/tools/seen_check.py 60 7 80
+# cwd /tmp/v25_keep/mech/tree/.
+engine /tmp/v25_keep/mech/tree/chroma-engine/v22-speedpass engine.py 594b1a452f94
+60 lives x 80 years, seed 7, world on; P over DEFAULT {"seen_done": true} (706 s)
+felt-odds lift per colour way: W 0.0397  U 0.0388  B 0.0396  R 0.0392  G 0.0392
+options offered 2380948, on a path 5456 (path lift 0.0116); mean lift 0.0393
+S6_FELT OK: spread 0.0009 within 0.01
+
+exit 0 in 714s
