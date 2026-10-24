@@ -2,7 +2,7 @@
 bd4c4cf79a6de056d94c020ff530b84a  batch.py
 757721ec4414965232f272d129713c58  combos.py
 7a4a30e346385bd4aee9d69fc0d09be3  earth_rules.py
-463a56df8295dfa9a09954f961d5650e  engine.py
+65b4ab1910e03ba624aeaf4c7ac0e427  engine.py
 c2e2b80a0d47ac3f78b29e6ddc1b0e1a  explain.py
 d04db4713134a752af85c5a53b2bd138  foresee.py
 14b874af736c7c3971f97312eea3adb3  library.py
@@ -57,8 +57,8 @@ fccb7cc4b9419ae0908ed6a9234d1afe  world_link_life.py
 bf607af8bd3a90455b698f5c1d1ab143  world_link_week.py
 c775f61fbd8d494c7a66ad2da767b58a  world_national.py
 db23a2713ab3f610cc0f85b2a27d5bbd  world_people.py
-cf23ea301728a236f06ee722d3f3013f  world_people_acts.py
-cbddac2b9cee790c15e52fa649b71843  world_people_answers.py
+9f9e2481de85387b8298bf6ccffdd5d7  world_people_acts.py
+4ad919ebca7198912c7c9853fd684f65  world_people_answers.py
 2742746ae6aa949de9b4f6dbca817aa9  world_people_base.py
 4a0a2fee5a72f5ef44f4983bc0d476de  world_people_eyes.py
 f19600868a3d7f19a4e2ecc132db8cb6  world_people_lead.py
@@ -70,5 +70,5 @@ e8ad7318d10e0380149de6fe4af6f939  world_people_roster.py
 14143925551076d4c86d0b5e475c5fff  world_people_views.py
 5ea8eb8e505bc09702997669cea3e6df  world_react.py
 2c13374e7b787774e6c7288066975cb4  world_society.py
-38de79e2c5e6b0a9699dc2a1787a07a6  world_spheres.py
+4e1a4fb85ca1cceab01e47da71b8c543  world_spheres.py
 37e195c45b9caf1b5a76013a998fe5bc  world_years.py
