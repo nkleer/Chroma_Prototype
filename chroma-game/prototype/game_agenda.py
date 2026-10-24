@@ -75,6 +75,16 @@ def money_say(m, have):
     return _word(m / have, MONEY_SAY)
 
 
+def _cap_item(s):
+    """What a resource is spent on: an aim's slot (int), or the words for the rest (work, care, sleep, an entry); the
+    Engine gives dict(slot, field) for an aim and dict(name, hours) for the time before aims."""
+    if isinstance(s, dict):
+        if s.get("slot") is not None:
+            return int(s["slot"])
+        s = s.get("name") or s.get("kind") or s.get("say") or ""
+    return int(s) if str(s).isdigit() else OTHER_SAY.get(s, str(s))
+
+
 def _upto(v, table):
     for cut, w in table:
         if v <= cut:
@@ -136,15 +146,17 @@ class AgendaMixin:
                 upkeep=[dict(u) for u in x.get("upkeep", [])]))
         items.sort(key=lambda i: (i["priority"] or 99, i["slot"]))
         capacity = [dict(res=r, say=RES_SAY.get(r, r), load=_upto(self._load(c), LOAD),
-                         items=[int(s) if str(s).isdigit() else OTHER_SAY.get(s, str(s)) for s in c.get("items", [])])
+                         items=[_cap_item(s) for s in c.get("items", [])])
                     for r, c in cap.items()]
         forks = [dict(id=str(f["id"]), slot=int(f["slot"]), kind=f.get("kind", ""), age=f.get("made_at_age"),
                       deadline=f.get("deadline_age"), urgency=float(f.get("urgency", 0)), group=f.get("group"),
                       blocks=f.get("blocks", "")) for f in raw.get("forks", [])]
         forks.sort(key=lambda f: -f["urgency"])
         groups = sorted({f["group"] for f in forks if f["group"] is not None}, key=str)
+        groups += [int(f["id"]) if f["id"].isdigit() else f["id"] for f in forks if f["group"] is None]   # a fork on its
+        # own is its own review (F.review takes its id as an int)
         reviews = {}
-        if groups and loc is self._paused_locals():          # a review is read at a pause, where it can be answered
+        if groups and self._paused_locals() is not None:     # a review is read at a pause, where it can be answered
             reviews = {str(g): v for g in groups for v in [self.review_view(g)] if v}
         return clean(dict(items=items, capacity=capacity, forks=forks, reviews=reviews, full=True))
 
@@ -362,14 +374,46 @@ class AgendaMixin:
         return self.agenda_view(S), None
 
     # ---- fork cards (GAME aim_forks): the Engine puts at most one fork a week (S["aim_fork"], an id or -1) at the
-    # situation pause, on a moment of its own (L["AIM_FORK"][s] >= 0); with aim_forks "every" it is always asked
+    # situation pause, in place of the next optional ask; with aim_forks "every" it is always asked. When the week's
+    # moment is the fork's own (L["AIM_FORK"][s] >= 0) its options answer it; on any other moment the card opens the
+    # fork's review (F.review takes a fork id), and the moment is answered as usual
     def fork_now(self, loc, s):
-        """The id of the fork the Engine put this week when moment s is its card, else None."""
-        if not GAME["aim_forks"] or loc is None or "aim_fork" not in loc or "AIM_FORK" not in self.L:
+        """The id of the fork the Engine put this week, else None."""
+        if not GAME["aim_forks"] or loc is None or loc.get("aim_fork") is None:
             return None
         fid = np.asarray(loc["aim_fork"]).ravel()
+        if fid.size and fid[0] is None:
+            return None
         fid = int(fid[0]) if fid.size else -1
-        return fid if fid >= 0 and int(np.asarray(self.L["AIM_FORK"])[s]) >= 0 else None
+        return fid if fid >= 0 else None
+
+    def fork_fresh(self, loc, fid, s=None):
+        """Whether the fork put this week is carried on its own moment (a due fork, Engine 10-23), so it may stop the life
+        for its card (paced by _fork_stops). Any other fork waits on the agenda and comes as a card on the next moment asked
+        anyway (fork_waiting, the urgent first), so fork cards keep a life's asks a year near v24's (Release's AM4)."""
+        return fid is not None and self._fork_on_moment(s)
+
+    def fork_urgent(self, loc, fid):
+        """Whether the Engine marks fork fid urgent (a window about to close)."""
+        fs = (loc or {}).get("aim_forks") or []
+        fs = fs[0] if fs and isinstance(fs[0], (list, tuple)) else fs
+        return any(isinstance(f, dict) and str(f.get("id")) == str(fid) and f.get("urgent") for f in fs or [])
+
+    def fork_waiting(self, loc):
+        """A player's fork waiting that has not been put to them as a card yet (the urgent, then the oldest), or None."""
+        if not GAME["aim_forks"] or loc is None:
+            return None
+        fs = loc.get("aim_forks") or []
+        fs = fs[0] if fs and isinstance(fs[0], (list, tuple)) else fs
+        done = {x[1] for x in self.history.get("forks_asked", [])}
+        new = [f for f in fs or [] if isinstance(f, dict) and str(f.get("id")) not in done]
+        if not new:
+            return None
+        f = min(new, key=lambda f: (not f.get("urgent"), f.get("week", 0), str(f.get("id"))))
+        return int(f["id"]) if str(f["id"]).isdigit() else f["id"]
+
+    def _fork_on_moment(self, s):
+        return s is not None and "AIM_FORK" in self.L and int(np.asarray(self.L["AIM_FORK"])[s]) >= 0
 
     def fork_later(self, s):
         """The option of moment s that leaves a player's fork open ("later": only that aim waits), or None. The Engine
@@ -401,11 +445,13 @@ class AgendaMixin:
         self.history.setdefault("forks_asked", []).append((round(self.age(), 1), str(fid), len(f.get("options", []))))
         aims = [names.get(int(a), "an aim") for a in f.get("aims", [])]
         pv = self._preview_words(f.get("preview"), loc, names)
+        on = self._fork_on_moment(s) and str(self.fork_now(loc, s)) == str(fid)   # the moment is this fork's own
         return clean(dict(id=str(fid), aims=aims, kind=f.get("kind", ""),
                           why=self._why_now(f.get("why", ""), f.get("preview") or {}, pv, aims, self._aim_rec(loc, f)), preview=pv,
                           urgent=bool(f.get("urgent")), grouped=bool(f.get("grouped")),
                           group=None if f.get("group") is None else str(f["group"]),
-                          later=None if s is None else self.fork_later(s)))
+                          later=self.fork_later(s) if on else None, on_moment=on,
+                          review=str(f["group"]) if f.get("grouped") and f.get("group") is not None else str(fid)))
 
     @staticmethod
     def preview_lines(pv):

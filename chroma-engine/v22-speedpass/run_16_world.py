@@ -3,6 +3,8 @@
 # Lines here are _run's own, unchanged and at their own indent: engine.py joins the parts in order (engine.RUN_PARTS)
 # and compiles them as one, so a name used here may be set in an earlier part. Never import or run it alone.
         # ---- 4b. the outside world. An era begins: everyone gets its message at once
+        if RX_ON and t % 4 == 0:   # v25 react: a disaster in their town this month (before the outside events read it)
+            rx_dis = np.asarray(WL.dis_own, float).copy()
         if t in era_at:
             key, inten, kind = era_at[t]
             msg = np.tile(COMBO_MIX[key], (N, 1)); ex = era_expo(ERA_KINDS.index(kind)); ac = accept(ar, msg, 1.0)
@@ -164,8 +166,53 @@
         stress += 0.02 * (nimp * lack_raw).sum(1)
 
         conf = P["chi"] * (w[:, 0] + w[:, 4] - w[:, 3] - w[:, 2])
+        if RX_ON and (t % 4 == 0 or (SCN_ON and any(scn_demand))):   # v25 react (world_react.py): this month's demands and
+            # responses (and the caller's this week); each demand's source's part of the pull is the demand's this month
+            nimp_s_ = np.maximum(nimp.sum(1), 1e-9); rxc_ = WL.PP
+            _cw_ = rxc_._rx_close[2] if getattr(rxc_, "_rx_close", None) is not None else np.zeros(N)
+            _cs_ = rxc_._rx_close[1] if getattr(rxc_, "_rx_close", None) is not None else np.zeros((N, C))
+            _cwk_ = float(rxc_.P.get("close_w", 0.15) or 0.15)
+            _tot_ = np.asarray(rxc_._setw, float) + _cwk_ * _cw_
+            _msc_ = np.where(_tot_[:, None] > 1e-9, (np.asarray(rxc_._setmix, float) + _cwk_ * _cs_) / np.maximum(_tot_, 1e-9)[:, None], w)
+            _b0_, _pk_, _at_, _wd_ = rxc_.P["times_w"]; _tw_ = _b0_ + _pk_ * np.exp(-((age - _at_) / _wd_) ** 2)
+            _cb_, _cp_, _ca_, _cwd_ = P["cur_age"]; _ce_ = _cb_ + _cp_ * np.exp(-((age - _ca_) / _cwd_) ** 2)
+            _ck_ = (P["cur_rel_k"] if P["cur_rel"] else 5 * P["cur_k"]) * _ce_ * P["era_push_k"] if CUR_ON else 0.0
+            _cm_ = np.asarray(P["cur_mix"], float) / sum(P["cur_mix"])
+            _soc_k_ = (conf + P["social_child"] * np.where(stage == 0, 1.0, np.where(stage == 1, 0.5, 0.0))) * (1 - SOC_OWN)
+            _af_, _as_ = ((AIM["face"][np.maximum(ak, 0)], astr * (ak >= 0)) if AIM_ON else (gm, gs * (gk >= 0)))
+            _ind_ = RX._ind(age, held[:, CAR].astype(float), res[:, MON], res[:, FRE])
+            rx_ctx = dict(w=w, conv=0.5 * w + 0.5 * softmax(k), plast=plast, dead=dead, loc=np.asarray(rxc_.loc), need=need,
+                          lack=lack, lack_all=lack, nimp=nimp, res=res, held=held, I=I, prof=prof, aim_face=_af_, aim_s=_as_,
+                          kidx={"work": CAR, "congregation": FAI, "partner": PAR}, cares=(held[:, PAR] | held[:, KID]).astype(float),
+                          res_tim=res[:, TIM], res_mon=res[:, MON], need_aut=need[:, NIDX["autonomy"]],
+                          nimp_aut=nimp[:, NIDX["autonomy"]] / nimp_s_ * len(NEEDS) / 5, means_low=np.clip(2 * (0.5 - res[:, MON]), 0, 1),
+                          ind=_ind_, held_car=held[:, CAR].astype(float), faith_i=held[:, FAI] * I[:, FAI],
+                          farm=(np.asarray(rxc_.psector) == WLM.WK.SECTORS.index("farm")).astype(float),
+                          par_yrs=np.where(held[:, PAR], (t - since[:, PAR]) / 52, 0.0), btrust=btrust if BT_ON else None,
+                          dis_own=None if rx_dis is None else np.where(rx_dis != RX.__dict__.get("_dis_last", 0), rx_dis, 0.0),
+                          nmp=NMP, tot_nic=_tot_, msc=_msc_, tw=_tw_, a_nic=0.8 * plast * _soc_k_, a_cl=plast * _ck_ * _cm_[0],
+                          a_pl=plast * _ck_ * _cm_[1], tot_cl=_cw_, nic=nic, belong=np.asarray(rxc_.belong, float),
+                          f_need=(nimp * need).sum(1) / nimp_s_, content=content, stress=stress,
+                          lack_comp=lack[:, NIDX["competence"]], lack_mean=lack[:, NIDX["meaning"]])
+            if rx_dis is not None:
+                RX._dis_last = rx_dis; rx_dis = None
+            RX.month(t, age, rx_ctx, scn_only=t % 4 != 0)
+            if t % 4 == 0:   # the states, the year's involvement, seeking
+                rx_ctx.update(aim_block=RX.aim_block(t, astr if AIM_ON else None, astep if AIM_ON else None),
+                              engage=RX.engage(tries))
+                ds_, dm_ = RX.states_month(t, rx_ctx)
+                stress = stress + ds_; mood = mood + dm_
+                states = RX.states_view()
+                if t % 52 == 0:
+                    RX.involve_year(rx_ctx)
+                if CL_ON:
+                    RX.clash_now_update()
+                if SK_ON:
+                    RX.seek_month(t, age, rx_ctx); seek = RX.seek_view()
         obs = softmax(3 * f_tot)
         soc_ = nic if not SOC_OWN else (1 - SOC_OWN) * nic + SOC_OWN * onic   # soc_own: and the company they pick
+        if RX_ON:   # v25 react: the sources whose demand came this month pull through it, not through the niche
+            soc_ = soc_ + (1 - SOC_OWN) * RX.dnic
         dS = conf[:, None] * (soc_ - w) + P["xi"] * (obs - w)
         if P["social_child"]:   # v6: children take on the ways of the family around them, whatever their own lean
             dS += P["social_child"] * np.where(stage == 0, 1.0, np.where(stage == 1, 0.5, 0.0))[:, None] * (soc_ - w)

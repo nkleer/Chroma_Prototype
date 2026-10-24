@@ -411,3 +411,16 @@
                 for a_ in range(len(L["labels"][s_])):
                     BIRTH_O[s_, a_] = L["COMMIT"][s_, a_] == KID and not BIRTH_NOT.search(L["labels"][s_][a_])
         ba_rng = np.random.default_rng([int(seed), 83])
+    if WON and P.get("react"):   # v25 lane C (world_react.py): reactions, and with them clashes and seeking
+        import world_react as WRX
+        RX_ON = True; CL_ON = bool(P.get("clash")); SK_ON = bool(P.get("seek"))
+        RX = WRX.React(N, P, seed, WL, FR, clash=CL_ON, seek=SK_ON)
+        RX.set_lib(L)
+        demands, responses, react_log, involve = RX.demands, RX.responses, RX.log, RX.involve
+        states = RX.states_view()
+        if CL_ON:
+            clash, disputes, clash_now = RX.clash, RX.disputes, RX.clash_now
+        if SK_ON:
+            seek = RX.seek_view()
+        if SCN_ON:
+            scn_demand, scn_cast = RX.scn_demand, RX.scn_cast

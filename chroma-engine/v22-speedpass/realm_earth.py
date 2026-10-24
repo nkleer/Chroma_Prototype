@@ -555,6 +555,24 @@ NORM_KEYS_ALL = NORM_KEYS + LAW_V23         # what an option's norm: may name
 # ---- Technology: the keys an option's tech: may name (from world_keys.py)
 TECH_KEYS = ["phone", "computer", "internet", "video calls", "online dating", "remote work", "ai helper", "modern medicine",
              "car", "plane"]
+
+
+# ---- v25 lane C (react, clash, seek): how modern Earth reads a way of asking, and its ages (world_react.py)
+# A demand's method, as this world reads the way it is asked (chroma-engine/notes/v25/contracts.md section 2): each
+# channel's colours W U B R G (None: the source's own ways, as they show them). Illustrative [I]: rules and enforcement
+# read as order (W) and power (B); incentives as gain (B); routines as order and method (W U); access as knowledge and
+# leverage (U B); pressure as force (B R); belonging and provision as community (W G); activities and encounters as
+# action and discovery (R, U R). Earth's nature acts through process only: it asks nothing in colours.
+REACT_CHANNEL_READ = {"attach": None, "example": None, "pressure": (0.0, 0.0, 0.5, 0.5, 0.0),
+                      "routine": (0.5, 0.5, 0.0, 0.0, 0.0), "incentive": (0.0, 0.2, 0.8, 0.0, 0.0),
+                      "access": (0.0, 0.5, 0.5, 0.0, 0.0), "rule": (0.7, 0.3, 0.0, 0.0, 0.0),
+                      "provision": (0.5, 0.0, 0.0, 0.0, 0.5), "enforce": (0.5, 0.0, 0.5, 0.0, 0.0),
+                      "activity": (0.0, 0.0, 0.0, 0.7, 0.3), "encounter": (0.0, 0.4, 0.0, 0.6, 0.0),
+                      "belonging": (0.5, 0.0, 0.0, 0.0, 0.5), "process": (0.0, 0.0, 0.0, 0.0, 0.0)}
+REACT_ADULT_AGE = 17.0      # the age around which Earth's law and custom grant a person their own standing (a soft ramp,
+                            # 1.5 years wide, one part of independence among home, income and freedom; never a switch)
+
+
 # v25 aims v2 (lane B, aims_v2; aims-shape.md section 5): Earth's week for the one resource account, hours a week.
 # Waking hours after sleep (about 8.8 h a day), the essentials (eating, personal care, about 2 h a day) and household
 # work (about 2 h a day), a partner's own time, and the free hours of a life with nothing held (world off: res time 1).
@@ -563,6 +581,27 @@ TECH_KEYS = ["phone", "computer", "internet", "video calls", "online dating", "r
 AIM_WEEK = dict(wake=116.0, essentials=14.0, household=13.0, partner=7.0, free_open=36.0)
 # integrated assets (aims-shape.md section 5, "Gains"): a rare asset a life earns once when an integrate outcome shows two
 # of its fields used together. Key: (field, field) by name (either order), or (shape, shape); value dict(name (the
-# asset's words), title ("" or a catalogue title or perk it grants), opens (words: what it opens), rungs (the least rung
-# reached in each, default (1, 1))). The Library writes Earth's; empty, nobody earns one (the mechanism stays).
+# asset's words; {a} and {b} are the two fields' things), title ("" or a catalogue title or perk it grants), opens
+# (words: what it opens), rungs (the least rung reached in each, default (1, 1))). A field pair the Library names goes
+# before its shapes' pair. Until the Library writes field pairs, every pair of shapes has one, from what each shape's
+# side brings to a combined piece of work (AIM_ASSET_SIDE): the engine's provisional words, Earth's.
+AIM_ASSET_SIDE = {
+    "competition": ("a competitor's discipline", "the clubs and the coaches"),
+    "craft": ("a maker's hand", "the workshops and the trade"),
+    "art": ("an artist's eye", "the galleries, the stages and the readers"),
+    "knowledge": ("a scholar's method", "the libraries, the labs and the journals"),
+    "career": ("the know-how of the trade", "the firms and the people who hire"),
+    "cause": ("an organiser's reach", "the groups, the meetings and the town hall"),
+    "home": ("a household's steadiness", "the families around them"),
+    "land": ("a keeper's knowledge of the land", "the farms, the woods and the trusts"),
+    "faith": ("a believer's calling", "the congregations and their works"),
+    "venture": ("a traveller's nerve", "the far places and those who go there"),
+}
 AIM_ASSETS = {}
+for _i, _a in enumerate(AIM_ASSET_SIDE):
+    for _b in list(AIM_ASSET_SIDE)[_i:]:
+        AIM_ASSETS[(_a, _b)] = dict(
+            name="{a} and {b}, put to one use", title="", rungs=(2, 3),
+            opens=f"{AIM_ASSET_SIDE[_a][0]} with {AIM_ASSET_SIDE[_b][0]}: a way into "
+                  f"{AIM_ASSET_SIDE[_a][1]}" + ("" if _a == _b else f" and {AIM_ASSET_SIDE[_b][1]}"))
+del _i, _a, _b

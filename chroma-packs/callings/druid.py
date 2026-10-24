@@ -340,14 +340,16 @@ ECHO_LAND_LONGSHOTS = {
 #
 # The ladder climbs from base titles, so it stands without the land in lives left alone (the v25 cut-line may take it
 # out). With the land on, ten of land.json's ways (two led by each colour) are ways onto the first three steps: their
-# ladder titles are the Library's (chroma-ideas/v25-prep/library/fields/titles-land.py, TITLES_V25_LAND), not yet in
-# the catalogue, so check_aims names them until the Library pours them in. They stand apart in LAND_STEP1 to
-# LAND_STEP3 below: with the land cut, the Packs thread sets the three lists empty and nothing else changes.
-# [community observer] is the science pack's (land.json's "wildlife counter" reuses it, as the Library's draft does).
+# ladder titles are the Library's (chroma-ideas/v25-prep/library/fields/titles-land.py, TITLES_V25_LAND, and
+# titles-land-extra.py), not yet in the catalogue, so check_aims names them until the Library pours them in. They stand
+# apart in LAND_STEP1 to LAND_STEP3 below: with the land cut, the Packs thread sets the three lists empty and nothing
+# else changes.
+# The names are land.json's ladder titles as agreed with the Library (10-23): [wildlife counter] is a land title of its
+# own, not the science pack's [community observer].
 
 # The ten ways, in order: timber (W B), deer_management (W R), regen_farming (U G), wildlife_survey (U W), market_garden
 # (B G), land_dealing (B U), wood_guardian (R W), trail_running (R G), rewilding (G U), restore_river (G U).
-LAND_STEP1 = ["woodcutter", "club stalker", "trial farmer", "community observer", "market stallholder", "landholder",
+LAND_STEP1 = ["woodcutter", "club stalker", "trial farmer", "wildlife counter", "market stallholder", "landholder",
               "friend of the wood", "trail runner", "rewilder", "river volunteer"]
 LAND_STEP2 = ["firewood seller", "permit holder", "soil farmer", "survey square holder", "market gardener",
               "landlord of fields", "wood campaigner", "trail racer", "land restorer", "river restorer"]

@@ -22,6 +22,10 @@ known risks (section 5) or a mechanism it asks for:
   A10 the money rule (Vision 10-23): a step's effort share is the least of its shares of the resources it needs; an
       incidental ask (aims2_par money_min, .02) never caps it; a step that needs money and has none waits, the agenda
       naming money; an entry that cannot be paid is owed, never debited, and paid once it can be
+  A12 a rung reached by one's own work sparks a new ambition near it (its sphere or a preparation shared), held with a
+      fork, never one the life holds, and none once the agenda holds spark_max aims
+  A11 the realm's assets (realm_earth.AIM_ASSETS, every pair of shapes): none from first rungs alone, none before
+      integrate_age, then one; another pair waits integrate_gap years after it; the asset named by the two fields
 
     python3 -B chroma-engine/tools/t_aims2.py [ENGINE_DIR]
 """
@@ -297,6 +301,64 @@ ag2.month(T0, None, st2["res"], st2["held"], np.zeros(2))
 if ag2.assets[0]:
     fails.append("A8 an asset with no table")
 notes.append("A8 one asset per pair")
+
+# ---- A11: the realm's assets: rungs, age and the gap between two
+import realm_earth as RE_
+fk_, fl_, fc_ = field("knowledge"), field("land"), field("competition")
+lo_, hi_ = sorted(RE_.AIM_ASSETS[tuple(sorted(("knowledge", "land")))]["rungs"])
+ag, st = make(par=dict(integrate_y=52.0))
+ja, jb, jc = ag.add(0, fk_, 0), ag.add(0, fl_, 0), ag.add(0, fc_, 0)
+ag.st[0, [ja, jb, jc]] = A2.ACTIVE; ag.fitf[0, :] = 1.25
+ag.rung[0, [ja, jb, jc]] = max(lo_ - 1, 0)
+for t in range(20 * 52, 24 * 52, 4):
+    ag.t = t; ag.integrate(t)
+n_low = len(ag.assets[0])
+ag.rung[0, ja] = lo_; ag.rung[0, jb] = hi_; ag.rung[0, jc] = hi_
+age_ok = True
+for t in range(int(PAR["integrate_age"] - 3) * 52, int(PAR["integrate_age"]) * 52, 4):
+    ag.t = t; ag.integrate(t)
+age_ok = not ag.assets[0]
+for t in range(int(PAR["integrate_age"]) * 52, int(PAR["integrate_age"]) * 52 + 104, 4):
+    ag.t = t; ag.integrate(t)
+first_ = list(ag.assets[0])
+gap_ok = len(first_) == 1
+w1 = first_[0]["week"] if first_ else 0
+for t in range(w1 + 4, w1 + int(52 * PAR["integrate_gap"]) - 4, 4):
+    ag.t = t; ag.integrate(t)
+gap_ok &= len(ag.assets[0]) == 1
+for t in range(w1 + int(52 * PAR["integrate_gap"]), w1 + int(52 * PAR["integrate_gap"]) + 208, 4):
+    ag.t = t; ag.integrate(t)
+if n_low:
+    fails.append(f"A11 {n_low} assets from rungs below the realm's")
+if not age_ok:
+    fails.append("A11 an asset before integrate_age")
+if not gap_ok:
+    fails.append(f"A11 {len(ag.assets[0])} assets inside the gap")
+if len(ag.assets[0]) < 2:
+    fails.append("A11 no second asset after the gap")
+elif not all("{" not in x["name"] and len(x["fields"]) == 2 for x in ag.assets[0]):
+    fails.append("A11 an asset not named by its fields")
+notes.append(f"A11 realm assets ({len(RE_.AIM_ASSETS)} pairs) by rungs, age and gap")
+
+# ---- A12: a spark from a reached rung
+ag, st = make(par=dict(spark_rung=1.0))
+fx_ = field("knowledge"); jx_ = ag.add(0, fx_, T0); ag.st[0, jx_] = A2.ACTIVE; ag.eff[0, jx_] = ag.need[0, jx_]
+n0_ = int((ag.f[0] >= 0).sum()); ag.arrive(0, jx_, T0 + 4, "won a test")
+new_ = [int(ag.f[0, j]) for j in np.nonzero(ag.f[0] >= 0)[0]][n0_:]
+if len(new_) != 1:
+    fails.append(f"A12 {len(new_)} aims sparked by one rung")
+else:
+    g_ = new_[0]
+    if not ((F0["sph"][g_] == F0["sph"][fx_] and F0["sph"][g_] >= 0) or (F0["prep"][g_] & F0["prep"][fx_])):
+        fails.append("A12 a spark far from the rung reached")
+    if g_ == fx_:
+        fails.append("A12 a spark of an aim already held")
+ag2, st2 = make(par=dict(spark_rung=1.0, spark_max=1))
+jy_ = ag2.add(0, fx_, T0); ag2.st[0, jy_] = A2.ACTIVE; ag2.eff[0, jy_] = ag2.need[0, jy_]
+ag2.arrive(0, jy_, T0 + 4, "won a test")
+if int((ag2.f[0] >= 0).sum()) != 1:
+    fails.append("A12 a spark past spark_max")
+notes.append("A12 a reached rung sparks one near aim")
 
 # ---- A9: views draw nothing
 ag, st = make(player=(0,)); [ag.add(0, i, T0) for i in fs3[:3]]
